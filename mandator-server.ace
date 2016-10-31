@@ -1,0 +1,49 @@
+com.anfelisa.mandator
+
+target JAVA
+
+models {
+	persistent Mandator (
+		Unique NotEmpty Serial id
+		Unique NotEmpty String mandatorId
+		NotEmpty String username
+		NotEmpty String password
+		NotEmpty String name
+		NotEmpty String prename
+		NotEmpty String email
+		NotEmpty String role
+		NotNull Boolean emailConfirmed
+		String emailConfirmationHash
+	)
+}
+
+data {
+	MandatorCreation : ( Mandator com.anfelisa.user.EmailRegistration )
+}
+
+actions {
+	POST CreateMandator uses MandatorCreation executes CreateMandator
+	GET ReadMandators
+	GET ReadMandatorHomeData
+}
+commands {
+	CreateMandator uses MandatorCreation {
+		on mandatorCreated publishes (
+			MandatorCreated
+		) triggers (
+			com.anfelisa.user.RegisterUser
+		)
+	}
+}
+events {
+	MandatorCreated uses MandatorCreation listenedToBy (
+		Mandator.createMandator
+		Mandator.sendRegistrationEmail
+	)
+}
+views {
+	Mandator {
+		createMandator(Mandator)
+		sendRegistrationEmail(com.anfelisa.user.EmailRegistration)
+	}
+}

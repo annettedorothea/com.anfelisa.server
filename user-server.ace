@@ -1,0 +1,56 @@
+com.anfelisa.user
+
+
+
+target JAVA
+
+models {
+	persistent User (
+		Unique NotEmpty Serial id
+		NotEmpty String username
+		NotEmpty String password
+		NotEmpty String name
+		NotEmpty String prename
+		NotEmpty String email
+		NotEmpty String role
+		NotNull Boolean emailConfirmed
+		String emailConfirmationHash
+	)
+	EmailRegistration (
+		String host
+		Integer port
+		String email
+		String emailConfirmationHash
+		String locale
+	)
+}
+
+
+
+data {
+	Registration : ( User EmailRegistration )
+}
+
+actions {
+	POST RegisterUser uses Registration executes RegisterUser 
+}
+
+commands {
+	RegisterUser uses Registration {
+		on go publishes (UserRegistered)
+	}
+}
+
+events {
+	UserRegistered uses Registration listenedToBy (
+		Registration.createNewUser
+		Registration.sendRegistrationEmail
+	)
+}
+
+views {
+	Registration {
+		createNewUser(User)
+		sendRegistrationEmail(EmailRegistration)
+	}
+}

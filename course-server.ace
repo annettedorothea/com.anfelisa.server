@@ -1,0 +1,21 @@
+com.anfelisa.course
+
+target JAVA
+
+models {
+	Course (
+		Unique Serial id
+		String name
+		String description
+		Integer sequence
+		Boolean isPublic
+	)
+}
+
+data {
+	Course : ( Course )
+}
+
+actions {
+	
+}
