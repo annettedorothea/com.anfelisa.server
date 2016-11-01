@@ -2,6 +2,7 @@ package com.anfelisa.user.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.joda.time.DateTime;
 
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
@@ -16,9 +17,7 @@ public class UserMapper implements ResultSetMapper<IUserModel> {
 			r.getString("name"),
 			r.getString("prename"),
 			r.getString("email"),
-			r.getString("role"),
-			r.getBoolean("emailConfirmed"),
-			r.getString("emailConfirmationHash")
+			r.getString("role")
 		);
 	}
 }

@@ -1,0 +1,59 @@
+com.anfelisa.setup
+
+target JAVA
+
+models {
+	Setup (
+		NotEmpty String schema
+	)
+}
+
+data {
+	Setup : ( Setup )
+}
+
+actions {
+	POST SetupAnfelisa uses Setup executes SetupAnfelisa
+}
+
+commands {
+	SetupAnfelisa uses Setup {
+		on setup publishes ( SetupAnfelisa )
+	}
+}
+
+events {
+	SetupAnfelisa uses Setup listenedToBy (
+		Database.createSchema
+		Database.createUserTable
+		Database.createCourseTable
+		Database.createLessonTable
+		Database.createTestTable
+		Database.createResultTable
+		Database.createStudentOfCourseTable
+		Database.createCardTable
+		Database.createBoxTable
+		Database.createCardOfBoxTable
+		Database.createStudentOfBoxTable
+		Database.createAddCardsAfterEditToBoxTable
+		Database.createAddAllCardsToBoxTable
+	)
+}
+
+views {
+	Database {
+		createSchema (Setup)
+		createUserTable (Setup)
+		createCourseTable (Setup)
+		createLessonTable (Setup)
+		createTestTable (Setup)
+		createResultTable (Setup)
+		createStudentOfCourseTable (Setup)
+		createBoxTable (Setup)
+		createCardTable (Setup)
+		createCardOfBoxTable (Setup)
+		createStudentOfBoxTable (Setup)
+		createAddCardsAfterEditToBoxTable (Setup)
+		createAddAllCardsToBoxTable (Setup)
+	}
+}

@@ -9,14 +9,13 @@ import com.anfelisa.user.resources.*;
 public class AppRegistration {
 
 	public static void registerResources(Environment environment) {
-		environment.jersey().register(new RegisterUserResource());
+		environment.jersey().register(new CreateUserResource());
 	}
 
 	public static void registerConsumers() {
-		RegistrationView registrationView = new RegistrationView();
+		UserView userView = new UserView();
 		
-		AceController.addConsumer("UserRegisteredEvent", registrationView.createNewUser);
-		AceController.addConsumer("UserRegisteredEvent", registrationView.sendRegistrationEmail);
+		AceController.addConsumer("UserCreatedEvent", userView.createUser);
     }
 }
 

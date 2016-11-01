@@ -2,7 +2,7 @@ database:
   driverClass: org.postgresql.Driver
   user: annette
   password: 
-  url: jdbc:postgresql://localhost/anfelisa
+  url: jdbc:postgresql://localhost/annette
   properties:
     charSet: UTF-8
   maxWaitForConnection: 1s

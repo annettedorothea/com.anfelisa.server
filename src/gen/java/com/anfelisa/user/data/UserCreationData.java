@@ -1,13 +1,19 @@
-package com.anfelisa.user.models;
+package com.anfelisa.user.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
-public class UserModel implements IUserModel {
+import com.anfelisa.ace.IDataContainer;
 
+import com.anfelisa.user.models.IUserModel;
+
+@SuppressWarnings("unused")
+public class UserCreationData implements IUserModel, IDataContainer {
+	
+	private String uuid;
+	
 	@NotEmpty
 	private Long id;
 	
@@ -29,7 +35,7 @@ public class UserModel implements IUserModel {
 	private String role;
 	
 
-	public UserModel(
+	public UserCreationData(
 		@JsonProperty("id") Long id,
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
@@ -37,6 +43,7 @@ public class UserModel implements IUserModel {
 		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.id = id;
 		this.username = username;
@@ -45,6 +52,7 @@ public class UserModel implements IUserModel {
 		this.prename = prename;
 		this.email = email;
 		this.role = role;
+		this.uuid = uuid;
 	}
 
 	@JsonProperty
@@ -103,6 +111,10 @@ public class UserModel implements IUserModel {
 		this.role = role;
 	}
 	
+	@JsonProperty
+	public String getUuid() {
+		return this.uuid;
+	}
 
 }
 

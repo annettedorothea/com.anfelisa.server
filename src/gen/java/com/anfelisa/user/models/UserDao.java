@@ -8,11 +8,11 @@ import java.util.List;
 public class UserDao {
 	
 	public static void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".user (id serial , username character varying , password character varying , name character varying , prename character varying , email character varying , role character varying , emailConfirmed boolean , emailConfirmationHash character varying , CONSTRAINT user_pkey PRIMARY KEY (id), CONSTRAINT user_id_unique UNIQUE (id))");
+		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".user (id serial , username character varying , password character varying , name character varying , prename character varying , email character varying , role character varying , CONSTRAINT user_pkey PRIMARY KEY (id), CONSTRAINT user_id_unique UNIQUE (id), CONSTRAINT user_username_unique UNIQUE (username))");
 	}
 	
 	public static void insert(Handle handle, IUserModel userModel, String schema) {
-		Update statement = handle.createStatement("INSERT INTO " + schema + ".user (id, username, password, name, prename, email, role, emailConfirmed, emailConfirmationHash) VALUES (:id, :username, :password, :name, :prename, :email, :role, :emailConfirmed, :emailConfirmationHash)");
+		Update statement = handle.createStatement("INSERT INTO " + schema + ".user (id, username, password, name, prename, email, role) VALUES (:id, :username, :password, :name, :prename, :email, :role)");
 		statement.bind("id", userModel.getId());
 		statement.bind("username", userModel.getUsername());
 		statement.bind("password", userModel.getPassword());
@@ -20,13 +20,11 @@ public class UserDao {
 		statement.bind("prename", userModel.getPrename());
 		statement.bind("email", userModel.getEmail());
 		statement.bind("role", userModel.getRole());
-		statement.bind("emailConfirmed", userModel.getEmailConfirmed());
-		statement.bind("emailConfirmationHash", userModel.getEmailConfirmationHash());
 		statement.execute();
 	}
 	
 	public static void update(Handle handle, IUserModel userModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".user SET id = :id, username = :username, password = :password, name = :name, prename = :prename, email = :email, role = :role, emailConfirmed = :emailConfirmed, emailConfirmationHash = :emailConfirmationHash");
+		Update statement = handle.createStatement("UPDATE " + schema + ".user SET id = :id, username = :username, password = :password, name = :name, prename = :prename, email = :email, role = :role");
 		statement.bind("id", userModel.getId());
 		statement.bind("username", userModel.getUsername());
 		statement.bind("password", userModel.getPassword());
@@ -34,8 +32,6 @@ public class UserDao {
 		statement.bind("prename", userModel.getPrename());
 		statement.bind("email", userModel.getEmail());
 		statement.bind("role", userModel.getRole());
-		statement.bind("emailConfirmed", userModel.getEmailConfirmed());
-		statement.bind("emailConfirmationHash", userModel.getEmailConfirmationHash());
 		statement.execute();
 	}
 	

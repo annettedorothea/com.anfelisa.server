@@ -12,8 +12,6 @@ public interface IUserModel {
 	String getPrename();
 	String getEmail();
 	String getRole();
-	Boolean getEmailConfirmed();
-	String getEmailConfirmationHash();
 
 }
 
