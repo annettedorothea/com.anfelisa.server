@@ -11,9 +11,20 @@ public class UserDao {
 		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".user (id serial , username character varying , password character varying , name character varying , prename character varying , email character varying , role character varying , CONSTRAINT user_pkey PRIMARY KEY (id), CONSTRAINT user_id_unique UNIQUE (id), CONSTRAINT user_username_unique UNIQUE (username))");
 	}
 	
-	public static void insert(Handle handle, IUserModel userModel, String schema) {
+	public static void insertWithId(Handle handle, IUserModel userModel, String schema) {
 		Update statement = handle.createStatement("INSERT INTO " + schema + ".user (id, username, password, name, prename, email, role) VALUES (:id, :username, :password, :name, :prename, :email, :role)");
 		statement.bind("id", userModel.getId());
+		statement.bind("username", userModel.getUsername());
+		statement.bind("password", userModel.getPassword());
+		statement.bind("name", userModel.getName());
+		statement.bind("prename", userModel.getPrename());
+		statement.bind("email", userModel.getEmail());
+		statement.bind("role", userModel.getRole());
+		statement.execute();
+	}
+	
+	public static void insert(Handle handle, IUserModel userModel, String schema) {
+		Update statement = handle.createStatement("INSERT INTO " + schema + ".user (username, password, name, prename, email, role) VALUES (:username, :password, :name, :prename, :email, :role)");
 		statement.bind("username", userModel.getUsername());
 		statement.bind("password", userModel.getPassword());
 		statement.bind("name", userModel.getName());

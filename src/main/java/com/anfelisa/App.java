@@ -7,6 +7,7 @@ import com.anfelisa.ace.DatabaseService;
 import com.anfelisa.auth.AceAuthenticator;
 import com.anfelisa.auth.AceAuthorizer;
 import com.anfelisa.auth.AuthUser;
+import com.anfelisa.migration.UserMigrationResource;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -56,6 +57,11 @@ public class App extends Application<AppConfiguration> {
 		
 		com.anfelisa.setup.AppRegistration.registerResources(environment);
 		com.anfelisa.setup.AppRegistration.registerConsumers();
+		
+		com.anfelisa.user.AppRegistration.registerResources(environment);
+		com.anfelisa.user.AppRegistration.registerConsumers();
+		
+		environment.jersey().register(new UserMigrationResource());
 		
 	}
 	
