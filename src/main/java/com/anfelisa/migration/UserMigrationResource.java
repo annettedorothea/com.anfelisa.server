@@ -17,6 +17,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,7 +70,7 @@ public class UserMigrationResource {
 	@POST
 	@Timed
 	@Path("/users")
-	public Response post() throws JsonProcessingException {
+	public Response post(@NotEmpty String schema) throws JsonProcessingException {
 		Connection connection = this.openConnection();
 		try {
 			Statement stmt = connection.createStatement();
@@ -84,7 +85,7 @@ public class UserMigrationResource {
 				String role = "STUDENT";
 				String uuid = UUID.randomUUID().toString();
 				UserCreationData userCreationData = new UserCreationData(null, username, password, name, prename, email,
-						role, uuid);
+						role, uuid, schema);
 				new CreateUserAction(userCreationData, DatabaseService.getDatabaseHandle()).apply();
 			}
 			rs.close();

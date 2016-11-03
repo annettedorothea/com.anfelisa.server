@@ -14,6 +14,8 @@ public class CourseData implements ICourseModel, IDataContainer {
 	
 	private String uuid;
 	
+	private String schema;
+	
 	private Long id;
 	
 	private String name;
@@ -31,7 +33,8 @@ public class CourseData implements ICourseModel, IDataContainer {
 		@JsonProperty("description") String description,
 		@JsonProperty("sequence") Integer sequence,
 		@JsonProperty("isPublic") Boolean isPublic
-,		@JsonProperty("uuid") String uuid
+,		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
 	) {
 		this.id = id;
 		this.name = name;
@@ -39,6 +42,7 @@ public class CourseData implements ICourseModel, IDataContainer {
 		this.sequence = sequence;
 		this.isPublic = isPublic;
 		this.uuid = uuid;
+		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -84,6 +88,11 @@ public class CourseData implements ICourseModel, IDataContainer {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
+	}
+
+	@JsonProperty
+	public String getSchema() {
+		return this.schema;
 	}
 
 }

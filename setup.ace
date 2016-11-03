@@ -4,27 +4,33 @@ target JAVA
 
 models {
 	Setup (
-		NotEmpty String schema
+	)
+	SetupSchema (
+		NotEmpty String schemaToBeCreated
 	)
 }
 
 data {
 	Setup : ( Setup )
+	SetupSchema : ( SetupSchema )
 }
 
 actions {
 	POST SetupAnfelisa uses Setup executes SetupAnfelisa
+	POST SetupSchema uses SetupSchema executes SetupSchema
 }
 
 commands {
 	SetupAnfelisa uses Setup {
 		on setup publishes ( SetupAnfelisa )
 	}
+	SetupSchema uses SetupSchema {
+		on setup publishes ( SetupSchema )
+	}
 }
 
 events {
 	SetupAnfelisa uses Setup listenedToBy (
-		Database.createSchema
 		Database.createUserTable
 		Database.createCourseTable
 		Database.createLessonTable
@@ -38,11 +44,18 @@ events {
 		Database.createAddCardsAfterEditToBoxTable
 		Database.createAddAllCardsToBoxTable
 	)
+	SetupSchema uses SetupSchema listenedToBy (
+		Database.createSchema
+		Database.createTimelineTable
+		Database.createErrorTimelineTable
+	)
 }
 
 views {
 	Database {
-		createSchema (Setup)
+		createSchema (SetupSchema)
+		createTimelineTable (SetupSchema)
+		createErrorTimelineTable (SetupSchema)
 		createUserTable (Setup)
 		createCourseTable (Setup)
 		createLessonTable (Setup)

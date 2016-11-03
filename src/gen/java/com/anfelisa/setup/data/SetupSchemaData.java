@@ -7,24 +7,37 @@ import org.joda.time.DateTime;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.setup.models.ISetupModel;
+import com.anfelisa.setup.models.ISetupSchemaModel;
 
 @SuppressWarnings("unused")
-public class SetupData implements ISetupModel, IDataContainer {
+public class SetupSchemaData implements ISetupSchemaModel, IDataContainer {
 	
 	private String uuid;
 	
 	private String schema;
 	
+	@NotEmpty
+	private String schemaToBeCreated;
+	
 
-	public SetupData(
-		@JsonProperty("uuid") String uuid,
+	public SetupSchemaData(
+		@JsonProperty("schemaToBeCreated") String schemaToBeCreated
+,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
+		this.schemaToBeCreated = schemaToBeCreated;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
 
+	@JsonProperty
+	public String getSchemaToBeCreated() {
+		return this.schemaToBeCreated;
+	}
+	public void setSchemaToBeCreated(String schemaToBeCreated) {
+		this.schemaToBeCreated = schemaToBeCreated;
+	}
+	
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

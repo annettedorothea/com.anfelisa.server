@@ -4,14 +4,22 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
+import com.anfelisa.ace.AceDao;
 import com.anfelisa.models.SchemaDao;
 import com.anfelisa.setup.data.SetupData;
+import com.anfelisa.setup.data.SetupSchemaData;
 import com.anfelisa.user.models.UserDao;
 
 public class DatabaseView {
 
-	public BiConsumer<SetupData, Handle> createSchema = (dataContainer, handle) -> {
-		SchemaDao.createSchema(handle, dataContainer.getSchema());
+	public BiConsumer<SetupSchemaData, Handle> createSchema = (dataContainer, handle) -> {
+		SchemaDao.createSchema(handle, dataContainer.getSchemaToBeCreated());
+	};
+	public BiConsumer<SetupSchemaData, Handle> createTimelineTable = (dataContainer, handle) -> {
+		AceDao.createTimelineTable(handle, dataContainer.getSchemaToBeCreated());
+	};
+	public BiConsumer<SetupSchemaData, Handle> createErrorTimelineTable = (dataContainer, handle) -> {
+		AceDao.createErrorTimelineTable(handle, dataContainer.getSchemaToBeCreated());
 	};
 	public BiConsumer<SetupData, Handle> createUserTable = (dataContainer, handle) -> {
 		UserDao.create(handle, dataContainer.getSchema());

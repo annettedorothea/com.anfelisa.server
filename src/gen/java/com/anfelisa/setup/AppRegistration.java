@@ -10,12 +10,12 @@ public class AppRegistration {
 
 	public static void registerResources(Environment environment) {
 		environment.jersey().register(new SetupAnfelisaResource());
+		environment.jersey().register(new SetupSchemaResource());
 	}
 
 	public static void registerConsumers() {
 		DatabaseView databaseView = new DatabaseView();
 		
-		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createSchema);
 		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createUserTable);
 		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createCourseTable);
 		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createLessonTable);
@@ -28,6 +28,9 @@ public class AppRegistration {
 		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createStudentOfBoxTable);
 		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createAddCardsAfterEditToBoxTable);
 		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createAddAllCardsToBoxTable);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createSchema);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createTimelineTable);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createErrorTimelineTable);
     }
 }
 
