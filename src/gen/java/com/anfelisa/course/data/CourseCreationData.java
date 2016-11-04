@@ -10,7 +10,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.course.models.ICourseModel;
 
 @SuppressWarnings("unused")
-public class CourseData implements ICourseModel, IDataContainer {
+public class CourseCreationData implements ICourseModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -27,7 +27,7 @@ public class CourseData implements ICourseModel, IDataContainer {
 	private Boolean isPublic;
 	
 
-	public CourseData(
+	public CourseCreationData(
 		@JsonProperty("id") Long id,
 		@JsonProperty("name") String name,
 		@JsonProperty("description") String description,

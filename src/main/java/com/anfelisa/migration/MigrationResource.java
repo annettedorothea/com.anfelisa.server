@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -22,7 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseService;
-import com.anfelisa.setup.data.SetupData;
+import com.anfelisa.course.actions.CreateCourseAction;
+import com.anfelisa.course.data.CourseCreationData;
 import com.anfelisa.user.actions.CreateUserAction;
 import com.anfelisa.user.data.UserCreationData;
 import com.codahale.metrics.annotation.Timed;
@@ -31,9 +30,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/migrate")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class UserMigrationResource {
+public class MigrationResource {
 
-	static final Logger LOG = LoggerFactory.getLogger(UserMigrationResource.class);
+	static final Logger LOG = LoggerFactory.getLogger(MigrationResource.class);
 
 	private Connection openConnection() {
 		try {
@@ -70,7 +69,7 @@ public class UserMigrationResource {
 	@POST
 	@Timed
 	@Path("/users")
-	public Response post(@NotEmpty String schema) throws JsonProcessingException {
+	public Response migrateUsers(@NotEmpty String schema) throws JsonProcessingException {
 		Connection connection = this.openConnection();
 		try {
 			Statement stmt = connection.createStatement();
@@ -98,4 +97,32 @@ public class UserMigrationResource {
 		return Response.ok().build();
 	}
 
+	@POST
+	@Timed
+	@Path("/courses")
+	public Response migrateCourses(@NotEmpty String schema) throws JsonProcessingException {
+		Connection connection = this.openConnection();
+		try {
+			Statement stmt = connection.createStatement();
+			String sql = "SELECT * FROM anfelisa.course";
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				Long id = rs.getLong("id");
+				Integer sequence = rs.getInt("sequence");
+				String name = rs.getString("name");
+				boolean isPublic = rs.getBoolean("public");
+				String uuid = UUID.randomUUID().toString();
+				CourseCreationData courseCreationData = new CourseCreationData(id, name, "", sequence, isPublic, uuid, schema);
+				new CreateCourseAction(courseCreationData, DatabaseService.getDatabaseHandle()).apply();
+			}
+			rs.close();
+		} catch (SQLException e) {
+			LOG.error("error when migration courses", e);
+			throw new WebApplicationException(e);
+		}
+		
+		closeConnection(connection);
+		return Response.ok().build();
+	}
+	
 }

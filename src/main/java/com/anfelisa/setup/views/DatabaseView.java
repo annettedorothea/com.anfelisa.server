@@ -5,6 +5,7 @@ import java.util.function.BiConsumer;
 import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.ace.AceDao;
+import com.anfelisa.course.models.CourseDao;
 import com.anfelisa.models.SchemaDao;
 import com.anfelisa.setup.data.SetupData;
 import com.anfelisa.setup.data.SetupSchemaData;
@@ -25,7 +26,7 @@ public class DatabaseView {
 		UserDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupData, Handle> createCourseTable = (dataContainer, handle) -> {
-		// update view
+		CourseDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupData, Handle> createLessonTable = (dataContainer, handle) -> {
 		// update view

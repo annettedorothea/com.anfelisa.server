@@ -3,7 +3,7 @@ com.anfelisa.course
 target JAVA
 
 models {
-	Course (
+	persistent Course (
 		Unique Serial id
 		String name
 		String description
@@ -13,9 +13,25 @@ models {
 }
 
 data {
-	Course : ( Course )
+	CourseCreation : ( Course )
 }
 
 actions {
-	
+	POST CreateCourse uses CourseCreation executes CreateCourse
+}
+
+commands {
+	CreateCourse uses CourseCreation {
+		on created publishes ( CourseCreated )
+	}
+}
+
+events {
+	CourseCreated uses CourseCreation listenedToBy ( Course.createCourse )
+}
+
+views {
+	Course {
+		createCourse (CourseCreation)
+	}
 }

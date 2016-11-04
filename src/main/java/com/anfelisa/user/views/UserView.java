@@ -10,7 +10,7 @@ import com.anfelisa.user.models.UserDao;
 public class UserView {
 
 	public BiConsumer<UserCreationData, Handle> createUser = (dataContainer, handle) -> {
-		UserDao.insert(handle, dataContainer, "anfelisa");
+		UserDao.insert(handle, dataContainer, dataContainer.getSchema());
 	};
 
 }
