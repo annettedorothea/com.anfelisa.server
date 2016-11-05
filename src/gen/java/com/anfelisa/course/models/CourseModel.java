@@ -8,36 +8,44 @@ import org.joda.time.DateTime;
 @SuppressWarnings("unused")
 public class CourseModel implements ICourseModel {
 
-	private Long id;
+	@NotNull
+	private Integer id;
 	
+	@NotNull
 	private String name;
 	
 	private String description;
 	
 	private Integer sequence;
 	
+	@NotNull
 	private Boolean isPublic;
+	
+	@NotNull
+	private String author;
 	
 
 	public CourseModel(
-		@JsonProperty("id") Long id,
+		@JsonProperty("id") Integer id,
 		@JsonProperty("name") String name,
 		@JsonProperty("description") String description,
 		@JsonProperty("sequence") Integer sequence,
-		@JsonProperty("isPublic") Boolean isPublic
+		@JsonProperty("isPublic") Boolean isPublic,
+		@JsonProperty("author") String author
 	) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.sequence = sequence;
 		this.isPublic = isPublic;
+		this.author = author;
 	}
 
 	@JsonProperty
-	public Long getId() {
+	public Integer getId() {
 		return this.id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
@@ -71,6 +79,14 @@ public class CourseModel implements ICourseModel {
 	}
 	public void setIsPublic(Boolean isPublic) {
 		this.isPublic = isPublic;
+	}
+	
+	@JsonProperty
+	public String getAuthor() {
+		return this.author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 	
 

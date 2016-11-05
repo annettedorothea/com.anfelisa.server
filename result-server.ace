@@ -1,0 +1,39 @@
+com.anfelisa.result
+
+target JAVA
+
+models {
+	persistent Result (
+		Unique PrimaryKey NotNull Serial id
+		NotNull String username references com.anfelisa.user.User.username
+		NotNull Integer testId references com.anfelisa.test.Test.id
+		NotNull DateTime date
+		NotNull String json
+		NotNull Integer points
+		NotNull Integer maxPoints
+	)
+}
+
+data {
+	ResultCreation : ( Result )
+}
+
+actions {
+	POST CreateResult uses ResultCreation executes CreateResult
+}
+
+commands {
+	CreateResult uses ResultCreation {
+		on created publishes ( ResultCreated )
+	}
+}
+
+events {
+	ResultCreated uses ResultCreation listenedToBy ( Result.createResult )
+}
+
+views {
+	Result {
+		createResult (ResultCreation)
+	}
+}

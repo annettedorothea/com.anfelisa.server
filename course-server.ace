@@ -4,34 +4,49 @@ target JAVA
 
 models {
 	persistent Course (
-		Unique Serial id
-		String name
+		Unique PrimaryKey NotNull Serial id
+		NotNull String name
 		String description
 		Integer sequence
-		Boolean isPublic
+		NotNull Boolean isPublic
+		NotNull String author references com.anfelisa.user.User.username
+	)
+	persistent StudentOfCourse (
+		NotNull String username references com.anfelisa.user.User.username
+		NotNull Integer courseId references Course.id
 	)
 }
 
 data {
 	CourseCreation : ( Course )
+	StudentToCourseAddition : (StudentOfCourse)
 }
 
 actions {
 	POST CreateCourse uses CourseCreation executes CreateCourse
+	POST AddStudentToCourse uses StudentToCourseAddition executes AddStudentToCourse
 }
 
 commands {
 	CreateCourse uses CourseCreation {
 		on created publishes ( CourseCreated )
 	}
+	AddStudentToCourse uses StudentToCourseAddition {
+		on added publishes ( StudentAddedToCourse)
+	}
 }
 
 events {
 	CourseCreated uses CourseCreation listenedToBy ( Course.createCourse )
+	StudentAddedToCourse uses StudentToCourseAddition listenedToBy (StudentOfCourse.addStudentToCourse)
 }
 
 views {
 	Course {
 		createCourse (CourseCreation)
 	}
+	StudentOfCourse {
+		addStudentToCourse (StudentToCourseAddition)
+	}
 }
+

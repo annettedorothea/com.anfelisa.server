@@ -1,5 +1,6 @@
 package com.anfelisa.user.resources;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,7 +17,7 @@ import com.anfelisa.user.data.UserCreationData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-@Path("/{schema}/users")
+@Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CreateUserResource {
@@ -26,7 +27,7 @@ public class CreateUserResource {
 	@POST
 	@Timed
 	@Path("/create")
-	public Response post(UserCreationData userCreationData) throws JsonProcessingException {
+	public Response post(@NotNull UserCreationData userCreationData) throws JsonProcessingException {
 		return new CreateUserAction(userCreationData, DatabaseService.getDatabaseHandle()).apply();
 	}
 

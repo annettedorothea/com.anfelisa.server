@@ -11,7 +11,6 @@ public class UserMapper implements ResultSetMapper<IUserModel> {
 	
 	public IUserModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserModel(
-			r.getLong("id"),
 			r.getString("username"),
 			r.getString("password"),
 			r.getString("name"),

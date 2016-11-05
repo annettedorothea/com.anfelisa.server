@@ -4,20 +4,19 @@ import java.security.Principal;
 
 public class AuthUser implements Principal {
 
-	public final static String SUPER_ADMIN = "SUPER_ADMIN";
 	public final static String ADMIN = "ADMIN";
-	public final static String TRAINER = "TRAINER";
-	public final static String USER = "USER";
+	public final static String AUTHOR = "AUTHOR";
+	public final static String STUDENT = "STUDENT";
 	
-	private String email;
-	private String mandator;
+	private String username;
+	private String schema;
 	private String password;
 	private String role;
 	
 	public AuthUser(String username, String password, String role) {
 		super();
-		this.email = BasicCredentialsHelper.extractEmailFromUserName(username);
-		this.mandator = BasicCredentialsHelper.extractMandatorFromUserName(username);
+		this.username = BasicCredentialsHelper.extractUsernameFromUserName(username);
+		this.schema = BasicCredentialsHelper.extractSchemaFromUserName(username);
 		this.password = password;
 		this.role = role;
 	}
@@ -30,24 +29,24 @@ public class AuthUser implements Principal {
 		return role;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 
-	public String getMandator() {
-		return mandator;
-	}
-	
-	public boolean isUser() {
-		return USER.equals(this.role);
+	public String getSchema() {
+		return schema;
 	}
 
-	public boolean isTrainer() {
-		return TRAINER.equals(this.role);
+	public boolean isAuthor() {
+		return AUTHOR.equals(this.role);
 	}
-	
+
 	public boolean isAdmin() {
 		return ADMIN.equals(this.role);
+	}
+	
+	public boolean isStudent() {
+		return STUDENT.equals(this.role);
 	}
 	
 	public String getName() {

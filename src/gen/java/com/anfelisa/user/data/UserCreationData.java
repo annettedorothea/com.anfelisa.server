@@ -16,29 +16,26 @@ public class UserCreationData implements IUserModel, IDataContainer {
 	
 	private String schema;
 	
-	@NotEmpty
-	private Long id;
-	
-	@NotEmpty
+	@NotNull
 	private String username;
 	
-	@NotEmpty
+	@NotNull
 	private String password;
 	
-	@NotEmpty
+	@NotNull
 	private String name;
 	
-	@NotEmpty
+	@NotNull
 	private String prename;
 	
+	@NotNull
 	private String email;
 	
-	@NotEmpty
+	@NotNull
 	private String role;
 	
 
 	public UserCreationData(
-		@JsonProperty("id") Long id,
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
 		@JsonProperty("name") String name,
@@ -48,7 +45,6 @@ public class UserCreationData implements IUserModel, IDataContainer {
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.name = name;
@@ -59,14 +55,6 @@ public class UserCreationData implements IUserModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	@JsonProperty
-	public Long getId() {
-		return this.id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
 	@JsonProperty
 	public String getUsername() {
 		return this.username;

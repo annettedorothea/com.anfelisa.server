@@ -1,0 +1,38 @@
+com.anfelisa.test
+
+target JAVA
+
+models {
+	persistent Test (
+		Unique PrimaryKey NotNull Serial id
+		NotNull String name
+		Integer sequence
+		NotNull Integer lessonId references com.anfelisa.lesson.Lesson.id
+		NotNull String html
+		NotNull String author references com.anfelisa.user.User.username
+	)
+}
+
+data {
+	TestCreation : ( Test )
+}
+
+actions {
+	POST CreateTest uses TestCreation executes CreateTest
+}
+
+commands {
+	CreateTest uses TestCreation {
+		on created publishes ( TestCreated )
+	}
+}
+
+events {
+	TestCreated uses TestCreation listenedToBy ( Test.createTest )
+}
+
+views {
+	Test {
+		createTest (TestCreation)
+	}
+}

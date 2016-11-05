@@ -64,6 +64,18 @@ public class App extends Application<AppConfiguration> {
 		com.anfelisa.course.AppRegistration.registerResources(environment);
 		com.anfelisa.course.AppRegistration.registerConsumers();
 		
+		com.anfelisa.lesson.AppRegistration.registerResources(environment);
+		com.anfelisa.lesson.AppRegistration.registerConsumers();
+		
+		com.anfelisa.test.AppRegistration.registerResources(environment);
+		com.anfelisa.test.AppRegistration.registerConsumers();
+		
+		com.anfelisa.result.AppRegistration.registerResources(environment);
+		com.anfelisa.result.AppRegistration.registerConsumers();
+		
+		com.anfelisa.box.AppRegistration.registerResources(environment);
+		com.anfelisa.box.AppRegistration.registerConsumers();
+		
 		environment.jersey().register(new MigrationResource());
 		
 	}

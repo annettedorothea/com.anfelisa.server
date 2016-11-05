@@ -4,13 +4,12 @@ target JAVA
 
 models {
 	persistent User (
-		Unique NotEmpty Serial id
-		Unique NotEmpty String username
-		NotEmpty String password
-		NotEmpty String name
-		NotEmpty String prename
-		String email
-		NotEmpty String role
+		Unique PrimaryKey NotNull String username
+		NotNull String password
+		NotNull String name
+		NotNull String prename
+		NotNull String email
+		NotNull String role
 	)
 }
 

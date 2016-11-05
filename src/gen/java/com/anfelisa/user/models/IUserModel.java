@@ -5,7 +5,6 @@ import org.joda.time.DateTime;
 @SuppressWarnings("unused")
 public interface IUserModel {
 
-	Long getId();
 	String getUsername();
 	String getPassword();
 	String getName();

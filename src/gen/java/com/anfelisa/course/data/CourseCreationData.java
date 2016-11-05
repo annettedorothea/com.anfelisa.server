@@ -16,23 +16,30 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 	
 	private String schema;
 	
-	private Long id;
+	@NotNull
+	private Integer id;
 	
+	@NotNull
 	private String name;
 	
 	private String description;
 	
 	private Integer sequence;
 	
+	@NotNull
 	private Boolean isPublic;
+	
+	@NotNull
+	private String author;
 	
 
 	public CourseCreationData(
-		@JsonProperty("id") Long id,
+		@JsonProperty("id") Integer id,
 		@JsonProperty("name") String name,
 		@JsonProperty("description") String description,
 		@JsonProperty("sequence") Integer sequence,
-		@JsonProperty("isPublic") Boolean isPublic
+		@JsonProperty("isPublic") Boolean isPublic,
+		@JsonProperty("author") String author
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -41,15 +48,16 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 		this.description = description;
 		this.sequence = sequence;
 		this.isPublic = isPublic;
+		this.author = author;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
 
 	@JsonProperty
-	public Long getId() {
+	public Integer getId() {
 		return this.id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
@@ -83,6 +91,14 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 	}
 	public void setIsPublic(Boolean isPublic) {
 		this.isPublic = isPublic;
+	}
+	
+	@JsonProperty
+	public String getAuthor() {
+		return this.author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 	
 	@JsonProperty

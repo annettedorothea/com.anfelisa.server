@@ -1,0 +1,38 @@
+com.anfelisa.lesson
+
+target JAVA
+
+models {
+	persistent Lesson (
+		Unique PrimaryKey NotNull Serial id
+		NotNull String name
+		String description
+		Integer sequence
+		NotNull Integer courseId references com.anfelisa.course.Course.id
+		NotNull String author references com.anfelisa.user.User.username
+	)
+}
+
+data {
+	LessonCreation : ( Lesson )
+}
+
+actions {
+	POST CreateLesson uses LessonCreation executes CreateLesson
+}
+
+commands {
+	CreateLesson uses LessonCreation {
+		on created publishes ( LessonCreated )
+	}
+}
+
+events {
+	LessonCreated uses LessonCreation listenedToBy ( Lesson.createLesson )
+}
+
+views {
+	Lesson {
+		createLesson (LessonCreation)
+	}
+}

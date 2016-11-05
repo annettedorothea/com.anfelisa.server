@@ -10,8 +10,7 @@ import com.anfelisa.course.models.CourseDao;
 public class CourseView {
 
 	public BiConsumer<CourseCreationData, Handle> createCourse = (dataContainer, handle) -> {
-		// update view
-		CourseDao.insertWithId(handle, dataContainer, dataContainer.getSchema());
+		CourseDao.insert(handle, dataContainer, dataContainer.getSchema());
 	};
 
 }

@@ -1,0 +1,91 @@
+com.anfelisa.box
+
+target JAVA
+
+models {
+	persistent Box (
+		Unique PrimaryKey NotNull Serial id
+		NotNull String name
+		NotNull String username references com.anfelisa.user.User.username
+	)
+	persistent BoxOfCourse (
+		NotNull Integer boxId references Box.id
+		NotNull Integer courseId references com.anfelisa.course.Course.id
+		NotNull Boolean autoAdd
+	)
+	persistent StudentOfBox (
+		Unique PrimaryKey NotNull Serial id
+		NotNull String name
+		NotNull String username references com.anfelisa.user.User.username
+	)
+	persistent Card (
+		Unique PrimaryKey NotNull Serial id
+		NotEmpty String content
+		NotNull Integer testId references com.anfelisa.test.Test.id
+		NotNull String contentHash
+		NotNull Integer maxPoints
+	)
+	persistent CardOfBox (
+		Unique PrimaryKey NotNull Serial id
+		NotNull Integer cardId references Card.id
+		Float ef
+		Integer interval
+		NotNull Integer count
+		DateTime date
+		NotNull Integer boxId references Box.id
+		Integer quality
+		DateTime timestamp
+		Integer points
+	)
+}
+
+data {
+	BoxCreation : ( Box )
+	BoxToCourseAddition : ( BoxOfCourse )
+	CardCreation : ( Card )
+	CardOfBoxCreation : ( CardOfBox )
+}
+
+actions {
+	POST CreateBox uses BoxCreation executes CreateBox
+	POST AddCourseToBox uses BoxToCourseAddition executes AddCourseToBox
+	POST CreateCard uses CardCreation executes CreateCard
+	POST CreateCardOfBox uses CardOfBoxCreation executes CreateCardOfBox
+}
+
+commands {
+	CreateBox uses BoxCreation {
+		on created publishes ( BoxCreated )
+	}
+	AddCourseToBox uses BoxToCourseAddition {
+		on added publishes ( CourseAddedToBox )
+	}
+	CreateCard uses CardCreation {
+		on created publishes (CardCreated)
+	}
+	CreateCardOfBox uses CardOfBoxCreation {
+		on created publishes (CardOfBoxCreated)
+	}
+}
+
+events {
+	BoxCreated uses BoxCreation listenedToBy ( Box.createBox )
+	CourseAddedToBox uses BoxToCourseAddition listenedToBy ( BoxToCourse.addCourseToBox )
+	CardCreated uses CardCreation listenedToBy ( Card.createCard )
+	CardOfBoxCreated uses CardOfBoxCreation listenedToBy (CardOfBox.createCardOfBox)
+}
+
+views {
+	Box {
+		createBox (BoxCreation)
+	}
+	BoxToCourse {
+		addCourseToBox (BoxToCourseAddition)
+	}
+	Card {
+		createCard (CardCreation)
+	}
+	CardOfBox {
+		createCardOfBox (CardOfBoxCreation)
+	}
+}

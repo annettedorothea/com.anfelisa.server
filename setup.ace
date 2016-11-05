@@ -40,9 +40,7 @@ events {
 		Database.createCardTable
 		Database.createBoxTable
 		Database.createCardOfBoxTable
-		Database.createStudentOfBoxTable
-		Database.createAddCardsAfterEditToBoxTable
-		Database.createAddAllCardsToBoxTable
+		Database.createBoxOfCourse
 	)
 	SetupSchema uses SetupSchema listenedToBy (
 		Database.createSchema
@@ -56,6 +54,7 @@ views {
 		createSchema (SetupSchema)
 		createTimelineTable (SetupSchema)
 		createErrorTimelineTable (SetupSchema)
+		
 		createUserTable (Setup)
 		createCourseTable (Setup)
 		createLessonTable (Setup)
@@ -65,8 +64,6 @@ views {
 		createBoxTable (Setup)
 		createCardTable (Setup)
 		createCardOfBoxTable (Setup)
-		createStudentOfBoxTable (Setup)
-		createAddCardsAfterEditToBoxTable (Setup)
-		createAddAllCardsToBoxTable (Setup)
+		createBoxOfCourse (Setup)
 	}
 }

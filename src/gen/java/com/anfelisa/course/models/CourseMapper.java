@@ -11,11 +11,12 @@ public class CourseMapper implements ResultSetMapper<ICourseModel> {
 	
 	public ICourseModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new CourseModel(
-			r.getLong("id"),
+			r.getInt("id"),
 			r.getString("name"),
 			r.getString("description"),
 			r.getInt("sequence"),
-			r.getBoolean("isPublic")
+			r.getBoolean("isPublic"),
+			r.getString("author")
 		);
 	}
 }

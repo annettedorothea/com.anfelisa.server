@@ -10,12 +10,15 @@ public class AppRegistration {
 
 	public static void registerResources(Environment environment) {
 		environment.jersey().register(new CreateCourseResource());
+		environment.jersey().register(new AddStudentToCourseResource());
 	}
 
 	public static void registerConsumers() {
 		CourseView courseView = new CourseView();
+		StudentOfCourseView studentOfCourseView = new StudentOfCourseView();
 		
 		AceController.addConsumer("CourseCreatedEvent", courseView.createCourse);
+		AceController.addConsumer("StudentAddedToCourseEvent", studentOfCourseView.addStudentToCourse);
     }
 }
 
