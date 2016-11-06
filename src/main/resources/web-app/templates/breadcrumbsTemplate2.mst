@@ -1,0 +1,4 @@
+<ol class="breadcrumb">
+    <li><a onclick="new LoadStatisticsAction({defaultMonth: true}).apply()">Home</a></li>
+    <li><a onclick="new LoadPrivateLessonsAction({ courseId : {{id}} }).apply()">{{name}}</a></li>
+</ol>

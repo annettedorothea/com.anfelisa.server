@@ -1,0 +1,15 @@
+<ul class="nav nav-pills nav-stacked">
+    <li class="header">
+        <a>Meine Vokabel-Boxen</a>
+    </li>
+    {{#boxes}}
+    <li class="box_{{id}}">
+        <a onclick="new StartBoxAction({boxId : {{id}}}).apply()" {{#hasOpenCards}}class="open"{{/hasOpenCards}}>
+        {{#hasOpenCards}}<i class="fa fa-pencil-square-o"></i>{{/hasOpenCards}}
+        {{^hasOpenCards}}<i class="fa fa-check-square-o"></i>{{/hasOpenCards}}
+        {{name}}
+        <span class="badge">{{#cards_for_today}}{{cards_for_today}}{{/cards_for_today}}</span>
+        </a>
+    </li>
+    {{/boxes}}
+</ul>

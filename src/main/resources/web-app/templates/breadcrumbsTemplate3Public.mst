@@ -1,0 +1,5 @@
+<ol class="breadcrumb">
+    <li><a onclick="new LoadPublicCoursesAction().apply()">Home</a></li>
+    <li><a onclick="new LoadPublicLessonsAction({ courseId : {{courseid}} }).apply()">{{coursename}}</a></li>
+    <li class="{{id}}"><a onclick="new LoadPublicTestsAction({ lessonId : {{id}} }).apply()">{{name}}</a></li>
+</ol>

@@ -1,0 +1,746 @@
+app
+
+target ES6
+
+actions {
+	InitApp executes InitApp
+	LoadAccordingToHash executes LoadAccordingToHash
+
+	AutoLogin executes AutoLogin
+	Login executes Login
+	Logout executes Logout
+
+	LoadStatistics executes LoadStatistics
+	LoadPublicCourses executes LoadPublicCourses
+	LoadPublicLessons executes LoadPublicLessons
+	LoadPublicTests executes LoadPublicTests
+	LoadPublicTest executes LoadPublicTest
+	LoadPrivateCourses executes LoadPrivateCourses
+	LoadPrivateCoursesSilently executes LoadPrivateCoursesSilently
+	LoadPrivateLessons executes LoadPrivateLessons
+	LoadPrivateTests executes LoadPrivateTests
+	LoadPrivateTestsSilently executes LoadPrivateTestsSilently
+	LoadPrivateTest executes LoadPrivateTest
+
+	LoadTestOfResult executes LoadTestOfResult
+	LoadResult executes LoadResult
+	LoadBoxesSilently executes LoadBoxesSilently
+	SaveResult executes SaveResult
+
+	LoadNextCard executes LoadNextCard
+	CheckIfComplexCardIsFinished executes CheckIfComplexCardIsFinished
+	FinishCard executes FinishCard
+	GoOnWithNewCards executes GoOnWithNewCards
+	ShowNextCardItem executes ShowNextCardItem
+	GoOnWithTodaysNextCard executes GoOnWithTodaysNextCard
+	RepeatComplexCard executes RepeatComplexCard
+	RepeatTodaysCards executes RepeatTodaysCards
+	ScoreCard executes ScoreCard
+	StartBox executes StartBox
+	IsBoxFinished executes IsBoxFinished
+	
+	CorrectWord executes CorrectWord
+	IsTestFinished executes IsTestFinished
+	IsRatedTestFinished executes IsRatedTestFinished
+	ShowNextWordOfTest executes ShowNextWordOfTest
+	ShowWord executes ShowWord
+	StartTest executes StartTest
+	RateWord executes RateWord
+}
+
+
+commands {
+	InitApp {
+		on autoLogin triggers (
+			AutoLogin 
+			LoadAccordingToHash
+		)
+		on userIsNotLoggedIn publishes (
+			UserIsNotLoggedIn
+		) triggers (
+			LoadAccordingToHash
+		)
+	}
+	AutoLogin { 
+		on successfulAutoLogin publishes (
+			UserIsLoggedIn
+		)
+		on autoLoginFailed publishes (
+			LoginFailed
+		)
+	}
+	LoadAccordingToHash {
+		on loadPublicCourses triggers (
+			LoadPublicCourses
+		)
+		on loadPublicLessons triggers (
+			LoadPublicLessons
+		)
+		on loadPublicTests triggers (
+			LoadPublicTests
+		)
+		on loadPublicTest triggers (
+			LoadPublicTests
+			LoadPublicTest
+		)
+		on loadPrivateCourses triggers (
+			LoadPrivateCourses
+			LoadBoxesSilently
+			LoadStatistics
+		)
+		on loadPrivateLessons triggers (
+			LoadPrivateLessons
+			LoadBoxesSilently
+		)
+		on loadPrivateTests triggers (
+			LoadPrivateTests
+			LoadBoxesSilently
+		)
+		on loadPrivateTest triggers (
+			LoadPrivateTestsSilently
+			LoadPrivateTest
+			LoadBoxesSilently
+		)
+		on loadResult triggers (
+			LoadPrivateTestsSilently
+			LoadTestOfResult
+			LoadBoxesSilently
+		)
+		on loadNextCard publishes (
+			BoxStarted
+		) triggers (
+			LoadNextCard
+		) 
+	}
+	Login {
+		on successfulLogin publishes (
+			UserIsLoggedIn
+		) triggers (
+			LoadStatistics
+			LoadPrivateCourses
+			LoadBoxesSilently
+		)
+		on loginFailed publishes (
+			LoginFailed
+		)
+	}
+	Logout {
+		on successfulLogout publishes (
+			UserIsNotLoggedIn
+		) triggers (
+			LoadPublicCourses
+		)
+	}
+	LoadStatistics {
+		on statisticsLoaded publishes (
+			StatisticsLoaded
+		)
+		on userNotLoggedIn triggers (
+			Logout
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+	}
+	LoadPublicCourses {
+		on publicCoursesLoaded publishes (
+			PublicCoursesLoaded
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+	}
+	LoadPublicLessons {
+		on publicLessonsLoaded publishes (
+			PublicLessonsLoaded
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+	}
+	LoadPublicTests {
+		on publicTestsLoaded publishes (
+			PublicTestsLoaded
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+	}
+	LoadPublicTest {
+		on publicTestLoaded publishes (
+			PublicTestLoaded
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+	}
+	LoadPrivateCourses {
+		on privateCoursesLoaded publishes (
+			PrivateCoursesLoaded
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+		on userNotLoggedIn triggers (
+			Logout
+		)
+	}
+	LoadPrivateCoursesSilently {
+		on privateCoursesSilentlyLoaded publishes (
+			PrivateCoursesSilentlyLoaded
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+		on userNotLoggedIn triggers (
+			Logout
+		)
+	}
+	LoadPrivateLessons {
+		on userNotLoggedIn triggers (
+			Logout
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+		on privateLessonsLoaded publishes (
+			PrivateLessonsLoaded
+		)
+	}
+	LoadPrivateTests {
+		on userNotLoggedIn triggers (
+			Logout
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+		on privateTestsLoaded publishes (
+			PrivateTestsLoaded
+		)
+	}
+	LoadPrivateTestsSilently {
+		on userNotLoggedIn triggers (
+			Logout
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+		on privateTestsSilentlyLoaded publishes (
+			PrivateTestsSilentlyLoaded
+		)
+	}
+	LoadPrivateTest {
+		on userNotLoggedIn triggers (
+			Logout
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+		on privateTestLoaded publishes (
+			PrivateTestLoaded
+		)
+	}
+	LoadTestOfResult {
+		on userNotLoggedIn triggers (
+			Logout
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+		on testOfResultLoaded publishes (
+			TestOfResultLoaded
+		) triggers (
+			LoadResult
+		)
+	}
+	LoadResult {
+		on userNotLoggedIn triggers (
+			Logout
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+		on resultLoaded publishes (
+			ResultLoaded
+		)
+	}
+	LoadBoxesSilently {
+		on boxSilentlyLoaded publishes (
+			BoxesSilentlyLoaded
+		)
+		on userNotLoggedIn triggers (
+			Logout
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+	}
+	LoadNextCard {
+		on nextCardLoaded publishes (
+			NextCardLoaded
+		) triggers (
+			LoadBoxesSilently
+			LoadPrivateCoursesSilently
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+		on userNotLoggedIn triggers (
+			Logout
+		)
+	}
+	GoOnWithNewCards {
+		on goOnWithNewCards publishes (
+			GoOnWithNewCards
+		) triggers (
+			LoadNextCard
+		)
+	}
+	ShowNextCardItem {
+		on showWanted publishes (
+			ShowWanted
+			ShowScoreButtons
+		)
+		on showNextLine publishes (
+			ShowNextLine
+		) triggers (
+			CheckIfComplexCardIsFinished
+		)
+		on showNextWord publishes (
+			ShowNextWord
+		) triggers (
+			CheckIfComplexCardIsFinished
+		)
+	}
+	CheckIfComplexCardIsFinished {
+		on complexCardIsFinished publishes (
+			ShowScoreButtons
+		)
+		on complexCardIsNotFinished publishes (
+			DoNothing
+		)
+	}
+	FinishCard {
+		on cardFinished publishes (
+			DisplayComplexCardFinishedSuccessfully
+		) triggers (
+			SaveResult
+		)
+	}
+	SaveResult {
+		on resultSaved publishes (
+			ResultSaved
+		) triggers (
+			LoadPrivateTestsSilently
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+		on userNotLoggedIn publishes (
+			DoNothing
+		)
+	}
+	CorrectWord {
+		on wordIsCorrectAndFinished publishes (
+			WordIsCorrectAndFinished
+		) triggers (
+			IsTestFinished
+		)
+		on wordIsCorrectAndNotFinished publishes (
+			WordIsCorrectAndNotFinished
+		) triggers (
+			IsTestFinished
+		)
+		on wordIsNotCorrect publishes (
+			WordIsNotCorrect
+		) triggers (
+			IsTestFinished
+		)
+	}
+	IsTestFinished {
+		on testFailed publishes (
+			DisplayTestFailed
+		) triggers (
+			SaveResult
+		)
+		on testFinishedSuccessfully publishes (
+			DisplayTestFinishedSuccessfully
+		) triggers (
+			SaveResult
+		)
+		on goOnWithTest publishes (
+			DisplayNextWordButton
+		)
+	}
+	IsRatedTestFinished {
+		on testFailed publishes (
+			DisplayTestFailed
+		) triggers (
+			SaveResult
+		)
+		on testFinishedSuccessfully publishes (
+			DisplayTestFinishedSuccessfully
+		) triggers (
+			SaveResult
+		)
+		on goOnWithTest triggers (
+			ShowNextWordOfTest
+		)
+	}
+	ShowNextWordOfTest {
+		on showNextWordOfTest publishes (
+			ShowNextWordOfTest
+		)
+	}
+	ShowWord {
+		on showWord publishes (
+			ShowWord
+		)
+	}
+	StartTest {
+		on testStarted publishes (
+			TestStarted
+		) triggers (
+			ShowNextWordOfTest
+		)
+	} 
+	RateWord {
+		on wordIsCorrectAndFinished publishes (
+			WordIsCorrectAndFinished
+		) triggers (
+			IsRatedTestFinished
+		)
+		on wordIsCorrectAndNotFinished publishes (
+			WordIsCorrectAndNotFinished
+		) triggers (
+			IsRatedTestFinished
+		)
+		on wordIsNotCorrect publishes (
+			WordIsNotCorrect
+		) triggers (
+			IsRatedTestFinished
+		)
+	}
+	GoOnWithTodaysNextCard {
+		on goOnWithTodaysCards triggers (
+			IsBoxFinished
+		)
+	}
+	RepeatComplexCard {
+		on repeatComplexCard publishes (
+			RepeatComplexCard
+		)
+	}
+	RepeatTodaysCards {
+		on todaysCardsLoaded publishes (
+			RepeatTodaysCards
+		) triggers (
+			IsBoxFinished
+		)
+		on userNotLoggedIn triggers (
+			Logout
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+	}
+	ScoreCard {
+		on cardScored publishes (
+			CardScored
+		) triggers (
+			LoadNextCard
+		)
+		on userNotLoggedIn triggers (
+			Logout
+		)
+		on serverError publishes (
+			ServerError
+		) triggers (
+			Logout
+		)
+	}
+	StartBox {
+		on boxStarted publishes (
+			BoxStarted
+		) triggers (
+			LoadNextCard
+		)
+	}
+	IsBoxFinished {
+		on notFinished publishes (
+			RenderCardForRepetition
+		) 
+		on finished triggers (
+			StartBox
+		)
+	}
+}
+
+events {
+	UserIsLoggedIn listenedToBy ( 
+		Header.showLogout 
+		Header.hideLogin 
+		Header.showPersonalMessage
+		Common.setToken
+	)
+	UserIsNotLoggedIn listenedToBy (
+		Navigation.hideBoxes
+		Header.hideLogout
+		Header.showLogin
+		Common.resetToken
+	)
+	LoginFailed listenedToBy (
+		Messages.renderError
+	)
+	StatisticsLoaded listenedToBy (
+		Content.renderStatistics
+	)
+	PublicCoursesLoaded listenedToBy (
+		Breadcrumbs.renderPublicCoursesBreadcrumbs
+		Common.updateSelection
+		Content.renderPublicCoursesContentPane
+		Navigation.renderPublicCoursesNavigation
+	)
+	PublicLessonsLoaded listenedToBy (
+		Navigation.renderPublicLessonsNavigation
+		Common.updateSelection
+		Content.renderPublicLessonsContentPane
+		Breadcrumbs.renderPublicLessonsBreadcrumbs
+	)
+	PublicTestsLoaded listenedToBy (
+		Navigation.renderPublicTestsNavigation
+		Common.updateSelection
+		Content.renderPublicTestsContentPane
+		Breadcrumbs.renderPublicTestsBreadcrumbs
+	)
+	PublicTestLoaded listenedToBy (
+		Content.renderPublicTestContentPane
+		Navigation.renderPublicTestNavigation
+		Common.updateSelection
+	)
+	PrivateCoursesLoaded listenedToBy (
+		Navigation.renderPrivateCoursesNavigation
+		Breadcrumbs.renderPrivateCoursesBreadcrumbs
+		Common.updateSelection
+	)
+	PrivateCoursesSilentlyLoaded listenedToBy (
+		Navigation.renderPrivateCoursesNavigation
+	)
+	PrivateLessonsLoaded listenedToBy (
+		Navigation.renderPrivateLessonsNavigation
+		Breadcrumbs.renderPrivateLessonsBreadcrumbs
+		Content.renderPrivateLessonsContentPane
+		Common.updateSelection	
+	)
+	PrivateTestsLoaded listenedToBy (
+		Navigation.renderPrivateTestsNavigation
+		Breadcrumbs.renderPrivateTestsBreadcrumbs
+		Content.renderPrivateTestsContentPane
+		Common.updateSelection
+	)
+	PrivateTestsSilentlyLoaded listenedToBy (
+		Navigation.renderPrivateTestsNavigation
+		Breadcrumbs.renderPrivateTestsBreadcrumbs
+	)
+	PrivateTestLoaded listenedToBy (
+		Navigation.renderPrivateTestNavigation
+		Content.renderPrivateTestContentPane
+		Common.updateSelection
+	)
+	TestOfResultLoaded listenedToBy (
+		Content.renderPrivateTestContentPane
+		Common.updateSelection
+	)
+	ResultLoaded listenedToBy (
+		Content.renderResultJson
+	)
+	BoxesSilentlyLoaded listenedToBy (
+		Navigation.renderBoxes
+	)
+	NextCardLoaded listenedToBy (
+		Card.renderNextCard
+		Common.updateSelection
+	)
+	GoOnWithNewCards listenedToBy (
+		Card.goOnWithNewCards
+	)
+	ShowWanted listenedToBy (
+		Card.showWanted
+	)
+	ShowNextLine listenedToBy (
+		Card.showNextLine
+	)
+	ShowNextWord listenedToBy (
+		Card.showNextWord
+	)
+	ShowScoreButtons listenedToBy (
+		Card.showScoreButtons
+	)
+	DisplayComplexCardFinishedSuccessfully listenedToBy (
+		Card.displayComplexCardFinishedSuccessfully
+	)
+	ResultSaved listenedToBy (
+		Header.renderSumOfPoints
+	)
+	WordIsCorrectAndFinished listenedToBy (
+		Vocabulary.wordIsCorrectAndFinished
+	)
+	WordIsCorrectAndNotFinished listenedToBy (
+		Vocabulary.wordIsCorrectAndNotFinished
+	)
+	WordIsNotCorrect listenedToBy (
+		Vocabulary.wordIsNotCorrect
+	)
+	DisplayTestFailed listenedToBy (
+		Vocabulary.displayTestFailed
+	)
+	DisplayTestFinishedSuccessfully listenedToBy (
+		Vocabulary.displayTestFinishedSuccessfully
+	)
+	DisplayNextWordButton listenedToBy (
+		Vocabulary.displayNextWordButton
+	)
+	ShowNextWordOfTest listenedToBy (
+		Vocabulary.showNextWordOfTest
+	)
+	ShowWord listenedToBy (
+		Vocabulary.showWord
+	)
+	TestStarted listenedToBy (
+		Vocabulary.testStarted
+	)
+	RepeatComplexCard listenedToBy (
+		Card.repeatComplexCard
+	)
+	RepeatTodaysCards listenedToBy (
+		Card.repeatTodaysCards
+	)
+	CardScored listenedToBy (
+		Header.renderSumOfPoints
+	)
+	BoxStarted listenedToBy (
+		Card.resetGoOnWithNewCards
+		Card.initCurrentBoxId
+	)
+	RenderCardForRepetition listenedToBy (
+		Card.renderCardForRepetition
+	)
+	DoNothing
+	ServerError listenedToBy (
+		Messages.renderError
+	)
+}
+
+views {
+	Header {
+		showLogout
+		hideLogout
+		showLogin
+		hideLogin
+		showPersonalMessage
+		renderSumOfPoints
+	}
+	Breadcrumbs {
+		renderPublicCoursesBreadcrumbs
+		renderPublicLessonsBreadcrumbs
+		renderPublicTestsBreadcrumbs
+		renderPrivateCoursesBreadcrumbs
+		renderPrivateLessonsBreadcrumbs
+		renderPrivateTestsBreadcrumbs
+	}
+	Common {
+		setToken
+		resetToken
+		updateSelection
+	}
+	Messages {
+		renderError
+	}
+	Content {
+		renderStatistics
+		renderPublicCoursesContentPane
+		renderPublicLessonsContentPane
+		renderPublicTestsContentPane
+		renderPublicTestContentPane
+		renderPrivateLessonsContentPane
+		renderPrivateTestsContentPane
+		renderPrivateTestContentPane
+		renderResultJson
+	}
+	Navigation {
+		hideBoxes
+		renderBoxes
+		renderPublicCoursesNavigation
+		renderPublicLessonsNavigation
+		renderPublicTestsNavigation
+		renderPublicTestNavigation
+		renderPrivateCoursesNavigation
+		renderPrivateLessonsNavigation
+		renderPrivateTestsNavigation
+		renderPrivateTestNavigation
+		renderPrivateResultOfTestNavigation
+	}
+	Card {
+		showScoreButtons
+		showWanted
+		showNextLine
+		showNextWord
+		renderNextCard
+		goOnWithNewCards
+		displayComplexCardFinishedSuccessfully
+		renderCardForRepetition
+		repeatComplexCard
+		repeatTodaysCards
+		resetGoOnWithNewCards
+		initCurrentBoxId
+	}
+	Vocabulary {
+		wordIsCorrectAndFinished
+		wordIsCorrectAndNotFinished
+		wordIsNotCorrect
+		showWord
+		goOnWithNextWord
+		updateTestState
+		displayNextWordButton
+		displayTestFailed
+		displayTestFinishedSuccessfully
+		showNextWordOfTest
+		testStarted
+	}
+}
+
+

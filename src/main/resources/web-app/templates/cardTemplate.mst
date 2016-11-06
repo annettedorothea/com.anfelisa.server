@@ -1,0 +1,87 @@
+<h2 class="boxName">{{boxName}}</h2>
+{{^content.complex}}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card wanted quality{{quality}} {{#content.large}}largeCard{{/content.large}}" onclick="new ShowNextCardItemAction('card').apply()"><span class="wanted-word">{{content.wanted}}</span></div>
+        </div>
+        <div class="col-md-6">
+            <div class="card given quality{{quality}} {{#content.large}}largeCard{{/content.large}}">
+                <div class="given-word">{{content.given}}<br/><br/><i>{{content.header}}</i></div>
+                <div class="count">{{count}}x{{#last}} - zuletzt am {{last}}{{/last}}</div>
+                <div class="next">{{#next}}geplant für {{next}}{{/next}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/content.complex}}
+{{#content.complex}}
+<div class="row">
+    <div class="col-md-12">
+        <div class="ccard quality{{quality}}">
+            <div class="given-word">{{content.given}}<br/><br/></div>
+            <div class="count">{{count}} x</div>
+            <div class="next">{{next}}</div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="ccard quality{{quality}}" onclick="new ShowNextCardItemAction(event.altKey ? 'word' : 'line').apply()">
+            {{#content.lines}}
+            <div class="line hiddenLine">
+                {{#line}}
+                <span class="word hiddenWord">{{word}}</span>
+                {{/line}}
+            </div>
+            {{/content.lines}}
+        </div>
+    </div>
+</div>
+{{/content.complex}}
+
+<div class="row quality-buttons">
+    <div class="col-md-3 col-lg-3 col-md-offset-3 col-lg-offset-3 col-xs-6 col-sm-6">
+        <button class="scoreButton btn btn-green" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 5, boxId : {{boxId}} }).apply()" disabled="disabled">Perfekt</button>
+    </div>
+    <div class="col-md-3 col-lg-3 col-xs-6 col-sm-6">
+        <button class="scoreButton btn btn-orange" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 2, boxId : {{boxId}} }).apply()" disabled="disabled">Knapp nicht</button><br/>
+    </div>
+</div>
+<div class="row quality-buttons">
+    <div class="col-md-3 col-lg-3 col-md-offset-3 col-lg-offset-3 col-xs-6 col-sm-6">
+        <button class="scoreButton btn btn-blue" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 4, boxId : {{boxId}} }).apply()" disabled="disabled">Gewusst</button><br/>
+    </div>
+    <div class="col-md-3 col-lg-3 col-xs-6 col-sm-6">
+        <button class="scoreButton btn btn-red" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 1, boxId : {{boxId}} }).apply()" disabled="disabled">Nicht gewusst</button><br/>
+    </div>
+</div>
+<div class="row quality-buttons">
+    <div class="col-md-3 col-lg-3 col-md-offset-3 col-lg-offset-3 col-xs-6 col-sm-6">
+        <button class="scoreButton btn btn-cyan" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 3, boxId : {{boxId}} }).apply()" disabled="disabled">Mit Mühe</button><br/>
+    </div>
+    <div class="col-md-3 col-lg-3 col-xs-6 col-sm-6">
+        <button class="scoreButton btn btn-pink" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 0, boxId : {{boxId}} }).apply()" disabled="disabled">Kein Plan</button><br/>
+    </div>
+</div>
+<div class="box-score container-fluid">
+    <div class="green" style="width:{{score.five}}%;"/>
+    <div class="blue" style="width:{{score.four}}%;"/>
+    <div class="cyan" style="width:{{score.three}}%;"/>
+    <div class="orange" style="width:{{score.two}}%;"/>
+    <div class="red" style="width:{{score.one}}%;"/>
+    <div class="pink" style="width:{{score.zero}}%;"/>
+</div>
+<div class="row box-details">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <table class="table table-condensed">
+            <tr><td>Für heute</td><td>{{score.cards_for_today}}</td></tr>
+            <tr><td>Für morgen</td><td>{{score.cards_for_tomorrow}}</td></tr>
+            <tr><td>Im Umlauf</td><td>{{score.totalOfCardsWithQuality}}</td></tr>
+            <tr><td>Neue</td><td>{{score.new_cards}}</td></tr>
+            <tr><td>Insgesamt</td><td>{{score.cards}}</td></tr>
+        </table>
+    </div>
+    <div class="col-md-4"></div>
+</div>

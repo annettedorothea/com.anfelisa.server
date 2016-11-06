@@ -1,0 +1,15 @@
+<ul class="nav nav-pills nav-stacked">
+    <li class="header">
+        <a> {{name}}</a>
+    </li>
+    {{#tests}}
+    <li class="test_{{id}}">
+        <a onclick="new LoadPublicTestAction({testId : {{id}} }).apply()">
+            {{name}}
+        </a>
+    </li>
+    {{/tests}}
+    <li>
+        <a onclick="new LoadPublicLessonsAction({ courseId : {{courseid}} }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu den Lektionen</a>
+    </li>
+</ul>

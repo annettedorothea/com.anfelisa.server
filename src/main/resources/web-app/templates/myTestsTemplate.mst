@@ -1,0 +1,22 @@
+<ul class="nav nav-pills nav-stacked">
+    <li class="header">
+        <a> {{name}}</a>
+    </li>
+    {{#tests}}
+    <li class="test_{{id}}">
+        <a onclick="new LoadPrivateTestAction({ testId : {{id}} }).apply()">
+            {{name}}
+        </a>
+    </li>
+    {{#results}}
+    <li class="result_{{id}} result">
+        <a onclick="new LoadTestOfResultAction({resultId : {{id}} }).apply()">
+            <i class="fa fa-caret-right"></i> {{points}} von {{max_points}}
+        </a>
+    </li>
+    {{/results}}
+    {{/tests}}
+    <li>
+        <a onclick="new LoadPrivateLessonsAction({ courseId : {{courseid}} }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu meinen Lektionen</a>
+    </li>
+</ul>

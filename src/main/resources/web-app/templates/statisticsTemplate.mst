@@ -1,0 +1,63 @@
+<div class="statistics">
+    <h2>Deine Statistik</h2>
+    <div class="form-inline">
+        <select class="form-control month" onchange="new LoadStatisticsAction({defaultMonth: false}).apply()">
+            <option value="1">Januar</option>
+            <option value="2">Februar</option>
+            <option value="3">März</option>
+            <option value="4">April</option>
+            <option value="5">Mai</option>
+            <option value="6">Juni</option>
+            <option value="7">Juli</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">Oktober</option>
+            <option value="11">November</option>
+            <option value="12">Dezember</option>
+        </select>
+        <select class="form-control year" onchange="new LoadStatisticsAction({defaultMonth: false}).apply()">
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+        </select>
+    </div>
+    <div class="table-responsive">
+        <table class="table statHeader">
+            <tr class="hidden-xs hidden-sm visible-md-* visible-lg-*">
+                <th class="text-right">#</th>
+                <th></th>
+                <th>Wann?</th>
+                <th>Was?</th>
+                <th>Anzahl</th>
+                <th>Punkte</th>
+                <th>Quote</th>
+            </tr>
+            <tr class="visible-xs visible-sm hidden-md-* hidden-lg-*">
+                <th></th>
+                <th>Tag</th>
+                <th>Name</th>
+                <th>Anz.</th>
+                <th>Punkte</th>
+                <th>Quote</th>
+            </tr>
+            {{#items}}
+            <tr>
+                <td class="text-right hidden-xs hidden-sm visible-md-* visible-lg-*">{{index}}</td>
+                <td>
+                    {{#isBox}}<i class="fa fa-clone"></i>{{/isBox}}
+                    {{^isBox}}<i class="fa fa-pencil-square-o"></i>{{/isBox}}
+                </td>
+                <td class="hidden-xs hidden-sm visible-md-* visible-lg-*">{{date}}</td>
+                <td class="visible-xs visible-sm hidden-md-* hidden-lg-* text-right">{{day}}</td>
+                <td>{{name}}</td>
+                <td class="text-right">{{count}}</td>
+                <td class="hidden-xs hidden-sm visible-md-* visible-lg-* text-right">{{points}} von {{maxpoints}}</td>
+                <td class="visible-xs visible-sm hidden-md-* hidden-lg-* text-right">{{points}}/{{maxpoints}}</td>
+                <td class="text-right">{{rate}}</td>
+            </tr>
+            {{/items}}
+        </table>
+    </div>
+</div>

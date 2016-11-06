@@ -1,0 +1,14 @@
+<ul class="nav nav-pills nav-stacked">
+    <li class="header">
+        <a>Meine Kurse</a>
+    </li>
+    {{#courses}}
+    <li>
+        <a onclick="new LoadPrivateLessonsAction({ courseId : {{id}} }).apply()" {{#hasOpenTests}}class="open"{{/hasOpenTests}}>
+        {{#hasOpenTests}}<i class="fa fa-pencil-square-o"></i>{{/hasOpenTests}}
+        {{^hasOpenTests}}<i class="fa fa-check-square-o"></i>{{/hasOpenTests}}
+        {{name}}
+        </a>
+    </li>
+    {{/courses}}
+</ul>

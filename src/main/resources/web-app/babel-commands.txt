@@ -1,0 +1,5 @@
+babel es6/ace --out-file lib/ace.js
+babel es6/app es6/gen es6/src es6/App.es6 --out-file lib/anfelisa.js
+
+
+babel es6/gen/ace es6/gen/app es6/src es6/App.es6 --out-file lib/anfelisa.js

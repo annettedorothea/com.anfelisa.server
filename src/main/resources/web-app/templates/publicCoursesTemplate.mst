@@ -1,0 +1,8 @@
+<ul class="nav nav-pills nav-stacked">
+    <li class="header">
+        <a>Öffentliche Kurse</a>
+    </li>
+    {{#courses}}
+    <li><a  onclick="new LoadPublicLessonsAction({ courseId : {{id}} }).apply()">{{name}}</a></li>
+    {{/courses}}
+</ul>

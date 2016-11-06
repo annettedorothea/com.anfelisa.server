@@ -1,0 +1,4 @@
+<ol class="breadcrumb">
+    <li><a onclick="new LoadPublicCoursesAction().apply()">Home</a></li>
+    <li><a onclick="new LoadPublicLessonsAction({ courseId : {{id}} }).apply()">{{name}}</a></li>
+</ol>

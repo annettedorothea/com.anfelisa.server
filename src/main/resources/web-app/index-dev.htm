@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Anfelisa</title>
+
+	<meta charset="utf-8"/>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" href="/favicon/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="/favicon/favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="/favicon/manifest.json">
+	<link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="theme-color" content="#ff0000">
+
+	<link rel="stylesheet" type="text/css" href="css/anfelisa.css">
+
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+	<script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+
+	<script type="text/javascript" src="es6/src/ServerFacade.es6"></script>
+
+
+
+
+
+
+
+
+
+	<script type="text/javascript" src="es6/gen/ace/Action.es6"></script>
+	<script type="text/javascript" src="es6/gen/ace/Command.es6"></script>
+	<script type="text/javascript" src="es6/gen/ace/Event.es6"></script>
+	<script type="text/javascript" src="es6/gen/ace/ACEController.es6"></script>
+	<script type="text/javascript" src="es6/gen/ace/TriggerAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/ace/UUID.js"></script>
+
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractInitAppAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/InitAppAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadAccordingToHashAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadAccordingToHashAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractAutoLoginAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/AutoLoginAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoginAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoginAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLogoutAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LogoutAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadStatisticsAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadStatisticsAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadPublicCoursesAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadPublicCoursesAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadPublicLessonsAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadPublicLessonsAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadPublicTestsAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadPublicTestsAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadPublicTestAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadPublicTestAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadPrivateCoursesAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadPrivateCoursesAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadPrivateCoursesSilentlyAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadPrivateCoursesSilentlyAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadPrivateLessonsAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadPrivateLessonsAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadPrivateTestsAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadPrivateTestsAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadPrivateTestsSilentlyAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadPrivateTestsSilentlyAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadPrivateTestAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadPrivateTestAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadTestOfResultAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadTestOfResultAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadResultAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadResultAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadBoxesSilentlyAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadBoxesSilentlyAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractSaveResultAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/SaveResultAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractLoadNextCardAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/LoadNextCardAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractCheckIfComplexCardIsFinishedAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/CheckIfComplexCardIsFinishedAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractFinishCardAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/FinishCardAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractGoOnWithNewCardsAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/GoOnWithNewCardsAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractShowNextCardItemAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/ShowNextCardItemAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractGoOnWithTodaysNextCardAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/GoOnWithTodaysNextCardAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractRepeatComplexCardAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/RepeatComplexCardAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractRepeatTodaysCardsAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/RepeatTodaysCardsAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractScoreCardAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/ScoreCardAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractStartBoxAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/StartBoxAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractIsBoxFinishedAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/IsBoxFinishedAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractCorrectWordAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/CorrectWordAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractIsTestFinishedAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/IsTestFinishedAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractIsRatedTestFinishedAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/IsRatedTestFinishedAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractShowNextWordOfTestAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/ShowNextWordOfTestAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractShowWordAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/ShowWordAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractStartTestAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/StartTestAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/actions/AbstractRateWordAction.es6"></script>
+	<script type="text/javascript" src="es6/src/app/actions/RateWordAction.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractInitAppCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/InitAppCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractAutoLoginCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/AutoLoginCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadAccordingToHashCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadAccordingToHashCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoginCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoginCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLogoutCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LogoutCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadStatisticsCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadStatisticsCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadPublicCoursesCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadPublicCoursesCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadPublicLessonsCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadPublicLessonsCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadPublicTestsCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadPublicTestsCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadPublicTestCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadPublicTestCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadPrivateCoursesCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadPrivateCoursesCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadPrivateCoursesSilentlyCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadPrivateCoursesSilentlyCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadPrivateLessonsCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadPrivateLessonsCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadPrivateTestsCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadPrivateTestsCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadPrivateTestsSilentlyCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadPrivateTestsSilentlyCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadPrivateTestCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadPrivateTestCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadTestOfResultCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadTestOfResultCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadResultCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadResultCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadBoxesSilentlyCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadBoxesSilentlyCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractLoadNextCardCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/LoadNextCardCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractGoOnWithNewCardsCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/GoOnWithNewCardsCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractShowNextCardItemCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/ShowNextCardItemCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractCheckIfComplexCardIsFinishedCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/CheckIfComplexCardIsFinishedCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractFinishCardCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/FinishCardCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractSaveResultCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/SaveResultCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractCorrectWordCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/CorrectWordCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractIsTestFinishedCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/IsTestFinishedCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractIsRatedTestFinishedCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/IsRatedTestFinishedCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractShowNextWordOfTestCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/ShowNextWordOfTestCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractShowWordCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/ShowWordCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractStartTestCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/StartTestCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractRateWordCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/RateWordCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractGoOnWithTodaysNextCardCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/GoOnWithTodaysNextCardCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractRepeatComplexCardCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/RepeatComplexCardCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractRepeatTodaysCardsCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/RepeatTodaysCardsCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractScoreCardCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/ScoreCardCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractStartBoxCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/StartBoxCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/commands/AbstractIsBoxFinishedCommand.es6"></script>
+	<script type="text/javascript" src="es6/src/app/commands/IsBoxFinishedCommand.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractUserIsLoggedInEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/UserIsLoggedInEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractUserIsNotLoggedInEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/UserIsNotLoggedInEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractLoginFailedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/LoginFailedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractStatisticsLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/StatisticsLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractPublicCoursesLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/PublicCoursesLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractPublicLessonsLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/PublicLessonsLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractPublicTestsLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/PublicTestsLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractPublicTestLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/PublicTestLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractPrivateCoursesLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/PrivateCoursesLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractPrivateCoursesSilentlyLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/PrivateCoursesSilentlyLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractPrivateLessonsLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/PrivateLessonsLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractPrivateTestsLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/PrivateTestsLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractPrivateTestsSilentlyLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/PrivateTestsSilentlyLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractPrivateTestLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/PrivateTestLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractTestOfResultLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/TestOfResultLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractResultLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/ResultLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractBoxesSilentlyLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/BoxesSilentlyLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractNextCardLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/NextCardLoadedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractGoOnWithNewCardsEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/GoOnWithNewCardsEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractShowWantedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/ShowWantedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractShowNextLineEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/ShowNextLineEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractShowNextWordEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/ShowNextWordEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractShowScoreButtonsEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/ShowScoreButtonsEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractDisplayComplexCardFinishedSuccessfullyEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/DisplayComplexCardFinishedSuccessfullyEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractResultSavedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/ResultSavedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractWordIsCorrectAndFinishedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/WordIsCorrectAndFinishedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractWordIsCorrectAndNotFinishedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/WordIsCorrectAndNotFinishedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractWordIsNotCorrectEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/WordIsNotCorrectEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractDisplayTestFailedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/DisplayTestFailedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractDisplayTestFinishedSuccessfullyEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/DisplayTestFinishedSuccessfullyEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractDisplayNextWordButtonEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/DisplayNextWordButtonEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractShowNextWordOfTestEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/ShowNextWordOfTestEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractShowWordEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/ShowWordEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractTestStartedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/TestStartedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractRepeatComplexCardEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/RepeatComplexCardEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractRepeatTodaysCardsEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/RepeatTodaysCardsEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractCardScoredEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/CardScoredEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractBoxStartedEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/BoxStartedEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractRenderCardForRepetitionEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/RenderCardForRepetitionEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractDoNothingEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/DoNothingEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/events/AbstractServerErrorEvent.es6"></script>
+	<script type="text/javascript" src="es6/src/app/events/ServerErrorEvent.es6"></script>
+	<script type="text/javascript" src="es6/gen/app/EventListenerRegistration.es6"></script>
+	<script type="text/javascript" src="es6/src/app/HeaderView.es6"></script>
+	<script type="text/javascript" src="es6/src/app/BreadcrumbsView.es6"></script>
+	<script type="text/javascript" src="es6/src/app/CommonView.es6"></script>
+	<script type="text/javascript" src="es6/src/app/MessagesView.es6"></script>
+	<script type="text/javascript" src="es6/src/app/ContentView.es6"></script>
+	<script type="text/javascript" src="es6/src/app/NavigationView.es6"></script>
+	<script type="text/javascript" src="es6/src/app/CardView.es6"></script>
+	<script type="text/javascript" src="es6/src/app/VocabularyView.es6"></script>
+
+
+
+
+
+
+
+
+
+
+
+	<script type="text/javascript" src="es6/App.es6"></script>
+
+	<script>
+
+		$(document).ready(function() {
+
+			if (window.navigator.userAgent.indexOf("MSIE ") > 0 || window.navigator.userAgent.indexOf("Edge") > 0) {
+				return;
+			}
+
+			$.ajaxSetup({ cache: false });
+
+			$(document).ajaxStart(function() {
+				$('.ajax-busy').show();
+			}).ajaxStop(function() {
+				$('.ajax-busy').hide();
+			});
+
+            if (screen.width < 992 ){
+                $('div.header div.container').addClass('container-fluid').removeClass('container');
+                $('div.main-pane').addClass('container-fluid').removeClass('container');
+            } else {
+                $('div.header div.form-inline').addClass('pull-right');
+                var random = Math.random();
+                var index = Math.floor(random * 5);
+                if (index === 0) {
+                    $('body').addClass('water');
+                } else if (index === 1) {
+                    $('body').addClass('flower');
+                } else if (index === 2) {
+                    $('body').addClass('grass');
+                } else if (index === 3) {
+                    $('body').addClass('sunflowers');
+                } else if (index === 4) {
+                    $('body').addClass('sea');
+                }
+            }
+		});
+
+		var focusedElement = null;
+
+		function insertSpecialCharacter(character) {
+			if (focusedElement != null) {
+				focusedElement.val(focusedElement.val() + character);
+				focusedElement.focus();
+			}
+		}
+
+		function toggleVisibilityOfRow(elementId) {
+			var div = document.getElementById(elementId);
+			if (div.style.display !== 'none') {
+				div.style.display = 'none';
+			}
+			else {
+				div.style.display = 'table-row';
+			}
+		}
+
+	</script>
+</head>
+
+<body>
+	<div class="container-fluid header-margin"></div>
+
+    <div class="header container-fluid">
+        <div class="container">
+            <div class="row">
+                <h1 class="col-md-4 col-lg-4 hidden-xs hidden-sm visible-md-* visible-lg-*"><i class="fa fa-pencil-square"></i> Anfelisa</h1>
+                <div class="col-md-8 col-lg-8 login-pane">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <h4>
+                                <span class="goodbye-message"></span>
+                            </h4>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control username" placeholder="Name" onkeydown="if (event.keyCode == 13) new LoginAction().apply()" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control password" placeholder="Passwort" onkeydown="if (event.keyCode == 13) new LoginAction().apply()" />
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-blue login-button" onclick="new LoginAction().apply()"><i class="fa fa-sign-in"></i>&nbsp;&nbsp;&nbsp;Anmelden</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="logout-pane col-md-8 col-lg-8" style="display: none;">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <h4>
+                                <span class="hello-message"></span>
+                                <span class="sum-of-points"></span>
+                            </h4>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-blue logout-button" onclick="new LogoutAction().apply()"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;&nbsp;Abmelden</button>
+							<button class="btn btn-blue" onclick="new LoadStatisticsAction({defaultMonth: true}).apply()"><i class="fa fa-calendar"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container main-pane">
+        <div class="row">
+            <div class="col-md-4 col-lg-4">
+                <div class="navigation">
+                    <div class="course-navigation">
+                    </div>
+                    <div class="box-navigation">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-lg-8 content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-10 col-sm-10 col-md-11 col-lg-11">
+                            <div class="breadcrumbs" class="pull-left">
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1 ajax-busy">
+                            <i class="fa fa-spinner fa-pulse fa-2x fa-fw pull-right" style="display: none;"></i>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="notifications col-xs-12 col-sm-12 col-md-11 col-lg-11"></div>
+                    </div>
+                    <div class="row">
+                        <div class="content-pane col-xs-12 col-sm-12 col-md-12 col-lg-12 test">
+							Anfelisa funktioniert nur mit
+								<a href="https://www.mozilla.org/de/firefox/new/" target="firefox">Firefox</a>,
+								<a href="https://www.google.de/chrome/browser/desktop/" target="chrome">Chrome</a> oder
+								<a href="http://www.apple.com/de/safari/" target="safari">Safari</a>,
+								allerdings nicht mit dem Internet Explorer oder Microsoft Edge.
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container main-pane hidden-xs hidden-sm">
+        <div class="row collapse" id="replayDiv">
+            <div class="col-md-12 container">
+                <h1>Replay</h1>
+                <div class="row">
+                    <div class="col-md-12 form-inline" style="display: flex; justify-content: center;">
+                        <div class="form-group">
+                            <button class="btn btn-default"
+                                    onclick="ACEController.replay()">Replay
+                            </button>
+                            <button class="btn btn-default"
+                                    onclick="ACEController.e2e()">E2E
+                            </button>
+                            <input type="text" class="form-control mousetrap" id="pauseInMillisInput"
+                                   placeholder="Pause in ms">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-inline" style="display: flex; justify-content: center; margin-top: 20px;">
+                        <div class="form-group">
+                            <button class="btn btn-default" onclick="ACEController.downloadTimeline()">download
+                                scenario
+                            </button>
+							<span class="btn btn-default btn-file">upload scenario
+								<input id="uploadTimelineInputField" class="form-control" type='file' accept='text/json'
+									   onchange='ACEController.uploadTimeline(event)'>
+							</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+					<table class="table table-condensed table-bordered col-md-12" id="replayResultDiv"
+						   style="font-size: 10px; margin-top: 20px; table-layout:fixed;">
+						<tr>
+							<td width="25%"><h4>Original Expected Timeline</h4></td>
+							<td width="25%"><h4>Expected Timeline</h4></td>
+							<td width="25%"><h4>Actual Timeline</h4></td>
+							<td width="25%"><h4>Original Actual Timeline</h4></td>
+						</tr>
+					</table>
+            	</div>
+            </div>
+        </div>
+    </div>
+
+	<div class="container hidden-md hidden-lg visible-xs-* visible-sm-*">
+		<div class="row">
+			<div class="col-md-12">
+				Copyright <i class="fa fa-copyright" aria-hidden="true"></i> 2016 Annette Pohl - Koblenz | Version 0.8.0 - Dev
+			</div>
+		</div>
+	</div>
+    <div class="container-fluid footer hidden-xs hidden-sm visible-md-* visible-lg-*">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Impressum</h1>
+                </div>
+                <div class="col-md-4">
+                    <address>
+                        <p>
+                            Annette Pohl<br /> St.-Josef-Str. 20<br /> 56068 Koblenz<br />
+                        </p>
+                        <p>
+                            0261 1393793 <br /> info@anfelisa.com
+                        </p>
+                    </address>
+                </div>
+                <div class="col-md-4">
+                    <p>Quellenangaben für die verwendeten Bilder</p>
+                    <ul class="alt">
+                        <li><a href="http://artboom.de/" target="artboom">artboom</a></li>
+                        <li><a href="http://fortawesome.github.io/Font-Awesome/"
+                               target="fa">Font Awesome</a></li>
+                    </ul>
+                    <p>Tools</p>
+                    <ul class="alt">
+                        <li><a data-toggle="collapse" href="#replayDiv" aria-expanded="false" aria-controls="replayDiv">
+                            ACE
+                        </a></li>
+                    </ul>
+                    <p>Version 0.8.1 - Dev</p>
+                    <p>Copyright <i class="fa fa-copyright" aria-hidden="true"></i> 2016 Annette Pohl - Koblenz</p>
+                </div>
+                <div class="col-md-4">
+                    <p>Verwendete Open Source Projekte und Algorithmen</p>
+                    <ul class="alt">
+                        <li><a target="xtext" href="http://www.eclipse.org/Xtext/">Xtext</a></li>
+                        <li><a href="http://getbootstrap.com/" target="bootstrap">Bootstrap</a></li>
+                        <li><a target="jquery" href="http://jquery.com/">jQuery</a></li>
+                        <li><a target="mustache" href="http://mustache.github.io/">mustache</a></li>
+                        <li><a target="postgreql" href="http://www.postgresql.org/">PostgreSQL</a></li>
+                        <li><a target="php" href="http://php.net/">PHP</a></li>
+                        <li><a href="http://www.supermemo.com/english/ol/sm2.htm" target="sm2">Algorithm SM-2, &copy; Copyright SuperMemo World, 1991</a></li>
+                        <li><a href="https://craig.is/killing/mice" target="mousetrap">Mousetrap</a></li>
+                        <li><a href="http://bootboxjs.com/" target="bootbox">Bootbox.js</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
