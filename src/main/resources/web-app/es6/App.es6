@@ -20,10 +20,11 @@ function initApp() {
         vocubularyView: new VocabularyView(),
         cardView: new CardView(),
         completeReplay: function() {
-        }
+        },
+        schema: "anfelisa"
     };
     if (!window.urlPrefix) {
-        window.urlPrefix = "http://anfelisa.com/";
+        window.urlPrefix = "http://localhost:8080/";
     }
     new InitAppAction().apply();
 }

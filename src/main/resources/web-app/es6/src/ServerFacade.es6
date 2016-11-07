@@ -18,11 +18,11 @@ class ServerFacade {
         });
     };
 
-    loadPublicCourses() {
+    loadPublicCourses(uuid) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 dataType: "json",
-                url: urlPrefix + "api/getPublicCourses.php"
+                url: urlPrefix + "api/courses/public?uuid=" + uuid + "&schema=" + App.schema
             }).done(function (data) {
                 if (data !== null) {
                     resolve(data);

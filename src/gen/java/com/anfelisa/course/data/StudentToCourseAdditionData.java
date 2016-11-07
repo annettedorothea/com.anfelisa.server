@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
+import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
@@ -22,6 +23,7 @@ public class StudentToCourseAdditionData implements IStudentOfCourseModel, IData
 	@NotNull
 	private Integer courseId;
 	
+
 
 	public StudentToCourseAdditionData(
 		@JsonProperty("username") String username,

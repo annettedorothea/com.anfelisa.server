@@ -2,7 +2,7 @@
     <li class="header">
         <a>Öffentliche Kurse</a>
     </li>
-    {{#courses}}
+    {{#courseList}}
     <li><a  onclick="new LoadPublicLessonsAction({ courseId : {{id}} }).apply()">{{name}}</a></li>
-    {{/courses}}
+    {{/courseList}}
 </ul>

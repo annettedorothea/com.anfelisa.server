@@ -20,11 +20,13 @@ models {
 data {
 	CourseCreation : ( Course )
 	StudentToCourseAddition : (StudentOfCourse)
+	CourseList: (List Course)
 }
 
 actions {
 	POST CreateCourse uses CourseCreation executes CreateCourse
 	POST AddStudentToCourse uses StudentToCourseAddition executes AddStudentToCourse
+	GET LoadPublicCourses uses CourseList
 }
 
 commands {
