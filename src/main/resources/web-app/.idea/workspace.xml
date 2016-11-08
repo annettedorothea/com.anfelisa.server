@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="151e5ec0-e535-4323-8008-3c68ae91dfd3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/es6/src/ServerFacade.es6" afterPath="$PROJECT_DIR$/es6/src/ServerFacade.es6" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/es6/src/app/ContentView.es6" afterPath="$PROJECT_DIR$/es6/src/app/ContentView.es6" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/es6/src/app/commands/LoadPublicLessonsCommand.es6" afterPath="$PROJECT_DIR$/es6/src/app/commands/LoadPublicLessonsCommand.es6" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/es6/src/app/commands/LoadPublicTestCommand.es6" afterPath="$PROJECT_DIR$/es6/src/app/commands/LoadPublicTestCommand.es6" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/es6/src/app/commands/LoadPublicTestsCommand.es6" afterPath="$PROJECT_DIR$/es6/src/app/commands/LoadPublicTestsCommand.es6" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/breadcrumbsTemplate2Public.mst" afterPath="$PROJECT_DIR$/templates/breadcrumbsTemplate2Public.mst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/breadcrumbsTemplate3Public.mst" afterPath="$PROJECT_DIR$/templates/breadcrumbsTemplate3Public.mst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/publicLessonsTemplate.mst" afterPath="$PROJECT_DIR$/templates/publicLessonsTemplate.mst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/publicTestsTemplate.mst" afterPath="$PROJECT_DIR$/templates/publicTestsTemplate.mst" />
-    </list>
+    <list default="true" id="151e5ec0-e535-4323-8008-3c68ae91dfd3" name="Default" comment="" />
     <ignored path="web-app.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -393,12 +382,12 @@
       <workItem from="1477075410387" duration="494000" />
       <workItem from="1478450175306" duration="2245000" />
       <workItem from="1478531291748" duration="1016000" />
-      <workItem from="1478622461666" duration="2425000" />
+      <workItem from="1478622461666" duration="2509000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80654000" />
+    <option name="totallyTimeSpent" value="80738000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
