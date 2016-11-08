@@ -3,7 +3,7 @@
 class LoadPublicTestsCommand extends AbstractLoadPublicTestsCommand {
     execute() {
         return new Promise((resolve) => {
-            App.serverFacade.loadPublicTests(this.commandParam.lessonId).then((data) => {
+            App.serverFacade.loadPublicTests(this.commandParam.uuid, this.commandParam.lessonId).then((data) => {
                 this.commandData = data;
                 var selection = {
                     context : "public",

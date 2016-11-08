@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
+import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
@@ -32,6 +33,7 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 	@NotNull
 	private String author;
 	
+
 
 	public LessonCreationData(
 		@JsonProperty("id") Integer id,

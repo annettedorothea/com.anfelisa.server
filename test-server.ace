@@ -11,14 +11,24 @@ models {
 		NotNull String html
 		NotNull String author references com.anfelisa.user.User.username
 	)
+	LessonId (
+		NotNull Integer lessonId
+	)
+	TestId (
+		NotNull Integer testId
+	)
 }
 
 data {
 	TestCreation : ( Test )
+	TestList : (List Test LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
+	Test : ( Test TestId LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
 }
 
 actions {
 	POST CreateTest uses TestCreation executes CreateTest
+	GET LoadPublicTests uses TestList
+	GET LoadPublicTest uses Test
 }
 
 commands {

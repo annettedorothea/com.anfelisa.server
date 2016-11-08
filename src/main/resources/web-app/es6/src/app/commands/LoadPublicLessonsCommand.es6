@@ -3,7 +3,7 @@
 class LoadPublicLessonsCommand extends AbstractLoadPublicLessonsCommand {
     execute() {
         return new Promise((resolve) => {
-            App.serverFacade.loadPublicLessons(this.commandParam.courseId).then((data) => {
+            App.serverFacade.loadPublicLessons(this.commandParam.uuid, this.commandParam.courseId).then((data) => {
                 this.commandData = data;
                 var selection = {
                     context: "public",

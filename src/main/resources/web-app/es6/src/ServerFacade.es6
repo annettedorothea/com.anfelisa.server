@@ -35,11 +35,11 @@ class ServerFacade {
         });
     };
 
-    loadPublicLessons(courseId) {
+    loadPublicLessons(uuid, courseId) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 dataType: "json",
-                url: urlPrefix + "api/getLessonsOfPublicCourse.php?&courseid=" + courseId
+                url: urlPrefix + "api/lessons/public?courseid=" + courseId + "&uuid=" + uuid + "&schema=" + App.schema
             }).done(function (data) {
                 if (data !== null) {
                     resolve(data);
@@ -52,11 +52,11 @@ class ServerFacade {
         });
     };
 
-    loadPublicTests(lessonId) {
+    loadPublicTests(uuid, lessonId) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 dataType: "json",
-                url: urlPrefix + "api/getTests.php?lessonid=" + lessonId
+                url: urlPrefix + "api/tests/public?lessonid=" + lessonId + "&uuid=" + uuid + "&schema=" + App.schema
             }).done(function (data) {
                 if (data !== null) {
                     resolve(data);
@@ -69,11 +69,11 @@ class ServerFacade {
         });
     };
 
-    loadPublicTest(testId) {
+    loadPublicTest(uuid, testId) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 dataType: "json",
-                url: urlPrefix + "api/getTest.php?&testid=" + testId
+                url: urlPrefix + "api/tests/single?testid=" + testId + "&uuid=" + uuid + "&schema=" + App.schema
             }).done(function (data) {
                 if (data !== null) {
                     resolve(data);

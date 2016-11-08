@@ -15,6 +15,13 @@ models {
 		NotNull String username references com.anfelisa.user.User.username
 		NotNull Integer courseId references Course.id
 	)
+	CourseAbstract (
+		NotNull String courseName
+		String courseDescription
+		NotNull Boolean isPublic
+		NotNull String courseAuthor
+		NotNull Integer courseId
+	)
 }
 
 data {

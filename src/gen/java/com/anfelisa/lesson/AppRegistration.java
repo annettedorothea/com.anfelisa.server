@@ -10,6 +10,7 @@ public class AppRegistration {
 
 	public static void registerResources(Environment environment) {
 		environment.jersey().register(new CreateLessonResource());
+		environment.jersey().register(new LoadPublicLessonsResource());
 	}
 
 	public static void registerConsumers() {

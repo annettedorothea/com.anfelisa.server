@@ -3,7 +3,7 @@
 class LoadPublicTestCommand extends AbstractLoadPublicTestCommand {
     execute() {
         return new Promise((resolve) => {
-            App.serverFacade.loadPublicTest(this.commandParam.testId).then((data) => {
+            App.serverFacade.loadPublicTest(this.commandParam.uuid, this.commandParam.testId).then((data) => {
                 var content = data["html"];
                 content = content.replace(/\\/g, '');
                 this.commandData.content = content;

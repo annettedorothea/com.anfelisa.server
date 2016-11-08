@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
+import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
@@ -31,6 +32,7 @@ public class CardCreationData implements ICardModel, IDataContainer {
 	@NotNull
 	private Integer maxPoints;
 	
+
 
 	public CardCreationData(
 		@JsonProperty("id") Integer id,

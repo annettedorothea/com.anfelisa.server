@@ -39,7 +39,7 @@ class ContentView {
     static renderPublicTestContentPane(data) {
         $(".content-pane").html(data.content);
         // TODO remove again!
-        enableDrag();
+        //enableDrag();
     }
 
     static renderPrivateLessonsContentPane(data) {
