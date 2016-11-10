@@ -11,30 +11,51 @@ models {
 		NotNull String email
 		NotNull String role
 	)
+	persistent LoginLog (
+		Unique PrimaryKey NotNull Serial id
+		NotNull String username
+		NotNull DateTime date
+	)
+	Credentials (
+		NotNull String username
+		NotNull String role
+	)
+	Points (
+		NotNull Integer points
+	)
 }
 
 data {
 	UserCreation : ( User )
+	Login : ( LoginLog Credentials )
+	Points : ( Points Credentials )
 }
 
 actions {
 	POST CreateUser uses UserCreation executes CreateUser 
+	POST Login uses Login executes Login
+	GET GetPoints uses Points
 }
 
 commands {
 	CreateUser uses UserCreation {
 		on go publishes (UserCreated)
 	}
+	Login uses Login {
+		on success publishes (UserLoggedIn)
+	}
 }
 
 events {
-	UserCreated uses UserCreation listenedToBy (
-		User.createUser
-	)
+	UserCreated uses UserCreation listenedToBy ( User.createUser	)
+	UserLoggedIn uses Login listenedToBy ( LoginLog.userLoggedIn )
 }
 
 views {
 	User {
 		createUser(UserCreation)
+	}
+	LoginLog {
+		userLoggedIn(Login)
 	}
 }

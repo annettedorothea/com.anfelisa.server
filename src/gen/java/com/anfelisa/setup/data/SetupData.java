@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
+import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
@@ -16,6 +17,7 @@ public class SetupData implements ISetupModel, IDataContainer {
 	
 	private String schema;
 	
+
 
 	public SetupData(
 		@JsonProperty("uuid") String uuid,

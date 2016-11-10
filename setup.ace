@@ -41,6 +41,7 @@ events {
 		Database.createBoxTable
 		Database.createCardOfBoxTable
 		Database.createBoxOfCourse
+		Database.createLoginLog
 	)
 	SetupSchema uses SetupSchema listenedToBy (
 		Database.createSchema
@@ -65,5 +66,6 @@ views {
 		createCardTable (Setup)
 		createCardOfBoxTable (Setup)
 		createBoxOfCourse (Setup)
+		createLoginLog (Setup)
 	}
 }

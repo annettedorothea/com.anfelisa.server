@@ -16,7 +16,7 @@ class AutoLoginCommand extends AbstractAutoLoginCommand {
                 }
                 resolve();
             }, (error) => {
-                this.commandData.message = "Anmeldung schlug fehl. (" + error + ")";
+                this.commandData.message = "Anmeldung schlug fehl. (Falscher Butzername oder falsches Passwort.)";
                 this.commandData.outcome = this.autoLoginFailed;
                 resolve();
             });

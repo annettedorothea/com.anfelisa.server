@@ -1,5 +1,6 @@
 package com.anfelisa.lesson.resources;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -27,11 +28,12 @@ public class LoadPublicLessonsResource {
 	@GET
 	@Timed
 	@Path("/public")
-	public Response get(@QueryParam("uuid") String uuid, @QueryParam("schema") String schema, @QueryParam("courseid") Integer courseId) throws JsonProcessingException {
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
+			@NotNull @QueryParam("courseid") Integer courseId) throws JsonProcessingException {
 		LessonListData actionParam = new LessonListData(courseId, null, null, null, null, uuid, schema);
 		return new LoadPublicLessonsAction(actionParam, DatabaseService.getDatabaseHandle()).apply();
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

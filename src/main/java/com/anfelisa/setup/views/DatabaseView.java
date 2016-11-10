@@ -17,6 +17,7 @@ import com.anfelisa.result.models.ResultDao;
 import com.anfelisa.setup.data.SetupData;
 import com.anfelisa.setup.data.SetupSchemaData;
 import com.anfelisa.test.models.TestDao;
+import com.anfelisa.user.models.LoginLogDao;
 import com.anfelisa.user.models.UserDao;
 
 public class DatabaseView {
@@ -59,6 +60,9 @@ public class DatabaseView {
 	};
 	public BiConsumer<SetupData, Handle> createBoxOfCourse = (dataContainer, handle) -> {
 		BoxOfCourseDao.create(handle, dataContainer.getSchema());
+	};
+	public BiConsumer<SetupData, Handle> createLoginLog = (dataContainer, handle) -> {
+		LoginLogDao.create(handle, dataContainer.getSchema());
 	};
 
 }

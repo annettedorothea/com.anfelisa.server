@@ -26,6 +26,7 @@ public class AppRegistration {
 		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createBoxTable);
 		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createCardOfBoxTable);
 		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createBoxOfCourse);
+		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createLoginLog);
 		AceController.addConsumer("SetupSchemaEvent", databaseView.createSchema);
 		AceController.addConsumer("SetupSchemaEvent", databaseView.createTimelineTable);
 		AceController.addConsumer("SetupSchemaEvent", databaseView.createErrorTimelineTable);

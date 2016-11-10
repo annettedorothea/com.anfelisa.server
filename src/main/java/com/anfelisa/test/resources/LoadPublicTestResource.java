@@ -1,5 +1,6 @@
 package com.anfelisa.test.resources;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -27,11 +28,13 @@ public class LoadPublicTestResource {
 	@GET
 	@Timed
 	@Path("/single")
-	public Response get(@QueryParam("uuid") String uuid, @QueryParam("schema") String schema, @QueryParam("testid") Integer testId) throws JsonProcessingException {
-		TestData actionParam = new TestData(testId, null, null, null, null, null, testId, null, null, null, null, null, null, null, null, uuid, schema);
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
+			@NotNull @QueryParam("testid") Integer testId) throws JsonProcessingException {
+		TestData actionParam = new TestData(testId, null, null, null, null, null, testId, null, null, null, null, null,
+				null, null, null, uuid, schema);
 		return new LoadPublicTestAction(actionParam, DatabaseService.getDatabaseHandle()).apply();
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

@@ -1,5 +1,6 @@
 package com.anfelisa.course.resources;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -27,7 +28,7 @@ public class LoadPublicCoursesResource {
 	@GET
 	@Timed
 	@Path("/public")
-	public Response get(@QueryParam("uuid") String uuid, @QueryParam("schema") String schema)
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema)
 			throws JsonProcessingException {
 		CourseListData actionParam = new CourseListData(uuid, schema);
 		return new LoadPublicCoursesAction(actionParam, DatabaseService.getDatabaseHandle()).apply();
