@@ -43,11 +43,11 @@ class Command {
     }
 
     httpGet(url, queryParams) {
-        this.addUuidToQueryParams(queryParams);
-        this.addSchemaToQueryParams(queryParams);
+        queryParams = this.addUuidToQueryParams(queryParams);
+        queryParams = this.addSchemaToQueryParams(queryParams);
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: urlPrefix + url + this.queryParamString(queryParams),
+                url: urlPrefix + url + this.queryParamString(url, queryParams),
                 type: 'get',
                 username: this.usernameString(),
                 password: this.commandParam.password,
@@ -70,13 +70,13 @@ class Command {
     }
 
     httpPost(url, queryParams, data) {
-        this.addUuidToQueryParams(queryParams);
-        this.addSchemaToQueryParams(queryParams);
-        this.addUuidToData(data);
-        this.addSchemaToData(data);
+        queryParams = this.addUuidToQueryParams(queryParams);
+        queryParams = this.addSchemaToQueryParams(queryParams);
+        data = this.addUuidToData(data);
+        data = this.addSchemaToData(data);
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: urlPrefix + url + this.queryParamString(queryParams),
+                url: urlPrefix + url + this.queryParamString(url, queryParams),
                 type: 'post',
                 data: JSON.stringify(data),
                 username: this.usernameString(),
@@ -100,13 +100,13 @@ class Command {
     }
 
     httpPut(url, queryParams, data) {
-        this.addUuidToQueryParams(queryParams);
-        this.addSchemaToQueryParams(queryParams);
-        this.addUuidToData(data);
-        this.addSchemaToData(data);
+        queryParams = this.addUuidToQueryParams(queryParams);
+        queryParams = this.addSchemaToQueryParams(queryParams);
+        data = this.addUuidToData(data);
+        data = this.addSchemaToData(data);
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: urlPrefix + url + this.queryParamString(queryParams),
+                url: urlPrefix + url + this.queryParamString(url, queryParams),
                 type: 'put',
                 data: JSON.stringify(data),
                 username: this.usernameString(),
@@ -130,13 +130,13 @@ class Command {
     }
 
     httpDelete(url, queryParams, data) {
-        this.addUuidToQueryParams(queryParams);
-        this.addSchemaToQueryParams(queryParams);
-        this.addUuidToData(data);
-        this.addSchemaToData(data);
+        queryParams = this.addUuidToQueryParams(queryParams);
+        queryParams = this.addSchemaToQueryParams(queryParams);
+        data = this.addUuidToData(data);
+        data = this.addSchemaToData(data);
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: urlPrefix + url + this.queryParamString(queryParams),
+                url: urlPrefix + url + this.queryParamString(url, queryParams),
                 type: 'delete',
                 data: JSON.stringify(data),
                 username: this.usernameString(),
@@ -165,9 +165,11 @@ class Command {
         }
         if (this.commandParam.uuid) {
             queryParams.push({
-                uuid: this.commandParam.uuid
+                key: "uuid",
+                value: this.commandParam.uuid
             });
         }
+        return queryParams;
     }
 
     addSchemaToQueryParams(queryParams) {
@@ -176,9 +178,11 @@ class Command {
         }
         if (this.commandParam.schema) {
             queryParams.push({
-                schema: this.commandParam.schema
+                key: "schema",
+                value: this.commandParam.schema
             });
         }
+        return queryParams;
     }
 
     addUuidToData(data) {
@@ -188,6 +192,7 @@ class Command {
         if (this.commandParam.uuid) {
             data.uuid = this.commandParam.uuid;
         }
+        return data;
     }
 
     addSchemaToData(data) {
@@ -197,18 +202,19 @@ class Command {
         if (this.commandParam.schema) {
             data.schema = this.commandParam.schema;
         }
+        return data;
     }
 
-    queryParamString(queryParams) {
+    queryParamString(url, queryParams) {
         var queryString = "";
         if (queryParams && queryParams.length > 0) {
             for (var i = 0; i < queryParams.length; i++) {
-                if (url.indexOf('?') === 0 && i === 0) {
-                    queryParams += '?'
+                if (url.indexOf('?') < 0 && i === 0) {
+                    queryString += '?'
                 } else {
-                    queryParams += '&'
+                    queryString += '&'
                 }
-                queryParams += queryParams[i].name + "=" + queryParams[i].value;
+                queryString += queryParams[i].key + "=" + queryParams[i].value;
             }
         }
         return queryString;
