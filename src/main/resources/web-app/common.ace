@@ -1,0 +1,46 @@
+common
+
+target ES6
+
+actions {
+	Init executes Init
+	Route executes Route
+}
+
+commands {
+	Init {
+		on publicCourses triggers ( navigation.ReadPublicCourses )
+		on publicLessons
+		on publicTests
+		on publicTest
+		on privateCourses
+		on privateLessons
+		on privateTests
+		on privateTest
+		on result
+		on box
+		on statistics
+	}
+	Route {
+		on ok publishes ( UpdateHash ) triggers ( Init )
+	}
+}
+
+events {
+	InitOK listenedToBy ( Common.initLanguageInLocalStorage Common.initSchemaInLocalStorage )
+	ServerError listenedToBy ( Error.renderServerError )
+	Error listenedToBy ( Error.renderError )
+	UpdateHash listenedToBy ( Common.updateHash )
+} 
+
+views {
+	Error {
+		renderError
+		renderServerError
+	}
+	Common {
+		initLanguageInLocalStorage
+		initSchemaInLocalStorage
+		updateHash
+	}
+}

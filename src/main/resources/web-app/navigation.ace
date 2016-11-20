@@ -1,0 +1,52 @@
+navigation
+
+target ES6
+
+actions {
+	ReadPublicCourses executes ReadPublicCourses
+}
+
+commands {
+	ReadPublicCourses {
+		on ok publishes ( PublicCoursesRead )
+		on error publishes ( common.ServerError )
+	}
+}
+
+events {
+	PublicCoursesRead listenedToBy ( Navigation.renderPublicCourses Content.renderPublicCourses Breadcrumbs.renderPublicCoursesBreadcrumbs)
+}
+
+views {
+	Navigation {
+		renderPublicCourses
+		renderPublicLessons
+		renderPublicTests
+		renderPublicTest
+		renderPrivateCourses
+		renderPrivateLessons
+		renderPrivateTests
+		renderPrivateTest
+	}
+	Content {
+		renderPublicCourses
+		renderPublicLessons
+		renderPublicTests
+		renderPublicTest
+		renderPrivateCourses
+		renderPrivateLessons
+		renderPrivateTests
+		renderPrivateTest
+		renderResult
+		renderStatistics
+	}
+	Breadcrumbs {
+		renderPublicCoursesBreadcrumbs
+		renderPublicLessonsBreadcrumbs
+		renderPublicTestsBreadcrumbs
+		renderPrivateCoursesBreadcrumbs
+		renderPrivateLessonsBreadcrumbs
+		renderPrivateTestsBreadcrumbs
+	}
+	
+}

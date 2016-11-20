@@ -4,29 +4,16 @@
 
 'use strict';
 
-const serverError = "serverError";
-
 var App = undefined;
 function initApp() {
 
     ACEController.init();
-    EventListenerRegistrationApp.init();
-    App = {
-        serverFacade: new ServerFacade(),
-        commonView: new CommonView(),
-        headerView: new HeaderView(),
-        messagesView: new MessagesView(),
-        contentView: new ContentView(),
-        vocubularyView: new VocabularyView(),
-        cardView: new CardView(),
-        completeReplay: function() {
-        },
-        schema: "anfelisa"
-    };
+    EventListenerRegistrationCommon.init();
+    EventListenerRegistrationNavigation.init();
     if (!window.urlPrefix) {
         window.urlPrefix = "http://localhost:8080/";
     }
-    new InitAppAction().apply();
+    new InitAction().apply();
 }
 
 initApp();
