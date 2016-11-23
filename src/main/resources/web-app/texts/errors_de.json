@@ -1,3 +1,4 @@
 {
-  "readPublicCoursesFailed" : "Öffentliche Kurse konnten nicht geladen werden."
+  "readPublicCoursesFailed" : "Öffentliche Kurse konnten nicht geladen werden.",
+  "readPublicLessonsFailed" : "Öffentliche Lektionen konnten nicht geladen werden."
 }

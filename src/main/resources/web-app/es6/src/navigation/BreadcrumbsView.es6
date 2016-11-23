@@ -9,9 +9,17 @@ class BreadcrumbsView {
     };
     
     static renderPublicLessonsBreadcrumbs(data) {
+        $.get('templates/breadcrumbsTemplate2Public.mst', function(template) {
+            var rendered = Mustache.render(template, data);
+            $('.breadcrumbs').html(rendered);
+        });
     };
     
     static renderPublicTestsBreadcrumbs(data) {
+        $.get('templates/breadcrumbsTemplate3Public.mst', function(template) {
+            var rendered = Mustache.render(template, data);
+            $('.breadcrumbs').html(rendered);
+        });
     };
     
     static renderPrivateCoursesBreadcrumbs(data) {

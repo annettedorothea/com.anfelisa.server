@@ -24,6 +24,7 @@ class AbstractInitCommand extends Command {
         	promises.push(new TriggerAction(new ReadPublicCoursesAction(this.commandData)).publish());
         	break;
         case this.publicLessons:
+        	promises.push(new TriggerAction(new ReadPublicLessonsAction(this.commandData)).publish());
         	break;
         case this.publicTests:
         	break;

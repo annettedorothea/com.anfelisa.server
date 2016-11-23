@@ -1,15 +1,20 @@
 'use strict';
 
-class ReadPublicCoursesCommand extends AbstractReadPublicCoursesCommand {
+class ReadPublicLessonsCommand extends AbstractReadPublicLessonsCommand {
     execute() {
         return new Promise((resolve) => {
             this.commandData.language = this.commandParam.language;
-            this.httpGet("api/courses/public").then((data) => {
-                this.commandData.courseList = data.courseList;
+            var queryParams = [];
+            queryParams.push({
+                key: "courseId",
+                value: this.commandParam.courseId
+            });
+            this.httpGet("api/lessons/public", queryParams).then((data) => {
+                this.commandData.data = data;
                 this.commandData.outcome = this.ok;
                 resolve();
             }, (error) => {
-                this.commandData.messageKey = "readPublicCoursesFailed";
+                this.commandData.messageKey = "readPublicLessonsFailed";
                 this.commandData.error = error;
                 this.commandData.outcome = this.error;
                 resolve();

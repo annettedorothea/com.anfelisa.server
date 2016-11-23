@@ -4,6 +4,9 @@ target ES6
 
 actions {
 	ReadPublicCourses executes ReadPublicCourses
+	ReadPublicLessons executes ReadPublicLessons
+	ReadPublicTests executes ReadPublicTests
+	ReadPublicTest executes ReadPublicTest
 }
 
 commands {
@@ -11,10 +14,25 @@ commands {
 		on ok publishes ( PublicCoursesRead )
 		on error publishes ( common.ServerError )
 	}
+	ReadPublicLessons {
+		on ok publishes ( PublicLessonsRead )
+		on error publishes ( common.ServerError )
+	}
+	ReadPublicTests {
+		on ok publishes ( PublicTestsRead )
+		on error publishes ( common.ServerError )
+	}
+	ReadPublicTest {
+		on ok publishes ( PublicTestRead )
+		on error publishes ( common.ServerError )
+	}
 }
 
 events {
 	PublicCoursesRead listenedToBy ( Navigation.renderPublicCourses Content.renderPublicCourses Breadcrumbs.renderPublicCoursesBreadcrumbs)
+	PublicLessonsRead listenedToBy ( Navigation.renderPublicLessons Content.renderPublicLessons Breadcrumbs.renderPublicLessonsBreadcrumbs)
+	PublicTestsRead listenedToBy ( Navigation.renderPublicTests Content.renderPublicTests Breadcrumbs.renderPublicTestsBreadcrumbs)
+	PublicTestRead listenedToBy ( Navigation.renderPublicTest Content.renderPublicTest)
 }
 
 views {

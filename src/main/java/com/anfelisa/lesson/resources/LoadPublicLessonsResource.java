@@ -29,7 +29,7 @@ public class LoadPublicLessonsResource {
 	@Timed
 	@Path("/public")
 	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
-			@NotNull @QueryParam("courseid") Integer courseId) throws JsonProcessingException {
+			@NotNull @QueryParam("courseId") Integer courseId) throws JsonProcessingException {
 		LessonListData actionParam = new LessonListData(courseId, null, null, null, null, uuid, schema);
 		return new LoadPublicLessonsAction(actionParam, DatabaseService.getDatabaseHandle()).apply();
 	}

@@ -1,7 +1,7 @@
 'use strict';
 
 class ErrorView {
-    static renderError(data) {
+    static renderServerError(data) {
         $.get('texts/errors_' + data.language + '.json', function(texts) {
             data.message = texts[data.messageKey];
             $.get('templates/serverErrorTemplate.mst', function(template) {
@@ -17,7 +17,7 @@ class ErrorView {
 
     };
     
-    static renderServerError(data) {
+    static renderError(data) {
         $.get('templates/errorTemplate.mst', function(template) {
             var rendered = Mustache.render(template, data.message);
             $('.notifications').html(rendered);

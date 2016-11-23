@@ -9,12 +9,22 @@ class ContentView {
     };
     
     static renderPublicLessons(data) {
+        $.get('templates/contentTemplate2.mst', function(template) {
+            var rendered = Mustache.render(template, data);
+            $('.content-pane').html(rendered);
+        });
     };
     
     static renderPublicTests(data) {
+        $.get('templates/contentTemplate3.mst', function(template) {
+            var rendered = Mustache.render(template, data);
+            $('.content-pane').html(rendered);
+        });
     };
     
     static renderPublicTest(data) {
+        $(".content-pane").html(data.content);
+        //enableDrag();
     };
     
     static renderPrivateCourses(data) {
@@ -33,6 +43,17 @@ class ContentView {
     };
     
     static renderStatistics(data) {
+        if (data.statistics === null) {
+            data.statistics = {
+                items: []
+            };
+        }
+        $.get('templates/statisticsTemplate.mst', function(template) {
+            var rendered = Mustache.render(template, data.statistics);
+            $('.content-pane').html(rendered);
+            $(".year").val(data.year);
+            $(".month").val(data.month);
+        });
     };
     
 }

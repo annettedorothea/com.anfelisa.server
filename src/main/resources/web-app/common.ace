@@ -10,7 +10,7 @@ actions {
 commands {
 	Init {
 		on publicCourses triggers ( navigation.ReadPublicCourses )
-		on publicLessons
+		on publicLessons triggers ( navigation.ReadPublicLessons )
 		on publicTests
 		on publicTest
 		on privateCourses

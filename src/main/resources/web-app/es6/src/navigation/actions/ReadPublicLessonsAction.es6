@@ -1,6 +1,6 @@
 'use strict';
 
-class ReadPublicCoursesAction extends AbstractReadPublicCoursesAction {
+class ReadPublicLessonsAction extends AbstractReadPublicLessonsAction {
 
     captureActionParam() {
     	if (localStorage.username) {
@@ -11,7 +11,7 @@ class ReadPublicCoursesAction extends AbstractReadPublicCoursesAction {
 	    }
     	if (localStorage.schema) {
 	        this.actionParam.schema = localStorage.schema;
-		}
+	    }
     	if (localStorage.role) {
 	        this.actionParam.role = localStorage.role;
 	    }
@@ -37,8 +37,8 @@ class ReadPublicCoursesAction extends AbstractReadPublicCoursesAction {
     	if (this.actionParam.language) {
     		this.actionData.language = this.actionParam.language;
     	}
-        this.actionData.courseId = this.actionParam.courseId;
-        // bind action parameters to action data
+    	this.actionData.courseId = this.actionParam.courseId;
+    	// bind action parameters to action data
     }
 
     releaseActionParam() {

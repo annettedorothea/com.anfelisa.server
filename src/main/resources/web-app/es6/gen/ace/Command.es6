@@ -59,11 +59,7 @@ class Command {
                     resolve(data);
                 },
                 error: function (jqxhr, textStatus, error) {
-                    if (jqxhr.status === 401) {
-                        reject(this.httpUnauthorized);
-                    } else {
-                        reject(this.httpServerError);
-                    }
+                	reject(error);
                 }
             });
         });
@@ -89,11 +85,7 @@ class Command {
                     resolve();
                 },
                 error: function (jqxhr, textStatus, error) {
-                    if (jqxhr.status === 401) {
-                        reject(this.httpUnauthorized);
-                    } else {
-                        reject(this.httpServerError);
-                    }
+                	reject(error);
                 }
             });
         });
@@ -119,11 +111,7 @@ class Command {
                     resolve();
                 },
                 error: function (jqxhr, textStatus, error) {
-                    if (jqxhr.status === 401) {
-                        reject(this.httpUnauthorized);
-                    } else {
-                        reject(this.httpServerError);
-                    }
+                	reject(error);
                 }
             });
         });
@@ -149,11 +137,7 @@ class Command {
                     resolve();
                 },
                 error: function (jqxhr, textStatus, error) {
-                    if (jqxhr.status === 401) {
-                        reject(this.httpUnauthorized);
-                    } else {
-                        reject(this.httpServerError);
-                    }
+                	reject(error);
                 }
             });
         });

@@ -3,6 +3,6 @@
         <a>Öffentliche Kurse</a>
     </li>
     {{#courseList}}
-    <li><a  onclick="new LoadPublicLessonsAction({ courseId : {{id}} }).apply()">{{name}}</a></li>
+    <li><a  onclick="new RouteAction({ hash : 'public/{{id}}' }).apply()">{{name}}</a></li>
     {{/courseList}}
 </ul>
