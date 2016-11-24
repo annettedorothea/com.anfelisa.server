@@ -29,6 +29,8 @@ actions {
 	POST CreateTest uses TestCreation executes CreateTest
 	GET LoadPublicTests uses TestList
 	GET LoadPublicTest uses Test
+	GET LoadPrivateTests uses TestList
+	GET LoadPrivateTest uses Test
 }
 
 commands {

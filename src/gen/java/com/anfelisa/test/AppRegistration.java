@@ -12,6 +12,8 @@ public class AppRegistration {
 		environment.jersey().register(new CreateTestResource());
 		environment.jersey().register(new LoadPublicTestsResource());
 		environment.jersey().register(new LoadPublicTestResource());
+		environment.jersey().register(new LoadPrivateTestsResource());
+		environment.jersey().register(new LoadPrivateTestResource());
 	}
 
 	public static void registerConsumers() {

@@ -45,7 +45,7 @@ public class LoadPublicTestAction extends AbstractLoadPublicTestAction {
 		this.actionData.setAuthor(test.getAuthor());
 		this.actionData.setHtml(test.getHtml());
 		this.actionData.setName(test.getName());
-		this.actionData.setTestList(CustomTestDao.selectPublicTests(this.getDatabaseHandle().getHandle(),
+		this.actionData.setTestList(CustomTestDao.selectTests(this.getDatabaseHandle().getHandle(),
 				this.getActionData().getSchema(), this.actionParam.getLessonId()));
 	}
 

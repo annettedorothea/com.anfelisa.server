@@ -22,18 +22,31 @@ models {
 		NotNull String courseAuthor
 		NotNull Integer courseId
 	)
+	MyCourse (
+		NotNull Integer id
+		NotNull String name
+		String description
+		Integer sequence
+		NotNull Boolean isPublic
+		NotNull String author
+		NotNull Integer openTests
+		NotNull Boolean hasOpenTests
+	)
+	
 }
 
 data {
 	CourseCreation : ( Course )
 	StudentToCourseAddition : (StudentOfCourse)
 	CourseList: (List Course)
+	MyCourseList: (List MyCourse com.anfelisa.user.Username)
 }
 
 actions {
 	POST CreateCourse uses CourseCreation executes CreateCourse
 	POST AddStudentToCourse uses StudentToCourseAddition executes AddStudentToCourse
 	GET LoadPublicCourses uses CourseList
+	GET LoadPrivateCourses uses MyCourseList
 }
 
 commands {

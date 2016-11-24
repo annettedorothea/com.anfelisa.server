@@ -27,7 +27,7 @@ public class LoadPublicTestResource {
 
 	@GET
 	@Timed
-	@Path("/single")
+	@Path("/public/single")
 	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
 			@NotNull @QueryParam("testId") Integer testId) throws JsonProcessingException {
 		TestData actionParam = new TestData(testId, null, null, null, null, null, testId, null, null, null, null, null,

@@ -2,5 +2,7 @@
   "readPublicCoursesFailed" : "Öffentliche Kurse konnten nicht geladen werden.",
   "readPublicLessonsFailed" : "Öffentliche Lektionen konnten nicht geladen werden.",
   "readPublicTestsFailed" : "Öffentliche Tests konnten nicht geladen werden.",
-  "readPublicTestFailed" : "Öffentlicher Test konnte nicht geladen werden."
+  "readPublicTestFailed" : "Öffentlicher Test konnte nicht geladen werden.",
+  "readPrivateCoursesFailed" : "Kurse konnten nicht geladen werden."
+  "loginFailed" : "Anmeldung schlug fehl."
 }

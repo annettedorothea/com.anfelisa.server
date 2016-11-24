@@ -43,7 +43,7 @@ class NavigationView {
     }
 
     static renderPrivateCoursesNavigation(data) {
-        $.get('templates/myCoursesTemplate.mst', function(template) {
+        $.get('templates/privateCoursesTemplate.mst', function(template) {
             var rendered = Mustache.render(template, data);
             $('.course-navigation').html(rendered);
         });
@@ -51,14 +51,14 @@ class NavigationView {
 
     static renderPrivateLessonsNavigation(data) {
         $("ul.nav li").removeClass("active");
-        $.get('templates/myLessonsTemplate.mst', function(template) {
+        $.get('templates/privateLessonsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, data);
             $('.course-navigation').html(rendered);
         });
     }
 
     static renderPrivateTestsNavigation(data) {
-        $.get('templates/myTestsTemplate.mst', function(template) {
+        $.get('templates/privateTestsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, data);
             $('.course-navigation').html(rendered);
         });

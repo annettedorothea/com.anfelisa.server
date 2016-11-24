@@ -6,7 +6,7 @@ import org.skife.jdbi.v2.Handle;
 
 public class CustomLessonDao {
 
-	public static List<ILessonModel> selectPublicLessons(Handle handle, String schema, Integer courseId) {
+	public static List<ILessonModel> selectLessons(Handle handle, String schema, Integer courseId) {
 		return handle.createQuery("SELECT * FROM " + schema + ".lesson WHERE courseId = :courseId ORDER By sequence")
 			.bind("courseId", courseId)
 			.map(new LessonMapper())

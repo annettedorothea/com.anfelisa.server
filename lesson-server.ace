@@ -30,6 +30,7 @@ data {
 actions {
 	POST CreateLesson uses LessonCreation executes CreateLesson
 	GET LoadPublicLessons uses LessonList
+	GET LoadPrivateLessons uses LessonList
 }
 
 commands {

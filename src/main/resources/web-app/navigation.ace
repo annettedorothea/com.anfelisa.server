@@ -7,6 +7,10 @@ actions {
 	ReadPublicLessons executes ReadPublicLessons
 	ReadPublicTests executes ReadPublicTests
 	ReadPublicTest executes ReadPublicTest
+	ReadPrivateCourses executes ReadPrivateCourses
+	ReadPrivateLessons executes ReadPrivateLessons
+	ReadPrivateTests executes ReadPrivateTests
+	ReadPrivateTest executes ReadPrivateTest
 }
 
 commands {
@@ -26,6 +30,22 @@ commands {
 		on ok publishes ( PublicTestRead )
 		on error publishes ( common.ServerError )
 	}
+	ReadPrivateCourses {
+		on ok publishes ( PrivateCoursesRead )
+		on error publishes ( common.ServerError )
+	}
+	ReadPrivateLessons {
+		on ok publishes ( PrivateLessonsRead )
+		on error publishes ( common.ServerError )
+	}
+	ReadPrivateTests {
+		on ok publishes ( PrivateTestsRead )
+		on error publishes ( common.ServerError )
+	}
+	ReadPrivateTest {
+		on ok publishes ( PrivateTestRead )
+		on error publishes ( common.ServerError )
+	}
 }
 
 events {
@@ -33,6 +53,10 @@ events {
 	PublicLessonsRead listenedToBy ( Navigation.renderPublicLessons Content.renderPublicLessons Breadcrumbs.renderPublicLessonsBreadcrumbs)
 	PublicTestsRead listenedToBy ( Navigation.renderPublicTests Content.renderPublicTests Breadcrumbs.renderPublicTestsBreadcrumbs)
 	PublicTestRead listenedToBy ( Navigation.renderPublicTest Content.renderPublicTest Breadcrumbs.renderPublicTestsBreadcrumbs)
+	PrivateCoursesRead listenedToBy ( Navigation.renderPrivateCourses Content.renderPrivateCourses Breadcrumbs.renderPrivateCoursesBreadcrumbs)
+	PrivateLessonsRead listenedToBy ( Navigation.renderPrivateLessons Content.renderPrivateLessons Breadcrumbs.renderPrivateLessonsBreadcrumbs)
+	PrivateTestsRead listenedToBy ( Navigation.renderPrivateTests Content.renderPrivateTests Breadcrumbs.renderPrivateTestsBreadcrumbs)
+	PrivateTestRead listenedToBy ( Navigation.renderPrivateTest Content.renderPrivateTest Breadcrumbs.renderPrivateTestsBreadcrumbs)
 }
 
 views {

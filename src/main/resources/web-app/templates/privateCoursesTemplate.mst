@@ -2,13 +2,14 @@
     <li class="header">
         <a>Meine Kurse</a>
     </li>
-    {{#courses}}
+    {{#myCourseList}}
     <li>
         <a onclick="new LoadPrivateLessonsAction({ courseId : {{id}} }).apply()" {{#hasOpenTests}}class="open"{{/hasOpenTests}}>
         {{#hasOpenTests}}<i class="fa fa-pencil-square-o"></i>{{/hasOpenTests}}
         {{^hasOpenTests}}<i class="fa fa-check-square-o"></i>{{/hasOpenTests}}
         {{name}}
+        <span class="badge my-badge">{{#openTests}}{{openTests}}{{/openTests}}</span>
         </a>
     </li>
-    {{/courses}}
+    {{/myCourseList}}
 </ul>

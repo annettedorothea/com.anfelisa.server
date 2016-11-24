@@ -37,7 +37,7 @@ public class LoadPublicTestsAction extends AbstractLoadPublicTestsAction {
 		this.actionData.setCourseDescription(course.getDescription());
 		this.actionData.setCourseName(course.getName());
 		this.actionData.setCourseId(course.getId());
-		this.actionData.setTestList(CustomTestDao.selectPublicTests(this.getDatabaseHandle().getHandle(),
+		this.actionData.setTestList(CustomTestDao.selectTests(this.getDatabaseHandle().getHandle(),
 				this.getActionData().getSchema(), this.actionParam.getLessonId()));
 	}
 

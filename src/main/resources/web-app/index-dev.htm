@@ -33,6 +33,8 @@
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 
+    <script type="text/javascript" src="lib/md5.js"></script>
+
 	<script type="text/javascript" src="es6/src/ServerFacade.es6"></script>
 
 
@@ -55,10 +57,14 @@
     <script type="text/javascript" src="es6/src/common/actions/InitAction.es6"></script>
     <script type="text/javascript" src="es6/gen/common/actions/AbstractRouteAction.es6"></script>
     <script type="text/javascript" src="es6/src/common/actions/RouteAction.es6"></script>
+    <script type="text/javascript" src="es6/gen/common/actions/AbstractLoginAction.es6"></script>
+    <script type="text/javascript" src="es6/src/common/actions/LoginAction.es6"></script>
     <script type="text/javascript" src="es6/gen/common/commands/AbstractInitCommand.es6"></script>
     <script type="text/javascript" src="es6/src/common/commands/InitCommand.es6"></script>
     <script type="text/javascript" src="es6/gen/common/commands/AbstractRouteCommand.es6"></script>
     <script type="text/javascript" src="es6/src/common/commands/RouteCommand.es6"></script>
+    <script type="text/javascript" src="es6/gen/common/commands/AbstractLoginCommand.es6"></script>
+    <script type="text/javascript" src="es6/src/common/commands/LoginCommand.es6"></script>
     <script type="text/javascript" src="es6/gen/common/events/AbstractInitOKEvent.es6"></script>
     <script type="text/javascript" src="es6/src/common/events/InitOKEvent.es6"></script>
     <script type="text/javascript" src="es6/gen/common/events/AbstractServerErrorEvent.es6"></script>
@@ -67,6 +73,8 @@
     <script type="text/javascript" src="es6/src/common/events/ErrorEvent.es6"></script>
     <script type="text/javascript" src="es6/gen/common/events/AbstractUpdateHashEvent.es6"></script>
     <script type="text/javascript" src="es6/src/common/events/UpdateHashEvent.es6"></script>
+    <script type="text/javascript" src="es6/gen/common/events/AbstractUserLoggedInEvent.es6"></script>
+    <script type="text/javascript" src="es6/src/common/events/UserLoggedInEvent.es6"></script>
     <script type="text/javascript" src="es6/gen/common/EventListenerRegistration.es6"></script>
     <script type="text/javascript" src="es6/src/common/ErrorView.es6"></script>
     <script type="text/javascript" src="es6/src/common/CommonView.es6"></script>
@@ -83,6 +91,14 @@
     <script type="text/javascript" src="es6/src/navigation/actions/ReadPublicTestsAction.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/actions/AbstractReadPublicTestAction.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/actions/ReadPublicTestAction.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/actions/AbstractReadPrivateCoursesAction.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/actions/ReadPrivateCoursesAction.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/actions/AbstractReadPrivateLessonsAction.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/actions/ReadPrivateLessonsAction.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/actions/AbstractReadPrivateTestsAction.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/actions/ReadPrivateTestsAction.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/actions/AbstractReadPrivateTestAction.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/actions/ReadPrivateTestAction.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/commands/AbstractReadPublicCoursesCommand.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/commands/ReadPublicCoursesCommand.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/commands/AbstractReadPublicLessonsCommand.es6"></script>
@@ -91,6 +107,14 @@
     <script type="text/javascript" src="es6/src/navigation/commands/ReadPublicTestsCommand.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/commands/AbstractReadPublicTestCommand.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/commands/ReadPublicTestCommand.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/commands/AbstractReadPrivateCoursesCommand.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/commands/ReadPrivateCoursesCommand.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/commands/AbstractReadPrivateLessonsCommand.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/commands/ReadPrivateLessonsCommand.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/commands/AbstractReadPrivateTestsCommand.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/commands/ReadPrivateTestsCommand.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/commands/AbstractReadPrivateTestCommand.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/commands/ReadPrivateTestCommand.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/events/AbstractPublicCoursesReadEvent.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/events/PublicCoursesReadEvent.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/events/AbstractPublicLessonsReadEvent.es6"></script>
@@ -99,6 +123,14 @@
     <script type="text/javascript" src="es6/src/navigation/events/PublicTestsReadEvent.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/events/AbstractPublicTestReadEvent.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/events/PublicTestReadEvent.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/events/AbstractPrivateCoursesReadEvent.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/events/PrivateCoursesReadEvent.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/events/AbstractPrivateLessonsReadEvent.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/events/PrivateLessonsReadEvent.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/events/AbstractPrivateTestsReadEvent.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/events/PrivateTestsReadEvent.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/events/AbstractPrivateTestReadEvent.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/events/PrivateTestReadEvent.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/EventListenerRegistration.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/NavigationView.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/ContentView.es6"></script>
@@ -361,6 +393,7 @@
                         <li><a href="http://www.supermemo.com/english/ol/sm2.htm" target="sm2">Algorithm SM-2, &copy; Copyright SuperMemo World, 1991</a></li>
                         <li><a href="https://craig.is/killing/mice" target="mousetrap">Mousetrap</a></li>
                         <li><a href="http://bootboxjs.com/" target="bootbox">Bootbox.js</a></li>
+                        <li><a href="https://github.com/sytelus/CryptoJS" target="crypto-js">CryptoJS</a></li>
                     </ul>
                 </div>
             </div>

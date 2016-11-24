@@ -23,6 +23,9 @@ models {
 	Points (
 		NotNull Integer points
 	)
+	Username (
+		NotNull String username
+	)
 }
 
 data {

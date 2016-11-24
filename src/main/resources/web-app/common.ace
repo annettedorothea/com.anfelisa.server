@@ -5,6 +5,7 @@ target ES6
 actions {
 	Init executes Init
 	Route executes Route
+	Login executes Login
 }
 
 commands {
@@ -13,16 +14,20 @@ commands {
 		on publicLessons triggers ( navigation.ReadPublicLessons )
 		on publicTests triggers ( navigation.ReadPublicTests )
 		on publicTest triggers ( navigation.ReadPublicTest )
-		on privateCourses
-		on privateLessons
-		on privateTests
-		on privateTest
+		on privateCourses triggers ( navigation.ReadPrivateCourses)
+		on privateLessons triggers ( navigation.ReadPrivateLessons )
+		on privateTests triggers ( navigation.ReadPrivateTests )
+		on privateTest triggers ( navigation.ReadPrivateTest ) 
 		on result
 		on box
 		on statistics
 	}
 	Route {
 		on ok publishes ( UpdateHash ) triggers ( Init )
+	}
+	Login {
+		on ok publishes (UserLoggedIn) triggers ( Route )
+		on error publishes ( ServerError )
 	}
 }
 
@@ -31,6 +36,7 @@ events {
 	ServerError listenedToBy ( Error.renderServerError )
 	Error listenedToBy ( Error.renderError )
 	UpdateHash listenedToBy ( Common.updateHash )
+	UserLoggedIn listenedToBy ( Common.initUserInLocalStorage )
 } 
 
 views {
@@ -42,5 +48,6 @@ views {
 		initLanguageInLocalStorage
 		initSchemaInLocalStorage
 		updateHash
+		initUserInLocalStorage
 	}
 }

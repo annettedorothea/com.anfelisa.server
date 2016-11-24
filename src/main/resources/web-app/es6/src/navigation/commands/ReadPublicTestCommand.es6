@@ -9,7 +9,7 @@ class ReadPublicTestCommand extends AbstractReadPublicTestCommand {
                 key: "testId",
                 value: this.commandParam.testId
             });
-            this.httpGet("api/tests/single", queryParams).then((data) => {
+            this.httpGet("api/tests/public/single", queryParams).then((data) => {
                 this.commandData.data = data;
                 this.commandData.outcome = this.ok;
                 resolve();

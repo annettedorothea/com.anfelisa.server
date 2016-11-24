@@ -189,6 +189,11 @@ div.header a {
 	color: #84afd3;
 }
 
+.navigation .my-badge {
+	background-color: #ddd;
+	color: #337ab7;
+}
+
 .content {
 	min-height: 600px !important;
 	background-color: #fff;

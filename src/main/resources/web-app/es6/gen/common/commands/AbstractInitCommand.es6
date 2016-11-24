@@ -33,12 +33,16 @@ class AbstractInitCommand extends Command {
         	promises.push(new TriggerAction(new ReadPublicTestAction(this.commandData)).publish());
         	break;
         case this.privateCourses:
+        	promises.push(new TriggerAction(new ReadPrivateCoursesAction(this.commandData)).publish());
         	break;
         case this.privateLessons:
+        	promises.push(new TriggerAction(new ReadPrivateLessonsAction(this.commandData)).publish());
         	break;
         case this.privateTests:
+        	promises.push(new TriggerAction(new ReadPrivateTestsAction(this.commandData)).publish());
         	break;
         case this.privateTest:
+        	promises.push(new TriggerAction(new ReadPrivateTestAction(this.commandData)).publish());
         	break;
         case this.result:
         	break;
