@@ -3,9 +3,9 @@
         <a> {{courseName}}</a>
     </li>
     {{#lessonList}}
-    <li><a onclick="new LoadPublicTestsAction({ lessonId : {{id}} }).apply()">{{name}}</a></li>
+    <li><a onclick="new RouteAction({ hash : 'public/{{courseId}}/{{id}}' }).apply()">{{name}}</a></li>
     {{/lessonList}}
     <li>
-        <a onclick="new LoadPublicCoursesAction().apply()"><i class="fa fa-arrow-left"></i> Zurück zu den Kursen</a>
+        <a onclick="new RouteAction({ hash : 'public' }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu den Kursen</a>
     </li>
 </ul>

@@ -13,6 +13,7 @@ import com.anfelisa.test.models.ITestIdModel;
 import com.anfelisa.test.models.ILessonIdModel;
 import com.anfelisa.lesson.models.ILessonAbstractModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
+import com.anfelisa.test.models.ITestModel;
 
 @SuppressWarnings("unused")
 public class TestData implements ITestModel, ITestIdModel, ILessonIdModel, ILessonAbstractModel, ICourseAbstractModel, IDataContainer {
@@ -64,6 +65,8 @@ public class TestData implements ITestModel, ITestIdModel, ILessonIdModel, ILess
 	private Integer courseId;
 	
 
+	List<ITestModel> TestList;
+	
 
 	public TestData(
 		@JsonProperty("id") Integer id,
@@ -221,6 +224,14 @@ public class TestData implements ITestModel, ITestIdModel, ILessonIdModel, ILess
 	}
 	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
+	}
+	
+	@JsonProperty
+	public List<ITestModel> getTestList() {
+		return this.TestList;
+	}
+	public void setTestList(List<ITestModel> TestList) {
+		this.TestList = TestList;
 	}
 	
 	@JsonProperty

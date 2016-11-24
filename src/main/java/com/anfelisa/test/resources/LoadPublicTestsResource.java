@@ -29,7 +29,7 @@ public class LoadPublicTestsResource {
 	@Timed
 	@Path("/public")
 	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
-			@NotNull @QueryParam("lessonid") Integer lessonId) throws JsonProcessingException {
+			@NotNull @QueryParam("lessonId") Integer lessonId) throws JsonProcessingException {
 		TestListData actionParam = new TestListData(lessonId, null, null, null, null, null, null, null, null, uuid,
 				schema);
 		return new LoadPublicTestsAction(actionParam, DatabaseService.getDatabaseHandle()).apply();

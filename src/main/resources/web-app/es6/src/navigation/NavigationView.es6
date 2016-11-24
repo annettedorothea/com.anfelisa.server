@@ -1,42 +1,46 @@
 'use strict';
 
 class NavigationView {
-    static renderPublicCourses(data) {
+    static renderPublicCourses(eventData) {
         $.get('templates/publicCoursesTemplate.mst', function(template) {
-            var rendered = Mustache.render(template, data);
+            var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
         });
     };
     
-    static renderPublicLessons(data) {
+    static renderPublicLessons(eventData) {
         $.get('templates/publicLessonsTemplate.mst', function(template) {
-            var rendered = Mustache.render(template, data.data);
+            var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
         });
     };
     
-    static renderPublicTests(data) {
+    static renderPublicTests(eventData) {
         $.get('templates/publicTestsTemplate.mst', function(template) {
-            var rendered = Mustache.render(template, data);
+            var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
         });
     };
     
-    static renderPublicTest(data) {
-        $("ul.nav li").removeClass("active");
-        $("ul.nav li.test_" + data.testId).addClass("active");
+    static renderPublicTest(eventData) {
+        $.get('templates/publicTestsTemplate.mst', function(template) {
+            var rendered = Mustache.render(template, eventData.data);
+            $('.course-navigation').html(rendered);
+            $("ul.nav li").removeClass("active");
+            $("ul.nav li.test_" + eventData.data.testId).addClass("active");
+        });
     };
     
-    static renderPrivateCourses(data) {
+    static renderPrivateCourses(eventData) {
     };
     
-    static renderPrivateLessons(data) {
+    static renderPrivateLessons(eventData) {
     };
     
-    static renderPrivateTests(data) {
+    static renderPrivateTests(eventData) {
     };
     
-    static renderPrivateTest(data) {
+    static renderPrivateTest(eventData) {
     };
     
 }

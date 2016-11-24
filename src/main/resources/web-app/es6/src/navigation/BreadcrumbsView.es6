@@ -1,34 +1,34 @@
 'use strict';
 
 class BreadcrumbsView {
-    static renderPublicCoursesBreadcrumbs(data) {
+    static renderPublicCoursesBreadcrumbs(eventData) {
         $.get('templates/breadcrumbsTemplate1Public.mst', function(template) {
-            var rendered = Mustache.render(template, data);
+            var rendered = Mustache.render(template, eventData.data);
             $('.breadcrumbs').html(rendered);
         });
     };
     
-    static renderPublicLessonsBreadcrumbs(data) {
+    static renderPublicLessonsBreadcrumbs(eventData) {
         $.get('templates/breadcrumbsTemplate2Public.mst', function(template) {
-            var rendered = Mustache.render(template, data);
+            var rendered = Mustache.render(template, eventData.data);
             $('.breadcrumbs').html(rendered);
         });
     };
     
-    static renderPublicTestsBreadcrumbs(data) {
+    static renderPublicTestsBreadcrumbs(eventData) {
         $.get('templates/breadcrumbsTemplate3Public.mst', function(template) {
-            var rendered = Mustache.render(template, data);
+            var rendered = Mustache.render(template, eventData.data);
             $('.breadcrumbs').html(rendered);
         });
     };
     
-    static renderPrivateCoursesBreadcrumbs(data) {
+    static renderPrivateCoursesBreadcrumbs(eventData) {
     };
     
-    static renderPrivateLessonsBreadcrumbs(data) {
+    static renderPrivateLessonsBreadcrumbs(eventData) {
     };
     
-    static renderPrivateTestsBreadcrumbs(data) {
+    static renderPrivateTestsBreadcrumbs(eventData) {
     };
     
 }

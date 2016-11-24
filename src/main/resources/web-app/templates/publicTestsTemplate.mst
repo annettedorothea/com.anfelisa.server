@@ -4,12 +4,12 @@
     </li>
     {{#testList}}
     <li class="test_{{id}}">
-        <a onclick="new LoadPublicTestAction({testId : {{id}} }).apply()">
+        <a onclick="new RouteAction({hash : 'public/{{courseId}}/{{lessonId}}/{{id}}' }).apply()">
             {{name}}
         </a>
     </li>
     {{/testList}}
     <li>
-        <a onclick="new LoadPublicLessonsAction({ courseId : {{courseid}} }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu den Lektionen</a>
+        <a onclick="new RouteAction({ hash : 'public/{{courseId}}' }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu den Lektionen</a>
     </li>
 </ul>

@@ -22,7 +22,7 @@ models {
 data {
 	TestCreation : ( Test )
 	TestList : (List Test LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
-	Test : ( Test TestId LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
+	Test : ( Test TestId LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List Test)
 }
 
 actions {

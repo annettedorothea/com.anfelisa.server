@@ -14,6 +14,7 @@ class EventListenerRegistrationNavigation {
     	ACEController.registerListener('PublicTestsReadEvent', BreadcrumbsView.renderPublicTestsBreadcrumbs);
     	ACEController.registerListener('PublicTestReadEvent', NavigationView.renderPublicTest);
     	ACEController.registerListener('PublicTestReadEvent', ContentView.renderPublicTest);
+    	ACEController.registerListener('PublicTestReadEvent', BreadcrumbsView.renderPublicTestsBreadcrumbs);
 	}
 
 }

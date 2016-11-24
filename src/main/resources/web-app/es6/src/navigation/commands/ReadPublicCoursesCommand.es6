@@ -5,7 +5,7 @@ class ReadPublicCoursesCommand extends AbstractReadPublicCoursesCommand {
         return new Promise((resolve) => {
             this.commandData.language = this.commandParam.language;
             this.httpGet("api/courses/public").then((data) => {
-                this.commandData.courseList = data.courseList;
+                this.commandData.data = data;
                 this.commandData.outcome = this.ok;
                 resolve();
             }, (error) => {

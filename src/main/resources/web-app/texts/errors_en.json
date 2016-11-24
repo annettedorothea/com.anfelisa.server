@@ -1,4 +1,6 @@
 {
   "readPublicCoursesFailed" : "Failed to load public courses.",
-  "readPublicLessonsFailed" : "Failed to load public lessons."
+  "readPublicLessonsFailed" : "Failed to load public lessons.",
+  "readPublicTestsFailed" : "Failed to load public tests.",
+  "readPublicTestFailed" : "Failed to load public test."
 }

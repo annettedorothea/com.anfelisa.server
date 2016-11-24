@@ -37,6 +37,7 @@ class ReadPublicTestsAction extends AbstractReadPublicTestsAction {
     	if (this.actionParam.language) {
     		this.actionData.language = this.actionParam.language;
     	}
+		this.actionData.lessonId = this.actionParam.lessonId;
     	// bind action parameters to action data
     }
 

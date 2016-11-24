@@ -11,8 +11,8 @@ commands {
 	Init {
 		on publicCourses triggers ( navigation.ReadPublicCourses )
 		on publicLessons triggers ( navigation.ReadPublicLessons )
-		on publicTests
-		on publicTest
+		on publicTests triggers ( navigation.ReadPublicTests )
+		on publicTest triggers ( navigation.ReadPublicTest )
 		on privateCourses
 		on privateLessons
 		on privateTests

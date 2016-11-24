@@ -1,4 +1,4 @@
 <ol class="breadcrumb">
-    <li><a onclick="new LoadPublicCoursesAction().apply()">Home</a></li>
-    <li><a onclick="new LoadPublicLessonsAction({ courseId : {{courseId}} }).apply()">{{courseName}}</a></li>
+    <li><a onclick="new RouteAction( {'hash' : 'public'}).apply()">Home</a></li>
+    <li><a onclick="new RouteAction({ hash : 'public/{{courseId}}' }).apply()">{{courseName}}</a></li>
 </ol>

@@ -32,7 +32,7 @@ events {
 	PublicCoursesRead listenedToBy ( Navigation.renderPublicCourses Content.renderPublicCourses Breadcrumbs.renderPublicCoursesBreadcrumbs)
 	PublicLessonsRead listenedToBy ( Navigation.renderPublicLessons Content.renderPublicLessons Breadcrumbs.renderPublicLessonsBreadcrumbs)
 	PublicTestsRead listenedToBy ( Navigation.renderPublicTests Content.renderPublicTests Breadcrumbs.renderPublicTestsBreadcrumbs)
-	PublicTestRead listenedToBy ( Navigation.renderPublicTest Content.renderPublicTest)
+	PublicTestRead listenedToBy ( Navigation.renderPublicTest Content.renderPublicTest Breadcrumbs.renderPublicTestsBreadcrumbs)
 }
 
 views {
