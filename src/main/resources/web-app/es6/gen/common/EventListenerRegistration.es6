@@ -9,6 +9,7 @@ class EventListenerRegistrationCommon {
     	ACEController.registerListener('ErrorEvent', ErrorView.renderError);
     	ACEController.registerListener('UpdateHashEvent', CommonView.updateHash);
     	ACEController.registerListener('UserLoggedInEvent', CommonView.initUserInLocalStorage);
+    	ACEController.registerListener('UserLoggedOutEvent', CommonView.removeUserFromLocalStorage);
 	}
 
 }

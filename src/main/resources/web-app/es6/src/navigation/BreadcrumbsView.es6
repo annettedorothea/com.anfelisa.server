@@ -23,6 +23,10 @@ class BreadcrumbsView {
     };
     
     static renderPrivateCoursesBreadcrumbs(eventData) {
+        $.get('templates/breadcrumbsTemplate1.mst', function(template) {
+            var rendered = Mustache.render(template, eventData.data);
+            $('.breadcrumbs').html(rendered);
+        });
     };
     
     static renderPrivateLessonsBreadcrumbs(eventData) {

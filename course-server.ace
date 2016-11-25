@@ -32,7 +32,21 @@ models {
 		NotNull Integer openTests
 		NotNull Boolean hasOpenTests
 	)
-	
+	Statistics (
+		NotNull String username
+		NotNull Integer year
+		NotNull Integer month
+	)
+	StatisticsItem (
+		NotNull String type
+		NotNull Boolean isBox
+		NotNull Integer count
+		NotNull Integer day
+		NotNull String name
+		NotNull Integer points
+		NotNull Integer maxPoints
+		NotNull Integer rate
+	)
 }
 
 data {
@@ -40,6 +54,7 @@ data {
 	StudentToCourseAddition : (StudentOfCourse)
 	CourseList: (List Course)
 	MyCourseList: (List MyCourse com.anfelisa.user.Username)
+	Statistics: ( Statistics List StatisticsItem )
 }
 
 actions {
@@ -47,6 +62,7 @@ actions {
 	POST AddStudentToCourse uses StudentToCourseAddition executes AddStudentToCourse
 	GET LoadPublicCourses uses CourseList
 	GET LoadPrivateCourses uses MyCourseList
+	GET LoadStatistics uses Statistics
 }
 
 commands {

@@ -4,5 +4,6 @@
   "readPublicTestsFailed" : "Failed to load public tests.",
   "readPublicTestFailed" : "Failed to load public test.",
   "readPrivateCoursesFailed" : "Failed to load private courses.",
-  "loginFailed" : "Login failed."
+  "loginFailed" : "Login failed.",
+  "readStatisticsFailed" : "Failed to load statistics."
 }

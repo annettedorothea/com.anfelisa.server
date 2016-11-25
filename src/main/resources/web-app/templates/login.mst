@@ -1,0 +1,11 @@
+<div class="form-inline">
+    <div class="form-group">
+        <input type="text" class="form-control username" placeholder="Name" onkeydown="if (event.keyCode == 13) new LoginAction().apply()" />
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control password" placeholder="Passwort" onkeydown="if (event.keyCode == 13) new LoginAction().apply()" />
+    </div>
+    <div class="form-group">
+        <button class="btn btn-blue login-button" onclick="new LoginAction().apply()"><i class="fa fa-sign-in"></i>&nbsp;&nbsp;&nbsp;Anmelden</button>
+    </div>
+</div>

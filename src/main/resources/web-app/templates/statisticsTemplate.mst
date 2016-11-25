@@ -1,7 +1,7 @@
 <div class="statistics">
     <h2>Deine Statistik</h2>
     <div class="form-inline">
-        <select class="form-control month" onchange="new LoadStatisticsAction({defaultMonth: false}).apply()">
+        <select class="form-control month" onchange="new ReadStatisticsAction({defaultMonth: false}).apply()">
             <option value="1">Januar</option>
             <option value="2">Februar</option>
             <option value="3">März</option>
@@ -15,7 +15,7 @@
             <option value="11">November</option>
             <option value="12">Dezember</option>
         </select>
-        <select class="form-control year" onchange="new LoadStatisticsAction({defaultMonth: false}).apply()">
+        <select class="form-control year" onchange="new ReadStatisticsAction({defaultMonth: false}).apply()">
             <option value="2014">2014</option>
             <option value="2015">2015</option>
             <option value="2016">2016</option>
@@ -26,38 +26,35 @@
     <div class="table-responsive">
         <table class="table statHeader">
             <tr class="hidden-xs hidden-sm visible-md-* visible-lg-*">
-                <th class="text-right">#</th>
                 <th></th>
-                <th>Wann?</th>
-                <th>Was?</th>
-                <th>Anzahl</th>
-                <th>Punkte</th>
-                <th>Quote</th>
+                <th class="text-center">Tag</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Anzahl</th>
+                <th class="text-center">Punkte</th>
+                <th class="text-center">Quote</th>
             </tr>
             <tr class="visible-xs visible-sm hidden-md-* hidden-lg-*">
-                <th></th>
-                <th>Tag</th>
-                <th>Name</th>
-                <th>Anz.</th>
-                <th>Punkte</th>
-                <th>Quote</th>
+                <th class="text-center"></th>
+                <th class="text-center">Tag</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Punkte</th>
+                <th class="text-center">Quote</th>
             </tr>
-            {{#items}}
+            {{#statisticsItemList}}
             <tr>
-                <td class="text-right hidden-xs hidden-sm visible-md-* visible-lg-*">{{index}}</td>
-                <td>
+                <td class="text-center">
                     {{#isBox}}<i class="fa fa-clone"></i>{{/isBox}}
                     {{^isBox}}<i class="fa fa-pencil-square-o"></i>{{/isBox}}
                 </td>
-                <td class="hidden-xs hidden-sm visible-md-* visible-lg-*">{{date}}</td>
-                <td class="visible-xs visible-sm hidden-md-* hidden-lg-* text-right">{{day}}</td>
+                <td class="text-center hidden-xs hidden-sm visible-md-* visible-lg-*">{{day}}</td>
+                <td class="text-center visible-xs visible-sm hidden-md-* hidden-lg-* text-right">{{day}}</td>
                 <td>{{name}}</td>
-                <td class="text-right">{{count}}</td>
-                <td class="hidden-xs hidden-sm visible-md-* visible-lg-* text-right">{{points}} von {{maxpoints}}</td>
-                <td class="visible-xs visible-sm hidden-md-* hidden-lg-* text-right">{{points}}/{{maxpoints}}</td>
-                <td class="text-right">{{rate}}</td>
+                <td class="text-right hidden-xs hidden-sm visible-md-* visible-lg-*">{{count}}</td>
+                <td class="text-center hidden-xs hidden-sm visible-md-* visible-lg-* text-right">{{points}} von {{maxPoints}}</td>
+                <td class="text-center visible-xs visible-sm hidden-md-* hidden-lg-* text-right">{{points}}/{{maxPoints}}</td>
+                <td class="text-right">{{rate}} %</td>
             </tr>
-            {{/items}}
+            {{/statisticsItemList}}
         </table>
     </div>
 </div>

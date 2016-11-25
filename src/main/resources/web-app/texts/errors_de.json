@@ -3,6 +3,7 @@
   "readPublicLessonsFailed" : "Öffentliche Lektionen konnten nicht geladen werden.",
   "readPublicTestsFailed" : "Öffentliche Tests konnten nicht geladen werden.",
   "readPublicTestFailed" : "Öffentlicher Test konnte nicht geladen werden.",
-  "readPrivateCoursesFailed" : "Kurse konnten nicht geladen werden."
-  "loginFailed" : "Anmeldung schlug fehl."
+  "readPrivateCoursesFailed" : "Kurse konnten nicht geladen werden.",
+  "loginFailed" : "Anmeldung schlug fehl.",
+  "readStatisticsFailed" : "Statistik konnte nicht geladen werden."
 }

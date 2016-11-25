@@ -13,6 +13,7 @@ public class AppRegistration {
 		environment.jersey().register(new AddStudentToCourseResource());
 		environment.jersey().register(new LoadPublicCoursesResource());
 		environment.jersey().register(new LoadPrivateCoursesResource());
+		environment.jersey().register(new LoadStatisticsResource());
 	}
 
 	public static void registerConsumers() {

@@ -43,13 +43,13 @@ class ContentView {
     };
     
     static renderStatistics(eventData) {
-        if (data.statistics === null) {
-            data.statistics = {
-                items: []
+        if (eventData.data === null) {
+            eventData.data = {
+                statisticsItemList: []
             };
         }
         $.get('templates/statisticsTemplate.mst', function(template) {
-            var rendered = Mustache.render(template, eventData.data.statistics);
+            var rendered = Mustache.render(template, eventData.data);
             $('.content-pane').html(rendered);
             $(".year").val(eventData.data.year);
             $(".month").val(eventData.data.month);

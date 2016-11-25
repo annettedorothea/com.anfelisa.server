@@ -2,6 +2,8 @@ package com.anfelisa.auth;
 
 import java.util.Optional;
 
+import org.skife.jdbi.v2.Handle;
+
 import com.anfelisa.ace.DatabaseService;
 import com.anfelisa.user.models.IUserModel;
 import com.anfelisa.user.models.UserDao;
@@ -15,7 +17,9 @@ public class AceAuthenticator implements Authenticator<BasicCredentials, AuthUse
 	public Optional<AuthUser> authenticate(BasicCredentials credentials) throws AuthenticationException {
 		String schema = BasicCredentialsHelper.extractSchemaFromUserName(credentials);
 		String username = BasicCredentialsHelper.extractUsernameFromUserName(credentials);
-		IUserModel user = UserDao.selectByUsername(DatabaseService.getDatabaseHandle().getHandle(), username, schema);
+		Handle handle = DatabaseService.getDatabaseHandle().getHandle();
+		IUserModel user = UserDao.selectByUsername(handle, username, schema);
+		handle.close();
 		if (user != null && user.getPassword().equals(credentials.getPassword())) {
 			return Optional.of(new AuthUser(credentials.getUsername(), credentials.getPassword(), user.getRole()));
 		} else {

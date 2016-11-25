@@ -11,6 +11,7 @@ actions {
 	ReadPrivateLessons executes ReadPrivateLessons
 	ReadPrivateTests executes ReadPrivateTests
 	ReadPrivateTest executes ReadPrivateTest
+	ReadStatistics executes ReadStatistics
 }
 
 commands {
@@ -46,17 +47,22 @@ commands {
 		on ok publishes ( PrivateTestRead )
 		on error publishes ( common.ServerError )
 	}
+	ReadStatistics {
+		on ok publishes ( StatisticsRead )
+		on error publishes ( common.ServerError )
+	}
 }
 
 events {
-	PublicCoursesRead listenedToBy ( Navigation.renderPublicCourses Content.renderPublicCourses Breadcrumbs.renderPublicCoursesBreadcrumbs)
-	PublicLessonsRead listenedToBy ( Navigation.renderPublicLessons Content.renderPublicLessons Breadcrumbs.renderPublicLessonsBreadcrumbs)
-	PublicTestsRead listenedToBy ( Navigation.renderPublicTests Content.renderPublicTests Breadcrumbs.renderPublicTestsBreadcrumbs)
-	PublicTestRead listenedToBy ( Navigation.renderPublicTest Content.renderPublicTest Breadcrumbs.renderPublicTestsBreadcrumbs)
-	PrivateCoursesRead listenedToBy ( Navigation.renderPrivateCourses Content.renderPrivateCourses Breadcrumbs.renderPrivateCoursesBreadcrumbs)
-	PrivateLessonsRead listenedToBy ( Navigation.renderPrivateLessons Content.renderPrivateLessons Breadcrumbs.renderPrivateLessonsBreadcrumbs)
-	PrivateTestsRead listenedToBy ( Navigation.renderPrivateTests Content.renderPrivateTests Breadcrumbs.renderPrivateTestsBreadcrumbs)
-	PrivateTestRead listenedToBy ( Navigation.renderPrivateTest Content.renderPrivateTest Breadcrumbs.renderPrivateTestsBreadcrumbs)
+	PublicCoursesRead listenedToBy ( Navigation.renderPublicCourses Content.renderPublicCourses Breadcrumbs.renderPublicCoursesBreadcrumbs common.Header.renderLogin )
+	PublicLessonsRead listenedToBy ( Navigation.renderPublicLessons Content.renderPublicLessons Breadcrumbs.renderPublicLessonsBreadcrumbs common.Header.renderLogin )
+	PublicTestsRead listenedToBy ( Navigation.renderPublicTests Content.renderPublicTests Breadcrumbs.renderPublicTestsBreadcrumbs common.Header.renderLogin )
+	PublicTestRead listenedToBy ( Navigation.renderPublicTest Content.renderPublicTest Breadcrumbs.renderPublicTestsBreadcrumbs common.Header.renderLogin )
+	PrivateCoursesRead listenedToBy ( Navigation.renderPrivateCourses Content.renderPrivateCourses Breadcrumbs.renderPrivateCoursesBreadcrumbs common.Header.renderLogout )
+	PrivateLessonsRead listenedToBy ( Navigation.renderPrivateLessons Content.renderPrivateLessons Breadcrumbs.renderPrivateLessonsBreadcrumbs common.Header.renderLogout )
+	PrivateTestsRead listenedToBy ( Navigation.renderPrivateTests Content.renderPrivateTests Breadcrumbs.renderPrivateTestsBreadcrumbs common.Header.renderLogout )
+	PrivateTestRead listenedToBy ( Navigation.renderPrivateTest Content.renderPrivateTest Breadcrumbs.renderPrivateTestsBreadcrumbs common.Header.renderLogout )
+	StatisticsRead listenedToBy ( Content.renderStatistics )
 }
 
 views {

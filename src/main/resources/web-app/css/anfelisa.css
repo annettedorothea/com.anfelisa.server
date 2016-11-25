@@ -157,6 +157,10 @@ div.header a {
 	color: #337AB7;
 }
 
+div.header .login-logout-pane {
+	text-align: right;
+}
+
 
 
 

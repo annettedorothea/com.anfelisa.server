@@ -6,6 +6,7 @@ actions {
 	Init executes Init
 	Route executes Route
 	Login executes Login
+	Logout executes Logout
 }
 
 commands {
@@ -14,13 +15,12 @@ commands {
 		on publicLessons triggers ( navigation.ReadPublicLessons )
 		on publicTests triggers ( navigation.ReadPublicTests )
 		on publicTest triggers ( navigation.ReadPublicTest )
-		on privateCourses triggers ( navigation.ReadPrivateCourses)
+		on privateCourses triggers ( navigation.ReadPrivateCourses navigation.ReadStatistics )
 		on privateLessons triggers ( navigation.ReadPrivateLessons )
 		on privateTests triggers ( navigation.ReadPrivateTests )
 		on privateTest triggers ( navigation.ReadPrivateTest ) 
 		on result
 		on box
-		on statistics
 	}
 	Route {
 		on ok publishes ( UpdateHash ) triggers ( Init )
@@ -28,6 +28,9 @@ commands {
 	Login {
 		on ok publishes (UserLoggedIn) triggers ( Route )
 		on error publishes ( ServerError )
+	}
+	Logout {
+		on ok publishes (UserLoggedOut) triggers ( Route )
 	}
 }
 
@@ -37,6 +40,7 @@ events {
 	Error listenedToBy ( Error.renderError )
 	UpdateHash listenedToBy ( Common.updateHash )
 	UserLoggedIn listenedToBy ( Common.initUserInLocalStorage )
+	UserLoggedOut listenedToBy ( Common.removeUserFromLocalStorage )
 } 
 
 views {
@@ -49,5 +53,10 @@ views {
 		initSchemaInLocalStorage
 		updateHash
 		initUserInLocalStorage
+		removeUserFromLocalStorage
+	}
+	Header {
+		renderLogin
+		renderLogout
 	}
 }

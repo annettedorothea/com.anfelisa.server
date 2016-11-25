@@ -59,12 +59,16 @@
     <script type="text/javascript" src="es6/src/common/actions/RouteAction.es6"></script>
     <script type="text/javascript" src="es6/gen/common/actions/AbstractLoginAction.es6"></script>
     <script type="text/javascript" src="es6/src/common/actions/LoginAction.es6"></script>
+    <script type="text/javascript" src="es6/gen/common/actions/AbstractLogoutAction.es6"></script>
+    <script type="text/javascript" src="es6/src/common/actions/LogoutAction.es6"></script>
     <script type="text/javascript" src="es6/gen/common/commands/AbstractInitCommand.es6"></script>
     <script type="text/javascript" src="es6/src/common/commands/InitCommand.es6"></script>
     <script type="text/javascript" src="es6/gen/common/commands/AbstractRouteCommand.es6"></script>
     <script type="text/javascript" src="es6/src/common/commands/RouteCommand.es6"></script>
     <script type="text/javascript" src="es6/gen/common/commands/AbstractLoginCommand.es6"></script>
     <script type="text/javascript" src="es6/src/common/commands/LoginCommand.es6"></script>
+    <script type="text/javascript" src="es6/gen/common/commands/AbstractLogoutCommand.es6"></script>
+    <script type="text/javascript" src="es6/src/common/commands/LogoutCommand.es6"></script>
     <script type="text/javascript" src="es6/gen/common/events/AbstractInitOKEvent.es6"></script>
     <script type="text/javascript" src="es6/src/common/events/InitOKEvent.es6"></script>
     <script type="text/javascript" src="es6/gen/common/events/AbstractServerErrorEvent.es6"></script>
@@ -75,9 +79,12 @@
     <script type="text/javascript" src="es6/src/common/events/UpdateHashEvent.es6"></script>
     <script type="text/javascript" src="es6/gen/common/events/AbstractUserLoggedInEvent.es6"></script>
     <script type="text/javascript" src="es6/src/common/events/UserLoggedInEvent.es6"></script>
+    <script type="text/javascript" src="es6/gen/common/events/AbstractUserLoggedOutEvent.es6"></script>
+    <script type="text/javascript" src="es6/src/common/events/UserLoggedOutEvent.es6"></script>
     <script type="text/javascript" src="es6/gen/common/EventListenerRegistration.es6"></script>
     <script type="text/javascript" src="es6/src/common/ErrorView.es6"></script>
     <script type="text/javascript" src="es6/src/common/CommonView.es6"></script>
+    <script type="text/javascript" src="es6/src/common/HeaderView.es6"></script>
 
 
 
@@ -99,6 +106,8 @@
     <script type="text/javascript" src="es6/src/navigation/actions/ReadPrivateTestsAction.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/actions/AbstractReadPrivateTestAction.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/actions/ReadPrivateTestAction.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/actions/AbstractReadStatisticsAction.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/actions/ReadStatisticsAction.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/commands/AbstractReadPublicCoursesCommand.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/commands/ReadPublicCoursesCommand.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/commands/AbstractReadPublicLessonsCommand.es6"></script>
@@ -115,6 +124,8 @@
     <script type="text/javascript" src="es6/src/navigation/commands/ReadPrivateTestsCommand.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/commands/AbstractReadPrivateTestCommand.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/commands/ReadPrivateTestCommand.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/commands/AbstractReadStatisticsCommand.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/commands/ReadStatisticsCommand.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/events/AbstractPublicCoursesReadEvent.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/events/PublicCoursesReadEvent.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/events/AbstractPublicLessonsReadEvent.es6"></script>
@@ -131,6 +142,8 @@
     <script type="text/javascript" src="es6/src/navigation/events/PrivateTestsReadEvent.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/events/AbstractPrivateTestReadEvent.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/events/PrivateTestReadEvent.es6"></script>
+    <script type="text/javascript" src="es6/gen/navigation/events/AbstractStatisticsReadEvent.es6"></script>
+    <script type="text/javascript" src="es6/src/navigation/events/StatisticsReadEvent.es6"></script>
     <script type="text/javascript" src="es6/gen/navigation/EventListenerRegistration.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/NavigationView.es6"></script>
     <script type="text/javascript" src="es6/src/navigation/ContentView.es6"></script>
@@ -222,38 +235,8 @@
     <div class="header container-fluid">
         <div class="container">
             <div class="row">
-                <h1 class="col-md-4 col-lg-4 hidden-xs hidden-sm visible-md-* visible-lg-*"><i class="fa fa-pencil-square"></i> Anfelisa</h1>
-                <div class="col-md-8 col-lg-8 login-pane">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <h4>
-                                <span class="goodbye-message"></span>
-                            </h4>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control username" placeholder="Name" onkeydown="if (event.keyCode == 13) new LoginAction().apply()" />
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control password" placeholder="Passwort" onkeydown="if (event.keyCode == 13) new LoginAction().apply()" />
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-blue login-button" onclick="new LoginAction().apply()"><i class="fa fa-sign-in"></i>&nbsp;&nbsp;&nbsp;Anmelden</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="logout-pane col-md-8 col-lg-8" style="display: none;">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <h4>
-                                <span class="hello-message"></span>
-                                <span class="sum-of-points"></span>
-                            </h4>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-blue logout-button" onclick="new LogoutAction().apply()"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;&nbsp;Abmelden</button>
-							<button class="btn btn-blue" onclick="new LoadStatisticsAction({defaultMonth: true}).apply()"><i class="fa fa-calendar"></i></button>
-                        </div>
-                    </div>
+                <h1 class="col-md-6 col-lg-6 hidden-xs hidden-sm visible-md-* visible-lg-*"><i class="fa fa-pencil-square"></i> Anfelisa</h1>
+                <div class="col-md-6 col-lg-6 login-logout-pane">
                 </div>
             </div>
         </div>
