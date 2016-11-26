@@ -9,10 +9,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseService;
+import com.anfelisa.ace.Resource;
 import com.anfelisa.test.actions.LoadPublicTestAction;
 import com.anfelisa.test.data.TestData;
 import com.codahale.metrics.annotation.Timed;
@@ -21,7 +22,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/tests")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class LoadPublicTestResource {
+public class LoadPublicTestResource extends Resource {
+
+	public LoadPublicTestResource(DBI jdbi) {
+		super(jdbi);
+	}
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadPublicTestResource.class);
 
@@ -32,7 +37,7 @@ public class LoadPublicTestResource {
 			@NotNull @QueryParam("testId") Integer testId) throws JsonProcessingException {
 		TestData actionParam = new TestData(testId, null, null, null, null, null, testId, null, null, null, null, null,
 				null, null, null, uuid, schema);
-		return new LoadPublicTestAction(actionParam, DatabaseService.getDatabaseHandle()).apply();
+		return new LoadPublicTestAction(actionParam, this.createDatabaseHandle()).apply();
 	}
 
 }

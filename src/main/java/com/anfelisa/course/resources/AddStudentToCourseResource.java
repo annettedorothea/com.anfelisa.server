@@ -10,10 +10,11 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseService;
+import com.anfelisa.ace.Resource;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.course.actions.AddStudentToCourseAction;
 import com.anfelisa.course.data.StudentToCourseAdditionData;
@@ -25,9 +26,13 @@ import io.dropwizard.auth.Auth;
 @Path("/courses")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class AddStudentToCourseResource {
+public class AddStudentToCourseResource extends Resource {
 
 	static final Logger LOG = LoggerFactory.getLogger(AddStudentToCourseResource.class);
+
+	public AddStudentToCourseResource(DBI jdbi) {
+		super(jdbi);
+	}
 
 	@POST
 	@Timed
@@ -37,7 +42,7 @@ public class AddStudentToCourseResource {
 		if (user.getRole().equals(AuthUser.STUDENT) && !actionParam.getUsername().equals(user.getUsername())) {
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 		}
-		return new AddStudentToCourseAction(actionParam, DatabaseService.getDatabaseHandle()).apply();
+		return new AddStudentToCourseAction(actionParam, this.createDatabaseHandle()).apply();
 	}
 
 }

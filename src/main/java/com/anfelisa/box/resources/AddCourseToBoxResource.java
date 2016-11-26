@@ -10,10 +10,12 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseService;
+import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.Resource;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.actions.AddCourseToBoxAction;
 import com.anfelisa.box.data.BoxToCourseAdditionData;
@@ -27,20 +29,26 @@ import io.dropwizard.auth.Auth;
 @Path("/boxes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class AddCourseToBoxResource {
+public class AddCourseToBoxResource extends Resource {
 
 	static final Logger LOG = LoggerFactory.getLogger(AddCourseToBoxResource.class);
+
+	public AddCourseToBoxResource(DBI jdbi) {
+		super(jdbi);
+	}
 
 	@POST
 	@Timed
 	@Path("/addcourse")
 	@PermitAll
 	public Response post(@NotNull BoxToCourseAdditionData actionParam, @Auth AuthUser user) throws JsonProcessingException {
-		IBoxModel box = BoxDao.selectById(DatabaseService.getDatabaseHandle().getHandle(), actionParam.getBoxId(), actionParam.getSchema());
+		DatabaseHandle handle = this.createDatabaseHandle();
+		IBoxModel box = BoxDao.selectById(handle.getHandle(), actionParam.getBoxId(), actionParam.getSchema());
 		if (user.getRole().equals(AuthUser.STUDENT) && !box.getUsername().equals(user.getUsername())) {
+			handle.close();
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 		}
-		return new AddCourseToBoxAction(actionParam, DatabaseService.getDatabaseHandle()).apply();
+		return new AddCourseToBoxAction(actionParam, handle).apply();
 	}
 
 }

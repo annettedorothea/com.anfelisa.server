@@ -3,15 +3,17 @@ package com.anfelisa.user;
 import io.dropwizard.setup.Environment;
 import com.anfelisa.ace.AceController;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.user.views.*;
 import com.anfelisa.user.resources.*;
 
 public class AppRegistration {
 
-	public static void registerResources(Environment environment) {
-		environment.jersey().register(new CreateUserResource());
-		environment.jersey().register(new LoginResource());
-		environment.jersey().register(new GetPointsResource());
+	public static void registerResources(Environment environment, DBI jdbi) {
+		environment.jersey().register(new CreateUserResource(jdbi));
+		environment.jersey().register(new LoginResource(jdbi));
+		environment.jersey().register(new GetPointsResource(jdbi));
 	}
 
 	public static void registerConsumers() {

@@ -17,10 +17,11 @@ import javax.ws.rs.core.Response;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseService;
+import com.anfelisa.ace.Resource;
 import com.anfelisa.box.actions.AddCourseToBoxAction;
 import com.anfelisa.box.actions.CreateBoxAction;
 import com.anfelisa.box.actions.CreateCardAction;
@@ -47,9 +48,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/migrate")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class MigrationResource {
+public class MigrationResource extends Resource {
 
 	static final Logger LOG = LoggerFactory.getLogger(MigrationResource.class);
+
+	public MigrationResource(DBI jdbi) {
+		super(jdbi);
+	}
 
 	private Connection openConnection() {
 		try {
@@ -109,7 +114,7 @@ public class MigrationResource {
 				String uuid = UUID.randomUUID().toString();
 				UserCreationData userCreationData = new UserCreationData(username, password, name, prename, email,
 						role, uuid, schema);
-				new CreateUserAction(userCreationData, DatabaseService.getDatabaseHandle()).apply();
+				new CreateUserAction(userCreationData, this.createDatabaseHandle()).apply();
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -137,7 +142,7 @@ public class MigrationResource {
 				boolean isPublic = rs.getBoolean("public");
 				String uuid = UUID.randomUUID().toString();
 				CourseCreationData courseCreationData = new CourseCreationData(id, name, "", sequence, isPublic, "Annette", uuid, schema);
-				new CreateCourseAction(courseCreationData, DatabaseService.getDatabaseHandle()).apply();
+				new CreateCourseAction(courseCreationData, this.createDatabaseHandle()).apply();
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -165,7 +170,7 @@ public class MigrationResource {
 				String name = rs.getString("name");
 				String uuid = UUID.randomUUID().toString();
 				LessonCreationData lessonCreationData = new LessonCreationData(id, name, "", sequence, courseId, "Annette", uuid, schema);
-				new CreateLessonAction(lessonCreationData, DatabaseService.getDatabaseHandle()).apply();
+				new CreateLessonAction(lessonCreationData, this.createDatabaseHandle()).apply();
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -194,7 +199,7 @@ public class MigrationResource {
 				String html = rs.getString("html");
 				String uuid = UUID.randomUUID().toString();
 				TestCreationData testCreationData = new TestCreationData(id, name, sequence, lessonId, html, "Annette", uuid, schema);
-				new CreateTestAction(testCreationData, DatabaseService.getDatabaseHandle()).apply();
+				new CreateTestAction(testCreationData, this.createDatabaseHandle()).apply();
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -228,7 +233,7 @@ public class MigrationResource {
 				Integer maxPoints = rs.getInt("max_points");
 				String uuid = UUID.randomUUID().toString();
 				ResultCreationData resultCreationData = new ResultCreationData(id, username, testId, date, json, points, maxPoints, uuid, schema);
-				new CreateResultAction(resultCreationData, DatabaseService.getDatabaseHandle()).apply();
+				new CreateResultAction(resultCreationData, this.createDatabaseHandle()).apply();
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -258,7 +263,7 @@ public class MigrationResource {
 				}
 				String uuid = UUID.randomUUID().toString();
 				BoxCreationData boxCreationData = new BoxCreationData(id, name, student, uuid, schema);
-				new CreateBoxAction(boxCreationData, DatabaseService.getDatabaseHandle()).apply();
+				new CreateBoxAction(boxCreationData, this.createDatabaseHandle()).apply();
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -287,7 +292,7 @@ public class MigrationResource {
 				}
 				String uuid = UUID.randomUUID().toString();
 				StudentToCourseAdditionData data = new StudentToCourseAdditionData(username, courseId, uuid, schema);
-				new AddStudentToCourseAction(data, DatabaseService.getDatabaseHandle()).apply();
+				new AddStudentToCourseAction(data, this.createDatabaseHandle()).apply();
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -313,7 +318,7 @@ public class MigrationResource {
 				Integer courseId = rs.getInt("box_id");
 				String uuid = UUID.randomUUID().toString();
 				BoxToCourseAdditionData data = new BoxToCourseAdditionData(boxId, courseId, false, uuid, schema);
-				new AddCourseToBoxAction(data, DatabaseService.getDatabaseHandle()).apply();
+				new AddCourseToBoxAction(data, this.createDatabaseHandle()).apply();
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -330,7 +335,7 @@ public class MigrationResource {
 				Integer courseId = rs.getInt("box_id");
 				String uuid = UUID.randomUUID().toString();
 				BoxToCourseAdditionData data = new BoxToCourseAdditionData(boxId, courseId, true, uuid, schema);
-				new AddCourseToBoxAction(data, DatabaseService.getDatabaseHandle()).apply();
+				new AddCourseToBoxAction(data, this.createDatabaseHandle()).apply();
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -359,7 +364,7 @@ public class MigrationResource {
 				Integer maxPoints = rs.getInt("max_points");
 				String uuid = UUID.randomUUID().toString();
 				CardCreationData data = new CardCreationData(id, content, testId, contentHash, maxPoints, uuid, schema);
-				new CreateCardAction(data, DatabaseService.getDatabaseHandle()).apply();
+				new CreateCardAction(data, this.createDatabaseHandle()).apply();
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -393,7 +398,7 @@ public class MigrationResource {
 				Integer points = rs.getInt("points");
 				String uuid = UUID.randomUUID().toString();
 				CardOfBoxCreationData data = new CardOfBoxCreationData(id, cardId, ef, interval, count, next, boxId, quality, timestamp, points, uuid, schema);
-				new CreateCardOfBoxAction(data, DatabaseService.getDatabaseHandle()).apply();
+				new CreateCardOfBoxAction(data, this.createDatabaseHandle()).apply();
 			}
 			rs.close();
 		} catch (SQLException e) {

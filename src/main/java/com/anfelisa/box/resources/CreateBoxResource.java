@@ -10,10 +10,11 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseService;
+import com.anfelisa.ace.Resource;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.actions.CreateBoxAction;
 import com.anfelisa.box.data.BoxCreationData;
@@ -25,9 +26,13 @@ import io.dropwizard.auth.Auth;
 @Path("/boxes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class CreateBoxResource {
+public class CreateBoxResource extends Resource {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateBoxResource.class);
+
+	public CreateBoxResource(DBI jdbi) {
+		super(jdbi);
+	}
 
 	@POST
 	@Timed
@@ -37,7 +42,7 @@ public class CreateBoxResource {
 		if (user.getRole().equals(AuthUser.STUDENT) && !actionParam.getUsername().equals(user.getUsername())) {
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 		}
-		return new CreateBoxAction(actionParam, DatabaseService.getDatabaseHandle()).apply();
+		return new CreateBoxAction(actionParam, this.createDatabaseHandle()).apply();
 	}
 
 }

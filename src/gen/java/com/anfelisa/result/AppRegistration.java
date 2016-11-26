@@ -3,13 +3,15 @@ package com.anfelisa.result;
 import io.dropwizard.setup.Environment;
 import com.anfelisa.ace.AceController;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.result.views.*;
 import com.anfelisa.result.resources.*;
 
 public class AppRegistration {
 
-	public static void registerResources(Environment environment) {
-		environment.jersey().register(new CreateResultResource());
+	public static void registerResources(Environment environment, DBI jdbi) {
+		environment.jersey().register(new CreateResultResource(jdbi));
 	}
 
 	public static void registerConsumers() {

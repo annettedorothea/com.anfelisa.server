@@ -8,10 +8,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseService;
+import com.anfelisa.ace.Resource;
 import com.anfelisa.box.actions.CreateCardOfBoxAction;
 import com.anfelisa.box.data.CardOfBoxCreationData;
 import com.codahale.metrics.annotation.Timed;
@@ -20,16 +21,20 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/cardofbox")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class CreateCardOfBoxResource {
+public class CreateCardOfBoxResource extends Resource {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateCardOfBoxResource.class);
+
+	public CreateCardOfBoxResource(DBI jdbi) {
+		super(jdbi);
+	}
 
 	@POST
 	@Timed
 	@Path("/create")
 	@PermitAll
 	public Response post(CardOfBoxCreationData actionParam ) throws JsonProcessingException {
-		return new CreateCardOfBoxAction(actionParam, DatabaseService.getDatabaseHandle()).apply();
+		return new CreateCardOfBoxAction(actionParam, this.createDatabaseHandle()).apply();
 	}
 
 }

@@ -10,10 +10,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseService;
+import com.anfelisa.ace.Resource;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.course.actions.LoadPrivateCoursesAction;
 import com.anfelisa.course.data.MyCourseListData;
@@ -25,9 +26,13 @@ import io.dropwizard.auth.Auth;
 @Path("/courses")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class LoadPrivateCoursesResource {
+public class LoadPrivateCoursesResource extends Resource {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadPrivateCoursesResource.class);
+
+	public LoadPrivateCoursesResource(DBI jdbi) {
+		super(jdbi);
+	}
 
 	@GET
 	@Timed
@@ -36,7 +41,7 @@ public class LoadPrivateCoursesResource {
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
 			@NotNull @QueryParam("schema") String schema) throws JsonProcessingException {
 		MyCourseListData actionParam = new MyCourseListData(user.getUsername(), uuid, schema);
-		return new LoadPrivateCoursesAction(actionParam, DatabaseService.getDatabaseHandle()).apply();
+		return new LoadPrivateCoursesAction(actionParam, this.createDatabaseHandle()).apply();
 	}
 
 }

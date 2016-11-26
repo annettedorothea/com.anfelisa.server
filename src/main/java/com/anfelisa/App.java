@@ -1,9 +1,9 @@
 package com.anfelisa;
 
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+import org.skife.jdbi.v2.DBI;
 
 import com.anfelisa.ace.AceResource;
-import com.anfelisa.ace.DatabaseService;
 import com.anfelisa.auth.AceAuthenticator;
 import com.anfelisa.auth.AceAuthorizer;
 import com.anfelisa.auth.AuthUser;
@@ -39,44 +39,44 @@ public class App extends Application<AppConfiguration> {
 	public void run(AppConfiguration configuration, Environment environment) throws ClassNotFoundException {
 		final DBIFactory factory = new DBIFactory();
 		
-		DatabaseService.setJdbi(factory.build(environment, configuration.getDataSourceFactory(), "postgresql"));
+		DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
 
 		DBIExceptionsBundle dbiExceptionsBundle = new DBIExceptionsBundle();
 		environment.jersey().register(dbiExceptionsBundle);
 
 		environment.jersey().register(new AuthDynamicFeature(
 	            new BasicCredentialAuthFilter.Builder<AuthUser>()
-	                .setAuthenticator(new AceAuthenticator())
+	                .setAuthenticator(new AceAuthenticator(jdbi))
 	                .setAuthorizer(new AceAuthorizer())
 	                .buildAuthFilter()));
 	    environment.jersey().register(RolesAllowedDynamicFeature.class);
 	    environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
 		
-		AceResource aceResource = new AceResource();
+		AceResource aceResource = new AceResource(jdbi);
 		environment.jersey().register(aceResource);
 		
-		com.anfelisa.setup.AppRegistration.registerResources(environment);
+		com.anfelisa.setup.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.setup.AppRegistration.registerConsumers();
 		
-		com.anfelisa.user.AppRegistration.registerResources(environment);
+		com.anfelisa.user.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.user.AppRegistration.registerConsumers();
 		
-		com.anfelisa.course.AppRegistration.registerResources(environment);
+		com.anfelisa.course.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.course.AppRegistration.registerConsumers();
 		
-		com.anfelisa.lesson.AppRegistration.registerResources(environment);
+		com.anfelisa.lesson.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.lesson.AppRegistration.registerConsumers();
 		
-		com.anfelisa.test.AppRegistration.registerResources(environment);
+		com.anfelisa.test.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.test.AppRegistration.registerConsumers();
 		
-		com.anfelisa.result.AppRegistration.registerResources(environment);
+		com.anfelisa.result.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.result.AppRegistration.registerConsumers();
 		
-		com.anfelisa.box.AppRegistration.registerResources(environment);
+		com.anfelisa.box.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.box.AppRegistration.registerConsumers();
 		
-		environment.jersey().register(new MigrationResource());
+		environment.jersey().register(new MigrationResource(jdbi));
 		
 	}
 	

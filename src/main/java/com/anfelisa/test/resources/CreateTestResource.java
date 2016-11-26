@@ -9,10 +9,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseService;
+import com.anfelisa.ace.Resource;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.test.actions.CreateTestAction;
 import com.anfelisa.test.data.TestCreationData;
@@ -22,16 +23,20 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/tests")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class CreateTestResource {
+public class CreateTestResource extends Resource {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateTestResource.class);
+
+	public CreateTestResource(DBI jdbi) {
+		super(jdbi);
+	}
 
 	@POST
 	@Timed
 	@Path("/create")
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
 	public Response post(@NotNull TestCreationData testCreationData) throws JsonProcessingException {
-		return new CreateTestAction(testCreationData, DatabaseService.getDatabaseHandle()).apply();
+		return new CreateTestAction(testCreationData, this.createDatabaseHandle()).apply();
 	}
 
 }
