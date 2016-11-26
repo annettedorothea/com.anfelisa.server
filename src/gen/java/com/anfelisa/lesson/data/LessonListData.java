@@ -37,6 +37,7 @@ public class LessonListData implements ICourseIdModel, ICourseAbstractModel, IDa
 	List<ILessonModel> LessonList;
 	
 
+
 	public LessonListData(
 		@JsonProperty("courseId") Integer courseId,
 		@JsonProperty("courseName") String courseName,

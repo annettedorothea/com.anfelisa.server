@@ -43,6 +43,7 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	
 
 
+
 	public CardOfBoxCreationData(
 		@JsonProperty("id") Integer id,
 		@JsonProperty("cardId") Integer cardId,

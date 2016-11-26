@@ -25,6 +25,7 @@ public class MyCourseListData implements IUsernameModel, IDataContainer {
 	List<IMyCourseModel> MyCourseList;
 	
 
+
 	public MyCourseListData(
 		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid,

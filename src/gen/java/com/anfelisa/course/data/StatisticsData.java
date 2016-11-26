@@ -40,6 +40,7 @@ public class StatisticsData implements IStatisticsModel, IDataContainer {
 	List<IStatisticsItemModel> StatisticsItemList;
 	
 
+
 	public StatisticsData(
 		@JsonProperty("username") String username,
 		@JsonProperty("year") Integer year,

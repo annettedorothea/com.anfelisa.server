@@ -37,6 +37,7 @@ public class UserCreationData implements IUserModel, IDataContainer {
 	
 
 
+
 	public UserCreationData(
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,

@@ -8,10 +8,10 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.result.models.IResultModel;
+import com.anfelisa.result.models.IResultAbstractModel;
 
 @SuppressWarnings("unused")
-public class ResultCreationData implements IResultModel, IDataContainer {
+public class ResultAbstractData implements IResultAbstractModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -21,16 +21,7 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	private Integer id;
 	
 	@NotNull
-	private String username;
-	
-	@NotNull
-	private Integer testId;
-	
-	@NotNull
 	private DateTime date;
-	
-	@NotNull
-	private String json;
 	
 	@NotNull
 	private Integer points;
@@ -41,22 +32,16 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 
 
 
-	public ResultCreationData(
+	public ResultAbstractData(
 		@JsonProperty("id") Integer id,
-		@JsonProperty("username") String username,
-		@JsonProperty("testId") Integer testId,
 		@JsonProperty("date") DateTime date,
-		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
 		this.id = id;
-		this.username = username;
-		this.testId = testId;
 		this.date = date;
-		this.json = json;
 		this.points = points;
 		this.maxPoints = maxPoints;
 		this.uuid = uuid;
@@ -72,35 +57,11 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
-	@JsonProperty
-	public Integer getTestId() {
-		return this.testId;
-	}
-	public void setTestId(Integer testId) {
-		this.testId = testId;
-	}
-	
-	@JsonProperty
 	public DateTime getDate() {
 		return this.date;
 	}
 	public void setDate(DateTime date) {
 		this.date = date;
-	}
-	
-	@JsonProperty
-	public String getJson() {
-		return this.json;
-	}
-	public void setJson(String json) {
-		this.json = json;
 	}
 	
 	@JsonProperty

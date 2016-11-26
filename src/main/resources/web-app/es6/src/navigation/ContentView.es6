@@ -31,9 +31,17 @@ class ContentView {
     };
     
     static renderPrivateLessons(eventData) {
+        $.get('templates/contentTemplate2.mst', function(template) {
+            var rendered = Mustache.render(template, eventData.data);
+            $('.content-pane').html(rendered);
+        });
     };
     
     static renderPrivateTests(eventData) {
+        $.get('templates/contentTemplate3.mst', function(template) {
+            var rendered = Mustache.render(template, eventData.data);
+            $('.content-pane').html(rendered);
+        });
     };
     
     static renderPrivateTest(eventData) {

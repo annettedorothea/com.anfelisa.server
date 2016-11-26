@@ -28,6 +28,7 @@ public class BoxToCourseAdditionData implements IBoxOfCourseModel, IDataContaine
 	
 
 
+
 	public BoxToCourseAdditionData(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("courseId") Integer courseId,

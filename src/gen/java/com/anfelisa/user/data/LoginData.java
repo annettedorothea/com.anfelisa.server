@@ -32,6 +32,7 @@ public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContai
 	
 
 
+
 	public LoginData(
 		@JsonProperty("id") Integer id,
 		@JsonProperty("username") String username,

@@ -19,6 +19,7 @@ public class SetupData implements ISetupModel, IDataContainer {
 	
 
 
+
 	public SetupData(
 		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema

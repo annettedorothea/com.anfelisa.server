@@ -28,6 +28,7 @@ public class BoxCreationData implements IBoxModel, IDataContainer {
 	
 
 
+
 	public BoxCreationData(
 		@JsonProperty("id") Integer id,
 		@JsonProperty("name") String name,

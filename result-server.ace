@@ -12,10 +12,17 @@ models {
 		NotNull Integer points
 		NotNull Integer maxPoints
 	)
+	ResultAbstract (
+		NotNull Serial id
+		NotNull DateTime date
+		NotNull Integer points
+		NotNull Integer maxPoints
+	)
 }
 
 data {
 	ResultCreation : ( Result )
+	ResultAbstract : ( ResultAbstract )
 }
 
 actions {

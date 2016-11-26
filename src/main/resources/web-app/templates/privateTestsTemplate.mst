@@ -1,8 +1,8 @@
 <ul class="nav nav-pills nav-stacked">
     <li class="header">
-        <a> {{name}}</a>
+        <a> {{lessonName}}</a>
     </li>
-    {{#tests}}
+    {{#myTestList}}
     <li class="test_{{id}}">
         <a onclick="new LoadPrivateTestAction({ testId : {{id}} }).apply()">
             {{name}}
@@ -15,8 +15,8 @@
         </a>
     </li>
     {{/results}}
-    {{/tests}}
+    {{/myTestList}}
     <li>
-        <a onclick="new LoadPrivateLessonsAction({ courseId : {{courseid}} }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu meinen Lektionen</a>
+        <a onclick="new RouteAction({ hash : 'private/{{courseId}}' }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu meinen Lektionen</a>
     </li>
 </ul>

@@ -34,6 +34,7 @@ public class CardCreationData implements ICardModel, IDataContainer {
 	
 
 
+
 	public CardCreationData(
 		@JsonProperty("id") Integer id,
 		@JsonProperty("content") String content,

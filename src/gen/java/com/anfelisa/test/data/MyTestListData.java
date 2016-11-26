@@ -8,39 +8,19 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.test.models.ITestModel;
-import com.anfelisa.test.models.ITestIdModel;
 import com.anfelisa.test.models.ILessonIdModel;
 import com.anfelisa.lesson.models.ILessonAbstractModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
-import com.anfelisa.test.models.ITestModel;
 
 @SuppressWarnings("unused")
-public class TestData implements ITestModel, ITestIdModel, ILessonIdModel, ILessonAbstractModel, ICourseAbstractModel, IDataContainer {
+public class MyTestListData implements ILessonIdModel, ILessonAbstractModel, ICourseAbstractModel, IDataContainer {
 	
 	private String uuid;
 	
 	private String schema;
 	
 	@NotNull
-	private Integer id;
-	
-	@NotNull
-	private String name;
-	
-	private Integer sequence;
-	
-	@NotNull
 	private Integer lessonId;
-	
-	@NotNull
-	private String html;
-	
-	@NotNull
-	private String author;
-	
-	@NotNull
-	private Integer testId;
 	
 	@NotNull
 	private String lessonName;
@@ -65,18 +45,12 @@ public class TestData implements ITestModel, ITestIdModel, ILessonIdModel, ILess
 	private Integer courseId;
 	
 
-	List<ITestModel> TestList;
+
+	List<com.anfelisa.test.data.MyTestWithResultData> myTestWithResultDataList;
 	
 
-
-	public TestData(
-		@JsonProperty("id") Integer id,
-		@JsonProperty("name") String name,
-		@JsonProperty("sequence") Integer sequence,
+	public MyTestListData(
 		@JsonProperty("lessonId") Integer lessonId,
-		@JsonProperty("html") String html,
-		@JsonProperty("author") String author,
-		@JsonProperty("testId") Integer testId,
 		@JsonProperty("lessonName") String lessonName,
 		@JsonProperty("lessonDescription") String lessonDescription,
 		@JsonProperty("lessonAuthor") String lessonAuthor,
@@ -88,13 +62,7 @@ public class TestData implements ITestModel, ITestIdModel, ILessonIdModel, ILess
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.id = id;
-		this.name = name;
-		this.sequence = sequence;
 		this.lessonId = lessonId;
-		this.html = html;
-		this.author = author;
-		this.testId = testId;
 		this.lessonName = lessonName;
 		this.lessonDescription = lessonDescription;
 		this.lessonAuthor = lessonAuthor;
@@ -108,59 +76,11 @@ public class TestData implements ITestModel, ITestIdModel, ILessonIdModel, ILess
 	}
 
 	@JsonProperty
-	public Integer getId() {
-		return this.id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
-	@JsonProperty
-	public String getName() {
-		return this.name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	@JsonProperty
-	public Integer getSequence() {
-		return this.sequence;
-	}
-	public void setSequence(Integer sequence) {
-		this.sequence = sequence;
-	}
-	
-	@JsonProperty
 	public Integer getLessonId() {
 		return this.lessonId;
 	}
 	public void setLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
-	}
-	
-	@JsonProperty
-	public String getHtml() {
-		return this.html;
-	}
-	public void setHtml(String html) {
-		this.html = html;
-	}
-	
-	@JsonProperty
-	public String getAuthor() {
-		return this.author;
-	}
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-	
-	@JsonProperty
-	public Integer getTestId() {
-		return this.testId;
-	}
-	public void setTestId(Integer testId) {
-		this.testId = testId;
 	}
 	
 	@JsonProperty
@@ -228,11 +148,11 @@ public class TestData implements ITestModel, ITestIdModel, ILessonIdModel, ILess
 	}
 	
 	@JsonProperty
-	public List<ITestModel> getTestList() {
-		return this.TestList;
+	public List<com.anfelisa.test.data.MyTestWithResultData> getMyTestWithResultDataList() {
+		return this.myTestWithResultDataList;
 	}
-	public void setTestList(List<ITestModel> TestList) {
-		this.TestList = TestList;
+	public void setMyTestWithResultDataList(List<com.anfelisa.test.data.MyTestWithResultData> myTestWithResultDataList) {
+		this.myTestWithResultDataList = myTestWithResultDataList;
 	}
 	
 	@JsonProperty

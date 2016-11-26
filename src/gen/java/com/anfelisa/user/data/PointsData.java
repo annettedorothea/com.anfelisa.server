@@ -29,6 +29,7 @@ public class PointsData implements IPointsModel, ICredentialsModel, IDataContain
 	
 
 
+
 	public PointsData(
 		@JsonProperty("points") Integer points,
 		@JsonProperty("username") String username,

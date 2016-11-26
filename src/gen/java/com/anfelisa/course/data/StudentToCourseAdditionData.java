@@ -25,6 +25,7 @@ public class StudentToCourseAdditionData implements IStudentOfCourseModel, IData
 	
 
 
+
 	public StudentToCourseAdditionData(
 		@JsonProperty("username") String username,
 		@JsonProperty("courseId") Integer courseId

@@ -1,4 +1,4 @@
-package com.anfelisa.course.data;
+package com.anfelisa.test.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
@@ -8,10 +8,10 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.course.models.ICourseModel;
+import com.anfelisa.test.models.IMyTestModel;
 
 @SuppressWarnings("unused")
-public class CourseCreationData implements ICourseModel, IDataContainer {
+public class MyTestWithResultData implements IMyTestModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -23,35 +23,31 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 	@NotNull
 	private String name;
 	
-	private String description;
-	
 	private Integer sequence;
 	
-	@NotNull
-	private Boolean isPublic;
+	private Integer resultCount;
 	
-	@NotNull
-	private String author;
+	private Boolean hasResults;
 	
 
 
+	List<com.anfelisa.result.data.ResultAbstractData> resultAbstractDataList;
+	
 
-	public CourseCreationData(
+	public MyTestWithResultData(
 		@JsonProperty("id") Integer id,
 		@JsonProperty("name") String name,
-		@JsonProperty("description") String description,
 		@JsonProperty("sequence") Integer sequence,
-		@JsonProperty("isPublic") Boolean isPublic,
-		@JsonProperty("author") String author
+		@JsonProperty("resultCount") Integer resultCount,
+		@JsonProperty("hasResults") Boolean hasResults
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
 		this.id = id;
 		this.name = name;
-		this.description = description;
 		this.sequence = sequence;
-		this.isPublic = isPublic;
-		this.author = author;
+		this.resultCount = resultCount;
+		this.hasResults = hasResults;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -73,14 +69,6 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 	}
 	
 	@JsonProperty
-	public String getDescription() {
-		return this.description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	@JsonProperty
 	public Integer getSequence() {
 		return this.sequence;
 	}
@@ -89,19 +77,27 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 	}
 	
 	@JsonProperty
-	public Boolean getIsPublic() {
-		return this.isPublic;
+	public Integer getResultCount() {
+		return this.resultCount;
 	}
-	public void setIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
+	public void setResultCount(Integer resultCount) {
+		this.resultCount = resultCount;
 	}
 	
 	@JsonProperty
-	public String getAuthor() {
-		return this.author;
+	public Boolean getHasResults() {
+		return this.hasResults;
 	}
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setHasResults(Boolean hasResults) {
+		this.hasResults = hasResults;
+	}
+	
+	@JsonProperty
+	public List<com.anfelisa.result.data.ResultAbstractData> getResultAbstractDataList() {
+		return this.resultAbstractDataList;
+	}
+	public void setResultAbstractDataList(List<com.anfelisa.result.data.ResultAbstractData> resultAbstractDataList) {
+		this.resultAbstractDataList = resultAbstractDataList;
 	}
 	
 	@JsonProperty

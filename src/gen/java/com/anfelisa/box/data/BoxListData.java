@@ -25,6 +25,7 @@ public class BoxListData implements IUsernameModel, IDataContainer {
 	List<IBoxModel> BoxList;
 	
 
+
 	public BoxListData(
 		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid,

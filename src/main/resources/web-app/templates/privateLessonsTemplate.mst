@@ -4,12 +4,12 @@
     </li>
     {{#myLessonList}}
     <li>
-        <a onclick="new LoadPrivateTestsAction({ lessonId :{{id}} }).apply()" {{#hasOpenTests}}class="open"{{/hasOpenTests}}>
+        <a onclick="new RouteAction({ hash : 'private/{{courseId}}/{{id}}' }).apply()" {{#hasOpenTests}}class="open"{{/hasOpenTests}}>
         {{#hasOpenTests}}<i class="fa fa-pencil-square-o"></i>{{/hasOpenTests}}
         {{^hasOpenTests}}<i class="fa fa-check-square-o"></i>{{/hasOpenTests}}
         {{name}}
         <span class="badge my-badge">{{#openTests}}{{openTests}}{{/openTests}}</span>
-        </a>
+    </a>
     </li>
     {{/myLessonList}}
     <li>

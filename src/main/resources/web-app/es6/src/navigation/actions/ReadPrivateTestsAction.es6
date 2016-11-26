@@ -37,7 +37,7 @@ class ReadPrivateTestsAction extends AbstractReadPrivateTestsAction {
     	if (this.actionParam.language) {
     		this.actionData.language = this.actionParam.language;
     	}
-    	// bind action parameters to action data
+		this.actionData.lessonId = this.actionParam.lessonId;
     }
 
     releaseActionParam() {

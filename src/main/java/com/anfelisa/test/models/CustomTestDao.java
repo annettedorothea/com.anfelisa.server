@@ -13,4 +13,11 @@ public class CustomTestDao {
 			.list();
 	}
 
+	public static List<IMyTestModel> selectMyTests(Handle handle, String schema, Integer lessonId) {
+		return handle.createQuery("SELECT *, 0 as resultCount FROM " + schema + ".test WHERE lessonId = :lessonId ORDER By sequence")
+				.bind("lessonId", lessonId)
+				.map(new MyTestMapper())
+				.list();
+	}
+	
 }

@@ -30,9 +30,17 @@ class BreadcrumbsView {
     };
     
     static renderPrivateLessonsBreadcrumbs(eventData) {
+        $.get('templates/breadcrumbsTemplate2.mst', function(template) {
+            var rendered = Mustache.render(template, eventData.data);
+            $('.breadcrumbs').html(rendered);
+        });
     };
     
     static renderPrivateTestsBreadcrumbs(eventData) {
+        $.get('templates/breadcrumbsTemplate3.mst', function(template) {
+            var rendered = Mustache.render(template, eventData.data);
+            $('.breadcrumbs').html(rendered);
+        });
     };
     
 }

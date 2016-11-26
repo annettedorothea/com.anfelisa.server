@@ -17,19 +17,28 @@ models {
 	TestId (
 		NotNull Integer testId
 	)
+	MyTest (
+		NotNull Serial id
+		NotNull String name
+		Integer sequence
+		Integer resultCount
+		Boolean hasResults
+	)
 }
 
 data {
-	TestCreation : ( Test )
+	TestCreation : ( Test ) : ()
 	TestList : (List Test LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
-	Test : ( Test TestId LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List Test)
+	Test : ( Test TestId LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List Test) 
+	MyTestList : (LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract) : (List MyTestWithResult)
+	MyTestWithResult : (MyTest) : (List com.anfelisa.result.ResultAbstract)
 }
 
 actions {
 	POST CreateTest uses TestCreation executes CreateTest
 	GET LoadPublicTests uses TestList
 	GET LoadPublicTest uses Test
-	GET LoadPrivateTests uses TestList
+	GET LoadPrivateTests uses MyTestList
 	GET LoadPrivateTest uses Test
 }
 

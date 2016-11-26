@@ -7,5 +7,6 @@
   "loginFailed" : "Login failed.",
   "readStatisticsFailed" : "Failed to load statistics.",
   "readBoxesFailed" : "Failed to load boxes.",
-  "readPrivateLessonsFailed" : "Failed to load lessons."
+  "readPrivateLessonsFailed" : "Failed to load lessons.",
+  "readPrivateTestsFailed" : "Failed to load tests."
 }

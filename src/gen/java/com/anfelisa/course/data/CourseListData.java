@@ -21,6 +21,7 @@ public class CourseListData implements  IDataContainer {
 	List<ICourseModel> CourseList;
 	
 
+
 	public CourseListData(
 		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema

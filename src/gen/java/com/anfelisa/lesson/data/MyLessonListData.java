@@ -41,6 +41,7 @@ public class MyLessonListData implements IUsernameModel, ICourseIdModel, ICourse
 	List<IMyLessonModel> MyLessonList;
 	
 
+
 	public MyLessonListData(
 		@JsonProperty("username") String username,
 		@JsonProperty("courseId") Integer courseId,

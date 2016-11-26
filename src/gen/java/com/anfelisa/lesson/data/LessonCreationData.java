@@ -35,6 +35,7 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 	
 
 
+
 	public LessonCreationData(
 		@JsonProperty("id") Integer id,
 		@JsonProperty("name") String name,
