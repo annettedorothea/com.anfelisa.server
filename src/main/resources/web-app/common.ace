@@ -15,12 +15,10 @@ commands {
 		on publicLessons triggers ( navigation.ReadPublicLessons )
 		on publicTests triggers ( navigation.ReadPublicTests )
 		on publicTest triggers ( navigation.ReadPublicTest )
-		on privateCourses triggers ( navigation.ReadPrivateCourses navigation.ReadStatistics )
-		on privateLessons triggers ( navigation.ReadPrivateLessons )
-		on privateTests triggers ( navigation.ReadPrivateTests )
-		on privateTest triggers ( navigation.ReadPrivateTest ) 
-		on result
-		on box
+		on privateCourses triggers ( navigation.ReadPrivateCourses navigation.ReadStatistics navigation.ReadBoxes )
+		on privateLessons triggers ( navigation.ReadPrivateLessons navigation.ReadBoxes )
+		on privateTests triggers ( navigation.ReadPrivateTests navigation.ReadBoxes )
+		on privateTest triggers ( navigation.ReadPrivateTest navigation.ReadBoxes ) 
 	}
 	Route {
 		on ok publishes ( UpdateHash ) triggers ( Init )
@@ -40,7 +38,7 @@ events {
 	Error listenedToBy ( Error.renderError )
 	UpdateHash listenedToBy ( Common.updateHash )
 	UserLoggedIn listenedToBy ( Common.initUserInLocalStorage )
-	UserLoggedOut listenedToBy ( Common.removeUserFromLocalStorage )
+	UserLoggedOut listenedToBy ( Common.removeUserFromLocalStorage navigation.Boxes.hideBoxes )
 } 
 
 views {

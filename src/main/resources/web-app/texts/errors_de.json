@@ -5,5 +5,7 @@
   "readPublicTestFailed" : "Öffentlicher Test konnte nicht geladen werden.",
   "readPrivateCoursesFailed" : "Kurse konnten nicht geladen werden.",
   "loginFailed" : "Anmeldung schlug fehl.",
-  "readStatisticsFailed" : "Statistik konnte nicht geladen werden."
+  "readStatisticsFailed" : "Statistik konnte nicht geladen werden.",
+  "readBoxesFailed" : "Boxen konnten nicht geladen werden.",
+  "readPrivateLessonsFailed" : "Lektionen konnten nicht geladen werden."
 }

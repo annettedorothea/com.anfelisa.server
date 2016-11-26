@@ -36,6 +36,7 @@ class EventListenerRegistrationNavigation {
     	ACEController.registerListener('PrivateTestReadEvent', BreadcrumbsView.renderPrivateTestsBreadcrumbs);
     	ACEController.registerListener('PrivateTestReadEvent', HeaderView.renderLogout);
     	ACEController.registerListener('StatisticsReadEvent', ContentView.renderStatistics);
+    	ACEController.registerListener('BoxesReadEvent', BoxesView.renderBoxes);
 	}
 
 }

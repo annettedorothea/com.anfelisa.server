@@ -1,17 +1,18 @@
 <ul class="nav nav-pills nav-stacked">
     <li class="header">
-        <a> {{name}}</a>
+        <a> {{courseName}}</a>
     </li>
-    {{#lessons}}
+    {{#myLessonList}}
     <li>
         <a onclick="new LoadPrivateTestsAction({ lessonId :{{id}} }).apply()" {{#hasOpenTests}}class="open"{{/hasOpenTests}}>
         {{#hasOpenTests}}<i class="fa fa-pencil-square-o"></i>{{/hasOpenTests}}
         {{^hasOpenTests}}<i class="fa fa-check-square-o"></i>{{/hasOpenTests}}
         {{name}}
+        <span class="badge my-badge">{{#openTests}}{{openTests}}{{/openTests}}</span>
         </a>
     </li>
-    {{/lessons}}
+    {{/myLessonList}}
     <li>
-        <a onclick="new LoadPrivateCoursesAction().apply()"><i class="fa fa-arrow-left"></i> Zurück zu meinen Kursen</a>
+        <a onclick="new RouteAction({ hash : 'private' }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu meinen Kursen</a>
     </li>
 </ul>

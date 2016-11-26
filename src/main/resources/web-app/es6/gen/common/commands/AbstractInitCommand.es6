@@ -11,8 +11,6 @@ class AbstractInitCommand extends Command {
         this.privateLessons = "privateLessons";
         this.privateTests = "privateTests";
         this.privateTest = "privateTest";
-        this.result = "result";
-        this.box = "box";
     }
 
     publishEvents() {
@@ -34,19 +32,19 @@ class AbstractInitCommand extends Command {
         case this.privateCourses:
         	promises.push(new TriggerAction(new ReadPrivateCoursesAction(this.commandData)).publish());
         	promises.push(new TriggerAction(new ReadStatisticsAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
         	break;
         case this.privateLessons:
         	promises.push(new TriggerAction(new ReadPrivateLessonsAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
         	break;
         case this.privateTests:
         	promises.push(new TriggerAction(new ReadPrivateTestsAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
         	break;
         case this.privateTest:
         	promises.push(new TriggerAction(new ReadPrivateTestAction(this.commandData)).publish());
-        	break;
-        case this.result:
-        	break;
-        case this.box:
+        	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
         	break;
     	default:
     		throw 'unhandled outcome: ' + this.commandData.outcome;

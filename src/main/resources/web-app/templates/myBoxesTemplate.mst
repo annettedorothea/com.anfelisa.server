@@ -2,7 +2,7 @@
     <li class="header">
         <a>Meine Vokabel-Boxen</a>
     </li>
-    {{#boxes}}
+    {{#boxList}}
     <li class="box_{{id}}">
         <a onclick="new StartBoxAction({boxId : {{id}}}).apply()" {{#hasOpenCards}}class="open"{{/hasOpenCards}}>
         {{#hasOpenCards}}<i class="fa fa-pencil-square-o"></i>{{/hasOpenCards}}
@@ -11,5 +11,5 @@
         <span class="badge">{{#cards_for_today}}{{cards_for_today}}{{/cards_for_today}}</span>
         </a>
     </li>
-    {{/boxes}}
+    {{/boxList}}
 </ul>

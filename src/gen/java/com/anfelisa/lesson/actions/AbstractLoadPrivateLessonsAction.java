@@ -4,12 +4,12 @@ import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
-import com.anfelisa.lesson.data.LessonListData;
+import com.anfelisa.lesson.data.MyLessonListData;
 
 
-public abstract class AbstractLoadPrivateLessonsAction extends Action<LessonListData> {
+public abstract class AbstractLoadPrivateLessonsAction extends Action<MyLessonListData> {
 
-	public AbstractLoadPrivateLessonsAction(LessonListData actionParam, DatabaseHandle databaseHandle) {
+	public AbstractLoadPrivateLessonsAction(MyLessonListData actionParam, DatabaseHandle databaseHandle) {
 		super("LoadPrivateLessonsAction", HttpMethod.GET, actionParam, databaseHandle);
 	}
 

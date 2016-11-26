@@ -44,6 +44,7 @@ data {
 	BoxToCourseAddition : ( BoxOfCourse )
 	CardCreation : ( Card )
 	CardOfBoxCreation : ( CardOfBox )
+	BoxList : ( List Box com.anfelisa.user.Username )
 }
 
 actions {
@@ -51,6 +52,7 @@ actions {
 	POST AddCourseToBox uses BoxToCourseAddition executes AddCourseToBox
 	POST CreateCard uses CardCreation executes CreateCard
 	POST CreateCardOfBox uses CardOfBoxCreation executes CreateCardOfBox
+	GET LoadBoxes uses BoxList
 }
 
 commands {

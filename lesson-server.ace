@@ -20,17 +20,26 @@ models {
 		NotNull String lessonAuthor
 		NotNull Integer lessonId
 	)
+	MyLesson (
+		NotNull Integer id
+		NotNull String name
+		String description
+		Integer sequence
+		NotNull Integer openTests
+		NotNull Boolean hasOpenTests
+	)
 }
 
 data {
 	LessonCreation : ( Lesson )
 	LessonList : (List Lesson CourseId com.anfelisa.course.CourseAbstract)
+	MyLessonList: (List MyLesson com.anfelisa.user.Username CourseId com.anfelisa.course.CourseAbstract )
 }
 
 actions {
 	POST CreateLesson uses LessonCreation executes CreateLesson
 	GET LoadPublicLessons uses LessonList
-	GET LoadPrivateLessons uses LessonList
+	GET LoadPrivateLessons uses MyLessonList
 }
 
 commands {

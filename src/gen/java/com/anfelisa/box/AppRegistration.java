@@ -15,6 +15,7 @@ public class AppRegistration {
 		environment.jersey().register(new AddCourseToBoxResource(jdbi));
 		environment.jersey().register(new CreateCardResource(jdbi));
 		environment.jersey().register(new CreateCardOfBoxResource(jdbi));
+		environment.jersey().register(new LoadBoxesResource(jdbi));
 	}
 
 	public static void registerConsumers() {

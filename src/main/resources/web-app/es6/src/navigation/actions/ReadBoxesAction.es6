@@ -1,6 +1,6 @@
 'use strict';
 
-class ReadPrivateLessonsAction extends AbstractReadPrivateLessonsAction {
+class ReadBoxesAction extends AbstractReadBoxesAction {
 
     captureActionParam() {
     	if (localStorage.username) {
@@ -37,7 +37,7 @@ class ReadPrivateLessonsAction extends AbstractReadPrivateLessonsAction {
     	if (this.actionParam.language) {
     		this.actionData.language = this.actionParam.language;
     	}
-		this.actionData.courseId = this.actionParam.courseId;
+    	// bind action parameters to action data
     }
 
     releaseActionParam() {

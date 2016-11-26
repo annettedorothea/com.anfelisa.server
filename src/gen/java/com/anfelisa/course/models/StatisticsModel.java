@@ -17,15 +17,30 @@ public class StatisticsModel implements IStatisticsModel {
 	@NotNull
 	private Integer month;
 	
+	@NotNull
+	private Integer points;
+	
+	@NotNull
+	private Integer maxPoints;
+	
+	@NotNull
+	private Integer rate;
+	
 
 	public StatisticsModel(
 		@JsonProperty("username") String username,
 		@JsonProperty("year") Integer year,
-		@JsonProperty("month") Integer month
+		@JsonProperty("month") Integer month,
+		@JsonProperty("points") Integer points,
+		@JsonProperty("maxPoints") Integer maxPoints,
+		@JsonProperty("rate") Integer rate
 	) {
 		this.username = username;
 		this.year = year;
 		this.month = month;
+		this.points = points;
+		this.maxPoints = maxPoints;
+		this.rate = rate;
 	}
 
 	@JsonProperty
@@ -50,6 +65,30 @@ public class StatisticsModel implements IStatisticsModel {
 	}
 	public void setMonth(Integer month) {
 		this.month = month;
+	}
+	
+	@JsonProperty
+	public Integer getPoints() {
+		return this.points;
+	}
+	public void setPoints(Integer points) {
+		this.points = points;
+	}
+	
+	@JsonProperty
+	public Integer getMaxPoints() {
+		return this.maxPoints;
+	}
+	public void setMaxPoints(Integer maxPoints) {
+		this.maxPoints = maxPoints;
+	}
+	
+	@JsonProperty
+	public Integer getRate() {
+		return this.rate;
+	}
+	public void setRate(Integer rate) {
+		this.rate = rate;
 	}
 	
 

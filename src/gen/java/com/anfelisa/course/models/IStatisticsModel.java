@@ -8,6 +8,9 @@ public interface IStatisticsModel {
 	String getUsername();
 	Integer getYear();
 	Integer getMonth();
+	Integer getPoints();
+	Integer getMaxPoints();
+	Integer getRate();
 
 }
 

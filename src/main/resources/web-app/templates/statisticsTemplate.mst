@@ -29,16 +29,16 @@
                 <th></th>
                 <th class="text-center">Tag</th>
                 <th class="text-center">Name</th>
-                <th class="text-center">Anzahl</th>
-                <th class="text-center">Punkte</th>
-                <th class="text-center">Quote</th>
+                <th class="text-right">Anzahl</th>
+                <th class="text-right">Punkte</th>
+                <th class="text-right">Quote</th>
             </tr>
             <tr class="visible-xs visible-sm hidden-md-* hidden-lg-*">
                 <th class="text-center"></th>
                 <th class="text-center">Tag</th>
                 <th class="text-center">Name</th>
-                <th class="text-center">Punkte</th>
-                <th class="text-center">Quote</th>
+                <th class="text-right">Punkte</th>
+                <th class="text-right">Quote</th>
             </tr>
             {{#statisticsItemList}}
             <tr>
@@ -46,15 +46,23 @@
                     {{#isBox}}<i class="fa fa-clone"></i>{{/isBox}}
                     {{^isBox}}<i class="fa fa-pencil-square-o"></i>{{/isBox}}
                 </td>
-                <td class="text-center hidden-xs hidden-sm visible-md-* visible-lg-*">{{day}}</td>
-                <td class="text-center visible-xs visible-sm hidden-md-* hidden-lg-* text-right">{{day}}</td>
+                <td class="text-center">{{day}}</td>
                 <td>{{name}}</td>
                 <td class="text-right hidden-xs hidden-sm visible-md-* visible-lg-*">{{count}}</td>
-                <td class="text-center hidden-xs hidden-sm visible-md-* visible-lg-* text-right">{{points}} von {{maxPoints}}</td>
-                <td class="text-center visible-xs visible-sm hidden-md-* hidden-lg-* text-right">{{points}}/{{maxPoints}}</td>
+                <td class="text-right hidden-xs hidden-sm visible-md-* visible-lg-* text-right">{{points}} von {{maxPoints}}</td>
+                <td class="text-right visible-xs visible-sm hidden-md-* hidden-lg-* text-right">{{points}}/{{maxPoints}}</td>
                 <td class="text-right">{{rate}} %</td>
             </tr>
             {{/statisticsItemList}}
+            <tr>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td></td>
+                <td class="text-right hidden-xs hidden-sm visible-md-* visible-lg-*"></td>
+                <td class="text-right hidden-xs hidden-sm visible-md-* visible-lg-* text-right">{{points}} von {{maxPoints}}</td>
+                <td class="text-right visible-xs visible-sm hidden-md-* hidden-lg-* text-right">{{points}}/{{maxPoints}}</td>
+                <td class="text-right">{{rate}} %</td>
+            </tr>
         </table>
     </div>
 </div>

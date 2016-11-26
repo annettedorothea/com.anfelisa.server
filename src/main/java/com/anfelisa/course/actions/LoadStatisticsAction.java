@@ -21,7 +21,6 @@ public class LoadStatisticsAction extends AbstractLoadStatisticsAction {
 
 	@Override
 	protected void captureActionParam() {
-		// capture all stuff that we need to replay this action (e.g. system time)
 	}
 
 	@Override
@@ -29,8 +28,17 @@ public class LoadStatisticsAction extends AbstractLoadStatisticsAction {
 		this.actionData = this.actionParam;
 		DateTime startDate = new DateTime(this.actionParam.getYear(), this.actionParam.getMonth(), 1, 0, 0, 0);
 		DateTime endDate = startDate.plusMonths(1);
-		List<IStatisticsItemModel> model = CustomStatisticsDao.selectStatistics(this.getDatabaseHandle().getHandle(), this.actionParam.getUsername(), startDate, endDate, this.actionParam.getSchema());
-		this.actionData.setStatisticsItemList(model);
+		List<IStatisticsItemModel> itemList = CustomStatisticsDao.selectStatistics(this.getDatabaseHandle().getHandle(), this.actionParam.getUsername(), startDate, endDate, this.actionParam.getSchema());
+		this.actionData.setStatisticsItemList(itemList);
+		int points = 0;
+		int maxPoints = 0;
+		for (IStatisticsItemModel item : itemList) {
+			points += item.getPoints();
+			maxPoints += item.getMaxPoints();
+		}
+		this.actionData.setMaxPoints(maxPoints);
+		this.actionData.setPoints(points);
+		this.actionData.setRate(points * 100 / maxPoints);
 	}
 
 }

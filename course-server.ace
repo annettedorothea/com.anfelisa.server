@@ -36,6 +36,9 @@ models {
 		NotNull String username
 		NotNull Integer year
 		NotNull Integer month
+		NotNull Integer points
+		NotNull Integer maxPoints
+		NotNull Integer rate
 	)
 	StatisticsItem (
 		NotNull String type

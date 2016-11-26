@@ -17,8 +17,6 @@ public class LoadPrivateCoursesAction extends AbstractLoadPrivateCoursesAction {
 
 	@Override
 	protected void captureActionParam() {
-		// capture all stuff that we need to replay this action (e.g. system
-		// time)
 	}
 
 	@Override
