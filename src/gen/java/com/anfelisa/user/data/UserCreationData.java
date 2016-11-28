@@ -37,6 +37,7 @@ public class UserCreationData implements IUserModel, IDataContainer {
 	
 
 
+	
 
 	public UserCreationData(
 		@JsonProperty("username") String username,
@@ -106,6 +107,9 @@ public class UserCreationData implements IUserModel, IDataContainer {
 		this.role = role;
 	}
 	
+
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

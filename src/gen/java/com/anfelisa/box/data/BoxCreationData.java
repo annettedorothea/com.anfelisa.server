@@ -28,6 +28,7 @@ public class BoxCreationData implements IBoxModel, IDataContainer {
 	
 
 
+	
 
 	public BoxCreationData(
 		@JsonProperty("id") Integer id,
@@ -67,6 +68,9 @@ public class BoxCreationData implements IBoxModel, IDataContainer {
 		this.username = username;
 	}
 	
+
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

@@ -3,9 +3,8 @@ package com.anfelisa.user.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class LoginLogModel implements ILoginLogModel {
 
 	@NotNull
@@ -15,13 +14,14 @@ public class LoginLogModel implements ILoginLogModel {
 	private String username;
 	
 	@NotNull
-	private DateTime date;
+	private org.joda.time.DateTime date;
 	
+
 
 	public LoginLogModel(
 		@JsonProperty("id") Integer id,
 		@JsonProperty("username") String username,
-		@JsonProperty("date") DateTime date
+		@JsonProperty("date") org.joda.time.DateTime date
 	) {
 		this.id = id;
 		this.username = username;
@@ -45,13 +45,14 @@ public class LoginLogModel implements ILoginLogModel {
 	}
 	
 	@JsonProperty
-	public DateTime getDate() {
+	public org.joda.time.DateTime getDate() {
 		return this.date;
 	}
-	public void setDate(DateTime date) {
+	public void setDate(org.joda.time.DateTime date) {
 		this.date = date;
 	}
 	
+
 
 }
 

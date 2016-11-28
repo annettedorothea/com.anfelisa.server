@@ -3,16 +3,15 @@ package com.anfelisa.result.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class ResultAbstractModel implements IResultAbstractModel {
 
 	@NotNull
-	private Integer id;
+	private Integer resultId;
 	
 	@NotNull
-	private DateTime date;
+	private org.joda.time.DateTime date;
 	
 	@NotNull
 	private Integer points;
@@ -21,31 +20,32 @@ public class ResultAbstractModel implements IResultAbstractModel {
 	private Integer maxPoints;
 	
 
+
 	public ResultAbstractModel(
-		@JsonProperty("id") Integer id,
-		@JsonProperty("date") DateTime date,
+		@JsonProperty("resultId") Integer resultId,
+		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints
 	) {
-		this.id = id;
+		this.resultId = resultId;
 		this.date = date;
 		this.points = points;
 		this.maxPoints = maxPoints;
 	}
 
 	@JsonProperty
-	public Integer getId() {
-		return this.id;
+	public Integer getResultId() {
+		return this.resultId;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setResultId(Integer resultId) {
+		this.resultId = resultId;
 	}
 	
 	@JsonProperty
-	public DateTime getDate() {
+	public org.joda.time.DateTime getDate() {
 		return this.date;
 	}
-	public void setDate(DateTime date) {
+	public void setDate(org.joda.time.DateTime date) {
 		this.date = date;
 	}
 	
@@ -65,6 +65,7 @@ public class ResultAbstractModel implements IResultAbstractModel {
 		this.maxPoints = maxPoints;
 	}
 	
+
 
 }
 

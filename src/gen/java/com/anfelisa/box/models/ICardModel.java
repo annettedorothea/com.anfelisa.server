@@ -1,8 +1,5 @@
 package com.anfelisa.box.models;
 
-import org.joda.time.DateTime;
-
-@SuppressWarnings("unused")
 public interface ICardModel {
 
 	Integer getId();
@@ -10,6 +7,7 @@ public interface ICardModel {
 	Integer getTestId();
 	String getContentHash();
 	Integer getMaxPoints();
+
 
 }
 

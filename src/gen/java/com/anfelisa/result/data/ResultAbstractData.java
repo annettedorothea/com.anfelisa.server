@@ -18,10 +18,10 @@ public class ResultAbstractData implements IResultAbstractModel, IDataContainer 
 	private String schema;
 	
 	@NotNull
-	private Integer id;
+	private Integer resultId;
 	
 	@NotNull
-	private DateTime date;
+	private org.joda.time.DateTime date;
 	
 	@NotNull
 	private Integer points;
@@ -31,16 +31,17 @@ public class ResultAbstractData implements IResultAbstractModel, IDataContainer 
 	
 
 
+	
 
 	public ResultAbstractData(
-		@JsonProperty("id") Integer id,
-		@JsonProperty("date") DateTime date,
+		@JsonProperty("resultId") Integer resultId,
+		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.id = id;
+		this.resultId = resultId;
 		this.date = date;
 		this.points = points;
 		this.maxPoints = maxPoints;
@@ -49,18 +50,18 @@ public class ResultAbstractData implements IResultAbstractModel, IDataContainer 
 	}
 
 	@JsonProperty
-	public Integer getId() {
-		return this.id;
+	public Integer getResultId() {
+		return this.resultId;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setResultId(Integer resultId) {
+		this.resultId = resultId;
 	}
 	
 	@JsonProperty
-	public DateTime getDate() {
+	public org.joda.time.DateTime getDate() {
 		return this.date;
 	}
-	public void setDate(DateTime date) {
+	public void setDate(org.joda.time.DateTime date) {
 		this.date = date;
 	}
 	
@@ -80,6 +81,9 @@ public class ResultAbstractData implements IResultAbstractModel, IDataContainer 
 		this.maxPoints = maxPoints;
 	}
 	
+
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

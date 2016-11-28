@@ -3,9 +3,8 @@ package com.anfelisa.result.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class ResultModel implements IResultModel {
 
 	@NotNull
@@ -18,7 +17,7 @@ public class ResultModel implements IResultModel {
 	private Integer testId;
 	
 	@NotNull
-	private DateTime date;
+	private org.joda.time.DateTime date;
 	
 	@NotNull
 	private String json;
@@ -30,11 +29,12 @@ public class ResultModel implements IResultModel {
 	private Integer maxPoints;
 	
 
+
 	public ResultModel(
 		@JsonProperty("id") Integer id,
 		@JsonProperty("username") String username,
 		@JsonProperty("testId") Integer testId,
-		@JsonProperty("date") DateTime date,
+		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints
@@ -73,10 +73,10 @@ public class ResultModel implements IResultModel {
 	}
 	
 	@JsonProperty
-	public DateTime getDate() {
+	public org.joda.time.DateTime getDate() {
 		return this.date;
 	}
-	public void setDate(DateTime date) {
+	public void setDate(org.joda.time.DateTime date) {
 		this.date = date;
 	}
 	
@@ -104,6 +104,7 @@ public class ResultModel implements IResultModel {
 		this.maxPoints = maxPoints;
 	}
 	
+
 
 }
 

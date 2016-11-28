@@ -1,8 +1,5 @@
 package com.anfelisa.course.models;
 
-import org.joda.time.DateTime;
-
-@SuppressWarnings("unused")
 public interface IStatisticsModel {
 
 	String getUsername();
@@ -11,6 +8,7 @@ public interface IStatisticsModel {
 	Integer getPoints();
 	Integer getMaxPoints();
 	Integer getRate();
+
 
 }
 

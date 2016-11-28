@@ -1,8 +1,5 @@
 package com.anfelisa.box.models;
 
-import org.joda.time.DateTime;
-
-@SuppressWarnings("unused")
 public interface ICardOfBoxModel {
 
 	Integer getId();
@@ -10,11 +7,12 @@ public interface ICardOfBoxModel {
 	Float getEf();
 	Integer getInterval();
 	Integer getCount();
-	DateTime getDate();
+	org.joda.time.DateTime getDate();
 	Integer getBoxId();
 	Integer getQuality();
-	DateTime getTimestamp();
+	org.joda.time.DateTime getTimestamp();
 	Integer getPoints();
+
 
 }
 

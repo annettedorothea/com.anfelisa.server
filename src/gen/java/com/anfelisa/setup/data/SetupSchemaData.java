@@ -22,6 +22,7 @@ public class SetupSchemaData implements ISetupSchemaModel, IDataContainer {
 	
 
 
+	
 
 	public SetupSchemaData(
 		@JsonProperty("schemaToBeCreated") String schemaToBeCreated
@@ -41,6 +42,9 @@ public class SetupSchemaData implements ISetupSchemaModel, IDataContainer {
 		this.schemaToBeCreated = schemaToBeCreated;
 	}
 	
+
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

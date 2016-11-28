@@ -25,18 +25,20 @@ public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContai
 	private String username;
 	
 	@NotNull
-	private DateTime date;
+	private org.joda.time.DateTime date;
 	
 	@NotNull
 	private String role;
 	
 
 
+	
+	
 
 	public LoginData(
 		@JsonProperty("id") Integer id,
 		@JsonProperty("username") String username,
-		@JsonProperty("date") DateTime date,
+		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("role") String role
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
@@ -66,10 +68,10 @@ public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContai
 	}
 	
 	@JsonProperty
-	public DateTime getDate() {
+	public org.joda.time.DateTime getDate() {
 		return this.date;
 	}
-	public void setDate(DateTime date) {
+	public void setDate(org.joda.time.DateTime date) {
 		this.date = date;
 	}
 	
@@ -81,6 +83,10 @@ public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContai
 		this.role = role;
 	}
 	
+
+	
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

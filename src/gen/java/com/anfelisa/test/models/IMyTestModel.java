@@ -1,8 +1,5 @@
 package com.anfelisa.test.models;
 
-import org.joda.time.DateTime;
-
-@SuppressWarnings("unused")
 public interface IMyTestModel {
 
 	Integer getId();
@@ -10,6 +7,8 @@ public interface IMyTestModel {
 	Integer getSequence();
 	Integer getResultCount();
 	Boolean getHasResults();
+
+	java.util.List<com.anfelisa.result.models.IResultAbstractModel> getResultAbstractList();
 
 }
 

@@ -3,9 +3,8 @@ package com.anfelisa.lesson.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class LessonAbstractModel implements ILessonAbstractModel {
 
 	@NotNull
@@ -19,6 +18,7 @@ public class LessonAbstractModel implements ILessonAbstractModel {
 	@NotNull
 	private Integer lessonId;
 	
+
 
 	public LessonAbstractModel(
 		@JsonProperty("lessonName") String lessonName,
@@ -64,6 +64,7 @@ public class LessonAbstractModel implements ILessonAbstractModel {
 		this.lessonId = lessonId;
 	}
 	
+
 
 }
 

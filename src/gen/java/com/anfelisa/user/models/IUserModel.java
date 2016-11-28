@@ -1,8 +1,5 @@
 package com.anfelisa.user.models;
 
-import org.joda.time.DateTime;
-
-@SuppressWarnings("unused")
 public interface IUserModel {
 
 	String getUsername();
@@ -11,6 +8,7 @@ public interface IUserModel {
 	String getPrename();
 	String getEmail();
 	String getRole();
+
 
 }
 

@@ -1,8 +1,5 @@
 package com.anfelisa.course.models;
 
-import org.joda.time.DateTime;
-
-@SuppressWarnings("unused")
 public interface ICourseAbstractModel {
 
 	String getCourseName();
@@ -10,6 +7,7 @@ public interface ICourseAbstractModel {
 	Boolean getIsPublic();
 	String getCourseAuthor();
 	Integer getCourseId();
+
 
 }
 

@@ -34,9 +34,12 @@ public class LessonListData implements ICourseIdModel, ICourseAbstractModel, IDa
 	private String courseAuthor;
 	
 
-	List<ILessonModel> LessonList;
+	java.util.List<ILessonModel> LessonList;
 	
 
+	
+	
+	
 
 	public LessonListData(
 		@JsonProperty("courseId") Integer courseId,
@@ -97,13 +100,18 @@ public class LessonListData implements ICourseIdModel, ICourseAbstractModel, IDa
 	}
 	
 	@JsonProperty
-	public List<ILessonModel> getLessonList() {
+	public java.util.List<ILessonModel> getLessonList() {
 		return this.LessonList;
 	}
-	public void setLessonList(List<ILessonModel> LessonList) {
+	public void setLessonList(java.util.List<ILessonModel> LessonList) {
 		this.LessonList = LessonList;
 	}
 	
+
+	
+	
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

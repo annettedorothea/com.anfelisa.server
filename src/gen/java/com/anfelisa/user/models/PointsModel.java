@@ -3,14 +3,14 @@ package com.anfelisa.user.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class PointsModel implements IPointsModel {
 
 	@NotNull
 	private Integer points;
 	
+
 
 	public PointsModel(
 		@JsonProperty("points") Integer points
@@ -26,6 +26,7 @@ public class PointsModel implements IPointsModel {
 		this.points = points;
 	}
 	
+
 
 }
 

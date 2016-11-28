@@ -1,8 +1,5 @@
 package com.anfelisa.course.models;
 
-import org.joda.time.DateTime;
-
-@SuppressWarnings("unused")
 public interface IMyCourseModel {
 
 	Integer getId();
@@ -13,6 +10,7 @@ public interface IMyCourseModel {
 	String getAuthor();
 	Integer getOpenTests();
 	Boolean getHasOpenTests();
+
 
 }
 

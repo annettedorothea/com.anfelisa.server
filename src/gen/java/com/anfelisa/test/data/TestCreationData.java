@@ -36,6 +36,7 @@ public class TestCreationData implements ITestModel, IDataContainer {
 	
 
 
+	
 
 	public TestCreationData(
 		@JsonProperty("id") Integer id,
@@ -105,6 +106,9 @@ public class TestCreationData implements ITestModel, IDataContainer {
 		this.author = author;
 	}
 	
+
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

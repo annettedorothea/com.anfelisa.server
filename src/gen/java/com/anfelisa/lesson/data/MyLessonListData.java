@@ -38,9 +38,13 @@ public class MyLessonListData implements IUsernameModel, ICourseIdModel, ICourse
 	private String courseAuthor;
 	
 
-	List<IMyLessonModel> MyLessonList;
+	java.util.List<IMyLessonModel> MyLessonList;
 	
 
+	
+	
+	
+	
 
 	public MyLessonListData(
 		@JsonProperty("username") String username,
@@ -111,13 +115,19 @@ public class MyLessonListData implements IUsernameModel, ICourseIdModel, ICourse
 	}
 	
 	@JsonProperty
-	public List<IMyLessonModel> getMyLessonList() {
+	public java.util.List<IMyLessonModel> getMyLessonList() {
 		return this.MyLessonList;
 	}
-	public void setMyLessonList(List<IMyLessonModel> MyLessonList) {
+	public void setMyLessonList(java.util.List<IMyLessonModel> MyLessonList) {
 		this.MyLessonList = MyLessonList;
 	}
 	
+
+	
+	
+	
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

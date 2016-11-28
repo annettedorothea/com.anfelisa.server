@@ -11,7 +11,6 @@ import com.anfelisa.course.models.ICourseModel;
 import com.anfelisa.lesson.models.ILessonModel;
 import com.anfelisa.lesson.models.LessonDao;
 import com.anfelisa.test.data.MyTestListData;
-import com.anfelisa.test.data.MyTestWithResultData;
 import com.anfelisa.test.models.CustomTestDao;
 import com.anfelisa.test.models.IMyTestModel;
 
@@ -42,11 +41,9 @@ public class LoadPrivateTestsAction extends AbstractLoadPrivateTestsAction {
 		this.actionData.setCourseDescription(course.getDescription());
 		this.actionData.setCourseName(course.getName());
 		this.actionData.setCourseId(course.getId());
-		/*List<IMyTestModel> list = CustomTestDao.selectMyTests(this.getDatabaseHandle().getHandle(),
-				this.getActionData().getSchema(), this.actionParam.getLessonId());
-		MyTestWithResultData testWithResult = new MyTestWithResultData(id, name, sequence, resultCount, hasResults, uuid, schema);
-		testWithResult.setResultAbstractDataList(resultAbstractDataList);*/
-		this.actionData.setMyTestWithResultDataList(null);
+		List<IMyTestModel> list = CustomTestDao.selectMyTests(this.getDatabaseHandle().getHandle(),
+				this.getActionData().getSchema(), this.actionParam.getLessonId(), this.actionParam.getUsername());
+		this.actionData.setMyTestList(list);
 	}
 
 }

@@ -3,9 +3,8 @@ package com.anfelisa.user.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class CredentialsModel implements ICredentialsModel {
 
 	@NotNull
@@ -14,6 +13,7 @@ public class CredentialsModel implements ICredentialsModel {
 	@NotNull
 	private String role;
 	
+
 
 	public CredentialsModel(
 		@JsonProperty("username") String username,
@@ -39,6 +39,7 @@ public class CredentialsModel implements ICredentialsModel {
 		this.role = role;
 	}
 	
+
 
 }
 

@@ -19,6 +19,7 @@ public class SetupData implements ISetupModel, IDataContainer {
 	
 
 
+	
 
 	public SetupData(
 		@JsonProperty("uuid") String uuid,
@@ -27,6 +28,9 @@ public class SetupData implements ISetupModel, IDataContainer {
 		this.uuid = uuid;
 		this.schema = schema;
 	}
+
+
+	
 
 	@JsonProperty
 	public String getUuid() {

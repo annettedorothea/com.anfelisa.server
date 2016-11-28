@@ -30,19 +30,20 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	@NotNull
 	private Integer count;
 	
-	private DateTime date;
+	private org.joda.time.DateTime date;
 	
 	@NotNull
 	private Integer boxId;
 	
 	private Integer quality;
 	
-	private DateTime timestamp;
+	private org.joda.time.DateTime timestamp;
 	
 	private Integer points;
 	
 
 
+	
 
 	public CardOfBoxCreationData(
 		@JsonProperty("id") Integer id,
@@ -50,10 +51,10 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
 		@JsonProperty("count") Integer count,
-		@JsonProperty("date") DateTime date,
+		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("quality") Integer quality,
-		@JsonProperty("timestamp") DateTime timestamp,
+		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
 		@JsonProperty("points") Integer points
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
@@ -113,10 +114,10 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	}
 	
 	@JsonProperty
-	public DateTime getDate() {
+	public org.joda.time.DateTime getDate() {
 		return this.date;
 	}
-	public void setDate(DateTime date) {
+	public void setDate(org.joda.time.DateTime date) {
 		this.date = date;
 	}
 	
@@ -137,10 +138,10 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	}
 	
 	@JsonProperty
-	public DateTime getTimestamp() {
+	public org.joda.time.DateTime getTimestamp() {
 		return this.timestamp;
 	}
-	public void setTimestamp(DateTime timestamp) {
+	public void setTimestamp(org.joda.time.DateTime timestamp) {
 		this.timestamp = timestamp;
 	}
 	
@@ -152,6 +153,9 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 		this.points = points;
 	}
 	
+
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

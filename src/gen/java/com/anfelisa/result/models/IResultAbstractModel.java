@@ -1,14 +1,12 @@
 package com.anfelisa.result.models;
 
-import org.joda.time.DateTime;
-
-@SuppressWarnings("unused")
 public interface IResultAbstractModel {
 
-	Integer getId();
-	DateTime getDate();
+	Integer getResultId();
+	org.joda.time.DateTime getDate();
 	Integer getPoints();
 	Integer getMaxPoints();
+
 
 }
 

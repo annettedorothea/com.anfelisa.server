@@ -24,14 +24,16 @@ models {
 		Integer resultCount
 		Boolean hasResults
 	)
+	(
+		List com.anfelisa.result.ResultAbstract
+	)
 }
 
 data {
-	TestCreation : ( Test ) : ()
+	TestCreation : ( Test )
 	TestList : (List Test LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
 	Test : ( Test TestId LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List Test) 
-	MyTestList : (LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract) : (List MyTestWithResult)
-	MyTestWithResult : (MyTest) : (List com.anfelisa.result.ResultAbstract)
+	MyTestList : (List MyTest LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
 }
 
 actions {

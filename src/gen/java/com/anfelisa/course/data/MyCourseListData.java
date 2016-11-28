@@ -22,9 +22,11 @@ public class MyCourseListData implements IUsernameModel, IDataContainer {
 	private String username;
 	
 
-	List<IMyCourseModel> MyCourseList;
+	java.util.List<IMyCourseModel> MyCourseList;
 	
 
+	
+	
 
 	public MyCourseListData(
 		@JsonProperty("username") String username
@@ -45,13 +47,17 @@ public class MyCourseListData implements IUsernameModel, IDataContainer {
 	}
 	
 	@JsonProperty
-	public List<IMyCourseModel> getMyCourseList() {
+	public java.util.List<IMyCourseModel> getMyCourseList() {
 		return this.MyCourseList;
 	}
-	public void setMyCourseList(List<IMyCourseModel> MyCourseList) {
+	public void setMyCourseList(java.util.List<IMyCourseModel> MyCourseList) {
 		this.MyCourseList = MyCourseList;
 	}
 	
+
+	
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

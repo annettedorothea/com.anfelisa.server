@@ -29,6 +29,8 @@ public class PointsData implements IPointsModel, ICredentialsModel, IDataContain
 	
 
 
+	
+	
 
 	public PointsData(
 		@JsonProperty("points") Integer points,
@@ -68,6 +70,10 @@ public class PointsData implements IPointsModel, ICredentialsModel, IDataContain
 		this.role = role;
 	}
 	
+
+	
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

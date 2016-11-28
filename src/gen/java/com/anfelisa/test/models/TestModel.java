@@ -3,9 +3,8 @@ package com.anfelisa.test.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class TestModel implements ITestModel {
 
 	@NotNull
@@ -25,6 +24,7 @@ public class TestModel implements ITestModel {
 	@NotNull
 	private String author;
 	
+
 
 	public TestModel(
 		@JsonProperty("id") Integer id,
@@ -90,6 +90,7 @@ public class TestModel implements ITestModel {
 		this.author = author;
 	}
 	
+
 
 }
 

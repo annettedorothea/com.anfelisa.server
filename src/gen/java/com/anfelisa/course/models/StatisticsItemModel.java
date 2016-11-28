@@ -3,9 +3,8 @@ package com.anfelisa.course.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class StatisticsItemModel implements IStatisticsItemModel {
 
 	@NotNull
@@ -32,6 +31,7 @@ public class StatisticsItemModel implements IStatisticsItemModel {
 	@NotNull
 	private Integer rate;
 	
+
 
 	public StatisticsItemModel(
 		@JsonProperty("type") String type,
@@ -117,6 +117,7 @@ public class StatisticsItemModel implements IStatisticsItemModel {
 		this.rate = rate;
 	}
 	
+
 
 }
 

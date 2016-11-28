@@ -35,6 +35,7 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 	
 
 
+	
 
 	public CourseCreationData(
 		@JsonProperty("id") Integer id,
@@ -104,6 +105,9 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 		this.author = author;
 	}
 	
+
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

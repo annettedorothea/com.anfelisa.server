@@ -50,7 +50,7 @@ public class LoadPrivateTestsResource extends Resource {
 			handle.close();
 			throw new WebApplicationException(Response.Status.BAD_REQUEST);
 		}
-		MyTestListData actionParam = new MyTestListData(lessonId, null, null, null, null, null, null, null, null, uuid, schema);
+		MyTestListData actionParam = new MyTestListData(lessonId, user.getUsername(), null, null, null, null, null, null, null, null, uuid, schema);
 		return new LoadPrivateTestsAction(actionParam, handle).apply();
 	}
 

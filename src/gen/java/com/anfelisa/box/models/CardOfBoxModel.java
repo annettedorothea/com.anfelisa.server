@@ -3,9 +3,8 @@ package com.anfelisa.box.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class CardOfBoxModel implements ICardOfBoxModel {
 
 	@NotNull
@@ -21,17 +20,18 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 	@NotNull
 	private Integer count;
 	
-	private DateTime date;
+	private org.joda.time.DateTime date;
 	
 	@NotNull
 	private Integer boxId;
 	
 	private Integer quality;
 	
-	private DateTime timestamp;
+	private org.joda.time.DateTime timestamp;
 	
 	private Integer points;
 	
+
 
 	public CardOfBoxModel(
 		@JsonProperty("id") Integer id,
@@ -39,10 +39,10 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
 		@JsonProperty("count") Integer count,
-		@JsonProperty("date") DateTime date,
+		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("quality") Integer quality,
-		@JsonProperty("timestamp") DateTime timestamp,
+		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
 		@JsonProperty("points") Integer points
 	) {
 		this.id = id;
@@ -98,10 +98,10 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 	}
 	
 	@JsonProperty
-	public DateTime getDate() {
+	public org.joda.time.DateTime getDate() {
 		return this.date;
 	}
-	public void setDate(DateTime date) {
+	public void setDate(org.joda.time.DateTime date) {
 		this.date = date;
 	}
 	
@@ -122,10 +122,10 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 	}
 	
 	@JsonProperty
-	public DateTime getTimestamp() {
+	public org.joda.time.DateTime getTimestamp() {
 		return this.timestamp;
 	}
-	public void setTimestamp(DateTime timestamp) {
+	public void setTimestamp(org.joda.time.DateTime timestamp) {
 		this.timestamp = timestamp;
 	}
 	
@@ -137,6 +137,7 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 		this.points = points;
 	}
 	
+
 
 }
 

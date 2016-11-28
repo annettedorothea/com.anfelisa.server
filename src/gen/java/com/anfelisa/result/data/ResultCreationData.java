@@ -27,7 +27,7 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	private Integer testId;
 	
 	@NotNull
-	private DateTime date;
+	private org.joda.time.DateTime date;
 	
 	@NotNull
 	private String json;
@@ -40,12 +40,13 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	
 
 
+	
 
 	public ResultCreationData(
 		@JsonProperty("id") Integer id,
 		@JsonProperty("username") String username,
 		@JsonProperty("testId") Integer testId,
-		@JsonProperty("date") DateTime date,
+		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints
@@ -88,10 +89,10 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	}
 	
 	@JsonProperty
-	public DateTime getDate() {
+	public org.joda.time.DateTime getDate() {
 		return this.date;
 	}
-	public void setDate(DateTime date) {
+	public void setDate(org.joda.time.DateTime date) {
 		this.date = date;
 	}
 	
@@ -119,6 +120,9 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 		this.maxPoints = maxPoints;
 	}
 	
+
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

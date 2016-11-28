@@ -25,6 +25,7 @@ public class StudentToCourseAdditionData implements IStudentOfCourseModel, IData
 	
 
 
+	
 
 	public StudentToCourseAdditionData(
 		@JsonProperty("username") String username,
@@ -54,6 +55,9 @@ public class StudentToCourseAdditionData implements IStudentOfCourseModel, IData
 		this.courseId = courseId;
 	}
 	
+
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

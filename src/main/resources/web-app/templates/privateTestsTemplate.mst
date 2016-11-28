@@ -8,13 +8,13 @@
             {{name}}
         </a>
     </li>
-    {{#results}}
-    <li class="result_{{id}} result">
-        <a onclick="new LoadTestOfResultAction({resultId : {{id}} }).apply()">
-            <i class="fa fa-caret-right"></i> {{points}} von {{max_points}}
+    {{#resultAbstractList}}
+    <li class="result_{{resultId}} result">
+        <a onclick="new LoadTestOfResultAction({resultId : {{resultId}} }).apply()">
+            <i class="fa fa-caret-right"></i> {{points}} von {{maxPoints}}
         </a>
     </li>
-    {{/results}}
+    {{/resultAbstractList}}
     {{/myTestList}}
     <li>
         <a onclick="new RouteAction({ hash : 'private/{{courseId}}' }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu meinen Lektionen</a>

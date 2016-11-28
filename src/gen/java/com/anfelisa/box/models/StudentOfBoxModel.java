@@ -3,9 +3,8 @@ package com.anfelisa.box.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class StudentOfBoxModel implements IStudentOfBoxModel {
 
 	@NotNull
@@ -17,6 +16,7 @@ public class StudentOfBoxModel implements IStudentOfBoxModel {
 	@NotNull
 	private String username;
 	
+
 
 	public StudentOfBoxModel(
 		@JsonProperty("id") Integer id,
@@ -52,6 +52,7 @@ public class StudentOfBoxModel implements IStudentOfBoxModel {
 		this.username = username;
 	}
 	
+
 
 }
 

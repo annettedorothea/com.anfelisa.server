@@ -28,6 +28,7 @@ public class BoxToCourseAdditionData implements IBoxOfCourseModel, IDataContaine
 	
 
 
+	
 
 	public BoxToCourseAdditionData(
 		@JsonProperty("boxId") Integer boxId,
@@ -67,6 +68,9 @@ public class BoxToCourseAdditionData implements IBoxOfCourseModel, IDataContaine
 		this.autoAdd = autoAdd;
 	}
 	
+
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

@@ -22,9 +22,11 @@ public class BoxListData implements IUsernameModel, IDataContainer {
 	private String username;
 	
 
-	List<IBoxModel> BoxList;
+	java.util.List<IBoxModel> BoxList;
 	
 
+	
+	
 
 	public BoxListData(
 		@JsonProperty("username") String username
@@ -45,13 +47,17 @@ public class BoxListData implements IUsernameModel, IDataContainer {
 	}
 	
 	@JsonProperty
-	public List<IBoxModel> getBoxList() {
+	public java.util.List<IBoxModel> getBoxList() {
 		return this.BoxList;
 	}
-	public void setBoxList(List<IBoxModel> BoxList) {
+	public void setBoxList(java.util.List<IBoxModel> BoxList) {
 		this.BoxList = BoxList;
 	}
 	
+
+	
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

@@ -1,8 +1,5 @@
 package com.anfelisa.test.models;
 
-import org.joda.time.DateTime;
-
-@SuppressWarnings("unused")
 public interface ITestModel {
 
 	Integer getId();
@@ -11,6 +8,7 @@ public interface ITestModel {
 	Integer getLessonId();
 	String getHtml();
 	String getAuthor();
+
 
 }
 

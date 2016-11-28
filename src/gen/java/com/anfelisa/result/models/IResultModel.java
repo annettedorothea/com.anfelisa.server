@@ -1,17 +1,15 @@
 package com.anfelisa.result.models;
 
-import org.joda.time.DateTime;
-
-@SuppressWarnings("unused")
 public interface IResultModel {
 
 	Integer getId();
 	String getUsername();
 	Integer getTestId();
-	DateTime getDate();
+	org.joda.time.DateTime getDate();
 	String getJson();
 	Integer getPoints();
 	Integer getMaxPoints();
+
 
 }
 

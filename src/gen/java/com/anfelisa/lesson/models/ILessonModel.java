@@ -1,8 +1,5 @@
 package com.anfelisa.lesson.models;
 
-import org.joda.time.DateTime;
-
-@SuppressWarnings("unused")
 public interface ILessonModel {
 
 	Integer getId();
@@ -11,6 +8,7 @@ public interface ILessonModel {
 	Integer getSequence();
 	Integer getCourseId();
 	String getAuthor();
+
 
 }
 

@@ -3,9 +3,8 @@ package com.anfelisa.course.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class StudentOfCourseModel implements IStudentOfCourseModel {
 
 	@NotNull
@@ -14,6 +13,7 @@ public class StudentOfCourseModel implements IStudentOfCourseModel {
 	@NotNull
 	private Integer courseId;
 	
+
 
 	public StudentOfCourseModel(
 		@JsonProperty("username") String username,
@@ -39,6 +39,7 @@ public class StudentOfCourseModel implements IStudentOfCourseModel {
 		this.courseId = courseId;
 	}
 	
+
 
 }
 

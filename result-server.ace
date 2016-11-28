@@ -13,7 +13,7 @@ models {
 		NotNull Integer maxPoints
 	)
 	ResultAbstract (
-		NotNull Serial id
+		NotNull Serial resultId
 		NotNull DateTime date
 		NotNull Integer points
 		NotNull Integer maxPoints

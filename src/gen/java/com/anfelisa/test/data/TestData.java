@@ -65,9 +65,15 @@ public class TestData implements ITestModel, ITestIdModel, ILessonIdModel, ILess
 	private Integer courseId;
 	
 
-	List<ITestModel> TestList;
+	java.util.List<ITestModel> TestList;
 	
 
+	
+	
+	
+	
+	
+	
 
 	public TestData(
 		@JsonProperty("id") Integer id,
@@ -228,13 +234,21 @@ public class TestData implements ITestModel, ITestIdModel, ILessonIdModel, ILess
 	}
 	
 	@JsonProperty
-	public List<ITestModel> getTestList() {
+	public java.util.List<ITestModel> getTestList() {
 		return this.TestList;
 	}
-	public void setTestList(List<ITestModel> TestList) {
+	public void setTestList(java.util.List<ITestModel> TestList) {
 		this.TestList = TestList;
 	}
 	
+
+	
+	
+	
+	
+	
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

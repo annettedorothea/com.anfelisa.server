@@ -3,9 +3,8 @@ package com.anfelisa.test.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class MyTestModel implements IMyTestModel {
 
 	@NotNull
@@ -19,6 +18,9 @@ public class MyTestModel implements IMyTestModel {
 	private Integer resultCount;
 	
 	private Boolean hasResults;
+	
+
+	private java.util.List<com.anfelisa.result.models.IResultAbstractModel> resultAbstractList;
 	
 
 	public MyTestModel(
@@ -73,6 +75,15 @@ public class MyTestModel implements IMyTestModel {
 	}
 	public void setHasResults(Boolean hasResults) {
 		this.hasResults = hasResults;
+	}
+	
+
+	@JsonProperty
+	public java.util.List<com.anfelisa.result.models.IResultAbstractModel> getResultAbstractList() {
+		return this.resultAbstractList;
+	}
+	public void setResultAbstractList(java.util.List<com.anfelisa.result.models.IResultAbstractModel> resultAbstractList) {
+		this.resultAbstractList = resultAbstractList;
 	}
 	
 

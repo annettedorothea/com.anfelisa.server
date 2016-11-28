@@ -8,12 +8,14 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
+import com.anfelisa.test.models.IMyTestModel;
 import com.anfelisa.test.models.ILessonIdModel;
+import com.anfelisa.user.models.IUsernameModel;
 import com.anfelisa.lesson.models.ILessonAbstractModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
 
 @SuppressWarnings("unused")
-public class MyTestListData implements ILessonIdModel, ILessonAbstractModel, ICourseAbstractModel, IDataContainer {
+public class MyTestListData implements ILessonIdModel, IUsernameModel, ILessonAbstractModel, ICourseAbstractModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -21,6 +23,9 @@ public class MyTestListData implements ILessonIdModel, ILessonAbstractModel, ICo
 	
 	@NotNull
 	private Integer lessonId;
+	
+	@NotNull
+	private String username;
 	
 	@NotNull
 	private String lessonName;
@@ -45,12 +50,19 @@ public class MyTestListData implements ILessonIdModel, ILessonAbstractModel, ICo
 	private Integer courseId;
 	
 
+	java.util.List<IMyTestModel> MyTestList;
+	
 
-	List<com.anfelisa.test.data.MyTestWithResultData> myTestWithResultDataList;
+	private java.util.List<com.anfelisa.result.models.IResultAbstractModel> resultAbstractList;
+	
+	
+	
+	
 	
 
 	public MyTestListData(
 		@JsonProperty("lessonId") Integer lessonId,
+		@JsonProperty("username") String username,
 		@JsonProperty("lessonName") String lessonName,
 		@JsonProperty("lessonDescription") String lessonDescription,
 		@JsonProperty("lessonAuthor") String lessonAuthor,
@@ -63,6 +75,7 @@ public class MyTestListData implements ILessonIdModel, ILessonAbstractModel, ICo
 		@JsonProperty("schema") String schema
 	) {
 		this.lessonId = lessonId;
+		this.username = username;
 		this.lessonName = lessonName;
 		this.lessonDescription = lessonDescription;
 		this.lessonAuthor = lessonAuthor;
@@ -81,6 +94,14 @@ public class MyTestListData implements ILessonIdModel, ILessonAbstractModel, ICo
 	}
 	public void setLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
+	}
+	
+	@JsonProperty
+	public String getUsername() {
+		return this.username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	@JsonProperty
@@ -148,13 +169,27 @@ public class MyTestListData implements ILessonIdModel, ILessonAbstractModel, ICo
 	}
 	
 	@JsonProperty
-	public List<com.anfelisa.test.data.MyTestWithResultData> getMyTestWithResultDataList() {
-		return this.myTestWithResultDataList;
+	public java.util.List<IMyTestModel> getMyTestList() {
+		return this.MyTestList;
 	}
-	public void setMyTestWithResultDataList(List<com.anfelisa.test.data.MyTestWithResultData> myTestWithResultDataList) {
-		this.myTestWithResultDataList = myTestWithResultDataList;
+	public void setMyTestList(java.util.List<IMyTestModel> MyTestList) {
+		this.MyTestList = MyTestList;
 	}
 	
+
+	@JsonProperty
+	public java.util.List<com.anfelisa.result.models.IResultAbstractModel> getResultAbstractList() {
+		return this.resultAbstractList;
+	}
+	public void setResultAbstractList(java.util.List<com.anfelisa.result.models.IResultAbstractModel> resultAbstractList) {
+		this.resultAbstractList = resultAbstractList;
+	}
+	
+	
+	
+	
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

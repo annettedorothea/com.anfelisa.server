@@ -18,9 +18,10 @@ public class CourseListData implements  IDataContainer {
 	private String schema;
 	
 
-	List<ICourseModel> CourseList;
+	java.util.List<ICourseModel> CourseList;
 	
 
+	
 
 	public CourseListData(
 		@JsonProperty("uuid") String uuid,
@@ -31,13 +32,16 @@ public class CourseListData implements  IDataContainer {
 	}
 
 	@JsonProperty
-	public List<ICourseModel> getCourseList() {
+	public java.util.List<ICourseModel> getCourseList() {
 		return this.CourseList;
 	}
-	public void setCourseList(List<ICourseModel> CourseList) {
+	public void setCourseList(java.util.List<ICourseModel> CourseList) {
 		this.CourseList = CourseList;
 	}
 	
+
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

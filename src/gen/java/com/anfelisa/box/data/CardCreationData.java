@@ -34,6 +34,7 @@ public class CardCreationData implements ICardModel, IDataContainer {
 	
 
 
+	
 
 	public CardCreationData(
 		@JsonProperty("id") Integer id,
@@ -93,6 +94,9 @@ public class CardCreationData implements ICardModel, IDataContainer {
 		this.maxPoints = maxPoints;
 	}
 	
+
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

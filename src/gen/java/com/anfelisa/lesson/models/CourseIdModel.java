@@ -3,14 +3,14 @@ package com.anfelisa.lesson.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class CourseIdModel implements ICourseIdModel {
 
 	@NotNull
 	private Integer courseId;
 	
+
 
 	public CourseIdModel(
 		@JsonProperty("courseId") Integer courseId
@@ -26,6 +26,7 @@ public class CourseIdModel implements ICourseIdModel {
 		this.courseId = courseId;
 	}
 	
+
 
 }
 

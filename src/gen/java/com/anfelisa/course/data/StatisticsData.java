@@ -37,9 +37,11 @@ public class StatisticsData implements IStatisticsModel, IDataContainer {
 	private Integer rate;
 	
 
-	List<IStatisticsItemModel> StatisticsItemList;
+	java.util.List<IStatisticsItemModel> StatisticsItemList;
 	
 
+	
+	
 
 	public StatisticsData(
 		@JsonProperty("username") String username,
@@ -110,13 +112,17 @@ public class StatisticsData implements IStatisticsModel, IDataContainer {
 	}
 	
 	@JsonProperty
-	public List<IStatisticsItemModel> getStatisticsItemList() {
+	public java.util.List<IStatisticsItemModel> getStatisticsItemList() {
 		return this.StatisticsItemList;
 	}
-	public void setStatisticsItemList(List<IStatisticsItemModel> StatisticsItemList) {
+	public void setStatisticsItemList(java.util.List<IStatisticsItemModel> StatisticsItemList) {
 		this.StatisticsItemList = StatisticsItemList;
 	}
 	
+
+	
+	
+
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;

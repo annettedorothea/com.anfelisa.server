@@ -1,8 +1,5 @@
 package com.anfelisa.lesson.models;
 
-import org.joda.time.DateTime;
-
-@SuppressWarnings("unused")
 public interface IMyLessonModel {
 
 	Integer getId();
@@ -11,6 +8,7 @@ public interface IMyLessonModel {
 	Integer getSequence();
 	Integer getOpenTests();
 	Boolean getHasOpenTests();
+
 
 }
 
