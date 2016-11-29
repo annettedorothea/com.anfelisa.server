@@ -18,7 +18,6 @@ class ReadPublicTestAction extends AbstractReadPublicTestAction {
     	if (localStorage.language) {
 	        this.actionParam.language = localStorage.language;
 	    }
-    	// capture user input
     }
 
     initActionData() {
@@ -38,7 +37,6 @@ class ReadPublicTestAction extends AbstractReadPublicTestAction {
     		this.actionData.language = this.actionParam.language;
     	}
 		this.actionData.testId = this.actionParam.testId;
-    	// bind action parameters to action data
     }
 
     releaseActionParam() {
@@ -57,7 +55,6 @@ class ReadPublicTestAction extends AbstractReadPublicTestAction {
     	if (this.actionParam.language) {
     		localStorage.language = this.actionParam.language;
     	}
-    	// release action params during replay
     }
 }
 

@@ -8,5 +8,6 @@
   "readStatisticsFailed" : "Statistik konnte nicht geladen werden.",
   "readBoxesFailed" : "Boxen konnten nicht geladen werden.",
   "readPrivateLessonsFailed" : "Lektionen konnten nicht geladen werden.",
-  "readPrivateTestsFailed" : "Tests konnten nicht geladen werden."
+  "readPrivateTestsFailed" : "Tests konnten nicht geladen werden.",
+  "readPrivateTestFailed" : "Test konnte nicht geladen werden."
 }

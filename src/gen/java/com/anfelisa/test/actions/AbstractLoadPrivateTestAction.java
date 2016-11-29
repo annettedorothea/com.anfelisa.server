@@ -4,12 +4,12 @@ import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
-import com.anfelisa.test.data.TestData;
+import com.anfelisa.test.data.MyTestData;
 
 
-public abstract class AbstractLoadPrivateTestAction extends Action<TestData> {
+public abstract class AbstractLoadPrivateTestAction extends Action<MyTestData> {
 
-	public AbstractLoadPrivateTestAction(TestData actionParam, DatabaseHandle databaseHandle) {
+	public AbstractLoadPrivateTestAction(MyTestData actionParam, DatabaseHandle databaseHandle) {
 		super("LoadPrivateTestAction", HttpMethod.GET, actionParam, databaseHandle);
 	}
 

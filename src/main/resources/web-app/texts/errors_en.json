@@ -8,5 +8,6 @@
   "readStatisticsFailed" : "Failed to load statistics.",
   "readBoxesFailed" : "Failed to load boxes.",
   "readPrivateLessonsFailed" : "Failed to load lessons.",
-  "readPrivateTestsFailed" : "Failed to load tests."
+  "readPrivateTestsFailed" : "Failed to load tests.",
+  "readPrivateTestFailed" : "Failed to load test."
 }

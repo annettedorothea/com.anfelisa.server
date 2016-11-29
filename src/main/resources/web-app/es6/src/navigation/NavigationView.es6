@@ -55,6 +55,12 @@ class NavigationView {
     };
     
     static renderPrivateTest(eventData) {
+        $.get('templates/privateTestsTemplate.mst', function(template) {
+            var rendered = Mustache.render(template, eventData.data);
+            $('.course-navigation').html(rendered);
+            $("ul.nav li").removeClass("active");
+            $("ul.nav li.test_" + eventData.data.testId).addClass("active");
+        });
     };
     
 }

@@ -34,6 +34,7 @@ data {
 	TestList : (List Test LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
 	Test : ( Test TestId LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List Test) 
 	MyTestList : (List MyTest LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
+	MyTest : ( Test TestId LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List MyTest) 
 }
 
 actions {
@@ -41,7 +42,7 @@ actions {
 	GET LoadPublicTests uses TestList
 	GET LoadPublicTest uses Test
 	GET LoadPrivateTests uses MyTestList
-	GET LoadPrivateTest uses Test
+	GET LoadPrivateTest uses MyTest
 }
 
 commands {

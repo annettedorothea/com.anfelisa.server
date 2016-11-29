@@ -45,8 +45,8 @@ public class LoadPrivateTestsResource extends Resource {
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
 			@NotNull @QueryParam("schema") String schema, @NotNull @QueryParam("lessonId") Integer lessonId) throws JsonProcessingException {
 		DatabaseHandle handle = this.createDatabaseHandle();
-		ILessonModel course = CustomLessonDao.selectByLessonIdAndUsername(handle.getHandle(), lessonId, user.getUsername(), schema);
-		if (course == null) {
+		ILessonModel lesson = CustomLessonDao.selectByLessonIdAndUsername(handle.getHandle(), lessonId, user.getUsername(), schema);
+		if (lesson == null) {
 			handle.close();
 			throw new WebApplicationException(Response.Status.BAD_REQUEST);
 		}

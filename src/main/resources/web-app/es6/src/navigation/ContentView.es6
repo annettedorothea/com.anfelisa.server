@@ -45,6 +45,8 @@ class ContentView {
     };
     
     static renderPrivateTest(eventData) {
+        $(".content-pane").html(eventData.data.html);
+        //enableDrag();
     };
     
     static renderResult(eventData) {

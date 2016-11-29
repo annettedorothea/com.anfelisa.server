@@ -36,11 +36,21 @@ public class CustomTestDao {
 			}
 			if (current != null && testJoinedToResult.getResultId() != null) {
 				ResultAbstractModel resultModel = new ResultAbstractModel(testJoinedToResult.getResultId(),
-						testJoinedToResult.getDate(), testJoinedToResult.getPoints(), testJoinedToResult.getMaxPoints());
+						testJoinedToResult.getDate(), testJoinedToResult.getPoints(),
+						testJoinedToResult.getMaxPoints());
 				current.getResultAbstractList().add(resultModel);
 			}
 		}
 		return list;
+	}
+
+	public static ITestModel selectByTestIdAndUsername(Handle handle, Integer testId, String username, String schema) {
+		return handle
+				.createQuery("SELECT t.* FROM " + schema + ".course c, " + schema + ".studentofcourse sc, " + schema
+						+ ".lesson l, " + schema
+						+ ".test t WHERE t.id = :testId AND t.lessonId = l.id AND l.courseId = c.id AND sc.courseId = c.id AND sc.username = :username")
+				.bind("testId", testId).bind("username", username).map(new TestMapper()).first();
+
 	}
 
 }
