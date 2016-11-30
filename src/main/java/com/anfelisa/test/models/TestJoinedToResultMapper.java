@@ -15,9 +15,9 @@ public class TestJoinedToResultMapper implements ResultSetMapper<TestJoinedToRes
 		Integer maxPoints = r.getObject("maxPoints") == null ? null : r.getInt("maxPoints");
 		String name = r.getString("name");
 		Integer sequence = r.getInt("sequence");
-		Integer id = r.getInt("id");
+		Integer testId = r.getInt("testId");
 		Integer resultId = r.getObject("resultId") == null ? null : r.getInt("resultId");
-		return new TestJoinedToResult(date, points, maxPoints, name, sequence, id, resultId);
+		return new TestJoinedToResult(date, points, maxPoints, name, sequence, testId, resultId);
 	}
 	
 }

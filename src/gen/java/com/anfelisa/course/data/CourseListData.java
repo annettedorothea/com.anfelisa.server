@@ -31,6 +31,7 @@ public class CourseListData implements  IDataContainer {
 		this.schema = schema;
 	}
 
+
 	@JsonProperty
 	public java.util.List<ICourseModel> getCourseList() {
 		return this.CourseList;

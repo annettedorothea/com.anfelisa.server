@@ -2,7 +2,7 @@ package com.anfelisa.lesson.models;
 
 public interface IMyLessonModel {
 
-	Integer getId();
+	Integer getLessonId();
 	String getName();
 	String getDescription();
 	Integer getSequence();

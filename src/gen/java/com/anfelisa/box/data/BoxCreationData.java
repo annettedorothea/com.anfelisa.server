@@ -18,7 +18,7 @@ public class BoxCreationData implements IBoxModel, IDataContainer {
 	private String schema;
 	
 	@NotNull
-	private Integer id;
+	private Integer boxId;
 	
 	@NotNull
 	private String name;
@@ -31,25 +31,37 @@ public class BoxCreationData implements IBoxModel, IDataContainer {
 	
 
 	public BoxCreationData(
-		@JsonProperty("id") Integer id,
+		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("name") String name,
 		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.id = id;
+		this.boxId = boxId;
 		this.name = name;
 		this.username = username;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
 
-	@JsonProperty
-	public Integer getId() {
-		return this.id;
+	public BoxCreationData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+	@JsonProperty
+	public Integer getBoxId() {
+		return this.boxId;
+	}
+	public void setBoxId(Integer boxId) {
+		this.boxId = boxId;
+	}
+	public BoxCreationData withBoxId(Integer boxId) {
+		this.boxId = boxId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -59,6 +71,10 @@ public class BoxCreationData implements IBoxModel, IDataContainer {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public BoxCreationData withName(String name) {
+		this.name = name;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUsername() {
@@ -66,6 +82,10 @@ public class BoxCreationData implements IBoxModel, IDataContainer {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public BoxCreationData withUsername(String username) {
+		this.username = username;
+		return this;
 	}
 	
 

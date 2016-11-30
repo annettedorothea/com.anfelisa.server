@@ -2,7 +2,7 @@ package com.anfelisa.test.models;
 
 public interface ITestModel {
 
-	Integer getId();
+	Integer getTestId();
 	String getName();
 	Integer getSequence();
 	Integer getLessonId();

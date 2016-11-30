@@ -39,12 +39,24 @@ public class StudentToCourseAdditionData implements IStudentOfCourseModel, IData
 		this.schema = schema;
 	}
 
+	public StudentToCourseAdditionData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
+	}
+
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public StudentToCourseAdditionData withUsername(String username) {
+		this.username = username;
+		return this;
 	}
 	
 	@JsonProperty
@@ -53,6 +65,10 @@ public class StudentToCourseAdditionData implements IStudentOfCourseModel, IData
 	}
 	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
+	}
+	public StudentToCourseAdditionData withCourseId(Integer courseId) {
+		this.courseId = courseId;
+		return this;
 	}
 	
 

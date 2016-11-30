@@ -4,10 +4,10 @@ target JAVA
 
 models {
 	persistent Test (
-		Unique PrimaryKey NotNull Serial id
+		Unique PrimaryKey NotNull Serial testId
 		NotNull String name
 		Integer sequence
-		NotNull Integer lessonId references com.anfelisa.lesson.Lesson.id
+		NotNull Integer lessonId references com.anfelisa.lesson.Lesson.lessonId
 		NotNull String html
 		NotNull String author references com.anfelisa.user.User.username
 	)
@@ -18,7 +18,7 @@ models {
 		NotNull Integer testId
 	)
 	MyTest (
-		NotNull Serial id
+		NotNull Serial testId
 		NotNull String name
 		Integer sequence
 		Integer resultCount
@@ -32,9 +32,9 @@ models {
 data {
 	TestCreation : ( Test )
 	TestList : (List Test LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
-	Test : ( Test TestId LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List Test) 
+	Test : ( Test LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List Test) 
 	MyTestList : (List MyTest LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
-	MyTest : ( Test TestId LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List MyTest) 
+	MyTest : ( Test LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List MyTest) 
 }
 
 actions {

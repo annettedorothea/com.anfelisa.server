@@ -63,12 +63,24 @@ public class StatisticsData implements IStatisticsModel, IDataContainer {
 		this.schema = schema;
 	}
 
+	public StatisticsData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
+	}
+
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public StatisticsData withUsername(String username) {
+		this.username = username;
+		return this;
 	}
 	
 	@JsonProperty
@@ -78,6 +90,10 @@ public class StatisticsData implements IStatisticsModel, IDataContainer {
 	public void setYear(Integer year) {
 		this.year = year;
 	}
+	public StatisticsData withYear(Integer year) {
+		this.year = year;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getMonth() {
@@ -85,6 +101,10 @@ public class StatisticsData implements IStatisticsModel, IDataContainer {
 	}
 	public void setMonth(Integer month) {
 		this.month = month;
+	}
+	public StatisticsData withMonth(Integer month) {
+		this.month = month;
+		return this;
 	}
 	
 	@JsonProperty
@@ -94,6 +114,10 @@ public class StatisticsData implements IStatisticsModel, IDataContainer {
 	public void setPoints(Integer points) {
 		this.points = points;
 	}
+	public StatisticsData withPoints(Integer points) {
+		this.points = points;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getMaxPoints() {
@@ -102,6 +126,10 @@ public class StatisticsData implements IStatisticsModel, IDataContainer {
 	public void setMaxPoints(Integer maxPoints) {
 		this.maxPoints = maxPoints;
 	}
+	public StatisticsData withMaxPoints(Integer maxPoints) {
+		this.maxPoints = maxPoints;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getRate() {
@@ -109,6 +137,10 @@ public class StatisticsData implements IStatisticsModel, IDataContainer {
 	}
 	public void setRate(Integer rate) {
 		this.rate = rate;
+	}
+	public StatisticsData withRate(Integer rate) {
+		this.rate = rate;
+		return this;
 	}
 	
 	@JsonProperty

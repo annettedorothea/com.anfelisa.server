@@ -12,6 +12,7 @@ public class AppRegistration {
 
 	public static void registerResources(Environment environment, DBI jdbi) {
 		environment.jersey().register(new CreateResultResource(jdbi));
+		environment.jersey().register(new LoadResultResource(jdbi));
 	}
 
 	public static void registerConsumers() {

@@ -35,8 +35,7 @@ public class LoadPublicTestsResource extends Resource {
 	@Path("/public")
 	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
 			@NotNull @QueryParam("lessonId") Integer lessonId) throws JsonProcessingException {
-		TestListData actionParam = new TestListData(lessonId, null, null, null, null, null, null, null, null, uuid,
-				schema);
+		TestListData actionParam = new TestListData(uuid, schema).withLessonId(lessonId);
 		return new LoadPublicTestsAction(actionParam, this.createDatabaseHandle()).apply();
 	}
 

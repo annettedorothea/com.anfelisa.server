@@ -4,35 +4,35 @@ target JAVA
 
 models {
 	persistent Box (
-		Unique PrimaryKey NotNull Serial id
+		Unique PrimaryKey NotNull Serial boxId
 		NotNull String name
 		NotNull String username references com.anfelisa.user.User.username
 	)
 	persistent BoxOfCourse (
-		NotNull Integer boxId references Box.id
-		NotNull Integer courseId references com.anfelisa.course.Course.id
+		NotNull Integer boxId references Box.boxId
+		NotNull Integer courseId references com.anfelisa.course.Course.courseId
 		NotNull Boolean autoAdd
 	)
 	persistent StudentOfBox (
-		Unique PrimaryKey NotNull Serial id
+		Unique PrimaryKey NotNull Serial studentOfBoxId
 		NotNull String name
 		NotNull String username references com.anfelisa.user.User.username
 	)
 	persistent Card (
-		Unique PrimaryKey NotNull Serial id
+		Unique PrimaryKey NotNull Serial cardId
 		NotEmpty String content
-		NotNull Integer testId references com.anfelisa.test.Test.id
+		NotNull Integer testId references com.anfelisa.test.Test.testId
 		NotNull String contentHash
 		NotNull Integer maxPoints
 	)
 	persistent CardOfBox (
-		Unique PrimaryKey NotNull Serial id
-		NotNull Integer cardId references Card.id
+		Unique PrimaryKey NotNull Serial carOfBoxId
+		NotNull Integer cardId references Card.cardId
 		Float ef
 		Integer interval
 		NotNull Integer count
 		DateTime date
-		NotNull Integer boxId references Box.id
+		NotNull Integer boxId references Box.boxId
 		Integer quality
 		DateTime timestamp
 		Integer points

@@ -25,7 +25,7 @@ public class LoadPrivateLessonsAction extends AbstractLoadPrivateLessonsAction {
 	@Override
 	protected void applyAction() {
 		this.actionData = this.actionParam;
-		ICourseModel course = CourseDao.selectById(this.getDatabaseHandle().getHandle(), this.actionData.getCourseId(),
+		ICourseModel course = CourseDao.selectByCourseId(this.getDatabaseHandle().getHandle(), this.actionData.getCourseId(),
 				this.getActionData().getSchema());
 		this.actionData.setCourseDescription(course.getDescription());
 		this.actionData.setCourseAuthor(course.getAuthor());

@@ -11,7 +11,7 @@ public class CourseMapper implements ResultSetMapper<ICourseModel> {
 	
 	public ICourseModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new CourseModel(
-			r.getInt("id"),
+			r.getInt("courseId"),
 			r.getString("name"),
 			r.getString("description"),
 			r.getInt("sequence"),

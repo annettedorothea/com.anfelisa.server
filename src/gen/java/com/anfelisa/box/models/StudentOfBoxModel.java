@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class StudentOfBoxModel implements IStudentOfBoxModel {
 
 	@NotNull
-	private Integer id;
+	private Integer studentOfBoxId;
 	
 	@NotNull
 	private String name;
@@ -19,21 +19,21 @@ public class StudentOfBoxModel implements IStudentOfBoxModel {
 
 
 	public StudentOfBoxModel(
-		@JsonProperty("id") Integer id,
+		@JsonProperty("studentOfBoxId") Integer studentOfBoxId,
 		@JsonProperty("name") String name,
 		@JsonProperty("username") String username
 	) {
-		this.id = id;
+		this.studentOfBoxId = studentOfBoxId;
 		this.name = name;
 		this.username = username;
 	}
 
 	@JsonProperty
-	public Integer getId() {
-		return this.id;
+	public Integer getStudentOfBoxId() {
+		return this.studentOfBoxId;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setStudentOfBoxId(Integer studentOfBoxId) {
+		this.studentOfBoxId = studentOfBoxId;
 	}
 	
 	@JsonProperty

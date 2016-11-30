@@ -46,13 +46,14 @@ public class LoadPrivateLessonsResource extends Resource {
 			@NotNull @QueryParam("schema") String schema, @NotNull @QueryParam("courseId") Integer courseId)
 			throws JsonProcessingException {
 		DatabaseHandle handle = this.createDatabaseHandle();
-		ICourseModel course = CustomCourseDao.selectByCourseIdAndUsername(handle.getHandle(), courseId, user.getUsername(), schema);
+		ICourseModel course = CustomCourseDao.selectByCourseIdAndUsername(handle.getHandle(), courseId,
+				user.getUsername(), schema);
 		if (course == null) {
 			handle.close();
 			throw new WebApplicationException(Response.Status.BAD_REQUEST);
 		}
-		MyLessonListData actionParam = new MyLessonListData(user.getUsername(), courseId, null, null, null, null, uuid,
-				schema);
+		MyLessonListData actionParam = new MyLessonListData(uuid, schema).withUsername(user.getUsername())
+				.withCourseId(courseId);
 		return new LoadPrivateLessonsAction(actionParam, handle).apply();
 	}
 

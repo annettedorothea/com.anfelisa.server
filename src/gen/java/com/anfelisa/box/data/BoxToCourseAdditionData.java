@@ -44,12 +44,24 @@ public class BoxToCourseAdditionData implements IBoxOfCourseModel, IDataContaine
 		this.schema = schema;
 	}
 
+	public BoxToCourseAdditionData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
+	}
+
 	@JsonProperty
 	public Integer getBoxId() {
 		return this.boxId;
 	}
 	public void setBoxId(Integer boxId) {
 		this.boxId = boxId;
+	}
+	public BoxToCourseAdditionData withBoxId(Integer boxId) {
+		this.boxId = boxId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -59,6 +71,10 @@ public class BoxToCourseAdditionData implements IBoxOfCourseModel, IDataContaine
 	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
+	public BoxToCourseAdditionData withCourseId(Integer courseId) {
+		this.courseId = courseId;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getAutoAdd() {
@@ -66,6 +82,10 @@ public class BoxToCourseAdditionData implements IBoxOfCourseModel, IDataContaine
 	}
 	public void setAutoAdd(Boolean autoAdd) {
 		this.autoAdd = autoAdd;
+	}
+	public BoxToCourseAdditionData withAutoAdd(Boolean autoAdd) {
+		this.autoAdd = autoAdd;
+		return this;
 	}
 	
 

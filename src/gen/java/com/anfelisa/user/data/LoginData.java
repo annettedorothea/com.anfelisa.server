@@ -19,7 +19,7 @@ public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContai
 	private String schema;
 	
 	@NotNull
-	private Integer id;
+	private Integer loginLogId;
 	
 	@NotNull
 	private String username;
@@ -36,14 +36,14 @@ public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContai
 	
 
 	public LoginData(
-		@JsonProperty("id") Integer id,
+		@JsonProperty("loginLogId") Integer loginLogId,
 		@JsonProperty("username") String username,
 		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("role") String role
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.id = id;
+		this.loginLogId = loginLogId;
 		this.username = username;
 		this.date = date;
 		this.role = role;
@@ -51,12 +51,24 @@ public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContai
 		this.schema = schema;
 	}
 
-	@JsonProperty
-	public Integer getId() {
-		return this.id;
+	public LoginData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+	@JsonProperty
+	public Integer getLoginLogId() {
+		return this.loginLogId;
+	}
+	public void setLoginLogId(Integer loginLogId) {
+		this.loginLogId = loginLogId;
+	}
+	public LoginData withLoginLogId(Integer loginLogId) {
+		this.loginLogId = loginLogId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -66,6 +78,10 @@ public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContai
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public LoginData withUsername(String username) {
+		this.username = username;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getDate() {
@@ -74,6 +90,10 @@ public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContai
 	public void setDate(org.joda.time.DateTime date) {
 		this.date = date;
 	}
+	public LoginData withDate(org.joda.time.DateTime date) {
+		this.date = date;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRole() {
@@ -81,6 +101,10 @@ public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContai
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public LoginData withRole(String role) {
+		this.role = role;
+		return this;
 	}
 	
 

@@ -2,7 +2,7 @@ package com.anfelisa.user.models;
 
 public interface ILoginLogModel {
 
-	Integer getId();
+	Integer getLoginLogId();
 	String getUsername();
 	org.joda.time.DateTime getDate();
 

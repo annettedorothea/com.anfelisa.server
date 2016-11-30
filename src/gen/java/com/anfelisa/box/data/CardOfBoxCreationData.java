@@ -18,7 +18,7 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	private String schema;
 	
 	@NotNull
-	private Integer id;
+	private Integer carOfBoxId;
 	
 	@NotNull
 	private Integer cardId;
@@ -46,7 +46,7 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	
 
 	public CardOfBoxCreationData(
-		@JsonProperty("id") Integer id,
+		@JsonProperty("carOfBoxId") Integer carOfBoxId,
 		@JsonProperty("cardId") Integer cardId,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
@@ -59,7 +59,7 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.id = id;
+		this.carOfBoxId = carOfBoxId;
 		this.cardId = cardId;
 		this.ef = ef;
 		this.interval = interval;
@@ -73,12 +73,24 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	@JsonProperty
-	public Integer getId() {
-		return this.id;
+	public CardOfBoxCreationData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+	@JsonProperty
+	public Integer getCarOfBoxId() {
+		return this.carOfBoxId;
+	}
+	public void setCarOfBoxId(Integer carOfBoxId) {
+		this.carOfBoxId = carOfBoxId;
+	}
+	public CardOfBoxCreationData withCarOfBoxId(Integer carOfBoxId) {
+		this.carOfBoxId = carOfBoxId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -88,6 +100,10 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	public void setCardId(Integer cardId) {
 		this.cardId = cardId;
 	}
+	public CardOfBoxCreationData withCardId(Integer cardId) {
+		this.cardId = cardId;
+		return this;
+	}
 	
 	@JsonProperty
 	public Float getEf() {
@@ -95,6 +111,10 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	}
 	public void setEf(Float ef) {
 		this.ef = ef;
+	}
+	public CardOfBoxCreationData withEf(Float ef) {
+		this.ef = ef;
+		return this;
 	}
 	
 	@JsonProperty
@@ -104,6 +124,10 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	public void setInterval(Integer interval) {
 		this.interval = interval;
 	}
+	public CardOfBoxCreationData withInterval(Integer interval) {
+		this.interval = interval;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getCount() {
@@ -111,6 +135,10 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	}
 	public void setCount(Integer count) {
 		this.count = count;
+	}
+	public CardOfBoxCreationData withCount(Integer count) {
+		this.count = count;
+		return this;
 	}
 	
 	@JsonProperty
@@ -120,6 +148,10 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	public void setDate(org.joda.time.DateTime date) {
 		this.date = date;
 	}
+	public CardOfBoxCreationData withDate(org.joda.time.DateTime date) {
+		this.date = date;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getBoxId() {
@@ -127,6 +159,10 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	}
 	public void setBoxId(Integer boxId) {
 		this.boxId = boxId;
+	}
+	public CardOfBoxCreationData withBoxId(Integer boxId) {
+		this.boxId = boxId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -136,6 +172,10 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	public void setQuality(Integer quality) {
 		this.quality = quality;
 	}
+	public CardOfBoxCreationData withQuality(Integer quality) {
+		this.quality = quality;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getTimestamp() {
@@ -144,6 +184,10 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	public void setTimestamp(org.joda.time.DateTime timestamp) {
 		this.timestamp = timestamp;
 	}
+	public CardOfBoxCreationData withTimestamp(org.joda.time.DateTime timestamp) {
+		this.timestamp = timestamp;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getPoints() {
@@ -151,6 +195,10 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	}
 	public void setPoints(Integer points) {
 		this.points = points;
+	}
+	public CardOfBoxCreationData withPoints(Integer points) {
+		this.points = points;
+		return this;
 	}
 	
 

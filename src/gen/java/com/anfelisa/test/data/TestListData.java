@@ -80,12 +80,24 @@ public class TestListData implements ILessonIdModel, ILessonAbstractModel, ICour
 		this.schema = schema;
 	}
 
+	public TestListData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
+	}
+
 	@JsonProperty
 	public Integer getLessonId() {
 		return this.lessonId;
 	}
 	public void setLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
+	}
+	public TestListData withLessonId(Integer lessonId) {
+		this.lessonId = lessonId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -95,6 +107,10 @@ public class TestListData implements ILessonIdModel, ILessonAbstractModel, ICour
 	public void setLessonName(String lessonName) {
 		this.lessonName = lessonName;
 	}
+	public TestListData withLessonName(String lessonName) {
+		this.lessonName = lessonName;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getLessonDescription() {
@@ -102,6 +118,10 @@ public class TestListData implements ILessonIdModel, ILessonAbstractModel, ICour
 	}
 	public void setLessonDescription(String lessonDescription) {
 		this.lessonDescription = lessonDescription;
+	}
+	public TestListData withLessonDescription(String lessonDescription) {
+		this.lessonDescription = lessonDescription;
+		return this;
 	}
 	
 	@JsonProperty
@@ -111,6 +131,10 @@ public class TestListData implements ILessonIdModel, ILessonAbstractModel, ICour
 	public void setLessonAuthor(String lessonAuthor) {
 		this.lessonAuthor = lessonAuthor;
 	}
+	public TestListData withLessonAuthor(String lessonAuthor) {
+		this.lessonAuthor = lessonAuthor;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCourseName() {
@@ -118,6 +142,10 @@ public class TestListData implements ILessonIdModel, ILessonAbstractModel, ICour
 	}
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
+	}
+	public TestListData withCourseName(String courseName) {
+		this.courseName = courseName;
+		return this;
 	}
 	
 	@JsonProperty
@@ -127,6 +155,10 @@ public class TestListData implements ILessonIdModel, ILessonAbstractModel, ICour
 	public void setCourseDescription(String courseDescription) {
 		this.courseDescription = courseDescription;
 	}
+	public TestListData withCourseDescription(String courseDescription) {
+		this.courseDescription = courseDescription;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getIsPublic() {
@@ -134,6 +166,10 @@ public class TestListData implements ILessonIdModel, ILessonAbstractModel, ICour
 	}
 	public void setIsPublic(Boolean isPublic) {
 		this.isPublic = isPublic;
+	}
+	public TestListData withIsPublic(Boolean isPublic) {
+		this.isPublic = isPublic;
+		return this;
 	}
 	
 	@JsonProperty
@@ -143,6 +179,10 @@ public class TestListData implements ILessonIdModel, ILessonAbstractModel, ICour
 	public void setCourseAuthor(String courseAuthor) {
 		this.courseAuthor = courseAuthor;
 	}
+	public TestListData withCourseAuthor(String courseAuthor) {
+		this.courseAuthor = courseAuthor;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getCourseId() {
@@ -150,6 +190,10 @@ public class TestListData implements ILessonIdModel, ILessonAbstractModel, ICour
 	}
 	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
+	}
+	public TestListData withCourseId(Integer courseId) {
+		this.courseId = courseId;
+		return this;
 	}
 	
 	@JsonProperty

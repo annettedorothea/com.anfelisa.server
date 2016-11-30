@@ -11,7 +11,7 @@ public class StudentOfBoxMapper implements ResultSetMapper<IStudentOfBoxModel> {
 	
 	public IStudentOfBoxModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new StudentOfBoxModel(
-			r.getInt("id"),
+			r.getInt("studentOfBoxId"),
 			r.getString("name"),
 			r.getString("username")
 		);

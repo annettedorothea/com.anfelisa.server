@@ -59,12 +59,24 @@ public class LessonListData implements ICourseIdModel, ICourseAbstractModel, IDa
 		this.schema = schema;
 	}
 
+	public LessonListData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
+	}
+
 	@JsonProperty
 	public Integer getCourseId() {
 		return this.courseId;
 	}
 	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
+	}
+	public LessonListData withCourseId(Integer courseId) {
+		this.courseId = courseId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -74,6 +86,10 @@ public class LessonListData implements ICourseIdModel, ICourseAbstractModel, IDa
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
+	public LessonListData withCourseName(String courseName) {
+		this.courseName = courseName;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCourseDescription() {
@@ -81,6 +97,10 @@ public class LessonListData implements ICourseIdModel, ICourseAbstractModel, IDa
 	}
 	public void setCourseDescription(String courseDescription) {
 		this.courseDescription = courseDescription;
+	}
+	public LessonListData withCourseDescription(String courseDescription) {
+		this.courseDescription = courseDescription;
+		return this;
 	}
 	
 	@JsonProperty
@@ -90,6 +110,10 @@ public class LessonListData implements ICourseIdModel, ICourseAbstractModel, IDa
 	public void setIsPublic(Boolean isPublic) {
 		this.isPublic = isPublic;
 	}
+	public LessonListData withIsPublic(Boolean isPublic) {
+		this.isPublic = isPublic;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCourseAuthor() {
@@ -97,6 +121,10 @@ public class LessonListData implements ICourseIdModel, ICourseAbstractModel, IDa
 	}
 	public void setCourseAuthor(String courseAuthor) {
 		this.courseAuthor = courseAuthor;
+	}
+	public LessonListData withCourseAuthor(String courseAuthor) {
+		this.courseAuthor = courseAuthor;
+		return this;
 	}
 	
 	@JsonProperty

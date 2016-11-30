@@ -26,7 +26,7 @@ public class LoadPublicTestsAction extends AbstractLoadPublicTestsAction {
 	@Override
 	protected void applyAction() {
 		this.actionData = this.actionParam;
-		ILessonModel lesson = LessonDao.selectById(this.getDatabaseHandle().getHandle(), this.actionData.getLessonId(),
+		ILessonModel lesson = LessonDao.selectByLessonId(this.getDatabaseHandle().getHandle(), this.actionData.getLessonId(),
 				this.getActionData().getSchema());
 		this.actionData.setLessonDescription(lesson.getDescription());
 		this.actionData.setLessonAuthor(lesson.getAuthor());
@@ -36,7 +36,7 @@ public class LoadPublicTestsAction extends AbstractLoadPublicTestsAction {
 		this.actionData.setCourseAuthor(course.getAuthor());
 		this.actionData.setCourseDescription(course.getDescription());
 		this.actionData.setCourseName(course.getName());
-		this.actionData.setCourseId(course.getId());
+		this.actionData.setCourseId(course.getCourseId());
 		this.actionData.setTestList(CustomTestDao.selectTests(this.getDatabaseHandle().getHandle(),
 				this.getActionData().getSchema(), this.actionParam.getLessonId()));
 	}

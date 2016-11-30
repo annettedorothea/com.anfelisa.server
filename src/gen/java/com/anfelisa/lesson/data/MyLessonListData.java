@@ -66,12 +66,24 @@ public class MyLessonListData implements IUsernameModel, ICourseIdModel, ICourse
 		this.schema = schema;
 	}
 
+	public MyLessonListData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
+	}
+
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public MyLessonListData withUsername(String username) {
+		this.username = username;
+		return this;
 	}
 	
 	@JsonProperty
@@ -81,6 +93,10 @@ public class MyLessonListData implements IUsernameModel, ICourseIdModel, ICourse
 	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
+	public MyLessonListData withCourseId(Integer courseId) {
+		this.courseId = courseId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCourseName() {
@@ -88,6 +104,10 @@ public class MyLessonListData implements IUsernameModel, ICourseIdModel, ICourse
 	}
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
+	}
+	public MyLessonListData withCourseName(String courseName) {
+		this.courseName = courseName;
+		return this;
 	}
 	
 	@JsonProperty
@@ -97,6 +117,10 @@ public class MyLessonListData implements IUsernameModel, ICourseIdModel, ICourse
 	public void setCourseDescription(String courseDescription) {
 		this.courseDescription = courseDescription;
 	}
+	public MyLessonListData withCourseDescription(String courseDescription) {
+		this.courseDescription = courseDescription;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getIsPublic() {
@@ -105,6 +129,10 @@ public class MyLessonListData implements IUsernameModel, ICourseIdModel, ICourse
 	public void setIsPublic(Boolean isPublic) {
 		this.isPublic = isPublic;
 	}
+	public MyLessonListData withIsPublic(Boolean isPublic) {
+		this.isPublic = isPublic;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCourseAuthor() {
@@ -112,6 +140,10 @@ public class MyLessonListData implements IUsernameModel, ICourseIdModel, ICourse
 	}
 	public void setCourseAuthor(String courseAuthor) {
 		this.courseAuthor = courseAuthor;
+	}
+	public MyLessonListData withCourseAuthor(String courseAuthor) {
+		this.courseAuthor = courseAuthor;
+		return this;
 	}
 	
 	@JsonProperty

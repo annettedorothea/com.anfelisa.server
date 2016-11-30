@@ -18,7 +18,7 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 	private String schema;
 	
 	@NotNull
-	private Integer id;
+	private Integer courseId;
 	
 	@NotNull
 	private String name;
@@ -38,7 +38,7 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 	
 
 	public CourseCreationData(
-		@JsonProperty("id") Integer id,
+		@JsonProperty("courseId") Integer courseId,
 		@JsonProperty("name") String name,
 		@JsonProperty("description") String description,
 		@JsonProperty("sequence") Integer sequence,
@@ -47,7 +47,7 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.id = id;
+		this.courseId = courseId;
 		this.name = name;
 		this.description = description;
 		this.sequence = sequence;
@@ -57,12 +57,24 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	@JsonProperty
-	public Integer getId() {
-		return this.id;
+	public CourseCreationData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+	@JsonProperty
+	public Integer getCourseId() {
+		return this.courseId;
+	}
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
+	}
+	public CourseCreationData withCourseId(Integer courseId) {
+		this.courseId = courseId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -72,6 +84,10 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public CourseCreationData withName(String name) {
+		this.name = name;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getDescription() {
@@ -79,6 +95,10 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public CourseCreationData withDescription(String description) {
+		this.description = description;
+		return this;
 	}
 	
 	@JsonProperty
@@ -88,6 +108,10 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 	public void setSequence(Integer sequence) {
 		this.sequence = sequence;
 	}
+	public CourseCreationData withSequence(Integer sequence) {
+		this.sequence = sequence;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getIsPublic() {
@@ -96,6 +120,10 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 	public void setIsPublic(Boolean isPublic) {
 		this.isPublic = isPublic;
 	}
+	public CourseCreationData withIsPublic(Boolean isPublic) {
+		this.isPublic = isPublic;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getAuthor() {
@@ -103,6 +131,10 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 	}
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+	public CourseCreationData withAuthor(String author) {
+		this.author = author;
+		return this;
 	}
 	
 

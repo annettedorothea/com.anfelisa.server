@@ -35,7 +35,7 @@ public class LoadPublicLessonsResource extends Resource {
 	@Path("/public")
 	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
 			@NotNull @QueryParam("courseId") Integer courseId) throws JsonProcessingException {
-		LessonListData actionParam = new LessonListData(courseId, null, null, null, null, uuid, schema);
+		LessonListData actionParam = new LessonListData(uuid, schema).withCourseId(courseId);
 		return new LoadPublicLessonsAction(actionParam, this.createDatabaseHandle()).apply();
 	}
 

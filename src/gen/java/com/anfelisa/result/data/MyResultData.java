@@ -1,4 +1,4 @@
-package com.anfelisa.test.data;
+package com.anfelisa.result.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
+import com.anfelisa.result.models.IResultModel;
 import com.anfelisa.test.models.ITestModel;
 import com.anfelisa.test.models.ILessonIdModel;
 import com.anfelisa.user.models.IUsernameModel;
@@ -16,14 +17,32 @@ import com.anfelisa.course.models.ICourseAbstractModel;
 import com.anfelisa.test.models.IMyTestModel;
 
 @SuppressWarnings("unused")
-public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, ILessonAbstractModel, ICourseAbstractModel, IDataContainer {
+public class MyResultData implements IResultModel, ITestModel, ILessonIdModel, IUsernameModel, ILessonAbstractModel, ICourseAbstractModel, IDataContainer {
 	
 	private String uuid;
 	
 	private String schema;
 	
 	@NotNull
+	private Integer resultId;
+	
+	@NotNull
+	private String username;
+	
+	@NotNull
 	private Integer testId;
+	
+	@NotNull
+	private org.joda.time.DateTime date;
+	
+	@NotNull
+	private String json;
+	
+	@NotNull
+	private Integer points;
+	
+	@NotNull
+	private Integer maxPoints;
 	
 	@NotNull
 	private String name;
@@ -38,9 +57,6 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	
 	@NotNull
 	private String author;
-	
-	@NotNull
-	private String username;
 	
 	@NotNull
 	private String lessonName;
@@ -73,17 +89,23 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	
 	
 	
+	
 	private java.util.List<com.anfelisa.result.models.IResultAbstractModel> resultAbstractList;
 	
 
-	public MyTestData(
+	public MyResultData(
+		@JsonProperty("resultId") Integer resultId,
+		@JsonProperty("username") String username,
 		@JsonProperty("testId") Integer testId,
+		@JsonProperty("date") org.joda.time.DateTime date,
+		@JsonProperty("json") String json,
+		@JsonProperty("points") Integer points,
+		@JsonProperty("maxPoints") Integer maxPoints,
 		@JsonProperty("name") String name,
 		@JsonProperty("sequence") Integer sequence,
 		@JsonProperty("lessonId") Integer lessonId,
 		@JsonProperty("html") String html,
 		@JsonProperty("author") String author,
-		@JsonProperty("username") String username,
 		@JsonProperty("lessonName") String lessonName,
 		@JsonProperty("lessonDescription") String lessonDescription,
 		@JsonProperty("lessonAuthor") String lessonAuthor,
@@ -95,13 +117,18 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
+		this.resultId = resultId;
+		this.username = username;
 		this.testId = testId;
+		this.date = date;
+		this.json = json;
+		this.points = points;
+		this.maxPoints = maxPoints;
 		this.name = name;
 		this.sequence = sequence;
 		this.lessonId = lessonId;
 		this.html = html;
 		this.author = author;
-		this.username = username;
 		this.lessonName = lessonName;
 		this.lessonDescription = lessonDescription;
 		this.lessonAuthor = lessonAuthor;
@@ -114,7 +141,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 		this.schema = schema;
 	}
 
-	public MyTestData(
+	public MyResultData(
 		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -123,14 +150,86 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	}
 
 	@JsonProperty
+	public Integer getResultId() {
+		return this.resultId;
+	}
+	public void setResultId(Integer resultId) {
+		this.resultId = resultId;
+	}
+	public MyResultData withResultId(Integer resultId) {
+		this.resultId = resultId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUsername() {
+		return this.username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public MyResultData withUsername(String username) {
+		this.username = username;
+		return this;
+	}
+	
+	@JsonProperty
 	public Integer getTestId() {
 		return this.testId;
 	}
 	public void setTestId(Integer testId) {
 		this.testId = testId;
 	}
-	public MyTestData withTestId(Integer testId) {
+	public MyResultData withTestId(Integer testId) {
 		this.testId = testId;
+		return this;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getDate() {
+		return this.date;
+	}
+	public void setDate(org.joda.time.DateTime date) {
+		this.date = date;
+	}
+	public MyResultData withDate(org.joda.time.DateTime date) {
+		this.date = date;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getJson() {
+		return this.json;
+	}
+	public void setJson(String json) {
+		this.json = json;
+	}
+	public MyResultData withJson(String json) {
+		this.json = json;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getPoints() {
+		return this.points;
+	}
+	public void setPoints(Integer points) {
+		this.points = points;
+	}
+	public MyResultData withPoints(Integer points) {
+		this.points = points;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxPoints() {
+		return this.maxPoints;
+	}
+	public void setMaxPoints(Integer maxPoints) {
+		this.maxPoints = maxPoints;
+	}
+	public MyResultData withMaxPoints(Integer maxPoints) {
+		this.maxPoints = maxPoints;
 		return this;
 	}
 	
@@ -141,7 +240,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	public void setName(String name) {
 		this.name = name;
 	}
-	public MyTestData withName(String name) {
+	public MyResultData withName(String name) {
 		this.name = name;
 		return this;
 	}
@@ -153,7 +252,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	public void setSequence(Integer sequence) {
 		this.sequence = sequence;
 	}
-	public MyTestData withSequence(Integer sequence) {
+	public MyResultData withSequence(Integer sequence) {
 		this.sequence = sequence;
 		return this;
 	}
@@ -165,7 +264,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	public void setLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
 	}
-	public MyTestData withLessonId(Integer lessonId) {
+	public MyResultData withLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
 		return this;
 	}
@@ -177,7 +276,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	public void setHtml(String html) {
 		this.html = html;
 	}
-	public MyTestData withHtml(String html) {
+	public MyResultData withHtml(String html) {
 		this.html = html;
 		return this;
 	}
@@ -189,20 +288,8 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public MyTestData withAuthor(String author) {
+	public MyResultData withAuthor(String author) {
 		this.author = author;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getUsername() {
-		return this.username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public MyTestData withUsername(String username) {
-		this.username = username;
 		return this;
 	}
 	
@@ -213,7 +300,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	public void setLessonName(String lessonName) {
 		this.lessonName = lessonName;
 	}
-	public MyTestData withLessonName(String lessonName) {
+	public MyResultData withLessonName(String lessonName) {
 		this.lessonName = lessonName;
 		return this;
 	}
@@ -225,7 +312,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	public void setLessonDescription(String lessonDescription) {
 		this.lessonDescription = lessonDescription;
 	}
-	public MyTestData withLessonDescription(String lessonDescription) {
+	public MyResultData withLessonDescription(String lessonDescription) {
 		this.lessonDescription = lessonDescription;
 		return this;
 	}
@@ -237,7 +324,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	public void setLessonAuthor(String lessonAuthor) {
 		this.lessonAuthor = lessonAuthor;
 	}
-	public MyTestData withLessonAuthor(String lessonAuthor) {
+	public MyResultData withLessonAuthor(String lessonAuthor) {
 		this.lessonAuthor = lessonAuthor;
 		return this;
 	}
@@ -249,7 +336,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
-	public MyTestData withCourseName(String courseName) {
+	public MyResultData withCourseName(String courseName) {
 		this.courseName = courseName;
 		return this;
 	}
@@ -261,7 +348,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	public void setCourseDescription(String courseDescription) {
 		this.courseDescription = courseDescription;
 	}
-	public MyTestData withCourseDescription(String courseDescription) {
+	public MyResultData withCourseDescription(String courseDescription) {
 		this.courseDescription = courseDescription;
 		return this;
 	}
@@ -273,7 +360,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	public void setIsPublic(Boolean isPublic) {
 		this.isPublic = isPublic;
 	}
-	public MyTestData withIsPublic(Boolean isPublic) {
+	public MyResultData withIsPublic(Boolean isPublic) {
 		this.isPublic = isPublic;
 		return this;
 	}
@@ -285,7 +372,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	public void setCourseAuthor(String courseAuthor) {
 		this.courseAuthor = courseAuthor;
 	}
-	public MyTestData withCourseAuthor(String courseAuthor) {
+	public MyResultData withCourseAuthor(String courseAuthor) {
 		this.courseAuthor = courseAuthor;
 		return this;
 	}
@@ -297,7 +384,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
-	public MyTestData withCourseId(Integer courseId) {
+	public MyResultData withCourseId(Integer courseId) {
 		this.courseId = courseId;
 		return this;
 	}
@@ -311,6 +398,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	}
 	
 
+	
 	
 	
 	

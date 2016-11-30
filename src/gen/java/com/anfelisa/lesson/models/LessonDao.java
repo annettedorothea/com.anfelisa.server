@@ -8,13 +8,13 @@ import java.util.List;
 public class LessonDao {
 	
 	public static void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".lesson (id serial NOT NULL , name character varying NOT NULL , description character varying , sequence integer , courseId integer NOT NULL , author character varying NOT NULL , CONSTRAINT lesson_pkey PRIMARY KEY (id), CONSTRAINT lesson_courseId_fkey FOREIGN KEY (courseId) REFERENCES " + schema + ".course ( id ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_author_fkey FOREIGN KEY (author) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_id_unique UNIQUE (id))");
+		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".lesson (lessonId serial NOT NULL , name character varying NOT NULL , description character varying , sequence integer , courseId integer NOT NULL , author character varying NOT NULL , CONSTRAINT lesson_pkey PRIMARY KEY (lessonId), CONSTRAINT lesson_courseId_fkey FOREIGN KEY (courseId) REFERENCES " + schema + ".course ( courseId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_author_fkey FOREIGN KEY (author) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_lessonId_unique UNIQUE (lessonId))");
 	}
 	
 	public static void insert(Handle handle, ILessonModel lessonModel, String schema) {
-		if (lessonModel.getId() != null) {
-			Update statement = handle.createStatement("INSERT INTO " + schema + ".lesson (id, name, description, sequence, courseId, author) VALUES (:id, :name, :description, :sequence, :courseId, :author)");
-			statement.bind("id", lessonModel.getId());
+		if (lessonModel.getLessonId() != null) {
+			Update statement = handle.createStatement("INSERT INTO " + schema + ".lesson (lessonId, name, description, sequence, courseId, author) VALUES (:lessonId, :name, :description, :sequence, :courseId, :author)");
+			statement.bind("lessonId", lessonModel.getLessonId());
 			statement.bind("name", lessonModel.getName());
 			statement.bind("description", lessonModel.getDescription());
 			statement.bind("sequence", lessonModel.getSequence());
@@ -33,8 +33,8 @@ public class LessonDao {
 	}
 	
 	public static void update(Handle handle, ILessonModel lessonModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".lesson SET id = :id, name = :name, description = :description, sequence = :sequence, courseId = :courseId, author = :author");
-		statement.bind("id", lessonModel.getId());
+		Update statement = handle.createStatement("UPDATE " + schema + ".lesson SET lessonId = :lessonId, name = :name, description = :description, sequence = :sequence, courseId = :courseId, author = :author");
+		statement.bind("lessonId", lessonModel.getLessonId());
 		statement.bind("name", lessonModel.getName());
 		statement.bind("description", lessonModel.getDescription());
 		statement.bind("sequence", lessonModel.getSequence());
@@ -43,15 +43,15 @@ public class LessonDao {
 		statement.execute();
 	}
 	
-	public static void deleteById(Handle handle, Integer id, String schema) {
-		Update statement = handle.createStatement("DELETE FROM " + schema + ".lesson WHERE id = :id");
-		statement.bind("id", id);
+	public static void deleteByLessonId(Handle handle, Integer lessonId, String schema) {
+		Update statement = handle.createStatement("DELETE FROM " + schema + ".lesson WHERE lessonId = :lessonId");
+		statement.bind("lessonId", lessonId);
 		statement.execute();
 	}
 
-	public static ILessonModel selectById(Handle handle, Integer id, String schema) {
-		return handle.createQuery("SELECT * FROM " + schema + ".lesson WHERE id = :id")
-			.bind("id", id)
+	public static ILessonModel selectByLessonId(Handle handle, Integer lessonId, String schema) {
+		return handle.createQuery("SELECT * FROM " + schema + ".lesson WHERE lessonId = :lessonId")
+			.bind("lessonId", lessonId)
 			.map(new LessonMapper())
 			.first();
 	}

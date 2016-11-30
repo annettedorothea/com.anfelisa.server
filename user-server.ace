@@ -12,7 +12,7 @@ models {
 		NotNull String role
 	)
 	persistent LoginLog (
-		Unique PrimaryKey NotNull Serial id
+		Unique PrimaryKey NotNull Serial loginLogId
 		NotNull String username
 		NotNull DateTime date
 	)

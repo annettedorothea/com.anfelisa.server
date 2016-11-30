@@ -4,9 +4,9 @@ target JAVA
 
 models {
 	persistent Result (
-		Unique PrimaryKey NotNull Serial id
+		Unique PrimaryKey NotNull Serial resultId
 		NotNull String username references com.anfelisa.user.User.username
-		NotNull Integer testId references com.anfelisa.test.Test.id
+		NotNull Integer testId references com.anfelisa.test.Test.testId
 		NotNull DateTime date
 		NotNull String json
 		NotNull Integer points
@@ -20,13 +20,16 @@ models {
 	)
 }
 
+
 data {
 	ResultCreation : ( Result )
 	ResultAbstract : ( ResultAbstract )
+	MyResult : ( Result com.anfelisa.test.Test com.anfelisa.test.LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List com.anfelisa.test.MyTest )
 }
 
 actions {
 	POST CreateResult uses ResultCreation executes CreateResult
+	GET LoadResult uses MyResult
 }
 
 commands {

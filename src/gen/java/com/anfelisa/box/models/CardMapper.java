@@ -11,7 +11,7 @@ public class CardMapper implements ResultSetMapper<ICardModel> {
 	
 	public ICardModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardModel(
-			r.getInt("id"),
+			r.getInt("cardId"),
 			r.getString("content"),
 			r.getInt("testId"),
 			r.getString("contentHash"),

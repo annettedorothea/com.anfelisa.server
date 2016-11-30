@@ -18,7 +18,7 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	private String schema;
 	
 	@NotNull
-	private Integer id;
+	private Integer resultId;
 	
 	@NotNull
 	private String username;
@@ -43,7 +43,7 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	
 
 	public ResultCreationData(
-		@JsonProperty("id") Integer id,
+		@JsonProperty("resultId") Integer resultId,
 		@JsonProperty("username") String username,
 		@JsonProperty("testId") Integer testId,
 		@JsonProperty("date") org.joda.time.DateTime date,
@@ -53,7 +53,7 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.id = id;
+		this.resultId = resultId;
 		this.username = username;
 		this.testId = testId;
 		this.date = date;
@@ -64,12 +64,24 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	@JsonProperty
-	public Integer getId() {
-		return this.id;
+	public ResultCreationData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+	@JsonProperty
+	public Integer getResultId() {
+		return this.resultId;
+	}
+	public void setResultId(Integer resultId) {
+		this.resultId = resultId;
+	}
+	public ResultCreationData withResultId(Integer resultId) {
+		this.resultId = resultId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -79,6 +91,10 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public ResultCreationData withUsername(String username) {
+		this.username = username;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getTestId() {
@@ -86,6 +102,10 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	}
 	public void setTestId(Integer testId) {
 		this.testId = testId;
+	}
+	public ResultCreationData withTestId(Integer testId) {
+		this.testId = testId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -95,6 +115,10 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	public void setDate(org.joda.time.DateTime date) {
 		this.date = date;
 	}
+	public ResultCreationData withDate(org.joda.time.DateTime date) {
+		this.date = date;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getJson() {
@@ -102,6 +126,10 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	}
 	public void setJson(String json) {
 		this.json = json;
+	}
+	public ResultCreationData withJson(String json) {
+		this.json = json;
+		return this;
 	}
 	
 	@JsonProperty
@@ -111,6 +139,10 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	public void setPoints(Integer points) {
 		this.points = points;
 	}
+	public ResultCreationData withPoints(Integer points) {
+		this.points = points;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getMaxPoints() {
@@ -118,6 +150,10 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	}
 	public void setMaxPoints(Integer maxPoints) {
 		this.maxPoints = maxPoints;
+	}
+	public ResultCreationData withMaxPoints(Integer maxPoints) {
+		this.maxPoints = maxPoints;
+		return this;
 	}
 	
 

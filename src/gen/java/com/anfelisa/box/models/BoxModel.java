@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class BoxModel implements IBoxModel {
 
 	@NotNull
-	private Integer id;
+	private Integer boxId;
 	
 	@NotNull
 	private String name;
@@ -19,21 +19,21 @@ public class BoxModel implements IBoxModel {
 
 
 	public BoxModel(
-		@JsonProperty("id") Integer id,
+		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("name") String name,
 		@JsonProperty("username") String username
 	) {
-		this.id = id;
+		this.boxId = boxId;
 		this.name = name;
 		this.username = username;
 	}
 
 	@JsonProperty
-	public Integer getId() {
-		return this.id;
+	public Integer getBoxId() {
+		return this.boxId;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setBoxId(Integer boxId) {
+		this.boxId = boxId;
 	}
 	
 	@JsonProperty

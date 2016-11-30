@@ -46,12 +46,24 @@ public class PointsData implements IPointsModel, ICredentialsModel, IDataContain
 		this.schema = schema;
 	}
 
+	public PointsData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
+	}
+
 	@JsonProperty
 	public Integer getPoints() {
 		return this.points;
 	}
 	public void setPoints(Integer points) {
 		this.points = points;
+	}
+	public PointsData withPoints(Integer points) {
+		this.points = points;
+		return this;
 	}
 	
 	@JsonProperty
@@ -61,6 +73,10 @@ public class PointsData implements IPointsModel, ICredentialsModel, IDataContain
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public PointsData withUsername(String username) {
+		this.username = username;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRole() {
@@ -68,6 +84,10 @@ public class PointsData implements IPointsModel, ICredentialsModel, IDataContain
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public PointsData withRole(String role) {
+		this.role = role;
+		return this;
 	}
 	
 

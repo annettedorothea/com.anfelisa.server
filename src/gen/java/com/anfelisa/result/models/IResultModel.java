@@ -2,7 +2,7 @@ package com.anfelisa.result.models;
 
 public interface IResultModel {
 
-	Integer getId();
+	Integer getResultId();
 	String getUsername();
 	Integer getTestId();
 	org.joda.time.DateTime getDate();

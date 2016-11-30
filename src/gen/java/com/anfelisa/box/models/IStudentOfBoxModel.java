@@ -2,7 +2,7 @@ package com.anfelisa.box.models;
 
 public interface IStudentOfBoxModel {
 
-	Integer getId();
+	Integer getStudentOfBoxId();
 	String getName();
 	String getUsername();
 

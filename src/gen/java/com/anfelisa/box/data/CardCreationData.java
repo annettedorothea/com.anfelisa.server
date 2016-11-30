@@ -18,7 +18,7 @@ public class CardCreationData implements ICardModel, IDataContainer {
 	private String schema;
 	
 	@NotNull
-	private Integer id;
+	private Integer cardId;
 	
 	@NotEmpty
 	private String content;
@@ -37,7 +37,7 @@ public class CardCreationData implements ICardModel, IDataContainer {
 	
 
 	public CardCreationData(
-		@JsonProperty("id") Integer id,
+		@JsonProperty("cardId") Integer cardId,
 		@JsonProperty("content") String content,
 		@JsonProperty("testId") Integer testId,
 		@JsonProperty("contentHash") String contentHash,
@@ -45,7 +45,7 @@ public class CardCreationData implements ICardModel, IDataContainer {
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.id = id;
+		this.cardId = cardId;
 		this.content = content;
 		this.testId = testId;
 		this.contentHash = contentHash;
@@ -54,12 +54,24 @@ public class CardCreationData implements ICardModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	@JsonProperty
-	public Integer getId() {
-		return this.id;
+	public CardCreationData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+	@JsonProperty
+	public Integer getCardId() {
+		return this.cardId;
+	}
+	public void setCardId(Integer cardId) {
+		this.cardId = cardId;
+	}
+	public CardCreationData withCardId(Integer cardId) {
+		this.cardId = cardId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -69,6 +81,10 @@ public class CardCreationData implements ICardModel, IDataContainer {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public CardCreationData withContent(String content) {
+		this.content = content;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getTestId() {
@@ -76,6 +92,10 @@ public class CardCreationData implements ICardModel, IDataContainer {
 	}
 	public void setTestId(Integer testId) {
 		this.testId = testId;
+	}
+	public CardCreationData withTestId(Integer testId) {
+		this.testId = testId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -85,6 +105,10 @@ public class CardCreationData implements ICardModel, IDataContainer {
 	public void setContentHash(String contentHash) {
 		this.contentHash = contentHash;
 	}
+	public CardCreationData withContentHash(String contentHash) {
+		this.contentHash = contentHash;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getMaxPoints() {
@@ -92,6 +116,10 @@ public class CardCreationData implements ICardModel, IDataContainer {
 	}
 	public void setMaxPoints(Integer maxPoints) {
 		this.maxPoints = maxPoints;
+	}
+	public CardCreationData withMaxPoints(Integer maxPoints) {
+		this.maxPoints = maxPoints;
+		return this;
 	}
 	
 

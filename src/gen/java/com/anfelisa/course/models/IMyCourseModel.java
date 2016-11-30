@@ -2,7 +2,7 @@ package com.anfelisa.course.models;
 
 public interface IMyCourseModel {
 
-	Integer getId();
+	Integer getCourseId();
 	String getName();
 	String getDescription();
 	Integer getSequence();

@@ -15,18 +15,18 @@ public class TestJoinedToResult implements IMyTestModel, IResultAbstractModel {
 	private String name;
 	private Integer sequence;
 	private List<IResultAbstractModel> resultList;
-	private Integer id;
+	private Integer testId;
 	private Integer resultId;
 
 	public TestJoinedToResult(DateTime date, Integer points, Integer maxPoints, String name, Integer sequence,
-			Integer id, Integer resultId) {
+			Integer testId, Integer resultId) {
 		super();
 		this.date = date;
 		this.points = points;
 		this.maxPoints = maxPoints;
 		this.name = name;
 		this.sequence = sequence;
-		this.id = id;
+		this.testId = testId;
 		this.resultId = resultId;
 		this.resultList = new ArrayList<IResultAbstractModel>();
 	}
@@ -77,12 +77,12 @@ public class TestJoinedToResult implements IMyTestModel, IResultAbstractModel {
 	}
 
 	@Override
-	public Integer getId() {
-		return id;
+	public Integer getTestId() {
+		return testId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setTestId(Integer id) {
+		this.testId = id;
 	}
 
 	@Override

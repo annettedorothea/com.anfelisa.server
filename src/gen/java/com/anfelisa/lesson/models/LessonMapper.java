@@ -11,7 +11,7 @@ public class LessonMapper implements ResultSetMapper<ILessonModel> {
 	
 	public ILessonModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new LessonModel(
-			r.getInt("id"),
+			r.getInt("lessonId"),
 			r.getString("name"),
 			r.getString("description"),
 			r.getInt("sequence"),

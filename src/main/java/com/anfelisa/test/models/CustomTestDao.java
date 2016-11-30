@@ -16,19 +16,19 @@ public class CustomTestDao {
 
 	public static List<IMyTestModel> selectMyTests(Handle handle, String schema, Integer lessonId, String username) {
 		List<TestJoinedToResult> result = handle
-				.createQuery("SELECT *, r.id as resultId FROM " + schema + ".test t left outer join " + schema
-						+ ".result r ON r.testId = t.id WHERE t.lessonId = :lessonId AND (r.username = :username OR r.username IS NULL) ORDER By t.sequence, r.date")
+				.createQuery("SELECT *, r.resultId FROM " + schema + ".test t left outer join " + schema
+						+ ".result r ON r.testId = t.testId WHERE t.lessonId = :lessonId AND (r.username = :username OR r.username IS NULL) ORDER By t.sequence, r.date")
 				.bind("lessonId", lessonId).bind("username", username).map(new TestJoinedToResultMapper()).list();
 		ArrayList<IMyTestModel> list = new ArrayList<IMyTestModel>();
 		Integer lastTestId = -1;
 		MyTestModel current = null;
 		for (TestJoinedToResult testJoinedToResult : result) {
-			if (lastTestId != testJoinedToResult.getId()) {
+			if (lastTestId != testJoinedToResult.getTestId()) {
 				if (current != null) {
 					current.setResultCount(current.getResultAbstractList().size());
 					current.setHasResults(current.getResultCount() > 0);
 				}
-				current = new MyTestModel(testJoinedToResult.getId(), testJoinedToResult.getName(),
+				current = new MyTestModel(testJoinedToResult.getTestId(), testJoinedToResult.getName(),
 						testJoinedToResult.getSequence(), testJoinedToResult.getResultCount(),
 						testJoinedToResult.getHasResults());
 				current.setResultAbstractList(new ArrayList<>());
@@ -48,7 +48,7 @@ public class CustomTestDao {
 		return handle
 				.createQuery("SELECT t.* FROM " + schema + ".course c, " + schema + ".studentofcourse sc, " + schema
 						+ ".lesson l, " + schema
-						+ ".test t WHERE t.id = :testId AND t.lessonId = l.id AND l.courseId = c.id AND sc.courseId = c.id AND sc.username = :username")
+						+ ".test t WHERE t.testId = :testId AND t.lessonId = l.lessonId AND l.courseId = c.courseId AND sc.courseId = c.courseId AND sc.username = :username")
 				.bind("testId", testId).bind("username", username).map(new TestMapper()).first();
 
 	}

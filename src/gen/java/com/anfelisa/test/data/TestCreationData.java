@@ -18,7 +18,7 @@ public class TestCreationData implements ITestModel, IDataContainer {
 	private String schema;
 	
 	@NotNull
-	private Integer id;
+	private Integer testId;
 	
 	@NotNull
 	private String name;
@@ -39,7 +39,7 @@ public class TestCreationData implements ITestModel, IDataContainer {
 	
 
 	public TestCreationData(
-		@JsonProperty("id") Integer id,
+		@JsonProperty("testId") Integer testId,
 		@JsonProperty("name") String name,
 		@JsonProperty("sequence") Integer sequence,
 		@JsonProperty("lessonId") Integer lessonId,
@@ -48,7 +48,7 @@ public class TestCreationData implements ITestModel, IDataContainer {
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.id = id;
+		this.testId = testId;
 		this.name = name;
 		this.sequence = sequence;
 		this.lessonId = lessonId;
@@ -58,12 +58,24 @@ public class TestCreationData implements ITestModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	@JsonProperty
-	public Integer getId() {
-		return this.id;
+	public TestCreationData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+	@JsonProperty
+	public Integer getTestId() {
+		return this.testId;
+	}
+	public void setTestId(Integer testId) {
+		this.testId = testId;
+	}
+	public TestCreationData withTestId(Integer testId) {
+		this.testId = testId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -73,6 +85,10 @@ public class TestCreationData implements ITestModel, IDataContainer {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public TestCreationData withName(String name) {
+		this.name = name;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getSequence() {
@@ -80,6 +96,10 @@ public class TestCreationData implements ITestModel, IDataContainer {
 	}
 	public void setSequence(Integer sequence) {
 		this.sequence = sequence;
+	}
+	public TestCreationData withSequence(Integer sequence) {
+		this.sequence = sequence;
+		return this;
 	}
 	
 	@JsonProperty
@@ -89,6 +109,10 @@ public class TestCreationData implements ITestModel, IDataContainer {
 	public void setLessonId(Integer lessonId) {
 		this.lessonId = lessonId;
 	}
+	public TestCreationData withLessonId(Integer lessonId) {
+		this.lessonId = lessonId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getHtml() {
@@ -97,6 +121,10 @@ public class TestCreationData implements ITestModel, IDataContainer {
 	public void setHtml(String html) {
 		this.html = html;
 	}
+	public TestCreationData withHtml(String html) {
+		this.html = html;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getAuthor() {
@@ -104,6 +132,10 @@ public class TestCreationData implements ITestModel, IDataContainer {
 	}
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+	public TestCreationData withAuthor(String author) {
+		this.author = author;
+		return this;
 	}
 	
 

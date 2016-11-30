@@ -4,11 +4,11 @@ target JAVA
 
 models {
 	persistent Lesson (
-		Unique PrimaryKey NotNull Serial id
+		Unique PrimaryKey NotNull Serial lessonId
 		NotNull String name
 		String description
 		Integer sequence
-		NotNull Integer courseId references com.anfelisa.course.Course.id
+		NotNull Integer courseId references com.anfelisa.course.Course.courseId
 		NotNull String author references com.anfelisa.user.User.username
 	)
 	CourseId (
@@ -21,7 +21,7 @@ models {
 		NotNull Integer lessonId
 	)
 	MyLesson (
-		NotNull Integer id
+		NotNull Integer lessonId
 		NotNull String name
 		String description
 		Integer sequence

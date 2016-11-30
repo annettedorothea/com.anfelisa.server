@@ -59,12 +59,24 @@ public class UserCreationData implements IUserModel, IDataContainer {
 		this.schema = schema;
 	}
 
+	public UserCreationData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
+	}
+
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public UserCreationData withUsername(String username) {
+		this.username = username;
+		return this;
 	}
 	
 	@JsonProperty
@@ -74,6 +86,10 @@ public class UserCreationData implements IUserModel, IDataContainer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public UserCreationData withPassword(String password) {
+		this.password = password;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getName() {
@@ -81,6 +97,10 @@ public class UserCreationData implements IUserModel, IDataContainer {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public UserCreationData withName(String name) {
+		this.name = name;
+		return this;
 	}
 	
 	@JsonProperty
@@ -90,6 +110,10 @@ public class UserCreationData implements IUserModel, IDataContainer {
 	public void setPrename(String prename) {
 		this.prename = prename;
 	}
+	public UserCreationData withPrename(String prename) {
+		this.prename = prename;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getEmail() {
@@ -98,6 +122,10 @@ public class UserCreationData implements IUserModel, IDataContainer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public UserCreationData withEmail(String email) {
+		this.email = email;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRole() {
@@ -105,6 +133,10 @@ public class UserCreationData implements IUserModel, IDataContainer {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public UserCreationData withRole(String role) {
+		this.role = role;
+		return this;
 	}
 	
 

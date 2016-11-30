@@ -18,7 +18,7 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 	private String schema;
 	
 	@NotNull
-	private Integer id;
+	private Integer lessonId;
 	
 	@NotNull
 	private String name;
@@ -38,7 +38,7 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 	
 
 	public LessonCreationData(
-		@JsonProperty("id") Integer id,
+		@JsonProperty("lessonId") Integer lessonId,
 		@JsonProperty("name") String name,
 		@JsonProperty("description") String description,
 		@JsonProperty("sequence") Integer sequence,
@@ -47,7 +47,7 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.id = id;
+		this.lessonId = lessonId;
 		this.name = name;
 		this.description = description;
 		this.sequence = sequence;
@@ -57,12 +57,24 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	@JsonProperty
-	public Integer getId() {
-		return this.id;
+	public LessonCreationData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+	@JsonProperty
+	public Integer getLessonId() {
+		return this.lessonId;
+	}
+	public void setLessonId(Integer lessonId) {
+		this.lessonId = lessonId;
+	}
+	public LessonCreationData withLessonId(Integer lessonId) {
+		this.lessonId = lessonId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -72,6 +84,10 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public LessonCreationData withName(String name) {
+		this.name = name;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getDescription() {
@@ -79,6 +95,10 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public LessonCreationData withDescription(String description) {
+		this.description = description;
+		return this;
 	}
 	
 	@JsonProperty
@@ -88,6 +108,10 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 	public void setSequence(Integer sequence) {
 		this.sequence = sequence;
 	}
+	public LessonCreationData withSequence(Integer sequence) {
+		this.sequence = sequence;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getCourseId() {
@@ -96,6 +120,10 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
+	public LessonCreationData withCourseId(Integer courseId) {
+		this.courseId = courseId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getAuthor() {
@@ -103,6 +131,10 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 	}
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+	public LessonCreationData withAuthor(String author) {
+		this.author = author;
+		return this;
 	}
 	
 

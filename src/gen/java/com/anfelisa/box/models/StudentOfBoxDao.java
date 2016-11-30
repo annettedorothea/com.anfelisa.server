@@ -8,13 +8,13 @@ import java.util.List;
 public class StudentOfBoxDao {
 	
 	public static void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".studentofbox (id serial NOT NULL , name character varying NOT NULL , username character varying NOT NULL , CONSTRAINT studentofbox_pkey PRIMARY KEY (id), CONSTRAINT studentofbox_username_fkey FOREIGN KEY (username) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT studentofbox_id_unique UNIQUE (id))");
+		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".studentofbox (studentOfBoxId serial NOT NULL , name character varying NOT NULL , username character varying NOT NULL , CONSTRAINT studentofbox_pkey PRIMARY KEY (studentOfBoxId), CONSTRAINT studentofbox_username_fkey FOREIGN KEY (username) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT studentofbox_studentOfBoxId_unique UNIQUE (studentOfBoxId))");
 	}
 	
 	public static void insert(Handle handle, IStudentOfBoxModel studentOfBoxModel, String schema) {
-		if (studentOfBoxModel.getId() != null) {
-			Update statement = handle.createStatement("INSERT INTO " + schema + ".studentofbox (id, name, username) VALUES (:id, :name, :username)");
-			statement.bind("id", studentOfBoxModel.getId());
+		if (studentOfBoxModel.getStudentOfBoxId() != null) {
+			Update statement = handle.createStatement("INSERT INTO " + schema + ".studentofbox (studentOfBoxId, name, username) VALUES (:studentOfBoxId, :name, :username)");
+			statement.bind("studentOfBoxId", studentOfBoxModel.getStudentOfBoxId());
 			statement.bind("name", studentOfBoxModel.getName());
 			statement.bind("username", studentOfBoxModel.getUsername());
 			statement.execute();
@@ -27,22 +27,22 @@ public class StudentOfBoxDao {
 	}
 	
 	public static void update(Handle handle, IStudentOfBoxModel studentOfBoxModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".studentofbox SET id = :id, name = :name, username = :username");
-		statement.bind("id", studentOfBoxModel.getId());
+		Update statement = handle.createStatement("UPDATE " + schema + ".studentofbox SET studentOfBoxId = :studentOfBoxId, name = :name, username = :username");
+		statement.bind("studentOfBoxId", studentOfBoxModel.getStudentOfBoxId());
 		statement.bind("name", studentOfBoxModel.getName());
 		statement.bind("username", studentOfBoxModel.getUsername());
 		statement.execute();
 	}
 	
-	public static void deleteById(Handle handle, Integer id, String schema) {
-		Update statement = handle.createStatement("DELETE FROM " + schema + ".studentofbox WHERE id = :id");
-		statement.bind("id", id);
+	public static void deleteByStudentOfBoxId(Handle handle, Integer studentOfBoxId, String schema) {
+		Update statement = handle.createStatement("DELETE FROM " + schema + ".studentofbox WHERE studentOfBoxId = :studentOfBoxId");
+		statement.bind("studentOfBoxId", studentOfBoxId);
 		statement.execute();
 	}
 
-	public static IStudentOfBoxModel selectById(Handle handle, Integer id, String schema) {
-		return handle.createQuery("SELECT * FROM " + schema + ".studentofbox WHERE id = :id")
-			.bind("id", id)
+	public static IStudentOfBoxModel selectByStudentOfBoxId(Handle handle, Integer studentOfBoxId, String schema) {
+		return handle.createQuery("SELECT * FROM " + schema + ".studentofbox WHERE studentOfBoxId = :studentOfBoxId")
+			.bind("studentOfBoxId", studentOfBoxId)
 			.map(new StudentOfBoxMapper())
 			.first();
 	}

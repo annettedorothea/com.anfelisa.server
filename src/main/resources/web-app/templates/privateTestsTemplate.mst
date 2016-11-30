@@ -4,7 +4,7 @@
     </li>
     {{#myTestList}}
     <li class="test_{{id}}">
-        <a onclick="new RouteAction({ hash : 'private/{{courseId}}/{{lessonId}}/{{id}}' }).apply()">
+        <a onclick="new RouteAction({ hash : 'private/{{courseId}}/{{lessonId}}/{{testId}}' }).apply()">
             {{name}}
         </a>
     </li>

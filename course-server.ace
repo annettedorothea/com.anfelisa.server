@@ -4,7 +4,7 @@ target JAVA
 
 models {
 	persistent Course (
-		Unique PrimaryKey NotNull Serial id
+		Unique PrimaryKey NotNull Serial courseId
 		NotNull String name
 		String description
 		Integer sequence
@@ -13,7 +13,7 @@ models {
 	)
 	persistent StudentOfCourse (
 		NotNull String username references com.anfelisa.user.User.username
-		NotNull Integer courseId references Course.id
+		NotNull Integer courseId references Course.courseId
 	)
 	CourseAbstract (
 		NotNull String courseName
@@ -23,7 +23,7 @@ models {
 		NotNull Integer courseId
 	)
 	MyCourse (
-		NotNull Integer id
+		NotNull Integer courseId
 		NotNull String name
 		String description
 		Integer sequence

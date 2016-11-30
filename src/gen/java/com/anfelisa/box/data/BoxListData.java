@@ -38,12 +38,24 @@ public class BoxListData implements IUsernameModel, IDataContainer {
 		this.schema = schema;
 	}
 
+	public BoxListData(
+		@JsonProperty("uuid") String uuid,
+		@JsonProperty("schema") String schema
+	) {
+		this.uuid = uuid;
+		this.schema = schema;
+	}
+
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public BoxListData withUsername(String username) {
+		this.username = username;
+		return this;
 	}
 	
 	@JsonProperty

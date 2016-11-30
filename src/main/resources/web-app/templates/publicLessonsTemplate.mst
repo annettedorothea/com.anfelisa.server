@@ -3,7 +3,7 @@
         <a> {{courseName}}</a>
     </li>
     {{#lessonList}}
-    <li><a onclick="new RouteAction({ hash : 'public/{{courseId}}/{{id}}' }).apply()">{{name}}</a></li>
+    <li><a onclick="new RouteAction({ hash : 'public/{{courseId}}/{{lessonId}}' }).apply()">{{name}}</a></li>
     {{/lessonList}}
     <li>
         <a onclick="new RouteAction({ hash : 'public' }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu den Kursen</a>

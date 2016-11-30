@@ -2,7 +2,7 @@ package com.anfelisa.box.models;
 
 public interface ICardModel {
 
-	Integer getId();
+	Integer getCardId();
 	String getContent();
 	Integer getTestId();
 	String getContentHash();

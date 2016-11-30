@@ -33,14 +33,14 @@ public class LoadPublicTestAction extends AbstractLoadPublicTestAction {
 		this.actionData.setLessonDescription(lesson.getDescription());
 		this.actionData.setLessonAuthor(lesson.getAuthor());
 		this.actionData.setLessonName(lesson.getName());
-		this.actionData.setLessonId(lesson.getId());
-		ICourseModel course = CustomCourseDao.selectByLessonId(this.getDatabaseHandle().getHandle(), lesson.getId(),
+		this.actionData.setLessonId(lesson.getLessonId());
+		ICourseModel course = CustomCourseDao.selectByLessonId(this.getDatabaseHandle().getHandle(), lesson.getLessonId(),
 				this.getActionData().getSchema());
 		this.actionData.setCourseAuthor(course.getAuthor());
 		this.actionData.setCourseDescription(course.getDescription());
 		this.actionData.setCourseName(course.getName());
-		this.actionData.setCourseId(course.getId());
-		ITestModel test = TestDao.selectById(this.getDatabaseHandle().getHandle(), this.actionParam.getTestId(),
+		this.actionData.setCourseId(course.getCourseId());
+		ITestModel test = TestDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionParam.getTestId(),
 				this.getActionData().getSchema());
 		this.actionData.setAuthor(test.getAuthor());
 		this.actionData.setHtml(test.getHtml());
