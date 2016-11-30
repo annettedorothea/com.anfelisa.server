@@ -11,6 +11,7 @@ actions {
 	ReadPrivateLessons executes ReadPrivateLessons
 	ReadPrivateTests executes ReadPrivateTests
 	ReadPrivateTest executes ReadPrivateTest
+	ReadResult executes ReadResult
 	ReadStatistics executes ReadStatistics
 	ReadBoxes executes ReadBoxes
 }
@@ -48,6 +49,10 @@ commands {
 		on ok publishes ( PrivateTestRead )
 		on error publishes ( common.ServerError )
 	}
+	ReadResult {
+		on ok publishes (ResultRead )
+		on error publishes ( common.ServerError )
+	}
 	ReadStatistics {
 		on ok publishes ( StatisticsRead )
 		on error publishes ( common.ServerError )
@@ -67,6 +72,7 @@ events {
 	PrivateLessonsRead listenedToBy ( Navigation.renderPrivateLessons Content.renderPrivateLessons Breadcrumbs.renderPrivateLessonsBreadcrumbs common.Header.renderLogout )
 	PrivateTestsRead listenedToBy ( Navigation.renderPrivateTests Content.renderPrivateTests Breadcrumbs.renderPrivateTestsBreadcrumbs common.Header.renderLogout )
 	PrivateTestRead listenedToBy ( Navigation.renderPrivateTest Content.renderPrivateTest Breadcrumbs.renderPrivateTestsBreadcrumbs common.Header.renderLogout )
+	ResultRead listenedToBy ( Navigation.renderPrivateTest Content.renderPrivateTest Breadcrumbs.renderPrivateTestsBreadcrumbs common.Header.renderLogout Content.renderResult )
 	StatisticsRead listenedToBy ( Content.renderStatistics )
 	BoxesRead listenedToBy ( Boxes.renderBoxes ) 
 }

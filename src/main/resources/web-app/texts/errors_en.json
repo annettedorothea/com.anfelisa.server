@@ -9,5 +9,6 @@
   "readBoxesFailed" : "Failed to load boxes.",
   "readPrivateLessonsFailed" : "Failed to load lessons.",
   "readPrivateTestsFailed" : "Failed to load tests.",
-  "readPrivateTestFailed" : "Failed to load test."
+  "readPrivateTestFailed" : "Failed to load test.",
+  "readResultFailed" : "Failed to load result."
 }

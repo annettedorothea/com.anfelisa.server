@@ -10,7 +10,7 @@
     </li>
     {{#resultAbstractList}}
     <li class="result_{{resultId}} result">
-        <a onclick="new LoadTestOfResultAction({resultId : {{resultId}} }).apply()">
+        <a onclick="new RouteAction({hash : 'private/{{courseId}}/{{lessonId}}/{{testId}}/{{resultId}}' }).apply()">
             <i class="fa fa-caret-right"></i> {{points}} von {{maxPoints}}
         </a>
     </li>

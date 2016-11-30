@@ -11,6 +11,7 @@ class AbstractInitCommand extends Command {
         this.privateLessons = "privateLessons";
         this.privateTests = "privateTests";
         this.privateTest = "privateTest";
+        this.result = "result";
     }
 
     publishEvents() {
@@ -44,6 +45,10 @@ class AbstractInitCommand extends Command {
         	break;
         case this.privateTest:
         	promises.push(new TriggerAction(new ReadPrivateTestAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
+        	break;
+        case this.result:
+        	promises.push(new TriggerAction(new ReadResultAction(this.commandData)).publish());
         	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
         	break;
     	default:
