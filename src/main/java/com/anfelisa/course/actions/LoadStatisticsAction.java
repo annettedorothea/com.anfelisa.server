@@ -38,7 +38,9 @@ public class LoadStatisticsAction extends AbstractLoadStatisticsAction {
 		}
 		this.actionData.setMaxPoints(maxPoints);
 		this.actionData.setPoints(points);
-		this.actionData.setRate(points * 100 / maxPoints);
+		if (maxPoints > 0) {
+			this.actionData.setRate(points * 100 / maxPoints);
+		}
 	}
 
 }

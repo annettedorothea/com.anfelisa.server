@@ -20,6 +20,7 @@ commands {
 		on privateTests triggers ( navigation.ReadPrivateTests navigation.ReadBoxes )
 		on privateTest triggers ( navigation.ReadPrivateTest navigation.ReadBoxes ) 
 		on result triggers ( navigation.ReadResult navigation.ReadBoxes )
+		on box triggers ( navigation.ReadPrivateCourses navigation.ReadNextCard )
 	}
 	Route {
 		on ok publishes ( UpdateHash ) triggers ( Init )

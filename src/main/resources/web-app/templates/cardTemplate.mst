@@ -76,10 +76,10 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <table class="table table-condensed">
-            <tr><td>Für heute</td><td>{{score.cards_for_today}}</td></tr>
-            <tr><td>Für morgen</td><td>{{score.cards_for_tomorrow}}</td></tr>
+            <tr><td>Für heute</td><td>{{score.cardsForToday}}</td></tr>
+            <tr><td>Für morgen</td><td>{{score.cardsForTomorrow}}</td></tr>
             <tr><td>Im Umlauf</td><td>{{score.totalOfCardsWithQuality}}</td></tr>
-            <tr><td>Neue</td><td>{{score.new_cards}}</td></tr>
+            <tr><td>Neue</td><td>{{score.newCards}}</td></tr>
             <tr><td>Insgesamt</td><td>{{score.cards}}</td></tr>
         </table>
     </div>

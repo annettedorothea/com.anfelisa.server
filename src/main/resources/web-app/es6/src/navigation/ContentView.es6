@@ -154,6 +154,59 @@ class ContentView {
         });
     };
     
+    static renderCard(eventData) {
+        var data = eventData.data;
+        $.get('templates/breadcrumbsTemplateBox.mst', function(template) {
+            var rendered = Mustache.render(template, data);
+            $('.breadcrumbs').html(rendered);
+        });
+
+        Mousetrap.unbind('q');
+        Mousetrap.unbind('a');
+        Mousetrap.unbind('y');
+        Mousetrap.unbind('w');
+        Mousetrap.unbind('s');
+        Mousetrap.unbind('x');
+
+        if (data.cardsForToday > 0) {
+            $('li.active span.badge').html(data.cardsForToday);
+        } else if (data.cardsForToday == 0) {
+            $('li.active span.badge').html('');
+        }
+        if (data.cardsForToday > 0 || /*App.cardView.goOnWithNewCards &&*/ data.newCards > 0) {
+            $.get('templates/cardTemplate.mst', function(template) {
+                var rendered = Mustache.render(template, data);
+                $('.content-pane').html(rendered);
+            });
+            if (data["content"]["complex"]) {
+                Mousetrap.bind('enter', function () {
+                    $(".ccard").click()
+                });
+            } else {
+                Mousetrap.bind('enter', function () {
+                    $(".card").click()
+                });
+            }
+        } else if (data.newCards > 0 /*&& !App.cardView.goOnWithNewCards*/) {
+            let activeItem = $('li.active i.fa');
+            activeItem.removeClass('fa-pencil-square-o');
+            activeItem.addClass('fa-check-square-o');
+            $.get('templates/cardTemplateNewCards.mst', function(template) {
+                var rendered = Mustache.render(template, data);
+                $('.content-pane').html(rendered);
+            });
+        } else {
+            let activeItem = $('li.active i.fa');
+            activeItem.removeClass('fa-pencil-square-o');
+            activeItem.addClass('fa-check-square-o');
+            $.get('templates/cardTemplateFinished.mst', function(template) {
+                var rendered = Mustache.render(template, data);
+                $('.content-pane').html(rendered);
+            });
+        }
+        //App.cardView.currentCardId = data.id;
+    };
+
 }
 
 /*                    S.D.G.                    */

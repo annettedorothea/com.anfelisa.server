@@ -10,5 +10,6 @@
   "readPrivateLessonsFailed" : "Lektionen konnten nicht geladen werden.",
   "readPrivateTestsFailed" : "Tests konnten nicht geladen werden.",
   "readPrivateTestFailed" : "Test konnte nicht geladen werden.",
-  "readResultFailed" : "Ergebnis konnte nicht geladen werden."
+  "readResultFailed" : "Ergebnis konnte nicht geladen werden.",
+  "readNextCardFailed" : "Nächste Karte konnte nicht geladen werden."
 }

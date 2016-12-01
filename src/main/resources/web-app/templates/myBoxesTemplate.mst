@@ -4,7 +4,7 @@
     </li>
     {{#boxList}}
     <li class="box_{{id}}">
-        <a onclick="new StartBoxAction({boxId : {{id}}}).apply()" {{#hasOpenCards}}class="open"{{/hasOpenCards}}>
+        <a onclick="new RouteAction({hash : 'box/{{boxId}}'}).apply()" {{#hasOpenCards}}class="open"{{/hasOpenCards}}>
         {{#hasOpenCards}}<i class="fa fa-pencil-square-o"></i>{{/hasOpenCards}}
         {{^hasOpenCards}}<i class="fa fa-check-square-o"></i>{{/hasOpenCards}}
         {{name}}

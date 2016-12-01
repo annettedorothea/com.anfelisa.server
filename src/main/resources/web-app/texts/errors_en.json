@@ -10,5 +10,6 @@
   "readPrivateLessonsFailed" : "Failed to load lessons.",
   "readPrivateTestsFailed" : "Failed to load tests.",
   "readPrivateTestFailed" : "Failed to load test.",
-  "readResultFailed" : "Failed to load result."
+  "readResultFailed" : "Failed to load result.",
+  "readNextCardFailed" : "Failed to load next card."
 }

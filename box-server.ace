@@ -37,6 +37,28 @@ models {
 		DateTime timestamp
 		Integer points
 	)
+	Score (
+		Integer cards
+		Integer cardsForToday
+		Integer cardsForTomorrow
+		Integer newCards
+		Integer totalOfCardsWithQuality
+		Integer zero
+		Integer one
+		Integer two
+		Integer three
+		Integer four
+		Integer five
+	)
+	CardInfo (
+		Integer cardId
+		String content
+		String boxName
+		Integer count
+		DateTime last
+		DateTime next
+		Integer quality
+	)
 }
 
 data {
@@ -45,6 +67,7 @@ data {
 	CardCreation : ( Card )
 	CardOfBoxCreation : ( CardOfBox )
 	BoxList : ( List Box com.anfelisa.user.Username )
+	Card : ( Card Box Score CardInfo )
 }
 
 actions {
@@ -53,6 +76,7 @@ actions {
 	POST CreateCard uses CardCreation executes CreateCard
 	POST CreateCardOfBox uses CardOfBoxCreation executes CreateCardOfBox
 	GET LoadBoxes uses BoxList
+	GET LoadNextCard uses Card
 }
 
 commands {

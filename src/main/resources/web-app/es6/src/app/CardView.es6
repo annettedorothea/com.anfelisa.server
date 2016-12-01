@@ -90,12 +90,12 @@ class CardView {
         Mousetrap.unbind('s');
         Mousetrap.unbind('x');
 
-        if (data.score.cards_for_today > 0) {
-            $('li.active span.badge').html(data.score.cards_for_today);
-        } else if (data.score.cards_for_today == 0) {
+        if (data.cardsForToday > 0) {
+            $('li.active span.badge').html(data.cardsForToday);
+        } else if (data.cardsForToday == 0) {
             $('li.active span.badge').html('');
         }
-        if (data.score.cards_for_today > 0 || App.cardView.goOnWithNewCards && data.score.new_cards > 0) {
+        if (data.cardsForToday > 0 || App.cardView.goOnWithNewCards && data.newCards > 0) {
             $.get('templates/cardTemplate.mst', function(template) {
                 var rendered = Mustache.render(template, data);
                 $('.content-pane').html(rendered);
@@ -109,7 +109,7 @@ class CardView {
                     $(".card").click()
                 });
             }
-        } else if (data.score.new_cards > 0 && !App.cardView.goOnWithNewCards) {
+        } else if (data.newCards > 0 && !App.cardView.goOnWithNewCards) {
             let activeItem = $('li.active i.fa');
             activeItem.removeClass('fa-pencil-square-o');
             activeItem.addClass('fa-check-square-o');
