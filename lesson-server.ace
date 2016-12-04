@@ -3,37 +3,60 @@ com.anfelisa.lesson
 target JAVA
 
 models {
-	persistent Lesson (
-		Unique PrimaryKey NotNull Serial lessonId
-		NotNull String name
-		String description
-		Integer sequence
-		NotNull Integer courseId references com.anfelisa.course.Course.courseId
-		NotNull String author references com.anfelisa.user.User.username
-	)
-	CourseId (
-		NotNull Integer courseId
-	)
-	LessonAbstract (
-		NotNull String lessonName
-		String lessonDescription
-		NotNull String lessonAuthor
-		NotNull Integer lessonId
-	)
-	MyLesson (
-		NotNull Integer lessonId
-		NotNull String name
-		String description
-		Integer sequence
-		NotNull Integer openTests
-		NotNull Boolean hasOpenTests
-	)
+	persistent Lesson {
+		primitiveAttributes {
+			Unique PrimaryKey NotNull Serial lessonId
+			NotNull String name
+			String description
+			Integer sequence
+			NotNull Integer courseId references com.anfelisa.course.Course.courseId
+			NotNull String author references com.anfelisa.user.User.username
+		}
+	}
+
+	CourseId {
+		primitiveAttributes {
+			NotNull Integer courseId
+		}
+	}
+
+	LessonAbstract {
+		primitiveAttributes {
+			NotNull String lessonName
+			String lessonDescription
+			NotNull String lessonAuthor
+			NotNull Integer lessonId
+		}
+	} 
+
+	MyLesson {
+		primitiveAttributes {
+			NotNull Integer lessonId
+			NotNull String name
+			String description
+			Integer sequence
+			NotNull Integer openTests
+			NotNull Boolean hasOpenTests
+		}
+	} 
+
+	LessonList {
+		complexAttributes {
+			List Lesson lessonList
+		}
+	}
+		
+	MyLessonList {
+		complexAttributes {
+			List MyLesson myLessonList
+		}
+	}
 }
 
 data {
 	LessonCreation : ( Lesson )
-	LessonList : (List Lesson CourseId com.anfelisa.course.CourseAbstract)
-	MyLessonList: (List MyLesson com.anfelisa.user.Username CourseId com.anfelisa.course.CourseAbstract )
+	LessonList : (LessonList CourseId com.anfelisa.course.CourseAbstract)
+	MyLessonList: (MyLessonList com.anfelisa.user.Username CourseId com.anfelisa.course.CourseAbstract )
 }
 
 actions {

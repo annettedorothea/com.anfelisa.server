@@ -33,7 +33,6 @@ public class CardCreationData implements ICardModel, IDataContainer {
 	private Integer maxPoints;
 	
 
-
 	
 
 	public CardCreationData(
@@ -122,7 +121,6 @@ public class CardCreationData implements ICardModel, IDataContainer {
 		return this;
 	}
 	
-
 	
 
 	@JsonProperty

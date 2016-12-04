@@ -9,10 +9,10 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.course.models.IStatisticsModel;
-import com.anfelisa.course.models.IStatisticsItemModel;
+import com.anfelisa.course.models.IStatisticsItemListModel;
 
 @SuppressWarnings("unused")
-public class StatisticsData implements IStatisticsModel, IDataContainer {
+public class StatisticsData implements IStatisticsModel, IStatisticsItemListModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -37,10 +37,8 @@ public class StatisticsData implements IStatisticsModel, IDataContainer {
 	private Integer rate;
 	
 
-	java.util.List<IStatisticsItemModel> StatisticsItemList;
 	
-
-	
+	private java.util.List<com.anfelisa.course.models.IStatisticsItemModel> statisticsItemList;
 	
 
 	public StatisticsData(
@@ -143,16 +141,14 @@ public class StatisticsData implements IStatisticsModel, IDataContainer {
 		return this;
 	}
 	
+	
 	@JsonProperty
-	public java.util.List<IStatisticsItemModel> getStatisticsItemList() {
-		return this.StatisticsItemList;
+	public java.util.List<com.anfelisa.course.models.IStatisticsItemModel> getStatisticsItemList() {
+		return this.statisticsItemList;
 	}
-	public void setStatisticsItemList(java.util.List<IStatisticsItemModel> StatisticsItemList) {
-		this.StatisticsItemList = StatisticsItemList;
+	public void setStatisticsItemList(java.util.List<com.anfelisa.course.models.IStatisticsItemModel> statisticsItemList) {
+		this.statisticsItemList = statisticsItemList;
 	}
-	
-
-	
 	
 
 	@JsonProperty

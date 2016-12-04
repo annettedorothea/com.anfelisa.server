@@ -30,7 +30,6 @@ public class ResultAbstractData implements IResultAbstractModel, IDataContainer 
 	private Integer maxPoints;
 	
 
-
 	
 
 	public ResultAbstractData(
@@ -105,7 +104,6 @@ public class ResultAbstractData implements IResultAbstractModel, IDataContainer 
 		return this;
 	}
 	
-
 	
 
 	@JsonProperty

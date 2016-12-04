@@ -3,38 +3,63 @@ com.anfelisa.test
 target JAVA
 
 models {
-	persistent Test (
-		Unique PrimaryKey NotNull Serial testId
-		NotNull String name
-		Integer sequence
-		NotNull Integer lessonId references com.anfelisa.lesson.Lesson.lessonId
-		NotNull String html
-		NotNull String author references com.anfelisa.user.User.username
-	)
-	LessonId (
-		NotNull Integer lessonId
-	)
-	TestId (
-		NotNull Integer testId
-	)
-	MyTest (
-		NotNull Serial testId
-		NotNull String name
-		Integer sequence
-		Integer resultCount
-		Boolean hasResults
-	)
-	(
-		List com.anfelisa.result.ResultAbstract
-	)
+	persistent Test {
+		primitiveAttributes {
+			Unique PrimaryKey NotNull Serial testId
+			NotNull String name
+			Integer sequence
+			NotNull Integer lessonId references com.anfelisa.lesson.Lesson.lessonId
+			NotNull String html
+			NotNull String author references com.anfelisa.user.User.username
+		}
+	}
+
+	LessonId {
+		primitiveAttributes {
+			NotNull Integer lessonId
+		}
+	}
+
+	TestId {
+		primitiveAttributes {
+			NotNull Integer testId
+		}
+		
+	} 
+
+	MyTest {
+		primitiveAttributes {
+			NotNull Serial testId
+			NotNull String name
+			Integer sequence
+			Integer resultCount
+			Boolean hasResults
+		}
+		complexAttributes {
+			List com.anfelisa.result.ResultAbstract resultAbstractList
+		}
+		
+	} 
+	
+	TestList {
+		complexAttributes {
+			List Test testList
+		}
+	}
+	
+	MyTestList {
+		complexAttributes {
+			List MyTest myTestList
+		} 
+	}
 }
 
 data {
 	TestCreation : ( Test )
-	TestList : (List Test LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
-	Test : ( Test LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List Test) 
-	MyTestList : (List MyTest LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
-	MyTest : ( Test LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List MyTest) 
+	TestList : (TestList LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
+	Test : ( Test LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract TestList) 
+	MyTestList : (MyTestList LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
+	MyTest : ( Test LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract MyTestList) 
 }
 
 actions {

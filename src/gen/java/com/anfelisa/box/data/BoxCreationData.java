@@ -27,7 +27,6 @@ public class BoxCreationData implements IBoxModel, IDataContainer {
 	private String username;
 	
 
-
 	
 
 	public BoxCreationData(
@@ -88,7 +87,6 @@ public class BoxCreationData implements IBoxModel, IDataContainer {
 		return this;
 	}
 	
-
 	
 
 	@JsonProperty

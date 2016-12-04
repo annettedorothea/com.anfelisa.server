@@ -8,13 +8,13 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.lesson.models.IMyLessonModel;
+import com.anfelisa.lesson.models.IMyLessonListModel;
 import com.anfelisa.user.models.IUsernameModel;
 import com.anfelisa.lesson.models.ICourseIdModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
 
 @SuppressWarnings("unused")
-public class MyLessonListData implements IUsernameModel, ICourseIdModel, ICourseAbstractModel, IDataContainer {
+public class MyLessonListData implements IMyLessonListModel, IUsernameModel, ICourseIdModel, ICourseAbstractModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -38,9 +38,7 @@ public class MyLessonListData implements IUsernameModel, ICourseIdModel, ICourse
 	private String courseAuthor;
 	
 
-	java.util.List<IMyLessonModel> MyLessonList;
-	
-
+	private java.util.List<com.anfelisa.lesson.models.IMyLessonModel> myLessonList;
 	
 	
 	
@@ -147,14 +145,12 @@ public class MyLessonListData implements IUsernameModel, ICourseIdModel, ICourse
 	}
 	
 	@JsonProperty
-	public java.util.List<IMyLessonModel> getMyLessonList() {
-		return this.MyLessonList;
+	public java.util.List<com.anfelisa.lesson.models.IMyLessonModel> getMyLessonList() {
+		return this.myLessonList;
 	}
-	public void setMyLessonList(java.util.List<IMyLessonModel> MyLessonList) {
-		this.MyLessonList = MyLessonList;
+	public void setMyLessonList(java.util.List<com.anfelisa.lesson.models.IMyLessonModel> myLessonList) {
+		this.myLessonList = myLessonList;
 	}
-	
-
 	
 	
 	

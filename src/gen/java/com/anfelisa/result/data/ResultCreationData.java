@@ -39,7 +39,6 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	private Integer maxPoints;
 	
 
-
 	
 
 	public ResultCreationData(
@@ -156,7 +155,6 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 		return this;
 	}
 	
-
 	
 
 	@JsonProperty

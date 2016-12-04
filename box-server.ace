@@ -3,62 +3,107 @@ com.anfelisa.box
 target JAVA
 
 models {
-	persistent Box (
-		Unique PrimaryKey NotNull Serial boxId
-		NotNull String name
-		NotNull String username references com.anfelisa.user.User.username
-	)
-	persistent BoxOfCourse (
-		NotNull Integer boxId references Box.boxId
-		NotNull Integer courseId references com.anfelisa.course.Course.courseId
-		NotNull Boolean autoAdd
-	)
-	persistent StudentOfBox (
-		Unique PrimaryKey NotNull Serial studentOfBoxId
-		NotNull String name
-		NotNull String username references com.anfelisa.user.User.username
-	)
-	persistent Card (
-		Unique PrimaryKey NotNull Serial cardId
-		NotEmpty String content
-		NotNull Integer testId references com.anfelisa.test.Test.testId
-		NotNull String contentHash
-		NotNull Integer maxPoints
-	)
-	persistent CardOfBox (
-		Unique PrimaryKey NotNull Serial carOfBoxId
-		NotNull Integer cardId references Card.cardId
-		Float ef
-		Integer interval
-		NotNull Integer count
-		DateTime date
-		NotNull Integer boxId references Box.boxId
-		Integer quality
-		DateTime timestamp
-		Integer points
-	)
-	Score (
-		Integer cards
-		Integer cardsForToday
-		Integer cardsForTomorrow
-		Integer newCards
-		Integer totalOfCardsWithQuality
-		Integer zero
-		Integer one
-		Integer two
-		Integer three
-		Integer four
-		Integer five
-	)
-	CardInfo (
-		Integer cardId
-		String content
-		String boxName
-		Integer count
-		DateTime last
-		DateTime next
-		Integer quality
-	)
+	persistent Box {
+		primitiveAttributes {
+			Unique PrimaryKey NotNull Serial boxId
+			NotNull String name
+			NotNull String username references com.anfelisa.user.User.username
+		}
+	}
+
+	persistent BoxOfCourse {
+		primitiveAttributes {
+			NotNull Integer boxId references Box.boxId
+			NotNull Integer courseId references com.anfelisa.course.Course.courseId
+			NotNull Boolean autoAdd
+		}
+	}
+
+	persistent StudentOfBox {
+		primitiveAttributes {
+			Unique PrimaryKey NotNull Serial studentOfBoxId
+			NotNull String name
+			NotNull String username references com.anfelisa.user.User.username
+		}
+	}
+
+	persistent Card {
+		primitiveAttributes {
+			Unique PrimaryKey NotNull Serial cardId
+			NotEmpty String content
+			NotNull Integer testId references com.anfelisa.test.Test.testId
+			NotNull String contentHash
+			NotNull Integer maxPoints
+		}
+	}
+
+	persistent CardOfBox {
+		primitiveAttributes {
+			Unique PrimaryKey NotNull Serial carOfBoxId
+			NotNull Integer cardId references Card.cardId
+			Float ef
+			Integer interval
+			NotNull Integer count
+			DateTime date
+			NotNull Integer boxId references Box.boxId
+			Integer quality
+			DateTime timestamp
+			Integer points
+		}
+	}
+
+	Score {
+		primitiveAttributes {
+			Integer cards
+			Integer cardsForToday
+			Integer cardsForTomorrow
+			Integer newCards
+			Integer totalOfCardsWithQuality
+			Integer zero
+			Integer one
+			Integer two
+			Integer three
+			Integer four
+			Integer five
+		}
+	}
+
+	CardInfo {
+		primitiveAttributes {
+			Integer cardId
+			String content
+			String boxName
+			Integer count
+			DateTime last
+			DateTime next
+			Integer quality
+		}
+	}
+		
+	BoxList {
+		complexAttributes {
+			List Box boxList
+		}
+	}
+		
+	CardContent {
+		primitiveAttributes {
+			Boolean complex
+			String given
+			Boolean large
+			String wanted
+			String header
+		}
+		complexAttributes {
+			List Line lines
+		}
+	}
+	
+	Line {
+		primitiveAttributes {
+			List String words
+		}
+	}
 }
 
 data {
@@ -66,8 +111,8 @@ data {
 	BoxToCourseAddition : ( BoxOfCourse )
 	CardCreation : ( Card )
 	CardOfBoxCreation : ( CardOfBox )
-	BoxList : ( List Box com.anfelisa.user.Username )
-	Card : ( Card Box Score CardInfo )
+	BoxList : ( BoxList com.anfelisa.user.Username )
+	Card : ( Card Box Score CardInfo CardContent )
 }
 
 actions {

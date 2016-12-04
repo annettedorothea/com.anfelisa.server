@@ -8,11 +8,11 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.IBoxListModel;
 import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")
-public class BoxListData implements IUsernameModel, IDataContainer {
+public class BoxListData implements IBoxListModel, IUsernameModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -22,9 +22,7 @@ public class BoxListData implements IUsernameModel, IDataContainer {
 	private String username;
 	
 
-	java.util.List<IBoxModel> BoxList;
-	
-
+	private java.util.List<com.anfelisa.box.models.IBoxModel> boxList;
 	
 	
 
@@ -59,14 +57,12 @@ public class BoxListData implements IUsernameModel, IDataContainer {
 	}
 	
 	@JsonProperty
-	public java.util.List<IBoxModel> getBoxList() {
-		return this.BoxList;
+	public java.util.List<com.anfelisa.box.models.IBoxModel> getBoxList() {
+		return this.boxList;
 	}
-	public void setBoxList(java.util.List<IBoxModel> BoxList) {
-		this.BoxList = BoxList;
+	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxModel> boxList) {
+		this.boxList = boxList;
 	}
-	
-
 	
 	
 

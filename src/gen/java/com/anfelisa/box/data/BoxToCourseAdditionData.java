@@ -27,7 +27,6 @@ public class BoxToCourseAdditionData implements IBoxOfCourseModel, IDataContaine
 	private Boolean autoAdd;
 	
 
-
 	
 
 	public BoxToCourseAdditionData(
@@ -88,7 +87,6 @@ public class BoxToCourseAdditionData implements IBoxOfCourseModel, IDataContaine
 		return this;
 	}
 	
-
 	
 
 	@JsonProperty

@@ -18,7 +18,6 @@ public class SetupData implements ISetupModel, IDataContainer {
 	private String schema;
 	
 
-
 	
 
 	public SetupData(
@@ -28,7 +27,6 @@ public class SetupData implements ISetupModel, IDataContainer {
 		this.uuid = uuid;
 		this.schema = schema;
 	}
-
 
 
 	

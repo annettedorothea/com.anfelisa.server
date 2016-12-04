@@ -8,11 +8,11 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.course.models.IMyCourseModel;
+import com.anfelisa.course.models.IMyCourseListModel;
 import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")
-public class MyCourseListData implements IUsernameModel, IDataContainer {
+public class MyCourseListData implements IMyCourseListModel, IUsernameModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -22,9 +22,7 @@ public class MyCourseListData implements IUsernameModel, IDataContainer {
 	private String username;
 	
 
-	java.util.List<IMyCourseModel> MyCourseList;
-	
-
+	private java.util.List<com.anfelisa.course.models.IMyCourseModel> myCourseList;
 	
 	
 
@@ -59,14 +57,12 @@ public class MyCourseListData implements IUsernameModel, IDataContainer {
 	}
 	
 	@JsonProperty
-	public java.util.List<IMyCourseModel> getMyCourseList() {
-		return this.MyCourseList;
+	public java.util.List<com.anfelisa.course.models.IMyCourseModel> getMyCourseList() {
+		return this.myCourseList;
 	}
-	public void setMyCourseList(java.util.List<IMyCourseModel> MyCourseList) {
-		this.MyCourseList = MyCourseList;
+	public void setMyCourseList(java.util.List<com.anfelisa.course.models.IMyCourseModel> myCourseList) {
+		this.myCourseList = myCourseList;
 	}
-	
-
 	
 	
 

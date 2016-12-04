@@ -3,11 +3,12 @@ com.anfelisa.setup
 target JAVA
 
 models {
-	Setup (
-	)
-	SetupSchema (
-		NotEmpty String schemaToBeCreated
-	)
+	Setup 
+	SetupSchema {
+		primitiveAttributes {
+			NotEmpty String schemaToBeCreated
+		}
+	}
 }
 
 data {

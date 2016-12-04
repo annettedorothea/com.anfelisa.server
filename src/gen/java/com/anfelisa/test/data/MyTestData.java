@@ -13,10 +13,10 @@ import com.anfelisa.test.models.ILessonIdModel;
 import com.anfelisa.user.models.IUsernameModel;
 import com.anfelisa.lesson.models.ILessonAbstractModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
-import com.anfelisa.test.models.IMyTestModel;
+import com.anfelisa.test.models.IMyTestListModel;
 
 @SuppressWarnings("unused")
-public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, ILessonAbstractModel, ICourseAbstractModel, IDataContainer {
+public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, ILessonAbstractModel, ICourseAbstractModel, IMyTestListModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -65,15 +65,12 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 	private Integer courseId;
 	
 
-	java.util.List<IMyTestModel> MyTestList;
-	
-
 	
 	
 	
 	
 	
-	private java.util.List<com.anfelisa.result.models.IResultAbstractModel> resultAbstractList;
+	private java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList;
 	
 
 	public MyTestData(
@@ -302,26 +299,17 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 		return this;
 	}
 	
-	@JsonProperty
-	public java.util.List<IMyTestModel> getMyTestList() {
-		return this.MyTestList;
-	}
-	public void setMyTestList(java.util.List<IMyTestModel> MyTestList) {
-		this.MyTestList = MyTestList;
-	}
-	
-
 	
 	
 	
 	
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.result.models.IResultAbstractModel> getResultAbstractList() {
-		return this.resultAbstractList;
+	public java.util.List<com.anfelisa.test.models.IMyTestModel> getMyTestList() {
+		return this.myTestList;
 	}
-	public void setResultAbstractList(java.util.List<com.anfelisa.result.models.IResultAbstractModel> resultAbstractList) {
-		this.resultAbstractList = resultAbstractList;
+	public void setMyTestList(java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList) {
+		this.myTestList = myTestList;
 	}
 	
 

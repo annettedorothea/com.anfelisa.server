@@ -8,12 +8,12 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.lesson.models.ILessonModel;
+import com.anfelisa.lesson.models.ILessonListModel;
 import com.anfelisa.lesson.models.ICourseIdModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
 
 @SuppressWarnings("unused")
-public class LessonListData implements ICourseIdModel, ICourseAbstractModel, IDataContainer {
+public class LessonListData implements ILessonListModel, ICourseIdModel, ICourseAbstractModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -34,9 +34,7 @@ public class LessonListData implements ICourseIdModel, ICourseAbstractModel, IDa
 	private String courseAuthor;
 	
 
-	java.util.List<ILessonModel> LessonList;
-	
-
+	private java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList;
 	
 	
 	
@@ -128,14 +126,12 @@ public class LessonListData implements ICourseIdModel, ICourseAbstractModel, IDa
 	}
 	
 	@JsonProperty
-	public java.util.List<ILessonModel> getLessonList() {
-		return this.LessonList;
+	public java.util.List<com.anfelisa.lesson.models.ILessonModel> getLessonList() {
+		return this.lessonList;
 	}
-	public void setLessonList(java.util.List<ILessonModel> LessonList) {
-		this.LessonList = LessonList;
+	public void setLessonList(java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList) {
+		this.lessonList = lessonList;
 	}
-	
-
 	
 	
 	

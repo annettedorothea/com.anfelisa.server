@@ -1,63 +1,99 @@
 com.anfelisa.course
 
+
 target JAVA
 
 models {
-	persistent Course (
-		Unique PrimaryKey NotNull Serial courseId
-		NotNull String name
-		String description
-		Integer sequence
-		NotNull Boolean isPublic
-		NotNull String author references com.anfelisa.user.User.username
-	)
-	persistent StudentOfCourse (
-		NotNull String username references com.anfelisa.user.User.username
-		NotNull Integer courseId references Course.courseId
-	)
-	CourseAbstract (
-		NotNull String courseName
-		String courseDescription
-		NotNull Boolean isPublic
-		NotNull String courseAuthor
-		NotNull Integer courseId
-	)
-	MyCourse (
-		NotNull Integer courseId
-		NotNull String name
-		String description
-		Integer sequence
-		NotNull Boolean isPublic
-		NotNull String author
-		NotNull Integer openTests
-		NotNull Boolean hasOpenTests
-	)
-	Statistics (
-		NotNull String username
-		NotNull Integer year
-		NotNull Integer month
-		NotNull Integer points
-		NotNull Integer maxPoints
-		NotNull Integer rate
-	)
-	StatisticsItem (
-		NotNull String type
-		NotNull Boolean isBox
-		NotNull Integer count
-		NotNull Integer day
-		NotNull String name
-		NotNull Integer points
-		NotNull Integer maxPoints
-		NotNull Integer rate
-	)
+	persistent Course {
+		primitiveAttributes {
+			Unique PrimaryKey NotNull Serial courseId
+			NotNull String name
+			String description
+			Integer sequence
+			NotNull Boolean isPublic
+			NotNull String author references com.anfelisa.user.User.username
+		}
+	}
+
+	persistent StudentOfCourse {
+		primitiveAttributes {
+			NotNull String username references com.anfelisa.user.User.username
+			NotNull Integer courseId references Course.courseId
+		}
+	} 
+
+	CourseAbstract {
+		primitiveAttributes {
+			NotNull String courseName
+			String courseDescription
+			NotNull Boolean isPublic
+			NotNull String courseAuthor
+			NotNull Integer courseId
+		}
+	} 
+
+	MyCourse {
+		primitiveAttributes {
+			NotNull Integer courseId
+			NotNull String name
+			String description
+			Integer sequence
+			NotNull Boolean isPublic
+			NotNull String author
+			NotNull Integer openTests
+			NotNull Boolean hasOpenTests
+		}
+	}
+
+	Statistics {
+		primitiveAttributes {
+			NotNull String username
+			NotNull Integer year
+			NotNull Integer month
+			NotNull Integer points
+			NotNull Integer maxPoints
+			NotNull Integer rate
+		}
+	}
+
+	StatisticsItem {
+		primitiveAttributes {
+			NotNull String type
+			NotNull Boolean isBox
+			NotNull Integer count
+			NotNull Integer day
+			NotNull String name
+			NotNull Integer points
+			NotNull Integer maxPoints
+			NotNull Integer rate
+		}
+	} 
+		
+	CourseList {
+		complexAttributes {
+			List Course courseList
+		}
+	}
+		
+	MyCourseList {
+		complexAttributes {
+			List MyCourse myCourseList
+		}
+	}
+		
+	StatisticsItemList {
+		complexAttributes {
+			List StatisticsItem statisticsItemList
+		}
+	}
 }
 
 data {
 	CourseCreation : ( Course )
 	StudentToCourseAddition : (StudentOfCourse)
-	CourseList: (List Course)
-	MyCourseList: (List MyCourse com.anfelisa.user.Username)
-	Statistics: ( Statistics List StatisticsItem )
+	CourseList: (CourseList)
+	MyCourseList: (MyCourseList com.anfelisa.user.Username)
+	Statistics: ( Statistics StatisticsItemList )
 }
 
 actions {

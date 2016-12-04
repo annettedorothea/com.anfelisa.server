@@ -12,10 +12,10 @@ import com.anfelisa.test.models.ITestModel;
 import com.anfelisa.test.models.ILessonIdModel;
 import com.anfelisa.lesson.models.ILessonAbstractModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
-import com.anfelisa.test.models.ITestModel;
+import com.anfelisa.test.models.ITestListModel;
 
 @SuppressWarnings("unused")
-public class TestData implements ITestModel, ILessonIdModel, ILessonAbstractModel, ICourseAbstractModel, IDataContainer {
+public class TestData implements ITestModel, ILessonIdModel, ILessonAbstractModel, ICourseAbstractModel, ITestListModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -61,13 +61,11 @@ public class TestData implements ITestModel, ILessonIdModel, ILessonAbstractMode
 	private Integer courseId;
 	
 
-	java.util.List<ITestModel> TestList;
-	
-
 	
 	
 	
 	
+	private java.util.List<com.anfelisa.test.models.ITestModel> testList;
 	
 
 	public TestData(
@@ -282,19 +280,17 @@ public class TestData implements ITestModel, ILessonIdModel, ILessonAbstractMode
 		return this;
 	}
 	
+	
+	
+	
+	
 	@JsonProperty
-	public java.util.List<ITestModel> getTestList() {
-		return this.TestList;
+	public java.util.List<com.anfelisa.test.models.ITestModel> getTestList() {
+		return this.testList;
 	}
-	public void setTestList(java.util.List<ITestModel> TestList) {
-		this.TestList = TestList;
+	public void setTestList(java.util.List<com.anfelisa.test.models.ITestModel> testList) {
+		this.testList = testList;
 	}
-	
-
-	
-	
-	
-	
 	
 
 	@JsonProperty

@@ -1,6 +1,11 @@
 package com.anfelisa.box.actions;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.ws.rs.WebApplicationException;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -11,6 +16,9 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.CardData;
 import com.anfelisa.box.models.CustomBoxDao;
 import com.anfelisa.box.models.ICardInfoModel;
+import com.anfelisa.box.models.ILineModel;
+import com.anfelisa.box.models.LineModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class LoadNextCardAction extends AbstractLoadNextCardAction {
 
@@ -24,6 +32,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 	protected void captureActionParam() {
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void applyAction() {
 		this.actionData = this.actionParam;
@@ -83,7 +92,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 				cardsForTomorrow++;
 			}
 		}
-		
+
 		if (nextCard != null) {
 			this.actionData.setBoxName(nextCard.getBoxName());
 			this.actionData.setCardId(nextCard.getCardId());
@@ -97,7 +106,34 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			this.actionData.setCount(nextNewCard.getCount());
 			this.actionData.setNext(nextNewCard.getNext());
 		}
-		
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			Map<Object, Object> cardContentModel = mapper.readValue(this.actionData.getContent(), Map.class);
+			this.actionData.setComplex((Boolean) cardContentModel.get("complex"));
+			this.actionData.setGiven((String) cardContentModel.get("given"));
+			List<Map<Object, Object>> lineList = (List<Map<Object, Object>>) cardContentModel.get("lines");
+			List<ILineModel> lines = new ArrayList<ILineModel>();
+			for (Map<Object, Object> line : lineList) {
+				System.out.println(line);
+				List<Map<Object, Object>> wordList = (List<Map<Object, Object>>) line.get("line");
+				List<String> words = new ArrayList<String>();
+				for (Map<Object, Object> wordMap : wordList) {
+					String word = (String) wordMap.get("word");
+					System.out.println(word);
+					words.add(word);
+				}
+				lines.add(new LineModel(words));
+			}
+			this.actionData.setLines(lines);
+			this.actionData.setLarge((Boolean) cardContentModel.get("large"));
+			this.actionData.setWanted((String) cardContentModel.get("wanted"));
+			this.actionData.setHeader((String) cardContentModel.get("header"));
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new WebApplicationException("cannot parse " + this.actionData.getContent() + ".");
+		}
+
 		this.actionData.setCount(count);
 		this.actionData.setCardsForToday(cardsForToday);
 		this.actionData.setCardsForTomorrow(cardsForTomorrow);
@@ -113,7 +149,8 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		this.actionData.setFour((int) Math.floor((factor * quality4Count)));
 		this.actionData.setFive(100 - this.actionData.getZero() - this.actionData.getOne() - this.actionData.getTwo()
 				- this.actionData.getThree() - this.actionData.getFour());
-		
+		this.actionData.setTotalOfCardsWithQuality(numberOfCardsWithQuality);
+
 	}
 
 }

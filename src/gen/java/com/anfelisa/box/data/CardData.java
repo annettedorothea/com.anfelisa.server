@@ -12,9 +12,10 @@ import com.anfelisa.box.models.ICardModel;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.IScoreModel;
 import com.anfelisa.box.models.ICardInfoModel;
+import com.anfelisa.box.models.ICardContentModel;
 
 @SuppressWarnings("unused")
-public class CardData implements ICardModel, IBoxModel, IScoreModel, ICardInfoModel, IDataContainer {
+public class CardData implements ICardModel, IBoxModel, IScoreModel, ICardInfoModel, ICardContentModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -76,11 +77,22 @@ public class CardData implements ICardModel, IBoxModel, IScoreModel, ICardInfoMo
 	
 	private Integer quality;
 	
+	private Boolean complex;
+	
+	private String given;
+	
+	private Boolean large;
+	
+	private String wanted;
+	
+	private String header;
+	
 
-
 	
 	
 	
+	
+	private java.util.List<com.anfelisa.box.models.ILineModel> lines;
 	
 
 	public CardData(
@@ -107,7 +119,12 @@ public class CardData implements ICardModel, IBoxModel, IScoreModel, ICardInfoMo
 		@JsonProperty("count") Integer count,
 		@JsonProperty("last") org.joda.time.DateTime last,
 		@JsonProperty("next") org.joda.time.DateTime next,
-		@JsonProperty("quality") Integer quality
+		@JsonProperty("quality") Integer quality,
+		@JsonProperty("complex") Boolean complex,
+		@JsonProperty("given") String given,
+		@JsonProperty("large") Boolean large,
+		@JsonProperty("wanted") String wanted,
+		@JsonProperty("header") String header
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -135,6 +152,11 @@ public class CardData implements ICardModel, IBoxModel, IScoreModel, ICardInfoMo
 		this.last = last;
 		this.next = next;
 		this.quality = quality;
+		this.complex = complex;
+		this.given = given;
+		this.large = large;
+		this.wanted = wanted;
+		this.header = header;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -435,10 +457,77 @@ public class CardData implements ICardModel, IBoxModel, IScoreModel, ICardInfoMo
 		return this;
 	}
 	
-
+	@JsonProperty
+	public Boolean getComplex() {
+		return this.complex;
+	}
+	public void setComplex(Boolean complex) {
+		this.complex = complex;
+	}
+	public CardData withComplex(Boolean complex) {
+		this.complex = complex;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getGiven() {
+		return this.given;
+	}
+	public void setGiven(String given) {
+		this.given = given;
+	}
+	public CardData withGiven(String given) {
+		this.given = given;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getLarge() {
+		return this.large;
+	}
+	public void setLarge(Boolean large) {
+		this.large = large;
+	}
+	public CardData withLarge(Boolean large) {
+		this.large = large;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getWanted() {
+		return this.wanted;
+	}
+	public void setWanted(String wanted) {
+		this.wanted = wanted;
+	}
+	public CardData withWanted(String wanted) {
+		this.wanted = wanted;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getHeader() {
+		return this.header;
+	}
+	public void setHeader(String header) {
+		this.header = header;
+	}
+	public CardData withHeader(String header) {
+		this.header = header;
+		return this;
+	}
 	
 	
 	
+	
+	
+	@JsonProperty
+	public java.util.List<com.anfelisa.box.models.ILineModel> getLines() {
+		return this.lines;
+	}
+	public void setLines(java.util.List<com.anfelisa.box.models.ILineModel> lines) {
+		this.lines = lines;
+	}
 	
 
 	@JsonProperty

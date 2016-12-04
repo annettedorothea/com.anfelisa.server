@@ -8,13 +8,13 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.test.models.ITestModel;
+import com.anfelisa.test.models.ITestListModel;
 import com.anfelisa.test.models.ILessonIdModel;
 import com.anfelisa.lesson.models.ILessonAbstractModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
 
 @SuppressWarnings("unused")
-public class TestListData implements ILessonIdModel, ILessonAbstractModel, ICourseAbstractModel, IDataContainer {
+public class TestListData implements ITestListModel, ILessonIdModel, ILessonAbstractModel, ICourseAbstractModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -46,9 +46,7 @@ public class TestListData implements ILessonIdModel, ILessonAbstractModel, ICour
 	private Integer courseId;
 	
 
-	java.util.List<ITestModel> TestList;
-	
-
+	private java.util.List<com.anfelisa.test.models.ITestModel> testList;
 	
 	
 	
@@ -197,14 +195,12 @@ public class TestListData implements ILessonIdModel, ILessonAbstractModel, ICour
 	}
 	
 	@JsonProperty
-	public java.util.List<ITestModel> getTestList() {
-		return this.TestList;
+	public java.util.List<com.anfelisa.test.models.ITestModel> getTestList() {
+		return this.testList;
 	}
-	public void setTestList(java.util.List<ITestModel> TestList) {
-		this.TestList = TestList;
+	public void setTestList(java.util.List<com.anfelisa.test.models.ITestModel> testList) {
+		this.testList = testList;
 	}
-	
-
 	
 	
 	

@@ -35,7 +35,6 @@ public class TestCreationData implements ITestModel, IDataContainer {
 	private String author;
 	
 
-
 	
 
 	public TestCreationData(
@@ -138,7 +137,6 @@ public class TestCreationData implements ITestModel, IDataContainer {
 		return this;
 	}
 	
-
 	
 
 	@JsonProperty

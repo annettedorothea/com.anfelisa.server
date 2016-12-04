@@ -24,7 +24,6 @@ public class StudentToCourseAdditionData implements IStudentOfCourseModel, IData
 	private Integer courseId;
 	
 
-
 	
 
 	public StudentToCourseAdditionData(
@@ -71,7 +70,6 @@ public class StudentToCourseAdditionData implements IStudentOfCourseModel, IData
 		return this;
 	}
 	
-
 	
 
 	@JsonProperty

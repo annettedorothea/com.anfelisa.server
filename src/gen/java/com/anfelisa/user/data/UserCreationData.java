@@ -36,7 +36,6 @@ public class UserCreationData implements IUserModel, IDataContainer {
 	private String role;
 	
 
-
 	
 
 	public UserCreationData(
@@ -139,7 +138,6 @@ public class UserCreationData implements IUserModel, IDataContainer {
 		return this;
 	}
 	
-
 	
 
 	@JsonProperty

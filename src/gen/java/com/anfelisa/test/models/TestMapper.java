@@ -2,7 +2,6 @@ package com.anfelisa.test.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.joda.time.DateTime;
 
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;

@@ -31,7 +31,6 @@ public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContai
 	private String role;
 	
 
-
 	
 	
 
@@ -107,7 +106,6 @@ public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContai
 		return this;
 	}
 	
-
 	
 	
 

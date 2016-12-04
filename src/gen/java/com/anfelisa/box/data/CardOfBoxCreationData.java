@@ -42,7 +42,6 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	private Integer points;
 	
 
-
 	
 
 	public CardOfBoxCreationData(
@@ -201,7 +200,6 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 		return this;
 	}
 	
-
 	
 
 	@JsonProperty

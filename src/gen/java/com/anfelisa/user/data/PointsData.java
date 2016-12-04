@@ -28,7 +28,6 @@ public class PointsData implements IPointsModel, ICredentialsModel, IDataContain
 	private String role;
 	
 
-
 	
 	
 
@@ -90,7 +89,6 @@ public class PointsData implements IPointsModel, ICredentialsModel, IDataContain
 		return this;
 	}
 	
-
 	
 	
 

@@ -21,7 +21,6 @@ public class SetupSchemaData implements ISetupSchemaModel, IDataContainer {
 	private String schemaToBeCreated;
 	
 
-
 	
 
 	public SetupSchemaData(
@@ -54,7 +53,6 @@ public class SetupSchemaData implements ISetupSchemaModel, IDataContainer {
 		return this;
 	}
 	
-
 	
 
 	@JsonProperty

@@ -3,29 +3,43 @@ com.anfelisa.user
 target JAVA
 
 models {
-	persistent User (
-		Unique PrimaryKey NotNull String username
-		NotNull String password
-		NotNull String name
-		NotNull String prename
-		NotNull String email
-		NotNull String role
-	)
-	persistent LoginLog (
-		Unique PrimaryKey NotNull Serial loginLogId
-		NotNull String username
-		NotNull DateTime date
-	)
-	Credentials (
-		NotNull String username
-		NotNull String role
-	)
-	Points (
-		NotNull Integer points
-	)
-	Username (
-		NotNull String username
-	)
+	persistent User {
+		primitiveAttributes {
+			Unique PrimaryKey NotNull String username
+			NotNull String password
+			NotNull String name
+			NotNull String prename
+			NotNull String email
+			NotNull String role
+		}
+	}
+
+	persistent LoginLog {
+		primitiveAttributes {
+			Unique PrimaryKey NotNull Serial loginLogId
+			NotNull String username
+			NotNull DateTime date
+		}
+	} 
+
+	Credentials {
+		primitiveAttributes {
+			NotNull String username
+			NotNull String role
+		}
+	} 
+
+	Points {
+		primitiveAttributes {
+			NotNull Integer points
+		}
+	} 
+
+	Username {
+		primitiveAttributes {
+			NotNull String username
+		}
+	} 
 }
 
 data {

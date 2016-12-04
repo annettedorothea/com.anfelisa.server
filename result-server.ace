@@ -3,28 +3,33 @@ com.anfelisa.result
 target JAVA
 
 models {
-	persistent Result (
-		Unique PrimaryKey NotNull Serial resultId
-		NotNull String username references com.anfelisa.user.User.username
-		NotNull Integer testId references com.anfelisa.test.Test.testId
-		NotNull DateTime date
-		NotNull String json
-		NotNull Integer points
-		NotNull Integer maxPoints
-	)
-	ResultAbstract (
-		NotNull Serial resultId
-		NotNull DateTime date
-		NotNull Integer points
-		NotNull Integer maxPoints
-	)
+	persistent Result {
+		primitiveAttributes {
+			Unique PrimaryKey NotNull Serial resultId
+			NotNull String username references com.anfelisa.user.User.username
+			NotNull Integer testId references com.anfelisa.test.Test.testId
+			NotNull DateTime date
+			NotNull String json
+			NotNull Integer points
+			NotNull Integer maxPoints
+		}
+	}
+
+	ResultAbstract {
+		primitiveAttributes {
+			NotNull Serial resultId
+			NotNull DateTime date
+			NotNull Integer points
+			NotNull Integer maxPoints
+		}
+	}
 }
 
 
 data {
 	ResultCreation : ( Result )
 	ResultAbstract : ( ResultAbstract )
-	MyResult : ( Result com.anfelisa.test.Test com.anfelisa.test.LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract List com.anfelisa.test.MyTest )
+	MyResult : ( Result com.anfelisa.test.Test com.anfelisa.test.LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract com.anfelisa.test.MyTestList )
 }
 
 actions {

@@ -8,19 +8,17 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.course.models.ICourseModel;
+import com.anfelisa.course.models.ICourseListModel;
 
 @SuppressWarnings("unused")
-public class CourseListData implements  IDataContainer {
+public class CourseListData implements ICourseListModel, IDataContainer {
 	
 	private String uuid;
 	
 	private String schema;
 	
 
-	java.util.List<ICourseModel> CourseList;
-	
-
+	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
 	
 
 	public CourseListData(
@@ -33,14 +31,12 @@ public class CourseListData implements  IDataContainer {
 
 
 	@JsonProperty
-	public java.util.List<ICourseModel> getCourseList() {
-		return this.CourseList;
+	public java.util.List<com.anfelisa.course.models.ICourseModel> getCourseList() {
+		return this.courseList;
 	}
-	public void setCourseList(java.util.List<ICourseModel> CourseList) {
-		this.CourseList = CourseList;
+	public void setCourseList(java.util.List<com.anfelisa.course.models.ICourseModel> courseList) {
+		this.courseList = courseList;
 	}
-	
-
 	
 
 	@JsonProperty

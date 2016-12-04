@@ -34,7 +34,6 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 	private String author;
 	
 
-
 	
 
 	public LessonCreationData(
@@ -137,7 +136,6 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 		return this;
 	}
 	
-
 	
 
 	@JsonProperty
