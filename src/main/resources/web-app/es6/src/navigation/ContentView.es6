@@ -27,9 +27,6 @@ class ContentView {
         //enableDrag();
     };
     
-    static renderPrivateCourses(eventData) {
-    };
-    
     static renderPrivateLessons(eventData) {
         $.get('templates/contentTemplate2.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);

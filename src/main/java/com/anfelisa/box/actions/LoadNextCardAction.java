@@ -114,16 +114,16 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			this.actionData.setGiven((String) cardContentModel.get("given"));
 			List<Map<Object, Object>> lineList = (List<Map<Object, Object>>) cardContentModel.get("lines");
 			List<ILineModel> lines = new ArrayList<ILineModel>();
-			for (Map<Object, Object> line : lineList) {
-				System.out.println(line);
-				List<Map<Object, Object>> wordList = (List<Map<Object, Object>>) line.get("line");
-				List<String> words = new ArrayList<String>();
-				for (Map<Object, Object> wordMap : wordList) {
-					String word = (String) wordMap.get("word");
-					System.out.println(word);
-					words.add(word);
+			if (lineList != null) {
+				for (Map<Object, Object> line : lineList) {
+					List<Map<Object, Object>> wordList = (List<Map<Object, Object>>) line.get("line");
+					List<String> words = new ArrayList<String>();
+					for (Map<Object, Object> wordMap : wordList) {
+						String word = (String) wordMap.get("word");
+						words.add(word);
+					}
+					lines.add(new LineModel(words));
 				}
-				lines.add(new LineModel(words));
 			}
 			this.actionData.setLines(lines);
 			this.actionData.setLarge((Boolean) cardContentModel.get("large"));
@@ -141,12 +141,12 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 
 		int numberOfCardsWithQuality = quality0Count + quality1Count + quality2Count + quality3Count + quality4Count
 				+ quality5Count;
-		float factor = 100 / numberOfCardsWithQuality;
-		this.actionData.setZero((int) Math.floor((factor * quality0Count)));
-		this.actionData.setOne((int) Math.floor((factor * quality1Count)));
-		this.actionData.setTwo((int) Math.floor((factor * quality2Count)));
-		this.actionData.setThree((int) Math.floor((factor * quality3Count)));
-		this.actionData.setFour((int) Math.floor((factor * quality4Count)));
+		//float factor = 100 / numberOfCardsWithQuality;
+		this.actionData.setZero((int) Math.floor((100 * quality0Count / numberOfCardsWithQuality)));
+		this.actionData.setOne((int) Math.floor((100 * quality1Count / numberOfCardsWithQuality)));
+		this.actionData.setTwo((int) Math.floor((100 * quality2Count / numberOfCardsWithQuality)));
+		this.actionData.setThree((int) Math.floor((100 * quality3Count / numberOfCardsWithQuality)));
+		this.actionData.setFour((int) Math.floor((100 * quality4Count / numberOfCardsWithQuality)));
 		this.actionData.setFive(100 - this.actionData.getZero() - this.actionData.getOne() - this.actionData.getTwo()
 				- this.actionData.getThree() - this.actionData.getFour());
 		this.actionData.setTotalOfCardsWithQuality(numberOfCardsWithQuality);

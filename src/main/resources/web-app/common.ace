@@ -5,29 +5,30 @@ target ES6
 actions {
 	Init executes Init
 	Route executes Route
+	RouteHome executes Route
 	Login executes Login
 	Logout executes Logout
 }
 
 commands {
 	Init {
-		on publicCourses triggers ( navigation.ReadPublicCourses )
-		on publicLessons triggers ( navigation.ReadPublicLessons )
-		on publicTests triggers ( navigation.ReadPublicTests )
-		on publicTest triggers ( navigation.ReadPublicTest )
-		on privateCourses triggers ( navigation.ReadPrivateCourses navigation.ReadStatistics navigation.ReadBoxes )
-		on privateLessons triggers ( navigation.ReadPrivateLessons navigation.ReadBoxes )
-		on privateTests triggers ( navigation.ReadPrivateTests navigation.ReadBoxes )
-		on privateTest triggers ( navigation.ReadPrivateTest navigation.ReadBoxes ) 
-		on result triggers ( navigation.ReadResult navigation.ReadBoxes )
-		on box triggers ( navigation.ReadPrivateCourses navigation.ReadNextCard )
+		on publicCourses publishes (navigation.UserIsNotLoggedIn) triggers ( navigation.ReadPublicCourses )
+		on publicLessons publishes (navigation.UserIsNotLoggedIn) triggers ( navigation.ReadPublicLessons )
+		on publicTests publishes (navigation.UserIsNotLoggedIn) triggers ( navigation.ReadPublicTests )
+		on publicTest publishes (navigation.UserIsNotLoggedIn) triggers ( navigation.ReadPublicTest )
+		on privateCourses publishes (navigation.UserIsLoggedIn) triggers ( navigation.ReadPrivateCourses navigation.ReadStatistics navigation.ReadBoxes )
+		on privateLessons publishes (navigation.UserIsLoggedIn) triggers ( navigation.ReadPrivateLessons navigation.ReadBoxes )
+		on privateTests publishes (navigation.UserIsLoggedIn) triggers ( navigation.ReadPrivateTests navigation.ReadBoxes )
+		on privateTest publishes (navigation.UserIsLoggedIn) triggers ( navigation.ReadPrivateTest navigation.ReadBoxes ) 
+		on result publishes (navigation.UserIsLoggedIn) triggers ( navigation.ReadResult navigation.ReadBoxes )
+		on box publishes (navigation.UserIsLoggedIn) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes navigation.ReadNextCard )
 	}
 	Route {
 		on ok publishes ( UpdateHash ) triggers ( Init )
 	}
 	Login {
 		on ok publishes (UserLoggedIn) triggers ( Route )
-		on error publishes ( ServerError )
+		on error publishes ( ServerError ) triggers ( RouteHome )
 	}
 	Logout {
 		on ok publishes (UserLoggedOut) triggers ( Route )

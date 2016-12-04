@@ -15,9 +15,9 @@ public class CustomBoxDao {
 		return handle
 				.createQuery("SELECT b.cardid, c.content, b.count, b.date, b.quality, bos.name, b.timestamp FROM "
 						+ schema + ".cardofbox b INNER JOIN (SELECT cardid, MAX(count) as maxCount FROM " + schema
-						+ ".cardofbox WHERE boxid = 11 GROUP BY cardid ORDER BY cardid) latestCard ON b.cardid = latestCard.cardid AND b.count = latestCard.maxCount INNER JOIN "
+						+ ".cardofbox WHERE boxid = :boxId GROUP BY cardid ORDER BY cardid) latestCard ON b.cardid = latestCard.cardid AND b.count = latestCard.maxCount INNER JOIN "
 						+ schema + ".card c ON c.cardid = b.cardid INNER JOIN " + schema
-						+ ".box bos ON b.boxid = bos.boxid WHERE b.boxid = 11 ORDER BY b.timestamp DESC")
+						+ ".box bos ON b.boxid = bos.boxid WHERE b.boxid = :boxId ORDER BY b.timestamp DESC")
 				.bind("boxId", boxId).map(new CardInfoMapper()).list();
 	}
 }
