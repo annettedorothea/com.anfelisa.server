@@ -4,12 +4,12 @@
 
 'use strict';
 
-var App = undefined;
 function initApp() {
 
     ACEController.init();
     EventListenerRegistrationCommon.init();
     EventListenerRegistrationNavigation.init();
+    EventListenerRegistrationVocabulary.init();
     if (!window.urlPrefix) {
         window.urlPrefix = "http://localhost:8080/";
     }
