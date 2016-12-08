@@ -13,10 +13,6 @@ public class ScoreModel implements IScoreModel {
 	
 	private Integer cardsForTomorrow;
 	
-	private Integer newCards;
-	
-	private Integer totalOfCardsWithQuality;
-	
 	private Integer zero;
 	
 	private Integer one;
@@ -35,8 +31,6 @@ public class ScoreModel implements IScoreModel {
 		@JsonProperty("cards") Integer cards,
 		@JsonProperty("cardsForToday") Integer cardsForToday,
 		@JsonProperty("cardsForTomorrow") Integer cardsForTomorrow,
-		@JsonProperty("newCards") Integer newCards,
-		@JsonProperty("totalOfCardsWithQuality") Integer totalOfCardsWithQuality,
 		@JsonProperty("zero") Integer zero,
 		@JsonProperty("one") Integer one,
 		@JsonProperty("two") Integer two,
@@ -47,8 +41,6 @@ public class ScoreModel implements IScoreModel {
 		this.cards = cards;
 		this.cardsForToday = cardsForToday;
 		this.cardsForTomorrow = cardsForTomorrow;
-		this.newCards = newCards;
-		this.totalOfCardsWithQuality = totalOfCardsWithQuality;
 		this.zero = zero;
 		this.one = one;
 		this.two = two;
@@ -79,22 +71,6 @@ public class ScoreModel implements IScoreModel {
 	}
 	public void setCardsForTomorrow(Integer cardsForTomorrow) {
 		this.cardsForTomorrow = cardsForTomorrow;
-	}
-	
-	@JsonProperty
-	public Integer getNewCards() {
-		return this.newCards;
-	}
-	public void setNewCards(Integer newCards) {
-		this.newCards = newCards;
-	}
-	
-	@JsonProperty
-	public Integer getTotalOfCardsWithQuality() {
-		return this.totalOfCardsWithQuality;
-	}
-	public void setTotalOfCardsWithQuality(Integer totalOfCardsWithQuality) {
-		this.totalOfCardsWithQuality = totalOfCardsWithQuality;
 	}
 	
 	@JsonProperty

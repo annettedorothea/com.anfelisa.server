@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class CardOfBoxModel implements ICardOfBoxModel {
 
 	@NotNull
-	private Integer carOfBoxId;
+	private Integer cardOfBoxId;
 	
 	@NotNull
 	private Integer cardId;
@@ -34,7 +34,7 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 
 
 	public CardOfBoxModel(
-		@JsonProperty("carOfBoxId") Integer carOfBoxId,
+		@JsonProperty("cardOfBoxId") Integer cardOfBoxId,
 		@JsonProperty("cardId") Integer cardId,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
@@ -45,7 +45,7 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
 		@JsonProperty("points") Integer points
 	) {
-		this.carOfBoxId = carOfBoxId;
+		this.cardOfBoxId = cardOfBoxId;
 		this.cardId = cardId;
 		this.ef = ef;
 		this.interval = interval;
@@ -58,11 +58,11 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 	}
 
 	@JsonProperty
-	public Integer getCarOfBoxId() {
-		return this.carOfBoxId;
+	public Integer getCardOfBoxId() {
+		return this.cardOfBoxId;
 	}
-	public void setCarOfBoxId(Integer carOfBoxId) {
-		this.carOfBoxId = carOfBoxId;
+	public void setCardOfBoxId(Integer cardOfBoxId) {
+		this.cardOfBoxId = cardOfBoxId;
 	}
 	
 	@JsonProperty

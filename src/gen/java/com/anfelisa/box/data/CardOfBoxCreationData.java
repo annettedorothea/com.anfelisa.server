@@ -18,7 +18,7 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	private String schema;
 	
 	@NotNull
-	private Integer carOfBoxId;
+	private Integer cardOfBoxId;
 	
 	@NotNull
 	private Integer cardId;
@@ -45,7 +45,7 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	
 
 	public CardOfBoxCreationData(
-		@JsonProperty("carOfBoxId") Integer carOfBoxId,
+		@JsonProperty("cardOfBoxId") Integer cardOfBoxId,
 		@JsonProperty("cardId") Integer cardId,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
@@ -58,7 +58,7 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.carOfBoxId = carOfBoxId;
+		this.cardOfBoxId = cardOfBoxId;
 		this.cardId = cardId;
 		this.ef = ef;
 		this.interval = interval;
@@ -81,14 +81,14 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 	}
 
 	@JsonProperty
-	public Integer getCarOfBoxId() {
-		return this.carOfBoxId;
+	public Integer getCardOfBoxId() {
+		return this.cardOfBoxId;
 	}
-	public void setCarOfBoxId(Integer carOfBoxId) {
-		this.carOfBoxId = carOfBoxId;
+	public void setCardOfBoxId(Integer cardOfBoxId) {
+		this.cardOfBoxId = cardOfBoxId;
 	}
-	public CardOfBoxCreationData withCarOfBoxId(Integer carOfBoxId) {
-		this.carOfBoxId = carOfBoxId;
+	public CardOfBoxCreationData withCardOfBoxId(Integer cardOfBoxId) {
+		this.cardOfBoxId = cardOfBoxId;
 		return this;
 	}
 	

@@ -2,7 +2,7 @@ package com.anfelisa.box.models;
 
 public interface ICardOfBoxModel {
 
-	Integer getCarOfBoxId();
+	Integer getCardOfBoxId();
 	Integer getCardId();
 	Float getEf();
 	Integer getInterval();

@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class BoxListModel implements IBoxListModel {
 
 
-	private java.util.List<com.anfelisa.box.models.IBoxModel> boxList;
+	private java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList;
 	
 
 	public BoxListModel(
@@ -17,10 +17,10 @@ public class BoxListModel implements IBoxListModel {
 
 
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxModel> getBoxList() {
+	public java.util.List<com.anfelisa.box.models.IBoxInfoModel> getBoxList() {
 		return this.boxList;
 	}
-	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxModel> boxList) {
+	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList) {
 		this.boxList = boxList;
 	}
 	

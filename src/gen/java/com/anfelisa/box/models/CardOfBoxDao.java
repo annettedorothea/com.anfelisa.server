@@ -8,13 +8,13 @@ import java.util.List;
 public class CardOfBoxDao {
 	
 	public static void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".cardofbox (carOfBoxId serial NOT NULL , cardId integer NOT NULL , ef numeric , interval integer , count integer NOT NULL , date timestamp with time zone , boxId integer NOT NULL , quality integer , timestamp timestamp with time zone , points integer , CONSTRAINT cardofbox_pkey PRIMARY KEY (carOfBoxId), CONSTRAINT cardofbox_cardId_fkey FOREIGN KEY (cardId) REFERENCES " + schema + ".card ( cardId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT cardofbox_boxId_fkey FOREIGN KEY (boxId) REFERENCES " + schema + ".box ( boxId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT cardofbox_carOfBoxId_unique UNIQUE (carOfBoxId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".cardofbox (cardOfBoxId serial NOT NULL , cardId integer NOT NULL , ef numeric , interval integer , count integer NOT NULL , date timestamp with time zone , boxId integer NOT NULL , quality integer , timestamp timestamp with time zone , points integer , CONSTRAINT cardofbox_pkey PRIMARY KEY (cardOfBoxId), CONSTRAINT cardofbox_cardId_fkey FOREIGN KEY (cardId) REFERENCES " + schema + ".card ( cardId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT cardofbox_boxId_fkey FOREIGN KEY (boxId) REFERENCES " + schema + ".box ( boxId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT cardofbox_cardOfBoxId_unique UNIQUE (cardOfBoxId))");
 	}
 	
 	public static void insert(Handle handle, ICardOfBoxModel cardOfBoxModel, String schema) {
-		if (cardOfBoxModel.getCarOfBoxId() != null) {
-			Update statement = handle.createStatement("INSERT INTO " + schema + ".cardofbox (carOfBoxId, cardId, ef, interval, count, date, boxId, quality, timestamp, points) VALUES (:carOfBoxId, :cardId, :ef, :interval, :count, :date, :boxId, :quality, :timestamp, :points)");
-			statement.bind("carOfBoxId", cardOfBoxModel.getCarOfBoxId());
+		if (cardOfBoxModel.getCardOfBoxId() != null) {
+			Update statement = handle.createStatement("INSERT INTO " + schema + ".cardofbox (cardOfBoxId, cardId, ef, interval, count, date, boxId, quality, timestamp, points) VALUES (:cardOfBoxId, :cardId, :ef, :interval, :count, :date, :boxId, :quality, :timestamp, :points)");
+			statement.bind("cardOfBoxId", cardOfBoxModel.getCardOfBoxId());
 			statement.bind("cardId", cardOfBoxModel.getCardId());
 			statement.bind("ef", cardOfBoxModel.getEf());
 			statement.bind("interval", cardOfBoxModel.getInterval());
@@ -41,8 +41,8 @@ public class CardOfBoxDao {
 	}
 	
 	public static void update(Handle handle, ICardOfBoxModel cardOfBoxModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".cardofbox SET carOfBoxId = :carOfBoxId, cardId = :cardId, ef = :ef, interval = :interval, count = :count, date = :date, boxId = :boxId, quality = :quality, timestamp = :timestamp, points = :points");
-		statement.bind("carOfBoxId", cardOfBoxModel.getCarOfBoxId());
+		Update statement = handle.createStatement("UPDATE " + schema + ".cardofbox SET cardOfBoxId = :cardOfBoxId, cardId = :cardId, ef = :ef, interval = :interval, count = :count, date = :date, boxId = :boxId, quality = :quality, timestamp = :timestamp, points = :points");
+		statement.bind("cardOfBoxId", cardOfBoxModel.getCardOfBoxId());
 		statement.bind("cardId", cardOfBoxModel.getCardId());
 		statement.bind("ef", cardOfBoxModel.getEf());
 		statement.bind("interval", cardOfBoxModel.getInterval());
@@ -55,15 +55,15 @@ public class CardOfBoxDao {
 		statement.execute();
 	}
 	
-	public static void deleteByCarOfBoxId(Handle handle, Integer carOfBoxId, String schema) {
-		Update statement = handle.createStatement("DELETE FROM " + schema + ".cardofbox WHERE carOfBoxId = :carOfBoxId");
-		statement.bind("carOfBoxId", carOfBoxId);
+	public static void deleteByCardOfBoxId(Handle handle, Integer cardOfBoxId, String schema) {
+		Update statement = handle.createStatement("DELETE FROM " + schema + ".cardofbox WHERE cardOfBoxId = :cardOfBoxId");
+		statement.bind("cardOfBoxId", cardOfBoxId);
 		statement.execute();
 	}
 
-	public static ICardOfBoxModel selectByCarOfBoxId(Handle handle, Integer carOfBoxId, String schema) {
-		return handle.createQuery("SELECT * FROM " + schema + ".cardofbox WHERE carOfBoxId = :carOfBoxId")
-			.bind("carOfBoxId", carOfBoxId)
+	public static ICardOfBoxModel selectByCardOfBoxId(Handle handle, Integer cardOfBoxId, String schema) {
+		return handle.createQuery("SELECT * FROM " + schema + ".cardofbox WHERE cardOfBoxId = :cardOfBoxId")
+			.bind("cardOfBoxId", cardOfBoxId)
 			.map(new CardOfBoxMapper())
 			.first();
 	}

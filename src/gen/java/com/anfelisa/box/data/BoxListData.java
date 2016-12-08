@@ -22,7 +22,7 @@ public class BoxListData implements IBoxListModel, IUsernameModel, IDataContaine
 	private String username;
 	
 
-	private java.util.List<com.anfelisa.box.models.IBoxModel> boxList;
+	private java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList;
 	
 	
 
@@ -57,10 +57,10 @@ public class BoxListData implements IBoxListModel, IUsernameModel, IDataContaine
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxModel> getBoxList() {
+	public java.util.List<com.anfelisa.box.models.IBoxInfoModel> getBoxList() {
 		return this.boxList;
 	}
-	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxModel> boxList) {
+	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList) {
 		this.boxList = boxList;
 	}
 	

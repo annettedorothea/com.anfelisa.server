@@ -8,8 +8,8 @@
         <div class="col-md-6">
             <div class="card given quality{{quality}} {{#large}}largeCard{{/large}}">
                 <div class="given-word">{{given}}<br/><br/><i>{{header}}</i></div>
-                <div class="count">{{count}}x{{#last}} - zuletzt am {{last}}{{/last}}</div>
-                <div class="next">{{#next}}geplant für {{next}}{{/next}}</div>
+                <div class="count">{{count}}x{{#formattedLast}} - zuletzt am {{formattedLast}}{{/formattedLast}}</div>
+                <div class="next">{{#formattedNext}}geplant für {{formattedNext}}{{/formattedNext}}</div>
             </div>
         </div>
     </div>
@@ -20,8 +20,8 @@
     <div class="col-md-12">
         <div class="ccard quality{{quality}}">
             <div class="given-word">{{given}}<br/><br/></div>
-            <div class="count">{{count}} x</div>
-            <div class="next">{{next}}</div>
+            <div class="count">{{count}}x{{#formattedLast}} - zuletzt am {{formattedLast}}{{/formattedLast}}</div>
+            <div class="next">{{#formattedNext}}geplant für {{formattedNext}}{{/formattedNext}}</div>
         </div>
     </div>
 </div>
@@ -78,9 +78,7 @@
         <table class="table table-condensed">
             <tr><td>Für heute</td><td>{{cardsForToday}}</td></tr>
             <tr><td>Für morgen</td><td>{{cardsForTomorrow}}</td></tr>
-            <tr><td>Im Umlauf</td><td>{{totalOfCardsWithQuality}}</td></tr>
-            <tr><td>Neue</td><td>{{newCards}}</td></tr>
-            <tr><td>Insgesamt</td><td>{{count}}</td></tr>
+            <tr><td>Insgesamt</td><td>{{cards}}</td></tr>
         </table>
     </div>
     <div class="col-md-4"></div>

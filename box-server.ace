@@ -39,7 +39,7 @@ models {
 
 	persistent CardOfBox {
 		primitiveAttributes {
-			Unique PrimaryKey NotNull Serial carOfBoxId
+			Unique PrimaryKey NotNull Serial cardOfBoxId
 			NotNull Integer cardId references Card.cardId
 			Float ef
 			Integer interval
@@ -57,8 +57,6 @@ models {
 			Integer cards
 			Integer cardsForToday
 			Integer cardsForTomorrow
-			Integer newCards
-			Integer totalOfCardsWithQuality
 			Integer zero
 			Integer one
 			Integer two
@@ -79,10 +77,20 @@ models {
 			Integer quality
 		}
 	}
+	
+	BoxInfo {
+		primitiveAttributes {
+			Integer todaysCards
+			Boolean hasOpenCards
+		}
+		complexAttributes {
+			Box box
+		}
+	}
 		
 	BoxList {
 		complexAttributes {
-			List Box boxList
+			List BoxInfo boxList
 		}
 	}
 		

@@ -51,10 +51,6 @@ public class CardData implements ICardModel, IBoxModel, IScoreModel, ICardInfoMo
 	
 	private Integer cardsForTomorrow;
 	
-	private Integer newCards;
-	
-	private Integer totalOfCardsWithQuality;
-	
 	private Integer zero;
 	
 	private Integer one;
@@ -107,8 +103,6 @@ public class CardData implements ICardModel, IBoxModel, IScoreModel, ICardInfoMo
 		@JsonProperty("cards") Integer cards,
 		@JsonProperty("cardsForToday") Integer cardsForToday,
 		@JsonProperty("cardsForTomorrow") Integer cardsForTomorrow,
-		@JsonProperty("newCards") Integer newCards,
-		@JsonProperty("totalOfCardsWithQuality") Integer totalOfCardsWithQuality,
 		@JsonProperty("zero") Integer zero,
 		@JsonProperty("one") Integer one,
 		@JsonProperty("two") Integer two,
@@ -139,8 +133,6 @@ public class CardData implements ICardModel, IBoxModel, IScoreModel, ICardInfoMo
 		this.cards = cards;
 		this.cardsForToday = cardsForToday;
 		this.cardsForTomorrow = cardsForTomorrow;
-		this.newCards = newCards;
-		this.totalOfCardsWithQuality = totalOfCardsWithQuality;
 		this.zero = zero;
 		this.one = one;
 		this.two = two;
@@ -298,30 +290,6 @@ public class CardData implements ICardModel, IBoxModel, IScoreModel, ICardInfoMo
 	}
 	public CardData withCardsForTomorrow(Integer cardsForTomorrow) {
 		this.cardsForTomorrow = cardsForTomorrow;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getNewCards() {
-		return this.newCards;
-	}
-	public void setNewCards(Integer newCards) {
-		this.newCards = newCards;
-	}
-	public CardData withNewCards(Integer newCards) {
-		this.newCards = newCards;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getTotalOfCardsWithQuality() {
-		return this.totalOfCardsWithQuality;
-	}
-	public void setTotalOfCardsWithQuality(Integer totalOfCardsWithQuality) {
-		this.totalOfCardsWithQuality = totalOfCardsWithQuality;
-	}
-	public CardData withTotalOfCardsWithQuality(Integer totalOfCardsWithQuality) {
-		this.totalOfCardsWithQuality = totalOfCardsWithQuality;
 		return this;
 	}
 	

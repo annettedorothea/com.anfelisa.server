@@ -10,7 +10,7 @@ public class CardOfBoxMapper implements ResultSetMapper<ICardOfBoxModel> {
 	
 	public ICardOfBoxModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardOfBoxModel(
-			r.getInt("carOfBoxId"),
+			r.getInt("cardOfBoxId"),
 			r.getInt("cardId"),
 			r.getFloat("ef"),
 			r.getInt("interval"),

@@ -39,31 +39,22 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		List<ICardInfoModel> nextCards = CustomBoxDao.selectNextCardsByBoxId(this.getDatabaseHandle().getHandle(),
 				this.actionParam.getSchema(), this.actionParam.getBoxId());
 		ICardInfoModel nextCard = null;
-		ICardInfoModel nextNewCard = null;
 		int count = 0;
 		int cardsForToday = 0;
 		int cardsForTomorrow = 0;
-		int newCards = 0;
 		int quality0Count = 0;
 		int quality1Count = 0;
 		int quality2Count = 0;
 		int quality3Count = 0;
 		int quality4Count = 0;
 		int quality5Count = 0;
-		this.actionData.setCount(0);
 		for (ICardInfoModel cardInfoModel : nextCards) {
 			DateTime next = cardInfoModel.getNext();
-			DateTime last = cardInfoModel.getLast();
 			if (nextCard == null && next != null && new LocalDate().plusDays(1).isAfter(next.toLocalDate())) {
 				nextCard = cardInfoModel;
-			} else if (nextNewCard == null && last == null) {
-				nextNewCard = cardInfoModel;
 			}
 			count++;
 			Integer quality = cardInfoModel.getQuality();
-			if (last == null) {
-				newCards++;
-			}
 			if (quality != null) {
 				switch (quality) {
 				case 0:
@@ -99,12 +90,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			this.actionData.setContent(nextCard.getContent());
 			this.actionData.setCount(nextCard.getCount());
 			this.actionData.setNext(nextCard.getNext());
-		} else if (nextNewCard != null) {
-			this.actionData.setBoxName(nextNewCard.getBoxName());
-			this.actionData.setCardId(nextNewCard.getCardId());
-			this.actionData.setContent(nextNewCard.getContent());
-			this.actionData.setCount(nextNewCard.getCount());
-			this.actionData.setNext(nextNewCard.getNext());
+			this.actionData.setLast(nextCard.getLast());
 		}
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -134,14 +120,12 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			throw new WebApplicationException("cannot parse " + this.actionData.getContent() + ".");
 		}
 
-		this.actionData.setCount(count);
+		this.actionData.setCards(count);
 		this.actionData.setCardsForToday(cardsForToday);
 		this.actionData.setCardsForTomorrow(cardsForTomorrow);
-		this.actionData.setNewCards(newCards);
 
 		int numberOfCardsWithQuality = quality0Count + quality1Count + quality2Count + quality3Count + quality4Count
 				+ quality5Count;
-		//float factor = 100 / numberOfCardsWithQuality;
 		this.actionData.setZero((int) Math.floor((100 * quality0Count / numberOfCardsWithQuality)));
 		this.actionData.setOne((int) Math.floor((100 * quality1Count / numberOfCardsWithQuality)));
 		this.actionData.setTwo((int) Math.floor((100 * quality2Count / numberOfCardsWithQuality)));
@@ -149,7 +133,6 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		this.actionData.setFour((int) Math.floor((100 * quality4Count / numberOfCardsWithQuality)));
 		this.actionData.setFive(100 - this.actionData.getZero() - this.actionData.getOne() - this.actionData.getTwo()
 				- this.actionData.getThree() - this.actionData.getFour());
-		this.actionData.setTotalOfCardsWithQuality(numberOfCardsWithQuality);
 
 	}
 
