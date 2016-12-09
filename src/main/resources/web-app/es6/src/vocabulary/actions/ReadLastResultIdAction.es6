@@ -1,6 +1,6 @@
 'use strict';
 
-class SaveResultAction extends AbstractSaveResultAction {
+class ReadLastResultIdAction extends AbstractReadLastResultIdAction {
 
     captureActionParam() {
     	if (localStorage.username) {
@@ -37,34 +37,7 @@ class SaveResultAction extends AbstractSaveResultAction {
     	if (this.actionParam.language) {
     		this.actionData.language = this.actionParam.language;
     	}
-		var json = {};
-		var allCompletionTexts = jQuery(".vocabulary");
-		for (var i = 0; i < allCompletionTexts.length; i++) {
-			var completionTextId = allCompletionTexts[i].id;
-			var strikes = jQuery("#" + completionTextId + "_shots").children();
-			var answer = "";
-			for (var j = 0; j < strikes.length; j++) {
-				var currentStrike = $(strikes[j]);
-				if (currentStrike.hasClass("strike")) {
-					answer += "1";
-				} else {
-					answer += "0";
-				}
-			}
-			json["" + completionTextId] = answer;
-		}
-
-		this.actionData.json = json;
-		var hash = window.location.hash.substring(1);
-		var hashes = hash.split("/");
-		this.actionData.testId = hashes[hashes.length-1];
-		if (allCompletionTexts.length > 0) {
-			this.actionData.points = Vocabulary.testState.points;
-			this.actionData.maxPoints = Vocabulary.testState.maxPoints;
-		} else {
-			//this.actionData.points = App.cardView.testState.points;
-			//this.actionData.maxPoints = App.cardView.testState.maxPoints;
-		}
+		this.actionData.testId = this.actionParam.testId;
     }
 
     releaseActionParam() {

@@ -37,7 +37,9 @@ class IsRatedTestFinishedAction extends AbstractIsRatedTestFinishedAction {
     	if (this.actionParam.language) {
     		this.actionData.language = this.actionParam.language;
     	}
-    	// bind action parameters to action data
+		this.actionData.strikeCount = this.actionParam.strikeCount;
+		this.actionData.points = this.actionParam.points;
+		this.actionData.wordCount = this.actionParam.wordCount;
     }
 
     releaseActionParam() {

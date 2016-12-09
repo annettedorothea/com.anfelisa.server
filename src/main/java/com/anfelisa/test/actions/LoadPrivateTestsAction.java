@@ -1,7 +1,5 @@
 package com.anfelisa.test.actions;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +10,6 @@ import com.anfelisa.lesson.models.ILessonModel;
 import com.anfelisa.lesson.models.LessonDao;
 import com.anfelisa.test.data.MyTestListData;
 import com.anfelisa.test.models.CustomTestDao;
-import com.anfelisa.test.models.IMyTestModel;
 
 public class LoadPrivateTestsAction extends AbstractLoadPrivateTestsAction {
 
@@ -24,14 +21,15 @@ public class LoadPrivateTestsAction extends AbstractLoadPrivateTestsAction {
 
 	@Override
 	protected void captureActionParam() {
-		// capture all stuff that we need to replay this action (e.g. system time)
+		// capture all stuff that we need to replay this action (e.g. system
+		// time)
 	}
 
 	@Override
 	protected void applyAction() {
 		this.actionData = this.actionParam;
-		ILessonModel lesson = LessonDao.selectByLessonId(this.getDatabaseHandle().getHandle(), this.actionData.getLessonId(),
-				this.getActionData().getSchema());
+		ILessonModel lesson = LessonDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
+				this.actionData.getLessonId(), this.getActionData().getSchema());
 		this.actionData.setLessonDescription(lesson.getDescription());
 		this.actionData.setLessonAuthor(lesson.getAuthor());
 		this.actionData.setLessonName(lesson.getName());
@@ -41,11 +39,10 @@ public class LoadPrivateTestsAction extends AbstractLoadPrivateTestsAction {
 		this.actionData.setCourseDescription(course.getDescription());
 		this.actionData.setCourseName(course.getName());
 		this.actionData.setCourseId(course.getCourseId());
-		List<IMyTestModel> list = CustomTestDao.selectMyTests(this.getDatabaseHandle().getHandle(),
-				this.getActionData().getSchema(), this.actionParam.getLessonId(), this.actionParam.getUsername());
-		this.actionData.setMyTestList(list);
+		this.actionData.setMyTestList(CustomTestDao.selectMyTests(this.getDatabaseHandle().getHandle(),
+				this.getActionData().getSchema(), this.actionData.getLessonId(), this.actionData.getUsername()));
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

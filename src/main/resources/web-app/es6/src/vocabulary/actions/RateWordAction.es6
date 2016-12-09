@@ -37,7 +37,12 @@ class RateWordAction extends AbstractRateWordAction {
     	if (this.actionParam.language) {
     		this.actionData.language = this.actionParam.language;
     	}
-    	// bind action parameters to action data
+		this.actionData.knewIt = this.actionParam.knewIt;
+		this.actionData.id = jQuery(".active").attr("id");
+		this.actionData.wordCount = Vocabulary.testState.wordCount;
+		this.actionData.strikeCount = Vocabulary.testState.strikeCount;
+		this.actionData.points = Vocabulary.testState.points;
+		this.actionData.strikesOfWord = jQuery("#" + this.actionData.id + "_shots").children(".strike").length;
     }
 
     releaseActionParam() {

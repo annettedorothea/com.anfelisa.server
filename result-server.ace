@@ -23,18 +23,25 @@ models {
 			NotNull Integer maxPoints
 		}
 	}
+	
+	ResultId {
+		primitiveAttributes {
+			NotNull Serial resultId
+		}
+	}
 }
-
 
 data {
 	ResultCreation : ( Result )
 	ResultAbstract : ( ResultAbstract )
 	MyResult : ( Result com.anfelisa.test.Test com.anfelisa.test.LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract com.anfelisa.test.MyTestList )
+	LastResultId : (ResultId com.anfelisa.test.TestId com.anfelisa.user.Username)
 }
 
 actions {
 	POST CreateResult uses ResultCreation executes CreateResult
 	GET LoadResult uses MyResult
+	GET LoadLastResultIdOfTest uses LastResultId
 }
 
 commands {

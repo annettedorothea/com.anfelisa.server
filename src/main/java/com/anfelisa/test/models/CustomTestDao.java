@@ -5,7 +5,8 @@ import java.util.List;
 
 import org.skife.jdbi.v2.Handle;
 
-import com.anfelisa.result.models.ResultAbstractModel;
+import com.anfelisa.result.models.CustomResultDao;
+import com.anfelisa.result.models.IResultAbstractModel;
 
 public class CustomTestDao {
 
@@ -15,31 +16,16 @@ public class CustomTestDao {
 	}
 
 	public static List<IMyTestModel> selectMyTests(Handle handle, String schema, Integer lessonId, String username) {
-		List<TestJoinedToResult> result = handle
-				.createQuery("SELECT *, r.resultId FROM " + schema + ".test t left outer join " + schema
-						+ ".result r ON r.testId = t.testId WHERE t.lessonId = :lessonId AND (r.username = :username OR r.username IS NULL) ORDER By t.sequence, r.date")
-				.bind("lessonId", lessonId).bind("username", username).map(new TestJoinedToResultMapper()).list();
-		ArrayList<IMyTestModel> list = new ArrayList<IMyTestModel>();
-		Integer lastTestId = -1;
-		MyTestModel current = null;
-		for (TestJoinedToResult testJoinedToResult : result) {
-			if (lastTestId != testJoinedToResult.getTestId()) {
-				if (current != null) {
-					current.setResultCount(current.getResultAbstractList().size());
-					current.setHasResults(current.getResultCount() > 0);
-				}
-				current = new MyTestModel(testJoinedToResult.getTestId(), testJoinedToResult.getName(),
-						testJoinedToResult.getSequence(), testJoinedToResult.getResultCount(),
-						testJoinedToResult.getHasResults());
-				current.setResultAbstractList(new ArrayList<>());
-				list.add(current);
-			}
-			if (current != null && testJoinedToResult.getResultId() != null) {
-				ResultAbstractModel resultModel = new ResultAbstractModel(testJoinedToResult.getResultId(),
-						testJoinedToResult.getDate(), testJoinedToResult.getPoints(),
-						testJoinedToResult.getMaxPoints());
-				current.getResultAbstractList().add(resultModel);
-			}
+		List<ITestModel> tests = CustomTestDao.selectTests(handle,
+				schema, lessonId);
+		List<IMyTestModel> list = new ArrayList<IMyTestModel>();
+		for (ITestModel test : tests) {
+			MyTestModel myTest = new MyTestModel(test.getTestId(), test.getName(), test.getSequence(), 0, false);
+			List<IResultAbstractModel> results = CustomResultDao.selectByTestIdAndUsername(handle, schema, test.getTestId(), username);
+			myTest.setResultAbstractList(results);
+			myTest.setHasResults(results.size() > 0);
+			myTest.setResultCount(results.size());
+			list.add(myTest);
 		}
 		return list;
 	}

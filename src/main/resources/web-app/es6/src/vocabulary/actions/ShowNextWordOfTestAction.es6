@@ -38,9 +38,6 @@ class ShowNextWordOfTestAction extends AbstractShowNextWordOfTestAction {
     		this.actionData.language = this.actionParam.language;
     	}
 		this.actionData.nextRandomIndex = this.actionParam.nextRandomIndex;
-		this.actionData.wordCount = this.actionParam.wordCount;
-		this.actionData.testMode = this.actionParam.testMode;
-		this.actionData.wordCount = this.actionParam.wordCount;
     }
 
     releaseActionParam() {

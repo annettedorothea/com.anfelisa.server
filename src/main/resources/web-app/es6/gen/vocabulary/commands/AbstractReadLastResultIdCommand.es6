@@ -1,9 +1,9 @@
 'use strict';
 
-class AbstractSaveResultCommand extends Command {
+class AbstractReadLastResultIdCommand extends Command {
     constructor(commandParam) {
-        super(commandParam, "SaveResultCommand");
-        this.resultSaved = "resultSaved";
+        super(commandParam, "ReadLastResultIdCommand");
+        this.resultIdRead = "resultIdRead";
         this.serverError = "serverError";
     }
 
@@ -11,8 +11,8 @@ class AbstractSaveResultCommand extends Command {
     	let promises = [];
     	
         switch (this.commandData.outcome) {
-        case this.resultSaved:
-        	promises.push(new TriggerAction(new ReadLastResultIdAction(this.commandData)).publish());
+        case this.resultIdRead:
+        	promises.push(new TriggerAction(new RouteAction(this.commandData)).publish());
         	break;
         case this.serverError:
         	promises.push(new ServerErrorEvent(this.commandData).publish());

@@ -12,7 +12,6 @@ import com.anfelisa.box.models.BoxInfoModel;
 import com.anfelisa.box.models.CustomBoxDao;
 import com.anfelisa.box.models.IBoxInfoModel;
 import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.ICardInfoModel;
 import com.anfelisa.box.models.ICardOfBoxModel;
 
 public class LoadBoxesAction extends AbstractLoadBoxesAction {

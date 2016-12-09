@@ -18,7 +18,6 @@ class ShowWordAction extends AbstractShowWordAction {
     	if (localStorage.language) {
 	        this.actionParam.language = localStorage.language;
 	    }
-    	// capture user input
     }
 
     initActionData() {
@@ -37,7 +36,7 @@ class ShowWordAction extends AbstractShowWordAction {
     	if (this.actionParam.language) {
     		this.actionData.language = this.actionParam.language;
     	}
-    	// bind action parameters to action data
+		this.actionData.solution = jQuery(".active").next().html();
     }
 
     releaseActionParam() {
