@@ -1,14 +1,13 @@
 package com.anfelisa.result.actions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.course.models.CustomCourseDao;
 import com.anfelisa.course.models.ICourseModel;
 import com.anfelisa.lesson.models.CustomLessonDao;
 import com.anfelisa.lesson.models.ILessonModel;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.anfelisa.result.data.MyResultData;
 import com.anfelisa.result.models.IResultModel;
 import com.anfelisa.result.models.ResultDao;

@@ -50,10 +50,7 @@ public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContai
 		this.schema = schema;
 	}
 
-	public LoginData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public LoginData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

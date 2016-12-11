@@ -153,10 +153,7 @@ public class CardData implements ICardModel, IBoxModel, IScoreModel, ICardInfoMo
 		this.schema = schema;
 	}
 
-	public CardData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public CardData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

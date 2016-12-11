@@ -138,10 +138,7 @@ public class MyResultData implements IResultModel, ITestModel, ILessonIdModel, I
 		this.schema = schema;
 	}
 
-	public MyResultData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public MyResultData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

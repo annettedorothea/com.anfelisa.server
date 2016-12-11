@@ -111,10 +111,7 @@ public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, I
 		this.schema = schema;
 	}
 
-	public MyTestData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public MyTestData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

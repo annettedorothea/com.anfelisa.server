@@ -43,10 +43,7 @@ public class BoxCreationData implements IBoxModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	public BoxCreationData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public BoxCreationData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

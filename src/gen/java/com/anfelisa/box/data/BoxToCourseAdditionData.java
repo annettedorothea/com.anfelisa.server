@@ -43,10 +43,7 @@ public class BoxToCourseAdditionData implements IBoxOfCourseModel, IDataContaine
 		this.schema = schema;
 	}
 
-	public BoxToCourseAdditionData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public BoxToCourseAdditionData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

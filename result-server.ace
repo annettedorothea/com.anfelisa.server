@@ -29,6 +29,19 @@ models {
 			NotNull Serial resultId
 		}
 	}
+	
+	ResultSave {
+		primitiveAttributes {
+			NotNull String username
+			NotNull Integer testId
+			NotNull String json
+			NotNull Integer points
+			NotNull Integer maxPoints
+			DateTime date
+			String password
+			String language
+		}
+	}
 }
 
 data {
@@ -36,10 +49,12 @@ data {
 	ResultAbstract : ( ResultAbstract )
 	MyResult : ( Result com.anfelisa.test.Test com.anfelisa.test.LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract com.anfelisa.test.MyTestList )
 	LastResultId : (ResultId com.anfelisa.test.TestId com.anfelisa.user.Username)
+	ResultSave : (ResultSave)
 }
 
 actions {
 	POST CreateResult uses ResultCreation executes CreateResult
+	POST SaveResult uses ResultSave executes SaveResult
 	GET LoadResult uses MyResult
 	GET LoadLastResultIdOfTest uses LastResultId
 }
@@ -48,14 +63,19 @@ commands {
 	CreateResult uses ResultCreation {
 		on created publishes ( ResultCreated )
 	}
+	SaveResult uses ResultSave {
+		on saved publishes ( ResultSaved )
+	}
 }
 
 events {
 	ResultCreated uses ResultCreation listenedToBy ( Result.createResult )
+	ResultSaved uses ResultSave listenedToBy ( Result.saveResult )
 }
 
 views {
 	Result {
 		createResult (ResultCreation)
+		saveResult ( ResultSave )
 	}
 }

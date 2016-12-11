@@ -1,10 +1,9 @@
 package com.anfelisa.setup.actions;
 
-import com.anfelisa.ace.DatabaseHandle;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.setup.data.SetupSchemaData;
 
 public class SetupSchemaAction extends AbstractSetupSchemaAction {

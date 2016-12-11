@@ -85,10 +85,7 @@ public class MyTestListData implements IMyTestListModel, ILessonIdModel, IUserna
 		this.schema = schema;
 	}
 
-	public MyTestListData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public MyTestListData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

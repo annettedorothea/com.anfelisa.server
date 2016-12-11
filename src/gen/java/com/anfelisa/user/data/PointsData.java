@@ -45,10 +45,7 @@ public class PointsData implements IPointsModel, ICredentialsModel, IDataContain
 		this.schema = schema;
 	}
 
-	public PointsData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public PointsData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

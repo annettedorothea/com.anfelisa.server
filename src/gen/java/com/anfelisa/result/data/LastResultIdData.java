@@ -47,10 +47,7 @@ public class LastResultIdData implements IResultIdModel, ITestIdModel, IUsername
 		this.schema = schema;
 	}
 
-	public LastResultIdData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public LastResultIdData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

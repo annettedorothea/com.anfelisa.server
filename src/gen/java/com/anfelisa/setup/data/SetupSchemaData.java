@@ -33,10 +33,7 @@ public class SetupSchemaData implements ISetupSchemaModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	public SetupSchemaData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public SetupSchemaData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

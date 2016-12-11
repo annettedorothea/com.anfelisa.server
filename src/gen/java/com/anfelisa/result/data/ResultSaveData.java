@@ -8,26 +8,20 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.result.models.IResultModel;
+import com.anfelisa.result.models.IResultSaveModel;
 
 @SuppressWarnings("unused")
-public class ResultCreationData implements IResultModel, IDataContainer {
+public class ResultSaveData implements IResultSaveModel, IDataContainer {
 	
 	private String uuid;
 	
 	private String schema;
 	
 	@NotNull
-	private Integer resultId;
-	
-	@NotNull
 	private String username;
 	
 	@NotNull
 	private Integer testId;
-	
-	@NotNull
-	private org.joda.time.DateTime date;
 	
 	@NotNull
 	private String json;
@@ -38,48 +32,44 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	@NotNull
 	private Integer maxPoints;
 	
+	private org.joda.time.DateTime date;
+	
+	private String password;
+	
+	private String language;
+	
 
 	
 
-	public ResultCreationData(
-		@JsonProperty("resultId") Integer resultId,
+	public ResultSaveData(
 		@JsonProperty("username") String username,
 		@JsonProperty("testId") Integer testId,
-		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
-		@JsonProperty("maxPoints") Integer maxPoints
+		@JsonProperty("maxPoints") Integer maxPoints,
+		@JsonProperty("date") org.joda.time.DateTime date,
+		@JsonProperty("password") String password,
+		@JsonProperty("language") String language
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.resultId = resultId;
 		this.username = username;
 		this.testId = testId;
-		this.date = date;
 		this.json = json;
 		this.points = points;
 		this.maxPoints = maxPoints;
+		this.date = date;
+		this.password = password;
+		this.language = language;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
 
-	public ResultCreationData( String uuid,	String schema ) {
+	public ResultSaveData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}
 
-	@JsonProperty
-	public Integer getResultId() {
-		return this.resultId;
-	}
-	public void setResultId(Integer resultId) {
-		this.resultId = resultId;
-	}
-	public ResultCreationData withResultId(Integer resultId) {
-		this.resultId = resultId;
-		return this;
-	}
-	
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
@@ -87,7 +77,7 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public ResultCreationData withUsername(String username) {
+	public ResultSaveData withUsername(String username) {
 		this.username = username;
 		return this;
 	}
@@ -99,20 +89,8 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	public void setTestId(Integer testId) {
 		this.testId = testId;
 	}
-	public ResultCreationData withTestId(Integer testId) {
+	public ResultSaveData withTestId(Integer testId) {
 		this.testId = testId;
-		return this;
-	}
-	
-	@JsonProperty
-	public org.joda.time.DateTime getDate() {
-		return this.date;
-	}
-	public void setDate(org.joda.time.DateTime date) {
-		this.date = date;
-	}
-	public ResultCreationData withDate(org.joda.time.DateTime date) {
-		this.date = date;
 		return this;
 	}
 	
@@ -123,7 +101,7 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	public void setJson(String json) {
 		this.json = json;
 	}
-	public ResultCreationData withJson(String json) {
+	public ResultSaveData withJson(String json) {
 		this.json = json;
 		return this;
 	}
@@ -135,7 +113,7 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	public void setPoints(Integer points) {
 		this.points = points;
 	}
-	public ResultCreationData withPoints(Integer points) {
+	public ResultSaveData withPoints(Integer points) {
 		this.points = points;
 		return this;
 	}
@@ -147,8 +125,44 @@ public class ResultCreationData implements IResultModel, IDataContainer {
 	public void setMaxPoints(Integer maxPoints) {
 		this.maxPoints = maxPoints;
 	}
-	public ResultCreationData withMaxPoints(Integer maxPoints) {
+	public ResultSaveData withMaxPoints(Integer maxPoints) {
 		this.maxPoints = maxPoints;
+		return this;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getDate() {
+		return this.date;
+	}
+	public void setDate(org.joda.time.DateTime date) {
+		this.date = date;
+	}
+	public ResultSaveData withDate(org.joda.time.DateTime date) {
+		this.date = date;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getPassword() {
+		return this.password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public ResultSaveData withPassword(String password) {
+		this.password = password;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getLanguage() {
+		return this.language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	public ResultSaveData withLanguage(String language) {
+		this.language = language;
 		return this;
 	}
 	

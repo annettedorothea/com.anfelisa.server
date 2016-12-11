@@ -58,10 +58,7 @@ public class UserCreationData implements IUserModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	public UserCreationData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public UserCreationData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

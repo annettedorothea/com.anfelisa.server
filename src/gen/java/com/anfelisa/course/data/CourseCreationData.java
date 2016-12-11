@@ -56,10 +56,7 @@ public class CourseCreationData implements ICourseModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	public CourseCreationData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public CourseCreationData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

@@ -36,10 +36,7 @@ public class BoxListData implements IBoxListModel, IUsernameModel, IDataContaine
 		this.schema = schema;
 	}
 
-	public BoxListData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public BoxListData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

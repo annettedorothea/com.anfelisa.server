@@ -1,12 +1,11 @@
 package com.anfelisa.lesson.actions;
 
-import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.course.models.CourseDao;
-import com.anfelisa.course.models.ICourseModel;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.course.models.CourseDao;
+import com.anfelisa.course.models.ICourseModel;
 import com.anfelisa.lesson.data.MyLessonListData;
 import com.anfelisa.lesson.models.CustomLessonDao;
 

@@ -53,10 +53,7 @@ public class CardCreationData implements ICardModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	public CardCreationData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public CardCreationData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

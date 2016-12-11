@@ -38,10 +38,7 @@ public class StudentToCourseAdditionData implements IStudentOfCourseModel, IData
 		this.schema = schema;
 	}
 
-	public StudentToCourseAdditionData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public StudentToCourseAdditionData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

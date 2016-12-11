@@ -57,10 +57,7 @@ public class LessonListData implements ILessonListModel, ICourseIdModel, ICourse
 		this.schema = schema;
 	}
 
-	public LessonListData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public LessonListData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

@@ -64,10 +64,7 @@ public class MyLessonListData implements IMyLessonListModel, IUsernameModel, ICo
 		this.schema = schema;
 	}
 
-	public MyLessonListData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public MyLessonListData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

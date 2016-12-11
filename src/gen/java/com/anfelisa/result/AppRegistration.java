@@ -12,6 +12,7 @@ public class AppRegistration {
 
 	public static void registerResources(Environment environment, DBI jdbi) {
 		environment.jersey().register(new CreateResultResource(jdbi));
+		environment.jersey().register(new SaveResultResource(jdbi));
 		environment.jersey().register(new LoadResultResource(jdbi));
 		environment.jersey().register(new LoadLastResultIdOfTestResource(jdbi));
 	}
@@ -20,6 +21,7 @@ public class AppRegistration {
 		ResultView resultView = new ResultView();
 		
 		AceController.addConsumer("ResultCreatedEvent", resultView.createResult);
+		AceController.addConsumer("ResultSavedEvent", resultView.saveResult);
     }
 }
 

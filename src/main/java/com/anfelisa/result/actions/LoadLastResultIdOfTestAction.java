@@ -1,12 +1,11 @@
 package com.anfelisa.result.actions;
 
-import com.anfelisa.ace.DatabaseHandle;
-
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.result.data.LastResultIdData;
 import com.anfelisa.result.models.CustomResultDao;
 import com.anfelisa.result.models.IResultAbstractModel;

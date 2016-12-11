@@ -36,10 +36,7 @@ public class MyCourseListData implements IMyCourseListModel, IUsernameModel, IDa
 		this.schema = schema;
 	}
 
-	public MyCourseListData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public MyCourseListData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

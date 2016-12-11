@@ -61,10 +61,7 @@ public class StatisticsData implements IStatisticsModel, IStatisticsItemListMode
 		this.schema = schema;
 	}
 
-	public StatisticsData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public StatisticsData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

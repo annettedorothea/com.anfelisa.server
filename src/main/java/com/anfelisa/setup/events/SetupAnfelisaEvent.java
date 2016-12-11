@@ -1,10 +1,9 @@
 package com.anfelisa.setup.events;
 
-import com.anfelisa.ace.DatabaseHandle;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.setup.data.SetupData;
 
 public class SetupAnfelisaEvent extends AbstractSetupAnfelisaEvent {

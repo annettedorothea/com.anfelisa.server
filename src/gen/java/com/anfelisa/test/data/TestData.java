@@ -104,10 +104,7 @@ public class TestData implements ITestModel, ILessonIdModel, ILessonAbstractMode
 		this.schema = schema;
 	}
 
-	public TestData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public TestData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

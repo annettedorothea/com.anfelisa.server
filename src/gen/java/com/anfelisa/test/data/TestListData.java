@@ -78,10 +78,7 @@ public class TestListData implements ITestListModel, ILessonIdModel, ILessonAbst
 		this.schema = schema;
 	}
 
-	public TestListData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public TestListData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

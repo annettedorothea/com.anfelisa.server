@@ -12,5 +12,6 @@
   "readPrivateTestFailed" : "Test konnte nicht geladen werden.",
   "readResultFailed" : "Ergebnis konnte nicht geladen werden.",
   "readNextCardFailed" : "Nächste Karte konnte nicht geladen werden.",
-  "readLastResultFailed" : "Letztes Ergebnis konnte nicht geladen werden."
+  "readLastResultFailed" : "Letztes Ergebnis konnte nicht geladen werden.",
+  "saveResultFailed" : "Das Ergebnis konnte nicht gespeichert werden."
 }

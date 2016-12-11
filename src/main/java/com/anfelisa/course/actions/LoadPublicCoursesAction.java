@@ -1,10 +1,9 @@
 package com.anfelisa.course.actions;
 
-import com.anfelisa.ace.DatabaseHandle;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.course.data.CourseListData;
 import com.anfelisa.course.models.CustomCourseDao;
 

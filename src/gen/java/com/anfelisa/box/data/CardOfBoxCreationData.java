@@ -72,10 +72,7 @@ public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	public CardOfBoxCreationData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public CardOfBoxCreationData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

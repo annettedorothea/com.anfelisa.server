@@ -54,10 +54,10 @@ class SaveResultAction extends AbstractSaveResultAction {
 			json["" + completionTextId] = answer;
 		}
 
-		this.actionData.json = json;
+		this.actionData.json = JSON.stringify(json);
 		var hash = window.location.hash.substring(1);
 		var hashes = hash.split("/");
-		this.actionData.testId = hashes[hashes.length-1];
+		this.actionData.testId = Number(hashes[hashes.length-1]);
 		if (allCompletionTexts.length > 0) {
 			this.actionData.points = Vocabulary.testState.points;
 			this.actionData.maxPoints = Vocabulary.testState.maxPoints;

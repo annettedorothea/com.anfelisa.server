@@ -56,10 +56,7 @@ public class LessonCreationData implements ILessonModel, IDataContainer {
 		this.schema = schema;
 	}
 
-	public LessonCreationData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public LessonCreationData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}

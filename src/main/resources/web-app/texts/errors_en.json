@@ -12,5 +12,6 @@
   "readPrivateTestFailed" : "Failed to load test.",
   "readResultFailed" : "Failed to load result.",
   "readNextCardFailed" : "Failed to load next card.",
-  "readLastResultFailed" : "Failed to read last result"
+  "readLastResultFailed" : "Failed to read last result.",
+  "saveResultFailed" : "Failed to save result."
 }

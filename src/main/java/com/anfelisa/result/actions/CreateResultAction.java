@@ -1,10 +1,9 @@
 package com.anfelisa.result.actions;
 
-import com.anfelisa.ace.DatabaseHandle;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.result.data.ResultCreationData;
 
 public class CreateResultAction extends AbstractCreateResultAction {
@@ -22,7 +21,6 @@ public class CreateResultAction extends AbstractCreateResultAction {
 
 	@Override
 	protected void applyAction() {
-		// init actionData
 		this.actionData = this.actionParam;
 	}
 

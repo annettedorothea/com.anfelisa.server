@@ -48,10 +48,7 @@ public class ResultAbstractData implements IResultAbstractModel, IDataContainer 
 		this.schema = schema;
 	}
 
-	public ResultAbstractData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
-	) {
+	public ResultAbstractData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}
