@@ -8,7 +8,7 @@ import java.util.List;
 public class LoginLogDao {
 	
 	public static void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".loginlog (loginLogId serial NOT NULL , username character varying NOT NULL , date timestamp with time zone NOT NULL , CONSTRAINT loginlog_pkey PRIMARY KEY (loginLogId), CONSTRAINT loginlog_loginLogId_unique UNIQUE (loginLogId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".loginlog (loginLogId serial NOT NULL  , username character varying NOT NULL  , date timestamp with time zone NOT NULL  , CONSTRAINT loginlog_pkey PRIMARY KEY (loginLogId), CONSTRAINT loginlog_loginLogId_unique UNIQUE (loginLogId))");
 	}
 	
 	public static void insert(Handle handle, ILoginLogModel loginLogModel, String schema) {
@@ -18,6 +18,7 @@ public class LoginLogDao {
 			statement.bind("username", loginLogModel.getUsername());
 			statement.bind("date", loginLogModel.getDate());
 			statement.execute();
+			handle.createStatement("SELECT setval('" + schema + ".loginlog_loginLogId_seq', (SELECT MAX(loginLogId) FROM " + schema + ".loginlog));").execute();
 		} else {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".loginlog (username, date) VALUES (:username, :date)");
 			statement.bind("username", loginLogModel.getUsername());

@@ -8,7 +8,7 @@ import java.util.List;
 public class CardDao {
 	
 	public static void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".card (cardId serial NOT NULL , content character varying , testId integer NOT NULL , contentHash character varying NOT NULL , maxPoints integer NOT NULL , CONSTRAINT card_pkey PRIMARY KEY (cardId), CONSTRAINT card_testId_fkey FOREIGN KEY (testId) REFERENCES " + schema + ".test ( testId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT card_cardId_unique UNIQUE (cardId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".card (cardId serial NOT NULL  , content character varying  , testId integer NOT NULL  , contentHash character varying NOT NULL  , maxPoints integer NOT NULL  , CONSTRAINT card_pkey PRIMARY KEY (cardId), CONSTRAINT card_testId_fkey FOREIGN KEY (testId) REFERENCES " + schema + ".test ( testId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT card_cardId_unique UNIQUE (cardId))");
 	}
 	
 	public static void insert(Handle handle, ICardModel cardModel, String schema) {
@@ -20,6 +20,7 @@ public class CardDao {
 			statement.bind("contentHash", cardModel.getContentHash());
 			statement.bind("maxPoints", cardModel.getMaxPoints());
 			statement.execute();
+			handle.createStatement("SELECT setval('" + schema + ".card_cardId_seq', (SELECT MAX(cardId) FROM " + schema + ".card));").execute();
 		} else {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".card (content, testId, contentHash, maxPoints) VALUES (:content, :testId, :contentHash, :maxPoints)");
 			statement.bind("content", cardModel.getContent());

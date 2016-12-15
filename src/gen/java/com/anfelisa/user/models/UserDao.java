@@ -8,7 +8,7 @@ import java.util.List;
 public class UserDao {
 	
 	public static void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".user (username character varying NOT NULL , password character varying NOT NULL , name character varying NOT NULL , prename character varying NOT NULL , email character varying NOT NULL , role character varying NOT NULL , CONSTRAINT user_pkey PRIMARY KEY (username), CONSTRAINT user_username_unique UNIQUE (username))");
+		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".user (username character varying NOT NULL  , password character varying NOT NULL  , name character varying NOT NULL  , prename character varying NOT NULL  , email character varying NOT NULL  , role character varying NOT NULL  , CONSTRAINT user_pkey PRIMARY KEY (username), CONSTRAINT user_username_unique UNIQUE (username))");
 	}
 	
 	public static void insert(Handle handle, IUserModel userModel, String schema) {

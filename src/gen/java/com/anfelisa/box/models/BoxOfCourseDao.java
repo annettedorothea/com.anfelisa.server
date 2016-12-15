@@ -8,7 +8,7 @@ import java.util.List;
 public class BoxOfCourseDao {
 	
 	public static void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".boxofcourse (boxId integer NOT NULL , courseId integer NOT NULL , autoAdd boolean NOT NULL , CONSTRAINT boxofcourse_boxId_fkey FOREIGN KEY (boxId) REFERENCES " + schema + ".box ( boxId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT boxofcourse_courseId_fkey FOREIGN KEY (courseId) REFERENCES " + schema + ".course ( courseId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE)");
+		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".boxofcourse (boxId integer NOT NULL  , courseId integer NOT NULL  , autoAdd boolean NOT NULL  , CONSTRAINT boxofcourse_boxId_fkey FOREIGN KEY (boxId) REFERENCES " + schema + ".box ( boxId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT boxofcourse_courseId_fkey FOREIGN KEY (courseId) REFERENCES " + schema + ".course ( courseId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE)");
 	}
 	
 	public static void insert(Handle handle, IBoxOfCourseModel boxOfCourseModel, String schema) {

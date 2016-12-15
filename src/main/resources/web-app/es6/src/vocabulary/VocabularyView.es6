@@ -81,21 +81,6 @@ class VocabularyView {
         });
     };
     
-    static displayTestFailed(eventData) {
-        jQuery('#correctButton').remove();
-        jQuery('#correctParagraph')
-            .html(
-                "Du bist jetzt auf 0 Punkten. Schau Dir die Vokabeln besser noch einmal an!");
-    };
-    
-    static displayTestFinishedSuccessfully(eventData) {
-        jQuery('#correctButton').remove();
-        var maxPoints = (3 * Vocabulary.testState.wordCount);
-        jQuery('#correctParagraph').html(
-            "Du hast " + eventData.points + " von maximal " + maxPoints
-            + " Punkten erreicht.");
-    };
-    
     static showNextWordOfTest(eventData) {
         jQuery('#nextButton').remove();
         Mousetrap.unbind('ctrl+space');

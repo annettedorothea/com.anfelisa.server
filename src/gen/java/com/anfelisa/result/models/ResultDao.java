@@ -8,7 +8,7 @@ import java.util.List;
 public class ResultDao {
 	
 	public static void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".result (resultId serial NOT NULL , username character varying NOT NULL , testId integer NOT NULL , date timestamp with time zone NOT NULL , json character varying NOT NULL , points integer NOT NULL , maxPoints integer NOT NULL , CONSTRAINT result_pkey PRIMARY KEY (resultId), CONSTRAINT result_username_fkey FOREIGN KEY (username) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_testId_fkey FOREIGN KEY (testId) REFERENCES " + schema + ".test ( testId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_resultId_unique UNIQUE (resultId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".result (resultId serial NOT NULL  , username character varying NOT NULL  , testId integer NOT NULL  , date timestamp with time zone NOT NULL  , json character varying NOT NULL  , points integer NOT NULL  , maxPoints integer NOT NULL  , CONSTRAINT result_pkey PRIMARY KEY (resultId), CONSTRAINT result_username_fkey FOREIGN KEY (username) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_testId_fkey FOREIGN KEY (testId) REFERENCES " + schema + ".test ( testId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_resultId_unique UNIQUE (resultId))");
 	}
 	
 	public static void insert(Handle handle, IResultModel resultModel, String schema) {
@@ -22,6 +22,7 @@ public class ResultDao {
 			statement.bind("points", resultModel.getPoints());
 			statement.bind("maxPoints", resultModel.getMaxPoints());
 			statement.execute();
+			handle.createStatement("SELECT setval('" + schema + ".result_resultId_seq', (SELECT MAX(resultId) FROM " + schema + ".result));").execute();
 		} else {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".result (username, testId, date, json, points, maxPoints) VALUES (:username, :testId, :date, :json, :points, :maxPoints)");
 			statement.bind("username", resultModel.getUsername());

@@ -8,7 +8,7 @@ import java.util.List;
 public class BoxDao {
 	
 	public static void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".box (boxId serial NOT NULL , name character varying NOT NULL , username character varying NOT NULL , CONSTRAINT box_pkey PRIMARY KEY (boxId), CONSTRAINT box_username_fkey FOREIGN KEY (username) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT box_boxId_unique UNIQUE (boxId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".box (boxId serial NOT NULL  , name character varying NOT NULL  , username character varying NOT NULL  , CONSTRAINT box_pkey PRIMARY KEY (boxId), CONSTRAINT box_username_fkey FOREIGN KEY (username) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT box_boxId_unique UNIQUE (boxId))");
 	}
 	
 	public static void insert(Handle handle, IBoxModel boxModel, String schema) {
@@ -18,6 +18,7 @@ public class BoxDao {
 			statement.bind("name", boxModel.getName());
 			statement.bind("username", boxModel.getUsername());
 			statement.execute();
+			handle.createStatement("SELECT setval('" + schema + ".box_boxId_seq', (SELECT MAX(boxId) FROM " + schema + ".box));").execute();
 		} else {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".box (name, username) VALUES (:name, :username)");
 			statement.bind("name", boxModel.getName());

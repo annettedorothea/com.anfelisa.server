@@ -8,7 +8,7 @@ import java.util.List;
 public class LessonDao {
 	
 	public static void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".lesson (lessonId serial NOT NULL , name character varying NOT NULL , description character varying , sequence integer , courseId integer NOT NULL , author character varying NOT NULL , CONSTRAINT lesson_pkey PRIMARY KEY (lessonId), CONSTRAINT lesson_courseId_fkey FOREIGN KEY (courseId) REFERENCES " + schema + ".course ( courseId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_author_fkey FOREIGN KEY (author) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_lessonId_unique UNIQUE (lessonId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".lesson (lessonId serial NOT NULL  , name character varying NOT NULL  , description character varying  , sequence integer  , courseId integer NOT NULL  , author character varying NOT NULL  , CONSTRAINT lesson_pkey PRIMARY KEY (lessonId), CONSTRAINT lesson_courseId_fkey FOREIGN KEY (courseId) REFERENCES " + schema + ".course ( courseId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_author_fkey FOREIGN KEY (author) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_lessonId_unique UNIQUE (lessonId))");
 	}
 	
 	public static void insert(Handle handle, ILessonModel lessonModel, String schema) {
@@ -21,6 +21,7 @@ public class LessonDao {
 			statement.bind("courseId", lessonModel.getCourseId());
 			statement.bind("author", lessonModel.getAuthor());
 			statement.execute();
+			handle.createStatement("SELECT setval('" + schema + ".lesson_lessonId_seq', (SELECT MAX(lessonId) FROM " + schema + ".lesson));").execute();
 		} else {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".lesson (name, description, sequence, courseId, author) VALUES (:name, :description, :sequence, :courseId, :author)");
 			statement.bind("name", lessonModel.getName());

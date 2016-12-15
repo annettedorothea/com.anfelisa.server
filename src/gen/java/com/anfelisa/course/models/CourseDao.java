@@ -8,7 +8,7 @@ import java.util.List;
 public class CourseDao {
 	
 	public static void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".course (courseId serial NOT NULL , name character varying NOT NULL , description character varying , sequence integer , isPublic boolean NOT NULL , author character varying NOT NULL , CONSTRAINT course_pkey PRIMARY KEY (courseId), CONSTRAINT course_author_fkey FOREIGN KEY (author) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT course_courseId_unique UNIQUE (courseId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".course (courseId serial NOT NULL  , name character varying NOT NULL  , description character varying  , sequence integer  , isPublic boolean NOT NULL  , author character varying NOT NULL  , CONSTRAINT course_pkey PRIMARY KEY (courseId), CONSTRAINT course_author_fkey FOREIGN KEY (author) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT course_courseId_unique UNIQUE (courseId))");
 	}
 	
 	public static void insert(Handle handle, ICourseModel courseModel, String schema) {
@@ -21,6 +21,7 @@ public class CourseDao {
 			statement.bind("isPublic", courseModel.getIsPublic());
 			statement.bind("author", courseModel.getAuthor());
 			statement.execute();
+			handle.createStatement("SELECT setval('" + schema + ".course_courseId_seq', (SELECT MAX(courseId) FROM " + schema + ".course));").execute();
 		} else {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".course (name, description, sequence, isPublic, author) VALUES (:name, :description, :sequence, :isPublic, :author)");
 			statement.bind("name", courseModel.getName());

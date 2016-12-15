@@ -70,8 +70,8 @@ class ContentView {
                     }
                 }
                 jQuery('#correctParagraph').html(
-                    "Du hast " + jsonObject["points"] + " von maximal "
-                    + jsonObject["maxPoints"] + " Punkten erreicht.");
+                    "Du hast " + eventData.data.points + " von maximal "
+                    + eventData.data.maxPoints + " Punkten erreicht.");
             } else if ((jQuery("#questionOverviewList")).length > 0) {
                 alert('questionOverviewList');
                 for (var i = 1; i <= jsonObject["maxPoints"]; i++) {

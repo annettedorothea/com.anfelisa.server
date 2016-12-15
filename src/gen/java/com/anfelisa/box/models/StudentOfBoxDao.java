@@ -8,7 +8,7 @@ import java.util.List;
 public class StudentOfBoxDao {
 	
 	public static void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".studentofbox (studentOfBoxId serial NOT NULL , name character varying NOT NULL , username character varying NOT NULL , CONSTRAINT studentofbox_pkey PRIMARY KEY (studentOfBoxId), CONSTRAINT studentofbox_username_fkey FOREIGN KEY (username) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT studentofbox_studentOfBoxId_unique UNIQUE (studentOfBoxId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".studentofbox (studentOfBoxId serial NOT NULL  , name character varying NOT NULL  , username character varying NOT NULL  , CONSTRAINT studentofbox_pkey PRIMARY KEY (studentOfBoxId), CONSTRAINT studentofbox_username_fkey FOREIGN KEY (username) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT studentofbox_studentOfBoxId_unique UNIQUE (studentOfBoxId))");
 	}
 	
 	public static void insert(Handle handle, IStudentOfBoxModel studentOfBoxModel, String schema) {
@@ -18,6 +18,7 @@ public class StudentOfBoxDao {
 			statement.bind("name", studentOfBoxModel.getName());
 			statement.bind("username", studentOfBoxModel.getUsername());
 			statement.execute();
+			handle.createStatement("SELECT setval('" + schema + ".studentofbox_studentOfBoxId_seq', (SELECT MAX(studentOfBoxId) FROM " + schema + ".studentofbox));").execute();
 		} else {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".studentofbox (name, username) VALUES (:name, :username)");
 			statement.bind("name", studentOfBoxModel.getName());

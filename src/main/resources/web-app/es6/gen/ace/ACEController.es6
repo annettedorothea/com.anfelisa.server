@@ -24,7 +24,7 @@ class ACEController {
 			throw new Error('cannot register listener for empty eventName');
 		}
 		if (!listener) {
-			throw new Error('cannot register undefined listener');
+			throw new Error('cannot register undefined listener for event ' + eventName);
 		}
 		var listenersForEventName;
 		if (ACEController.listeners[eventName] === undefined) {

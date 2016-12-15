@@ -13,11 +13,9 @@ class AbstractIsRatedTestFinishedCommand extends Command {
     	
         switch (this.commandData.outcome) {
         case this.testFailed:
-        	promises.push(new DisplayTestFailedEvent(this.commandData).publish());
         	promises.push(new TriggerAction(new SaveResultAction(this.commandData)).publish());
         	break;
         case this.testFinishedSuccessfully:
-        	promises.push(new DisplayTestFinishedSuccessfullyEvent(this.commandData).publish());
         	promises.push(new TriggerAction(new SaveResultAction(this.commandData)).publish());
         	break;
         case this.goOnWithTest:

@@ -33,14 +33,10 @@ commands {
 		)
 	}
 	IsTestFinished {
-		on testFailed publishes (
-			DisplayTestFailed
-		) triggers (
+		on testFailed triggers (
 			SaveResult
 		)
-		on testFinishedSuccessfully publishes (
-			DisplayTestFinishedSuccessfully
-		) triggers (
+		on testFinishedSuccessfully triggers (
 			SaveResult
 		)
 		on goOnWithTest publishes (
@@ -48,14 +44,10 @@ commands {
 		)
 	}
 	IsRatedTestFinished {
-		on testFailed publishes (
-			DisplayTestFailed
-		) triggers (
+		on testFailed triggers (
 			SaveResult
 		)
-		on testFinishedSuccessfully publishes (
-			DisplayTestFinishedSuccessfully
-		) triggers (
+		on testFinishedSuccessfully triggers (
 			SaveResult
 		)
 		on goOnWithTest triggers (
@@ -124,12 +116,6 @@ events {
 	WordIsNotCorrect listenedToBy (
 		Vocabulary.wordIsNotCorrect
 	)
-	DisplayTestFailed listenedToBy (
-		Vocabulary.displayTestFailed
-	)
-	DisplayTestFinishedSuccessfully listenedToBy (
-		Vocabulary.displayTestFinishedSuccessfully
-	)
 	DisplayNextWordButton listenedToBy (
 		Vocabulary.displayNextWordButton
 	)
@@ -153,8 +139,6 @@ views {
 		goOnWithNextWord
 		updateTestState
 		displayNextWordButton
-		displayTestFailed
-		displayTestFinishedSuccessfully
 		showNextWordOfTest
 		testStarted
 	}
