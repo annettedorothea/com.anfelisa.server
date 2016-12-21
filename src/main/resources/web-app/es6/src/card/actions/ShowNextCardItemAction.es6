@@ -1,6 +1,6 @@
 'use strict';
 
-class ReadLastResultIdAction extends AbstractReadLastResultIdAction {
+class ShowNextCardItemAction extends AbstractShowNextCardItemAction {
 
     captureActionParam() {
     	if (localStorage.username) {
@@ -18,8 +18,8 @@ class ReadLastResultIdAction extends AbstractReadLastResultIdAction {
     	if (localStorage.language) {
 	        this.actionParam.language = localStorage.language;
 	    }
-		this.actionParam.hash = window.location.hash.substring(1);
-	}
+    	// capture user input
+    }
 
     initActionData() {
     	if (this.actionParam.username) {
@@ -37,8 +37,7 @@ class ReadLastResultIdAction extends AbstractReadLastResultIdAction {
     	if (this.actionParam.language) {
     		this.actionData.language = this.actionParam.language;
     	}
-		this.actionData.testId = this.actionParam.testId;
-		this.actionData.hash = this.actionParam.hash;
+		this.actionData.flag = this.actionParam.flag;
     }
 
     releaseActionParam() {

@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <div class="card wanted quality{{quality}} {{#large}}largeCard{{/large}}" onclick="new ShowNextCardItemAction('card').apply()"><span class="wanted-word">{{content.wanted}}</span></div>
+            <div class="card wanted quality{{quality}} {{#large}}largeCard{{/large}}" onclick="new ShowNextCardItemAction({flag : 'card'}).apply()"><span class="wanted-word">{{wanted}}</span></div>
         </div>
         <div class="col-md-6">
             <div class="card given quality{{quality}} {{#large}}largeCard{{/large}}">
@@ -27,7 +27,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="ccard quality{{quality}}" onclick="new ShowNextCardItemAction(event.altKey ? 'word' : 'line').apply()">
+        <div class="ccard quality{{quality}}" onclick="new ShowNextCardItemAction(event.altKey ? {flag : 'word' : 'line'}).apply()">
             {{#lines}}
             <div class="line hiddenLine">
                 {{#words}}

@@ -1,0 +1,79 @@
+card
+
+target ES6
+
+actions {
+	ShowNextCardItem executes ShowNextCardItem
+	CheckIfComplexCardIsFinished executes CheckIfComplexCardIsFinished
+}
+
+commands {
+	ShowNextCardItem {
+		on showWanted publishes (
+			ShowWanted
+			ShowScoreButtons
+		)
+		on showNextLine publishes (
+			ShowNextLine
+		) triggers (
+			CheckIfComplexCardIsFinished
+		)
+		on showNextWord publishes (
+			ShowNextWord
+		) triggers (
+			CheckIfComplexCardIsFinished
+		)
+	}
+	CheckIfComplexCardIsFinished {
+		on complexCardIsFinished publishes (
+			ShowScoreButtons
+		)
+		on complexCardIsNotFinished publishes (
+		)
+	}
+	FinishCard {
+		on cardFinished publishes (
+			DisplayComplexCardFinishedSuccessfully
+		) triggers (
+			common.SaveResult
+		)
+	}
+	
+}
+
+events {
+	ShowWanted listenedToBy (
+		Card.showWanted
+	)
+	ShowNextLine listenedToBy (
+		Card.showNextLine
+	)
+	ShowNextWord listenedToBy (
+		Card.showNextWord
+	)
+	ShowScoreButtons listenedToBy (
+		Card.showScoreButtons
+	)
+	DisplayComplexCardFinishedSuccessfully listenedToBy (
+		Card.displayComplexCardFinishedSuccessfully
+	)
+	
+}
+
+views {
+	Card {
+		showScoreButtons
+		showWanted
+		showNextLine
+		showNextWord
+		renderNextCard
+		goOnWithNewCards
+		displayComplexCardFinishedSuccessfully
+		renderCardForRepetition
+		repeatComplexCard
+		repeatTodaysCards
+		resetGoOnWithNewCards
+		initCurrentBoxId
+	}
+	
+}

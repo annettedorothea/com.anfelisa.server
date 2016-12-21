@@ -10,6 +10,7 @@ function initApp() {
     EventListenerRegistrationCommon.init();
     EventListenerRegistrationNavigation.init();
     EventListenerRegistrationVocabulary.init();
+    EventListenerRegistrationCard.init();
     if (!window.urlPrefix) {
         window.urlPrefix = "http://localhost:8080/";
     }

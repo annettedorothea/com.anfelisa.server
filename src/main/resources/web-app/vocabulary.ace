@@ -10,8 +10,6 @@ actions {
 	ShowWord executes ShowWord
 	StartTest executes StartTest
 	RateWord executes RateWord
-	SaveResult executes SaveResult
-	ReadLastResultId executes ReadLastResultId	
 }
 
 commands {
@@ -34,10 +32,10 @@ commands {
 	}
 	IsTestFinished {
 		on testFailed triggers (
-			SaveResult
+			common.SaveResult
 		)
 		on testFinishedSuccessfully triggers (
-			SaveResult
+			common.SaveResult
 		)
 		on goOnWithTest publishes (
 			DisplayNextWordButton
@@ -45,10 +43,10 @@ commands {
 	}
 	IsRatedTestFinished {
 		on testFailed triggers (
-			SaveResult
+			common.SaveResult
 		)
 		on testFinishedSuccessfully triggers (
-			SaveResult
+			common.SaveResult
 		)
 		on goOnWithTest triggers (
 			ShowNextWordOfTest
@@ -86,22 +84,6 @@ commands {
 			WordIsNotCorrect
 		) triggers (
 			IsRatedTestFinished
-		)
-	}
-	SaveResult {
-		on resultSaved triggers (
-			ReadLastResultId
-		)
-		on serverError publishes (
-			common.ServerError
-		)
-	}
-	ReadLastResultId {
-		on resultIdRead triggers (
-			common.Route
-		)
-		on serverError publishes (
-			common.ServerError
 		)
 	}
 }
