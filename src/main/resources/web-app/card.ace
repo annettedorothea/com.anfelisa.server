@@ -5,6 +5,7 @@ target ES6
 actions {
 	ShowNextCardItem executes ShowNextCardItem
 	CheckIfComplexCardIsFinished executes CheckIfComplexCardIsFinished
+	FinishCard executes FinishCard
 }
 
 commands {

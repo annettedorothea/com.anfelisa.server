@@ -11,6 +11,7 @@ class EventListenerRegistrationCommon {
     	ACEController.registerListener('UserLoggedInEvent', CommonView.initUserInLocalStorage);
     	ACEController.registerListener('UserLoggedOutEvent', CommonView.removeUserFromLocalStorage);
     	ACEController.registerListener('UserLoggedOutEvent', BoxesView.hideBoxes);
+    	ACEController.registerListener('RenderResultEvent', TestView.renderResult);
 	}
 
 }

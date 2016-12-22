@@ -4,10 +4,18 @@ class InitCommand extends AbstractInitCommand {
     execute() {
         return new Promise((resolve) => {
             this.commandData.language = this.commandParam.language;
+            this.commandData.username = this.commandParam.username;
             this.commandData.schema = this.commandParam.schema;
-            this.commandData.outcome = this.publicCourses;
+            if (this.commandParam.username) {
+                this.commandData.outcome = this.privateCourses;
+            } else {
+                this.commandData.outcome = this.publicCourses;
+            }
             if (this.commandParam.hash !== undefined) {
                 var hashes = this.commandParam.hash.split("/");
+                if (this.commandParam.username && hashes[0] === "public") {
+                    hashes = [ "private" ];
+                }
                 if (hashes[0]) {
                     if (hashes[0] === "private") {
                         if (hashes[1]) {

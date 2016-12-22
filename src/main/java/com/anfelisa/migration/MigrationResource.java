@@ -314,8 +314,8 @@ public class MigrationResource extends Resource {
 			String sql = "SELECT * FROM anfelisa.add_all_cards_of_course_after_edit_to_box";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				Integer boxId = rs.getInt("course_id");
-				Integer courseId = rs.getInt("box_id");
+				Integer boxId = rs.getInt("box_id");
+				Integer courseId = rs.getInt("course_id");
 				String uuid = UUID.randomUUID().toString();
 				BoxToCourseAdditionData data = new BoxToCourseAdditionData(boxId, courseId, false, uuid, schema);
 				new AddCourseToBoxAction(data, this.createDatabaseHandle()).apply();
@@ -331,8 +331,8 @@ public class MigrationResource extends Resource {
 			String sql = "SELECT * FROM anfelisa.add_all_cards_of_course_automatically_to_box";
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				Integer boxId = rs.getInt("course_id");
-				Integer courseId = rs.getInt("box_id");
+				Integer boxId = rs.getInt("box_id");
+				Integer courseId = rs.getInt("course_id");
 				String uuid = UUID.randomUUID().toString();
 				BoxToCourseAdditionData data = new BoxToCourseAdditionData(boxId, courseId, true, uuid, schema);
 				new AddCourseToBoxAction(data, this.createDatabaseHandle()).apply();

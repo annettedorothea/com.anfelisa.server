@@ -91,6 +91,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			this.actionData.setCount(nextCard.getCount());
 			this.actionData.setNext(nextCard.getNext());
 			this.actionData.setLast(nextCard.getLast());
+			this.actionData.setQuality(nextCard.getQuality());
 		}
 
 		ObjectMapper mapper = new ObjectMapper();

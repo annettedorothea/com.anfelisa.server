@@ -15,8 +15,8 @@ class CommonView {
     };
 
     static removeUserFromLocalStorage(data) {
-        localStorage.username = undefined;
-        localStorage.password = undefined;
+        localStorage.removeItem("username");
+        localStorage.removeItem("password");
     };
 
     static updateHash(data) {

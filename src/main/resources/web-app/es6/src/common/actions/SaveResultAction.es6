@@ -62,8 +62,8 @@ class SaveResultAction extends AbstractSaveResultAction {
 			this.actionData.points = Vocabulary.testState.points;
 			this.actionData.maxPoints = Vocabulary.testState.maxPoints;
 		} else {
-			//this.actionData.points = App.cardView.testState.points;
-			//this.actionData.maxPoints = App.cardView.testState.maxPoints;
+			this.actionData.points = this.actionParam.points;
+			this.actionData.maxPoints = this.actionParam.maxPoints;
 		}
 	}
 

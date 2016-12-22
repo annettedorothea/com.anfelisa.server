@@ -37,7 +37,7 @@ class CheckIfComplexCardIsFinishedAction extends AbstractCheckIfComplexCardIsFin
     	if (this.actionParam.language) {
     		this.actionData.language = this.actionParam.language;
     	}
-    	// bind action parameters to action data
+		this.actionData.isFinished = !$(".word").hasClass("hiddenWord");
     }
 
     releaseActionParam() {

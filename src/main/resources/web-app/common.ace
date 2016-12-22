@@ -36,6 +36,9 @@ commands {
 		on ok publishes (UserLoggedOut) triggers ( Route )
 	}
 	SaveResult {
+		on noCredentials publishes (
+			RenderResult
+		)
 		on resultSaved triggers (
 			ReadLastResultId
 		)
@@ -60,6 +63,7 @@ events {
 	UpdateHash listenedToBy ( Common.updateHash )
 	UserLoggedIn listenedToBy ( Common.initUserInLocalStorage )
 	UserLoggedOut listenedToBy ( Common.removeUserFromLocalStorage navigation.Boxes.hideBoxes )
+	RenderResult listenedToBy ( Test.renderResult )
 } 
 
 views {
@@ -77,5 +81,8 @@ views {
 	Header {
 		renderLogin
 		renderLogout
+	}
+	Test {
+		renderResult
 	}
 }

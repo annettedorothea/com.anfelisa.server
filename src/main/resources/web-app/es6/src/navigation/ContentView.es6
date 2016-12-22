@@ -132,7 +132,6 @@ class ContentView {
                         jQuery("#" + i).css("top", splitted[2]);
                     }
                 }
-                ContentView.correctTest(false);
             }
         }
     };

@@ -1,11 +1,8 @@
 'use strict';
 
-class ShowNextCardItemAction extends AbstractShowNextCardItemAction {
+class FinishCardAction extends AbstractFinishCardAction {
 
     captureActionParam() {
-    	this.actionParam = {
-    		flag: this.actionParam
-		}
     	if (localStorage.username) {
 	        this.actionParam.username = localStorage.username;
 	    }
@@ -40,7 +37,8 @@ class ShowNextCardItemAction extends AbstractShowNextCardItemAction {
     	if (this.actionParam.language) {
     		this.actionData.language = this.actionParam.language;
     	}
-		this.actionData.flag = this.actionParam.flag;
+		this.actionData.points = this.actionParam.points;
+		this.actionData.maxPoints = this.actionParam.maxPoints;
     }
 
     releaseActionParam() {
