@@ -44,6 +44,9 @@
             <button class="btn btn-default" type="button" onclick="new SaveProfileAction().apply()">
                 {{texts.save}}
             </button>
+            <button class="btn btn-default" type="button" onclick="new RouteAction( {'hash' : 'profile'}).apply()">
+                {{texts.cancel}}
+            </button>
         </div>
     </div>
 
