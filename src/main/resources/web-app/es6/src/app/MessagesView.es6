@@ -2,7 +2,7 @@
 
 class MessagesView {
     static renderError(data) {
-        $.get('templates/errorTemplate.mst', function(template) {
+        $.get('templates/common/errorTemplate.mst', function(template) {
             var rendered = Mustache.render(template, data.message);
             $('.notifications').html(rendered);
         });

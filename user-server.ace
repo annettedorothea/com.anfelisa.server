@@ -46,12 +46,14 @@ data {
 	UserCreation : ( User )
 	Login : ( LoginLog Credentials )
 	Points : ( Points Credentials )
+	UserInfo : (User com.anfelisa.course.CourseList com.anfelisa.box.MyBoxList )
 }
 
 actions {
 	POST CreateUser uses UserCreation executes CreateUser 
 	POST Login uses Login executes Login
 	GET GetPoints uses Points
+	GET GetUserInfo uses UserInfo
 }
 
 commands {

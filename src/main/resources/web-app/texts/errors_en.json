@@ -13,5 +13,6 @@
   "readResultFailed" : "Failed to load result.",
   "readNextCardFailed" : "Failed to load next card.",
   "readLastResultFailed" : "Failed to read last result.",
-  "saveResultFailed" : "Failed to save result."
+  "saveResultFailed" : "Failed to save result.",
+  "readProfileFailed" : "Failed to load user info."
 }

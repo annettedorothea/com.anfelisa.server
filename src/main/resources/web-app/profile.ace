@@ -1,0 +1,21 @@
+profile
+
+target ES6
+
+actions {
+	OpenProfile executes OpenProfile
+}
+commands {
+	OpenProfile {
+		on userInfoRead publishes (UserInfoLoaded)
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
+}
+events {
+	UserInfoLoaded listenedToBy ( UserInfo.renderUserInfo )
+}
+views {
+	UserInfo {
+		renderUserInfo
+	}
+}

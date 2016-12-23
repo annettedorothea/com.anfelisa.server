@@ -2,28 +2,28 @@
 
 class NavigationView {
     static renderPublicCourses(eventData) {
-        $.get('templates/publicCoursesTemplate.mst', function(template) {
+        $.get('templates/navigation/publicCoursesTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
         });
     };
     
     static renderPublicLessons(eventData) {
-        $.get('templates/publicLessonsTemplate.mst', function(template) {
+        $.get('templates/navigation/publicLessonsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
         });
     };
     
     static renderPublicTests(eventData) {
-        $.get('templates/publicTestsTemplate.mst', function(template) {
+        $.get('templates/navigation/publicTestsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
         });
     };
     
     static renderPublicTest(eventData) {
-        $.get('templates/publicTestsTemplate.mst', function(template) {
+        $.get('templates/navigation/publicTestsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
             $("ul.nav li").removeClass("active");
@@ -32,21 +32,21 @@ class NavigationView {
     };
     
     static renderPrivateCourses(eventData) {
-        $.get('templates/privateCoursesTemplate.mst', function(template) {
+        $.get('templates/navigation/privateCoursesTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
         });
     };
     
     static renderPrivateLessons(eventData) {
-        $.get('templates/privateLessonsTemplate.mst', function(template) {
+        $.get('templates/navigation/privateLessonsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
         });
     };
     
     static renderPrivateTests(eventData) {
-        $.get('templates/privateTestsTemplate.mst', function(template) {
+        $.get('templates/navigation/privateTestsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
             $("ul.nav li").removeClass("active");
@@ -55,7 +55,7 @@ class NavigationView {
     };
     
     static renderPrivateTest(eventData) {
-        $.get('templates/privateTestsTemplate.mst', function(template) {
+        $.get('templates/navigation/privateTestsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
             $("ul.nav li").removeClass("active");

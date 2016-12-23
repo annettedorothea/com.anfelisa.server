@@ -44,6 +44,8 @@ class InitCommand extends AbstractInitCommand {
                         this.commandData.boxId = hashes[1];
                     } else if (hashes[0] === "statistics") {
                         this.commandData.outcome = this.statistics;
+                    } else if (hashes[0] === "profile") {
+                        this.commandData.outcome = this.profile;
                     } else {
                         if (hashes[1]) {
                             this.commandData.courseId = hashes[1];

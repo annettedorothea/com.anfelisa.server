@@ -2,21 +2,21 @@
 
 class ContentView {
     static renderPublicCourses(eventData) {
-        $.get('templates/contentTemplate1.mst', function(template) {
+        $.get('templates/content/contentTemplate1.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.content-pane').html(rendered);
         });
     };
     
     static renderPublicLessons(eventData) {
-        $.get('templates/contentTemplate2.mst', function(template) {
+        $.get('templates/content/contentTemplate2.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.content-pane').html(rendered);
         });
     };
     
     static renderPublicTests(eventData) {
-        $.get('templates/contentTemplate3.mst', function(template) {
+        $.get('templates/content/contentTemplate3.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.content-pane').html(rendered);
         });
@@ -28,21 +28,22 @@ class ContentView {
     };
     
     static renderPrivateLessons(eventData) {
-        $.get('templates/contentTemplate2.mst', function(template) {
+        $.get('templates/content/contentTemplate2.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.content-pane').html(rendered);
         });
     };
     
     static renderPrivateTests(eventData) {
-        $.get('templates/contentTemplate3.mst', function(template) {
+        $.get('templates/content/contentTemplate3.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.content-pane').html(rendered);
         });
     };
     
     static renderPrivateTest(eventData) {
-        $(".content-pane").html(eventData.data.html);
+        var html = "<div class='test'>" + eventData.data.html + "</div>";
+        $(".content-pane").html(html);
         //enableDrag();
     };
     
@@ -142,7 +143,7 @@ class ContentView {
                 statisticsItemList: []
             };
         }
-        $.get('templates/statisticsTemplate.mst', function(template) {
+        $.get('templates/user/statisticsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.content-pane').html(rendered);
             $(".year").val(eventData.data.year);
@@ -152,7 +153,7 @@ class ContentView {
     
     static renderCard(eventData) {
         var data = eventData.data;
-        $.get('templates/breadcrumbsTemplateBox.mst', function(template) {
+        $.get('templates/breadcrumbs/breadcrumbsTemplateBox.mst', function(template) {
             var rendered = Mustache.render(template, data);
             $('.breadcrumbs').html(rendered);
         });
@@ -170,7 +171,7 @@ class ContentView {
             $('li.active span.badge').html('');
         }
         if (data.cardsForToday > 0 || /*App.cardView.goOnWithNewCards &&*/ data.newCards > 0) {
-            $.get('templates/cardTemplate.mst', function(template) {
+            $.get('templates/card/cardTemplate.mst', function(template) {
                 var rendered = Mustache.render(template, data);
                 $('.content-pane').html(rendered);
             });
@@ -187,7 +188,7 @@ class ContentView {
             let activeItem = $('li.active i.fa');
             activeItem.removeClass('fa-pencil-square-o');
             activeItem.addClass('fa-check-square-o');
-            $.get('templates/cardTemplateNewCards.mst', function(template) {
+            $.get('templates/card/cardTemplateNewCards.mst', function(template) {
                 var rendered = Mustache.render(template, data);
                 $('.content-pane').html(rendered);
             });
@@ -195,7 +196,7 @@ class ContentView {
             let activeItem = $('li.active i.fa');
             activeItem.removeClass('fa-pencil-square-o');
             activeItem.addClass('fa-check-square-o');
-            $.get('templates/cardTemplateFinished.mst', function(template) {
+            $.get('templates/card/cardTemplateFinished.mst', function(template) {
                 var rendered = Mustache.render(template, data);
                 $('.content-pane').html(rendered);
             });

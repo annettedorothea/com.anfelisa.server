@@ -23,6 +23,13 @@ public class CustomCourseDao {
 				.bind("username", username).map(new MyCourseMapper()).list();
 	}
 
+	public static List<ICourseModel> selectCourses(Handle handle, String schema, String username) {
+		return handle
+				.createQuery("SELECT c.* FROM " + schema + ".course c, " + schema
+						+ ".studentofcourse sc WHERE sc.username = :username AND sc.courseId = c.courseId")
+				.bind("username", username).map(new CourseMapper()).list();
+	}
+	
 	public static ICourseModel selectByLessonId(Handle handle, Integer lessonId, String schema) {
 		return handle
 				.createQuery("SELECT c.* FROM " + schema + ".course c, " + schema

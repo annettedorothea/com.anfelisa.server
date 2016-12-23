@@ -1,0 +1,11 @@
+{
+  "profile" : "My Profile",
+  "username" : "Username",
+  "password" : "Password",
+  "name" : "Lastname",
+  "prename" : "Prename",
+  "email" : "Email",
+  "nameNotEmpty" : "Lastname must be given.",
+  "prenameNotEmpty" : "Prename must be given.",
+  "emailNotEmpty" : "Email must be given."
+}

@@ -9,21 +9,23 @@ actions {
 	Login executes Login
 	Logout executes Logout
 	SaveResult executes SaveResult
-	ReadLastResultId executes ReadLastResultId	
+	ReadLastResultId executes ReadLastResultId
+	ValidateRequiredField executes ValidateRequiredField
 }
 
 commands {
 	Init {
-		on publicCourses publishes (navigation.UserIsNotLoggedIn) triggers ( navigation.ReadPublicCourses )
-		on publicLessons publishes (navigation.UserIsNotLoggedIn) triggers ( navigation.ReadPublicLessons )
-		on publicTests publishes (navigation.UserIsNotLoggedIn) triggers ( navigation.ReadPublicTests )
-		on publicTest publishes (navigation.UserIsNotLoggedIn) triggers ( navigation.ReadPublicTest )
-		on privateCourses publishes (navigation.UserIsLoggedIn) triggers ( navigation.ReadPrivateCourses navigation.ReadStatistics navigation.ReadBoxes )
-		on privateLessons publishes (navigation.UserIsLoggedIn) triggers ( navigation.ReadPrivateLessons navigation.ReadBoxes )
-		on privateTests publishes (navigation.UserIsLoggedIn) triggers ( navigation.ReadPrivateTests navigation.ReadBoxes )
-		on privateTest publishes (navigation.UserIsLoggedIn) triggers ( navigation.ReadPrivateTest navigation.ReadBoxes ) 
-		on result publishes (navigation.UserIsLoggedIn) triggers ( navigation.ReadResult navigation.ReadBoxes )
-		on box publishes (navigation.UserIsLoggedIn) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes navigation.ReadNextCard )
+		on publicCourses publishes (navigation.UserIsNotLoggedIn InitOK ) triggers ( navigation.ReadPublicCourses )
+		on publicLessons publishes (navigation.UserIsNotLoggedIn InitOK ) triggers ( navigation.ReadPublicLessons )
+		on publicTests publishes (navigation.UserIsNotLoggedIn InitOK ) triggers ( navigation.ReadPublicTests )
+		on publicTest publishes (navigation.UserIsNotLoggedIn InitOK ) triggers ( navigation.ReadPublicTest )
+		on privateCourses publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadStatistics navigation.ReadBoxes )
+		on privateLessons publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateLessons navigation.ReadBoxes )
+		on privateTests publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateTests navigation.ReadBoxes )
+		on privateTest publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateTest navigation.ReadBoxes ) 
+		on result publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadResult navigation.ReadBoxes )
+		on box publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes navigation.ReadNextCard )
+		on profile publishes (navigation.UserIsLoggedIn InitOK ) triggers ( profile.OpenProfile navigation.ReadPrivateCourses navigation.ReadBoxes )
 	}
 	Route {
 		on ok publishes ( UpdateHash ) triggers ( Init )
@@ -54,6 +56,10 @@ commands {
 			common.ServerError
 		)
 	}
+	ValidateRequiredField {
+		on fieldEmpty publishes ( FieldEmpty )
+		on fieldNotEmpty publishes ( FieldNotEmpty )
+	}
 }
 
 events {
@@ -64,6 +70,8 @@ events {
 	UserLoggedIn listenedToBy ( Common.initUserInLocalStorage )
 	UserLoggedOut listenedToBy ( Common.removeUserFromLocalStorage navigation.Boxes.hideBoxes )
 	RenderResult listenedToBy ( Test.renderResult )
+	FieldEmpty listenedToBy ( Validation.fieldEmpty ) 
+	FieldNotEmpty listenedToBy ( Validation.fieldNotEmpty )
 } 
 
 views {
@@ -84,5 +92,9 @@ views {
 	}
 	Test {
 		renderResult
+	}
+	Validation {
+		fieldEmpty
+		fieldNotEmpty
 	}
 }

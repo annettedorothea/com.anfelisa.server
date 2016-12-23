@@ -1,0 +1,48 @@
+<div class="test">
+    <h2 class="boxName">{{boxName}}</h2>
+    {{^content.complex}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card wanted quality{{quality}} {{#content.large}}largeCard{{/content.large}}" onclick="new ShowNextCardItemAction('card').apply()"><span class="wanted-word">{{content.wanted}}</span></div>
+            </div>
+            <div class="col-md-6">
+                <div class="card given quality{{quality}} {{#content.large}}largeCard{{/content.large}}">
+                    <div class="given-word">{{content.given}}<br/><br/><i>{{content.header}}</i></div>
+                    <div class="count">{{count}}x{{#last}} - zuletzt am {{last}}{{/last}}</div>
+                    <div class="next">{{#next}}geplant für {{next}}{{/next}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/content.complex}}
+    {{#content.complex}}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ccard quality{{quality}}">
+                <div class="given-word">{{content.given}}<br/><br/></div>
+                <div class="count">{{count}} x</div>
+                <div class="next">{{next}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ccard quality{{quality}}" onclick="new ShowNextCardItemAction(event.altKey ? 'word' : 'line').apply()">
+                {{#content.lines}}
+                <div class="line hiddenLine">
+                    {{#line}}
+                    <span class="word hiddenWord">{{word}}</span>
+                    {{/line}}
+                </div>
+                {{/content.lines}}
+            </div>
+        </div>
+    </div>
+    {{/content.complex}}
+    <div class="row quality-buttons">
+        <div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4 col-xs-12 col-sm-12">
+            <button class="goOnButton btn btn-blue go-on-button" onclick="$('.goOnButton').prop('disabled', true); new GoOnWithTodaysNextCardAction().apply()" disabled="disabled">Weiter</button><br/>
+        </div>
+    </div>
+</div>

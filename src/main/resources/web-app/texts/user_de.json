@@ -1,0 +1,11 @@
+{
+  "profile" : "Mein Profil",
+  "username" : "Benutzername",
+  "password" : "Passwort",
+  "name" : "Nachname",
+  "prename" : "Vorname",
+  "email" : "Email",
+  "nameNotEmpty" : "Nachname muss angegeben werden.",
+  "prenameNotEmpty" : "Vorname muss angegeben werden.",
+  "emailNotEmpty" : "Email muss angegeben werden."
+}

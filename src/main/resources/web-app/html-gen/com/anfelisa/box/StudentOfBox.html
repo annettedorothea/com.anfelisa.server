@@ -1,0 +1,35 @@
+<form class="form-horizontal">
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <h4>{{texts.studentOfBox}}</h4>
+        </div>
+    </div>
+
+	<div class="form-group" id="studentOfBoxIdDiv">
+	    <label for="studentOfBoxId" class="col-sm-3 control-label">* {{texts.studentOfBoxId}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="studentOfBoxId" placeholder="{{texts.studentOfBoxId}}" value="{{studentOfBoxId}}" onblur="new ValidateRequiredFieldAction({id : 'studentOfBoxId'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.studentOfBoxIdNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="nameDiv">
+	    <label for="name" class="col-sm-3 control-label">* {{texts.name}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="name" placeholder="{{texts.name}}" value="{{name}}" onblur="new ValidateRequiredFieldAction({id : 'name'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.nameNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="usernameDiv">
+	    <label for="username" class="col-sm-3 control-label">* {{texts.username}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="username" placeholder="{{texts.username}}" value="{{username}}" onblur="new ValidateRequiredFieldAction({id : 'username'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.usernameNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	
+</form>

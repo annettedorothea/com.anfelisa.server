@@ -1,0 +1,91 @@
+<form class="form-horizontal">
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <h4>{{texts.cardOfBox}}</h4>
+        </div>
+    </div>
+
+	<div class="form-group" id="cardOfBoxIdDiv">
+	    <label for="cardOfBoxId" class="col-sm-3 control-label">* {{texts.cardOfBoxId}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="cardOfBoxId" placeholder="{{texts.cardOfBoxId}}" value="{{cardOfBoxId}}" onblur="new ValidateRequiredFieldAction({id : 'cardOfBoxId'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.cardOfBoxIdNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="cardIdDiv">
+	    <label for="cardId" class="col-sm-3 control-label">* {{texts.cardId}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="cardId" placeholder="{{texts.cardId}}" value="{{cardId}}" onblur="new ValidateRequiredFieldAction({id : 'cardId'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.cardIdNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="efDiv">
+	    <label for="ef" class="col-sm-3 control-label">{{texts.ef}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="ef" placeholder="{{texts.ef}}" value="{{ef}}">
+	        <span class="help-block notEmpty" style="display: none">{{texts.efNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="intervalDiv">
+	    <label for="interval" class="col-sm-3 control-label">{{texts.interval}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="interval" placeholder="{{texts.interval}}" value="{{interval}}">
+	        <span class="help-block notEmpty" style="display: none">{{texts.intervalNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="countDiv">
+	    <label for="count" class="col-sm-3 control-label">* {{texts.count}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="count" placeholder="{{texts.count}}" value="{{count}}" onblur="new ValidateRequiredFieldAction({id : 'count'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.countNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="dateDiv">
+	    <label for="date" class="col-sm-3 control-label">{{texts.date}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="date" placeholder="{{texts.date}}" value="{{date}}">
+	        <span class="help-block notEmpty" style="display: none">{{texts.dateNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="boxIdDiv">
+	    <label for="boxId" class="col-sm-3 control-label">* {{texts.boxId}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="boxId" placeholder="{{texts.boxId}}" value="{{boxId}}" onblur="new ValidateRequiredFieldAction({id : 'boxId'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.boxIdNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="qualityDiv">
+	    <label for="quality" class="col-sm-3 control-label">{{texts.quality}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="quality" placeholder="{{texts.quality}}" value="{{quality}}">
+	        <span class="help-block notEmpty" style="display: none">{{texts.qualityNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="timestampDiv">
+	    <label for="timestamp" class="col-sm-3 control-label">{{texts.timestamp}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="timestamp" placeholder="{{texts.timestamp}}" value="{{timestamp}}">
+	        <span class="help-block notEmpty" style="display: none">{{texts.timestampNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="pointsDiv">
+	    <label for="points" class="col-sm-3 control-label">{{texts.points}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="points" placeholder="{{texts.points}}" value="{{points}}">
+	        <span class="help-block notEmpty" style="display: none">{{texts.pointsNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	
+</form>

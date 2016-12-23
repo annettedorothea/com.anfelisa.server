@@ -94,6 +94,12 @@ models {
 		}
 	}
 		
+	MyBoxList {
+		complexAttributes {
+			List Box boxList
+		}
+	}
+		
 	CardContent {
 		primitiveAttributes {
 			Boolean complex

@@ -14,6 +14,7 @@ public class AppRegistration {
 		environment.jersey().register(new CreateUserResource(jdbi));
 		environment.jersey().register(new LoginResource(jdbi));
 		environment.jersey().register(new GetPointsResource(jdbi));
+		environment.jersey().register(new GetUserInfoResource(jdbi));
 	}
 
 	public static void registerConsumers() {

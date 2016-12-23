@@ -1,0 +1,140 @@
+<form class="form-horizontal">
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <h4>{{texts.profile}}</h4>
+        </div>
+    </div>
+
+    <div class="form-group" id="usernameDiv">
+        <label for="username" class="col-sm-3 control-label">* {{texts.username}}</label>
+        <div class="col-sm-9">
+            <input type="text" disabled="disabled" class="form-control" id="username" placeholder="{{texts.username}}" value="{{username}}">
+        </div>
+    </div>
+
+    <div class="form-group" id="nameDiv">
+        <label for="name" class="col-sm-3 control-label">* {{texts.name}}</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="name" placeholder="{{texts.name}}" value="{{name}}" onblur="new ValidateRequiredFieldAction({id : 'name'}).apply()">
+            <span class="help-block notEmpty" style="display: none">{{texts.nameNotEmpty}}</span>
+        </div>
+    </div>
+
+    <div class="form-group" id="prenameDiv">
+        <label for="prename" class="col-sm-3 control-label">* {{texts.prename}}</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="prename" placeholder="{{texts.prename}}" value="{{prename}}" onblur="new ValidateRequiredFieldAction({id : 'prename'}).apply()">
+            <span class="help-block notEmpty" style="display: none">{{texts.prenameNotEmpty}}</span>
+        </div>
+    </div>
+
+    <div class="form-group" id="emailDiv">
+        <label for="email" class="col-sm-3 control-label">* {{texts.email}}</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="email" placeholder="{{texts.email}}" value="{{email}}" onblur="new ValidateRequiredFieldAction({id : 'email'}).apply()">
+            <span class="help-block notEmpty" style="display: none">{{texts.emailNotEmpty}}</span>
+        </div>
+    </div>
+
+</form>
+
+
+<form class="form-horizontal">
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <h4>{{texts.myCourseList}}</h4>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-responsive">
+            <tr>
+                <th>{{texts.courseId}}</th>
+                <th>{{texts.name}}</th>
+                <th>{{texts.description}}</th>
+                <th>{{texts.sequence}}</th>
+                <th>{{texts.isPublic}}</th>
+                <th>{{texts.author}}</th>
+            </tr>
+            {{#courseList}}
+            <tr>
+                <td>{{courseId}}</td>
+                <td>{{name}}</td>
+                <td>{{description}}</td>
+                <td>{{sequence}}</td>
+                <td>{{isPublic}}</td>
+                <td>{{author}}</td>
+            </tr>
+            {{/courseList}}
+            {{^courseList}}
+            <tr>
+                <td colspan="6">{{texts.emptyCourseList}}</td>
+            </tr>
+            {{/courseList}}
+        </table>
+    </div>
+
+</form>
+
+<form class="form-horizontal">
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <h4>{{texts.myBoxList}}</h4>
+        </div>
+    </div>
+
+
+    {{#boxList}}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">{{texts.boxId}}: {{boxId}}</h4>
+            <h4 class="panel-title">{{texts.name}}: {{name}}</h4>
+            <h4 class="panel-title">{{texts.username}}: {{username}}</h4>
+        </div>
+        <div class="panel-body">
+            {{texts.boxId}}: {{boxId}}<br>
+            {{texts.name}}: {{name}}<br>
+            {{texts.username}}: {{username}}<br>
+        </div>
+    </div>
+    {{/boxList}}
+    {{^boxList}}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{texts.emptyBoxList}}</h3>
+        </div>
+    </div>
+    {{/boxList}}
+
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-responsive">
+            <tr>
+                <th>{{texts.boxId}}</th>
+                <th>{{texts.name}}</th>
+                <th>{{texts.username}}</th>
+            </tr>
+            {{#boxList}}
+            <tr>
+                <td>{{boxId}}</td>
+                <td>{{name}}</td>
+                <td>{{username}}</td>
+            </tr>
+            {{/boxList}}
+            {{^boxList}}
+            <tr>
+                <td colspan="3">{{texts.emptyBoxList}}</td>
+            </tr>
+            {{/boxList}}
+        </table>
+    </div>
+
+
+
+</form>

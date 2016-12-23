@@ -96,7 +96,7 @@ class CardView {
             $('li.active span.badge').html('');
         }
         if (data.cardsForToday > 0 || App.cardView.goOnWithNewCards && data.newCards > 0) {
-            $.get('templates/cardTemplate.mst', function(template) {
+            $.get('templates/card/cardTemplate.mst', function(template) {
                 var rendered = Mustache.render(template, data);
                 $('.content-pane').html(rendered);
             });
@@ -113,7 +113,7 @@ class CardView {
             let activeItem = $('li.active i.fa');
             activeItem.removeClass('fa-pencil-square-o');
             activeItem.addClass('fa-check-square-o');
-            $.get('templates/cardTemplateNewCards.mst', function(template) {
+            $.get('templates/card/cardTemplateNewCards.mst', function(template) {
                 var rendered = Mustache.render(template, data);
                 $('.content-pane').html(rendered);
             });
@@ -121,7 +121,7 @@ class CardView {
             let activeItem = $('li.active i.fa');
             activeItem.removeClass('fa-pencil-square-o');
             activeItem.addClass('fa-check-square-o');
-            $.get('templates/cardTemplateFinished.mst', function(template) {
+            $.get('templates/card/cardTemplateFinished.mst', function(template) {
                 var rendered = Mustache.render(template, data);
                 $('.content-pane').html(rendered);
             });
@@ -130,7 +130,7 @@ class CardView {
     }
 
     static renderCardForRepetition() {
-        $.get('templates/cardRepetitionTemplate.mst', function(template) {
+        $.get('templates/card/cardRepetitionTemplate.mst', function(template) {
             var rendered = Mustache.render(template, App.cardView.boxRepetitionState.cards[App.cardView.boxRepetitionState.index]);
             $('.content-pane').html(rendered);
             App.cardView.boxRepetitionState.index++;
