@@ -14,12 +14,6 @@ models {
 		}
 	}
 
-	CourseId {
-		primitiveAttributes {
-			NotNull Integer courseId
-		}
-	}
-
 	LessonAbstract {
 		primitiveAttributes {
 			NotNull String lessonName
@@ -55,8 +49,8 @@ models {
 
 data {
 	LessonCreation : ( Lesson )
-	LessonList : (LessonList CourseId com.anfelisa.course.CourseAbstract)
-	MyLessonList: (MyLessonList com.anfelisa.user.Username CourseId com.anfelisa.course.CourseAbstract )
+	LessonList : (LessonList com.anfelisa.course.CourseId com.anfelisa.course.CourseAbstract)
+	MyLessonList: (MyLessonList com.anfelisa.user.Username com.anfelisa.course.CourseId com.anfelisa.course.CourseAbstract )
 }
 
 actions {

@@ -3,6 +3,7 @@ package com.anfelisa.user.models;
 import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.Update;
 
+import com.anfelisa.user.data.AddCoursesData;
 import com.anfelisa.user.data.UserUpdateData;
 
 public class CustomUserDao {
@@ -29,6 +30,15 @@ public class CustomUserDao {
 		statement.bind("prename", userModel.getPrename());
 		statement.bind("email", userModel.getEmail());
 		statement.execute();
+	}
+
+	public static void addCoursesToUser(Handle handle, AddCoursesData dataContainer, String schema) {
+		for (Integer courseId : dataContainer.getCourseIdList()) {
+			Update statement = handle.createStatement("INSERT INTO " + schema + ".studentofcourse (username, courseId) VALUES (:username, :courseId)");
+			statement.bind("username", dataContainer.getUsername());
+			statement.bind("courseId", courseId);
+			statement.execute();
+		}
 	}
 
 }

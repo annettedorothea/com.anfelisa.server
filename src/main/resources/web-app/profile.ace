@@ -5,6 +5,8 @@ target ES6
 actions {
 	OpenProfile executes OpenProfile
 	SaveProfile executes SaveProfile
+	OpenCourseSelection executes OpenCourseSelection
+	SaveCourseSelection executes SaveCourseSelection
 }
 commands {
 	OpenProfile {
@@ -16,12 +18,22 @@ commands {
 		on dataInvalid publishes ( common.Error )
 		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
+	OpenCourseSelection {
+		on coursesRead publishes ( CoursesLoaded )
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
+	SaveCourseSelection {
+		on saved triggers (common.Route)
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
 }
 events {
 	UserInfoLoaded listenedToBy ( UserInfo.renderUserInfo )
+	CoursesLoaded listenedToBy ( UserInfo.renderCourseSelection )
 }
 views {
 	UserInfo {
 		renderUserInfo
+		renderCourseSelection
 	}
 }

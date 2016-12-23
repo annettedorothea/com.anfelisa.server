@@ -40,14 +40,25 @@ models {
 			NotNull String username
 		}
 	} 
+	UsernameAndPassword {
+		primitiveAttributes {
+			NotNull String username
+			NotNull String password
+		}
+	} 
 	UserUpdate {
 		primitiveAttributes {
 			NotNull String username
 			NotNull String name
 			NotNull String prename
 			NotNull String email
-			String password
 			String language
+		}
+	}
+	CourseSelection {
+		primitiveAttributes {
+			String language
+			List Integer courseIdList
 		}
 	}
 }
@@ -56,8 +67,10 @@ data {
 	UserCreation : ( User )
 	Login : ( LoginLog Credentials )
 	Points : ( Points Credentials )
-	UserInfo : (User com.anfelisa.course.CourseList com.anfelisa.box.MyBoxList )
-	UserUpdate : (UserUpdate)
+	UserInfo : (User com.anfelisa.course.CourseList com.anfelisa.box.MyBoxList Username)
+	UserUpdate : (UserUpdate UsernameAndPassword)
+	CourseSelection : (com.anfelisa.course.CourseList Username)
+	AddCourses : (CourseSelection UsernameAndPassword)
 }
 
 actions {
@@ -66,6 +79,8 @@ actions {
 	GET GetPoints uses Points
 	GET GetUserInfo uses UserInfo
 	PUT UpdateUser uses UserUpdate executes UpdateUser
+	GET GetCourseSelection uses CourseSelection
+	POST AddCourses uses AddCourses executes AddCourses
 }
 
 commands {
@@ -78,18 +93,23 @@ commands {
 	UpdateUser uses UserUpdate {
 		on success publishes ( UserUpdated )
 	}
+	AddCourses uses AddCourses {
+		on success publishes (CoursesAdded)
+	}
 }
 
 events {
 	UserCreated uses UserCreation listenedToBy ( User.createUser	)
 	UserLoggedIn uses Login listenedToBy ( LoginLog.userLoggedIn )
 	UserUpdated uses UserUpdate listenedToBy (User.updateUser)
+	CoursesAdded uses AddCourses listenedToBy (User.addCourses)
 }
 
 views {
 	User {
 		createUser(UserCreation)
 		updateUser(UserUpdate)
+		addCourses(AddCourses)
 	}
 	LoginLog {
 		userLoggedIn(Login)

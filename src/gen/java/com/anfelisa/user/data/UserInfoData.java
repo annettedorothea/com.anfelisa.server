@@ -11,9 +11,10 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.user.models.IUserModel;
 import com.anfelisa.course.models.ICourseListModel;
 import com.anfelisa.box.models.IMyBoxListModel;
+import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")
-public class UserInfoData implements IUserModel, ICourseListModel, IMyBoxListModel, IDataContainer {
+public class UserInfoData implements IUserModel, ICourseListModel, IMyBoxListModel, IUsernameModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -42,6 +43,7 @@ public class UserInfoData implements IUserModel, ICourseListModel, IMyBoxListMod
 	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
 	
 	private java.util.List<com.anfelisa.box.models.IBoxModel> boxList;
+	
 	
 
 	public UserInfoData(
@@ -157,6 +159,7 @@ public class UserInfoData implements IUserModel, ICourseListModel, IMyBoxListMod
 	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxModel> boxList) {
 		this.boxList = boxList;
 	}
+	
 	
 
 	@JsonProperty

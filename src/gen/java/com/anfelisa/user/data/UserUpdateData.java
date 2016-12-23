@@ -9,9 +9,10 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IUserUpdateModel;
+import com.anfelisa.user.models.IUsernameAndPasswordModel;
 
 @SuppressWarnings("unused")
-public class UserUpdateData implements IUserUpdateModel, IDataContainer {
+public class UserUpdateData implements IUserUpdateModel, IUsernameAndPasswordModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -29,11 +30,13 @@ public class UserUpdateData implements IUserUpdateModel, IDataContainer {
 	@NotNull
 	private String email;
 	
-	private String password;
-	
 	private String language;
 	
+	@NotNull
+	private String password;
+	
 
+	
 	
 
 	public UserUpdateData(
@@ -41,8 +44,8 @@ public class UserUpdateData implements IUserUpdateModel, IDataContainer {
 		@JsonProperty("name") String name,
 		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
-		@JsonProperty("password") String password,
-		@JsonProperty("language") String language
+		@JsonProperty("language") String language,
+		@JsonProperty("password") String password
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -50,8 +53,8 @@ public class UserUpdateData implements IUserUpdateModel, IDataContainer {
 		this.name = name;
 		this.prename = prename;
 		this.email = email;
-		this.password = password;
 		this.language = language;
+		this.password = password;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -110,6 +113,18 @@ public class UserUpdateData implements IUserUpdateModel, IDataContainer {
 	}
 	
 	@JsonProperty
+	public String getLanguage() {
+		return this.language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	public UserUpdateData withLanguage(String language) {
+		this.language = language;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getPassword() {
 		return this.password;
 	}
@@ -121,17 +136,6 @@ public class UserUpdateData implements IUserUpdateModel, IDataContainer {
 		return this;
 	}
 	
-	@JsonProperty
-	public String getLanguage() {
-		return this.language;
-	}
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-	public UserUpdateData withLanguage(String language) {
-		this.language = language;
-		return this;
-	}
 	
 	
 

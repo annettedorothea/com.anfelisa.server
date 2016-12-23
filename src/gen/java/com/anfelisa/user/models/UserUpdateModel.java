@@ -19,8 +19,6 @@ public class UserUpdateModel implements IUserUpdateModel {
 	@NotNull
 	private String email;
 	
-	private String password;
-	
 	private String language;
 	
 
@@ -30,14 +28,12 @@ public class UserUpdateModel implements IUserUpdateModel {
 		@JsonProperty("name") String name,
 		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
-		@JsonProperty("password") String password,
 		@JsonProperty("language") String language
 	) {
 		this.username = username;
 		this.name = name;
 		this.prename = prename;
 		this.email = email;
-		this.password = password;
 		this.language = language;
 	}
 
@@ -71,14 +67,6 @@ public class UserUpdateModel implements IUserUpdateModel {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	
-	@JsonProperty
-	public String getPassword() {
-		return this.password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	
 	@JsonProperty

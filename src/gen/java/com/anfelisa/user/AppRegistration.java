@@ -16,6 +16,8 @@ public class AppRegistration {
 		environment.jersey().register(new GetPointsResource(jdbi));
 		environment.jersey().register(new GetUserInfoResource(jdbi));
 		environment.jersey().register(new UpdateUserResource(jdbi));
+		environment.jersey().register(new GetCourseSelectionResource(jdbi));
+		environment.jersey().register(new AddCoursesResource(jdbi));
 	}
 
 	public static void registerConsumers() {
@@ -25,6 +27,7 @@ public class AppRegistration {
 		AceController.addConsumer("UserCreatedEvent", userView.createUser);
 		AceController.addConsumer("UserLoggedInEvent", loginLogView.userLoggedIn);
 		AceController.addConsumer("UserUpdatedEvent", userView.updateUser);
+		AceController.addConsumer("CoursesAddedEvent", userView.addCourses);
     }
 }
 

@@ -6,7 +6,6 @@ public interface IUserUpdateModel {
 	String getName();
 	String getPrename();
 	String getEmail();
-	String getPassword();
 	String getLanguage();
 
 

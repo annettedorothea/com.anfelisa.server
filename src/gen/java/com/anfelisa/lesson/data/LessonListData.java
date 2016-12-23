@@ -9,7 +9,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.lesson.models.ILessonListModel;
-import com.anfelisa.lesson.models.ICourseIdModel;
+import com.anfelisa.course.models.ICourseIdModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
 
 @SuppressWarnings("unused")

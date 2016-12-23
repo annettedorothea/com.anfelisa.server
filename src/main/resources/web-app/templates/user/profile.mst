@@ -86,7 +86,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label"></label>
         <div class="col-sm-9">
-            <button class="btn btn-default" type="button" onclick="new SubscribeToCourses().apply()">
+            <button class="btn btn-default" type="button" onclick="new RouteAction( {'hash' : 'profile/courses'}).apply()">
                 {{texts.subscribe}}
             </button>
         </div>
@@ -117,7 +117,7 @@
                         <td>{{name}}</td>
                         <td class="text-center">
                             <button class="btn btn-default" onclick="new ToEditBoxAction( {'boxId' : '{{boxId}}'} ).apply()"><i
-                                    class="fa fa-pencil-square-o fa-lg"></i></button>
+                                    class="fa fa-cog fa-lg"></i></button>
                         </td>
                     </tr>
                     {{/boxList}}

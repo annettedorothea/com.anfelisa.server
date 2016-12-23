@@ -16,5 +16,7 @@
   "saveResultFailed" : "Das Ergebnis konnte nicht gespeichert werden.",
   "readProfileFailed" : "User-Info konnte nicht geladen werden.",
   "dataInvalid" : "Das Formular ist nicht richtig ausgefüllt.",
-  "saveProfileFailed" : "Profil konnte nicht gespeichert werden."
+  "saveProfileFailed" : "Profil konnte nicht gespeichert werden.",
+  "readProfileCoursesFailed" : "Kurse konnten nicht geladen werden.",
+  "addCoursesFailed" : "Kurse konnten nicht hinzugefügt werden."
 }

@@ -16,5 +16,8 @@
   "myBoxList" : "My boxes",
   "emptyBoxList" : "No boxes",
   "boxName" : "Name",
-  "newBox" : "New box"
+  "newBox" : "New box",
+  "noCoursesFound" : "No more courses found.",
+  "courseList" : "Available courses",
+  "cancel" : "Cancel"
 }

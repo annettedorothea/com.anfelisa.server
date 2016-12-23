@@ -69,6 +69,13 @@ models {
 		}
 	} 
 		
+	CourseId {
+		primitiveAttributes {
+			NotNull Integer courseId
+		}
+	}
+
+		
 	CourseList {
 		complexAttributes {
 			List Course courseList

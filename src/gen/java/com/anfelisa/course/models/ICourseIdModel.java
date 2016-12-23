@@ -1,4 +1,4 @@
-package com.anfelisa.lesson.models;
+package com.anfelisa.course.models;
 
 public interface ICourseIdModel {
 

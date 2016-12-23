@@ -26,6 +26,7 @@ commands {
 		on result publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadResult navigation.ReadBoxes )
 		on box publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes navigation.ReadNextCard )
 		on profile publishes (navigation.UserIsLoggedIn InitOK ) triggers ( profile.OpenProfile navigation.ReadPrivateCourses navigation.ReadBoxes )
+		on profileCourses publishes (navigation.UserIsLoggedIn InitOK ) triggers ( profile.OpenCourseSelection navigation.ReadPrivateCourses navigation.ReadBoxes )
 	}
 	Route {
 		on ok publishes ( UpdateHash ) triggers ( Init )

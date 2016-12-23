@@ -1,4 +1,4 @@
-package com.anfelisa.lesson.models;
+package com.anfelisa.course.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;

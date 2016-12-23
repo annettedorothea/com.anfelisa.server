@@ -3,7 +3,7 @@ package com.anfelisa.user.resources;
 import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -15,29 +15,29 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Resource;
-import com.anfelisa.user.actions.UpdateUserAction;
-import com.anfelisa.user.data.UserUpdateData;
+import com.anfelisa.user.actions.AddCoursesAction;
+import com.anfelisa.user.data.AddCoursesData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class UpdateUserResource extends Resource {
+public class AddCoursesResource extends Resource {
 
-	static final Logger LOG = LoggerFactory.getLogger(UpdateUserResource.class);
+	static final Logger LOG = LoggerFactory.getLogger(AddCoursesResource.class);
 
-	public UpdateUserResource( DBI jdbi ) {
+	public AddCoursesResource( DBI jdbi ) {
 		super(jdbi);
 	}
 
-	@PUT
+	@POST
 	@Timed
-	@Path("/update")
+	@Path("/courses")
 	@PermitAll
-	public Response put(@NotNull UserUpdateData userUpdateData) throws JsonProcessingException {
+	public Response post(@NotNull AddCoursesData addCoursesData) throws JsonProcessingException {
 		DatabaseHandle handle = this.createDatabaseHandle();
-		return new UpdateUserAction(userUpdateData, handle).apply();
+		return new AddCoursesAction(addCoursesData, handle).apply();
 	}
 
 }

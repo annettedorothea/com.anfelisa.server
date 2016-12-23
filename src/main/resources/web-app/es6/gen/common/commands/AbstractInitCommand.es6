@@ -14,6 +14,7 @@ class AbstractInitCommand extends Command {
         this.result = "result";
         this.box = "box";
         this.profile = "profile";
+        this.profileCourses = "profileCourses";
     }
 
     publishEvents() {
@@ -82,6 +83,13 @@ class AbstractInitCommand extends Command {
         	promises.push(new UserIsLoggedInEvent(this.commandData).publish());
         	promises.push(new InitOKEvent(this.commandData).publish());
         	promises.push(new TriggerAction(new OpenProfileAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new ReadPrivateCoursesAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
+        	break;
+        case this.profileCourses:
+        	promises.push(new UserIsLoggedInEvent(this.commandData).publish());
+        	promises.push(new InitOKEvent(this.commandData).publish());
+        	promises.push(new TriggerAction(new OpenCourseSelectionAction(this.commandData)).publish());
         	promises.push(new TriggerAction(new ReadPrivateCoursesAction(this.commandData)).publish());
         	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
         	break;

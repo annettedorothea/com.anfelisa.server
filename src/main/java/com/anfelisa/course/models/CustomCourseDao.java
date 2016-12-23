@@ -45,5 +45,14 @@ public class CustomCourseDao {
 				.bind("username", username)
 				.map(new CourseMapper()).first();
 	}
-	
+
+	public static List<ICourseModel> selectCourseSelection(Handle handle, String schema, String username) {
+		return handle
+				.createQuery("select * from ( select * from " + schema + ".course "
+						+ "EXCEPT "
+						+ "select c.* from " + schema + ".course c inner join " + schema + ".studentofcourse sc on sc.courseid = c.courseid where sc.username = :username) as courses order by sequence")
+				.bind("username", username).map(new CourseMapper()).list();
+	}
+
+
 }

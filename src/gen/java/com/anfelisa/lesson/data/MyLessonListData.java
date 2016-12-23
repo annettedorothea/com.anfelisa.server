@@ -10,7 +10,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.lesson.models.IMyLessonListModel;
 import com.anfelisa.user.models.IUsernameModel;
-import com.anfelisa.lesson.models.ICourseIdModel;
+import com.anfelisa.course.models.ICourseIdModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
 
 @SuppressWarnings("unused")

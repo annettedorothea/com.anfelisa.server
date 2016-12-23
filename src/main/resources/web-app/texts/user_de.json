@@ -16,5 +16,8 @@
   "myBoxList" : "Meine Lern-Boxen",
   "emptyBoxList" : "Keine Lern-Boxen vorhanden",
   "boxName" : "Name",
-  "newBox" : "Neue Lern-Box anlegen"
+  "newBox" : "Neue Lern-Box anlegen",
+  "noCoursesFound" : "Keine weiteren Kurse gefunden.",
+  "courseList" : "Verfügbare Kurse",
+  "cancel" : "Abbrechen"
 }
