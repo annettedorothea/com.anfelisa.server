@@ -27,14 +27,15 @@ public class BoxDao {
 		}
 	}
 	
-	public static void update(Handle handle, IBoxModel boxModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".box SET boxId = :boxId, name = :name, username = :username");
+	
+	public static void updateByBoxId(Handle handle, IBoxModel boxModel, String schema) {
+		Update statement = handle.createStatement("UPDATE " + schema + ".box SET boxId = :boxId, name = :name, username = :username WHERE boxId = :boxId");
 		statement.bind("boxId", boxModel.getBoxId());
-		statement.bind("name", boxModel.getName());
-		statement.bind("username", boxModel.getUsername());
+		statement.bind("name", boxModel.getBoxId());
+		statement.bind("username", boxModel.getBoxId());
 		statement.execute();
 	}
-	
+
 	public static void deleteByBoxId(Handle handle, Integer boxId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".box WHERE boxId = :boxId");
 		statement.bind("boxId", boxId);

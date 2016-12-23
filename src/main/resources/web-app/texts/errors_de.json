@@ -14,5 +14,7 @@
   "readNextCardFailed" : "Nächste Karte konnte nicht geladen werden.",
   "readLastResultFailed" : "Letztes Ergebnis konnte nicht geladen werden.",
   "saveResultFailed" : "Das Ergebnis konnte nicht gespeichert werden.",
-  "readProfileFailed" : "User-Info konnte nicht geladen werden."
+  "readProfileFailed" : "User-Info konnte nicht geladen werden.",
+  "dataInvalid" : "Das Formular ist nicht richtig ausgefüllt.",
+  "saveProfileFailed" : "Profil konnte nicht gespeichert werden."
 }

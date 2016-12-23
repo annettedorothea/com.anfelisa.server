@@ -18,4 +18,6 @@ class EventListenerRegistrationCommon {
 
 }
 
+EventListenerRegistrationCommon.init();
+
 /*       S.D.G.       */

@@ -40,6 +40,16 @@ models {
 			NotNull String username
 		}
 	} 
+	UserUpdate {
+		primitiveAttributes {
+			NotNull String username
+			NotNull String name
+			NotNull String prename
+			NotNull String email
+			String password
+			String language
+		}
+	}
 }
 
 data {
@@ -47,6 +57,7 @@ data {
 	Login : ( LoginLog Credentials )
 	Points : ( Points Credentials )
 	UserInfo : (User com.anfelisa.course.CourseList com.anfelisa.box.MyBoxList )
+	UserUpdate : (UserUpdate)
 }
 
 actions {
@@ -54,6 +65,7 @@ actions {
 	POST Login uses Login executes Login
 	GET GetPoints uses Points
 	GET GetUserInfo uses UserInfo
+	PUT UpdateUser uses UserUpdate executes UpdateUser
 }
 
 commands {
@@ -63,16 +75,21 @@ commands {
 	Login uses Login {
 		on success publishes (UserLoggedIn)
 	}
+	UpdateUser uses UserUpdate {
+		on success publishes ( UserUpdated )
+	}
 }
 
 events {
 	UserCreated uses UserCreation listenedToBy ( User.createUser	)
 	UserLoggedIn uses Login listenedToBy ( LoginLog.userLoggedIn )
+	UserUpdated uses UserUpdate listenedToBy (User.updateUser)
 }
 
 views {
 	User {
 		createUser(UserCreation)
+		updateUser(UserUpdate)
 	}
 	LoginLog {
 		userLoggedIn(Login)

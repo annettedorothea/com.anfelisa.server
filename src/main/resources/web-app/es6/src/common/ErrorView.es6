@@ -15,8 +15,9 @@ class ErrorView {
     };
     
     static renderError(data) {
+        data.message = Texts.errors[data.messageKey];
         $.get('templates/common/errorTemplate.mst', function(template) {
-            var rendered = Mustache.render(template, data.message);
+            var rendered = Mustache.render(template, data);
             $('.notifications').html(rendered);
         });
         window.setTimeout(function () {

@@ -33,17 +33,18 @@ public class LessonDao {
 		}
 	}
 	
-	public static void update(Handle handle, ILessonModel lessonModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".lesson SET lessonId = :lessonId, name = :name, description = :description, sequence = :sequence, courseId = :courseId, author = :author");
+	
+	public static void updateByLessonId(Handle handle, ILessonModel lessonModel, String schema) {
+		Update statement = handle.createStatement("UPDATE " + schema + ".lesson SET lessonId = :lessonId, name = :name, description = :description, sequence = :sequence, courseId = :courseId, author = :author WHERE lessonId = :lessonId");
 		statement.bind("lessonId", lessonModel.getLessonId());
-		statement.bind("name", lessonModel.getName());
-		statement.bind("description", lessonModel.getDescription());
-		statement.bind("sequence", lessonModel.getSequence());
-		statement.bind("courseId", lessonModel.getCourseId());
-		statement.bind("author", lessonModel.getAuthor());
+		statement.bind("name", lessonModel.getLessonId());
+		statement.bind("description", lessonModel.getLessonId());
+		statement.bind("sequence", lessonModel.getLessonId());
+		statement.bind("courseId", lessonModel.getLessonId());
+		statement.bind("author", lessonModel.getLessonId());
 		statement.execute();
 	}
-	
+
 	public static void deleteByLessonId(Handle handle, Integer lessonId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".lesson WHERE lessonId = :lessonId");
 		statement.bind("lessonId", lessonId);

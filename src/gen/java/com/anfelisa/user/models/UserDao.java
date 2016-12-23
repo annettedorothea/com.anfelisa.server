@@ -32,17 +32,18 @@ public class UserDao {
 		}
 	}
 	
-	public static void update(Handle handle, IUserModel userModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".user SET username = :username, password = :password, name = :name, prename = :prename, email = :email, role = :role");
+	
+	public static void updateByUsername(Handle handle, IUserModel userModel, String schema) {
+		Update statement = handle.createStatement("UPDATE " + schema + ".user SET username = :username, password = :password, name = :name, prename = :prename, email = :email, role = :role WHERE username = :username");
 		statement.bind("username", userModel.getUsername());
-		statement.bind("password", userModel.getPassword());
-		statement.bind("name", userModel.getName());
-		statement.bind("prename", userModel.getPrename());
-		statement.bind("email", userModel.getEmail());
-		statement.bind("role", userModel.getRole());
+		statement.bind("password", userModel.getUsername());
+		statement.bind("name", userModel.getUsername());
+		statement.bind("prename", userModel.getUsername());
+		statement.bind("email", userModel.getUsername());
+		statement.bind("role", userModel.getUsername());
 		statement.execute();
 	}
-	
+
 	public static void deleteByUsername(Handle handle, String username, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".user WHERE username = :username");
 		statement.bind("username", username);

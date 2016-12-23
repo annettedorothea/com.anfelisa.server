@@ -31,16 +31,17 @@ public class CardDao {
 		}
 	}
 	
-	public static void update(Handle handle, ICardModel cardModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".card SET cardId = :cardId, content = :content, testId = :testId, contentHash = :contentHash, maxPoints = :maxPoints");
+	
+	public static void updateByCardId(Handle handle, ICardModel cardModel, String schema) {
+		Update statement = handle.createStatement("UPDATE " + schema + ".card SET cardId = :cardId, content = :content, testId = :testId, contentHash = :contentHash, maxPoints = :maxPoints WHERE cardId = :cardId");
 		statement.bind("cardId", cardModel.getCardId());
-		statement.bind("content", cardModel.getContent());
-		statement.bind("testId", cardModel.getTestId());
-		statement.bind("contentHash", cardModel.getContentHash());
-		statement.bind("maxPoints", cardModel.getMaxPoints());
+		statement.bind("content", cardModel.getCardId());
+		statement.bind("testId", cardModel.getCardId());
+		statement.bind("contentHash", cardModel.getCardId());
+		statement.bind("maxPoints", cardModel.getCardId());
 		statement.execute();
 	}
-	
+
 	public static void deleteByCardId(Handle handle, Integer cardId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".card WHERE cardId = :cardId");
 		statement.bind("cardId", cardId);

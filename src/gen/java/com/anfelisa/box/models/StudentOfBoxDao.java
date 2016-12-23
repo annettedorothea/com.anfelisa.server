@@ -27,14 +27,15 @@ public class StudentOfBoxDao {
 		}
 	}
 	
-	public static void update(Handle handle, IStudentOfBoxModel studentOfBoxModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".studentofbox SET studentOfBoxId = :studentOfBoxId, name = :name, username = :username");
+	
+	public static void updateByStudentOfBoxId(Handle handle, IStudentOfBoxModel studentOfBoxModel, String schema) {
+		Update statement = handle.createStatement("UPDATE " + schema + ".studentofbox SET studentOfBoxId = :studentOfBoxId, name = :name, username = :username WHERE studentOfBoxId = :studentOfBoxId");
 		statement.bind("studentOfBoxId", studentOfBoxModel.getStudentOfBoxId());
-		statement.bind("name", studentOfBoxModel.getName());
-		statement.bind("username", studentOfBoxModel.getUsername());
+		statement.bind("name", studentOfBoxModel.getStudentOfBoxId());
+		statement.bind("username", studentOfBoxModel.getStudentOfBoxId());
 		statement.execute();
 	}
-	
+
 	public static void deleteByStudentOfBoxId(Handle handle, Integer studentOfBoxId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".studentofbox WHERE studentOfBoxId = :studentOfBoxId");
 		statement.bind("studentOfBoxId", studentOfBoxId);

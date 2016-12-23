@@ -41,21 +41,22 @@ public class CardOfBoxDao {
 		}
 	}
 	
-	public static void update(Handle handle, ICardOfBoxModel cardOfBoxModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".cardofbox SET cardOfBoxId = :cardOfBoxId, cardId = :cardId, ef = :ef, interval = :interval, count = :count, date = :date, boxId = :boxId, quality = :quality, timestamp = :timestamp, points = :points");
+	
+	public static void updateByCardOfBoxId(Handle handle, ICardOfBoxModel cardOfBoxModel, String schema) {
+		Update statement = handle.createStatement("UPDATE " + schema + ".cardofbox SET cardOfBoxId = :cardOfBoxId, cardId = :cardId, ef = :ef, interval = :interval, count = :count, date = :date, boxId = :boxId, quality = :quality, timestamp = :timestamp, points = :points WHERE cardOfBoxId = :cardOfBoxId");
 		statement.bind("cardOfBoxId", cardOfBoxModel.getCardOfBoxId());
-		statement.bind("cardId", cardOfBoxModel.getCardId());
-		statement.bind("ef", cardOfBoxModel.getEf());
-		statement.bind("interval", cardOfBoxModel.getInterval());
-		statement.bind("count", cardOfBoxModel.getCount());
-		statement.bind("date", cardOfBoxModel.getDate());
-		statement.bind("boxId", cardOfBoxModel.getBoxId());
-		statement.bind("quality", cardOfBoxModel.getQuality());
-		statement.bind("timestamp", cardOfBoxModel.getTimestamp());
-		statement.bind("points", cardOfBoxModel.getPoints());
+		statement.bind("cardId", cardOfBoxModel.getCardOfBoxId());
+		statement.bind("ef", cardOfBoxModel.getCardOfBoxId());
+		statement.bind("interval", cardOfBoxModel.getCardOfBoxId());
+		statement.bind("count", cardOfBoxModel.getCardOfBoxId());
+		statement.bind("date", cardOfBoxModel.getCardOfBoxId());
+		statement.bind("boxId", cardOfBoxModel.getCardOfBoxId());
+		statement.bind("quality", cardOfBoxModel.getCardOfBoxId());
+		statement.bind("timestamp", cardOfBoxModel.getCardOfBoxId());
+		statement.bind("points", cardOfBoxModel.getCardOfBoxId());
 		statement.execute();
 	}
-	
+
 	public static void deleteByCardOfBoxId(Handle handle, Integer cardOfBoxId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".cardofbox WHERE cardOfBoxId = :cardOfBoxId");
 		statement.bind("cardOfBoxId", cardOfBoxId);

@@ -19,13 +19,6 @@ public class BoxOfCourseDao {
 		statement.execute();
 	}
 	
-	public static void update(Handle handle, IBoxOfCourseModel boxOfCourseModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".boxofcourse SET boxId = :boxId, courseId = :courseId, autoAdd = :autoAdd");
-		statement.bind("boxId", boxOfCourseModel.getBoxId());
-		statement.bind("courseId", boxOfCourseModel.getCourseId());
-		statement.bind("autoAdd", boxOfCourseModel.getAutoAdd());
-		statement.execute();
-	}
 	
 	
 	public static List<IBoxOfCourseModel> selectAll(Handle handle, String schema) {

@@ -35,18 +35,19 @@ public class ResultDao {
 		}
 	}
 	
-	public static void update(Handle handle, IResultModel resultModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".result SET resultId = :resultId, username = :username, testId = :testId, date = :date, json = :json, points = :points, maxPoints = :maxPoints");
+	
+	public static void updateByResultId(Handle handle, IResultModel resultModel, String schema) {
+		Update statement = handle.createStatement("UPDATE " + schema + ".result SET resultId = :resultId, username = :username, testId = :testId, date = :date, json = :json, points = :points, maxPoints = :maxPoints WHERE resultId = :resultId");
 		statement.bind("resultId", resultModel.getResultId());
-		statement.bind("username", resultModel.getUsername());
-		statement.bind("testId", resultModel.getTestId());
-		statement.bind("date", resultModel.getDate());
-		statement.bind("json", resultModel.getJson());
-		statement.bind("points", resultModel.getPoints());
-		statement.bind("maxPoints", resultModel.getMaxPoints());
+		statement.bind("username", resultModel.getResultId());
+		statement.bind("testId", resultModel.getResultId());
+		statement.bind("date", resultModel.getResultId());
+		statement.bind("json", resultModel.getResultId());
+		statement.bind("points", resultModel.getResultId());
+		statement.bind("maxPoints", resultModel.getResultId());
 		statement.execute();
 	}
-	
+
 	public static void deleteByResultId(Handle handle, Integer resultId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".result WHERE resultId = :resultId");
 		statement.bind("resultId", resultId);

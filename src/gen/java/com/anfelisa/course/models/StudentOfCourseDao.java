@@ -18,12 +18,6 @@ public class StudentOfCourseDao {
 		statement.execute();
 	}
 	
-	public static void update(Handle handle, IStudentOfCourseModel studentOfCourseModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".studentofcourse SET username = :username, courseId = :courseId");
-		statement.bind("username", studentOfCourseModel.getUsername());
-		statement.bind("courseId", studentOfCourseModel.getCourseId());
-		statement.execute();
-	}
 	
 	
 	public static List<IStudentOfCourseModel> selectAll(Handle handle, String schema) {

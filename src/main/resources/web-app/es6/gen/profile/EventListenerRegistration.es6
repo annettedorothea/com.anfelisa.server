@@ -8,4 +8,6 @@ class EventListenerRegistrationProfile {
 
 }
 
+EventListenerRegistrationProfile.init();
+
 /*       S.D.G.       */

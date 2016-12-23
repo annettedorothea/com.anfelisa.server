@@ -14,4 +14,6 @@ class EventListenerRegistrationVocabulary {
 
 }
 
+EventListenerRegistrationVocabulary.init();
+
 /*       S.D.G.       */

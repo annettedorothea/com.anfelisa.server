@@ -6,12 +6,6 @@
 
 function initApp() {
 
-    ACEController.init();
-    EventListenerRegistrationCommon.init();
-    EventListenerRegistrationNavigation.init();
-    EventListenerRegistrationVocabulary.init();
-    EventListenerRegistrationCard.init();
-    EventListenerRegistrationProfile.init();
     if (!window.urlPrefix) {
         window.urlPrefix = "http://localhost:8080/";
     }

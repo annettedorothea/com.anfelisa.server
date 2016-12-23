@@ -5,6 +5,8 @@ import java.util.function.BiConsumer;
 import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.user.data.UserCreationData;
+import com.anfelisa.user.data.UserUpdateData;
+import com.anfelisa.user.models.CustomUserDao;
 import com.anfelisa.user.models.UserDao;
 
 public class UserView {
@@ -13,6 +15,10 @@ public class UserView {
 		UserDao.insert(handle, dataContainer, dataContainer.getSchema());
 	};
 
+	public BiConsumer<UserUpdateData, Handle> updateUser = (dataContainer, handle) -> {
+		CustomUserDao.update(handle, dataContainer, dataContainer.getSchema());
+	};
+	
 }
 
 /*                    S.D.G.                    */

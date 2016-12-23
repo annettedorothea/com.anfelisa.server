@@ -248,5 +248,7 @@ class ACEController {
 
 }
 
+ACEController.init();
+
 /*       S.D.G.       */
 

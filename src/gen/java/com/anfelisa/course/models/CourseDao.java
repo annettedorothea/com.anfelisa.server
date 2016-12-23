@@ -33,17 +33,18 @@ public class CourseDao {
 		}
 	}
 	
-	public static void update(Handle handle, ICourseModel courseModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".course SET courseId = :courseId, name = :name, description = :description, sequence = :sequence, isPublic = :isPublic, author = :author");
+	
+	public static void updateByCourseId(Handle handle, ICourseModel courseModel, String schema) {
+		Update statement = handle.createStatement("UPDATE " + schema + ".course SET courseId = :courseId, name = :name, description = :description, sequence = :sequence, isPublic = :isPublic, author = :author WHERE courseId = :courseId");
 		statement.bind("courseId", courseModel.getCourseId());
-		statement.bind("name", courseModel.getName());
-		statement.bind("description", courseModel.getDescription());
-		statement.bind("sequence", courseModel.getSequence());
-		statement.bind("isPublic", courseModel.getIsPublic());
-		statement.bind("author", courseModel.getAuthor());
+		statement.bind("name", courseModel.getCourseId());
+		statement.bind("description", courseModel.getCourseId());
+		statement.bind("sequence", courseModel.getCourseId());
+		statement.bind("isPublic", courseModel.getCourseId());
+		statement.bind("author", courseModel.getCourseId());
 		statement.execute();
 	}
-	
+
 	public static void deleteByCourseId(Handle handle, Integer courseId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".course WHERE courseId = :courseId");
 		statement.bind("courseId", courseId);

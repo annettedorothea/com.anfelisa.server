@@ -38,6 +38,16 @@
         </div>
     </div>
 
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <button class="btn btn-default" type="button" onclick="new SaveProfileAction().apply()">
+                {{texts.save}}
+            </button>
+        </div>
+    </div>
+
+
 </form>
 
 
@@ -50,32 +60,36 @@
         </div>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover table-responsive">
-            <tr>
-                <th>{{texts.courseId}}</th>
-                <th>{{texts.name}}</th>
-                <th>{{texts.description}}</th>
-                <th>{{texts.sequence}}</th>
-                <th>{{texts.isPublic}}</th>
-                <th>{{texts.author}}</th>
-            </tr>
-            {{#courseList}}
-            <tr>
-                <td>{{courseId}}</td>
-                <td>{{name}}</td>
-                <td>{{description}}</td>
-                <td>{{sequence}}</td>
-                <td>{{isPublic}}</td>
-                <td>{{author}}</td>
-            </tr>
-            {{/courseList}}
-            {{^courseList}}
-            <tr>
-                <td colspan="6">{{texts.emptyCourseList}}</td>
-            </tr>
-            {{/courseList}}
-        </table>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-responsive">
+                    <tr>
+                        <th>{{texts.courseName}}</th>
+                    </tr>
+                    {{#courseList}}
+                    <tr>
+                        <td>{{name}}</td>
+                    </tr>
+                    {{/courseList}}
+                    {{^courseList}}
+                    <tr>
+                        <td colspan="6">{{texts.emptyCourseList}}</td>
+                    </tr>
+                    {{/courseList}}
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <button class="btn btn-default" type="button" onclick="new SubscribeToCourses().apply()">
+                {{texts.subscribe}}
+            </button>
+        </div>
     </div>
 
 </form>
@@ -89,51 +103,43 @@
         </div>
     </div>
 
-
-    {{#boxList}}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">{{texts.boxId}}: {{boxId}}</h4>
-            <h4 class="panel-title">{{texts.name}}: {{name}}</h4>
-            <h4 class="panel-title">{{texts.username}}: {{username}}</h4>
-        </div>
-        <div class="panel-body">
-            {{texts.boxId}}: {{boxId}}<br>
-            {{texts.name}}: {{name}}<br>
-            {{texts.username}}: {{username}}<br>
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-responsive">
+                    <tr>
+                        <th>{{texts.boxName}}</th>
+                        <th></th>
+                    </tr>
+                    {{#boxList}}
+                    <tr>
+                        <td>{{name}}</td>
+                        <td class="text-center">
+                            <button class="btn btn-default" onclick="new ToEditBoxAction( {'boxId' : '{{boxId}}'} ).apply()"><i
+                                    class="fa fa-pencil-square-o fa-lg"></i></button>
+                        </td>
+                    </tr>
+                    {{/boxList}}
+                    {{^boxList}}
+                    <tr>
+                        <td colspan="3">{{texts.emptyBoxList}}</td>
+                    </tr>
+                    {{/boxList}}
+                </table>
+            </div>
         </div>
     </div>
-    {{/boxList}}
-    {{^boxList}}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{texts.emptyBoxList}}</h3>
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <button class="btn btn-default" type="button" onclick="new NewBoxAction().apply()">
+                {{texts.newBox}}
+            </button>
         </div>
     </div>
-    {{/boxList}}
 
-
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover table-responsive">
-            <tr>
-                <th>{{texts.boxId}}</th>
-                <th>{{texts.name}}</th>
-                <th>{{texts.username}}</th>
-            </tr>
-            {{#boxList}}
-            <tr>
-                <td>{{boxId}}</td>
-                <td>{{name}}</td>
-                <td>{{username}}</td>
-            </tr>
-            {{/boxList}}
-            {{^boxList}}
-            <tr>
-                <td colspan="3">{{texts.emptyBoxList}}</td>
-            </tr>
-            {{/boxList}}
-        </table>
-    </div>
 
 
 

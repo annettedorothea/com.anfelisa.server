@@ -7,5 +7,14 @@
   "email" : "Email",
   "nameNotEmpty" : "Lastname must be given.",
   "prenameNotEmpty" : "Prename must be given.",
-  "emailNotEmpty" : "Email must be given."
+  "emailNotEmpty" : "Email must be given.",
+  "save": "Save",
+  "myCourseList" : "May courses",
+  "courseName" : "Name",
+  "emptyCourseList" : "No courses",
+  "subscribe" : "Subscribe to other courses",
+  "myBoxList" : "My boxes",
+  "emptyBoxList" : "No boxes",
+  "boxName" : "Name",
+  "newBox" : "New box"
 }

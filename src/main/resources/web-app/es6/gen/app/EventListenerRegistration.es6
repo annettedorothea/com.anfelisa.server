@@ -78,4 +78,6 @@ class EventListenerRegistrationApp {
 
 }
 
+EventListenerRegistrationApp.init();
+
 /*       S.D.G.       */

@@ -7,5 +7,14 @@
   "email" : "Email",
   "nameNotEmpty" : "Nachname muss angegeben werden.",
   "prenameNotEmpty" : "Vorname muss angegeben werden.",
-  "emailNotEmpty" : "Email muss angegeben werden."
+  "emailNotEmpty" : "Email muss angegeben werden.",
+  "save" : "Speichern",
+  "myCourseList" : "Meine Kurse",
+  "courseName" : "Name",
+  "emptyCourseList" : "Keine Kurse vorhanden",
+  "subscribe" : "Bei anderen Kursen anmelden",
+  "myBoxList" : "Meine Lern-Boxen",
+  "emptyBoxList" : "Keine Lern-Boxen vorhanden",
+  "boxName" : "Name",
+  "newBox" : "Neue Lern-Box anlegen"
 }

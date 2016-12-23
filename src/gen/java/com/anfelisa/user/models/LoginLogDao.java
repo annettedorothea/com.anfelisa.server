@@ -27,14 +27,15 @@ public class LoginLogDao {
 		}
 	}
 	
-	public static void update(Handle handle, ILoginLogModel loginLogModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".loginlog SET loginLogId = :loginLogId, username = :username, date = :date");
+	
+	public static void updateByLoginLogId(Handle handle, ILoginLogModel loginLogModel, String schema) {
+		Update statement = handle.createStatement("UPDATE " + schema + ".loginlog SET loginLogId = :loginLogId, username = :username, date = :date WHERE loginLogId = :loginLogId");
 		statement.bind("loginLogId", loginLogModel.getLoginLogId());
-		statement.bind("username", loginLogModel.getUsername());
-		statement.bind("date", loginLogModel.getDate());
+		statement.bind("username", loginLogModel.getLoginLogId());
+		statement.bind("date", loginLogModel.getLoginLogId());
 		statement.execute();
 	}
-	
+
 	public static void deleteByLoginLogId(Handle handle, Integer loginLogId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".loginlog WHERE loginLogId = :loginLogId");
 		statement.bind("loginLogId", loginLogId);

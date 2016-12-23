@@ -4,10 +4,16 @@ target ES6
 
 actions {
 	OpenProfile executes OpenProfile
+	SaveProfile executes SaveProfile
 }
 commands {
 	OpenProfile {
 		on userInfoRead publishes (UserInfoLoaded)
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
+	SaveProfile {
+		on saved triggers (common.Route)
+		on dataInvalid publishes ( common.Error )
 		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
 }

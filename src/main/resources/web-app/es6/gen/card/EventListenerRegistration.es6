@@ -12,4 +12,6 @@ class EventListenerRegistrationCard {
 
 }
 
+EventListenerRegistrationCard.init();
+
 /*       S.D.G.       */

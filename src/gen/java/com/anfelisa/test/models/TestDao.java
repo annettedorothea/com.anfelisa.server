@@ -33,17 +33,18 @@ public class TestDao {
 		}
 	}
 	
-	public static void update(Handle handle, ITestModel testModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".test SET testId = :testId, name = :name, sequence = :sequence, lessonId = :lessonId, html = :html, author = :author");
+	
+	public static void updateByTestId(Handle handle, ITestModel testModel, String schema) {
+		Update statement = handle.createStatement("UPDATE " + schema + ".test SET testId = :testId, name = :name, sequence = :sequence, lessonId = :lessonId, html = :html, author = :author WHERE testId = :testId");
 		statement.bind("testId", testModel.getTestId());
-		statement.bind("name", testModel.getName());
-		statement.bind("sequence", testModel.getSequence());
-		statement.bind("lessonId", testModel.getLessonId());
-		statement.bind("html", testModel.getHtml());
-		statement.bind("author", testModel.getAuthor());
+		statement.bind("name", testModel.getTestId());
+		statement.bind("sequence", testModel.getTestId());
+		statement.bind("lessonId", testModel.getTestId());
+		statement.bind("html", testModel.getTestId());
+		statement.bind("author", testModel.getTestId());
 		statement.execute();
 	}
-	
+
 	public static void deleteByTestId(Handle handle, Integer testId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".test WHERE testId = :testId");
 		statement.bind("testId", testId);

@@ -40,4 +40,6 @@ class EventListenerRegistrationNavigation {
 
 }
 
+EventListenerRegistrationNavigation.init();
+
 /*       S.D.G.       */
