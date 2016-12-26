@@ -15,6 +15,9 @@ class AbstractInitCommand extends Command {
         this.box = "box";
         this.profile = "profile";
         this.profileCourses = "profileCourses";
+        this.profileBoxCreate = "profileBoxCreate";
+        this.profileBoxEdit = "profileBoxEdit";
+        this.profileCourseAdd = "profileCourseAdd";
     }
 
     publishEvents() {
@@ -92,6 +95,27 @@ class AbstractInitCommand extends Command {
         	promises.push(new TriggerAction(new OpenCourseSelectionAction(this.commandData)).publish());
         	promises.push(new TriggerAction(new ReadPrivateCoursesAction(this.commandData)).publish());
         	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
+        	break;
+        case this.profileBoxCreate:
+        	promises.push(new UserIsLoggedInEvent(this.commandData).publish());
+        	promises.push(new InitOKEvent(this.commandData).publish());
+        	promises.push(new TriggerAction(new ReadPrivateCoursesAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new OpenBoxCreationAction(this.commandData)).publish());
+        	break;
+        case this.profileBoxEdit:
+        	promises.push(new UserIsLoggedInEvent(this.commandData).publish());
+        	promises.push(new InitOKEvent(this.commandData).publish());
+        	promises.push(new TriggerAction(new ReadPrivateCoursesAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new LoadBoxAction(this.commandData)).publish());
+        	break;
+        case this.profileCourseAdd:
+        	promises.push(new UserIsLoggedInEvent(this.commandData).publish());
+        	promises.push(new InitOKEvent(this.commandData).publish());
+        	promises.push(new TriggerAction(new ReadPrivateCoursesAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new LoadCoursesAction(this.commandData)).publish());
         	break;
     	default:
     		throw 'unhandled outcome: ' + this.commandData.outcome;

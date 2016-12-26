@@ -18,5 +18,9 @@
   "dataInvalid" : "Das Formular ist nicht richtig ausgefüllt.",
   "saveProfileFailed" : "Profil konnte nicht gespeichert werden.",
   "readProfileCoursesFailed" : "Kurse konnten nicht geladen werden.",
-  "addCoursesFailed" : "Kurse konnten nicht hinzugefügt werden."
+  "addCoursesFailed" : "Kurse konnten nicht hinzugefügt werden.",
+  "readProfileBoxesFailed" : "Kurse konnten nicht geladen werden.",
+  "saveBoxFailed" : "Lern-Box konnte nicht gespeichert werden.",
+  "readBoxFailed" : "Lern-Box konnte nicht geladen werden.",
+  "readCoursesOfBoxFailed" : "Kurse konnten nicht geladen werden."
 }

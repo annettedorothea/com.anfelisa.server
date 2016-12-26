@@ -7,6 +7,10 @@ actions {
 	SaveProfile executes SaveProfile
 	OpenCourseSelection executes OpenCourseSelection
 	SaveCourseSelection executes SaveCourseSelection
+	SaveBox executes SaveBox
+	LoadBox executes LoadBox
+	OpenBoxCreation executes OpenBoxCreation
+	LoadCourses executes LoadCourses
 }
 commands {
 	OpenProfile {
@@ -26,14 +30,36 @@ commands {
 		on saved triggers (common.Route)
 		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
+	SaveBox {
+		on saved triggers (common.Route)
+		on dataInvalid publishes ( common.Error )
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
+	LoadBox {
+		on loaded publishes ( RenderBox )
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
+	OpenBoxCreation {
+		on ok publishes (RenderBox)
+	}
+	LoadCourses {
+		on loaded publishes ( RenderCourseToBox )
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
 }
 events {
 	UserInfoLoaded listenedToBy ( UserInfo.renderUserInfo )
 	CoursesLoaded listenedToBy ( UserInfo.renderCourseSelection )
+	RenderBox listenedToBy ( UserInfo.renderBox )
+	RenderCourseToBox listenedToBy ( UserInfo.renderCourseToBox )
 }
 views {
 	UserInfo {
 		renderUserInfo
 		renderCourseSelection
+		boxCreated
+		boxEdited
+		renderBox
+		renderCourseToBox
 	}
 }

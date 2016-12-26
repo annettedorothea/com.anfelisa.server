@@ -262,7 +262,7 @@ public class MigrationResource extends Resource {
 					student = "Annette";
 				}
 				String uuid = UUID.randomUUID().toString();
-				BoxCreationData boxCreationData = new BoxCreationData(id, name, student, uuid, schema);
+				BoxCreationData boxCreationData = new BoxCreationData(id, name, student, "", uuid, schema);
 				new CreateBoxAction(boxCreationData, this.createDatabaseHandle()).apply();
 			}
 			rs.close();

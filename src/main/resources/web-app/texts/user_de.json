@@ -19,5 +19,9 @@
   "newBox" : "Neue Lern-Box anlegen",
   "noCoursesFound" : "Keine weiteren Kurse gefunden.",
   "courseList" : "Verfügbare Kurse",
-  "cancel" : "Abbrechen"
+  "cancel" : "Abbrechen",
+  "addAfterEdit" : "Nach Bearbeiten hinzufügen",
+  "addAll" : "Alle sofort hinzufügen",
+  "boxNameNotEmpty" : "Lern-Box muss einen Namen haben.",
+  "coursesToAdd" : "Kurse"
 }

@@ -27,6 +27,9 @@ commands {
 		on box publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes navigation.ReadNextCard )
 		on profile publishes (navigation.UserIsLoggedIn InitOK ) triggers ( profile.OpenProfile navigation.ReadPrivateCourses navigation.ReadBoxes )
 		on profileCourses publishes (navigation.UserIsLoggedIn InitOK ) triggers ( profile.OpenCourseSelection navigation.ReadPrivateCourses navigation.ReadBoxes )
+		on profileBoxCreate publishes(navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.OpenBoxCreation )
+		on profileBoxEdit publishes(navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.LoadBox )
+		on profileCourseAdd publishes(navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.LoadCourses )
 	}
 	Route {
 		on ok publishes ( UpdateHash ) triggers ( Init )

@@ -6,6 +6,7 @@ import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.box.data.BoxCreationData;
 import com.anfelisa.box.models.BoxDao;
+import com.anfelisa.box.models.CustomBoxDao;
 
 public class BoxView {
 
@@ -14,6 +15,11 @@ public class BoxView {
 		BoxDao.insert(handle, dataContainer, dataContainer.getSchema());
 	};
 
+	public BiConsumer<BoxCreationData, Handle> updateBox = (dataContainer, handle) -> {
+		// update view
+		CustomBoxDao.updateBox(handle, dataContainer, dataContainer.getSchema());
+	};
+	
 }
 
 /*                    S.D.G.                    */

@@ -4,6 +4,7 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
+import com.anfelisa.box.data.BoxOfCourseListData;
 import com.anfelisa.box.data.BoxToCourseAdditionData;
 import com.anfelisa.box.models.BoxOfCourseDao;
 
@@ -13,6 +14,10 @@ public class BoxToCourseView {
 		BoxOfCourseDao.insert(handle, dataContainer, dataContainer.getSchema());
 	};
 
+	public BiConsumer<BoxOfCourseListData, Handle> addCoursesToBox = (dataContainer, handle) -> {
+		//BoxOfCourseDao.insert(handle, dataContainer, dataContainer.getSchema());
+	};
+	
 }
 
 /*                    S.D.G.                    */

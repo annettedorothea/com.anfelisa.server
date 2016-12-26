@@ -1,17 +1,13 @@
 package com.anfelisa.user.actions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.box.models.BoxInfoModel;
 import com.anfelisa.box.models.CustomBoxDao;
-import com.anfelisa.box.models.IBoxInfoModel;
 import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.ICardOfBoxModel;
 import com.anfelisa.course.models.CustomCourseDao;
 import com.anfelisa.course.models.ICourseModel;
 import com.anfelisa.user.data.UserInfoData;

@@ -19,14 +19,6 @@ models {
 		}
 	}
 
-	persistent StudentOfBox {
-		primitiveAttributes {
-			Unique PrimaryKey NotNull Serial studentOfBoxId
-			NotNull String name
-			NotNull String username references com.anfelisa.user.User.username
-		}
-	}
-
 	persistent Card {
 		primitiveAttributes {
 			Unique PrimaryKey NotNull Serial cardId
@@ -118,15 +110,37 @@ models {
 			List String words
 		}
 	}
+	
+	CourseToBoxAddition {
+		primitiveAttributes {
+			NotNull Integer boxId 
+			NotNull Integer courseId 
+			NotNull Boolean autoAdd
+			NotNull String name
+		}
+		
+	}
+	
+	CourseToBoxAdditionList {
+		primitiveAttributes {
+			NotNull Integer boxId 
+		}
+		complexAttributes {
+			List CourseToBoxAddition courseToBoxAdditionList
+		}
+	}
+	
 }
 
 data {
-	BoxCreation : ( Box )
+	BoxCreation : ( Box com.anfelisa.user.UsernameAndPassword )
 	BoxToCourseAddition : ( BoxOfCourse )
 	CardCreation : ( Card )
 	CardOfBoxCreation : ( CardOfBox )
 	BoxList : ( BoxList com.anfelisa.user.Username )
 	Card : ( Card Box Score CardInfo CardContent )
+	BoxId : ( Box )
+	BoxOfCourseList : (CourseToBoxAdditionList com.anfelisa.user.UsernameAndPassword)
 }
 
 actions {
@@ -136,6 +150,10 @@ actions {
 	POST CreateCardOfBox uses CardOfBoxCreation executes CreateCardOfBox
 	GET LoadBoxes uses BoxList
 	GET LoadNextCard uses Card
+	PUT UpdateBox uses BoxCreation executes UpdateBox
+	GET LoadBox uses BoxId
+	GET LoadBoxOfCourseList uses BoxOfCourseList
+	PUT AddCoursesToBox uses BoxOfCourseList executes AddCoursesToBox
 }
 
 commands {
@@ -151,6 +169,12 @@ commands {
 	CreateCardOfBox uses CardOfBoxCreation {
 		on created publishes (CardOfBoxCreated)
 	}
+	UpdateBox uses BoxCreation {
+		on created publishes ( BoxUpdated )
+	}
+	AddCoursesToBox uses BoxOfCourseList {
+		on created publishes ( CoursesAddedToBox )
+	}
 }
 
 events {
@@ -158,14 +182,18 @@ events {
 	CourseAddedToBox uses BoxToCourseAddition listenedToBy ( BoxToCourse.addCourseToBox )
 	CardCreated uses CardCreation listenedToBy ( Card.createCard )
 	CardOfBoxCreated uses CardOfBoxCreation listenedToBy (CardOfBox.createCardOfBox)
+	BoxUpdated uses BoxCreation listenedToBy ( Box.updateBox )
+	CoursesAddedToBox uses BoxOfCourseList listenedToBy ( BoxToCourse.addCoursesToBox)
 }
 
 views {
 	Box {
 		createBox (BoxCreation)
+		updateBox (BoxCreation)
 	}
 	BoxToCourse {
 		addCourseToBox (BoxToCourseAddition)
+		addCoursesToBox (BoxOfCourseList)
 	}
 	Card {
 		createCard (CardCreation)

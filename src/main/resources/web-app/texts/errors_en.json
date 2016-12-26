@@ -18,5 +18,9 @@
   "dataInvalid" : "The form is nor correctly filled.",
   "saveProfileFailed" : "Failed to save profile.",
   "readProfileCoursesFailed" : "Failed to load courses.",
-  "addCoursesFailed" : "Failed to add courses."
+  "addCoursesFailed" : "Failed to add courses.",
+  "readProfileBoxesFailed" : "Failed to load courses.",
+  "saveBoxFailed" : "Failed to save box.",
+  "readBoxFailed" : "Failed to load box.",
+  "readCoursesOfBoxFailed" : "Failed to load courses."
 }

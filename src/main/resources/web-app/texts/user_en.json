@@ -19,5 +19,9 @@
   "newBox" : "New box",
   "noCoursesFound" : "No more courses found.",
   "courseList" : "Available courses",
-  "cancel" : "Cancel"
+  "cancel" : "Cancel",
+  "addAfterEdit" : "Add after edit",
+  "addAll" : "Add all now",
+  "boxNameNotEmpty" : "Box name must be given.",
+  "coursesToAdd" : "Courses"
 }
