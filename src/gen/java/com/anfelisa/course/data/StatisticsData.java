@@ -12,7 +12,7 @@ import com.anfelisa.course.models.IStatisticsModel;
 import com.anfelisa.course.models.IStatisticsItemListModel;
 
 @SuppressWarnings("unused")
-public class StatisticsData implements IStatisticsModel, IStatisticsItemListModel, IDataContainer {
+public class StatisticsData implements IStatisticsData {
 	
 	private String uuid;
 	

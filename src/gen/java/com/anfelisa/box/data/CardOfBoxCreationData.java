@@ -11,7 +11,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.box.models.ICardOfBoxModel;
 
 @SuppressWarnings("unused")
-public class CardOfBoxCreationData implements ICardOfBoxModel, IDataContainer {
+public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	
 	private String uuid;
 	

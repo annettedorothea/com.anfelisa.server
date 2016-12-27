@@ -11,7 +11,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.result.models.IResultSaveModel;
 
 @SuppressWarnings("unused")
-public class ResultSaveData implements IResultSaveModel, IDataContainer {
+public class ResultSaveData implements IResultSaveData {
 	
 	private String uuid;
 	

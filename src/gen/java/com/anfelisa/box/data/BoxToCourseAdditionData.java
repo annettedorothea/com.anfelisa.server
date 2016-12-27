@@ -11,7 +11,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.box.models.IBoxOfCourseModel;
 
 @SuppressWarnings("unused")
-public class BoxToCourseAdditionData implements IBoxOfCourseModel, IDataContainer {
+public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	
 	private String uuid;
 	

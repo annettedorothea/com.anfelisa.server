@@ -11,7 +11,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.lesson.models.ILessonModel;
 
 @SuppressWarnings("unused")
-public class LessonCreationData implements ILessonModel, IDataContainer {
+public class LessonCreationData implements ILessonCreationData {
 	
 	private String uuid;
 	

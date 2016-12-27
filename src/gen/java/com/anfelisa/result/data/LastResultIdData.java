@@ -13,7 +13,7 @@ import com.anfelisa.test.models.ITestIdModel;
 import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")
-public class LastResultIdData implements IResultIdModel, ITestIdModel, IUsernameModel, IDataContainer {
+public class LastResultIdData implements ILastResultIdData {
 	
 	private String uuid;
 	

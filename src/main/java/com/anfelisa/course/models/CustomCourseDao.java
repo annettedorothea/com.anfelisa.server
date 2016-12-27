@@ -54,5 +54,6 @@ public class CustomCourseDao {
 				.bind("username", username).map(new CourseMapper()).list();
 	}
 
+	
 
 }

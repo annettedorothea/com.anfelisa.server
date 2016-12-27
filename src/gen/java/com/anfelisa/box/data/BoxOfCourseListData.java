@@ -12,7 +12,7 @@ import com.anfelisa.box.models.ICourseToBoxAdditionListModel;
 import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")
-public class BoxOfCourseListData implements ICourseToBoxAdditionListModel, IUsernameModel, IDataContainer {
+public class BoxOfCourseListData implements IBoxOfCourseListData {
 	
 	private String uuid;
 	

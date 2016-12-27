@@ -16,7 +16,7 @@ import com.anfelisa.course.models.ICourseAbstractModel;
 import com.anfelisa.test.models.IMyTestListModel;
 
 @SuppressWarnings("unused")
-public class MyTestData implements ITestModel, ILessonIdModel, IUsernameModel, ILessonAbstractModel, ICourseAbstractModel, IMyTestListModel, IDataContainer {
+public class MyTestData implements IMyTestData {
 	
 	private String uuid;
 	

@@ -34,14 +34,19 @@ public class LoadBoxOfCourseListAction extends AbstractLoadBoxOfCourseListAction
 		// init actionData
 		this.actionData = this.actionParam;
 		List<ICourseToBoxAdditionModel> list = new ArrayList<ICourseToBoxAdditionModel>();
-		List<IMyCourseModel> myCourses = CustomCourseDao.selectMyCourses(this.databaseHandle.getHandle(), this.actionData.getSchema(), this.actionData.getUsername());
+		List<IMyCourseModel> myCourses = CustomCourseDao.selectMyCourses(this.databaseHandle.getHandle(),
+				this.actionData.getSchema(), this.actionData.getUsername());
 		for (IMyCourseModel myCourse : myCourses) {
-			IBoxOfCourseModel boxOfCourse = CustomBoxDao.selectByCourseId(this.databaseHandle.getHandle(), this.actionData.getSchema(), myCourse.getCourseId(), this.actionData.getUsername());
+			IBoxOfCourseModel boxOfCourse = CustomBoxDao.selectBoxOfCourse(this.databaseHandle.getHandle(),
+					this.actionData.getSchema(), myCourse.getCourseId(), this.actionData.getUsername(),
+					this.actionData.getBoxId());
 			if (boxOfCourse == null) {
-				ICourseToBoxAdditionModel model = new CourseToBoxAdditionModel(null, myCourse.getCourseId(), null, myCourse.getName());
+				ICourseToBoxAdditionModel model = new CourseToBoxAdditionModel(null, myCourse.getCourseId(), null,
+						myCourse.getName());
 				list.add(model);
 			} else {
-				ICourseToBoxAdditionModel model = new CourseToBoxAdditionModel(boxOfCourse.getBoxId(), myCourse.getCourseId(), boxOfCourse.getAutoAdd(), myCourse.getName());
+				ICourseToBoxAdditionModel model = new CourseToBoxAdditionModel(boxOfCourse.getBoxId(),
+						myCourse.getCourseId(), boxOfCourse.getAutoAdd(), myCourse.getName());
 				list.add(model);
 			}
 		}

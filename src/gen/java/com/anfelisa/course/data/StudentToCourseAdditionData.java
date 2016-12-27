@@ -11,7 +11,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.course.models.IStudentOfCourseModel;
 
 @SuppressWarnings("unused")
-public class StudentToCourseAdditionData implements IStudentOfCourseModel, IDataContainer {
+public class StudentToCourseAdditionData implements IStudentToCourseAdditionData {
 	
 	private String uuid;
 	

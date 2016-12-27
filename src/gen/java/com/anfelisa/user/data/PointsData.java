@@ -12,7 +12,7 @@ import com.anfelisa.user.models.IPointsModel;
 import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("unused")
-public class PointsData implements IPointsModel, ICredentialsModel, IDataContainer {
+public class PointsData implements IPointsData {
 	
 	private String uuid;
 	

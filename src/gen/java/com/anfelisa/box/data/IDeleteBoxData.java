@@ -1,0 +1,15 @@
+package com.anfelisa.box.data;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import com.anfelisa.ace.IDataContainer;
+
+import com.anfelisa.box.models.IDeleteBoxModel;
+import com.anfelisa.user.models.IUsernameModel;
+
+@JsonDeserialize(as=DeleteBoxData.class)
+public interface IDeleteBoxData extends IDeleteBoxModel, IUsernameModel, IDataContainer {
+
+}
+
+/*       S.D.G.       */

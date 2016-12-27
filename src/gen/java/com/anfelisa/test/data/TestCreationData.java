@@ -11,7 +11,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.test.models.ITestModel;
 
 @SuppressWarnings("unused")
-public class TestCreationData implements ITestModel, IDataContainer {
+public class TestCreationData implements ITestCreationData {
 	
 	private String uuid;
 	

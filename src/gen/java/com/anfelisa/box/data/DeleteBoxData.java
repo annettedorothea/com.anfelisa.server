@@ -12,7 +12,7 @@ import com.anfelisa.box.models.IDeleteBoxModel;
 import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")
-public class DeleteBoxData implements IDeleteBoxModel, IUsernameModel, IDataContainer {
+public class DeleteBoxData implements IDeleteBoxData {
 	
 	private String uuid;
 	

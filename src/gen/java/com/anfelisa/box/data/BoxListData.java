@@ -12,7 +12,7 @@ import com.anfelisa.box.models.IBoxListModel;
 import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")
-public class BoxListData implements IBoxListModel, IUsernameModel, IDataContainer {
+public class BoxListData implements IBoxListData {
 	
 	private String uuid;
 	

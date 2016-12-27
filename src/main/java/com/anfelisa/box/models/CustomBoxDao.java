@@ -40,11 +40,15 @@ public class CustomBoxDao {
 		statement.execute();
 	}
 
-	public static IBoxOfCourseModel selectByCourseId(Handle handle, String schema, Integer courseId, String username) {
+	public static IBoxOfCourseModel selectBoxOfCourse(Handle handle, String schema, Integer courseId, String username, Integer boxId) {
 		return handle
 				.createQuery("SELECT bc.* FROM " + schema + ".boxofcourse bc INNER JOIN " + schema
-						+ ".box b on bc.boxId = b.boxId WHERE bc.courseId = :courseId AND b.username = :username")
-				.bind("courseId", courseId).bind("username", username).map(new BoxOfCourseMapper()).first();
+						+ ".box b on bc.boxId = b.boxId WHERE bc.courseId = :courseId AND b.username = :username AND bc.boxId = :boxId")
+				.bind("courseId", courseId)
+				.bind("username", username)
+				.bind("boxId", boxId)
+				.map(new BoxOfCourseMapper())
+				.first();
 	}
 
 }

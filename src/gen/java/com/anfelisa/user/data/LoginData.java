@@ -12,7 +12,7 @@ import com.anfelisa.user.models.ILoginLogModel;
 import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("unused")
-public class LoginData implements ILoginLogModel, ICredentialsModel, IDataContainer {
+public class LoginData implements ILoginData {
 	
 	private String uuid;
 	

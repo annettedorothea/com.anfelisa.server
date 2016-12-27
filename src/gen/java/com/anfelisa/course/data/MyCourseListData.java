@@ -12,7 +12,7 @@ import com.anfelisa.course.models.IMyCourseListModel;
 import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")
-public class MyCourseListData implements IMyCourseListModel, IUsernameModel, IDataContainer {
+public class MyCourseListData implements IMyCourseListData {
 	
 	private String uuid;
 	

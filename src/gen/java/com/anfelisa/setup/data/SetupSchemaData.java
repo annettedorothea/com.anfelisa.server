@@ -11,7 +11,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.setup.models.ISetupSchemaModel;
 
 @SuppressWarnings("unused")
-public class SetupSchemaData implements ISetupSchemaModel, IDataContainer {
+public class SetupSchemaData implements ISetupSchemaData {
 	
 	private String uuid;
 	

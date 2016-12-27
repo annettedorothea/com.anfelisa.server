@@ -11,7 +11,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.box.models.IBoxModel;
 
 @SuppressWarnings("unused")
-public class BoxIdData implements IBoxModel, IDataContainer {
+public class BoxIdData implements IBoxIdData {
 	
 	private String uuid;
 	

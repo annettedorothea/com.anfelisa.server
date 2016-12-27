@@ -11,7 +11,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.user.models.IUserUpdateModel;
 
 @SuppressWarnings("unused")
-public class UserUpdateData implements IUserUpdateModel, IDataContainer {
+public class UserUpdateData implements IUserUpdateData {
 	
 	private String uuid;
 	

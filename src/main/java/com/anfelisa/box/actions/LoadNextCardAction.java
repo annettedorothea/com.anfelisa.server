@@ -92,33 +92,33 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			this.actionData.setNext(nextCard.getNext());
 			this.actionData.setLast(nextCard.getLast());
 			this.actionData.setQuality(nextCard.getQuality());
-		}
 
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			Map<Object, Object> cardContentModel = mapper.readValue(this.actionData.getContent(), Map.class);
-			this.actionData.setComplex((Boolean) cardContentModel.get("complex"));
-			this.actionData.setGiven((String) cardContentModel.get("given"));
-			List<Map<Object, Object>> lineList = (List<Map<Object, Object>>) cardContentModel.get("lines");
-			List<ILineModel> lines = new ArrayList<ILineModel>();
-			if (lineList != null) {
-				for (Map<Object, Object> line : lineList) {
-					List<Map<Object, Object>> wordList = (List<Map<Object, Object>>) line.get("line");
-					List<String> words = new ArrayList<String>();
-					for (Map<Object, Object> wordMap : wordList) {
-						String word = (String) wordMap.get("word");
-						words.add(word);
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				Map<Object, Object> cardContentModel = mapper.readValue(this.actionData.getContent(), Map.class);
+				this.actionData.setComplex((Boolean) cardContentModel.get("complex"));
+				this.actionData.setGiven((String) cardContentModel.get("given"));
+				List<Map<Object, Object>> lineList = (List<Map<Object, Object>>) cardContentModel.get("lines");
+				List<ILineModel> lines = new ArrayList<ILineModel>();
+				if (lineList != null) {
+					for (Map<Object, Object> line : lineList) {
+						List<Map<Object, Object>> wordList = (List<Map<Object, Object>>) line.get("line");
+						List<String> words = new ArrayList<String>();
+						for (Map<Object, Object> wordMap : wordList) {
+							String word = (String) wordMap.get("word");
+							words.add(word);
+						}
+						lines.add(new LineModel(words));
 					}
-					lines.add(new LineModel(words));
 				}
+				this.actionData.setLines(lines);
+				this.actionData.setLarge((Boolean) cardContentModel.get("large"));
+				this.actionData.setWanted((String) cardContentModel.get("wanted"));
+				this.actionData.setHeader((String) cardContentModel.get("header"));
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw new WebApplicationException("cannot parse " + this.actionData.getContent() + ".");
 			}
-			this.actionData.setLines(lines);
-			this.actionData.setLarge((Boolean) cardContentModel.get("large"));
-			this.actionData.setWanted((String) cardContentModel.get("wanted"));
-			this.actionData.setHeader((String) cardContentModel.get("header"));
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new WebApplicationException("cannot parse " + this.actionData.getContent() + ".");
 		}
 
 		this.actionData.setCards(count);
