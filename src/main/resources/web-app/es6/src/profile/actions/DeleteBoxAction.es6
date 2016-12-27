@@ -1,6 +1,6 @@
 'use strict';
 
-class CreateBoxAction extends AbstractCreateBoxAction {
+class DeleteBoxAction extends AbstractDeleteBoxAction {
 
     captureActionParam() {
     	if (localStorage.username) {
@@ -38,6 +38,7 @@ class CreateBoxAction extends AbstractCreateBoxAction {
     		this.actionData.language = this.actionParam.language;
     	}
     	// bind action parameters to action data
+		this.actionData.boxId = this.actionParam.boxId;
     }
 
     releaseActionParam() {

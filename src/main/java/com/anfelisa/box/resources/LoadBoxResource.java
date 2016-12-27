@@ -48,6 +48,7 @@ public class LoadBoxResource extends Resource {
 		DatabaseHandle handle = this.createDatabaseHandle();
 		IBoxModel box = BoxDao.selectByBoxId(handle.getHandle(), boxId, schema);
 		if (!box.getUsername().equals(user.getUsername())) {
+			handle.close();
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 		}
 		BoxIdData actionParam = new BoxIdData(uuid, schema).withBoxId(boxId);

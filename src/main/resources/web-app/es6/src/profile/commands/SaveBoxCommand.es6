@@ -8,8 +8,13 @@ class SaveBoxCommand extends AbstractSaveBoxCommand {
                 this.commandData.outcome = this.dataInvalid;
                 resolve();
             } else {
+                var data = {
+                    boxId: this.commandParam.boxId,
+                    name: this.commandParam.name,
+                    username: this.commandParam.username
+                }
                 if (this.commandParam.boxId) {
-                    this.httpPut("api/boxes/update", [], this.commandParam).then(() => {
+                    this.httpPut("api/boxes/update", [], data).then(() => {
                         this.commandData.outcome = this.saved;
                         this.commandData.hash = "profile";
                         resolve();
@@ -20,7 +25,7 @@ class SaveBoxCommand extends AbstractSaveBoxCommand {
                         resolve();
                     });
                 } else {
-                    this.httpPost("api/boxes/create", [], this.commandParam).then(() => {
+                    this.httpPost("api/boxes/create", [], data).then(() => {
                         this.commandData.outcome = this.saved;
                         this.commandData.hash = "profile";
                         resolve();

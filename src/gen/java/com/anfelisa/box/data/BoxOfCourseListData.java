@@ -9,10 +9,10 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.ICourseToBoxAdditionListModel;
-import com.anfelisa.user.models.IUsernameAndPasswordModel;
+import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")
-public class BoxOfCourseListData implements ICourseToBoxAdditionListModel, IUsernameAndPasswordModel, IDataContainer {
+public class BoxOfCourseListData implements ICourseToBoxAdditionListModel, IUsernameModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -24,9 +24,6 @@ public class BoxOfCourseListData implements ICourseToBoxAdditionListModel, IUser
 	@NotNull
 	private String username;
 	
-	@NotNull
-	private String password;
-	
 
 	private java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> courseToBoxAdditionList;
 	
@@ -34,14 +31,12 @@ public class BoxOfCourseListData implements ICourseToBoxAdditionListModel, IUser
 
 	public BoxOfCourseListData(
 		@JsonProperty("boxId") Integer boxId,
-		@JsonProperty("username") String username,
-		@JsonProperty("password") String password
+		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
 		this.boxId = boxId;
 		this.username = username;
-		this.password = password;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -72,18 +67,6 @@ public class BoxOfCourseListData implements ICourseToBoxAdditionListModel, IUser
 	}
 	public BoxOfCourseListData withUsername(String username) {
 		this.username = username;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getPassword() {
-		return this.password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public BoxOfCourseListData withPassword(String password) {
-		this.password = password;
 		return this;
 	}
 	

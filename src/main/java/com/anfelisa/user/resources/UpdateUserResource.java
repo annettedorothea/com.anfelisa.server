@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -15,10 +16,13 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Resource;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.actions.UpdateUserAction;
 import com.anfelisa.user.data.UserUpdateData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import io.dropwizard.auth.Auth;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -35,7 +39,10 @@ public class UpdateUserResource extends Resource {
 	@Timed
 	@Path("/update")
 	@PermitAll
-	public Response put(@NotNull UserUpdateData userUpdateData) throws JsonProcessingException {
+	public Response put(@Auth AuthUser user, @NotNull UserUpdateData userUpdateData) throws JsonProcessingException {
+		if (user.getRole().equals(AuthUser.STUDENT) && !userUpdateData.getUsername().equals(user.getUsername())) {
+			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+		}
 		DatabaseHandle handle = this.createDatabaseHandle();
 		return new UpdateUserAction(userUpdateData, handle).apply();
 	}

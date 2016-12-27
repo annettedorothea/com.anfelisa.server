@@ -19,22 +19,18 @@ public class UserUpdateModel implements IUserUpdateModel {
 	@NotNull
 	private String email;
 	
-	private String language;
-	
 
 
 	public UserUpdateModel(
 		@JsonProperty("username") String username,
 		@JsonProperty("name") String name,
 		@JsonProperty("prename") String prename,
-		@JsonProperty("email") String email,
-		@JsonProperty("language") String language
+		@JsonProperty("email") String email
 	) {
 		this.username = username;
 		this.name = name;
 		this.prename = prename;
 		this.email = email;
-		this.language = language;
 	}
 
 	@JsonProperty
@@ -67,14 +63,6 @@ public class UserUpdateModel implements IUserUpdateModel {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	
-	@JsonProperty
-	public String getLanguage() {
-		return this.language;
-	}
-	public void setLanguage(String language) {
-		this.language = language;
 	}
 	
 

@@ -9,7 +9,13 @@ class SaveProfileCommand extends AbstractSaveProfileCommand {
                 this.commandData.outcome = this.dataInvalid;
                 resolve();
             } else {
-                this.httpPut("api/users/update", [], this.commandParam).then(() => {
+                var data = {
+                    username: this.commandParam.username,
+                    name: this.commandParam.name,
+                    prename: this.commandParam.prename,
+                    email: this.commandParam.email
+                };
+                this.httpPut("api/users/update", [], data).then(() => {
                     this.commandData.outcome = this.saved;
                     this.commandData.hash = "profile";
                     resolve();

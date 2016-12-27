@@ -5,13 +5,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.BoxOfCourseListData;
+import com.anfelisa.box.data.DeleteBoxData;
 
-public class AddCoursesToBoxCommand extends AbstractAddCoursesToBoxCommand {
+public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 
-	static final Logger LOG = LoggerFactory.getLogger(AddCoursesToBoxCommand.class);
+	static final Logger LOG = LoggerFactory.getLogger(DeleteBoxCommand.class);
 
-	public AddCoursesToBoxCommand(BoxOfCourseListData commandParam, DatabaseHandle databaseHandle) {
+	public DeleteBoxCommand(DeleteBoxData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 
@@ -19,7 +19,7 @@ public class AddCoursesToBoxCommand extends AbstractAddCoursesToBoxCommand {
 	protected void executeCommand() {
 		// execute command and set outcome
 		this.commandData = this.commandParam;
-		this.outcome = created;
+		this.outcome = deleted;
 	}
 
 }

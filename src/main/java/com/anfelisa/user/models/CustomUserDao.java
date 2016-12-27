@@ -4,6 +4,7 @@ import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.Update;
 
 import com.anfelisa.user.data.AddCoursesData;
+import com.anfelisa.user.data.RemoveCourseData;
 import com.anfelisa.user.data.UserUpdateData;
 
 public class CustomUserDao {
@@ -41,4 +42,11 @@ public class CustomUserDao {
 		}
 	}
 
+	public static void removeCourseFromUser(Handle handle, RemoveCourseData dataContainer, String schema) {
+		Update statement = handle.createStatement("DELETE FROM " + schema + ".studentofcourse WHERE username = :username AND courseId = :courseId");
+		statement.bind("username", dataContainer.getUsername());
+		statement.bind("courseId", dataContainer.getCourseId());
+		statement.execute();
+	}
+	
 }

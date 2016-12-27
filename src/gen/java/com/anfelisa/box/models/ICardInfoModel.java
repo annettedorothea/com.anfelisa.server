@@ -1,5 +1,8 @@
 package com.anfelisa.box.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(as=CardInfoModel.class)
 public interface ICardInfoModel {
 
 	Integer getCardId();

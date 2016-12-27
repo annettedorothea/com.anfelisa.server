@@ -24,10 +24,6 @@ public class ResultSaveModel implements IResultSaveModel {
 	
 	private org.joda.time.DateTime date;
 	
-	private String password;
-	
-	private String language;
-	
 
 
 	public ResultSaveModel(
@@ -36,9 +32,7 @@ public class ResultSaveModel implements IResultSaveModel {
 		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints,
-		@JsonProperty("date") org.joda.time.DateTime date,
-		@JsonProperty("password") String password,
-		@JsonProperty("language") String language
+		@JsonProperty("date") org.joda.time.DateTime date
 	) {
 		this.username = username;
 		this.testId = testId;
@@ -46,8 +40,6 @@ public class ResultSaveModel implements IResultSaveModel {
 		this.points = points;
 		this.maxPoints = maxPoints;
 		this.date = date;
-		this.password = password;
-		this.language = language;
 	}
 
 	@JsonProperty
@@ -96,22 +88,6 @@ public class ResultSaveModel implements IResultSaveModel {
 	}
 	public void setDate(org.joda.time.DateTime date) {
 		this.date = date;
-	}
-	
-	@JsonProperty
-	public String getPassword() {
-		return this.password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	@JsonProperty
-	public String getLanguage() {
-		return this.language;
-	}
-	public void setLanguage(String language) {
-		this.language = language;
 	}
 	
 

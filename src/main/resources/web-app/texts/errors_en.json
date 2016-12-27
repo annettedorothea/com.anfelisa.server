@@ -22,5 +22,7 @@
   "readProfileBoxesFailed" : "Failed to load courses.",
   "saveBoxFailed" : "Failed to save box.",
   "readBoxFailed" : "Failed to load box.",
-  "readCoursesOfBoxFailed" : "Failed to load courses."
+  "readCoursesOfBoxFailed" : "Failed to load courses.",
+  "removeCoursesFromUserFailed" : "Failed to remove course from user.",
+  "deleteBoxFailed" : "Failed to delete box."
 }

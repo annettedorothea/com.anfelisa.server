@@ -5,6 +5,7 @@ import java.util.function.BiConsumer;
 import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.user.data.AddCoursesData;
+import com.anfelisa.user.data.RemoveCourseData;
 import com.anfelisa.user.data.UserCreationData;
 import com.anfelisa.user.data.UserUpdateData;
 import com.anfelisa.user.models.CustomUserDao;
@@ -22,6 +23,10 @@ public class UserView {
 	
 	public BiConsumer<AddCoursesData, Handle> addCourses = (dataContainer, handle) -> {
 		CustomUserDao.addCoursesToUser(handle, dataContainer, dataContainer.getSchema());
+	};
+	
+	public BiConsumer<RemoveCourseData, Handle> removeCourse = (dataContainer, handle) -> {
+		CustomUserDao.removeCourseFromUser(handle, dataContainer, dataContainer.getSchema());
 	};
 	
 }

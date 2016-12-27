@@ -1,6 +1,6 @@
 'use strict';
 
-class BoxSavedEvent extends AbstractBoxSavedEvent {
+class DisplayDeleteBoxDialogEvent extends AbstractDisplayDeleteBoxDialogEvent {
     prepareDataForView() {
         this.eventData = JSON.parse(JSON.stringify(this.eventParam));
     }

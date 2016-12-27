@@ -23,5 +23,7 @@
   "addAfterEdit" : "Nach Bearbeiten hinzufügen",
   "addAll" : "Alle sofort hinzufügen",
   "boxNameNotEmpty" : "Lern-Box muss einen Namen haben.",
-  "coursesToAdd" : "Kurse"
+  "coursesToAdd" : "Kurse",
+  "reallyRemoveCourseFromUser" : "Soll der Kurs wirklich entfernt werden?",
+  "reallyDeleteBox" : "Soll die Lern-Box wirklich gelöscht werden?"
 }

@@ -52,13 +52,17 @@ models {
 			NotNull String name
 			NotNull String prename
 			NotNull String email
-			String language
 		}
 	}
 	CourseSelection {
 		primitiveAttributes {
-			String language
 			List Integer courseIdList
+		}
+	}
+	
+	CourseId {
+		primitiveAttributes {
+			Integer courseId
 		}
 	}
 }
@@ -68,9 +72,10 @@ data {
 	Login : ( LoginLog Credentials )
 	Points : ( Points Credentials )
 	UserInfo : (User com.anfelisa.course.CourseList com.anfelisa.box.MyBoxList Username)
-	UserUpdate : (UserUpdate UsernameAndPassword)
+	UserUpdate : (UserUpdate)
 	CourseSelection : (com.anfelisa.course.CourseList Username)
-	AddCourses : (CourseSelection UsernameAndPassword)
+	AddCourses : (CourseSelection Username)
+	RemoveCourse : (CourseId Username)
 }
 
 actions {
@@ -81,6 +86,7 @@ actions {
 	PUT UpdateUser uses UserUpdate executes UpdateUser
 	GET GetCourseSelection uses CourseSelection
 	POST AddCourses uses AddCourses executes AddCourses
+	DELETE RemoveCourse uses RemoveCourse executes RemoveCourse
 }
 
 commands {
@@ -96,6 +102,9 @@ commands {
 	AddCourses uses AddCourses {
 		on success publishes (CoursesAdded)
 	}
+	RemoveCourse uses RemoveCourse {
+		on success publishes (CourseRemoved)
+	}
 }
 
 events {
@@ -103,6 +112,7 @@ events {
 	UserLoggedIn uses Login listenedToBy ( LoginLog.userLoggedIn )
 	UserUpdated uses UserUpdate listenedToBy (User.updateUser)
 	CoursesAdded uses AddCourses listenedToBy (User.addCourses)
+	CourseRemoved uses RemoveCourse listenedToBy ( User.removeCourse )
 }
 
 views {
@@ -110,6 +120,7 @@ views {
 		createUser(UserCreation)
 		updateUser(UserUpdate)
 		addCourses(AddCourses)
+		removeCourse(RemoveCourse)
 	}
 	LoginLog {
 		userLoggedIn(Login)

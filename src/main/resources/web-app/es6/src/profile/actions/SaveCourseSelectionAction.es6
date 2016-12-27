@@ -19,7 +19,6 @@ class SaveCourseSelectionAction extends AbstractSaveCourseSelectionAction {
 	        this.actionParam.language = localStorage.language;
 	    }
 		this.actionParam.courseIdList = $("input:checkbox:checked").map(function() {return this.value;}).get();
-		console.dir(this.actionData.courseIdList);
     }
 
     initActionData() {

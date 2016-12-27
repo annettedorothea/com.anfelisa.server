@@ -11,7 +11,14 @@ class SaveResultCommand extends AbstractSaveResultCommand {
                 resolve();
             } else {
                 this.commandData.testId = this.commandParam.testId;
-                this.httpPost("api/results/save", [], this.commandParam).then(() => {
+                var data = {
+                    username: this.commandParam.username,
+                    testId: this.commandParam.testId,
+                    json: this.commandParam.json,
+                    points: this.commandParam.points,
+                    maxPoints: this.commandParam.maxPoints
+                }
+                this.httpPost("api/results/save", [], data).then(() => {
                     this.commandData.outcome = this.resultSaved;
                     resolve();
                 }, (error) => {

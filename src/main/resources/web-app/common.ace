@@ -11,6 +11,7 @@ actions {
 	SaveResult executes SaveResult
 	ReadLastResultId executes ReadLastResultId
 	ValidateRequiredField executes ValidateRequiredField
+	OpenReallyDeleteDialog executes OpenReallyDeleteDialog
 }
 
 commands {
@@ -64,6 +65,10 @@ commands {
 		on fieldEmpty publishes ( FieldEmpty )
 		on fieldNotEmpty publishes ( FieldNotEmpty )
 	}
+	OpenReallyDeleteDialog {
+		on removeCourseFromUser publishes (DisplayRemoveCourseFromUserDialog)
+		on deleteBox publishes (DisplayDeleteBoxDialog)
+	}
 }
 
 events {
@@ -76,6 +81,8 @@ events {
 	RenderResult listenedToBy ( Test.renderResult )
 	FieldEmpty listenedToBy ( Validation.fieldEmpty ) 
 	FieldNotEmpty listenedToBy ( Validation.fieldNotEmpty )
+	DisplayRemoveCourseFromUserDialog listenedToBy (ReallyDeleteDialog.displayRemoveCourseFromUserDialog)
+	DisplayDeleteBoxDialog listenedToBy (ReallyDeleteDialog.displayDeleteBoxDialog)
 } 
 
 views {
@@ -100,5 +107,9 @@ views {
 	Validation {
 		fieldEmpty
 		fieldNotEmpty
+	}
+	ReallyDeleteDialog {
+		displayRemoveCourseFromUserDialog
+		displayDeleteBoxDialog
 	}
 }

@@ -45,6 +45,7 @@ public class UpdateBoxResource extends Resource {
 		DatabaseHandle handle = this.createDatabaseHandle();
 		IBoxModel box = BoxDao.selectByBoxId(handle.getHandle(), actionParam.getBoxId(), actionParam.getSchema());
 		if (!box.getUsername().equals(user.getUsername())) {
+			handle.close();
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 		}
 		return new UpdateBoxAction(actionParam, handle).apply();

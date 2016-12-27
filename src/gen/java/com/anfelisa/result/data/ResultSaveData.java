@@ -34,10 +34,6 @@ public class ResultSaveData implements IResultSaveModel, IDataContainer {
 	
 	private org.joda.time.DateTime date;
 	
-	private String password;
-	
-	private String language;
-	
 
 	
 
@@ -47,9 +43,7 @@ public class ResultSaveData implements IResultSaveModel, IDataContainer {
 		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints,
-		@JsonProperty("date") org.joda.time.DateTime date,
-		@JsonProperty("password") String password,
-		@JsonProperty("language") String language
+		@JsonProperty("date") org.joda.time.DateTime date
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -59,8 +53,6 @@ public class ResultSaveData implements IResultSaveModel, IDataContainer {
 		this.points = points;
 		this.maxPoints = maxPoints;
 		this.date = date;
-		this.password = password;
-		this.language = language;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -139,30 +131,6 @@ public class ResultSaveData implements IResultSaveModel, IDataContainer {
 	}
 	public ResultSaveData withDate(org.joda.time.DateTime date) {
 		this.date = date;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getPassword() {
-		return this.password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public ResultSaveData withPassword(String password) {
-		this.password = password;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getLanguage() {
-		return this.language;
-	}
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-	public ResultSaveData withLanguage(String language) {
-		this.language = language;
 		return this;
 	}
 	

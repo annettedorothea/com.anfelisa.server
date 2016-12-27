@@ -12,15 +12,16 @@ public class AppRegistration {
 
 	public static void registerResources(Environment environment, DBI jdbi) {
 		environment.jersey().register(new CreateBoxResource(jdbi));
-		environment.jersey().register(new AddCourseToBoxResource(jdbi));
 		environment.jersey().register(new CreateCardResource(jdbi));
 		environment.jersey().register(new CreateCardOfBoxResource(jdbi));
+		environment.jersey().register(new AddCourseToBoxResource(jdbi));
 		environment.jersey().register(new LoadBoxesResource(jdbi));
 		environment.jersey().register(new LoadNextCardResource(jdbi));
 		environment.jersey().register(new UpdateBoxResource(jdbi));
 		environment.jersey().register(new LoadBoxResource(jdbi));
 		environment.jersey().register(new LoadBoxOfCourseListResource(jdbi));
-		environment.jersey().register(new AddCoursesToBoxResource(jdbi));
+		environment.jersey().register(new DeleteBoxResource(jdbi));
+		environment.jersey().register(new SaveBoxConfigResource(jdbi));
 	}
 
 	public static void registerConsumers() {
@@ -30,11 +31,12 @@ public class AppRegistration {
 		CardOfBoxView cardOfBoxView = new CardOfBoxView();
 		
 		AceController.addConsumer("BoxCreatedEvent", boxView.createBox);
-		AceController.addConsumer("CourseAddedToBoxEvent", boxToCourseView.addCourseToBox);
 		AceController.addConsumer("CardCreatedEvent", cardView.createCard);
 		AceController.addConsumer("CardOfBoxCreatedEvent", cardOfBoxView.createCardOfBox);
+		AceController.addConsumer("CourseAddedToBoxEvent", boxToCourseView.addCourseToBox);
 		AceController.addConsumer("BoxUpdatedEvent", boxView.updateBox);
-		AceController.addConsumer("CoursesAddedToBoxEvent", boxToCourseView.addCoursesToBox);
+		AceController.addConsumer("BoxDeletedEvent", boxView.deleteBox);
+		AceController.addConsumer("BoxConfigSavedEvent", boxToCourseView.saveBoxConfig);
     }
 }
 

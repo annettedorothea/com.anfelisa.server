@@ -1,0 +1,48 @@
+'use strict';
+
+class OpenReallyDeleteDialogAction extends AbstractOpenReallyDeleteDialogAction {
+
+    captureActionParam() {
+    	if (localStorage.username) {
+	        this.actionParam.username = localStorage.username;
+	    }
+    	if (localStorage.password) {
+	        this.actionParam.password = localStorage.password;
+	    }
+    	if (localStorage.schema) {
+	        this.actionParam.schema = localStorage.schema;
+	    }
+    	if (localStorage.role) {
+	        this.actionParam.role = localStorage.role;
+	    }
+    	if (localStorage.language) {
+	        this.actionParam.language = localStorage.language;
+	    }
+    	// capture user input
+    }
+
+    initActionData() {
+		this.actionData = JSON.parse(JSON.stringify(this.actionParam));
+    }
+
+    releaseActionParam() {
+    	if (this.actionParam.username) {
+    		localStorage.username = this.actionParam.username;
+    	}
+    	if (this.actionParam.password) {
+    		localStorage.password = this.actionParam.password;
+    	}
+    	if (this.actionParam.schema) {
+    		localStorage.schema = this.actionParam.schema;
+    	}
+    	if (this.actionParam.role) {
+    		localStorage.role = this.actionParam.role;
+    	}
+    	if (this.actionParam.language) {
+    		localStorage.language = this.actionParam.language;
+    	}
+    	// release action params during replay
+    }
+}
+
+/*       S.D.G.       */

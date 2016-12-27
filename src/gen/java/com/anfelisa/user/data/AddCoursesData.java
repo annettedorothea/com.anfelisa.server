@@ -9,41 +9,32 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.ICourseSelectionModel;
-import com.anfelisa.user.models.IUsernameAndPasswordModel;
+import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")
-public class AddCoursesData implements ICourseSelectionModel, IUsernameAndPasswordModel, IDataContainer {
+public class AddCoursesData implements ICourseSelectionModel, IUsernameModel, IDataContainer {
 	
 	private String uuid;
 	
 	private String schema;
-	
-	private String language;
 	
 	private java.util.List<Integer> courseIdList;
 	
 	@NotNull
 	private String username;
 	
-	@NotNull
-	private String password;
-	
 
 	
 	
 
 	public AddCoursesData(
-		@JsonProperty("language") String language,
 		@JsonProperty("courseIdList") java.util.List<Integer> courseIdList,
-		@JsonProperty("username") String username,
-		@JsonProperty("password") String password
+		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.language = language;
 		this.courseIdList = courseIdList;
 		this.username = username;
-		this.password = password;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -53,18 +44,6 @@ public class AddCoursesData implements ICourseSelectionModel, IUsernameAndPasswo
 		this.schema = schema;
 	}
 
-	@JsonProperty
-	public String getLanguage() {
-		return this.language;
-	}
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-	public AddCoursesData withLanguage(String language) {
-		this.language = language;
-		return this;
-	}
-	
 	@JsonProperty
 	public java.util.List<Integer> getCourseIdList() {
 		return this.courseIdList;
@@ -86,18 +65,6 @@ public class AddCoursesData implements ICourseSelectionModel, IUsernameAndPasswo
 	}
 	public AddCoursesData withUsername(String username) {
 		this.username = username;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getPassword() {
-		return this.password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public AddCoursesData withPassword(String password) {
-		this.password = password;
 		return this;
 	}
 	

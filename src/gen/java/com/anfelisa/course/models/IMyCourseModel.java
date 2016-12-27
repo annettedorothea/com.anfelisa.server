@@ -1,5 +1,8 @@
 package com.anfelisa.course.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(as=MyCourseModel.class)
 public interface IMyCourseModel {
 
 	Integer getCourseId();

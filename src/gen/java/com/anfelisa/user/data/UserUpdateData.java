@@ -9,10 +9,9 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IUserUpdateModel;
-import com.anfelisa.user.models.IUsernameAndPasswordModel;
 
 @SuppressWarnings("unused")
-public class UserUpdateData implements IUserUpdateModel, IUsernameAndPasswordModel, IDataContainer {
+public class UserUpdateData implements IUserUpdateModel, IDataContainer {
 	
 	private String uuid;
 	
@@ -30,22 +29,14 @@ public class UserUpdateData implements IUserUpdateModel, IUsernameAndPasswordMod
 	@NotNull
 	private String email;
 	
-	private String language;
-	
-	@NotNull
-	private String password;
-	
 
-	
 	
 
 	public UserUpdateData(
 		@JsonProperty("username") String username,
 		@JsonProperty("name") String name,
 		@JsonProperty("prename") String prename,
-		@JsonProperty("email") String email,
-		@JsonProperty("language") String language,
-		@JsonProperty("password") String password
+		@JsonProperty("email") String email
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -53,8 +44,6 @@ public class UserUpdateData implements IUserUpdateModel, IUsernameAndPasswordMod
 		this.name = name;
 		this.prename = prename;
 		this.email = email;
-		this.language = language;
-		this.password = password;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -111,31 +100,6 @@ public class UserUpdateData implements IUserUpdateModel, IUsernameAndPasswordMod
 		this.email = email;
 		return this;
 	}
-	
-	@JsonProperty
-	public String getLanguage() {
-		return this.language;
-	}
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-	public UserUpdateData withLanguage(String language) {
-		this.language = language;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getPassword() {
-		return this.password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public UserUpdateData withPassword(String password) {
-		this.password = password;
-		return this;
-	}
-	
 	
 	
 

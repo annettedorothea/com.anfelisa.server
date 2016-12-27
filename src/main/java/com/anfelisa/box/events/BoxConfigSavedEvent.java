@@ -5,13 +5,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.BoxOfCourseListData;
+import com.anfelisa.box.data.BoxConfigData;
 
-public class CoursesAddedToBoxEvent extends AbstractCoursesAddedToBoxEvent {
+public class BoxConfigSavedEvent extends AbstractBoxConfigSavedEvent {
 
-	static final Logger LOG = LoggerFactory.getLogger(CoursesAddedToBoxEvent.class);
+	static final Logger LOG = LoggerFactory.getLogger(BoxConfigSavedEvent.class);
 
-	public CoursesAddedToBoxEvent(BoxOfCourseListData eventParam, DatabaseHandle databaseHandle) {
+	public BoxConfigSavedEvent(BoxConfigData eventParam, DatabaseHandle databaseHandle) {
 		super(eventParam, databaseHandle);
 	}
 

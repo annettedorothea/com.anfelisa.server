@@ -14,6 +14,8 @@ class EventListenerRegistrationCommon {
     	ACEController.registerListener('RenderResultEvent', TestView.renderResult);
     	ACEController.registerListener('FieldEmptyEvent', ValidationView.fieldEmpty);
     	ACEController.registerListener('FieldNotEmptyEvent', ValidationView.fieldNotEmpty);
+    	ACEController.registerListener('DisplayRemoveCourseFromUserDialogEvent', ReallyDeleteDialogView.displayRemoveCourseFromUserDialog);
+    	ACEController.registerListener('DisplayDeleteBoxDialogEvent', ReallyDeleteDialogView.displayDeleteBoxDialog);
 	}
 
 }

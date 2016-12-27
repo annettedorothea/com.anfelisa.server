@@ -47,6 +47,7 @@ public class LoadBoxOfCourseListResource extends Resource {
 		DatabaseHandle handle = this.createDatabaseHandle();
 		IBoxModel box = BoxDao.selectByBoxId(handle.getHandle(), boxId, schema);
 		if (!box.getUsername().equals(user.getUsername())) {
+			handle.close();
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 		}
 		BoxOfCourseListData actionParam = new BoxOfCourseListData(uuid, schema).withUsername(user.getUsername()).withBoxId(boxId);

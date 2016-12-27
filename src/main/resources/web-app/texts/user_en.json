@@ -23,5 +23,7 @@
   "addAfterEdit" : "Add after edit",
   "addAll" : "Add all now",
   "boxNameNotEmpty" : "Box name must be given.",
-  "coursesToAdd" : "Courses"
+  "coursesToAdd" : "Courses",
+  "reallyRemoveCourseFromUser" : "Do you really want to remove this course?",
+  "reallyDeleteBox" : "Do you really want to delete box?"
 }

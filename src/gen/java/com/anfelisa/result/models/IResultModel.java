@@ -1,5 +1,8 @@
 package com.anfelisa.result.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(as=ResultModel.class)
 public interface IResultModel {
 
 	Integer getResultId();

@@ -70,15 +70,20 @@
                 <table class="table table-bordered table-hover table-responsive">
                     <tr>
                         <th>{{texts.courseName}}</th>
+                        <th></th>
                     </tr>
                     {{#courseList}}
                     <tr>
                         <td>{{name}}</td>
+                        <td class="text-center">
+                            <button class="btn btn-default" onclick="new OpenReallyDeleteDialogAction( {'courseId' : '{{courseId}}', 'dialog' : 'removeCourseFromUser'} ).apply()"><i
+                                    class="fa fa-times fa-lg"></i></button>
+                        </td>
                     </tr>
                     {{/courseList}}
                     {{^courseList}}
                     <tr>
-                        <td colspan="6">{{texts.emptyCourseList}}</td>
+                        <td colspan="2">{{texts.emptyCourseList}}</td>
                     </tr>
                     {{/courseList}}
                 </table>
@@ -123,6 +128,8 @@
                                     class="fa fa-pencil fa-lg"></i></button>
                             <button class="btn btn-default" onclick="new RouteAction( {'hash' : 'profile/boxes/courses/{{boxId}}'} ).apply()"><i
                                     class="fa fa-cog fa-lg"></i></button>
+                            <button class="btn btn-default" onclick="new OpenReallyDeleteDialogAction( {'boxId' : '{{boxId}}', 'dialog' : 'deleteBox'} ).apply()"><i
+                                    class="fa fa-times fa-lg"></i></button>
                         </td>
                     </tr>
                     {{/boxList}}

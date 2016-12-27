@@ -7,10 +7,13 @@ actions {
 	SaveProfile executes SaveProfile
 	OpenCourseSelection executes OpenCourseSelection
 	SaveCourseSelection executes SaveCourseSelection
+	RemoveCourse executes RemoveCourse
 	SaveBox executes SaveBox
+	DeleteBox executes DeleteBox
 	LoadBox executes LoadBox
 	OpenBoxCreation executes OpenBoxCreation
 	LoadCourses executes LoadCourses
+	SaveBoxConfig executes SaveBoxConfig
 }
 commands {
 	OpenProfile {
@@ -30,9 +33,17 @@ commands {
 		on saved triggers (common.Route)
 		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
+	RemoveCourse {
+		on deleted triggers (common.Route)
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
 	SaveBox {
 		on saved triggers (common.Route)
 		on dataInvalid publishes ( common.Error )
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
+	DeleteBox {
+		on deleted triggers (common.Route)
 		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
 	LoadBox {
@@ -44,6 +55,10 @@ commands {
 	}
 	LoadCourses {
 		on loaded publishes ( RenderCourseToBox )
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
+	SaveBoxConfig {
+		on saved triggers (common.Route)
 		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
 }

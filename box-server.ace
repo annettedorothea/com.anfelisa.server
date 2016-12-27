@@ -130,38 +130,53 @@ models {
 		}
 	}
 	
+	DeleteBox {
+		primitiveAttributes {
+			NotNull Integer boxId 
+		}
+	}
+	
+	BoxConfig {
+		primitiveAttributes {
+			NotNull Integer boxId 
+		}
+		complexAttributes {
+			List BoxOfCourse boxOfCourseList
+		}
+	}
+	
 }
 
 data {
-	BoxCreation : ( Box com.anfelisa.user.UsernameAndPassword )
+	BoxCreation : ( Box )
 	BoxToCourseAddition : ( BoxOfCourse )
 	CardCreation : ( Card )
 	CardOfBoxCreation : ( CardOfBox )
 	BoxList : ( BoxList com.anfelisa.user.Username )
 	Card : ( Card Box Score CardInfo CardContent )
 	BoxId : ( Box )
-	BoxOfCourseList : (CourseToBoxAdditionList com.anfelisa.user.UsernameAndPassword)
+	BoxOfCourseList : (CourseToBoxAdditionList com.anfelisa.user.Username)
+	DeleteBox : (DeleteBox com.anfelisa.user.Username)
+	BoxConfig : (BoxConfig com.anfelisa.user.Username)
 }
 
 actions {
 	POST CreateBox uses BoxCreation executes CreateBox
-	POST AddCourseToBox uses BoxToCourseAddition executes AddCourseToBox
 	POST CreateCard uses CardCreation executes CreateCard
 	POST CreateCardOfBox uses CardOfBoxCreation executes CreateCardOfBox
+	POST AddCourseToBox uses BoxToCourseAddition executes AddCourseToBox
 	GET LoadBoxes uses BoxList
 	GET LoadNextCard uses Card
 	PUT UpdateBox uses BoxCreation executes UpdateBox
 	GET LoadBox uses BoxId
 	GET LoadBoxOfCourseList uses BoxOfCourseList
-	PUT AddCoursesToBox uses BoxOfCourseList executes AddCoursesToBox
+	DELETE DeleteBox uses DeleteBox executes DeleteBox
+	PUT SaveBoxConfig uses BoxConfig executes SaveBoxConfig
 }
 
 commands {
 	CreateBox uses BoxCreation {
 		on created publishes ( BoxCreated )
-	}
-	AddCourseToBox uses BoxToCourseAddition {
-		on added publishes ( CourseAddedToBox )
 	}
 	CreateCard uses CardCreation {
 		on created publishes (CardCreated)
@@ -169,31 +184,39 @@ commands {
 	CreateCardOfBox uses CardOfBoxCreation {
 		on created publishes (CardOfBoxCreated)
 	}
+	AddCourseToBox uses BoxToCourseAddition {
+		on added publishes ( CourseAddedToBox )
+	}
 	UpdateBox uses BoxCreation {
 		on created publishes ( BoxUpdated )
 	}
-	AddCoursesToBox uses BoxOfCourseList {
-		on created publishes ( CoursesAddedToBox )
+	DeleteBox uses DeleteBox {
+		on deleted publishes (BoxDeleted)
+	}
+	SaveBoxConfig uses BoxConfig {
+		on saved publishes (BoxConfigSaved)
 	}
 }
 
 events {
 	BoxCreated uses BoxCreation listenedToBy ( Box.createBox )
-	CourseAddedToBox uses BoxToCourseAddition listenedToBy ( BoxToCourse.addCourseToBox )
 	CardCreated uses CardCreation listenedToBy ( Card.createCard )
 	CardOfBoxCreated uses CardOfBoxCreation listenedToBy (CardOfBox.createCardOfBox)
+	CourseAddedToBox uses BoxToCourseAddition listenedToBy ( BoxToCourse.addCourseToBox )
 	BoxUpdated uses BoxCreation listenedToBy ( Box.updateBox )
-	CoursesAddedToBox uses BoxOfCourseList listenedToBy ( BoxToCourse.addCoursesToBox)
+	BoxDeleted uses DeleteBox  listenedToBy (Box.deleteBox)
+	BoxConfigSaved uses BoxConfig listenedToBy (BoxToCourse.saveBoxConfig)
 }
 
 views {
 	Box {
 		createBox (BoxCreation)
 		updateBox (BoxCreation)
+		deleteBox (DeleteBox)
 	}
 	BoxToCourse {
 		addCourseToBox (BoxToCourseAddition)
-		addCoursesToBox (BoxOfCourseList)
+		saveBoxConfig(BoxConfig)
 	}
 	Card {
 		createCard (CardCreation)

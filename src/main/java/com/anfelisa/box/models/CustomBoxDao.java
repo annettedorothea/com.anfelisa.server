@@ -24,15 +24,15 @@ public class CustomBoxDao {
 
 	public static List<ICardOfBoxModel> selectCardsOfBoxForToday(Handle handle, String schema, Integer boxId) {
 		return handle
-				.createQuery("SELECT b.* FROM "
-						+ schema + ".cardofbox b INNER JOIN (SELECT cardid, MAX(count) as maxCount FROM " + schema
+				.createQuery("SELECT b.* FROM " + schema
+						+ ".cardofbox b INNER JOIN (SELECT cardid, MAX(count) as maxCount FROM " + schema
 						+ ".cardofbox WHERE boxid = :boxId GROUP BY cardid ORDER BY cardid) latestCard ON b.cardid = latestCard.cardid "
 						+ "AND b.count = latestCard.maxCount AND date_trunc('day', b.date) <= date_trunc('day', now()) INNER JOIN "
 						+ schema + ".card c ON c.cardid = b.cardid INNER JOIN " + schema
 						+ ".box bos ON b.boxid = bos.boxid WHERE b.boxid = :boxId ORDER BY b.timestamp DESC")
 				.bind("boxId", boxId).map(new CardOfBoxMapper()).list();
 	}
-	
+
 	public static void updateBox(Handle handle, IBoxModel boxModel, String schema) {
 		Update statement = handle.createStatement("UPDATE " + schema + ".box SET name = :name WHERE boxId = :boxId");
 		statement.bind("boxId", boxModel.getBoxId());
@@ -40,19 +40,12 @@ public class CustomBoxDao {
 		statement.execute();
 	}
 
-	public static List<ICourseToBoxAdditionModel> selectCourseToBoxAdditionList(Handle handle, String schema, Integer boxId, String username) {
+	public static IBoxOfCourseModel selectByCourseId(Handle handle, String schema, Integer courseId, String username) {
 		return handle
-				.createQuery("SELECT c.courseId, c.name, bc.autoAdd, bc.boxId "
-						+ "FROM " + schema + ".course c "
-						+ "LEFT OUTER JOIN " + schema + ".studentofcourse sc on sc.courseId = c.courseId "
-						+ "LEFT OUTER JOIN " + schema + ".boxofcourse bc on sc.courseId = bc.courseId "
-						+ "WHERE sc.username = :username AND (bc.boxId = :boxId OR bc.boxId IS NULL) "
-						+ "ORDER BY c.sequence;")
-				.bind("username", username)
-				.bind("boxId", boxId)
-				.map(new CourseToBoxAdditionMapper()).list();
+				.createQuery("SELECT bc.* FROM " + schema + ".boxofcourse bc INNER JOIN " + schema
+						+ ".box b on bc.boxId = b.boxId WHERE bc.courseId = :courseId AND b.username = :username")
+				.bind("courseId", courseId).bind("username", username).map(new BoxOfCourseMapper()).first();
 	}
-	
 
 }
 

@@ -1,6 +1,6 @@
 'use strict';
 
-class BoxCreatedEvent extends AbstractBoxCreatedEvent {
+class DisplayRemoveCourseFromUserDialogEvent extends AbstractDisplayRemoveCourseFromUserDialogEvent {
     prepareDataForView() {
         this.eventData = JSON.parse(JSON.stringify(this.eventParam));
     }

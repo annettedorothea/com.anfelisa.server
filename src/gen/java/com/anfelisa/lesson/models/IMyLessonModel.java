@@ -1,5 +1,8 @@
 package com.anfelisa.lesson.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(as=MyLessonModel.class)
 public interface IMyLessonModel {
 
 	Integer getLessonId();

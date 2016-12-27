@@ -3,7 +3,11 @@
 class SaveCourseSelectionCommand extends AbstractSaveCourseSelectionCommand {
     execute() {
         return new Promise((resolve) => {
-            this.httpPost("api/users/courses", [], this.commandParam).then(() => {
+            var data = {
+                courseIdList: this.commandParam.courseIdList,
+                username: this.commandParam.username
+            }
+            this.httpPost("api/users/courses", [], data).then(() => {
                 this.commandData.outcome = this.saved;
                 this.commandData.hash = "profile";
                 resolve();

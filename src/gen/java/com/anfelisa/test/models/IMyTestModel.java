@@ -1,5 +1,8 @@
 package com.anfelisa.test.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(as=MyTestModel.class)
 public interface IMyTestModel {
 
 	Integer getTestId();

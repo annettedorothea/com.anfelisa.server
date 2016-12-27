@@ -1,5 +1,8 @@
 package com.anfelisa.result.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(as=ResultSaveModel.class)
 public interface IResultSaveModel {
 
 	String getUsername();
@@ -8,8 +11,6 @@ public interface IResultSaveModel {
 	Integer getPoints();
 	Integer getMaxPoints();
 	org.joda.time.DateTime getDate();
-	String getPassword();
-	String getLanguage();
 
 
 }

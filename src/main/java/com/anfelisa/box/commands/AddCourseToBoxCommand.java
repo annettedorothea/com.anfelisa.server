@@ -1,9 +1,10 @@
 package com.anfelisa.box.commands;
 
+import com.anfelisa.ace.DatabaseHandle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.BoxToCourseAdditionData;
 
 public class AddCourseToBoxCommand extends AbstractAddCourseToBoxCommand {

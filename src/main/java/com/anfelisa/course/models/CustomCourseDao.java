@@ -19,14 +19,14 @@ public class CustomCourseDao {
 						+ ".result on " + schema + ".test.testId = " + schema + ".result.testId and " + schema
 						+ ".result.username = :username WHERE " + schema + ".result.resultId is null AND " + schema
 						+ ".course.courseId = c.courseId) FROM " + schema + ".course c, " + schema
-						+ ".studentofcourse sc WHERE sc.username = :username AND c.courseId = sc.courseId ORDER By sequence")
+						+ ".studentofcourse sc WHERE sc.username = :username AND c.courseId = sc.courseId ORDER BY sequence")
 				.bind("username", username).map(new MyCourseMapper()).list();
 	}
 
 	public static List<ICourseModel> selectCourses(Handle handle, String schema, String username) {
 		return handle
 				.createQuery("SELECT c.* FROM " + schema + ".course c, " + schema
-						+ ".studentofcourse sc WHERE sc.username = :username AND sc.courseId = c.courseId")
+						+ ".studentofcourse sc WHERE sc.username = :username AND sc.courseId = c.courseId ORDER BY sequence")
 				.bind("username", username).map(new CourseMapper()).list();
 	}
 	

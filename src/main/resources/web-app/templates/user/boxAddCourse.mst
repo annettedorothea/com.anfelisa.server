@@ -20,10 +20,10 @@
                     <tr>
                         <td>{{name}}</td>
                         <td>
-                            <select class="form-control" id="autoAdd">
+                            <select class="form-control" id="{{courseId}}">
                                 <option value="null" {{#nullSelected}}selected{{/nullSelected}}>---</option>
                                 <option value="false" {{#falseSelected}}selected{{/falseSelected}}>{{texts.addAfterEdit}}</option>
-                                <option vaulue="true" {{#trueSelected}}selected{{/trueSelected}}>{{texts.addAll}}</option>
+                                <option value="true" {{#trueSelected}}selected{{/trueSelected}}>{{texts.addAll}}</option>
                             </select>
                         </td>
                     </tr>
@@ -41,7 +41,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label"></label>
         <div class="col-sm-9">
-            <button class="btn btn-default" type="button" onclick="new SaveCourseSelectionAction().apply()">
+            <button class="btn btn-default" type="button" onclick="new SaveBoxConfigAction( {'boxId' : {{boxId}} }).apply()">
                 {{texts.save}}
             </button>
             <button class="btn btn-default" type="button" onclick="new RouteAction( {'hash' : 'profile'}).apply()">
