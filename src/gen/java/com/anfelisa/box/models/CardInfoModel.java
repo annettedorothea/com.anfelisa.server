@@ -9,6 +9,8 @@ public class CardInfoModel implements ICardInfoModel {
 
 	private Integer cardId;
 	
+	private Integer cardOfBoxId;
+	
 	private String content;
 	
 	private String boxName;
@@ -25,6 +27,7 @@ public class CardInfoModel implements ICardInfoModel {
 
 	public CardInfoModel(
 		@JsonProperty("cardId") Integer cardId,
+		@JsonProperty("cardOfBoxId") Integer cardOfBoxId,
 		@JsonProperty("content") String content,
 		@JsonProperty("boxName") String boxName,
 		@JsonProperty("count") Integer count,
@@ -33,6 +36,7 @@ public class CardInfoModel implements ICardInfoModel {
 		@JsonProperty("quality") Integer quality
 	) {
 		this.cardId = cardId;
+		this.cardOfBoxId = cardOfBoxId;
 		this.content = content;
 		this.boxName = boxName;
 		this.count = count;
@@ -47,6 +51,14 @@ public class CardInfoModel implements ICardInfoModel {
 	}
 	public void setCardId(Integer cardId) {
 		this.cardId = cardId;
+	}
+	
+	@JsonProperty
+	public Integer getCardOfBoxId() {
+		return this.cardOfBoxId;
+	}
+	public void setCardOfBoxId(Integer cardOfBoxId) {
+		this.cardOfBoxId = cardOfBoxId;
 	}
 	
 	@JsonProperty

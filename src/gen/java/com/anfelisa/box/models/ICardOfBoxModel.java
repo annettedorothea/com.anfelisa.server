@@ -9,6 +9,7 @@ public interface ICardOfBoxModel {
 	Integer getCardId();
 	Float getEf();
 	Integer getInterval();
+	Integer getN();
 	Integer getCount();
 	org.joda.time.DateTime getDate();
 	Integer getBoxId();

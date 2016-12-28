@@ -12,9 +12,14 @@ public class CustomBoxDao {
 				.bind("username", username).map(new BoxMapper()).list();
 	}
 
+	public static IBoxModel selectByCardOfBoxId(Handle handle, String schema, Integer cardOfBoxId) {
+		return handle.createQuery("SELECT b.* FROM " + schema + ".cardOfBox cb inner join " + schema + ".box b ON b.boxId = cb.boxId WHERE cb.cardOfBoxId = :cardOfBoxId")
+				.bind("cardOfBoxId", cardOfBoxId).map(new BoxMapper()).first();
+	}
+	
 	public static List<ICardInfoModel> selectNextCardsByBoxId(Handle handle, String schema, Integer boxId) {
 		return handle
-				.createQuery("SELECT b.cardid, c.content, b.count, b.date, b.quality, bos.name, b.timestamp FROM "
+				.createQuery("SELECT b.cardid, c.content, b.count, b.date, b.quality, bos.name, b.timestamp, b.cardOfBoxId FROM "
 						+ schema + ".cardofbox b INNER JOIN (SELECT cardid, MAX(count) as maxCount FROM " + schema
 						+ ".cardofbox WHERE boxid = :boxId GROUP BY cardid ORDER BY cardid) latestCard ON b.cardid = latestCard.cardid AND b.count = latestCard.maxCount INNER JOIN "
 						+ schema + ".card c ON c.cardid = b.cardid INNER JOIN " + schema

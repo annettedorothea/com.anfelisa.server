@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface ICardInfoModel {
 
 	Integer getCardId();
+	Integer getCardOfBoxId();
 	String getContent();
 	String getBoxName();
 	Integer getCount();

@@ -24,5 +24,6 @@
   "readBoxFailed" : "Failed to load box.",
   "readCoursesOfBoxFailed" : "Failed to load courses.",
   "removeCoursesFromUserFailed" : "Failed to remove course from user.",
-  "deleteBoxFailed" : "Failed to delete box."
+  "deleteBoxFailed" : "Failed to delete box.",
+  "scoreCardFailed" : "Failed to score card."
 }

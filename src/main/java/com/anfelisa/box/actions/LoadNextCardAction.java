@@ -87,6 +87,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		if (nextCard != null) {
 			this.actionData.setBoxName(nextCard.getBoxName());
 			this.actionData.setCardId(nextCard.getCardId());
+			this.actionData.setCardOfBoxId(nextCard.getCardOfBoxId());
 			this.actionData.setContent(nextCard.getContent());
 			this.actionData.setCount(nextCard.getCount());
 			this.actionData.setNext(nextCard.getNext());

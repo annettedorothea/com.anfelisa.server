@@ -43,26 +43,26 @@
 
     <div class="row quality-buttons">
         <div class="col-md-3 col-lg-3 col-md-offset-3 col-lg-offset-3 col-xs-6 col-sm-6">
-            <button class="scoreButton btn btn-green" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 5, boxId : {{boxId}} }).apply()" disabled="disabled">Perfekt</button>
+            <button class="scoreButton btn btn-green" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 5,  boxId : {{boxId}}, cardOfBoxId : {{cardOfBoxId}} }).apply()" disabled="disabled">Perfekt</button>
         </div>
         <div class="col-md-3 col-lg-3 col-xs-6 col-sm-6">
-            <button class="scoreButton btn btn-orange" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 2, boxId : {{boxId}} }).apply()" disabled="disabled">Knapp nicht</button><br/>
+            <button class="scoreButton btn btn-orange" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 2, boxId : {{boxId}}, cardOfBoxId : {{cardOfBoxId}} }).apply()" disabled="disabled">Knapp nicht</button><br/>
         </div>
     </div>
     <div class="row quality-buttons">
         <div class="col-md-3 col-lg-3 col-md-offset-3 col-lg-offset-3 col-xs-6 col-sm-6">
-            <button class="scoreButton btn btn-blue" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 4, boxId : {{boxId}} }).apply()" disabled="disabled">Gewusst</button><br/>
+            <button class="scoreButton btn btn-blue" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 4, boxId : {{boxId}}, cardOfBoxId : {{cardOfBoxId}} }).apply()" disabled="disabled">Gewusst</button><br/>
         </div>
         <div class="col-md-3 col-lg-3 col-xs-6 col-sm-6">
-            <button class="scoreButton btn btn-red" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 1, boxId : {{boxId}} }).apply()" disabled="disabled">Nicht gewusst</button><br/>
+            <button class="scoreButton btn btn-red" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 1, boxId : {{boxId}}, cardOfBoxId : {{cardOfBoxId}} }).apply()" disabled="disabled">Nicht gewusst</button><br/>
         </div>
     </div>
     <div class="row quality-buttons">
         <div class="col-md-3 col-lg-3 col-md-offset-3 col-lg-offset-3 col-xs-6 col-sm-6">
-            <button class="scoreButton btn btn-cyan" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 3, boxId : {{boxId}} }).apply()" disabled="disabled">Mit Mühe</button><br/>
+            <button class="scoreButton btn btn-cyan" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 3, boxId : {{boxId}}, cardOfBoxId : {{cardOfBoxId}} }).apply()" disabled="disabled">Mit Mühe</button><br/>
         </div>
         <div class="col-md-3 col-lg-3 col-xs-6 col-sm-6">
-            <button class="scoreButton btn btn-pink" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 0, boxId : {{boxId}} }).apply()" disabled="disabled">Kein Plan</button><br/>
+            <button class="scoreButton btn btn-pink" onclick="$('.scoreButton').prop('disabled', true); new ScoreCardAction({ quality : 0, boxId : {{boxId}}, cardOfBoxId : {{cardOfBoxId}} }).apply()" disabled="disabled">Kein Plan</button><br/>
         </div>
     </div>
     <div class="box-score container-fluid">

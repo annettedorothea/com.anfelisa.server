@@ -24,5 +24,6 @@
   "readBoxFailed" : "Lern-Box konnte nicht geladen werden.",
   "readCoursesOfBoxFailed" : "Kurse konnten nicht geladen werden.",
   "removeCoursesFromUserFailed" : "Der Kurs konnte nicht vom Benutzer entfernt werden.",
-  "deleteBoxFailed" : "Die Lern-Box konnte nicht gelöscht werden."
+  "deleteBoxFailed" : "Die Lern-Box konnte nicht gelöscht werden.",
+  "scoreCardFailed" : "Karte konnte nicht bewertet werden."
 }

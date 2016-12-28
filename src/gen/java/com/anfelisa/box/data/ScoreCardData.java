@@ -8,20 +8,34 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
+import com.anfelisa.box.models.ICardModel;
 import com.anfelisa.box.models.ICardOfBoxModel;
+import com.anfelisa.box.models.ICardQualityModel;
 
 @SuppressWarnings("unused")
-public class CardOfBoxCreationData implements ICardOfBoxCreationData {
+public class ScoreCardData implements IScoreCardData {
 	
 	private String uuid;
 	
 	private String schema;
 	
 	@NotNull
-	private Integer cardOfBoxId;
+	private Integer cardId;
+	
+	@NotEmpty
+	private String content;
 	
 	@NotNull
-	private Integer cardId;
+	private Integer testId;
+	
+	@NotNull
+	private String contentHash;
+	
+	@NotNull
+	private Integer maxPoints;
+	
+	@NotNull
+	private Integer cardOfBoxId;
 	
 	private Float ef;
 	
@@ -43,12 +57,21 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	
 	private Integer points;
 	
-
+	@NotNull
+	private Integer submittedQuality;
 	
 
-	public CardOfBoxCreationData(
-		@JsonProperty("cardOfBoxId") Integer cardOfBoxId,
+	
+	
+	
+
+	public ScoreCardData(
 		@JsonProperty("cardId") Integer cardId,
+		@JsonProperty("content") String content,
+		@JsonProperty("testId") Integer testId,
+		@JsonProperty("contentHash") String contentHash,
+		@JsonProperty("maxPoints") Integer maxPoints,
+		@JsonProperty("cardOfBoxId") Integer cardOfBoxId,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
 		@JsonProperty("n") Integer n,
@@ -57,12 +80,17 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("quality") Integer quality,
 		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
-		@JsonProperty("points") Integer points
+		@JsonProperty("points") Integer points,
+		@JsonProperty("submittedQuality") Integer submittedQuality
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.cardOfBoxId = cardOfBoxId;
 		this.cardId = cardId;
+		this.content = content;
+		this.testId = testId;
+		this.contentHash = contentHash;
+		this.maxPoints = maxPoints;
+		this.cardOfBoxId = cardOfBoxId;
 		this.ef = ef;
 		this.interval = interval;
 		this.n = n;
@@ -72,27 +100,16 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 		this.quality = quality;
 		this.timestamp = timestamp;
 		this.points = points;
+		this.submittedQuality = submittedQuality;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
 
-	public CardOfBoxCreationData( String uuid,	String schema ) {
+	public ScoreCardData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}
 
-	@JsonProperty
-	public Integer getCardOfBoxId() {
-		return this.cardOfBoxId;
-	}
-	public void setCardOfBoxId(Integer cardOfBoxId) {
-		this.cardOfBoxId = cardOfBoxId;
-	}
-	public CardOfBoxCreationData withCardOfBoxId(Integer cardOfBoxId) {
-		this.cardOfBoxId = cardOfBoxId;
-		return this;
-	}
-	
 	@JsonProperty
 	public Integer getCardId() {
 		return this.cardId;
@@ -100,8 +117,68 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setCardId(Integer cardId) {
 		this.cardId = cardId;
 	}
-	public CardOfBoxCreationData withCardId(Integer cardId) {
+	public ScoreCardData withCardId(Integer cardId) {
 		this.cardId = cardId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getContent() {
+		return this.content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public ScoreCardData withContent(String content) {
+		this.content = content;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getTestId() {
+		return this.testId;
+	}
+	public void setTestId(Integer testId) {
+		this.testId = testId;
+	}
+	public ScoreCardData withTestId(Integer testId) {
+		this.testId = testId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getContentHash() {
+		return this.contentHash;
+	}
+	public void setContentHash(String contentHash) {
+		this.contentHash = contentHash;
+	}
+	public ScoreCardData withContentHash(String contentHash) {
+		this.contentHash = contentHash;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxPoints() {
+		return this.maxPoints;
+	}
+	public void setMaxPoints(Integer maxPoints) {
+		this.maxPoints = maxPoints;
+	}
+	public ScoreCardData withMaxPoints(Integer maxPoints) {
+		this.maxPoints = maxPoints;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getCardOfBoxId() {
+		return this.cardOfBoxId;
+	}
+	public void setCardOfBoxId(Integer cardOfBoxId) {
+		this.cardOfBoxId = cardOfBoxId;
+	}
+	public ScoreCardData withCardOfBoxId(Integer cardOfBoxId) {
+		this.cardOfBoxId = cardOfBoxId;
 		return this;
 	}
 	
@@ -112,7 +189,7 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setEf(Float ef) {
 		this.ef = ef;
 	}
-	public CardOfBoxCreationData withEf(Float ef) {
+	public ScoreCardData withEf(Float ef) {
 		this.ef = ef;
 		return this;
 	}
@@ -124,7 +201,7 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setInterval(Integer interval) {
 		this.interval = interval;
 	}
-	public CardOfBoxCreationData withInterval(Integer interval) {
+	public ScoreCardData withInterval(Integer interval) {
 		this.interval = interval;
 		return this;
 	}
@@ -136,7 +213,7 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setN(Integer n) {
 		this.n = n;
 	}
-	public CardOfBoxCreationData withN(Integer n) {
+	public ScoreCardData withN(Integer n) {
 		this.n = n;
 		return this;
 	}
@@ -148,7 +225,7 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setCount(Integer count) {
 		this.count = count;
 	}
-	public CardOfBoxCreationData withCount(Integer count) {
+	public ScoreCardData withCount(Integer count) {
 		this.count = count;
 		return this;
 	}
@@ -160,7 +237,7 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setDate(org.joda.time.DateTime date) {
 		this.date = date;
 	}
-	public CardOfBoxCreationData withDate(org.joda.time.DateTime date) {
+	public ScoreCardData withDate(org.joda.time.DateTime date) {
 		this.date = date;
 		return this;
 	}
@@ -172,7 +249,7 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setBoxId(Integer boxId) {
 		this.boxId = boxId;
 	}
-	public CardOfBoxCreationData withBoxId(Integer boxId) {
+	public ScoreCardData withBoxId(Integer boxId) {
 		this.boxId = boxId;
 		return this;
 	}
@@ -184,7 +261,7 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setQuality(Integer quality) {
 		this.quality = quality;
 	}
-	public CardOfBoxCreationData withQuality(Integer quality) {
+	public ScoreCardData withQuality(Integer quality) {
 		this.quality = quality;
 		return this;
 	}
@@ -196,7 +273,7 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setTimestamp(org.joda.time.DateTime timestamp) {
 		this.timestamp = timestamp;
 	}
-	public CardOfBoxCreationData withTimestamp(org.joda.time.DateTime timestamp) {
+	public ScoreCardData withTimestamp(org.joda.time.DateTime timestamp) {
 		this.timestamp = timestamp;
 		return this;
 	}
@@ -208,10 +285,24 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setPoints(Integer points) {
 		this.points = points;
 	}
-	public CardOfBoxCreationData withPoints(Integer points) {
+	public ScoreCardData withPoints(Integer points) {
 		this.points = points;
 		return this;
 	}
+	
+	@JsonProperty
+	public Integer getSubmittedQuality() {
+		return this.submittedQuality;
+	}
+	public void setSubmittedQuality(Integer submittedQuality) {
+		this.submittedQuality = submittedQuality;
+	}
+	public ScoreCardData withSubmittedQuality(Integer submittedQuality) {
+		this.submittedQuality = submittedQuality;
+		return this;
+	}
+	
+	
 	
 	
 

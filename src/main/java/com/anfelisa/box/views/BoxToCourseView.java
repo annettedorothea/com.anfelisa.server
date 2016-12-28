@@ -27,7 +27,8 @@ public class BoxToCourseView {
 		List<IBoxOfCourseModel> list = dataContainer.getBoxOfCourseList();
 		for (IBoxOfCourseModel item : list) {
 			if (item.getAutoAdd() != null) {
-				IBoxOfCourseModel existingItem = CustomBoxOfCourseDao.select(handle, dataContainer.getSchema(), item.getBoxId(), item.getCourseId());
+				IBoxOfCourseModel existingItem = CustomBoxOfCourseDao.select(handle, dataContainer.getSchema(),
+						item.getBoxId(), item.getCourseId());
 				if (existingItem != null) {
 					CustomBoxOfCourseDao.updateAutoAdd(handle, dataContainer.getSchema(), item);
 				} else {
@@ -37,7 +38,7 @@ public class BoxToCourseView {
 					List<ICardModel> cards = CustomCardDao.selectCardsOfCourseThatAreNotAlreadyInBox(handle,
 							dataContainer.getSchema(), item.getCourseId(), item.getBoxId());
 					for (ICardModel card : cards) {
-						ICardOfBoxModel cardOfBoxModel = new CardOfBoxModel(null, card.getCardId(), 0F, 0, 0,
+						ICardOfBoxModel cardOfBoxModel = new CardOfBoxModel(null, card.getCardId(), 0F, 0, 0, 0,
 								new DateTime(), item.getBoxId(), 0, new DateTime(), 0);
 						CardOfBoxDao.insert(handle, cardOfBoxModel, dataContainer.getSchema());
 					}

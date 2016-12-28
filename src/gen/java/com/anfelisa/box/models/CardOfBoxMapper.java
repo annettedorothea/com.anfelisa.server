@@ -14,6 +14,7 @@ public class CardOfBoxMapper implements ResultSetMapper<ICardOfBoxModel> {
 			r.getInt("cardId"),
 			r.getFloat("ef"),
 			r.getInt("interval"),
+			r.getInt("n"),
 			r.getInt("count"),
 			new org.joda.time.DateTime(r.getDate("date")),
 			r.getInt("boxId"),

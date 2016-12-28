@@ -390,6 +390,7 @@ public class MigrationResource extends Resource {
 				Integer cardId = rs.getInt("card_id");
 				Float ef = rs.getFloat("ef");
 				Integer interval = rs.getInt("interval");
+				Integer n = rs.getInt("n");
 				Integer count = rs.getInt("count");
 				DateTime next = new DateTime(rs.getDate("next"));
 				Integer boxId = rs.getInt("box_id");
@@ -397,7 +398,7 @@ public class MigrationResource extends Resource {
 				DateTime timestamp = new DateTime(rs.getDate("timestamp"));
 				Integer points = rs.getInt("points");
 				String uuid = UUID.randomUUID().toString();
-				CardOfBoxCreationData data = new CardOfBoxCreationData(id, cardId, ef, interval, count, next, boxId, quality, timestamp, points, uuid, schema);
+				CardOfBoxCreationData data = new CardOfBoxCreationData(id, cardId, ef, interval, n, count, next, boxId, quality, timestamp, points, uuid, schema);
 				new CreateCardOfBoxAction(data, this.createDatabaseHandle()).apply();
 			}
 			rs.close();

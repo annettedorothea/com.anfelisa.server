@@ -63,6 +63,8 @@ public class CardData implements ICardData {
 	
 	private Integer five;
 	
+	private Integer cardOfBoxId;
+	
 	private String boxName;
 	
 	private Integer count;
@@ -109,6 +111,7 @@ public class CardData implements ICardData {
 		@JsonProperty("three") Integer three,
 		@JsonProperty("four") Integer four,
 		@JsonProperty("five") Integer five,
+		@JsonProperty("cardOfBoxId") Integer cardOfBoxId,
 		@JsonProperty("boxName") String boxName,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("last") org.joda.time.DateTime last,
@@ -139,6 +142,7 @@ public class CardData implements ICardData {
 		this.three = three;
 		this.four = four;
 		this.five = five;
+		this.cardOfBoxId = cardOfBoxId;
 		this.boxName = boxName;
 		this.count = count;
 		this.last = last;
@@ -359,6 +363,18 @@ public class CardData implements ICardData {
 	}
 	public CardData withFive(Integer five) {
 		this.five = five;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getCardOfBoxId() {
+		return this.cardOfBoxId;
+	}
+	public void setCardOfBoxId(Integer cardOfBoxId) {
+		this.cardOfBoxId = cardOfBoxId;
+	}
+	public CardData withCardOfBoxId(Integer cardOfBoxId) {
+		this.cardOfBoxId = cardOfBoxId;
 		return this;
 	}
 	

@@ -17,6 +17,8 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 	
 	private Integer interval;
 	
+	private Integer n;
+	
 	@NotNull
 	private Integer count;
 	
@@ -38,6 +40,7 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 		@JsonProperty("cardId") Integer cardId,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
+		@JsonProperty("n") Integer n,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("boxId") Integer boxId,
@@ -49,6 +52,7 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 		this.cardId = cardId;
 		this.ef = ef;
 		this.interval = interval;
+		this.n = n;
 		this.count = count;
 		this.date = date;
 		this.boxId = boxId;
@@ -87,6 +91,14 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 	}
 	public void setInterval(Integer interval) {
 		this.interval = interval;
+	}
+	
+	@JsonProperty
+	public Integer getN() {
+		return this.n;
+	}
+	public void setN(Integer n) {
+		this.n = n;
 	}
 	
 	@JsonProperty

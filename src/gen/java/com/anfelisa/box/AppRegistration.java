@@ -22,6 +22,7 @@ public class AppRegistration {
 		environment.jersey().register(new LoadBoxOfCourseListResource(jdbi));
 		environment.jersey().register(new DeleteBoxResource(jdbi));
 		environment.jersey().register(new SaveBoxConfigResource(jdbi));
+		environment.jersey().register(new ScoreCardResource(jdbi));
 	}
 
 	public static void registerConsumers() {
@@ -37,6 +38,7 @@ public class AppRegistration {
 		AceController.addConsumer("BoxUpdatedEvent", boxView.updateBox);
 		AceController.addConsumer("BoxDeletedEvent", boxView.deleteBox);
 		AceController.addConsumer("BoxConfigSavedEvent", boxToCourseView.saveBoxConfig);
+		AceController.addConsumer("CardScoredEvent", cardOfBoxView.score);
     }
 }
 
