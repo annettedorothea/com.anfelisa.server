@@ -5,6 +5,8 @@ class ReallyDeleteDialogView {
         bootbox.confirm(Texts.user.reallyRemoveCourseFromUser, function(result) {
             if (result === true) {
                 new RemoveCourseAction( {'courseId' : eventData.courseId} ).apply();
+            } else {
+                new CloseAllDialogsAction().apply();
             }
         });
     };
@@ -13,6 +15,8 @@ class ReallyDeleteDialogView {
         bootbox.confirm(Texts.user.reallyDeleteBox, function(result) {
             if (result === true) {
                 new DeleteBoxAction( {'boxId' : eventData.boxId} ).apply();
+            } else {
+                new CloseAllDialogsAction().apply();
             }
         });
     };

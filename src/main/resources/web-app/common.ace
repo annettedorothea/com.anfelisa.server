@@ -12,6 +12,7 @@ actions {
 	ReadLastResultId executes ReadLastResultId
 	ValidateRequiredField executes ValidateRequiredField
 	OpenReallyDeleteDialog executes OpenReallyDeleteDialog
+	CloseAllDialogs executes CloseAllDialogs
 }
 
 commands {
@@ -68,6 +69,9 @@ commands {
 	OpenReallyDeleteDialog {
 		on removeCourseFromUser publishes (DisplayRemoveCourseFromUserDialog)
 		on deleteBox publishes (DisplayDeleteBoxDialog)
+	}
+	CloseAllDialogs {
+		on ok 
 	}
 }
 

@@ -56,7 +56,7 @@ class RemoveCourseAction extends AbstractRemoveCourseAction {
     	if (this.actionParam.language) {
     		localStorage.language = this.actionParam.language;
     	}
-    	// release action params during replay
+		bootbox.hideAll();
     }
 }
 
