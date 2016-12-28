@@ -25,5 +25,5 @@
   "boxNameNotEmpty" : "Lern-Box muss einen Namen haben.",
   "coursesToAdd" : "Kurse",
   "reallyRemoveCourseFromUser" : "Soll der Kurs wirklich entfernt werden?",
-  "reallyDeleteBox" : "Soll die Lern-Box wirklich gelöscht werden?"
+  "reallyDeleteBox" : "Soll die Lern-Box wirklich gelöscht werden? Alle bisher bewerteten Karten werden dann auch gelöscht."
 }

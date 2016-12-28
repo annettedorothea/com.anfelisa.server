@@ -11,6 +11,7 @@ import com.anfelisa.box.data.BoxToCourseAdditionData;
 import com.anfelisa.box.models.BoxOfCourseDao;
 import com.anfelisa.box.models.CardOfBoxDao;
 import com.anfelisa.box.models.CardOfBoxModel;
+import com.anfelisa.box.models.CustomBoxOfCourseDao;
 import com.anfelisa.box.models.CustomCardDao;
 import com.anfelisa.box.models.IBoxOfCourseModel;
 import com.anfelisa.box.models.ICardModel;
@@ -26,7 +27,12 @@ public class BoxToCourseView {
 		List<IBoxOfCourseModel> list = dataContainer.getBoxOfCourseList();
 		for (IBoxOfCourseModel item : list) {
 			if (item.getAutoAdd() != null) {
-				BoxOfCourseDao.insert(handle, item, dataContainer.getSchema());
+				IBoxOfCourseModel existingItem = CustomBoxOfCourseDao.select(handle, dataContainer.getSchema(), item.getBoxId(), item.getCourseId());
+				if (existingItem != null) {
+					CustomBoxOfCourseDao.updateAutoAdd(handle, dataContainer.getSchema(), item);
+				} else {
+					BoxOfCourseDao.insert(handle, item, dataContainer.getSchema());
+				}
 				if (item.getAutoAdd()) {
 					List<ICardModel> cards = CustomCardDao.selectCardsOfCourseThatAreNotAlreadyInBox(handle,
 							dataContainer.getSchema(), item.getCourseId(), item.getBoxId());
