@@ -1,8 +1,9 @@
 'use strict';
 
-class CreateBoxCommand extends AbstractCreateBoxCommand {
+class RenderLoginCommand extends AbstractRenderLoginCommand {
     execute() {
         return new Promise((resolve) => {
+            this.commandData.outcome = this.ok;
 			resolve();
         });
     }

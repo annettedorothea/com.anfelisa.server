@@ -1,6 +1,6 @@
 'use strict';
 
-class CreateBoxAction extends AbstractCreateBoxAction {
+class RenderLogoutAction extends AbstractRenderLogoutAction {
 
     captureActionParam() {
     	if (localStorage.username) {

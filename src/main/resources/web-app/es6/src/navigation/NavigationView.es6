@@ -2,6 +2,7 @@
 
 class NavigationView {
     static renderPublicCourses(eventData) {
+        eventData.data.texts = Texts.common;
         $.get('templates/navigation/publicCoursesTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
@@ -9,6 +10,7 @@ class NavigationView {
     };
     
     static renderPublicLessons(eventData) {
+        eventData.data.texts = Texts.common;
         $.get('templates/navigation/publicLessonsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
@@ -16,6 +18,7 @@ class NavigationView {
     };
     
     static renderPublicTests(eventData) {
+        eventData.data.texts = Texts.common;
         $.get('templates/navigation/publicTestsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
@@ -23,6 +26,7 @@ class NavigationView {
     };
     
     static renderPublicTest(eventData) {
+        eventData.data.texts = Texts.common;
         $.get('templates/navigation/publicTestsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
@@ -32,6 +36,7 @@ class NavigationView {
     };
     
     static renderPrivateCourses(eventData) {
+        eventData.data.texts = Texts.common;
         $.get('templates/navigation/privateCoursesTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
@@ -39,6 +44,7 @@ class NavigationView {
     };
     
     static renderPrivateLessons(eventData) {
+        eventData.data.texts = Texts.common;
         $.get('templates/navigation/privateLessonsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
@@ -46,6 +52,7 @@ class NavigationView {
     };
     
     static renderPrivateTests(eventData) {
+        eventData.data.texts = Texts.common;
         $.get('templates/navigation/privateTestsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
@@ -55,6 +62,7 @@ class NavigationView {
     };
     
     static renderPrivateTest(eventData) {
+        eventData.data.texts = Texts.common;
         $.get('templates/navigation/privateTestsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);

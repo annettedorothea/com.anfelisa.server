@@ -1,0 +1,2 @@
+<button id="startButton" class="btn btn-blue hidden-xs hidden-sm" onclick="new StartTestAction({testMode: 'withTyping'}).apply();">{{texts.withTyping}}</button>
+<button id="repeatButton" class="btn btn-blue" onclick="new StartTestAction({testMode: 'asRepetition'}).apply();">{{texts.asRepetition}}</button>

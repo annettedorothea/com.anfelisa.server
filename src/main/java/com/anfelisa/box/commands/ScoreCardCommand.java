@@ -39,7 +39,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		Integer newInterval = 1;
 		if (n == 2) {
 			newInterval = 6;
-		} else {
+		} else if (n > 2){
 			newInterval = Math.round(interval * newFactor);
 		}
 		DateTime next = new DateTime().plusDays(newInterval);

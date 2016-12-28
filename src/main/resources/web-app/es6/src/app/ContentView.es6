@@ -16,7 +16,7 @@ class ContentView {
     };
 
     static renderPublicCoursesContentPane(data) {
-        $.get('templates/contentTemplate1.mst', function(template) {
+        $.get('templates/contentTemplate1_de.mst', function(template) {
             var rendered = Mustache.render(template, data);
             $('.content-pane').html(rendered);
         });

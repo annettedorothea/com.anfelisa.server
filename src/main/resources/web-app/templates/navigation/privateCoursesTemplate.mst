@@ -1,6 +1,6 @@
 <ul class="nav nav-pills nav-stacked">
     <li class="header">
-        <a>Meine Kurse</a>
+        <a>{{texts.myCourses}}</a>
     </li>
     {{#myCourseList}}
     <li>

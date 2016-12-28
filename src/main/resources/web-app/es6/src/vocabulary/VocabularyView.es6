@@ -59,25 +59,29 @@ class VocabularyView {
         Mousetrap.unbind('z');
         jQuery('.active').val(eventData.solution);
         jQuery('#showWord').remove();
-        jQuery('#correctParagraph')
-            .html(
-                "<button id='known' class='btn btn-green' onclick='new RateWordAction({knewIt: true}).apply();'>Gewusst</button>" +
-                "<button id='notKnown' class='btn btn-red' onclick='new RateWordAction({knewIt: false}).apply();'>Nicht gewusst</button>");
-        Mousetrap.bind('g', function () {
-            $("#known").click()
-        });
-        Mousetrap.bind('n', function () {
-            $("#notKnown").click()
+        eventData.texts = Texts.common;
+        $.get('templates/test/rate.mst', function(template) {
+            var rendered = Mustache.render(template, eventData);
+            $('#correctParagraph').html(rendered);
+            Mousetrap.bind('g', function () {
+                $("#known").click()
+            });
+            Mousetrap.bind('n', function () {
+                $("#notKnown").click()
+            });
         });
     };
     
     static displayNextWordButton(eventData) {
         jQuery('#correctButton').remove();
-        jQuery('#correctParagraph').html(
-            "<button id='nextButton' class='btn btn-green' onclick='new ShowNextWordOfTestAction().apply()'>Weiter</button>");
-        jQuery("#nextButton").focus();
-        Mousetrap.bind('ctrl+space', function () {
-            $("#nextButton").click()
+        eventData.texts = Texts.common;
+        $.get('templates/test/goOn.mst', function(template) {
+            var rendered = Mustache.render(template, eventData);
+            $('#correctParagraph').html(rendered);
+            jQuery("#nextButton").focus();
+            Mousetrap.bind('ctrl+space', function () {
+                $("#nextButton").click()
+            });
         });
     };
     
@@ -92,23 +96,29 @@ class VocabularyView {
         active.removeClass("active");
         let nextRandomIndex = jQuery('#' + eventData.nextRandomIndex);
         nextRandomIndex.addClass("active");
+        eventData.texts = Texts.common;
         if (Vocabulary.testState.testMode === "withTyping") {
-            jQuery('#correctParagraph').html(
-                "<button id='correctButton' class='btn btn-red' onclick='new CorrectWordAction().apply()'>Korrigieren</button>");
+            $.get('templates/test/correct.mst', function(template) {
+                var rendered = Mustache.render(template, eventData);
+                $('#correctParagraph').html(rendered);
+                Mousetrap.bind('ctrl+k', function () {
+                    $("#correctButton").click()
+                });
+            });
+
             let displayedSolution = jQuery('.displayedSolution');
             displayedSolution.html("");
             displayedSolution.removeClass("displayedSolution");
             nextRandomIndex.removeAttr("readonly");
             nextRandomIndex.removeAttr("disabled");
             nextRandomIndex.focus();
-            Mousetrap.bind('ctrl+k', function () {
-                $("#correctButton").click()
-            });
         } else {
-            jQuery('#correctParagraph').html(
-                "<button id='showWord' class='btn btn-blue' onclick='new ShowWordAction().apply()'>Zeigen</button>");
-            Mousetrap.bind('z', function () {
-                $("#showWord").click()
+            $.get('templates/test/show.mst', function(template) {
+                var rendered = Mustache.render(template, eventData);
+                $('#correctParagraph').html(rendered);
+                Mousetrap.bind('z', function () {
+                    $("#showWord").click()
+                });
             });
         }
     };

@@ -2,6 +2,7 @@
 
 class BoxesView {
     static renderBoxes(eventData) {
+        eventData.data.texts = Texts.common;
         $.get('templates/navigation/myBoxesTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $(".box-navigation").html(rendered);

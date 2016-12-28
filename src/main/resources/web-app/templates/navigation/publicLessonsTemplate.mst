@@ -6,6 +6,6 @@
     <li><a onclick="new RouteAction({ hash : 'public/{{courseId}}/{{lessonId}}' }).apply()">{{name}}</a></li>
     {{/lessonList}}
     <li>
-        <a onclick="new RouteAction({ hash : 'public' }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu den Kursen</a>
+        <a onclick="new RouteAction({ hash : 'public' }).apply()"><i class="fa fa-arrow-left"></i> {{texts.backToPublicCourses}}</a>
     </li>
 </ul>

@@ -63,28 +63,7 @@ class CardView {
         }
     };
     
-    static renderNextCard(eventData) {
-    };
-    
-    static goOnWithNewCards(eventData) {
-    };
-    
     static displayComplexCardFinishedSuccessfully(eventData) {
-    };
-    
-    static renderCardForRepetition(eventData) {
-    };
-    
-    static repeatComplexCard(eventData) {
-    };
-    
-    static repeatTodaysCards(eventData) {
-    };
-    
-    static resetGoOnWithNewCards(eventData) {
-    };
-    
-    static initCurrentBoxId(eventData) {
     };
     
 }

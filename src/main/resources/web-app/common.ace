@@ -14,25 +14,33 @@ actions {
 	OpenReallyDeleteDialog executes OpenReallyDeleteDialog
 	CloseAllDialogs executes CloseAllDialogs
 	SwitchLanguage executes SwitchLanguage
+	RenderLogin executes RenderLogin
+	RenderLogout executes RenderLogout
 }
 
 commands {
 	Init {
-		on publicCourses publishes (navigation.UserIsNotLoggedIn InitOK ) triggers ( navigation.ReadPublicCourses )
-		on publicLessons publishes (navigation.UserIsNotLoggedIn InitOK ) triggers ( navigation.ReadPublicLessons )
-		on publicTests publishes (navigation.UserIsNotLoggedIn InitOK ) triggers ( navigation.ReadPublicTests )
-		on publicTest publishes (navigation.UserIsNotLoggedIn InitOK ) triggers ( navigation.ReadPublicTest )
-		on privateCourses publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadStatistics navigation.ReadBoxes )
-		on privateLessons publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateLessons navigation.ReadBoxes )
-		on privateTests publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateTests navigation.ReadBoxes )
-		on privateTest publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateTest navigation.ReadBoxes ) 
-		on result publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadResult navigation.ReadBoxes )
-		on box publishes (navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes navigation.ReadNextCard )
-		on profile publishes (navigation.UserIsLoggedIn InitOK ) triggers ( profile.OpenProfile navigation.ReadPrivateCourses navigation.ReadBoxes )
-		on profileCourses publishes (navigation.UserIsLoggedIn InitOK ) triggers ( profile.OpenCourseSelection navigation.ReadPrivateCourses navigation.ReadBoxes )
-		on profileBoxCreate publishes(navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.OpenBoxCreation )
-		on profileBoxEdit publishes(navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.LoadBox )
-		on profileCourseAdd publishes(navigation.UserIsLoggedIn InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.LoadCourses )
+		on publicCourses publishes ( InitOK ) triggers ( navigation.ReadPublicCourses RenderLogin )
+		on publicLessons publishes (InitOK ) triggers ( navigation.ReadPublicLessons RenderLogin)
+		on publicTests publishes (InitOK ) triggers ( navigation.ReadPublicTests RenderLogin)
+		on publicTest publishes (InitOK ) triggers ( navigation.ReadPublicTest RenderLogin)
+		on privateCourses publishes (InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadStatistics navigation.ReadBoxes RenderLogout)
+		on privateLessons publishes (InitOK ) triggers ( navigation.ReadPrivateLessons navigation.ReadBoxes RenderLogout)
+		on privateTests publishes (InitOK ) triggers ( navigation.ReadPrivateTests navigation.ReadBoxes RenderLogout)
+		on privateTest publishes (InitOK ) triggers ( navigation.ReadPrivateTest navigation.ReadBoxes RenderLogout) 
+		on result publishes (InitOK ) triggers ( navigation.ReadResult navigation.ReadBoxes RenderLogout)
+		on box publishes (InitOK ) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes navigation.ReadNextCard RenderLogout)
+		on profile publishes (InitOK ) triggers ( profile.OpenProfile navigation.ReadPrivateCourses navigation.ReadBoxes RenderLogout)
+		on profileCourses publishes (InitOK ) triggers ( profile.OpenCourseSelection navigation.ReadPrivateCourses navigation.ReadBoxes RenderLogout)
+		on profileBoxCreate publishes(InitOK) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.OpenBoxCreation RenderLogout)
+		on profileBoxEdit publishes(InitOK) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.LoadBox RenderLogout)
+		on profileCourseAdd publishes(InitOK) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.LoadCourses RenderLogout)
+	}
+	RenderLogin {
+		on ok publishes (RenderLogin)
+	}
+	RenderLogout {
+		on ok publishes (RenderLogout)
 	}
 	Route {
 		on ok publishes ( UpdateHash ) triggers ( Init )
@@ -92,6 +100,8 @@ events {
 	DisplayRemoveCourseFromUserDialog listenedToBy (ReallyDeleteDialog.displayRemoveCourseFromUserDialog)
 	DisplayDeleteBoxDialog listenedToBy (ReallyDeleteDialog.displayDeleteBoxDialog)
 	SwitchLanguage listenedToBy (Common.initLanguageInLocalStorage)
+	RenderLogin listenedToBy (Header.renderLogin)
+	RenderLogout listenedToBy (Header.renderLogout)
 } 
 
 views {

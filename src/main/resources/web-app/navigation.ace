@@ -81,8 +81,6 @@ events {
 	StatisticsRead listenedToBy ( Content.renderStatistics )
 	BoxesRead listenedToBy ( Boxes.renderBoxes ) 
 	NextCardRead listenedToBy ( Content.renderCard )
-	UserIsNotLoggedIn listenedToBy ( common.Header.renderLogin Boxes.hideBoxes )
-	UserIsLoggedIn listenedToBy ( common.Header.renderLogout )
 }
 
 views {

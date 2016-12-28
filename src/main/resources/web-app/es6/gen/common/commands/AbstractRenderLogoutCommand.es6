@@ -1,17 +1,17 @@
 'use strict';
 
-class AbstractFinishCardCommand extends Command {
+class AbstractRenderLogoutCommand extends Command {
     constructor(commandParam) {
-        super(commandParam, "FinishCardCommand");
-        this.cardFinished = "cardFinished";
+        super(commandParam, "RenderLogoutCommand");
+        this.ok = "ok";
     }
 
     publishEvents() {
     	let promises = [];
     	
         switch (this.commandData.outcome) {
-        case this.cardFinished:
-        	promises.push(new TriggerAction(new SaveResultAction(this.commandData)).publish());
+        case this.ok:
+        	promises.push(new RenderLogoutEvent(this.commandData).publish());
         	break;
     	default:
     		throw 'unhandled outcome: ' + this.commandData.outcome;

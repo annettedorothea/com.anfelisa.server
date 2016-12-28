@@ -1,6 +1,6 @@
 <ul class="nav nav-pills nav-stacked">
     <li class="header">
-        <a>Öffentliche Kurse</a>
+        <a>{{texts.publicCourses}}</a>
     </li>
     {{#courseList}}
     <li><a  onclick="new RouteAction({ hash : 'public/{{courseId}}' }).apply()">{{name}}</a></li>

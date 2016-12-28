@@ -7,7 +7,6 @@ class EventListenerRegistrationCard {
     	ACEController.registerListener('ShowNextLineEvent', CardView.showNextLine);
     	ACEController.registerListener('ShowNextWordEvent', CardView.showNextWord);
     	ACEController.registerListener('ShowScoreButtonsEvent', CardView.showScoreButtons);
-    	ACEController.registerListener('DisplayComplexCardFinishedSuccessfullyEvent', CardView.displayComplexCardFinishedSuccessfully);
 	}
 
 }

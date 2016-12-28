@@ -14,7 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.CardData;
+import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.CustomBoxDao;
+import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.ICardInfoModel;
 import com.anfelisa.box.models.ILineModel;
 import com.anfelisa.box.models.LineModel;
@@ -120,6 +122,10 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 				e.printStackTrace();
 				throw new WebApplicationException("cannot parse " + this.actionData.getContent() + ".");
 			}
+		} else {
+			IBoxModel box = BoxDao.selectByBoxId(this.getDatabaseHandle().getHandle(),this.actionParam.getBoxId(),
+				this.actionParam.getSchema());
+			this.actionData.setBoxName(box.getName());
 		}
 
 		this.actionData.setCards(count);

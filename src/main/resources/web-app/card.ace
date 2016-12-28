@@ -34,9 +34,7 @@ commands {
 		)
 	}
 	FinishCard {
-		on cardFinished publishes (
-			DisplayComplexCardFinishedSuccessfully
-		) triggers (
+		on cardFinished triggers (
 			common.SaveResult
 		)
 	}
@@ -61,9 +59,6 @@ events {
 	ShowScoreButtons listenedToBy (
 		Card.showScoreButtons
 	)
-	DisplayComplexCardFinishedSuccessfully listenedToBy (
-		Card.displayComplexCardFinishedSuccessfully
-	)
 	
 }
 
@@ -73,14 +68,6 @@ views {
 		showWanted
 		showNextLine
 		showNextWord
-		renderNextCard
-		goOnWithNewCards
-		displayComplexCardFinishedSuccessfully
-		renderCardForRepetition
-		repeatComplexCard
-		repeatTodaysCards
-		resetGoOnWithNewCards
-		initCurrentBoxId
 	}
 	
 }

@@ -33,9 +33,6 @@ class EventListenerRegistrationNavigation {
     	ACEController.registerListener('StatisticsReadEvent', ContentView.renderStatistics);
     	ACEController.registerListener('BoxesReadEvent', BoxesView.renderBoxes);
     	ACEController.registerListener('NextCardReadEvent', ContentView.renderCard);
-    	ACEController.registerListener('UserIsNotLoggedInEvent', HeaderView.renderLogin);
-    	ACEController.registerListener('UserIsNotLoggedInEvent', BoxesView.hideBoxes);
-    	ACEController.registerListener('UserIsLoggedInEvent', HeaderView.renderLogout);
 	}
 
 }

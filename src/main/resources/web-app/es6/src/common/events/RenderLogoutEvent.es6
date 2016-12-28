@@ -1,6 +1,6 @@
 'use strict';
 
-class UserIsNotLoggedInEvent extends AbstractUserIsNotLoggedInEvent {
+class RenderLogoutEvent extends AbstractRenderLogoutEvent {
     prepareDataForView() {
         this.eventData = JSON.parse(JSON.stringify(this.eventParam));
     }

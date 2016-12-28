@@ -11,12 +11,12 @@
     {{#resultAbstractList}}
     <li class="result_{{resultId}} result">
         <a onclick="new RouteAction({hash : 'private/{{courseId}}/{{lessonId}}/{{testId}}/{{resultId}}' }).apply()">
-            <i class="fa fa-caret-right"></i> {{points}} von {{maxPoints}}
+            <i class="fa fa-caret-right"></i> {{points}} {{texts.pointsOfMaxPoints}} {{maxPoints}}
         </a>
     </li>
     {{/resultAbstractList}}
     {{/myTestList}}
     <li>
-        <a onclick="new RouteAction({ hash : 'private/{{courseId}}' }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu meinen Lektionen</a>
+        <a onclick="new RouteAction({ hash : 'private/{{courseId}}' }).apply()"><i class="fa fa-arrow-left"></i> {{texts.backToMyLessons}}</a>
     </li>
 </ul>

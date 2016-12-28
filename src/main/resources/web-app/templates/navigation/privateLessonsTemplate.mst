@@ -13,6 +13,6 @@
     </li>
     {{/myLessonList}}
     <li>
-        <a onclick="new RouteAction({ hash : 'private' }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu meinen Kursen</a>
+        <a onclick="new RouteAction({ hash : 'private' }).apply()"><i class="fa fa-arrow-left"></i> {{texts.backToMyCourses}}</a>
     </li>
 </ul>

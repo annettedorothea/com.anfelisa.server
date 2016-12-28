@@ -1,6 +1,6 @@
 <ul class="nav nav-pills nav-stacked">
     <li class="header">
-        <a>Meine Vokabel-Boxen</a>
+        <a>{{texts.myBoxes}}</a>
     </li>
     {{#boxList}}
     <li class="box_{{id}}">

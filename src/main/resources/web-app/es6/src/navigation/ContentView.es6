@@ -2,7 +2,7 @@
 
 class ContentView {
     static renderPublicCourses(eventData) {
-        $.get('templates/content/contentTemplate1.mst', function(template) {
+        $.get('templates/content/contentTemplate1_' + eventData.language + '.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.content-pane').html(rendered);
         });
@@ -23,7 +23,13 @@ class ContentView {
     };
     
     static renderPublicTest(eventData) {
-        $(".content-pane").html(eventData.data.html);
+        var html = "<div class='test'>" + eventData.data.html + "</div>";
+        $(".content-pane").html(html);
+        eventData.texts = Texts.common;
+        $.get('templates/test/startTest.mst', function(template) {
+            var rendered = Mustache.render(template, eventData);
+            $('#correctParagraph').html(rendered);
+        });
         //enableDrag();
     };
     
@@ -45,6 +51,11 @@ class ContentView {
         var html = "<div class='test'>" + eventData.data.html + "</div>";
         $(".content-pane").html(html);
         //enableDrag();
+        eventData.texts = Texts.common;
+        $.get('templates/test/startTest.mst', function(template) {
+            var rendered = Mustache.render(template, eventData);
+            $('#correctParagraph').html(rendered);
+        });
     };
     
     static renderResult(eventData) {
@@ -70,11 +81,11 @@ class ContentView {
                         }
                     }
                 }
-                jQuery('#correctParagraph').html(
-                    "Du hast " + eventData.data.points + " von maximal "
-                    + eventData.data.maxPoints + " Punkten erreicht.");
+                $.get('templates/test/result_' + eventData.language + '.mst', function(template) {
+                    var rendered = Mustache.render(template, eventData.data);
+                    $('#correctParagraph').html(rendered);
+                });
             } else if ((jQuery("#questionOverviewList")).length > 0) {
-                alert('questionOverviewList');
                 for (var i = 1; i <= jsonObject["maxPoints"]; i++) {
                     $("#" + i).addClass("show");
                     $("#" + i).removeClass("hide");
@@ -102,15 +113,17 @@ class ContentView {
                         j++;
                     });
                 }
-                jQuery('#resultDiv').html(
-                    "Du hast " + jsonObject["points"] + " von maximal "
-                    + jsonObject["maxPoints"] + " Punkten erreicht.");
+                $.get('templates/test/result_' + eventData.language + '.mst', function(template) {
+                    var rendered = Mustache.render(template, eventData.data);
+                    $('#correctParagraph').html(rendered);
+                });
             } else if ((jQuery(".ccard")).length > 0) {
-                $(".line").removeClass("invisible");
-                $(".word").removeClass("invisible");
-                jQuery('#correctParagraph').html(
-                    "Du hast " + jsonObject["points"] + " von maximal "
-                    + jsonObject["maxPoints"] + " Punkten erreicht.");
+                $(".line").removeClass("hiddenLine");
+                $(".word").removeClass("hiddenWord");
+                $.get('templates/test/result_' + eventData.language + '.mst', function(template) {
+                    var rendered = Mustache.render(template, eventData.data);
+                    $('#correctParagraph').html(rendered);
+                });
             } else {
                 for (var i in jsonObject) {
                     var value = jsonObject[i];
@@ -195,7 +208,6 @@ class ContentView {
                 $('.content-pane').html(rendered);
             });
         }
-        //App.cardView.currentCardId = data.id;
     };
 
 }

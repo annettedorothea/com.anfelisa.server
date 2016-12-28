@@ -17,6 +17,8 @@ class EventListenerRegistrationCommon {
     	ACEController.registerListener('DisplayRemoveCourseFromUserDialogEvent', ReallyDeleteDialogView.displayRemoveCourseFromUserDialog);
     	ACEController.registerListener('DisplayDeleteBoxDialogEvent', ReallyDeleteDialogView.displayDeleteBoxDialog);
     	ACEController.registerListener('SwitchLanguageEvent', CommonView.initLanguageInLocalStorage);
+    	ACEController.registerListener('RenderLoginEvent', HeaderView.renderLogin);
+    	ACEController.registerListener('RenderLogoutEvent', HeaderView.renderLogout);
 	}
 
 }

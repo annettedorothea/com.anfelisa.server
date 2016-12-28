@@ -2,9 +2,10 @@
 
 class TestView {
     static renderResult(eventData) {
-        jQuery('#correctParagraph').html(
-            "Du hast " + eventData.points + " von maximal "
-            + eventData.maxPoints + " Punkten erreicht.");
+        $.get('templates/test/result_' + eventData.language + '.mst', function(template) {
+            var rendered = Mustache.render(template, eventData);
+            $('#correctParagraph').html(rendered);
+        });
     };
     
 }

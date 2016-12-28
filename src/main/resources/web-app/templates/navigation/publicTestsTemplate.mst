@@ -10,6 +10,6 @@
     </li>
     {{/testList}}
     <li>
-        <a onclick="new RouteAction({ hash : 'public/{{courseId}}' }).apply()"><i class="fa fa-arrow-left"></i> Zurück zu den Lektionen</a>
+        <a onclick="new RouteAction({ hash : 'public/{{courseId}}' }).apply()"><i class="fa fa-arrow-left"></i> {{texts.backToPublicLessons}}</a>
     </li>
 </ul>
