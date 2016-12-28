@@ -392,10 +392,20 @@ public class MigrationResource extends Resource {
 				Integer interval = rs.getInt("interval");
 				Integer n = rs.getInt("n");
 				Integer count = rs.getInt("count");
-				DateTime next = new DateTime(rs.getDate("next"));
+				DateTime next = null;
+				if (rs.getDate("next") == null) {
+					next = new DateTime().minusYears(5);
+				} else {
+					next = new DateTime(rs.getDate("next"));
+				}
 				Integer boxId = rs.getInt("box_id");
 				Integer quality = rs.getInt("quality");
-				DateTime timestamp = new DateTime(rs.getDate("timestamp"));
+				DateTime timestamp = null;
+				if (rs.getDate("timestamp") == null) {
+					timestamp = new DateTime().minusYears(5);
+				} else {
+					timestamp = new DateTime(rs.getDate("timestamp"));
+				}
 				Integer points = rs.getInt("points");
 				String uuid = UUID.randomUUID().toString();
 				CardOfBoxCreationData data = new CardOfBoxCreationData(id, cardId, ef, interval, n, count, next, boxId, quality, timestamp, points, uuid, schema);

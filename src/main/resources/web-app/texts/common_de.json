@@ -1,3 +1,17 @@
 {
-  "ok" : "OK"
+  "ok" : "OK",
+  "home" : "Home",
+  "forToday" : "Für heute",
+  "forTomorrow" : "Für morgen",
+  "total" : "Insgesamt",
+  "last" : "Zuletzt am",
+  "planned" : "Nächstes Mal",
+  "finishedHeader" : "Fertig!",
+  "finishedText" : "Du hast alle Karten für heute fertig!",
+  "perfect" : "Perfekt",
+  "scarcely" : "Knapp nicht",
+  "knewIt" : "Gewusst",
+  "didNotKnow" : "Nicht gewusst",
+  "withEffort" : "Mit Mühe",
+  "noIdea" : "Kein Plan"
 }

@@ -153,6 +153,7 @@ class ContentView {
     
     static renderCard(eventData) {
         var data = eventData.data;
+        data.texts = Texts.common;
         $.get('templates/breadcrumbs/breadcrumbsTemplateBox.mst', function(template) {
             var rendered = Mustache.render(template, data);
             $('.breadcrumbs').html(rendered);
@@ -170,6 +171,7 @@ class ContentView {
         } else if (data.cardsForToday == 0) {
             $('li.active span.badge').html('');
         }
+        data.texts = Texts.common;
         if (data.cardsForToday > 0 || /*App.cardView.goOnWithNewCards &&*/ data.newCards > 0) {
             $.get('templates/card/cardTemplate.mst', function(template) {
                 var rendered = Mustache.render(template, data);
@@ -184,14 +186,6 @@ class ContentView {
                     $(".card").click()
                 });
             }
-        } else if (data.newCards > 0 /*&& !App.cardView.goOnWithNewCards*/) {
-            let activeItem = $('li.active i.fa');
-            activeItem.removeClass('fa-pencil-square-o');
-            activeItem.addClass('fa-check-square-o');
-            $.get('templates/card/cardTemplateNewCards.mst', function(template) {
-                var rendered = Mustache.render(template, data);
-                $('.content-pane').html(rendered);
-            });
         } else {
             let activeItem = $('li.active i.fa');
             activeItem.removeClass('fa-pencil-square-o');

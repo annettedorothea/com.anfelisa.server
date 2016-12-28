@@ -1,3 +1,17 @@
 {
-  "ok" : "OK"
+  "ok" : "OK",
+  "home" : "Home",
+  "forToday" : "For today",
+  "forTomorrow" : "For tomorrow",
+  "total" : "Total",
+  "last" : "Last",
+  "planned" : "Next",
+  "finishedHeader" : "Finished!",
+  "finishedText" : "You did it!",
+  "perfect" : "Perfect",
+  "scarcely" : "Scarcely",
+  "knewIt" : "Knew it",
+  "didNotKnow" : "Did not know",
+  "withEffort" : "With effort",
+  "noIdea" : "No idea"
 }

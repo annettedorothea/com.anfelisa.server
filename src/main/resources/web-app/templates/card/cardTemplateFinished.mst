@@ -1,5 +1,5 @@
 <div class="test">
-    <h2>Feierabend!</h2>
+    <h2>{{texts.finishedHeader}}</h2>
     <h2>
         <i class="fa fa-smile-o green"></i>
         <i class="fa fa-smile-o blue"></i>
@@ -8,7 +8,7 @@
         <i class="fa fa-smile-o red"></i>
         <i class="fa fa-smile-o pink"></i>
     </h2>
-    <p>Du hast alle Karten für heute fertig!</p>
+    <p>{{texts.finishedText}}</p>
     <div class="box-score container-fluid">
         <div class="green" style="width:{{five}}%;"/>
         <div class="blue" style="width:{{four}}%;"/>
@@ -21,9 +21,9 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <table class="table table-condensed">
-                <tr><td>Für heute</td><td>{{cardsForToday}}</td></tr>
-                <tr><td>Für morgen</td><td>{{cardsForTomorrow}}</td></tr>
-                <tr><td>Insgesamt</td><td>{{cards}}</td></tr>
+                <tr><td>{{texts.forToday}}</td><td>{{cardsForToday}}</td></tr>
+                <tr><td>{{texts.forTomorrow}}</td><td>{{cardsForTomorrow}}</td></tr>
+                <tr><td>{{texts.total}}</td><td>{{cards}}</td></tr>
             </table>
         </div>
         <div class="col-md-4"></div>

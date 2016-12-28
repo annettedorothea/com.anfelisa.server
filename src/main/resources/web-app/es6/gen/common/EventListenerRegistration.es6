@@ -16,6 +16,7 @@ class EventListenerRegistrationCommon {
     	ACEController.registerListener('FieldNotEmptyEvent', ValidationView.fieldNotEmpty);
     	ACEController.registerListener('DisplayRemoveCourseFromUserDialogEvent', ReallyDeleteDialogView.displayRemoveCourseFromUserDialog);
     	ACEController.registerListener('DisplayDeleteBoxDialogEvent', ReallyDeleteDialogView.displayDeleteBoxDialog);
+    	ACEController.registerListener('SwitchLanguageEvent', CommonView.initLanguageInLocalStorage);
 	}
 
 }

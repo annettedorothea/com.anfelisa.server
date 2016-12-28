@@ -13,6 +13,7 @@ actions {
 	ValidateRequiredField executes ValidateRequiredField
 	OpenReallyDeleteDialog executes OpenReallyDeleteDialog
 	CloseAllDialogs executes CloseAllDialogs
+	SwitchLanguage executes SwitchLanguage
 }
 
 commands {
@@ -73,6 +74,9 @@ commands {
 	CloseAllDialogs {
 		on ok 
 	}
+	SwitchLanguage {
+		on ok publishes (SwitchLanguage) triggers (Init)
+	}
 }
 
 events {
@@ -87,6 +91,7 @@ events {
 	FieldNotEmpty listenedToBy ( Validation.fieldNotEmpty )
 	DisplayRemoveCourseFromUserDialog listenedToBy (ReallyDeleteDialog.displayRemoveCourseFromUserDialog)
 	DisplayDeleteBoxDialog listenedToBy (ReallyDeleteDialog.displayDeleteBoxDialog)
+	SwitchLanguage listenedToBy (Common.initLanguageInLocalStorage)
 } 
 
 views {
