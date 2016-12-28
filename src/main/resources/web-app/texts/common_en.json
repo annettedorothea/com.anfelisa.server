@@ -39,5 +39,22 @@
   "show" : "Show (z)",
   "correct" : "Correct (ctrl+k)",
   "withTyping" : "With typing",
-  "asRepetition" : "Without typing"
+  "asRepetition" : "Without typing",
+  "january" : "January",
+  "february" : "February",
+  "march" : "March",
+  "april" : "April",
+  "may" : "May",
+  "june" : "June",
+  "july" : "July",
+  "august" : "August",
+  "september" : "September",
+  "october" : "October",
+  "november" : "November",
+  "december" : "December",
+  "day" : "Day",
+  "name" : "Name",
+  "count" : "Count",
+  "points" : "Points",
+  "rate" : "Rate"
 }

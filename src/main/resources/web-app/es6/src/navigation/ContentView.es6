@@ -156,6 +156,7 @@ class ContentView {
                 statisticsItemList: []
             };
         }
+        eventData.data.texts = Texts.common;
         $.get('templates/user/statisticsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.content-pane').html(rendered);

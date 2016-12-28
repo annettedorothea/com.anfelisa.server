@@ -39,5 +39,22 @@
   "show" : "Zeigen (z)",
   "correct" : "Korrigieren (ctrl+k)",
   "withTyping" : "Wörter mit Tastatur tippen",
-  "asRepetition" : "Auf Blatt schreiben oder im Kopf"
+  "asRepetition" : "Auf Blatt schreiben oder im Kopf",
+  "january" : "Januar",
+  "february" : "Februar",
+  "march" : "März",
+  "april" : "April",
+  "may" : "Mai",
+  "june" : "Juni",
+  "july" : "Juli",
+  "august" : "August",
+  "september" : "September",
+  "october" : "Oktober",
+  "november" : "November",
+  "december" : "Dezember",
+  "day" : "Tag",
+  "name" : "Name",
+  "count" : "Anzahl",
+  "points" : "Punkte",
+  "rate" : "Quote"
 }

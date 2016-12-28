@@ -487,10 +487,8 @@ div.header .login-logout-pane {
 	height: 240px !important;
 }
 .content-pane div.card {
-	padding: 20px;
 	border: 3px solid #CCCCCC;
 	border-radius: 5px;
-	padding: 5px 7px;
 	padding: 20px;
 	font-size: 16px;
 	line-height: 16px;
@@ -498,13 +496,12 @@ div.header .login-logout-pane {
 	text-align: center;
 	vertical-align: middle;
 	width: 100%;
+	margin-bottom: 4px;
 }
 
 .content-pane div.ccard {
-	padding: 20px;
 	border: 3px solid #CCCCCC;
 	border-radius: 5px;
-	padding: 5px 7px;
 	padding: 20px;
 	font-size: 16px;
 	line-height: 16px;
@@ -517,6 +514,7 @@ div.header .login-logout-pane {
 	-ms-user-select: none;
 	user-select: none;
 	margin: 0 0 12px 0;
+	margin-bottom: 4px;
 }
 .content-pane div.ccard div.line span.hiddenWord {
 	visibility:hidden;
