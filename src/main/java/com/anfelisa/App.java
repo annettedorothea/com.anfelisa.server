@@ -27,7 +27,7 @@ public class App extends Application<AppConfiguration> {
 
 	@Override
 	public String getName() {
-		return "lessonToMe";
+		return "anfelisa";
 	}
 
 	@Override
@@ -38,46 +38,45 @@ public class App extends Application<AppConfiguration> {
 	@Override
 	public void run(AppConfiguration configuration, Environment environment) throws ClassNotFoundException {
 		final DBIFactory factory = new DBIFactory();
-		
+
 		DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
 
 		DBIExceptionsBundle dbiExceptionsBundle = new DBIExceptionsBundle();
 		environment.jersey().register(dbiExceptionsBundle);
 
-		environment.jersey().register(new AuthDynamicFeature(
-	            new BasicCredentialAuthFilter.Builder<AuthUser>()
-	                .setAuthenticator(new AceAuthenticator(jdbi))
-	                .setAuthorizer(new AceAuthorizer())
-	                .buildAuthFilter()));
-	    environment.jersey().register(RolesAllowedDynamicFeature.class);
-	    environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
-		
+		EmailService.setEmailConfiguration(configuration.getEmail());
+
+		environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<AuthUser>()
+				.setAuthenticator(new AceAuthenticator(jdbi)).setAuthorizer(new AceAuthorizer()).buildAuthFilter()));
+		environment.jersey().register(RolesAllowedDynamicFeature.class);
+		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
+
 		AceResource aceResource = new AceResource(jdbi);
 		environment.jersey().register(aceResource);
-		
+
 		com.anfelisa.setup.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.setup.AppRegistration.registerConsumers();
-		
+
 		com.anfelisa.user.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.user.AppRegistration.registerConsumers();
-		
+
 		com.anfelisa.course.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.course.AppRegistration.registerConsumers();
-		
+
 		com.anfelisa.lesson.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.lesson.AppRegistration.registerConsumers();
-		
+
 		com.anfelisa.test.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.test.AppRegistration.registerConsumers();
-		
+
 		com.anfelisa.result.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.result.AppRegistration.registerConsumers();
-		
+
 		com.anfelisa.box.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.box.AppRegistration.registerConsumers();
-		
+
 		environment.jersey().register(new MigrationResource(jdbi));
-		
+
 	}
-	
+
 }
