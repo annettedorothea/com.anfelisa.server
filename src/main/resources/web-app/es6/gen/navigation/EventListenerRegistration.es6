@@ -4,7 +4,6 @@ class EventListenerRegistrationNavigation {
 
 	static init() {
     	ACEController.registerListener('PublicCoursesReadEvent', NavigationView.renderPublicCourses);
-    	ACEController.registerListener('PublicCoursesReadEvent', ContentView.renderPublicCourses);
     	ACEController.registerListener('PublicCoursesReadEvent', BreadcrumbsView.renderPublicCoursesBreadcrumbs);
     	ACEController.registerListener('PublicLessonsReadEvent', NavigationView.renderPublicLessons);
     	ACEController.registerListener('PublicLessonsReadEvent', ContentView.renderPublicLessons);

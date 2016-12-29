@@ -1,10 +1,9 @@
 'use strict';
 
-class AbstractReadPrivateCoursesCommand extends Command {
+class AbstractRenderHomeCommand extends Command {
     constructor(commandParam) {
-        super(commandParam, "ReadPrivateCoursesCommand");
+        super(commandParam, "RenderHomeCommand");
         this.ok = "ok";
-        this.error = "error";
     }
 
     publishEvents() {
@@ -12,10 +11,7 @@ class AbstractReadPrivateCoursesCommand extends Command {
     	
         switch (this.commandData.outcome) {
         case this.ok:
-        	promises.push(new PrivateCoursesReadEvent(this.commandData).publish());
-        	break;
-        case this.error:
-        	promises.push(new ServerErrorEvent(this.commandData).publish());
+        	promises.push(new RenderHomeEvent(this.commandData).publish());
         	break;
     	default:
     		throw 'unhandled outcome: ' + this.commandData.outcome;

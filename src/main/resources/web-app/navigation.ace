@@ -20,7 +20,7 @@ actions {
 commands {
 	ReadPublicCourses {
 		on ok publishes ( PublicCoursesRead )
-		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+		on error publishes ( common.ServerError )
 	}
 	ReadPublicLessons {
 		on ok publishes ( PublicLessonsRead )
@@ -36,7 +36,7 @@ commands {
 	}
 	ReadPrivateCourses {
 		on ok publishes ( PrivateCoursesRead )
-		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+		on error publishes ( common.ServerError )
 	}
 	ReadPrivateLessons {
 		on ok publishes ( PrivateLessonsRead )
@@ -69,7 +69,7 @@ commands {
 }
 
 events {
-	PublicCoursesRead listenedToBy ( Navigation.renderPublicCourses Content.renderPublicCourses Breadcrumbs.renderPublicCoursesBreadcrumbs )
+	PublicCoursesRead listenedToBy ( Navigation.renderPublicCourses Breadcrumbs.renderPublicCoursesBreadcrumbs )
 	PublicLessonsRead listenedToBy ( Navigation.renderPublicLessons Content.renderPublicLessons Breadcrumbs.renderPublicLessonsBreadcrumbs )
 	PublicTestsRead listenedToBy ( Navigation.renderPublicTests Content.renderPublicTests Breadcrumbs.renderPublicTestsBreadcrumbs )
 	PublicTestRead listenedToBy ( Navigation.renderPublicTest Content.renderPublicTest Breadcrumbs.renderPublicTestsBreadcrumbs )

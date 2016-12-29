@@ -16,11 +16,12 @@ actions {
 	SwitchLanguage executes SwitchLanguage
 	RenderLogin executes RenderLogin
 	RenderLogout executes RenderLogout
+	RenderHome executes RenderHome
 }
 
 commands {
 	Init {
-		on publicCourses publishes ( InitOK ) triggers ( navigation.ReadPublicCourses RenderLogin )
+		on publicCourses publishes ( InitOK ) triggers ( navigation.ReadPublicCourses RenderLogin RenderHome )
 		on publicLessons publishes (InitOK ) triggers ( navigation.ReadPublicLessons RenderLogin)
 		on publicTests publishes (InitOK ) triggers ( navigation.ReadPublicTests RenderLogin)
 		on publicTest publishes (InitOK ) triggers ( navigation.ReadPublicTest RenderLogin)
@@ -88,6 +89,9 @@ commands {
 	SwitchLanguage {
 		on ok publishes (SwitchLanguage) triggers (Init)
 	}
+	RenderHome {
+		on ok publishes (RenderHome)
+	}
 }
 
 events {
@@ -106,6 +110,7 @@ events {
 	SwitchLanguage listenedToBy (Common.initLanguageInLocalStorage)
 	RenderLogin listenedToBy (Header.renderLogin)
 	RenderLogout listenedToBy (Header.renderLogout)
+	RenderHome listenedToBy (navigation.Content.renderPublicCourses)
 } 
 
 views {

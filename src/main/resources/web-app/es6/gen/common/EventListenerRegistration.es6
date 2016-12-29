@@ -20,6 +20,7 @@ class EventListenerRegistrationCommon {
     	ACEController.registerListener('SwitchLanguageEvent', CommonView.initLanguageInLocalStorage);
     	ACEController.registerListener('RenderLoginEvent', HeaderView.renderLogin);
     	ACEController.registerListener('RenderLogoutEvent', HeaderView.renderLogout);
+    	ACEController.registerListener('RenderHomeEvent', ContentView.renderPublicCourses);
 	}
 
 }
