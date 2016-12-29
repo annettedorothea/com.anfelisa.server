@@ -30,5 +30,8 @@
   "passwordNotEmpty" : "Passwort muss angegeben werden.",
   "passwordRepetition" : "Passwort wiederholen",
   "passwordRepetitionNotEmpty" : "Passwort muss zweimal angegeben werden.",
-  "passwordMismatch" : "Passwörter stimmen nicht überein."
+  "passwordMismatch" : "Passwörter stimmen nicht überein.",
+  "forgotPassword" : "Passwort vergessen?",
+  "usernameNotEmpty" : "Benutzername muss angegeben werden.",
+  "submit" : "Abschicken"
 }

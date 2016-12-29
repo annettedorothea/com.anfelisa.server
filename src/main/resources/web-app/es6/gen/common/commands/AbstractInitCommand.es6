@@ -19,6 +19,8 @@ class AbstractInitCommand extends Command {
         this.profileBoxEdit = "profileBoxEdit";
         this.profileCourseAdd = "profileCourseAdd";
         this.profilePassword = "profilePassword";
+        this.forgotPassword = "forgotPassword";
+        this.newPassword = "newPassword";
     }
 
     publishEvents() {
@@ -124,6 +126,18 @@ class AbstractInitCommand extends Command {
         	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
         	promises.push(new TriggerAction(new OpenChangePasswordAction(this.commandData)).publish());
         	promises.push(new TriggerAction(new RenderLogoutAction(this.commandData)).publish());
+        	break;
+        case this.forgotPassword:
+        	promises.push(new InitOKEvent(this.commandData).publish());
+        	promises.push(new TriggerAction(new ReadPublicCoursesAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new RenderLoginAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new OpenForgotPasswordAction(this.commandData)).publish());
+        	break;
+        case this.newPassword:
+        	promises.push(new InitOKEvent(this.commandData).publish());
+        	promises.push(new TriggerAction(new ReadPublicCoursesAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new RenderLoginAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new OpenNewPasswordAction(this.commandData)).publish());
         	break;
     	default:
     		throw 'unhandled outcome: ' + this.commandData.outcome;

@@ -5,15 +5,11 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
 
-import javax.ws.rs.WebApplicationException;
-
-import org.apache.commons.mail.DefaultAuthenticator;
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
 import org.skife.jdbi.v2.Handle;
 
+import com.anfelisa.EmailService;
 import com.anfelisa.user.data.AddCoursesData;
+import com.anfelisa.user.data.ForgotPasswordData;
 import com.anfelisa.user.data.PasswordUpdateData;
 import com.anfelisa.user.data.RemoveCourseData;
 import com.anfelisa.user.data.UserCreationData;
@@ -43,27 +39,16 @@ public class UserView {
 		CustomUserDao.updatePassword(handle, dataContainer, dataContainer.getSchema());
 	};
 	
-	public BiConsumer<PasswordUpdateData, Handle> sendForgotPasswordEmail = (dataContainer, handle) -> {
-		/*try {
-			Locale currentLocale = new Locale(mandatorCreationData.getLocale());
-			ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
-			Email email = new SimpleEmail();
-			email.setHostName("mail.your-server.de");
-			email.setSmtpPort(465);
-			email.setAuthenticator(new DefaultAuthenticator("info@lessontome.com", "bbO254c5u20lOqT0"));
-			email.setSSLOnConnect(true);
-			email.setFrom("info@lessontome.com");
-			email.setSubject(messages.getString("mandatorRegistrationEmailHeader"));
-			Object[] params = { mandatorCreationData.getMandator().getPrename(),
-					mandatorCreationData.getMandator().getLastname() };
-			String message = MessageFormat.format(messages.getString("mandatorRegistrationEmailContent"), params);
-			email.setMsg(message);
-			// email.addTo(mandatorCreationData.getMandator().getEmail());
-			email.addTo("annette_pohl@web.de");
-			email.send();
-		} catch (EmailException e) {
-			throw new WebApplicationException(e);
-		}*/
+	public BiConsumer<ForgotPasswordData, Handle> sendForgotPasswordEmail = (dataContainer, handle) -> {
+		Locale currentLocale = new Locale(dataContainer.getLanguage());
+		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
+		String link = EmailService.getLocalhost() + "#profile/newPassword/" + dataContainer.getUsername() + "/" + dataContainer.getPassword();
+		Object[] params = { dataContainer.getPrename(),
+				dataContainer.getName(), link };
+		String message = MessageFormat.format(messages.getString("passwordResetEmailContent"), params);
+		String subject = messages.getString("passwordResetEmailHeader");
+		
+		EmailService.sendEmail("info@anfelisa.com", dataContainer.getEmail(), subject, message);
 	};
 	
 }

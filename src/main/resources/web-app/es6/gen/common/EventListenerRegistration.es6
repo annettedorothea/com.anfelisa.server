@@ -7,6 +7,7 @@ class EventListenerRegistrationCommon {
     	ACEController.registerListener('InitOKEvent', CommonView.initSchemaInLocalStorage);
     	ACEController.registerListener('ServerErrorEvent', ErrorView.renderServerError);
     	ACEController.registerListener('ErrorEvent', ErrorView.renderError);
+    	ACEController.registerListener('MessageEvent', MessageView.renderMessage);
     	ACEController.registerListener('UpdateHashEvent', CommonView.updateHash);
     	ACEController.registerListener('UserLoggedInEvent', CommonView.initUserInLocalStorage);
     	ACEController.registerListener('UserLoggedOutEvent', CommonView.removeUserFromLocalStorage);

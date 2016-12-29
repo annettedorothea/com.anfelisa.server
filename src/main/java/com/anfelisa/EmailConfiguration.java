@@ -21,6 +21,10 @@ public class EmailConfiguration {
 	@JsonProperty
 	private String password;
 
+	@NotEmpty
+	@JsonProperty
+	private String localhost;
+	
 	public String getHost() {
 		return host;
 	}
@@ -37,5 +41,8 @@ public class EmailConfiguration {
 		return password;
 	}
 
+	public String getLocalhost() {
+		return localhost;
+	}
 	
 }

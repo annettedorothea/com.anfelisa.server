@@ -56,5 +56,6 @@
   "name" : "Name",
   "count" : "Anzahl",
   "points" : "Punkte",
-  "rate" : "Quote"
+  "rate" : "Quote",
+  "forgotPasswordSubmitted" : "Die Anfrage wird bearbeitet."
 }

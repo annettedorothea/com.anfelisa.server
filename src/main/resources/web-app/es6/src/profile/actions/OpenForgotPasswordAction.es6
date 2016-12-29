@@ -1,6 +1,6 @@
 'use strict';
 
-class UpdatePasswordAction extends AbstractUpdatePasswordAction {
+class OpenForgotPasswordAction extends AbstractOpenForgotPasswordAction {
 
     captureActionParam() {
     	if (localStorage.username) {
@@ -18,8 +18,7 @@ class UpdatePasswordAction extends AbstractUpdatePasswordAction {
     	if (localStorage.language) {
 	        this.actionParam.language = localStorage.language;
 	    }
-		this.actionParam.newPassword = CryptoJS.MD5(jQuery("#password").val().trim()).toString(CryptoJS.enc.Base64);
-		this.actionParam.passwordRepetition = CryptoJS.MD5(jQuery("#passwordRepetition").val().trim()).toString(CryptoJS.enc.Base64);
+    	// capture user input
     }
 
     initActionData() {
@@ -38,8 +37,7 @@ class UpdatePasswordAction extends AbstractUpdatePasswordAction {
     	if (this.actionParam.language) {
     		this.actionData.language = this.actionParam.language;
     	}
-		this.actionData.newPassword = this.actionParam.newPassword;
-		this.actionData.passwordRepetition = this.actionParam.passwordRepetition;
+    	// bind action parameters to action data
     }
 
     releaseActionParam() {
@@ -58,6 +56,7 @@ class UpdatePasswordAction extends AbstractUpdatePasswordAction {
     	if (this.actionParam.language) {
     		localStorage.language = this.actionParam.language;
     	}
+    	// release action params during replay
     }
 }
 

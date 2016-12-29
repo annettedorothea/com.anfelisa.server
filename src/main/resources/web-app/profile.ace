@@ -17,6 +17,10 @@ actions {
 	UpdatePassword executes UpdatePassword
 	OpenChangePassword executes OpenChangePassword
 	ValidatePassword executes ValidatePassword
+	OpenForgotPassword executes OpenForgotPassword
+	SubmitForgotPasswordRequest executes SubmitForgotPasswordRequest
+	OpenNewPassword executes OpenNewPassword
+	SubmitNewPassword executes SubmitNewPassword
 }
 commands {
 	OpenProfile {
@@ -73,9 +77,25 @@ commands {
 		on saved publishes (common.UserLoggedIn) triggers (common.Route)
 		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
+	SubmitNewPassword {
+		on dataInvalid publishes (common.Error)
+		on mismatch publishes (common.Error)
+		on saved publishes (common.UserLoggedIn) triggers (common.Route)
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
 	ValidatePassword {
 		on ok publishes (PasswordsOK)
 		on mismatch publishes (PasswordsMismatch)
+	}
+	OpenForgotPassword {
+		on ok publishes (RenderForgotPassword)
+	}
+	OpenNewPassword {
+		on ok publishes (RenderNewPassword)
+	}
+	SubmitForgotPasswordRequest {
+		on dataInvalid publishes (common.Error)
+		on ok publishes (common.Message)
 	}
 }
 events {
@@ -86,6 +106,8 @@ events {
 	RenderChangePassword listenedToBy (UserInfo.renderPasswordChange)
 	PasswordsOK listenedToBy (UserInfo.passwordOK)
 	PasswordsMismatch listenedToBy (UserInfo.passwordMismatch)
+	RenderForgotPassword listenedToBy (UserInfo.renderForgotPassword)
+	RenderNewPassword listenedToBy (UserInfo.renderNewPassword)
 }
 views {
 	UserInfo {
@@ -98,5 +120,7 @@ views {
 		renderPasswordChange
 		passwordOK
 		passwordMismatch
+		renderForgotPassword
+		renderNewPassword
 	}
 }

@@ -55,6 +55,23 @@ class UserInfoView {
         $("#passwordRepetitionDiv .passwordMismatch").show();
     };
 
+    static renderForgotPassword(eventData) {
+        eventData.texts = Texts.user;
+        $.get('templates/user/forgotPassword.mst', function(template) {
+            var rendered = Mustache.render(template, eventData);
+            $('.content-pane').html(rendered);
+        });
+    };
+
+    static renderNewPassword(eventData) {
+        eventData.texts = Texts.user;
+        $.get('templates/user/newPassword.mst', function(template) {
+            var rendered = Mustache.render(template, eventData);
+            $('.content-pane').html(rendered);
+        });
+    };
+
+
 }
 
 /*                    S.D.G.                    */

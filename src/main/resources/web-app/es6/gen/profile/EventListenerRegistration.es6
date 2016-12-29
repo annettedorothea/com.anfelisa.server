@@ -10,6 +10,8 @@ class EventListenerRegistrationProfile {
     	ACEController.registerListener('RenderChangePasswordEvent', UserInfoView.renderPasswordChange);
     	ACEController.registerListener('PasswordsOKEvent', UserInfoView.passwordOK);
     	ACEController.registerListener('PasswordsMismatchEvent', UserInfoView.passwordMismatch);
+    	ACEController.registerListener('RenderForgotPasswordEvent', UserInfoView.renderForgotPassword);
+    	ACEController.registerListener('RenderNewPasswordEvent', UserInfoView.renderNewPassword);
 	}
 
 }

@@ -25,5 +25,8 @@
   "boxNameNotEmpty" : "Box name must be given.",
   "coursesToAdd" : "Courses",
   "reallyRemoveCourseFromUser" : "Do you really want to remove this course?",
-  "reallyDeleteBox" : "Do you really want to delete this box?"
+  "reallyDeleteBox" : "Do you really want to delete this box?",
+  "forgotPassword" : "Forgot your password?",
+  "usernameNotEmpty" : "Username must be given.",
+  "submit" : "Submit"
 }

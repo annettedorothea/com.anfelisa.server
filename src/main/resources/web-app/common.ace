@@ -36,6 +36,8 @@ commands {
 		on profileBoxEdit publishes(InitOK) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.LoadBox RenderLogout)
 		on profileCourseAdd publishes(InitOK) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.LoadCourses RenderLogout)
 		on profilePassword publishes(InitOK) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.OpenChangePassword RenderLogout)
+		on forgotPassword publishes (InitOK) triggers ( navigation.ReadPublicCourses RenderLogin profile.OpenForgotPassword)
+		on newPassword publishes (InitOK) triggers ( navigation.ReadPublicCourses RenderLogin profile.OpenNewPassword)
 	}
 	RenderLogin {
 		on ok publishes (RenderLogin)
@@ -92,6 +94,7 @@ events {
 	InitOK listenedToBy ( Common.initLanguageInLocalStorage Common.initSchemaInLocalStorage )
 	ServerError listenedToBy ( Error.renderServerError )
 	Error listenedToBy ( Error.renderError )
+	Message listenedToBy (Message.renderMessage)
 	UpdateHash listenedToBy ( Common.updateHash )
 	UserLoggedIn listenedToBy ( Common.initUserInLocalStorage )
 	UserLoggedOut listenedToBy ( Common.removeUserFromLocalStorage navigation.Boxes.hideBoxes )
@@ -109,6 +112,9 @@ views {
 	Error {
 		renderError
 		renderServerError
+	}
+	Message {
+		renderMessage
 	}
 	Common {
 		initLanguageInLocalStorage

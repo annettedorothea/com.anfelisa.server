@@ -56,5 +56,6 @@
   "name" : "Name",
   "count" : "Count",
   "points" : "Points",
-  "rate" : "Rate"
+  "rate" : "Rate",
+  "forgotPasswordSubmitted" : "Request is being processed."
 }

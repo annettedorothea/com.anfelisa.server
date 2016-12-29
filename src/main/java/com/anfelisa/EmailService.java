@@ -32,4 +32,8 @@ public class EmailService {
 			throw new WebApplicationException(e);
 		}
 	}
+	
+	public static String getLocalhost() {
+		return emailConfiguration.getLocalhost();
+	}
 }

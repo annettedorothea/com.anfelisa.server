@@ -65,6 +65,17 @@ models {
 			Integer courseId
 		}
 	}
+	
+	ForgotPassword {
+		primitiveAttributes {
+			NotNull String username
+			NotNull String email
+			NotNull String name
+			NotNull String prename
+			NotNull String language
+			NotNull String password
+		}
+	}
 }
 
 data {
@@ -77,6 +88,7 @@ data {
 	AddCourses : (CourseSelection Username)
 	RemoveCourse : (CourseId Username)
 	PasswordUpdate : (UsernameAndPassword)
+	ForgotPassword : (ForgotPassword)
 }
 
 actions {
@@ -89,6 +101,7 @@ actions {
 	POST AddCourses uses AddCourses executes AddCourses
 	DELETE RemoveCourse uses RemoveCourse executes RemoveCourse
 	PUT UpdatePassword uses PasswordUpdate executes UpdatePassword
+	POST ForgotPassword uses ForgotPassword executes ForgotPassword
 }
 
 commands {
@@ -110,6 +123,10 @@ commands {
 	UpdatePassword uses PasswordUpdate {
 		on success publishes (PasswordUpdated)
 	}
+	ForgotPassword uses ForgotPassword {
+		on ok publishes (SendEmail)
+		on userNotFound 
+	}
 }
 
 events {
@@ -119,6 +136,7 @@ events {
 	CoursesAdded uses AddCourses listenedToBy (User.addCourses)
 	CourseRemoved uses RemoveCourse listenedToBy ( User.removeCourse )
 	PasswordUpdated uses PasswordUpdate listenedToBy (User.updatePassword)
+	SendEmail uses ForgotPassword listenedToBy (User.sendForgotPasswordEmail)
 }
 
 views {
@@ -128,6 +146,7 @@ views {
 		addCourses(AddCourses)
 		removeCourse(RemoveCourse)
 		updatePassword(PasswordUpdate)
+		sendForgotPasswordEmail(ForgotPassword)
 	}
 	LoginLog {
 		userLoggedIn(Login)
