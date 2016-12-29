@@ -36,6 +36,25 @@ class UserInfoView {
         });
     };
 
+    static renderPasswordChange(eventData) {
+        eventData.texts = Texts.user;
+        $.get('templates/user/changePassword.mst', function(template) {
+            var rendered = Mustache.render(template, eventData);
+            $('.content-pane').html(rendered);
+        });
+    };
+
+    static passwordOK(eventData) {
+        $("#passwordRepetitionDiv").removeClass("has-error");
+        $("#passwordRepetitionDiv .passwordMismatch").hide();
+    };
+
+    static passwordMismatch(eventData) {
+        $("#passwordRepetitionDiv").addClass("has-error");
+        $("#passwordRepetitionDiv .error").hide();
+        $("#passwordRepetitionDiv .passwordMismatch").show();
+    };
+
 }
 
 /*                    S.D.G.                    */

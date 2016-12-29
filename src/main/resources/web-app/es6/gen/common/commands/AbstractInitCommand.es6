@@ -18,6 +18,7 @@ class AbstractInitCommand extends Command {
         this.profileBoxCreate = "profileBoxCreate";
         this.profileBoxEdit = "profileBoxEdit";
         this.profileCourseAdd = "profileCourseAdd";
+        this.profilePassword = "profilePassword";
     }
 
     publishEvents() {
@@ -115,6 +116,13 @@ class AbstractInitCommand extends Command {
         	promises.push(new TriggerAction(new ReadPrivateCoursesAction(this.commandData)).publish());
         	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
         	promises.push(new TriggerAction(new LoadCoursesAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new RenderLogoutAction(this.commandData)).publish());
+        	break;
+        case this.profilePassword:
+        	promises.push(new InitOKEvent(this.commandData).publish());
+        	promises.push(new TriggerAction(new ReadPrivateCoursesAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new ReadBoxesAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new OpenChangePasswordAction(this.commandData)).publish());
         	promises.push(new TriggerAction(new RenderLogoutAction(this.commandData)).publish());
         	break;
     	default:

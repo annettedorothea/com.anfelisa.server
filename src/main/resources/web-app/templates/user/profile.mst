@@ -50,6 +50,15 @@
         </div>
     </div>
 
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <button class="btn btn-default" type="button" onclick="new RouteAction( {'hash' : 'profile/password'}).apply()">
+                {{texts.changePassword}}
+            </button>
+        </div>
+    </div>
+
 
 </form>
 

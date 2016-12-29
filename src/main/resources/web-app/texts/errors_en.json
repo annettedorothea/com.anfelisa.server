@@ -25,5 +25,7 @@
   "readCoursesOfBoxFailed" : "Failed to load courses.",
   "removeCoursesFromUserFailed" : "Failed to remove course from user.",
   "deleteBoxFailed" : "Failed to delete box.",
-  "scoreCardFailed" : "Failed to score card."
+  "scoreCardFailed" : "Failed to score card.",
+  "passwordMismatch" : "Passwords do not match.",
+  "updatePasswordFailed" : "Failed to change password."
 }

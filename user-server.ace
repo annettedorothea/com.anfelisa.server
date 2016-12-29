@@ -76,6 +76,7 @@ data {
 	CourseSelection : (com.anfelisa.course.CourseList Username)
 	AddCourses : (CourseSelection Username)
 	RemoveCourse : (CourseId Username)
+	PasswordUpdate : (UsernameAndPassword)
 }
 
 actions {
@@ -87,6 +88,7 @@ actions {
 	GET GetCourseSelection uses CourseSelection
 	POST AddCourses uses AddCourses executes AddCourses
 	DELETE RemoveCourse uses RemoveCourse executes RemoveCourse
+	PUT UpdatePassword uses PasswordUpdate executes UpdatePassword
 }
 
 commands {
@@ -105,6 +107,9 @@ commands {
 	RemoveCourse uses RemoveCourse {
 		on success publishes (CourseRemoved)
 	}
+	UpdatePassword uses PasswordUpdate {
+		on success publishes (PasswordUpdated)
+	}
 }
 
 events {
@@ -113,6 +118,7 @@ events {
 	UserUpdated uses UserUpdate listenedToBy (User.updateUser)
 	CoursesAdded uses AddCourses listenedToBy (User.addCourses)
 	CourseRemoved uses RemoveCourse listenedToBy ( User.removeCourse )
+	PasswordUpdated uses PasswordUpdate listenedToBy (User.updatePassword)
 }
 
 views {
@@ -121,6 +127,7 @@ views {
 		updateUser(UserUpdate)
 		addCourses(AddCourses)
 		removeCourse(RemoveCourse)
+		updatePassword(PasswordUpdate)
 	}
 	LoginLog {
 		userLoggedIn(Login)

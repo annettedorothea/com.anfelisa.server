@@ -25,5 +25,7 @@
   "readCoursesOfBoxFailed" : "Kurse konnten nicht geladen werden.",
   "removeCoursesFromUserFailed" : "Der Kurs konnte nicht vom Benutzer entfernt werden.",
   "deleteBoxFailed" : "Die Lern-Box konnte nicht gelöscht werden.",
-  "scoreCardFailed" : "Karte konnte nicht bewertet werden."
+  "scoreCardFailed" : "Karte konnte nicht bewertet werden.",
+  "passwordMismatch" : "Passwörter stimmen nicht überein.",
+  "updatePasswordFailed" : "Passwort ändern schlug fehl."
 }

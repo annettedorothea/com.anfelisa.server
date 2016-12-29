@@ -19,6 +19,7 @@ public class AppRegistration {
 		environment.jersey().register(new GetCourseSelectionResource(jdbi));
 		environment.jersey().register(new AddCoursesResource(jdbi));
 		environment.jersey().register(new RemoveCourseResource(jdbi));
+		environment.jersey().register(new UpdatePasswordResource(jdbi));
 	}
 
 	public static void registerConsumers() {
@@ -30,6 +31,7 @@ public class AppRegistration {
 		AceController.addConsumer("UserUpdatedEvent", userView.updateUser);
 		AceController.addConsumer("CoursesAddedEvent", userView.addCourses);
 		AceController.addConsumer("CourseRemovedEvent", userView.removeCourse);
+		AceController.addConsumer("PasswordUpdatedEvent", userView.updatePassword);
     }
 }
 

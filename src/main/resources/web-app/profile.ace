@@ -14,6 +14,9 @@ actions {
 	OpenBoxCreation executes OpenBoxCreation
 	LoadCourses executes LoadCourses
 	SaveBoxConfig executes SaveBoxConfig
+	UpdatePassword executes UpdatePassword
+	OpenChangePassword executes OpenChangePassword
+	ValidatePassword executes ValidatePassword
 }
 commands {
 	OpenProfile {
@@ -61,12 +64,28 @@ commands {
 		on saved triggers (common.Route)
 		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
+	OpenChangePassword {
+		on ok publishes (RenderChangePassword)
+	}
+	UpdatePassword {
+		on dataInvalid publishes (common.Error)
+		on mismatch publishes (common.Error)
+		on saved publishes (common.UserLoggedIn) triggers (common.Route)
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
+	ValidatePassword {
+		on ok publishes (PasswordsOK)
+		on mismatch publishes (PasswordsMismatch)
+	}
 }
 events {
 	UserInfoLoaded listenedToBy ( UserInfo.renderUserInfo )
 	CoursesLoaded listenedToBy ( UserInfo.renderCourseSelection )
 	RenderBox listenedToBy ( UserInfo.renderBox )
 	RenderCourseToBox listenedToBy ( UserInfo.renderCourseToBox )
+	RenderChangePassword listenedToBy (UserInfo.renderPasswordChange)
+	PasswordsOK listenedToBy (UserInfo.passwordOK)
+	PasswordsMismatch listenedToBy (UserInfo.passwordMismatch)
 }
 views {
 	UserInfo {
@@ -76,5 +95,8 @@ views {
 		boxEdited
 		renderBox
 		renderCourseToBox
+		renderPasswordChange
+		passwordOK
+		passwordMismatch
 	}
 }

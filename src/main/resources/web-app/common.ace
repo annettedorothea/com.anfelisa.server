@@ -35,6 +35,7 @@ commands {
 		on profileBoxCreate publishes(InitOK) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.OpenBoxCreation RenderLogout)
 		on profileBoxEdit publishes(InitOK) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.LoadBox RenderLogout)
 		on profileCourseAdd publishes(InitOK) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.LoadCourses RenderLogout)
+		on profilePassword publishes(InitOK) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.OpenChangePassword RenderLogout)
 	}
 	RenderLogin {
 		on ok publishes (RenderLogin)
