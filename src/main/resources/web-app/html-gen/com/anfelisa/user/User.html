@@ -55,5 +55,13 @@
 	    </div>
 	</div>
 	
+	<div class="form-group" id="emailConfirmedDiv">
+	    <label for="emailConfirmed" class="col-sm-3 control-label">* {{texts.emailConfirmed}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="emailConfirmed" placeholder="{{texts.emailConfirmed}}" value="{{emailConfirmed}}" onblur="new ValidateRequiredFieldAction({id : 'emailConfirmed'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.emailConfirmedNotEmpty}}</span>
+	    </div>
+	</div>
+	
 	
 </form>

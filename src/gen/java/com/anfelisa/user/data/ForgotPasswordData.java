@@ -9,6 +9,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IForgotPasswordModel;
+import com.anfelisa.user.models.ILanguageModel;
 
 @SuppressWarnings("unused")
 public class ForgotPasswordData implements IForgotPasswordData {
@@ -30,12 +31,13 @@ public class ForgotPasswordData implements IForgotPasswordData {
 	private String prename;
 	
 	@NotNull
-	private String language;
-	
-	@NotNull
 	private String password;
 	
+	@NotNull
+	private String language;
+	
 
+	
 	
 
 	public ForgotPasswordData(
@@ -43,8 +45,8 @@ public class ForgotPasswordData implements IForgotPasswordData {
 		@JsonProperty("email") String email,
 		@JsonProperty("name") String name,
 		@JsonProperty("prename") String prename,
-		@JsonProperty("language") String language,
-		@JsonProperty("password") String password
+		@JsonProperty("password") String password,
+		@JsonProperty("language") String language
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -52,8 +54,8 @@ public class ForgotPasswordData implements IForgotPasswordData {
 		this.email = email;
 		this.name = name;
 		this.prename = prename;
-		this.language = language;
 		this.password = password;
+		this.language = language;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -112,6 +114,18 @@ public class ForgotPasswordData implements IForgotPasswordData {
 	}
 	
 	@JsonProperty
+	public String getPassword() {
+		return this.password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public ForgotPasswordData withPassword(String password) {
+		this.password = password;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getLanguage() {
 		return this.language;
 	}
@@ -123,17 +137,6 @@ public class ForgotPasswordData implements IForgotPasswordData {
 		return this;
 	}
 	
-	@JsonProperty
-	public String getPassword() {
-		return this.password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public ForgotPasswordData withPassword(String password) {
-		this.password = password;
-		return this;
-	}
 	
 	
 

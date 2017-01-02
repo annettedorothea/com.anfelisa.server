@@ -21,6 +21,8 @@ public class AppRegistration {
 		environment.jersey().register(new RemoveCourseResource(jdbi));
 		environment.jersey().register(new UpdatePasswordResource(jdbi));
 		environment.jersey().register(new ForgotPasswordResource(jdbi));
+		environment.jersey().register(new RegisterUserResource(jdbi));
+		environment.jersey().register(new UsernameAvailableResource(jdbi));
 	}
 
 	public static void registerConsumers() {
@@ -28,12 +30,14 @@ public class AppRegistration {
 		LoginLogView loginLogView = new LoginLogView();
 		
 		AceController.addConsumer("UserCreatedEvent", userView.createUser);
+		AceController.addConsumer("UserRegisteredEvent", userView.registerUser);
 		AceController.addConsumer("UserLoggedInEvent", loginLogView.userLoggedIn);
 		AceController.addConsumer("UserUpdatedEvent", userView.updateUser);
 		AceController.addConsumer("CoursesAddedEvent", userView.addCourses);
 		AceController.addConsumer("CourseRemovedEvent", userView.removeCourse);
 		AceController.addConsumer("PasswordUpdatedEvent", userView.updatePassword);
 		AceController.addConsumer("SendEmailEvent", userView.sendForgotPasswordEmail);
+		AceController.addConsumer("SendRegistrationEmailEvent", userView.sendRegistrationEmail);
     }
 }
 

@@ -9,7 +9,6 @@ public interface IForgotPasswordModel {
 	String getEmail();
 	String getName();
 	String getPrename();
-	String getLanguage();
 	String getPassword();
 
 

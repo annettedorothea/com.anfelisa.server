@@ -13,6 +13,7 @@ import com.anfelisa.user.data.ForgotPasswordData;
 import com.anfelisa.user.data.PasswordUpdateData;
 import com.anfelisa.user.data.RemoveCourseData;
 import com.anfelisa.user.data.UserCreationData;
+import com.anfelisa.user.data.UserRegistrationData;
 import com.anfelisa.user.data.UserUpdateData;
 import com.anfelisa.user.models.CustomUserDao;
 import com.anfelisa.user.models.UserDao;
@@ -23,6 +24,10 @@ public class UserView {
 		UserDao.insert(handle, dataContainer, dataContainer.getSchema());
 	};
 
+	public BiConsumer<UserRegistrationData, Handle> registerUser = (dataContainer, handle) -> {
+		UserDao.insert(handle, dataContainer, dataContainer.getSchema());
+	};
+	
 	public BiConsumer<UserUpdateData, Handle> updateUser = (dataContainer, handle) -> {
 		CustomUserDao.update(handle, dataContainer, dataContainer.getSchema());
 	};
@@ -47,6 +52,18 @@ public class UserView {
 				dataContainer.getName(), link };
 		String message = MessageFormat.format(messages.getString("passwordResetEmailContent"), params);
 		String subject = messages.getString("passwordResetEmailHeader");
+		
+		EmailService.sendEmail("info@anfelisa.com", dataContainer.getEmail(), subject, message);
+	};
+	
+	public BiConsumer<UserRegistrationData, Handle> sendRegistrationEmail = (dataContainer, handle) -> {
+		Locale currentLocale = new Locale(dataContainer.getLanguage());
+		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
+		String link = EmailService.getLocalhost() + "#profile/confirmEmail/" + dataContainer.getUsername() + "/" + dataContainer.getPassword();
+		Object[] params = { dataContainer.getPrename(),
+				dataContainer.getName(), link };
+		String message = MessageFormat.format(messages.getString("RegistrationEmailContent"), params);
+		String subject = messages.getString("RegistrationEmailHeader");
 		
 		EmailService.sendEmail("info@anfelisa.com", dataContainer.getEmail(), subject, message);
 	};

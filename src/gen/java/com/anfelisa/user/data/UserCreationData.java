@@ -35,6 +35,9 @@ public class UserCreationData implements IUserCreationData {
 	@NotNull
 	private String role;
 	
+	@NotNull
+	private Boolean emailConfirmed;
+	
 
 	
 
@@ -44,7 +47,8 @@ public class UserCreationData implements IUserCreationData {
 		@JsonProperty("name") String name,
 		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
-		@JsonProperty("role") String role
+		@JsonProperty("role") String role,
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -54,6 +58,7 @@ public class UserCreationData implements IUserCreationData {
 		this.prename = prename;
 		this.email = email;
 		this.role = role;
+		this.emailConfirmed = emailConfirmed;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -132,6 +137,18 @@ public class UserCreationData implements IUserCreationData {
 	}
 	public UserCreationData withRole(String role) {
 		this.role = role;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getEmailConfirmed() {
+		return this.emailConfirmed;
+	}
+	public void setEmailConfirmed(Boolean emailConfirmed) {
+		this.emailConfirmed = emailConfirmed;
+	}
+	public UserCreationData withEmailConfirmed(Boolean emailConfirmed) {
+		this.emailConfirmed = emailConfirmed;
 		return this;
 	}
 	

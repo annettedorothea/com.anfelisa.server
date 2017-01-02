@@ -39,6 +39,7 @@ commands {
 		on profilePassword publishes(InitOK) triggers ( navigation.ReadPrivateCourses navigation.ReadBoxes profile.OpenChangePassword RenderLogout)
 		on forgotPassword publishes (InitOK) triggers ( navigation.ReadPublicCourses RenderLogin profile.OpenForgotPassword)
 		on newPassword publishes (InitOK) triggers ( navigation.ReadPublicCourses RenderLogin profile.OpenNewPassword)
+		on register publishes (InitOK) triggers ( navigation.ReadPublicCourses RenderLogin profile.OpenRegistration)
 	}
 	RenderLogin {
 		on ok publishes (RenderLogin)

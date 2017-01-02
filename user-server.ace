@@ -11,6 +11,7 @@ models {
 			NotNull String prename
 			NotNull String email
 			NotNull String role
+			NotNull Boolean emailConfirmed
 		}
 	}
 
@@ -40,6 +41,11 @@ models {
 			NotNull String username
 		}
 	} 
+	Available {
+		primitiveAttributes {
+			Boolean available
+		}
+	}
 	UsernameAndPassword {
 		primitiveAttributes {
 			NotNull String username
@@ -72,8 +78,12 @@ models {
 			NotNull String email
 			NotNull String name
 			NotNull String prename
-			NotNull String language
 			NotNull String password
+		}
+	}
+	Language {
+		primitiveAttributes {
+			NotNull String language
 		}
 	}
 }
@@ -88,7 +98,9 @@ data {
 	AddCourses : (CourseSelection Username)
 	RemoveCourse : (CourseId Username)
 	PasswordUpdate : (UsernameAndPassword)
-	ForgotPassword : (ForgotPassword)
+	ForgotPassword : (ForgotPassword Language)
+	UsernameAvailable : (Username Available)
+	UserRegistration : (User Language)
 }
 
 actions {
@@ -102,6 +114,8 @@ actions {
 	DELETE RemoveCourse uses RemoveCourse executes RemoveCourse
 	PUT UpdatePassword uses PasswordUpdate executes UpdatePassword
 	POST ForgotPassword uses ForgotPassword executes ForgotPassword
+	POST RegisterUser uses UserRegistration executes RegisterUser
+	GET UsernameAvailable uses UsernameAvailable
 }
 
 commands {
@@ -127,16 +141,21 @@ commands {
 		on ok publishes (SendEmail)
 		on userNotFound 
 	}
+	RegisterUser uses UserRegistration {
+		on ok publishes (UserRegistered SendRegistrationEmail)
+	}
 }
 
 events {
 	UserCreated uses UserCreation listenedToBy ( User.createUser	)
+	UserRegistered uses UserRegistration listenedToBy ( User.registerUser	)
 	UserLoggedIn uses Login listenedToBy ( LoginLog.userLoggedIn )
 	UserUpdated uses UserUpdate listenedToBy (User.updateUser)
 	CoursesAdded uses AddCourses listenedToBy (User.addCourses)
 	CourseRemoved uses RemoveCourse listenedToBy ( User.removeCourse )
 	PasswordUpdated uses PasswordUpdate listenedToBy (User.updatePassword)
 	SendEmail uses ForgotPassword listenedToBy (User.sendForgotPasswordEmail)
+	SendRegistrationEmail uses UserRegistration listenedToBy (User.sendRegistrationEmail)
 }
 
 views {
@@ -147,6 +166,8 @@ views {
 		removeCourse(RemoveCourse)
 		updatePassword(PasswordUpdate)
 		sendForgotPasswordEmail(ForgotPassword)
+		sendRegistrationEmail(UserRegistration)
+		registerUser(UserRegistration)
 	}
 	LoginLog {
 		userLoggedIn(Login)

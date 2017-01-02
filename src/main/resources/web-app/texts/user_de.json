@@ -33,5 +33,7 @@
   "passwordMismatch" : "Passwörter stimmen nicht überein.",
   "forgotPassword" : "Passwort vergessen?",
   "usernameNotEmpty" : "Benutzername muss angegeben werden.",
-  "submit" : "Abschicken"
+  "submit" : "Abschicken",
+  "register" : "Registrieren",
+  "usernameNotAvailable" : "Benutzername ist leider nicht mehr frei."
 }

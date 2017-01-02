@@ -113,7 +113,7 @@ public class MigrationResource extends Resource {
 				}
 				String uuid = UUID.randomUUID().toString();
 				UserCreationData userCreationData = new UserCreationData(username, password, name, prename, email,
-						role, uuid, schema);
+						role, true, uuid, schema);
 				new CreateUserAction(userCreationData, this.createDatabaseHandle()).apply();
 			}
 			rs.close();

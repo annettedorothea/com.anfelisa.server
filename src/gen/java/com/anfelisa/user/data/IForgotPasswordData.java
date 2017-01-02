@@ -5,9 +5,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IForgotPasswordModel;
+import com.anfelisa.user.models.ILanguageModel;
 
 @JsonDeserialize(as=ForgotPasswordData.class)
-public interface IForgotPasswordData extends IForgotPasswordModel, IDataContainer {
+public interface IForgotPasswordData extends IForgotPasswordModel, ILanguageModel, IDataContainer {
 
 }
 

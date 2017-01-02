@@ -21,6 +21,9 @@ actions {
 	SubmitForgotPasswordRequest executes SubmitForgotPasswordRequest
 	OpenNewPassword executes OpenNewPassword
 	SubmitNewPassword executes SubmitNewPassword
+	OpenRegistration executes OpenRegistration
+	SubmitRegistration executes SubmitRegistration
+	CheckUsername  executes CheckUsername
 }
 commands {
 	OpenProfile {
@@ -97,6 +100,19 @@ commands {
 		on dataInvalid publishes (common.Error)
 		on ok publishes (common.Message)
 	}
+	OpenRegistration {
+		on ok publishes (RenderRegistration)
+	}
+	SubmitRegistration {
+		on dataInvalid publishes (common.Error)
+		on mismatch publishes (common.Error)
+		on saved publishes (common.UserLoggedIn) triggers (common.Route)
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
+	CheckUsername {
+		on available publishes (UsernameIsAvailable)
+		on notAvailable publishes (UsernameIsNotAvailable)
+	}
 }
 events {
 	UserInfoLoaded listenedToBy ( UserInfo.renderUserInfo )
@@ -108,6 +124,9 @@ events {
 	PasswordsMismatch listenedToBy (UserInfo.passwordMismatch)
 	RenderForgotPassword listenedToBy (UserInfo.renderForgotPassword)
 	RenderNewPassword listenedToBy (UserInfo.renderNewPassword)
+	RenderRegistration listenedToBy (UserInfo.renderRegistration)
+	UsernameIsAvailable listenedToBy (UserInfo.renderUsernameIsAvailable)
+	UsernameIsNotAvailable listenedToBy (UserInfo.renderUsernameIsNotAvailable)
 }
 views {
 	UserInfo {
@@ -122,5 +141,8 @@ views {
 		passwordMismatch
 		renderForgotPassword
 		renderNewPassword
+		renderRegistration
+		renderUsernameIsAvailable
+		renderUsernameIsNotAvailable
 	}
 }

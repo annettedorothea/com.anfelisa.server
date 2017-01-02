@@ -38,6 +38,9 @@ public class UserInfoData implements IUserInfoData {
 	@NotNull
 	private String role;
 	
+	@NotNull
+	private Boolean emailConfirmed;
+	
 
 	
 	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
@@ -52,7 +55,8 @@ public class UserInfoData implements IUserInfoData {
 		@JsonProperty("name") String name,
 		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
-		@JsonProperty("role") String role
+		@JsonProperty("role") String role,
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -62,6 +66,7 @@ public class UserInfoData implements IUserInfoData {
 		this.prename = prename;
 		this.email = email;
 		this.role = role;
+		this.emailConfirmed = emailConfirmed;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -140,6 +145,18 @@ public class UserInfoData implements IUserInfoData {
 	}
 	public UserInfoData withRole(String role) {
 		this.role = role;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getEmailConfirmed() {
+		return this.emailConfirmed;
+	}
+	public void setEmailConfirmed(Boolean emailConfirmed) {
+		this.emailConfirmed = emailConfirmed;
+	}
+	public UserInfoData withEmailConfirmed(Boolean emailConfirmed) {
+		this.emailConfirmed = emailConfirmed;
 		return this;
 	}
 	

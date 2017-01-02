@@ -71,6 +71,25 @@ class UserInfoView {
         });
     };
 
+    static renderRegistration(eventData) {
+        eventData.texts = Texts.user;
+        $.get('templates/user/registration.mst', function(template) {
+            var rendered = Mustache.render(template, eventData);
+            $('.content-pane').html(rendered);
+        });
+    };
+
+    static renderUsernameIsAvailable(eventData) {
+        $("#usernameDiv").removeClass("has-error");
+        $("#usernameDiv .usernameNotAvailable").hide();
+    };
+
+    static renderUsernameIsNotAvailable(eventData) {
+        $("#usernameDiv").addClass("has-error");
+        $("#usernameDiv .error").hide();
+        $("#usernameDiv .usernameNotAvailable").show();
+    };
+
 
 }
 

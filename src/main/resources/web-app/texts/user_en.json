@@ -28,5 +28,7 @@
   "reallyDeleteBox" : "Do you really want to delete this box?",
   "forgotPassword" : "Forgot your password?",
   "usernameNotEmpty" : "Username must be given.",
-  "submit" : "Submit"
+  "submit" : "Submit",
+  "register" : "Register",
+  "usernameNotAvailable" : "Username is already taken."
 }

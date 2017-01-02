@@ -59,6 +59,8 @@ class InitCommand extends AbstractInitCommand {
                             }
                         } else if (hashes[1] && hashes[1] === "password") {
                             this.commandData.outcome = this.profilePassword;
+                        } else if (hashes[1] && hashes[1] === "register") {
+                            this.commandData.outcome = this.register;
                         } else if (hashes[1] && hashes[1] === "forgot-password") {
                             this.commandData.outcome = this.forgotPassword;
                         } else if (hashes[2] && hashes[1] === "newPassword" && hashes[2] && hashes[3]) {

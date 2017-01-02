@@ -25,6 +25,9 @@ public class UserModel implements IUserModel {
 	@NotNull
 	private String role;
 	
+	@NotNull
+	private Boolean emailConfirmed;
+	
 
 
 	public UserModel(
@@ -33,7 +36,8 @@ public class UserModel implements IUserModel {
 		@JsonProperty("name") String name,
 		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
-		@JsonProperty("role") String role
+		@JsonProperty("role") String role,
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed
 	) {
 		this.username = username;
 		this.password = password;
@@ -41,6 +45,7 @@ public class UserModel implements IUserModel {
 		this.prename = prename;
 		this.email = email;
 		this.role = role;
+		this.emailConfirmed = emailConfirmed;
 	}
 
 	@JsonProperty
@@ -89,6 +94,14 @@ public class UserModel implements IUserModel {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	
+	@JsonProperty
+	public Boolean getEmailConfirmed() {
+		return this.emailConfirmed;
+	}
+	public void setEmailConfirmed(Boolean emailConfirmed) {
+		this.emailConfirmed = emailConfirmed;
 	}
 	
 

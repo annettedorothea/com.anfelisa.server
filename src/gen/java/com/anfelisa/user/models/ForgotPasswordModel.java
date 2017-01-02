@@ -20,9 +20,6 @@ public class ForgotPasswordModel implements IForgotPasswordModel {
 	private String prename;
 	
 	@NotNull
-	private String language;
-	
-	@NotNull
 	private String password;
 	
 
@@ -32,14 +29,12 @@ public class ForgotPasswordModel implements IForgotPasswordModel {
 		@JsonProperty("email") String email,
 		@JsonProperty("name") String name,
 		@JsonProperty("prename") String prename,
-		@JsonProperty("language") String language,
 		@JsonProperty("password") String password
 	) {
 		this.username = username;
 		this.email = email;
 		this.name = name;
 		this.prename = prename;
-		this.language = language;
 		this.password = password;
 	}
 
@@ -73,14 +68,6 @@ public class ForgotPasswordModel implements IForgotPasswordModel {
 	}
 	public void setPrename(String prename) {
 		this.prename = prename;
-	}
-	
-	@JsonProperty
-	public String getLanguage() {
-		return this.language;
-	}
-	public void setLanguage(String language) {
-		this.language = language;
 	}
 	
 	@JsonProperty
