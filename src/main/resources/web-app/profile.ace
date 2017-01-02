@@ -88,6 +88,7 @@ commands {
 		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
 	ValidatePassword {
+		on empty publishes (PasswordEmpty)
 		on ok publishes (PasswordsOK)
 		on mismatch publishes (PasswordsMismatch)
 	}
@@ -111,6 +112,7 @@ commands {
 		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
 	CheckUsername {
+		on empty publishes (common.FieldEmpty)
 		on available publishes (UsernameIsAvailable)
 		on notAvailable publishes (UsernameIsNotAvailable)
 	}
@@ -132,6 +134,7 @@ events {
 	RenderRegistration listenedToBy (UserInfo.renderRegistration)
 	UsernameIsAvailable listenedToBy (UserInfo.renderUsernameIsAvailable)
 	UsernameIsNotAvailable listenedToBy (UserInfo.renderUsernameIsNotAvailable)
+	PasswordEmpty listenedToBy (UserInfo.passwordEmpty)
 }
 views {
 	UserInfo {
@@ -144,6 +147,7 @@ views {
 		renderPasswordChange
 		passwordOK
 		passwordMismatch
+		passwordEmpty
 		renderForgotPassword
 		renderNewPassword
 		renderRegistration

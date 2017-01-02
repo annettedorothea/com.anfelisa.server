@@ -3,7 +3,7 @@
 class ValidationView {
     static fieldEmpty(eventData) {
         $("#" + eventData.id + "Div").addClass("has-error");
-        $("#" + eventData.id + "Div .error").hide();
+        $("#" + eventData.id + "Div .help-block").hide();
         $("#" + eventData.id + "Div .notEmpty").show();
     };
     

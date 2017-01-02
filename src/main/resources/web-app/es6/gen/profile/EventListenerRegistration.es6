@@ -15,6 +15,7 @@ class EventListenerRegistrationProfile {
     	ACEController.registerListener('RenderRegistrationEvent', UserInfoView.renderRegistration);
     	ACEController.registerListener('UsernameIsAvailableEvent', UserInfoView.renderUsernameIsAvailable);
     	ACEController.registerListener('UsernameIsNotAvailableEvent', UserInfoView.renderUsernameIsNotAvailable);
+    	ACEController.registerListener('PasswordEmptyEvent', UserInfoView.passwordEmpty);
 	}
 
 }

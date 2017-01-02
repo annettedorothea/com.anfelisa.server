@@ -670,3 +670,10 @@ pre {
 	margin-bottom: 10px;
 }
 
+#cookie-bar-button {
+	background-color: #337AB7 !important;
+	text-shadow: none !important;
+	font-weight: normal !important;
+	padding: 6px 12px !important;
+}
+

@@ -20,6 +20,8 @@ class ValidatePasswordAction extends AbstractValidatePasswordAction {
 	    }
 		this.actionParam.newPassword = CryptoJS.MD5(jQuery("#password").val().trim()).toString(CryptoJS.enc.Base64);
 		this.actionParam.passwordRepetition = CryptoJS.MD5(jQuery("#passwordRepetition").val().trim()).toString(CryptoJS.enc.Base64);
+		this.actionParam.newPasswordEmpty = jQuery("#password").val().trim().length === 0;
+		this.actionParam.passwordRepetitionEmpty = jQuery("#passwordRepetition").val().trim().length === 0;
     }
 
     initActionData() {
@@ -40,6 +42,8 @@ class ValidatePasswordAction extends AbstractValidatePasswordAction {
     	}
 		this.actionData.newPassword = this.actionParam.newPassword;
 		this.actionData.passwordRepetition = this.actionParam.passwordRepetition;
+		this.actionData.newPasswordEmpty = this.actionParam.newPasswordEmpty;
+		this.actionData.passwordRepetitionEmpty = this.actionParam.passwordRepetitionEmpty;
     }
 
     releaseActionParam() {

@@ -10,7 +10,7 @@
     <div class="form-group" id="usernameDiv">
         <label for="username" class="col-sm-3 control-label">* {{texts.username}}</label>
         <div class="col-sm-9">
-            <input type="input" class="form-control" id="username" placeholder="{{texts.username}}" onblur="new ValidateRequiredFieldAction({id : 'username'}).apply(); new CheckUsernameAction().apply()">
+            <input type="input" class="form-control" id="username" placeholder="{{texts.username}}" onblur="new CheckUsernameAction().apply()">
             <span class="help-block notEmpty" style="display: none">{{texts.usernameNotEmpty}}</span>
             <span class="help-block usernameNotAvailable" style="display: none">{{texts.usernameNotAvailable}}</span>
         </div>
@@ -19,7 +19,7 @@
     <div class="form-group" id="passwordDiv">
         <label for="password" class="col-sm-3 control-label">* {{texts.password}}</label>
         <div class="col-sm-9">
-            <input type="password" class="form-control" id="password" placeholder="{{texts.password}}" onblur="new ValidateRequiredFieldAction({id : 'password'}).apply();new ValidatePasswordAction().apply()">
+            <input type="password" class="form-control" id="password" placeholder="{{texts.password}}" onblur="new ValidatePasswordAction().apply()">
             <span class="help-block notEmpty" style="display: none">{{texts.passwordNotEmpty}}</span>
         </div>
     </div>
@@ -27,7 +27,7 @@
     <div class="form-group" id="passwordRepetitionDiv">
         <label for="passwordRepetition" class="col-sm-3 control-label">* {{texts.passwordRepetition}}</label>
         <div class="col-sm-9">
-            <input type="password" class="form-control" id="passwordRepetition" placeholder="{{texts.passwordRepetition}}" onblur="new ValidateRequiredFieldAction({id : 'passwordRepetition'}).apply();new ValidatePasswordAction().apply()">
+            <input type="password" class="form-control" id="passwordRepetition" placeholder="{{texts.passwordRepetition}}" onblur="new ValidatePasswordAction().apply()">
             <span class="help-block notEmpty" style="display: none">{{texts.passwordRepetitionNotEmpty}}</span>
             <span class="help-block passwordMismatch" style="display: none">{{texts.passwordMismatch}}</span>
         </div>
