@@ -22,6 +22,7 @@ class AbstractInitCommand extends Command {
         this.forgotPassword = "forgotPassword";
         this.newPassword = "newPassword";
         this.register = "register";
+        this.confirmEmail = "confirmEmail";
     }
 
     publishEvents() {
@@ -146,6 +147,9 @@ class AbstractInitCommand extends Command {
         	promises.push(new TriggerAction(new ReadPublicCoursesAction(this.commandData)).publish());
         	promises.push(new TriggerAction(new RenderLoginAction(this.commandData)).publish());
         	promises.push(new TriggerAction(new OpenRegistrationAction(this.commandData)).publish());
+        	break;
+        case this.confirmEmail:
+        	promises.push(new TriggerAction(new ConfirmEmailAction(this.commandData)).publish());
         	break;
     	default:
     		throw 'unhandled outcome: ' + this.commandData.outcome;

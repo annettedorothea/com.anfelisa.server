@@ -29,5 +29,6 @@
   "passwordMismatch" : "Passwords do not match.",
   "updatePasswordFailed" : "Failed to change password.",
   "checkUsernameFailed" : "Failed to check username.",
-  "registerUserFailed" : "Failed to register user."
+  "registerUserFailed" : "Failed to register user.",
+  "confirmEmailFailed" : "Failed to confirm email."
 }

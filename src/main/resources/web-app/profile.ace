@@ -24,6 +24,7 @@ actions {
 	OpenRegistration executes OpenRegistration
 	SubmitRegistration executes SubmitRegistration
 	CheckUsername  executes CheckUsername
+	ConfirmEmail executes ConfirmEmail
 }
 commands {
 	OpenProfile {
@@ -112,6 +113,10 @@ commands {
 	CheckUsername {
 		on available publishes (UsernameIsAvailable)
 		on notAvailable publishes (UsernameIsNotAvailable)
+	}
+	ConfirmEmail {
+		on saved triggers (common.Route)
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
 }
 events {

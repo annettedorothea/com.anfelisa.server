@@ -58,4 +58,11 @@ public class CustomUserDao {
 		statement.execute();
 	}
 
+	public static void confirmEmail(Handle handle, String username, String schema) {
+		Update statement = handle
+				.createStatement("UPDATE " + schema + ".user SET emailConfirmed = true WHERE username = :username");
+		statement.bind("username", username);
+		statement.execute();
+	}
+
 }

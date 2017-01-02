@@ -101,6 +101,7 @@ data {
 	ForgotPassword : (ForgotPassword Language)
 	UsernameAvailable : (Username Available)
 	UserRegistration : (User Language)
+	Username : (Username)
 }
 
 actions {
@@ -116,6 +117,7 @@ actions {
 	POST ForgotPassword uses ForgotPassword executes ForgotPassword
 	POST RegisterUser uses UserRegistration executes RegisterUser
 	GET UsernameAvailable uses UsernameAvailable
+	PUT ConfirmEmail uses Username executes ConfirmEmail
 }
 
 commands {
@@ -144,6 +146,9 @@ commands {
 	RegisterUser uses UserRegistration {
 		on ok publishes (UserRegistered SendRegistrationEmail)
 	}
+	ConfirmEmail uses Username {
+		on ok publishes (EmailConfirmed)
+	}
 }
 
 events {
@@ -156,6 +161,7 @@ events {
 	PasswordUpdated uses PasswordUpdate listenedToBy (User.updatePassword)
 	SendEmail uses ForgotPassword listenedToBy (User.sendForgotPasswordEmail)
 	SendRegistrationEmail uses UserRegistration listenedToBy (User.sendRegistrationEmail)
+	EmailConfirmed uses Username listenedToBy (User.confirmEmail)
 }
 
 views {
@@ -168,6 +174,7 @@ views {
 		sendForgotPasswordEmail(ForgotPassword)
 		sendRegistrationEmail(UserRegistration)
 		registerUser(UserRegistration)
+		confirmEmail(Username)
 	}
 	LoginLog {
 		userLoggedIn(Login)

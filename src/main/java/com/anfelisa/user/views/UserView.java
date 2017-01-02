@@ -15,6 +15,7 @@ import com.anfelisa.user.data.RemoveCourseData;
 import com.anfelisa.user.data.UserCreationData;
 import com.anfelisa.user.data.UserRegistrationData;
 import com.anfelisa.user.data.UserUpdateData;
+import com.anfelisa.user.data.UsernameData;
 import com.anfelisa.user.models.CustomUserDao;
 import com.anfelisa.user.models.UserDao;
 
@@ -42,6 +43,10 @@ public class UserView {
 	
 	public BiConsumer<PasswordUpdateData, Handle> updatePassword = (dataContainer, handle) -> {
 		CustomUserDao.updatePassword(handle, dataContainer, dataContainer.getSchema());
+	};
+	
+	public BiConsumer<UsernameData, Handle> confirmEmail = (dataContainer, handle) -> {
+		CustomUserDao.confirmEmail(handle, dataContainer.getUsername(), dataContainer.getSchema());
 	};
 	
 	public BiConsumer<ForgotPasswordData, Handle> sendForgotPasswordEmail = (dataContainer, handle) -> {

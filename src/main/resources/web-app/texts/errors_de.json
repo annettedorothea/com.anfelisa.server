@@ -29,5 +29,6 @@
   "passwordMismatch" : "Passwörter stimmen nicht überein.",
   "updatePasswordFailed" : "Passwort ändern schlug fehl.",
   "checkUsernameFailed" : "Benutzername konnte nicht überprüft werden.",
-  "registerUserFailed" : "Das Registieren des Benutzers schlug fehl."
+  "registerUserFailed" : "Das Registieren des Benutzers schlug fehl.",
+  "confirmEmailFailed" : "Das Bestätigen der Email-Adresse schlug fehl."
 }
