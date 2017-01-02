@@ -676,4 +676,7 @@ pre {
 	font-weight: normal !important;
 	padding: 6px 12px !important;
 }
+#cookie-bar-prompt-content a:hover, #cookie-bar a:hover {
+	text-decoration: none !important;
+}
 
