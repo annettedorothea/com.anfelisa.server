@@ -16,6 +16,7 @@ public class AppRegistration {
 		environment.jersey().register(new LoadPublicCoursesResource(jdbi));
 		environment.jersey().register(new LoadPrivateCoursesResource(jdbi));
 		environment.jersey().register(new LoadStatisticsResource(jdbi));
+		environment.jersey().register(new GetCourseResource(jdbi));
 	}
 
 	public static void registerConsumers() {

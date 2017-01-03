@@ -101,6 +101,7 @@ data {
 	CourseList: (CourseList)
 	MyCourseList: (MyCourseList com.anfelisa.user.Username)
 	Statistics: ( Statistics StatisticsItemList )
+	Course : (Course)
 }
 
 actions {
@@ -109,6 +110,7 @@ actions {
 	GET LoadPublicCourses uses CourseList
 	GET LoadPrivateCourses uses MyCourseList
 	GET LoadStatistics uses Statistics
+	GET GetCourse uses Course
 }
 
 commands {

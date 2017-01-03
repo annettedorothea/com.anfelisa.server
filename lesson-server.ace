@@ -51,12 +51,14 @@ data {
 	LessonCreation : ( Lesson )
 	LessonList : (LessonList com.anfelisa.course.CourseId com.anfelisa.course.CourseAbstract)
 	MyLessonList: (MyLessonList com.anfelisa.user.Username com.anfelisa.course.CourseId com.anfelisa.course.CourseAbstract )
+	Lesson : (Lesson)
 }
 
 actions {
 	POST CreateLesson uses LessonCreation executes CreateLesson
 	GET LoadPublicLessons uses LessonList
 	GET LoadPrivateLessons uses MyLessonList
+	GET GetLesson uses Lesson
 }
 
 commands {

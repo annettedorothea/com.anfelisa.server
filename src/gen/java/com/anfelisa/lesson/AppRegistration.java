@@ -14,6 +14,7 @@ public class AppRegistration {
 		environment.jersey().register(new CreateLessonResource(jdbi));
 		environment.jersey().register(new LoadPublicLessonsResource(jdbi));
 		environment.jersey().register(new LoadPrivateLessonsResource(jdbi));
+		environment.jersey().register(new GetLessonResource(jdbi));
 	}
 
 	public static void registerConsumers() {
