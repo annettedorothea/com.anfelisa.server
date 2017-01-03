@@ -111,6 +111,7 @@ actions {
 	GET LoadPrivateCourses uses MyCourseList
 	GET LoadStatistics uses Statistics
 	GET GetCourse uses Course
+	PUT UpdateCourse uses Course executes UpdateCourse
 }
 
 commands {
@@ -120,16 +121,21 @@ commands {
 	AddStudentToCourse uses StudentToCourseAddition {
 		on added publishes ( StudentAddedToCourse)
 	}
+	UpdateCourse uses Course {
+		on updated publishes (CourseUpdated)
+	}
 }
 
 events {
 	CourseCreated uses CourseCreation listenedToBy ( Course.createCourse )
 	StudentAddedToCourse uses StudentToCourseAddition listenedToBy (StudentOfCourse.addStudentToCourse)
+	CourseUpdated uses Course listenedToBy (Course.updateCourse)
 }
 
 views {
 	Course {
 		createCourse (CourseCreation)
+		updateCourse(Course)
 	}
 	StudentOfCourse {
 		addStudentToCourse (StudentToCourseAddition)

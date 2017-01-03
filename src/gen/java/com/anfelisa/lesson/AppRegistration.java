@@ -15,12 +15,14 @@ public class AppRegistration {
 		environment.jersey().register(new LoadPublicLessonsResource(jdbi));
 		environment.jersey().register(new LoadPrivateLessonsResource(jdbi));
 		environment.jersey().register(new GetLessonResource(jdbi));
+		environment.jersey().register(new UpdateLessonResource(jdbi));
 	}
 
 	public static void registerConsumers() {
 		LessonView lessonView = new LessonView();
 		
 		AceController.addConsumer("LessonCreatedEvent", lessonView.createLesson);
+		AceController.addConsumer("LessonUpdatedEvent", lessonView.updateLesson);
     }
 }
 

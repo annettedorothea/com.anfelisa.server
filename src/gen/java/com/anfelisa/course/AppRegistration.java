@@ -17,6 +17,7 @@ public class AppRegistration {
 		environment.jersey().register(new LoadPrivateCoursesResource(jdbi));
 		environment.jersey().register(new LoadStatisticsResource(jdbi));
 		environment.jersey().register(new GetCourseResource(jdbi));
+		environment.jersey().register(new UpdateCourseResource(jdbi));
 	}
 
 	public static void registerConsumers() {
@@ -25,6 +26,7 @@ public class AppRegistration {
 		
 		AceController.addConsumer("CourseCreatedEvent", courseView.createCourse);
 		AceController.addConsumer("StudentAddedToCourseEvent", studentOfCourseView.addStudentToCourse);
+		AceController.addConsumer("CourseUpdatedEvent", courseView.updateCourse);
     }
 }
 

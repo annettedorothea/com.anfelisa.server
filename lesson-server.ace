@@ -59,20 +59,26 @@ actions {
 	GET LoadPublicLessons uses LessonList
 	GET LoadPrivateLessons uses MyLessonList
 	GET GetLesson uses Lesson
+	PUT UpdateLesson uses Lesson executes UpdateLesson
 }
 
 commands {
 	CreateLesson uses LessonCreation {
 		on created publishes ( LessonCreated )
 	}
+	UpdateLesson uses Lesson {
+		on updated publishes (LessonUpdated)
+	}
 }
 
 events {
 	LessonCreated uses LessonCreation listenedToBy ( Lesson.createLesson )
+	LessonUpdated uses Lesson listenedToBy (Lesson.updateLesson)
 }
 
 views {
 	Lesson {
 		createLesson (LessonCreation)
+		updateLesson (Lesson)
 	}
 }

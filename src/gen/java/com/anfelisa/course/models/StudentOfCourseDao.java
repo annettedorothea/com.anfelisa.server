@@ -1,10 +1,13 @@
 package com.anfelisa.course.models;
 
 import org.skife.jdbi.v2.Handle;
+import org.skife.jdbi.v2.Query;
 import org.skife.jdbi.v2.Update;
 
 import java.util.List;
+import java.util.Map;
 
+@SuppressWarnings("all")
 public class StudentOfCourseDao {
 	
 	public static void create(Handle handle, String schema) {

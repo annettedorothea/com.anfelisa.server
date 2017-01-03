@@ -1,17 +1,20 @@
 package com.anfelisa.box.models;
 
 import org.skife.jdbi.v2.Handle;
+import org.skife.jdbi.v2.Query;
 import org.skife.jdbi.v2.Update;
 
 import java.util.List;
+import java.util.Map;
 
+@SuppressWarnings("all")
 public class BoxDao {
 	
 	public static void create(Handle handle, String schema) {
 		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".box (boxId serial NOT NULL  , name character varying NOT NULL  , username character varying NOT NULL  , CONSTRAINT box_pkey PRIMARY KEY (boxId), CONSTRAINT box_username_fkey FOREIGN KEY (username) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT box_boxId_unique UNIQUE (boxId))");
 	}
 	
-	public static void insert(Handle handle, IBoxModel boxModel, String schema) {
+	public static Integer insert(Handle handle, IBoxModel boxModel, String schema) {
 		if (boxModel.getBoxId() != null) {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".box (boxId, name, username) VALUES (:boxId, :name, :username)");
 			statement.bind("boxId", boxModel.getBoxId());
@@ -19,11 +22,13 @@ public class BoxDao {
 			statement.bind("username", boxModel.getUsername());
 			statement.execute();
 			handle.createStatement("SELECT setval('" + schema + ".box_boxId_seq', (SELECT MAX(boxId) FROM " + schema + ".box));").execute();
+			return boxModel.getBoxId();
 		} else {
-			Update statement = handle.createStatement("INSERT INTO " + schema + ".box (name, username) VALUES (:name, :username)");
+			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO " + schema + ".box (name, username) VALUES (:name, :username) RETURNING boxId");
 			statement.bind("name", boxModel.getName());
 			statement.bind("username", boxModel.getUsername());
-			statement.execute();
+			Map<String, Object> first = statement.first();
+			return (Integer) first.get("boxId");
 		}
 	}
 	
@@ -31,8 +36,8 @@ public class BoxDao {
 	public static void updateByBoxId(Handle handle, IBoxModel boxModel, String schema) {
 		Update statement = handle.createStatement("UPDATE " + schema + ".box SET boxId = :boxId, name = :name, username = :username WHERE boxId = :boxId");
 		statement.bind("boxId", boxModel.getBoxId());
-		statement.bind("name", boxModel.getBoxId());
-		statement.bind("username", boxModel.getBoxId());
+		statement.bind("name", boxModel.getName());
+		statement.bind("username", boxModel.getUsername());
 		statement.execute();
 	}
 

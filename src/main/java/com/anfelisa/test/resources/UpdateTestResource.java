@@ -6,7 +6,7 @@ import java.net.URLDecoder;
 import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -16,9 +16,10 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Resource;
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.test.actions.CreateTestAction;
+import com.anfelisa.test.actions.UpdateTestAction;
 import com.anfelisa.test.data.TestCreationData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,22 +27,23 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/tests")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class CreateTestResource extends Resource {
+public class UpdateTestResource extends Resource {
 
-	static final Logger LOG = LoggerFactory.getLogger(CreateTestResource.class);
+	static final Logger LOG = LoggerFactory.getLogger(UpdateTestResource.class);
 
-	public CreateTestResource(DBI jdbi) {
+	public UpdateTestResource( DBI jdbi ) {
 		super(jdbi);
 	}
 
-	@POST
+	@PUT
 	@Timed
-	@Path("/create")
+	@Path("/update")
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
-	public Response post(@NotNull TestCreationData testCreationData) throws JsonProcessingException, UnsupportedEncodingException {
-		String decodedHtml = URLDecoder.decode( testCreationData.getHtml(), "UTF-8" );
-		testCreationData.setHtml(decodedHtml);
-		return new CreateTestAction(testCreationData, this.createDatabaseHandle()).apply();
+	public Response put(@NotNull TestCreationData testData) throws JsonProcessingException, UnsupportedEncodingException {
+		DatabaseHandle handle = this.createDatabaseHandle();
+		String decodedHtml = URLDecoder.decode( testData.getHtml(), "UTF-8" );
+		testData.setHtml(decodedHtml);
+		return new UpdateTestAction(testData, handle).apply();
 	}
 
 }

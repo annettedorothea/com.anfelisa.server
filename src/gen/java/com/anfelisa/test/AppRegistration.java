@@ -16,12 +16,15 @@ public class AppRegistration {
 		environment.jersey().register(new LoadPublicTestResource(jdbi));
 		environment.jersey().register(new LoadPrivateTestsResource(jdbi));
 		environment.jersey().register(new LoadPrivateTestResource(jdbi));
+		environment.jersey().register(new GetTestResource(jdbi));
+		environment.jersey().register(new UpdateTestResource(jdbi));
 	}
 
 	public static void registerConsumers() {
 		TestView testView = new TestView();
 		
 		AceController.addConsumer("TestCreatedEvent", testView.createTest);
+		AceController.addConsumer("TestUpdatedEvent", testView.updateTest);
     }
 }
 

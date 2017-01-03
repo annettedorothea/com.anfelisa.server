@@ -68,20 +68,27 @@ actions {
 	GET LoadPublicTest uses Test
 	GET LoadPrivateTests uses MyTestList
 	GET LoadPrivateTest uses MyTest
+	GET GetTest uses TestCreation
+	PUT UpdateTest uses TestCreation executes UpdateTest
 }
 
 commands {
 	CreateTest uses TestCreation {
 		on created publishes ( TestCreated )
 	}
+	UpdateTest uses TestCreation {
+		on updated publishes (TestUpdated)
+	}
 }
 
 events {
 	TestCreated uses TestCreation listenedToBy ( Test.createTest )
+	TestUpdated uses TestCreation listenedToBy (Test.updateTest)
 }
 
 views {
 	Test {
 		createTest (TestCreation)
+		updateTest (TestCreation)
 	}
 }

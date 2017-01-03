@@ -1,17 +1,20 @@
 package com.anfelisa.box.models;
 
 import org.skife.jdbi.v2.Handle;
+import org.skife.jdbi.v2.Query;
 import org.skife.jdbi.v2.Update;
 
 import java.util.List;
+import java.util.Map;
 
+@SuppressWarnings("all")
 public class CardDao {
 	
 	public static void create(Handle handle, String schema) {
 		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".card (cardId serial NOT NULL  , content character varying  , testId integer NOT NULL  , contentHash character varying NOT NULL  , maxPoints integer NOT NULL  , CONSTRAINT card_pkey PRIMARY KEY (cardId), CONSTRAINT card_testId_fkey FOREIGN KEY (testId) REFERENCES " + schema + ".test ( testId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT card_cardId_unique UNIQUE (cardId))");
 	}
 	
-	public static void insert(Handle handle, ICardModel cardModel, String schema) {
+	public static Integer insert(Handle handle, ICardModel cardModel, String schema) {
 		if (cardModel.getCardId() != null) {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".card (cardId, content, testId, contentHash, maxPoints) VALUES (:cardId, :content, :testId, :contentHash, :maxPoints)");
 			statement.bind("cardId", cardModel.getCardId());
@@ -21,13 +24,15 @@ public class CardDao {
 			statement.bind("maxPoints", cardModel.getMaxPoints());
 			statement.execute();
 			handle.createStatement("SELECT setval('" + schema + ".card_cardId_seq', (SELECT MAX(cardId) FROM " + schema + ".card));").execute();
+			return cardModel.getCardId();
 		} else {
-			Update statement = handle.createStatement("INSERT INTO " + schema + ".card (content, testId, contentHash, maxPoints) VALUES (:content, :testId, :contentHash, :maxPoints)");
+			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO " + schema + ".card (content, testId, contentHash, maxPoints) VALUES (:content, :testId, :contentHash, :maxPoints) RETURNING cardId");
 			statement.bind("content", cardModel.getContent());
 			statement.bind("testId", cardModel.getTestId());
 			statement.bind("contentHash", cardModel.getContentHash());
 			statement.bind("maxPoints", cardModel.getMaxPoints());
-			statement.execute();
+			Map<String, Object> first = statement.first();
+			return (Integer) first.get("cardId");
 		}
 	}
 	
@@ -35,10 +40,10 @@ public class CardDao {
 	public static void updateByCardId(Handle handle, ICardModel cardModel, String schema) {
 		Update statement = handle.createStatement("UPDATE " + schema + ".card SET cardId = :cardId, content = :content, testId = :testId, contentHash = :contentHash, maxPoints = :maxPoints WHERE cardId = :cardId");
 		statement.bind("cardId", cardModel.getCardId());
-		statement.bind("content", cardModel.getCardId());
-		statement.bind("testId", cardModel.getCardId());
-		statement.bind("contentHash", cardModel.getCardId());
-		statement.bind("maxPoints", cardModel.getCardId());
+		statement.bind("content", cardModel.getContent());
+		statement.bind("testId", cardModel.getTestId());
+		statement.bind("contentHash", cardModel.getContentHash());
+		statement.bind("maxPoints", cardModel.getMaxPoints());
 		statement.execute();
 	}
 
