@@ -57,5 +57,9 @@
   "count" : "Count",
   "points" : "Points",
   "rate" : "Rate",
-  "forgotPasswordSubmitted" : "Request is being processed."
+  "forgotPasswordSubmitted" : "Request is being processed.",
+  "finishCardButton3Text" : "Fine",
+  "finishCardButton2Text" : "OK",
+  "finishCardButton1Text" : "Not good",
+  "repeatCardButtonText" : "Repeat"
 }

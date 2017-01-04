@@ -57,5 +57,9 @@
   "count" : "Anzahl",
   "points" : "Punkte",
   "rate" : "Quote",
-  "forgotPasswordSubmitted" : "Die Anfrage wird bearbeitet."
+  "forgotPasswordSubmitted" : "Die Anfrage wird bearbeitet.",
+  "finishCardButton3Text" : "Sitzt",
+  "finishCardButton2Text" : "OK",
+  "finishCardButton1Text" : "Nicht gut",
+  "repeatCardButtonText" : "Wiederholen"
 }

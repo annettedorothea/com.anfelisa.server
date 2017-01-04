@@ -10,6 +10,7 @@ actions {
 	ShowWord executes ShowWord
 	StartTest executes StartTest
 	RateWord executes RateWord
+	RepeatComplexCard executes RepeatComplexCard
 }
 
 commands {
@@ -85,6 +86,9 @@ commands {
 		) triggers (
 			IsRatedTestFinished
 		)
+	}
+	RepeatComplexCard {
+		on go triggers (common.Route)
 	}
 }
 

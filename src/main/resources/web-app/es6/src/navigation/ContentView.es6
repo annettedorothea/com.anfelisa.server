@@ -26,11 +26,13 @@ class ContentView {
         var html = "<div class='test'>" + eventData.data.html + "</div>";
         $(".content-pane").html(html);
         eventData.texts = Texts.common;
-        $.get('templates/test/startTest.mst', function(template) {
-            var rendered = Mustache.render(template, eventData);
-            $('#correctParagraph').html(rendered);
-        });
         //enableDrag();
+        $("#startButton").html(Texts.common.withTyping);
+        $("#repeatButton").html(Texts.common.asRepetition);
+        $("#finishCardButton3").html(Texts.common.finishCardButton3Text);
+        $("#finishCardButton2").html(Texts.common.finishCardButton2Text);
+        $("#finishCardButton1").html(Texts.common.finishCardButton1Text);
+        $("#repeatCardButton").html(Texts.common.repeatCardButtonText);
     };
     
     static renderPrivateLessons(eventData) {
@@ -52,10 +54,12 @@ class ContentView {
         $(".content-pane").html(html);
         //enableDrag();
         eventData.texts = Texts.common;
-        $.get('templates/test/startTest.mst', function(template) {
-            var rendered = Mustache.render(template, eventData);
-            $('#correctParagraph').html(rendered);
-        });
+        $("#startButton").html(Texts.common.withTyping);
+        $("#repeatButton").html(Texts.common.asRepetition);
+        $("#finishCardButton3").html(Texts.common.finishCardButton3Text);
+        $("#finishCardButton2").html(Texts.common.finishCardButton2Text);
+        $("#finishCardButton1").html(Texts.common.finishCardButton1Text);
+        $("#repeatCardButton").html(Texts.common.repeatCardButtonText);
     };
     
     static renderResult(eventData) {
