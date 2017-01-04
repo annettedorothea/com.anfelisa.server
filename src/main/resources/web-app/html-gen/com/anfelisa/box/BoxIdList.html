@@ -1,0 +1,112 @@
+<form class="form-horizontal">
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <h4>{{texts.boxIdList}}</h4>
+        </div>
+    </div>
+
+	<div class="form-group" id="boxIdsDiv">
+	    <label for="boxIds" class="col-sm-3 control-label">{{texts.boxIds}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="boxIds" placeholder="{{texts.boxIds}}" value="{{boxIds}}">
+	        <span class="help-block notEmpty" style="display: none">{{texts.boxIdsNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="numberOfInsertedCardsDiv">
+	    <label for="numberOfInsertedCards" class="col-sm-3 control-label">{{texts.numberOfInsertedCards}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="numberOfInsertedCards" placeholder="{{texts.numberOfInsertedCards}}" value="{{numberOfInsertedCards}}">
+	        <span class="help-block notEmpty" style="display: none">{{texts.numberOfInsertedCardsNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="boxNamesDiv">
+	    <label for="boxNames" class="col-sm-3 control-label">{{texts.boxNames}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="boxNames" placeholder="{{texts.boxNames}}" value="{{boxNames}}">
+	        <span class="help-block notEmpty" style="display: none">{{texts.boxNamesNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	{{#cardsToBeAdded}}
+	<div class="panel panel-default">
+	    <div class="panel-heading">
+			<h4 class="panel-title">{{texts.cardOfBoxId}}: {{cardOfBoxId}}</h4>
+			<h4 class="panel-title">{{texts.cardId}}: {{cardId}}</h4>
+			<h4 class="panel-title">{{texts.ef}}: {{ef}}</h4>
+			<h4 class="panel-title">{{texts.interval}}: {{interval}}</h4>
+			<h4 class="panel-title">{{texts.n}}: {{n}}</h4>
+			<h4 class="panel-title">{{texts.count}}: {{count}}</h4>
+			<h4 class="panel-title">{{texts.date}}: {{date}}</h4>
+			<h4 class="panel-title">{{texts.boxId}}: {{boxId}}</h4>
+			<h4 class="panel-title">{{texts.quality}}: {{quality}}</h4>
+			<h4 class="panel-title">{{texts.timestamp}}: {{timestamp}}</h4>
+			<h4 class="panel-title">{{texts.points}}: {{points}}</h4>
+	    </div>
+	    <div class="panel-body">
+			{{texts.cardOfBoxId}}: {{cardOfBoxId}}<br>
+			{{texts.cardId}}: {{cardId}}<br>
+			{{texts.ef}}: {{ef}}<br>
+			{{texts.interval}}: {{interval}}<br>
+			{{texts.n}}: {{n}}<br>
+			{{texts.count}}: {{count}}<br>
+			{{texts.date}}: {{date}}<br>
+			{{texts.boxId}}: {{boxId}}<br>
+			{{texts.quality}}: {{quality}}<br>
+			{{texts.timestamp}}: {{timestamp}}<br>
+			{{texts.points}}: {{points}}<br>
+	    </div>
+	</div>
+	{{/cardsToBeAdded}}
+	{{^cardsToBeAdded}}
+	<div class="panel panel-default">
+	    <div class="panel-heading">
+	        <h3 class="panel-title">{{texts.emptyCardsToBeAdded}}</h3>
+	    </div>
+	</div>
+	{{/cardsToBeAdded}}
+	
+	<div class="table-responsive">
+	    <table class="table table-bordered table-hover table-responsive">
+	        <tr>
+				<th>{{texts.cardOfBoxId}}</th>
+				<th>{{texts.cardId}}</th>
+				<th>{{texts.ef}}</th>
+				<th>{{texts.interval}}</th>
+				<th>{{texts.n}}</th>
+				<th>{{texts.count}}</th>
+				<th>{{texts.date}}</th>
+				<th>{{texts.boxId}}</th>
+				<th>{{texts.quality}}</th>
+				<th>{{texts.timestamp}}</th>
+				<th>{{texts.points}}</th>
+	        </tr>
+	        {{#cardsToBeAdded}}
+	        <tr>
+				<td>{{cardOfBoxId}}</td>
+				<td>{{cardId}}</td>
+				<td>{{ef}}</td>
+				<td>{{interval}}</td>
+				<td>{{n}}</td>
+				<td>{{count}}</td>
+				<td>{{date}}</td>
+				<td>{{boxId}}</td>
+				<td>{{quality}}</td>
+				<td>{{timestamp}}</td>
+				<td>{{points}}</td>
+	        </tr>
+	        {{/cardsToBeAdded}}
+	        {{^cardsToBeAdded}}
+	        <tr>
+	            <td colspan="11">{{texts.emptyCardsToBeAdded}}</td>
+	        </tr>
+	        {{/cardsToBeAdded}}
+	    </table>
+	</div>
+	
+	
+	
+</form>

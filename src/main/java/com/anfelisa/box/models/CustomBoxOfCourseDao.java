@@ -1,5 +1,7 @@
 package com.anfelisa.box.models;
 
+import java.util.List;
+
 import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.Update;
 
@@ -12,6 +14,12 @@ public class CustomBoxOfCourseDao {
 				.bind("courseId", courseId)
 				.map(new BoxOfCourseMapper())
 				.first();
+	}
+	public static List<IBoxOfCourseModel> selectByBoxId(Handle handle, String schema, Integer boxId) {
+		return handle
+				.createQuery("SELECT * FROM " + schema + ".boxofcourse WHERE boxId = :boxId")
+				.bind("boxId", boxId)
+				.map(new BoxOfCourseMapper()).list();
 	}
 	public static void updateAutoAdd(Handle handle, String schema, IBoxOfCourseModel boxOfCourseModel) {
 		Update statement = handle.createStatement("UPDATE " + schema

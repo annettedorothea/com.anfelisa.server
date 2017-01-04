@@ -16,7 +16,8 @@ public class CreateCardAction extends AbstractCreateCardAction {
 
 	@Override
 	protected void captureActionParam() {
-		// capture all stuff that we need to replay this action (e.g. system time)
+		// capture all stuff that we need to replay this action (e.g. system
+		// time)
 	}
 
 	@Override
@@ -27,4 +28,4 @@ public class CreateCardAction extends AbstractCreateCardAction {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */
