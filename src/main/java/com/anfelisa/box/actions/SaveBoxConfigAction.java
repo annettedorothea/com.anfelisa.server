@@ -1,11 +1,15 @@
 package com.anfelisa.box.actions;
 
-import com.anfelisa.ace.DatabaseHandle;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.BoxConfigData;
+import com.anfelisa.box.models.CustomBoxOfCourseDao;
+import com.anfelisa.box.models.IBoxOfCourseModel;
 
 public class SaveBoxConfigAction extends AbstractSaveBoxConfigAction {
 
@@ -17,15 +21,23 @@ public class SaveBoxConfigAction extends AbstractSaveBoxConfigAction {
 
 	@Override
 	protected void captureActionParam() {
-		// capture all stuff that we need to replay this action (e.g. system time)
+		// capture all stuff that we need to replay this action (e.g. system
+		// time)
 	}
 
 	@Override
 	protected void applyAction() {
 		// init actionData
 		this.actionData = this.actionParam;
+		List<IBoxOfCourseModel> list = this.actionData.getBoxOfCourseList();
+		this.actionData.setExistingItems(new ArrayList<IBoxOfCourseModel>());
+		for (IBoxOfCourseModel item : list) {
+			IBoxOfCourseModel existingItem = CustomBoxOfCourseDao.select(this.getDatabaseHandle().getHandle(),
+					this.actionData.getSchema(), item.getBoxId(), item.getCourseId());
+			this.actionData.getExistingItems().add(existingItem);
+		}
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

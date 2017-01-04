@@ -30,5 +30,6 @@
   "updatePasswordFailed" : "Failed to change password.",
   "checkUsernameFailed" : "Failed to check username.",
   "registerUserFailed" : "Failed to register user.",
-  "confirmEmailFailed" : "Failed to confirm email."
+  "confirmEmailFailed" : "Failed to confirm email.",
+  "fillBoxWithCardsFailed" : "Failed to fill box with cards."
 }

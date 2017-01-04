@@ -14,6 +14,7 @@ actions {
 	OpenBoxCreation executes OpenBoxCreation
 	LoadCourses executes LoadCourses
 	SaveBoxConfig executes SaveBoxConfig
+	FillBoxWithCards executes FillBoxWithCards
 	UpdatePassword executes UpdatePassword
 	OpenChangePassword executes OpenChangePassword
 	ValidatePassword executes ValidatePassword
@@ -69,7 +70,11 @@ commands {
 		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
 	SaveBoxConfig {
-		on saved triggers (common.Route)
+		on saved triggers (FillBoxWithCards)
+		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
+	}
+	FillBoxWithCards {
+		on filled triggers (common.Route)
 		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
 	OpenChangePassword {

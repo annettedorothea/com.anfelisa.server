@@ -8,6 +8,7 @@ public interface IBoxConfigModel {
 	Integer getBoxId();
 
 	java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> getBoxOfCourseList();
+	java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> getExistingItems();
 
 }
 

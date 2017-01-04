@@ -26,6 +26,7 @@ public class BoxConfigData implements IBoxConfigData {
 	
 
 	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList;
+	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems;
 	
 	
 
@@ -76,6 +77,13 @@ public class BoxConfigData implements IBoxConfigData {
 	}
 	public void setBoxOfCourseList(java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList) {
 		this.boxOfCourseList = boxOfCourseList;
+	}
+	@JsonProperty
+	public java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> getExistingItems() {
+		return this.existingItems;
+	}
+	public void setExistingItems(java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems) {
+		this.existingItems = existingItems;
 	}
 	
 	

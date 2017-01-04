@@ -10,7 +10,7 @@ class SaveBoxConfigCommand extends AbstractSaveBoxConfigCommand {
             };
             this.httpPut("api/boxes/config", [], data).then(() => {
                 this.commandData.outcome = this.saved;
-                this.commandData.hash = "profile";
+                this.commandData.boxId = this.commandParam.boxId;
                 resolve();
             }, (error) => {
                 this.commandData.messageKey = "saveBoxFailed";

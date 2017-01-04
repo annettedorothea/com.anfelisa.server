@@ -144,6 +144,7 @@ models {
 		}
 		complexAttributes {
 			List BoxOfCourse boxOfCourseList
+			List BoxOfCourse existingItems
 		}
 	}
 	

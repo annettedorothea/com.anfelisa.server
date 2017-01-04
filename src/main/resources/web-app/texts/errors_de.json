@@ -30,5 +30,6 @@
   "updatePasswordFailed" : "Passwort ändern schlug fehl.",
   "checkUsernameFailed" : "Benutzername konnte nicht überprüft werden.",
   "registerUserFailed" : "Das Registieren des Benutzers schlug fehl.",
-  "confirmEmailFailed" : "Das Bestätigen der Email-Adresse schlug fehl."
+  "confirmEmailFailed" : "Das Bestätigen der Email-Adresse schlug fehl.",
+  "fillBoxWithCardsFailed" : "Das Füllen der Lern-Box mit den Karten schlug fehl."
 }
