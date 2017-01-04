@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.box.models.IDeleteBoxModel;
+import com.anfelisa.box.models.IBoxIdModel;
 import com.anfelisa.user.models.IUsernameModel;
 
 @JsonDeserialize(as=DeleteBoxData.class)
-public interface IDeleteBoxData extends IDeleteBoxModel, IUsernameModel, IDataContainer {
+public interface IDeleteBoxData extends IBoxIdModel, IUsernameModel, IDataContainer {
 
 }
 

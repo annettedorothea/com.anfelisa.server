@@ -13,14 +13,16 @@ import com.anfelisa.result.models.ResultModel;
 public class ResultView {
 
 	public BiConsumer<ResultCreationData, Handle> createResult = (dataContainer, handle) -> {
-		ResultDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer resultId = ResultDao.insert(handle, dataContainer, dataContainer.getSchema());
+		dataContainer.setResultId(resultId);
 	};
 
 	public BiConsumer<ResultSaveData, Handle> saveResult = (dataContainer, handle) -> {
 		IResultModel result = new ResultModel(null, dataContainer.getUsername(), dataContainer.getTestId(),
 				dataContainer.getDate(), dataContainer.getJson(), dataContainer.getPoints(),
 				dataContainer.getMaxPoints());
-		ResultDao.insert(handle, result, dataContainer.getSchema());
+		Integer resultId = ResultDao.insert(handle, result, dataContainer.getSchema());
+		dataContainer.setResultId(resultId);
 	};
 
 }

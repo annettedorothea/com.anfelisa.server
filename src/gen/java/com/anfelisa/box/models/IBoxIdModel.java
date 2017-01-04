@@ -2,8 +2,8 @@ package com.anfelisa.box.models;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(as=DeleteBoxModel.class)
-public interface IDeleteBoxModel {
+@JsonDeserialize(as=BoxIdModel.class)
+public interface IBoxIdModel {
 
 	Integer getBoxId();
 

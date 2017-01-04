@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.box.models.IDeleteBoxModel;
+import com.anfelisa.box.models.IBoxIdModel;
 import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")

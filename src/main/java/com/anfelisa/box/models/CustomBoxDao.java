@@ -13,13 +13,15 @@ public class CustomBoxDao {
 	}
 
 	public static IBoxModel selectByCardOfBoxId(Handle handle, String schema, Integer cardOfBoxId) {
-		return handle.createQuery("SELECT b.* FROM " + schema + ".cardOfBox cb inner join " + schema + ".box b ON b.boxId = cb.boxId WHERE cb.cardOfBoxId = :cardOfBoxId")
+		return handle
+				.createQuery("SELECT b.* FROM " + schema + ".cardOfBox cb inner join " + schema
+						+ ".box b ON b.boxId = cb.boxId WHERE cb.cardOfBoxId = :cardOfBoxId")
 				.bind("cardOfBoxId", cardOfBoxId).map(new BoxMapper()).first();
 	}
-	
+
 	public static List<ICardInfoModel> selectNextCardsByBoxId(Handle handle, String schema, Integer boxId) {
-		return handle
-				.createQuery("SELECT b.cardid, c.content, b.count, b.date, b.quality, bos.name, b.timestamp, b.cardOfBoxId FROM "
+		return handle.createQuery(
+				"SELECT b.cardid, c.content, b.count, b.date, b.quality, bos.name, b.timestamp, b.cardOfBoxId FROM "
 						+ schema + ".cardofbox b INNER JOIN (SELECT cardid, MAX(count) as maxCount FROM " + schema
 						+ ".cardofbox WHERE boxid = :boxId GROUP BY cardid ORDER BY cardid) latestCard ON b.cardid = latestCard.cardid AND b.count = latestCard.maxCount INNER JOIN "
 						+ schema + ".card c ON c.cardid = b.cardid INNER JOIN " + schema
@@ -45,15 +47,24 @@ public class CustomBoxDao {
 		statement.execute();
 	}
 
-	public static IBoxOfCourseModel selectBoxOfCourse(Handle handle, String schema, Integer courseId, String username, Integer boxId) {
+	public static IBoxOfCourseModel selectBoxOfCourse(Handle handle, String schema, Integer courseId, String username,
+			Integer boxId) {
 		return handle
 				.createQuery("SELECT bc.* FROM " + schema + ".boxofcourse bc INNER JOIN " + schema
 						+ ".box b on bc.boxId = b.boxId WHERE bc.courseId = :courseId AND b.username = :username AND bc.boxId = :boxId")
-				.bind("courseId", courseId)
-				.bind("username", username)
-				.bind("boxId", boxId)
-				.map(new BoxOfCourseMapper())
+				.bind("courseId", courseId).bind("username", username).bind("boxId", boxId).map(new BoxOfCourseMapper())
 				.first();
+	}
+
+	public static List<Integer> selectBoxIdsForAddCardsAfterEdit(Handle handle, String schema, Integer testId,
+			String username) {
+		return handle
+				.createQuery("SELECT distinct b.boxId FROM " + schema + ".box b INNER JOIN " + schema
+						+ ".boxOfCourse bc on b.boxId = bc.boxId INNER JOIN " + schema
+						+ ".course c on c.courseId = bc.courseId INNER JOIN " + schema
+						+ ".lesson l on l.courseId = c.courseId INNER JOIN " + schema
+						+ ".test t on t.lessonId = l.lessonId WHERE bc.autoAdd = false AND t.testId = :testId AND b.username = :username")
+				.bind("testId", testId).bind("username", username).map(new BoxIdMapper()).list();
 	}
 
 }

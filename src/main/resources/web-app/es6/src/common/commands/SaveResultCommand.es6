@@ -18,8 +18,10 @@ class SaveResultCommand extends AbstractSaveResultCommand {
                     points: this.commandParam.points,
                     maxPoints: this.commandParam.maxPoints
                 }
-                this.httpPost("api/results/save", [], data).then(() => {
+                this.httpPost("api/results/save", [], data).then((data) => {
                     this.commandData.outcome = this.resultSaved;
+                    this.commandData.boxIds = data.boxIds;
+                    this.commandData.resultId = data.resultId;
                     resolve();
                 }, (error) => {
                     this.commandData.messageKey = "saveResultFailed";

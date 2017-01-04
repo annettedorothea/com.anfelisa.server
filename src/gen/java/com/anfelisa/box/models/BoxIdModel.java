@@ -5,14 +5,14 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings("all")
-public class DeleteBoxModel implements IDeleteBoxModel {
+public class BoxIdModel implements IBoxIdModel {
 
 	@NotNull
 	private Integer boxId;
 	
 
 
-	public DeleteBoxModel(
+	public BoxIdModel(
 		@JsonProperty("boxId") Integer boxId
 	) {
 		this.boxId = boxId;

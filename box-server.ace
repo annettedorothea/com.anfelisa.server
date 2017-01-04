@@ -132,7 +132,7 @@ models {
 		}
 	}
 	
-	DeleteBox {
+	BoxId {
 		primitiveAttributes {
 			NotNull Integer boxId 
 		}
@@ -189,7 +189,7 @@ data {
 	Card : ( Card Box Score CardInfo CardContent )
 	BoxId : ( Box )
 	BoxOfCourseList : (CourseToBoxAdditionList com.anfelisa.user.Username)
-	DeleteBox : (DeleteBox com.anfelisa.user.Username)
+	DeleteBox : (BoxId com.anfelisa.user.Username)
 	BoxConfig : (BoxConfig com.anfelisa.user.Username)
 	ScoreCard : (Card CardOfBox CardQuality )
 	ContentHashesOfCreatedCards : (ContentHashesOfCreatedCards)

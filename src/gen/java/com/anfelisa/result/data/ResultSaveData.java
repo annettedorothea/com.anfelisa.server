@@ -8,7 +8,8 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.result.models.IResultSaveModel;
+import com.anfelisa.result.models.IResultModel;
+import com.anfelisa.box.models.IBoxIdListModel;
 
 @SuppressWarnings("unused")
 public class ResultSaveData implements IResultSaveData {
@@ -18,10 +19,16 @@ public class ResultSaveData implements IResultSaveData {
 	private String schema;
 	
 	@NotNull
+	private Integer resultId;
+	
+	@NotNull
 	private String username;
 	
 	@NotNull
 	private Integer testId;
+	
+	@NotNull
+	private org.joda.time.DateTime date;
 	
 	@NotNull
 	private String json;
@@ -32,27 +39,41 @@ public class ResultSaveData implements IResultSaveData {
 	@NotNull
 	private Integer maxPoints;
 	
-	private org.joda.time.DateTime date;
+	private java.util.List<Integer> boxIds;
+	
+	private java.util.List<Integer> numberOfInsertedCards;
+	
+	private java.util.List<String> boxNames;
 	
 
+	
+	private java.util.List<com.anfelisa.box.models.ICardOfBoxModel> cardsToBeAdded;
 	
 
 	public ResultSaveData(
+		@JsonProperty("resultId") Integer resultId,
 		@JsonProperty("username") String username,
 		@JsonProperty("testId") Integer testId,
+		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints,
-		@JsonProperty("date") org.joda.time.DateTime date
+		@JsonProperty("boxIds") java.util.List<Integer> boxIds,
+		@JsonProperty("numberOfInsertedCards") java.util.List<Integer> numberOfInsertedCards,
+		@JsonProperty("boxNames") java.util.List<String> boxNames
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
+		this.resultId = resultId;
 		this.username = username;
 		this.testId = testId;
+		this.date = date;
 		this.json = json;
 		this.points = points;
 		this.maxPoints = maxPoints;
-		this.date = date;
+		this.boxIds = boxIds;
+		this.numberOfInsertedCards = numberOfInsertedCards;
+		this.boxNames = boxNames;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -62,6 +83,18 @@ public class ResultSaveData implements IResultSaveData {
 		this.schema = schema;
 	}
 
+	@JsonProperty
+	public Integer getResultId() {
+		return this.resultId;
+	}
+	public void setResultId(Integer resultId) {
+		this.resultId = resultId;
+	}
+	public ResultSaveData withResultId(Integer resultId) {
+		this.resultId = resultId;
+		return this;
+	}
+	
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
@@ -83,6 +116,18 @@ public class ResultSaveData implements IResultSaveData {
 	}
 	public ResultSaveData withTestId(Integer testId) {
 		this.testId = testId;
+		return this;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getDate() {
+		return this.date;
+	}
+	public void setDate(org.joda.time.DateTime date) {
+		this.date = date;
+	}
+	public ResultSaveData withDate(org.joda.time.DateTime date) {
+		this.date = date;
 		return this;
 	}
 	
@@ -123,17 +168,49 @@ public class ResultSaveData implements IResultSaveData {
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getDate() {
-		return this.date;
+	public java.util.List<Integer> getBoxIds() {
+		return this.boxIds;
 	}
-	public void setDate(org.joda.time.DateTime date) {
-		this.date = date;
+	public void setBoxIds(java.util.List<Integer> boxIds) {
+		this.boxIds = boxIds;
 	}
-	public ResultSaveData withDate(org.joda.time.DateTime date) {
-		this.date = date;
+	public ResultSaveData withBoxIds(java.util.List<Integer> boxIds) {
+		this.boxIds = boxIds;
 		return this;
 	}
 	
+	@JsonProperty
+	public java.util.List<Integer> getNumberOfInsertedCards() {
+		return this.numberOfInsertedCards;
+	}
+	public void setNumberOfInsertedCards(java.util.List<Integer> numberOfInsertedCards) {
+		this.numberOfInsertedCards = numberOfInsertedCards;
+	}
+	public ResultSaveData withNumberOfInsertedCards(java.util.List<Integer> numberOfInsertedCards) {
+		this.numberOfInsertedCards = numberOfInsertedCards;
+		return this;
+	}
+	
+	@JsonProperty
+	public java.util.List<String> getBoxNames() {
+		return this.boxNames;
+	}
+	public void setBoxNames(java.util.List<String> boxNames) {
+		this.boxNames = boxNames;
+	}
+	public ResultSaveData withBoxNames(java.util.List<String> boxNames) {
+		this.boxNames = boxNames;
+		return this;
+	}
+	
+	
+	@JsonProperty
+	public java.util.List<com.anfelisa.box.models.ICardOfBoxModel> getCardsToBeAdded() {
+		return this.cardsToBeAdded;
+	}
+	public void setCardsToBeAdded(java.util.List<com.anfelisa.box.models.ICardOfBoxModel> cardsToBeAdded) {
+		this.cardsToBeAdded = cardsToBeAdded;
+	}
 	
 
 	@JsonProperty
