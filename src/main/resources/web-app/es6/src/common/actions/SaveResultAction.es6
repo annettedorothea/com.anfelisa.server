@@ -18,6 +18,7 @@ class SaveResultAction extends AbstractSaveResultAction {
 		if (localStorage.language) {
 			this.actionParam.language = localStorage.language;
 		}
+		this.actionParam.hash = window.location.hash.substring(1);
 		// capture user input
 	}
 
@@ -54,10 +55,35 @@ class SaveResultAction extends AbstractSaveResultAction {
 			json["" + completionTextId] = answer;
 		}
 
-		this.actionData.json = JSON.stringify(json);
-		var hash = window.location.hash.substring(1);
-		var hashes = hash.split("/");
-		this.actionData.testId = Number(hashes[hashes.length-1]);
+		if ($("#questionOverviewList i").length > 0) {
+			this.actionParam.maxPoints = $("#questionOverviewList i").length;
+			var correctAnswers = $("#questionOverviewList i.correct").length;
+			var falseAnswers = $("#questionOverviewList i.false").length;
+			this.actionParam.points = correctAnswers - falseAnswers;
+			if (this.actionParam.points < 0) {
+				this.actionParam.points = 0;
+			}
+
+			for (var i = 1; i <= this.actionParam.maxPoints; i++) {
+				var result = "";
+				$("#" + i + " i").each(function() {
+					if ($(this).hasClass("correct")) {
+						result += "1";
+					} else if ($(this).hasClass("false")) {
+						result += "2";
+					} else {
+						result += "0";
+					}
+				});
+				json[i] = result;
+			}
+            //json["points"] = points;
+            //json["maxPoints"] = maxPoints;
+		}
+
+
+
+
 		if (allCompletionTexts.length > 0) {
 			this.actionData.points = Vocabulary.testState.points;
 			this.actionData.maxPoints = Vocabulary.testState.maxPoints;
@@ -65,6 +91,10 @@ class SaveResultAction extends AbstractSaveResultAction {
 			this.actionData.points = this.actionParam.points;
 			this.actionData.maxPoints = this.actionParam.maxPoints;
 		}
+
+		this.actionData.json = JSON.stringify(json);
+		var hashes = this.actionParam.hash.split("/");
+		this.actionData.testId = Number(hashes[hashes.length-1]);
 	}
 
 	releaseActionParam() {

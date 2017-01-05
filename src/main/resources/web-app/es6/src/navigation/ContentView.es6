@@ -29,10 +29,6 @@ class ContentView {
         //enableDrag();
         $("#startButton").html(Texts.common.withTyping);
         $("#repeatButton").html(Texts.common.asRepetition);
-        $("#finishCardButton3").html(Texts.common.finishCardButton3Text);
-        $("#finishCardButton2").html(Texts.common.finishCardButton2Text);
-        $("#finishCardButton1").html(Texts.common.finishCardButton1Text);
-        $("#repeatCardButton").html(Texts.common.repeatCardButtonText);
     };
     
     static renderPrivateLessons(eventData) {
@@ -90,7 +86,7 @@ class ContentView {
                     $('#correctParagraph').html(rendered);
                 });
             } else if ((jQuery("#questionOverviewList")).length > 0) {
-                for (var i = 1; i <= jsonObject["maxPoints"]; i++) {
+                for (var i = 1; i <= eventData.data.maxPoints; i++) {
                     $("#" + i).addClass("show");
                     $("#" + i).removeClass("hide");
                     $("#" + i + " button").remove();
@@ -119,7 +115,7 @@ class ContentView {
                 }
                 $.get('templates/test/result_' + eventData.language + '.mst', function(template) {
                     var rendered = Mustache.render(template, eventData.data);
-                    $('#correctParagraph').html(rendered);
+                    $('#resultDiv').html(rendered);
                 });
             } else if ((jQuery(".ccard")).length > 0) {
                 $(".line").removeClass("hiddenLine");
