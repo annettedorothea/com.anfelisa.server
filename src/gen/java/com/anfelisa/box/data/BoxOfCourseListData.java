@@ -22,6 +22,9 @@ public class BoxOfCourseListData implements IBoxOfCourseListData {
 	private Integer boxId;
 	
 	@NotNull
+	private String boxName;
+	
+	@NotNull
 	private String username;
 	
 
@@ -31,11 +34,13 @@ public class BoxOfCourseListData implements IBoxOfCourseListData {
 
 	public BoxOfCourseListData(
 		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxName") String boxName,
 		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
 		this.boxId = boxId;
+		this.boxName = boxName;
 		this.username = username;
 		this.uuid = uuid;
 		this.schema = schema;
@@ -55,6 +60,18 @@ public class BoxOfCourseListData implements IBoxOfCourseListData {
 	}
 	public BoxOfCourseListData withBoxId(Integer boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getBoxName() {
+		return this.boxName;
+	}
+	public void setBoxName(String boxName) {
+		this.boxName = boxName;
+	}
+	public BoxOfCourseListData withBoxName(String boxName) {
+		this.boxName = boxName;
 		return this;
 	}
 	

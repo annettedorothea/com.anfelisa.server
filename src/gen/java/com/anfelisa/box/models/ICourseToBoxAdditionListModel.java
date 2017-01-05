@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface ICourseToBoxAdditionListModel {
 
 	Integer getBoxId();
+	String getBoxName();
 
 	java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> getCourseToBoxAdditionList();
 

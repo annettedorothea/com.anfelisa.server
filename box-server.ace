@@ -126,6 +126,7 @@ models {
 	CourseToBoxAdditionList {
 		primitiveAttributes {
 			NotNull Integer boxId 
+			NotNull String boxName 
 		}
 		complexAttributes {
 			List CourseToBoxAddition courseToBoxAdditionList

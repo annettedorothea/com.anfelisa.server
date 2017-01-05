@@ -2,3 +2,4 @@ target
 src/main/resources/.idea
 /bin/
 dev.yml
+src/main/resources/web-app/node_modules
