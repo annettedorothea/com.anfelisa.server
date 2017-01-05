@@ -12,6 +12,7 @@ class AbstractConfirmEmailCommand extends Command {
     	
         switch (this.commandData.outcome) {
         case this.saved:
+        	promises.push(new UserLoggedInEvent(this.commandData).publish());
         	promises.push(new TriggerAction(new RouteAction(this.commandData)).publish());
         	break;
         case this.error:

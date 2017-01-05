@@ -185,7 +185,6 @@ class ACEController {
     }
 
     static finishReplay() {
-        //App.completeReplay();
         ACEController.passed = true;
         if (document.getElementById("replayResultDiv")) {
             let table = document.getElementById("replayResultDiv");
