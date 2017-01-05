@@ -22,11 +22,13 @@ import com.anfelisa.user.models.UserDao;
 public class UserView {
 
 	public BiConsumer<UserCreationData, Handle> createUser = (dataContainer, handle) -> {
-		UserDao.insert(handle, dataContainer, dataContainer.getSchema());
+		String username = UserDao.insert(handle, dataContainer, dataContainer.getSchema());
+		dataContainer.setCreatedId(username);
 	};
 
 	public BiConsumer<UserRegistrationData, Handle> registerUser = (dataContainer, handle) -> {
-		UserDao.insert(handle, dataContainer, dataContainer.getSchema());
+		String username = UserDao.insert(handle, dataContainer, dataContainer.getSchema());
+		dataContainer.setCreatedId(username);
 	};
 	
 	public BiConsumer<UserUpdateData, Handle> updateUser = (dataContainer, handle) -> {

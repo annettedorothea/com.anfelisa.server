@@ -24,8 +24,9 @@ public class AppRegistration {
 		environment.jersey().register(new DeleteBoxResource(jdbi));
 		environment.jersey().register(new SaveBoxConfigResource(jdbi));
 		environment.jersey().register(new ScoreCardResource(jdbi));
-		environment.jersey().register(new DeleteObsoleteCardsResource(jdbi));
 		environment.jersey().register(new FillBoxWithCardsResource(jdbi));
+		environment.jersey().register(new DeleteCardResource(jdbi));
+		environment.jersey().register(new GetAllBoxesResource(jdbi));
 	}
 
 	public static void registerConsumers() {
@@ -42,9 +43,9 @@ public class AppRegistration {
 		AceController.addConsumer("BoxDeletedEvent", boxView.deleteBox);
 		AceController.addConsumer("BoxConfigSavedEvent", boxToCourseView.saveBoxConfig);
 		AceController.addConsumer("CardScoredEvent", cardOfBoxView.score);
-		AceController.addConsumer("DeleteObsoleteCardsEvent", cardView.deleteObsoleteCards);
 		AceController.addConsumer("CardImportedEvent", cardView.createCard);
 		AceController.addConsumer("FillBoxWithCardsEvent", boxView.fillBoxWithCards);
+		AceController.addConsumer("CardDeletedEvent", cardView.deleteCard);
     }
 }
 

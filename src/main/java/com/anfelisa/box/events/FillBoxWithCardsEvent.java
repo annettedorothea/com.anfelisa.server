@@ -1,17 +1,16 @@
 package com.anfelisa.box.events;
 
-import com.anfelisa.ace.DatabaseHandle;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.BoxIdListData;
+import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.box.data.FillBoxData;
 
 public class FillBoxWithCardsEvent extends AbstractFillBoxWithCardsEvent {
 
 	static final Logger LOG = LoggerFactory.getLogger(FillBoxWithCardsEvent.class);
 
-	public FillBoxWithCardsEvent(BoxIdListData eventParam, DatabaseHandle databaseHandle) {
+	public FillBoxWithCardsEvent(FillBoxData eventParam, DatabaseHandle databaseHandle) {
 		super(eventParam, databaseHandle);
 	}
 

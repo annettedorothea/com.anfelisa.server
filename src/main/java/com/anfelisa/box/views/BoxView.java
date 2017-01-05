@@ -6,8 +6,8 @@ import java.util.function.BiConsumer;
 import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.box.data.BoxCreationData;
-import com.anfelisa.box.data.BoxIdListData;
 import com.anfelisa.box.data.DeleteBoxData;
+import com.anfelisa.box.data.FillBoxData;
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.CardOfBoxDao;
 import com.anfelisa.box.models.CustomBoxDao;
@@ -17,7 +17,8 @@ public class BoxView {
 
 	public BiConsumer<BoxCreationData, Handle> createBox = (dataContainer, handle) -> {
 		// update view
-		BoxDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer id = BoxDao.insert(handle, dataContainer, dataContainer.getSchema());
+		dataContainer.setCreatedId("" +  id);
 	};
 
 	public BiConsumer<BoxCreationData, Handle> updateBox = (dataContainer, handle) -> {
@@ -30,12 +31,13 @@ public class BoxView {
 		BoxDao.deleteByBoxId(handle, dataContainer.getBoxId(), dataContainer.getSchema());
 	};
 	
-	public BiConsumer<BoxIdListData, Handle> fillBoxWithCards = (dataContainer, handle) -> {
+	public BiConsumer<FillBoxData, Handle> fillBoxWithCards = (dataContainer, handle) -> {
 		// update view
 		List<ICardOfBoxModel> cards = dataContainer.getCardsToBeAdded();
 		for (ICardOfBoxModel card : cards) {
 			CardOfBoxDao.insert(handle, card, dataContainer.getSchema());
 		}
+		dataContainer.setCreatedId(dataContainer.getCardsToBeAdded().size() + "");
 	};
 	
 }

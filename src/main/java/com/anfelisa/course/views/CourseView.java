@@ -12,7 +12,7 @@ public class CourseView {
 
 	public BiConsumer<CourseCreationData, Handle> createCourse = (dataContainer, handle) -> {
 		Integer courseId = CourseDao.insert(handle, dataContainer, dataContainer.getSchema());
-		dataContainer.setCourseId(courseId);
+		dataContainer.setCreatedId("" + courseId);
 	};
 
 	public BiConsumer<CourseData, Handle> updateCourse = (dataContainer, handle) -> {

@@ -36,7 +36,7 @@ data {
 	ResultCreation : ( Result )
 	ResultAbstract : ( ResultAbstract )
 	MyResult : ( Result com.anfelisa.test.Test com.anfelisa.test.LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract com.anfelisa.test.MyTestList )
-	ResultSave : (Result com.anfelisa.box.BoxIdList)
+	ResultSave : (Result com.anfelisa.box.FillBox)
 }
 
 actions {
@@ -63,5 +63,6 @@ views {
 	Result {
 		createResult (ResultCreation)
 		saveResult ( ResultSave )
+		fillBoxWithCards (ResultSave)
 	}
 }

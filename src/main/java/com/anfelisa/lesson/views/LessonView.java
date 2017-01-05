@@ -12,7 +12,7 @@ public class LessonView {
 
 	public BiConsumer<LessonCreationData, Handle> createLesson = (dataContainer, handle) -> {
 		Integer lessonId = LessonDao.insert(handle, dataContainer, dataContainer.getSchema());
-		dataContainer.setLessonId(lessonId);
+		dataContainer.setCreatedId("" + lessonId);
 	};
 
 	public BiConsumer<LessonData, Handle> updateLesson = (dataContainer, handle) -> {

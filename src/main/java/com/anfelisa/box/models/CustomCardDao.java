@@ -19,14 +19,17 @@ public class CustomCardDao {
 	}
 
 	public static List<ICardModel> selectCardsOfCourseThatAreNotAlreadyInBoxAndHaveResult(Handle handle, String schema,
-			Integer courseId, Integer boxId) {
+			Integer courseId, Integer boxId, String username) {
 		return handle
 				.createQuery("SELECT c.* FROM " + schema + ".result r, " + schema + ".card c INNER JOIN " + schema
 						+ ".test t on c.testId = t.testId INNER JOIN " + schema
-						+ ".lesson l on t.lessonId = l.lessonId WHERE l.courseId = :courseId AND r.testId = t.testId EXCEPT SELECT DISTINCT c.* FROM "
+						+ ".lesson l on t.lessonId = l.lessonId WHERE l.courseId = :courseId AND r.testId = t.testId AND r.username = :username EXCEPT SELECT DISTINCT c.* FROM "
 						+ schema + ".card c INNER JOIN " + schema
 						+ ".cardofbox cb on c.cardId = cb.cardId WHERE cb.boxId = :boxId")
-				.bind("courseId", courseId).bind("boxId", boxId).map(new CardMapper()).list();
+				.bind("courseId", courseId)
+				.bind("boxId", boxId)
+				.bind("username", username)
+				.map(new CardMapper()).list();
 	}
 
 	public static void deleteByHash(Handle handle, String schema, String contentHash) {

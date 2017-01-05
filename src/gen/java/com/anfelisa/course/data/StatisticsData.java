@@ -1,6 +1,8 @@
 package com.anfelisa.course.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
@@ -17,6 +19,8 @@ public class StatisticsData implements IStatisticsData {
 	private String uuid;
 	
 	private String schema;
+	
+	private String createdId;
 	
 	@NotNull
 	private String username;
@@ -156,6 +160,15 @@ public class StatisticsData implements IStatisticsData {
 	@JsonProperty
 	public String getSchema() {
 		return this.schema;
+	}
+
+	@JsonIgnore
+	public String getCreatedId() {
+		return createdId;
+	}
+
+	public void setCreatedId(String createdId) {
+		this.createdId = createdId;
 	}
 
 }

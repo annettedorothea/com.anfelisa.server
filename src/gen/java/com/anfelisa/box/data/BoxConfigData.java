@@ -1,6 +1,8 @@
 package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
@@ -17,6 +19,8 @@ public class BoxConfigData implements IBoxConfigData {
 	private String uuid;
 	
 	private String schema;
+	
+	private String createdId;
 	
 	@NotNull
 	private Integer boxId;
@@ -96,6 +100,15 @@ public class BoxConfigData implements IBoxConfigData {
 	@JsonProperty
 	public String getSchema() {
 		return this.schema;
+	}
+
+	@JsonIgnore
+	public String getCreatedId() {
+		return createdId;
+	}
+
+	public void setCreatedId(String createdId) {
+		this.createdId = createdId;
 	}
 
 }

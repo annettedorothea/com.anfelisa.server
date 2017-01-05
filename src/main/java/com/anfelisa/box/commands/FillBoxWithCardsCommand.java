@@ -1,17 +1,16 @@
 package com.anfelisa.box.commands;
 
-import com.anfelisa.ace.DatabaseHandle;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.BoxIdListData;
+import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.box.data.FillBoxData;
 
 public class FillBoxWithCardsCommand extends AbstractFillBoxWithCardsCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(FillBoxWithCardsCommand.class);
 
-	public FillBoxWithCardsCommand(BoxIdListData commandParam, DatabaseHandle databaseHandle) {
+	public FillBoxWithCardsCommand(FillBoxData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 

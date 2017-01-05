@@ -11,11 +11,13 @@ import com.anfelisa.box.models.CardOfBoxDao;
 public class CardOfBoxView {
 
 	public BiConsumer<CardOfBoxCreationData, Handle> createCardOfBox = (dataContainer, handle) -> {
-		CardOfBoxDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer id = CardOfBoxDao.insert(handle, dataContainer, dataContainer.getSchema());
+		dataContainer.setCreatedId("" + id);
 	};
 
 	public BiConsumer<ScoreCardData, Handle> score = (dataContainer, handle) -> {
-		CardOfBoxDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer id = CardOfBoxDao.insert(handle, dataContainer, dataContainer.getSchema());
+		dataContainer.setCreatedId("" + id);
 	};
 	
 }

@@ -1,6 +1,8 @@
 package com.anfelisa.result.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
@@ -9,7 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.result.models.IResultModel;
-import com.anfelisa.box.models.IBoxIdListModel;
+import com.anfelisa.box.models.IFillBoxModel;
 
 @SuppressWarnings("unused")
 public class ResultSaveData implements IResultSaveData {
@@ -17,6 +19,8 @@ public class ResultSaveData implements IResultSaveData {
 	private String uuid;
 	
 	private String schema;
+	
+	private String createdId;
 	
 	@NotNull
 	private Integer resultId;
@@ -39,11 +43,7 @@ public class ResultSaveData implements IResultSaveData {
 	@NotNull
 	private Integer maxPoints;
 	
-	private java.util.List<Integer> boxIds;
-	
-	private java.util.List<Integer> numberOfInsertedCards;
-	
-	private java.util.List<String> boxNames;
+	private Integer boxId;
 	
 
 	
@@ -58,9 +58,7 @@ public class ResultSaveData implements IResultSaveData {
 		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints,
-		@JsonProperty("boxIds") java.util.List<Integer> boxIds,
-		@JsonProperty("numberOfInsertedCards") java.util.List<Integer> numberOfInsertedCards,
-		@JsonProperty("boxNames") java.util.List<String> boxNames
+		@JsonProperty("boxId") Integer boxId
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -71,9 +69,7 @@ public class ResultSaveData implements IResultSaveData {
 		this.json = json;
 		this.points = points;
 		this.maxPoints = maxPoints;
-		this.boxIds = boxIds;
-		this.numberOfInsertedCards = numberOfInsertedCards;
-		this.boxNames = boxNames;
+		this.boxId = boxId;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -168,38 +164,14 @@ public class ResultSaveData implements IResultSaveData {
 	}
 	
 	@JsonProperty
-	public java.util.List<Integer> getBoxIds() {
-		return this.boxIds;
+	public Integer getBoxId() {
+		return this.boxId;
 	}
-	public void setBoxIds(java.util.List<Integer> boxIds) {
-		this.boxIds = boxIds;
+	public void setBoxId(Integer boxId) {
+		this.boxId = boxId;
 	}
-	public ResultSaveData withBoxIds(java.util.List<Integer> boxIds) {
-		this.boxIds = boxIds;
-		return this;
-	}
-	
-	@JsonProperty
-	public java.util.List<Integer> getNumberOfInsertedCards() {
-		return this.numberOfInsertedCards;
-	}
-	public void setNumberOfInsertedCards(java.util.List<Integer> numberOfInsertedCards) {
-		this.numberOfInsertedCards = numberOfInsertedCards;
-	}
-	public ResultSaveData withNumberOfInsertedCards(java.util.List<Integer> numberOfInsertedCards) {
-		this.numberOfInsertedCards = numberOfInsertedCards;
-		return this;
-	}
-	
-	@JsonProperty
-	public java.util.List<String> getBoxNames() {
-		return this.boxNames;
-	}
-	public void setBoxNames(java.util.List<String> boxNames) {
-		this.boxNames = boxNames;
-	}
-	public ResultSaveData withBoxNames(java.util.List<String> boxNames) {
-		this.boxNames = boxNames;
+	public ResultSaveData withBoxId(Integer boxId) {
+		this.boxId = boxId;
 		return this;
 	}
 	
@@ -221,6 +193,15 @@ public class ResultSaveData implements IResultSaveData {
 	@JsonProperty
 	public String getSchema() {
 		return this.schema;
+	}
+
+	@JsonIgnore
+	public String getCreatedId() {
+		return createdId;
+	}
+
+	public void setCreatedId(String createdId) {
+		this.createdId = createdId;
 	}
 
 }

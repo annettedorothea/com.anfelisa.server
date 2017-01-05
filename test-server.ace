@@ -52,6 +52,12 @@ models {
 			List MyTest myTestList
 		} 
 	}
+	
+	CardContentHashList {
+		primitiveAttributes {
+			List Integer contentHashList
+		}
+	}
 }
 
 data {
@@ -60,6 +66,7 @@ data {
 	Test : ( Test LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract TestList) 
 	MyTestList : (MyTestList LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
 	MyTest : ( Test LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract MyTestList) 
+	CardContentHashList : (CardContentHashList TestId)
 }
 
 actions {
@@ -70,6 +77,7 @@ actions {
 	GET LoadPrivateTest uses MyTest
 	GET GetTest uses TestCreation
 	PUT UpdateTest uses TestCreation executes UpdateTest
+	GET GetCardsOfTest uses CardContentHashList
 }
 
 commands {

@@ -3,11 +3,11 @@ package com.anfelisa.box.events;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
 
-import com.anfelisa.box.data.BoxIdListData;
+import com.anfelisa.box.data.FillBoxData;
 
-public abstract class AbstractFillBoxWithCardsEvent extends Event<BoxIdListData> {
+public abstract class AbstractFillBoxWithCardsEvent extends Event<FillBoxData> {
 
-	public AbstractFillBoxWithCardsEvent(BoxIdListData eventParam, DatabaseHandle databaseHandle) {
+	public AbstractFillBoxWithCardsEvent(FillBoxData eventParam, DatabaseHandle databaseHandle) {
 		super("FillBoxWithCardsEvent", eventParam, databaseHandle);
 	}
 

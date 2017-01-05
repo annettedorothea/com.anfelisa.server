@@ -139,6 +139,14 @@ models {
 		}
 	}
 	
+	CardId {
+		primitiveAttributes {
+			NotNull Integer cardId
+			NotNull Integer testId
+			NotNull String contentHash 
+		}
+	}
+	
 	BoxConfig {
 		primitiveAttributes {
 			NotNull Integer boxId 
@@ -168,14 +176,18 @@ models {
 		}
 	}
 	
-	BoxIdList {
+	FillBox {
 		primitiveAttributes {
-			List Integer boxIds
-			List Integer numberOfInsertedCards
-			List String boxNames
+			Integer boxId
 		}
 		complexAttributes {
 			List CardOfBox cardsToBeAdded
+		}
+	}
+	
+	AllBoxes {
+		complexAttributes {
+			List Box boxList
 		}
 	}
 	
@@ -193,8 +205,9 @@ data {
 	DeleteBox : (BoxId com.anfelisa.user.Username)
 	BoxConfig : (BoxConfig com.anfelisa.user.Username)
 	ScoreCard : (Card CardOfBox CardQuality )
-	ContentHashesOfCreatedCards : (ContentHashesOfCreatedCards)
-	BoxIdList : (BoxIdList)
+	FillBox : (FillBox com.anfelisa.user.Username)
+	CardId : (CardId)
+	AllBoxes : (AllBoxes)
 }
 
 actions {
@@ -211,8 +224,9 @@ actions {
 	DELETE DeleteBox uses DeleteBox executes DeleteBox
 	PUT SaveBoxConfig uses BoxConfig executes SaveBoxConfig
 	POST ScoreCard uses ScoreCard executes ScoreCard
-	DELETE DeleteObsoleteCards uses ContentHashesOfCreatedCards executes DeleteObsoleteCards
-	POST FillBoxWithCards uses BoxIdList executes FillBoxWithCards
+	POST FillBoxWithCards uses FillBox executes FillBoxWithCards
+	DELETE DeleteCard uses CardId executes DeleteCard
+	GET GetAllBoxes uses AllBoxes
 }
 
 commands {
@@ -244,11 +258,11 @@ commands {
 	ScoreCard uses ScoreCard {
 		on scored publishes (CardScored)
 	}
-	DeleteObsoleteCards uses ContentHashesOfCreatedCards {
-		on deleted publishes (DeleteObsoleteCards)
-	}
-	FillBoxWithCards uses BoxIdList {
+	FillBoxWithCards uses FillBox {
 		on fillBoxWithCards publishes (FillBoxWithCards)
+	}
+	DeleteCard uses CardId {
+		on deleted publishes (CardDeleted)
 	}
 }
 
@@ -261,9 +275,9 @@ events {
 	BoxDeleted uses DeleteBox  listenedToBy (Box.deleteBox)
 	BoxConfigSaved uses BoxConfig listenedToBy (BoxToCourse.saveBoxConfig)
 	CardScored uses ScoreCard listenedToBy (CardOfBox.score)
-	DeleteObsoleteCards uses ContentHashesOfCreatedCards listenedToBy (Card.deleteObsoleteCards)
 	CardImported uses CardCreation listenedToBy ( Card.createCard )
-	FillBoxWithCards uses BoxIdList listenedToBy ( Box.fillBoxWithCards )
+	FillBoxWithCards uses FillBox listenedToBy ( Box.fillBoxWithCards )
+	CardDeleted uses CardId listenedToBy (Card.deleteCard)
 }
 
 views {
@@ -271,7 +285,7 @@ views {
 		createBox (BoxCreation)
 		updateBox (BoxCreation)
 		deleteBox (DeleteBox)
-		fillBoxWithCards (BoxIdList)
+		fillBoxWithCards (FillBox)
 	}
 	BoxToCourse {
 		addCourseToBox (BoxToCourseAddition)
@@ -279,7 +293,7 @@ views {
 	}
 	Card {
 		createCard (CardCreation)
-		deleteObsoleteCards(ContentHashesOfCreatedCards)
+		deleteCard(CardId)
 	}
 	CardOfBox {
 		createCardOfBox (CardOfBoxCreation)

@@ -3,10 +3,12 @@
 class FillBoxWithCardsCommand extends AbstractFillBoxWithCardsCommand {
     execute() {
         return new Promise((resolve) => {
-            var data = {
-                boxIds: [ this.commandParam.boxId ]
-            };
-            this.httpPost("api/box/fill", [], data).then(() => {
+            var queryParams = [];
+            queryParams.push({
+                key: "boxId",
+                value: this.commandParam.boxId
+            });
+            this.httpPost("api/box/fill", queryParams).then(() => {
                 this.commandData.outcome = this.filled;
                 this.commandData.hash = "profile";
                 resolve();

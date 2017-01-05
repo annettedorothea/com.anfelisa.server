@@ -1,12 +1,12 @@
 package com.anfelisa.box.resources;
 
-import java.util.List;
-
 import javax.annotation.security.PermitAll;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -19,7 +19,7 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Resource;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.actions.FillBoxWithCardsAction;
-import com.anfelisa.box.data.BoxIdListData;
+import com.anfelisa.box.data.FillBoxData;
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.IBoxModel;
 import com.codahale.metrics.annotation.Timed;
@@ -42,19 +42,18 @@ public class FillBoxWithCardsResource extends Resource {
 	@Timed
 	@Path("/fill")
 	@PermitAll
-	public Response post(BoxIdListData actionParam, @Auth AuthUser user) throws JsonProcessingException {
+	public Response post(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
+			@NotNull @QueryParam("boxId") Integer boxId, @Auth AuthUser user) throws JsonProcessingException {
 		DatabaseHandle handle = this.createDatabaseHandle();
 		if (user.getRole().equals(AuthUser.STUDENT)) {
-			List<Integer> boxIds = actionParam.getBoxIds();
-			for (Integer boxId : boxIds) {
-				IBoxModel box = BoxDao.selectByBoxId(handle.getHandle(), boxId, actionParam.getSchema());
-				if (!box.getUsername().equals(user.getUsername())) {
-					handle.close();
-					throw new WebApplicationException(Response.Status.UNAUTHORIZED);
-				}
+			IBoxModel box = BoxDao.selectByBoxId(handle.getHandle(), boxId, schema);
+			if (!box.getUsername().equals(user.getUsername())) {
+				handle.close();
+				throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 			}
 		}
-		return new FillBoxWithCardsAction(actionParam, handle).apply();
+		FillBoxData actionParam = new FillBoxData(uuid, schema).withBoxId(boxId).withUsername(user.getUsername());
+		return new FillBoxWithCardsAction(actionParam , handle).apply();
 	}
 
 }

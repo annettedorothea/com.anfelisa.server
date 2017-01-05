@@ -18,6 +18,7 @@ public class AppRegistration {
 		environment.jersey().register(new LoadPrivateTestResource(jdbi));
 		environment.jersey().register(new GetTestResource(jdbi));
 		environment.jersey().register(new UpdateTestResource(jdbi));
+		environment.jersey().register(new GetCardsOfTestResource(jdbi));
 	}
 
 	public static void registerConsumers() {

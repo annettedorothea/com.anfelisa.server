@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.result.models.IResultModel;
-import com.anfelisa.box.models.IBoxIdListModel;
+import com.anfelisa.box.models.IFillBoxModel;
 
 @JsonDeserialize(as=ResultSaveData.class)
-public interface IResultSaveData extends IResultModel, IBoxIdListModel, IDataContainer {
+public interface IResultSaveData extends IResultModel, IFillBoxModel, IDataContainer {
 
 }
 

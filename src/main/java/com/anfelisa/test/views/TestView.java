@@ -11,7 +11,7 @@ public class TestView {
 
 	public BiConsumer<TestCreationData, Handle> createTest = (dataContainer, handle) -> {
 		Integer testId = TestDao.insert(handle, dataContainer, dataContainer.getSchema());
-		dataContainer.setTestId(testId);
+		dataContainer.setCreatedId("" + testId);
 	};
 
 	public BiConsumer<TestCreationData, Handle> updateTest = (dataContainer, handle) -> {
