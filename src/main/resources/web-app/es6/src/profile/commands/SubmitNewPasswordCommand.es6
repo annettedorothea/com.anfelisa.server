@@ -3,7 +3,6 @@
 class SubmitNewPasswordCommand extends AbstractSubmitNewPasswordCommand {
     execute() {
         return new Promise((resolve) => {
-            this.commandData.language = this.commandParam.language;
             if (!this.commandParam.newPassword || !this.commandParam.passwordRepetition) {
                 this.commandData.messageKey = "dataInvalid";
                 this.commandData.outcome = this.dataInvalid;

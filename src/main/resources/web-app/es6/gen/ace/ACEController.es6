@@ -39,17 +39,20 @@ class ACEController {
         item.timestamp = timestamp.getTime();
         if (ACEController.execution === ACEController.LIVE) {
             if (ACEController.writeTimeLine) {
-                ACEController.timeLine.push(JSON.parse(JSON.stringify(item)));
-                if (ACEController.timeLine.length > 50) {
+                if (ACEController.timeLine.length > 100 && item.action && item.action.actionName === 'InitAction') {
                     let timestampInMillis  = timestamp.getTime();
                     try {
                         sessionStorage[timestampInMillis] = JSON.stringify(ACEController.timeLine, null, 2);
                         ACEController.timeLineLocalStorageChunks.push(timestampInMillis);
+                        if (ACEController.timeLineLocalStorageChunks.length > 10) {
+                            ACEController.timeLineLocalStorageChunks.shift();
+                        }
                     } catch (exception) {
                         ACEController.writeTimeLine = false;
                     }
                     ACEController.timeLine = [];
                 }
+                ACEController.timeLine.push(JSON.parse(JSON.stringify(item)));
             }
         } else {
             ACEController.replayTimeLine.push(JSON.parse(JSON.stringify(item)));

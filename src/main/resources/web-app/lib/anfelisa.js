@@ -167,17 +167,20 @@ var ACEController = function () {
             item.timestamp = timestamp.getTime();
             if (ACEController.execution === ACEController.LIVE) {
                 if (ACEController.writeTimeLine) {
-                    ACEController.timeLine.push(JSON.parse(JSON.stringify(item)));
-                    if (ACEController.timeLine.length > 50) {
+                    if (ACEController.timeLine.length > 100 && item.action && item.action.actionName === 'InitAction') {
                         var timestampInMillis = timestamp.getTime();
                         try {
                             sessionStorage[timestampInMillis] = JSON.stringify(ACEController.timeLine, null, 2);
                             ACEController.timeLineLocalStorageChunks.push(timestampInMillis);
+                            if (ACEController.timeLineLocalStorageChunks.length > 10) {
+                                ACEController.timeLineLocalStorageChunks.shift();
+                            }
                         } catch (exception) {
                             ACEController.writeTimeLine = false;
                         }
                         ACEController.timeLine = [];
                     }
+                    ACEController.timeLine.push(JSON.parse(JSON.stringify(item)));
                 }
             } else {
                 ACEController.replayTimeLine.push(JSON.parse(JSON.stringify(item)));
@@ -7071,77 +7074,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var CheckIfComplexCardIsFinishedAction = function (_AbstractCheckIfCompl) {
-   _inherits(CheckIfComplexCardIsFinishedAction, _AbstractCheckIfCompl);
+    _inherits(CheckIfComplexCardIsFinishedAction, _AbstractCheckIfCompl);
 
-   function CheckIfComplexCardIsFinishedAction() {
-      _classCallCheck(this, CheckIfComplexCardIsFinishedAction);
+    function CheckIfComplexCardIsFinishedAction() {
+        _classCallCheck(this, CheckIfComplexCardIsFinishedAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(CheckIfComplexCardIsFinishedAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(CheckIfComplexCardIsFinishedAction).apply(this, arguments));
+    }
 
-   _createClass(CheckIfComplexCardIsFinishedAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.isFinished = !$(".word").hasClass("hiddenWord");
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(CheckIfComplexCardIsFinishedAction, [{
+        key: "captureActionParam",
+        value: function captureActionParam() {}
+    }, {
+        key: "initActionData",
+        value: function initActionData() {
+            this.actionData.isFinished = !$(".word").hasClass("hiddenWord");
+        }
+    }, {
+        key: "releaseActionParam",
+        value: function releaseActionParam() {}
+    }]);
 
-   return CheckIfComplexCardIsFinishedAction;
+    return CheckIfComplexCardIsFinishedAction;
 }(AbstractCheckIfComplexCardIsFinishedAction);
 
 /*       S.D.G.       */
@@ -7156,78 +7110,29 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var FinishCardAction = function (_AbstractFinishCardAc) {
-   _inherits(FinishCardAction, _AbstractFinishCardAc);
+    _inherits(FinishCardAction, _AbstractFinishCardAc);
 
-   function FinishCardAction() {
-      _classCallCheck(this, FinishCardAction);
+    function FinishCardAction() {
+        _classCallCheck(this, FinishCardAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(FinishCardAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(FinishCardAction).apply(this, arguments));
+    }
 
-   _createClass(FinishCardAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.points = this.actionParam.points;
-         this.actionData.maxPoints = this.actionParam.maxPoints;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(FinishCardAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
+            this.actionData.points = this.actionParam.points;
+            this.actionData.maxPoints = this.actionParam.maxPoints;
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return FinishCardAction;
+    return FinishCardAction;
 }(AbstractFinishCardAction);
 
 /*       S.D.G.       */
@@ -7242,79 +7147,41 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ScoreCardAction = function (_AbstractScoreCardAct) {
-   _inherits(ScoreCardAction, _AbstractScoreCardAct);
+		_inherits(ScoreCardAction, _AbstractScoreCardAct);
 
-   function ScoreCardAction() {
-      _classCallCheck(this, ScoreCardAction);
+		function ScoreCardAction() {
+				_classCallCheck(this, ScoreCardAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ScoreCardAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(ScoreCardAction).apply(this, arguments));
+		}
 
-   _createClass(ScoreCardAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.quality = this.actionParam.quality;
-         this.actionData.boxId = this.actionParam.boxId;
-         this.actionData.cardOfBoxId = this.actionParam.cardOfBoxId;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(ScoreCardAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.quality = this.actionParam.quality;
+						this.actionData.boxId = this.actionParam.boxId;
+						this.actionData.cardOfBoxId = this.actionParam.cardOfBoxId;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return ScoreCardAction;
+		return ScoreCardAction;
 }(AbstractScoreCardAction);
 
 /*       S.D.G.       */
@@ -7329,80 +7196,32 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ShowNextCardItemAction = function (_AbstractShowNextCard) {
-   _inherits(ShowNextCardItemAction, _AbstractShowNextCard);
+  _inherits(ShowNextCardItemAction, _AbstractShowNextCard);
 
-   function ShowNextCardItemAction() {
-      _classCallCheck(this, ShowNextCardItemAction);
+  function ShowNextCardItemAction() {
+    _classCallCheck(this, ShowNextCardItemAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowNextCardItemAction).apply(this, arguments));
-   }
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowNextCardItemAction).apply(this, arguments));
+  }
 
-   _createClass(ShowNextCardItemAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         this.actionParam = {
-            flag: this.actionParam
-         };
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.flag = this.actionParam.flag;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+  _createClass(ShowNextCardItemAction, [{
+    key: 'captureActionParam',
+    value: function captureActionParam() {
+      this.actionParam = {
+        flag: this.actionParam
+      };
+    }
+  }, {
+    key: 'initActionData',
+    value: function initActionData() {
+      this.actionData.flag = this.actionParam.flag;
+    }
+  }, {
+    key: 'releaseActionParam',
+    value: function releaseActionParam() {}
+  }]);
 
-   return ShowNextCardItemAction;
+  return ShowNextCardItemAction;
 }(AbstractShowNextCardItemAction);
 
 /*       S.D.G.       */
@@ -7966,80 +7785,42 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var AddCardsToBoxAction = function (_AbstractAddCardsToBo) {
-   _inherits(AddCardsToBoxAction, _AbstractAddCardsToBo);
+				_inherits(AddCardsToBoxAction, _AbstractAddCardsToBo);
 
-   function AddCardsToBoxAction() {
-      _classCallCheck(this, AddCardsToBoxAction);
+				function AddCardsToBoxAction() {
+								_classCallCheck(this, AddCardsToBoxAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(AddCardsToBoxAction).apply(this, arguments));
-   }
+								return _possibleConstructorReturn(this, Object.getPrototypeOf(AddCardsToBoxAction).apply(this, arguments));
+				}
 
-   _createClass(AddCardsToBoxAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-         this.actionParam.hash = window.location.hash.substring(1);
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.resultId = this.actionParam.resultId;
-         this.actionData.boxIds = this.actionParam.boxIds;
-         this.actionData.hash = this.actionParam.hash;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+				_createClass(AddCardsToBoxAction, [{
+								key: 'captureActionParam',
+								value: function captureActionParam() {
+												this.actionParam.username = localStorage.username;
+												this.actionParam.password = localStorage.password;
+												this.actionParam.schema = localStorage.schema;
+												this.actionParam.hash = window.location.hash.substring(1);
+								}
+				}, {
+								key: 'initActionData',
+								value: function initActionData() {
+												this.actionData.username = this.actionParam.username;
+												this.actionData.password = this.actionParam.password;
+												this.actionData.schema = this.actionParam.schema;
+												this.actionData.resultId = this.actionParam.resultId;
+												this.actionData.boxIds = this.actionParam.boxIds;
+												this.actionData.hash = this.actionParam.hash;
+								}
+				}, {
+								key: 'releaseActionParam',
+								value: function releaseActionParam() {
+												localStorage.username = this.actionParam.username;
+												localStorage.password = this.actionParam.password;
+												localStorage.schema = this.actionParam.schema;
+								}
+				}]);
 
-   return AddCardsToBoxAction;
+				return AddCardsToBoxAction;
 }(AbstractAddCardsToBoxAction);
 
 /*       S.D.G.       */
@@ -8090,73 +7871,52 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var InitAction = function (_AbstractInitAction) {
-  _inherits(InitAction, _AbstractInitAction);
+		_inherits(InitAction, _AbstractInitAction);
 
-  function InitAction() {
-    _classCallCheck(this, InitAction);
+		function InitAction() {
+				_classCallCheck(this, InitAction);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(InitAction).apply(this, arguments));
-  }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(InitAction).apply(this, arguments));
+		}
 
-  _createClass(InitAction, [{
-    key: "captureActionParam",
-    value: function captureActionParam() {
-      if (localStorage.username) {
-        this.actionParam.username = localStorage.username;
-      }
-      if (localStorage.password) {
-        this.actionParam.password = localStorage.password;
-      }
-      if (localStorage.schema) {
-        this.actionParam.schema = localStorage.schema;
-      } else {
-        this.actionParam.schema = "anfelisa";
-      }
-      if (localStorage.role) {
-        this.actionParam.role = localStorage.role;
-      }
-      if (localStorage.language) {
-        this.actionParam.language = localStorage.language;
-      } else {
-        this.actionParam.language = "de";
-      }
-      this.actionParam.hash = window.location.hash.substring(1);
-    }
-  }, {
-    key: "initActionData",
-    value: function initActionData() {
-      if (this.actionParam.username) {
-        this.actionData.username = this.actionParam.username;
-      }
-      if (this.actionParam.password) {
-        this.actionData.password = this.actionParam.password;
-      }
-      if (this.actionParam.role) {
-        this.actionData.role = this.actionParam.role;
-      }
-      this.actionData.schema = this.actionParam.schema;
-      this.actionData.language = this.actionParam.language;
-      this.actionData.hash = this.actionParam.hash;
-    }
-  }, {
-    key: "releaseActionParam",
-    value: function releaseActionParam() {
-      if (this.actionParam.username) {
-        localStorage.username = this.actionParam.username;
-      }
-      if (this.actionParam.password) {
-        localStorage.password = this.actionParam.password;
-      }
-      if (this.actionParam.role) {
-        localStorage.role = this.actionParam.role;
-      }
-      localStorage.schema = this.actionParam.schema;
-      localStorage.language = this.actionParam.language;
-      window.location.hash = this.actionParam.hash;
-    }
-  }]);
+		_createClass(InitAction, [{
+				key: "captureActionParam",
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						if (localStorage.schema) {
+								this.actionParam.schema = localStorage.schema;
+						} else {
+								this.actionParam.schema = "anfelisa";
+						}
+						if (localStorage.language) {
+								this.actionParam.language = localStorage.language;
+						} else {
+								this.actionParam.language = "de";
+						}
+						this.actionParam.hash = window.location.hash.substring(1);
+				}
+		}, {
+				key: "initActionData",
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.language = this.actionParam.language;
+						this.actionData.hash = this.actionParam.hash;
+				}
+		}, {
+				key: "releaseActionParam",
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+						localStorage.language = this.actionParam.language;
+						window.location.hash = this.actionParam.hash;
+				}
+		}]);
 
-  return InitAction;
+		return InitAction;
 }(AbstractInitAction);
 
 /*       S.D.G.       */
@@ -8171,66 +7931,41 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var LoginAction = function (_AbstractLoginAction) {
-  _inherits(LoginAction, _AbstractLoginAction);
+		_inherits(LoginAction, _AbstractLoginAction);
 
-  function LoginAction() {
-    _classCallCheck(this, LoginAction);
+		function LoginAction() {
+				_classCallCheck(this, LoginAction);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(LoginAction).apply(this, arguments));
-  }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(LoginAction).apply(this, arguments));
+		}
 
-  _createClass(LoginAction, [{
-    key: "captureActionParam",
-    value: function captureActionParam() {
-      this.actionParam.username = $(".username").val();
-      var password = $(".password").val();
-      this.actionParam.password = CryptoJS.MD5(password).toString(CryptoJS.enc.Base64);
-      if (localStorage.schema) {
-        this.actionParam.schema = localStorage.schema;
-      }
-      if (localStorage.role) {
-        this.actionParam.role = localStorage.role;
-      }
-      if (localStorage.language) {
-        this.actionParam.language = localStorage.language;
-      }
-      // capture user input
-    }
-  }, {
-    key: "initActionData",
-    value: function initActionData() {
-      this.actionData.username = this.actionParam.username;
-      this.actionData.password = this.actionParam.password;
-      if (this.actionParam.schema) {
-        this.actionData.schema = this.actionParam.schema;
-      }
-      if (this.actionParam.role) {
-        this.actionData.role = this.actionParam.role;
-      }
-      if (this.actionParam.language) {
-        this.actionData.language = this.actionParam.language;
-      }
-      // bind action parameters to action data
-    }
-  }, {
-    key: "releaseActionParam",
-    value: function releaseActionParam() {
-      $(".username").val(this.actionParam.username);
-      $(".password").val(this.actionParam.password);
-      if (this.actionParam.schema) {
-        localStorage.schema = this.actionParam.schema;
-      }
-      if (this.actionParam.role) {
-        localStorage.role = this.actionParam.role;
-      }
-      if (this.actionParam.language) {
-        localStorage.language = this.actionParam.language;
-      }
-      // release action params during replay
-    }
-  }]);
+		_createClass(LoginAction, [{
+				key: "captureActionParam",
+				value: function captureActionParam() {
+						this.actionParam.username = $(".username").val();
+						var password = $(".password").val();
+						this.actionParam.password = CryptoJS.MD5(password).toString(CryptoJS.enc.Base64);
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: "initActionData",
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.role = this.actionParam.role;
+				}
+		}, {
+				key: "releaseActionParam",
+				value: function releaseActionParam() {
+						$(".username").val(this.actionParam.username);
+						$(".password").val(this.actionParam.password);
+						localStorage.schema = this.actionParam.schema;
+						localStorage.role = this.actionParam.role;
+				}
+		}]);
 
-  return LoginAction;
+		return LoginAction;
 }(AbstractLoginAction);
 
 /*       S.D.G.       */
@@ -8245,77 +7980,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var LogoutAction = function (_AbstractLogoutAction) {
-   _inherits(LogoutAction, _AbstractLogoutAction);
+    _inherits(LogoutAction, _AbstractLogoutAction);
 
-   function LogoutAction() {
-      _classCallCheck(this, LogoutAction);
+    function LogoutAction() {
+        _classCallCheck(this, LogoutAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(LogoutAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(LogoutAction).apply(this, arguments));
+    }
 
-   _createClass(LogoutAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(LogoutAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {}
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return LogoutAction;
+    return LogoutAction;
 }(AbstractLogoutAction);
 
 /*       S.D.G.       */
@@ -8330,62 +8014,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var OpenReallyDeleteDialogAction = function (_AbstractOpenReallyDe) {
-   _inherits(OpenReallyDeleteDialogAction, _AbstractOpenReallyDe);
+    _inherits(OpenReallyDeleteDialogAction, _AbstractOpenReallyDe);
 
-   function OpenReallyDeleteDialogAction() {
-      _classCallCheck(this, OpenReallyDeleteDialogAction);
+    function OpenReallyDeleteDialogAction() {
+        _classCallCheck(this, OpenReallyDeleteDialogAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenReallyDeleteDialogAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenReallyDeleteDialogAction).apply(this, arguments));
+    }
 
-   _createClass(OpenReallyDeleteDialogAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         this.actionData = JSON.parse(JSON.stringify(this.actionParam));
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(OpenReallyDeleteDialogAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
+            this.actionData = JSON.parse(JSON.stringify(this.actionParam));
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return OpenReallyDeleteDialogAction;
+    return OpenReallyDeleteDialogAction;
 }(AbstractOpenReallyDeleteDialogAction);
 
 /*       S.D.G.       */
@@ -8400,77 +8050,30 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var RenderHomeAction = function (_AbstractRenderHomeAc) {
-   _inherits(RenderHomeAction, _AbstractRenderHomeAc);
+    _inherits(RenderHomeAction, _AbstractRenderHomeAc);
 
-   function RenderHomeAction() {
-      _classCallCheck(this, RenderHomeAction);
+    function RenderHomeAction() {
+        _classCallCheck(this, RenderHomeAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderHomeAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderHomeAction).apply(this, arguments));
+    }
 
-   _createClass(RenderHomeAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
+    _createClass(RenderHomeAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {
             this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
+        }
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
             this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return RenderHomeAction;
+    return RenderHomeAction;
 }(AbstractRenderHomeAction);
 
 /*       S.D.G.       */
@@ -8485,77 +8088,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var RenderLoginAction = function (_AbstractRenderLoginA) {
-   _inherits(RenderLoginAction, _AbstractRenderLoginA);
+    _inherits(RenderLoginAction, _AbstractRenderLoginA);
 
-   function RenderLoginAction() {
-      _classCallCheck(this, RenderLoginAction);
+    function RenderLoginAction() {
+        _classCallCheck(this, RenderLoginAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderLoginAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderLoginAction).apply(this, arguments));
+    }
 
-   _createClass(RenderLoginAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(RenderLoginAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {}
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return RenderLoginAction;
+    return RenderLoginAction;
 }(AbstractRenderLoginAction);
 
 /*       S.D.G.       */
@@ -8570,77 +8122,32 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var RenderLogoutAction = function (_AbstractRenderLogout) {
-   _inherits(RenderLogoutAction, _AbstractRenderLogout);
+    _inherits(RenderLogoutAction, _AbstractRenderLogout);
 
-   function RenderLogoutAction() {
-      _classCallCheck(this, RenderLogoutAction);
+    function RenderLogoutAction() {
+        _classCallCheck(this, RenderLogoutAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderLogoutAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderLogoutAction).apply(this, arguments));
+    }
 
-   _createClass(RenderLogoutAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
+    _createClass(RenderLogoutAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {
             this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
+        }
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
             this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {
             localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+        }
+    }]);
 
-   return RenderLogoutAction;
+    return RenderLogoutAction;
 }(AbstractRenderLogoutAction);
 
 /*       S.D.G.       */
@@ -8655,75 +8162,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var RouteAction = function (_AbstractRouteAction) {
-   _inherits(RouteAction, _AbstractRouteAction);
+    _inherits(RouteAction, _AbstractRouteAction);
 
-   function RouteAction() {
-      _classCallCheck(this, RouteAction);
+    function RouteAction() {
+        _classCallCheck(this, RouteAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(RouteAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RouteAction).apply(this, arguments));
+    }
 
-   _createClass(RouteAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.hash = this.actionParam.hash;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-      }
-   }]);
+    _createClass(RouteAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
+            this.actionData.hash = this.actionParam.hash;
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return RouteAction;
+    return RouteAction;
 }(AbstractRouteAction);
 
 /*       S.D.G.       */
@@ -8738,77 +8198,37 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var RouteHomeAction = function (_AbstractRouteHomeAct) {
-   _inherits(RouteHomeAction, _AbstractRouteHomeAct);
+    _inherits(RouteHomeAction, _AbstractRouteHomeAct);
 
-   function RouteHomeAction() {
-      _classCallCheck(this, RouteHomeAction);
+    function RouteHomeAction() {
+        _classCallCheck(this, RouteHomeAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(RouteHomeAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RouteHomeAction).apply(this, arguments));
+    }
 
-   _createClass(RouteHomeAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
+    _createClass(RouteHomeAction, [{
+        key: "captureActionParam",
+        value: function captureActionParam() {
             this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.hash = "public";
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
+        }
+    }, {
+        key: "initActionData",
+        value: function initActionData() {
+            if (this.actionParam.username) {
+                this.actionData.hash = "private";
+                this.actionData.username = this.actionParam.username;
+            } else {
+                this.actionData.hash = "public";
+            }
+        }
+    }, {
+        key: "releaseActionParam",
+        value: function releaseActionParam() {
             localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+        }
+    }]);
 
-   return RouteHomeAction;
+    return RouteHomeAction;
 }(AbstractRouteHomeAction);
 
 /*       S.D.G.       */
@@ -8834,42 +8254,19 @@ var SaveResultAction = function (_AbstractSaveResultAc) {
 	_createClass(SaveResultAction, [{
 		key: "captureActionParam",
 		value: function captureActionParam() {
-			if (localStorage.username) {
-				this.actionParam.username = localStorage.username;
-			}
-			if (localStorage.password) {
-				this.actionParam.password = localStorage.password;
-			}
-			if (localStorage.schema) {
-				this.actionParam.schema = localStorage.schema;
-			}
-			if (localStorage.role) {
-				this.actionParam.role = localStorage.role;
-			}
-			if (localStorage.language) {
-				this.actionParam.language = localStorage.language;
-			}
+			this.actionParam.username = localStorage.username;
+			this.actionParam.password = localStorage.password;
+			this.actionParam.schema = localStorage.schema;
+			this.actionParam.language = localStorage.language;
 			this.actionParam.hash = window.location.hash.substring(1);
-			// capture user input
 		}
 	}, {
 		key: "initActionData",
 		value: function initActionData() {
-			if (this.actionParam.username) {
-				this.actionData.username = this.actionParam.username;
-			}
-			if (this.actionParam.password) {
-				this.actionData.password = this.actionParam.password;
-			}
-			if (this.actionParam.schema) {
-				this.actionData.schema = this.actionParam.schema;
-			}
-			if (this.actionParam.role) {
-				this.actionData.role = this.actionParam.role;
-			}
-			if (this.actionParam.language) {
-				this.actionData.language = this.actionParam.language;
-			}
+			this.actionData.username = this.actionParam.username;
+			this.actionData.password = this.actionParam.password;
+			this.actionData.schema = this.actionParam.schema;
+			this.actionData.language = this.actionParam.language;
 			var json = {};
 			var allCompletionTexts = jQuery(".vocabulary");
 			for (var i = 0; i < allCompletionTexts.length; i++) {
@@ -8909,8 +8306,6 @@ var SaveResultAction = function (_AbstractSaveResultAc) {
 					});
 					json[i] = result;
 				}
-				//json["points"] = points;
-				//json["maxPoints"] = maxPoints;
 			}
 
 			if (allCompletionTexts.length > 0) {
@@ -8928,22 +8323,11 @@ var SaveResultAction = function (_AbstractSaveResultAc) {
 	}, {
 		key: "releaseActionParam",
 		value: function releaseActionParam() {
-			if (this.actionParam.username) {
-				localStorage.username = this.actionParam.username;
-			}
-			if (this.actionParam.password) {
-				localStorage.password = this.actionParam.password;
-			}
-			if (this.actionParam.schema) {
-				localStorage.schema = this.actionParam.schema;
-			}
-			if (this.actionParam.role) {
-				localStorage.role = this.actionParam.role;
-			}
-			if (this.actionParam.language) {
-				localStorage.language = this.actionParam.language;
-			}
-			// release action params during replay
+			localStorage.username = this.actionParam.username;
+			localStorage.password = this.actionParam.password;
+			localStorage.schema = this.actionParam.schema;
+			localStorage.language = this.actionParam.language;
+			window.location.hash = this.actionParam.hash;
 		}
 	}]);
 
@@ -8962,71 +8346,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SwitchLanguageAction = function (_AbstractSwitchLangua) {
-   _inherits(SwitchLanguageAction, _AbstractSwitchLangua);
+    _inherits(SwitchLanguageAction, _AbstractSwitchLangua);
 
-   function SwitchLanguageAction() {
-      _classCallCheck(this, SwitchLanguageAction);
+    function SwitchLanguageAction() {
+        _classCallCheck(this, SwitchLanguageAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(SwitchLanguageAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(SwitchLanguageAction).apply(this, arguments));
+    }
 
-   _createClass(SwitchLanguageAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         this.actionData.language = this.actionParam.language;
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(SwitchLanguageAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
+            this.actionData.language = this.actionParam.language;
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return SwitchLanguageAction;
+    return SwitchLanguageAction;
 }(AbstractSwitchLanguageAction);
 
 /*       S.D.G.       */
@@ -9041,78 +8382,33 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ValidateRequiredFieldAction = function (_AbstractValidateRequ) {
-   _inherits(ValidateRequiredFieldAction, _AbstractValidateRequ);
+  _inherits(ValidateRequiredFieldAction, _AbstractValidateRequ);
 
-   function ValidateRequiredFieldAction() {
-      _classCallCheck(this, ValidateRequiredFieldAction);
+  function ValidateRequiredFieldAction() {
+    _classCallCheck(this, ValidateRequiredFieldAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ValidateRequiredFieldAction).apply(this, arguments));
-   }
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(ValidateRequiredFieldAction).apply(this, arguments));
+  }
 
-   _createClass(ValidateRequiredFieldAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         this.actionParam.value = $("#" + this.actionParam.id).val();
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.id = this.actionParam.id;
-         this.actionData.value = this.actionParam.value;
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         $("#" + this.actionParam.id + "").val(this.actionParam.value);
-      }
-   }]);
+  _createClass(ValidateRequiredFieldAction, [{
+    key: "captureActionParam",
+    value: function captureActionParam() {
+      this.actionParam.value = $("#" + this.actionParam.id).val();
+    }
+  }, {
+    key: "initActionData",
+    value: function initActionData() {
+      this.actionData.id = this.actionParam.id;
+      this.actionData.value = this.actionParam.value;
+    }
+  }, {
+    key: "releaseActionParam",
+    value: function releaseActionParam() {
+      $("#" + this.actionParam.id + "").val(this.actionParam.value);
+    }
+  }]);
 
-   return ValidateRequiredFieldAction;
+  return ValidateRequiredFieldAction;
 }(AbstractValidateRequiredFieldAction);
 
 /*       S.D.G.       */
@@ -9347,7 +8643,6 @@ var LoginCommand = function (_AbstractLoginCommand) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 _this2.httpPost("api/user/login").then(function (data) {
                     _this2.commandData.hash = "private";
                     _this2.commandData.username = _this2.commandParam.username;
@@ -10269,78 +9564,29 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var DisplayNextQuestionAction = function (_AbstractDisplayNextQ) {
-   _inherits(DisplayNextQuestionAction, _AbstractDisplayNextQ);
+    _inherits(DisplayNextQuestionAction, _AbstractDisplayNextQ);
 
-   function DisplayNextQuestionAction() {
-      _classCallCheck(this, DisplayNextQuestionAction);
+    function DisplayNextQuestionAction() {
+        _classCallCheck(this, DisplayNextQuestionAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(DisplayNextQuestionAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(DisplayNextQuestionAction).apply(this, arguments));
+    }
 
-   _createClass(DisplayNextQuestionAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.multipleChoiceId = this.actionParam.multipleChoiceId;
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(DisplayNextQuestionAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
+            this.actionData.multipleChoiceId = this.actionParam.multipleChoiceId;
+            // bind action parameters to action data
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return DisplayNextQuestionAction;
+    return DisplayNextQuestionAction;
 }(AbstractDisplayNextQuestionAction);
 
 /*       S.D.G.       */
@@ -10355,80 +9601,30 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ShowCorrectMultipleChoiceAction = function (_AbstractShowCorrectM) {
-   _inherits(ShowCorrectMultipleChoiceAction, _AbstractShowCorrectM);
+    _inherits(ShowCorrectMultipleChoiceAction, _AbstractShowCorrectM);
 
-   function ShowCorrectMultipleChoiceAction() {
-      _classCallCheck(this, ShowCorrectMultipleChoiceAction);
+    function ShowCorrectMultipleChoiceAction() {
+        _classCallCheck(this, ShowCorrectMultipleChoiceAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowCorrectMultipleChoiceAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowCorrectMultipleChoiceAction).apply(this, arguments));
+    }
 
-   _createClass(ShowCorrectMultipleChoiceAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.itemId = this.actionParam.itemId;
-         this.actionData.last = this.actionParam.last;
-         this.actionData.multipleChoiceId = this.actionParam.multipleChoiceId;
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(ShowCorrectMultipleChoiceAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
+            this.actionData.itemId = this.actionParam.itemId;
+            this.actionData.last = this.actionParam.last;
+            this.actionData.multipleChoiceId = this.actionParam.multipleChoiceId;
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return ShowCorrectMultipleChoiceAction;
+    return ShowCorrectMultipleChoiceAction;
 }(AbstractShowCorrectMultipleChoiceAction);
 
 /*       S.D.G.       */
@@ -10443,80 +9639,30 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ShowFalseMultipleChoiceAction = function (_AbstractShowFalseMul) {
-   _inherits(ShowFalseMultipleChoiceAction, _AbstractShowFalseMul);
+    _inherits(ShowFalseMultipleChoiceAction, _AbstractShowFalseMul);
 
-   function ShowFalseMultipleChoiceAction() {
-      _classCallCheck(this, ShowFalseMultipleChoiceAction);
+    function ShowFalseMultipleChoiceAction() {
+        _classCallCheck(this, ShowFalseMultipleChoiceAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowFalseMultipleChoiceAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowFalseMultipleChoiceAction).apply(this, arguments));
+    }
 
-   _createClass(ShowFalseMultipleChoiceAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.itemId = this.actionParam.itemId;
-         this.actionData.last = this.actionParam.last;
-         this.actionData.multipleChoiceId = this.actionParam.multipleChoiceId;
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(ShowFalseMultipleChoiceAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
+            this.actionData.itemId = this.actionParam.itemId;
+            this.actionData.last = this.actionParam.last;
+            this.actionData.multipleChoiceId = this.actionParam.multipleChoiceId;
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return ShowFalseMultipleChoiceAction;
+    return ShowFalseMultipleChoiceAction;
 }(AbstractShowFalseMultipleChoiceAction);
 
 /*       S.D.G.       */
@@ -11201,77 +10347,38 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ReadBoxesAction = function (_AbstractReadBoxesAct) {
-   _inherits(ReadBoxesAction, _AbstractReadBoxesAct);
+		_inherits(ReadBoxesAction, _AbstractReadBoxesAct);
 
-   function ReadBoxesAction() {
-      _classCallCheck(this, ReadBoxesAction);
+		function ReadBoxesAction() {
+				_classCallCheck(this, ReadBoxesAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadBoxesAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadBoxesAction).apply(this, arguments));
+		}
 
-   _createClass(ReadBoxesAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(ReadBoxesAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return ReadBoxesAction;
+		return ReadBoxesAction;
 }(AbstractReadBoxesAction);
 
 /*       S.D.G.       */
@@ -11286,77 +10393,39 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ReadNextCardAction = function (_AbstractReadNextCard) {
-   _inherits(ReadNextCardAction, _AbstractReadNextCard);
+		_inherits(ReadNextCardAction, _AbstractReadNextCard);
 
-   function ReadNextCardAction() {
-      _classCallCheck(this, ReadNextCardAction);
+		function ReadNextCardAction() {
+				_classCallCheck(this, ReadNextCardAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadNextCardAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadNextCardAction).apply(this, arguments));
+		}
 
-   _createClass(ReadNextCardAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.boxId = this.actionParam.boxId;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(ReadNextCardAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.boxId = this.actionParam.boxId;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return ReadNextCardAction;
+		return ReadNextCardAction;
 }(AbstractReadNextCardAction);
 
 /*       S.D.G.       */
@@ -11371,77 +10440,38 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ReadPrivateCoursesAction = function (_AbstractReadPrivateC) {
-   _inherits(ReadPrivateCoursesAction, _AbstractReadPrivateC);
+		_inherits(ReadPrivateCoursesAction, _AbstractReadPrivateC);
 
-   function ReadPrivateCoursesAction() {
-      _classCallCheck(this, ReadPrivateCoursesAction);
+		function ReadPrivateCoursesAction() {
+				_classCallCheck(this, ReadPrivateCoursesAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateCoursesAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateCoursesAction).apply(this, arguments));
+		}
 
-   _createClass(ReadPrivateCoursesAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(ReadPrivateCoursesAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return ReadPrivateCoursesAction;
+		return ReadPrivateCoursesAction;
 }(AbstractReadPrivateCoursesAction);
 
 /*       S.D.G.       */
@@ -11456,77 +10486,39 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ReadPrivateLessonsAction = function (_AbstractReadPrivateL) {
-   _inherits(ReadPrivateLessonsAction, _AbstractReadPrivateL);
+		_inherits(ReadPrivateLessonsAction, _AbstractReadPrivateL);
 
-   function ReadPrivateLessonsAction() {
-      _classCallCheck(this, ReadPrivateLessonsAction);
+		function ReadPrivateLessonsAction() {
+				_classCallCheck(this, ReadPrivateLessonsAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateLessonsAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateLessonsAction).apply(this, arguments));
+		}
 
-   _createClass(ReadPrivateLessonsAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.courseId = this.actionParam.courseId;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(ReadPrivateLessonsAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.courseId = this.actionParam.courseId;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return ReadPrivateLessonsAction;
+		return ReadPrivateLessonsAction;
 }(AbstractReadPrivateLessonsAction);
 
 /*       S.D.G.       */
@@ -11541,77 +10533,39 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ReadPrivateTestAction = function (_AbstractReadPrivateT) {
-   _inherits(ReadPrivateTestAction, _AbstractReadPrivateT);
+		_inherits(ReadPrivateTestAction, _AbstractReadPrivateT);
 
-   function ReadPrivateTestAction() {
-      _classCallCheck(this, ReadPrivateTestAction);
+		function ReadPrivateTestAction() {
+				_classCallCheck(this, ReadPrivateTestAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateTestAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateTestAction).apply(this, arguments));
+		}
 
-   _createClass(ReadPrivateTestAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.testId = this.actionParam.testId;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(ReadPrivateTestAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.testId = this.actionParam.testId;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return ReadPrivateTestAction;
+		return ReadPrivateTestAction;
 }(AbstractReadPrivateTestAction);
 
 /*       S.D.G.       */
@@ -11626,77 +10580,39 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ReadPrivateTestsAction = function (_AbstractReadPrivateT) {
-   _inherits(ReadPrivateTestsAction, _AbstractReadPrivateT);
+		_inherits(ReadPrivateTestsAction, _AbstractReadPrivateT);
 
-   function ReadPrivateTestsAction() {
-      _classCallCheck(this, ReadPrivateTestsAction);
+		function ReadPrivateTestsAction() {
+				_classCallCheck(this, ReadPrivateTestsAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateTestsAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateTestsAction).apply(this, arguments));
+		}
 
-   _createClass(ReadPrivateTestsAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.lessonId = this.actionParam.lessonId;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(ReadPrivateTestsAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.lessonId = this.actionParam.lessonId;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return ReadPrivateTestsAction;
+		return ReadPrivateTestsAction;
 }(AbstractReadPrivateTestsAction);
 
 /*       S.D.G.       */
@@ -11711,78 +10627,33 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ReadPublicCoursesAction = function (_AbstractReadPublicCo) {
-   _inherits(ReadPublicCoursesAction, _AbstractReadPublicCo);
+    _inherits(ReadPublicCoursesAction, _AbstractReadPublicCo);
 
-   function ReadPublicCoursesAction() {
-      _classCallCheck(this, ReadPublicCoursesAction);
+    function ReadPublicCoursesAction() {
+        _classCallCheck(this, ReadPublicCoursesAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicCoursesAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicCoursesAction).apply(this, arguments));
+    }
 
-   _createClass(ReadPublicCoursesAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
+    _createClass(ReadPublicCoursesAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {
             this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
+        }
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
             this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.courseId = this.actionParam.courseId;
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
+            this.actionData.courseId = this.actionParam.courseId;
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {
             localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+        }
+    }]);
 
-   return ReadPublicCoursesAction;
+    return ReadPublicCoursesAction;
 }(AbstractReadPublicCoursesAction);
 
 /*       S.D.G.       */
@@ -11797,78 +10668,33 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ReadPublicLessonsAction = function (_AbstractReadPublicLe) {
-   _inherits(ReadPublicLessonsAction, _AbstractReadPublicLe);
+    _inherits(ReadPublicLessonsAction, _AbstractReadPublicLe);
 
-   function ReadPublicLessonsAction() {
-      _classCallCheck(this, ReadPublicLessonsAction);
+    function ReadPublicLessonsAction() {
+        _classCallCheck(this, ReadPublicLessonsAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicLessonsAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicLessonsAction).apply(this, arguments));
+    }
 
-   _createClass(ReadPublicLessonsAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
+    _createClass(ReadPublicLessonsAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {
             this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
+        }
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
             this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.courseId = this.actionParam.courseId;
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
+            this.actionData.courseId = this.actionParam.courseId;
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {
             localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+        }
+    }]);
 
-   return ReadPublicLessonsAction;
+    return ReadPublicLessonsAction;
 }(AbstractReadPublicLessonsAction);
 
 /*       S.D.G.       */
@@ -11883,75 +10709,33 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ReadPublicTestAction = function (_AbstractReadPublicTe) {
-   _inherits(ReadPublicTestAction, _AbstractReadPublicTe);
+    _inherits(ReadPublicTestAction, _AbstractReadPublicTe);
 
-   function ReadPublicTestAction() {
-      _classCallCheck(this, ReadPublicTestAction);
+    function ReadPublicTestAction() {
+        _classCallCheck(this, ReadPublicTestAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicTestAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicTestAction).apply(this, arguments));
+    }
 
-   _createClass(ReadPublicTestAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
+    _createClass(ReadPublicTestAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {
             this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
+        }
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
             this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.testId = this.actionParam.testId;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
+            this.actionData.testId = this.actionParam.testId;
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {
             localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-      }
-   }]);
+        }
+    }]);
 
-   return ReadPublicTestAction;
+    return ReadPublicTestAction;
 }(AbstractReadPublicTestAction);
 
 /*       S.D.G.       */
@@ -11966,78 +10750,33 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ReadPublicTestsAction = function (_AbstractReadPublicTe) {
-   _inherits(ReadPublicTestsAction, _AbstractReadPublicTe);
+    _inherits(ReadPublicTestsAction, _AbstractReadPublicTe);
 
-   function ReadPublicTestsAction() {
-      _classCallCheck(this, ReadPublicTestsAction);
+    function ReadPublicTestsAction() {
+        _classCallCheck(this, ReadPublicTestsAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicTestsAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicTestsAction).apply(this, arguments));
+    }
 
-   _createClass(ReadPublicTestsAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
+    _createClass(ReadPublicTestsAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {
             this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
+        }
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
             this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.lessonId = this.actionParam.lessonId;
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
+            this.actionData.lessonId = this.actionParam.lessonId;
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {
             localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+        }
+    }]);
 
-   return ReadPublicTestsAction;
+    return ReadPublicTestsAction;
 }(AbstractReadPublicTestsAction);
 
 /*       S.D.G.       */
@@ -12052,77 +10791,42 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ReadResultAction = function (_AbstractReadResultAc) {
-   _inherits(ReadResultAction, _AbstractReadResultAc);
+		_inherits(ReadResultAction, _AbstractReadResultAc);
 
-   function ReadResultAction() {
-      _classCallCheck(this, ReadResultAction);
+		function ReadResultAction() {
+				_classCallCheck(this, ReadResultAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadResultAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadResultAction).apply(this, arguments));
+		}
 
-   _createClass(ReadResultAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.resultId = this.actionParam.resultId;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(ReadResultAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+						this.actionParam.language = localStorage.language;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.language = this.actionParam.language;
+						this.actionData.resultId = this.actionParam.resultId;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+						localStorage.language = this.actionParam.language;
+				}
+		}]);
 
-   return ReadResultAction;
+		return ReadResultAction;
 }(AbstractReadResultAction);
 
 /*       S.D.G.       */
@@ -12137,86 +10841,53 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ReadStatisticsAction = function (_AbstractReadStatisti) {
-   _inherits(ReadStatisticsAction, _AbstractReadStatisti);
+		_inherits(ReadStatisticsAction, _AbstractReadStatisti);
 
-   function ReadStatisticsAction() {
-      _classCallCheck(this, ReadStatisticsAction);
+		function ReadStatisticsAction() {
+				_classCallCheck(this, ReadStatisticsAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadStatisticsAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadStatisticsAction).apply(this, arguments));
+		}
 
-   _createClass(ReadStatisticsAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         this.actionParam.year = $(".year").val();
-         this.actionParam.month = $(".month").val();
-         if (this.actionParam.year === undefined || this.actionParam.month === undefined) {
-            var now = new Date();
-            this.actionParam.year = now.getFullYear();
-            this.actionParam.month = now.getMonth() + 1;
-         }
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.token = localStorage.token;
-         this.actionData.year = this.actionParam.year;
-         this.actionData.month = this.actionParam.month;
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         $(".year").val(this.actionParam.year);
-         $(".month").val(this.actionParam.month);
-      }
-   }]);
+		_createClass(ReadStatisticsAction, [{
+				key: "captureActionParam",
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+						this.actionParam.language = localStorage.language;
+						this.actionParam.year = $(".year").val();
+						this.actionParam.month = $(".month").val();
+						if (this.actionParam.year === undefined || this.actionParam.month === undefined) {
+								var now = new Date();
+								this.actionParam.year = now.getFullYear();
+								this.actionParam.month = now.getMonth() + 1;
+						}
+				}
+		}, {
+				key: "initActionData",
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.language = this.actionParam.language;
+						this.actionData.token = localStorage.token;
+						this.actionData.year = this.actionParam.year;
+						this.actionData.month = this.actionParam.month;
+				}
+		}, {
+				key: "releaseActionParam",
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+						localStorage.language = this.actionParam.language;
+						$(".year").val(this.actionParam.year);
+						$(".month").val(this.actionParam.month);
+				}
+		}]);
 
-   return ReadStatisticsAction;
+		return ReadStatisticsAction;
 }(AbstractReadStatisticsAction);
 
 /*       S.D.G.       */
@@ -12245,7 +10916,6 @@ var ReadBoxesCommand = function (_AbstractReadBoxesCom) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 _this2.httpGet("api/boxes").then(function (data) {
                     _this2.commandData.data = data;
                     _this2.commandData.outcome = _this2.ok;
@@ -12289,7 +10959,6 @@ var ReadNextCardCommand = function (_AbstractReadNextCard) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 var queryParams = [];
                 queryParams.push({
                     key: "boxId",
@@ -12338,7 +11007,6 @@ var ReadPrivateCoursesCommand = function (_AbstractReadPrivateC) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 _this2.httpGet("api/courses/private").then(function (data) {
                     _this2.commandData.data = data;
                     _this2.commandData.outcome = _this2.ok;
@@ -12382,7 +11050,6 @@ var ReadPrivateLessonsCommand = function (_AbstractReadPrivateL) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 var queryParams = [];
                 queryParams.push({
                     key: "courseId",
@@ -12431,7 +11098,6 @@ var ReadPrivateTestCommand = function (_AbstractReadPrivateT) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 var queryParams = [];
                 queryParams.push({
                     key: "testId",
@@ -12480,7 +11146,6 @@ var ReadPrivateTestsCommand = function (_AbstractReadPrivateT) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 var queryParams = [];
                 queryParams.push({
                     key: "lessonId",
@@ -12529,7 +11194,6 @@ var ReadPublicCoursesCommand = function (_AbstractReadPublicCo) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 _this2.httpGet("api/courses/public").then(function (data) {
                     _this2.commandData.data = data;
                     _this2.commandData.outcome = _this2.ok;
@@ -12573,7 +11237,6 @@ var ReadPublicLessonsCommand = function (_AbstractReadPublicLe) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 var queryParams = [];
                 queryParams.push({
                     key: "courseId",
@@ -12622,7 +11285,6 @@ var ReadPublicTestCommand = function (_AbstractReadPublicTe) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 var queryParams = [];
                 queryParams.push({
                     key: "testId",
@@ -12671,7 +11333,6 @@ var ReadPublicTestsCommand = function (_AbstractReadPublicTe) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 var queryParams = [];
                 queryParams.push({
                     key: "lessonId",
@@ -12769,7 +11430,6 @@ var ReadStatisticsCommand = function (_AbstractReadStatisti) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 var queryParams = [];
                 queryParams.push({
                     key: "month",
@@ -13330,36 +11990,19 @@ var CheckUsernameAction = function (_AbstractCheckUsernam) {
   _createClass(CheckUsernameAction, [{
     key: "captureActionParam",
     value: function captureActionParam() {
-      if (localStorage.schema) {
-        this.actionParam.schema = localStorage.schema;
-      }
-      if (localStorage.language) {
-        this.actionParam.language = localStorage.language;
-      }
+      this.actionParam.schema = localStorage.schema;
       this.actionParam.username = jQuery("#username").val().trim();
-      // capture user input
     }
   }, {
     key: "initActionData",
     value: function initActionData() {
       this.actionData.username = this.actionParam.username;
-      if (this.actionParam.schema) {
-        this.actionData.schema = this.actionParam.schema;
-      }
-      if (this.actionParam.language) {
-        this.actionData.language = this.actionParam.language;
-      }
-      // bind action parameters to action data
+      this.actionData.schema = this.actionParam.schema;
     }
   }, {
     key: "releaseActionParam",
     value: function releaseActionParam() {
-      if (this.actionParam.schema) {
-        localStorage.schema = this.actionParam.schema;
-      }
-      if (this.actionParam.language) {
-        localStorage.language = this.actionParam.language;
-      }
+      localStorage.schema = this.actionParam.schema;
       jQuery("#username").val(this.actionData.username);
     }
   }]);
@@ -13379,52 +12022,34 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ConfirmEmailAction = function (_AbstractConfirmEmail) {
-   _inherits(ConfirmEmailAction, _AbstractConfirmEmail);
+    _inherits(ConfirmEmailAction, _AbstractConfirmEmail);
 
-   function ConfirmEmailAction() {
-      _classCallCheck(this, ConfirmEmailAction);
+    function ConfirmEmailAction() {
+        _classCallCheck(this, ConfirmEmailAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ConfirmEmailAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ConfirmEmailAction).apply(this, arguments));
+    }
 
-   _createClass(ConfirmEmailAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.schema) {
+    _createClass(ConfirmEmailAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {
             this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         this.actionData.username = this.actionParam.username;
-         this.actionData.password = this.actionParam.password;
-         if (this.actionParam.schema) {
+        }
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
+            this.actionData.username = this.actionParam.username;
+            this.actionData.password = this.actionParam.password;
             this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.schema) {
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {
             localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+        }
+    }]);
 
-   return ConfirmEmailAction;
+    return ConfirmEmailAction;
 }(AbstractConfirmEmailAction);
 
 /*       S.D.G.       */
@@ -13439,78 +12064,40 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var DeleteBoxAction = function (_AbstractDeleteBoxAct) {
-   _inherits(DeleteBoxAction, _AbstractDeleteBoxAct);
+		_inherits(DeleteBoxAction, _AbstractDeleteBoxAct);
 
-   function DeleteBoxAction() {
-      _classCallCheck(this, DeleteBoxAction);
+		function DeleteBoxAction() {
+				_classCallCheck(this, DeleteBoxAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(DeleteBoxAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(DeleteBoxAction).apply(this, arguments));
+		}
 
-   _createClass(DeleteBoxAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-         this.actionData.boxId = this.actionParam.boxId;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         bootbox.hideAll();
-      }
-   }]);
+		_createClass(DeleteBoxAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.boxId = this.actionParam.boxId;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+						bootbox.hideAll();
+				}
+		}]);
 
-   return DeleteBoxAction;
+		return DeleteBoxAction;
 }(AbstractDeleteBoxAction);
 
 /*       S.D.G.       */
@@ -13525,78 +12112,39 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var FillBoxWithCardsAction = function (_AbstractFillBoxWithC) {
-   _inherits(FillBoxWithCardsAction, _AbstractFillBoxWithC);
+		_inherits(FillBoxWithCardsAction, _AbstractFillBoxWithC);
 
-   function FillBoxWithCardsAction() {
-      _classCallCheck(this, FillBoxWithCardsAction);
+		function FillBoxWithCardsAction() {
+				_classCallCheck(this, FillBoxWithCardsAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(FillBoxWithCardsAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(FillBoxWithCardsAction).apply(this, arguments));
+		}
 
-   _createClass(FillBoxWithCardsAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-         this.actionData.boxId = this.actionParam.boxId;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(FillBoxWithCardsAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.boxId = this.actionParam.boxId;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return FillBoxWithCardsAction;
+		return FillBoxWithCardsAction;
 }(AbstractFillBoxWithCardsAction);
 
 /*       S.D.G.       */
@@ -13611,77 +12159,39 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var LoadBoxAction = function (_AbstractLoadBoxActio) {
-   _inherits(LoadBoxAction, _AbstractLoadBoxActio);
+		_inherits(LoadBoxAction, _AbstractLoadBoxActio);
 
-   function LoadBoxAction() {
-      _classCallCheck(this, LoadBoxAction);
+		function LoadBoxAction() {
+				_classCallCheck(this, LoadBoxAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(LoadBoxAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(LoadBoxAction).apply(this, arguments));
+		}
 
-   _createClass(LoadBoxAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.boxId = this.actionParam.boxId;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(LoadBoxAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.boxId = this.actionParam.boxId;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return LoadBoxAction;
+		return LoadBoxAction;
 }(AbstractLoadBoxAction);
 
 /*       S.D.G.       */
@@ -13696,77 +12206,39 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var LoadCoursesAction = function (_AbstractLoadCoursesA) {
-   _inherits(LoadCoursesAction, _AbstractLoadCoursesA);
+		_inherits(LoadCoursesAction, _AbstractLoadCoursesA);
 
-   function LoadCoursesAction() {
-      _classCallCheck(this, LoadCoursesAction);
+		function LoadCoursesAction() {
+				_classCallCheck(this, LoadCoursesAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(LoadCoursesAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(LoadCoursesAction).apply(this, arguments));
+		}
 
-   _createClass(LoadCoursesAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.boxId = this.actionParam.boxId;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(LoadCoursesAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.boxId = this.actionParam.boxId;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return LoadCoursesAction;
+		return LoadCoursesAction;
 }(AbstractLoadCoursesAction);
 
 /*       S.D.G.       */
@@ -13781,77 +12253,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var OpenBoxCreationAction = function (_AbstractOpenBoxCreat) {
-   _inherits(OpenBoxCreationAction, _AbstractOpenBoxCreat);
+    _inherits(OpenBoxCreationAction, _AbstractOpenBoxCreat);
 
-   function OpenBoxCreationAction() {
-      _classCallCheck(this, OpenBoxCreationAction);
+    function OpenBoxCreationAction() {
+        _classCallCheck(this, OpenBoxCreationAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenBoxCreationAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenBoxCreationAction).apply(this, arguments));
+    }
 
-   _createClass(OpenBoxCreationAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(OpenBoxCreationAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {}
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return OpenBoxCreationAction;
+    return OpenBoxCreationAction;
 }(AbstractOpenBoxCreationAction);
 
 /*       S.D.G.       */
@@ -13866,77 +12287,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var OpenChangePasswordAction = function (_AbstractOpenChangePa) {
-   _inherits(OpenChangePasswordAction, _AbstractOpenChangePa);
+    _inherits(OpenChangePasswordAction, _AbstractOpenChangePa);
 
-   function OpenChangePasswordAction() {
-      _classCallCheck(this, OpenChangePasswordAction);
+    function OpenChangePasswordAction() {
+        _classCallCheck(this, OpenChangePasswordAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenChangePasswordAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenChangePasswordAction).apply(this, arguments));
+    }
 
-   _createClass(OpenChangePasswordAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(OpenChangePasswordAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {}
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return OpenChangePasswordAction;
+    return OpenChangePasswordAction;
 }(AbstractOpenChangePasswordAction);
 
 /*       S.D.G.       */
@@ -13951,77 +12321,38 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var OpenCourseSelectionAction = function (_AbstractOpenCourseSe) {
-   _inherits(OpenCourseSelectionAction, _AbstractOpenCourseSe);
+		_inherits(OpenCourseSelectionAction, _AbstractOpenCourseSe);
 
-   function OpenCourseSelectionAction() {
-      _classCallCheck(this, OpenCourseSelectionAction);
+		function OpenCourseSelectionAction() {
+				_classCallCheck(this, OpenCourseSelectionAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenCourseSelectionAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenCourseSelectionAction).apply(this, arguments));
+		}
 
-   _createClass(OpenCourseSelectionAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(OpenCourseSelectionAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return OpenCourseSelectionAction;
+		return OpenCourseSelectionAction;
 }(AbstractOpenCourseSelectionAction);
 
 /*       S.D.G.       */
@@ -14036,77 +12367,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var OpenForgotPasswordAction = function (_AbstractOpenForgotPa) {
-   _inherits(OpenForgotPasswordAction, _AbstractOpenForgotPa);
+    _inherits(OpenForgotPasswordAction, _AbstractOpenForgotPa);
 
-   function OpenForgotPasswordAction() {
-      _classCallCheck(this, OpenForgotPasswordAction);
+    function OpenForgotPasswordAction() {
+        _classCallCheck(this, OpenForgotPasswordAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenForgotPasswordAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenForgotPasswordAction).apply(this, arguments));
+    }
 
-   _createClass(OpenForgotPasswordAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(OpenForgotPasswordAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {}
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return OpenForgotPasswordAction;
+    return OpenForgotPasswordAction;
 }(AbstractOpenForgotPasswordAction);
 
 /*       S.D.G.       */
@@ -14121,52 +12401,29 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var OpenNewPasswordAction = function (_AbstractOpenNewPassw) {
-   _inherits(OpenNewPasswordAction, _AbstractOpenNewPassw);
+    _inherits(OpenNewPasswordAction, _AbstractOpenNewPassw);
 
-   function OpenNewPasswordAction() {
-      _classCallCheck(this, OpenNewPasswordAction);
+    function OpenNewPasswordAction() {
+        _classCallCheck(this, OpenNewPasswordAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenNewPasswordAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenNewPasswordAction).apply(this, arguments));
+    }
 
-   _createClass(OpenNewPasswordAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         this.actionData.username = this.actionParam.username;
-         this.actionData.password = this.actionParam.password;
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(OpenNewPasswordAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
+            this.actionData.username = this.actionParam.username;
+            this.actionData.password = this.actionParam.password;
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return OpenNewPasswordAction;
+    return OpenNewPasswordAction;
 }(AbstractOpenNewPasswordAction);
 
 /*       S.D.G.       */
@@ -14181,77 +12438,38 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var OpenProfileAction = function (_AbstractOpenProfileA) {
-   _inherits(OpenProfileAction, _AbstractOpenProfileA);
+		_inherits(OpenProfileAction, _AbstractOpenProfileA);
 
-   function OpenProfileAction() {
-      _classCallCheck(this, OpenProfileAction);
+		function OpenProfileAction() {
+				_classCallCheck(this, OpenProfileAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenProfileAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenProfileAction).apply(this, arguments));
+		}
 
-   _createClass(OpenProfileAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(OpenProfileAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return OpenProfileAction;
+		return OpenProfileAction;
 }(AbstractOpenProfileAction);
 
 /*       S.D.G.       */
@@ -14266,77 +12484,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var OpenRegistrationAction = function (_AbstractOpenRegistra) {
-   _inherits(OpenRegistrationAction, _AbstractOpenRegistra);
+    _inherits(OpenRegistrationAction, _AbstractOpenRegistra);
 
-   function OpenRegistrationAction() {
-      _classCallCheck(this, OpenRegistrationAction);
+    function OpenRegistrationAction() {
+        _classCallCheck(this, OpenRegistrationAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenRegistrationAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenRegistrationAction).apply(this, arguments));
+    }
 
-   _createClass(OpenRegistrationAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(OpenRegistrationAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {}
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return OpenRegistrationAction;
+    return OpenRegistrationAction;
 }(AbstractOpenRegistrationAction);
 
 /*       S.D.G.       */
@@ -14351,77 +12518,40 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var RemoveCourseAction = function (_AbstractRemoveCourse) {
-   _inherits(RemoveCourseAction, _AbstractRemoveCourse);
+		_inherits(RemoveCourseAction, _AbstractRemoveCourse);
 
-   function RemoveCourseAction() {
-      _classCallCheck(this, RemoveCourseAction);
+		function RemoveCourseAction() {
+				_classCallCheck(this, RemoveCourseAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(RemoveCourseAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(RemoveCourseAction).apply(this, arguments));
+		}
 
-   _createClass(RemoveCourseAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.courseId = this.actionParam.courseId;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         bootbox.hideAll();
-      }
-   }]);
+		_createClass(RemoveCourseAction, [{
+				key: 'captureActionParam',
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+				}
+		}, {
+				key: 'initActionData',
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.courseId = this.actionParam.courseId;
+				}
+		}, {
+				key: 'releaseActionParam',
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+						bootbox.hideAll();
+				}
+		}]);
 
-   return RemoveCourseAction;
+		return RemoveCourseAction;
 }(AbstractRemoveCourseAction);
 
 /*       S.D.G.       */
@@ -14436,75 +12566,42 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SaveBoxAction = function (_AbstractSaveBoxActio) {
-   _inherits(SaveBoxAction, _AbstractSaveBoxActio);
+		_inherits(SaveBoxAction, _AbstractSaveBoxActio);
 
-   function SaveBoxAction() {
-      _classCallCheck(this, SaveBoxAction);
+		function SaveBoxAction() {
+				_classCallCheck(this, SaveBoxAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveBoxAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveBoxAction).apply(this, arguments));
+		}
 
-   _createClass(SaveBoxAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         this.actionParam.name = jQuery("#name").val().trim();
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         this.actionData.name = this.actionParam.name;
-         this.actionData.boxId = this.actionParam.boxId;
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(SaveBoxAction, [{
+				key: "captureActionParam",
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+						this.actionParam.name = jQuery("#name").val().trim();
+				}
+		}, {
+				key: "initActionData",
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.role = this.actionParam.role;
+						this.actionData.name = this.actionParam.name;
+						this.actionData.boxId = this.actionParam.boxId;
+				}
+		}, {
+				key: "releaseActionParam",
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return SaveBoxAction;
+		return SaveBoxAction;
 }(AbstractSaveBoxAction);
 
 /*       S.D.G.       */
@@ -14519,81 +12616,44 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SaveBoxConfigAction = function (_AbstractSaveBoxConfi) {
-   _inherits(SaveBoxConfigAction, _AbstractSaveBoxConfi);
+		_inherits(SaveBoxConfigAction, _AbstractSaveBoxConfi);
 
-   function SaveBoxConfigAction() {
-      _classCallCheck(this, SaveBoxConfigAction);
+		function SaveBoxConfigAction() {
+				_classCallCheck(this, SaveBoxConfigAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveBoxConfigAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveBoxConfigAction).apply(this, arguments));
+		}
 
-   _createClass(SaveBoxConfigAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         var boxId = this.actionParam.boxId;
-         this.actionParam.boxOfCourseList = $("select").map(function () {
-            return { autoAdd: this.value, courseId: this.id, boxId: boxId };
-         }).get();
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.boxId = this.actionParam.boxId;
-         this.actionData.boxOfCourseList = this.actionParam.boxOfCourseList;
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(SaveBoxConfigAction, [{
+				key: "captureActionParam",
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+						var boxId = this.actionParam.boxId;
+						this.actionParam.boxOfCourseList = $("select").map(function () {
+								return { autoAdd: this.value, courseId: this.id, boxId: boxId };
+						}).get();
+				}
+		}, {
+				key: "initActionData",
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.boxId = this.actionParam.boxId;
+						this.actionData.boxOfCourseList = this.actionParam.boxOfCourseList;
+				}
+		}, {
+				key: "releaseActionParam",
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return SaveBoxConfigAction;
+		return SaveBoxConfigAction;
 }(AbstractSaveBoxConfigAction);
 
 /*       S.D.G.       */
@@ -14608,79 +12668,42 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SaveCourseSelectionAction = function (_AbstractSaveCourseSe) {
-   _inherits(SaveCourseSelectionAction, _AbstractSaveCourseSe);
+		_inherits(SaveCourseSelectionAction, _AbstractSaveCourseSe);
 
-   function SaveCourseSelectionAction() {
-      _classCallCheck(this, SaveCourseSelectionAction);
+		function SaveCourseSelectionAction() {
+				_classCallCheck(this, SaveCourseSelectionAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveCourseSelectionAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveCourseSelectionAction).apply(this, arguments));
+		}
 
-   _createClass(SaveCourseSelectionAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         this.actionParam.courseIdList = $("input:checkbox:checked").map(function () {
-            return this.value;
-         }).get();
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.courseIdList = this.actionParam.courseIdList;
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(SaveCourseSelectionAction, [{
+				key: "captureActionParam",
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+						this.actionParam.courseIdList = $("input:checkbox:checked").map(function () {
+								return this.value;
+						}).get();
+				}
+		}, {
+				key: "initActionData",
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.courseIdList = this.actionParam.courseIdList;
+				}
+		}, {
+				key: "releaseActionParam",
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return SaveCourseSelectionAction;
+		return SaveCourseSelectionAction;
 }(AbstractSaveCourseSelectionAction);
 
 /*       S.D.G.       */
@@ -14695,84 +12718,48 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SaveProfileAction = function (_AbstractSaveProfileA) {
-   _inherits(SaveProfileAction, _AbstractSaveProfileA);
+		_inherits(SaveProfileAction, _AbstractSaveProfileA);
 
-   function SaveProfileAction() {
-      _classCallCheck(this, SaveProfileAction);
+		function SaveProfileAction() {
+				_classCallCheck(this, SaveProfileAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveProfileAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveProfileAction).apply(this, arguments));
+		}
 
-   _createClass(SaveProfileAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         this.actionParam.name = jQuery("#name").val().trim();
-         this.actionParam.prename = jQuery("#prename").val().trim();
-         this.actionParam.email = jQuery("#email").val().trim();
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.name = this.actionParam.name;
-         this.actionData.prename = this.actionParam.prename;
-         this.actionData.email = this.actionParam.email;
-         this.actionData.username = this.actionParam.username;
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         jQuery("#name").val(this.actionData.name);
-         jQuery("#prename").val(this.actionData.prename);
-         jQuery("#email").val(this.actionData.email);
-      }
-   }]);
+		_createClass(SaveProfileAction, [{
+				key: "captureActionParam",
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+						this.actionParam.name = jQuery("#name").val().trim();
+						this.actionParam.prename = jQuery("#prename").val().trim();
+						this.actionParam.email = jQuery("#email").val().trim();
+				}
+		}, {
+				key: "initActionData",
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.name = this.actionParam.name;
+						this.actionData.prename = this.actionParam.prename;
+						this.actionData.email = this.actionParam.email;
+						this.actionData.username = this.actionParam.username;
+				}
+		}, {
+				key: "releaseActionParam",
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+						jQuery("#name").val(this.actionData.name);
+						jQuery("#prename").val(this.actionData.prename);
+						jQuery("#email").val(this.actionData.email);
+				}
+		}]);
 
-   return SaveProfileAction;
+		return SaveProfileAction;
 }(AbstractSaveProfileAction);
 
 /*       S.D.G.       */
@@ -14787,50 +12774,38 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SubmitForgotPasswordRequestAction = function (_AbstractSubmitForgot) {
-  _inherits(SubmitForgotPasswordRequestAction, _AbstractSubmitForgot);
+		_inherits(SubmitForgotPasswordRequestAction, _AbstractSubmitForgot);
 
-  function SubmitForgotPasswordRequestAction() {
-    _classCallCheck(this, SubmitForgotPasswordRequestAction);
+		function SubmitForgotPasswordRequestAction() {
+				_classCallCheck(this, SubmitForgotPasswordRequestAction);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitForgotPasswordRequestAction).apply(this, arguments));
-  }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitForgotPasswordRequestAction).apply(this, arguments));
+		}
 
-  _createClass(SubmitForgotPasswordRequestAction, [{
-    key: "captureActionParam",
-    value: function captureActionParam() {
-      if (localStorage.schema) {
-        this.actionParam.schema = localStorage.schema;
-      }
-      if (localStorage.language) {
-        this.actionParam.language = localStorage.language;
-      }
-      this.actionParam.username = jQuery("#username").val().trim();
-    }
-  }, {
-    key: "initActionData",
-    value: function initActionData() {
-      if (this.actionParam.schema) {
-        this.actionData.schema = this.actionParam.schema;
-      }
-      if (this.actionParam.language) {
-        this.actionData.language = this.actionParam.language;
-      }
-      this.actionData.username = this.actionParam.username;
-    }
-  }, {
-    key: "releaseActionParam",
-    value: function releaseActionParam() {
-      if (this.actionParam.schema) {
-        localStorage.schema = this.actionParam.schema;
-      }
-      if (this.actionParam.language) {
-        localStorage.language = this.actionParam.language;
-      }
-      jQuery("#username").val(this.actionData.username);
-    }
-  }]);
+		_createClass(SubmitForgotPasswordRequestAction, [{
+				key: "captureActionParam",
+				value: function captureActionParam() {
+						this.actionParam.schema = localStorage.schema;
+						this.actionParam.language = localStorage.language;
+						this.actionParam.username = jQuery("#username").val().trim();
+				}
+		}, {
+				key: "initActionData",
+				value: function initActionData() {
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.language = this.actionParam.language;
+						this.actionData.username = this.actionParam.username;
+				}
+		}, {
+				key: "releaseActionParam",
+				value: function releaseActionParam() {
+						localStorage.schema = this.actionParam.schema;
+						localStorage.language = this.actionParam.language;
+						jQuery("#username").val(this.actionData.username);
+				}
+		}]);
 
-  return SubmitForgotPasswordRequestAction;
+		return SubmitForgotPasswordRequestAction;
 }(AbstractSubmitForgotPasswordRequestAction);
 
 /*       S.D.G.       */
@@ -14845,56 +12820,41 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SubmitNewPasswordAction = function (_AbstractSubmitNewPas) {
-  _inherits(SubmitNewPasswordAction, _AbstractSubmitNewPas);
+		_inherits(SubmitNewPasswordAction, _AbstractSubmitNewPas);
 
-  function SubmitNewPasswordAction() {
-    _classCallCheck(this, SubmitNewPasswordAction);
+		function SubmitNewPasswordAction() {
+				_classCallCheck(this, SubmitNewPasswordAction);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitNewPasswordAction).apply(this, arguments));
-  }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitNewPasswordAction).apply(this, arguments));
+		}
 
-  _createClass(SubmitNewPasswordAction, [{
-    key: "captureActionParam",
-    value: function captureActionParam() {
-      if (localStorage.schema) {
-        this.actionParam.schema = localStorage.schema;
-      }
-      if (localStorage.language) {
-        this.actionParam.language = localStorage.language;
-      }
-      this.actionParam.username = jQuery("#username").val().trim();
-      this.actionParam.password = jQuery("#oldPassword").val().trim();
-      this.actionParam.newPassword = CryptoJS.MD5(jQuery("#password").val().trim()).toString(CryptoJS.enc.Base64);
-      this.actionParam.passwordRepetition = CryptoJS.MD5(jQuery("#passwordRepetition").val().trim()).toString(CryptoJS.enc.Base64);
-    }
-  }, {
-    key: "initActionData",
-    value: function initActionData() {
-      this.actionData.username = this.actionParam.username;
-      this.actionData.password = this.actionParam.password;
-      this.actionData.newPassword = this.actionParam.newPassword;
-      this.actionData.passwordRepetition = this.actionParam.passwordRepetition;
-      if (this.actionParam.schema) {
-        this.actionData.schema = this.actionParam.schema;
-      }
-      if (this.actionParam.language) {
-        this.actionData.language = this.actionParam.language;
-      }
-      // bind action parameters to action data
-    }
-  }, {
-    key: "releaseActionParam",
-    value: function releaseActionParam() {
-      if (this.actionParam.schema) {
-        localStorage.schema = this.actionParam.schema;
-      }
-      if (this.actionParam.language) {
-        localStorage.language = this.actionParam.language;
-      }
-    }
-  }]);
+		_createClass(SubmitNewPasswordAction, [{
+				key: "captureActionParam",
+				value: function captureActionParam() {
+						this.actionParam.schema = localStorage.schema;
+						this.actionParam.username = jQuery("#username").val().trim();
+						this.actionParam.password = jQuery("#oldPassword").val().trim();
+						this.actionParam.newPassword = CryptoJS.MD5(jQuery("#password").val().trim()).toString(CryptoJS.enc.Base64);
+						this.actionParam.passwordRepetition = CryptoJS.MD5(jQuery("#passwordRepetition").val().trim()).toString(CryptoJS.enc.Base64);
+				}
+		}, {
+				key: "initActionData",
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.newPassword = this.actionParam.newPassword;
+						this.actionData.passwordRepetition = this.actionParam.passwordRepetition;
+						this.actionData.schema = this.actionParam.schema;
+				}
+		}, {
+				key: "releaseActionParam",
+				value: function releaseActionParam() {
+						localStorage.schema = this.actionParam.schema;
+						localStorage.language = this.actionParam.language;
+				}
+		}]);
 
-  return SubmitNewPasswordAction;
+		return SubmitNewPasswordAction;
 }(AbstractSubmitNewPasswordAction);
 
 /*       S.D.G.       */
@@ -14909,67 +12869,54 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SubmitRegistrationAction = function (_AbstractSubmitRegist) {
-  _inherits(SubmitRegistrationAction, _AbstractSubmitRegist);
+		_inherits(SubmitRegistrationAction, _AbstractSubmitRegist);
 
-  function SubmitRegistrationAction() {
-    _classCallCheck(this, SubmitRegistrationAction);
+		function SubmitRegistrationAction() {
+				_classCallCheck(this, SubmitRegistrationAction);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitRegistrationAction).apply(this, arguments));
-  }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitRegistrationAction).apply(this, arguments));
+		}
 
-  _createClass(SubmitRegistrationAction, [{
-    key: "captureActionParam",
-    value: function captureActionParam() {
-      if (localStorage.schema) {
-        this.actionParam.schema = localStorage.schema;
-      }
-      if (localStorage.language) {
-        this.actionParam.language = localStorage.language;
-      }
-      this.actionParam.username = jQuery("#username").val().trim();
-      this.actionParam.usernameExists = jQuery(".usernameNotAvailable").is(':visible');
-      this.actionParam.name = jQuery("#name").val().trim();
-      this.actionParam.prename = jQuery("#prename").val().trim();
-      this.actionParam.email = jQuery("#email").val().trim();
-      this.actionParam.password = CryptoJS.MD5(jQuery("#password").val().trim()).toString(CryptoJS.enc.Base64);
-      this.actionParam.passwordRepetition = CryptoJS.MD5(jQuery("#passwordRepetition").val().trim()).toString(CryptoJS.enc.Base64);
-    }
-  }, {
-    key: "initActionData",
-    value: function initActionData() {
-      if (this.actionParam.schema) {
-        this.actionData.schema = this.actionParam.schema;
-      }
-      if (this.actionParam.language) {
-        this.actionData.language = this.actionParam.language;
-      }
-      this.actionData.username = this.actionParam.username;
-      this.actionData.usernameExists = this.actionParam.usernameExists;
-      this.actionData.name = this.actionParam.name;
-      this.actionData.prename = this.actionParam.prename;
-      this.actionData.email = this.actionParam.email;
-      this.actionData.password = this.actionParam.password;
-      this.actionData.passwordRepetition = this.actionParam.passwordRepetition;
-      // bind action parameters to action data
-    }
-  }, {
-    key: "releaseActionParam",
-    value: function releaseActionParam() {
-      if (this.actionParam.schema) {
-        localStorage.schema = this.actionParam.schema;
-      }
-      if (this.actionParam.language) {
-        localStorage.language = this.actionParam.language;
-      }
-      jQuery("#username").val(this.actionData.username);
-      jQuery("#name").val(this.actionData.name);
-      jQuery("#prename").val(this.actionData.prename);
-      jQuery("#email").val(this.actionData.email);
-      // release action params during replay
-    }
-  }]);
+		_createClass(SubmitRegistrationAction, [{
+				key: "captureActionParam",
+				value: function captureActionParam() {
+						this.actionParam.schema = localStorage.schema;
+						this.actionParam.language = localStorage.language;
+						this.actionParam.username = jQuery("#username").val().trim();
+						this.actionParam.usernameExists = jQuery(".usernameNotAvailable").is(':visible');
+						this.actionParam.name = jQuery("#name").val().trim();
+						this.actionParam.prename = jQuery("#prename").val().trim();
+						this.actionParam.email = jQuery("#email").val().trim();
+						this.actionParam.password = CryptoJS.MD5(jQuery("#password").val().trim()).toString(CryptoJS.enc.Base64);
+						this.actionParam.passwordRepetition = CryptoJS.MD5(jQuery("#passwordRepetition").val().trim()).toString(CryptoJS.enc.Base64);
+				}
+		}, {
+				key: "initActionData",
+				value: function initActionData() {
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.language = this.actionParam.language;
+						this.actionData.username = this.actionParam.username;
+						this.actionData.usernameExists = this.actionParam.usernameExists;
+						this.actionData.name = this.actionParam.name;
+						this.actionData.prename = this.actionParam.prename;
+						this.actionData.email = this.actionParam.email;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.passwordRepetition = this.actionParam.passwordRepetition;
+				}
+		}, {
+				key: "releaseActionParam",
+				value: function releaseActionParam() {
+						localStorage.schema = this.actionParam.schema;
+						localStorage.language = this.actionParam.language;
+						jQuery("#username").val(this.actionData.username);
+						jQuery("#name").val(this.actionData.name);
+						jQuery("#prename").val(this.actionData.prename);
+						jQuery("#email").val(this.actionData.email);
+						// release action params during replay
+				}
+		}]);
 
-  return SubmitRegistrationAction;
+		return SubmitRegistrationAction;
 }(AbstractSubmitRegistrationAction);
 
 /*       S.D.G.       */
@@ -14984,78 +12931,42 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var UpdatePasswordAction = function (_AbstractUpdatePasswo) {
-   _inherits(UpdatePasswordAction, _AbstractUpdatePasswo);
+		_inherits(UpdatePasswordAction, _AbstractUpdatePasswo);
 
-   function UpdatePasswordAction() {
-      _classCallCheck(this, UpdatePasswordAction);
+		function UpdatePasswordAction() {
+				_classCallCheck(this, UpdatePasswordAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(UpdatePasswordAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(UpdatePasswordAction).apply(this, arguments));
+		}
 
-   _createClass(UpdatePasswordAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         this.actionParam.newPassword = CryptoJS.MD5(jQuery("#password").val().trim()).toString(CryptoJS.enc.Base64);
-         this.actionParam.passwordRepetition = CryptoJS.MD5(jQuery("#passwordRepetition").val().trim()).toString(CryptoJS.enc.Base64);
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.newPassword = this.actionParam.newPassword;
-         this.actionData.passwordRepetition = this.actionParam.passwordRepetition;
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-      }
-   }]);
+		_createClass(UpdatePasswordAction, [{
+				key: "captureActionParam",
+				value: function captureActionParam() {
+						this.actionParam.username = localStorage.username;
+						this.actionParam.password = localStorage.password;
+						this.actionParam.schema = localStorage.schema;
+						this.actionParam.newPassword = CryptoJS.MD5(jQuery("#password").val().trim()).toString(CryptoJS.enc.Base64);
+						this.actionParam.passwordRepetition = CryptoJS.MD5(jQuery("#passwordRepetition").val().trim()).toString(CryptoJS.enc.Base64);
+				}
+		}, {
+				key: "initActionData",
+				value: function initActionData() {
+						this.actionData.username = this.actionParam.username;
+						this.actionData.password = this.actionParam.password;
+						this.actionData.schema = this.actionParam.schema;
+						this.actionData.newPassword = this.actionParam.newPassword;
+						this.actionData.passwordRepetition = this.actionParam.passwordRepetition;
+				}
+		}, {
+				key: "releaseActionParam",
+				value: function releaseActionParam() {
+						localStorage.username = this.actionParam.username;
+						localStorage.password = this.actionParam.password;
+						localStorage.schema = this.actionParam.schema;
+				}
+		}]);
 
-   return UpdatePasswordAction;
+		return UpdatePasswordAction;
 }(AbstractUpdatePasswordAction);
 
 /*       S.D.G.       */
@@ -15070,84 +12981,39 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ValidatePasswordAction = function (_AbstractValidatePass) {
-   _inherits(ValidatePasswordAction, _AbstractValidatePass);
+		_inherits(ValidatePasswordAction, _AbstractValidatePass);
 
-   function ValidatePasswordAction() {
-      _classCallCheck(this, ValidatePasswordAction);
+		function ValidatePasswordAction() {
+				_classCallCheck(this, ValidatePasswordAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ValidatePasswordAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(ValidatePasswordAction).apply(this, arguments));
+		}
 
-   _createClass(ValidatePasswordAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         this.actionParam.newPassword = CryptoJS.MD5(jQuery("#password").val().trim()).toString(CryptoJS.enc.Base64);
-         this.actionParam.passwordRepetition = CryptoJS.MD5(jQuery("#passwordRepetition").val().trim()).toString(CryptoJS.enc.Base64);
-         this.actionParam.newPasswordEmpty = jQuery("#password").val().trim().length === 0;
-         this.actionParam.passwordRepetitionEmpty = jQuery("#passwordRepetition").val().trim().length === 0;
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.newPassword = this.actionParam.newPassword;
-         this.actionData.passwordRepetition = this.actionParam.passwordRepetition;
-         this.actionData.newPasswordEmpty = this.actionParam.newPasswordEmpty;
-         this.actionData.passwordRepetitionEmpty = this.actionParam.passwordRepetitionEmpty;
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         jQuery("#password").val(this.actionData.newPassword);
-         jQuery("#passwordRepetition").val(this.actionData.passwordRepetition);
-      }
-   }]);
+		_createClass(ValidatePasswordAction, [{
+				key: "captureActionParam",
+				value: function captureActionParam() {
+						this.actionParam.newPassword = CryptoJS.MD5(jQuery("#password").val().trim()).toString(CryptoJS.enc.Base64);
+						this.actionParam.passwordRepetition = CryptoJS.MD5(jQuery("#passwordRepetition").val().trim()).toString(CryptoJS.enc.Base64);
+						this.actionParam.newPasswordEmpty = jQuery("#password").val().trim().length === 0;
+						this.actionParam.passwordRepetitionEmpty = jQuery("#passwordRepetition").val().trim().length === 0;
+				}
+		}, {
+				key: "initActionData",
+				value: function initActionData() {
+						this.actionData.newPassword = this.actionParam.newPassword;
+						this.actionData.passwordRepetition = this.actionParam.passwordRepetition;
+						this.actionData.newPasswordEmpty = this.actionParam.newPasswordEmpty;
+						this.actionData.passwordRepetitionEmpty = this.actionParam.passwordRepetitionEmpty;
+				}
+		}, {
+				key: "releaseActionParam",
+				value: function releaseActionParam() {
+						jQuery("#password").val(this.actionData.newPassword);
+						jQuery("#passwordRepetition").val(this.actionData.passwordRepetition);
+				}
+		}]);
 
-   return ValidatePasswordAction;
+		return ValidatePasswordAction;
 }(AbstractValidatePasswordAction);
 
 /*       S.D.G.       */
@@ -15278,7 +13144,6 @@ var DeleteBoxCommand = function (_AbstractDeleteBoxCom) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 var queryParams = [];
                 queryParams.push({
                     key: "boxId",
@@ -15374,7 +13239,6 @@ var LoadBoxCommand = function (_AbstractLoadBoxComma) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 var queryParams = [];
                 queryParams.push({
                     key: "boxId",
@@ -15423,7 +13287,6 @@ var LoadCoursesCommand = function (_AbstractLoadCoursesC) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 var queryParams = [];
                 queryParams.push({
                     key: "boxId",
@@ -15472,7 +13335,6 @@ var OpenBoxCreationCommand = function (_AbstractOpenBoxCreat) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 _this2.commandData.outcome = _this2.ok;
                 resolve();
             });
@@ -15543,7 +13405,6 @@ var OpenCourseSelectionCommand = function (_AbstractOpenCourseSe) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 _this2.httpGet("api/users/courses").then(function (data) {
                     _this2.commandData.data = data;
                     _this2.commandData.outcome = _this2.coursesRead;
@@ -15659,7 +13520,6 @@ var OpenProfileCommand = function (_AbstractOpenProfileC) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 _this2.httpGet("api/users/info").then(function (data) {
                     _this2.commandData.data = data;
                     _this2.commandData.outcome = _this2.userInfoRead;
@@ -15738,7 +13598,6 @@ var RemoveCourseCommand = function (_AbstractRemoveCourse) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 var queryParams = [];
                 queryParams.push({
                     key: "courseId",
@@ -15949,7 +13808,6 @@ var SaveProfileCommand = function (_AbstractSaveProfileC) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 if (!_this2.commandParam.email || !_this2.commandParam.name || !_this2.commandParam.prename) {
                     _this2.commandData.messageKey = "dataInvalid";
                     _this2.commandData.outcome = _this2.dataInvalid;
@@ -16063,7 +13921,6 @@ var SubmitNewPasswordCommand = function (_AbstractSubmitNewPas) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 if (!_this2.commandParam.newPassword || !_this2.commandParam.passwordRepetition) {
                     _this2.commandData.messageKey = "dataInvalid";
                     _this2.commandData.outcome = _this2.dataInvalid;
@@ -16186,7 +14043,6 @@ var UpdatePasswordCommand = function (_AbstractUpdatePasswo) {
             var _this2 = this;
 
             return new Promise(function (resolve) {
-                _this2.commandData.language = _this2.commandParam.language;
                 if (!_this2.commandParam.newPassword || !_this2.commandParam.passwordRepetition) {
                     _this2.commandData.messageKey = "dataInvalid";
                     _this2.commandData.outcome = _this2.dataInvalid;
@@ -16870,84 +14726,37 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var CorrectWordAction = function (_AbstractCorrectWordA) {
-   _inherits(CorrectWordAction, _AbstractCorrectWordA);
+		_inherits(CorrectWordAction, _AbstractCorrectWordA);
 
-   function CorrectWordAction() {
-      _classCallCheck(this, CorrectWordAction);
+		function CorrectWordAction() {
+				_classCallCheck(this, CorrectWordAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(CorrectWordAction).apply(this, arguments));
-   }
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(CorrectWordAction).apply(this, arguments));
+		}
 
-   _createClass(CorrectWordAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         this.actionParam.answer = jQuery(".active").val().trim();
-         this.actionParam.id = jQuery(".active").attr("id");
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.answer = this.actionParam.answer;
-         this.actionData.id = this.actionParam.id;
-         this.actionData.solution = jQuery(".active").next().html();
-         this.actionData.wordCount = Vocabulary.testState.wordCount;
-         this.actionData.strikeCount = Vocabulary.testState.strikeCount;
-         this.actionData.points = Vocabulary.testState.points;
-         this.actionData.strikesOfWord = jQuery("#" + this.actionData.id + "_shots").children(".strike").length;
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+		_createClass(CorrectWordAction, [{
+				key: "captureActionParam",
+				value: function captureActionParam() {
+						this.actionParam.answer = jQuery(".active").val().trim();
+						this.actionParam.id = jQuery(".active").attr("id");
+				}
+		}, {
+				key: "initActionData",
+				value: function initActionData() {
+						this.actionData.answer = this.actionParam.answer;
+						this.actionData.id = this.actionParam.id;
+						this.actionData.solution = jQuery(".active").next().html();
+						this.actionData.wordCount = Vocabulary.testState.wordCount;
+						this.actionData.strikeCount = Vocabulary.testState.strikeCount;
+						this.actionData.points = Vocabulary.testState.points;
+						this.actionData.strikesOfWord = jQuery("#" + this.actionData.id + "_shots").children(".strike").length;
+				}
+		}, {
+				key: "releaseActionParam",
+				value: function releaseActionParam() {}
+		}]);
 
-   return CorrectWordAction;
+		return CorrectWordAction;
 }(AbstractCorrectWordAction);
 
 /*       S.D.G.       */
@@ -16962,79 +14771,30 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var IsRatedTestFinishedAction = function (_AbstractIsRatedTestF) {
-   _inherits(IsRatedTestFinishedAction, _AbstractIsRatedTestF);
+    _inherits(IsRatedTestFinishedAction, _AbstractIsRatedTestF);
 
-   function IsRatedTestFinishedAction() {
-      _classCallCheck(this, IsRatedTestFinishedAction);
+    function IsRatedTestFinishedAction() {
+        _classCallCheck(this, IsRatedTestFinishedAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(IsRatedTestFinishedAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(IsRatedTestFinishedAction).apply(this, arguments));
+    }
 
-   _createClass(IsRatedTestFinishedAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.strikeCount = this.actionParam.strikeCount;
-         this.actionData.points = this.actionParam.points;
-         this.actionData.wordCount = this.actionParam.wordCount;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(IsRatedTestFinishedAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
+            this.actionData.strikeCount = this.actionParam.strikeCount;
+            this.actionData.points = this.actionParam.points;
+            this.actionData.wordCount = this.actionParam.wordCount;
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return IsRatedTestFinishedAction;
+    return IsRatedTestFinishedAction;
 }(AbstractIsRatedTestFinishedAction);
 
 /*       S.D.G.       */
@@ -17049,79 +14809,30 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var IsTestFinishedAction = function (_AbstractIsTestFinish) {
-   _inherits(IsTestFinishedAction, _AbstractIsTestFinish);
+    _inherits(IsTestFinishedAction, _AbstractIsTestFinish);
 
-   function IsTestFinishedAction() {
-      _classCallCheck(this, IsTestFinishedAction);
+    function IsTestFinishedAction() {
+        _classCallCheck(this, IsTestFinishedAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(IsTestFinishedAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(IsTestFinishedAction).apply(this, arguments));
+    }
 
-   _createClass(IsTestFinishedAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.strikeCount = this.actionParam.strikeCount;
-         this.actionData.points = this.actionParam.points;
-         this.actionData.wordCount = this.actionParam.wordCount;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(IsTestFinishedAction, [{
+        key: 'captureActionParam',
+        value: function captureActionParam() {}
+    }, {
+        key: 'initActionData',
+        value: function initActionData() {
+            this.actionData.strikeCount = this.actionParam.strikeCount;
+            this.actionData.points = this.actionParam.points;
+            this.actionData.wordCount = this.actionParam.wordCount;
+        }
+    }, {
+        key: 'releaseActionParam',
+        value: function releaseActionParam() {}
+    }]);
 
-   return IsTestFinishedAction;
+    return IsTestFinishedAction;
 }(AbstractIsTestFinishedAction);
 
 /*       S.D.G.       */
@@ -17136,82 +14847,33 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var RateWordAction = function (_AbstractRateWordActi) {
-   _inherits(RateWordAction, _AbstractRateWordActi);
+    _inherits(RateWordAction, _AbstractRateWordActi);
 
-   function RateWordAction() {
-      _classCallCheck(this, RateWordAction);
+    function RateWordAction() {
+        _classCallCheck(this, RateWordAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(RateWordAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RateWordAction).apply(this, arguments));
+    }
 
-   _createClass(RateWordAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.knewIt = this.actionParam.knewIt;
-         this.actionData.id = jQuery(".active").attr("id");
-         this.actionData.wordCount = Vocabulary.testState.wordCount;
-         this.actionData.strikeCount = Vocabulary.testState.strikeCount;
-         this.actionData.points = Vocabulary.testState.points;
-         this.actionData.strikesOfWord = jQuery("#" + this.actionData.id + "_shots").children(".strike").length;
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(RateWordAction, [{
+        key: "captureActionParam",
+        value: function captureActionParam() {}
+    }, {
+        key: "initActionData",
+        value: function initActionData() {
+            this.actionData.knewIt = this.actionParam.knewIt;
+            this.actionData.id = jQuery(".active").attr("id");
+            this.actionData.wordCount = Vocabulary.testState.wordCount;
+            this.actionData.strikeCount = Vocabulary.testState.strikeCount;
+            this.actionData.points = Vocabulary.testState.points;
+            this.actionData.strikesOfWord = jQuery("#" + this.actionData.id + "_shots").children(".strike").length;
+        }
+    }, {
+        key: "releaseActionParam",
+        value: function releaseActionParam() {}
+    }]);
 
-   return RateWordAction;
+    return RateWordAction;
 }(AbstractRateWordAction);
 
 /*       S.D.G.       */
@@ -17226,78 +14888,32 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var RepeatComplexCardAction = function (_AbstractRepeatComple) {
-   _inherits(RepeatComplexCardAction, _AbstractRepeatComple);
+  _inherits(RepeatComplexCardAction, _AbstractRepeatComple);
 
-   function RepeatComplexCardAction() {
-      _classCallCheck(this, RepeatComplexCardAction);
+  function RepeatComplexCardAction() {
+    _classCallCheck(this, RepeatComplexCardAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(RepeatComplexCardAction).apply(this, arguments));
-   }
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(RepeatComplexCardAction).apply(this, arguments));
+  }
 
-   _createClass(RepeatComplexCardAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-         this.actionParam.hash = window.location.hash.substring(1);
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.hash = this.actionParam.hash;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+  _createClass(RepeatComplexCardAction, [{
+    key: 'captureActionParam',
+    value: function captureActionParam() {
+      this.actionParam.hash = window.location.hash.substring(1);
+    }
+  }, {
+    key: 'initActionData',
+    value: function initActionData() {
+      this.actionData.hash = this.actionParam.hash;
+    }
+  }, {
+    key: 'releaseActionParam',
+    value: function releaseActionParam() {
+      window.location.hash = this.actionParam.hash;
+    }
+  }]);
 
-   return RepeatComplexCardAction;
+  return RepeatComplexCardAction;
 }(AbstractRepeatComplexCardAction);
 
 /*       S.D.G.       */
@@ -17312,77 +14928,30 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ShowNextWordOfTestAction = function (_AbstractShowNextWord) {
-   _inherits(ShowNextWordOfTestAction, _AbstractShowNextWord);
+  _inherits(ShowNextWordOfTestAction, _AbstractShowNextWord);
 
-   function ShowNextWordOfTestAction() {
-      _classCallCheck(this, ShowNextWordOfTestAction);
+  function ShowNextWordOfTestAction() {
+    _classCallCheck(this, ShowNextWordOfTestAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowNextWordOfTestAction).apply(this, arguments));
-   }
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowNextWordOfTestAction).apply(this, arguments));
+  }
 
-   _createClass(ShowNextWordOfTestAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         this.actionParam.nextRandomIndex = Vocabulary.testState.nextRandomIndex();
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.nextRandomIndex = this.actionParam.nextRandomIndex;
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+  _createClass(ShowNextWordOfTestAction, [{
+    key: 'captureActionParam',
+    value: function captureActionParam() {
+      this.actionParam.nextRandomIndex = Vocabulary.testState.nextRandomIndex();
+    }
+  }, {
+    key: 'initActionData',
+    value: function initActionData() {
+      this.actionData.nextRandomIndex = this.actionParam.nextRandomIndex;
+    }
+  }, {
+    key: 'releaseActionParam',
+    value: function releaseActionParam() {}
+  }]);
 
-   return ShowNextWordOfTestAction;
+  return ShowNextWordOfTestAction;
 }(AbstractShowNextWordOfTestAction);
 
 /*       S.D.G.       */
@@ -17397,76 +14966,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ShowWordAction = function (_AbstractShowWordActi) {
-   _inherits(ShowWordAction, _AbstractShowWordActi);
+    _inherits(ShowWordAction, _AbstractShowWordActi);
 
-   function ShowWordAction() {
-      _classCallCheck(this, ShowWordAction);
+    function ShowWordAction() {
+        _classCallCheck(this, ShowWordAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowWordAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowWordAction).apply(this, arguments));
+    }
 
-   _createClass(ShowWordAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.solution = jQuery(".active").next().html();
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
+    _createClass(ShowWordAction, [{
+        key: "captureActionParam",
+        value: function captureActionParam() {}
+    }, {
+        key: "initActionData",
+        value: function initActionData() {
+            this.actionData.solution = jQuery(".active").next().html();
+        }
+    }, {
+        key: "releaseActionParam",
+        value: function releaseActionParam() {}
+    }]);
 
-   return ShowWordAction;
+    return ShowWordAction;
 }(AbstractShowWordAction);
 
 /*       S.D.G.       */
@@ -17481,76 +15002,29 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var StartTestAction = function (_AbstractStartTestAct) {
-   _inherits(StartTestAction, _AbstractStartTestAct);
+    _inherits(StartTestAction, _AbstractStartTestAct);
 
-   function StartTestAction() {
-      _classCallCheck(this, StartTestAction);
+    function StartTestAction() {
+        _classCallCheck(this, StartTestAction);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(StartTestAction).apply(this, arguments));
-   }
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(StartTestAction).apply(this, arguments));
+    }
 
-   _createClass(StartTestAction, [{
-      key: "captureActionParam",
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-      }
-   }, {
-      key: "initActionData",
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         this.actionData.wordCount = jQuery(".vocabulary").length;;
-         this.actionData.testMode = this.actionParam.testMode;
-      }
-   }, {
-      key: "releaseActionParam",
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-      }
-   }]);
+    _createClass(StartTestAction, [{
+        key: "captureActionParam",
+        value: function captureActionParam() {}
+    }, {
+        key: "initActionData",
+        value: function initActionData() {
+            this.actionData.wordCount = jQuery(".vocabulary").length;;
+            this.actionData.testMode = this.actionParam.testMode;
+        }
+    }, {
+        key: "releaseActionParam",
+        value: function releaseActionParam() {}
+    }]);
 
-   return StartTestAction;
+    return StartTestAction;
 }(AbstractStartTestAction);
 
 /*       S.D.G.       */

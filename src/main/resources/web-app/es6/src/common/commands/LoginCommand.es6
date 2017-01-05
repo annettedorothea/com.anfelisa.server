@@ -3,7 +3,6 @@
 class LoginCommand extends AbstractLoginCommand {
     execute() {
         return new Promise((resolve) => {
-            this.commandData.language = this.commandParam.language;
             this.httpPost("api/user/login").then((data) => {
                 this.commandData.hash = "private";
                 this.commandData.username = this.commandParam.username;

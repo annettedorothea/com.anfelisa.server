@@ -3,7 +3,6 @@
 class ReadNextCardCommand extends AbstractReadNextCardCommand {
     execute() {
         return new Promise((resolve) => {
-            this.commandData.language = this.commandParam.language;
             var queryParams = [];
             queryParams.push({
                 key: "boxId",

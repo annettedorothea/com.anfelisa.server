@@ -3,7 +3,6 @@
 class SaveProfileCommand extends AbstractSaveProfileCommand {
     execute() {
         return new Promise((resolve) => {
-            this.commandData.language = this.commandParam.language;
             if (!this.commandParam.email || !this.commandParam.name || !this.commandParam.prename) {
                 this.commandData.messageKey = "dataInvalid";
                 this.commandData.outcome = this.dataInvalid;

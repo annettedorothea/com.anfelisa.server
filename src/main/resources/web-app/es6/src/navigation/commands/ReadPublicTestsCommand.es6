@@ -3,7 +3,6 @@
 class ReadPublicTestsCommand extends AbstractReadPublicTestsCommand {
     execute() {
         return new Promise((resolve) => {
-            this.commandData.language = this.commandParam.language;
             var queryParams = [];
             queryParams.push({
                 key: "lessonId",

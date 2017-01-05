@@ -3,7 +3,6 @@
 class ReadPublicCoursesCommand extends AbstractReadPublicCoursesCommand {
     execute() {
         return new Promise((resolve) => {
-            this.commandData.language = this.commandParam.language;
             this.httpGet("api/courses/public").then((data) => {
                 this.commandData.data = data;
                 this.commandData.outcome = this.ok;

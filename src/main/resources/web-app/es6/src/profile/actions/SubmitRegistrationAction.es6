@@ -3,12 +3,8 @@
 class SubmitRegistrationAction extends AbstractSubmitRegistrationAction {
 
     captureActionParam() {
-    	if (localStorage.schema) {
-	        this.actionParam.schema = localStorage.schema;
-	    }
-    	if (localStorage.language) {
-	        this.actionParam.language = localStorage.language;
-	    }
+		this.actionParam.schema = localStorage.schema;
+		this.actionParam.language = localStorage.language;
 		this.actionParam.username = jQuery("#username").val().trim();
 		this.actionParam.usernameExists = jQuery(".usernameNotAvailable").is(':visible');
 		this.actionParam.name = jQuery("#name").val().trim();
@@ -19,12 +15,8 @@ class SubmitRegistrationAction extends AbstractSubmitRegistrationAction {
     }
 
     initActionData() {
-    	if (this.actionParam.schema) {
-    		this.actionData.schema = this.actionParam.schema;
-    	}
-    	if (this.actionParam.language) {
-    		this.actionData.language = this.actionParam.language;
-    	}
+		this.actionData.schema = this.actionParam.schema;
+		this.actionData.language = this.actionParam.language;
 		this.actionData.username = this.actionParam.username;
 		this.actionData.usernameExists = this.actionParam.usernameExists;
 		this.actionData.name = this.actionParam.name;
@@ -32,16 +24,11 @@ class SubmitRegistrationAction extends AbstractSubmitRegistrationAction {
 		this.actionData.email = this.actionParam.email;
 		this.actionData.password = this.actionParam.password;
 		this.actionData.passwordRepetition = this.actionParam.passwordRepetition;
-    	// bind action parameters to action data
     }
 
     releaseActionParam() {
-    	if (this.actionParam.schema) {
-    		localStorage.schema = this.actionParam.schema;
-    	}
-    	if (this.actionParam.language) {
-    		localStorage.language = this.actionParam.language;
-    	}
+		localStorage.schema = this.actionParam.schema;
+		localStorage.language = this.actionParam.language;
 		jQuery("#username").val(this.actionData.username);
 		jQuery("#name").val(this.actionData.name);
 		jQuery("#prename").val(this.actionData.prename);
