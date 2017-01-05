@@ -1,5 +1,122 @@
 'use strict';
 
+/*
+ uuid.js - Version 0.3
+ JavaScript Class to create a UUID like identifier
+
+ Copyright (C) 2006-2008, Erik Giberti (AF-Design), All rights reserved.
+
+ This program is free software; you can redistribute it and/or modify it under
+ the terms of the GNU General Public License as published by the Free Software
+ Foundation; either version 2 of the License, or (at your option) any later
+ version.
+
+ This program is distributed in the hope that it will be useful, but WITHOUT ANY
+ WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License along with
+ this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+ Place, Suite 330, Boston, MA 02111-1307 USA
+
+ The latest version of this file can be downloaded from
+ http://www.af-design.com/resources/javascript_uuid.php
+
+ HISTORY:
+ 6/5/06 	- Initial Release
+ 5/22/08 - Updated code to run faster, removed randrange(min,max) in favor of
+ a simpler rand(max) function. Reduced overhead by using getTime()
+ method of date class (suggestion by James Hall).
+ 9/5/08	- Fixed a bug with rand(max) and additional efficiencies pointed out
+ by Robert Kieffer http://broofa.com/
+
+ KNOWN ISSUES:
+ - Still no way to get MAC address in JavaScript
+ - Research into other versions of UUID show promising possibilities
+ (more research needed)
+ - Documentation needs improvement
+
+ */
+
+// On creation of a UUID object, set it's initial value
+function UUID() {
+    this.id = this.createUUID();
+}
+
+// When asked what this Object is, lie and return it's value
+UUID.prototype.valueOf = function () {
+    return this.id;
+};
+UUID.prototype.toString = function () {
+    return this.id;
+};
+
+//
+// INSTANCE SPECIFIC METHODS
+//
+
+UUID.prototype.createUUID = function () {
+    //
+    // Loose interpretation of the specification DCE 1.1: Remote Procedure Call
+    // described at http://www.opengroup.org/onlinepubs/009629399/apdxa.htm#tagtcjh_37
+    // since JavaScript doesn't allow access to internal systems, the last 48 bits
+    // of the node section is made up using a series of random numbers (6 octets long).
+    //
+    var dg = new Date(1582, 10, 15, 0, 0, 0, 0);
+    var dc = new Date();
+    var t = dc.getTime() - dg.getTime();
+    var h = '-';
+    var tl = UUID.getIntegerBits(t, 0, 31);
+    var tm = UUID.getIntegerBits(t, 32, 47);
+    var thv = UUID.getIntegerBits(t, 48, 59) + '1'; // version 1, security version is 2
+    var csar = UUID.getIntegerBits(UUID.rand(4095), 0, 7);
+    var csl = UUID.getIntegerBits(UUID.rand(4095), 0, 7);
+
+    // since detection of anything about the machine/browser is far to buggy,
+    // include some more random numbers here
+    // if NIC or an IP can be obtained reliably, that should be put in
+    // here instead.
+    var n = UUID.getIntegerBits(UUID.rand(8191), 0, 7) + UUID.getIntegerBits(UUID.rand(8191), 8, 15) + UUID.getIntegerBits(UUID.rand(8191), 0, 7) + UUID.getIntegerBits(UUID.rand(8191), 8, 15) + UUID.getIntegerBits(UUID.rand(8191), 0, 15); // this last number is two octets long
+    return tl + h + tm + h + thv + h + csar + csl + h + n;
+};
+
+//
+// GENERAL METHODS (Not instance specific)
+//
+
+
+// Pull out only certain bits from a very large integer, used to get the time
+// code information for the first part of a UUID. Will return zero's if there
+// aren't enough bits to shift where it needs to.
+UUID.getIntegerBits = function (val, start, end) {
+    var base16 = UUID.returnBase(val, 16);
+    var quadArray = new Array();
+    var quadString = '';
+    var i = 0;
+    for (i = 0; i < base16.length; i++) {
+        quadArray.push(base16.substring(i, i + 1));
+    }
+    for (i = Math.floor(start / 4); i <= Math.floor(end / 4); i++) {
+        if (!quadArray[i] || quadArray[i] == '') quadString += '0';else quadString += quadArray[i];
+    }
+    return quadString;
+};
+
+// Replaced from the original function to leverage the built in methods in
+// JavaScript. Thanks to Robert Kieffer for pointing this one out
+UUID.returnBase = function (number, base) {
+    return number.toString(base).toUpperCase();
+};
+
+// pick a random number within a range of numbers
+// int b rand(int a); where 0 <= b <= a
+UUID.rand = function (max) {
+    return Math.floor(Math.random() * (max + 1));
+};
+
+// end of UUID class file
+'use strict';
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -412,7 +529,7 @@ var Command = function () {
             queryParams = this.addSchemaToQueryParams(queryParams);
             return new Promise(function (resolve, reject) {
                 $.ajax({
-                    url: urlPrefix + url + _this2.queryParamString(url, queryParams),
+                    url: url + _this2.queryParamString(url, queryParams),
                     type: 'get',
                     username: _this2.usernameString(),
                     password: _this2.commandParam.password,
@@ -440,7 +557,7 @@ var Command = function () {
             data = this.addSchemaToData(data);
             return new Promise(function (resolve, reject) {
                 $.ajax({
-                    url: urlPrefix + url + _this3.queryParamString(url, queryParams),
+                    url: url + _this3.queryParamString(url, queryParams),
                     type: 'post',
                     data: JSON.stringify(data),
                     username: _this3.usernameString(),
@@ -469,7 +586,7 @@ var Command = function () {
             data = this.addSchemaToData(data);
             return new Promise(function (resolve, reject) {
                 $.ajax({
-                    url: urlPrefix + url + _this4.queryParamString(url, queryParams),
+                    url: url + _this4.queryParamString(url, queryParams),
                     type: 'put',
                     data: JSON.stringify(data),
                     username: _this4.usernameString(),
@@ -498,7 +615,7 @@ var Command = function () {
             data = this.addSchemaToData(data);
             return new Promise(function (resolve, reject) {
                 $.ajax({
-                    url: urlPrefix + url + _this5.queryParamString(url, queryParams),
+                    url: url + _this5.queryParamString(url, queryParams),
                     type: 'delete',
                     data: JSON.stringify(data),
                     username: _this5.usernameString(),
@@ -675,7 +792,7 @@ var TriggerAction = function (_Event) {
     function TriggerAction(action) {
         _classCallCheck(this, TriggerAction);
 
-        var _this = _possibleConstructorReturn(this, (TriggerAction.__proto__ || Object.getPrototypeOf(TriggerAction)).call(this, action, 'TriggerAction'));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TriggerAction).call(this, action, 'TriggerAction'));
 
         _this.eventData = action;
         return _this;
@@ -692,247 +809,6 @@ var TriggerAction = function (_Event) {
 /*       S.D.G.       */
 'use strict';
 
-/*
- uuid.js - Version 0.3
- JavaScript Class to create a UUID like identifier
-
- Copyright (C) 2006-2008, Erik Giberti (AF-Design), All rights reserved.
-
- This program is free software; you can redistribute it and/or modify it under
- the terms of the GNU General Public License as published by the Free Software
- Foundation; either version 2 of the License, or (at your option) any later
- version.
-
- This program is distributed in the hope that it will be useful, but WITHOUT ANY
- WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License along with
- this program; if not, write to the Free Software Foundation, Inc., 59 Temple
- Place, Suite 330, Boston, MA 02111-1307 USA
-
- The latest version of this file can be downloaded from
- http://www.af-design.com/resources/javascript_uuid.php
-
- HISTORY:
- 6/5/06 	- Initial Release
- 5/22/08 - Updated code to run faster, removed randrange(min,max) in favor of
- a simpler rand(max) function. Reduced overhead by using getTime()
- method of date class (suggestion by James Hall).
- 9/5/08	- Fixed a bug with rand(max) and additional efficiencies pointed out
- by Robert Kieffer http://broofa.com/
-
- KNOWN ISSUES:
- - Still no way to get MAC address in JavaScript
- - Research into other versions of UUID show promising possibilities
- (more research needed)
- - Documentation needs improvement
-
- */
-
-// On creation of a UUID object, set it's initial value
-function UUID() {
-    this.id = this.createUUID();
-}
-
-// When asked what this Object is, lie and return it's value
-UUID.prototype.valueOf = function () {
-    return this.id;
-};
-UUID.prototype.toString = function () {
-    return this.id;
-};
-
-//
-// INSTANCE SPECIFIC METHODS
-//
-
-UUID.prototype.createUUID = function () {
-    //
-    // Loose interpretation of the specification DCE 1.1: Remote Procedure Call
-    // described at http://www.opengroup.org/onlinepubs/009629399/apdxa.htm#tagtcjh_37
-    // since JavaScript doesn't allow access to internal systems, the last 48 bits
-    // of the node section is made up using a series of random numbers (6 octets long).
-    //
-    var dg = new Date(1582, 10, 15, 0, 0, 0, 0);
-    var dc = new Date();
-    var t = dc.getTime() - dg.getTime();
-    var h = '-';
-    var tl = UUID.getIntegerBits(t, 0, 31);
-    var tm = UUID.getIntegerBits(t, 32, 47);
-    var thv = UUID.getIntegerBits(t, 48, 59) + '1'; // version 1, security version is 2
-    var csar = UUID.getIntegerBits(UUID.rand(4095), 0, 7);
-    var csl = UUID.getIntegerBits(UUID.rand(4095), 0, 7);
-
-    // since detection of anything about the machine/browser is far to buggy,
-    // include some more random numbers here
-    // if NIC or an IP can be obtained reliably, that should be put in
-    // here instead.
-    var n = UUID.getIntegerBits(UUID.rand(8191), 0, 7) + UUID.getIntegerBits(UUID.rand(8191), 8, 15) + UUID.getIntegerBits(UUID.rand(8191), 0, 7) + UUID.getIntegerBits(UUID.rand(8191), 8, 15) + UUID.getIntegerBits(UUID.rand(8191), 0, 15); // this last number is two octets long
-    return tl + h + tm + h + thv + h + csar + csl + h + n;
-};
-
-//
-// GENERAL METHODS (Not instance specific)
-//
-
-
-// Pull out only certain bits from a very large integer, used to get the time
-// code information for the first part of a UUID. Will return zero's if there
-// aren't enough bits to shift where it needs to.
-UUID.getIntegerBits = function (val, start, end) {
-    var base16 = UUID.returnBase(val, 16);
-    var quadArray = new Array();
-    var quadString = '';
-    var i = 0;
-    for (i = 0; i < base16.length; i++) {
-        quadArray.push(base16.substring(i, i + 1));
-    }
-    for (i = Math.floor(start / 4); i <= Math.floor(end / 4); i++) {
-        if (!quadArray[i] || quadArray[i] == '') quadString += '0';else quadString += quadArray[i];
-    }
-    return quadString;
-};
-
-// Replaced from the original function to leverage the built in methods in
-// JavaScript. Thanks to Robert Kieffer for pointing this one out
-UUID.returnBase = function (number, base) {
-    return number.toString(base).toUpperCase();
-};
-
-// pick a random number within a range of numbers
-// int b rand(int a); where 0 <= b <= a
-UUID.rand = function (max) {
-    return Math.floor(Math.random() * (max + 1));
-};
-
-// end of UUID class file
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var EventListenerRegistrationApp = function () {
-   function EventListenerRegistrationApp() {
-      _classCallCheck(this, EventListenerRegistrationApp);
-   }
-
-   _createClass(EventListenerRegistrationApp, null, [{
-      key: 'init',
-      value: function init() {
-         ACEController.registerListener('UserIsLoggedInEvent', HeaderView.showLogout);
-         ACEController.registerListener('UserIsLoggedInEvent', HeaderView.hideLogin);
-         ACEController.registerListener('UserIsLoggedInEvent', HeaderView.showPersonalMessage);
-         ACEController.registerListener('UserIsLoggedInEvent', CommonView.setToken);
-         ACEController.registerListener('UserIsNotLoggedInEvent', NavigationView.hideBoxes);
-         ACEController.registerListener('UserIsNotLoggedInEvent', HeaderView.hideLogout);
-         ACEController.registerListener('UserIsNotLoggedInEvent', HeaderView.showLogin);
-         ACEController.registerListener('UserIsNotLoggedInEvent', CommonView.resetToken);
-         ACEController.registerListener('LoginFailedEvent', MessagesView.renderError);
-         ACEController.registerListener('StatisticsLoadedEvent', ContentView.renderStatistics);
-         ACEController.registerListener('PublicCoursesLoadedEvent', BreadcrumbsView.renderPublicCoursesBreadcrumbs);
-         ACEController.registerListener('PublicCoursesLoadedEvent', CommonView.updateSelection);
-         ACEController.registerListener('PublicCoursesLoadedEvent', ContentView.renderPublicCoursesContentPane);
-         ACEController.registerListener('PublicCoursesLoadedEvent', NavigationView.renderPublicCoursesNavigation);
-         ACEController.registerListener('PublicLessonsLoadedEvent', NavigationView.renderPublicLessonsNavigation);
-         ACEController.registerListener('PublicLessonsLoadedEvent', CommonView.updateSelection);
-         ACEController.registerListener('PublicLessonsLoadedEvent', ContentView.renderPublicLessonsContentPane);
-         ACEController.registerListener('PublicLessonsLoadedEvent', BreadcrumbsView.renderPublicLessonsBreadcrumbs);
-         ACEController.registerListener('PublicTestsLoadedEvent', NavigationView.renderPublicTestsNavigation);
-         ACEController.registerListener('PublicTestsLoadedEvent', CommonView.updateSelection);
-         ACEController.registerListener('PublicTestsLoadedEvent', ContentView.renderPublicTestsContentPane);
-         ACEController.registerListener('PublicTestsLoadedEvent', BreadcrumbsView.renderPublicTestsBreadcrumbs);
-         ACEController.registerListener('PublicTestLoadedEvent', ContentView.renderPublicTestContentPane);
-         ACEController.registerListener('PublicTestLoadedEvent', NavigationView.renderPublicTestNavigation);
-         ACEController.registerListener('PublicTestLoadedEvent', CommonView.updateSelection);
-         ACEController.registerListener('PrivateCoursesLoadedEvent', NavigationView.renderPrivateCoursesNavigation);
-         ACEController.registerListener('PrivateCoursesLoadedEvent', BreadcrumbsView.renderPrivateCoursesBreadcrumbs);
-         ACEController.registerListener('PrivateCoursesLoadedEvent', CommonView.updateSelection);
-         ACEController.registerListener('PrivateCoursesSilentlyLoadedEvent', NavigationView.renderPrivateCoursesNavigation);
-         ACEController.registerListener('PrivateLessonsLoadedEvent', NavigationView.renderPrivateLessonsNavigation);
-         ACEController.registerListener('PrivateLessonsLoadedEvent', BreadcrumbsView.renderPrivateLessonsBreadcrumbs);
-         ACEController.registerListener('PrivateLessonsLoadedEvent', ContentView.renderPrivateLessonsContentPane);
-         ACEController.registerListener('PrivateLessonsLoadedEvent', CommonView.updateSelection);
-         ACEController.registerListener('PrivateTestsLoadedEvent', NavigationView.renderPrivateTestsNavigation);
-         ACEController.registerListener('PrivateTestsLoadedEvent', BreadcrumbsView.renderPrivateTestsBreadcrumbs);
-         ACEController.registerListener('PrivateTestsLoadedEvent', ContentView.renderPrivateTestsContentPane);
-         ACEController.registerListener('PrivateTestsLoadedEvent', CommonView.updateSelection);
-         ACEController.registerListener('PrivateTestsSilentlyLoadedEvent', NavigationView.renderPrivateTestsNavigation);
-         ACEController.registerListener('PrivateTestsSilentlyLoadedEvent', BreadcrumbsView.renderPrivateTestsBreadcrumbs);
-         ACEController.registerListener('PrivateTestLoadedEvent', NavigationView.renderPrivateTestNavigation);
-         ACEController.registerListener('PrivateTestLoadedEvent', ContentView.renderPrivateTestContentPane);
-         ACEController.registerListener('PrivateTestLoadedEvent', CommonView.updateSelection);
-         ACEController.registerListener('TestOfResultLoadedEvent', ContentView.renderPrivateTestContentPane);
-         ACEController.registerListener('TestOfResultLoadedEvent', CommonView.updateSelection);
-         ACEController.registerListener('ResultLoadedEvent', ContentView.renderResultJson);
-         ACEController.registerListener('BoxesSilentlyLoadedEvent', NavigationView.renderBoxes);
-         ACEController.registerListener('NextCardLoadedEvent', CardView.renderNextCard);
-         ACEController.registerListener('NextCardLoadedEvent', CommonView.updateSelection);
-         ACEController.registerListener('GoOnWithNewCardsEvent', CardView.goOnWithNewCards);
-         ACEController.registerListener('ShowWantedEvent', CardView.showWanted);
-         ACEController.registerListener('ShowNextLineEvent', CardView.showNextLine);
-         ACEController.registerListener('ShowNextWordEvent', CardView.showNextWord);
-         ACEController.registerListener('ShowScoreButtonsEvent', CardView.showScoreButtons);
-         ACEController.registerListener('DisplayComplexCardFinishedSuccessfullyEvent', CardView.displayComplexCardFinishedSuccessfully);
-         ACEController.registerListener('ResultSavedEvent', HeaderView.renderSumOfPoints);
-         ACEController.registerListener('WordIsCorrectAndFinishedEvent', VocabularyView.wordIsCorrectAndFinished);
-         ACEController.registerListener('WordIsCorrectAndNotFinishedEvent', VocabularyView.wordIsCorrectAndNotFinished);
-         ACEController.registerListener('WordIsNotCorrectEvent', VocabularyView.wordIsNotCorrect);
-         ACEController.registerListener('DisplayTestFailedEvent', VocabularyView.displayTestFailed);
-         ACEController.registerListener('DisplayTestFinishedSuccessfullyEvent', VocabularyView.displayTestFinishedSuccessfully);
-         ACEController.registerListener('DisplayNextWordButtonEvent', VocabularyView.displayNextWordButton);
-         ACEController.registerListener('ShowNextWordOfTestEvent', VocabularyView.showNextWordOfTest);
-         ACEController.registerListener('ShowWordEvent', VocabularyView.showWord);
-         ACEController.registerListener('TestStartedEvent', VocabularyView.testStarted);
-         ACEController.registerListener('RepeatComplexCardEvent', CardView.repeatComplexCard);
-         ACEController.registerListener('RepeatTodaysCardsEvent', CardView.repeatTodaysCards);
-         ACEController.registerListener('CardScoredEvent', HeaderView.renderSumOfPoints);
-         ACEController.registerListener('BoxStartedEvent', CardView.resetGoOnWithNewCards);
-         ACEController.registerListener('BoxStartedEvent', CardView.initCurrentBoxId);
-         ACEController.registerListener('RenderCardForRepetitionEvent', CardView.renderCardForRepetition);
-         ACEController.registerListener('ServerErrorEvent', MessagesView.renderError);
-      }
-   }]);
-
-   return EventListenerRegistrationApp;
-}();
-
-EventListenerRegistrationApp.init();
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractAutoLoginAction = function (_Action) {
-  _inherits(AbstractAutoLoginAction, _Action);
-
-  function AbstractAutoLoginAction(actionParam) {
-    _classCallCheck(this, AbstractAutoLoginAction);
-
-    return _possibleConstructorReturn(this, (AbstractAutoLoginAction.__proto__ || Object.getPrototypeOf(AbstractAutoLoginAction)).call(this, actionParam, 'AutoLoginAction'));
-  }
-
-  _createClass(AbstractAutoLoginAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new AutoLoginCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractAutoLoginAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -947,3882 +823,7 @@ var AbstractCheckIfComplexCardIsFinishedAction = function (_Action) {
   function AbstractCheckIfComplexCardIsFinishedAction(actionParam) {
     _classCallCheck(this, AbstractCheckIfComplexCardIsFinishedAction);
 
-    return _possibleConstructorReturn(this, (AbstractCheckIfComplexCardIsFinishedAction.__proto__ || Object.getPrototypeOf(AbstractCheckIfComplexCardIsFinishedAction)).call(this, actionParam, 'CheckIfComplexCardIsFinishedAction'));
-  }
-
-  _createClass(AbstractCheckIfComplexCardIsFinishedAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new CheckIfComplexCardIsFinishedCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractCheckIfComplexCardIsFinishedAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractCorrectWordAction = function (_Action) {
-  _inherits(AbstractCorrectWordAction, _Action);
-
-  function AbstractCorrectWordAction(actionParam) {
-    _classCallCheck(this, AbstractCorrectWordAction);
-
-    return _possibleConstructorReturn(this, (AbstractCorrectWordAction.__proto__ || Object.getPrototypeOf(AbstractCorrectWordAction)).call(this, actionParam, 'CorrectWordAction'));
-  }
-
-  _createClass(AbstractCorrectWordAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new CorrectWordCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractCorrectWordAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractFinishCardAction = function (_Action) {
-  _inherits(AbstractFinishCardAction, _Action);
-
-  function AbstractFinishCardAction(actionParam) {
-    _classCallCheck(this, AbstractFinishCardAction);
-
-    return _possibleConstructorReturn(this, (AbstractFinishCardAction.__proto__ || Object.getPrototypeOf(AbstractFinishCardAction)).call(this, actionParam, 'FinishCardAction'));
-  }
-
-  _createClass(AbstractFinishCardAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new FinishCardCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractFinishCardAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractGoOnWithNewCardsAction = function (_Action) {
-  _inherits(AbstractGoOnWithNewCardsAction, _Action);
-
-  function AbstractGoOnWithNewCardsAction(actionParam) {
-    _classCallCheck(this, AbstractGoOnWithNewCardsAction);
-
-    return _possibleConstructorReturn(this, (AbstractGoOnWithNewCardsAction.__proto__ || Object.getPrototypeOf(AbstractGoOnWithNewCardsAction)).call(this, actionParam, 'GoOnWithNewCardsAction'));
-  }
-
-  _createClass(AbstractGoOnWithNewCardsAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new GoOnWithNewCardsCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractGoOnWithNewCardsAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractGoOnWithTodaysNextCardAction = function (_Action) {
-  _inherits(AbstractGoOnWithTodaysNextCardAction, _Action);
-
-  function AbstractGoOnWithTodaysNextCardAction(actionParam) {
-    _classCallCheck(this, AbstractGoOnWithTodaysNextCardAction);
-
-    return _possibleConstructorReturn(this, (AbstractGoOnWithTodaysNextCardAction.__proto__ || Object.getPrototypeOf(AbstractGoOnWithTodaysNextCardAction)).call(this, actionParam, 'GoOnWithTodaysNextCardAction'));
-  }
-
-  _createClass(AbstractGoOnWithTodaysNextCardAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new GoOnWithTodaysNextCardCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractGoOnWithTodaysNextCardAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractInitAppAction = function (_Action) {
-  _inherits(AbstractInitAppAction, _Action);
-
-  function AbstractInitAppAction(actionParam) {
-    _classCallCheck(this, AbstractInitAppAction);
-
-    return _possibleConstructorReturn(this, (AbstractInitAppAction.__proto__ || Object.getPrototypeOf(AbstractInitAppAction)).call(this, actionParam, 'InitAppAction'));
-  }
-
-  _createClass(AbstractInitAppAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new InitAppCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractInitAppAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractIsBoxFinishedAction = function (_Action) {
-  _inherits(AbstractIsBoxFinishedAction, _Action);
-
-  function AbstractIsBoxFinishedAction(actionParam) {
-    _classCallCheck(this, AbstractIsBoxFinishedAction);
-
-    return _possibleConstructorReturn(this, (AbstractIsBoxFinishedAction.__proto__ || Object.getPrototypeOf(AbstractIsBoxFinishedAction)).call(this, actionParam, 'IsBoxFinishedAction'));
-  }
-
-  _createClass(AbstractIsBoxFinishedAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new IsBoxFinishedCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractIsBoxFinishedAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractIsRatedTestFinishedAction = function (_Action) {
-  _inherits(AbstractIsRatedTestFinishedAction, _Action);
-
-  function AbstractIsRatedTestFinishedAction(actionParam) {
-    _classCallCheck(this, AbstractIsRatedTestFinishedAction);
-
-    return _possibleConstructorReturn(this, (AbstractIsRatedTestFinishedAction.__proto__ || Object.getPrototypeOf(AbstractIsRatedTestFinishedAction)).call(this, actionParam, 'IsRatedTestFinishedAction'));
-  }
-
-  _createClass(AbstractIsRatedTestFinishedAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new IsRatedTestFinishedCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractIsRatedTestFinishedAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractIsTestFinishedAction = function (_Action) {
-  _inherits(AbstractIsTestFinishedAction, _Action);
-
-  function AbstractIsTestFinishedAction(actionParam) {
-    _classCallCheck(this, AbstractIsTestFinishedAction);
-
-    return _possibleConstructorReturn(this, (AbstractIsTestFinishedAction.__proto__ || Object.getPrototypeOf(AbstractIsTestFinishedAction)).call(this, actionParam, 'IsTestFinishedAction'));
-  }
-
-  _createClass(AbstractIsTestFinishedAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new IsTestFinishedCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractIsTestFinishedAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadAccordingToHashAction = function (_Action) {
-  _inherits(AbstractLoadAccordingToHashAction, _Action);
-
-  function AbstractLoadAccordingToHashAction(actionParam) {
-    _classCallCheck(this, AbstractLoadAccordingToHashAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadAccordingToHashAction.__proto__ || Object.getPrototypeOf(AbstractLoadAccordingToHashAction)).call(this, actionParam, 'LoadAccordingToHashAction'));
-  }
-
-  _createClass(AbstractLoadAccordingToHashAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadAccordingToHashCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadAccordingToHashAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadBoxesSilentlyAction = function (_Action) {
-  _inherits(AbstractLoadBoxesSilentlyAction, _Action);
-
-  function AbstractLoadBoxesSilentlyAction(actionParam) {
-    _classCallCheck(this, AbstractLoadBoxesSilentlyAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadBoxesSilentlyAction.__proto__ || Object.getPrototypeOf(AbstractLoadBoxesSilentlyAction)).call(this, actionParam, 'LoadBoxesSilentlyAction'));
-  }
-
-  _createClass(AbstractLoadBoxesSilentlyAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadBoxesSilentlyCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadBoxesSilentlyAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadNextCardAction = function (_Action) {
-  _inherits(AbstractLoadNextCardAction, _Action);
-
-  function AbstractLoadNextCardAction(actionParam) {
-    _classCallCheck(this, AbstractLoadNextCardAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadNextCardAction.__proto__ || Object.getPrototypeOf(AbstractLoadNextCardAction)).call(this, actionParam, 'LoadNextCardAction'));
-  }
-
-  _createClass(AbstractLoadNextCardAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadNextCardCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadNextCardAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPrivateCoursesAction = function (_Action) {
-  _inherits(AbstractLoadPrivateCoursesAction, _Action);
-
-  function AbstractLoadPrivateCoursesAction(actionParam) {
-    _classCallCheck(this, AbstractLoadPrivateCoursesAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadPrivateCoursesAction.__proto__ || Object.getPrototypeOf(AbstractLoadPrivateCoursesAction)).call(this, actionParam, 'LoadPrivateCoursesAction'));
-  }
-
-  _createClass(AbstractLoadPrivateCoursesAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadPrivateCoursesCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadPrivateCoursesAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPrivateCoursesSilentlyAction = function (_Action) {
-  _inherits(AbstractLoadPrivateCoursesSilentlyAction, _Action);
-
-  function AbstractLoadPrivateCoursesSilentlyAction(actionParam) {
-    _classCallCheck(this, AbstractLoadPrivateCoursesSilentlyAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadPrivateCoursesSilentlyAction.__proto__ || Object.getPrototypeOf(AbstractLoadPrivateCoursesSilentlyAction)).call(this, actionParam, 'LoadPrivateCoursesSilentlyAction'));
-  }
-
-  _createClass(AbstractLoadPrivateCoursesSilentlyAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadPrivateCoursesSilentlyCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadPrivateCoursesSilentlyAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPrivateLessonsAction = function (_Action) {
-  _inherits(AbstractLoadPrivateLessonsAction, _Action);
-
-  function AbstractLoadPrivateLessonsAction(actionParam) {
-    _classCallCheck(this, AbstractLoadPrivateLessonsAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadPrivateLessonsAction.__proto__ || Object.getPrototypeOf(AbstractLoadPrivateLessonsAction)).call(this, actionParam, 'LoadPrivateLessonsAction'));
-  }
-
-  _createClass(AbstractLoadPrivateLessonsAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadPrivateLessonsCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadPrivateLessonsAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPrivateTestAction = function (_Action) {
-  _inherits(AbstractLoadPrivateTestAction, _Action);
-
-  function AbstractLoadPrivateTestAction(actionParam) {
-    _classCallCheck(this, AbstractLoadPrivateTestAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadPrivateTestAction.__proto__ || Object.getPrototypeOf(AbstractLoadPrivateTestAction)).call(this, actionParam, 'LoadPrivateTestAction'));
-  }
-
-  _createClass(AbstractLoadPrivateTestAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadPrivateTestCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadPrivateTestAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPrivateTestsAction = function (_Action) {
-  _inherits(AbstractLoadPrivateTestsAction, _Action);
-
-  function AbstractLoadPrivateTestsAction(actionParam) {
-    _classCallCheck(this, AbstractLoadPrivateTestsAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadPrivateTestsAction.__proto__ || Object.getPrototypeOf(AbstractLoadPrivateTestsAction)).call(this, actionParam, 'LoadPrivateTestsAction'));
-  }
-
-  _createClass(AbstractLoadPrivateTestsAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadPrivateTestsCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadPrivateTestsAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPrivateTestsSilentlyAction = function (_Action) {
-  _inherits(AbstractLoadPrivateTestsSilentlyAction, _Action);
-
-  function AbstractLoadPrivateTestsSilentlyAction(actionParam) {
-    _classCallCheck(this, AbstractLoadPrivateTestsSilentlyAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadPrivateTestsSilentlyAction.__proto__ || Object.getPrototypeOf(AbstractLoadPrivateTestsSilentlyAction)).call(this, actionParam, 'LoadPrivateTestsSilentlyAction'));
-  }
-
-  _createClass(AbstractLoadPrivateTestsSilentlyAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadPrivateTestsSilentlyCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadPrivateTestsSilentlyAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPublicCoursesAction = function (_Action) {
-  _inherits(AbstractLoadPublicCoursesAction, _Action);
-
-  function AbstractLoadPublicCoursesAction(actionParam) {
-    _classCallCheck(this, AbstractLoadPublicCoursesAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadPublicCoursesAction.__proto__ || Object.getPrototypeOf(AbstractLoadPublicCoursesAction)).call(this, actionParam, 'LoadPublicCoursesAction'));
-  }
-
-  _createClass(AbstractLoadPublicCoursesAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadPublicCoursesCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadPublicCoursesAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPublicLessonsAction = function (_Action) {
-  _inherits(AbstractLoadPublicLessonsAction, _Action);
-
-  function AbstractLoadPublicLessonsAction(actionParam) {
-    _classCallCheck(this, AbstractLoadPublicLessonsAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadPublicLessonsAction.__proto__ || Object.getPrototypeOf(AbstractLoadPublicLessonsAction)).call(this, actionParam, 'LoadPublicLessonsAction'));
-  }
-
-  _createClass(AbstractLoadPublicLessonsAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadPublicLessonsCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadPublicLessonsAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPublicTestAction = function (_Action) {
-  _inherits(AbstractLoadPublicTestAction, _Action);
-
-  function AbstractLoadPublicTestAction(actionParam) {
-    _classCallCheck(this, AbstractLoadPublicTestAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadPublicTestAction.__proto__ || Object.getPrototypeOf(AbstractLoadPublicTestAction)).call(this, actionParam, 'LoadPublicTestAction'));
-  }
-
-  _createClass(AbstractLoadPublicTestAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadPublicTestCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadPublicTestAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPublicTestsAction = function (_Action) {
-  _inherits(AbstractLoadPublicTestsAction, _Action);
-
-  function AbstractLoadPublicTestsAction(actionParam) {
-    _classCallCheck(this, AbstractLoadPublicTestsAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadPublicTestsAction.__proto__ || Object.getPrototypeOf(AbstractLoadPublicTestsAction)).call(this, actionParam, 'LoadPublicTestsAction'));
-  }
-
-  _createClass(AbstractLoadPublicTestsAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadPublicTestsCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadPublicTestsAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadResultAction = function (_Action) {
-  _inherits(AbstractLoadResultAction, _Action);
-
-  function AbstractLoadResultAction(actionParam) {
-    _classCallCheck(this, AbstractLoadResultAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadResultAction.__proto__ || Object.getPrototypeOf(AbstractLoadResultAction)).call(this, actionParam, 'LoadResultAction'));
-  }
-
-  _createClass(AbstractLoadResultAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadResultCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadResultAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadStatisticsAction = function (_Action) {
-  _inherits(AbstractLoadStatisticsAction, _Action);
-
-  function AbstractLoadStatisticsAction(actionParam) {
-    _classCallCheck(this, AbstractLoadStatisticsAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadStatisticsAction.__proto__ || Object.getPrototypeOf(AbstractLoadStatisticsAction)).call(this, actionParam, 'LoadStatisticsAction'));
-  }
-
-  _createClass(AbstractLoadStatisticsAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadStatisticsCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadStatisticsAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadTestOfResultAction = function (_Action) {
-  _inherits(AbstractLoadTestOfResultAction, _Action);
-
-  function AbstractLoadTestOfResultAction(actionParam) {
-    _classCallCheck(this, AbstractLoadTestOfResultAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoadTestOfResultAction.__proto__ || Object.getPrototypeOf(AbstractLoadTestOfResultAction)).call(this, actionParam, 'LoadTestOfResultAction'));
-  }
-
-  _createClass(AbstractLoadTestOfResultAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoadTestOfResultCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoadTestOfResultAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoginAction = function (_Action) {
-  _inherits(AbstractLoginAction, _Action);
-
-  function AbstractLoginAction(actionParam) {
-    _classCallCheck(this, AbstractLoginAction);
-
-    return _possibleConstructorReturn(this, (AbstractLoginAction.__proto__ || Object.getPrototypeOf(AbstractLoginAction)).call(this, actionParam, 'LoginAction'));
-  }
-
-  _createClass(AbstractLoginAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LoginCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLoginAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLogoutAction = function (_Action) {
-  _inherits(AbstractLogoutAction, _Action);
-
-  function AbstractLogoutAction(actionParam) {
-    _classCallCheck(this, AbstractLogoutAction);
-
-    return _possibleConstructorReturn(this, (AbstractLogoutAction.__proto__ || Object.getPrototypeOf(AbstractLogoutAction)).call(this, actionParam, 'LogoutAction'));
-  }
-
-  _createClass(AbstractLogoutAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new LogoutCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractLogoutAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractRateWordAction = function (_Action) {
-  _inherits(AbstractRateWordAction, _Action);
-
-  function AbstractRateWordAction(actionParam) {
-    _classCallCheck(this, AbstractRateWordAction);
-
-    return _possibleConstructorReturn(this, (AbstractRateWordAction.__proto__ || Object.getPrototypeOf(AbstractRateWordAction)).call(this, actionParam, 'RateWordAction'));
-  }
-
-  _createClass(AbstractRateWordAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new RateWordCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractRateWordAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractRepeatComplexCardAction = function (_Action) {
-  _inherits(AbstractRepeatComplexCardAction, _Action);
-
-  function AbstractRepeatComplexCardAction(actionParam) {
-    _classCallCheck(this, AbstractRepeatComplexCardAction);
-
-    return _possibleConstructorReturn(this, (AbstractRepeatComplexCardAction.__proto__ || Object.getPrototypeOf(AbstractRepeatComplexCardAction)).call(this, actionParam, 'RepeatComplexCardAction'));
-  }
-
-  _createClass(AbstractRepeatComplexCardAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new RepeatComplexCardCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractRepeatComplexCardAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractRepeatTodaysCardsAction = function (_Action) {
-  _inherits(AbstractRepeatTodaysCardsAction, _Action);
-
-  function AbstractRepeatTodaysCardsAction(actionParam) {
-    _classCallCheck(this, AbstractRepeatTodaysCardsAction);
-
-    return _possibleConstructorReturn(this, (AbstractRepeatTodaysCardsAction.__proto__ || Object.getPrototypeOf(AbstractRepeatTodaysCardsAction)).call(this, actionParam, 'RepeatTodaysCardsAction'));
-  }
-
-  _createClass(AbstractRepeatTodaysCardsAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new RepeatTodaysCardsCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractRepeatTodaysCardsAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractSaveResultAction = function (_Action) {
-  _inherits(AbstractSaveResultAction, _Action);
-
-  function AbstractSaveResultAction(actionParam) {
-    _classCallCheck(this, AbstractSaveResultAction);
-
-    return _possibleConstructorReturn(this, (AbstractSaveResultAction.__proto__ || Object.getPrototypeOf(AbstractSaveResultAction)).call(this, actionParam, 'SaveResultAction'));
-  }
-
-  _createClass(AbstractSaveResultAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new SaveResultCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractSaveResultAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractScoreCardAction = function (_Action) {
-  _inherits(AbstractScoreCardAction, _Action);
-
-  function AbstractScoreCardAction(actionParam) {
-    _classCallCheck(this, AbstractScoreCardAction);
-
-    return _possibleConstructorReturn(this, (AbstractScoreCardAction.__proto__ || Object.getPrototypeOf(AbstractScoreCardAction)).call(this, actionParam, 'ScoreCardAction'));
-  }
-
-  _createClass(AbstractScoreCardAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new ScoreCardCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractScoreCardAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractShowNextCardItemAction = function (_Action) {
-  _inherits(AbstractShowNextCardItemAction, _Action);
-
-  function AbstractShowNextCardItemAction(actionParam) {
-    _classCallCheck(this, AbstractShowNextCardItemAction);
-
-    return _possibleConstructorReturn(this, (AbstractShowNextCardItemAction.__proto__ || Object.getPrototypeOf(AbstractShowNextCardItemAction)).call(this, actionParam, 'ShowNextCardItemAction'));
-  }
-
-  _createClass(AbstractShowNextCardItemAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new ShowNextCardItemCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractShowNextCardItemAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractShowNextWordOfTestAction = function (_Action) {
-  _inherits(AbstractShowNextWordOfTestAction, _Action);
-
-  function AbstractShowNextWordOfTestAction(actionParam) {
-    _classCallCheck(this, AbstractShowNextWordOfTestAction);
-
-    return _possibleConstructorReturn(this, (AbstractShowNextWordOfTestAction.__proto__ || Object.getPrototypeOf(AbstractShowNextWordOfTestAction)).call(this, actionParam, 'ShowNextWordOfTestAction'));
-  }
-
-  _createClass(AbstractShowNextWordOfTestAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new ShowNextWordOfTestCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractShowNextWordOfTestAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractShowWordAction = function (_Action) {
-  _inherits(AbstractShowWordAction, _Action);
-
-  function AbstractShowWordAction(actionParam) {
-    _classCallCheck(this, AbstractShowWordAction);
-
-    return _possibleConstructorReturn(this, (AbstractShowWordAction.__proto__ || Object.getPrototypeOf(AbstractShowWordAction)).call(this, actionParam, 'ShowWordAction'));
-  }
-
-  _createClass(AbstractShowWordAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new ShowWordCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractShowWordAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractStartBoxAction = function (_Action) {
-  _inherits(AbstractStartBoxAction, _Action);
-
-  function AbstractStartBoxAction(actionParam) {
-    _classCallCheck(this, AbstractStartBoxAction);
-
-    return _possibleConstructorReturn(this, (AbstractStartBoxAction.__proto__ || Object.getPrototypeOf(AbstractStartBoxAction)).call(this, actionParam, 'StartBoxAction'));
-  }
-
-  _createClass(AbstractStartBoxAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new StartBoxCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractStartBoxAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractStartTestAction = function (_Action) {
-  _inherits(AbstractStartTestAction, _Action);
-
-  function AbstractStartTestAction(actionParam) {
-    _classCallCheck(this, AbstractStartTestAction);
-
-    return _possibleConstructorReturn(this, (AbstractStartTestAction.__proto__ || Object.getPrototypeOf(AbstractStartTestAction)).call(this, actionParam, 'StartTestAction'));
-  }
-
-  _createClass(AbstractStartTestAction, [{
-    key: 'getCommand',
-    value: function getCommand() {
-      return new StartTestCommand(this.actionData);
-    }
-  }]);
-
-  return AbstractStartTestAction;
-}(Action);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractAutoLoginCommand = function (_Command) {
-    _inherits(AbstractAutoLoginCommand, _Command);
-
-    function AbstractAutoLoginCommand(commandParam) {
-        _classCallCheck(this, AbstractAutoLoginCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractAutoLoginCommand.__proto__ || Object.getPrototypeOf(AbstractAutoLoginCommand)).call(this, commandParam, "AutoLoginCommand"));
-
-        _this.successfulAutoLogin = "successfulAutoLogin";
-        _this.autoLoginFailed = "autoLoginFailed";
-        return _this;
-    }
-
-    _createClass(AbstractAutoLoginCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.successfulAutoLogin:
-                    promises.push(new UserIsLoggedInEvent(this.commandData).publish());
-                    break;
-                case this.autoLoginFailed:
-                    promises.push(new LoginFailedEvent(this.commandData).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractAutoLoginCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractCheckIfComplexCardIsFinishedCommand = function (_Command) {
-    _inherits(AbstractCheckIfComplexCardIsFinishedCommand, _Command);
-
-    function AbstractCheckIfComplexCardIsFinishedCommand(commandParam) {
-        _classCallCheck(this, AbstractCheckIfComplexCardIsFinishedCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractCheckIfComplexCardIsFinishedCommand.__proto__ || Object.getPrototypeOf(AbstractCheckIfComplexCardIsFinishedCommand)).call(this, commandParam, "CheckIfComplexCardIsFinishedCommand"));
-
-        _this.complexCardIsFinished = "complexCardIsFinished";
-        _this.complexCardIsNotFinished = "complexCardIsNotFinished";
-        return _this;
-    }
-
-    _createClass(AbstractCheckIfComplexCardIsFinishedCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.complexCardIsFinished:
-                    promises.push(new ShowScoreButtonsEvent(this.commandData).publish());
-                    break;
-                case this.complexCardIsNotFinished:
-                    promises.push(new DoNothingEvent(this.commandData).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractCheckIfComplexCardIsFinishedCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractCorrectWordCommand = function (_Command) {
-    _inherits(AbstractCorrectWordCommand, _Command);
-
-    function AbstractCorrectWordCommand(commandParam) {
-        _classCallCheck(this, AbstractCorrectWordCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractCorrectWordCommand.__proto__ || Object.getPrototypeOf(AbstractCorrectWordCommand)).call(this, commandParam, "CorrectWordCommand"));
-
-        _this.wordIsCorrectAndFinished = "wordIsCorrectAndFinished";
-        _this.wordIsCorrectAndNotFinished = "wordIsCorrectAndNotFinished";
-        _this.wordIsNotCorrect = "wordIsNotCorrect";
-        return _this;
-    }
-
-    _createClass(AbstractCorrectWordCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.wordIsCorrectAndFinished:
-                    promises.push(new WordIsCorrectAndFinishedEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new IsTestFinishedAction(this.commandData)).publish());
-                    break;
-                case this.wordIsCorrectAndNotFinished:
-                    promises.push(new WordIsCorrectAndNotFinishedEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new IsTestFinishedAction(this.commandData)).publish());
-                    break;
-                case this.wordIsNotCorrect:
-                    promises.push(new WordIsNotCorrectEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new IsTestFinishedAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractCorrectWordCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractFinishCardCommand = function (_Command) {
-    _inherits(AbstractFinishCardCommand, _Command);
-
-    function AbstractFinishCardCommand(commandParam) {
-        _classCallCheck(this, AbstractFinishCardCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractFinishCardCommand.__proto__ || Object.getPrototypeOf(AbstractFinishCardCommand)).call(this, commandParam, "FinishCardCommand"));
-
-        _this.cardFinished = "cardFinished";
-        return _this;
-    }
-
-    _createClass(AbstractFinishCardCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.cardFinished:
-                    promises.push(new DisplayComplexCardFinishedSuccessfullyEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new SaveResultAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractFinishCardCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractGoOnWithNewCardsCommand = function (_Command) {
-    _inherits(AbstractGoOnWithNewCardsCommand, _Command);
-
-    function AbstractGoOnWithNewCardsCommand(commandParam) {
-        _classCallCheck(this, AbstractGoOnWithNewCardsCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractGoOnWithNewCardsCommand.__proto__ || Object.getPrototypeOf(AbstractGoOnWithNewCardsCommand)).call(this, commandParam, "GoOnWithNewCardsCommand"));
-
-        _this.goOnWithNewCards = "goOnWithNewCards";
-        return _this;
-    }
-
-    _createClass(AbstractGoOnWithNewCardsCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.goOnWithNewCards:
-                    promises.push(new GoOnWithNewCardsEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LoadNextCardAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractGoOnWithNewCardsCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractGoOnWithTodaysNextCardCommand = function (_Command) {
-    _inherits(AbstractGoOnWithTodaysNextCardCommand, _Command);
-
-    function AbstractGoOnWithTodaysNextCardCommand(commandParam) {
-        _classCallCheck(this, AbstractGoOnWithTodaysNextCardCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractGoOnWithTodaysNextCardCommand.__proto__ || Object.getPrototypeOf(AbstractGoOnWithTodaysNextCardCommand)).call(this, commandParam, "GoOnWithTodaysNextCardCommand"));
-
-        _this.goOnWithTodaysCards = "goOnWithTodaysCards";
-        return _this;
-    }
-
-    _createClass(AbstractGoOnWithTodaysNextCardCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.goOnWithTodaysCards:
-                    promises.push(new TriggerAction(new IsBoxFinishedAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractGoOnWithTodaysNextCardCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractInitAppCommand = function (_Command) {
-    _inherits(AbstractInitAppCommand, _Command);
-
-    function AbstractInitAppCommand(commandParam) {
-        _classCallCheck(this, AbstractInitAppCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractInitAppCommand.__proto__ || Object.getPrototypeOf(AbstractInitAppCommand)).call(this, commandParam, "InitAppCommand"));
-
-        _this.autoLogin = "autoLogin";
-        _this.userIsNotLoggedIn = "userIsNotLoggedIn";
-        return _this;
-    }
-
-    _createClass(AbstractInitAppCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.autoLogin:
-                    promises.push(new TriggerAction(new AutoLoginAction(this.commandData)).publish());
-                    promises.push(new TriggerAction(new LoadAccordingToHashAction(this.commandData)).publish());
-                    break;
-                case this.userIsNotLoggedIn:
-                    promises.push(new UserIsNotLoggedInEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LoadAccordingToHashAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractInitAppCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractIsBoxFinishedCommand = function (_Command) {
-    _inherits(AbstractIsBoxFinishedCommand, _Command);
-
-    function AbstractIsBoxFinishedCommand(commandParam) {
-        _classCallCheck(this, AbstractIsBoxFinishedCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractIsBoxFinishedCommand.__proto__ || Object.getPrototypeOf(AbstractIsBoxFinishedCommand)).call(this, commandParam, "IsBoxFinishedCommand"));
-
-        _this.notFinished = "notFinished";
-        _this.finished = "finished";
-        return _this;
-    }
-
-    _createClass(AbstractIsBoxFinishedCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.notFinished:
-                    promises.push(new RenderCardForRepetitionEvent(this.commandData).publish());
-                    break;
-                case this.finished:
-                    promises.push(new TriggerAction(new StartBoxAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractIsBoxFinishedCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractIsRatedTestFinishedCommand = function (_Command) {
-    _inherits(AbstractIsRatedTestFinishedCommand, _Command);
-
-    function AbstractIsRatedTestFinishedCommand(commandParam) {
-        _classCallCheck(this, AbstractIsRatedTestFinishedCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractIsRatedTestFinishedCommand.__proto__ || Object.getPrototypeOf(AbstractIsRatedTestFinishedCommand)).call(this, commandParam, "IsRatedTestFinishedCommand"));
-
-        _this.testFailed = "testFailed";
-        _this.testFinishedSuccessfully = "testFinishedSuccessfully";
-        _this.goOnWithTest = "goOnWithTest";
-        return _this;
-    }
-
-    _createClass(AbstractIsRatedTestFinishedCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.testFailed:
-                    promises.push(new DisplayTestFailedEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new SaveResultAction(this.commandData)).publish());
-                    break;
-                case this.testFinishedSuccessfully:
-                    promises.push(new DisplayTestFinishedSuccessfullyEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new SaveResultAction(this.commandData)).publish());
-                    break;
-                case this.goOnWithTest:
-                    promises.push(new TriggerAction(new ShowNextWordOfTestAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractIsRatedTestFinishedCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractIsTestFinishedCommand = function (_Command) {
-    _inherits(AbstractIsTestFinishedCommand, _Command);
-
-    function AbstractIsTestFinishedCommand(commandParam) {
-        _classCallCheck(this, AbstractIsTestFinishedCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractIsTestFinishedCommand.__proto__ || Object.getPrototypeOf(AbstractIsTestFinishedCommand)).call(this, commandParam, "IsTestFinishedCommand"));
-
-        _this.testFailed = "testFailed";
-        _this.testFinishedSuccessfully = "testFinishedSuccessfully";
-        _this.goOnWithTest = "goOnWithTest";
-        return _this;
-    }
-
-    _createClass(AbstractIsTestFinishedCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.testFailed:
-                    promises.push(new DisplayTestFailedEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new SaveResultAction(this.commandData)).publish());
-                    break;
-                case this.testFinishedSuccessfully:
-                    promises.push(new DisplayTestFinishedSuccessfullyEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new SaveResultAction(this.commandData)).publish());
-                    break;
-                case this.goOnWithTest:
-                    promises.push(new DisplayNextWordButtonEvent(this.commandData).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractIsTestFinishedCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadAccordingToHashCommand = function (_Command) {
-    _inherits(AbstractLoadAccordingToHashCommand, _Command);
-
-    function AbstractLoadAccordingToHashCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadAccordingToHashCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadAccordingToHashCommand.__proto__ || Object.getPrototypeOf(AbstractLoadAccordingToHashCommand)).call(this, commandParam, "LoadAccordingToHashCommand"));
-
-        _this.loadPublicCourses = "loadPublicCourses";
-        _this.loadPublicLessons = "loadPublicLessons";
-        _this.loadPublicTests = "loadPublicTests";
-        _this.loadPublicTest = "loadPublicTest";
-        _this.loadPrivateCourses = "loadPrivateCourses";
-        _this.loadPrivateLessons = "loadPrivateLessons";
-        _this.loadPrivateTests = "loadPrivateTests";
-        _this.loadPrivateTest = "loadPrivateTest";
-        _this.loadResult = "loadResult";
-        _this.loadNextCard = "loadNextCard";
-        return _this;
-    }
-
-    _createClass(AbstractLoadAccordingToHashCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.loadPublicCourses:
-                    promises.push(new TriggerAction(new LoadPublicCoursesAction(this.commandData)).publish());
-                    break;
-                case this.loadPublicLessons:
-                    promises.push(new TriggerAction(new LoadPublicLessonsAction(this.commandData)).publish());
-                    break;
-                case this.loadPublicTests:
-                    promises.push(new TriggerAction(new LoadPublicTestsAction(this.commandData)).publish());
-                    break;
-                case this.loadPublicTest:
-                    promises.push(new TriggerAction(new LoadPublicTestsAction(this.commandData)).publish());
-                    promises.push(new TriggerAction(new LoadPublicTestAction(this.commandData)).publish());
-                    break;
-                case this.loadPrivateCourses:
-                    promises.push(new TriggerAction(new LoadPrivateCoursesAction(this.commandData)).publish());
-                    promises.push(new TriggerAction(new LoadBoxesSilentlyAction(this.commandData)).publish());
-                    promises.push(new TriggerAction(new LoadStatisticsAction(this.commandData)).publish());
-                    break;
-                case this.loadPrivateLessons:
-                    promises.push(new TriggerAction(new LoadPrivateLessonsAction(this.commandData)).publish());
-                    promises.push(new TriggerAction(new LoadBoxesSilentlyAction(this.commandData)).publish());
-                    break;
-                case this.loadPrivateTests:
-                    promises.push(new TriggerAction(new LoadPrivateTestsAction(this.commandData)).publish());
-                    promises.push(new TriggerAction(new LoadBoxesSilentlyAction(this.commandData)).publish());
-                    break;
-                case this.loadPrivateTest:
-                    promises.push(new TriggerAction(new LoadPrivateTestsSilentlyAction(this.commandData)).publish());
-                    promises.push(new TriggerAction(new LoadPrivateTestAction(this.commandData)).publish());
-                    promises.push(new TriggerAction(new LoadBoxesSilentlyAction(this.commandData)).publish());
-                    break;
-                case this.loadResult:
-                    promises.push(new TriggerAction(new LoadPrivateTestsSilentlyAction(this.commandData)).publish());
-                    promises.push(new TriggerAction(new LoadTestOfResultAction(this.commandData)).publish());
-                    promises.push(new TriggerAction(new LoadBoxesSilentlyAction(this.commandData)).publish());
-                    break;
-                case this.loadNextCard:
-                    promises.push(new BoxStartedEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LoadNextCardAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadAccordingToHashCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadBoxesSilentlyCommand = function (_Command) {
-    _inherits(AbstractLoadBoxesSilentlyCommand, _Command);
-
-    function AbstractLoadBoxesSilentlyCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadBoxesSilentlyCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadBoxesSilentlyCommand.__proto__ || Object.getPrototypeOf(AbstractLoadBoxesSilentlyCommand)).call(this, commandParam, "LoadBoxesSilentlyCommand"));
-
-        _this.boxSilentlyLoaded = "boxSilentlyLoaded";
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        _this.serverError = "serverError";
-        return _this;
-    }
-
-    _createClass(AbstractLoadBoxesSilentlyCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.boxSilentlyLoaded:
-                    promises.push(new BoxesSilentlyLoadedEvent(this.commandData).publish());
-                    break;
-                case this.userNotLoggedIn:
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadBoxesSilentlyCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadNextCardCommand = function (_Command) {
-    _inherits(AbstractLoadNextCardCommand, _Command);
-
-    function AbstractLoadNextCardCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadNextCardCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadNextCardCommand.__proto__ || Object.getPrototypeOf(AbstractLoadNextCardCommand)).call(this, commandParam, "LoadNextCardCommand"));
-
-        _this.nextCardLoaded = "nextCardLoaded";
-        _this.serverError = "serverError";
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        return _this;
-    }
-
-    _createClass(AbstractLoadNextCardCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.nextCardLoaded:
-                    promises.push(new NextCardLoadedEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LoadBoxesSilentlyAction(this.commandData)).publish());
-                    promises.push(new TriggerAction(new LoadPrivateCoursesSilentlyAction(this.commandData)).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.userNotLoggedIn:
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadNextCardCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPrivateCoursesCommand = function (_Command) {
-    _inherits(AbstractLoadPrivateCoursesCommand, _Command);
-
-    function AbstractLoadPrivateCoursesCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadPrivateCoursesCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadPrivateCoursesCommand.__proto__ || Object.getPrototypeOf(AbstractLoadPrivateCoursesCommand)).call(this, commandParam, "LoadPrivateCoursesCommand"));
-
-        _this.privateCoursesLoaded = "privateCoursesLoaded";
-        _this.serverError = "serverError";
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        return _this;
-    }
-
-    _createClass(AbstractLoadPrivateCoursesCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.privateCoursesLoaded:
-                    promises.push(new PrivateCoursesLoadedEvent(this.commandData).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.userNotLoggedIn:
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadPrivateCoursesCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPrivateCoursesSilentlyCommand = function (_Command) {
-    _inherits(AbstractLoadPrivateCoursesSilentlyCommand, _Command);
-
-    function AbstractLoadPrivateCoursesSilentlyCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadPrivateCoursesSilentlyCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadPrivateCoursesSilentlyCommand.__proto__ || Object.getPrototypeOf(AbstractLoadPrivateCoursesSilentlyCommand)).call(this, commandParam, "LoadPrivateCoursesSilentlyCommand"));
-
-        _this.privateCoursesSilentlyLoaded = "privateCoursesSilentlyLoaded";
-        _this.serverError = "serverError";
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        return _this;
-    }
-
-    _createClass(AbstractLoadPrivateCoursesSilentlyCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.privateCoursesSilentlyLoaded:
-                    promises.push(new PrivateCoursesSilentlyLoadedEvent(this.commandData).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.userNotLoggedIn:
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadPrivateCoursesSilentlyCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPrivateLessonsCommand = function (_Command) {
-    _inherits(AbstractLoadPrivateLessonsCommand, _Command);
-
-    function AbstractLoadPrivateLessonsCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadPrivateLessonsCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadPrivateLessonsCommand.__proto__ || Object.getPrototypeOf(AbstractLoadPrivateLessonsCommand)).call(this, commandParam, "LoadPrivateLessonsCommand"));
-
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        _this.serverError = "serverError";
-        _this.privateLessonsLoaded = "privateLessonsLoaded";
-        return _this;
-    }
-
-    _createClass(AbstractLoadPrivateLessonsCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.userNotLoggedIn:
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.privateLessonsLoaded:
-                    promises.push(new PrivateLessonsLoadedEvent(this.commandData).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadPrivateLessonsCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPrivateTestCommand = function (_Command) {
-    _inherits(AbstractLoadPrivateTestCommand, _Command);
-
-    function AbstractLoadPrivateTestCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadPrivateTestCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadPrivateTestCommand.__proto__ || Object.getPrototypeOf(AbstractLoadPrivateTestCommand)).call(this, commandParam, "LoadPrivateTestCommand"));
-
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        _this.serverError = "serverError";
-        _this.privateTestLoaded = "privateTestLoaded";
-        return _this;
-    }
-
-    _createClass(AbstractLoadPrivateTestCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.userNotLoggedIn:
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.privateTestLoaded:
-                    promises.push(new PrivateTestLoadedEvent(this.commandData).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadPrivateTestCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPrivateTestsCommand = function (_Command) {
-    _inherits(AbstractLoadPrivateTestsCommand, _Command);
-
-    function AbstractLoadPrivateTestsCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadPrivateTestsCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadPrivateTestsCommand.__proto__ || Object.getPrototypeOf(AbstractLoadPrivateTestsCommand)).call(this, commandParam, "LoadPrivateTestsCommand"));
-
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        _this.serverError = "serverError";
-        _this.privateTestsLoaded = "privateTestsLoaded";
-        return _this;
-    }
-
-    _createClass(AbstractLoadPrivateTestsCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.userNotLoggedIn:
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.privateTestsLoaded:
-                    promises.push(new PrivateTestsLoadedEvent(this.commandData).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadPrivateTestsCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPrivateTestsSilentlyCommand = function (_Command) {
-    _inherits(AbstractLoadPrivateTestsSilentlyCommand, _Command);
-
-    function AbstractLoadPrivateTestsSilentlyCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadPrivateTestsSilentlyCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadPrivateTestsSilentlyCommand.__proto__ || Object.getPrototypeOf(AbstractLoadPrivateTestsSilentlyCommand)).call(this, commandParam, "LoadPrivateTestsSilentlyCommand"));
-
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        _this.serverError = "serverError";
-        _this.privateTestsSilentlyLoaded = "privateTestsSilentlyLoaded";
-        return _this;
-    }
-
-    _createClass(AbstractLoadPrivateTestsSilentlyCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.userNotLoggedIn:
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.privateTestsSilentlyLoaded:
-                    promises.push(new PrivateTestsSilentlyLoadedEvent(this.commandData).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadPrivateTestsSilentlyCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPublicCoursesCommand = function (_Command) {
-    _inherits(AbstractLoadPublicCoursesCommand, _Command);
-
-    function AbstractLoadPublicCoursesCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadPublicCoursesCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadPublicCoursesCommand.__proto__ || Object.getPrototypeOf(AbstractLoadPublicCoursesCommand)).call(this, commandParam, "LoadPublicCoursesCommand"));
-
-        _this.publicCoursesLoaded = "publicCoursesLoaded";
-        _this.serverError = "serverError";
-        return _this;
-    }
-
-    _createClass(AbstractLoadPublicCoursesCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.publicCoursesLoaded:
-                    promises.push(new PublicCoursesLoadedEvent(this.commandData).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadPublicCoursesCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPublicLessonsCommand = function (_Command) {
-    _inherits(AbstractLoadPublicLessonsCommand, _Command);
-
-    function AbstractLoadPublicLessonsCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadPublicLessonsCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadPublicLessonsCommand.__proto__ || Object.getPrototypeOf(AbstractLoadPublicLessonsCommand)).call(this, commandParam, "LoadPublicLessonsCommand"));
-
-        _this.publicLessonsLoaded = "publicLessonsLoaded";
-        _this.serverError = "serverError";
-        return _this;
-    }
-
-    _createClass(AbstractLoadPublicLessonsCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.publicLessonsLoaded:
-                    promises.push(new PublicLessonsLoadedEvent(this.commandData).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadPublicLessonsCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPublicTestCommand = function (_Command) {
-    _inherits(AbstractLoadPublicTestCommand, _Command);
-
-    function AbstractLoadPublicTestCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadPublicTestCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadPublicTestCommand.__proto__ || Object.getPrototypeOf(AbstractLoadPublicTestCommand)).call(this, commandParam, "LoadPublicTestCommand"));
-
-        _this.publicTestLoaded = "publicTestLoaded";
-        _this.serverError = "serverError";
-        return _this;
-    }
-
-    _createClass(AbstractLoadPublicTestCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.publicTestLoaded:
-                    promises.push(new PublicTestLoadedEvent(this.commandData).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadPublicTestCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadPublicTestsCommand = function (_Command) {
-    _inherits(AbstractLoadPublicTestsCommand, _Command);
-
-    function AbstractLoadPublicTestsCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadPublicTestsCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadPublicTestsCommand.__proto__ || Object.getPrototypeOf(AbstractLoadPublicTestsCommand)).call(this, commandParam, "LoadPublicTestsCommand"));
-
-        _this.publicTestsLoaded = "publicTestsLoaded";
-        _this.serverError = "serverError";
-        return _this;
-    }
-
-    _createClass(AbstractLoadPublicTestsCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.publicTestsLoaded:
-                    promises.push(new PublicTestsLoadedEvent(this.commandData).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadPublicTestsCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadResultCommand = function (_Command) {
-    _inherits(AbstractLoadResultCommand, _Command);
-
-    function AbstractLoadResultCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadResultCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadResultCommand.__proto__ || Object.getPrototypeOf(AbstractLoadResultCommand)).call(this, commandParam, "LoadResultCommand"));
-
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        _this.serverError = "serverError";
-        _this.resultLoaded = "resultLoaded";
-        return _this;
-    }
-
-    _createClass(AbstractLoadResultCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.userNotLoggedIn:
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.resultLoaded:
-                    promises.push(new ResultLoadedEvent(this.commandData).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadResultCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadStatisticsCommand = function (_Command) {
-    _inherits(AbstractLoadStatisticsCommand, _Command);
-
-    function AbstractLoadStatisticsCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadStatisticsCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadStatisticsCommand.__proto__ || Object.getPrototypeOf(AbstractLoadStatisticsCommand)).call(this, commandParam, "LoadStatisticsCommand"));
-
-        _this.statisticsLoaded = "statisticsLoaded";
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        _this.serverError = "serverError";
-        return _this;
-    }
-
-    _createClass(AbstractLoadStatisticsCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.statisticsLoaded:
-                    promises.push(new StatisticsLoadedEvent(this.commandData).publish());
-                    break;
-                case this.userNotLoggedIn:
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadStatisticsCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoadTestOfResultCommand = function (_Command) {
-    _inherits(AbstractLoadTestOfResultCommand, _Command);
-
-    function AbstractLoadTestOfResultCommand(commandParam) {
-        _classCallCheck(this, AbstractLoadTestOfResultCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoadTestOfResultCommand.__proto__ || Object.getPrototypeOf(AbstractLoadTestOfResultCommand)).call(this, commandParam, "LoadTestOfResultCommand"));
-
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        _this.serverError = "serverError";
-        _this.testOfResultLoaded = "testOfResultLoaded";
-        return _this;
-    }
-
-    _createClass(AbstractLoadTestOfResultCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.userNotLoggedIn:
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.testOfResultLoaded:
-                    promises.push(new TestOfResultLoadedEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LoadResultAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoadTestOfResultCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoginCommand = function (_Command) {
-    _inherits(AbstractLoginCommand, _Command);
-
-    function AbstractLoginCommand(commandParam) {
-        _classCallCheck(this, AbstractLoginCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLoginCommand.__proto__ || Object.getPrototypeOf(AbstractLoginCommand)).call(this, commandParam, "LoginCommand"));
-
-        _this.successfulLogin = "successfulLogin";
-        _this.loginFailed = "loginFailed";
-        return _this;
-    }
-
-    _createClass(AbstractLoginCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.successfulLogin:
-                    promises.push(new UserIsLoggedInEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LoadStatisticsAction(this.commandData)).publish());
-                    promises.push(new TriggerAction(new LoadPrivateCoursesAction(this.commandData)).publish());
-                    promises.push(new TriggerAction(new LoadBoxesSilentlyAction(this.commandData)).publish());
-                    break;
-                case this.loginFailed:
-                    promises.push(new LoginFailedEvent(this.commandData).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLoginCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLogoutCommand = function (_Command) {
-    _inherits(AbstractLogoutCommand, _Command);
-
-    function AbstractLogoutCommand(commandParam) {
-        _classCallCheck(this, AbstractLogoutCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractLogoutCommand.__proto__ || Object.getPrototypeOf(AbstractLogoutCommand)).call(this, commandParam, "LogoutCommand"));
-
-        _this.successfulLogout = "successfulLogout";
-        return _this;
-    }
-
-    _createClass(AbstractLogoutCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.successfulLogout:
-                    promises.push(new UserIsNotLoggedInEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LoadPublicCoursesAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractLogoutCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractRateWordCommand = function (_Command) {
-    _inherits(AbstractRateWordCommand, _Command);
-
-    function AbstractRateWordCommand(commandParam) {
-        _classCallCheck(this, AbstractRateWordCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractRateWordCommand.__proto__ || Object.getPrototypeOf(AbstractRateWordCommand)).call(this, commandParam, "RateWordCommand"));
-
-        _this.wordIsCorrectAndFinished = "wordIsCorrectAndFinished";
-        _this.wordIsCorrectAndNotFinished = "wordIsCorrectAndNotFinished";
-        _this.wordIsNotCorrect = "wordIsNotCorrect";
-        return _this;
-    }
-
-    _createClass(AbstractRateWordCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.wordIsCorrectAndFinished:
-                    promises.push(new WordIsCorrectAndFinishedEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new IsRatedTestFinishedAction(this.commandData)).publish());
-                    break;
-                case this.wordIsCorrectAndNotFinished:
-                    promises.push(new WordIsCorrectAndNotFinishedEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new IsRatedTestFinishedAction(this.commandData)).publish());
-                    break;
-                case this.wordIsNotCorrect:
-                    promises.push(new WordIsNotCorrectEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new IsRatedTestFinishedAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractRateWordCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractRepeatComplexCardCommand = function (_Command) {
-    _inherits(AbstractRepeatComplexCardCommand, _Command);
-
-    function AbstractRepeatComplexCardCommand(commandParam) {
-        _classCallCheck(this, AbstractRepeatComplexCardCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractRepeatComplexCardCommand.__proto__ || Object.getPrototypeOf(AbstractRepeatComplexCardCommand)).call(this, commandParam, "RepeatComplexCardCommand"));
-
-        _this.repeatComplexCard = "repeatComplexCard";
-        return _this;
-    }
-
-    _createClass(AbstractRepeatComplexCardCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.repeatComplexCard:
-                    promises.push(new RepeatComplexCardEvent(this.commandData).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractRepeatComplexCardCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractRepeatTodaysCardsCommand = function (_Command) {
-    _inherits(AbstractRepeatTodaysCardsCommand, _Command);
-
-    function AbstractRepeatTodaysCardsCommand(commandParam) {
-        _classCallCheck(this, AbstractRepeatTodaysCardsCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractRepeatTodaysCardsCommand.__proto__ || Object.getPrototypeOf(AbstractRepeatTodaysCardsCommand)).call(this, commandParam, "RepeatTodaysCardsCommand"));
-
-        _this.todaysCardsLoaded = "todaysCardsLoaded";
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        _this.serverError = "serverError";
-        return _this;
-    }
-
-    _createClass(AbstractRepeatTodaysCardsCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.todaysCardsLoaded:
-                    promises.push(new RepeatTodaysCardsEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new IsBoxFinishedAction(this.commandData)).publish());
-                    break;
-                case this.userNotLoggedIn:
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractRepeatTodaysCardsCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractSaveResultCommand = function (_Command) {
-    _inherits(AbstractSaveResultCommand, _Command);
-
-    function AbstractSaveResultCommand(commandParam) {
-        _classCallCheck(this, AbstractSaveResultCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractSaveResultCommand.__proto__ || Object.getPrototypeOf(AbstractSaveResultCommand)).call(this, commandParam, "SaveResultCommand"));
-
-        _this.resultSaved = "resultSaved";
-        _this.serverError = "serverError";
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        return _this;
-    }
-
-    _createClass(AbstractSaveResultCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.resultSaved:
-                    promises.push(new ResultSavedEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LoadPrivateTestsSilentlyAction(this.commandData)).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.userNotLoggedIn:
-                    promises.push(new DoNothingEvent(this.commandData).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractSaveResultCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractScoreCardCommand = function (_Command) {
-    _inherits(AbstractScoreCardCommand, _Command);
-
-    function AbstractScoreCardCommand(commandParam) {
-        _classCallCheck(this, AbstractScoreCardCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractScoreCardCommand.__proto__ || Object.getPrototypeOf(AbstractScoreCardCommand)).call(this, commandParam, "ScoreCardCommand"));
-
-        _this.cardScored = "cardScored";
-        _this.userNotLoggedIn = "userNotLoggedIn";
-        _this.serverError = "serverError";
-        return _this;
-    }
-
-    _createClass(AbstractScoreCardCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.cardScored:
-                    promises.push(new CardScoredEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LoadNextCardAction(this.commandData)).publish());
-                    break;
-                case this.userNotLoggedIn:
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                case this.serverError:
-                    promises.push(new ServerErrorEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LogoutAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractScoreCardCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractShowNextCardItemCommand = function (_Command) {
-    _inherits(AbstractShowNextCardItemCommand, _Command);
-
-    function AbstractShowNextCardItemCommand(commandParam) {
-        _classCallCheck(this, AbstractShowNextCardItemCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractShowNextCardItemCommand.__proto__ || Object.getPrototypeOf(AbstractShowNextCardItemCommand)).call(this, commandParam, "ShowNextCardItemCommand"));
-
-        _this.showWanted = "showWanted";
-        _this.showNextLine = "showNextLine";
-        _this.showNextWord = "showNextWord";
-        return _this;
-    }
-
-    _createClass(AbstractShowNextCardItemCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.showWanted:
-                    promises.push(new ShowWantedEvent(this.commandData).publish());
-                    promises.push(new ShowScoreButtonsEvent(this.commandData).publish());
-                    break;
-                case this.showNextLine:
-                    promises.push(new ShowNextLineEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new CheckIfComplexCardIsFinishedAction(this.commandData)).publish());
-                    break;
-                case this.showNextWord:
-                    promises.push(new ShowNextWordEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new CheckIfComplexCardIsFinishedAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractShowNextCardItemCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractShowNextWordOfTestCommand = function (_Command) {
-    _inherits(AbstractShowNextWordOfTestCommand, _Command);
-
-    function AbstractShowNextWordOfTestCommand(commandParam) {
-        _classCallCheck(this, AbstractShowNextWordOfTestCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractShowNextWordOfTestCommand.__proto__ || Object.getPrototypeOf(AbstractShowNextWordOfTestCommand)).call(this, commandParam, "ShowNextWordOfTestCommand"));
-
-        _this.showNextWordOfTest = "showNextWordOfTest";
-        return _this;
-    }
-
-    _createClass(AbstractShowNextWordOfTestCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.showNextWordOfTest:
-                    promises.push(new ShowNextWordOfTestEvent(this.commandData).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractShowNextWordOfTestCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractShowWordCommand = function (_Command) {
-    _inherits(AbstractShowWordCommand, _Command);
-
-    function AbstractShowWordCommand(commandParam) {
-        _classCallCheck(this, AbstractShowWordCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractShowWordCommand.__proto__ || Object.getPrototypeOf(AbstractShowWordCommand)).call(this, commandParam, "ShowWordCommand"));
-
-        _this.showWord = "showWord";
-        return _this;
-    }
-
-    _createClass(AbstractShowWordCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.showWord:
-                    promises.push(new ShowWordEvent(this.commandData).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractShowWordCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractStartBoxCommand = function (_Command) {
-    _inherits(AbstractStartBoxCommand, _Command);
-
-    function AbstractStartBoxCommand(commandParam) {
-        _classCallCheck(this, AbstractStartBoxCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractStartBoxCommand.__proto__ || Object.getPrototypeOf(AbstractStartBoxCommand)).call(this, commandParam, "StartBoxCommand"));
-
-        _this.boxStarted = "boxStarted";
-        return _this;
-    }
-
-    _createClass(AbstractStartBoxCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.boxStarted:
-                    promises.push(new BoxStartedEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new LoadNextCardAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractStartBoxCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractStartTestCommand = function (_Command) {
-    _inherits(AbstractStartTestCommand, _Command);
-
-    function AbstractStartTestCommand(commandParam) {
-        _classCallCheck(this, AbstractStartTestCommand);
-
-        var _this = _possibleConstructorReturn(this, (AbstractStartTestCommand.__proto__ || Object.getPrototypeOf(AbstractStartTestCommand)).call(this, commandParam, "StartTestCommand"));
-
-        _this.testStarted = "testStarted";
-        return _this;
-    }
-
-    _createClass(AbstractStartTestCommand, [{
-        key: "publishEvents",
-        value: function publishEvents() {
-            var promises = [];
-
-            switch (this.commandData.outcome) {
-                case this.testStarted:
-                    promises.push(new TestStartedEvent(this.commandData).publish());
-                    promises.push(new TriggerAction(new ShowNextWordOfTestAction(this.commandData)).publish());
-                    break;
-                default:
-                    throw 'unhandled outcome: ' + this.commandData.outcome;
-            }
-            return Promise.all(promises);
-        }
-    }]);
-
-    return AbstractStartTestCommand;
-}(Command);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractBoxStartedEvent = function (_Event) {
-    _inherits(AbstractBoxStartedEvent, _Event);
-
-    function AbstractBoxStartedEvent(eventParam) {
-        _classCallCheck(this, AbstractBoxStartedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractBoxStartedEvent.__proto__ || Object.getPrototypeOf(AbstractBoxStartedEvent)).call(this, eventParam, 'BoxStartedEvent'));
-    }
-
-    return AbstractBoxStartedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractBoxesSilentlyLoadedEvent = function (_Event) {
-    _inherits(AbstractBoxesSilentlyLoadedEvent, _Event);
-
-    function AbstractBoxesSilentlyLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractBoxesSilentlyLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractBoxesSilentlyLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractBoxesSilentlyLoadedEvent)).call(this, eventParam, 'BoxesSilentlyLoadedEvent'));
-    }
-
-    return AbstractBoxesSilentlyLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractCardScoredEvent = function (_Event) {
-    _inherits(AbstractCardScoredEvent, _Event);
-
-    function AbstractCardScoredEvent(eventParam) {
-        _classCallCheck(this, AbstractCardScoredEvent);
-
-        return _possibleConstructorReturn(this, (AbstractCardScoredEvent.__proto__ || Object.getPrototypeOf(AbstractCardScoredEvent)).call(this, eventParam, 'CardScoredEvent'));
-    }
-
-    return AbstractCardScoredEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractDisplayComplexCardFinishedSuccessfullyEvent = function (_Event) {
-    _inherits(AbstractDisplayComplexCardFinishedSuccessfullyEvent, _Event);
-
-    function AbstractDisplayComplexCardFinishedSuccessfullyEvent(eventParam) {
-        _classCallCheck(this, AbstractDisplayComplexCardFinishedSuccessfullyEvent);
-
-        return _possibleConstructorReturn(this, (AbstractDisplayComplexCardFinishedSuccessfullyEvent.__proto__ || Object.getPrototypeOf(AbstractDisplayComplexCardFinishedSuccessfullyEvent)).call(this, eventParam, 'DisplayComplexCardFinishedSuccessfullyEvent'));
-    }
-
-    return AbstractDisplayComplexCardFinishedSuccessfullyEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractDisplayNextWordButtonEvent = function (_Event) {
-    _inherits(AbstractDisplayNextWordButtonEvent, _Event);
-
-    function AbstractDisplayNextWordButtonEvent(eventParam) {
-        _classCallCheck(this, AbstractDisplayNextWordButtonEvent);
-
-        return _possibleConstructorReturn(this, (AbstractDisplayNextWordButtonEvent.__proto__ || Object.getPrototypeOf(AbstractDisplayNextWordButtonEvent)).call(this, eventParam, 'DisplayNextWordButtonEvent'));
-    }
-
-    return AbstractDisplayNextWordButtonEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractDisplayTestFailedEvent = function (_Event) {
-    _inherits(AbstractDisplayTestFailedEvent, _Event);
-
-    function AbstractDisplayTestFailedEvent(eventParam) {
-        _classCallCheck(this, AbstractDisplayTestFailedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractDisplayTestFailedEvent.__proto__ || Object.getPrototypeOf(AbstractDisplayTestFailedEvent)).call(this, eventParam, 'DisplayTestFailedEvent'));
-    }
-
-    return AbstractDisplayTestFailedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractDisplayTestFinishedSuccessfullyEvent = function (_Event) {
-    _inherits(AbstractDisplayTestFinishedSuccessfullyEvent, _Event);
-
-    function AbstractDisplayTestFinishedSuccessfullyEvent(eventParam) {
-        _classCallCheck(this, AbstractDisplayTestFinishedSuccessfullyEvent);
-
-        return _possibleConstructorReturn(this, (AbstractDisplayTestFinishedSuccessfullyEvent.__proto__ || Object.getPrototypeOf(AbstractDisplayTestFinishedSuccessfullyEvent)).call(this, eventParam, 'DisplayTestFinishedSuccessfullyEvent'));
-    }
-
-    return AbstractDisplayTestFinishedSuccessfullyEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractDoNothingEvent = function (_Event) {
-    _inherits(AbstractDoNothingEvent, _Event);
-
-    function AbstractDoNothingEvent(eventParam) {
-        _classCallCheck(this, AbstractDoNothingEvent);
-
-        return _possibleConstructorReturn(this, (AbstractDoNothingEvent.__proto__ || Object.getPrototypeOf(AbstractDoNothingEvent)).call(this, eventParam, 'DoNothingEvent'));
-    }
-
-    return AbstractDoNothingEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractGoOnWithNewCardsEvent = function (_Event) {
-    _inherits(AbstractGoOnWithNewCardsEvent, _Event);
-
-    function AbstractGoOnWithNewCardsEvent(eventParam) {
-        _classCallCheck(this, AbstractGoOnWithNewCardsEvent);
-
-        return _possibleConstructorReturn(this, (AbstractGoOnWithNewCardsEvent.__proto__ || Object.getPrototypeOf(AbstractGoOnWithNewCardsEvent)).call(this, eventParam, 'GoOnWithNewCardsEvent'));
-    }
-
-    return AbstractGoOnWithNewCardsEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractLoginFailedEvent = function (_Event) {
-    _inherits(AbstractLoginFailedEvent, _Event);
-
-    function AbstractLoginFailedEvent(eventParam) {
-        _classCallCheck(this, AbstractLoginFailedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractLoginFailedEvent.__proto__ || Object.getPrototypeOf(AbstractLoginFailedEvent)).call(this, eventParam, 'LoginFailedEvent'));
-    }
-
-    return AbstractLoginFailedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractNextCardLoadedEvent = function (_Event) {
-    _inherits(AbstractNextCardLoadedEvent, _Event);
-
-    function AbstractNextCardLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractNextCardLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractNextCardLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractNextCardLoadedEvent)).call(this, eventParam, 'NextCardLoadedEvent'));
-    }
-
-    return AbstractNextCardLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractPrivateCoursesLoadedEvent = function (_Event) {
-    _inherits(AbstractPrivateCoursesLoadedEvent, _Event);
-
-    function AbstractPrivateCoursesLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractPrivateCoursesLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractPrivateCoursesLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractPrivateCoursesLoadedEvent)).call(this, eventParam, 'PrivateCoursesLoadedEvent'));
-    }
-
-    return AbstractPrivateCoursesLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractPrivateCoursesSilentlyLoadedEvent = function (_Event) {
-    _inherits(AbstractPrivateCoursesSilentlyLoadedEvent, _Event);
-
-    function AbstractPrivateCoursesSilentlyLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractPrivateCoursesSilentlyLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractPrivateCoursesSilentlyLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractPrivateCoursesSilentlyLoadedEvent)).call(this, eventParam, 'PrivateCoursesSilentlyLoadedEvent'));
-    }
-
-    return AbstractPrivateCoursesSilentlyLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractPrivateLessonsLoadedEvent = function (_Event) {
-    _inherits(AbstractPrivateLessonsLoadedEvent, _Event);
-
-    function AbstractPrivateLessonsLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractPrivateLessonsLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractPrivateLessonsLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractPrivateLessonsLoadedEvent)).call(this, eventParam, 'PrivateLessonsLoadedEvent'));
-    }
-
-    return AbstractPrivateLessonsLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractPrivateTestLoadedEvent = function (_Event) {
-    _inherits(AbstractPrivateTestLoadedEvent, _Event);
-
-    function AbstractPrivateTestLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractPrivateTestLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractPrivateTestLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractPrivateTestLoadedEvent)).call(this, eventParam, 'PrivateTestLoadedEvent'));
-    }
-
-    return AbstractPrivateTestLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractPrivateTestsLoadedEvent = function (_Event) {
-    _inherits(AbstractPrivateTestsLoadedEvent, _Event);
-
-    function AbstractPrivateTestsLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractPrivateTestsLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractPrivateTestsLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractPrivateTestsLoadedEvent)).call(this, eventParam, 'PrivateTestsLoadedEvent'));
-    }
-
-    return AbstractPrivateTestsLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractPrivateTestsSilentlyLoadedEvent = function (_Event) {
-    _inherits(AbstractPrivateTestsSilentlyLoadedEvent, _Event);
-
-    function AbstractPrivateTestsSilentlyLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractPrivateTestsSilentlyLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractPrivateTestsSilentlyLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractPrivateTestsSilentlyLoadedEvent)).call(this, eventParam, 'PrivateTestsSilentlyLoadedEvent'));
-    }
-
-    return AbstractPrivateTestsSilentlyLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractPublicCoursesLoadedEvent = function (_Event) {
-    _inherits(AbstractPublicCoursesLoadedEvent, _Event);
-
-    function AbstractPublicCoursesLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractPublicCoursesLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractPublicCoursesLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractPublicCoursesLoadedEvent)).call(this, eventParam, 'PublicCoursesLoadedEvent'));
-    }
-
-    return AbstractPublicCoursesLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractPublicLessonsLoadedEvent = function (_Event) {
-    _inherits(AbstractPublicLessonsLoadedEvent, _Event);
-
-    function AbstractPublicLessonsLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractPublicLessonsLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractPublicLessonsLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractPublicLessonsLoadedEvent)).call(this, eventParam, 'PublicLessonsLoadedEvent'));
-    }
-
-    return AbstractPublicLessonsLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractPublicTestLoadedEvent = function (_Event) {
-    _inherits(AbstractPublicTestLoadedEvent, _Event);
-
-    function AbstractPublicTestLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractPublicTestLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractPublicTestLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractPublicTestLoadedEvent)).call(this, eventParam, 'PublicTestLoadedEvent'));
-    }
-
-    return AbstractPublicTestLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractPublicTestsLoadedEvent = function (_Event) {
-    _inherits(AbstractPublicTestsLoadedEvent, _Event);
-
-    function AbstractPublicTestsLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractPublicTestsLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractPublicTestsLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractPublicTestsLoadedEvent)).call(this, eventParam, 'PublicTestsLoadedEvent'));
-    }
-
-    return AbstractPublicTestsLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractRenderCardForRepetitionEvent = function (_Event) {
-    _inherits(AbstractRenderCardForRepetitionEvent, _Event);
-
-    function AbstractRenderCardForRepetitionEvent(eventParam) {
-        _classCallCheck(this, AbstractRenderCardForRepetitionEvent);
-
-        return _possibleConstructorReturn(this, (AbstractRenderCardForRepetitionEvent.__proto__ || Object.getPrototypeOf(AbstractRenderCardForRepetitionEvent)).call(this, eventParam, 'RenderCardForRepetitionEvent'));
-    }
-
-    return AbstractRenderCardForRepetitionEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractRepeatComplexCardEvent = function (_Event) {
-    _inherits(AbstractRepeatComplexCardEvent, _Event);
-
-    function AbstractRepeatComplexCardEvent(eventParam) {
-        _classCallCheck(this, AbstractRepeatComplexCardEvent);
-
-        return _possibleConstructorReturn(this, (AbstractRepeatComplexCardEvent.__proto__ || Object.getPrototypeOf(AbstractRepeatComplexCardEvent)).call(this, eventParam, 'RepeatComplexCardEvent'));
-    }
-
-    return AbstractRepeatComplexCardEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractRepeatTodaysCardsEvent = function (_Event) {
-    _inherits(AbstractRepeatTodaysCardsEvent, _Event);
-
-    function AbstractRepeatTodaysCardsEvent(eventParam) {
-        _classCallCheck(this, AbstractRepeatTodaysCardsEvent);
-
-        return _possibleConstructorReturn(this, (AbstractRepeatTodaysCardsEvent.__proto__ || Object.getPrototypeOf(AbstractRepeatTodaysCardsEvent)).call(this, eventParam, 'RepeatTodaysCardsEvent'));
-    }
-
-    return AbstractRepeatTodaysCardsEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractResultLoadedEvent = function (_Event) {
-    _inherits(AbstractResultLoadedEvent, _Event);
-
-    function AbstractResultLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractResultLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractResultLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractResultLoadedEvent)).call(this, eventParam, 'ResultLoadedEvent'));
-    }
-
-    return AbstractResultLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractResultSavedEvent = function (_Event) {
-    _inherits(AbstractResultSavedEvent, _Event);
-
-    function AbstractResultSavedEvent(eventParam) {
-        _classCallCheck(this, AbstractResultSavedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractResultSavedEvent.__proto__ || Object.getPrototypeOf(AbstractResultSavedEvent)).call(this, eventParam, 'ResultSavedEvent'));
-    }
-
-    return AbstractResultSavedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractServerErrorEvent = function (_Event) {
-    _inherits(AbstractServerErrorEvent, _Event);
-
-    function AbstractServerErrorEvent(eventParam) {
-        _classCallCheck(this, AbstractServerErrorEvent);
-
-        return _possibleConstructorReturn(this, (AbstractServerErrorEvent.__proto__ || Object.getPrototypeOf(AbstractServerErrorEvent)).call(this, eventParam, 'ServerErrorEvent'));
-    }
-
-    return AbstractServerErrorEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractShowNextLineEvent = function (_Event) {
-    _inherits(AbstractShowNextLineEvent, _Event);
-
-    function AbstractShowNextLineEvent(eventParam) {
-        _classCallCheck(this, AbstractShowNextLineEvent);
-
-        return _possibleConstructorReturn(this, (AbstractShowNextLineEvent.__proto__ || Object.getPrototypeOf(AbstractShowNextLineEvent)).call(this, eventParam, 'ShowNextLineEvent'));
-    }
-
-    return AbstractShowNextLineEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractShowNextWordEvent = function (_Event) {
-    _inherits(AbstractShowNextWordEvent, _Event);
-
-    function AbstractShowNextWordEvent(eventParam) {
-        _classCallCheck(this, AbstractShowNextWordEvent);
-
-        return _possibleConstructorReturn(this, (AbstractShowNextWordEvent.__proto__ || Object.getPrototypeOf(AbstractShowNextWordEvent)).call(this, eventParam, 'ShowNextWordEvent'));
-    }
-
-    return AbstractShowNextWordEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractShowNextWordOfTestEvent = function (_Event) {
-    _inherits(AbstractShowNextWordOfTestEvent, _Event);
-
-    function AbstractShowNextWordOfTestEvent(eventParam) {
-        _classCallCheck(this, AbstractShowNextWordOfTestEvent);
-
-        return _possibleConstructorReturn(this, (AbstractShowNextWordOfTestEvent.__proto__ || Object.getPrototypeOf(AbstractShowNextWordOfTestEvent)).call(this, eventParam, 'ShowNextWordOfTestEvent'));
-    }
-
-    return AbstractShowNextWordOfTestEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractShowScoreButtonsEvent = function (_Event) {
-    _inherits(AbstractShowScoreButtonsEvent, _Event);
-
-    function AbstractShowScoreButtonsEvent(eventParam) {
-        _classCallCheck(this, AbstractShowScoreButtonsEvent);
-
-        return _possibleConstructorReturn(this, (AbstractShowScoreButtonsEvent.__proto__ || Object.getPrototypeOf(AbstractShowScoreButtonsEvent)).call(this, eventParam, 'ShowScoreButtonsEvent'));
-    }
-
-    return AbstractShowScoreButtonsEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractShowWantedEvent = function (_Event) {
-    _inherits(AbstractShowWantedEvent, _Event);
-
-    function AbstractShowWantedEvent(eventParam) {
-        _classCallCheck(this, AbstractShowWantedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractShowWantedEvent.__proto__ || Object.getPrototypeOf(AbstractShowWantedEvent)).call(this, eventParam, 'ShowWantedEvent'));
-    }
-
-    return AbstractShowWantedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractShowWordEvent = function (_Event) {
-    _inherits(AbstractShowWordEvent, _Event);
-
-    function AbstractShowWordEvent(eventParam) {
-        _classCallCheck(this, AbstractShowWordEvent);
-
-        return _possibleConstructorReturn(this, (AbstractShowWordEvent.__proto__ || Object.getPrototypeOf(AbstractShowWordEvent)).call(this, eventParam, 'ShowWordEvent'));
-    }
-
-    return AbstractShowWordEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractStatisticsLoadedEvent = function (_Event) {
-    _inherits(AbstractStatisticsLoadedEvent, _Event);
-
-    function AbstractStatisticsLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractStatisticsLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractStatisticsLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractStatisticsLoadedEvent)).call(this, eventParam, 'StatisticsLoadedEvent'));
-    }
-
-    return AbstractStatisticsLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractTestOfResultLoadedEvent = function (_Event) {
-    _inherits(AbstractTestOfResultLoadedEvent, _Event);
-
-    function AbstractTestOfResultLoadedEvent(eventParam) {
-        _classCallCheck(this, AbstractTestOfResultLoadedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractTestOfResultLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractTestOfResultLoadedEvent)).call(this, eventParam, 'TestOfResultLoadedEvent'));
-    }
-
-    return AbstractTestOfResultLoadedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractTestStartedEvent = function (_Event) {
-    _inherits(AbstractTestStartedEvent, _Event);
-
-    function AbstractTestStartedEvent(eventParam) {
-        _classCallCheck(this, AbstractTestStartedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractTestStartedEvent.__proto__ || Object.getPrototypeOf(AbstractTestStartedEvent)).call(this, eventParam, 'TestStartedEvent'));
-    }
-
-    return AbstractTestStartedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractUserIsLoggedInEvent = function (_Event) {
-    _inherits(AbstractUserIsLoggedInEvent, _Event);
-
-    function AbstractUserIsLoggedInEvent(eventParam) {
-        _classCallCheck(this, AbstractUserIsLoggedInEvent);
-
-        return _possibleConstructorReturn(this, (AbstractUserIsLoggedInEvent.__proto__ || Object.getPrototypeOf(AbstractUserIsLoggedInEvent)).call(this, eventParam, 'UserIsLoggedInEvent'));
-    }
-
-    return AbstractUserIsLoggedInEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractUserIsNotLoggedInEvent = function (_Event) {
-    _inherits(AbstractUserIsNotLoggedInEvent, _Event);
-
-    function AbstractUserIsNotLoggedInEvent(eventParam) {
-        _classCallCheck(this, AbstractUserIsNotLoggedInEvent);
-
-        return _possibleConstructorReturn(this, (AbstractUserIsNotLoggedInEvent.__proto__ || Object.getPrototypeOf(AbstractUserIsNotLoggedInEvent)).call(this, eventParam, 'UserIsNotLoggedInEvent'));
-    }
-
-    return AbstractUserIsNotLoggedInEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractWordIsCorrectAndFinishedEvent = function (_Event) {
-    _inherits(AbstractWordIsCorrectAndFinishedEvent, _Event);
-
-    function AbstractWordIsCorrectAndFinishedEvent(eventParam) {
-        _classCallCheck(this, AbstractWordIsCorrectAndFinishedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractWordIsCorrectAndFinishedEvent.__proto__ || Object.getPrototypeOf(AbstractWordIsCorrectAndFinishedEvent)).call(this, eventParam, 'WordIsCorrectAndFinishedEvent'));
-    }
-
-    return AbstractWordIsCorrectAndFinishedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractWordIsCorrectAndNotFinishedEvent = function (_Event) {
-    _inherits(AbstractWordIsCorrectAndNotFinishedEvent, _Event);
-
-    function AbstractWordIsCorrectAndNotFinishedEvent(eventParam) {
-        _classCallCheck(this, AbstractWordIsCorrectAndNotFinishedEvent);
-
-        return _possibleConstructorReturn(this, (AbstractWordIsCorrectAndNotFinishedEvent.__proto__ || Object.getPrototypeOf(AbstractWordIsCorrectAndNotFinishedEvent)).call(this, eventParam, 'WordIsCorrectAndNotFinishedEvent'));
-    }
-
-    return AbstractWordIsCorrectAndNotFinishedEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractWordIsNotCorrectEvent = function (_Event) {
-    _inherits(AbstractWordIsNotCorrectEvent, _Event);
-
-    function AbstractWordIsNotCorrectEvent(eventParam) {
-        _classCallCheck(this, AbstractWordIsNotCorrectEvent);
-
-        return _possibleConstructorReturn(this, (AbstractWordIsNotCorrectEvent.__proto__ || Object.getPrototypeOf(AbstractWordIsNotCorrectEvent)).call(this, eventParam, 'WordIsNotCorrectEvent'));
-    }
-
-    return AbstractWordIsNotCorrectEvent;
-}(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var EventListenerRegistrationCard = function () {
-   function EventListenerRegistrationCard() {
-      _classCallCheck(this, EventListenerRegistrationCard);
-   }
-
-   _createClass(EventListenerRegistrationCard, null, [{
-      key: 'init',
-      value: function init() {
-         ACEController.registerListener('ShowWantedEvent', CardView.showWanted);
-         ACEController.registerListener('ShowNextLineEvent', CardView.showNextLine);
-         ACEController.registerListener('ShowNextWordEvent', CardView.showNextWord);
-         ACEController.registerListener('ShowScoreButtonsEvent', CardView.showScoreButtons);
-      }
-   }]);
-
-   return EventListenerRegistrationCard;
-}();
-
-EventListenerRegistrationCard.init();
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AbstractCheckIfComplexCardIsFinishedAction = function (_Action) {
-  _inherits(AbstractCheckIfComplexCardIsFinishedAction, _Action);
-
-  function AbstractCheckIfComplexCardIsFinishedAction(actionParam) {
-    _classCallCheck(this, AbstractCheckIfComplexCardIsFinishedAction);
-
-    return _possibleConstructorReturn(this, (AbstractCheckIfComplexCardIsFinishedAction.__proto__ || Object.getPrototypeOf(AbstractCheckIfComplexCardIsFinishedAction)).call(this, actionParam, 'CheckIfComplexCardIsFinishedAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractCheckIfComplexCardIsFinishedAction).call(this, actionParam, 'CheckIfComplexCardIsFinishedAction'));
   }
 
   _createClass(AbstractCheckIfComplexCardIsFinishedAction, [{
@@ -4852,7 +853,7 @@ var AbstractFinishCardAction = function (_Action) {
   function AbstractFinishCardAction(actionParam) {
     _classCallCheck(this, AbstractFinishCardAction);
 
-    return _possibleConstructorReturn(this, (AbstractFinishCardAction.__proto__ || Object.getPrototypeOf(AbstractFinishCardAction)).call(this, actionParam, 'FinishCardAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractFinishCardAction).call(this, actionParam, 'FinishCardAction'));
   }
 
   _createClass(AbstractFinishCardAction, [{
@@ -4882,7 +883,7 @@ var AbstractScoreCardAction = function (_Action) {
   function AbstractScoreCardAction(actionParam) {
     _classCallCheck(this, AbstractScoreCardAction);
 
-    return _possibleConstructorReturn(this, (AbstractScoreCardAction.__proto__ || Object.getPrototypeOf(AbstractScoreCardAction)).call(this, actionParam, 'ScoreCardAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractScoreCardAction).call(this, actionParam, 'ScoreCardAction'));
   }
 
   _createClass(AbstractScoreCardAction, [{
@@ -4912,7 +913,7 @@ var AbstractShowNextCardItemAction = function (_Action) {
   function AbstractShowNextCardItemAction(actionParam) {
     _classCallCheck(this, AbstractShowNextCardItemAction);
 
-    return _possibleConstructorReturn(this, (AbstractShowNextCardItemAction.__proto__ || Object.getPrototypeOf(AbstractShowNextCardItemAction)).call(this, actionParam, 'ShowNextCardItemAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowNextCardItemAction).call(this, actionParam, 'ShowNextCardItemAction'));
   }
 
   _createClass(AbstractShowNextCardItemAction, [{
@@ -4942,7 +943,7 @@ var AbstractCheckIfComplexCardIsFinishedCommand = function (_Command) {
     function AbstractCheckIfComplexCardIsFinishedCommand(commandParam) {
         _classCallCheck(this, AbstractCheckIfComplexCardIsFinishedCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractCheckIfComplexCardIsFinishedCommand.__proto__ || Object.getPrototypeOf(AbstractCheckIfComplexCardIsFinishedCommand)).call(this, commandParam, "CheckIfComplexCardIsFinishedCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractCheckIfComplexCardIsFinishedCommand).call(this, commandParam, "CheckIfComplexCardIsFinishedCommand"));
 
         _this.complexCardIsFinished = "complexCardIsFinished";
         _this.complexCardIsNotFinished = "complexCardIsNotFinished";
@@ -4987,7 +988,7 @@ var AbstractFinishCardCommand = function (_Command) {
     function AbstractFinishCardCommand(commandParam) {
         _classCallCheck(this, AbstractFinishCardCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractFinishCardCommand.__proto__ || Object.getPrototypeOf(AbstractFinishCardCommand)).call(this, commandParam, "FinishCardCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractFinishCardCommand).call(this, commandParam, "FinishCardCommand"));
 
         _this.cardFinished = "cardFinished";
         return _this;
@@ -5029,7 +1030,7 @@ var AbstractScoreCardCommand = function (_Command) {
     function AbstractScoreCardCommand(commandParam) {
         _classCallCheck(this, AbstractScoreCardCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractScoreCardCommand.__proto__ || Object.getPrototypeOf(AbstractScoreCardCommand)).call(this, commandParam, "ScoreCardCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractScoreCardCommand).call(this, commandParam, "ScoreCardCommand"));
 
         _this.scored = "scored";
         _this.error = "error";
@@ -5076,7 +1077,7 @@ var AbstractShowNextCardItemCommand = function (_Command) {
     function AbstractShowNextCardItemCommand(commandParam) {
         _classCallCheck(this, AbstractShowNextCardItemCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractShowNextCardItemCommand.__proto__ || Object.getPrototypeOf(AbstractShowNextCardItemCommand)).call(this, commandParam, "ShowNextCardItemCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowNextCardItemCommand).call(this, commandParam, "ShowNextCardItemCommand"));
 
         _this.showWanted = "showWanted";
         _this.showNextLine = "showNextLine";
@@ -5127,7 +1128,7 @@ var AbstractShowNextLineEvent = function (_Event) {
     function AbstractShowNextLineEvent(eventParam) {
         _classCallCheck(this, AbstractShowNextLineEvent);
 
-        return _possibleConstructorReturn(this, (AbstractShowNextLineEvent.__proto__ || Object.getPrototypeOf(AbstractShowNextLineEvent)).call(this, eventParam, 'ShowNextLineEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowNextLineEvent).call(this, eventParam, 'ShowNextLineEvent'));
     }
 
     return AbstractShowNextLineEvent;
@@ -5148,7 +1149,7 @@ var AbstractShowNextWordEvent = function (_Event) {
     function AbstractShowNextWordEvent(eventParam) {
         _classCallCheck(this, AbstractShowNextWordEvent);
 
-        return _possibleConstructorReturn(this, (AbstractShowNextWordEvent.__proto__ || Object.getPrototypeOf(AbstractShowNextWordEvent)).call(this, eventParam, 'ShowNextWordEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowNextWordEvent).call(this, eventParam, 'ShowNextWordEvent'));
     }
 
     return AbstractShowNextWordEvent;
@@ -5169,7 +1170,7 @@ var AbstractShowScoreButtonsEvent = function (_Event) {
     function AbstractShowScoreButtonsEvent(eventParam) {
         _classCallCheck(this, AbstractShowScoreButtonsEvent);
 
-        return _possibleConstructorReturn(this, (AbstractShowScoreButtonsEvent.__proto__ || Object.getPrototypeOf(AbstractShowScoreButtonsEvent)).call(this, eventParam, 'ShowScoreButtonsEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowScoreButtonsEvent).call(this, eventParam, 'ShowScoreButtonsEvent'));
     }
 
     return AbstractShowScoreButtonsEvent;
@@ -5190,52 +1191,11 @@ var AbstractShowWantedEvent = function (_Event) {
     function AbstractShowWantedEvent(eventParam) {
         _classCallCheck(this, AbstractShowWantedEvent);
 
-        return _possibleConstructorReturn(this, (AbstractShowWantedEvent.__proto__ || Object.getPrototypeOf(AbstractShowWantedEvent)).call(this, eventParam, 'ShowWantedEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowWantedEvent).call(this, eventParam, 'ShowWantedEvent'));
     }
 
     return AbstractShowWantedEvent;
 }(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var EventListenerRegistrationCommon = function () {
-   function EventListenerRegistrationCommon() {
-      _classCallCheck(this, EventListenerRegistrationCommon);
-   }
-
-   _createClass(EventListenerRegistrationCommon, null, [{
-      key: 'init',
-      value: function init() {
-         ACEController.registerListener('InitOKEvent', CommonView.initLanguageInLocalStorage);
-         ACEController.registerListener('InitOKEvent', CommonView.initSchemaInLocalStorage);
-         ACEController.registerListener('ServerErrorEvent', ErrorView.renderServerError);
-         ACEController.registerListener('ErrorEvent', ErrorView.renderError);
-         ACEController.registerListener('MessageEvent', MessageView.renderMessage);
-         ACEController.registerListener('UpdateHashEvent', CommonView.updateHash);
-         ACEController.registerListener('UserLoggedInEvent', CommonView.initUserInLocalStorage);
-         ACEController.registerListener('UserLoggedOutEvent', CommonView.removeUserFromLocalStorage);
-         ACEController.registerListener('UserLoggedOutEvent', BoxesView.hideBoxes);
-         ACEController.registerListener('RenderResultEvent', TestView.renderResult);
-         ACEController.registerListener('FieldEmptyEvent', ValidationView.fieldEmpty);
-         ACEController.registerListener('FieldNotEmptyEvent', ValidationView.fieldNotEmpty);
-         ACEController.registerListener('DisplayRemoveCourseFromUserDialogEvent', ReallyDeleteDialogView.displayRemoveCourseFromUserDialog);
-         ACEController.registerListener('DisplayDeleteBoxDialogEvent', ReallyDeleteDialogView.displayDeleteBoxDialog);
-         ACEController.registerListener('SwitchLanguageEvent', CommonView.initLanguageInLocalStorage);
-         ACEController.registerListener('RenderLoginEvent', HeaderView.renderLogin);
-         ACEController.registerListener('RenderLogoutEvent', HeaderView.renderLogout);
-         ACEController.registerListener('RenderHomeEvent', ContentView.renderPublicCourses);
-      }
-   }]);
-
-   return EventListenerRegistrationCommon;
-}();
-
-EventListenerRegistrationCommon.init();
 
 /*       S.D.G.       */
 'use strict';
@@ -5254,7 +1214,7 @@ var AbstractAddCardsToBoxAction = function (_Action) {
   function AbstractAddCardsToBoxAction(actionParam) {
     _classCallCheck(this, AbstractAddCardsToBoxAction);
 
-    return _possibleConstructorReturn(this, (AbstractAddCardsToBoxAction.__proto__ || Object.getPrototypeOf(AbstractAddCardsToBoxAction)).call(this, actionParam, 'AddCardsToBoxAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractAddCardsToBoxAction).call(this, actionParam, 'AddCardsToBoxAction'));
   }
 
   _createClass(AbstractAddCardsToBoxAction, [{
@@ -5284,7 +1244,7 @@ var AbstractCloseAllDialogsAction = function (_Action) {
   function AbstractCloseAllDialogsAction(actionParam) {
     _classCallCheck(this, AbstractCloseAllDialogsAction);
 
-    return _possibleConstructorReturn(this, (AbstractCloseAllDialogsAction.__proto__ || Object.getPrototypeOf(AbstractCloseAllDialogsAction)).call(this, actionParam, 'CloseAllDialogsAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractCloseAllDialogsAction).call(this, actionParam, 'CloseAllDialogsAction'));
   }
 
   _createClass(AbstractCloseAllDialogsAction, [{
@@ -5314,7 +1274,7 @@ var AbstractInitAction = function (_Action) {
   function AbstractInitAction(actionParam) {
     _classCallCheck(this, AbstractInitAction);
 
-    return _possibleConstructorReturn(this, (AbstractInitAction.__proto__ || Object.getPrototypeOf(AbstractInitAction)).call(this, actionParam, 'InitAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractInitAction).call(this, actionParam, 'InitAction'));
   }
 
   _createClass(AbstractInitAction, [{
@@ -5344,7 +1304,7 @@ var AbstractLoginAction = function (_Action) {
   function AbstractLoginAction(actionParam) {
     _classCallCheck(this, AbstractLoginAction);
 
-    return _possibleConstructorReturn(this, (AbstractLoginAction.__proto__ || Object.getPrototypeOf(AbstractLoginAction)).call(this, actionParam, 'LoginAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractLoginAction).call(this, actionParam, 'LoginAction'));
   }
 
   _createClass(AbstractLoginAction, [{
@@ -5374,7 +1334,7 @@ var AbstractLogoutAction = function (_Action) {
   function AbstractLogoutAction(actionParam) {
     _classCallCheck(this, AbstractLogoutAction);
 
-    return _possibleConstructorReturn(this, (AbstractLogoutAction.__proto__ || Object.getPrototypeOf(AbstractLogoutAction)).call(this, actionParam, 'LogoutAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractLogoutAction).call(this, actionParam, 'LogoutAction'));
   }
 
   _createClass(AbstractLogoutAction, [{
@@ -5404,7 +1364,7 @@ var AbstractOpenReallyDeleteDialogAction = function (_Action) {
   function AbstractOpenReallyDeleteDialogAction(actionParam) {
     _classCallCheck(this, AbstractOpenReallyDeleteDialogAction);
 
-    return _possibleConstructorReturn(this, (AbstractOpenReallyDeleteDialogAction.__proto__ || Object.getPrototypeOf(AbstractOpenReallyDeleteDialogAction)).call(this, actionParam, 'OpenReallyDeleteDialogAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenReallyDeleteDialogAction).call(this, actionParam, 'OpenReallyDeleteDialogAction'));
   }
 
   _createClass(AbstractOpenReallyDeleteDialogAction, [{
@@ -5434,7 +1394,7 @@ var AbstractRenderHomeAction = function (_Action) {
   function AbstractRenderHomeAction(actionParam) {
     _classCallCheck(this, AbstractRenderHomeAction);
 
-    return _possibleConstructorReturn(this, (AbstractRenderHomeAction.__proto__ || Object.getPrototypeOf(AbstractRenderHomeAction)).call(this, actionParam, 'RenderHomeAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderHomeAction).call(this, actionParam, 'RenderHomeAction'));
   }
 
   _createClass(AbstractRenderHomeAction, [{
@@ -5464,7 +1424,7 @@ var AbstractRenderLoginAction = function (_Action) {
   function AbstractRenderLoginAction(actionParam) {
     _classCallCheck(this, AbstractRenderLoginAction);
 
-    return _possibleConstructorReturn(this, (AbstractRenderLoginAction.__proto__ || Object.getPrototypeOf(AbstractRenderLoginAction)).call(this, actionParam, 'RenderLoginAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderLoginAction).call(this, actionParam, 'RenderLoginAction'));
   }
 
   _createClass(AbstractRenderLoginAction, [{
@@ -5494,7 +1454,7 @@ var AbstractRenderLogoutAction = function (_Action) {
   function AbstractRenderLogoutAction(actionParam) {
     _classCallCheck(this, AbstractRenderLogoutAction);
 
-    return _possibleConstructorReturn(this, (AbstractRenderLogoutAction.__proto__ || Object.getPrototypeOf(AbstractRenderLogoutAction)).call(this, actionParam, 'RenderLogoutAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderLogoutAction).call(this, actionParam, 'RenderLogoutAction'));
   }
 
   _createClass(AbstractRenderLogoutAction, [{
@@ -5524,7 +1484,7 @@ var AbstractRouteAction = function (_Action) {
   function AbstractRouteAction(actionParam) {
     _classCallCheck(this, AbstractRouteAction);
 
-    return _possibleConstructorReturn(this, (AbstractRouteAction.__proto__ || Object.getPrototypeOf(AbstractRouteAction)).call(this, actionParam, 'RouteAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRouteAction).call(this, actionParam, 'RouteAction'));
   }
 
   _createClass(AbstractRouteAction, [{
@@ -5554,7 +1514,7 @@ var AbstractRouteHomeAction = function (_Action) {
   function AbstractRouteHomeAction(actionParam) {
     _classCallCheck(this, AbstractRouteHomeAction);
 
-    return _possibleConstructorReturn(this, (AbstractRouteHomeAction.__proto__ || Object.getPrototypeOf(AbstractRouteHomeAction)).call(this, actionParam, 'RouteHomeAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRouteHomeAction).call(this, actionParam, 'RouteHomeAction'));
   }
 
   _createClass(AbstractRouteHomeAction, [{
@@ -5584,7 +1544,7 @@ var AbstractSaveResultAction = function (_Action) {
   function AbstractSaveResultAction(actionParam) {
     _classCallCheck(this, AbstractSaveResultAction);
 
-    return _possibleConstructorReturn(this, (AbstractSaveResultAction.__proto__ || Object.getPrototypeOf(AbstractSaveResultAction)).call(this, actionParam, 'SaveResultAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSaveResultAction).call(this, actionParam, 'SaveResultAction'));
   }
 
   _createClass(AbstractSaveResultAction, [{
@@ -5614,7 +1574,7 @@ var AbstractSwitchLanguageAction = function (_Action) {
   function AbstractSwitchLanguageAction(actionParam) {
     _classCallCheck(this, AbstractSwitchLanguageAction);
 
-    return _possibleConstructorReturn(this, (AbstractSwitchLanguageAction.__proto__ || Object.getPrototypeOf(AbstractSwitchLanguageAction)).call(this, actionParam, 'SwitchLanguageAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSwitchLanguageAction).call(this, actionParam, 'SwitchLanguageAction'));
   }
 
   _createClass(AbstractSwitchLanguageAction, [{
@@ -5644,7 +1604,7 @@ var AbstractValidateRequiredFieldAction = function (_Action) {
   function AbstractValidateRequiredFieldAction(actionParam) {
     _classCallCheck(this, AbstractValidateRequiredFieldAction);
 
-    return _possibleConstructorReturn(this, (AbstractValidateRequiredFieldAction.__proto__ || Object.getPrototypeOf(AbstractValidateRequiredFieldAction)).call(this, actionParam, 'ValidateRequiredFieldAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractValidateRequiredFieldAction).call(this, actionParam, 'ValidateRequiredFieldAction'));
   }
 
   _createClass(AbstractValidateRequiredFieldAction, [{
@@ -5674,7 +1634,7 @@ var AbstractAddCardsToBoxCommand = function (_Command) {
     function AbstractAddCardsToBoxCommand(commandParam) {
         _classCallCheck(this, AbstractAddCardsToBoxCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractAddCardsToBoxCommand.__proto__ || Object.getPrototypeOf(AbstractAddCardsToBoxCommand)).call(this, commandParam, "AddCardsToBoxCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractAddCardsToBoxCommand).call(this, commandParam, "AddCardsToBoxCommand"));
 
         _this.added = "added";
         _this.error = "error";
@@ -5721,7 +1681,7 @@ var AbstractCloseAllDialogsCommand = function (_Command) {
     function AbstractCloseAllDialogsCommand(commandParam) {
         _classCallCheck(this, AbstractCloseAllDialogsCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractCloseAllDialogsCommand.__proto__ || Object.getPrototypeOf(AbstractCloseAllDialogsCommand)).call(this, commandParam, "CloseAllDialogsCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractCloseAllDialogsCommand).call(this, commandParam, "CloseAllDialogsCommand"));
 
         _this.ok = "ok";
         return _this;
@@ -5762,7 +1722,7 @@ var AbstractInitCommand = function (_Command) {
     function AbstractInitCommand(commandParam) {
         _classCallCheck(this, AbstractInitCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractInitCommand.__proto__ || Object.getPrototypeOf(AbstractInitCommand)).call(this, commandParam, "InitCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractInitCommand).call(this, commandParam, "InitCommand"));
 
         _this.publicCourses = "publicCourses";
         _this.publicLessons = "publicLessons";
@@ -5942,7 +1902,7 @@ var AbstractLoginCommand = function (_Command) {
     function AbstractLoginCommand(commandParam) {
         _classCallCheck(this, AbstractLoginCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractLoginCommand.__proto__ || Object.getPrototypeOf(AbstractLoginCommand)).call(this, commandParam, "LoginCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractLoginCommand).call(this, commandParam, "LoginCommand"));
 
         _this.ok = "ok";
         _this.error = "error";
@@ -5990,7 +1950,7 @@ var AbstractLogoutCommand = function (_Command) {
     function AbstractLogoutCommand(commandParam) {
         _classCallCheck(this, AbstractLogoutCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractLogoutCommand.__proto__ || Object.getPrototypeOf(AbstractLogoutCommand)).call(this, commandParam, "LogoutCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractLogoutCommand).call(this, commandParam, "LogoutCommand"));
 
         _this.ok = "ok";
         return _this;
@@ -6033,7 +1993,7 @@ var AbstractOpenReallyDeleteDialogCommand = function (_Command) {
     function AbstractOpenReallyDeleteDialogCommand(commandParam) {
         _classCallCheck(this, AbstractOpenReallyDeleteDialogCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractOpenReallyDeleteDialogCommand.__proto__ || Object.getPrototypeOf(AbstractOpenReallyDeleteDialogCommand)).call(this, commandParam, "OpenReallyDeleteDialogCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenReallyDeleteDialogCommand).call(this, commandParam, "OpenReallyDeleteDialogCommand"));
 
         _this.removeCourseFromUser = "removeCourseFromUser";
         _this.deleteBox = "deleteBox";
@@ -6079,7 +2039,7 @@ var AbstractRenderHomeCommand = function (_Command) {
     function AbstractRenderHomeCommand(commandParam) {
         _classCallCheck(this, AbstractRenderHomeCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractRenderHomeCommand.__proto__ || Object.getPrototypeOf(AbstractRenderHomeCommand)).call(this, commandParam, "RenderHomeCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderHomeCommand).call(this, commandParam, "RenderHomeCommand"));
 
         _this.ok = "ok";
         return _this;
@@ -6121,7 +2081,7 @@ var AbstractRenderLoginCommand = function (_Command) {
     function AbstractRenderLoginCommand(commandParam) {
         _classCallCheck(this, AbstractRenderLoginCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractRenderLoginCommand.__proto__ || Object.getPrototypeOf(AbstractRenderLoginCommand)).call(this, commandParam, "RenderLoginCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderLoginCommand).call(this, commandParam, "RenderLoginCommand"));
 
         _this.ok = "ok";
         return _this;
@@ -6163,7 +2123,7 @@ var AbstractRenderLogoutCommand = function (_Command) {
     function AbstractRenderLogoutCommand(commandParam) {
         _classCallCheck(this, AbstractRenderLogoutCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractRenderLogoutCommand.__proto__ || Object.getPrototypeOf(AbstractRenderLogoutCommand)).call(this, commandParam, "RenderLogoutCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderLogoutCommand).call(this, commandParam, "RenderLogoutCommand"));
 
         _this.ok = "ok";
         return _this;
@@ -6205,7 +2165,7 @@ var AbstractRouteCommand = function (_Command) {
     function AbstractRouteCommand(commandParam) {
         _classCallCheck(this, AbstractRouteCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractRouteCommand.__proto__ || Object.getPrototypeOf(AbstractRouteCommand)).call(this, commandParam, "RouteCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRouteCommand).call(this, commandParam, "RouteCommand"));
 
         _this.ok = "ok";
         return _this;
@@ -6248,7 +2208,7 @@ var AbstractSaveResultCommand = function (_Command) {
     function AbstractSaveResultCommand(commandParam) {
         _classCallCheck(this, AbstractSaveResultCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractSaveResultCommand.__proto__ || Object.getPrototypeOf(AbstractSaveResultCommand)).call(this, commandParam, "SaveResultCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSaveResultCommand).call(this, commandParam, "SaveResultCommand"));
 
         _this.noCredentials = "noCredentials";
         _this.resultSaved = "resultSaved";
@@ -6298,7 +2258,7 @@ var AbstractSwitchLanguageCommand = function (_Command) {
     function AbstractSwitchLanguageCommand(commandParam) {
         _classCallCheck(this, AbstractSwitchLanguageCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractSwitchLanguageCommand.__proto__ || Object.getPrototypeOf(AbstractSwitchLanguageCommand)).call(this, commandParam, "SwitchLanguageCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSwitchLanguageCommand).call(this, commandParam, "SwitchLanguageCommand"));
 
         _this.ok = "ok";
         return _this;
@@ -6341,7 +2301,7 @@ var AbstractValidateRequiredFieldCommand = function (_Command) {
     function AbstractValidateRequiredFieldCommand(commandParam) {
         _classCallCheck(this, AbstractValidateRequiredFieldCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractValidateRequiredFieldCommand.__proto__ || Object.getPrototypeOf(AbstractValidateRequiredFieldCommand)).call(this, commandParam, "ValidateRequiredFieldCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractValidateRequiredFieldCommand).call(this, commandParam, "ValidateRequiredFieldCommand"));
 
         _this.fieldEmpty = "fieldEmpty";
         _this.fieldNotEmpty = "fieldNotEmpty";
@@ -6385,7 +2345,7 @@ var AbstractDisplayDeleteBoxDialogEvent = function (_Event) {
     function AbstractDisplayDeleteBoxDialogEvent(eventParam) {
         _classCallCheck(this, AbstractDisplayDeleteBoxDialogEvent);
 
-        return _possibleConstructorReturn(this, (AbstractDisplayDeleteBoxDialogEvent.__proto__ || Object.getPrototypeOf(AbstractDisplayDeleteBoxDialogEvent)).call(this, eventParam, 'DisplayDeleteBoxDialogEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractDisplayDeleteBoxDialogEvent).call(this, eventParam, 'DisplayDeleteBoxDialogEvent'));
     }
 
     return AbstractDisplayDeleteBoxDialogEvent;
@@ -6406,7 +2366,7 @@ var AbstractDisplayRemoveCourseFromUserDialogEvent = function (_Event) {
     function AbstractDisplayRemoveCourseFromUserDialogEvent(eventParam) {
         _classCallCheck(this, AbstractDisplayRemoveCourseFromUserDialogEvent);
 
-        return _possibleConstructorReturn(this, (AbstractDisplayRemoveCourseFromUserDialogEvent.__proto__ || Object.getPrototypeOf(AbstractDisplayRemoveCourseFromUserDialogEvent)).call(this, eventParam, 'DisplayRemoveCourseFromUserDialogEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractDisplayRemoveCourseFromUserDialogEvent).call(this, eventParam, 'DisplayRemoveCourseFromUserDialogEvent'));
     }
 
     return AbstractDisplayRemoveCourseFromUserDialogEvent;
@@ -6427,7 +2387,7 @@ var AbstractErrorEvent = function (_Event) {
     function AbstractErrorEvent(eventParam) {
         _classCallCheck(this, AbstractErrorEvent);
 
-        return _possibleConstructorReturn(this, (AbstractErrorEvent.__proto__ || Object.getPrototypeOf(AbstractErrorEvent)).call(this, eventParam, 'ErrorEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractErrorEvent).call(this, eventParam, 'ErrorEvent'));
     }
 
     return AbstractErrorEvent;
@@ -6448,7 +2408,7 @@ var AbstractFieldEmptyEvent = function (_Event) {
     function AbstractFieldEmptyEvent(eventParam) {
         _classCallCheck(this, AbstractFieldEmptyEvent);
 
-        return _possibleConstructorReturn(this, (AbstractFieldEmptyEvent.__proto__ || Object.getPrototypeOf(AbstractFieldEmptyEvent)).call(this, eventParam, 'FieldEmptyEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractFieldEmptyEvent).call(this, eventParam, 'FieldEmptyEvent'));
     }
 
     return AbstractFieldEmptyEvent;
@@ -6469,7 +2429,7 @@ var AbstractFieldNotEmptyEvent = function (_Event) {
     function AbstractFieldNotEmptyEvent(eventParam) {
         _classCallCheck(this, AbstractFieldNotEmptyEvent);
 
-        return _possibleConstructorReturn(this, (AbstractFieldNotEmptyEvent.__proto__ || Object.getPrototypeOf(AbstractFieldNotEmptyEvent)).call(this, eventParam, 'FieldNotEmptyEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractFieldNotEmptyEvent).call(this, eventParam, 'FieldNotEmptyEvent'));
     }
 
     return AbstractFieldNotEmptyEvent;
@@ -6490,7 +2450,7 @@ var AbstractInitOKEvent = function (_Event) {
     function AbstractInitOKEvent(eventParam) {
         _classCallCheck(this, AbstractInitOKEvent);
 
-        return _possibleConstructorReturn(this, (AbstractInitOKEvent.__proto__ || Object.getPrototypeOf(AbstractInitOKEvent)).call(this, eventParam, 'InitOKEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractInitOKEvent).call(this, eventParam, 'InitOKEvent'));
     }
 
     return AbstractInitOKEvent;
@@ -6511,7 +2471,7 @@ var AbstractMessageEvent = function (_Event) {
     function AbstractMessageEvent(eventParam) {
         _classCallCheck(this, AbstractMessageEvent);
 
-        return _possibleConstructorReturn(this, (AbstractMessageEvent.__proto__ || Object.getPrototypeOf(AbstractMessageEvent)).call(this, eventParam, 'MessageEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractMessageEvent).call(this, eventParam, 'MessageEvent'));
     }
 
     return AbstractMessageEvent;
@@ -6532,7 +2492,7 @@ var AbstractRenderHomeEvent = function (_Event) {
     function AbstractRenderHomeEvent(eventParam) {
         _classCallCheck(this, AbstractRenderHomeEvent);
 
-        return _possibleConstructorReturn(this, (AbstractRenderHomeEvent.__proto__ || Object.getPrototypeOf(AbstractRenderHomeEvent)).call(this, eventParam, 'RenderHomeEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderHomeEvent).call(this, eventParam, 'RenderHomeEvent'));
     }
 
     return AbstractRenderHomeEvent;
@@ -6553,7 +2513,7 @@ var AbstractRenderLoginEvent = function (_Event) {
     function AbstractRenderLoginEvent(eventParam) {
         _classCallCheck(this, AbstractRenderLoginEvent);
 
-        return _possibleConstructorReturn(this, (AbstractRenderLoginEvent.__proto__ || Object.getPrototypeOf(AbstractRenderLoginEvent)).call(this, eventParam, 'RenderLoginEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderLoginEvent).call(this, eventParam, 'RenderLoginEvent'));
     }
 
     return AbstractRenderLoginEvent;
@@ -6574,7 +2534,7 @@ var AbstractRenderLogoutEvent = function (_Event) {
     function AbstractRenderLogoutEvent(eventParam) {
         _classCallCheck(this, AbstractRenderLogoutEvent);
 
-        return _possibleConstructorReturn(this, (AbstractRenderLogoutEvent.__proto__ || Object.getPrototypeOf(AbstractRenderLogoutEvent)).call(this, eventParam, 'RenderLogoutEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderLogoutEvent).call(this, eventParam, 'RenderLogoutEvent'));
     }
 
     return AbstractRenderLogoutEvent;
@@ -6595,7 +2555,7 @@ var AbstractRenderResultEvent = function (_Event) {
     function AbstractRenderResultEvent(eventParam) {
         _classCallCheck(this, AbstractRenderResultEvent);
 
-        return _possibleConstructorReturn(this, (AbstractRenderResultEvent.__proto__ || Object.getPrototypeOf(AbstractRenderResultEvent)).call(this, eventParam, 'RenderResultEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderResultEvent).call(this, eventParam, 'RenderResultEvent'));
     }
 
     return AbstractRenderResultEvent;
@@ -6616,7 +2576,7 @@ var AbstractServerErrorEvent = function (_Event) {
     function AbstractServerErrorEvent(eventParam) {
         _classCallCheck(this, AbstractServerErrorEvent);
 
-        return _possibleConstructorReturn(this, (AbstractServerErrorEvent.__proto__ || Object.getPrototypeOf(AbstractServerErrorEvent)).call(this, eventParam, 'ServerErrorEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractServerErrorEvent).call(this, eventParam, 'ServerErrorEvent'));
     }
 
     return AbstractServerErrorEvent;
@@ -6637,7 +2597,7 @@ var AbstractSwitchLanguageEvent = function (_Event) {
     function AbstractSwitchLanguageEvent(eventParam) {
         _classCallCheck(this, AbstractSwitchLanguageEvent);
 
-        return _possibleConstructorReturn(this, (AbstractSwitchLanguageEvent.__proto__ || Object.getPrototypeOf(AbstractSwitchLanguageEvent)).call(this, eventParam, 'SwitchLanguageEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSwitchLanguageEvent).call(this, eventParam, 'SwitchLanguageEvent'));
     }
 
     return AbstractSwitchLanguageEvent;
@@ -6658,7 +2618,7 @@ var AbstractUpdateHashEvent = function (_Event) {
     function AbstractUpdateHashEvent(eventParam) {
         _classCallCheck(this, AbstractUpdateHashEvent);
 
-        return _possibleConstructorReturn(this, (AbstractUpdateHashEvent.__proto__ || Object.getPrototypeOf(AbstractUpdateHashEvent)).call(this, eventParam, 'UpdateHashEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractUpdateHashEvent).call(this, eventParam, 'UpdateHashEvent'));
     }
 
     return AbstractUpdateHashEvent;
@@ -6679,7 +2639,7 @@ var AbstractUserLoggedInEvent = function (_Event) {
     function AbstractUserLoggedInEvent(eventParam) {
         _classCallCheck(this, AbstractUserLoggedInEvent);
 
-        return _possibleConstructorReturn(this, (AbstractUserLoggedInEvent.__proto__ || Object.getPrototypeOf(AbstractUserLoggedInEvent)).call(this, eventParam, 'UserLoggedInEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractUserLoggedInEvent).call(this, eventParam, 'UserLoggedInEvent'));
     }
 
     return AbstractUserLoggedInEvent;
@@ -6700,40 +2660,11 @@ var AbstractUserLoggedOutEvent = function (_Event) {
     function AbstractUserLoggedOutEvent(eventParam) {
         _classCallCheck(this, AbstractUserLoggedOutEvent);
 
-        return _possibleConstructorReturn(this, (AbstractUserLoggedOutEvent.__proto__ || Object.getPrototypeOf(AbstractUserLoggedOutEvent)).call(this, eventParam, 'UserLoggedOutEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractUserLoggedOutEvent).call(this, eventParam, 'UserLoggedOutEvent'));
     }
 
     return AbstractUserLoggedOutEvent;
 }(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var EventListenerRegistrationMultiplechoice = function () {
-   function EventListenerRegistrationMultiplechoice() {
-      _classCallCheck(this, EventListenerRegistrationMultiplechoice);
-   }
-
-   _createClass(EventListenerRegistrationMultiplechoice, null, [{
-      key: 'init',
-      value: function init() {
-         ACEController.registerListener('ShowFalseMultipleChoiceEvent', MultipleChoiceView.showFalse);
-         ACEController.registerListener('ShowFalseMultipleChoiceEvent', MultipleChoiceView.showCorrecture);
-         ACEController.registerListener('ShowCorrectMultipleChoiceEvent', MultipleChoiceView.showCorrect);
-         ACEController.registerListener('ShowCorrectMultipleChoiceEvent', MultipleChoiceView.showCorrecture);
-         ACEController.registerListener('EnableNextButtonEvent', MultipleChoiceView.enableNextButton);
-         ACEController.registerListener('DisplayNextQuestionEvent', MultipleChoiceView.displayNextQuestion);
-      }
-   }]);
-
-   return EventListenerRegistrationMultiplechoice;
-}();
-
-EventListenerRegistrationMultiplechoice.init();
 
 /*       S.D.G.       */
 'use strict';
@@ -6752,7 +2683,7 @@ var AbstractDisplayNextQuestionAction = function (_Action) {
   function AbstractDisplayNextQuestionAction(actionParam) {
     _classCallCheck(this, AbstractDisplayNextQuestionAction);
 
-    return _possibleConstructorReturn(this, (AbstractDisplayNextQuestionAction.__proto__ || Object.getPrototypeOf(AbstractDisplayNextQuestionAction)).call(this, actionParam, 'DisplayNextQuestionAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractDisplayNextQuestionAction).call(this, actionParam, 'DisplayNextQuestionAction'));
   }
 
   _createClass(AbstractDisplayNextQuestionAction, [{
@@ -6782,7 +2713,7 @@ var AbstractShowCorrectMultipleChoiceAction = function (_Action) {
   function AbstractShowCorrectMultipleChoiceAction(actionParam) {
     _classCallCheck(this, AbstractShowCorrectMultipleChoiceAction);
 
-    return _possibleConstructorReturn(this, (AbstractShowCorrectMultipleChoiceAction.__proto__ || Object.getPrototypeOf(AbstractShowCorrectMultipleChoiceAction)).call(this, actionParam, 'ShowCorrectMultipleChoiceAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowCorrectMultipleChoiceAction).call(this, actionParam, 'ShowCorrectMultipleChoiceAction'));
   }
 
   _createClass(AbstractShowCorrectMultipleChoiceAction, [{
@@ -6812,7 +2743,7 @@ var AbstractShowFalseMultipleChoiceAction = function (_Action) {
   function AbstractShowFalseMultipleChoiceAction(actionParam) {
     _classCallCheck(this, AbstractShowFalseMultipleChoiceAction);
 
-    return _possibleConstructorReturn(this, (AbstractShowFalseMultipleChoiceAction.__proto__ || Object.getPrototypeOf(AbstractShowFalseMultipleChoiceAction)).call(this, actionParam, 'ShowFalseMultipleChoiceAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowFalseMultipleChoiceAction).call(this, actionParam, 'ShowFalseMultipleChoiceAction'));
   }
 
   _createClass(AbstractShowFalseMultipleChoiceAction, [{
@@ -6842,7 +2773,7 @@ var AbstractDisplayNextQuestionCommand = function (_Command) {
     function AbstractDisplayNextQuestionCommand(commandParam) {
         _classCallCheck(this, AbstractDisplayNextQuestionCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractDisplayNextQuestionCommand.__proto__ || Object.getPrototypeOf(AbstractDisplayNextQuestionCommand)).call(this, commandParam, "DisplayNextQuestionCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractDisplayNextQuestionCommand).call(this, commandParam, "DisplayNextQuestionCommand"));
 
         _this.go = "go";
         return _this;
@@ -6884,7 +2815,7 @@ var AbstractShowCorrectMultipleChoiceCommand = function (_Command) {
     function AbstractShowCorrectMultipleChoiceCommand(commandParam) {
         _classCallCheck(this, AbstractShowCorrectMultipleChoiceCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractShowCorrectMultipleChoiceCommand.__proto__ || Object.getPrototypeOf(AbstractShowCorrectMultipleChoiceCommand)).call(this, commandParam, "ShowCorrectMultipleChoiceCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowCorrectMultipleChoiceCommand).call(this, commandParam, "ShowCorrectMultipleChoiceCommand"));
 
         _this.last = "last";
         _this.notLast = "notLast";
@@ -6932,7 +2863,7 @@ var AbstractShowFalseMultipleChoiceCommand = function (_Command) {
     function AbstractShowFalseMultipleChoiceCommand(commandParam) {
         _classCallCheck(this, AbstractShowFalseMultipleChoiceCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractShowFalseMultipleChoiceCommand.__proto__ || Object.getPrototypeOf(AbstractShowFalseMultipleChoiceCommand)).call(this, commandParam, "ShowFalseMultipleChoiceCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowFalseMultipleChoiceCommand).call(this, commandParam, "ShowFalseMultipleChoiceCommand"));
 
         _this.last = "last";
         _this.notLast = "notLast";
@@ -6978,7 +2909,7 @@ var AbstractDisplayNextQuestionEvent = function (_Event) {
     function AbstractDisplayNextQuestionEvent(eventParam) {
         _classCallCheck(this, AbstractDisplayNextQuestionEvent);
 
-        return _possibleConstructorReturn(this, (AbstractDisplayNextQuestionEvent.__proto__ || Object.getPrototypeOf(AbstractDisplayNextQuestionEvent)).call(this, eventParam, 'DisplayNextQuestionEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractDisplayNextQuestionEvent).call(this, eventParam, 'DisplayNextQuestionEvent'));
     }
 
     return AbstractDisplayNextQuestionEvent;
@@ -6999,7 +2930,7 @@ var AbstractEnableNextButtonEvent = function (_Event) {
     function AbstractEnableNextButtonEvent(eventParam) {
         _classCallCheck(this, AbstractEnableNextButtonEvent);
 
-        return _possibleConstructorReturn(this, (AbstractEnableNextButtonEvent.__proto__ || Object.getPrototypeOf(AbstractEnableNextButtonEvent)).call(this, eventParam, 'EnableNextButtonEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractEnableNextButtonEvent).call(this, eventParam, 'EnableNextButtonEvent'));
     }
 
     return AbstractEnableNextButtonEvent;
@@ -7020,7 +2951,7 @@ var AbstractShowCorrectMultipleChoiceEvent = function (_Event) {
     function AbstractShowCorrectMultipleChoiceEvent(eventParam) {
         _classCallCheck(this, AbstractShowCorrectMultipleChoiceEvent);
 
-        return _possibleConstructorReturn(this, (AbstractShowCorrectMultipleChoiceEvent.__proto__ || Object.getPrototypeOf(AbstractShowCorrectMultipleChoiceEvent)).call(this, eventParam, 'ShowCorrectMultipleChoiceEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowCorrectMultipleChoiceEvent).call(this, eventParam, 'ShowCorrectMultipleChoiceEvent'));
     }
 
     return AbstractShowCorrectMultipleChoiceEvent;
@@ -7041,63 +2972,11 @@ var AbstractShowFalseMultipleChoiceEvent = function (_Event) {
     function AbstractShowFalseMultipleChoiceEvent(eventParam) {
         _classCallCheck(this, AbstractShowFalseMultipleChoiceEvent);
 
-        return _possibleConstructorReturn(this, (AbstractShowFalseMultipleChoiceEvent.__proto__ || Object.getPrototypeOf(AbstractShowFalseMultipleChoiceEvent)).call(this, eventParam, 'ShowFalseMultipleChoiceEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowFalseMultipleChoiceEvent).call(this, eventParam, 'ShowFalseMultipleChoiceEvent'));
     }
 
     return AbstractShowFalseMultipleChoiceEvent;
 }(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var EventListenerRegistrationNavigation = function () {
-   function EventListenerRegistrationNavigation() {
-      _classCallCheck(this, EventListenerRegistrationNavigation);
-   }
-
-   _createClass(EventListenerRegistrationNavigation, null, [{
-      key: 'init',
-      value: function init() {
-         ACEController.registerListener('PublicCoursesReadEvent', NavigationView.renderPublicCourses);
-         ACEController.registerListener('PublicCoursesReadEvent', BreadcrumbsView.renderPublicCoursesBreadcrumbs);
-         ACEController.registerListener('PublicLessonsReadEvent', NavigationView.renderPublicLessons);
-         ACEController.registerListener('PublicLessonsReadEvent', ContentView.renderPublicLessons);
-         ACEController.registerListener('PublicLessonsReadEvent', BreadcrumbsView.renderPublicLessonsBreadcrumbs);
-         ACEController.registerListener('PublicTestsReadEvent', NavigationView.renderPublicTests);
-         ACEController.registerListener('PublicTestsReadEvent', ContentView.renderPublicTests);
-         ACEController.registerListener('PublicTestsReadEvent', BreadcrumbsView.renderPublicTestsBreadcrumbs);
-         ACEController.registerListener('PublicTestReadEvent', NavigationView.renderPublicTest);
-         ACEController.registerListener('PublicTestReadEvent', ContentView.renderPublicTest);
-         ACEController.registerListener('PublicTestReadEvent', BreadcrumbsView.renderPublicTestsBreadcrumbs);
-         ACEController.registerListener('PrivateCoursesReadEvent', NavigationView.renderPrivateCourses);
-         ACEController.registerListener('PrivateCoursesReadEvent', BreadcrumbsView.renderPrivateCoursesBreadcrumbs);
-         ACEController.registerListener('PrivateLessonsReadEvent', NavigationView.renderPrivateLessons);
-         ACEController.registerListener('PrivateLessonsReadEvent', ContentView.renderPrivateLessons);
-         ACEController.registerListener('PrivateLessonsReadEvent', BreadcrumbsView.renderPrivateLessonsBreadcrumbs);
-         ACEController.registerListener('PrivateTestsReadEvent', NavigationView.renderPrivateTests);
-         ACEController.registerListener('PrivateTestsReadEvent', ContentView.renderPrivateTests);
-         ACEController.registerListener('PrivateTestsReadEvent', BreadcrumbsView.renderPrivateTestsBreadcrumbs);
-         ACEController.registerListener('PrivateTestReadEvent', NavigationView.renderPrivateTest);
-         ACEController.registerListener('PrivateTestReadEvent', ContentView.renderPrivateTest);
-         ACEController.registerListener('PrivateTestReadEvent', BreadcrumbsView.renderPrivateTestsBreadcrumbs);
-         ACEController.registerListener('ResultReadEvent', NavigationView.renderPrivateTest);
-         ACEController.registerListener('ResultReadEvent', ContentView.renderPrivateTest);
-         ACEController.registerListener('ResultReadEvent', BreadcrumbsView.renderPrivateTestsBreadcrumbs);
-         ACEController.registerListener('ResultReadEvent', ContentView.renderResult);
-         ACEController.registerListener('StatisticsReadEvent', ContentView.renderStatistics);
-         ACEController.registerListener('BoxesReadEvent', BoxesView.renderBoxes);
-         ACEController.registerListener('NextCardReadEvent', ContentView.renderCard);
-      }
-   }]);
-
-   return EventListenerRegistrationNavigation;
-}();
-
-EventListenerRegistrationNavigation.init();
 
 /*       S.D.G.       */
 'use strict';
@@ -7116,7 +2995,7 @@ var AbstractReadBoxesAction = function (_Action) {
   function AbstractReadBoxesAction(actionParam) {
     _classCallCheck(this, AbstractReadBoxesAction);
 
-    return _possibleConstructorReturn(this, (AbstractReadBoxesAction.__proto__ || Object.getPrototypeOf(AbstractReadBoxesAction)).call(this, actionParam, 'ReadBoxesAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadBoxesAction).call(this, actionParam, 'ReadBoxesAction'));
   }
 
   _createClass(AbstractReadBoxesAction, [{
@@ -7146,7 +3025,7 @@ var AbstractReadNextCardAction = function (_Action) {
   function AbstractReadNextCardAction(actionParam) {
     _classCallCheck(this, AbstractReadNextCardAction);
 
-    return _possibleConstructorReturn(this, (AbstractReadNextCardAction.__proto__ || Object.getPrototypeOf(AbstractReadNextCardAction)).call(this, actionParam, 'ReadNextCardAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadNextCardAction).call(this, actionParam, 'ReadNextCardAction'));
   }
 
   _createClass(AbstractReadNextCardAction, [{
@@ -7176,7 +3055,7 @@ var AbstractReadPrivateCoursesAction = function (_Action) {
   function AbstractReadPrivateCoursesAction(actionParam) {
     _classCallCheck(this, AbstractReadPrivateCoursesAction);
 
-    return _possibleConstructorReturn(this, (AbstractReadPrivateCoursesAction.__proto__ || Object.getPrototypeOf(AbstractReadPrivateCoursesAction)).call(this, actionParam, 'ReadPrivateCoursesAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPrivateCoursesAction).call(this, actionParam, 'ReadPrivateCoursesAction'));
   }
 
   _createClass(AbstractReadPrivateCoursesAction, [{
@@ -7206,7 +3085,7 @@ var AbstractReadPrivateLessonsAction = function (_Action) {
   function AbstractReadPrivateLessonsAction(actionParam) {
     _classCallCheck(this, AbstractReadPrivateLessonsAction);
 
-    return _possibleConstructorReturn(this, (AbstractReadPrivateLessonsAction.__proto__ || Object.getPrototypeOf(AbstractReadPrivateLessonsAction)).call(this, actionParam, 'ReadPrivateLessonsAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPrivateLessonsAction).call(this, actionParam, 'ReadPrivateLessonsAction'));
   }
 
   _createClass(AbstractReadPrivateLessonsAction, [{
@@ -7236,7 +3115,7 @@ var AbstractReadPrivateTestAction = function (_Action) {
   function AbstractReadPrivateTestAction(actionParam) {
     _classCallCheck(this, AbstractReadPrivateTestAction);
 
-    return _possibleConstructorReturn(this, (AbstractReadPrivateTestAction.__proto__ || Object.getPrototypeOf(AbstractReadPrivateTestAction)).call(this, actionParam, 'ReadPrivateTestAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPrivateTestAction).call(this, actionParam, 'ReadPrivateTestAction'));
   }
 
   _createClass(AbstractReadPrivateTestAction, [{
@@ -7266,7 +3145,7 @@ var AbstractReadPrivateTestsAction = function (_Action) {
   function AbstractReadPrivateTestsAction(actionParam) {
     _classCallCheck(this, AbstractReadPrivateTestsAction);
 
-    return _possibleConstructorReturn(this, (AbstractReadPrivateTestsAction.__proto__ || Object.getPrototypeOf(AbstractReadPrivateTestsAction)).call(this, actionParam, 'ReadPrivateTestsAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPrivateTestsAction).call(this, actionParam, 'ReadPrivateTestsAction'));
   }
 
   _createClass(AbstractReadPrivateTestsAction, [{
@@ -7296,7 +3175,7 @@ var AbstractReadPublicCoursesAction = function (_Action) {
   function AbstractReadPublicCoursesAction(actionParam) {
     _classCallCheck(this, AbstractReadPublicCoursesAction);
 
-    return _possibleConstructorReturn(this, (AbstractReadPublicCoursesAction.__proto__ || Object.getPrototypeOf(AbstractReadPublicCoursesAction)).call(this, actionParam, 'ReadPublicCoursesAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPublicCoursesAction).call(this, actionParam, 'ReadPublicCoursesAction'));
   }
 
   _createClass(AbstractReadPublicCoursesAction, [{
@@ -7326,7 +3205,7 @@ var AbstractReadPublicLessonsAction = function (_Action) {
   function AbstractReadPublicLessonsAction(actionParam) {
     _classCallCheck(this, AbstractReadPublicLessonsAction);
 
-    return _possibleConstructorReturn(this, (AbstractReadPublicLessonsAction.__proto__ || Object.getPrototypeOf(AbstractReadPublicLessonsAction)).call(this, actionParam, 'ReadPublicLessonsAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPublicLessonsAction).call(this, actionParam, 'ReadPublicLessonsAction'));
   }
 
   _createClass(AbstractReadPublicLessonsAction, [{
@@ -7356,7 +3235,7 @@ var AbstractReadPublicTestAction = function (_Action) {
   function AbstractReadPublicTestAction(actionParam) {
     _classCallCheck(this, AbstractReadPublicTestAction);
 
-    return _possibleConstructorReturn(this, (AbstractReadPublicTestAction.__proto__ || Object.getPrototypeOf(AbstractReadPublicTestAction)).call(this, actionParam, 'ReadPublicTestAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPublicTestAction).call(this, actionParam, 'ReadPublicTestAction'));
   }
 
   _createClass(AbstractReadPublicTestAction, [{
@@ -7386,7 +3265,7 @@ var AbstractReadPublicTestsAction = function (_Action) {
   function AbstractReadPublicTestsAction(actionParam) {
     _classCallCheck(this, AbstractReadPublicTestsAction);
 
-    return _possibleConstructorReturn(this, (AbstractReadPublicTestsAction.__proto__ || Object.getPrototypeOf(AbstractReadPublicTestsAction)).call(this, actionParam, 'ReadPublicTestsAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPublicTestsAction).call(this, actionParam, 'ReadPublicTestsAction'));
   }
 
   _createClass(AbstractReadPublicTestsAction, [{
@@ -7416,7 +3295,7 @@ var AbstractReadResultAction = function (_Action) {
   function AbstractReadResultAction(actionParam) {
     _classCallCheck(this, AbstractReadResultAction);
 
-    return _possibleConstructorReturn(this, (AbstractReadResultAction.__proto__ || Object.getPrototypeOf(AbstractReadResultAction)).call(this, actionParam, 'ReadResultAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadResultAction).call(this, actionParam, 'ReadResultAction'));
   }
 
   _createClass(AbstractReadResultAction, [{
@@ -7446,7 +3325,7 @@ var AbstractReadStatisticsAction = function (_Action) {
   function AbstractReadStatisticsAction(actionParam) {
     _classCallCheck(this, AbstractReadStatisticsAction);
 
-    return _possibleConstructorReturn(this, (AbstractReadStatisticsAction.__proto__ || Object.getPrototypeOf(AbstractReadStatisticsAction)).call(this, actionParam, 'ReadStatisticsAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadStatisticsAction).call(this, actionParam, 'ReadStatisticsAction'));
   }
 
   _createClass(AbstractReadStatisticsAction, [{
@@ -7476,7 +3355,7 @@ var AbstractReadBoxesCommand = function (_Command) {
     function AbstractReadBoxesCommand(commandParam) {
         _classCallCheck(this, AbstractReadBoxesCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractReadBoxesCommand.__proto__ || Object.getPrototypeOf(AbstractReadBoxesCommand)).call(this, commandParam, "ReadBoxesCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadBoxesCommand).call(this, commandParam, "ReadBoxesCommand"));
 
         _this.ok = "ok";
         _this.error = "error";
@@ -7523,7 +3402,7 @@ var AbstractReadNextCardCommand = function (_Command) {
     function AbstractReadNextCardCommand(commandParam) {
         _classCallCheck(this, AbstractReadNextCardCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractReadNextCardCommand.__proto__ || Object.getPrototypeOf(AbstractReadNextCardCommand)).call(this, commandParam, "ReadNextCardCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadNextCardCommand).call(this, commandParam, "ReadNextCardCommand"));
 
         _this.ok = "ok";
         _this.error = "error";
@@ -7570,7 +3449,7 @@ var AbstractReadPrivateCoursesCommand = function (_Command) {
     function AbstractReadPrivateCoursesCommand(commandParam) {
         _classCallCheck(this, AbstractReadPrivateCoursesCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractReadPrivateCoursesCommand.__proto__ || Object.getPrototypeOf(AbstractReadPrivateCoursesCommand)).call(this, commandParam, "ReadPrivateCoursesCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPrivateCoursesCommand).call(this, commandParam, "ReadPrivateCoursesCommand"));
 
         _this.ok = "ok";
         _this.error = "error";
@@ -7616,7 +3495,7 @@ var AbstractReadPrivateLessonsCommand = function (_Command) {
     function AbstractReadPrivateLessonsCommand(commandParam) {
         _classCallCheck(this, AbstractReadPrivateLessonsCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractReadPrivateLessonsCommand.__proto__ || Object.getPrototypeOf(AbstractReadPrivateLessonsCommand)).call(this, commandParam, "ReadPrivateLessonsCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPrivateLessonsCommand).call(this, commandParam, "ReadPrivateLessonsCommand"));
 
         _this.ok = "ok";
         _this.error = "error";
@@ -7663,7 +3542,7 @@ var AbstractReadPrivateTestCommand = function (_Command) {
     function AbstractReadPrivateTestCommand(commandParam) {
         _classCallCheck(this, AbstractReadPrivateTestCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractReadPrivateTestCommand.__proto__ || Object.getPrototypeOf(AbstractReadPrivateTestCommand)).call(this, commandParam, "ReadPrivateTestCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPrivateTestCommand).call(this, commandParam, "ReadPrivateTestCommand"));
 
         _this.ok = "ok";
         _this.error = "error";
@@ -7710,7 +3589,7 @@ var AbstractReadPrivateTestsCommand = function (_Command) {
     function AbstractReadPrivateTestsCommand(commandParam) {
         _classCallCheck(this, AbstractReadPrivateTestsCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractReadPrivateTestsCommand.__proto__ || Object.getPrototypeOf(AbstractReadPrivateTestsCommand)).call(this, commandParam, "ReadPrivateTestsCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPrivateTestsCommand).call(this, commandParam, "ReadPrivateTestsCommand"));
 
         _this.ok = "ok";
         _this.error = "error";
@@ -7757,7 +3636,7 @@ var AbstractReadPublicCoursesCommand = function (_Command) {
     function AbstractReadPublicCoursesCommand(commandParam) {
         _classCallCheck(this, AbstractReadPublicCoursesCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractReadPublicCoursesCommand.__proto__ || Object.getPrototypeOf(AbstractReadPublicCoursesCommand)).call(this, commandParam, "ReadPublicCoursesCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPublicCoursesCommand).call(this, commandParam, "ReadPublicCoursesCommand"));
 
         _this.ok = "ok";
         _this.error = "error";
@@ -7803,7 +3682,7 @@ var AbstractReadPublicLessonsCommand = function (_Command) {
     function AbstractReadPublicLessonsCommand(commandParam) {
         _classCallCheck(this, AbstractReadPublicLessonsCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractReadPublicLessonsCommand.__proto__ || Object.getPrototypeOf(AbstractReadPublicLessonsCommand)).call(this, commandParam, "ReadPublicLessonsCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPublicLessonsCommand).call(this, commandParam, "ReadPublicLessonsCommand"));
 
         _this.ok = "ok";
         _this.error = "error";
@@ -7850,7 +3729,7 @@ var AbstractReadPublicTestCommand = function (_Command) {
     function AbstractReadPublicTestCommand(commandParam) {
         _classCallCheck(this, AbstractReadPublicTestCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractReadPublicTestCommand.__proto__ || Object.getPrototypeOf(AbstractReadPublicTestCommand)).call(this, commandParam, "ReadPublicTestCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPublicTestCommand).call(this, commandParam, "ReadPublicTestCommand"));
 
         _this.ok = "ok";
         _this.error = "error";
@@ -7897,7 +3776,7 @@ var AbstractReadPublicTestsCommand = function (_Command) {
     function AbstractReadPublicTestsCommand(commandParam) {
         _classCallCheck(this, AbstractReadPublicTestsCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractReadPublicTestsCommand.__proto__ || Object.getPrototypeOf(AbstractReadPublicTestsCommand)).call(this, commandParam, "ReadPublicTestsCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadPublicTestsCommand).call(this, commandParam, "ReadPublicTestsCommand"));
 
         _this.ok = "ok";
         _this.error = "error";
@@ -7944,7 +3823,7 @@ var AbstractReadResultCommand = function (_Command) {
     function AbstractReadResultCommand(commandParam) {
         _classCallCheck(this, AbstractReadResultCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractReadResultCommand.__proto__ || Object.getPrototypeOf(AbstractReadResultCommand)).call(this, commandParam, "ReadResultCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadResultCommand).call(this, commandParam, "ReadResultCommand"));
 
         _this.ok = "ok";
         _this.error = "error";
@@ -7991,7 +3870,7 @@ var AbstractReadStatisticsCommand = function (_Command) {
     function AbstractReadStatisticsCommand(commandParam) {
         _classCallCheck(this, AbstractReadStatisticsCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractReadStatisticsCommand.__proto__ || Object.getPrototypeOf(AbstractReadStatisticsCommand)).call(this, commandParam, "ReadStatisticsCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractReadStatisticsCommand).call(this, commandParam, "ReadStatisticsCommand"));
 
         _this.ok = "ok";
         _this.error = "error";
@@ -8036,7 +3915,7 @@ var AbstractBoxesReadEvent = function (_Event) {
     function AbstractBoxesReadEvent(eventParam) {
         _classCallCheck(this, AbstractBoxesReadEvent);
 
-        return _possibleConstructorReturn(this, (AbstractBoxesReadEvent.__proto__ || Object.getPrototypeOf(AbstractBoxesReadEvent)).call(this, eventParam, 'BoxesReadEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractBoxesReadEvent).call(this, eventParam, 'BoxesReadEvent'));
     }
 
     return AbstractBoxesReadEvent;
@@ -8057,7 +3936,7 @@ var AbstractNextCardReadEvent = function (_Event) {
     function AbstractNextCardReadEvent(eventParam) {
         _classCallCheck(this, AbstractNextCardReadEvent);
 
-        return _possibleConstructorReturn(this, (AbstractNextCardReadEvent.__proto__ || Object.getPrototypeOf(AbstractNextCardReadEvent)).call(this, eventParam, 'NextCardReadEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractNextCardReadEvent).call(this, eventParam, 'NextCardReadEvent'));
     }
 
     return AbstractNextCardReadEvent;
@@ -8078,7 +3957,7 @@ var AbstractPrivateCoursesReadEvent = function (_Event) {
     function AbstractPrivateCoursesReadEvent(eventParam) {
         _classCallCheck(this, AbstractPrivateCoursesReadEvent);
 
-        return _possibleConstructorReturn(this, (AbstractPrivateCoursesReadEvent.__proto__ || Object.getPrototypeOf(AbstractPrivateCoursesReadEvent)).call(this, eventParam, 'PrivateCoursesReadEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractPrivateCoursesReadEvent).call(this, eventParam, 'PrivateCoursesReadEvent'));
     }
 
     return AbstractPrivateCoursesReadEvent;
@@ -8099,7 +3978,7 @@ var AbstractPrivateLessonsReadEvent = function (_Event) {
     function AbstractPrivateLessonsReadEvent(eventParam) {
         _classCallCheck(this, AbstractPrivateLessonsReadEvent);
 
-        return _possibleConstructorReturn(this, (AbstractPrivateLessonsReadEvent.__proto__ || Object.getPrototypeOf(AbstractPrivateLessonsReadEvent)).call(this, eventParam, 'PrivateLessonsReadEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractPrivateLessonsReadEvent).call(this, eventParam, 'PrivateLessonsReadEvent'));
     }
 
     return AbstractPrivateLessonsReadEvent;
@@ -8120,7 +3999,7 @@ var AbstractPrivateTestReadEvent = function (_Event) {
     function AbstractPrivateTestReadEvent(eventParam) {
         _classCallCheck(this, AbstractPrivateTestReadEvent);
 
-        return _possibleConstructorReturn(this, (AbstractPrivateTestReadEvent.__proto__ || Object.getPrototypeOf(AbstractPrivateTestReadEvent)).call(this, eventParam, 'PrivateTestReadEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractPrivateTestReadEvent).call(this, eventParam, 'PrivateTestReadEvent'));
     }
 
     return AbstractPrivateTestReadEvent;
@@ -8141,7 +4020,7 @@ var AbstractPrivateTestsReadEvent = function (_Event) {
     function AbstractPrivateTestsReadEvent(eventParam) {
         _classCallCheck(this, AbstractPrivateTestsReadEvent);
 
-        return _possibleConstructorReturn(this, (AbstractPrivateTestsReadEvent.__proto__ || Object.getPrototypeOf(AbstractPrivateTestsReadEvent)).call(this, eventParam, 'PrivateTestsReadEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractPrivateTestsReadEvent).call(this, eventParam, 'PrivateTestsReadEvent'));
     }
 
     return AbstractPrivateTestsReadEvent;
@@ -8162,7 +4041,7 @@ var AbstractPublicCoursesReadEvent = function (_Event) {
     function AbstractPublicCoursesReadEvent(eventParam) {
         _classCallCheck(this, AbstractPublicCoursesReadEvent);
 
-        return _possibleConstructorReturn(this, (AbstractPublicCoursesReadEvent.__proto__ || Object.getPrototypeOf(AbstractPublicCoursesReadEvent)).call(this, eventParam, 'PublicCoursesReadEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractPublicCoursesReadEvent).call(this, eventParam, 'PublicCoursesReadEvent'));
     }
 
     return AbstractPublicCoursesReadEvent;
@@ -8183,7 +4062,7 @@ var AbstractPublicLessonsReadEvent = function (_Event) {
     function AbstractPublicLessonsReadEvent(eventParam) {
         _classCallCheck(this, AbstractPublicLessonsReadEvent);
 
-        return _possibleConstructorReturn(this, (AbstractPublicLessonsReadEvent.__proto__ || Object.getPrototypeOf(AbstractPublicLessonsReadEvent)).call(this, eventParam, 'PublicLessonsReadEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractPublicLessonsReadEvent).call(this, eventParam, 'PublicLessonsReadEvent'));
     }
 
     return AbstractPublicLessonsReadEvent;
@@ -8204,7 +4083,7 @@ var AbstractPublicTestReadEvent = function (_Event) {
     function AbstractPublicTestReadEvent(eventParam) {
         _classCallCheck(this, AbstractPublicTestReadEvent);
 
-        return _possibleConstructorReturn(this, (AbstractPublicTestReadEvent.__proto__ || Object.getPrototypeOf(AbstractPublicTestReadEvent)).call(this, eventParam, 'PublicTestReadEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractPublicTestReadEvent).call(this, eventParam, 'PublicTestReadEvent'));
     }
 
     return AbstractPublicTestReadEvent;
@@ -8225,7 +4104,7 @@ var AbstractPublicTestsReadEvent = function (_Event) {
     function AbstractPublicTestsReadEvent(eventParam) {
         _classCallCheck(this, AbstractPublicTestsReadEvent);
 
-        return _possibleConstructorReturn(this, (AbstractPublicTestsReadEvent.__proto__ || Object.getPrototypeOf(AbstractPublicTestsReadEvent)).call(this, eventParam, 'PublicTestsReadEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractPublicTestsReadEvent).call(this, eventParam, 'PublicTestsReadEvent'));
     }
 
     return AbstractPublicTestsReadEvent;
@@ -8246,7 +4125,7 @@ var AbstractResultReadEvent = function (_Event) {
     function AbstractResultReadEvent(eventParam) {
         _classCallCheck(this, AbstractResultReadEvent);
 
-        return _possibleConstructorReturn(this, (AbstractResultReadEvent.__proto__ || Object.getPrototypeOf(AbstractResultReadEvent)).call(this, eventParam, 'ResultReadEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractResultReadEvent).call(this, eventParam, 'ResultReadEvent'));
     }
 
     return AbstractResultReadEvent;
@@ -8267,47 +4146,11 @@ var AbstractStatisticsReadEvent = function (_Event) {
     function AbstractStatisticsReadEvent(eventParam) {
         _classCallCheck(this, AbstractStatisticsReadEvent);
 
-        return _possibleConstructorReturn(this, (AbstractStatisticsReadEvent.__proto__ || Object.getPrototypeOf(AbstractStatisticsReadEvent)).call(this, eventParam, 'StatisticsReadEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractStatisticsReadEvent).call(this, eventParam, 'StatisticsReadEvent'));
     }
 
     return AbstractStatisticsReadEvent;
 }(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var EventListenerRegistrationProfile = function () {
-   function EventListenerRegistrationProfile() {
-      _classCallCheck(this, EventListenerRegistrationProfile);
-   }
-
-   _createClass(EventListenerRegistrationProfile, null, [{
-      key: 'init',
-      value: function init() {
-         ACEController.registerListener('UserInfoLoadedEvent', UserInfoView.renderUserInfo);
-         ACEController.registerListener('CoursesLoadedEvent', UserInfoView.renderCourseSelection);
-         ACEController.registerListener('RenderBoxEvent', UserInfoView.renderBox);
-         ACEController.registerListener('RenderCourseToBoxEvent', UserInfoView.renderCourseToBox);
-         ACEController.registerListener('RenderChangePasswordEvent', UserInfoView.renderPasswordChange);
-         ACEController.registerListener('PasswordsOKEvent', UserInfoView.passwordOK);
-         ACEController.registerListener('PasswordsMismatchEvent', UserInfoView.passwordMismatch);
-         ACEController.registerListener('RenderForgotPasswordEvent', UserInfoView.renderForgotPassword);
-         ACEController.registerListener('RenderNewPasswordEvent', UserInfoView.renderNewPassword);
-         ACEController.registerListener('RenderRegistrationEvent', UserInfoView.renderRegistration);
-         ACEController.registerListener('UsernameIsAvailableEvent', UserInfoView.renderUsernameIsAvailable);
-         ACEController.registerListener('UsernameIsNotAvailableEvent', UserInfoView.renderUsernameIsNotAvailable);
-         ACEController.registerListener('PasswordEmptyEvent', UserInfoView.passwordEmpty);
-      }
-   }]);
-
-   return EventListenerRegistrationProfile;
-}();
-
-EventListenerRegistrationProfile.init();
 
 /*       S.D.G.       */
 'use strict';
@@ -8326,7 +4169,7 @@ var AbstractCheckUsernameAction = function (_Action) {
   function AbstractCheckUsernameAction(actionParam) {
     _classCallCheck(this, AbstractCheckUsernameAction);
 
-    return _possibleConstructorReturn(this, (AbstractCheckUsernameAction.__proto__ || Object.getPrototypeOf(AbstractCheckUsernameAction)).call(this, actionParam, 'CheckUsernameAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractCheckUsernameAction).call(this, actionParam, 'CheckUsernameAction'));
   }
 
   _createClass(AbstractCheckUsernameAction, [{
@@ -8356,7 +4199,7 @@ var AbstractConfirmEmailAction = function (_Action) {
   function AbstractConfirmEmailAction(actionParam) {
     _classCallCheck(this, AbstractConfirmEmailAction);
 
-    return _possibleConstructorReturn(this, (AbstractConfirmEmailAction.__proto__ || Object.getPrototypeOf(AbstractConfirmEmailAction)).call(this, actionParam, 'ConfirmEmailAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractConfirmEmailAction).call(this, actionParam, 'ConfirmEmailAction'));
   }
 
   _createClass(AbstractConfirmEmailAction, [{
@@ -8386,7 +4229,7 @@ var AbstractDeleteBoxAction = function (_Action) {
   function AbstractDeleteBoxAction(actionParam) {
     _classCallCheck(this, AbstractDeleteBoxAction);
 
-    return _possibleConstructorReturn(this, (AbstractDeleteBoxAction.__proto__ || Object.getPrototypeOf(AbstractDeleteBoxAction)).call(this, actionParam, 'DeleteBoxAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractDeleteBoxAction).call(this, actionParam, 'DeleteBoxAction'));
   }
 
   _createClass(AbstractDeleteBoxAction, [{
@@ -8416,7 +4259,7 @@ var AbstractFillBoxWithCardsAction = function (_Action) {
   function AbstractFillBoxWithCardsAction(actionParam) {
     _classCallCheck(this, AbstractFillBoxWithCardsAction);
 
-    return _possibleConstructorReturn(this, (AbstractFillBoxWithCardsAction.__proto__ || Object.getPrototypeOf(AbstractFillBoxWithCardsAction)).call(this, actionParam, 'FillBoxWithCardsAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractFillBoxWithCardsAction).call(this, actionParam, 'FillBoxWithCardsAction'));
   }
 
   _createClass(AbstractFillBoxWithCardsAction, [{
@@ -8446,7 +4289,7 @@ var AbstractLoadBoxAction = function (_Action) {
   function AbstractLoadBoxAction(actionParam) {
     _classCallCheck(this, AbstractLoadBoxAction);
 
-    return _possibleConstructorReturn(this, (AbstractLoadBoxAction.__proto__ || Object.getPrototypeOf(AbstractLoadBoxAction)).call(this, actionParam, 'LoadBoxAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractLoadBoxAction).call(this, actionParam, 'LoadBoxAction'));
   }
 
   _createClass(AbstractLoadBoxAction, [{
@@ -8476,7 +4319,7 @@ var AbstractLoadCoursesAction = function (_Action) {
   function AbstractLoadCoursesAction(actionParam) {
     _classCallCheck(this, AbstractLoadCoursesAction);
 
-    return _possibleConstructorReturn(this, (AbstractLoadCoursesAction.__proto__ || Object.getPrototypeOf(AbstractLoadCoursesAction)).call(this, actionParam, 'LoadCoursesAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractLoadCoursesAction).call(this, actionParam, 'LoadCoursesAction'));
   }
 
   _createClass(AbstractLoadCoursesAction, [{
@@ -8506,7 +4349,7 @@ var AbstractOpenBoxCreationAction = function (_Action) {
   function AbstractOpenBoxCreationAction(actionParam) {
     _classCallCheck(this, AbstractOpenBoxCreationAction);
 
-    return _possibleConstructorReturn(this, (AbstractOpenBoxCreationAction.__proto__ || Object.getPrototypeOf(AbstractOpenBoxCreationAction)).call(this, actionParam, 'OpenBoxCreationAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenBoxCreationAction).call(this, actionParam, 'OpenBoxCreationAction'));
   }
 
   _createClass(AbstractOpenBoxCreationAction, [{
@@ -8536,7 +4379,7 @@ var AbstractOpenChangePasswordAction = function (_Action) {
   function AbstractOpenChangePasswordAction(actionParam) {
     _classCallCheck(this, AbstractOpenChangePasswordAction);
 
-    return _possibleConstructorReturn(this, (AbstractOpenChangePasswordAction.__proto__ || Object.getPrototypeOf(AbstractOpenChangePasswordAction)).call(this, actionParam, 'OpenChangePasswordAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenChangePasswordAction).call(this, actionParam, 'OpenChangePasswordAction'));
   }
 
   _createClass(AbstractOpenChangePasswordAction, [{
@@ -8566,7 +4409,7 @@ var AbstractOpenCourseSelectionAction = function (_Action) {
   function AbstractOpenCourseSelectionAction(actionParam) {
     _classCallCheck(this, AbstractOpenCourseSelectionAction);
 
-    return _possibleConstructorReturn(this, (AbstractOpenCourseSelectionAction.__proto__ || Object.getPrototypeOf(AbstractOpenCourseSelectionAction)).call(this, actionParam, 'OpenCourseSelectionAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenCourseSelectionAction).call(this, actionParam, 'OpenCourseSelectionAction'));
   }
 
   _createClass(AbstractOpenCourseSelectionAction, [{
@@ -8596,7 +4439,7 @@ var AbstractOpenForgotPasswordAction = function (_Action) {
   function AbstractOpenForgotPasswordAction(actionParam) {
     _classCallCheck(this, AbstractOpenForgotPasswordAction);
 
-    return _possibleConstructorReturn(this, (AbstractOpenForgotPasswordAction.__proto__ || Object.getPrototypeOf(AbstractOpenForgotPasswordAction)).call(this, actionParam, 'OpenForgotPasswordAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenForgotPasswordAction).call(this, actionParam, 'OpenForgotPasswordAction'));
   }
 
   _createClass(AbstractOpenForgotPasswordAction, [{
@@ -8626,7 +4469,7 @@ var AbstractOpenNewPasswordAction = function (_Action) {
   function AbstractOpenNewPasswordAction(actionParam) {
     _classCallCheck(this, AbstractOpenNewPasswordAction);
 
-    return _possibleConstructorReturn(this, (AbstractOpenNewPasswordAction.__proto__ || Object.getPrototypeOf(AbstractOpenNewPasswordAction)).call(this, actionParam, 'OpenNewPasswordAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenNewPasswordAction).call(this, actionParam, 'OpenNewPasswordAction'));
   }
 
   _createClass(AbstractOpenNewPasswordAction, [{
@@ -8656,7 +4499,7 @@ var AbstractOpenProfileAction = function (_Action) {
   function AbstractOpenProfileAction(actionParam) {
     _classCallCheck(this, AbstractOpenProfileAction);
 
-    return _possibleConstructorReturn(this, (AbstractOpenProfileAction.__proto__ || Object.getPrototypeOf(AbstractOpenProfileAction)).call(this, actionParam, 'OpenProfileAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenProfileAction).call(this, actionParam, 'OpenProfileAction'));
   }
 
   _createClass(AbstractOpenProfileAction, [{
@@ -8686,7 +4529,7 @@ var AbstractOpenRegistrationAction = function (_Action) {
   function AbstractOpenRegistrationAction(actionParam) {
     _classCallCheck(this, AbstractOpenRegistrationAction);
 
-    return _possibleConstructorReturn(this, (AbstractOpenRegistrationAction.__proto__ || Object.getPrototypeOf(AbstractOpenRegistrationAction)).call(this, actionParam, 'OpenRegistrationAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenRegistrationAction).call(this, actionParam, 'OpenRegistrationAction'));
   }
 
   _createClass(AbstractOpenRegistrationAction, [{
@@ -8716,7 +4559,7 @@ var AbstractRemoveCourseAction = function (_Action) {
   function AbstractRemoveCourseAction(actionParam) {
     _classCallCheck(this, AbstractRemoveCourseAction);
 
-    return _possibleConstructorReturn(this, (AbstractRemoveCourseAction.__proto__ || Object.getPrototypeOf(AbstractRemoveCourseAction)).call(this, actionParam, 'RemoveCourseAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRemoveCourseAction).call(this, actionParam, 'RemoveCourseAction'));
   }
 
   _createClass(AbstractRemoveCourseAction, [{
@@ -8746,7 +4589,7 @@ var AbstractSaveBoxAction = function (_Action) {
   function AbstractSaveBoxAction(actionParam) {
     _classCallCheck(this, AbstractSaveBoxAction);
 
-    return _possibleConstructorReturn(this, (AbstractSaveBoxAction.__proto__ || Object.getPrototypeOf(AbstractSaveBoxAction)).call(this, actionParam, 'SaveBoxAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSaveBoxAction).call(this, actionParam, 'SaveBoxAction'));
   }
 
   _createClass(AbstractSaveBoxAction, [{
@@ -8776,7 +4619,7 @@ var AbstractSaveBoxConfigAction = function (_Action) {
   function AbstractSaveBoxConfigAction(actionParam) {
     _classCallCheck(this, AbstractSaveBoxConfigAction);
 
-    return _possibleConstructorReturn(this, (AbstractSaveBoxConfigAction.__proto__ || Object.getPrototypeOf(AbstractSaveBoxConfigAction)).call(this, actionParam, 'SaveBoxConfigAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSaveBoxConfigAction).call(this, actionParam, 'SaveBoxConfigAction'));
   }
 
   _createClass(AbstractSaveBoxConfigAction, [{
@@ -8806,7 +4649,7 @@ var AbstractSaveCourseSelectionAction = function (_Action) {
   function AbstractSaveCourseSelectionAction(actionParam) {
     _classCallCheck(this, AbstractSaveCourseSelectionAction);
 
-    return _possibleConstructorReturn(this, (AbstractSaveCourseSelectionAction.__proto__ || Object.getPrototypeOf(AbstractSaveCourseSelectionAction)).call(this, actionParam, 'SaveCourseSelectionAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSaveCourseSelectionAction).call(this, actionParam, 'SaveCourseSelectionAction'));
   }
 
   _createClass(AbstractSaveCourseSelectionAction, [{
@@ -8836,7 +4679,7 @@ var AbstractSaveProfileAction = function (_Action) {
   function AbstractSaveProfileAction(actionParam) {
     _classCallCheck(this, AbstractSaveProfileAction);
 
-    return _possibleConstructorReturn(this, (AbstractSaveProfileAction.__proto__ || Object.getPrototypeOf(AbstractSaveProfileAction)).call(this, actionParam, 'SaveProfileAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSaveProfileAction).call(this, actionParam, 'SaveProfileAction'));
   }
 
   _createClass(AbstractSaveProfileAction, [{
@@ -8866,7 +4709,7 @@ var AbstractSubmitForgotPasswordRequestAction = function (_Action) {
   function AbstractSubmitForgotPasswordRequestAction(actionParam) {
     _classCallCheck(this, AbstractSubmitForgotPasswordRequestAction);
 
-    return _possibleConstructorReturn(this, (AbstractSubmitForgotPasswordRequestAction.__proto__ || Object.getPrototypeOf(AbstractSubmitForgotPasswordRequestAction)).call(this, actionParam, 'SubmitForgotPasswordRequestAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSubmitForgotPasswordRequestAction).call(this, actionParam, 'SubmitForgotPasswordRequestAction'));
   }
 
   _createClass(AbstractSubmitForgotPasswordRequestAction, [{
@@ -8896,7 +4739,7 @@ var AbstractSubmitNewPasswordAction = function (_Action) {
   function AbstractSubmitNewPasswordAction(actionParam) {
     _classCallCheck(this, AbstractSubmitNewPasswordAction);
 
-    return _possibleConstructorReturn(this, (AbstractSubmitNewPasswordAction.__proto__ || Object.getPrototypeOf(AbstractSubmitNewPasswordAction)).call(this, actionParam, 'SubmitNewPasswordAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSubmitNewPasswordAction).call(this, actionParam, 'SubmitNewPasswordAction'));
   }
 
   _createClass(AbstractSubmitNewPasswordAction, [{
@@ -8926,7 +4769,7 @@ var AbstractSubmitRegistrationAction = function (_Action) {
   function AbstractSubmitRegistrationAction(actionParam) {
     _classCallCheck(this, AbstractSubmitRegistrationAction);
 
-    return _possibleConstructorReturn(this, (AbstractSubmitRegistrationAction.__proto__ || Object.getPrototypeOf(AbstractSubmitRegistrationAction)).call(this, actionParam, 'SubmitRegistrationAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSubmitRegistrationAction).call(this, actionParam, 'SubmitRegistrationAction'));
   }
 
   _createClass(AbstractSubmitRegistrationAction, [{
@@ -8956,7 +4799,7 @@ var AbstractUpdatePasswordAction = function (_Action) {
   function AbstractUpdatePasswordAction(actionParam) {
     _classCallCheck(this, AbstractUpdatePasswordAction);
 
-    return _possibleConstructorReturn(this, (AbstractUpdatePasswordAction.__proto__ || Object.getPrototypeOf(AbstractUpdatePasswordAction)).call(this, actionParam, 'UpdatePasswordAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractUpdatePasswordAction).call(this, actionParam, 'UpdatePasswordAction'));
   }
 
   _createClass(AbstractUpdatePasswordAction, [{
@@ -8986,7 +4829,7 @@ var AbstractValidatePasswordAction = function (_Action) {
   function AbstractValidatePasswordAction(actionParam) {
     _classCallCheck(this, AbstractValidatePasswordAction);
 
-    return _possibleConstructorReturn(this, (AbstractValidatePasswordAction.__proto__ || Object.getPrototypeOf(AbstractValidatePasswordAction)).call(this, actionParam, 'ValidatePasswordAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractValidatePasswordAction).call(this, actionParam, 'ValidatePasswordAction'));
   }
 
   _createClass(AbstractValidatePasswordAction, [{
@@ -9016,7 +4859,7 @@ var AbstractCheckUsernameCommand = function (_Command) {
     function AbstractCheckUsernameCommand(commandParam) {
         _classCallCheck(this, AbstractCheckUsernameCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractCheckUsernameCommand.__proto__ || Object.getPrototypeOf(AbstractCheckUsernameCommand)).call(this, commandParam, "CheckUsernameCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractCheckUsernameCommand).call(this, commandParam, "CheckUsernameCommand"));
 
         _this.empty = "empty";
         _this.available = "available";
@@ -9066,7 +4909,7 @@ var AbstractConfirmEmailCommand = function (_Command) {
     function AbstractConfirmEmailCommand(commandParam) {
         _classCallCheck(this, AbstractConfirmEmailCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractConfirmEmailCommand.__proto__ || Object.getPrototypeOf(AbstractConfirmEmailCommand)).call(this, commandParam, "ConfirmEmailCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractConfirmEmailCommand).call(this, commandParam, "ConfirmEmailCommand"));
 
         _this.saved = "saved";
         _this.error = "error";
@@ -9113,7 +4956,7 @@ var AbstractDeleteBoxCommand = function (_Command) {
     function AbstractDeleteBoxCommand(commandParam) {
         _classCallCheck(this, AbstractDeleteBoxCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractDeleteBoxCommand.__proto__ || Object.getPrototypeOf(AbstractDeleteBoxCommand)).call(this, commandParam, "DeleteBoxCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractDeleteBoxCommand).call(this, commandParam, "DeleteBoxCommand"));
 
         _this.deleted = "deleted";
         _this.error = "error";
@@ -9160,7 +5003,7 @@ var AbstractFillBoxWithCardsCommand = function (_Command) {
     function AbstractFillBoxWithCardsCommand(commandParam) {
         _classCallCheck(this, AbstractFillBoxWithCardsCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractFillBoxWithCardsCommand.__proto__ || Object.getPrototypeOf(AbstractFillBoxWithCardsCommand)).call(this, commandParam, "FillBoxWithCardsCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractFillBoxWithCardsCommand).call(this, commandParam, "FillBoxWithCardsCommand"));
 
         _this.filled = "filled";
         _this.error = "error";
@@ -9207,7 +5050,7 @@ var AbstractLoadBoxCommand = function (_Command) {
     function AbstractLoadBoxCommand(commandParam) {
         _classCallCheck(this, AbstractLoadBoxCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractLoadBoxCommand.__proto__ || Object.getPrototypeOf(AbstractLoadBoxCommand)).call(this, commandParam, "LoadBoxCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractLoadBoxCommand).call(this, commandParam, "LoadBoxCommand"));
 
         _this.loaded = "loaded";
         _this.error = "error";
@@ -9254,7 +5097,7 @@ var AbstractLoadCoursesCommand = function (_Command) {
     function AbstractLoadCoursesCommand(commandParam) {
         _classCallCheck(this, AbstractLoadCoursesCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractLoadCoursesCommand.__proto__ || Object.getPrototypeOf(AbstractLoadCoursesCommand)).call(this, commandParam, "LoadCoursesCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractLoadCoursesCommand).call(this, commandParam, "LoadCoursesCommand"));
 
         _this.loaded = "loaded";
         _this.error = "error";
@@ -9301,7 +5144,7 @@ var AbstractOpenBoxCreationCommand = function (_Command) {
     function AbstractOpenBoxCreationCommand(commandParam) {
         _classCallCheck(this, AbstractOpenBoxCreationCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractOpenBoxCreationCommand.__proto__ || Object.getPrototypeOf(AbstractOpenBoxCreationCommand)).call(this, commandParam, "OpenBoxCreationCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenBoxCreationCommand).call(this, commandParam, "OpenBoxCreationCommand"));
 
         _this.ok = "ok";
         return _this;
@@ -9343,7 +5186,7 @@ var AbstractOpenChangePasswordCommand = function (_Command) {
     function AbstractOpenChangePasswordCommand(commandParam) {
         _classCallCheck(this, AbstractOpenChangePasswordCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractOpenChangePasswordCommand.__proto__ || Object.getPrototypeOf(AbstractOpenChangePasswordCommand)).call(this, commandParam, "OpenChangePasswordCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenChangePasswordCommand).call(this, commandParam, "OpenChangePasswordCommand"));
 
         _this.ok = "ok";
         return _this;
@@ -9385,7 +5228,7 @@ var AbstractOpenCourseSelectionCommand = function (_Command) {
     function AbstractOpenCourseSelectionCommand(commandParam) {
         _classCallCheck(this, AbstractOpenCourseSelectionCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractOpenCourseSelectionCommand.__proto__ || Object.getPrototypeOf(AbstractOpenCourseSelectionCommand)).call(this, commandParam, "OpenCourseSelectionCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenCourseSelectionCommand).call(this, commandParam, "OpenCourseSelectionCommand"));
 
         _this.coursesRead = "coursesRead";
         _this.error = "error";
@@ -9432,7 +5275,7 @@ var AbstractOpenForgotPasswordCommand = function (_Command) {
     function AbstractOpenForgotPasswordCommand(commandParam) {
         _classCallCheck(this, AbstractOpenForgotPasswordCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractOpenForgotPasswordCommand.__proto__ || Object.getPrototypeOf(AbstractOpenForgotPasswordCommand)).call(this, commandParam, "OpenForgotPasswordCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenForgotPasswordCommand).call(this, commandParam, "OpenForgotPasswordCommand"));
 
         _this.ok = "ok";
         return _this;
@@ -9474,7 +5317,7 @@ var AbstractOpenNewPasswordCommand = function (_Command) {
     function AbstractOpenNewPasswordCommand(commandParam) {
         _classCallCheck(this, AbstractOpenNewPasswordCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractOpenNewPasswordCommand.__proto__ || Object.getPrototypeOf(AbstractOpenNewPasswordCommand)).call(this, commandParam, "OpenNewPasswordCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenNewPasswordCommand).call(this, commandParam, "OpenNewPasswordCommand"));
 
         _this.ok = "ok";
         return _this;
@@ -9516,7 +5359,7 @@ var AbstractOpenProfileCommand = function (_Command) {
     function AbstractOpenProfileCommand(commandParam) {
         _classCallCheck(this, AbstractOpenProfileCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractOpenProfileCommand.__proto__ || Object.getPrototypeOf(AbstractOpenProfileCommand)).call(this, commandParam, "OpenProfileCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenProfileCommand).call(this, commandParam, "OpenProfileCommand"));
 
         _this.userInfoRead = "userInfoRead";
         _this.error = "error";
@@ -9563,7 +5406,7 @@ var AbstractOpenRegistrationCommand = function (_Command) {
     function AbstractOpenRegistrationCommand(commandParam) {
         _classCallCheck(this, AbstractOpenRegistrationCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractOpenRegistrationCommand.__proto__ || Object.getPrototypeOf(AbstractOpenRegistrationCommand)).call(this, commandParam, "OpenRegistrationCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractOpenRegistrationCommand).call(this, commandParam, "OpenRegistrationCommand"));
 
         _this.ok = "ok";
         return _this;
@@ -9605,7 +5448,7 @@ var AbstractRemoveCourseCommand = function (_Command) {
     function AbstractRemoveCourseCommand(commandParam) {
         _classCallCheck(this, AbstractRemoveCourseCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractRemoveCourseCommand.__proto__ || Object.getPrototypeOf(AbstractRemoveCourseCommand)).call(this, commandParam, "RemoveCourseCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRemoveCourseCommand).call(this, commandParam, "RemoveCourseCommand"));
 
         _this.deleted = "deleted";
         _this.error = "error";
@@ -9652,7 +5495,7 @@ var AbstractSaveBoxCommand = function (_Command) {
     function AbstractSaveBoxCommand(commandParam) {
         _classCallCheck(this, AbstractSaveBoxCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractSaveBoxCommand.__proto__ || Object.getPrototypeOf(AbstractSaveBoxCommand)).call(this, commandParam, "SaveBoxCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSaveBoxCommand).call(this, commandParam, "SaveBoxCommand"));
 
         _this.saved = "saved";
         _this.dataInvalid = "dataInvalid";
@@ -9703,7 +5546,7 @@ var AbstractSaveBoxConfigCommand = function (_Command) {
     function AbstractSaveBoxConfigCommand(commandParam) {
         _classCallCheck(this, AbstractSaveBoxConfigCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractSaveBoxConfigCommand.__proto__ || Object.getPrototypeOf(AbstractSaveBoxConfigCommand)).call(this, commandParam, "SaveBoxConfigCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSaveBoxConfigCommand).call(this, commandParam, "SaveBoxConfigCommand"));
 
         _this.saved = "saved";
         _this.error = "error";
@@ -9750,7 +5593,7 @@ var AbstractSaveCourseSelectionCommand = function (_Command) {
     function AbstractSaveCourseSelectionCommand(commandParam) {
         _classCallCheck(this, AbstractSaveCourseSelectionCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractSaveCourseSelectionCommand.__proto__ || Object.getPrototypeOf(AbstractSaveCourseSelectionCommand)).call(this, commandParam, "SaveCourseSelectionCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSaveCourseSelectionCommand).call(this, commandParam, "SaveCourseSelectionCommand"));
 
         _this.saved = "saved";
         _this.error = "error";
@@ -9797,7 +5640,7 @@ var AbstractSaveProfileCommand = function (_Command) {
     function AbstractSaveProfileCommand(commandParam) {
         _classCallCheck(this, AbstractSaveProfileCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractSaveProfileCommand.__proto__ || Object.getPrototypeOf(AbstractSaveProfileCommand)).call(this, commandParam, "SaveProfileCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSaveProfileCommand).call(this, commandParam, "SaveProfileCommand"));
 
         _this.saved = "saved";
         _this.dataInvalid = "dataInvalid";
@@ -9848,7 +5691,7 @@ var AbstractSubmitForgotPasswordRequestCommand = function (_Command) {
     function AbstractSubmitForgotPasswordRequestCommand(commandParam) {
         _classCallCheck(this, AbstractSubmitForgotPasswordRequestCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractSubmitForgotPasswordRequestCommand.__proto__ || Object.getPrototypeOf(AbstractSubmitForgotPasswordRequestCommand)).call(this, commandParam, "SubmitForgotPasswordRequestCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSubmitForgotPasswordRequestCommand).call(this, commandParam, "SubmitForgotPasswordRequestCommand"));
 
         _this.dataInvalid = "dataInvalid";
         _this.ok = "ok";
@@ -9894,7 +5737,7 @@ var AbstractSubmitNewPasswordCommand = function (_Command) {
     function AbstractSubmitNewPasswordCommand(commandParam) {
         _classCallCheck(this, AbstractSubmitNewPasswordCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractSubmitNewPasswordCommand.__proto__ || Object.getPrototypeOf(AbstractSubmitNewPasswordCommand)).call(this, commandParam, "SubmitNewPasswordCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSubmitNewPasswordCommand).call(this, commandParam, "SubmitNewPasswordCommand"));
 
         _this.dataInvalid = "dataInvalid";
         _this.mismatch = "mismatch";
@@ -9950,7 +5793,7 @@ var AbstractSubmitRegistrationCommand = function (_Command) {
     function AbstractSubmitRegistrationCommand(commandParam) {
         _classCallCheck(this, AbstractSubmitRegistrationCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractSubmitRegistrationCommand.__proto__ || Object.getPrototypeOf(AbstractSubmitRegistrationCommand)).call(this, commandParam, "SubmitRegistrationCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractSubmitRegistrationCommand).call(this, commandParam, "SubmitRegistrationCommand"));
 
         _this.dataInvalid = "dataInvalid";
         _this.mismatch = "mismatch";
@@ -10006,7 +5849,7 @@ var AbstractUpdatePasswordCommand = function (_Command) {
     function AbstractUpdatePasswordCommand(commandParam) {
         _classCallCheck(this, AbstractUpdatePasswordCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractUpdatePasswordCommand.__proto__ || Object.getPrototypeOf(AbstractUpdatePasswordCommand)).call(this, commandParam, "UpdatePasswordCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractUpdatePasswordCommand).call(this, commandParam, "UpdatePasswordCommand"));
 
         _this.dataInvalid = "dataInvalid";
         _this.mismatch = "mismatch";
@@ -10062,7 +5905,7 @@ var AbstractValidatePasswordCommand = function (_Command) {
     function AbstractValidatePasswordCommand(commandParam) {
         _classCallCheck(this, AbstractValidatePasswordCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractValidatePasswordCommand.__proto__ || Object.getPrototypeOf(AbstractValidatePasswordCommand)).call(this, commandParam, "ValidatePasswordCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractValidatePasswordCommand).call(this, commandParam, "ValidatePasswordCommand"));
 
         _this.empty = "empty";
         _this.ok = "ok";
@@ -10110,7 +5953,7 @@ var AbstractCoursesLoadedEvent = function (_Event) {
     function AbstractCoursesLoadedEvent(eventParam) {
         _classCallCheck(this, AbstractCoursesLoadedEvent);
 
-        return _possibleConstructorReturn(this, (AbstractCoursesLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractCoursesLoadedEvent)).call(this, eventParam, 'CoursesLoadedEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractCoursesLoadedEvent).call(this, eventParam, 'CoursesLoadedEvent'));
     }
 
     return AbstractCoursesLoadedEvent;
@@ -10131,7 +5974,7 @@ var AbstractPasswordEmptyEvent = function (_Event) {
     function AbstractPasswordEmptyEvent(eventParam) {
         _classCallCheck(this, AbstractPasswordEmptyEvent);
 
-        return _possibleConstructorReturn(this, (AbstractPasswordEmptyEvent.__proto__ || Object.getPrototypeOf(AbstractPasswordEmptyEvent)).call(this, eventParam, 'PasswordEmptyEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractPasswordEmptyEvent).call(this, eventParam, 'PasswordEmptyEvent'));
     }
 
     return AbstractPasswordEmptyEvent;
@@ -10152,7 +5995,7 @@ var AbstractPasswordsMismatchEvent = function (_Event) {
     function AbstractPasswordsMismatchEvent(eventParam) {
         _classCallCheck(this, AbstractPasswordsMismatchEvent);
 
-        return _possibleConstructorReturn(this, (AbstractPasswordsMismatchEvent.__proto__ || Object.getPrototypeOf(AbstractPasswordsMismatchEvent)).call(this, eventParam, 'PasswordsMismatchEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractPasswordsMismatchEvent).call(this, eventParam, 'PasswordsMismatchEvent'));
     }
 
     return AbstractPasswordsMismatchEvent;
@@ -10173,7 +6016,7 @@ var AbstractPasswordsOKEvent = function (_Event) {
     function AbstractPasswordsOKEvent(eventParam) {
         _classCallCheck(this, AbstractPasswordsOKEvent);
 
-        return _possibleConstructorReturn(this, (AbstractPasswordsOKEvent.__proto__ || Object.getPrototypeOf(AbstractPasswordsOKEvent)).call(this, eventParam, 'PasswordsOKEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractPasswordsOKEvent).call(this, eventParam, 'PasswordsOKEvent'));
     }
 
     return AbstractPasswordsOKEvent;
@@ -10194,7 +6037,7 @@ var AbstractRenderBoxEvent = function (_Event) {
     function AbstractRenderBoxEvent(eventParam) {
         _classCallCheck(this, AbstractRenderBoxEvent);
 
-        return _possibleConstructorReturn(this, (AbstractRenderBoxEvent.__proto__ || Object.getPrototypeOf(AbstractRenderBoxEvent)).call(this, eventParam, 'RenderBoxEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderBoxEvent).call(this, eventParam, 'RenderBoxEvent'));
     }
 
     return AbstractRenderBoxEvent;
@@ -10215,7 +6058,7 @@ var AbstractRenderChangePasswordEvent = function (_Event) {
     function AbstractRenderChangePasswordEvent(eventParam) {
         _classCallCheck(this, AbstractRenderChangePasswordEvent);
 
-        return _possibleConstructorReturn(this, (AbstractRenderChangePasswordEvent.__proto__ || Object.getPrototypeOf(AbstractRenderChangePasswordEvent)).call(this, eventParam, 'RenderChangePasswordEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderChangePasswordEvent).call(this, eventParam, 'RenderChangePasswordEvent'));
     }
 
     return AbstractRenderChangePasswordEvent;
@@ -10236,7 +6079,7 @@ var AbstractRenderCourseToBoxEvent = function (_Event) {
     function AbstractRenderCourseToBoxEvent(eventParam) {
         _classCallCheck(this, AbstractRenderCourseToBoxEvent);
 
-        return _possibleConstructorReturn(this, (AbstractRenderCourseToBoxEvent.__proto__ || Object.getPrototypeOf(AbstractRenderCourseToBoxEvent)).call(this, eventParam, 'RenderCourseToBoxEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderCourseToBoxEvent).call(this, eventParam, 'RenderCourseToBoxEvent'));
     }
 
     return AbstractRenderCourseToBoxEvent;
@@ -10257,7 +6100,7 @@ var AbstractRenderForgotPasswordEvent = function (_Event) {
     function AbstractRenderForgotPasswordEvent(eventParam) {
         _classCallCheck(this, AbstractRenderForgotPasswordEvent);
 
-        return _possibleConstructorReturn(this, (AbstractRenderForgotPasswordEvent.__proto__ || Object.getPrototypeOf(AbstractRenderForgotPasswordEvent)).call(this, eventParam, 'RenderForgotPasswordEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderForgotPasswordEvent).call(this, eventParam, 'RenderForgotPasswordEvent'));
     }
 
     return AbstractRenderForgotPasswordEvent;
@@ -10278,7 +6121,7 @@ var AbstractRenderNewPasswordEvent = function (_Event) {
     function AbstractRenderNewPasswordEvent(eventParam) {
         _classCallCheck(this, AbstractRenderNewPasswordEvent);
 
-        return _possibleConstructorReturn(this, (AbstractRenderNewPasswordEvent.__proto__ || Object.getPrototypeOf(AbstractRenderNewPasswordEvent)).call(this, eventParam, 'RenderNewPasswordEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderNewPasswordEvent).call(this, eventParam, 'RenderNewPasswordEvent'));
     }
 
     return AbstractRenderNewPasswordEvent;
@@ -10299,7 +6142,7 @@ var AbstractRenderRegistrationEvent = function (_Event) {
     function AbstractRenderRegistrationEvent(eventParam) {
         _classCallCheck(this, AbstractRenderRegistrationEvent);
 
-        return _possibleConstructorReturn(this, (AbstractRenderRegistrationEvent.__proto__ || Object.getPrototypeOf(AbstractRenderRegistrationEvent)).call(this, eventParam, 'RenderRegistrationEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRenderRegistrationEvent).call(this, eventParam, 'RenderRegistrationEvent'));
     }
 
     return AbstractRenderRegistrationEvent;
@@ -10320,7 +6163,7 @@ var AbstractUserInfoLoadedEvent = function (_Event) {
     function AbstractUserInfoLoadedEvent(eventParam) {
         _classCallCheck(this, AbstractUserInfoLoadedEvent);
 
-        return _possibleConstructorReturn(this, (AbstractUserInfoLoadedEvent.__proto__ || Object.getPrototypeOf(AbstractUserInfoLoadedEvent)).call(this, eventParam, 'UserInfoLoadedEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractUserInfoLoadedEvent).call(this, eventParam, 'UserInfoLoadedEvent'));
     }
 
     return AbstractUserInfoLoadedEvent;
@@ -10341,7 +6184,7 @@ var AbstractUsernameIsAvailableEvent = function (_Event) {
     function AbstractUsernameIsAvailableEvent(eventParam) {
         _classCallCheck(this, AbstractUsernameIsAvailableEvent);
 
-        return _possibleConstructorReturn(this, (AbstractUsernameIsAvailableEvent.__proto__ || Object.getPrototypeOf(AbstractUsernameIsAvailableEvent)).call(this, eventParam, 'UsernameIsAvailableEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractUsernameIsAvailableEvent).call(this, eventParam, 'UsernameIsAvailableEvent'));
     }
 
     return AbstractUsernameIsAvailableEvent;
@@ -10362,41 +6205,11 @@ var AbstractUsernameIsNotAvailableEvent = function (_Event) {
     function AbstractUsernameIsNotAvailableEvent(eventParam) {
         _classCallCheck(this, AbstractUsernameIsNotAvailableEvent);
 
-        return _possibleConstructorReturn(this, (AbstractUsernameIsNotAvailableEvent.__proto__ || Object.getPrototypeOf(AbstractUsernameIsNotAvailableEvent)).call(this, eventParam, 'UsernameIsNotAvailableEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractUsernameIsNotAvailableEvent).call(this, eventParam, 'UsernameIsNotAvailableEvent'));
     }
 
     return AbstractUsernameIsNotAvailableEvent;
 }(Event);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var EventListenerRegistrationVocabulary = function () {
-   function EventListenerRegistrationVocabulary() {
-      _classCallCheck(this, EventListenerRegistrationVocabulary);
-   }
-
-   _createClass(EventListenerRegistrationVocabulary, null, [{
-      key: 'init',
-      value: function init() {
-         ACEController.registerListener('WordIsCorrectAndFinishedEvent', VocabularyView.wordIsCorrectAndFinished);
-         ACEController.registerListener('WordIsCorrectAndNotFinishedEvent', VocabularyView.wordIsCorrectAndNotFinished);
-         ACEController.registerListener('WordIsNotCorrectEvent', VocabularyView.wordIsNotCorrect);
-         ACEController.registerListener('DisplayNextWordButtonEvent', VocabularyView.displayNextWordButton);
-         ACEController.registerListener('ShowNextWordOfTestEvent', VocabularyView.showNextWordOfTest);
-         ACEController.registerListener('ShowWordEvent', VocabularyView.showWord);
-         ACEController.registerListener('TestStartedEvent', VocabularyView.testStarted);
-      }
-   }]);
-
-   return EventListenerRegistrationVocabulary;
-}();
-
-EventListenerRegistrationVocabulary.init();
 
 /*       S.D.G.       */
 'use strict';
@@ -10415,7 +6228,7 @@ var AbstractCorrectWordAction = function (_Action) {
   function AbstractCorrectWordAction(actionParam) {
     _classCallCheck(this, AbstractCorrectWordAction);
 
-    return _possibleConstructorReturn(this, (AbstractCorrectWordAction.__proto__ || Object.getPrototypeOf(AbstractCorrectWordAction)).call(this, actionParam, 'CorrectWordAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractCorrectWordAction).call(this, actionParam, 'CorrectWordAction'));
   }
 
   _createClass(AbstractCorrectWordAction, [{
@@ -10445,7 +6258,7 @@ var AbstractIsRatedTestFinishedAction = function (_Action) {
   function AbstractIsRatedTestFinishedAction(actionParam) {
     _classCallCheck(this, AbstractIsRatedTestFinishedAction);
 
-    return _possibleConstructorReturn(this, (AbstractIsRatedTestFinishedAction.__proto__ || Object.getPrototypeOf(AbstractIsRatedTestFinishedAction)).call(this, actionParam, 'IsRatedTestFinishedAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractIsRatedTestFinishedAction).call(this, actionParam, 'IsRatedTestFinishedAction'));
   }
 
   _createClass(AbstractIsRatedTestFinishedAction, [{
@@ -10475,7 +6288,7 @@ var AbstractIsTestFinishedAction = function (_Action) {
   function AbstractIsTestFinishedAction(actionParam) {
     _classCallCheck(this, AbstractIsTestFinishedAction);
 
-    return _possibleConstructorReturn(this, (AbstractIsTestFinishedAction.__proto__ || Object.getPrototypeOf(AbstractIsTestFinishedAction)).call(this, actionParam, 'IsTestFinishedAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractIsTestFinishedAction).call(this, actionParam, 'IsTestFinishedAction'));
   }
 
   _createClass(AbstractIsTestFinishedAction, [{
@@ -10505,7 +6318,7 @@ var AbstractRateWordAction = function (_Action) {
   function AbstractRateWordAction(actionParam) {
     _classCallCheck(this, AbstractRateWordAction);
 
-    return _possibleConstructorReturn(this, (AbstractRateWordAction.__proto__ || Object.getPrototypeOf(AbstractRateWordAction)).call(this, actionParam, 'RateWordAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRateWordAction).call(this, actionParam, 'RateWordAction'));
   }
 
   _createClass(AbstractRateWordAction, [{
@@ -10535,7 +6348,7 @@ var AbstractRepeatComplexCardAction = function (_Action) {
   function AbstractRepeatComplexCardAction(actionParam) {
     _classCallCheck(this, AbstractRepeatComplexCardAction);
 
-    return _possibleConstructorReturn(this, (AbstractRepeatComplexCardAction.__proto__ || Object.getPrototypeOf(AbstractRepeatComplexCardAction)).call(this, actionParam, 'RepeatComplexCardAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRepeatComplexCardAction).call(this, actionParam, 'RepeatComplexCardAction'));
   }
 
   _createClass(AbstractRepeatComplexCardAction, [{
@@ -10565,7 +6378,7 @@ var AbstractShowNextWordOfTestAction = function (_Action) {
   function AbstractShowNextWordOfTestAction(actionParam) {
     _classCallCheck(this, AbstractShowNextWordOfTestAction);
 
-    return _possibleConstructorReturn(this, (AbstractShowNextWordOfTestAction.__proto__ || Object.getPrototypeOf(AbstractShowNextWordOfTestAction)).call(this, actionParam, 'ShowNextWordOfTestAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowNextWordOfTestAction).call(this, actionParam, 'ShowNextWordOfTestAction'));
   }
 
   _createClass(AbstractShowNextWordOfTestAction, [{
@@ -10595,7 +6408,7 @@ var AbstractShowWordAction = function (_Action) {
   function AbstractShowWordAction(actionParam) {
     _classCallCheck(this, AbstractShowWordAction);
 
-    return _possibleConstructorReturn(this, (AbstractShowWordAction.__proto__ || Object.getPrototypeOf(AbstractShowWordAction)).call(this, actionParam, 'ShowWordAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowWordAction).call(this, actionParam, 'ShowWordAction'));
   }
 
   _createClass(AbstractShowWordAction, [{
@@ -10625,7 +6438,7 @@ var AbstractStartTestAction = function (_Action) {
   function AbstractStartTestAction(actionParam) {
     _classCallCheck(this, AbstractStartTestAction);
 
-    return _possibleConstructorReturn(this, (AbstractStartTestAction.__proto__ || Object.getPrototypeOf(AbstractStartTestAction)).call(this, actionParam, 'StartTestAction'));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractStartTestAction).call(this, actionParam, 'StartTestAction'));
   }
 
   _createClass(AbstractStartTestAction, [{
@@ -10655,7 +6468,7 @@ var AbstractCorrectWordCommand = function (_Command) {
     function AbstractCorrectWordCommand(commandParam) {
         _classCallCheck(this, AbstractCorrectWordCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractCorrectWordCommand.__proto__ || Object.getPrototypeOf(AbstractCorrectWordCommand)).call(this, commandParam, "CorrectWordCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractCorrectWordCommand).call(this, commandParam, "CorrectWordCommand"));
 
         _this.wordIsCorrectAndFinished = "wordIsCorrectAndFinished";
         _this.wordIsCorrectAndNotFinished = "wordIsCorrectAndNotFinished";
@@ -10708,7 +6521,7 @@ var AbstractIsRatedTestFinishedCommand = function (_Command) {
     function AbstractIsRatedTestFinishedCommand(commandParam) {
         _classCallCheck(this, AbstractIsRatedTestFinishedCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractIsRatedTestFinishedCommand.__proto__ || Object.getPrototypeOf(AbstractIsRatedTestFinishedCommand)).call(this, commandParam, "IsRatedTestFinishedCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractIsRatedTestFinishedCommand).call(this, commandParam, "IsRatedTestFinishedCommand"));
 
         _this.testFailed = "testFailed";
         _this.testFinishedSuccessfully = "testFinishedSuccessfully";
@@ -10758,7 +6571,7 @@ var AbstractIsTestFinishedCommand = function (_Command) {
     function AbstractIsTestFinishedCommand(commandParam) {
         _classCallCheck(this, AbstractIsTestFinishedCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractIsTestFinishedCommand.__proto__ || Object.getPrototypeOf(AbstractIsTestFinishedCommand)).call(this, commandParam, "IsTestFinishedCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractIsTestFinishedCommand).call(this, commandParam, "IsTestFinishedCommand"));
 
         _this.testFailed = "testFailed";
         _this.testFinishedSuccessfully = "testFinishedSuccessfully";
@@ -10808,7 +6621,7 @@ var AbstractRateWordCommand = function (_Command) {
     function AbstractRateWordCommand(commandParam) {
         _classCallCheck(this, AbstractRateWordCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractRateWordCommand.__proto__ || Object.getPrototypeOf(AbstractRateWordCommand)).call(this, commandParam, "RateWordCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRateWordCommand).call(this, commandParam, "RateWordCommand"));
 
         _this.wordIsCorrectAndFinished = "wordIsCorrectAndFinished";
         _this.wordIsCorrectAndNotFinished = "wordIsCorrectAndNotFinished";
@@ -10861,7 +6674,7 @@ var AbstractRepeatComplexCardCommand = function (_Command) {
     function AbstractRepeatComplexCardCommand(commandParam) {
         _classCallCheck(this, AbstractRepeatComplexCardCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractRepeatComplexCardCommand.__proto__ || Object.getPrototypeOf(AbstractRepeatComplexCardCommand)).call(this, commandParam, "RepeatComplexCardCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractRepeatComplexCardCommand).call(this, commandParam, "RepeatComplexCardCommand"));
 
         _this.go = "go";
         return _this;
@@ -10903,7 +6716,7 @@ var AbstractShowNextWordOfTestCommand = function (_Command) {
     function AbstractShowNextWordOfTestCommand(commandParam) {
         _classCallCheck(this, AbstractShowNextWordOfTestCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractShowNextWordOfTestCommand.__proto__ || Object.getPrototypeOf(AbstractShowNextWordOfTestCommand)).call(this, commandParam, "ShowNextWordOfTestCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowNextWordOfTestCommand).call(this, commandParam, "ShowNextWordOfTestCommand"));
 
         _this.showNextWordOfTest = "showNextWordOfTest";
         return _this;
@@ -10945,7 +6758,7 @@ var AbstractShowWordCommand = function (_Command) {
     function AbstractShowWordCommand(commandParam) {
         _classCallCheck(this, AbstractShowWordCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractShowWordCommand.__proto__ || Object.getPrototypeOf(AbstractShowWordCommand)).call(this, commandParam, "ShowWordCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowWordCommand).call(this, commandParam, "ShowWordCommand"));
 
         _this.showWord = "showWord";
         return _this;
@@ -10987,7 +6800,7 @@ var AbstractStartTestCommand = function (_Command) {
     function AbstractStartTestCommand(commandParam) {
         _classCallCheck(this, AbstractStartTestCommand);
 
-        var _this = _possibleConstructorReturn(this, (AbstractStartTestCommand.__proto__ || Object.getPrototypeOf(AbstractStartTestCommand)).call(this, commandParam, "StartTestCommand"));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractStartTestCommand).call(this, commandParam, "StartTestCommand"));
 
         _this.testStarted = "testStarted";
         return _this;
@@ -11028,7 +6841,7 @@ var AbstractDisplayNextWordButtonEvent = function (_Event) {
     function AbstractDisplayNextWordButtonEvent(eventParam) {
         _classCallCheck(this, AbstractDisplayNextWordButtonEvent);
 
-        return _possibleConstructorReturn(this, (AbstractDisplayNextWordButtonEvent.__proto__ || Object.getPrototypeOf(AbstractDisplayNextWordButtonEvent)).call(this, eventParam, 'DisplayNextWordButtonEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractDisplayNextWordButtonEvent).call(this, eventParam, 'DisplayNextWordButtonEvent'));
     }
 
     return AbstractDisplayNextWordButtonEvent;
@@ -11049,7 +6862,7 @@ var AbstractShowNextWordOfTestEvent = function (_Event) {
     function AbstractShowNextWordOfTestEvent(eventParam) {
         _classCallCheck(this, AbstractShowNextWordOfTestEvent);
 
-        return _possibleConstructorReturn(this, (AbstractShowNextWordOfTestEvent.__proto__ || Object.getPrototypeOf(AbstractShowNextWordOfTestEvent)).call(this, eventParam, 'ShowNextWordOfTestEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowNextWordOfTestEvent).call(this, eventParam, 'ShowNextWordOfTestEvent'));
     }
 
     return AbstractShowNextWordOfTestEvent;
@@ -11070,7 +6883,7 @@ var AbstractShowWordEvent = function (_Event) {
     function AbstractShowWordEvent(eventParam) {
         _classCallCheck(this, AbstractShowWordEvent);
 
-        return _possibleConstructorReturn(this, (AbstractShowWordEvent.__proto__ || Object.getPrototypeOf(AbstractShowWordEvent)).call(this, eventParam, 'ShowWordEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractShowWordEvent).call(this, eventParam, 'ShowWordEvent'));
     }
 
     return AbstractShowWordEvent;
@@ -11091,7 +6904,7 @@ var AbstractTestStartedEvent = function (_Event) {
     function AbstractTestStartedEvent(eventParam) {
         _classCallCheck(this, AbstractTestStartedEvent);
 
-        return _possibleConstructorReturn(this, (AbstractTestStartedEvent.__proto__ || Object.getPrototypeOf(AbstractTestStartedEvent)).call(this, eventParam, 'TestStartedEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractTestStartedEvent).call(this, eventParam, 'TestStartedEvent'));
     }
 
     return AbstractTestStartedEvent;
@@ -11112,7 +6925,7 @@ var AbstractWordIsCorrectAndFinishedEvent = function (_Event) {
     function AbstractWordIsCorrectAndFinishedEvent(eventParam) {
         _classCallCheck(this, AbstractWordIsCorrectAndFinishedEvent);
 
-        return _possibleConstructorReturn(this, (AbstractWordIsCorrectAndFinishedEvent.__proto__ || Object.getPrototypeOf(AbstractWordIsCorrectAndFinishedEvent)).call(this, eventParam, 'WordIsCorrectAndFinishedEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractWordIsCorrectAndFinishedEvent).call(this, eventParam, 'WordIsCorrectAndFinishedEvent'));
     }
 
     return AbstractWordIsCorrectAndFinishedEvent;
@@ -11133,7 +6946,7 @@ var AbstractWordIsCorrectAndNotFinishedEvent = function (_Event) {
     function AbstractWordIsCorrectAndNotFinishedEvent(eventParam) {
         _classCallCheck(this, AbstractWordIsCorrectAndNotFinishedEvent);
 
-        return _possibleConstructorReturn(this, (AbstractWordIsCorrectAndNotFinishedEvent.__proto__ || Object.getPrototypeOf(AbstractWordIsCorrectAndNotFinishedEvent)).call(this, eventParam, 'WordIsCorrectAndNotFinishedEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractWordIsCorrectAndNotFinishedEvent).call(this, eventParam, 'WordIsCorrectAndNotFinishedEvent'));
     }
 
     return AbstractWordIsCorrectAndNotFinishedEvent;
@@ -11154,5821 +6967,11 @@ var AbstractWordIsNotCorrectEvent = function (_Event) {
     function AbstractWordIsNotCorrectEvent(eventParam) {
         _classCallCheck(this, AbstractWordIsNotCorrectEvent);
 
-        return _possibleConstructorReturn(this, (AbstractWordIsNotCorrectEvent.__proto__ || Object.getPrototypeOf(AbstractWordIsNotCorrectEvent)).call(this, eventParam, 'WordIsNotCorrectEvent'));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AbstractWordIsNotCorrectEvent).call(this, eventParam, 'WordIsNotCorrectEvent'));
     }
 
     return AbstractWordIsNotCorrectEvent;
 }(Event);
-
-/*       S.D.G.       */
-/**
- * Created by annette on 07.01.16.
- */
-
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ServerFacade = function () {
-    function ServerFacade() {
-        _classCallCheck(this, ServerFacade);
-    }
-
-    _createClass(ServerFacade, [{
-        key: "reset",
-        value: function reset() {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/reset.php"
-                }).done(function () {
-                    resolve();
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadPublicCourses",
-        value: function loadPublicCourses(uuid) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/courses/public?uuid=" + uuid + "&schema=" + App.schema
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Keine Kurse vorhanden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadPublicLessons",
-        value: function loadPublicLessons(uuid, courseId) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/lessons/public?courseid=" + courseId + "&uuid=" + uuid + "&schema=" + App.schema
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Keine Lektionen vorhanden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadPublicTests",
-        value: function loadPublicTests(uuid, lessonId) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/tests/public?lessonid=" + lessonId + "&uuid=" + uuid + "&schema=" + App.schema
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Keine Tests vorhanden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadPublicTest",
-        value: function loadPublicTest(uuid, testId) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/tests/single?testid=" + testId + "&uuid=" + uuid + "&schema=" + App.schema
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Der Test ist nicht vorhanden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadPrivateCourses",
-        value: function loadPrivateCourses(token) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/getMyCourses.php?token=" + token
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Keine Kurse vorhanden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadPrivateLessons",
-        value: function loadPrivateLessons(token, courseId) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/getMyLessonsOfCourse.php?token=" + token + "&courseid=" + courseId
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Keine Lektionen vorhanden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadPrivateTests",
-        value: function loadPrivateTests(token, lessonId) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/getMyTests.php?token=" + token + "&lessonid=" + lessonId
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Keine Tests vorhanden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadPrivateTest",
-        value: function loadPrivateTest(token, testId) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/getMyTest.php?token=" + token + "&testid=" + testId
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Test nicht vorhanden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadResult",
-        value: function loadResult(token, resultId) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/getResult.php?&resultid=" + resultId + "&token=" + token
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Ergebnis nicht vorhanden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadTestOfResult",
-        value: function loadTestOfResult(resultId) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/getTestOfResult.php?&resultid=" + resultId
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Test nicht vorhanden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadPersonalMessage",
-        value: function loadPersonalMessage(token) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/getPersonalMessage.php?token=" + token
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Persönliche Daten konnten nicht geladen werden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadBoxes",
-        value: function loadBoxes(token) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/getMyBoxes.php?token=" + token
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Vokabel-Boxen konnten nicht geladen werden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadNextCard",
-        value: function loadNextCard(token, boxId) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/getNextCard.php?token=" + token + "&boxId=" + boxId
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Nächste Vokabel konnte nicht geladen werden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadTodayCards",
-        value: function loadTodayCards(token, boxId) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/repeatTodaysCards.php?token=" + token + "&boxId=" + boxId
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Die Karten konnten nicht geladen werden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "scoreCard",
-        value: function scoreCard(token, id, quality, boxId) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/scoreCard.php?token=" + token + "&id=" + id + "&quality=" + quality + "&boxId=" + boxId
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Vokabel konnte nicht gewertet werden.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "saveResult",
-        value: function saveResult(token, testId, json, points, maxPoints) {
-            return new Promise(function (resolve, reject) {
-                var jsonForPost = {};
-                if (json !== undefined) {
-                    jsonForPost = JSON.parse(JSON.stringify(json));
-                }
-                jsonForPost["points"] = points;
-                jsonForPost["maxPoints"] = maxPoints;
-                jsonForPost["testId"] = testId;
-                jsonForPost["token"] = token;
-
-                $.post(urlPrefix + "api/saveResult.php", {
-                    json: jsonForPost
-                }, function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Keine Antwort vom Server.');
-                    }
-                });
-            });
-        }
-    }, {
-        key: "login",
-        value: function login(username, password) {
-            return new Promise(function (resolve, reject) {
-                var json = {};
-                json["username"] = username;
-                json["password"] = password;
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/login.php",
-                    data: JSON.stringify(json),
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8"
-                }).done(function (data) {
-                    if (data !== null) {
-                        resolve(data);
-                    } else {
-                        reject('Keine Antwort vom Server.');
-                    }
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }, {
-        key: "loadStatistics",
-        value: function loadStatistics(token, year, month) {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: urlPrefix + "api/getMonthlyStatistics.php?token=" + token + "&year=" + year + "&month=" + month
-                }).done(function (data) {
-                    resolve(data);
-                }).fail(function (jqxhr, textStatus, error) {
-                    reject(error);
-                });
-            });
-        }
-    }]);
-
-    return ServerFacade;
-}();
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var BreadcrumbsView = function () {
-    function BreadcrumbsView() {
-        _classCallCheck(this, BreadcrumbsView);
-    }
-
-    _createClass(BreadcrumbsView, null, [{
-        key: 'renderPublicCoursesBreadcrumbs',
-        value: function renderPublicCoursesBreadcrumbs(data) {
-            $.get('templates/breadcrumbsTemplate1Public.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.breadcrumbs').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPublicLessonsBreadcrumbs',
-        value: function renderPublicLessonsBreadcrumbs(data) {
-            $.get('templates/breadcrumbsTemplate2Public.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.breadcrumbs').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPublicTestsBreadcrumbs',
-        value: function renderPublicTestsBreadcrumbs(data) {
-            $.get('templates/breadcrumbsTemplate3Public.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.breadcrumbs').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPrivateCoursesBreadcrumbs',
-        value: function renderPrivateCoursesBreadcrumbs(data) {
-            $.get('templates/breadcrumbsTemplate1.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.breadcrumbs').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPrivateLessonsBreadcrumbs',
-        value: function renderPrivateLessonsBreadcrumbs(data) {
-            $.get('templates/breadcrumbsTemplate2.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.breadcrumbs').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPrivateTestsBreadcrumbs',
-        value: function renderPrivateTestsBreadcrumbs(data) {
-            $.get('templates/breadcrumbsTemplate3.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.breadcrumbs').html(rendered);
-            });
-        }
-    }]);
-
-    return BreadcrumbsView;
-}();
-
-/*                    S.D.G.                    */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var CardView = function () {
-    function CardView() {
-        _classCallCheck(this, CardView);
-    }
-
-    _createClass(CardView, null, [{
-        key: 'showWanted',
-        value: function showWanted() {
-            Mousetrap.unbind('enter');
-            $('.wanted-word').show();
-        }
-    }, {
-        key: 'showNextLine',
-        value: function showNextLine() {
-            var nextLine = $(".line.hiddenLine").first();
-            nextLine.removeClass("hiddenLine");
-            nextLine.children().removeClass("hiddenWord");
-        }
-    }, {
-        key: 'showNextWord',
-        value: function showNextWord() {
-            var nextWord = $(".line.hiddenLine .word.hiddenWord").first();
-            nextWord.removeClass("hiddenWord");
-            if (nextWord.is(':last-child')) {
-                nextWord.parent().removeClass("hiddenLine");
-            }
-        }
-    }, {
-        key: 'showScoreButtons',
-        value: function showScoreButtons() {
-            Mousetrap.unbind('enter');
-            Mousetrap.unbind('alt+enter');
-            $('.quality-buttons button').removeAttr("disabled");
-            Mousetrap.bind('q', function () {
-                $(".quality-buttons .btn-green").click();
-            });
-            Mousetrap.bind('a', function () {
-                $(".quality-buttons .btn-blue").click();
-            });
-            Mousetrap.bind('y', function () {
-                $(".quality-buttons .btn-cyan").click();
-            });
-            Mousetrap.bind('w', function () {
-                $(".quality-buttons .btn-orange").click();
-            });
-            Mousetrap.bind('s', function () {
-                $(".quality-buttons .btn-red").click();
-            });
-            Mousetrap.bind('x', function () {
-                $(".quality-buttons .btn-pink").click();
-            });
-
-            // in test mode
-            var finishCardButton3 = $('#finishCardButton3');
-            finishCardButton3.removeAttr("disabled");
-            finishCardButton3.removeClass("disabled");
-            var finishCardButton2 = $('#finishCardButton2');
-            finishCardButton2.removeAttr("disabled");
-            finishCardButton2.removeClass("disabled");
-            var finishCardButton1 = $('#finishCardButton1');
-            finishCardButton1.removeAttr("disabled");
-            finishCardButton1.removeClass("disabled");
-            var repeatCardButton = $('#repeatCardButton');
-            repeatCardButton.removeAttr("disabled");
-            repeatCardButton.removeClass("disabled");
-            var correctParagraph = $('#correctParagraph');
-            correctParagraph.find('button.blueButton').addClass("btn-blue");
-            correctParagraph.find('button.greenButton').addClass("btn-green");
-            correctParagraph.find('button.orangeButton').addClass("btn-orange");
-            correctParagraph.find('button.redButton').addClass("btn-red");
-        }
-    }, {
-        key: 'goOnWithNewCards',
-        value: function goOnWithNewCards() {
-            App.cardView.goOnWithNewCards = true;
-        }
-    }, {
-        key: 'displayComplexCardFinishedSuccessfully',
-        value: function displayComplexCardFinishedSuccessfully(data) {
-            App.cardView.testState = {
-                points: data.points,
-                maxPoints: data.maxPoints
-            };
-            jQuery('#correctParagraph').html("Du hast " + data.points + " von maximal " + data.maxPoints + " Punkten erreicht.");
-        }
-    }, {
-        key: 'renderNextCard',
-        value: function renderNextCard(data) {
-            $.get('templates/breadcrumbsTemplateBox.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.breadcrumbs').html(rendered);
-            });
-
-            Mousetrap.unbind('q');
-            Mousetrap.unbind('a');
-            Mousetrap.unbind('y');
-            Mousetrap.unbind('w');
-            Mousetrap.unbind('s');
-            Mousetrap.unbind('x');
-
-            if (data.cardsForToday > 0) {
-                $('li.active span.badge').html(data.cardsForToday);
-            } else if (data.cardsForToday == 0) {
-                $('li.active span.badge').html('');
-            }
-            if (data.cardsForToday > 0 || App.cardView.goOnWithNewCards && data.newCards > 0) {
-                $.get('templates/card/cardTemplate.mst', function (template) {
-                    var rendered = Mustache.render(template, data);
-                    $('.content-pane').html(rendered);
-                });
-                if (data["content"]["complex"]) {
-                    Mousetrap.bind('enter', function () {
-                        $(".ccard").click();
-                    });
-                } else {
-                    Mousetrap.bind('enter', function () {
-                        $(".card").click();
-                    });
-                }
-            } else if (data.newCards > 0 && !App.cardView.goOnWithNewCards) {
-                var activeItem = $('li.active i.fa');
-                activeItem.removeClass('fa-pencil-square-o');
-                activeItem.addClass('fa-check-square-o');
-                $.get('templates/card/cardTemplateNewCards.mst', function (template) {
-                    var rendered = Mustache.render(template, data);
-                    $('.content-pane').html(rendered);
-                });
-            } else {
-                var _activeItem = $('li.active i.fa');
-                _activeItem.removeClass('fa-pencil-square-o');
-                _activeItem.addClass('fa-check-square-o');
-                $.get('templates/card/cardTemplateFinished.mst', function (template) {
-                    var rendered = Mustache.render(template, data);
-                    $('.content-pane').html(rendered);
-                });
-            }
-            App.cardView.currentCardId = data.id;
-        }
-    }, {
-        key: 'renderCardForRepetition',
-        value: function renderCardForRepetition() {
-            $.get('templates/card/cardRepetitionTemplate.mst', function (template) {
-                var rendered = Mustache.render(template, App.cardView.boxRepetitionState.cards[App.cardView.boxRepetitionState.index]);
-                $('.content-pane').html(rendered);
-                App.cardView.boxRepetitionState.index++;
-            });
-        }
-    }, {
-        key: 'repeatComplexCard',
-        value: function repeatComplexCard() {
-            var finishCardButton3 = $("#finishCardButton3");
-            finishCardButton3.attr("disabled", "disabled");
-            finishCardButton3.addClass("disabled");
-            var finishCardButton2 = $("#finishCardButton2");
-            finishCardButton2.attr("disabled", "disabled");
-            finishCardButton2.addClass("disabled");
-            var finishCardButton1 = $("#finishCardButton1");
-            finishCardButton1.attr("disabled", "disabled");
-            finishCardButton1.addClass("disabled");
-            var repeatCardButton = $("#repeatCardButton");
-            repeatCardButton.attr("disabled", "disabled");
-            repeatCardButton.addClass("disabled");
-            var correctParagraph = $('#correctParagraph');
-            correctParagraph.find('button.blueButton').removeClass("btn-blue");
-            correctParagraph.find('button.greenButton').removeClass("btn-green");
-            correctParagraph.find('button.orangeButton').removeClass("btn-orange");
-            correctParagraph.find('button.redButton').removeClass("btn-red");
-
-            $(".ccard .line").addClass("hiddenLine");
-            $(".ccard .word").addClass("hiddenWord");
-        }
-    }, {
-        key: 'repeatTodaysCards',
-        value: function repeatTodaysCards(data) {
-            App.cardView.boxRepetitionState = {
-                cards: data.cards,
-                index: 0
-            };
-        }
-    }, {
-        key: 'resetGoOnWithNewCards',
-        value: function resetGoOnWithNewCards() {
-            App.cardView.goOnWithNewCards = false;
-        }
-    }, {
-        key: 'initCurrentBoxId',
-        value: function initCurrentBoxId(data) {
-            App.cardView.currentBoxId = data.boxId;
-        }
-    }]);
-
-    return CardView;
-}();
-
-/*                    S.D.G.                    */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var CommonView = function () {
-    function CommonView() {
-        _classCallCheck(this, CommonView);
-    }
-
-    _createClass(CommonView, null, [{
-        key: "setToken",
-        value: function setToken(data) {
-            localStorage.token = data.token;
-            localStorage.username = data.username;
-            localStorage.password = data.password;
-        }
-    }, {
-        key: "resetToken",
-        value: function resetToken() {
-            localStorage.removeItem("token");
-            localStorage.removeItem("username");
-            localStorage.removeItem("password");
-        }
-    }, {
-        key: "updateSelection",
-        value: function updateSelection(data) {
-            App.commonView.selection = data.selection;
-            var selection = data.selection;
-            var hashString = selection.context;
-            if (selection.context === 'public' || selection.context === 'private') {
-                if (selection.selectedCourse !== undefined) {
-                    hashString += '/' + selection.selectedCourse;
-                    if (selection.selectedLesson !== undefined) {
-                        hashString += '/' + selection.selectedLesson;
-                        if (selection.selectedTest !== undefined) {
-                            hashString += '/' + selection.selectedTest;
-                            if (selection.selectedResult !== undefined) {
-                                hashString += '/' + selection.selectedResult;
-                            }
-                        }
-                    }
-                }
-            } else if (selection.context === 'box') {
-                hashString += '/' + selection.selectedBox;
-            }
-            window.location.hash = hashString;
-        }
-    }]);
-
-    return CommonView;
-}();
-
-/*                    S.D.G.                    */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ContentView = function () {
-    function ContentView() {
-        _classCallCheck(this, ContentView);
-    }
-
-    _createClass(ContentView, null, [{
-        key: 'renderStatistics',
-        value: function renderStatistics(data) {
-            if (data.statistics === null) {
-                data.statistics = {
-                    items: []
-                };
-            }
-            $.get('templates/statisticsTemplate.mst', function (template) {
-                var rendered = Mustache.render(template, data.statistics);
-                $('.content-pane').html(rendered);
-                $(".year").val(data.year);
-                $(".month").val(data.month);
-            });
-        }
-    }, {
-        key: 'renderPublicCoursesContentPane',
-        value: function renderPublicCoursesContentPane(data) {
-            $.get('templates/contentTemplate1_de.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.content-pane').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPublicLessonsContentPane',
-        value: function renderPublicLessonsContentPane(data) {
-            $.get('templates/contentTemplate2.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.content-pane').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPublicTestsContentPane',
-        value: function renderPublicTestsContentPane(data) {
-            $.get('templates/contentTemplate3.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.content-pane').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPublicTestContentPane',
-        value: function renderPublicTestContentPane(data) {
-            $(".content-pane").html(data.content);
-            // TODO remove again!
-            //enableDrag();
-        }
-    }, {
-        key: 'renderPrivateLessonsContentPane',
-        value: function renderPrivateLessonsContentPane(data) {
-            $.get('templates/contentTemplate2.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.content-pane').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPrivateTestsContentPane',
-        value: function renderPrivateTestsContentPane(data) {
-            $.get('templates/contentTemplate3.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.content-pane').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPrivateTestContentPane',
-        value: function renderPrivateTestContentPane(data) {
-            $(".content-pane").html(data.content);
-            //enableDrag();
-        }
-    }, {
-        key: 'renderResultJson',
-        value: function renderResultJson(data) {
-            var jsonString = data.json;
-            if (jsonString != null && jsonString.length > 0) {
-                var jsonObject = JSON.parse(jsonString);
-                if (jQuery(".vocabulary").length > 0) {
-                    for (var i in jsonObject) {
-                        var value = jsonObject[i];
-                        if (jQuery("#" + i).hasClass('vocabulary')) {
-                            jQuery("#" + i).addClass("strike");
-                            jQuery("#" + i).attr("disabled", "disabled");
-                            for (var j = 0; j < value.length; j++) {
-                                if (value[j] == '1') {
-                                    jQuery("#" + i + "_shots").append("<span class='strike'><i class='fa fa-check-circle-o'></i></span>");
-                                } else {
-                                    jQuery("#" + i + "_shots").append("<span class='offTarget'><i class='fa fa-times-circle-o'></i></span>");
-                                }
-                            }
-                        }
-                    }
-                    jQuery('#correctParagraph').html("Du hast " + jsonObject["points"] + " von maximal " + jsonObject["maxPoints"] + " Punkten erreicht.");
-                } else if (jQuery("#questionOverviewList").length > 0) {
-                    alert('questionOverviewList');
-                    for (var i = 1; i <= jsonObject["maxPoints"]; i++) {
-                        $("#" + i).addClass("show");
-                        $("#" + i).removeClass("hide");
-                        $("#" + i + " button").remove();
-                        var j = 0;
-                        var value = jsonObject[i + ""];
-                        jQuery("#" + i + " i").each(function () {
-                            jQuery(this).prop("onclick", null);
-                            var v = value.charAt(j);
-                            if (v == 1) {
-                                jQuery(this).removeClass("fa fa-circle-o");
-                                jQuery(this).addClass("fa fa-check-circle-o");
-                                jQuery(this).addClass("correct");
-                                $("#" + i + "_icon").removeClass("fa fa-circle-o");
-                                $("#" + i + "_icon").addClass("fa fa-check-circle-o");
-                                $("#" + i + "_icon").addClass("correct");
-                            } else if (v == 2) {
-                                jQuery(this).removeClass("fa fa-circle-o");
-                                jQuery(this).addClass("fa fa-times-circle-o");
-                                jQuery(this).addClass("false");
-                                $("#" + i + "_icon").removeClass("fa fa-circle-o");
-                                $("#" + i + "_icon").addClass("fa fa-times-circle-o");
-                                $("#" + i + "_icon").addClass("false");
-                            }
-                            j++;
-                        });
-                    }
-                    jQuery('#resultDiv').html("Du hast " + jsonObject["points"] + " von maximal " + jsonObject["maxPoints"] + " Punkten erreicht.");
-                } else if (jQuery(".ccard").length > 0) {
-                    $(".line").removeClass("invisible");
-                    $(".word").removeClass("invisible");
-                    jQuery('#correctParagraph').html("Du hast " + jsonObject["points"] + " von maximal " + jsonObject["maxPoints"] + " Punkten erreicht.");
-                } else {
-                    for (var i in jsonObject) {
-                        var value = jsonObject[i];
-                        if (jQuery("#" + i).hasClass('clickText')) {
-                            jQuery("#" + i).html(value);
-                        } else if (jQuery("#" + i).hasClass('completionText')) {
-                            jQuery("#" + i).attr('value', value);
-                        } else if (jQuery("#" + i).hasClass('singleChoice')) {
-                            if (value == "selected") {
-                                jQuery("#" + i).addClass("selectedItem");
-                            }
-                        } else if (jQuery("#" + i).hasClass('multipleChoice')) {
-                            if (value == "selected") {
-                                jQuery("#" + i).addClass("selectedItem");
-                            }
-                        } else if (jQuery("#" + i).hasClass('dragElement')) {
-                            var splitted = value.split("###");
-                            $("#" + i).children('.answer').html(splitted[0]);
-                            jQuery("#" + i).css("left", splitted[1]);
-                            jQuery("#" + i).css("top", splitted[2]);
-                        }
-                    }
-                    ContentView.correctTest(false);
-                }
-            }
-        }
-    }, {
-        key: 'correctTest',
-        value: function correctTest() {
-            var allClickTexts = jQuery(".clickText");
-            var points = 0;
-            var maxPoints = 0;
-            var json = {};
-
-            for (var i = 0; i < allClickTexts.length; i++) {
-                var clickTextId = allClickTexts[i].id;
-                var solution = jQuery("#" + clickTextId).next().html();
-                var answer = jQuery("#" + clickTextId).html();
-                json["" + clickTextId] = answer;
-                if (solution == answer) {
-                    jQuery("#" + clickTextId).addClass("correct");
-                    points++;
-                } else {
-                    jQuery("#" + clickTextId).addClass("false");
-                    jQuery("#" + clickTextId).append(' <i class="fa fa-question-circle" data-toggle="tooltip" title="' + solution + '"></i>');
-                    jQuery('[data-toggle="tooltip"]').tooltip();
-                    points--;
-                }
-                maxPoints++;
-                jQuery("#" + clickTextId).prop("onclick", null);
-            }
-
-            var allCompletionTexts = jQuery(".completionText");
-            for (var i = 0; i < allCompletionTexts.length; i++) {
-                var completionTextId = allCompletionTexts[i].id;
-                var solution = jQuery("#" + completionTextId).next().html();
-                var answer = jQuery("#" + completionTextId).val().trim();
-                json["" + completionTextId] = answer;
-                if (solution == answer) {
-                    jQuery("#" + completionTextId).addClass("correct");
-                    points++;
-                } else {
-                    jQuery("#" + completionTextId).addClass("false");
-                    jQuery("#" + completionTextId).after(' <i class="fa fa-question-circle" data-toggle="tooltip" title="' + solution + '" data-action="click"></i>');
-                    jQuery('[data-toggle="tooltip"]').tooltip();
-                }
-                maxPoints++;
-                jQuery("#" + completionTextId).attr('readonly', 'readonly');
-            }
-
-            var allSingleChoices = jQuery(".singleChoice");
-            var currentGroup = "";
-            var groupCorrect;
-            var precedingChoiceId;
-            for (var i = 0; i < allSingleChoices.length; i++) {
-                var singleChoiceId = allSingleChoices[i].id;
-                if (!jQuery("#" + singleChoiceId).hasClass(currentGroup)) {
-                    if (groupCorrect) {
-                        jQuery("#" + precedingChoiceId).parent().addClass("correct");
-                    } else {
-                        jQuery("#" + precedingChoiceId).parent().addClass("false");
-                    }
-                    currentGroup = "group" + singleChoiceId;
-                    groupCorrect = true;
-                }
-                var solution = jQuery("#" + singleChoiceId).next().html();
-                if (solution == "correct") {
-                    jQuery("#" + singleChoiceId).addClass("mcCorrect");
-                    if (jQuery("#" + singleChoiceId).hasClass("selectedItem")) {
-                        json["" + singleChoiceId] = "selected";
-                        points++;
-                    } else {
-                        groupCorrect = false;
-                        json["" + singleChoiceId] = "notSelected";
-                    }
-                    maxPoints++;
-                } else {
-                    jQuery("#" + singleChoiceId).addClass("mcFalse");
-                    if (jQuery("#" + singleChoiceId).hasClass("selectedItem")) {
-                        json["" + singleChoiceId] = "selected";
-                        groupCorrect = false;
-                    } else {
-                        json["" + singleChoiceId] = "notSelected";
-                    }
-                }
-                jQuery("#" + singleChoiceId).prop("onclick", null);
-                precedingChoiceId = singleChoiceId;
-            }
-            if (groupCorrect) {
-                jQuery("#" + precedingChoiceId).parent().addClass("correct");
-            } else {
-                jQuery("#" + precedingChoiceId).parent().addClass("false");
-            }
-
-            var allMultipleChoices = jQuery(".multipleChoice");
-            for (var i = 0; i < allMultipleChoices.length; i++) {
-                var multipleChoiceId = allMultipleChoices[i].id;
-                if (!jQuery("#" + multipleChoiceId).hasClass(currentGroup)) {
-                    if (groupCorrect) {
-                        jQuery("#" + precedingChoiceId).parent().addClass("correct");
-                    } else {
-                        jQuery("#" + precedingChoiceId).parent().addClass("false");
-                    }
-                    currentGroup = "group" + multipleChoiceId;
-                    groupCorrect = true;
-                }
-                var solution = jQuery("#" + multipleChoiceId).next().html();
-                json["" + multipleChoiceId] = answer;
-                if (solution == "correct") {
-                    jQuery("#" + multipleChoiceId).addClass("mcCorrect");
-                    if (jQuery("#" + multipleChoiceId).hasClass("selectedItem")) {
-                        points++;
-                        json["" + multipleChoiceId] = "selected";
-                    } else {
-                        points--;
-                        groupCorrect = false;
-                        json["" + multipleChoiceId] = "notSelected";
-                    }
-                } else {
-                    jQuery("#" + multipleChoiceId).addClass("mcFalse");
-                    if (jQuery("#" + multipleChoiceId).hasClass("selectedItem")) {
-                        json["" + multipleChoiceId] = "selected";
-                        groupCorrect = false;
-                        points--;
-                    } else {
-                        points++;
-                        json["" + multipleChoiceId] = "notSelected";
-                    }
-                }
-                maxPoints++;
-                jQuery("#" + multipleChoiceId).prop("onclick", null);
-                precedingChoiceId = multipleChoiceId;
-            }
-            if (groupCorrect) {
-                jQuery("#" + precedingChoiceId).parent().addClass("correct");
-            } else {
-                jQuery("#" + precedingChoiceId).parent().addClass("false");
-            }
-
-            var allDropAreas = jQuery(".dropArea");
-            for (var i = 0; i < allDropAreas.length; i++) {
-                var dropAreaId = allDropAreas[i].id;
-                jQuery("#" + dropAreaId).addClass("correct");
-            }
-            var allDragElements = jQuery(".dragElement");
-            for (var i = 0; i < allDragElements.length; i++) {
-                var dragElementId = allDragElements[i].id;
-                var solution = jQuery("#" + dragElementId).children(".solution").html();
-                var answer = jQuery("#" + dragElementId).children(".answer").html();
-                $("#" + dragElementId).appendTo("#" + answer + "DropArea");
-                $("#" + dragElementId).css("left", "");
-                $("#" + dragElementId).css("top", "");
-                $("#" + dragElementId).css("z-index", "");
-
-                json["" + dragElementId] = answer;
-                if (solution == answer) {
-                    jQuery("#" + dragElementId).addClass("correct");
-                    points++;
-                } else {
-                    jQuery("#" + dragElementId).addClass("false");
-                    jQuery("#" + dragElementId).append(' <i class="fa fa-question-circle" data-toggle="tooltip" title="' + solution + '" data-action="click"></i>');
-                    jQuery('[data-toggle="tooltip"]').tooltip();
-                    points--;
-                }
-                jQuery("#" + dragElementId).draggable('destroy');
-                if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i)) {
-                    $("span.dragElement").bind('touchstart', function () {});
-                    $("span.dragElement").bind('touchend', function () {});
-                }
-                maxPoints++;
-            }
-
-            jQuery(".tip").addClass('visibleTip');
-            jQuery(".tip").removeClass('tip');
-
-            if (points < 0) {
-                points = 0;
-            }
-
-            jQuery('#correctParagraph').html("Du hast " + points + " von " + maxPoints + " Punkten erreicht.");
-
-            jQuery('#correctButton').remove();
-            json["points"] = points;
-            json["maxPoints"] = maxPoints;
-            json["testid"] = App.commonView.selection.selectedTest;
-            json["token"] = localStorage.token;
-        }
-    }]);
-
-    return ContentView;
-}();
-
-/*                    S.D.G.                    */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var HeaderView = function () {
-    function HeaderView() {
-        _classCallCheck(this, HeaderView);
-    }
-
-    _createClass(HeaderView, null, [{
-        key: "showLogout",
-        value: function showLogout() {
-            $(".logout-pane").show();
-        }
-    }, {
-        key: "hideLogout",
-        value: function hideLogout() {
-            $(".logout-pane").hide();
-        }
-    }, {
-        key: "showLogin",
-        value: function showLogin() {
-            $(".login-pane").show();
-        }
-    }, {
-        key: "hideLogin",
-        value: function hideLogin() {
-            $(".login-pane").hide();
-        }
-    }, {
-        key: "showPersonalMessage",
-        value: function showPersonalMessage(data) {
-            $(".hello-message").html("Hi " + data.username + "!");
-            $(".goodbye-message").html("Bis bald, " + data.username + "!");
-            $(".sum-of-points").html("Du hast insgesamt " + data.sumOfPoints + " Punkte.");
-        }
-    }, {
-        key: "renderSumOfPoints",
-        value: function renderSumOfPoints(data) {
-            $(".sum-of-points").html("Du hast insgesamt " + data.points + " Punkte.");
-        }
-    }]);
-
-    return HeaderView;
-}();
-
-/*                    S.D.G.                    */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var MessagesView = function () {
-    function MessagesView() {
-        _classCallCheck(this, MessagesView);
-    }
-
-    _createClass(MessagesView, null, [{
-        key: 'renderError',
-        value: function renderError(data) {
-            $.get('templates/common/errorTemplate.mst', function (template) {
-                var rendered = Mustache.render(template, data.message);
-                $('.notifications').html(rendered);
-            });
-            window.setTimeout(function () {
-                $(".notifications div").fadeOut("slow", function () {
-                    $(".notifications").empty();
-                });
-            }, 3000);
-        }
-    }]);
-
-    return MessagesView;
-}();
-
-/*                    S.D.G.                    */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var NavigationView = function () {
-    function NavigationView() {
-        _classCallCheck(this, NavigationView);
-    }
-
-    _createClass(NavigationView, null, [{
-        key: 'hideBoxes',
-        value: function hideBoxes(data) {
-            $('.box-navigation').empty();
-        }
-    }, {
-        key: 'renderPublicCoursesNavigation',
-        value: function renderPublicCoursesNavigation(data) {
-            $.get('templates/navigation/publicCoursesTemplate.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.course-navigation').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPublicLessonsNavigation',
-        value: function renderPublicLessonsNavigation(data) {
-            $.get('templates/navigation/publicLessonsTemplate.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.course-navigation').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPublicTestsNavigation',
-        value: function renderPublicTestsNavigation(data) {
-            $.get('templates/navigation/publicTestsTemplate.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.course-navigation').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPublicTestNavigation',
-        value: function renderPublicTestNavigation(data) {
-            $("ul.nav li").removeClass("active");
-            $("ul.nav li.test_" + data.testId).addClass("active");
-        }
-    }, {
-        key: 'renderBoxes',
-        value: function renderBoxes(data) {
-            $.get('templates/navigation/myBoxesTemplate.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $(".box-navigation").html(rendered);
-                if (data.selectedBoxId !== undefined) {
-                    $("ul.nav li").removeClass("active");
-                    $("ul.nav li.box_" + data.selectedBoxId).addClass("active");
-                }
-            });
-        }
-    }, {
-        key: 'renderPrivateCoursesNavigation',
-        value: function renderPrivateCoursesNavigation(data) {
-            $.get('templates/navigation/privateCoursesTemplate.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.course-navigation').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPrivateLessonsNavigation',
-        value: function renderPrivateLessonsNavigation(data) {
-            $("ul.nav li").removeClass("active");
-            $.get('templates/navigation/privateLessonsTemplate.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.course-navigation').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPrivateTestsNavigation',
-        value: function renderPrivateTestsNavigation(data) {
-            $.get('templates/navigation/privateTestsTemplate.mst', function (template) {
-                var rendered = Mustache.render(template, data);
-                $('.course-navigation').html(rendered);
-            });
-        }
-    }, {
-        key: 'renderPrivateTestNavigation',
-        value: function renderPrivateTestNavigation(data) {
-            $("ul.nav li").removeClass("active");
-            $("ul.nav li.test_" + data.testId).addClass("active");
-        }
-    }, {
-        key: 'renderPrivateResultOfTestNavigation',
-        value: function renderPrivateResultOfTestNavigation(data) {
-            $("ul.nav li").removeClass("active");
-            $("ul.nav li.result_" + data.resultId).addClass("active");
-        }
-    }]);
-
-    return NavigationView;
-}();
-
-/*                    S.D.G.                    */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var VocabularyView = function () {
-    function VocabularyView() {
-        _classCallCheck(this, VocabularyView);
-    }
-
-    _createClass(VocabularyView, null, [{
-        key: 'wordIsCorrectAndFinished',
-        value: function wordIsCorrectAndFinished(data) {
-            Mousetrap.unbind('ctrl+k');
-            Mousetrap.unbind('g');
-            Mousetrap.unbind('n');
-            var active = jQuery(".active");
-            active.attr("readonly", "readonly");
-            active.addClass("correct");
-            jQuery("#" + data.id + "_shots").append("<span class='strike'><i class='fa fa-check-circle-o'></i></span>");
-            active.addClass("strike");
-            var strike = jQuery('input.strike');
-            strike.removeClass("active");
-            strike.removeClass("correct");
-            strike.attr("disabled", "disabled");
-            VocabularyView.updateTestState(data);
-        }
-    }, {
-        key: 'wordIsCorrectAndNotFinished',
-        value: function wordIsCorrectAndNotFinished(data) {
-            Mousetrap.unbind('ctrl+k');
-            Mousetrap.unbind('g');
-            Mousetrap.unbind('n');
-            var active = jQuery(".active");
-            active.attr("readonly", "readonly");
-            active.addClass("correct");
-            jQuery("#" + data.id + "_shots").append("<span class='strike'><i class='fa fa-check-circle-o'></i></span>");
-            VocabularyView.updateTestState(data);
-        }
-    }, {
-        key: 'wordIsNotCorrect',
-        value: function wordIsNotCorrect(data) {
-            Mousetrap.unbind('ctrl+k');
-            Mousetrap.unbind('g');
-            Mousetrap.unbind('n');
-            var active = jQuery(".active");
-            active.attr("readonly", "readonly");
-            active.addClass("false");
-            jQuery("#" + data.id + "_shots").append("<span class='offTarget'><i class='fa fa-times-circle-o'></i></span>");
-            var solution = jQuery("#" + data.id + "_solution");
-            solution.html(data.solution);
-            solution.addClass('displayedSolution');
-            VocabularyView.updateTestState(data);
-        }
-    }, {
-        key: 'showWord',
-        value: function showWord(data) {
-            Mousetrap.unbind('z');
-            jQuery('.active').val(data.solution);
-            jQuery('#showWord').remove();
-            jQuery('#correctParagraph').html("<button id='known' class='btn btn-green' onclick='new RateWordAction({knewIt: true}).apply();'>Gewusst</button>" + "<button id='notKnown' class='btn btn-red' onclick='new RateWordAction({knewIt: false}).apply();'>Nicht gewusst</button>");
-            Mousetrap.bind('g', function () {
-                $("#known").click();
-            });
-            Mousetrap.bind('n', function () {
-                $("#notKnown").click();
-            });
-        }
-    }, {
-        key: 'goOnWithNextWord',
-        value: function goOnWithNextWord(data) {
-            jQuery('#known').remove();
-            jQuery('#notKnown').remove();
-        }
-    }, {
-        key: 'updateTestState',
-        value: function updateTestState(data) {
-            App.vocubularyView.testState.points = data.points;
-            App.vocubularyView.testState.strikeCount = data.strikeCount;
-        }
-    }, {
-        key: 'displayNextWordButton',
-        value: function displayNextWordButton(data) {
-            jQuery('#correctButton').remove();
-            jQuery('#correctParagraph').html("<button id='nextButton' class='btn btn-green' onclick='new ShowNextWordOfTestAction().apply()'>Weiter</button>");
-            jQuery("#nextButton").focus();
-            Mousetrap.bind('ctrl+space', function () {
-                $("#nextButton").click();
-            });
-        }
-    }, {
-        key: 'displayTestFailed',
-        value: function displayTestFailed(data) {
-            jQuery('#correctButton').remove();
-            jQuery('#correctParagraph').html("Du bist jetzt auf 0 Punkten. Schau Dir die Vokabeln besser noch einmal an!");
-        }
-    }, {
-        key: 'displayTestFinishedSuccessfully',
-        value: function displayTestFinishedSuccessfully(data) {
-            jQuery('#correctButton').remove();
-            var maxPoints = 3 * App.vocubularyView.testState.wordCount;
-            jQuery('#correctParagraph').html("Du hast " + data.points + " von maximal " + maxPoints + " Punkten erreicht.");
-        }
-    }, {
-        key: 'showNextWordOfTest',
-        value: function showNextWordOfTest(data) {
-            jQuery('#nextButton').remove();
-            Mousetrap.unbind('ctrl+space');
-            var active = jQuery('.active');
-            active.attr("disabled", "disabled");
-            active.val("");
-            active.removeClass("correct");
-            active.removeClass("false");
-            active.removeClass("active");
-            var nextRandomIndex = jQuery('#' + data.nextRandomIndex);
-            nextRandomIndex.addClass("active");
-            if (App.vocubularyView.testState.testMode === "withTyping") {
-                jQuery('#correctParagraph').html("<button id='correctButton' class='btn btn-red' onclick='new CorrectWordAction().apply()'>Korrigieren</button>");
-                var displayedSolution = jQuery('.displayedSolution');
-                displayedSolution.html("");
-                displayedSolution.removeClass("displayedSolution");
-                nextRandomIndex.removeAttr("readonly");
-                nextRandomIndex.removeAttr("disabled");
-                nextRandomIndex.focus();
-                Mousetrap.bind('ctrl+k', function () {
-                    $("#correctButton").click();
-                });
-            } else {
-                jQuery('#correctParagraph').html("<button id='showWord' class='btn btn-blue' onclick='new ShowWordAction().apply()'>Zeigen</button>");
-                Mousetrap.bind('z', function () {
-                    $("#showWord").click();
-                });
-            }
-        }
-    }, {
-        key: 'testStarted',
-        value: function testStarted(data) {
-            jQuery('#startButton').remove();
-            var vocabulary = jQuery('.vocabulary');
-            vocabulary.attr("disabled", "disabled");
-            vocabulary.val("");
-            var wordCount = vocabulary.length;
-            App.vocubularyView.testState = {
-                wordCount: wordCount,
-                strikeCount: 0,
-                points: wordCount * 3,
-                testMode: data.testMode,
-                maxPoints: wordCount * 3,
-                lastIndices: [],
-                nextRandomIndex: function nextRandomIndex() {
-                    var random = Math.random();
-                    var index = Math.floor(random * App.vocubularyView.testState.wordCount) + 1;
-                    var indices = [];
-                    while (indices.length < wordCount) {
-                        while (jQuery('#' + index).hasClass("strike")) {
-                            random = Math.random();
-                            index = Math.floor(random * App.vocubularyView.testState.wordCount) + 1;
-                        }
-                        indices.push(index);
-                        random = Math.random();
-                        index = Math.floor(random * App.vocubularyView.testState.wordCount) + 1;
-                    }
-                    var nextIndex;
-                    var smallestPositionInLastIndices = -1;
-                    for (var i = 0; i < indices.length; i++) {
-                        var currentIndex = indices[i];
-                        var positionInLastIndices = App.vocubularyView.testState.lastIndices.indexOf(currentIndex);
-                        if (positionInLastIndices < 0) {
-                            nextIndex = currentIndex;
-                            break;
-                        } else if (smallestPositionInLastIndices === -1 || positionInLastIndices < smallestPositionInLastIndices) {
-                            nextIndex = currentIndex;
-                            smallestPositionInLastIndices = positionInLastIndices;
-                        }
-                    }
-                    if (smallestPositionInLastIndices !== -1 && App.vocubularyView.testState.lastIndices.indexOf(indices[smallestPositionInLastIndices] > -1)) {
-                        App.vocubularyView.testState.lastIndices.splice(smallestPositionInLastIndices, 1);
-                    }
-                    App.vocubularyView.testState.lastIndices.push(nextIndex);
-                    return nextIndex;
-                }
-            };
-            vocabulary.addClass("mousetrap");
-        }
-    }]);
-
-    return VocabularyView;
-}();
-
-/*                    S.D.G.                    */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AutoLoginAction = function (_AbstractAutoLoginAct) {
-    _inherits(AutoLoginAction, _AbstractAutoLoginAct);
-
-    function AutoLoginAction() {
-        _classCallCheck(this, AutoLoginAction);
-
-        return _possibleConstructorReturn(this, (AutoLoginAction.__proto__ || Object.getPrototypeOf(AutoLoginAction)).apply(this, arguments));
-    }
-
-    _createClass(AutoLoginAction, [{
-        key: 'captureActionParam',
-        value: function captureActionParam() {
-            this.actionParam.username = localStorage.username;
-            this.actionParam.password = localStorage.password;
-        }
-    }, {
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.username = this.actionParam.username;
-            this.actionData.password = this.actionParam.password;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {
-            localStorage.username = this.actionParam.username;
-            localStorage.password = this.actionParam.password;
-        }
-    }]);
-
-    return AutoLoginAction;
-}(AbstractAutoLoginAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CheckIfComplexCardIsFinishedAction = function (_AbstractCheckIfCompl) {
-    _inherits(CheckIfComplexCardIsFinishedAction, _AbstractCheckIfCompl);
-
-    function CheckIfComplexCardIsFinishedAction() {
-        _classCallCheck(this, CheckIfComplexCardIsFinishedAction);
-
-        return _possibleConstructorReturn(this, (CheckIfComplexCardIsFinishedAction.__proto__ || Object.getPrototypeOf(CheckIfComplexCardIsFinishedAction)).apply(this, arguments));
-    }
-
-    _createClass(CheckIfComplexCardIsFinishedAction, [{
-        key: "initActionData",
-        value: function initActionData() {
-            this.actionData.isFinished = !$(".word").hasClass("hiddenWord");
-        }
-    }]);
-
-    return CheckIfComplexCardIsFinishedAction;
-}(AbstractCheckIfComplexCardIsFinishedAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CorrectWordAction = function (_AbstractCorrectWordA) {
-    _inherits(CorrectWordAction, _AbstractCorrectWordA);
-
-    function CorrectWordAction() {
-        _classCallCheck(this, CorrectWordAction);
-
-        return _possibleConstructorReturn(this, (CorrectWordAction.__proto__ || Object.getPrototypeOf(CorrectWordAction)).apply(this, arguments));
-    }
-
-    _createClass(CorrectWordAction, [{
-        key: "captureActionParam",
-        value: function captureActionParam() {
-            this.actionParam.answer = jQuery(".active").val().trim();
-            this.actionParam.id = jQuery(".active").attr("id");
-        }
-    }, {
-        key: "initActionData",
-        value: function initActionData() {
-            this.actionData.answer = this.actionParam.answer;
-            this.actionData.id = this.actionParam.id;
-            this.actionData.solution = jQuery(".active").next().html();
-            this.actionData.wordCount = App.vocubularyView.testState.wordCount;
-            this.actionData.strikeCount = App.vocubularyView.testState.strikeCount;
-            this.actionData.points = App.vocubularyView.testState.points;
-            this.actionData.strikesOfWord = jQuery("#" + this.actionData.id + "_shots").children(".strike").length;
-        }
-    }, {
-        key: "releaseActionParam",
-        value: function releaseActionParam() {
-            jQuery("#" + this.actionParam.id).val(this.actionParam.answer);
-        }
-    }]);
-
-    return CorrectWordAction;
-}(AbstractCorrectWordAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var FinishCardAction = function (_AbstractFinishCardAc) {
-    _inherits(FinishCardAction, _AbstractFinishCardAc);
-
-    function FinishCardAction() {
-        _classCallCheck(this, FinishCardAction);
-
-        return _possibleConstructorReturn(this, (FinishCardAction.__proto__ || Object.getPrototypeOf(FinishCardAction)).apply(this, arguments));
-    }
-
-    _createClass(FinishCardAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.token = localStorage.token;
-            this.actionData.points = this.actionParam.points;
-            this.actionData.maxPoints = this.actionParam.maxPoints;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {}
-    }]);
-
-    return FinishCardAction;
-}(AbstractFinishCardAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var GoOnWithNewCardsAction = function (_AbstractGoOnWithNewC) {
-    _inherits(GoOnWithNewCardsAction, _AbstractGoOnWithNewC);
-
-    function GoOnWithNewCardsAction() {
-        _classCallCheck(this, GoOnWithNewCardsAction);
-
-        return _possibleConstructorReturn(this, (GoOnWithNewCardsAction.__proto__ || Object.getPrototypeOf(GoOnWithNewCardsAction)).apply(this, arguments));
-    }
-
-    _createClass(GoOnWithNewCardsAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.token = localStorage.token;
-            this.actionData.boxId = App.cardView.currentBoxId;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {}
-    }]);
-
-    return GoOnWithNewCardsAction;
-}(AbstractGoOnWithNewCardsAction);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var GoOnWithTodaysNextCardAction = function (_AbstractGoOnWithToda) {
-  _inherits(GoOnWithTodaysNextCardAction, _AbstractGoOnWithToda);
-
-  function GoOnWithTodaysNextCardAction() {
-    _classCallCheck(this, GoOnWithTodaysNextCardAction);
-
-    return _possibleConstructorReturn(this, (GoOnWithTodaysNextCardAction.__proto__ || Object.getPrototypeOf(GoOnWithTodaysNextCardAction)).apply(this, arguments));
-  }
-
-  return GoOnWithTodaysNextCardAction;
-}(AbstractGoOnWithTodaysNextCardAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var InitAppAction = function (_AbstractInitAppActio) {
-    _inherits(InitAppAction, _AbstractInitAppActio);
-
-    function InitAppAction() {
-        _classCallCheck(this, InitAppAction);
-
-        return _possibleConstructorReturn(this, (InitAppAction.__proto__ || Object.getPrototypeOf(InitAppAction)).apply(this, arguments));
-    }
-
-    _createClass(InitAppAction, [{
-        key: 'captureActionParam',
-        value: function captureActionParam() {
-            this.actionParam.hash = window.location.hash.substring(1);
-            this.actionParam.username = localStorage.username;
-            this.actionParam.password = localStorage.password;
-        }
-    }, {
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.hash = this.actionParam.hash;
-            this.actionData.username = this.actionParam.username;
-            this.actionData.password = this.actionParam.password;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {
-            localStorage.username = this.actionParam.username;
-            localStorage.password = this.actionParam.password;
-            window.location.hash = this.actionParam.hash;
-        }
-    }]);
-
-    return InitAppAction;
-}(AbstractInitAppAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var IsBoxFinishedAction = function (_AbstractIsBoxFinishe) {
-    _inherits(IsBoxFinishedAction, _AbstractIsBoxFinishe);
-
-    function IsBoxFinishedAction() {
-        _classCallCheck(this, IsBoxFinishedAction);
-
-        return _possibleConstructorReturn(this, (IsBoxFinishedAction.__proto__ || Object.getPrototypeOf(IsBoxFinishedAction)).apply(this, arguments));
-    }
-
-    _createClass(IsBoxFinishedAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.boxId = App.cardView.currentBoxId;
-            this.actionData.index = App.cardView.boxRepetitionState.index;
-            this.actionData.length = App.cardView.boxRepetitionState.cards.length;
-        }
-    }]);
-
-    return IsBoxFinishedAction;
-}(AbstractIsBoxFinishedAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var IsRatedTestFinishedAction = function (_AbstractIsRatedTestF) {
-    _inherits(IsRatedTestFinishedAction, _AbstractIsRatedTestF);
-
-    function IsRatedTestFinishedAction() {
-        _classCallCheck(this, IsRatedTestFinishedAction);
-
-        return _possibleConstructorReturn(this, (IsRatedTestFinishedAction.__proto__ || Object.getPrototypeOf(IsRatedTestFinishedAction)).apply(this, arguments));
-    }
-
-    _createClass(IsRatedTestFinishedAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.strikeCount = this.actionParam.strikeCount;
-            this.actionData.points = this.actionParam.points;
-            this.actionData.wordCount = this.actionParam.wordCount;
-        }
-    }]);
-
-    return IsRatedTestFinishedAction;
-}(AbstractIsRatedTestFinishedAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var IsTestFinishedAction = function (_AbstractIsTestFinish) {
-    _inherits(IsTestFinishedAction, _AbstractIsTestFinish);
-
-    function IsTestFinishedAction() {
-        _classCallCheck(this, IsTestFinishedAction);
-
-        return _possibleConstructorReturn(this, (IsTestFinishedAction.__proto__ || Object.getPrototypeOf(IsTestFinishedAction)).apply(this, arguments));
-    }
-
-    _createClass(IsTestFinishedAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.strikeCount = this.actionParam.strikeCount;
-            this.actionData.points = this.actionParam.points;
-            this.actionData.wordCount = this.actionParam.wordCount;
-        }
-    }]);
-
-    return IsTestFinishedAction;
-}(AbstractIsTestFinishedAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadAccordingToHashAction = function (_AbstractLoadAccordin) {
-    _inherits(LoadAccordingToHashAction, _AbstractLoadAccordin);
-
-    function LoadAccordingToHashAction() {
-        _classCallCheck(this, LoadAccordingToHashAction);
-
-        return _possibleConstructorReturn(this, (LoadAccordingToHashAction.__proto__ || Object.getPrototypeOf(LoadAccordingToHashAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadAccordingToHashAction, [{
-        key: 'captureActionParam',
-        value: function captureActionParam() {
-            this.actionParam.hash = window.location.hash.substring(1);
-        }
-    }, {
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.hash = this.actionParam.hash;
-            this.actionData.userIsLoggedIn = localStorage.token !== undefined;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {
-            window.location.hash = this.actionParam.hash;
-        }
-    }]);
-
-    return LoadAccordingToHashAction;
-}(AbstractLoadAccordingToHashAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadBoxesSilentlyAction = function (_AbstractLoadBoxesSil) {
-    _inherits(LoadBoxesSilentlyAction, _AbstractLoadBoxesSil);
-
-    function LoadBoxesSilentlyAction() {
-        _classCallCheck(this, LoadBoxesSilentlyAction);
-
-        return _possibleConstructorReturn(this, (LoadBoxesSilentlyAction.__proto__ || Object.getPrototypeOf(LoadBoxesSilentlyAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadBoxesSilentlyAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.token = localStorage.token;
-            this.actionData.selectedBoxId = this.actionParam.boxId;
-        }
-    }]);
-
-    return LoadBoxesSilentlyAction;
-}(AbstractLoadBoxesSilentlyAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadNextCardAction = function (_AbstractLoadNextCard) {
-    _inherits(LoadNextCardAction, _AbstractLoadNextCard);
-
-    function LoadNextCardAction() {
-        _classCallCheck(this, LoadNextCardAction);
-
-        return _possibleConstructorReturn(this, (LoadNextCardAction.__proto__ || Object.getPrototypeOf(LoadNextCardAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadNextCardAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.boxId = this.actionParam.boxId;
-            this.actionData.token = localStorage.token;
-        }
-    }]);
-
-    return LoadNextCardAction;
-}(AbstractLoadNextCardAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPrivateCoursesAction = function (_AbstractLoadPrivateC) {
-    _inherits(LoadPrivateCoursesAction, _AbstractLoadPrivateC);
-
-    function LoadPrivateCoursesAction() {
-        _classCallCheck(this, LoadPrivateCoursesAction);
-
-        return _possibleConstructorReturn(this, (LoadPrivateCoursesAction.__proto__ || Object.getPrototypeOf(LoadPrivateCoursesAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadPrivateCoursesAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.token = localStorage.token;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {}
-    }]);
-
-    return LoadPrivateCoursesAction;
-}(AbstractLoadPrivateCoursesAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPrivateCoursesSilentlyAction = function (_AbstractLoadPrivateC) {
-    _inherits(LoadPrivateCoursesSilentlyAction, _AbstractLoadPrivateC);
-
-    function LoadPrivateCoursesSilentlyAction() {
-        _classCallCheck(this, LoadPrivateCoursesSilentlyAction);
-
-        return _possibleConstructorReturn(this, (LoadPrivateCoursesSilentlyAction.__proto__ || Object.getPrototypeOf(LoadPrivateCoursesSilentlyAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadPrivateCoursesSilentlyAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.token = localStorage.token;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {}
-    }]);
-
-    return LoadPrivateCoursesSilentlyAction;
-}(AbstractLoadPrivateCoursesSilentlyAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPrivateLessonsAction = function (_AbstractLoadPrivateL) {
-    _inherits(LoadPrivateLessonsAction, _AbstractLoadPrivateL);
-
-    function LoadPrivateLessonsAction() {
-        _classCallCheck(this, LoadPrivateLessonsAction);
-
-        return _possibleConstructorReturn(this, (LoadPrivateLessonsAction.__proto__ || Object.getPrototypeOf(LoadPrivateLessonsAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadPrivateLessonsAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.token = localStorage.token;
-            this.actionData.courseId = this.actionParam.courseId;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {}
-    }]);
-
-    return LoadPrivateLessonsAction;
-}(AbstractLoadPrivateLessonsAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPrivateTestAction = function (_AbstractLoadPrivateT) {
-    _inherits(LoadPrivateTestAction, _AbstractLoadPrivateT);
-
-    function LoadPrivateTestAction() {
-        _classCallCheck(this, LoadPrivateTestAction);
-
-        return _possibleConstructorReturn(this, (LoadPrivateTestAction.__proto__ || Object.getPrototypeOf(LoadPrivateTestAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadPrivateTestAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.token = localStorage.token;
-            this.actionData.testId = this.actionParam.testId;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {}
-    }]);
-
-    return LoadPrivateTestAction;
-}(AbstractLoadPrivateTestAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPrivateTestsAction = function (_AbstractLoadPrivateT) {
-    _inherits(LoadPrivateTestsAction, _AbstractLoadPrivateT);
-
-    function LoadPrivateTestsAction() {
-        _classCallCheck(this, LoadPrivateTestsAction);
-
-        return _possibleConstructorReturn(this, (LoadPrivateTestsAction.__proto__ || Object.getPrototypeOf(LoadPrivateTestsAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadPrivateTestsAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.token = localStorage.token;
-            this.actionData.lessonId = this.actionParam.lessonId;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {}
-    }]);
-
-    return LoadPrivateTestsAction;
-}(AbstractLoadPrivateTestsAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPrivateTestsSilentlyAction = function (_AbstractLoadPrivateT) {
-    _inherits(LoadPrivateTestsSilentlyAction, _AbstractLoadPrivateT);
-
-    function LoadPrivateTestsSilentlyAction() {
-        _classCallCheck(this, LoadPrivateTestsSilentlyAction);
-
-        return _possibleConstructorReturn(this, (LoadPrivateTestsSilentlyAction.__proto__ || Object.getPrototypeOf(LoadPrivateTestsSilentlyAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadPrivateTestsSilentlyAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.token = localStorage.token;
-            this.actionData.lessonId = this.actionParam.lessonId;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {}
-    }]);
-
-    return LoadPrivateTestsSilentlyAction;
-}(AbstractLoadPrivateTestsSilentlyAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPublicCoursesAction = function (_AbstractLoadPublicCo) {
-    _inherits(LoadPublicCoursesAction, _AbstractLoadPublicCo);
-
-    function LoadPublicCoursesAction() {
-        _classCallCheck(this, LoadPublicCoursesAction);
-
-        return _possibleConstructorReturn(this, (LoadPublicCoursesAction.__proto__ || Object.getPrototypeOf(LoadPublicCoursesAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadPublicCoursesAction, [{
-        key: "initActionData",
-        value: function initActionData() {
-            this.actionData.schema = "anfelisa";
-        }
-    }]);
-
-    return LoadPublicCoursesAction;
-}(AbstractLoadPublicCoursesAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPublicLessonsAction = function (_AbstractLoadPublicLe) {
-    _inherits(LoadPublicLessonsAction, _AbstractLoadPublicLe);
-
-    function LoadPublicLessonsAction() {
-        _classCallCheck(this, LoadPublicLessonsAction);
-
-        return _possibleConstructorReturn(this, (LoadPublicLessonsAction.__proto__ || Object.getPrototypeOf(LoadPublicLessonsAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadPublicLessonsAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.courseId = this.actionParam.courseId;
-        }
-    }]);
-
-    return LoadPublicLessonsAction;
-}(AbstractLoadPublicLessonsAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPublicTestAction = function (_AbstractLoadPublicTe) {
-    _inherits(LoadPublicTestAction, _AbstractLoadPublicTe);
-
-    function LoadPublicTestAction() {
-        _classCallCheck(this, LoadPublicTestAction);
-
-        return _possibleConstructorReturn(this, (LoadPublicTestAction.__proto__ || Object.getPrototypeOf(LoadPublicTestAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadPublicTestAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.testId = this.actionParam.testId;
-        }
-    }]);
-
-    return LoadPublicTestAction;
-}(AbstractLoadPublicTestAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPublicTestsAction = function (_AbstractLoadPublicTe) {
-    _inherits(LoadPublicTestsAction, _AbstractLoadPublicTe);
-
-    function LoadPublicTestsAction() {
-        _classCallCheck(this, LoadPublicTestsAction);
-
-        return _possibleConstructorReturn(this, (LoadPublicTestsAction.__proto__ || Object.getPrototypeOf(LoadPublicTestsAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadPublicTestsAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.lessonId = this.actionParam.lessonId;
-        }
-    }]);
-
-    return LoadPublicTestsAction;
-}(AbstractLoadPublicTestsAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadResultAction = function (_AbstractLoadResultAc) {
-    _inherits(LoadResultAction, _AbstractLoadResultAc);
-
-    function LoadResultAction() {
-        _classCallCheck(this, LoadResultAction);
-
-        return _possibleConstructorReturn(this, (LoadResultAction.__proto__ || Object.getPrototypeOf(LoadResultAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadResultAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.token = localStorage.token;
-            this.actionData.resultId = this.actionParam.resultId;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {}
-    }]);
-
-    return LoadResultAction;
-}(AbstractLoadResultAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadStatisticsAction = function (_AbstractLoadStatisti) {
-    _inherits(LoadStatisticsAction, _AbstractLoadStatisti);
-
-    function LoadStatisticsAction() {
-        _classCallCheck(this, LoadStatisticsAction);
-
-        return _possibleConstructorReturn(this, (LoadStatisticsAction.__proto__ || Object.getPrototypeOf(LoadStatisticsAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadStatisticsAction, [{
-        key: "captureActionParam",
-        value: function captureActionParam() {
-            this.actionParam.year = $(".year").val();
-            this.actionParam.month = $(".month").val();
-            if (this.actionParam.year === undefined || this.actionParam.month === undefined) {
-                var now = new Date();
-                this.actionParam.year = now.getFullYear();
-                this.actionParam.month = now.getMonth() + 1;
-            }
-        }
-    }, {
-        key: "initActionData",
-        value: function initActionData() {
-            this.actionData.token = localStorage.token;
-            this.actionData.year = this.actionParam.year;
-            this.actionData.month = this.actionParam.month;
-        }
-    }, {
-        key: "releaseActionParam",
-        value: function releaseActionParam() {
-            $(".year").val(this.actionParam.year);
-            $(".month").val(this.actionParam.month);
-        }
-    }]);
-
-    return LoadStatisticsAction;
-}(AbstractLoadStatisticsAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadTestOfResultAction = function (_AbstractLoadTestOfRe) {
-    _inherits(LoadTestOfResultAction, _AbstractLoadTestOfRe);
-
-    function LoadTestOfResultAction() {
-        _classCallCheck(this, LoadTestOfResultAction);
-
-        return _possibleConstructorReturn(this, (LoadTestOfResultAction.__proto__ || Object.getPrototypeOf(LoadTestOfResultAction)).apply(this, arguments));
-    }
-
-    _createClass(LoadTestOfResultAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.token = localStorage.token;
-            this.actionData.resultId = this.actionParam.resultId;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {}
-    }]);
-
-    return LoadTestOfResultAction;
-}(AbstractLoadTestOfResultAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoginAction = function (_AbstractLoginAction) {
-    _inherits(LoginAction, _AbstractLoginAction);
-
-    function LoginAction() {
-        _classCallCheck(this, LoginAction);
-
-        return _possibleConstructorReturn(this, (LoginAction.__proto__ || Object.getPrototypeOf(LoginAction)).apply(this, arguments));
-    }
-
-    _createClass(LoginAction, [{
-        key: "captureActionParam",
-        value: function captureActionParam() {
-            this.actionParam.username = $(".username").val();
-            this.actionParam.password = $(".password").val();
-        }
-    }, {
-        key: "initActionData",
-        value: function initActionData() {
-            this.actionData.username = this.actionParam.username;
-            this.actionData.password = this.actionParam.password;
-        }
-    }, {
-        key: "releaseActionParam",
-        value: function releaseActionParam() {
-            $(".username").val(this.actionParam.username);
-            $(".password").val(this.actionParam.password);
-        }
-    }]);
-
-    return LoginAction;
-}(AbstractLoginAction);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LogoutAction = function (_AbstractLogoutAction) {
-  _inherits(LogoutAction, _AbstractLogoutAction);
-
-  function LogoutAction() {
-    _classCallCheck(this, LogoutAction);
-
-    return _possibleConstructorReturn(this, (LogoutAction.__proto__ || Object.getPrototypeOf(LogoutAction)).apply(this, arguments));
-  }
-
-  return LogoutAction;
-}(AbstractLogoutAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var RateWordAction = function (_AbstractRateWordActi) {
-    _inherits(RateWordAction, _AbstractRateWordActi);
-
-    function RateWordAction() {
-        _classCallCheck(this, RateWordAction);
-
-        return _possibleConstructorReturn(this, (RateWordAction.__proto__ || Object.getPrototypeOf(RateWordAction)).apply(this, arguments));
-    }
-
-    _createClass(RateWordAction, [{
-        key: "initActionData",
-        value: function initActionData() {
-            this.actionData.knewIt = this.actionParam.knewIt;
-            this.actionData.id = jQuery(".active").attr("id");
-            this.actionData.wordCount = App.vocubularyView.testState.wordCount;
-            this.actionData.strikeCount = App.vocubularyView.testState.strikeCount;
-            this.actionData.points = App.vocubularyView.testState.points;
-            this.actionData.strikesOfWord = jQuery("#" + this.actionData.id + "_shots").children(".strike").length;
-        }
-    }]);
-
-    return RateWordAction;
-}(AbstractRateWordAction);
-
-/*       S.D.G.       */
-'use strict';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var RepeatComplexCardAction = function (_AbstractRepeatComple) {
-  _inherits(RepeatComplexCardAction, _AbstractRepeatComple);
-
-  function RepeatComplexCardAction() {
-    _classCallCheck(this, RepeatComplexCardAction);
-
-    return _possibleConstructorReturn(this, (RepeatComplexCardAction.__proto__ || Object.getPrototypeOf(RepeatComplexCardAction)).apply(this, arguments));
-  }
-
-  return RepeatComplexCardAction;
-}(AbstractRepeatComplexCardAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var RepeatTodaysCardsAction = function (_AbstractRepeatTodays) {
-    _inherits(RepeatTodaysCardsAction, _AbstractRepeatTodays);
-
-    function RepeatTodaysCardsAction() {
-        _classCallCheck(this, RepeatTodaysCardsAction);
-
-        return _possibleConstructorReturn(this, (RepeatTodaysCardsAction.__proto__ || Object.getPrototypeOf(RepeatTodaysCardsAction)).apply(this, arguments));
-    }
-
-    _createClass(RepeatTodaysCardsAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.boxId = App.cardView.currentBoxId;
-            this.actionData.token = localStorage.token;
-        }
-    }, {
-        key: 'releaseActionParam',
-        value: function releaseActionParam() {}
-    }]);
-
-    return RepeatTodaysCardsAction;
-}(AbstractRepeatTodaysCardsAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var SaveResultAction = function (_AbstractSaveResultAc) {
-    _inherits(SaveResultAction, _AbstractSaveResultAc);
-
-    function SaveResultAction() {
-        _classCallCheck(this, SaveResultAction);
-
-        return _possibleConstructorReturn(this, (SaveResultAction.__proto__ || Object.getPrototypeOf(SaveResultAction)).apply(this, arguments));
-    }
-
-    _createClass(SaveResultAction, [{
-        key: "initActionData",
-        value: function initActionData() {
-            var json = {};
-            var allCompletionTexts = jQuery(".vocabulary");
-            for (var i = 0; i < allCompletionTexts.length; i++) {
-                var completionTextId = allCompletionTexts[i].id;
-                var strikes = jQuery("#" + completionTextId + "_shots").children();
-                var answer = "";
-                for (var j = 0; j < strikes.length; j++) {
-                    var currentStrike = $(strikes[j]);
-                    if (currentStrike.hasClass("strike")) {
-                        answer += "1";
-                    } else {
-                        answer += "0";
-                    }
-                }
-                json["" + completionTextId] = answer;
-            }
-
-            this.actionData.json = json;
-            this.actionData.testId = App.commonView.selection.selectedTest;
-            if (allCompletionTexts.length > 0) {
-                this.actionData.points = App.vocubularyView.testState.points;
-                this.actionData.maxPoints = App.vocubularyView.testState.maxPoints;
-            } else {
-                this.actionData.points = App.cardView.testState.points;
-                this.actionData.maxPoints = App.cardView.testState.maxPoints;
-            }
-            this.actionData.token = localStorage.token;
-        }
-    }]);
-
-    return SaveResultAction;
-}(AbstractSaveResultAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ScoreCardAction = function (_AbstractScoreCardAct) {
-    _inherits(ScoreCardAction, _AbstractScoreCardAct);
-
-    function ScoreCardAction() {
-        _classCallCheck(this, ScoreCardAction);
-
-        return _possibleConstructorReturn(this, (ScoreCardAction.__proto__ || Object.getPrototypeOf(ScoreCardAction)).apply(this, arguments));
-    }
-
-    _createClass(ScoreCardAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.boxId = App.cardView.currentBoxId;
-            this.actionData.id = App.cardView.currentCardId;
-            this.actionData.quality = this.actionParam.quality;
-            this.actionData.token = localStorage.token;
-        }
-    }]);
-
-    return ScoreCardAction;
-}(AbstractScoreCardAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ShowNextCardItemAction = function (_AbstractShowNextCard) {
-    _inherits(ShowNextCardItemAction, _AbstractShowNextCard);
-
-    function ShowNextCardItemAction() {
-        _classCallCheck(this, ShowNextCardItemAction);
-
-        return _possibleConstructorReturn(this, (ShowNextCardItemAction.__proto__ || Object.getPrototypeOf(ShowNextCardItemAction)).apply(this, arguments));
-    }
-
-    _createClass(ShowNextCardItemAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.flag = this.actionParam;
-        }
-    }]);
-
-    return ShowNextCardItemAction;
-}(AbstractShowNextCardItemAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ShowNextWordOfTestAction = function (_AbstractShowNextWord) {
-    _inherits(ShowNextWordOfTestAction, _AbstractShowNextWord);
-
-    function ShowNextWordOfTestAction() {
-        _classCallCheck(this, ShowNextWordOfTestAction);
-
-        return _possibleConstructorReturn(this, (ShowNextWordOfTestAction.__proto__ || Object.getPrototypeOf(ShowNextWordOfTestAction)).apply(this, arguments));
-    }
-
-    _createClass(ShowNextWordOfTestAction, [{
-        key: 'captureActionParam',
-        value: function captureActionParam() {
-            this.actionParam.nextRandomIndex = App.vocubularyView.testState.nextRandomIndex();
-        }
-    }, {
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.nextRandomIndex = this.actionParam.nextRandomIndex;
-            this.actionData.wordCount = this.actionParam.wordCount;
-            this.actionData.testMode = this.actionParam.testMode;
-            this.actionData.wordCount = this.actionParam.wordCount;
-        }
-    }]);
-
-    return ShowNextWordOfTestAction;
-}(AbstractShowNextWordOfTestAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ShowWordAction = function (_AbstractShowWordActi) {
-    _inherits(ShowWordAction, _AbstractShowWordActi);
-
-    function ShowWordAction() {
-        _classCallCheck(this, ShowWordAction);
-
-        return _possibleConstructorReturn(this, (ShowWordAction.__proto__ || Object.getPrototypeOf(ShowWordAction)).apply(this, arguments));
-    }
-
-    _createClass(ShowWordAction, [{
-        key: "initActionData",
-        value: function initActionData() {
-            this.actionData.solution = jQuery(".active").next().html();
-        }
-    }]);
-
-    return ShowWordAction;
-}(AbstractShowWordAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var StartBoxAction = function (_AbstractStartBoxActi) {
-    _inherits(StartBoxAction, _AbstractStartBoxActi);
-
-    function StartBoxAction() {
-        _classCallCheck(this, StartBoxAction);
-
-        return _possibleConstructorReturn(this, (StartBoxAction.__proto__ || Object.getPrototypeOf(StartBoxAction)).apply(this, arguments));
-    }
-
-    _createClass(StartBoxAction, [{
-        key: 'initActionData',
-        value: function initActionData() {
-            this.actionData.token = localStorage.token;
-            this.actionData.boxId = this.actionParam.boxId;
-        }
-    }]);
-
-    return StartBoxAction;
-}(AbstractStartBoxAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var StartTestAction = function (_AbstractStartTestAct) {
-    _inherits(StartTestAction, _AbstractStartTestAct);
-
-    function StartTestAction() {
-        _classCallCheck(this, StartTestAction);
-
-        return _possibleConstructorReturn(this, (StartTestAction.__proto__ || Object.getPrototypeOf(StartTestAction)).apply(this, arguments));
-    }
-
-    _createClass(StartTestAction, [{
-        key: "initActionData",
-        value: function initActionData() {
-            this.actionData.wordCount = jQuery(".vocabulary").length;;
-            this.actionData.testMode = this.actionParam.testMode;
-        }
-    }]);
-
-    return StartTestAction;
-}(AbstractStartTestAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AutoLoginCommand = function (_AbstractAutoLoginCom) {
-    _inherits(AutoLoginCommand, _AbstractAutoLoginCom);
-
-    function AutoLoginCommand() {
-        _classCallCheck(this, AutoLoginCommand);
-
-        return _possibleConstructorReturn(this, (AutoLoginCommand.__proto__ || Object.getPrototypeOf(AutoLoginCommand)).apply(this, arguments));
-    }
-
-    _createClass(AutoLoginCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                App.serverFacade.login(_this2.commandParam.username, _this2.commandParam.password).then(function (data) {
-                    if (data["token"] === null) {
-                        _this2.commandData.message = "Anmeldung schlug fehl. (Falscher Butzername oder falsches Passwort.)";
-                        _this2.commandData.outcome = _this2.autoLoginFailed;
-                    } else {
-                        _this2.commandData.token = data["token"];
-                        _this2.commandData.username = _this2.commandParam.username;
-                        _this2.commandData.password = _this2.commandParam.password;
-                        _this2.commandData.sumOfPoints = data["sumOfPoints"];
-                        _this2.commandData.outcome = _this2.successfulAutoLogin;
-                    }
-                    resolve();
-                }, function (error) {
-                    _this2.commandData.message = "Anmeldung schlug fehl. (Falscher Butzername oder falsches Passwort.)";
-                    _this2.commandData.outcome = _this2.autoLoginFailed;
-                    resolve();
-                });
-            });
-        }
-    }]);
-
-    return AutoLoginCommand;
-}(AbstractAutoLoginCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CheckIfComplexCardIsFinishedCommand = function (_AbstractCheckIfCompl) {
-    _inherits(CheckIfComplexCardIsFinishedCommand, _AbstractCheckIfCompl);
-
-    function CheckIfComplexCardIsFinishedCommand() {
-        _classCallCheck(this, CheckIfComplexCardIsFinishedCommand);
-
-        return _possibleConstructorReturn(this, (CheckIfComplexCardIsFinishedCommand.__proto__ || Object.getPrototypeOf(CheckIfComplexCardIsFinishedCommand)).apply(this, arguments));
-    }
-
-    _createClass(CheckIfComplexCardIsFinishedCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.isFinished) {
-                    _this2.commandData.outcome = _this2.complexCardIsFinished;
-                } else {
-                    _this2.commandData.outcome = _this2.complexCardIsNotFinished;
-                }
-                resolve();
-            });
-        }
-    }]);
-
-    return CheckIfComplexCardIsFinishedCommand;
-}(AbstractCheckIfComplexCardIsFinishedCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CorrectWordCommand = function (_AbstractCorrectWordC) {
-    _inherits(CorrectWordCommand, _AbstractCorrectWordC);
-
-    function CorrectWordCommand() {
-        _classCallCheck(this, CorrectWordCommand);
-
-        return _possibleConstructorReturn(this, (CorrectWordCommand.__proto__ || Object.getPrototypeOf(CorrectWordCommand)).apply(this, arguments));
-    }
-
-    _createClass(CorrectWordCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.solution = _this2.commandParam.solution.trim();
-                _this2.commandData.answer = _this2.commandParam.answer.trim();
-                _this2.commandData.id = _this2.commandParam.id;
-                _this2.commandData.strikeCount = _this2.commandParam.strikeCount;
-                _this2.commandData.points = _this2.commandParam.points;
-                _this2.commandData.wordCount = _this2.commandParam.wordCount;
-                _this2.commandData.strikesOfWord = _this2.commandParam.strikesOfWord;
-                if (_this2.commandData.solution === _this2.commandData.answer) {
-                    _this2.commandData.strikesOfWord++;
-                    if (_this2.commandData.strikesOfWord === 3) {
-                        _this2.commandData.strikeCount++;
-                        _this2.commandData.outcome = _this2.wordIsCorrectAndFinished;
-                    } else {
-                        _this2.commandData.outcome = _this2.wordIsCorrectAndNotFinished;
-                    }
-                } else {
-                    if (_this2.commandData.points > 0) {
-                        _this2.commandData.points--;
-                    }
-                    _this2.commandData.outcome = _this2.wordIsNotCorrect;
-                }
-                resolve();
-            });
-        }
-    }]);
-
-    return CorrectWordCommand;
-}(AbstractCorrectWordCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var FinishCardCommand = function (_AbstractFinishCardCo) {
-    _inherits(FinishCardCommand, _AbstractFinishCardCo);
-
-    function FinishCardCommand() {
-        _classCallCheck(this, FinishCardCommand);
-
-        return _possibleConstructorReturn(this, (FinishCardCommand.__proto__ || Object.getPrototypeOf(FinishCardCommand)).apply(this, arguments));
-    }
-
-    _createClass(FinishCardCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.points = _this2.commandParam.points;
-                _this2.commandData.maxPoints = _this2.commandParam.maxPoints;
-                _this2.commandData.token = _this2.commandParam.token;
-                _this2.commandData.outcome = _this2.cardFinished;
-                resolve();
-            });
-        }
-    }]);
-
-    return FinishCardCommand;
-}(AbstractFinishCardCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var GoOnWithNewCardsCommand = function (_AbstractGoOnWithNewC) {
-    _inherits(GoOnWithNewCardsCommand, _AbstractGoOnWithNewC);
-
-    function GoOnWithNewCardsCommand() {
-        _classCallCheck(this, GoOnWithNewCardsCommand);
-
-        return _possibleConstructorReturn(this, (GoOnWithNewCardsCommand.__proto__ || Object.getPrototypeOf(GoOnWithNewCardsCommand)).apply(this, arguments));
-    }
-
-    _createClass(GoOnWithNewCardsCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.token = _this2.commandParam.token;
-                _this2.commandData.boxId = _this2.commandParam.boxId;
-                _this2.commandData.outcome = _this2.goOnWithNewCards;
-                resolve();
-            });
-        }
-    }]);
-
-    return GoOnWithNewCardsCommand;
-}(AbstractGoOnWithNewCardsCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var GoOnWithTodaysNextCardCommand = function (_AbstractGoOnWithToda) {
-    _inherits(GoOnWithTodaysNextCardCommand, _AbstractGoOnWithToda);
-
-    function GoOnWithTodaysNextCardCommand() {
-        _classCallCheck(this, GoOnWithTodaysNextCardCommand);
-
-        return _possibleConstructorReturn(this, (GoOnWithTodaysNextCardCommand.__proto__ || Object.getPrototypeOf(GoOnWithTodaysNextCardCommand)).apply(this, arguments));
-    }
-
-    _createClass(GoOnWithTodaysNextCardCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.outcome = _this2.goOnWithTodaysCards;
-                resolve();
-            });
-        }
-    }]);
-
-    return GoOnWithTodaysNextCardCommand;
-}(AbstractGoOnWithTodaysNextCardCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var InitAppCommand = function (_AbstractInitAppComma) {
-    _inherits(InitAppCommand, _AbstractInitAppComma);
-
-    function InitAppCommand() {
-        _classCallCheck(this, InitAppCommand);
-
-        return _possibleConstructorReturn(this, (InitAppCommand.__proto__ || Object.getPrototypeOf(InitAppCommand)).apply(this, arguments));
-    }
-
-    _createClass(InitAppCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.username && _this2.commandParam.password) {
-                    _this2.commandData.username = _this2.commandParam.username;
-                    _this2.commandData.password = _this2.commandParam.password;
-                    _this2.commandData.hash = _this2.commandParam.hash;
-                    _this2.commandData.outcome = _this2.autoLogin;
-                } else {
-                    _this2.commandData.hash = _this2.commandParam.hash;
-                    _this2.commandData.outcome = _this2.userIsNotLoggedIn;
-                }
-                resolve();
-            });
-        }
-    }]);
-
-    return InitAppCommand;
-}(AbstractInitAppCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var IsBoxFinishedCommand = function (_AbstractIsBoxFinishe) {
-    _inherits(IsBoxFinishedCommand, _AbstractIsBoxFinishe);
-
-    function IsBoxFinishedCommand() {
-        _classCallCheck(this, IsBoxFinishedCommand);
-
-        return _possibleConstructorReturn(this, (IsBoxFinishedCommand.__proto__ || Object.getPrototypeOf(IsBoxFinishedCommand)).apply(this, arguments));
-    }
-
-    _createClass(IsBoxFinishedCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.index < _this2.commandParam.length) {
-                    _this2.commandData.outcome = _this2.notFinished;
-                } else {
-                    _this2.commandData.outcome = _this2.finished;
-                }
-                resolve();
-            });
-        }
-    }]);
-
-    return IsBoxFinishedCommand;
-}(AbstractIsBoxFinishedCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var IsRatedTestFinishedCommand = function (_AbstractIsRatedTestF) {
-    _inherits(IsRatedTestFinishedCommand, _AbstractIsRatedTestF);
-
-    function IsRatedTestFinishedCommand() {
-        _classCallCheck(this, IsRatedTestFinishedCommand);
-
-        return _possibleConstructorReturn(this, (IsRatedTestFinishedCommand.__proto__ || Object.getPrototypeOf(IsRatedTestFinishedCommand)).apply(this, arguments));
-    }
-
-    _createClass(IsRatedTestFinishedCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.strikeCount = _this2.commandParam.strikeCount;
-                _this2.commandData.points = _this2.commandParam.points;
-                _this2.commandData.wordCount = _this2.commandParam.wordCount;
-                if (_this2.commandParam.points === 0) {
-                    _this2.commandData.outcome = _this2.testFailed;
-                } else if (_this2.commandParam.strikeCount < _this2.commandParam.wordCount) {
-                    _this2.commandData.outcome = _this2.goOnWithTest;
-                } else {
-                    _this2.commandData.outcome = _this2.testFinishedSuccessfully;
-                }
-                resolve();
-            });
-        }
-    }]);
-
-    return IsRatedTestFinishedCommand;
-}(AbstractIsRatedTestFinishedCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var IsTestFinishedCommand = function (_AbstractIsTestFinish) {
-    _inherits(IsTestFinishedCommand, _AbstractIsTestFinish);
-
-    function IsTestFinishedCommand() {
-        _classCallCheck(this, IsTestFinishedCommand);
-
-        return _possibleConstructorReturn(this, (IsTestFinishedCommand.__proto__ || Object.getPrototypeOf(IsTestFinishedCommand)).apply(this, arguments));
-    }
-
-    _createClass(IsTestFinishedCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.strikeCount = _this2.commandParam.strikeCount;
-                _this2.commandData.points = _this2.commandParam.points;
-                _this2.commandData.wordCount = _this2.commandParam.wordCount;
-                if (_this2.commandParam.points === 0) {
-                    _this2.commandData.outcome = _this2.testFailed;
-                } else if (_this2.commandParam.strikeCount < _this2.commandParam.wordCount) {
-                    _this2.commandData.outcome = _this2.goOnWithTest;
-                } else {
-                    _this2.commandData.outcome = _this2.testFinishedSuccessfully;
-                }
-                resolve();
-            });
-        }
-    }]);
-
-    return IsTestFinishedCommand;
-}(AbstractIsTestFinishedCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadAccordingToHashCommand = function (_AbstractLoadAccordin) {
-    _inherits(LoadAccordingToHashCommand, _AbstractLoadAccordin);
-
-    function LoadAccordingToHashCommand() {
-        _classCallCheck(this, LoadAccordingToHashCommand);
-
-        return _possibleConstructorReturn(this, (LoadAccordingToHashCommand.__proto__ || Object.getPrototypeOf(LoadAccordingToHashCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadAccordingToHashCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.outcome = _this2.loadPublicCourses;
-                if (_this2.commandParam.hash !== undefined) {
-                    var hashes = _this2.commandParam.hash.split("/");
-                    if (hashes[0]) {
-                        if (hashes[0] === "private") {
-                            if (hashes[1]) {
-                                _this2.commandData.courseId = hashes[1];
-                                if (hashes[2]) {
-                                    _this2.commandData.lessonId = hashes[2];
-                                    if (hashes[3]) {
-                                        _this2.commandData.testId = hashes[3];
-                                        if (hashes[4]) {
-                                            _this2.commandData.resultId = hashes[4];
-                                            _this2.commandData.outcome = _this2.loadResult;
-                                        } else {
-                                            _this2.commandData.outcome = _this2.loadPrivateTest;
-                                        }
-                                    } else {
-                                        _this2.commandData.outcome = _this2.loadPrivateTests;
-                                    }
-                                } else {
-                                    _this2.commandData.outcome = _this2.loadPrivateLessons;
-                                }
-                            } else {
-                                _this2.commandData.outcome = _this2.loadPrivateCourses;
-                            }
-                        } else if (hashes[0] === "box" && hashes[1]) {
-                            _this2.commandData.outcome = _this2.loadNextCard;
-                            _this2.commandData.boxId = hashes[1];
-                        } else {
-                            if (_this2.commandParam.userIsLoggedIn) {
-                                _this2.commandData.outcome = _this2.loadPrivateCourses;
-                            } else if (hashes[1]) {
-                                _this2.commandData.courseId = hashes[1];
-                                if (hashes[2]) {
-                                    _this2.commandData.lessonId = hashes[2];
-                                    if (hashes[3]) {
-                                        _this2.commandData.testId = hashes[3];
-                                        _this2.commandData.outcome = _this2.loadPublicTest;
-                                    } else {
-                                        _this2.commandData.outcome = _this2.loadPublicTests;
-                                    }
-                                } else {
-                                    _this2.commandData.outcome = _this2.loadPublicLessons;
-                                }
-                            } else {
-                                _this2.commandData.outcome = _this2.loadPublicCourses;
-                            }
-                        }
-                    }
-                }
-                resolve();
-            });
-        }
-    }]);
-
-    return LoadAccordingToHashCommand;
-}(AbstractLoadAccordingToHashCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadBoxesSilentlyCommand = function (_AbstractLoadBoxesSil) {
-    _inherits(LoadBoxesSilentlyCommand, _AbstractLoadBoxesSil);
-
-    function LoadBoxesSilentlyCommand() {
-        _classCallCheck(this, LoadBoxesSilentlyCommand);
-
-        return _possibleConstructorReturn(this, (LoadBoxesSilentlyCommand.__proto__ || Object.getPrototypeOf(LoadBoxesSilentlyCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadBoxesSilentlyCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = _this2.userNotLoggedIn;
-                    resolve();
-                } else {
-                    App.serverFacade.loadBoxes(_this2.commandParam.token).then(function (data) {
-                        _this2.commandData = data;
-                        var selection = {
-                            context: "box",
-                            selectedBox: undefined,
-                            selectedCourse: undefined,
-                            selectedLesson: undefined,
-                            selectedTest: undefined,
-                            selectedResult: undefined
-                        };
-                        _this2.commandData.selection = selection;
-                        _this2.commandData.selectedBoxId = _this2.commandParam.selectedBoxId;
-                        _this2.commandData.outcome = _this2.boxSilentlyLoaded;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Die Vokabel-Boxen konnten nicht geladen werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return LoadBoxesSilentlyCommand;
-}(AbstractLoadBoxesSilentlyCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadNextCardCommand = function (_AbstractLoadNextCard) {
-    _inherits(LoadNextCardCommand, _AbstractLoadNextCard);
-
-    function LoadNextCardCommand() {
-        _classCallCheck(this, LoadNextCardCommand);
-
-        return _possibleConstructorReturn(this, (LoadNextCardCommand.__proto__ || Object.getPrototypeOf(LoadNextCardCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadNextCardCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = _this2.userNotLoggedIn;
-                    resolve();
-                } else {
-                    App.serverFacade.loadNextCard(_this2.commandParam.token, _this2.commandParam.boxId).then(function (data) {
-                        _this2.commandData = data;
-                        _this2.commandData.boxId = _this2.commandParam.boxId;
-                        var selection = {
-                            context: "box",
-                            selectedBox: _this2.commandParam.boxId,
-                            selectedCourse: undefined,
-                            selectedLesson: undefined,
-                            selectedTest: undefined,
-                            selectedResult: undefined
-                        };
-                        _this2.commandData.selection = selection;
-                        _this2.commandData.outcome = _this2.nextCardLoaded;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Die nächste Vokabel konnte nicht geladen werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return LoadNextCardCommand;
-}(AbstractLoadNextCardCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPrivateCoursesCommand = function (_AbstractLoadPrivateC) {
-    _inherits(LoadPrivateCoursesCommand, _AbstractLoadPrivateC);
-
-    function LoadPrivateCoursesCommand() {
-        _classCallCheck(this, LoadPrivateCoursesCommand);
-
-        return _possibleConstructorReturn(this, (LoadPrivateCoursesCommand.__proto__ || Object.getPrototypeOf(LoadPrivateCoursesCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadPrivateCoursesCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = _this2.userNotLoggedIn;
-                    resolve();
-                } else {
-                    App.serverFacade.loadPrivateCourses(_this2.commandParam.token).then(function (data) {
-                        _this2.commandData = data;
-                        var selection = {
-                            context: "private",
-                            selectedBox: undefined,
-                            selectedCourse: undefined,
-                            selectedLesson: undefined,
-                            selectedTest: undefined,
-                            selectedResult: undefined
-                        };
-                        _this2.commandData.selection = selection;
-                        _this2.commandData.outcome = _this2.privateCoursesLoaded;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Die Kurse konnten nicht geladen werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return LoadPrivateCoursesCommand;
-}(AbstractLoadPrivateCoursesCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPrivateCoursesSilentlyCommand = function (_AbstractLoadPrivateC) {
-    _inherits(LoadPrivateCoursesSilentlyCommand, _AbstractLoadPrivateC);
-
-    function LoadPrivateCoursesSilentlyCommand() {
-        _classCallCheck(this, LoadPrivateCoursesSilentlyCommand);
-
-        return _possibleConstructorReturn(this, (LoadPrivateCoursesSilentlyCommand.__proto__ || Object.getPrototypeOf(LoadPrivateCoursesSilentlyCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadPrivateCoursesSilentlyCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = _this2.userNotLoggedIn;
-                    resolve();
-                } else {
-                    App.serverFacade.loadPrivateCourses(_this2.commandParam.token).then(function (data) {
-                        _this2.commandData = data;
-                        var selection = {
-                            context: "private",
-                            selectedBox: undefined,
-                            selectedCourse: undefined,
-                            selectedLesson: undefined,
-                            selectedTest: undefined,
-                            selectedResult: undefined
-                        };
-                        _this2.commandData.selection = selection;
-                        _this2.commandData.outcome = _this2.privateCoursesSilentlyLoaded;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Die Kurse konnten nicht geladen werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return LoadPrivateCoursesSilentlyCommand;
-}(AbstractLoadPrivateCoursesSilentlyCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPrivateLessonsCommand = function (_AbstractLoadPrivateL) {
-    _inherits(LoadPrivateLessonsCommand, _AbstractLoadPrivateL);
-
-    function LoadPrivateLessonsCommand() {
-        _classCallCheck(this, LoadPrivateLessonsCommand);
-
-        return _possibleConstructorReturn(this, (LoadPrivateLessonsCommand.__proto__ || Object.getPrototypeOf(LoadPrivateLessonsCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadPrivateLessonsCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = _this2.userNotLoggedIn;
-                    resolve();
-                } else {
-                    App.serverFacade.loadPrivateLessons(_this2.commandParam.token, _this2.commandParam.courseId).then(function (data) {
-                        _this2.commandData = data;
-                        var selection = {
-                            context: "private",
-                            selectedBox: undefined,
-                            selectedCourse: _this2.commandParam.courseId,
-                            selectedLesson: undefined,
-                            selectedTest: undefined,
-                            selectedResult: undefined
-                        };
-                        _this2.commandData.selection = selection;
-                        _this2.commandData.outcome = _this2.privateLessonsLoaded;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Die Lektionen konnten nicht geladen werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return LoadPrivateLessonsCommand;
-}(AbstractLoadPrivateLessonsCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPrivateTestCommand = function (_AbstractLoadPrivateT) {
-    _inherits(LoadPrivateTestCommand, _AbstractLoadPrivateT);
-
-    function LoadPrivateTestCommand() {
-        _classCallCheck(this, LoadPrivateTestCommand);
-
-        return _possibleConstructorReturn(this, (LoadPrivateTestCommand.__proto__ || Object.getPrototypeOf(LoadPrivateTestCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadPrivateTestCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = _this2.userNotLoggedIn;
-                    resolve();
-                } else {
-                    App.serverFacade.loadPrivateTest(_this2.commandParam.token, _this2.commandParam.testId).then(function (data) {
-                        _this2.commandData = data;
-                        var content = data["html"];
-                        content = content.replace(/\\/g, '');
-                        _this2.commandData.content = content;
-                        _this2.commandData.testId = _this2.commandParam.testId;
-                        var selection = {
-                            context: "private",
-                            selectedBox: undefined,
-                            selectedCourse: data.courseid,
-                            selectedLesson: data.lessonid,
-                            selectedTest: _this2.commandParam.testId,
-                            selectedResult: undefined
-                        };
-                        _this2.commandData.selection = selection;
-                        _this2.commandData.outcome = _this2.privateTestLoaded;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Der Test konnte nicht geladen werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return LoadPrivateTestCommand;
-}(AbstractLoadPrivateTestCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPrivateTestsCommand = function (_AbstractLoadPrivateT) {
-    _inherits(LoadPrivateTestsCommand, _AbstractLoadPrivateT);
-
-    function LoadPrivateTestsCommand() {
-        _classCallCheck(this, LoadPrivateTestsCommand);
-
-        return _possibleConstructorReturn(this, (LoadPrivateTestsCommand.__proto__ || Object.getPrototypeOf(LoadPrivateTestsCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadPrivateTestsCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = _this2.userNotLoggedIn;
-                    resolve();
-                } else {
-                    App.serverFacade.loadPrivateTests(_this2.commandParam.token, _this2.commandParam.lessonId).then(function (data) {
-                        _this2.commandData = data;
-                        var selection = {
-                            context: "private",
-                            selectedBox: undefined,
-                            selectedCourse: data.courseid,
-                            selectedLesson: _this2.commandParam.lessonId,
-                            selectedTest: undefined,
-                            selectedResult: undefined
-                        };
-                        _this2.commandData.selection = selection;
-                        _this2.commandData.silently = _this2.commandParam.silently;
-                        _this2.commandData.outcome = _this2.privateTestsLoaded;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Die Tests konnten nicht geladen werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return LoadPrivateTestsCommand;
-}(AbstractLoadPrivateTestsCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPrivateTestsSilentlyCommand = function (_AbstractLoadPrivateT) {
-    _inherits(LoadPrivateTestsSilentlyCommand, _AbstractLoadPrivateT);
-
-    function LoadPrivateTestsSilentlyCommand() {
-        _classCallCheck(this, LoadPrivateTestsSilentlyCommand);
-
-        return _possibleConstructorReturn(this, (LoadPrivateTestsSilentlyCommand.__proto__ || Object.getPrototypeOf(LoadPrivateTestsSilentlyCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadPrivateTestsSilentlyCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = _this2.userNotLoggedIn;
-                    resolve();
-                } else {
-                    App.serverFacade.loadPrivateTests(_this2.commandParam.token, _this2.commandParam.lessonId).then(function (data) {
-                        _this2.commandData = data;
-                        var selection = {
-                            context: "private",
-                            selectedBox: undefined,
-                            selectedCourse: data.courseid,
-                            selectedLesson: _this2.commandParam.lessonId,
-                            selectedTest: undefined,
-                            selectedResult: undefined
-                        };
-                        _this2.commandData.selection = selection;
-                        _this2.commandData.silently = _this2.commandParam.silently;
-                        _this2.commandData.outcome = _this2.privateTestsSilentlyLoaded;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Die Tests konnten nicht geladen werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return LoadPrivateTestsSilentlyCommand;
-}(AbstractLoadPrivateTestsSilentlyCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPublicCoursesCommand = function (_AbstractLoadPublicCo) {
-    _inherits(LoadPublicCoursesCommand, _AbstractLoadPublicCo);
-
-    function LoadPublicCoursesCommand() {
-        _classCallCheck(this, LoadPublicCoursesCommand);
-
-        return _possibleConstructorReturn(this, (LoadPublicCoursesCommand.__proto__ || Object.getPrototypeOf(LoadPublicCoursesCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadPublicCoursesCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.httpGet("api/courses/public").then(function (data) {
-                    _this2.commandData = data;
-                    var selection = {
-                        context: "public",
-                        selectedBox: undefined,
-                        selectedCourse: undefined,
-                        selectedLesson: undefined,
-                        selectedTest: undefined,
-                        selectedResult: undefined
-                    };
-                    _this2.commandData.selection = selection;
-                    _this2.commandData.outcome = _this2.publicCoursesLoaded;
-                    resolve();
-                }, function (error) {
-                    _this2.commandData.message = "Die Kurse konnten nicht geladen werden. (" + error + ")";
-                    _this2.commandData.outcome = _this2.serverError;
-                    resolve();
-                });
-            });
-        }
-    }]);
-
-    return LoadPublicCoursesCommand;
-}(AbstractLoadPublicCoursesCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPublicLessonsCommand = function (_AbstractLoadPublicLe) {
-    _inherits(LoadPublicLessonsCommand, _AbstractLoadPublicLe);
-
-    function LoadPublicLessonsCommand() {
-        _classCallCheck(this, LoadPublicLessonsCommand);
-
-        return _possibleConstructorReturn(this, (LoadPublicLessonsCommand.__proto__ || Object.getPrototypeOf(LoadPublicLessonsCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadPublicLessonsCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                App.serverFacade.loadPublicLessons(_this2.commandParam.uuid, _this2.commandParam.courseId).then(function (data) {
-                    _this2.commandData = data;
-                    var selection = {
-                        context: "public",
-                        selectedBox: undefined,
-                        selectedCourse: _this2.commandParam.courseId,
-                        selectedLesson: undefined,
-                        selectedTest: undefined,
-                        selectedResult: undefined
-                    };
-                    _this2.commandData.selection = selection;
-                    _this2.commandData.outcome = _this2.publicLessonsLoaded;
-                    resolve();
-                }, function (error) {
-                    _this2.commandData.message = "Die Lektionen konnten nicht geladen werden. (" + error + ")";
-                    _this2.commandData.outcome = _this2.serverError;
-                    resolve();
-                });
-            });
-        }
-    }]);
-
-    return LoadPublicLessonsCommand;
-}(AbstractLoadPublicLessonsCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPublicTestCommand = function (_AbstractLoadPublicTe) {
-    _inherits(LoadPublicTestCommand, _AbstractLoadPublicTe);
-
-    function LoadPublicTestCommand() {
-        _classCallCheck(this, LoadPublicTestCommand);
-
-        return _possibleConstructorReturn(this, (LoadPublicTestCommand.__proto__ || Object.getPrototypeOf(LoadPublicTestCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadPublicTestCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                App.serverFacade.loadPublicTest(_this2.commandParam.uuid, _this2.commandParam.testId).then(function (data) {
-                    var content = data["html"];
-                    content = content.replace(/\\/g, '');
-                    _this2.commandData.content = content;
-                    _this2.commandData.testId = _this2.commandParam.testId;
-                    var selection = {
-                        context: "public",
-                        selectedBox: undefined,
-                        selectedCourse: data.courseid,
-                        selectedLesson: data.lessonid,
-                        selectedTest: _this2.commandParam.testId,
-                        selectedResult: undefined
-                    };
-                    _this2.commandData.selection = selection;
-                    _this2.commandData.outcome = _this2.publicTestLoaded;
-                    resolve();
-                }, function (error) {
-                    _this2.commandData.message = "Der Test konnte nicht geladen werden. (" + error + ")";
-                    _this2.commandData.outcome = _this2.serverError;
-                    resolve();
-                });
-            });
-        }
-    }]);
-
-    return LoadPublicTestCommand;
-}(AbstractLoadPublicTestCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadPublicTestsCommand = function (_AbstractLoadPublicTe) {
-    _inherits(LoadPublicTestsCommand, _AbstractLoadPublicTe);
-
-    function LoadPublicTestsCommand() {
-        _classCallCheck(this, LoadPublicTestsCommand);
-
-        return _possibleConstructorReturn(this, (LoadPublicTestsCommand.__proto__ || Object.getPrototypeOf(LoadPublicTestsCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadPublicTestsCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                App.serverFacade.loadPublicTests(_this2.commandParam.uuid, _this2.commandParam.lessonId).then(function (data) {
-                    _this2.commandData = data;
-                    var selection = {
-                        context: "public",
-                        selectedBox: undefined,
-                        selectedCourse: data.courseid,
-                        selectedLesson: _this2.commandParam.lessonId,
-                        selectedTest: undefined,
-                        selectedResult: undefined
-                    };
-                    _this2.commandData.selection = selection;
-                    _this2.commandData.outcome = _this2.publicTestsLoaded;
-                    resolve();
-                }, function (error) {
-                    _this2.commandData.message = "Die Tests konnten nicht geladen werden. (" + error + ")";
-                    _this2.commandData.outcome = _this2.serverError;
-                    resolve();
-                });
-            });
-        }
-    }]);
-
-    return LoadPublicTestsCommand;
-}(AbstractLoadPublicTestsCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadResultCommand = function (_AbstractLoadResultCo) {
-    _inherits(LoadResultCommand, _AbstractLoadResultCo);
-
-    function LoadResultCommand() {
-        _classCallCheck(this, LoadResultCommand);
-
-        return _possibleConstructorReturn(this, (LoadResultCommand.__proto__ || Object.getPrototypeOf(LoadResultCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadResultCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = userNotLoggedIn;
-                    resolve();
-                } else {
-                    App.serverFacade.loadResult(_this2.commandParam.token, _this2.commandParam.resultId).then(function (data) {
-                        _this2.commandData.json = data["json"];
-                        _this2.commandData.outcome = _this2.resultLoaded;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Das Ergebnis konnte nicht geladen werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return LoadResultCommand;
-}(AbstractLoadResultCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadStatisticsCommand = function (_AbstractLoadStatisti) {
-    _inherits(LoadStatisticsCommand, _AbstractLoadStatisti);
-
-    function LoadStatisticsCommand() {
-        _classCallCheck(this, LoadStatisticsCommand);
-
-        return _possibleConstructorReturn(this, (LoadStatisticsCommand.__proto__ || Object.getPrototypeOf(LoadStatisticsCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadStatisticsCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = _this2.userNotLoggedIn;
-                    resolve();
-                } else {
-                    _this2.commandData.year = _this2.commandParam.year;
-                    _this2.commandData.month = _this2.commandParam.month;
-                    App.serverFacade.loadStatistics(_this2.commandParam.token, _this2.commandParam.year, _this2.commandParam.month).then(function (data) {
-                        _this2.commandData.outcome = _this2.statisticsLoaded;
-                        if (data !== null && data.items !== null) {
-                            var lastTimestamp = "";
-                            for (var i = 0; i < data.items.length; i++) {
-                                var item = data.items[i];
-                                if (item.type === "test") {
-                                    item.isBox = false;
-                                } else {
-                                    item.isBox = true;
-                                }
-                                item.index = i + 1;
-                                if (lastTimestamp !== item.timestamp) {
-                                    lastTimestamp = item.timestamp;
-                                    var year = lastTimestamp.substring(0, 4);
-                                    var month = lastTimestamp.substring(5, 7);
-                                    var day = lastTimestamp.substring(8, 10);
-                                    item.date = day + "." + month + "." + year;
-                                    item.day = day;
-                                }
-                            }
-                        }
-                        _this2.commandData.statistics = data;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Die Monats-Statistik konnte nicht geladen werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return LoadStatisticsCommand;
-}(AbstractLoadStatisticsCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoadTestOfResultCommand = function (_AbstractLoadTestOfRe) {
-    _inherits(LoadTestOfResultCommand, _AbstractLoadTestOfRe);
-
-    function LoadTestOfResultCommand() {
-        _classCallCheck(this, LoadTestOfResultCommand);
-
-        return _possibleConstructorReturn(this, (LoadTestOfResultCommand.__proto__ || Object.getPrototypeOf(LoadTestOfResultCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadTestOfResultCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = _this2.userNotLoggedIn;
-                    resolve();
-                } else {
-                    App.serverFacade.loadTestOfResult(_this2.commandParam.resultId).then(function (data) {
-                        var content = data["html"];
-                        content = content.replace(/\\/g, '');
-                        _this2.commandData.content = content;
-
-                        _this2.commandData.resultId = _this2.commandParam.resultId;
-                        var selection = {
-                            context: "private",
-                            selectedBox: undefined,
-                            selectedCourse: data.courseid,
-                            selectedLesson: data.lessonid,
-                            selectedTest: data.id,
-                            selectedResult: _this2.commandData.resultId
-                        };
-                        _this2.commandData.selection = selection;
-                        _this2.commandData.outcome = _this2.testOfResultLoaded;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Das Ergebnis konnte nicht geladen werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return LoadTestOfResultCommand;
-}(AbstractLoadTestOfResultCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoginCommand = function (_AbstractLoginCommand) {
-    _inherits(LoginCommand, _AbstractLoginCommand);
-
-    function LoginCommand() {
-        _classCallCheck(this, LoginCommand);
-
-        return _possibleConstructorReturn(this, (LoginCommand.__proto__ || Object.getPrototypeOf(LoginCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoginCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                App.serverFacade.login(_this2.commandParam.username, _this2.commandParam.password).then(function (data) {
-                    if (data["token"] === null) {
-                        _this2.commandData.message = "Anmeldung schlug fehl. (Falscher Butzername oder falsches Passwort.)";
-                        _this2.commandData.outcome = _this2.loginFailed;
-                    } else {
-                        _this2.commandData.token = data["token"];
-                        _this2.commandData.username = _this2.commandParam.username;
-                        _this2.commandData.password = _this2.commandParam.password;
-                        _this2.commandData.sumOfPoints = data["sumOfPoints"];
-                        _this2.commandData.defaultMonth = true; // for LoadStatistics
-                        _this2.commandData.outcome = _this2.successfulLogin;
-                    }
-                    resolve();
-                }, function (error) {
-                    _this2.commandData.message = "Anmeldung schlug fehl. (" + error + ")";
-                    _this2.commandData.outcome = _this2.loginFailed;
-                    resolve();
-                });
-            });
-        }
-    }]);
-
-    return LoginCommand;
-}(AbstractLoginCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LogoutCommand = function (_AbstractLogoutComman) {
-    _inherits(LogoutCommand, _AbstractLogoutComman);
-
-    function LogoutCommand() {
-        _classCallCheck(this, LogoutCommand);
-
-        return _possibleConstructorReturn(this, (LogoutCommand.__proto__ || Object.getPrototypeOf(LogoutCommand)).apply(this, arguments));
-    }
-
-    _createClass(LogoutCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.outcome = _this2.successfulLogout;
-                resolve();
-            });
-        }
-    }]);
-
-    return LogoutCommand;
-}(AbstractLogoutCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var RateWordCommand = function (_AbstractRateWordComm) {
-    _inherits(RateWordCommand, _AbstractRateWordComm);
-
-    function RateWordCommand() {
-        _classCallCheck(this, RateWordCommand);
-
-        return _possibleConstructorReturn(this, (RateWordCommand.__proto__ || Object.getPrototypeOf(RateWordCommand)).apply(this, arguments));
-    }
-
-    _createClass(RateWordCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.knewIt = _this2.commandParam.knewIt;
-                _this2.commandData.id = _this2.commandParam.id;
-                _this2.commandData.strikeCount = _this2.commandParam.strikeCount;
-                _this2.commandData.points = _this2.commandParam.points;
-                _this2.commandData.wordCount = _this2.commandParam.wordCount;
-                _this2.commandData.strikesOfWord = _this2.commandParam.strikesOfWord;
-                if (_this2.commandData.knewIt) {
-                    _this2.commandData.strikesOfWord++;
-                    if (_this2.commandData.strikesOfWord === 3) {
-                        _this2.commandData.strikeCount++;
-                        _this2.commandData.outcome = _this2.wordIsCorrectAndFinished;
-                    } else {
-                        _this2.commandData.outcome = _this2.wordIsCorrectAndNotFinished;
-                    }
-                } else {
-                    if (_this2.commandData.points > 0) {
-                        _this2.commandData.points--;
-                    }
-                    _this2.commandData.outcome = _this2.wordIsNotCorrect;
-                }
-                resolve();
-            });
-        }
-    }]);
-
-    return RateWordCommand;
-}(AbstractRateWordCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var RepeatComplexCardCommand = function (_AbstractRepeatComple) {
-    _inherits(RepeatComplexCardCommand, _AbstractRepeatComple);
-
-    function RepeatComplexCardCommand() {
-        _classCallCheck(this, RepeatComplexCardCommand);
-
-        return _possibleConstructorReturn(this, (RepeatComplexCardCommand.__proto__ || Object.getPrototypeOf(RepeatComplexCardCommand)).apply(this, arguments));
-    }
-
-    _createClass(RepeatComplexCardCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.outcome = _this2.repeatComplexCard;
-                resolve();
-            });
-        }
-    }]);
-
-    return RepeatComplexCardCommand;
-}(AbstractRepeatComplexCardCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var RepeatTodaysCardsCommand = function (_AbstractRepeatTodays) {
-    _inherits(RepeatTodaysCardsCommand, _AbstractRepeatTodays);
-
-    function RepeatTodaysCardsCommand() {
-        _classCallCheck(this, RepeatTodaysCardsCommand);
-
-        return _possibleConstructorReturn(this, (RepeatTodaysCardsCommand.__proto__ || Object.getPrototypeOf(RepeatTodaysCardsCommand)).apply(this, arguments));
-    }
-
-    _createClass(RepeatTodaysCardsCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = _this2.userNotLoggedIn;
-                    resolve();
-                } else {
-                    App.serverFacade.loadTodayCards(_this2.commandParam.token, _this2.commandParam.boxId).then(function (data) {
-                        _this2.commandData.cards = data;
-                        var selection = {
-                            context: "box",
-                            selectedBox: _this2.commandParam.boxId,
-                            selectedCourse: undefined,
-                            selectedLesson: undefined,
-                            selectedTest: undefined,
-                            selectedResult: undefined
-                        };
-                        _this2.commandData.selection = selection;
-                        _this2.commandData.boxId = _this2.commandParam.boxId;
-                        _this2.commandData.outcome = _this2.todaysCardsLoaded;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Die Karten konnten nicht geladen werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return RepeatTodaysCardsCommand;
-}(AbstractRepeatTodaysCardsCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var SaveResultCommand = function (_AbstractSaveResultCo) {
-    _inherits(SaveResultCommand, _AbstractSaveResultCo);
-
-    function SaveResultCommand() {
-        _classCallCheck(this, SaveResultCommand);
-
-        return _possibleConstructorReturn(this, (SaveResultCommand.__proto__ || Object.getPrototypeOf(SaveResultCommand)).apply(this, arguments));
-    }
-
-    _createClass(SaveResultCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = _this2.userNotLoggedIn;
-                    resolve();
-                } else {
-                    App.serverFacade.saveResult(_this2.commandParam.token, _this2.commandParam.testId, _this2.commandParam.json, _this2.commandParam.points, _this2.commandParam.maxPoints).then(function (data) {
-                        _this2.commandData.points = data;
-                        _this2.commandData.token = _this2.commandParam.token;
-                        _this2.commandData.outcome = _this2.resultSaved;
-                        _this2.commandData.lessonId = App.commonView.selection.selectedLesson;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Der Test konnte nicht gespeichert werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return SaveResultCommand;
-}(AbstractSaveResultCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ScoreCardCommand = function (_AbstractScoreCardCom) {
-    _inherits(ScoreCardCommand, _AbstractScoreCardCom);
-
-    function ScoreCardCommand() {
-        _classCallCheck(this, ScoreCardCommand);
-
-        return _possibleConstructorReturn(this, (ScoreCardCommand.__proto__ || Object.getPrototypeOf(ScoreCardCommand)).apply(this, arguments));
-    }
-
-    _createClass(ScoreCardCommand, [{
-        key: "execute",
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.token === undefined) {
-                    _this2.commandData.outcome = _this2.userNotLoggedIn;
-                    resolve();
-                } else {
-                    App.serverFacade.scoreCard(_this2.commandParam.token, _this2.commandParam.id, _this2.commandParam.quality, _this2.commandParam.boxId).then(function (data) {
-                        _this2.commandData = {};
-                        _this2.commandData.points = data;
-                        _this2.commandData.id = _this2.commandParam.id;
-                        _this2.commandData.quality = _this2.commandParam.quality;
-                        _this2.commandData.token = _this2.commandParam.token;
-                        _this2.commandData.boxId = _this2.commandParam.boxId;
-                        _this2.commandData.outcome = _this2.cardScored;
-                        resolve();
-                    }, function (error) {
-                        _this2.commandData.message = "Die Vokabel konnte nicht gewertet werden. (" + error + ")";
-                        _this2.commandData.outcome = _this2.serverError;
-                        resolve();
-                    });
-                }
-            });
-        }
-    }]);
-
-    return ScoreCardCommand;
-}(AbstractScoreCardCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ShowNextCardItemCommand = function (_AbstractShowNextCard) {
-    _inherits(ShowNextCardItemCommand, _AbstractShowNextCard);
-
-    function ShowNextCardItemCommand() {
-        _classCallCheck(this, ShowNextCardItemCommand);
-
-        return _possibleConstructorReturn(this, (ShowNextCardItemCommand.__proto__ || Object.getPrototypeOf(ShowNextCardItemCommand)).apply(this, arguments));
-    }
-
-    _createClass(ShowNextCardItemCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                if (_this2.commandParam.flag === 'card') {
-                    _this2.commandData.outcome = _this2.showWanted;
-                } else if (_this2.commandParam.flag === 'line') {
-                    _this2.commandData.outcome = _this2.showNextLine;
-                } else if (_this2.commandParam.flag === 'word') {
-                    _this2.commandData.outcome = _this2.showNextWord;
-                }
-                resolve();
-            });
-        }
-    }]);
-
-    return ShowNextCardItemCommand;
-}(AbstractShowNextCardItemCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ShowNextWordOfTestCommand = function (_AbstractShowNextWord) {
-    _inherits(ShowNextWordOfTestCommand, _AbstractShowNextWord);
-
-    function ShowNextWordOfTestCommand() {
-        _classCallCheck(this, ShowNextWordOfTestCommand);
-
-        return _possibleConstructorReturn(this, (ShowNextWordOfTestCommand.__proto__ || Object.getPrototypeOf(ShowNextWordOfTestCommand)).apply(this, arguments));
-    }
-
-    _createClass(ShowNextWordOfTestCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.nextRandomIndex = _this2.commandParam.nextRandomIndex;
-                _this2.commandData.outcome = _this2.showNextWordOfTest;
-                resolve();
-            });
-        }
-    }]);
-
-    return ShowNextWordOfTestCommand;
-}(AbstractShowNextWordOfTestCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ShowWordCommand = function (_AbstractShowWordComm) {
-    _inherits(ShowWordCommand, _AbstractShowWordComm);
-
-    function ShowWordCommand() {
-        _classCallCheck(this, ShowWordCommand);
-
-        return _possibleConstructorReturn(this, (ShowWordCommand.__proto__ || Object.getPrototypeOf(ShowWordCommand)).apply(this, arguments));
-    }
-
-    _createClass(ShowWordCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.outcome = _this2.showWord;
-                _this2.commandData.solution = _this2.commandParam.solution;
-                resolve();
-            });
-        }
-    }]);
-
-    return ShowWordCommand;
-}(AbstractShowWordCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var StartBoxCommand = function (_AbstractStartBoxComm) {
-    _inherits(StartBoxCommand, _AbstractStartBoxComm);
-
-    function StartBoxCommand() {
-        _classCallCheck(this, StartBoxCommand);
-
-        return _possibleConstructorReturn(this, (StartBoxCommand.__proto__ || Object.getPrototypeOf(StartBoxCommand)).apply(this, arguments));
-    }
-
-    _createClass(StartBoxCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.boxId = _this2.commandParam.boxId;
-                _this2.commandData.token = _this2.commandParam.token;
-                _this2.commandData.outcome = _this2.boxStarted;
-                resolve();
-            });
-        }
-    }]);
-
-    return StartBoxCommand;
-}(AbstractStartBoxCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var StartTestCommand = function (_AbstractStartTestCom) {
-    _inherits(StartTestCommand, _AbstractStartTestCom);
-
-    function StartTestCommand() {
-        _classCallCheck(this, StartTestCommand);
-
-        return _possibleConstructorReturn(this, (StartTestCommand.__proto__ || Object.getPrototypeOf(StartTestCommand)).apply(this, arguments));
-    }
-
-    _createClass(StartTestCommand, [{
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            return new Promise(function (resolve) {
-                _this2.commandData.wordCount = _this2.commandParam.wordCount;
-                _this2.commandData.testMode = _this2.commandParam.testMode;
-                _this2.commandData.outcome = _this2.testStarted;
-                resolve();
-            });
-        }
-    }]);
-
-    return StartTestCommand;
-}(AbstractStartTestCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BoxStartedEvent = function (_AbstractBoxStartedEv) {
-    _inherits(BoxStartedEvent, _AbstractBoxStartedEv);
-
-    function BoxStartedEvent() {
-        _classCallCheck(this, BoxStartedEvent);
-
-        return _possibleConstructorReturn(this, (BoxStartedEvent.__proto__ || Object.getPrototypeOf(BoxStartedEvent)).apply(this, arguments));
-    }
-
-    _createClass(BoxStartedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return BoxStartedEvent;
-}(AbstractBoxStartedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BoxesSilentlyLoadedEvent = function (_AbstractBoxesSilentl) {
-    _inherits(BoxesSilentlyLoadedEvent, _AbstractBoxesSilentl);
-
-    function BoxesSilentlyLoadedEvent() {
-        _classCallCheck(this, BoxesSilentlyLoadedEvent);
-
-        return _possibleConstructorReturn(this, (BoxesSilentlyLoadedEvent.__proto__ || Object.getPrototypeOf(BoxesSilentlyLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(BoxesSilentlyLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return BoxesSilentlyLoadedEvent;
-}(AbstractBoxesSilentlyLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CardScoredEvent = function (_AbstractCardScoredEv) {
-    _inherits(CardScoredEvent, _AbstractCardScoredEv);
-
-    function CardScoredEvent() {
-        _classCallCheck(this, CardScoredEvent);
-
-        return _possibleConstructorReturn(this, (CardScoredEvent.__proto__ || Object.getPrototypeOf(CardScoredEvent)).apply(this, arguments));
-    }
-
-    _createClass(CardScoredEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return CardScoredEvent;
-}(AbstractCardScoredEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var DisplayComplexCardFinishedSuccessfullyEvent = function (_AbstractDisplayCompl) {
-    _inherits(DisplayComplexCardFinishedSuccessfullyEvent, _AbstractDisplayCompl);
-
-    function DisplayComplexCardFinishedSuccessfullyEvent() {
-        _classCallCheck(this, DisplayComplexCardFinishedSuccessfullyEvent);
-
-        return _possibleConstructorReturn(this, (DisplayComplexCardFinishedSuccessfullyEvent.__proto__ || Object.getPrototypeOf(DisplayComplexCardFinishedSuccessfullyEvent)).apply(this, arguments));
-    }
-
-    _createClass(DisplayComplexCardFinishedSuccessfullyEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return DisplayComplexCardFinishedSuccessfullyEvent;
-}(AbstractDisplayComplexCardFinishedSuccessfullyEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var DisplayNextWordButtonEvent = function (_AbstractDisplayNextW) {
-    _inherits(DisplayNextWordButtonEvent, _AbstractDisplayNextW);
-
-    function DisplayNextWordButtonEvent() {
-        _classCallCheck(this, DisplayNextWordButtonEvent);
-
-        return _possibleConstructorReturn(this, (DisplayNextWordButtonEvent.__proto__ || Object.getPrototypeOf(DisplayNextWordButtonEvent)).apply(this, arguments));
-    }
-
-    _createClass(DisplayNextWordButtonEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return DisplayNextWordButtonEvent;
-}(AbstractDisplayNextWordButtonEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var DisplayTestFailedEvent = function (_AbstractDisplayTestF) {
-    _inherits(DisplayTestFailedEvent, _AbstractDisplayTestF);
-
-    function DisplayTestFailedEvent() {
-        _classCallCheck(this, DisplayTestFailedEvent);
-
-        return _possibleConstructorReturn(this, (DisplayTestFailedEvent.__proto__ || Object.getPrototypeOf(DisplayTestFailedEvent)).apply(this, arguments));
-    }
-
-    _createClass(DisplayTestFailedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return DisplayTestFailedEvent;
-}(AbstractDisplayTestFailedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var DisplayTestFinishedSuccessfullyEvent = function (_AbstractDisplayTestF) {
-    _inherits(DisplayTestFinishedSuccessfullyEvent, _AbstractDisplayTestF);
-
-    function DisplayTestFinishedSuccessfullyEvent() {
-        _classCallCheck(this, DisplayTestFinishedSuccessfullyEvent);
-
-        return _possibleConstructorReturn(this, (DisplayTestFinishedSuccessfullyEvent.__proto__ || Object.getPrototypeOf(DisplayTestFinishedSuccessfullyEvent)).apply(this, arguments));
-    }
-
-    _createClass(DisplayTestFinishedSuccessfullyEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return DisplayTestFinishedSuccessfullyEvent;
-}(AbstractDisplayTestFinishedSuccessfullyEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var DoNothingEvent = function (_AbstractDoNothingEve) {
-    _inherits(DoNothingEvent, _AbstractDoNothingEve);
-
-    function DoNothingEvent() {
-        _classCallCheck(this, DoNothingEvent);
-
-        return _possibleConstructorReturn(this, (DoNothingEvent.__proto__ || Object.getPrototypeOf(DoNothingEvent)).apply(this, arguments));
-    }
-
-    _createClass(DoNothingEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return DoNothingEvent;
-}(AbstractDoNothingEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var GoOnWithNewCardsEvent = function (_AbstractGoOnWithNewC) {
-    _inherits(GoOnWithNewCardsEvent, _AbstractGoOnWithNewC);
-
-    function GoOnWithNewCardsEvent() {
-        _classCallCheck(this, GoOnWithNewCardsEvent);
-
-        return _possibleConstructorReturn(this, (GoOnWithNewCardsEvent.__proto__ || Object.getPrototypeOf(GoOnWithNewCardsEvent)).apply(this, arguments));
-    }
-
-    _createClass(GoOnWithNewCardsEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return GoOnWithNewCardsEvent;
-}(AbstractGoOnWithNewCardsEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LoginFailedEvent = function (_AbstractLoginFailedE) {
-    _inherits(LoginFailedEvent, _AbstractLoginFailedE);
-
-    function LoginFailedEvent() {
-        _classCallCheck(this, LoginFailedEvent);
-
-        return _possibleConstructorReturn(this, (LoginFailedEvent.__proto__ || Object.getPrototypeOf(LoginFailedEvent)).apply(this, arguments));
-    }
-
-    _createClass(LoginFailedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return LoginFailedEvent;
-}(AbstractLoginFailedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var NextCardLoadedEvent = function (_AbstractNextCardLoad) {
-    _inherits(NextCardLoadedEvent, _AbstractNextCardLoad);
-
-    function NextCardLoadedEvent() {
-        _classCallCheck(this, NextCardLoadedEvent);
-
-        return _possibleConstructorReturn(this, (NextCardLoadedEvent.__proto__ || Object.getPrototypeOf(NextCardLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(NextCardLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return NextCardLoadedEvent;
-}(AbstractNextCardLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PrivateCoursesLoadedEvent = function (_AbstractPrivateCours) {
-    _inherits(PrivateCoursesLoadedEvent, _AbstractPrivateCours);
-
-    function PrivateCoursesLoadedEvent() {
-        _classCallCheck(this, PrivateCoursesLoadedEvent);
-
-        return _possibleConstructorReturn(this, (PrivateCoursesLoadedEvent.__proto__ || Object.getPrototypeOf(PrivateCoursesLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(PrivateCoursesLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return PrivateCoursesLoadedEvent;
-}(AbstractPrivateCoursesLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PrivateCoursesSilentlyLoadedEvent = function (_AbstractPrivateCours) {
-    _inherits(PrivateCoursesSilentlyLoadedEvent, _AbstractPrivateCours);
-
-    function PrivateCoursesSilentlyLoadedEvent() {
-        _classCallCheck(this, PrivateCoursesSilentlyLoadedEvent);
-
-        return _possibleConstructorReturn(this, (PrivateCoursesSilentlyLoadedEvent.__proto__ || Object.getPrototypeOf(PrivateCoursesSilentlyLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(PrivateCoursesSilentlyLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return PrivateCoursesSilentlyLoadedEvent;
-}(AbstractPrivateCoursesSilentlyLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PrivateLessonsLoadedEvent = function (_AbstractPrivateLesso) {
-    _inherits(PrivateLessonsLoadedEvent, _AbstractPrivateLesso);
-
-    function PrivateLessonsLoadedEvent() {
-        _classCallCheck(this, PrivateLessonsLoadedEvent);
-
-        return _possibleConstructorReturn(this, (PrivateLessonsLoadedEvent.__proto__ || Object.getPrototypeOf(PrivateLessonsLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(PrivateLessonsLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return PrivateLessonsLoadedEvent;
-}(AbstractPrivateLessonsLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PrivateTestLoadedEvent = function (_AbstractPrivateTestL) {
-    _inherits(PrivateTestLoadedEvent, _AbstractPrivateTestL);
-
-    function PrivateTestLoadedEvent() {
-        _classCallCheck(this, PrivateTestLoadedEvent);
-
-        return _possibleConstructorReturn(this, (PrivateTestLoadedEvent.__proto__ || Object.getPrototypeOf(PrivateTestLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(PrivateTestLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return PrivateTestLoadedEvent;
-}(AbstractPrivateTestLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PrivateTestsLoadedEvent = function (_AbstractPrivateTests) {
-    _inherits(PrivateTestsLoadedEvent, _AbstractPrivateTests);
-
-    function PrivateTestsLoadedEvent() {
-        _classCallCheck(this, PrivateTestsLoadedEvent);
-
-        return _possibleConstructorReturn(this, (PrivateTestsLoadedEvent.__proto__ || Object.getPrototypeOf(PrivateTestsLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(PrivateTestsLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return PrivateTestsLoadedEvent;
-}(AbstractPrivateTestsLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PrivateTestsSilentlyLoadedEvent = function (_AbstractPrivateTests) {
-    _inherits(PrivateTestsSilentlyLoadedEvent, _AbstractPrivateTests);
-
-    function PrivateTestsSilentlyLoadedEvent() {
-        _classCallCheck(this, PrivateTestsSilentlyLoadedEvent);
-
-        return _possibleConstructorReturn(this, (PrivateTestsSilentlyLoadedEvent.__proto__ || Object.getPrototypeOf(PrivateTestsSilentlyLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(PrivateTestsSilentlyLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return PrivateTestsSilentlyLoadedEvent;
-}(AbstractPrivateTestsSilentlyLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PublicCoursesLoadedEvent = function (_AbstractPublicCourse) {
-    _inherits(PublicCoursesLoadedEvent, _AbstractPublicCourse);
-
-    function PublicCoursesLoadedEvent() {
-        _classCallCheck(this, PublicCoursesLoadedEvent);
-
-        return _possibleConstructorReturn(this, (PublicCoursesLoadedEvent.__proto__ || Object.getPrototypeOf(PublicCoursesLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(PublicCoursesLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return PublicCoursesLoadedEvent;
-}(AbstractPublicCoursesLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PublicLessonsLoadedEvent = function (_AbstractPublicLesson) {
-    _inherits(PublicLessonsLoadedEvent, _AbstractPublicLesson);
-
-    function PublicLessonsLoadedEvent() {
-        _classCallCheck(this, PublicLessonsLoadedEvent);
-
-        return _possibleConstructorReturn(this, (PublicLessonsLoadedEvent.__proto__ || Object.getPrototypeOf(PublicLessonsLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(PublicLessonsLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return PublicLessonsLoadedEvent;
-}(AbstractPublicLessonsLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PublicTestLoadedEvent = function (_AbstractPublicTestLo) {
-    _inherits(PublicTestLoadedEvent, _AbstractPublicTestLo);
-
-    function PublicTestLoadedEvent() {
-        _classCallCheck(this, PublicTestLoadedEvent);
-
-        return _possibleConstructorReturn(this, (PublicTestLoadedEvent.__proto__ || Object.getPrototypeOf(PublicTestLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(PublicTestLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return PublicTestLoadedEvent;
-}(AbstractPublicTestLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PublicTestsLoadedEvent = function (_AbstractPublicTestsL) {
-    _inherits(PublicTestsLoadedEvent, _AbstractPublicTestsL);
-
-    function PublicTestsLoadedEvent() {
-        _classCallCheck(this, PublicTestsLoadedEvent);
-
-        return _possibleConstructorReturn(this, (PublicTestsLoadedEvent.__proto__ || Object.getPrototypeOf(PublicTestsLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(PublicTestsLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return PublicTestsLoadedEvent;
-}(AbstractPublicTestsLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var RenderCardForRepetitionEvent = function (_AbstractRenderCardFo) {
-    _inherits(RenderCardForRepetitionEvent, _AbstractRenderCardFo);
-
-    function RenderCardForRepetitionEvent() {
-        _classCallCheck(this, RenderCardForRepetitionEvent);
-
-        return _possibleConstructorReturn(this, (RenderCardForRepetitionEvent.__proto__ || Object.getPrototypeOf(RenderCardForRepetitionEvent)).apply(this, arguments));
-    }
-
-    _createClass(RenderCardForRepetitionEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return RenderCardForRepetitionEvent;
-}(AbstractRenderCardForRepetitionEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var RepeatComplexCardEvent = function (_AbstractRepeatComple) {
-    _inherits(RepeatComplexCardEvent, _AbstractRepeatComple);
-
-    function RepeatComplexCardEvent() {
-        _classCallCheck(this, RepeatComplexCardEvent);
-
-        return _possibleConstructorReturn(this, (RepeatComplexCardEvent.__proto__ || Object.getPrototypeOf(RepeatComplexCardEvent)).apply(this, arguments));
-    }
-
-    _createClass(RepeatComplexCardEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return RepeatComplexCardEvent;
-}(AbstractRepeatComplexCardEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var RepeatTodaysCardsEvent = function (_AbstractRepeatTodays) {
-    _inherits(RepeatTodaysCardsEvent, _AbstractRepeatTodays);
-
-    function RepeatTodaysCardsEvent() {
-        _classCallCheck(this, RepeatTodaysCardsEvent);
-
-        return _possibleConstructorReturn(this, (RepeatTodaysCardsEvent.__proto__ || Object.getPrototypeOf(RepeatTodaysCardsEvent)).apply(this, arguments));
-    }
-
-    _createClass(RepeatTodaysCardsEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return RepeatTodaysCardsEvent;
-}(AbstractRepeatTodaysCardsEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ResultLoadedEvent = function (_AbstractResultLoaded) {
-    _inherits(ResultLoadedEvent, _AbstractResultLoaded);
-
-    function ResultLoadedEvent() {
-        _classCallCheck(this, ResultLoadedEvent);
-
-        return _possibleConstructorReturn(this, (ResultLoadedEvent.__proto__ || Object.getPrototypeOf(ResultLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(ResultLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return ResultLoadedEvent;
-}(AbstractResultLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ResultSavedEvent = function (_AbstractResultSavedE) {
-    _inherits(ResultSavedEvent, _AbstractResultSavedE);
-
-    function ResultSavedEvent() {
-        _classCallCheck(this, ResultSavedEvent);
-
-        return _possibleConstructorReturn(this, (ResultSavedEvent.__proto__ || Object.getPrototypeOf(ResultSavedEvent)).apply(this, arguments));
-    }
-
-    _createClass(ResultSavedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return ResultSavedEvent;
-}(AbstractResultSavedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ServerErrorEvent = function (_AbstractServerErrorE) {
-    _inherits(ServerErrorEvent, _AbstractServerErrorE);
-
-    function ServerErrorEvent() {
-        _classCallCheck(this, ServerErrorEvent);
-
-        return _possibleConstructorReturn(this, (ServerErrorEvent.__proto__ || Object.getPrototypeOf(ServerErrorEvent)).apply(this, arguments));
-    }
-
-    _createClass(ServerErrorEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return ServerErrorEvent;
-}(AbstractServerErrorEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ShowNextLineEvent = function (_AbstractShowNextLine) {
-    _inherits(ShowNextLineEvent, _AbstractShowNextLine);
-
-    function ShowNextLineEvent() {
-        _classCallCheck(this, ShowNextLineEvent);
-
-        return _possibleConstructorReturn(this, (ShowNextLineEvent.__proto__ || Object.getPrototypeOf(ShowNextLineEvent)).apply(this, arguments));
-    }
-
-    _createClass(ShowNextLineEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return ShowNextLineEvent;
-}(AbstractShowNextLineEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ShowNextWordEvent = function (_AbstractShowNextWord) {
-    _inherits(ShowNextWordEvent, _AbstractShowNextWord);
-
-    function ShowNextWordEvent() {
-        _classCallCheck(this, ShowNextWordEvent);
-
-        return _possibleConstructorReturn(this, (ShowNextWordEvent.__proto__ || Object.getPrototypeOf(ShowNextWordEvent)).apply(this, arguments));
-    }
-
-    _createClass(ShowNextWordEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return ShowNextWordEvent;
-}(AbstractShowNextWordEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ShowNextWordOfTestEvent = function (_AbstractShowNextWord) {
-    _inherits(ShowNextWordOfTestEvent, _AbstractShowNextWord);
-
-    function ShowNextWordOfTestEvent() {
-        _classCallCheck(this, ShowNextWordOfTestEvent);
-
-        return _possibleConstructorReturn(this, (ShowNextWordOfTestEvent.__proto__ || Object.getPrototypeOf(ShowNextWordOfTestEvent)).apply(this, arguments));
-    }
-
-    _createClass(ShowNextWordOfTestEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return ShowNextWordOfTestEvent;
-}(AbstractShowNextWordOfTestEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ShowScoreButtonsEvent = function (_AbstractShowScoreBut) {
-    _inherits(ShowScoreButtonsEvent, _AbstractShowScoreBut);
-
-    function ShowScoreButtonsEvent() {
-        _classCallCheck(this, ShowScoreButtonsEvent);
-
-        return _possibleConstructorReturn(this, (ShowScoreButtonsEvent.__proto__ || Object.getPrototypeOf(ShowScoreButtonsEvent)).apply(this, arguments));
-    }
-
-    _createClass(ShowScoreButtonsEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return ShowScoreButtonsEvent;
-}(AbstractShowScoreButtonsEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ShowWantedEvent = function (_AbstractShowWantedEv) {
-    _inherits(ShowWantedEvent, _AbstractShowWantedEv);
-
-    function ShowWantedEvent() {
-        _classCallCheck(this, ShowWantedEvent);
-
-        return _possibleConstructorReturn(this, (ShowWantedEvent.__proto__ || Object.getPrototypeOf(ShowWantedEvent)).apply(this, arguments));
-    }
-
-    _createClass(ShowWantedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return ShowWantedEvent;
-}(AbstractShowWantedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ShowWordEvent = function (_AbstractShowWordEven) {
-    _inherits(ShowWordEvent, _AbstractShowWordEven);
-
-    function ShowWordEvent() {
-        _classCallCheck(this, ShowWordEvent);
-
-        return _possibleConstructorReturn(this, (ShowWordEvent.__proto__ || Object.getPrototypeOf(ShowWordEvent)).apply(this, arguments));
-    }
-
-    _createClass(ShowWordEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return ShowWordEvent;
-}(AbstractShowWordEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var StatisticsLoadedEvent = function (_AbstractStatisticsLo) {
-    _inherits(StatisticsLoadedEvent, _AbstractStatisticsLo);
-
-    function StatisticsLoadedEvent() {
-        _classCallCheck(this, StatisticsLoadedEvent);
-
-        return _possibleConstructorReturn(this, (StatisticsLoadedEvent.__proto__ || Object.getPrototypeOf(StatisticsLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(StatisticsLoadedEvent, [{
-        key: "prepareDataForView",
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-            if (this.eventData.statistics && this.eventData.statistics.items) {
-                for (var i = 0; i < this.eventData.statistics.items.length; i++) {
-                    var item = this.eventData.statistics.items[i];
-                    if (item.maxpoints && item.points != undefined) {
-                        item.rate = Math.round(item.points / item.maxpoints * 100) + " %";
-                    }
-                }
-            }
-        }
-    }]);
-
-    return StatisticsLoadedEvent;
-}(AbstractStatisticsLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TestOfResultLoadedEvent = function (_AbstractTestOfResult) {
-    _inherits(TestOfResultLoadedEvent, _AbstractTestOfResult);
-
-    function TestOfResultLoadedEvent() {
-        _classCallCheck(this, TestOfResultLoadedEvent);
-
-        return _possibleConstructorReturn(this, (TestOfResultLoadedEvent.__proto__ || Object.getPrototypeOf(TestOfResultLoadedEvent)).apply(this, arguments));
-    }
-
-    _createClass(TestOfResultLoadedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return TestOfResultLoadedEvent;
-}(AbstractTestOfResultLoadedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TestStartedEvent = function (_AbstractTestStartedE) {
-    _inherits(TestStartedEvent, _AbstractTestStartedE);
-
-    function TestStartedEvent() {
-        _classCallCheck(this, TestStartedEvent);
-
-        return _possibleConstructorReturn(this, (TestStartedEvent.__proto__ || Object.getPrototypeOf(TestStartedEvent)).apply(this, arguments));
-    }
-
-    _createClass(TestStartedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return TestStartedEvent;
-}(AbstractTestStartedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var UserIsLoggedInEvent = function (_AbstractUserIsLogged) {
-    _inherits(UserIsLoggedInEvent, _AbstractUserIsLogged);
-
-    function UserIsLoggedInEvent() {
-        _classCallCheck(this, UserIsLoggedInEvent);
-
-        return _possibleConstructorReturn(this, (UserIsLoggedInEvent.__proto__ || Object.getPrototypeOf(UserIsLoggedInEvent)).apply(this, arguments));
-    }
-
-    _createClass(UserIsLoggedInEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return UserIsLoggedInEvent;
-}(AbstractUserIsLoggedInEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var UserIsNotLoggedInEvent = function (_AbstractUserIsNotLog) {
-    _inherits(UserIsNotLoggedInEvent, _AbstractUserIsNotLog);
-
-    function UserIsNotLoggedInEvent() {
-        _classCallCheck(this, UserIsNotLoggedInEvent);
-
-        return _possibleConstructorReturn(this, (UserIsNotLoggedInEvent.__proto__ || Object.getPrototypeOf(UserIsNotLoggedInEvent)).apply(this, arguments));
-    }
-
-    _createClass(UserIsNotLoggedInEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return UserIsNotLoggedInEvent;
-}(AbstractUserIsNotLoggedInEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var WordIsCorrectAndFinishedEvent = function (_AbstractWordIsCorrec) {
-    _inherits(WordIsCorrectAndFinishedEvent, _AbstractWordIsCorrec);
-
-    function WordIsCorrectAndFinishedEvent() {
-        _classCallCheck(this, WordIsCorrectAndFinishedEvent);
-
-        return _possibleConstructorReturn(this, (WordIsCorrectAndFinishedEvent.__proto__ || Object.getPrototypeOf(WordIsCorrectAndFinishedEvent)).apply(this, arguments));
-    }
-
-    _createClass(WordIsCorrectAndFinishedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return WordIsCorrectAndFinishedEvent;
-}(AbstractWordIsCorrectAndFinishedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var WordIsCorrectAndNotFinishedEvent = function (_AbstractWordIsCorrec) {
-    _inherits(WordIsCorrectAndNotFinishedEvent, _AbstractWordIsCorrec);
-
-    function WordIsCorrectAndNotFinishedEvent() {
-        _classCallCheck(this, WordIsCorrectAndNotFinishedEvent);
-
-        return _possibleConstructorReturn(this, (WordIsCorrectAndNotFinishedEvent.__proto__ || Object.getPrototypeOf(WordIsCorrectAndNotFinishedEvent)).apply(this, arguments));
-    }
-
-    _createClass(WordIsCorrectAndNotFinishedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return WordIsCorrectAndNotFinishedEvent;
-}(AbstractWordIsCorrectAndNotFinishedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var WordIsNotCorrectEvent = function (_AbstractWordIsNotCor) {
-    _inherits(WordIsNotCorrectEvent, _AbstractWordIsNotCor);
-
-    function WordIsNotCorrectEvent() {
-        _classCallCheck(this, WordIsNotCorrectEvent);
-
-        return _possibleConstructorReturn(this, (WordIsNotCorrectEvent.__proto__ || Object.getPrototypeOf(WordIsNotCorrectEvent)).apply(this, arguments));
-    }
-
-    _createClass(WordIsNotCorrectEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return WordIsNotCorrectEvent;
-}(AbstractWordIsNotCorrectEvent);
 
 /*       S.D.G.       */
 'use strict';
@@ -17073,7 +7076,7 @@ var CheckIfComplexCardIsFinishedAction = function (_AbstractCheckIfCompl) {
    function CheckIfComplexCardIsFinishedAction() {
       _classCallCheck(this, CheckIfComplexCardIsFinishedAction);
 
-      return _possibleConstructorReturn(this, (CheckIfComplexCardIsFinishedAction.__proto__ || Object.getPrototypeOf(CheckIfComplexCardIsFinishedAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(CheckIfComplexCardIsFinishedAction).apply(this, arguments));
    }
 
    _createClass(CheckIfComplexCardIsFinishedAction, [{
@@ -17158,7 +7161,7 @@ var FinishCardAction = function (_AbstractFinishCardAc) {
    function FinishCardAction() {
       _classCallCheck(this, FinishCardAction);
 
-      return _possibleConstructorReturn(this, (FinishCardAction.__proto__ || Object.getPrototypeOf(FinishCardAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(FinishCardAction).apply(this, arguments));
    }
 
    _createClass(FinishCardAction, [{
@@ -17244,7 +7247,7 @@ var ScoreCardAction = function (_AbstractScoreCardAct) {
    function ScoreCardAction() {
       _classCallCheck(this, ScoreCardAction);
 
-      return _possibleConstructorReturn(this, (ScoreCardAction.__proto__ || Object.getPrototypeOf(ScoreCardAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ScoreCardAction).apply(this, arguments));
    }
 
    _createClass(ScoreCardAction, [{
@@ -17331,7 +7334,7 @@ var ShowNextCardItemAction = function (_AbstractShowNextCard) {
    function ShowNextCardItemAction() {
       _classCallCheck(this, ShowNextCardItemAction);
 
-      return _possibleConstructorReturn(this, (ShowNextCardItemAction.__proto__ || Object.getPrototypeOf(ShowNextCardItemAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowNextCardItemAction).apply(this, arguments));
    }
 
    _createClass(ShowNextCardItemAction, [{
@@ -17419,7 +7422,7 @@ var CheckIfComplexCardIsFinishedCommand = function (_AbstractCheckIfCompl) {
     function CheckIfComplexCardIsFinishedCommand() {
         _classCallCheck(this, CheckIfComplexCardIsFinishedCommand);
 
-        return _possibleConstructorReturn(this, (CheckIfComplexCardIsFinishedCommand.__proto__ || Object.getPrototypeOf(CheckIfComplexCardIsFinishedCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(CheckIfComplexCardIsFinishedCommand).apply(this, arguments));
     }
 
     _createClass(CheckIfComplexCardIsFinishedCommand, [{
@@ -17458,7 +7461,7 @@ var FinishCardCommand = function (_AbstractFinishCardCo) {
     function FinishCardCommand() {
         _classCallCheck(this, FinishCardCommand);
 
-        return _possibleConstructorReturn(this, (FinishCardCommand.__proto__ || Object.getPrototypeOf(FinishCardCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(FinishCardCommand).apply(this, arguments));
     }
 
     _createClass(FinishCardCommand, [{
@@ -17495,7 +7498,7 @@ var ScoreCardCommand = function (_AbstractScoreCardCom) {
     function ScoreCardCommand() {
         _classCallCheck(this, ScoreCardCommand);
 
-        return _possibleConstructorReturn(this, (ScoreCardCommand.__proto__ || Object.getPrototypeOf(ScoreCardCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ScoreCardCommand).apply(this, arguments));
     }
 
     _createClass(ScoreCardCommand, [{
@@ -17547,7 +7550,7 @@ var ShowNextCardItemCommand = function (_AbstractShowNextCard) {
     function ShowNextCardItemCommand() {
         _classCallCheck(this, ShowNextCardItemCommand);
 
-        return _possibleConstructorReturn(this, (ShowNextCardItemCommand.__proto__ || Object.getPrototypeOf(ShowNextCardItemCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowNextCardItemCommand).apply(this, arguments));
     }
 
     _createClass(ShowNextCardItemCommand, [{
@@ -17582,43 +7585,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var DisplayComplexCardFinishedSuccessfullyEvent = function (_AbstractDisplayCompl) {
-    _inherits(DisplayComplexCardFinishedSuccessfullyEvent, _AbstractDisplayCompl);
-
-    function DisplayComplexCardFinishedSuccessfullyEvent() {
-        _classCallCheck(this, DisplayComplexCardFinishedSuccessfullyEvent);
-
-        return _possibleConstructorReturn(this, (DisplayComplexCardFinishedSuccessfullyEvent.__proto__ || Object.getPrototypeOf(DisplayComplexCardFinishedSuccessfullyEvent)).apply(this, arguments));
-    }
-
-    _createClass(DisplayComplexCardFinishedSuccessfullyEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return DisplayComplexCardFinishedSuccessfullyEvent;
-}(AbstractDisplayComplexCardFinishedSuccessfullyEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var ShowNextLineEvent = function (_AbstractShowNextLine) {
     _inherits(ShowNextLineEvent, _AbstractShowNextLine);
 
     function ShowNextLineEvent() {
         _classCallCheck(this, ShowNextLineEvent);
 
-        return _possibleConstructorReturn(this, (ShowNextLineEvent.__proto__ || Object.getPrototypeOf(ShowNextLineEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowNextLineEvent).apply(this, arguments));
     }
 
     _createClass(ShowNextLineEvent, [{
@@ -17648,7 +7621,7 @@ var ShowNextWordEvent = function (_AbstractShowNextWord) {
     function ShowNextWordEvent() {
         _classCallCheck(this, ShowNextWordEvent);
 
-        return _possibleConstructorReturn(this, (ShowNextWordEvent.__proto__ || Object.getPrototypeOf(ShowNextWordEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowNextWordEvent).apply(this, arguments));
     }
 
     _createClass(ShowNextWordEvent, [{
@@ -17678,7 +7651,7 @@ var ShowScoreButtonsEvent = function (_AbstractShowScoreBut) {
     function ShowScoreButtonsEvent() {
         _classCallCheck(this, ShowScoreButtonsEvent);
 
-        return _possibleConstructorReturn(this, (ShowScoreButtonsEvent.__proto__ || Object.getPrototypeOf(ShowScoreButtonsEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowScoreButtonsEvent).apply(this, arguments));
     }
 
     _createClass(ShowScoreButtonsEvent, [{
@@ -17708,7 +7681,7 @@ var ShowWantedEvent = function (_AbstractShowWantedEv) {
     function ShowWantedEvent() {
         _classCallCheck(this, ShowWantedEvent);
 
-        return _possibleConstructorReturn(this, (ShowWantedEvent.__proto__ || Object.getPrototypeOf(ShowWantedEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowWantedEvent).apply(this, arguments));
     }
 
     _createClass(ShowWantedEvent, [{
@@ -17998,7 +7971,7 @@ var AddCardsToBoxAction = function (_AbstractAddCardsToBo) {
    function AddCardsToBoxAction() {
       _classCallCheck(this, AddCardsToBoxAction);
 
-      return _possibleConstructorReturn(this, (AddCardsToBoxAction.__proto__ || Object.getPrototypeOf(AddCardsToBoxAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(AddCardsToBoxAction).apply(this, arguments));
    }
 
    _createClass(AddCardsToBoxAction, [{
@@ -18086,7 +8059,7 @@ var CloseAllDialogsAction = function (_AbstractCloseAllDial) {
     function CloseAllDialogsAction() {
         _classCallCheck(this, CloseAllDialogsAction);
 
-        return _possibleConstructorReturn(this, (CloseAllDialogsAction.__proto__ || Object.getPrototypeOf(CloseAllDialogsAction)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(CloseAllDialogsAction).apply(this, arguments));
     }
 
     _createClass(CloseAllDialogsAction, [{
@@ -18122,7 +8095,7 @@ var InitAction = function (_AbstractInitAction) {
   function InitAction() {
     _classCallCheck(this, InitAction);
 
-    return _possibleConstructorReturn(this, (InitAction.__proto__ || Object.getPrototypeOf(InitAction)).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(InitAction).apply(this, arguments));
   }
 
   _createClass(InitAction, [{
@@ -18203,7 +8176,7 @@ var LoginAction = function (_AbstractLoginAction) {
   function LoginAction() {
     _classCallCheck(this, LoginAction);
 
-    return _possibleConstructorReturn(this, (LoginAction.__proto__ || Object.getPrototypeOf(LoginAction)).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(LoginAction).apply(this, arguments));
   }
 
   _createClass(LoginAction, [{
@@ -18212,7 +8185,6 @@ var LoginAction = function (_AbstractLoginAction) {
       this.actionParam.username = $(".username").val();
       var password = $(".password").val();
       this.actionParam.password = CryptoJS.MD5(password).toString(CryptoJS.enc.Base64);
-      console.log(this.actionParam.password);
       if (localStorage.schema) {
         this.actionParam.schema = localStorage.schema;
       }
@@ -18278,7 +8250,7 @@ var LogoutAction = function (_AbstractLogoutAction) {
    function LogoutAction() {
       _classCallCheck(this, LogoutAction);
 
-      return _possibleConstructorReturn(this, (LogoutAction.__proto__ || Object.getPrototypeOf(LogoutAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(LogoutAction).apply(this, arguments));
    }
 
    _createClass(LogoutAction, [{
@@ -18363,7 +8335,7 @@ var OpenReallyDeleteDialogAction = function (_AbstractOpenReallyDe) {
    function OpenReallyDeleteDialogAction() {
       _classCallCheck(this, OpenReallyDeleteDialogAction);
 
-      return _possibleConstructorReturn(this, (OpenReallyDeleteDialogAction.__proto__ || Object.getPrototypeOf(OpenReallyDeleteDialogAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenReallyDeleteDialogAction).apply(this, arguments));
    }
 
    _createClass(OpenReallyDeleteDialogAction, [{
@@ -18433,7 +8405,7 @@ var RenderHomeAction = function (_AbstractRenderHomeAc) {
    function RenderHomeAction() {
       _classCallCheck(this, RenderHomeAction);
 
-      return _possibleConstructorReturn(this, (RenderHomeAction.__proto__ || Object.getPrototypeOf(RenderHomeAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderHomeAction).apply(this, arguments));
    }
 
    _createClass(RenderHomeAction, [{
@@ -18518,7 +8490,7 @@ var RenderLoginAction = function (_AbstractRenderLoginA) {
    function RenderLoginAction() {
       _classCallCheck(this, RenderLoginAction);
 
-      return _possibleConstructorReturn(this, (RenderLoginAction.__proto__ || Object.getPrototypeOf(RenderLoginAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderLoginAction).apply(this, arguments));
    }
 
    _createClass(RenderLoginAction, [{
@@ -18603,7 +8575,7 @@ var RenderLogoutAction = function (_AbstractRenderLogout) {
    function RenderLogoutAction() {
       _classCallCheck(this, RenderLogoutAction);
 
-      return _possibleConstructorReturn(this, (RenderLogoutAction.__proto__ || Object.getPrototypeOf(RenderLogoutAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderLogoutAction).apply(this, arguments));
    }
 
    _createClass(RenderLogoutAction, [{
@@ -18688,7 +8660,7 @@ var RouteAction = function (_AbstractRouteAction) {
    function RouteAction() {
       _classCallCheck(this, RouteAction);
 
-      return _possibleConstructorReturn(this, (RouteAction.__proto__ || Object.getPrototypeOf(RouteAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(RouteAction).apply(this, arguments));
    }
 
    _createClass(RouteAction, [{
@@ -18771,7 +8743,7 @@ var RouteHomeAction = function (_AbstractRouteHomeAct) {
    function RouteHomeAction() {
       _classCallCheck(this, RouteHomeAction);
 
-      return _possibleConstructorReturn(this, (RouteHomeAction.__proto__ || Object.getPrototypeOf(RouteHomeAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(RouteHomeAction).apply(this, arguments));
    }
 
    _createClass(RouteHomeAction, [{
@@ -18856,7 +8828,7 @@ var SaveResultAction = function (_AbstractSaveResultAc) {
 	function SaveResultAction() {
 		_classCallCheck(this, SaveResultAction);
 
-		return _possibleConstructorReturn(this, (SaveResultAction.__proto__ || Object.getPrototypeOf(SaveResultAction)).apply(this, arguments));
+		return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveResultAction).apply(this, arguments));
 	}
 
 	_createClass(SaveResultAction, [{
@@ -18995,7 +8967,7 @@ var SwitchLanguageAction = function (_AbstractSwitchLangua) {
    function SwitchLanguageAction() {
       _classCallCheck(this, SwitchLanguageAction);
 
-      return _possibleConstructorReturn(this, (SwitchLanguageAction.__proto__ || Object.getPrototypeOf(SwitchLanguageAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(SwitchLanguageAction).apply(this, arguments));
    }
 
    _createClass(SwitchLanguageAction, [{
@@ -19074,7 +9046,7 @@ var ValidateRequiredFieldAction = function (_AbstractValidateRequ) {
    function ValidateRequiredFieldAction() {
       _classCallCheck(this, ValidateRequiredFieldAction);
 
-      return _possibleConstructorReturn(this, (ValidateRequiredFieldAction.__proto__ || Object.getPrototypeOf(ValidateRequiredFieldAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ValidateRequiredFieldAction).apply(this, arguments));
    }
 
    _createClass(ValidateRequiredFieldAction, [{
@@ -19160,7 +9132,7 @@ var AddCardsToBoxCommand = function (_AbstractAddCardsToBo) {
     function AddCardsToBoxCommand() {
         _classCallCheck(this, AddCardsToBoxCommand);
 
-        return _possibleConstructorReturn(this, (AddCardsToBoxCommand.__proto__ || Object.getPrototypeOf(AddCardsToBoxCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(AddCardsToBoxCommand).apply(this, arguments));
     }
 
     _createClass(AddCardsToBoxCommand, [{
@@ -19206,7 +9178,7 @@ var CloseAllDialogsCommand = function (_AbstractCloseAllDial) {
     function CloseAllDialogsCommand() {
         _classCallCheck(this, CloseAllDialogsCommand);
 
-        return _possibleConstructorReturn(this, (CloseAllDialogsCommand.__proto__ || Object.getPrototypeOf(CloseAllDialogsCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(CloseAllDialogsCommand).apply(this, arguments));
     }
 
     _createClass(CloseAllDialogsCommand, [{
@@ -19241,7 +9213,7 @@ var InitCommand = function (_AbstractInitCommand) {
     function InitCommand() {
         _classCallCheck(this, InitCommand);
 
-        return _possibleConstructorReturn(this, (InitCommand.__proto__ || Object.getPrototypeOf(InitCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(InitCommand).apply(this, arguments));
     }
 
     _createClass(InitCommand, [{
@@ -19366,7 +9338,7 @@ var LoginCommand = function (_AbstractLoginCommand) {
     function LoginCommand() {
         _classCallCheck(this, LoginCommand);
 
-        return _possibleConstructorReturn(this, (LoginCommand.__proto__ || Object.getPrototypeOf(LoginCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(LoginCommand).apply(this, arguments));
     }
 
     _createClass(LoginCommand, [{
@@ -19412,7 +9384,7 @@ var LogoutCommand = function (_AbstractLogoutComman) {
     function LogoutCommand() {
         _classCallCheck(this, LogoutCommand);
 
-        return _possibleConstructorReturn(this, (LogoutCommand.__proto__ || Object.getPrototypeOf(LogoutCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(LogoutCommand).apply(this, arguments));
     }
 
     _createClass(LogoutCommand, [{
@@ -19448,7 +9420,7 @@ var OpenReallyDeleteDialogCommand = function (_AbstractOpenReallyDe) {
     function OpenReallyDeleteDialogCommand() {
         _classCallCheck(this, OpenReallyDeleteDialogCommand);
 
-        return _possibleConstructorReturn(this, (OpenReallyDeleteDialogCommand.__proto__ || Object.getPrototypeOf(OpenReallyDeleteDialogCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenReallyDeleteDialogCommand).apply(this, arguments));
     }
 
     _createClass(OpenReallyDeleteDialogCommand, [{
@@ -19484,7 +9456,7 @@ var RenderHomeCommand = function (_AbstractRenderHomeCo) {
     function RenderHomeCommand() {
         _classCallCheck(this, RenderHomeCommand);
 
-        return _possibleConstructorReturn(this, (RenderHomeCommand.__proto__ || Object.getPrototypeOf(RenderHomeCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderHomeCommand).apply(this, arguments));
     }
 
     _createClass(RenderHomeCommand, [{
@@ -19520,7 +9492,7 @@ var RenderLoginCommand = function (_AbstractRenderLoginC) {
     function RenderLoginCommand() {
         _classCallCheck(this, RenderLoginCommand);
 
-        return _possibleConstructorReturn(this, (RenderLoginCommand.__proto__ || Object.getPrototypeOf(RenderLoginCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderLoginCommand).apply(this, arguments));
     }
 
     _createClass(RenderLoginCommand, [{
@@ -19555,7 +9527,7 @@ var RenderLogoutCommand = function (_AbstractRenderLogout) {
     function RenderLogoutCommand() {
         _classCallCheck(this, RenderLogoutCommand);
 
-        return _possibleConstructorReturn(this, (RenderLogoutCommand.__proto__ || Object.getPrototypeOf(RenderLogoutCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderLogoutCommand).apply(this, arguments));
     }
 
     _createClass(RenderLogoutCommand, [{
@@ -19591,7 +9563,7 @@ var RouteCommand = function (_AbstractRouteCommand) {
     function RouteCommand() {
         _classCallCheck(this, RouteCommand);
 
-        return _possibleConstructorReturn(this, (RouteCommand.__proto__ || Object.getPrototypeOf(RouteCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RouteCommand).apply(this, arguments));
     }
 
     _createClass(RouteCommand, [{
@@ -19627,7 +9599,7 @@ var SaveResultCommand = function (_AbstractSaveResultCo) {
     function SaveResultCommand() {
         _classCallCheck(this, SaveResultCommand);
 
-        return _possibleConstructorReturn(this, (SaveResultCommand.__proto__ || Object.getPrototypeOf(SaveResultCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveResultCommand).apply(this, arguments));
     }
 
     _createClass(SaveResultCommand, [{
@@ -19687,7 +9659,7 @@ var SwitchLanguageCommand = function (_AbstractSwitchLangua) {
     function SwitchLanguageCommand() {
         _classCallCheck(this, SwitchLanguageCommand);
 
-        return _possibleConstructorReturn(this, (SwitchLanguageCommand.__proto__ || Object.getPrototypeOf(SwitchLanguageCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(SwitchLanguageCommand).apply(this, arguments));
     }
 
     _createClass(SwitchLanguageCommand, [{
@@ -19723,7 +9695,7 @@ var ValidateRequiredFieldCommand = function (_AbstractValidateRequ) {
     function ValidateRequiredFieldCommand() {
         _classCallCheck(this, ValidateRequiredFieldCommand);
 
-        return _possibleConstructorReturn(this, (ValidateRequiredFieldCommand.__proto__ || Object.getPrototypeOf(ValidateRequiredFieldCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ValidateRequiredFieldCommand).apply(this, arguments));
     }
 
     _createClass(ValidateRequiredFieldCommand, [{
@@ -19764,7 +9736,7 @@ var DisplayDeleteBoxDialogEvent = function (_AbstractDisplayDelet) {
     function DisplayDeleteBoxDialogEvent() {
         _classCallCheck(this, DisplayDeleteBoxDialogEvent);
 
-        return _possibleConstructorReturn(this, (DisplayDeleteBoxDialogEvent.__proto__ || Object.getPrototypeOf(DisplayDeleteBoxDialogEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(DisplayDeleteBoxDialogEvent).apply(this, arguments));
     }
 
     _createClass(DisplayDeleteBoxDialogEvent, [{
@@ -19794,7 +9766,7 @@ var DisplayRemoveCourseFromUserDialogEvent = function (_AbstractDisplayRemov) {
     function DisplayRemoveCourseFromUserDialogEvent() {
         _classCallCheck(this, DisplayRemoveCourseFromUserDialogEvent);
 
-        return _possibleConstructorReturn(this, (DisplayRemoveCourseFromUserDialogEvent.__proto__ || Object.getPrototypeOf(DisplayRemoveCourseFromUserDialogEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(DisplayRemoveCourseFromUserDialogEvent).apply(this, arguments));
     }
 
     _createClass(DisplayRemoveCourseFromUserDialogEvent, [{
@@ -19824,7 +9796,7 @@ var ErrorEvent = function (_AbstractErrorEvent) {
     function ErrorEvent() {
         _classCallCheck(this, ErrorEvent);
 
-        return _possibleConstructorReturn(this, (ErrorEvent.__proto__ || Object.getPrototypeOf(ErrorEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ErrorEvent).apply(this, arguments));
     }
 
     _createClass(ErrorEvent, [{
@@ -19854,7 +9826,7 @@ var FieldEmptyEvent = function (_AbstractFieldEmptyEv) {
     function FieldEmptyEvent() {
         _classCallCheck(this, FieldEmptyEvent);
 
-        return _possibleConstructorReturn(this, (FieldEmptyEvent.__proto__ || Object.getPrototypeOf(FieldEmptyEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(FieldEmptyEvent).apply(this, arguments));
     }
 
     _createClass(FieldEmptyEvent, [{
@@ -19884,7 +9856,7 @@ var FieldNotEmptyEvent = function (_AbstractFieldNotEmpt) {
     function FieldNotEmptyEvent() {
         _classCallCheck(this, FieldNotEmptyEvent);
 
-        return _possibleConstructorReturn(this, (FieldNotEmptyEvent.__proto__ || Object.getPrototypeOf(FieldNotEmptyEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(FieldNotEmptyEvent).apply(this, arguments));
     }
 
     _createClass(FieldNotEmptyEvent, [{
@@ -19914,7 +9886,7 @@ var InitOKEvent = function (_AbstractInitOKEvent) {
     function InitOKEvent() {
         _classCallCheck(this, InitOKEvent);
 
-        return _possibleConstructorReturn(this, (InitOKEvent.__proto__ || Object.getPrototypeOf(InitOKEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(InitOKEvent).apply(this, arguments));
     }
 
     _createClass(InitOKEvent, [{
@@ -19944,7 +9916,7 @@ var MessageEvent = function (_AbstractMessageEvent) {
     function MessageEvent() {
         _classCallCheck(this, MessageEvent);
 
-        return _possibleConstructorReturn(this, (MessageEvent.__proto__ || Object.getPrototypeOf(MessageEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(MessageEvent).apply(this, arguments));
     }
 
     _createClass(MessageEvent, [{
@@ -19974,7 +9946,7 @@ var RenderHomeEvent = function (_AbstractRenderHomeEv) {
     function RenderHomeEvent() {
         _classCallCheck(this, RenderHomeEvent);
 
-        return _possibleConstructorReturn(this, (RenderHomeEvent.__proto__ || Object.getPrototypeOf(RenderHomeEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderHomeEvent).apply(this, arguments));
     }
 
     _createClass(RenderHomeEvent, [{
@@ -20004,7 +9976,7 @@ var RenderLoginEvent = function (_AbstractRenderLoginE) {
     function RenderLoginEvent() {
         _classCallCheck(this, RenderLoginEvent);
 
-        return _possibleConstructorReturn(this, (RenderLoginEvent.__proto__ || Object.getPrototypeOf(RenderLoginEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderLoginEvent).apply(this, arguments));
     }
 
     _createClass(RenderLoginEvent, [{
@@ -20034,7 +10006,7 @@ var RenderLogoutEvent = function (_AbstractRenderLogout) {
     function RenderLogoutEvent() {
         _classCallCheck(this, RenderLogoutEvent);
 
-        return _possibleConstructorReturn(this, (RenderLogoutEvent.__proto__ || Object.getPrototypeOf(RenderLogoutEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderLogoutEvent).apply(this, arguments));
     }
 
     _createClass(RenderLogoutEvent, [{
@@ -20064,7 +10036,7 @@ var RenderResultEvent = function (_AbstractRenderResult) {
     function RenderResultEvent() {
         _classCallCheck(this, RenderResultEvent);
 
-        return _possibleConstructorReturn(this, (RenderResultEvent.__proto__ || Object.getPrototypeOf(RenderResultEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderResultEvent).apply(this, arguments));
     }
 
     _createClass(RenderResultEvent, [{
@@ -20094,7 +10066,7 @@ var ServerErrorEvent = function (_AbstractServerErrorE) {
     function ServerErrorEvent() {
         _classCallCheck(this, ServerErrorEvent);
 
-        return _possibleConstructorReturn(this, (ServerErrorEvent.__proto__ || Object.getPrototypeOf(ServerErrorEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ServerErrorEvent).apply(this, arguments));
     }
 
     _createClass(ServerErrorEvent, [{
@@ -20124,7 +10096,7 @@ var SwitchLanguageEvent = function (_AbstractSwitchLangua) {
     function SwitchLanguageEvent() {
         _classCallCheck(this, SwitchLanguageEvent);
 
-        return _possibleConstructorReturn(this, (SwitchLanguageEvent.__proto__ || Object.getPrototypeOf(SwitchLanguageEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(SwitchLanguageEvent).apply(this, arguments));
     }
 
     _createClass(SwitchLanguageEvent, [{
@@ -20154,7 +10126,7 @@ var UpdateHashEvent = function (_AbstractUpdateHashEv) {
     function UpdateHashEvent() {
         _classCallCheck(this, UpdateHashEvent);
 
-        return _possibleConstructorReturn(this, (UpdateHashEvent.__proto__ || Object.getPrototypeOf(UpdateHashEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(UpdateHashEvent).apply(this, arguments));
     }
 
     _createClass(UpdateHashEvent, [{
@@ -20184,7 +10156,7 @@ var UserLoggedInEvent = function (_AbstractUserLoggedIn) {
     function UserLoggedInEvent() {
         _classCallCheck(this, UserLoggedInEvent);
 
-        return _possibleConstructorReturn(this, (UserLoggedInEvent.__proto__ || Object.getPrototypeOf(UserLoggedInEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(UserLoggedInEvent).apply(this, arguments));
     }
 
     _createClass(UserLoggedInEvent, [{
@@ -20214,7 +10186,7 @@ var UserLoggedOutEvent = function (_AbstractUserLoggedOu) {
     function UserLoggedOutEvent() {
         _classCallCheck(this, UserLoggedOutEvent);
 
-        return _possibleConstructorReturn(this, (UserLoggedOutEvent.__proto__ || Object.getPrototypeOf(UserLoggedOutEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(UserLoggedOutEvent).apply(this, arguments));
     }
 
     _createClass(UserLoggedOutEvent, [{
@@ -20302,7 +10274,7 @@ var DisplayNextQuestionAction = function (_AbstractDisplayNextQ) {
    function DisplayNextQuestionAction() {
       _classCallCheck(this, DisplayNextQuestionAction);
 
-      return _possibleConstructorReturn(this, (DisplayNextQuestionAction.__proto__ || Object.getPrototypeOf(DisplayNextQuestionAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(DisplayNextQuestionAction).apply(this, arguments));
    }
 
    _createClass(DisplayNextQuestionAction, [{
@@ -20388,7 +10360,7 @@ var ShowCorrectMultipleChoiceAction = function (_AbstractShowCorrectM) {
    function ShowCorrectMultipleChoiceAction() {
       _classCallCheck(this, ShowCorrectMultipleChoiceAction);
 
-      return _possibleConstructorReturn(this, (ShowCorrectMultipleChoiceAction.__proto__ || Object.getPrototypeOf(ShowCorrectMultipleChoiceAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowCorrectMultipleChoiceAction).apply(this, arguments));
    }
 
    _createClass(ShowCorrectMultipleChoiceAction, [{
@@ -20476,7 +10448,7 @@ var ShowFalseMultipleChoiceAction = function (_AbstractShowFalseMul) {
    function ShowFalseMultipleChoiceAction() {
       _classCallCheck(this, ShowFalseMultipleChoiceAction);
 
-      return _possibleConstructorReturn(this, (ShowFalseMultipleChoiceAction.__proto__ || Object.getPrototypeOf(ShowFalseMultipleChoiceAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowFalseMultipleChoiceAction).apply(this, arguments));
    }
 
    _createClass(ShowFalseMultipleChoiceAction, [{
@@ -20564,7 +10536,7 @@ var DisplayNextQuestionCommand = function (_AbstractDisplayNextQ) {
     function DisplayNextQuestionCommand() {
         _classCallCheck(this, DisplayNextQuestionCommand);
 
-        return _possibleConstructorReturn(this, (DisplayNextQuestionCommand.__proto__ || Object.getPrototypeOf(DisplayNextQuestionCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(DisplayNextQuestionCommand).apply(this, arguments));
     }
 
     _createClass(DisplayNextQuestionCommand, [{
@@ -20600,7 +10572,7 @@ var ShowCorrectMultipleChoiceCommand = function (_AbstractShowCorrectM) {
     function ShowCorrectMultipleChoiceCommand() {
         _classCallCheck(this, ShowCorrectMultipleChoiceCommand);
 
-        return _possibleConstructorReturn(this, (ShowCorrectMultipleChoiceCommand.__proto__ || Object.getPrototypeOf(ShowCorrectMultipleChoiceCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowCorrectMultipleChoiceCommand).apply(this, arguments));
     }
 
     _createClass(ShowCorrectMultipleChoiceCommand, [{
@@ -20642,7 +10614,7 @@ var ShowFalseMultipleChoiceCommand = function (_AbstractShowFalseMul) {
     function ShowFalseMultipleChoiceCommand() {
         _classCallCheck(this, ShowFalseMultipleChoiceCommand);
 
-        return _possibleConstructorReturn(this, (ShowFalseMultipleChoiceCommand.__proto__ || Object.getPrototypeOf(ShowFalseMultipleChoiceCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowFalseMultipleChoiceCommand).apply(this, arguments));
     }
 
     _createClass(ShowFalseMultipleChoiceCommand, [{
@@ -20684,7 +10656,7 @@ var DisplayNextQuestionEvent = function (_AbstractDisplayNextQ) {
     function DisplayNextQuestionEvent() {
         _classCallCheck(this, DisplayNextQuestionEvent);
 
-        return _possibleConstructorReturn(this, (DisplayNextQuestionEvent.__proto__ || Object.getPrototypeOf(DisplayNextQuestionEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(DisplayNextQuestionEvent).apply(this, arguments));
     }
 
     _createClass(DisplayNextQuestionEvent, [{
@@ -20714,7 +10686,7 @@ var EnableNextButtonEvent = function (_AbstractEnableNextBu) {
     function EnableNextButtonEvent() {
         _classCallCheck(this, EnableNextButtonEvent);
 
-        return _possibleConstructorReturn(this, (EnableNextButtonEvent.__proto__ || Object.getPrototypeOf(EnableNextButtonEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(EnableNextButtonEvent).apply(this, arguments));
     }
 
     _createClass(EnableNextButtonEvent, [{
@@ -20744,7 +10716,7 @@ var ShowCorrectMultipleChoiceEvent = function (_AbstractShowCorrectM) {
     function ShowCorrectMultipleChoiceEvent() {
         _classCallCheck(this, ShowCorrectMultipleChoiceEvent);
 
-        return _possibleConstructorReturn(this, (ShowCorrectMultipleChoiceEvent.__proto__ || Object.getPrototypeOf(ShowCorrectMultipleChoiceEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowCorrectMultipleChoiceEvent).apply(this, arguments));
     }
 
     _createClass(ShowCorrectMultipleChoiceEvent, [{
@@ -20774,7 +10746,7 @@ var ShowFalseMultipleChoiceEvent = function (_AbstractShowFalseMul) {
     function ShowFalseMultipleChoiceEvent() {
         _classCallCheck(this, ShowFalseMultipleChoiceEvent);
 
-        return _possibleConstructorReturn(this, (ShowFalseMultipleChoiceEvent.__proto__ || Object.getPrototypeOf(ShowFalseMultipleChoiceEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowFalseMultipleChoiceEvent).apply(this, arguments));
     }
 
     _createClass(ShowFalseMultipleChoiceEvent, [{
@@ -20786,36 +10758,6 @@ var ShowFalseMultipleChoiceEvent = function (_AbstractShowFalseMul) {
 
     return ShowFalseMultipleChoiceEvent;
 }(AbstractShowFalseMultipleChoiceEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ShowMultipleChoiceCorrectureEvent = function (_AbstractShowMultiple) {
-    _inherits(ShowMultipleChoiceCorrectureEvent, _AbstractShowMultiple);
-
-    function ShowMultipleChoiceCorrectureEvent() {
-        _classCallCheck(this, ShowMultipleChoiceCorrectureEvent);
-
-        return _possibleConstructorReturn(this, (ShowMultipleChoiceCorrectureEvent.__proto__ || Object.getPrototypeOf(ShowMultipleChoiceCorrectureEvent)).apply(this, arguments));
-    }
-
-    _createClass(ShowMultipleChoiceCorrectureEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return ShowMultipleChoiceCorrectureEvent;
-}(AbstractShowMultipleChoiceCorrectureEvent);
 
 /*       S.D.G.       */
 'use strict';
@@ -21264,7 +11206,7 @@ var ReadBoxesAction = function (_AbstractReadBoxesAct) {
    function ReadBoxesAction() {
       _classCallCheck(this, ReadBoxesAction);
 
-      return _possibleConstructorReturn(this, (ReadBoxesAction.__proto__ || Object.getPrototypeOf(ReadBoxesAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadBoxesAction).apply(this, arguments));
    }
 
    _createClass(ReadBoxesAction, [{
@@ -21349,7 +11291,7 @@ var ReadNextCardAction = function (_AbstractReadNextCard) {
    function ReadNextCardAction() {
       _classCallCheck(this, ReadNextCardAction);
 
-      return _possibleConstructorReturn(this, (ReadNextCardAction.__proto__ || Object.getPrototypeOf(ReadNextCardAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadNextCardAction).apply(this, arguments));
    }
 
    _createClass(ReadNextCardAction, [{
@@ -21434,7 +11376,7 @@ var ReadPrivateCoursesAction = function (_AbstractReadPrivateC) {
    function ReadPrivateCoursesAction() {
       _classCallCheck(this, ReadPrivateCoursesAction);
 
-      return _possibleConstructorReturn(this, (ReadPrivateCoursesAction.__proto__ || Object.getPrototypeOf(ReadPrivateCoursesAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateCoursesAction).apply(this, arguments));
    }
 
    _createClass(ReadPrivateCoursesAction, [{
@@ -21519,7 +11461,7 @@ var ReadPrivateLessonsAction = function (_AbstractReadPrivateL) {
    function ReadPrivateLessonsAction() {
       _classCallCheck(this, ReadPrivateLessonsAction);
 
-      return _possibleConstructorReturn(this, (ReadPrivateLessonsAction.__proto__ || Object.getPrototypeOf(ReadPrivateLessonsAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateLessonsAction).apply(this, arguments));
    }
 
    _createClass(ReadPrivateLessonsAction, [{
@@ -21604,7 +11546,7 @@ var ReadPrivateTestAction = function (_AbstractReadPrivateT) {
    function ReadPrivateTestAction() {
       _classCallCheck(this, ReadPrivateTestAction);
 
-      return _possibleConstructorReturn(this, (ReadPrivateTestAction.__proto__ || Object.getPrototypeOf(ReadPrivateTestAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateTestAction).apply(this, arguments));
    }
 
    _createClass(ReadPrivateTestAction, [{
@@ -21689,7 +11631,7 @@ var ReadPrivateTestsAction = function (_AbstractReadPrivateT) {
    function ReadPrivateTestsAction() {
       _classCallCheck(this, ReadPrivateTestsAction);
 
-      return _possibleConstructorReturn(this, (ReadPrivateTestsAction.__proto__ || Object.getPrototypeOf(ReadPrivateTestsAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateTestsAction).apply(this, arguments));
    }
 
    _createClass(ReadPrivateTestsAction, [{
@@ -21774,7 +11716,7 @@ var ReadPublicCoursesAction = function (_AbstractReadPublicCo) {
    function ReadPublicCoursesAction() {
       _classCallCheck(this, ReadPublicCoursesAction);
 
-      return _possibleConstructorReturn(this, (ReadPublicCoursesAction.__proto__ || Object.getPrototypeOf(ReadPublicCoursesAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicCoursesAction).apply(this, arguments));
    }
 
    _createClass(ReadPublicCoursesAction, [{
@@ -21860,7 +11802,7 @@ var ReadPublicLessonsAction = function (_AbstractReadPublicLe) {
    function ReadPublicLessonsAction() {
       _classCallCheck(this, ReadPublicLessonsAction);
 
-      return _possibleConstructorReturn(this, (ReadPublicLessonsAction.__proto__ || Object.getPrototypeOf(ReadPublicLessonsAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicLessonsAction).apply(this, arguments));
    }
 
    _createClass(ReadPublicLessonsAction, [{
@@ -21946,7 +11888,7 @@ var ReadPublicTestAction = function (_AbstractReadPublicTe) {
    function ReadPublicTestAction() {
       _classCallCheck(this, ReadPublicTestAction);
 
-      return _possibleConstructorReturn(this, (ReadPublicTestAction.__proto__ || Object.getPrototypeOf(ReadPublicTestAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicTestAction).apply(this, arguments));
    }
 
    _createClass(ReadPublicTestAction, [{
@@ -22029,7 +11971,7 @@ var ReadPublicTestsAction = function (_AbstractReadPublicTe) {
    function ReadPublicTestsAction() {
       _classCallCheck(this, ReadPublicTestsAction);
 
-      return _possibleConstructorReturn(this, (ReadPublicTestsAction.__proto__ || Object.getPrototypeOf(ReadPublicTestsAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicTestsAction).apply(this, arguments));
    }
 
    _createClass(ReadPublicTestsAction, [{
@@ -22115,7 +12057,7 @@ var ReadResultAction = function (_AbstractReadResultAc) {
    function ReadResultAction() {
       _classCallCheck(this, ReadResultAction);
 
-      return _possibleConstructorReturn(this, (ReadResultAction.__proto__ || Object.getPrototypeOf(ReadResultAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadResultAction).apply(this, arguments));
    }
 
    _createClass(ReadResultAction, [{
@@ -22200,7 +12142,7 @@ var ReadStatisticsAction = function (_AbstractReadStatisti) {
    function ReadStatisticsAction() {
       _classCallCheck(this, ReadStatisticsAction);
 
-      return _possibleConstructorReturn(this, (ReadStatisticsAction.__proto__ || Object.getPrototypeOf(ReadStatisticsAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadStatisticsAction).apply(this, arguments));
    }
 
    _createClass(ReadStatisticsAction, [{
@@ -22294,7 +12236,7 @@ var ReadBoxesCommand = function (_AbstractReadBoxesCom) {
     function ReadBoxesCommand() {
         _classCallCheck(this, ReadBoxesCommand);
 
-        return _possibleConstructorReturn(this, (ReadBoxesCommand.__proto__ || Object.getPrototypeOf(ReadBoxesCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadBoxesCommand).apply(this, arguments));
     }
 
     _createClass(ReadBoxesCommand, [{
@@ -22338,7 +12280,7 @@ var ReadNextCardCommand = function (_AbstractReadNextCard) {
     function ReadNextCardCommand() {
         _classCallCheck(this, ReadNextCardCommand);
 
-        return _possibleConstructorReturn(this, (ReadNextCardCommand.__proto__ || Object.getPrototypeOf(ReadNextCardCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadNextCardCommand).apply(this, arguments));
     }
 
     _createClass(ReadNextCardCommand, [{
@@ -22387,7 +12329,7 @@ var ReadPrivateCoursesCommand = function (_AbstractReadPrivateC) {
     function ReadPrivateCoursesCommand() {
         _classCallCheck(this, ReadPrivateCoursesCommand);
 
-        return _possibleConstructorReturn(this, (ReadPrivateCoursesCommand.__proto__ || Object.getPrototypeOf(ReadPrivateCoursesCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateCoursesCommand).apply(this, arguments));
     }
 
     _createClass(ReadPrivateCoursesCommand, [{
@@ -22431,7 +12373,7 @@ var ReadPrivateLessonsCommand = function (_AbstractReadPrivateL) {
     function ReadPrivateLessonsCommand() {
         _classCallCheck(this, ReadPrivateLessonsCommand);
 
-        return _possibleConstructorReturn(this, (ReadPrivateLessonsCommand.__proto__ || Object.getPrototypeOf(ReadPrivateLessonsCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateLessonsCommand).apply(this, arguments));
     }
 
     _createClass(ReadPrivateLessonsCommand, [{
@@ -22480,7 +12422,7 @@ var ReadPrivateTestCommand = function (_AbstractReadPrivateT) {
     function ReadPrivateTestCommand() {
         _classCallCheck(this, ReadPrivateTestCommand);
 
-        return _possibleConstructorReturn(this, (ReadPrivateTestCommand.__proto__ || Object.getPrototypeOf(ReadPrivateTestCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateTestCommand).apply(this, arguments));
     }
 
     _createClass(ReadPrivateTestCommand, [{
@@ -22529,7 +12471,7 @@ var ReadPrivateTestsCommand = function (_AbstractReadPrivateT) {
     function ReadPrivateTestsCommand() {
         _classCallCheck(this, ReadPrivateTestsCommand);
 
-        return _possibleConstructorReturn(this, (ReadPrivateTestsCommand.__proto__ || Object.getPrototypeOf(ReadPrivateTestsCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPrivateTestsCommand).apply(this, arguments));
     }
 
     _createClass(ReadPrivateTestsCommand, [{
@@ -22578,7 +12520,7 @@ var ReadPublicCoursesCommand = function (_AbstractReadPublicCo) {
     function ReadPublicCoursesCommand() {
         _classCallCheck(this, ReadPublicCoursesCommand);
 
-        return _possibleConstructorReturn(this, (ReadPublicCoursesCommand.__proto__ || Object.getPrototypeOf(ReadPublicCoursesCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicCoursesCommand).apply(this, arguments));
     }
 
     _createClass(ReadPublicCoursesCommand, [{
@@ -22622,7 +12564,7 @@ var ReadPublicLessonsCommand = function (_AbstractReadPublicLe) {
     function ReadPublicLessonsCommand() {
         _classCallCheck(this, ReadPublicLessonsCommand);
 
-        return _possibleConstructorReturn(this, (ReadPublicLessonsCommand.__proto__ || Object.getPrototypeOf(ReadPublicLessonsCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicLessonsCommand).apply(this, arguments));
     }
 
     _createClass(ReadPublicLessonsCommand, [{
@@ -22671,7 +12613,7 @@ var ReadPublicTestCommand = function (_AbstractReadPublicTe) {
     function ReadPublicTestCommand() {
         _classCallCheck(this, ReadPublicTestCommand);
 
-        return _possibleConstructorReturn(this, (ReadPublicTestCommand.__proto__ || Object.getPrototypeOf(ReadPublicTestCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicTestCommand).apply(this, arguments));
     }
 
     _createClass(ReadPublicTestCommand, [{
@@ -22720,7 +12662,7 @@ var ReadPublicTestsCommand = function (_AbstractReadPublicTe) {
     function ReadPublicTestsCommand() {
         _classCallCheck(this, ReadPublicTestsCommand);
 
-        return _possibleConstructorReturn(this, (ReadPublicTestsCommand.__proto__ || Object.getPrototypeOf(ReadPublicTestsCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadPublicTestsCommand).apply(this, arguments));
     }
 
     _createClass(ReadPublicTestsCommand, [{
@@ -22769,7 +12711,7 @@ var ReadResultCommand = function (_AbstractReadResultCo) {
     function ReadResultCommand() {
         _classCallCheck(this, ReadResultCommand);
 
-        return _possibleConstructorReturn(this, (ReadResultCommand.__proto__ || Object.getPrototypeOf(ReadResultCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadResultCommand).apply(this, arguments));
     }
 
     _createClass(ReadResultCommand, [{
@@ -22818,7 +12760,7 @@ var ReadStatisticsCommand = function (_AbstractReadStatisti) {
     function ReadStatisticsCommand() {
         _classCallCheck(this, ReadStatisticsCommand);
 
-        return _possibleConstructorReturn(this, (ReadStatisticsCommand.__proto__ || Object.getPrototypeOf(ReadStatisticsCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ReadStatisticsCommand).apply(this, arguments));
     }
 
     _createClass(ReadStatisticsCommand, [{
@@ -22871,7 +12813,7 @@ var BoxesReadEvent = function (_AbstractBoxesReadEve) {
     function BoxesReadEvent() {
         _classCallCheck(this, BoxesReadEvent);
 
-        return _possibleConstructorReturn(this, (BoxesReadEvent.__proto__ || Object.getPrototypeOf(BoxesReadEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(BoxesReadEvent).apply(this, arguments));
     }
 
     _createClass(BoxesReadEvent, [{
@@ -22901,7 +12843,7 @@ var NextCardReadEvent = function (_AbstractNextCardRead) {
     function NextCardReadEvent() {
         _classCallCheck(this, NextCardReadEvent);
 
-        return _possibleConstructorReturn(this, (NextCardReadEvent.__proto__ || Object.getPrototypeOf(NextCardReadEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(NextCardReadEvent).apply(this, arguments));
     }
 
     _createClass(NextCardReadEvent, [{
@@ -22947,7 +12889,7 @@ var PrivateCoursesReadEvent = function (_AbstractPrivateCours) {
     function PrivateCoursesReadEvent() {
         _classCallCheck(this, PrivateCoursesReadEvent);
 
-        return _possibleConstructorReturn(this, (PrivateCoursesReadEvent.__proto__ || Object.getPrototypeOf(PrivateCoursesReadEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(PrivateCoursesReadEvent).apply(this, arguments));
     }
 
     _createClass(PrivateCoursesReadEvent, [{
@@ -22977,7 +12919,7 @@ var PrivateLessonsReadEvent = function (_AbstractPrivateLesso) {
     function PrivateLessonsReadEvent() {
         _classCallCheck(this, PrivateLessonsReadEvent);
 
-        return _possibleConstructorReturn(this, (PrivateLessonsReadEvent.__proto__ || Object.getPrototypeOf(PrivateLessonsReadEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(PrivateLessonsReadEvent).apply(this, arguments));
     }
 
     _createClass(PrivateLessonsReadEvent, [{
@@ -23007,7 +12949,7 @@ var PrivateTestReadEvent = function (_AbstractPrivateTestR) {
     function PrivateTestReadEvent() {
         _classCallCheck(this, PrivateTestReadEvent);
 
-        return _possibleConstructorReturn(this, (PrivateTestReadEvent.__proto__ || Object.getPrototypeOf(PrivateTestReadEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(PrivateTestReadEvent).apply(this, arguments));
     }
 
     _createClass(PrivateTestReadEvent, [{
@@ -23037,7 +12979,7 @@ var PrivateTestsReadEvent = function (_AbstractPrivateTests) {
     function PrivateTestsReadEvent() {
         _classCallCheck(this, PrivateTestsReadEvent);
 
-        return _possibleConstructorReturn(this, (PrivateTestsReadEvent.__proto__ || Object.getPrototypeOf(PrivateTestsReadEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(PrivateTestsReadEvent).apply(this, arguments));
     }
 
     _createClass(PrivateTestsReadEvent, [{
@@ -23067,7 +13009,7 @@ var PublicCoursesReadEvent = function (_AbstractPublicCourse) {
     function PublicCoursesReadEvent() {
         _classCallCheck(this, PublicCoursesReadEvent);
 
-        return _possibleConstructorReturn(this, (PublicCoursesReadEvent.__proto__ || Object.getPrototypeOf(PublicCoursesReadEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(PublicCoursesReadEvent).apply(this, arguments));
     }
 
     _createClass(PublicCoursesReadEvent, [{
@@ -23097,7 +13039,7 @@ var PublicLessonsReadEvent = function (_AbstractPublicLesson) {
     function PublicLessonsReadEvent() {
         _classCallCheck(this, PublicLessonsReadEvent);
 
-        return _possibleConstructorReturn(this, (PublicLessonsReadEvent.__proto__ || Object.getPrototypeOf(PublicLessonsReadEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(PublicLessonsReadEvent).apply(this, arguments));
     }
 
     _createClass(PublicLessonsReadEvent, [{
@@ -23127,7 +13069,7 @@ var PublicTestReadEvent = function (_AbstractPublicTestRe) {
     function PublicTestReadEvent() {
         _classCallCheck(this, PublicTestReadEvent);
 
-        return _possibleConstructorReturn(this, (PublicTestReadEvent.__proto__ || Object.getPrototypeOf(PublicTestReadEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(PublicTestReadEvent).apply(this, arguments));
     }
 
     _createClass(PublicTestReadEvent, [{
@@ -23157,7 +13099,7 @@ var PublicTestsReadEvent = function (_AbstractPublicTestsR) {
     function PublicTestsReadEvent() {
         _classCallCheck(this, PublicTestsReadEvent);
 
-        return _possibleConstructorReturn(this, (PublicTestsReadEvent.__proto__ || Object.getPrototypeOf(PublicTestsReadEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(PublicTestsReadEvent).apply(this, arguments));
     }
 
     _createClass(PublicTestsReadEvent, [{
@@ -23187,7 +13129,7 @@ var ResultReadEvent = function (_AbstractResultReadEv) {
     function ResultReadEvent() {
         _classCallCheck(this, ResultReadEvent);
 
-        return _possibleConstructorReturn(this, (ResultReadEvent.__proto__ || Object.getPrototypeOf(ResultReadEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ResultReadEvent).apply(this, arguments));
     }
 
     _createClass(ResultReadEvent, [{
@@ -23217,7 +13159,7 @@ var StatisticsReadEvent = function (_AbstractStatisticsRe) {
     function StatisticsReadEvent() {
         _classCallCheck(this, StatisticsReadEvent);
 
-        return _possibleConstructorReturn(this, (StatisticsReadEvent.__proto__ || Object.getPrototypeOf(StatisticsReadEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(StatisticsReadEvent).apply(this, arguments));
     }
 
     _createClass(StatisticsReadEvent, [{
@@ -23382,7 +13324,7 @@ var CheckUsernameAction = function (_AbstractCheckUsernam) {
   function CheckUsernameAction() {
     _classCallCheck(this, CheckUsernameAction);
 
-    return _possibleConstructorReturn(this, (CheckUsernameAction.__proto__ || Object.getPrototypeOf(CheckUsernameAction)).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(CheckUsernameAction).apply(this, arguments));
   }
 
   _createClass(CheckUsernameAction, [{
@@ -23442,7 +13384,7 @@ var ConfirmEmailAction = function (_AbstractConfirmEmail) {
    function ConfirmEmailAction() {
       _classCallCheck(this, ConfirmEmailAction);
 
-      return _possibleConstructorReturn(this, (ConfirmEmailAction.__proto__ || Object.getPrototypeOf(ConfirmEmailAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ConfirmEmailAction).apply(this, arguments));
    }
 
    _createClass(ConfirmEmailAction, [{
@@ -23502,7 +13444,7 @@ var DeleteBoxAction = function (_AbstractDeleteBoxAct) {
    function DeleteBoxAction() {
       _classCallCheck(this, DeleteBoxAction);
 
-      return _possibleConstructorReturn(this, (DeleteBoxAction.__proto__ || Object.getPrototypeOf(DeleteBoxAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(DeleteBoxAction).apply(this, arguments));
    }
 
    _createClass(DeleteBoxAction, [{
@@ -23588,7 +13530,7 @@ var FillBoxWithCardsAction = function (_AbstractFillBoxWithC) {
    function FillBoxWithCardsAction() {
       _classCallCheck(this, FillBoxWithCardsAction);
 
-      return _possibleConstructorReturn(this, (FillBoxWithCardsAction.__proto__ || Object.getPrototypeOf(FillBoxWithCardsAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(FillBoxWithCardsAction).apply(this, arguments));
    }
 
    _createClass(FillBoxWithCardsAction, [{
@@ -23674,7 +13616,7 @@ var LoadBoxAction = function (_AbstractLoadBoxActio) {
    function LoadBoxAction() {
       _classCallCheck(this, LoadBoxAction);
 
-      return _possibleConstructorReturn(this, (LoadBoxAction.__proto__ || Object.getPrototypeOf(LoadBoxAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(LoadBoxAction).apply(this, arguments));
    }
 
    _createClass(LoadBoxAction, [{
@@ -23753,98 +13695,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var LoadBoxCreationDataAction = function (_AbstractLoadBoxCreat) {
-   _inherits(LoadBoxCreationDataAction, _AbstractLoadBoxCreat);
-
-   function LoadBoxCreationDataAction() {
-      _classCallCheck(this, LoadBoxCreationDataAction);
-
-      return _possibleConstructorReturn(this, (LoadBoxCreationDataAction.__proto__ || Object.getPrototypeOf(LoadBoxCreationDataAction)).apply(this, arguments));
-   }
-
-   _createClass(LoadBoxCreationDataAction, [{
-      key: 'captureActionParam',
-      value: function captureActionParam() {
-         if (localStorage.username) {
-            this.actionParam.username = localStorage.username;
-         }
-         if (localStorage.password) {
-            this.actionParam.password = localStorage.password;
-         }
-         if (localStorage.schema) {
-            this.actionParam.schema = localStorage.schema;
-         }
-         if (localStorage.role) {
-            this.actionParam.role = localStorage.role;
-         }
-         if (localStorage.language) {
-            this.actionParam.language = localStorage.language;
-         }
-         // capture user input
-      }
-   }, {
-      key: 'initActionData',
-      value: function initActionData() {
-         if (this.actionParam.username) {
-            this.actionData.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            this.actionData.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            this.actionData.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            this.actionData.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            this.actionData.language = this.actionParam.language;
-         }
-         // bind action parameters to action data
-      }
-   }, {
-      key: 'releaseActionParam',
-      value: function releaseActionParam() {
-         if (this.actionParam.username) {
-            localStorage.username = this.actionParam.username;
-         }
-         if (this.actionParam.password) {
-            localStorage.password = this.actionParam.password;
-         }
-         if (this.actionParam.schema) {
-            localStorage.schema = this.actionParam.schema;
-         }
-         if (this.actionParam.role) {
-            localStorage.role = this.actionParam.role;
-         }
-         if (this.actionParam.language) {
-            localStorage.language = this.actionParam.language;
-         }
-         // release action params during replay
-      }
-   }]);
-
-   return LoadBoxCreationDataAction;
-}(AbstractLoadBoxCreationDataAction);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var LoadCoursesAction = function (_AbstractLoadCoursesA) {
    _inherits(LoadCoursesAction, _AbstractLoadCoursesA);
 
    function LoadCoursesAction() {
       _classCallCheck(this, LoadCoursesAction);
 
-      return _possibleConstructorReturn(this, (LoadCoursesAction.__proto__ || Object.getPrototypeOf(LoadCoursesAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(LoadCoursesAction).apply(this, arguments));
    }
 
    _createClass(LoadCoursesAction, [{
@@ -23929,7 +13786,7 @@ var OpenBoxCreationAction = function (_AbstractOpenBoxCreat) {
    function OpenBoxCreationAction() {
       _classCallCheck(this, OpenBoxCreationAction);
 
-      return _possibleConstructorReturn(this, (OpenBoxCreationAction.__proto__ || Object.getPrototypeOf(OpenBoxCreationAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenBoxCreationAction).apply(this, arguments));
    }
 
    _createClass(OpenBoxCreationAction, [{
@@ -24014,7 +13871,7 @@ var OpenChangePasswordAction = function (_AbstractOpenChangePa) {
    function OpenChangePasswordAction() {
       _classCallCheck(this, OpenChangePasswordAction);
 
-      return _possibleConstructorReturn(this, (OpenChangePasswordAction.__proto__ || Object.getPrototypeOf(OpenChangePasswordAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenChangePasswordAction).apply(this, arguments));
    }
 
    _createClass(OpenChangePasswordAction, [{
@@ -24099,7 +13956,7 @@ var OpenCourseSelectionAction = function (_AbstractOpenCourseSe) {
    function OpenCourseSelectionAction() {
       _classCallCheck(this, OpenCourseSelectionAction);
 
-      return _possibleConstructorReturn(this, (OpenCourseSelectionAction.__proto__ || Object.getPrototypeOf(OpenCourseSelectionAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenCourseSelectionAction).apply(this, arguments));
    }
 
    _createClass(OpenCourseSelectionAction, [{
@@ -24184,7 +14041,7 @@ var OpenForgotPasswordAction = function (_AbstractOpenForgotPa) {
    function OpenForgotPasswordAction() {
       _classCallCheck(this, OpenForgotPasswordAction);
 
-      return _possibleConstructorReturn(this, (OpenForgotPasswordAction.__proto__ || Object.getPrototypeOf(OpenForgotPasswordAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenForgotPasswordAction).apply(this, arguments));
    }
 
    _createClass(OpenForgotPasswordAction, [{
@@ -24269,7 +14126,7 @@ var OpenNewPasswordAction = function (_AbstractOpenNewPassw) {
    function OpenNewPasswordAction() {
       _classCallCheck(this, OpenNewPasswordAction);
 
-      return _possibleConstructorReturn(this, (OpenNewPasswordAction.__proto__ || Object.getPrototypeOf(OpenNewPasswordAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenNewPasswordAction).apply(this, arguments));
    }
 
    _createClass(OpenNewPasswordAction, [{
@@ -24329,7 +14186,7 @@ var OpenProfileAction = function (_AbstractOpenProfileA) {
    function OpenProfileAction() {
       _classCallCheck(this, OpenProfileAction);
 
-      return _possibleConstructorReturn(this, (OpenProfileAction.__proto__ || Object.getPrototypeOf(OpenProfileAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenProfileAction).apply(this, arguments));
    }
 
    _createClass(OpenProfileAction, [{
@@ -24414,7 +14271,7 @@ var OpenRegistrationAction = function (_AbstractOpenRegistra) {
    function OpenRegistrationAction() {
       _classCallCheck(this, OpenRegistrationAction);
 
-      return _possibleConstructorReturn(this, (OpenRegistrationAction.__proto__ || Object.getPrototypeOf(OpenRegistrationAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenRegistrationAction).apply(this, arguments));
    }
 
    _createClass(OpenRegistrationAction, [{
@@ -24499,7 +14356,7 @@ var RemoveCourseAction = function (_AbstractRemoveCourse) {
    function RemoveCourseAction() {
       _classCallCheck(this, RemoveCourseAction);
 
-      return _possibleConstructorReturn(this, (RemoveCourseAction.__proto__ || Object.getPrototypeOf(RemoveCourseAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(RemoveCourseAction).apply(this, arguments));
    }
 
    _createClass(RemoveCourseAction, [{
@@ -24584,7 +14441,7 @@ var SaveBoxAction = function (_AbstractSaveBoxActio) {
    function SaveBoxAction() {
       _classCallCheck(this, SaveBoxAction);
 
-      return _possibleConstructorReturn(this, (SaveBoxAction.__proto__ || Object.getPrototypeOf(SaveBoxAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveBoxAction).apply(this, arguments));
    }
 
    _createClass(SaveBoxAction, [{
@@ -24667,7 +14524,7 @@ var SaveBoxConfigAction = function (_AbstractSaveBoxConfi) {
    function SaveBoxConfigAction() {
       _classCallCheck(this, SaveBoxConfigAction);
 
-      return _possibleConstructorReturn(this, (SaveBoxConfigAction.__proto__ || Object.getPrototypeOf(SaveBoxConfigAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveBoxConfigAction).apply(this, arguments));
    }
 
    _createClass(SaveBoxConfigAction, [{
@@ -24690,7 +14547,7 @@ var SaveBoxConfigAction = function (_AbstractSaveBoxConfi) {
          }
          var boxId = this.actionParam.boxId;
          this.actionParam.boxOfCourseList = $("select").map(function () {
-            console.dir(this);return { autoAdd: this.value, courseId: this.id, boxId: boxId };
+            return { autoAdd: this.value, courseId: this.id, boxId: boxId };
          }).get();
       }
    }, {
@@ -24756,7 +14613,7 @@ var SaveCourseSelectionAction = function (_AbstractSaveCourseSe) {
    function SaveCourseSelectionAction() {
       _classCallCheck(this, SaveCourseSelectionAction);
 
-      return _possibleConstructorReturn(this, (SaveCourseSelectionAction.__proto__ || Object.getPrototypeOf(SaveCourseSelectionAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveCourseSelectionAction).apply(this, arguments));
    }
 
    _createClass(SaveCourseSelectionAction, [{
@@ -24843,7 +14700,7 @@ var SaveProfileAction = function (_AbstractSaveProfileA) {
    function SaveProfileAction() {
       _classCallCheck(this, SaveProfileAction);
 
-      return _possibleConstructorReturn(this, (SaveProfileAction.__proto__ || Object.getPrototypeOf(SaveProfileAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveProfileAction).apply(this, arguments));
    }
 
    _createClass(SaveProfileAction, [{
@@ -24935,7 +14792,7 @@ var SubmitForgotPasswordRequestAction = function (_AbstractSubmitForgot) {
   function SubmitForgotPasswordRequestAction() {
     _classCallCheck(this, SubmitForgotPasswordRequestAction);
 
-    return _possibleConstructorReturn(this, (SubmitForgotPasswordRequestAction.__proto__ || Object.getPrototypeOf(SubmitForgotPasswordRequestAction)).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitForgotPasswordRequestAction).apply(this, arguments));
   }
 
   _createClass(SubmitForgotPasswordRequestAction, [{
@@ -24993,7 +14850,7 @@ var SubmitNewPasswordAction = function (_AbstractSubmitNewPas) {
   function SubmitNewPasswordAction() {
     _classCallCheck(this, SubmitNewPasswordAction);
 
-    return _possibleConstructorReturn(this, (SubmitNewPasswordAction.__proto__ || Object.getPrototypeOf(SubmitNewPasswordAction)).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitNewPasswordAction).apply(this, arguments));
   }
 
   _createClass(SubmitNewPasswordAction, [{
@@ -25057,7 +14914,7 @@ var SubmitRegistrationAction = function (_AbstractSubmitRegist) {
   function SubmitRegistrationAction() {
     _classCallCheck(this, SubmitRegistrationAction);
 
-    return _possibleConstructorReturn(this, (SubmitRegistrationAction.__proto__ || Object.getPrototypeOf(SubmitRegistrationAction)).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitRegistrationAction).apply(this, arguments));
   }
 
   _createClass(SubmitRegistrationAction, [{
@@ -25132,7 +14989,7 @@ var UpdatePasswordAction = function (_AbstractUpdatePasswo) {
    function UpdatePasswordAction() {
       _classCallCheck(this, UpdatePasswordAction);
 
-      return _possibleConstructorReturn(this, (UpdatePasswordAction.__proto__ || Object.getPrototypeOf(UpdatePasswordAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(UpdatePasswordAction).apply(this, arguments));
    }
 
    _createClass(UpdatePasswordAction, [{
@@ -25218,7 +15075,7 @@ var ValidatePasswordAction = function (_AbstractValidatePass) {
    function ValidatePasswordAction() {
       _classCallCheck(this, ValidatePasswordAction);
 
-      return _possibleConstructorReturn(this, (ValidatePasswordAction.__proto__ || Object.getPrototypeOf(ValidatePasswordAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ValidatePasswordAction).apply(this, arguments));
    }
 
    _createClass(ValidatePasswordAction, [{
@@ -25310,7 +15167,7 @@ var CheckUsernameCommand = function (_AbstractCheckUsernam) {
     function CheckUsernameCommand() {
         _classCallCheck(this, CheckUsernameCommand);
 
-        return _possibleConstructorReturn(this, (CheckUsernameCommand.__proto__ || Object.getPrototypeOf(CheckUsernameCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(CheckUsernameCommand).apply(this, arguments));
     }
 
     _createClass(CheckUsernameCommand, [{
@@ -25367,7 +15224,7 @@ var ConfirmEmailCommand = function (_AbstractConfirmEmail) {
     function ConfirmEmailCommand() {
         _classCallCheck(this, ConfirmEmailCommand);
 
-        return _possibleConstructorReturn(this, (ConfirmEmailCommand.__proto__ || Object.getPrototypeOf(ConfirmEmailCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ConfirmEmailCommand).apply(this, arguments));
     }
 
     _createClass(ConfirmEmailCommand, [{
@@ -25412,7 +15269,7 @@ var DeleteBoxCommand = function (_AbstractDeleteBoxCom) {
     function DeleteBoxCommand() {
         _classCallCheck(this, DeleteBoxCommand);
 
-        return _possibleConstructorReturn(this, (DeleteBoxCommand.__proto__ || Object.getPrototypeOf(DeleteBoxCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(DeleteBoxCommand).apply(this, arguments));
     }
 
     _createClass(DeleteBoxCommand, [{
@@ -25462,7 +15319,7 @@ var FillBoxWithCardsCommand = function (_AbstractFillBoxWithC) {
     function FillBoxWithCardsCommand() {
         _classCallCheck(this, FillBoxWithCardsCommand);
 
-        return _possibleConstructorReturn(this, (FillBoxWithCardsCommand.__proto__ || Object.getPrototypeOf(FillBoxWithCardsCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(FillBoxWithCardsCommand).apply(this, arguments));
     }
 
     _createClass(FillBoxWithCardsCommand, [{
@@ -25508,7 +15365,7 @@ var LoadBoxCommand = function (_AbstractLoadBoxComma) {
     function LoadBoxCommand() {
         _classCallCheck(this, LoadBoxCommand);
 
-        return _possibleConstructorReturn(this, (LoadBoxCommand.__proto__ || Object.getPrototypeOf(LoadBoxCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(LoadBoxCommand).apply(this, arguments));
     }
 
     _createClass(LoadBoxCommand, [{
@@ -25551,45 +15408,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var LoadBoxCreationDataCommand = function (_AbstractLoadBoxCreat) {
-    _inherits(LoadBoxCreationDataCommand, _AbstractLoadBoxCreat);
-
-    function LoadBoxCreationDataCommand() {
-        _classCallCheck(this, LoadBoxCreationDataCommand);
-
-        return _possibleConstructorReturn(this, (LoadBoxCreationDataCommand.__proto__ || Object.getPrototypeOf(LoadBoxCreationDataCommand)).apply(this, arguments));
-    }
-
-    _createClass(LoadBoxCreationDataCommand, [{
-        key: 'execute',
-        value: function execute() {
-            return new Promise(function (resolve) {
-                resolve();
-            });
-        }
-    }]);
-
-    return LoadBoxCreationDataCommand;
-}(AbstractLoadBoxCreationDataCommand);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var LoadCoursesCommand = function (_AbstractLoadCoursesC) {
     _inherits(LoadCoursesCommand, _AbstractLoadCoursesC);
 
     function LoadCoursesCommand() {
         _classCallCheck(this, LoadCoursesCommand);
 
-        return _possibleConstructorReturn(this, (LoadCoursesCommand.__proto__ || Object.getPrototypeOf(LoadCoursesCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(LoadCoursesCommand).apply(this, arguments));
     }
 
     _createClass(LoadCoursesCommand, [{
@@ -25638,7 +15463,7 @@ var OpenBoxCreationCommand = function (_AbstractOpenBoxCreat) {
     function OpenBoxCreationCommand() {
         _classCallCheck(this, OpenBoxCreationCommand);
 
-        return _possibleConstructorReturn(this, (OpenBoxCreationCommand.__proto__ || Object.getPrototypeOf(OpenBoxCreationCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenBoxCreationCommand).apply(this, arguments));
     }
 
     _createClass(OpenBoxCreationCommand, [{
@@ -25674,7 +15499,7 @@ var OpenChangePasswordCommand = function (_AbstractOpenChangePa) {
     function OpenChangePasswordCommand() {
         _classCallCheck(this, OpenChangePasswordCommand);
 
-        return _possibleConstructorReturn(this, (OpenChangePasswordCommand.__proto__ || Object.getPrototypeOf(OpenChangePasswordCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenChangePasswordCommand).apply(this, arguments));
     }
 
     _createClass(OpenChangePasswordCommand, [{
@@ -25709,7 +15534,7 @@ var OpenCourseSelectionCommand = function (_AbstractOpenCourseSe) {
     function OpenCourseSelectionCommand() {
         _classCallCheck(this, OpenCourseSelectionCommand);
 
-        return _possibleConstructorReturn(this, (OpenCourseSelectionCommand.__proto__ || Object.getPrototypeOf(OpenCourseSelectionCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenCourseSelectionCommand).apply(this, arguments));
     }
 
     _createClass(OpenCourseSelectionCommand, [{
@@ -25753,7 +15578,7 @@ var OpenForgotPasswordCommand = function (_AbstractOpenForgotPa) {
     function OpenForgotPasswordCommand() {
         _classCallCheck(this, OpenForgotPasswordCommand);
 
-        return _possibleConstructorReturn(this, (OpenForgotPasswordCommand.__proto__ || Object.getPrototypeOf(OpenForgotPasswordCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenForgotPasswordCommand).apply(this, arguments));
     }
 
     _createClass(OpenForgotPasswordCommand, [{
@@ -25788,7 +15613,7 @@ var OpenNewPasswordCommand = function (_AbstractOpenNewPassw) {
     function OpenNewPasswordCommand() {
         _classCallCheck(this, OpenNewPasswordCommand);
 
-        return _possibleConstructorReturn(this, (OpenNewPasswordCommand.__proto__ || Object.getPrototypeOf(OpenNewPasswordCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenNewPasswordCommand).apply(this, arguments));
     }
 
     _createClass(OpenNewPasswordCommand, [{
@@ -25825,7 +15650,7 @@ var OpenProfileCommand = function (_AbstractOpenProfileC) {
     function OpenProfileCommand() {
         _classCallCheck(this, OpenProfileCommand);
 
-        return _possibleConstructorReturn(this, (OpenProfileCommand.__proto__ || Object.getPrototypeOf(OpenProfileCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenProfileCommand).apply(this, arguments));
     }
 
     _createClass(OpenProfileCommand, [{
@@ -25869,7 +15694,7 @@ var OpenRegistrationCommand = function (_AbstractOpenRegistra) {
     function OpenRegistrationCommand() {
         _classCallCheck(this, OpenRegistrationCommand);
 
-        return _possibleConstructorReturn(this, (OpenRegistrationCommand.__proto__ || Object.getPrototypeOf(OpenRegistrationCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(OpenRegistrationCommand).apply(this, arguments));
     }
 
     _createClass(OpenRegistrationCommand, [{
@@ -25904,7 +15729,7 @@ var RemoveCourseCommand = function (_AbstractRemoveCourse) {
     function RemoveCourseCommand() {
         _classCallCheck(this, RemoveCourseCommand);
 
-        return _possibleConstructorReturn(this, (RemoveCourseCommand.__proto__ || Object.getPrototypeOf(RemoveCourseCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RemoveCourseCommand).apply(this, arguments));
     }
 
     _createClass(RemoveCourseCommand, [{
@@ -25953,7 +15778,7 @@ var SaveBoxCommand = function (_AbstractSaveBoxComma) {
     function SaveBoxCommand() {
         _classCallCheck(this, SaveBoxCommand);
 
-        return _possibleConstructorReturn(this, (SaveBoxCommand.__proto__ || Object.getPrototypeOf(SaveBoxCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveBoxCommand).apply(this, arguments));
     }
 
     _createClass(SaveBoxCommand, [{
@@ -26020,7 +15845,7 @@ var SaveBoxConfigCommand = function (_AbstractSaveBoxConfi) {
     function SaveBoxConfigCommand() {
         _classCallCheck(this, SaveBoxConfigCommand);
 
-        return _possibleConstructorReturn(this, (SaveBoxConfigCommand.__proto__ || Object.getPrototypeOf(SaveBoxConfigCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveBoxConfigCommand).apply(this, arguments));
     }
 
     _createClass(SaveBoxConfigCommand, [{
@@ -26068,7 +15893,7 @@ var SaveCourseSelectionCommand = function (_AbstractSaveCourseSe) {
     function SaveCourseSelectionCommand() {
         _classCallCheck(this, SaveCourseSelectionCommand);
 
-        return _possibleConstructorReturn(this, (SaveCourseSelectionCommand.__proto__ || Object.getPrototypeOf(SaveCourseSelectionCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveCourseSelectionCommand).apply(this, arguments));
     }
 
     _createClass(SaveCourseSelectionCommand, [{
@@ -26115,7 +15940,7 @@ var SaveProfileCommand = function (_AbstractSaveProfileC) {
     function SaveProfileCommand() {
         _classCallCheck(this, SaveProfileCommand);
 
-        return _possibleConstructorReturn(this, (SaveProfileCommand.__proto__ || Object.getPrototypeOf(SaveProfileCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(SaveProfileCommand).apply(this, arguments));
     }
 
     _createClass(SaveProfileCommand, [{
@@ -26171,7 +15996,7 @@ var SubmitForgotPasswordRequestCommand = function (_AbstractSubmitForgot) {
     function SubmitForgotPasswordRequestCommand() {
         _classCallCheck(this, SubmitForgotPasswordRequestCommand);
 
-        return _possibleConstructorReturn(this, (SubmitForgotPasswordRequestCommand.__proto__ || Object.getPrototypeOf(SubmitForgotPasswordRequestCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitForgotPasswordRequestCommand).apply(this, arguments));
     }
 
     _createClass(SubmitForgotPasswordRequestCommand, [{
@@ -26229,7 +16054,7 @@ var SubmitNewPasswordCommand = function (_AbstractSubmitNewPas) {
     function SubmitNewPasswordCommand() {
         _classCallCheck(this, SubmitNewPasswordCommand);
 
-        return _possibleConstructorReturn(this, (SubmitNewPasswordCommand.__proto__ || Object.getPrototypeOf(SubmitNewPasswordCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitNewPasswordCommand).apply(this, arguments));
     }
 
     _createClass(SubmitNewPasswordCommand, [{
@@ -26288,7 +16113,7 @@ var SubmitRegistrationCommand = function (_AbstractSubmitRegist) {
     function SubmitRegistrationCommand() {
         _classCallCheck(this, SubmitRegistrationCommand);
 
-        return _possibleConstructorReturn(this, (SubmitRegistrationCommand.__proto__ || Object.getPrototypeOf(SubmitRegistrationCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(SubmitRegistrationCommand).apply(this, arguments));
     }
 
     _createClass(SubmitRegistrationCommand, [{
@@ -26352,7 +16177,7 @@ var UpdatePasswordCommand = function (_AbstractUpdatePasswo) {
     function UpdatePasswordCommand() {
         _classCallCheck(this, UpdatePasswordCommand);
 
-        return _possibleConstructorReturn(this, (UpdatePasswordCommand.__proto__ || Object.getPrototypeOf(UpdatePasswordCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(UpdatePasswordCommand).apply(this, arguments));
     }
 
     _createClass(UpdatePasswordCommand, [{
@@ -26411,7 +16236,7 @@ var ValidatePasswordCommand = function (_AbstractValidatePass) {
     function ValidatePasswordCommand() {
         _classCallCheck(this, ValidatePasswordCommand);
 
-        return _possibleConstructorReturn(this, (ValidatePasswordCommand.__proto__ || Object.getPrototypeOf(ValidatePasswordCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ValidatePasswordCommand).apply(this, arguments));
     }
 
     _createClass(ValidatePasswordCommand, [{
@@ -26461,7 +16286,7 @@ var CoursesLoadedEvent = function (_AbstractCoursesLoade) {
     function CoursesLoadedEvent() {
         _classCallCheck(this, CoursesLoadedEvent);
 
-        return _possibleConstructorReturn(this, (CoursesLoadedEvent.__proto__ || Object.getPrototypeOf(CoursesLoadedEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(CoursesLoadedEvent).apply(this, arguments));
     }
 
     _createClass(CoursesLoadedEvent, [{
@@ -26491,7 +16316,7 @@ var PasswordEmptyEvent = function (_AbstractPasswordEmpt) {
     function PasswordEmptyEvent() {
         _classCallCheck(this, PasswordEmptyEvent);
 
-        return _possibleConstructorReturn(this, (PasswordEmptyEvent.__proto__ || Object.getPrototypeOf(PasswordEmptyEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(PasswordEmptyEvent).apply(this, arguments));
     }
 
     _createClass(PasswordEmptyEvent, [{
@@ -26521,7 +16346,7 @@ var PasswordsMismatchEvent = function (_AbstractPasswordsMis) {
     function PasswordsMismatchEvent() {
         _classCallCheck(this, PasswordsMismatchEvent);
 
-        return _possibleConstructorReturn(this, (PasswordsMismatchEvent.__proto__ || Object.getPrototypeOf(PasswordsMismatchEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(PasswordsMismatchEvent).apply(this, arguments));
     }
 
     _createClass(PasswordsMismatchEvent, [{
@@ -26551,7 +16376,7 @@ var PasswordsOKEvent = function (_AbstractPasswordsOKE) {
     function PasswordsOKEvent() {
         _classCallCheck(this, PasswordsOKEvent);
 
-        return _possibleConstructorReturn(this, (PasswordsOKEvent.__proto__ || Object.getPrototypeOf(PasswordsOKEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(PasswordsOKEvent).apply(this, arguments));
     }
 
     _createClass(PasswordsOKEvent, [{
@@ -26581,7 +16406,7 @@ var RenderBoxEvent = function (_AbstractRenderBoxEve) {
     function RenderBoxEvent() {
         _classCallCheck(this, RenderBoxEvent);
 
-        return _possibleConstructorReturn(this, (RenderBoxEvent.__proto__ || Object.getPrototypeOf(RenderBoxEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderBoxEvent).apply(this, arguments));
     }
 
     _createClass(RenderBoxEvent, [{
@@ -26611,7 +16436,7 @@ var RenderChangePasswordEvent = function (_AbstractRenderChange) {
     function RenderChangePasswordEvent() {
         _classCallCheck(this, RenderChangePasswordEvent);
 
-        return _possibleConstructorReturn(this, (RenderChangePasswordEvent.__proto__ || Object.getPrototypeOf(RenderChangePasswordEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderChangePasswordEvent).apply(this, arguments));
     }
 
     _createClass(RenderChangePasswordEvent, [{
@@ -26641,7 +16466,7 @@ var RenderCourseToBoxEvent = function (_AbstractRenderCourse) {
     function RenderCourseToBoxEvent() {
         _classCallCheck(this, RenderCourseToBoxEvent);
 
-        return _possibleConstructorReturn(this, (RenderCourseToBoxEvent.__proto__ || Object.getPrototypeOf(RenderCourseToBoxEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderCourseToBoxEvent).apply(this, arguments));
     }
 
     _createClass(RenderCourseToBoxEvent, [{
@@ -26680,7 +16505,7 @@ var RenderForgotPasswordEvent = function (_AbstractRenderForgot) {
     function RenderForgotPasswordEvent() {
         _classCallCheck(this, RenderForgotPasswordEvent);
 
-        return _possibleConstructorReturn(this, (RenderForgotPasswordEvent.__proto__ || Object.getPrototypeOf(RenderForgotPasswordEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderForgotPasswordEvent).apply(this, arguments));
     }
 
     _createClass(RenderForgotPasswordEvent, [{
@@ -26710,7 +16535,7 @@ var RenderNewPasswordEvent = function (_AbstractRenderNewPas) {
     function RenderNewPasswordEvent() {
         _classCallCheck(this, RenderNewPasswordEvent);
 
-        return _possibleConstructorReturn(this, (RenderNewPasswordEvent.__proto__ || Object.getPrototypeOf(RenderNewPasswordEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderNewPasswordEvent).apply(this, arguments));
     }
 
     _createClass(RenderNewPasswordEvent, [{
@@ -26740,7 +16565,7 @@ var RenderRegistrationEvent = function (_AbstractRenderRegist) {
     function RenderRegistrationEvent() {
         _classCallCheck(this, RenderRegistrationEvent);
 
-        return _possibleConstructorReturn(this, (RenderRegistrationEvent.__proto__ || Object.getPrototypeOf(RenderRegistrationEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RenderRegistrationEvent).apply(this, arguments));
     }
 
     _createClass(RenderRegistrationEvent, [{
@@ -26770,7 +16595,7 @@ var UserInfoLoadedEvent = function (_AbstractUserInfoLoad) {
     function UserInfoLoadedEvent() {
         _classCallCheck(this, UserInfoLoadedEvent);
 
-        return _possibleConstructorReturn(this, (UserInfoLoadedEvent.__proto__ || Object.getPrototypeOf(UserInfoLoadedEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(UserInfoLoadedEvent).apply(this, arguments));
     }
 
     _createClass(UserInfoLoadedEvent, [{
@@ -26800,7 +16625,7 @@ var UsernameIsAvailableEvent = function (_AbstractUsernameIsAv) {
     function UsernameIsAvailableEvent() {
         _classCallCheck(this, UsernameIsAvailableEvent);
 
-        return _possibleConstructorReturn(this, (UsernameIsAvailableEvent.__proto__ || Object.getPrototypeOf(UsernameIsAvailableEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(UsernameIsAvailableEvent).apply(this, arguments));
     }
 
     _createClass(UsernameIsAvailableEvent, [{
@@ -26830,7 +16655,7 @@ var UsernameIsNotAvailableEvent = function (_AbstractUsernameIsNo) {
     function UsernameIsNotAvailableEvent() {
         _classCallCheck(this, UsernameIsNotAvailableEvent);
 
-        return _possibleConstructorReturn(this, (UsernameIsNotAvailableEvent.__proto__ || Object.getPrototypeOf(UsernameIsNotAvailableEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(UsernameIsNotAvailableEvent).apply(this, arguments));
     }
 
     _createClass(UsernameIsNotAvailableEvent, [{
@@ -27050,7 +16875,7 @@ var CorrectWordAction = function (_AbstractCorrectWordA) {
    function CorrectWordAction() {
       _classCallCheck(this, CorrectWordAction);
 
-      return _possibleConstructorReturn(this, (CorrectWordAction.__proto__ || Object.getPrototypeOf(CorrectWordAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(CorrectWordAction).apply(this, arguments));
    }
 
    _createClass(CorrectWordAction, [{
@@ -27142,7 +16967,7 @@ var IsRatedTestFinishedAction = function (_AbstractIsRatedTestF) {
    function IsRatedTestFinishedAction() {
       _classCallCheck(this, IsRatedTestFinishedAction);
 
-      return _possibleConstructorReturn(this, (IsRatedTestFinishedAction.__proto__ || Object.getPrototypeOf(IsRatedTestFinishedAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(IsRatedTestFinishedAction).apply(this, arguments));
    }
 
    _createClass(IsRatedTestFinishedAction, [{
@@ -27229,7 +17054,7 @@ var IsTestFinishedAction = function (_AbstractIsTestFinish) {
    function IsTestFinishedAction() {
       _classCallCheck(this, IsTestFinishedAction);
 
-      return _possibleConstructorReturn(this, (IsTestFinishedAction.__proto__ || Object.getPrototypeOf(IsTestFinishedAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(IsTestFinishedAction).apply(this, arguments));
    }
 
    _createClass(IsTestFinishedAction, [{
@@ -27316,7 +17141,7 @@ var RateWordAction = function (_AbstractRateWordActi) {
    function RateWordAction() {
       _classCallCheck(this, RateWordAction);
 
-      return _possibleConstructorReturn(this, (RateWordAction.__proto__ || Object.getPrototypeOf(RateWordAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(RateWordAction).apply(this, arguments));
    }
 
    _createClass(RateWordAction, [{
@@ -27406,7 +17231,7 @@ var RepeatComplexCardAction = function (_AbstractRepeatComple) {
    function RepeatComplexCardAction() {
       _classCallCheck(this, RepeatComplexCardAction);
 
-      return _possibleConstructorReturn(this, (RepeatComplexCardAction.__proto__ || Object.getPrototypeOf(RepeatComplexCardAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(RepeatComplexCardAction).apply(this, arguments));
    }
 
    _createClass(RepeatComplexCardAction, [{
@@ -27492,7 +17317,7 @@ var ShowNextWordOfTestAction = function (_AbstractShowNextWord) {
    function ShowNextWordOfTestAction() {
       _classCallCheck(this, ShowNextWordOfTestAction);
 
-      return _possibleConstructorReturn(this, (ShowNextWordOfTestAction.__proto__ || Object.getPrototypeOf(ShowNextWordOfTestAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowNextWordOfTestAction).apply(this, arguments));
    }
 
    _createClass(ShowNextWordOfTestAction, [{
@@ -27577,7 +17402,7 @@ var ShowWordAction = function (_AbstractShowWordActi) {
    function ShowWordAction() {
       _classCallCheck(this, ShowWordAction);
 
-      return _possibleConstructorReturn(this, (ShowWordAction.__proto__ || Object.getPrototypeOf(ShowWordAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowWordAction).apply(this, arguments));
    }
 
    _createClass(ShowWordAction, [{
@@ -27661,7 +17486,7 @@ var StartTestAction = function (_AbstractStartTestAct) {
    function StartTestAction() {
       _classCallCheck(this, StartTestAction);
 
-      return _possibleConstructorReturn(this, (StartTestAction.__proto__ || Object.getPrototypeOf(StartTestAction)).apply(this, arguments));
+      return _possibleConstructorReturn(this, Object.getPrototypeOf(StartTestAction).apply(this, arguments));
    }
 
    _createClass(StartTestAction, [{
@@ -27745,7 +17570,7 @@ var CorrectWordCommand = function (_AbstractCorrectWordC) {
     function CorrectWordCommand() {
         _classCallCheck(this, CorrectWordCommand);
 
-        return _possibleConstructorReturn(this, (CorrectWordCommand.__proto__ || Object.getPrototypeOf(CorrectWordCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(CorrectWordCommand).apply(this, arguments));
     }
 
     _createClass(CorrectWordCommand, [{
@@ -27800,7 +17625,7 @@ var IsRatedTestFinishedCommand = function (_AbstractIsRatedTestF) {
     function IsRatedTestFinishedCommand() {
         _classCallCheck(this, IsRatedTestFinishedCommand);
 
-        return _possibleConstructorReturn(this, (IsRatedTestFinishedCommand.__proto__ || Object.getPrototypeOf(IsRatedTestFinishedCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(IsRatedTestFinishedCommand).apply(this, arguments));
     }
 
     _createClass(IsRatedTestFinishedCommand, [{
@@ -27844,7 +17669,7 @@ var IsTestFinishedCommand = function (_AbstractIsTestFinish) {
     function IsTestFinishedCommand() {
         _classCallCheck(this, IsTestFinishedCommand);
 
-        return _possibleConstructorReturn(this, (IsTestFinishedCommand.__proto__ || Object.getPrototypeOf(IsTestFinishedCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(IsTestFinishedCommand).apply(this, arguments));
     }
 
     _createClass(IsTestFinishedCommand, [{
@@ -27888,7 +17713,7 @@ var RateWordCommand = function (_AbstractRateWordComm) {
     function RateWordCommand() {
         _classCallCheck(this, RateWordCommand);
 
-        return _possibleConstructorReturn(this, (RateWordCommand.__proto__ || Object.getPrototypeOf(RateWordCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RateWordCommand).apply(this, arguments));
     }
 
     _createClass(RateWordCommand, [{
@@ -27942,7 +17767,7 @@ var RepeatComplexCardCommand = function (_AbstractRepeatComple) {
     function RepeatComplexCardCommand() {
         _classCallCheck(this, RepeatComplexCardCommand);
 
-        return _possibleConstructorReturn(this, (RepeatComplexCardCommand.__proto__ || Object.getPrototypeOf(RepeatComplexCardCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(RepeatComplexCardCommand).apply(this, arguments));
     }
 
     _createClass(RepeatComplexCardCommand, [{
@@ -27978,7 +17803,7 @@ var ShowNextWordOfTestCommand = function (_AbstractShowNextWord) {
     function ShowNextWordOfTestCommand() {
         _classCallCheck(this, ShowNextWordOfTestCommand);
 
-        return _possibleConstructorReturn(this, (ShowNextWordOfTestCommand.__proto__ || Object.getPrototypeOf(ShowNextWordOfTestCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowNextWordOfTestCommand).apply(this, arguments));
     }
 
     _createClass(ShowNextWordOfTestCommand, [{
@@ -28014,7 +17839,7 @@ var ShowWordCommand = function (_AbstractShowWordComm) {
     function ShowWordCommand() {
         _classCallCheck(this, ShowWordCommand);
 
-        return _possibleConstructorReturn(this, (ShowWordCommand.__proto__ || Object.getPrototypeOf(ShowWordCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowWordCommand).apply(this, arguments));
     }
 
     _createClass(ShowWordCommand, [{
@@ -28050,7 +17875,7 @@ var StartTestCommand = function (_AbstractStartTestCom) {
     function StartTestCommand() {
         _classCallCheck(this, StartTestCommand);
 
-        return _possibleConstructorReturn(this, (StartTestCommand.__proto__ || Object.getPrototypeOf(StartTestCommand)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(StartTestCommand).apply(this, arguments));
     }
 
     _createClass(StartTestCommand, [{
@@ -28087,7 +17912,7 @@ var DisplayNextWordButtonEvent = function (_AbstractDisplayNextW) {
     function DisplayNextWordButtonEvent() {
         _classCallCheck(this, DisplayNextWordButtonEvent);
 
-        return _possibleConstructorReturn(this, (DisplayNextWordButtonEvent.__proto__ || Object.getPrototypeOf(DisplayNextWordButtonEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(DisplayNextWordButtonEvent).apply(this, arguments));
     }
 
     _createClass(DisplayNextWordButtonEvent, [{
@@ -28111,73 +17936,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var DisplayTestFailedEvent = function (_AbstractDisplayTestF) {
-    _inherits(DisplayTestFailedEvent, _AbstractDisplayTestF);
-
-    function DisplayTestFailedEvent() {
-        _classCallCheck(this, DisplayTestFailedEvent);
-
-        return _possibleConstructorReturn(this, (DisplayTestFailedEvent.__proto__ || Object.getPrototypeOf(DisplayTestFailedEvent)).apply(this, arguments));
-    }
-
-    _createClass(DisplayTestFailedEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return DisplayTestFailedEvent;
-}(AbstractDisplayTestFailedEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var DisplayTestFinishedSuccessfullyEvent = function (_AbstractDisplayTestF) {
-    _inherits(DisplayTestFinishedSuccessfullyEvent, _AbstractDisplayTestF);
-
-    function DisplayTestFinishedSuccessfullyEvent() {
-        _classCallCheck(this, DisplayTestFinishedSuccessfullyEvent);
-
-        return _possibleConstructorReturn(this, (DisplayTestFinishedSuccessfullyEvent.__proto__ || Object.getPrototypeOf(DisplayTestFinishedSuccessfullyEvent)).apply(this, arguments));
-    }
-
-    _createClass(DisplayTestFinishedSuccessfullyEvent, [{
-        key: 'prepareDataForView',
-        value: function prepareDataForView() {
-            this.eventData = JSON.parse(JSON.stringify(this.eventParam));
-        }
-    }]);
-
-    return DisplayTestFinishedSuccessfullyEvent;
-}(AbstractDisplayTestFinishedSuccessfullyEvent);
-
-/*       S.D.G.       */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var ShowNextWordOfTestEvent = function (_AbstractShowNextWord) {
     _inherits(ShowNextWordOfTestEvent, _AbstractShowNextWord);
 
     function ShowNextWordOfTestEvent() {
         _classCallCheck(this, ShowNextWordOfTestEvent);
 
-        return _possibleConstructorReturn(this, (ShowNextWordOfTestEvent.__proto__ || Object.getPrototypeOf(ShowNextWordOfTestEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowNextWordOfTestEvent).apply(this, arguments));
     }
 
     _createClass(ShowNextWordOfTestEvent, [{
@@ -28207,7 +17972,7 @@ var ShowWordEvent = function (_AbstractShowWordEven) {
     function ShowWordEvent() {
         _classCallCheck(this, ShowWordEvent);
 
-        return _possibleConstructorReturn(this, (ShowWordEvent.__proto__ || Object.getPrototypeOf(ShowWordEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ShowWordEvent).apply(this, arguments));
     }
 
     _createClass(ShowWordEvent, [{
@@ -28237,7 +18002,7 @@ var TestStartedEvent = function (_AbstractTestStartedE) {
     function TestStartedEvent() {
         _classCallCheck(this, TestStartedEvent);
 
-        return _possibleConstructorReturn(this, (TestStartedEvent.__proto__ || Object.getPrototypeOf(TestStartedEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(TestStartedEvent).apply(this, arguments));
     }
 
     _createClass(TestStartedEvent, [{
@@ -28267,7 +18032,7 @@ var WordIsCorrectAndFinishedEvent = function (_AbstractWordIsCorrec) {
     function WordIsCorrectAndFinishedEvent() {
         _classCallCheck(this, WordIsCorrectAndFinishedEvent);
 
-        return _possibleConstructorReturn(this, (WordIsCorrectAndFinishedEvent.__proto__ || Object.getPrototypeOf(WordIsCorrectAndFinishedEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(WordIsCorrectAndFinishedEvent).apply(this, arguments));
     }
 
     _createClass(WordIsCorrectAndFinishedEvent, [{
@@ -28297,7 +18062,7 @@ var WordIsCorrectAndNotFinishedEvent = function (_AbstractWordIsCorrec) {
     function WordIsCorrectAndNotFinishedEvent() {
         _classCallCheck(this, WordIsCorrectAndNotFinishedEvent);
 
-        return _possibleConstructorReturn(this, (WordIsCorrectAndNotFinishedEvent.__proto__ || Object.getPrototypeOf(WordIsCorrectAndNotFinishedEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(WordIsCorrectAndNotFinishedEvent).apply(this, arguments));
     }
 
     _createClass(WordIsCorrectAndNotFinishedEvent, [{
@@ -28327,7 +18092,7 @@ var WordIsNotCorrectEvent = function (_AbstractWordIsNotCor) {
     function WordIsNotCorrectEvent() {
         _classCallCheck(this, WordIsNotCorrectEvent);
 
-        return _possibleConstructorReturn(this, (WordIsNotCorrectEvent.__proto__ || Object.getPrototypeOf(WordIsNotCorrectEvent)).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(WordIsNotCorrectEvent).apply(this, arguments));
     }
 
     _createClass(WordIsNotCorrectEvent, [{
@@ -28341,6 +18106,221 @@ var WordIsNotCorrectEvent = function (_AbstractWordIsNotCor) {
 }(AbstractWordIsNotCorrectEvent);
 
 /*       S.D.G.       */
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var EventListenerRegistrationCard = function () {
+   function EventListenerRegistrationCard() {
+      _classCallCheck(this, EventListenerRegistrationCard);
+   }
+
+   _createClass(EventListenerRegistrationCard, null, [{
+      key: 'init',
+      value: function init() {
+         ACEController.registerListener('ShowWantedEvent', CardView.showWanted);
+         ACEController.registerListener('ShowNextLineEvent', CardView.showNextLine);
+         ACEController.registerListener('ShowNextWordEvent', CardView.showNextWord);
+         ACEController.registerListener('ShowScoreButtonsEvent', CardView.showScoreButtons);
+      }
+   }]);
+
+   return EventListenerRegistrationCard;
+}();
+
+EventListenerRegistrationCard.init();
+
+/*       S.D.G.       */
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var EventListenerRegistrationCommon = function () {
+   function EventListenerRegistrationCommon() {
+      _classCallCheck(this, EventListenerRegistrationCommon);
+   }
+
+   _createClass(EventListenerRegistrationCommon, null, [{
+      key: 'init',
+      value: function init() {
+         ACEController.registerListener('InitOKEvent', CommonView.initLanguageInLocalStorage);
+         ACEController.registerListener('InitOKEvent', CommonView.initSchemaInLocalStorage);
+         ACEController.registerListener('ServerErrorEvent', ErrorView.renderServerError);
+         ACEController.registerListener('ErrorEvent', ErrorView.renderError);
+         ACEController.registerListener('MessageEvent', MessageView.renderMessage);
+         ACEController.registerListener('UpdateHashEvent', CommonView.updateHash);
+         ACEController.registerListener('UserLoggedInEvent', CommonView.initUserInLocalStorage);
+         ACEController.registerListener('UserLoggedOutEvent', CommonView.removeUserFromLocalStorage);
+         ACEController.registerListener('UserLoggedOutEvent', BoxesView.hideBoxes);
+         ACEController.registerListener('RenderResultEvent', TestView.renderResult);
+         ACEController.registerListener('FieldEmptyEvent', ValidationView.fieldEmpty);
+         ACEController.registerListener('FieldNotEmptyEvent', ValidationView.fieldNotEmpty);
+         ACEController.registerListener('DisplayRemoveCourseFromUserDialogEvent', ReallyDeleteDialogView.displayRemoveCourseFromUserDialog);
+         ACEController.registerListener('DisplayDeleteBoxDialogEvent', ReallyDeleteDialogView.displayDeleteBoxDialog);
+         ACEController.registerListener('SwitchLanguageEvent', CommonView.initLanguageInLocalStorage);
+         ACEController.registerListener('RenderLoginEvent', HeaderView.renderLogin);
+         ACEController.registerListener('RenderLogoutEvent', HeaderView.renderLogout);
+         ACEController.registerListener('RenderHomeEvent', ContentView.renderPublicCourses);
+      }
+   }]);
+
+   return EventListenerRegistrationCommon;
+}();
+
+EventListenerRegistrationCommon.init();
+
+/*       S.D.G.       */
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var EventListenerRegistrationMultiplechoice = function () {
+   function EventListenerRegistrationMultiplechoice() {
+      _classCallCheck(this, EventListenerRegistrationMultiplechoice);
+   }
+
+   _createClass(EventListenerRegistrationMultiplechoice, null, [{
+      key: 'init',
+      value: function init() {
+         ACEController.registerListener('ShowFalseMultipleChoiceEvent', MultipleChoiceView.showFalse);
+         ACEController.registerListener('ShowFalseMultipleChoiceEvent', MultipleChoiceView.showCorrecture);
+         ACEController.registerListener('ShowCorrectMultipleChoiceEvent', MultipleChoiceView.showCorrect);
+         ACEController.registerListener('ShowCorrectMultipleChoiceEvent', MultipleChoiceView.showCorrecture);
+         ACEController.registerListener('EnableNextButtonEvent', MultipleChoiceView.enableNextButton);
+         ACEController.registerListener('DisplayNextQuestionEvent', MultipleChoiceView.displayNextQuestion);
+      }
+   }]);
+
+   return EventListenerRegistrationMultiplechoice;
+}();
+
+EventListenerRegistrationMultiplechoice.init();
+
+/*       S.D.G.       */
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var EventListenerRegistrationNavigation = function () {
+   function EventListenerRegistrationNavigation() {
+      _classCallCheck(this, EventListenerRegistrationNavigation);
+   }
+
+   _createClass(EventListenerRegistrationNavigation, null, [{
+      key: 'init',
+      value: function init() {
+         ACEController.registerListener('PublicCoursesReadEvent', NavigationView.renderPublicCourses);
+         ACEController.registerListener('PublicCoursesReadEvent', BreadcrumbsView.renderPublicCoursesBreadcrumbs);
+         ACEController.registerListener('PublicLessonsReadEvent', NavigationView.renderPublicLessons);
+         ACEController.registerListener('PublicLessonsReadEvent', ContentView.renderPublicLessons);
+         ACEController.registerListener('PublicLessonsReadEvent', BreadcrumbsView.renderPublicLessonsBreadcrumbs);
+         ACEController.registerListener('PublicTestsReadEvent', NavigationView.renderPublicTests);
+         ACEController.registerListener('PublicTestsReadEvent', ContentView.renderPublicTests);
+         ACEController.registerListener('PublicTestsReadEvent', BreadcrumbsView.renderPublicTestsBreadcrumbs);
+         ACEController.registerListener('PublicTestReadEvent', NavigationView.renderPublicTest);
+         ACEController.registerListener('PublicTestReadEvent', ContentView.renderPublicTest);
+         ACEController.registerListener('PublicTestReadEvent', BreadcrumbsView.renderPublicTestsBreadcrumbs);
+         ACEController.registerListener('PrivateCoursesReadEvent', NavigationView.renderPrivateCourses);
+         ACEController.registerListener('PrivateCoursesReadEvent', BreadcrumbsView.renderPrivateCoursesBreadcrumbs);
+         ACEController.registerListener('PrivateLessonsReadEvent', NavigationView.renderPrivateLessons);
+         ACEController.registerListener('PrivateLessonsReadEvent', ContentView.renderPrivateLessons);
+         ACEController.registerListener('PrivateLessonsReadEvent', BreadcrumbsView.renderPrivateLessonsBreadcrumbs);
+         ACEController.registerListener('PrivateTestsReadEvent', NavigationView.renderPrivateTests);
+         ACEController.registerListener('PrivateTestsReadEvent', ContentView.renderPrivateTests);
+         ACEController.registerListener('PrivateTestsReadEvent', BreadcrumbsView.renderPrivateTestsBreadcrumbs);
+         ACEController.registerListener('PrivateTestReadEvent', NavigationView.renderPrivateTest);
+         ACEController.registerListener('PrivateTestReadEvent', ContentView.renderPrivateTest);
+         ACEController.registerListener('PrivateTestReadEvent', BreadcrumbsView.renderPrivateTestsBreadcrumbs);
+         ACEController.registerListener('ResultReadEvent', NavigationView.renderPrivateTest);
+         ACEController.registerListener('ResultReadEvent', ContentView.renderPrivateTest);
+         ACEController.registerListener('ResultReadEvent', BreadcrumbsView.renderPrivateTestsBreadcrumbs);
+         ACEController.registerListener('ResultReadEvent', ContentView.renderResult);
+         ACEController.registerListener('StatisticsReadEvent', ContentView.renderStatistics);
+         ACEController.registerListener('BoxesReadEvent', BoxesView.renderBoxes);
+         ACEController.registerListener('NextCardReadEvent', ContentView.renderCard);
+      }
+   }]);
+
+   return EventListenerRegistrationNavigation;
+}();
+
+EventListenerRegistrationNavigation.init();
+
+/*       S.D.G.       */
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var EventListenerRegistrationProfile = function () {
+   function EventListenerRegistrationProfile() {
+      _classCallCheck(this, EventListenerRegistrationProfile);
+   }
+
+   _createClass(EventListenerRegistrationProfile, null, [{
+      key: 'init',
+      value: function init() {
+         ACEController.registerListener('UserInfoLoadedEvent', UserInfoView.renderUserInfo);
+         ACEController.registerListener('CoursesLoadedEvent', UserInfoView.renderCourseSelection);
+         ACEController.registerListener('RenderBoxEvent', UserInfoView.renderBox);
+         ACEController.registerListener('RenderCourseToBoxEvent', UserInfoView.renderCourseToBox);
+         ACEController.registerListener('RenderChangePasswordEvent', UserInfoView.renderPasswordChange);
+         ACEController.registerListener('PasswordsOKEvent', UserInfoView.passwordOK);
+         ACEController.registerListener('PasswordsMismatchEvent', UserInfoView.passwordMismatch);
+         ACEController.registerListener('RenderForgotPasswordEvent', UserInfoView.renderForgotPassword);
+         ACEController.registerListener('RenderNewPasswordEvent', UserInfoView.renderNewPassword);
+         ACEController.registerListener('RenderRegistrationEvent', UserInfoView.renderRegistration);
+         ACEController.registerListener('UsernameIsAvailableEvent', UserInfoView.renderUsernameIsAvailable);
+         ACEController.registerListener('UsernameIsNotAvailableEvent', UserInfoView.renderUsernameIsNotAvailable);
+         ACEController.registerListener('PasswordEmptyEvent', UserInfoView.passwordEmpty);
+      }
+   }]);
+
+   return EventListenerRegistrationProfile;
+}();
+
+EventListenerRegistrationProfile.init();
+
+/*       S.D.G.       */
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var EventListenerRegistrationVocabulary = function () {
+   function EventListenerRegistrationVocabulary() {
+      _classCallCheck(this, EventListenerRegistrationVocabulary);
+   }
+
+   _createClass(EventListenerRegistrationVocabulary, null, [{
+      key: 'init',
+      value: function init() {
+         ACEController.registerListener('WordIsCorrectAndFinishedEvent', VocabularyView.wordIsCorrectAndFinished);
+         ACEController.registerListener('WordIsCorrectAndNotFinishedEvent', VocabularyView.wordIsCorrectAndNotFinished);
+         ACEController.registerListener('WordIsNotCorrectEvent', VocabularyView.wordIsNotCorrect);
+         ACEController.registerListener('DisplayNextWordButtonEvent', VocabularyView.displayNextWordButton);
+         ACEController.registerListener('ShowNextWordOfTestEvent', VocabularyView.showNextWordOfTest);
+         ACEController.registerListener('ShowWordEvent', VocabularyView.showWord);
+         ACEController.registerListener('TestStartedEvent', VocabularyView.testStarted);
+      }
+   }]);
+
+   return EventListenerRegistrationVocabulary;
+}();
+
+EventListenerRegistrationVocabulary.init();
+
+/*       S.D.G.       */
 /**
  * Created by annette on 07.01.16.
  */
@@ -28349,9 +18329,6 @@ var WordIsNotCorrectEvent = function (_AbstractWordIsNotCor) {
 
 function initApp() {
 
-    if (!window.urlPrefix) {
-        window.urlPrefix = "http://localhost:8080/";
-    }
     new InitAction().apply();
 }
 

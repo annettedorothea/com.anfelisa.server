@@ -19,7 +19,7 @@ class SaveBoxConfigAction extends AbstractSaveBoxConfigAction {
 	        this.actionParam.language = localStorage.language;
 	    }
 	    var boxId = this.actionParam.boxId;
-		this.actionParam.boxOfCourseList = $("select").map(function() {console.dir(this); return { autoAdd: this.value, courseId: this.id, boxId: boxId};}).get();
+		this.actionParam.boxOfCourseList = $("select").map(function() { return { autoAdd: this.value, courseId: this.id, boxId: boxId};}).get();
     }
 
     initActionData() {

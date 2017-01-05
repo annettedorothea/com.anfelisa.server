@@ -6,9 +6,6 @@
 
 function initApp() {
 
-    if (!window.urlPrefix) {
-        window.urlPrefix = "http://localhost:8080/";
-    }
     new InitAction().apply();
 }
 

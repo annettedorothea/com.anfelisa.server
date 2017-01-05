@@ -6,7 +6,6 @@ class LoginAction extends AbstractLoginAction {
 		this.actionParam.username = $(".username").val();
 		var password = $(".password").val();
 		this.actionParam.password = CryptoJS.MD5(password).toString(CryptoJS.enc.Base64);
-		console.log(this.actionParam.password);
     	if (localStorage.schema) {
 	        this.actionParam.schema = localStorage.schema;
 	    }

@@ -47,7 +47,7 @@ class Command {
         queryParams = this.addSchemaToQueryParams(queryParams);
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: urlPrefix + url + this.queryParamString(url, queryParams),
+                url: url + this.queryParamString(url, queryParams),
                 type: 'get',
                 username: this.usernameString(),
                 password: this.commandParam.password,
@@ -72,7 +72,7 @@ class Command {
         data = this.addSchemaToData(data);
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: urlPrefix + url + this.queryParamString(url, queryParams),
+                url: url + this.queryParamString(url, queryParams),
                 type: 'post',
                 data: JSON.stringify(data),
                 username: this.usernameString(),
@@ -98,7 +98,7 @@ class Command {
         data = this.addSchemaToData(data);
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: urlPrefix + url + this.queryParamString(url, queryParams),
+                url: url + this.queryParamString(url, queryParams),
                 type: 'put',
                 data: JSON.stringify(data),
                 username: this.usernameString(),
@@ -124,7 +124,7 @@ class Command {
         data = this.addSchemaToData(data);
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: urlPrefix + url + this.queryParamString(url, queryParams),
+                url: url + this.queryParamString(url, queryParams),
                 type: 'delete',
                 data: JSON.stringify(data),
                 username: this.usernameString(),
