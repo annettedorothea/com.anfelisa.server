@@ -12,4 +12,11 @@
         </a>
     </li>
     {{/myCourseList}}
+    {{^myCourseList}}
+    <li>
+        <a onclick="new RouteAction({hash : 'profile/courses'}).apply()">
+            {{texts.noCourses}}
+        </a>
+    </li>
+    {{/myCourseList}}
 </ul>

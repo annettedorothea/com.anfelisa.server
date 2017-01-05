@@ -12,4 +12,11 @@
         </a>
     </li>
     {{/boxList}}
+    {{^boxList}}
+    <li>
+        <a onclick="new RouteAction({hash : 'profile/boxes/create'}).apply()">
+        {{texts.noBoxes}}
+        </a>
+    </li>
+    {{/boxList}}
 </ul>

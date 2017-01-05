@@ -27,6 +27,8 @@
   "profile" : "My profile",
   "myBoxes" : "My boxes",
   "myCourses" : "My courses",
+  "noCourses" : "Keine Kurse",
+  "noBoxes" : "Keine Lern-Boxen",
   "backToMyCourses" : "Back to my courses",
   "pointsOfMaxPoints" : "of",
   "backToMyLessons" : "Back to my lessons",
