@@ -603,6 +603,9 @@ div.header .login-logout-pane {
 .box-score div.pink {
 	background-color: #FF5DB1;
 }
+.box-score div.grey {
+	background-color: #cccccc;
+}
 .box-score div.white {
 	background-color: #fff;
 }

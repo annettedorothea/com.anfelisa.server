@@ -12,6 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IFillBoxModel;
 import com.anfelisa.user.models.IUsernameModel;
+import com.anfelisa.box.models.INowModel;
 
 @SuppressWarnings("unused")
 public class FillBoxData implements IFillBoxData {
@@ -27,19 +28,24 @@ public class FillBoxData implements IFillBoxData {
 	@NotNull
 	private String username;
 	
+	private org.joda.time.DateTime now;
+	
 
 	private java.util.List<com.anfelisa.box.models.ICardOfBoxModel> cardsToBeAdded;
+	
 	
 	
 
 	public FillBoxData(
 		@JsonProperty("boxId") Integer boxId,
-		@JsonProperty("username") String username
+		@JsonProperty("username") String username,
+		@JsonProperty("now") org.joda.time.DateTime now
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
 		this.boxId = boxId;
 		this.username = username;
+		this.now = now;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -74,12 +80,25 @@ public class FillBoxData implements IFillBoxData {
 	}
 	
 	@JsonProperty
+	public org.joda.time.DateTime getNow() {
+		return this.now;
+	}
+	public void setNow(org.joda.time.DateTime now) {
+		this.now = now;
+	}
+	public FillBoxData withNow(org.joda.time.DateTime now) {
+		this.now = now;
+		return this;
+	}
+	
+	@JsonProperty
 	public java.util.List<com.anfelisa.box.models.ICardOfBoxModel> getCardsToBeAdded() {
 		return this.cardsToBeAdded;
 	}
 	public void setCardsToBeAdded(java.util.List<com.anfelisa.box.models.ICardOfBoxModel> cardsToBeAdded) {
 		this.cardsToBeAdded = cardsToBeAdded;
 	}
+	
 	
 	
 

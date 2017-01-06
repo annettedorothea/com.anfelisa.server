@@ -67,6 +67,10 @@ public class CardData implements ICardData {
 	
 	private Integer five;
 	
+	private Integer noQuality;
+	
+	private org.joda.time.DateTime now;
+	
 	private Integer cardOfBoxId;
 	
 	private String boxName;
@@ -115,6 +119,8 @@ public class CardData implements ICardData {
 		@JsonProperty("three") Integer three,
 		@JsonProperty("four") Integer four,
 		@JsonProperty("five") Integer five,
+		@JsonProperty("noQuality") Integer noQuality,
+		@JsonProperty("now") org.joda.time.DateTime now,
 		@JsonProperty("cardOfBoxId") Integer cardOfBoxId,
 		@JsonProperty("boxName") String boxName,
 		@JsonProperty("count") Integer count,
@@ -146,6 +152,8 @@ public class CardData implements ICardData {
 		this.three = three;
 		this.four = four;
 		this.five = five;
+		this.noQuality = noQuality;
+		this.now = now;
 		this.cardOfBoxId = cardOfBoxId;
 		this.boxName = boxName;
 		this.count = count;
@@ -367,6 +375,30 @@ public class CardData implements ICardData {
 	}
 	public CardData withFive(Integer five) {
 		this.five = five;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getNoQuality() {
+		return this.noQuality;
+	}
+	public void setNoQuality(Integer noQuality) {
+		this.noQuality = noQuality;
+	}
+	public CardData withNoQuality(Integer noQuality) {
+		this.noQuality = noQuality;
+		return this;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getNow() {
+		return this.now;
+	}
+	public void setNow(org.joda.time.DateTime now) {
+		this.now = now;
+	}
+	public CardData withNow(org.joda.time.DateTime now) {
+		this.now = now;
 		return this;
 	}
 	

@@ -42,7 +42,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		} else if (n > 2){
 			newInterval = Math.round(interval * newFactor);
 		}
-		DateTime next = new DateTime().plusDays(newInterval);
+		DateTime next = this.commandParam.getNow().plusDays(newInterval);
 		Integer points = 0;
 		if (quality > 2) {
 			points = maxPoints;
@@ -56,7 +56,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		this.commandData.setCount(count);
 		this.commandData.setN(n);
 		this.commandData.setDate(next);
-		this.commandData.setTimestamp(new DateTime());
+		this.commandData.setTimestamp(this.commandData.getNow());
 		this.commandData.setQuality(quality);
 		this.commandData.setPoints(points);
 		

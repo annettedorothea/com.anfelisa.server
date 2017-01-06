@@ -2,6 +2,7 @@ package com.anfelisa.box.actions;
 
 import com.anfelisa.ace.DatabaseHandle;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +22,7 @@ public class ScoreCardAction extends AbstractScoreCardAction {
 
 	@Override
 	protected void captureActionParam() {
-		// capture all stuff that we need to replay this action (e.g. system
-		// time)
+		this.actionData.setNow(new DateTime());
 	}
 
 	@Override

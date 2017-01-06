@@ -21,6 +21,7 @@ public class AppRegistration {
 		
 		AceController.addConsumer("ResultCreatedEvent", resultView.createResult);
 		AceController.addConsumer("ResultSavedEvent", resultView.saveResult);
+		AceController.addConsumer("ResultSavedEvent", resultView.fillBoxWithCards);
     }
 }
 

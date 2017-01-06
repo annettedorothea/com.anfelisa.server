@@ -26,10 +26,8 @@ public class CustomCardDao {
 						+ ".lesson l on t.lessonId = l.lessonId WHERE l.courseId = :courseId AND r.testId = t.testId AND r.username = :username EXCEPT SELECT DISTINCT c.* FROM "
 						+ schema + ".card c INNER JOIN " + schema
 						+ ".cardofbox cb on c.cardId = cb.cardId WHERE cb.boxId = :boxId")
-				.bind("courseId", courseId)
-				.bind("boxId", boxId)
-				.bind("username", username)
-				.map(new CardMapper()).list();
+				.bind("courseId", courseId).bind("boxId", boxId).bind("username", username).map(new CardMapper())
+				.list();
 	}
 
 	public static void deleteByHash(Handle handle, String schema, String contentHash) {
@@ -48,6 +46,17 @@ public class CustomCardDao {
 		return handle
 				.createQuery("SELECT * FROM " + schema + ".card WHERE testId = :testId AND contentHash = :contentHash")
 				.bind("testId", testId).bind("contentHash", contentHash).map(new CardMapper()).first();
+	}
+
+	public static List<ICardModel> selectCardsToBeAddedAfterEdit(Handle handle, String schema, Integer testId,
+			Integer boxId) {
+		return handle
+				.createQuery("SELECT DISTINCT c.* FROM " + schema + ".card c INNER JOIN " + schema
+						+ ".test t on c.testId = t.testId INNER JOIN " + schema
+						+ ".lesson l on t.lessonId = l.lessonId WHERE t.testId = :testId EXCEPT SELECT DISTINCT c.* FROM "
+						+ schema + ".card c INNER JOIN " + schema
+						+ ".cardofbox cb on c.cardId = cb.cardId WHERE cb.boxId = :boxId")
+				.bind("testId", testId).bind("boxId", boxId).map(new CardMapper()).list();
 	}
 
 }

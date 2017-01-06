@@ -50,6 +50,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		int quality3Count = 0;
 		int quality4Count = 0;
 		int quality5Count = 0;
+		int noQualityCount = 0;
 		for (ICardInfoModel cardInfoModel : nextCards) {
 			DateTime next = cardInfoModel.getNext();
 			if (nextCard == null && next != null && new LocalDate().plusDays(1).isAfter(next.toLocalDate())) {
@@ -78,6 +79,8 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 					quality5Count++;
 					break;
 				}
+			} else {
+				noQualityCount++;
 			}
 			if (next != null && new LocalDate().plusDays(1).isAfter(next.toLocalDate())) {
 				cardsForToday++;
@@ -133,14 +136,17 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		this.actionData.setCardsForTomorrow(cardsForTomorrow);
 
 		int numberOfCardsWithQuality = quality0Count + quality1Count + quality2Count + quality3Count + quality4Count
-				+ quality5Count;
-		this.actionData.setZero((int) Math.floor((100 * quality0Count / numberOfCardsWithQuality)));
-		this.actionData.setOne((int) Math.floor((100 * quality1Count / numberOfCardsWithQuality)));
-		this.actionData.setTwo((int) Math.floor((100 * quality2Count / numberOfCardsWithQuality)));
-		this.actionData.setThree((int) Math.floor((100 * quality3Count / numberOfCardsWithQuality)));
-		this.actionData.setFour((int) Math.floor((100 * quality4Count / numberOfCardsWithQuality)));
-		this.actionData.setFive(100 - this.actionData.getZero() - this.actionData.getOne() - this.actionData.getTwo()
-				- this.actionData.getThree() - this.actionData.getFour());
+				+ quality5Count + noQualityCount;
+		if (numberOfCardsWithQuality > 0) {
+			this.actionData.setZero((int) Math.floor((100 * quality0Count / numberOfCardsWithQuality)));
+			this.actionData.setOne((int) Math.floor((100 * quality1Count / numberOfCardsWithQuality)));
+			this.actionData.setTwo((int) Math.floor((100 * quality2Count / numberOfCardsWithQuality)));
+			this.actionData.setThree((int) Math.floor((100 * quality3Count / numberOfCardsWithQuality)));
+			this.actionData.setFour((int) Math.floor((100 * quality4Count / numberOfCardsWithQuality)));
+			this.actionData.setFive((int) Math.floor((100 * quality5Count / numberOfCardsWithQuality)));
+			this.actionData.setNoQuality(100 - this.actionData.getZero() - this.actionData.getOne() - this.actionData.getTwo()
+					- this.actionData.getThree() - this.actionData.getFour() - this.actionData.getFive());
+		}
 
 	}
 

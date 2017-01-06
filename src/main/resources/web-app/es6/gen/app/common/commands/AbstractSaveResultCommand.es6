@@ -16,7 +16,7 @@ class AbstractSaveResultCommand extends Command {
         	promises.push(new RenderResultEvent(this.commandData).publish());
         	break;
         case this.resultSaved:
-        	promises.push(new TriggerAction(new AddCardsToBoxAction(this.commandData)).publish());
+        	promises.push(new TriggerAction(new RouteAction(this.commandData)).publish());
         	break;
         case this.serverError:
         	promises.push(new ServerErrorEvent(this.commandData).publish());

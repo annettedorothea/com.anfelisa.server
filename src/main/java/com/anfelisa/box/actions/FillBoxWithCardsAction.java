@@ -28,6 +28,7 @@ public class FillBoxWithCardsAction extends AbstractFillBoxWithCardsAction {
 	protected void captureActionParam() {
 		// capture all stuff that we need to replay this action (e.g. system
 		// time)
+		this.actionData.setNow(new DateTime());
 	}
 
 	@Override
@@ -52,8 +53,8 @@ public class FillBoxWithCardsAction extends AbstractFillBoxWithCardsAction {
 						boxOfCourse.getBoxId(), this.actionData.getUsername());
 			}
 			for (ICardModel card : allCards) {
-				ICardOfBoxModel cardOfBox = new CardOfBoxModel(null, card.getCardId(), 0F, 0, 0, 0, new DateTime(),
-						boxOfCourse.getBoxId(), null, new DateTime(), 0);
+				ICardOfBoxModel cardOfBox = new CardOfBoxModel(null, card.getCardId(), 0F, 0, 0, 0, this.actionData.getNow(),
+						boxOfCourse.getBoxId(), null, this.actionData.getNow(), 0);
 				this.actionData.getCardsToBeAdded().add(cardOfBox);
 			}
 		}

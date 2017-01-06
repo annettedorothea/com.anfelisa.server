@@ -11,11 +11,10 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.models.CardOfBoxModel;
 import com.anfelisa.box.models.CustomBoxDao;
 import com.anfelisa.box.models.CustomCardDao;
-import com.anfelisa.box.models.IBoxOfCourseModel;
+import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.ICardModel;
 import com.anfelisa.box.models.ICardOfBoxModel;
 import com.anfelisa.result.data.ResultSaveData;
-import com.anfelisa.test.models.CustomTestDao;
 
 public class SaveResultAction extends AbstractSaveResultAction {
 
@@ -36,21 +35,20 @@ public class SaveResultAction extends AbstractSaveResultAction {
 		if (this.actionData.getCardsToBeAdded() == null) {
 			this.actionData.setCardsToBeAdded(new ArrayList<>());
 		}
-		this.actionData.getTestId();
-		List<ICardModel> cards = CustomCardDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionData.getSchema(),
-				this.actionData.getTestId());
-		List<IBoxOfCourseModel> boxOfCourseList = CustomBoxDao.selectBoxOfCourseListForAddCardsAfterEdit(
+		;
+		List<IBoxModel> boxes = CustomBoxDao.selectBoxesWhereCardMightBeAddedAfterEdit(
 				this.getDatabaseHandle().getHandle(), this.actionData.getSchema(), this.actionData.getTestId(),
 				this.actionData.getUsername());
-		for (IBoxOfCourseModel boxOfCourse : boxOfCourseList) {
-			List<ICardModel> allCards = CustomCardDao.selectCardsOfCourseThatAreNotAlreadyInBoxAndHaveResult(
-					this.getDatabaseHandle().getHandle(), this.actionData.getSchema(), boxOfCourse.getCourseId(),
-					boxOfCourse.getBoxId(), this.actionData.getUsername());
+		for (IBoxModel box : boxes) {
+			List<ICardModel> allCards;
+			allCards = CustomCardDao.selectCardsToBeAddedAfterEdit(this.getDatabaseHandle().getHandle(),
+					this.actionData.getSchema(), this.actionData.getTestId(), box.getBoxId());
 			for (ICardModel card : allCards) {
-				ICardOfBoxModel cardOfBox = new CardOfBoxModel(null, card.getCardId(), 0F, 0, 0, 0, new DateTime(),
-						boxOfCourse.getBoxId(), null, new DateTime(), 0);
+				ICardOfBoxModel cardOfBox = new CardOfBoxModel(null, card.getCardId(), 0F, 0, 0, 0, this.actionData.getDate(),
+						box.getBoxId(), null, this.actionData.getDate(), 0);
 				this.actionData.getCardsToBeAdded().add(cardOfBox);
 			}
+
 		}
 	}
 

@@ -9,7 +9,6 @@ actions {
 	Login executes Login
 	Logout executes Logout
 	SaveResult executes SaveResult
-	AddCardsToBox executes AddCardsToBox
 	ValidateRequiredField executes ValidateRequiredField
 	OpenReallyDeleteDialog executes OpenReallyDeleteDialog
 	CloseAllDialogs executes CloseAllDialogs
@@ -63,15 +62,11 @@ commands {
 			RenderResult
 		)
 		on resultSaved triggers (
-			AddCardsToBox
+			Route
 		)
 		on serverError publishes (
 			common.ServerError
 		)
-	}
-	AddCardsToBox {
-		on added triggers (common.Route)
-		on error publishes ( common.ServerError ) triggers ( common.RouteHome )
 	}
 	ValidateRequiredField {
 		on fieldEmpty publishes ( FieldEmpty )

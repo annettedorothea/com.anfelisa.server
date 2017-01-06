@@ -72,6 +72,7 @@
         <div class="orange" style="width:{{two}}%;"/>
         <div class="red" style="width:{{one}}%;"/>
         <div class="pink" style="width:{{zero}}%;"/>
+        <div class="grey" style="width:{{noQuality}}%;"/>
     </div>
     <div class="row box-details">
         <div class="col-md-4"></div>

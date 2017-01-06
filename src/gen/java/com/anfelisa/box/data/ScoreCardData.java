@@ -13,6 +13,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.box.models.ICardModel;
 import com.anfelisa.box.models.ICardOfBoxModel;
 import com.anfelisa.box.models.ICardQualityModel;
+import com.anfelisa.box.models.INowModel;
 
 @SuppressWarnings("unused")
 public class ScoreCardData implements IScoreCardData {
@@ -64,7 +65,10 @@ public class ScoreCardData implements IScoreCardData {
 	@NotNull
 	private Integer submittedQuality;
 	
+	private org.joda.time.DateTime now;
+	
 
+	
 	
 	
 	
@@ -85,7 +89,8 @@ public class ScoreCardData implements IScoreCardData {
 		@JsonProperty("quality") Integer quality,
 		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
 		@JsonProperty("points") Integer points,
-		@JsonProperty("submittedQuality") Integer submittedQuality
+		@JsonProperty("submittedQuality") Integer submittedQuality,
+		@JsonProperty("now") org.joda.time.DateTime now
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -105,6 +110,7 @@ public class ScoreCardData implements IScoreCardData {
 		this.timestamp = timestamp;
 		this.points = points;
 		this.submittedQuality = submittedQuality;
+		this.now = now;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -305,6 +311,19 @@ public class ScoreCardData implements IScoreCardData {
 		this.submittedQuality = submittedQuality;
 		return this;
 	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getNow() {
+		return this.now;
+	}
+	public void setNow(org.joda.time.DateTime now) {
+		this.now = now;
+	}
+	public ScoreCardData withNow(org.joda.time.DateTime now) {
+		this.now = now;
+		return this;
+	}
+	
 	
 	
 	

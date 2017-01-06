@@ -15,6 +15,7 @@ class SaveResultAction extends AbstractSaveResultAction {
 		this.actionData.password = this.actionParam.password;
 		this.actionData.schema = this.actionParam.schema;
 		this.actionData.language = this.actionParam.language;
+		this.actionData.hash = this.actionParam.hash;
 		var json = {};
 		var allCompletionTexts = jQuery(".vocabulary");
 		for (var i = 0; i < allCompletionTexts.length; i++) {

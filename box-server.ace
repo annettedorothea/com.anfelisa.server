@@ -56,6 +56,8 @@ models {
 			Integer three
 			Integer four
 			Integer five
+			Integer noQuality
+			DateTime now
 		}
 	}
 
@@ -191,6 +193,12 @@ models {
 		}
 	}
 	
+	Now {
+		primitiveAttributes {
+			DateTime now
+		}
+	}
+	
 }
 
 data {
@@ -204,8 +212,8 @@ data {
 	BoxOfCourseList : (CourseToBoxAdditionList com.anfelisa.user.Username)
 	DeleteBox : (BoxId com.anfelisa.user.Username)
 	BoxConfig : (BoxConfig com.anfelisa.user.Username)
-	ScoreCard : (Card CardOfBox CardQuality )
-	FillBox : (FillBox com.anfelisa.user.Username)
+	ScoreCard : (Card CardOfBox CardQuality Now )
+	FillBox : (FillBox com.anfelisa.user.Username Now)
 	CardId : (CardId)
 	AllBoxes : (AllBoxes)
 }

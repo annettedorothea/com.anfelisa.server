@@ -25,6 +25,10 @@ public class ScoreModel implements IScoreModel {
 	
 	private Integer five;
 	
+	private Integer noQuality;
+	
+	private org.joda.time.DateTime now;
+	
 
 
 	public ScoreModel(
@@ -36,7 +40,9 @@ public class ScoreModel implements IScoreModel {
 		@JsonProperty("two") Integer two,
 		@JsonProperty("three") Integer three,
 		@JsonProperty("four") Integer four,
-		@JsonProperty("five") Integer five
+		@JsonProperty("five") Integer five,
+		@JsonProperty("noQuality") Integer noQuality,
+		@JsonProperty("now") org.joda.time.DateTime now
 	) {
 		this.cards = cards;
 		this.cardsForToday = cardsForToday;
@@ -47,6 +53,8 @@ public class ScoreModel implements IScoreModel {
 		this.three = three;
 		this.four = four;
 		this.five = five;
+		this.noQuality = noQuality;
+		this.now = now;
 	}
 
 	@JsonProperty
@@ -119,6 +127,22 @@ public class ScoreModel implements IScoreModel {
 	}
 	public void setFive(Integer five) {
 		this.five = five;
+	}
+	
+	@JsonProperty
+	public Integer getNoQuality() {
+		return this.noQuality;
+	}
+	public void setNoQuality(Integer noQuality) {
+		this.noQuality = noQuality;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getNow() {
+		return this.now;
+	}
+	public void setNow(org.joda.time.DateTime now) {
+		this.now = now;
 	}
 	
 

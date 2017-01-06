@@ -19,7 +19,7 @@ public class CustomStatisticsDao {
 				+ "sum(cardofbox.points) as points, sum(card.maxpoints) as maxpoints from " + schema + ".cardofbox "
 				+ "inner join " + schema + ".box on cardofbox.boxid = box.boxid "
 				+ "inner join " + schema + ".card on cardofbox.cardid = card.cardid "
-				+ "where box.username = :username and timestamp >= :startDate "
+				+ "where box.username = :username and timestamp >= :startDate and cardofbox.quality is not null "
 				+ "and timestamp < :endDate " + "group by day, name) as statistics order by timestamp, name")
 				.bind("username", username).bind("startDate", startDate).bind("endDate", endDate)
 				.map(new StatisticsItemMapper()).list();

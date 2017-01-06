@@ -18,7 +18,7 @@ public class CardInfoMapper implements ResultSetMapper<ICardInfoModel> {
 			r.getInt("count"),
 			new DateTime(r.getDate("timestamp")),
 			new DateTime(r.getDate("date")),
-			r.getInt("quality")
+			r.getObject("quality") != null ? r.getInt("quality") : null 
 		);
 	}
 }

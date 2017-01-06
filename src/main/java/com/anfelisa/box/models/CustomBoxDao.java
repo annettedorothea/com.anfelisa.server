@@ -56,14 +56,16 @@ public class CustomBoxDao {
 				.first();
 	}
 
-	public static List<IBoxOfCourseModel> selectBoxOfCourseListForAddCardsAfterEdit(Handle handle, String schema, Integer testId,
-			String username) {
+	public static List<IBoxModel> selectBoxesWhereCardMightBeAddedAfterEdit(Handle handle, String schema,
+			Integer testId, String username) {
 		return handle
-				.createQuery("SELECT distinct bc.* FROM " + schema + ".box b, " + schema + ".boxOfCourse bc INNER JOIN " + schema
-						+ ".course c on c.courseId = bc.courseId INNER JOIN " + schema
+				.createQuery("SELECT b.* FROM " + schema + ".box b INNER JOIN " + schema
+						+ ".boxOfCourse bc on b.boxId = bc.boxId INNER JOIN " + schema
+						+ ".course c on bc.courseId = c.courseId INNER JOIN " + schema
 						+ ".lesson l on l.courseId = c.courseId INNER JOIN " + schema
-						+ ".test t on t.lessonId = l.lessonId WHERE bc.autoAdd = false AND t.testId = :testId AND b.username = :username AND b.boxId = bc.boxId")
-				.bind("testId", testId).bind("username", username).map(new BoxOfCourseMapper()).list();
+						+ ".test t on t.lessonId = l.lessonId WHERE t.testId = :testId AND bc.autoAdd = false AND b.username = :username")
+				.bind("username", username).bind("testId", testId).map(new BoxMapper()).list();
+
 	}
 
 }

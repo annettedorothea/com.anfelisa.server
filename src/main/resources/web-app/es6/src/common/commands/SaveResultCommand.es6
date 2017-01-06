@@ -22,6 +22,7 @@ class SaveResultCommand extends AbstractSaveResultCommand {
                     this.commandData.outcome = this.resultSaved;
                     this.commandData.boxIds = data.boxIds;
                     this.commandData.resultId = data.resultId;
+                    this.commandData.hash = this.commandParam.hash + "/" + data;
                     resolve();
                 }, (error) => {
                     this.commandData.messageKey = "saveResultFailed";

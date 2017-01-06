@@ -56,7 +56,7 @@ commands {
 
 events {
 	ResultCreated uses ResultCreation listenedToBy ( Result.createResult )
-	ResultSaved uses ResultSave listenedToBy ( Result.saveResult )
+	ResultSaved uses ResultSave listenedToBy ( Result.saveResult Result.fillBoxWithCards)
 }
 
 views {
