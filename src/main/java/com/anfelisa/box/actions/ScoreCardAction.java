@@ -22,7 +22,7 @@ public class ScoreCardAction extends AbstractScoreCardAction {
 
 	@Override
 	protected void captureActionParam() {
-		this.actionData.setNow(new DateTime());
+		this.actionParam.setNow(new DateTime());
 	}
 
 	@Override

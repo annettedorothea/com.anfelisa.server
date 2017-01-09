@@ -26,9 +26,7 @@ public class FillBoxWithCardsAction extends AbstractFillBoxWithCardsAction {
 
 	@Override
 	protected void captureActionParam() {
-		// capture all stuff that we need to replay this action (e.g. system
-		// time)
-		this.actionData.setNow(new DateTime());
+		this.actionParam.setNow(new DateTime());
 	}
 
 	@Override

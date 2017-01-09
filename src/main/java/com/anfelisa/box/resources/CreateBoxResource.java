@@ -24,7 +24,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.dropwizard.auth.Auth;
 
 @Path("/boxes")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CreateBoxResource extends Resource {
 

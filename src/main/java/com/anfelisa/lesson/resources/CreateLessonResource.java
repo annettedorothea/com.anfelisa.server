@@ -21,7 +21,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Path("/lessons")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CreateLessonResource extends Resource {
 
