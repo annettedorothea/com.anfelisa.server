@@ -30,7 +30,6 @@ public class AppRegistration {
 		AceController.addConsumer("SetupSchemaEvent", databaseView.createBoxOfCourse);
 		AceController.addConsumer("SetupSchemaEvent", databaseView.createLoginLog);
 		AceController.addConsumer("SetupSchemaEvent", databaseView.insertAdminUser);
-		AceController.addConsumer("SetupSchemaEvent", databaseView.sendSchemaCreationEmail);
 		AceController.addConsumer("CreateSchemaEvent", databaseView.createSchema);
 		AceController.addConsumer("CreateSchemaEvent", databaseView.createTimelineTable);
 		AceController.addConsumer("CreateSchemaEvent", databaseView.createErrorTimelineTable);

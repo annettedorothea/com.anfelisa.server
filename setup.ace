@@ -54,7 +54,6 @@ events {
 		Database.createBoxOfCourse
 		Database.createLoginLog
 		Database.insertAdminUser
-		Database.sendSchemaCreationEmail
 	)
 	CreateSchema uses SchemaCreation listenedToBy (
 		Database.createSchema
@@ -82,6 +81,5 @@ views {
 		createLoginLog (SetupSchema)
 		
 		insertAdminUser(SetupSchema)
-		sendSchemaCreationEmail (SetupSchema)
 	}
 }

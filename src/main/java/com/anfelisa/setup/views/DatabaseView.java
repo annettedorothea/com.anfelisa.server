@@ -76,7 +76,7 @@ public class DatabaseView {
 				dataContainer.getName(), dataContainer.getPrename(), dataContainer.getEmail(), AuthUser.ADMIN, false);
 		UserDao.insert(handle, user, dataContainer.getSchema());
 	};
-	public BiConsumer<SetupSchemaData, Handle> sendSchemaCreationEmail = (dataContainer, handle) -> {
+	/*public BiConsumer<SetupSchemaData, Handle> sendSchemaCreationEmail = (dataContainer, handle) -> {
 		Locale currentLocale = new Locale(dataContainer.getLanguage());
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
 		String link = EmailService.getLocalhost() + "#" + dataContainer.getSchema() + "profile/confirmEmail/" + dataContainer.getUsername() + "/"
@@ -87,7 +87,7 @@ public class DatabaseView {
 		String subject = messages.getString("CreateSchemaEmailHeader");
 
 		EmailService.sendEmail("info@anfelisa.com", dataContainer.getEmail(), subject, message);
-	};
+	};*/
 
 }
 
