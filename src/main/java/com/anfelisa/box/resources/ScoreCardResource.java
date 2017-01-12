@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Resource;
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.box.actions.ScoreCardAction;
+import com.anfelisa.box.actions_.ScoreCardAction;
 import com.anfelisa.box.data.ScoreCardData;
 import com.anfelisa.box.models.CustomBoxDao;
 import com.anfelisa.box.models.IBoxModel;

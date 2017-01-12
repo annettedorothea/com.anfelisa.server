@@ -1,26 +1,28 @@
 package com.anfelisa.box.actions;
 
 import javax.annotation.security.PermitAll;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.skife.jdbi.v2.DBI;
+import com.anfelisa.ace.DatabaseHandle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.auth.AuthUser;
-import com.anfelisa.box.data.BoxToCourseAdditionData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.skife.jdbi.v2.DBI;
 
-import io.dropwizard.auth.Auth;
+import com.anfelisa.box.data.BoxToCourseAdditionData;
 
-@Path("/boxes")
+@Path("/BoxToCourseAddition")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AddCourseToBoxAction extends AbstractAddCourseToBoxAction {
@@ -33,11 +35,10 @@ public class AddCourseToBoxAction extends AbstractAddCourseToBoxAction {
 
 	@POST
 	@Timed
-	@Path("/addcourse")
+	@Path("/post")
 	@PermitAll
-	public Response post(@NotNull BoxToCourseAdditionData data, @Auth AuthUser user) throws JsonProcessingException {
-		this.actionData = data;
-		// set AuthUser in actionData
+	public Response post(/* params here */) throws JsonProcessingException {
+		BoxToCourseAdditionData actionData = null;
 		return this.apply();
 	}
 

@@ -1,5 +1,7 @@
 package com.anfelisa.result.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.result.commands.SaveResultCommand;
 
 public abstract class AbstractSaveResultAction extends Action<ResultSaveData> {
 
-	public AbstractSaveResultAction(ResultSaveData actionParam, DatabaseHandle databaseHandle) {
-		super("SaveResultAction", HttpMethod.POST, actionParam, databaseHandle);
+	public AbstractSaveResultAction(DBI jdbi) {
+		super("SaveResultAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

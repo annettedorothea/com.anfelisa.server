@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Resource;
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.box.actions.DeleteCardAction;
+import com.anfelisa.box.actions_.DeleteCardAction;
 import com.anfelisa.box.data.CardIdData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;

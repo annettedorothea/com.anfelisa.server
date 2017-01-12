@@ -1,5 +1,7 @@
 package com.anfelisa.box.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.box.commands.DeleteCardCommand;
 
 public abstract class AbstractDeleteCardAction extends Action<CardIdData> {
 
-	public AbstractDeleteCardAction(CardIdData actionParam, DatabaseHandle databaseHandle) {
-		super("DeleteCardAction", HttpMethod.DELETE, actionParam, databaseHandle);
+	public AbstractDeleteCardAction(DBI jdbi) {
+		super("DeleteCardAction", HttpMethod.DELETE, jdbi);
 	}
 
 	@Override

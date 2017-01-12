@@ -1,5 +1,7 @@
 package com.anfelisa.test.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.test.commands.UpdateTestCommand;
 
 public abstract class AbstractUpdateTestAction extends Action<TestCreationData> {
 
-	public AbstractUpdateTestAction(TestCreationData actionParam, DatabaseHandle databaseHandle) {
-		super("UpdateTestAction", HttpMethod.PUT, actionParam, databaseHandle);
+	public AbstractUpdateTestAction(DBI jdbi) {
+		super("UpdateTestAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

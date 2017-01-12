@@ -1,5 +1,7 @@
 package com.anfelisa.course.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.course.commands.CreateCourseCommand;
 
 public abstract class AbstractCreateCourseAction extends Action<CourseCreationData> {
 
-	public AbstractCreateCourseAction(CourseCreationData actionParam, DatabaseHandle databaseHandle) {
-		super("CreateCourseAction", HttpMethod.POST, actionParam, databaseHandle);
+	public AbstractCreateCourseAction(DBI jdbi) {
+		super("CreateCourseAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

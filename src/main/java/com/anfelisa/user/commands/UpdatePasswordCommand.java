@@ -17,8 +17,6 @@ public class UpdatePasswordCommand extends AbstractUpdatePasswordCommand {
 
 	@Override
 	protected void executeCommand() {
-		// execute command and set outcome
-		this.commandData = this.commandParam;
 		this.outcome = success;
 	}
 

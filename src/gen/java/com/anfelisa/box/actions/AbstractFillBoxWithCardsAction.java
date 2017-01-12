@@ -1,5 +1,7 @@
 package com.anfelisa.box.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.box.commands.FillBoxWithCardsCommand;
 
 public abstract class AbstractFillBoxWithCardsAction extends Action<FillBoxData> {
 
-	public AbstractFillBoxWithCardsAction(FillBoxData actionParam, DatabaseHandle databaseHandle) {
-		super("FillBoxWithCardsAction", HttpMethod.POST, actionParam, databaseHandle);
+	public AbstractFillBoxWithCardsAction(DBI jdbi) {
+		super("FillBoxWithCardsAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

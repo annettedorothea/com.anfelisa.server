@@ -1,5 +1,7 @@
 package com.anfelisa.user.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.user.commands.ConfirmEmailCommand;
 
 public abstract class AbstractConfirmEmailAction extends Action<UsernameData> {
 
-	public AbstractConfirmEmailAction(UsernameData actionParam, DatabaseHandle databaseHandle) {
-		super("ConfirmEmailAction", HttpMethod.PUT, actionParam, databaseHandle);
+	public AbstractConfirmEmailAction(DBI jdbi) {
+		super("ConfirmEmailAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

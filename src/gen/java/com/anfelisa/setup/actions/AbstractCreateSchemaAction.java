@@ -1,5 +1,7 @@
 package com.anfelisa.setup.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.setup.commands.CreateSchemaCommand;
 
 public abstract class AbstractCreateSchemaAction extends Action<SchemaCreationData> {
 
-	public AbstractCreateSchemaAction(SchemaCreationData actionParam, DatabaseHandle databaseHandle) {
-		super("CreateSchemaAction", HttpMethod.POST, actionParam, databaseHandle);
+	public AbstractCreateSchemaAction(DBI jdbi) {
+		super("CreateSchemaAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

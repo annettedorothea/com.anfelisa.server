@@ -1,5 +1,7 @@
 package com.anfelisa.box.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.box.commands.ImportCardCommand;
 
 public abstract class AbstractImportCardAction extends Action<CardCreationData> {
 
-	public AbstractImportCardAction(CardCreationData actionParam, DatabaseHandle databaseHandle) {
-		super("ImportCardAction", HttpMethod.POST, actionParam, databaseHandle);
+	public AbstractImportCardAction(DBI jdbi) {
+		super("ImportCardAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.anfelisa.user.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.user.commands.UpdatePasswordCommand;
 
 public abstract class AbstractUpdatePasswordAction extends Action<PasswordUpdateData> {
 
-	public AbstractUpdatePasswordAction(PasswordUpdateData actionParam, DatabaseHandle databaseHandle) {
-		super("UpdatePasswordAction", HttpMethod.PUT, actionParam, databaseHandle);
+	public AbstractUpdatePasswordAction(DBI jdbi) {
+		super("UpdatePasswordAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

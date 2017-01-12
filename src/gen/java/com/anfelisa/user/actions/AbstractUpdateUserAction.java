@@ -1,5 +1,7 @@
 package com.anfelisa.user.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.user.commands.UpdateUserCommand;
 
 public abstract class AbstractUpdateUserAction extends Action<UserUpdateData> {
 
-	public AbstractUpdateUserAction(UserUpdateData actionParam, DatabaseHandle databaseHandle) {
-		super("UpdateUserAction", HttpMethod.PUT, actionParam, databaseHandle);
+	public AbstractUpdateUserAction(DBI jdbi) {
+		super("UpdateUserAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

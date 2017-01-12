@@ -1,5 +1,7 @@
 package com.anfelisa.test.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -9,8 +11,8 @@ import com.anfelisa.test.data.CardContentHashListData;
 
 public abstract class AbstractGetCardsOfTestAction extends Action<CardContentHashListData> {
 
-	public AbstractGetCardsOfTestAction(CardContentHashListData actionParam, DatabaseHandle databaseHandle) {
-		super("GetCardsOfTestAction", HttpMethod.GET, actionParam, databaseHandle);
+	public AbstractGetCardsOfTestAction(DBI jdbi) {
+		super("GetCardsOfTestAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

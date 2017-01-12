@@ -1,5 +1,7 @@
 package com.anfelisa.box.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -9,8 +11,8 @@ import com.anfelisa.box.data.BoxIdData;
 
 public abstract class AbstractLoadBoxAction extends Action<BoxIdData> {
 
-	public AbstractLoadBoxAction(BoxIdData actionParam, DatabaseHandle databaseHandle) {
-		super("LoadBoxAction", HttpMethod.GET, actionParam, databaseHandle);
+	public AbstractLoadBoxAction(DBI jdbi) {
+		super("LoadBoxAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

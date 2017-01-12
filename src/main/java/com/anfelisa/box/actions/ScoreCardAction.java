@@ -1,52 +1,47 @@
 package com.anfelisa.box.actions;
 
+import javax.annotation.security.PermitAll;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import com.anfelisa.ace.DatabaseHandle;
 
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.ScoreCardData;
-import com.anfelisa.box.models.CardDao;
-import com.anfelisa.box.models.CardOfBoxDao;
-import com.anfelisa.box.models.ICardModel;
-import com.anfelisa.box.models.ICardOfBoxModel;
+import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.skife.jdbi.v2.DBI;
 
+import com.anfelisa.box.data.ScoreCardData;
+
+@Path("/ScoreCard")
+@Produces(MediaType.TEXT_PLAIN)
+@Consumes(MediaType.APPLICATION_JSON)
 public class ScoreCardAction extends AbstractScoreCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScoreCardAction.class);
 
-	public ScoreCardAction(ScoreCardData actionParam, DatabaseHandle databaseHandle) {
-		super(actionParam, databaseHandle);
+	public ScoreCardAction(DBI jdbi) {
+		super(jdbi);
 	}
 
-	@Override
-	protected void captureActionParam() {
-		this.actionParam.setNow(new DateTime());
-	}
-
-	@Override
-	protected void applyAction() {
-		this.actionData = this.actionParam;
-
-		ICardOfBoxModel cardOfBox = CardOfBoxDao.selectByCardOfBoxId(this.getDatabaseHandle().getHandle(),
-				this.actionParam.getCardOfBoxId(), this.actionParam.getSchema());
-		this.actionData.setBoxId(cardOfBox.getBoxId());
-		this.actionData.setCardId(cardOfBox.getCardId());
-		this.actionData.setCount(cardOfBox.getCount());
-		this.actionData.setInterval(cardOfBox.getInterval());
-		this.actionData.setN(cardOfBox.getN());
-		this.actionData.setPoints(cardOfBox.getPoints());
-		this.actionData.setQuality(cardOfBox.getQuality());
-		this.actionData.setDate(cardOfBox.getDate());
-		this.actionData.setEf(cardOfBox.getEf());
-		this.actionData.setTimestamp(cardOfBox.getTimestamp());
-
-		ICardModel card = CardDao.selectByCardId(this.getDatabaseHandle().getHandle(), this.actionData.getCardId(),
-				this.actionParam.getSchema());
-		this.actionData.setMaxPoints(card.getMaxPoints());
+	@POST
+	@Timed
+	@Path("/post")
+	@PermitAll
+	public Response post(/* params here */) throws JsonProcessingException {
+		ScoreCardData actionData = null;
+		return this.apply();
 	}
 
 }
 
-/* S.D.G. */
+/*       S.D.G.       */

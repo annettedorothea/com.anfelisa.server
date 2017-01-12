@@ -16,7 +16,6 @@ public class CreateTestCommand extends AbstractCreateTestCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.commandData = this.commandParam;
 		this.outcome = created;
 	}
 

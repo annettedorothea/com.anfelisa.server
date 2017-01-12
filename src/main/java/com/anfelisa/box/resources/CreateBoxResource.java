@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.Resource;
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.box.actions.CreateBoxAction;
+import com.anfelisa.box.actions_.CreateBoxAction;
 import com.anfelisa.box.data.BoxCreationData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;

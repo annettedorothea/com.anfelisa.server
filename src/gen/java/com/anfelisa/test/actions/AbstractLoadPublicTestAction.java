@@ -1,5 +1,7 @@
 package com.anfelisa.test.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -9,8 +11,8 @@ import com.anfelisa.test.data.TestData;
 
 public abstract class AbstractLoadPublicTestAction extends Action<TestData> {
 
-	public AbstractLoadPublicTestAction(TestData actionParam, DatabaseHandle databaseHandle) {
-		super("LoadPublicTestAction", HttpMethod.GET, actionParam, databaseHandle);
+	public AbstractLoadPublicTestAction(DBI jdbi) {
+		super("LoadPublicTestAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

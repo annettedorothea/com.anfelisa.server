@@ -1,5 +1,7 @@
 package com.anfelisa.box.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -9,8 +11,8 @@ import com.anfelisa.box.data.AllBoxesData;
 
 public abstract class AbstractGetAllBoxesAction extends Action<AllBoxesData> {
 
-	public AbstractGetAllBoxesAction(AllBoxesData actionParam, DatabaseHandle databaseHandle) {
-		super("GetAllBoxesAction", HttpMethod.GET, actionParam, databaseHandle);
+	public AbstractGetAllBoxesAction(DBI jdbi) {
+		super("GetAllBoxesAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

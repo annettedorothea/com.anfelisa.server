@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Resource;
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.box.actions.SaveBoxConfigAction;
+import com.anfelisa.box.actions_.SaveBoxConfigAction;
 import com.anfelisa.box.data.BoxConfigData;
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.IBoxModel;

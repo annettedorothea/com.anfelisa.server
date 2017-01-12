@@ -1,5 +1,7 @@
 package com.anfelisa.result.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.result.commands.CreateResultCommand;
 
 public abstract class AbstractCreateResultAction extends Action<ResultCreationData> {
 
-	public AbstractCreateResultAction(ResultCreationData actionParam, DatabaseHandle databaseHandle) {
-		super("CreateResultAction", HttpMethod.POST, actionParam, databaseHandle);
+	public AbstractCreateResultAction(DBI jdbi) {
+		super("CreateResultAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

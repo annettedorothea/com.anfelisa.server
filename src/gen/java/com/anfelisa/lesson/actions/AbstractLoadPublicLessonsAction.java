@@ -1,5 +1,7 @@
 package com.anfelisa.lesson.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -9,8 +11,8 @@ import com.anfelisa.lesson.data.LessonListData;
 
 public abstract class AbstractLoadPublicLessonsAction extends Action<LessonListData> {
 
-	public AbstractLoadPublicLessonsAction(LessonListData actionParam, DatabaseHandle databaseHandle) {
-		super("LoadPublicLessonsAction", HttpMethod.GET, actionParam, databaseHandle);
+	public AbstractLoadPublicLessonsAction(DBI jdbi) {
+		super("LoadPublicLessonsAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

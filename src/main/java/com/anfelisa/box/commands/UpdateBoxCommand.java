@@ -17,8 +17,6 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 
 	@Override
 	protected void executeCommand() {
-		// execute command and set outcome
-		this.commandData = this.commandParam;
 		this.outcome = created;
 	}
 

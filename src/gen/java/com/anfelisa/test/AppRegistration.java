@@ -6,19 +6,19 @@ import com.anfelisa.ace.AceController;
 import org.skife.jdbi.v2.DBI;
 
 import com.anfelisa.test.views.*;
-import com.anfelisa.test.resources.*;
+import com.anfelisa.test.actions.*;
 
 public class AppRegistration {
 
 	public static void registerResources(Environment environment, DBI jdbi) {
-		environment.jersey().register(new CreateTestResource(jdbi));
-		environment.jersey().register(new LoadPublicTestsResource(jdbi));
-		environment.jersey().register(new LoadPublicTestResource(jdbi));
-		environment.jersey().register(new LoadPrivateTestsResource(jdbi));
-		environment.jersey().register(new LoadPrivateTestResource(jdbi));
-		environment.jersey().register(new GetTestResource(jdbi));
-		environment.jersey().register(new UpdateTestResource(jdbi));
-		environment.jersey().register(new GetCardsOfTestResource(jdbi));
+		environment.jersey().register(new CreateTestAction(jdbi));
+		environment.jersey().register(new LoadPublicTestsAction(jdbi));
+		environment.jersey().register(new LoadPublicTestAction(jdbi));
+		environment.jersey().register(new LoadPrivateTestsAction(jdbi));
+		environment.jersey().register(new LoadPrivateTestAction(jdbi));
+		environment.jersey().register(new GetTestAction(jdbi));
+		environment.jersey().register(new UpdateTestAction(jdbi));
+		environment.jersey().register(new GetCardsOfTestAction(jdbi));
 	}
 
 	public static void registerConsumers() {

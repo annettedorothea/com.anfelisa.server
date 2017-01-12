@@ -11,21 +11,19 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScoreCardCommand.class);
 
-	public ScoreCardCommand(ScoreCardData commandParam, DatabaseHandle databaseHandle) {
-		super(commandParam, databaseHandle);
+	public ScoreCardCommand(ScoreCardData commandData, DatabaseHandle databaseHandle) {
+		super(commandData, databaseHandle);
 	}
 
 	@Override
 	protected void executeCommand() {
-		// execute command and set outcome
-		this.commandData = this.commandParam;
-		Float ef = this.commandParam.getEf() == 0F ? 1F : this.commandParam.getEf();
-		Integer interval = this.commandParam.getInterval() == 0 ? 1 : this.commandParam.getInterval();
-		Integer count = this.commandParam.getCount() + 1;
-		Integer maxPoints = this.commandParam.getMaxPoints();
-		Integer n = this.commandParam.getN() + 1;
+		Float ef = this.commandData.getEf() == 0F ? 1F : this.commandData.getEf();
+		Integer interval = this.commandData.getInterval() == 0 ? 1 : this.commandData.getInterval();
+		Integer count = this.commandData.getCount() + 1;
+		Integer maxPoints = this.commandData.getMaxPoints();
+		Integer n = this.commandData.getN() + 1;
 		Float newFactor = ef;
-		Integer quality = commandParam.getSubmittedQuality();
+		Integer quality = commandData.getSubmittedQuality();
 		
 		if (quality < 3) {
 			n = 1;
@@ -42,7 +40,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		} else if (n > 2){
 			newInterval = Math.round(interval * newFactor);
 		}
-		DateTime next = this.commandParam.getNow().plusDays(newInterval);
+		DateTime next = this.commandData.getNow().plusDays(newInterval);
 		Integer points = 0;
 		if (quality > 2) {
 			points = maxPoints;

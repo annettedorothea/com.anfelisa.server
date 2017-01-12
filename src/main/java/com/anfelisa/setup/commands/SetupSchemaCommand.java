@@ -16,7 +16,6 @@ public class SetupSchemaCommand extends AbstractSetupSchemaCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.commandData = this.commandParam;
 		this.outcome = setup;
 	}
 

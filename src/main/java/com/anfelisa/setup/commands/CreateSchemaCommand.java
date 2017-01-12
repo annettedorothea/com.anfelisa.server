@@ -16,7 +16,6 @@ public class CreateSchemaCommand extends AbstractCreateSchemaCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.commandData = this.commandParam;
 		this.outcome = setup;
 	}
 

@@ -17,7 +17,6 @@ public class DeleteCardCommand extends AbstractDeleteCardCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.commandData = this.commandParam;
 		this.outcome = deleted;
 	}
 

@@ -17,7 +17,6 @@ public class ImportCardCommand extends AbstractImportCardCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.commandData = this.commandParam;
 		if (this.commandData.getCardId() == null) {
 			this.outcome = imported;
 		} else {

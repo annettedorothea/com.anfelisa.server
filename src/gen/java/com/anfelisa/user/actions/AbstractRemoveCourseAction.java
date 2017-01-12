@@ -1,5 +1,7 @@
 package com.anfelisa.user.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.user.commands.RemoveCourseCommand;
 
 public abstract class AbstractRemoveCourseAction extends Action<RemoveCourseData> {
 
-	public AbstractRemoveCourseAction(RemoveCourseData actionParam, DatabaseHandle databaseHandle) {
-		super("RemoveCourseAction", HttpMethod.DELETE, actionParam, databaseHandle);
+	public AbstractRemoveCourseAction(DBI jdbi) {
+		super("RemoveCourseAction", HttpMethod.DELETE, jdbi);
 	}
 
 	@Override

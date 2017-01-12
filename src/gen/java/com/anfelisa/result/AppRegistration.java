@@ -6,14 +6,14 @@ import com.anfelisa.ace.AceController;
 import org.skife.jdbi.v2.DBI;
 
 import com.anfelisa.result.views.*;
-import com.anfelisa.result.resources.*;
+import com.anfelisa.result.actions.*;
 
 public class AppRegistration {
 
 	public static void registerResources(Environment environment, DBI jdbi) {
-		environment.jersey().register(new CreateResultResource(jdbi));
-		environment.jersey().register(new SaveResultResource(jdbi));
-		environment.jersey().register(new LoadResultResource(jdbi));
+		environment.jersey().register(new CreateResultAction(jdbi));
+		environment.jersey().register(new SaveResultAction(jdbi));
+		environment.jersey().register(new LoadResultAction(jdbi));
 	}
 
 	public static void registerConsumers() {

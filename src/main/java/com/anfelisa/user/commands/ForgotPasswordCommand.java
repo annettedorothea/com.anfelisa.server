@@ -16,9 +16,7 @@ public class ForgotPasswordCommand extends AbstractForgotPasswordCommand {
 
 	@Override
 	protected void executeCommand() {
-		// execute command and set outcome
-		this.commandData = this.commandParam;
-		if (this.commandParam.getEmail() == null) {
+		if (this.commandData.getEmail() == null) {
 			this.outcome = userNotFound;
 		} else {
 			this.outcome = ok;

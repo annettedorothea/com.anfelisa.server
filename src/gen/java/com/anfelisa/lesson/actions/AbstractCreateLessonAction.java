@@ -1,5 +1,7 @@
 package com.anfelisa.lesson.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.lesson.commands.CreateLessonCommand;
 
 public abstract class AbstractCreateLessonAction extends Action<LessonCreationData> {
 
-	public AbstractCreateLessonAction(LessonCreationData actionParam, DatabaseHandle databaseHandle) {
-		super("CreateLessonAction", HttpMethod.POST, actionParam, databaseHandle);
+	public AbstractCreateLessonAction(DBI jdbi) {
+		super("CreateLessonAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

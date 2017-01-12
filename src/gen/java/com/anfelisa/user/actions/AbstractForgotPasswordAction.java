@@ -1,5 +1,7 @@
 package com.anfelisa.user.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.user.commands.ForgotPasswordCommand;
 
 public abstract class AbstractForgotPasswordAction extends Action<ForgotPasswordData> {
 
-	public AbstractForgotPasswordAction(ForgotPasswordData actionParam, DatabaseHandle databaseHandle) {
-		super("ForgotPasswordAction", HttpMethod.POST, actionParam, databaseHandle);
+	public AbstractForgotPasswordAction(DBI jdbi) {
+		super("ForgotPasswordAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

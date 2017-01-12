@@ -17,7 +17,6 @@ public class RegisterUserCommand extends AbstractRegisterUserCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.commandData = this.commandParam;
 		this.commandData.setRole(AuthUser.STUDENT);
 		this.commandData.setEmailConfirmed(false);
 		this.outcome = ok;

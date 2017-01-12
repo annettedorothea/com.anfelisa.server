@@ -1,5 +1,7 @@
 package com.anfelisa.user.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -9,8 +11,8 @@ import com.anfelisa.user.data.CourseSelectionData;
 
 public abstract class AbstractGetCourseSelectionAction extends Action<CourseSelectionData> {
 
-	public AbstractGetCourseSelectionAction(CourseSelectionData actionParam, DatabaseHandle databaseHandle) {
-		super("GetCourseSelectionAction", HttpMethod.GET, actionParam, databaseHandle);
+	public AbstractGetCourseSelectionAction(DBI jdbi) {
+		super("GetCourseSelectionAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

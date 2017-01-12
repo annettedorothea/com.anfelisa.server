@@ -16,7 +16,6 @@ public class CreateCourseCommand extends AbstractCreateCourseCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.commandData = this.commandParam;
 		this.outcome = created;
 	}
 

@@ -1,5 +1,7 @@
 package com.anfelisa.user.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.user.commands.RegisterUserCommand;
 
 public abstract class AbstractRegisterUserAction extends Action<UserRegistrationData> {
 
-	public AbstractRegisterUserAction(UserRegistrationData actionParam, DatabaseHandle databaseHandle) {
-		super("RegisterUserAction", HttpMethod.POST, actionParam, databaseHandle);
+	public AbstractRegisterUserAction(DBI jdbi) {
+		super("RegisterUserAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

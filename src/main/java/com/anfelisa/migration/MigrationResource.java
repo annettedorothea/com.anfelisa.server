@@ -22,10 +22,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.Resource;
-import com.anfelisa.box.actions.AddCourseToBoxAction;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.actions.CreateBoxAction;
-import com.anfelisa.box.actions.CreateCardAction;
-import com.anfelisa.box.actions.CreateCardOfBoxAction;
+import com.anfelisa.box.actions_.AddCourseToBoxAction;
+import com.anfelisa.box.actions_.CreateCardAction;
+import com.anfelisa.box.actions_.CreateCardOfBoxAction;
 import com.anfelisa.box.data.BoxCreationData;
 import com.anfelisa.box.data.BoxToCourseAdditionData;
 import com.anfelisa.box.data.CardCreationData;
@@ -48,12 +49,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/migrate")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-public class MigrationResource extends Resource {
+public class MigrationResource {
 
 	static final Logger LOG = LoggerFactory.getLogger(MigrationResource.class);
 
+	private DBI jdbi;
+
+	private AuthUser adminUser;
+	
 	public MigrationResource(DBI jdbi) {
-		super(jdbi);
+		this.jdbi = jdbi;
+		adminUser = new AuthUser("Annette", "xxx", null);
 	}
 
 	private Connection openConnection() {
@@ -263,7 +269,7 @@ public class MigrationResource extends Resource {
 				}
 				String uuid = UUID.randomUUID().toString();
 				BoxCreationData boxCreationData = new BoxCreationData(id, name, student, uuid, schema);
-				new CreateBoxAction(boxCreationData, this.createDatabaseHandle()).apply();
+				new CreateBoxAction(this.jdbi).post(boxCreationData, adminUser);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -319,6 +325,7 @@ public class MigrationResource extends Resource {
 				String uuid = UUID.randomUUID().toString();
 				BoxToCourseAdditionData data = new BoxToCourseAdditionData(boxId, courseId, false, uuid, schema);
 				new AddCourseToBoxAction(data, this.createDatabaseHandle()).apply();
+				new AddCourseToBoxAction(jdbi)
 			}
 			rs.close();
 		} catch (SQLException e) {

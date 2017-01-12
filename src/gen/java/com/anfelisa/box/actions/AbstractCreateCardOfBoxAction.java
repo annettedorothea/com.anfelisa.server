@@ -1,5 +1,7 @@
 package com.anfelisa.box.actions;
 
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
@@ -10,8 +12,8 @@ import com.anfelisa.box.commands.CreateCardOfBoxCommand;
 
 public abstract class AbstractCreateCardOfBoxAction extends Action<CardOfBoxCreationData> {
 
-	public AbstractCreateCardOfBoxAction(CardOfBoxCreationData actionParam, DatabaseHandle databaseHandle) {
-		super("CreateCardOfBoxAction", HttpMethod.POST, actionParam, databaseHandle);
+	public AbstractCreateCardOfBoxAction(DBI jdbi) {
+		super("CreateCardOfBoxAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

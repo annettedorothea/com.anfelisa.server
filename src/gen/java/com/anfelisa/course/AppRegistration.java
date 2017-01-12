@@ -6,18 +6,18 @@ import com.anfelisa.ace.AceController;
 import org.skife.jdbi.v2.DBI;
 
 import com.anfelisa.course.views.*;
-import com.anfelisa.course.resources.*;
+import com.anfelisa.course.actions.*;
 
 public class AppRegistration {
 
 	public static void registerResources(Environment environment, DBI jdbi) {
-		environment.jersey().register(new CreateCourseResource(jdbi));
-		environment.jersey().register(new AddStudentToCourseResource(jdbi));
-		environment.jersey().register(new LoadPublicCoursesResource(jdbi));
-		environment.jersey().register(new LoadPrivateCoursesResource(jdbi));
-		environment.jersey().register(new LoadStatisticsResource(jdbi));
-		environment.jersey().register(new GetCourseResource(jdbi));
-		environment.jersey().register(new UpdateCourseResource(jdbi));
+		environment.jersey().register(new CreateCourseAction(jdbi));
+		environment.jersey().register(new AddStudentToCourseAction(jdbi));
+		environment.jersey().register(new LoadPublicCoursesAction(jdbi));
+		environment.jersey().register(new LoadPrivateCoursesAction(jdbi));
+		environment.jersey().register(new LoadStatisticsAction(jdbi));
+		environment.jersey().register(new GetCourseAction(jdbi));
+		environment.jersey().register(new UpdateCourseAction(jdbi));
 	}
 
 	public static void registerConsumers() {
