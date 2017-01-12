@@ -19,8 +19,8 @@ import com.anfelisa.setup.data.SetupSchemaData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-@Path("/setup")
-@Produces(MediaType.TEXT_PLAIN)
+@Path("/schema")
+@Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class SetupSchemaResource extends Resource {
 
@@ -32,7 +32,7 @@ public class SetupSchemaResource extends Resource {
 
 	@POST
 	@Timed
-	@Path("/schema")
+	@Path("/setup")
 	public Response post(@Valid @NotNull SetupSchemaData setupSchemaData) throws JsonProcessingException {
 		return new SetupSchemaAction(setupSchemaData, this.createDatabaseHandle()).apply();
 	}

@@ -3,27 +3,37 @@ com.anfelisa.setup
 target JAVA
 
 models {
-	Setup 
-	SetupSchema {
+	SchemaCreation {
 		primitiveAttributes {
 			NotEmpty String schemaToBeCreated
+		}
+	}
+	InitialUser {
+		primitiveAttributes {
+			NotNull String username
+			NotNull String password
+			NotNull String name
+			NotNull String prename
+			NotNull String email
+			String role
+			Boolean emailConfirmed
 		}
 	}
 }
 
 data {
-	Setup : ( Setup )
-	SetupSchema : ( SetupSchema )
+	SchemaCreation : (SchemaCreation)
+	SetupSchema : ( InitialUser com.anfelisa.user.Language)
 }
 
 actions {
-	POST SetupAnfelisa uses Setup executes SetupAnfelisa
+	POST CreateSchema uses SchemaCreation executes CreateSchema
 	POST SetupSchema uses SetupSchema executes SetupSchema
 }
 
 commands {
-	SetupAnfelisa uses Setup {
-		on setup publishes ( SetupAnfelisa )
+	CreateSchema uses SchemaCreation {
+		on setup publishes ( CreateSchema )
 	}
 	SetupSchema uses SetupSchema {
 		on setup publishes ( SetupSchema )
@@ -31,7 +41,7 @@ commands {
 }
 
 events {
-	SetupAnfelisa uses Setup listenedToBy (
+	SetupSchema uses SetupSchema listenedToBy (
 		Database.createUserTable
 		Database.createCourseTable
 		Database.createLessonTable
@@ -43,8 +53,10 @@ events {
 		Database.createCardOfBoxTable
 		Database.createBoxOfCourse
 		Database.createLoginLog
+		Database.insertAdminUser
+		Database.sendSchemaCreationEmail
 	)
-	SetupSchema uses SetupSchema listenedToBy (
+	CreateSchema uses SchemaCreation listenedToBy (
 		Database.createSchema
 		Database.createTimelineTable
 		Database.createErrorTimelineTable
@@ -53,20 +65,23 @@ events {
 
 views {
 	Database {
-		createSchema (SetupSchema)
-		createTimelineTable (SetupSchema)
-		createErrorTimelineTable (SetupSchema)
+		createSchema (SchemaCreation)
+		createTimelineTable (SchemaCreation)
+		createErrorTimelineTable (SchemaCreation)
 		
-		createUserTable (Setup)
-		createCourseTable (Setup)
-		createLessonTable (Setup)
-		createTestTable (Setup)
-		createResultTable (Setup)
-		createStudentOfCourseTable (Setup)
-		createBoxTable (Setup)
-		createCardTable (Setup)
-		createCardOfBoxTable (Setup)
-		createBoxOfCourse (Setup)
-		createLoginLog (Setup)
+		createUserTable (SetupSchema)
+		createCourseTable (SetupSchema)
+		createLessonTable (SetupSchema)
+		createTestTable (SetupSchema)
+		createResultTable (SetupSchema)
+		createStudentOfCourseTable (SetupSchema)
+		createBoxTable (SetupSchema)
+		createCardTable (SetupSchema)
+		createCardOfBoxTable (SetupSchema)
+		createBoxOfCourse (SetupSchema)
+		createLoginLog (SetupSchema)
+		
+		insertAdminUser(SetupSchema)
+		sendSchemaCreationEmail (SetupSchema)
 	}
 }

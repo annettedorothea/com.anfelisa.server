@@ -1,10 +1,15 @@
 package com.anfelisa.setup.views;
 
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
+import com.anfelisa.EmailService;
 import com.anfelisa.ace.AceDao;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.BoxOfCourseDao;
 import com.anfelisa.box.models.CardDao;
@@ -14,57 +19,76 @@ import com.anfelisa.course.models.StudentOfCourseDao;
 import com.anfelisa.lesson.models.LessonDao;
 import com.anfelisa.models.SchemaDao;
 import com.anfelisa.result.models.ResultDao;
-import com.anfelisa.setup.data.SetupData;
+import com.anfelisa.setup.data.SchemaCreationData;
 import com.anfelisa.setup.data.SetupSchemaData;
 import com.anfelisa.test.models.TestDao;
+import com.anfelisa.user.models.IUserModel;
 import com.anfelisa.user.models.LoginLogDao;
 import com.anfelisa.user.models.UserDao;
+import com.anfelisa.user.models.UserModel;
 
 public class DatabaseView {
 
-	public BiConsumer<SetupSchemaData, Handle> createSchema = (dataContainer, handle) -> {
+	public BiConsumer<SchemaCreationData, Handle> createSchema = (dataContainer, handle) -> {
 		SchemaDao.createSchema(handle, dataContainer.getSchemaToBeCreated());
 	};
-	public BiConsumer<SetupSchemaData, Handle> createTimelineTable = (dataContainer, handle) -> {
+	public BiConsumer<SchemaCreationData, Handle> createTimelineTable = (dataContainer, handle) -> {
 		AceDao.createTimelineTable(handle, dataContainer.getSchemaToBeCreated());
 	};
-	public BiConsumer<SetupSchemaData, Handle> createErrorTimelineTable = (dataContainer, handle) -> {
+	public BiConsumer<SchemaCreationData, Handle> createErrorTimelineTable = (dataContainer, handle) -> {
 		AceDao.createErrorTimelineTable(handle, dataContainer.getSchemaToBeCreated());
 	};
-	public BiConsumer<SetupData, Handle> createUserTable = (dataContainer, handle) -> {
+	public BiConsumer<SetupSchemaData, Handle> createUserTable = (dataContainer, handle) -> {
 		UserDao.create(handle, dataContainer.getSchema());
 	};
-	public BiConsumer<SetupData, Handle> createCourseTable = (dataContainer, handle) -> {
+	public BiConsumer<SetupSchemaData, Handle> createCourseTable = (dataContainer, handle) -> {
 		CourseDao.create(handle, dataContainer.getSchema());
 	};
-	public BiConsumer<SetupData, Handle> createLessonTable = (dataContainer, handle) -> {
+	public BiConsumer<SetupSchemaData, Handle> createLessonTable = (dataContainer, handle) -> {
 		LessonDao.create(handle, dataContainer.getSchema());
 	};
-	public BiConsumer<SetupData, Handle> createTestTable = (dataContainer, handle) -> {
+	public BiConsumer<SetupSchemaData, Handle> createTestTable = (dataContainer, handle) -> {
 		TestDao.create(handle, dataContainer.getSchema());
 	};
-	public BiConsumer<SetupData, Handle> createResultTable = (dataContainer, handle) -> {
+	public BiConsumer<SetupSchemaData, Handle> createResultTable = (dataContainer, handle) -> {
 		ResultDao.create(handle, dataContainer.getSchema());
 	};
-	public BiConsumer<SetupData, Handle> createStudentOfCourseTable = (dataContainer, handle) -> {
+	public BiConsumer<SetupSchemaData, Handle> createStudentOfCourseTable = (dataContainer, handle) -> {
 		StudentOfCourseDao.create(handle, dataContainer.getSchema());
 	};
-	public BiConsumer<SetupData, Handle> createBoxTable = (dataContainer, handle) -> {
+	public BiConsumer<SetupSchemaData, Handle> createBoxTable = (dataContainer, handle) -> {
 		BoxDao.create(handle, dataContainer.getSchema());
 	};
-	public BiConsumer<SetupData, Handle> createCardTable = (dataContainer, handle) -> {
+	public BiConsumer<SetupSchemaData, Handle> createCardTable = (dataContainer, handle) -> {
 		CardDao.create(handle, dataContainer.getSchema());
 	};
-	public BiConsumer<SetupData, Handle> createCardOfBoxTable = (dataContainer, handle) -> {
+	public BiConsumer<SetupSchemaData, Handle> createCardOfBoxTable = (dataContainer, handle) -> {
 		CardOfBoxDao.create(handle, dataContainer.getSchema());
 	};
-	public BiConsumer<SetupData, Handle> createBoxOfCourse = (dataContainer, handle) -> {
+	public BiConsumer<SetupSchemaData, Handle> createBoxOfCourse = (dataContainer, handle) -> {
 		BoxOfCourseDao.create(handle, dataContainer.getSchema());
 	};
-	public BiConsumer<SetupData, Handle> createLoginLog = (dataContainer, handle) -> {
+	public BiConsumer<SetupSchemaData, Handle> createLoginLog = (dataContainer, handle) -> {
 		LoginLogDao.create(handle, dataContainer.getSchema());
+	};
+	public BiConsumer<SetupSchemaData, Handle> insertAdminUser = (dataContainer, handle) -> {
+		IUserModel user = new UserModel(dataContainer.getUsername(), dataContainer.getPassword(),
+				dataContainer.getName(), dataContainer.getPrename(), dataContainer.getEmail(), AuthUser.ADMIN, false);
+		UserDao.insert(handle, user, dataContainer.getSchema());
+	};
+	public BiConsumer<SetupSchemaData, Handle> sendSchemaCreationEmail = (dataContainer, handle) -> {
+		Locale currentLocale = new Locale(dataContainer.getLanguage());
+		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
+		String link = EmailService.getLocalhost() + "#" + dataContainer.getSchema() + "profile/confirmEmail/" + dataContainer.getUsername() + "/"
+				+ dataContainer.getPassword();
+		Object[] params = { dataContainer.getPrename(), dataContainer.getName(), dataContainer.getSchema(),
+				dataContainer.getUsername(), link };
+		String message = MessageFormat.format(messages.getString("CreateSchemaEmailContent"), params);
+		String subject = messages.getString("CreateSchemaEmailHeader");
+
+		EmailService.sendEmail("info@anfelisa.com", dataContainer.getEmail(), subject, message);
 	};
 
 }
 
-/*                    S.D.G.                    */
+/* S.D.G. */

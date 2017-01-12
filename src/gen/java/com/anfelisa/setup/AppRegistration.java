@@ -11,27 +11,29 @@ import com.anfelisa.setup.resources.*;
 public class AppRegistration {
 
 	public static void registerResources(Environment environment, DBI jdbi) {
-		environment.jersey().register(new SetupAnfelisaResource(jdbi));
+		environment.jersey().register(new CreateSchemaResource(jdbi));
 		environment.jersey().register(new SetupSchemaResource(jdbi));
 	}
 
 	public static void registerConsumers() {
 		DatabaseView databaseView = new DatabaseView();
 		
-		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createUserTable);
-		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createCourseTable);
-		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createLessonTable);
-		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createTestTable);
-		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createResultTable);
-		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createStudentOfCourseTable);
-		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createCardTable);
-		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createBoxTable);
-		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createCardOfBoxTable);
-		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createBoxOfCourse);
-		AceController.addConsumer("SetupAnfelisaEvent", databaseView.createLoginLog);
-		AceController.addConsumer("SetupSchemaEvent", databaseView.createSchema);
-		AceController.addConsumer("SetupSchemaEvent", databaseView.createTimelineTable);
-		AceController.addConsumer("SetupSchemaEvent", databaseView.createErrorTimelineTable);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createUserTable);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createCourseTable);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createLessonTable);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createTestTable);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createResultTable);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createStudentOfCourseTable);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createCardTable);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createBoxTable);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createCardOfBoxTable);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createBoxOfCourse);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.createLoginLog);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.insertAdminUser);
+		AceController.addConsumer("SetupSchemaEvent", databaseView.sendSchemaCreationEmail);
+		AceController.addConsumer("CreateSchemaEvent", databaseView.createSchema);
+		AceController.addConsumer("CreateSchemaEvent", databaseView.createTimelineTable);
+		AceController.addConsumer("CreateSchemaEvent", databaseView.createErrorTimelineTable);
     }
 }
 

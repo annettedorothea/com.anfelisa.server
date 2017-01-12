@@ -10,7 +10,8 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.setup.models.ISetupSchemaModel;
+import com.anfelisa.setup.models.IInitialUserModel;
+import com.anfelisa.user.models.ILanguageModel;
 
 @SuppressWarnings("unused")
 public class SetupSchemaData implements ISetupSchemaData {
@@ -21,18 +22,52 @@ public class SetupSchemaData implements ISetupSchemaData {
 	
 	private String createdId;
 	
-	@NotEmpty
-	private String schemaToBeCreated;
+	@NotNull
+	private String username;
+	
+	@NotNull
+	private String password;
+	
+	@NotNull
+	private String name;
+	
+	@NotNull
+	private String prename;
+	
+	@NotNull
+	private String email;
+	
+	private String role;
+	
+	private Boolean emailConfirmed;
+	
+	@NotNull
+	private String language;
 	
 
+	
 	
 
 	public SetupSchemaData(
-		@JsonProperty("schemaToBeCreated") String schemaToBeCreated
+		@JsonProperty("username") String username,
+		@JsonProperty("password") String password,
+		@JsonProperty("name") String name,
+		@JsonProperty("prename") String prename,
+		@JsonProperty("email") String email,
+		@JsonProperty("role") String role,
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
+		@JsonProperty("language") String language
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.schemaToBeCreated = schemaToBeCreated;
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.prename = prename;
+		this.email = email;
+		this.role = role;
+		this.emailConfirmed = emailConfirmed;
+		this.language = language;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -43,16 +78,101 @@ public class SetupSchemaData implements ISetupSchemaData {
 	}
 
 	@JsonProperty
-	public String getSchemaToBeCreated() {
-		return this.schemaToBeCreated;
+	public String getUsername() {
+		return this.username;
 	}
-	public void setSchemaToBeCreated(String schemaToBeCreated) {
-		this.schemaToBeCreated = schemaToBeCreated;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public SetupSchemaData withSchemaToBeCreated(String schemaToBeCreated) {
-		this.schemaToBeCreated = schemaToBeCreated;
+	public SetupSchemaData withUsername(String username) {
+		this.username = username;
 		return this;
 	}
+	
+	@JsonProperty
+	public String getPassword() {
+		return this.password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public SetupSchemaData withPassword(String password) {
+		this.password = password;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getName() {
+		return this.name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public SetupSchemaData withName(String name) {
+		this.name = name;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getPrename() {
+		return this.prename;
+	}
+	public void setPrename(String prename) {
+		this.prename = prename;
+	}
+	public SetupSchemaData withPrename(String prename) {
+		this.prename = prename;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getEmail() {
+		return this.email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public SetupSchemaData withEmail(String email) {
+		this.email = email;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getRole() {
+		return this.role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public SetupSchemaData withRole(String role) {
+		this.role = role;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getEmailConfirmed() {
+		return this.emailConfirmed;
+	}
+	public void setEmailConfirmed(Boolean emailConfirmed) {
+		this.emailConfirmed = emailConfirmed;
+	}
+	public SetupSchemaData withEmailConfirmed(Boolean emailConfirmed) {
+		this.emailConfirmed = emailConfirmed;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getLanguage() {
+		return this.language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	public SetupSchemaData withLanguage(String language) {
+		this.language = language;
+		return this;
+	}
+	
 	
 	
 

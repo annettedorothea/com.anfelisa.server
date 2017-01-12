@@ -10,10 +10,10 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.setup.models.ISetupModel;
+import com.anfelisa.setup.models.ISchemaCreationModel;
 
 @SuppressWarnings("unused")
-public class SetupData implements ISetupData {
+public class SchemaCreationData implements ISchemaCreationData {
 	
 	private String uuid;
 	
@@ -21,18 +21,39 @@ public class SetupData implements ISetupData {
 	
 	private String createdId;
 	
+	@NotEmpty
+	private String schemaToBeCreated;
+	
 
 	
 
-	public SetupData(
-		@JsonProperty("uuid") String uuid,
+	public SchemaCreationData(
+		@JsonProperty("schemaToBeCreated") String schemaToBeCreated
+,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
+		this.schemaToBeCreated = schemaToBeCreated;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
 
+	public SchemaCreationData( String uuid,	String schema ) {
+		this.uuid = uuid;
+		this.schema = schema;
+	}
 
+	@JsonProperty
+	public String getSchemaToBeCreated() {
+		return this.schemaToBeCreated;
+	}
+	public void setSchemaToBeCreated(String schemaToBeCreated) {
+		this.schemaToBeCreated = schemaToBeCreated;
+	}
+	public SchemaCreationData withSchemaToBeCreated(String schemaToBeCreated) {
+		this.schemaToBeCreated = schemaToBeCreated;
+		return this;
+	}
+	
 	
 
 	@JsonProperty

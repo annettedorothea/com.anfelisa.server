@@ -1,6 +1,5 @@
 package com.anfelisa.setup.resources;
 
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
@@ -14,32 +13,32 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Resource;
-import com.anfelisa.setup.actions.SetupAnfelisaAction;
-import com.anfelisa.setup.data.SetupData;
+import com.anfelisa.setup.actions.CreateSchemaAction;
+import com.anfelisa.setup.data.SchemaCreationData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-@Path("/setup")
-@Produces(MediaType.TEXT_PLAIN)
+@Path("/schema")
+@Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class SetupAnfelisaResource extends Resource {
+public class CreateSchemaResource extends Resource {
 
-	static final Logger LOG = LoggerFactory.getLogger(SetupAnfelisaResource.class);
+	static final Logger LOG = LoggerFactory.getLogger(CreateSchemaResource.class);
 
-	public SetupAnfelisaResource(DBI jdbi) {
+	public CreateSchemaResource(DBI jdbi) {
 		super(jdbi);
 	}
 
 	@POST
 	@Timed
-	@Path("/tables")
-	public Response post(@Valid @NotNull SetupData setupData) throws JsonProcessingException {
-		return new SetupAnfelisaAction(setupData, this.createDatabaseHandle()).apply();
+	@Path("/create")
+	public Response post(@Valid @NotNull SchemaCreationData actionParam) throws JsonProcessingException {
+		DatabaseHandle handle = this.createDatabaseHandle();
+		return new CreateSchemaAction(actionParam, handle).apply();
 	}
 
 }
-
-/*       S.D.G.       */
 
 /* S.D.G. */

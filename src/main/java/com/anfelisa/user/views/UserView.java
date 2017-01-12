@@ -30,51 +30,51 @@ public class UserView {
 		String username = UserDao.insert(handle, dataContainer, dataContainer.getSchema());
 		dataContainer.setCreatedId(username);
 	};
-	
+
 	public BiConsumer<UserUpdateData, Handle> updateUser = (dataContainer, handle) -> {
 		CustomUserDao.update(handle, dataContainer, dataContainer.getSchema());
 	};
-	
+
 	public BiConsumer<AddCoursesData, Handle> addCourses = (dataContainer, handle) -> {
 		CustomUserDao.addCoursesToUser(handle, dataContainer, dataContainer.getSchema());
 	};
-	
+
 	public BiConsumer<RemoveCourseData, Handle> removeCourse = (dataContainer, handle) -> {
 		CustomUserDao.removeCourseFromUser(handle, dataContainer, dataContainer.getSchema());
 	};
-	
+
 	public BiConsumer<PasswordUpdateData, Handle> updatePassword = (dataContainer, handle) -> {
 		CustomUserDao.updatePassword(handle, dataContainer, dataContainer.getSchema());
 	};
-	
+
 	public BiConsumer<UsernameData, Handle> confirmEmail = (dataContainer, handle) -> {
 		CustomUserDao.confirmEmail(handle, dataContainer.getUsername(), dataContainer.getSchema());
 	};
-	
+
 	public BiConsumer<ForgotPasswordData, Handle> sendForgotPasswordEmail = (dataContainer, handle) -> {
 		Locale currentLocale = new Locale(dataContainer.getLanguage());
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
-		String link = EmailService.getLocalhost() + "#profile/newPassword/" + dataContainer.getUsername() + "/" + dataContainer.getPassword();
-		Object[] params = { dataContainer.getPrename(),
-				dataContainer.getName(), link };
+		String link = EmailService.getLocalhost() + "#profile/newPassword/" + dataContainer.getUsername() + "/"
+				+ dataContainer.getPassword();
+		Object[] params = { dataContainer.getPrename(), dataContainer.getName(), link };
 		String message = MessageFormat.format(messages.getString("passwordResetEmailContent"), params);
 		String subject = messages.getString("passwordResetEmailHeader");
-		
+
 		EmailService.sendEmail("info@anfelisa.com", dataContainer.getEmail(), subject, message);
 	};
-	
+
 	public BiConsumer<UserRegistrationData, Handle> sendRegistrationEmail = (dataContainer, handle) -> {
 		Locale currentLocale = new Locale(dataContainer.getLanguage());
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
-		String link = EmailService.getLocalhost() + "#profile/confirmEmail/" + dataContainer.getUsername() + "/" + dataContainer.getPassword();
-		Object[] params = { dataContainer.getPrename(),
-				dataContainer.getName(), link };
+		String link = EmailService.getLocalhost() + "#" + dataContainer.getSchema() + "profile/confirmEmail/"
+				+ dataContainer.getUsername() + "/" + dataContainer.getPassword();
+		Object[] params = { dataContainer.getPrename(), dataContainer.getName(), link };
 		String message = MessageFormat.format(messages.getString("RegistrationEmailContent"), params);
 		String subject = messages.getString("RegistrationEmailHeader");
-		
+
 		EmailService.sendEmail("info@anfelisa.com", dataContainer.getEmail(), subject, message);
 	};
-	
+
 }
 
-/*                    S.D.G.                    */
+/* S.D.G. */

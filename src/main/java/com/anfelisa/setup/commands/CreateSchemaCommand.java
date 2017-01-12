@@ -4,13 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.setup.data.SetupData;
+import com.anfelisa.setup.data.SchemaCreationData;
 
-public class SetupAnfelisaCommand extends AbstractSetupAnfelisaCommand {
+public class CreateSchemaCommand extends AbstractCreateSchemaCommand {
 
-	static final Logger LOG = LoggerFactory.getLogger(SetupAnfelisaCommand.class);
+	static final Logger LOG = LoggerFactory.getLogger(CreateSchemaCommand.class);
 
-	public SetupAnfelisaCommand(SetupData commandParam, DatabaseHandle databaseHandle) {
+	public CreateSchemaCommand(SchemaCreationData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 

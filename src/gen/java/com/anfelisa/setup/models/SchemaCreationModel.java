@@ -5,14 +5,14 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings("all")
-public class SetupSchemaModel implements ISetupSchemaModel {
+public class SchemaCreationModel implements ISchemaCreationModel {
 
 	@NotEmpty
 	private String schemaToBeCreated;
 	
 
 
-	public SetupSchemaModel(
+	public SchemaCreationModel(
 		@JsonProperty("schemaToBeCreated") String schemaToBeCreated
 	) {
 		this.schemaToBeCreated = schemaToBeCreated;
