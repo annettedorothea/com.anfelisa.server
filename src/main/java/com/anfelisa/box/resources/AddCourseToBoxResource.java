@@ -42,13 +42,14 @@ public class AddCourseToBoxResource extends Resource {
 	@Path("/addcourse")
 	@PermitAll
 	public Response post(@NotNull BoxToCourseAdditionData actionParam, @Auth AuthUser user) throws JsonProcessingException {
-		DatabaseHandle handle = this.createDatabaseHandle();
+		/*DatabaseHandle handle = this.createDatabaseHandle();
 		IBoxModel box = BoxDao.selectByBoxId(handle.getHandle(), actionParam.getBoxId(), actionParam.getSchema());
 		if (user.getRole().equals(AuthUser.STUDENT) && !box.getUsername().equals(user.getUsername())) {
 			handle.close();
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 		}
-		return new AddCourseToBoxAction(actionParam, handle).apply();
+		return new AddCourseToBoxAction(actionParam, handle).apply();*/
+		return null;
 	}
 
 }

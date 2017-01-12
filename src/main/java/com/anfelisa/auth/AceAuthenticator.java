@@ -15,8 +15,7 @@ import io.dropwizard.auth.basic.BasicCredentials;
 public class AceAuthenticator implements Authenticator<BasicCredentials, AuthUser> {
 
 	private DBI jdbi;
-	
-	
+
 	public AceAuthenticator(DBI jdbi) {
 		super();
 		this.jdbi = jdbi;
@@ -26,12 +25,17 @@ public class AceAuthenticator implements Authenticator<BasicCredentials, AuthUse
 		String schema = BasicCredentialsHelper.extractSchemaFromUserName(credentials);
 		String username = BasicCredentialsHelper.extractUsernameFromUserName(credentials);
 		Handle handle = this.jdbi.open();
-		IUserModel user = UserDao.selectByUsername(handle, username, schema);
-		handle.close();
-		if (user != null && user.getPassword().equals(credentials.getPassword())) {
-			return Optional.of(new AuthUser(credentials.getUsername(), credentials.getPassword(), user.getRole()));
-		} else {
-			return Optional.empty();
+		try {
+			IUserModel user = UserDao.selectByUsername(handle, username, schema);
+			if (user != null && user.getPassword().equals(credentials.getPassword())) {
+				return Optional.of(new AuthUser(credentials.getUsername(), credentials.getPassword(), user.getRole()));
+			} else {
+				return Optional.empty();
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			handle.close();
 		}
 	}
 }
