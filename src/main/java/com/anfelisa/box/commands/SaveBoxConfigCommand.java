@@ -1,11 +1,17 @@
 package com.anfelisa.box.commands;
 
-import com.anfelisa.ace.DatabaseHandle;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.BoxConfigData;
+import com.anfelisa.box.models.BoxDao;
+import com.anfelisa.box.models.CustomBoxOfCourseDao;
+import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.IBoxOfCourseModel;
 
 public class SaveBoxConfigCommand extends AbstractSaveBoxConfigCommand {
 
@@ -17,6 +23,17 @@ public class SaveBoxConfigCommand extends AbstractSaveBoxConfigCommand {
 
 	@Override
 	protected void executeCommand() {
+		IBoxModel box = BoxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
+		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
+			throwUnauthorized();
+		}
+		List<IBoxOfCourseModel> list = this.commandData.getBoxOfCourseList();
+		this.commandData.setExistingItems(new ArrayList<IBoxOfCourseModel>());
+		for (IBoxOfCourseModel item : list) {
+			IBoxOfCourseModel existingItem = CustomBoxOfCourseDao.select(this.getDatabaseHandle().getHandle(),
+					this.commandData.getSchema(), item.getBoxId(), item.getCourseId());
+			this.commandData.getExistingItems().add(existingItem);
+		}
 		this.outcome = saved;
 	}
 

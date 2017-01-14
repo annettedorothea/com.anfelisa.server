@@ -1,11 +1,12 @@
 package com.anfelisa.box.commands;
 
-import com.anfelisa.ace.DatabaseHandle;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.DeleteBoxData;
+import com.anfelisa.box.models.BoxDao;
+import com.anfelisa.box.models.IBoxModel;
 
 public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 
@@ -17,6 +18,10 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 
 	@Override
 	protected void executeCommand() {
+		IBoxModel box = BoxDao.selectByBoxId(this.getHandle(), this.commandData.getBoxId(), this.commandData.getSchema());
+		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
+			this.throwUnauthorized();
+		}
 		this.outcome = deleted;
 	}
 

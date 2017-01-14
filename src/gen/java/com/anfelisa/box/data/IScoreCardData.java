@@ -8,9 +8,10 @@ import com.anfelisa.box.models.ICardModel;
 import com.anfelisa.box.models.ICardOfBoxModel;
 import com.anfelisa.box.models.ICardQualityModel;
 import com.anfelisa.box.models.INowModel;
+import com.anfelisa.user.models.ICredentialsModel;
 
 @JsonDeserialize(as=ScoreCardData.class)
-public interface IScoreCardData extends ICardModel, ICardOfBoxModel, ICardQualityModel, INowModel, IDataContainer {
+public interface IScoreCardData extends ICardModel, ICardOfBoxModel, ICardQualityModel, INowModel, ICredentialsModel, IDataContainer {
 
 }
 

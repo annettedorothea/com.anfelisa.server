@@ -1,6 +1,8 @@
 package com.anfelisa.test.actions;
 
 import org.skife.jdbi.v2.DBI;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.DatabaseHandle;
@@ -20,6 +22,14 @@ public abstract class AbstractUpdateTestAction extends Action<TestCreationData> 
 	public ICommand getCommand() {
 		return new UpdateTestCommand(this.actionData, databaseHandle);
 	}
+
+	protected final void loadDataForGetRequest() {
+	}
+
+	protected void throwUnauthorized() {
+		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+	}
+
 }
 
 /*       S.D.G.       */

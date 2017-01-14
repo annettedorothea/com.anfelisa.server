@@ -11,7 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IBoxConfigModel;
-import com.anfelisa.user.models.IUsernameModel;
+import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("unused")
 public class BoxConfigData implements IBoxConfigData {
@@ -26,7 +26,10 @@ public class BoxConfigData implements IBoxConfigData {
 	private Integer boxId;
 	
 	@NotNull
-	private String username;
+	private String credentialsUsername;
+	
+	@NotNull
+	private String credentialsRole;
 	
 
 	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList;
@@ -36,12 +39,14 @@ public class BoxConfigData implements IBoxConfigData {
 
 	public BoxConfigData(
 		@JsonProperty("boxId") Integer boxId,
-		@JsonProperty("username") String username
+		@JsonProperty("credentialsUsername") String credentialsUsername,
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
 		this.boxId = boxId;
-		this.username = username;
+		this.credentialsUsername = credentialsUsername;
+		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -64,14 +69,26 @@ public class BoxConfigData implements IBoxConfigData {
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getCredentialsUsername() {
+		return this.credentialsUsername;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
 	}
-	public BoxConfigData withUsername(String username) {
-		this.username = username;
+	public BoxConfigData withCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCredentialsRole() {
+		return this.credentialsRole;
+	}
+	public void setCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+	}
+	public BoxConfigData withCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
 		return this;
 	}
 	

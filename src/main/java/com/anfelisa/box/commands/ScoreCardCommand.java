@@ -6,6 +6,12 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.ScoreCardData;
+import com.anfelisa.box.models.CardDao;
+import com.anfelisa.box.models.CardOfBoxDao;
+import com.anfelisa.box.models.CustomBoxDao;
+import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.ICardModel;
+import com.anfelisa.box.models.ICardOfBoxModel;
 
 public class ScoreCardCommand extends AbstractScoreCardCommand {
 
@@ -17,6 +23,28 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 	@Override
 	protected void executeCommand() {
+		IBoxModel box = CustomBoxDao.selectByCardOfBoxId(getHandle(), commandData.getSchema(), commandData.getCardOfBoxId());
+		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
+			throwUnauthorized();
+		}
+
+		ICardOfBoxModel cardOfBox = CardOfBoxDao.selectByCardOfBoxId(this.getDatabaseHandle().getHandle(),
+				this.commandData.getCardOfBoxId(), this.commandData.getSchema());
+		this.commandData.setBoxId(cardOfBox.getBoxId());
+		this.commandData.setCardId(cardOfBox.getCardId());
+		this.commandData.setCount(cardOfBox.getCount());
+		this.commandData.setInterval(cardOfBox.getInterval());
+		this.commandData.setN(cardOfBox.getN());
+		this.commandData.setPoints(cardOfBox.getPoints());
+		this.commandData.setQuality(cardOfBox.getQuality());
+		this.commandData.setDate(cardOfBox.getDate());
+		this.commandData.setEf(cardOfBox.getEf());
+		this.commandData.setTimestamp(cardOfBox.getTimestamp());
+
+		ICardModel card = CardDao.selectByCardId(this.getDatabaseHandle().getHandle(), this.commandData.getCardId(),
+				this.commandData.getSchema());
+		this.commandData.setMaxPoints(card.getMaxPoints());
+
 		Float ef = this.commandData.getEf() == 0F ? 1F : this.commandData.getEf();
 		Integer interval = this.commandData.getInterval() == 0 ? 1 : this.commandData.getInterval();
 		Integer count = this.commandData.getCount() + 1;

@@ -15,6 +15,7 @@ import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.IScoreModel;
 import com.anfelisa.box.models.ICardInfoModel;
 import com.anfelisa.box.models.ICardContentModel;
+import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("unused")
 public class CardData implements ICardData {
@@ -93,12 +94,19 @@ public class CardData implements ICardData {
 	
 	private String header;
 	
+	@NotNull
+	private String credentialsUsername;
+	
+	@NotNull
+	private String credentialsRole;
+	
 
 	
 	
 	
 	
 	private java.util.List<com.anfelisa.box.models.ILineModel> lines;
+	
 	
 
 	public CardData(
@@ -131,7 +139,9 @@ public class CardData implements ICardData {
 		@JsonProperty("given") String given,
 		@JsonProperty("large") Boolean large,
 		@JsonProperty("wanted") String wanted,
-		@JsonProperty("header") String header
+		@JsonProperty("header") String header,
+		@JsonProperty("credentialsUsername") String credentialsUsername,
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -165,6 +175,8 @@ public class CardData implements ICardData {
 		this.large = large;
 		this.wanted = wanted;
 		this.header = header;
+		this.credentialsUsername = credentialsUsername;
+		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -534,6 +546,30 @@ public class CardData implements ICardData {
 		return this;
 	}
 	
+	@JsonProperty
+	public String getCredentialsUsername() {
+		return this.credentialsUsername;
+	}
+	public void setCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+	}
+	public CardData withCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCredentialsRole() {
+		return this.credentialsRole;
+	}
+	public void setCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+	}
+	public CardData withCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+		return this;
+	}
+	
 	
 	
 	
@@ -545,6 +581,7 @@ public class CardData implements ICardData {
 	public void setLines(java.util.List<com.anfelisa.box.models.ILineModel> lines) {
 		this.lines = lines;
 	}
+	
 	
 
 	@JsonProperty

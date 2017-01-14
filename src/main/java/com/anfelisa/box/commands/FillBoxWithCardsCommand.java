@@ -1,10 +1,22 @@
 package com.anfelisa.box.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.FillBoxData;
+import com.anfelisa.box.models.BoxDao;
+import com.anfelisa.box.models.CardOfBoxModel;
+import com.anfelisa.box.models.CustomBoxOfCourseDao;
+import com.anfelisa.box.models.CustomCardDao;
+import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.IBoxOfCourseModel;
+import com.anfelisa.box.models.ICardModel;
+import com.anfelisa.box.models.ICardOfBoxModel;
 
 public class FillBoxWithCardsCommand extends AbstractFillBoxWithCardsCommand {
 
@@ -16,9 +28,36 @@ public class FillBoxWithCardsCommand extends AbstractFillBoxWithCardsCommand {
 
 	@Override
 	protected void executeCommand() {
+		if (commandData.getCredentialsRole().equals(AuthUser.STUDENT)) {
+			IBoxModel box = BoxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
+			if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
+				throwUnauthorized();
+			}
+		}
+		this.commandData.setCardsToBeAdded(new ArrayList<>());
+		List<IBoxOfCourseModel> boxOfCourseList = new ArrayList<IBoxOfCourseModel>();
+		List<IBoxOfCourseModel> boxOfCourses = CustomBoxOfCourseDao.selectByBoxId(this.getDatabaseHandle().getHandle(),
+				this.commandData.getSchema(), this.commandData.getBoxId());
+		boxOfCourseList.addAll(boxOfCourses);
+		for (IBoxOfCourseModel boxOfCourse : boxOfCourseList) {
+			List<ICardModel> allCards;
+			if (boxOfCourse.getAutoAdd()) {
+				allCards = CustomCardDao.selectCardsOfCourseThatAreNotAlreadyInBox(this.getDatabaseHandle().getHandle(),
+						this.commandData.getSchema(), boxOfCourse.getCourseId(), boxOfCourse.getBoxId());
+			} else {
+				allCards = CustomCardDao.selectCardsOfCourseThatAreNotAlreadyInBoxAndHaveResult(
+						this.getDatabaseHandle().getHandle(), this.commandData.getSchema(), boxOfCourse.getCourseId(),
+						boxOfCourse.getBoxId(), this.commandData.getCredentialsUsername());
+			}
+			for (ICardModel card : allCards) {
+				ICardOfBoxModel cardOfBox = new CardOfBoxModel(null, card.getCardId(), 0F, 0, 0, 0,
+						this.commandData.getNow(), boxOfCourse.getBoxId(), null, this.commandData.getNow(), 0);
+				this.commandData.getCardsToBeAdded().add(cardOfBox);
+			}
+		}
 		this.outcome = fillBoxWithCards;
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

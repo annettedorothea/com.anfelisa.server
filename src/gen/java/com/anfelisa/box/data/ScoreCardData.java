@@ -14,6 +14,7 @@ import com.anfelisa.box.models.ICardModel;
 import com.anfelisa.box.models.ICardOfBoxModel;
 import com.anfelisa.box.models.ICardQualityModel;
 import com.anfelisa.box.models.INowModel;
+import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("unused")
 public class ScoreCardData implements IScoreCardData {
@@ -67,7 +68,14 @@ public class ScoreCardData implements IScoreCardData {
 	
 	private org.joda.time.DateTime now;
 	
+	@NotNull
+	private String credentialsUsername;
+	
+	@NotNull
+	private String credentialsRole;
+	
 
+	
 	
 	
 	
@@ -90,7 +98,9 @@ public class ScoreCardData implements IScoreCardData {
 		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("submittedQuality") Integer submittedQuality,
-		@JsonProperty("now") org.joda.time.DateTime now
+		@JsonProperty("now") org.joda.time.DateTime now,
+		@JsonProperty("credentialsUsername") String credentialsUsername,
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -111,6 +121,8 @@ public class ScoreCardData implements IScoreCardData {
 		this.points = points;
 		this.submittedQuality = submittedQuality;
 		this.now = now;
+		this.credentialsUsername = credentialsUsername;
+		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -323,6 +335,31 @@ public class ScoreCardData implements IScoreCardData {
 		this.now = now;
 		return this;
 	}
+	
+	@JsonProperty
+	public String getCredentialsUsername() {
+		return this.credentialsUsername;
+	}
+	public void setCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+	}
+	public ScoreCardData withCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCredentialsRole() {
+		return this.credentialsRole;
+	}
+	public void setCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+	}
+	public ScoreCardData withCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+		return this;
+	}
+	
 	
 	
 	
