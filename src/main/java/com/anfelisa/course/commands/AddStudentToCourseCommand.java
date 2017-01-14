@@ -1,9 +1,13 @@
 package com.anfelisa.course.commands;
 
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.course.data.StudentToCourseAdditionData;
 
 public class AddStudentToCourseCommand extends AbstractAddStudentToCourseCommand {
@@ -16,9 +20,13 @@ public class AddStudentToCourseCommand extends AbstractAddStudentToCourseCommand
 
 	@Override
 	protected void executeCommand() {
+		if (commandData.getCredentialsRole().equals(AuthUser.STUDENT)
+				&& !commandData.getUsername().equals(commandData.getCredentialsUsername())) {
+			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+		}
 		this.outcome = added;
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

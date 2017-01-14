@@ -1,6 +1,5 @@
 com.anfelisa.course
 
-
 target JAVA
 
 models {
@@ -97,7 +96,7 @@ models {
 
 data {
 	CourseCreation : ( Course )
-	StudentToCourseAddition : (StudentOfCourse)
+	StudentToCourseAddition : (StudentOfCourse com.anfelisa.user.Credentials)
 	CourseList: (CourseList)
 	MyCourseList: (MyCourseList com.anfelisa.user.Username)
 	Statistics: ( Statistics StatisticsItemList )
