@@ -5,7 +5,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import com.anfelisa.ace.Action;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.user.data.RemoveCourseData;

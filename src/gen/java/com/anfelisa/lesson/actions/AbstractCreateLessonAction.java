@@ -5,7 +5,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import com.anfelisa.ace.Action;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.lesson.data.LessonCreationData;
@@ -28,6 +27,10 @@ public abstract class AbstractCreateLessonAction extends Action<LessonCreationDa
 
 	protected void throwUnauthorized() {
 		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+	}
+
+	protected void throwBadRequest() {
+		throw new WebApplicationException(Response.Status.BAD_REQUEST);
 	}
 
 }
