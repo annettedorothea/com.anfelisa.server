@@ -27,7 +27,7 @@ import org.skife.jdbi.v2.DBI;
 
 import com.anfelisa.box.data.BoxCreationData;
 
-@Path("/BoxCreation")
+@Path("/boxes")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CreateBoxAction extends AbstractCreateBoxAction {
@@ -40,10 +40,12 @@ public class CreateBoxAction extends AbstractCreateBoxAction {
 
 	@POST
 	@Timed
-	@Path("/post")
+	@Path("/create")
 	@PermitAll
-	public Response post(@NotNull BoxCreationData actionParam, @Auth AuthUser user) throws JsonProcessingException {
-		BoxCreationData actionData = null;
+	public Response post(@NotNull BoxCreationData data, @Auth AuthUser user) throws JsonProcessingException {
+		this.actionData = data;
+		this.actionData.setCredentialsRole(user.getRole());
+		this.actionData.setCredentialsUsername(user.getUsername());
 		return this.apply();
 	}
 

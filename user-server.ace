@@ -25,8 +25,8 @@ models {
 
 	Credentials {
 		primitiveAttributes {
-			NotNull String username
-			NotNull String role
+			NotNull String credentialsUsername
+			NotNull String credentialsRole
 		}
 	} 
 

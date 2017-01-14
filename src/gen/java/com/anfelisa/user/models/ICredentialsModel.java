@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=CredentialsModel.class)
 public interface ICredentialsModel {
 
-	String getUsername();
-	String getRole();
+	String getCredentialsUsername();
+	String getCredentialsRole();
 
 
 }

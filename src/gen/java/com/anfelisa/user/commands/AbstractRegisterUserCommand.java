@@ -1,6 +1,7 @@
 package com.anfelisa.user.commands;
 
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
@@ -25,6 +26,10 @@ public abstract class AbstractRegisterUserCommand extends Command<UserRegistrati
 		default:
 			throw new WebApplicationException("unhandled outcome " + outcome);
 		}
+	}
+	
+	protected void throwUnauthorized() {
+		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 	}
 }
 

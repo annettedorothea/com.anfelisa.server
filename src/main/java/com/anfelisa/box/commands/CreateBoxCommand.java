@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.BoxCreationData;
 
 public class CreateBoxCommand extends AbstractCreateBoxCommand {
@@ -16,6 +17,9 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 
 	@Override
 	protected void executeCommand() {
+		if (commandData.getCredentialsRole().equals(AuthUser.STUDENT) && !commandData.getUsername().equals(commandData.getCredentialsUsername())) {
+			throwUnauthorized();
+		}
 		this.outcome = created;
 	}
 

@@ -32,7 +32,10 @@ public class LoginData implements ILoginData {
 	private org.joda.time.DateTime date;
 	
 	@NotNull
-	private String role;
+	private String credentialsUsername;
+	
+	@NotNull
+	private String credentialsRole;
 	
 
 	
@@ -42,14 +45,16 @@ public class LoginData implements ILoginData {
 		@JsonProperty("loginLogId") Integer loginLogId,
 		@JsonProperty("username") String username,
 		@JsonProperty("date") org.joda.time.DateTime date,
-		@JsonProperty("role") String role
+		@JsonProperty("credentialsUsername") String credentialsUsername,
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
 		this.loginLogId = loginLogId;
 		this.username = username;
 		this.date = date;
-		this.role = role;
+		this.credentialsUsername = credentialsUsername;
+		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -96,14 +101,26 @@ public class LoginData implements ILoginData {
 	}
 	
 	@JsonProperty
-	public String getRole() {
-		return this.role;
+	public String getCredentialsUsername() {
+		return this.credentialsUsername;
 	}
-	public void setRole(String role) {
-		this.role = role;
+	public void setCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
 	}
-	public LoginData withRole(String role) {
-		this.role = role;
+	public LoginData withCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCredentialsRole() {
+		return this.credentialsRole;
+	}
+	public void setCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+	}
+	public LoginData withCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
 		return this;
 	}
 	

@@ -202,8 +202,8 @@ models {
 }
 
 data {
-	BoxCreation : ( Box )
-	BoxToCourseAddition : ( BoxOfCourse )
+	BoxCreation : ( Box com.anfelisa.user.Credentials )
+	BoxToCourseAddition : ( BoxOfCourse com.anfelisa.user.Credentials )
 	CardCreation : ( Card )
 	CardOfBoxCreation : ( CardOfBox )
 	BoxList : ( BoxList com.anfelisa.user.Username )

@@ -8,35 +8,35 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class CredentialsModel implements ICredentialsModel {
 
 	@NotNull
-	private String username;
+	private String credentialsUsername;
 	
 	@NotNull
-	private String role;
+	private String credentialsRole;
 	
 
 
 	public CredentialsModel(
-		@JsonProperty("username") String username,
-		@JsonProperty("role") String role
+		@JsonProperty("credentialsUsername") String credentialsUsername,
+		@JsonProperty("credentialsRole") String credentialsRole
 	) {
-		this.username = username;
-		this.role = role;
+		this.credentialsUsername = credentialsUsername;
+		this.credentialsRole = credentialsRole;
 	}
 
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getCredentialsUsername() {
+		return this.credentialsUsername;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
 	}
 	
 	@JsonProperty
-	public String getRole() {
-		return this.role;
+	public String getCredentialsRole() {
+		return this.credentialsRole;
 	}
-	public void setRole(String role) {
-		this.role = role;
+	public void setCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
 	}
 	
 

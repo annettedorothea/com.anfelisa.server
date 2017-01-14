@@ -11,6 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("unused")
 public class BoxCreationData implements IBoxCreationData {
@@ -30,19 +31,30 @@ public class BoxCreationData implements IBoxCreationData {
 	@NotNull
 	private String username;
 	
+	@NotNull
+	private String credentialsUsername;
+	
+	@NotNull
+	private String credentialsRole;
+	
 
+	
 	
 
 	public BoxCreationData(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("name") String name,
-		@JsonProperty("username") String username
+		@JsonProperty("username") String username,
+		@JsonProperty("credentialsUsername") String credentialsUsername,
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
 		this.boxId = boxId;
 		this.name = name;
 		this.username = username;
+		this.credentialsUsername = credentialsUsername;
+		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -87,6 +99,31 @@ public class BoxCreationData implements IBoxCreationData {
 		this.username = username;
 		return this;
 	}
+	
+	@JsonProperty
+	public String getCredentialsUsername() {
+		return this.credentialsUsername;
+	}
+	public void setCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+	}
+	public BoxCreationData withCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCredentialsRole() {
+		return this.credentialsRole;
+	}
+	public void setCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+	}
+	public BoxCreationData withCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+		return this;
+	}
+	
 	
 	
 

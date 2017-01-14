@@ -4,7 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.BoxToCourseAdditionData;
+import com.anfelisa.box.models.BoxDao;
+import com.anfelisa.box.models.IBoxModel;
 
 public class AddCourseToBoxCommand extends AbstractAddCourseToBoxCommand {
 
@@ -16,15 +19,13 @@ public class AddCourseToBoxCommand extends AbstractAddCourseToBoxCommand {
 
 	@Override
 	protected void executeCommand() {
-		/*DatabaseHandle handle = this.createDatabaseHandle();
-		IBoxModel box = BoxDao.selectByBoxId(handle.getHandle(), actionParam.getBoxId(), actionParam.getSchema());
-		if (user.getRole().equals(AuthUser.STUDENT) && !box.getUsername().equals(user.getUsername())) {
-			handle.close();
-			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
-		}*/
+		IBoxModel box = BoxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
+		if (commandData.getCredentialsRole().equals(AuthUser.STUDENT) && !box.getUsername().equals(commandData.getCredentialsUsername())) {
+			this.throwUnauthorized();
+		}
 		this.outcome = added;
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

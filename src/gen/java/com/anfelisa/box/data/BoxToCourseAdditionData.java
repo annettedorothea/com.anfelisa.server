@@ -11,6 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IBoxOfCourseModel;
+import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("unused")
 public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
@@ -30,19 +31,30 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	@NotNull
 	private Boolean autoAdd;
 	
+	@NotNull
+	private String credentialsUsername;
+	
+	@NotNull
+	private String credentialsRole;
+	
 
+	
 	
 
 	public BoxToCourseAdditionData(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("courseId") Integer courseId,
-		@JsonProperty("autoAdd") Boolean autoAdd
+		@JsonProperty("autoAdd") Boolean autoAdd,
+		@JsonProperty("credentialsUsername") String credentialsUsername,
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
 		this.boxId = boxId;
 		this.courseId = courseId;
 		this.autoAdd = autoAdd;
+		this.credentialsUsername = credentialsUsername;
+		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -87,6 +99,31 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 		this.autoAdd = autoAdd;
 		return this;
 	}
+	
+	@JsonProperty
+	public String getCredentialsUsername() {
+		return this.credentialsUsername;
+	}
+	public void setCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+	}
+	public BoxToCourseAdditionData withCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCredentialsRole() {
+		return this.credentialsRole;
+	}
+	public void setCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+	}
+	public BoxToCourseAdditionData withCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+		return this;
+	}
+	
 	
 	
 

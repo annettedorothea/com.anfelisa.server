@@ -1,6 +1,7 @@
 package com.anfelisa.setup.commands;
 
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
@@ -24,6 +25,10 @@ public abstract class AbstractCreateSchemaCommand extends Command<SchemaCreation
 		default:
 			throw new WebApplicationException("unhandled outcome " + outcome);
 		}
+	}
+	
+	protected void throwUnauthorized() {
+		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 	}
 }
 
