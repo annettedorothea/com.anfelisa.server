@@ -11,6 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.ICourseSelectionModel;
+import com.anfelisa.user.models.ICredentialsModel;
 import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")
@@ -25,19 +26,30 @@ public class AddCoursesData implements IAddCoursesData {
 	private java.util.List<Integer> courseIdList;
 	
 	@NotNull
+	private String credentialsUsername;
+	
+	@NotNull
+	private String credentialsRole;
+	
+	@NotNull
 	private String username;
 	
 
 	
 	
+	
 
 	public AddCoursesData(
 		@JsonProperty("courseIdList") java.util.List<Integer> courseIdList,
+		@JsonProperty("credentialsUsername") String credentialsUsername,
+		@JsonProperty("credentialsRole") String credentialsRole,
 		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
 		this.courseIdList = courseIdList;
+		this.credentialsUsername = credentialsUsername;
+		this.credentialsRole = credentialsRole;
 		this.username = username;
 		this.uuid = uuid;
 		this.schema = schema;
@@ -61,6 +73,30 @@ public class AddCoursesData implements IAddCoursesData {
 	}
 	
 	@JsonProperty
+	public String getCredentialsUsername() {
+		return this.credentialsUsername;
+	}
+	public void setCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+	}
+	public AddCoursesData withCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCredentialsRole() {
+		return this.credentialsRole;
+	}
+	public void setCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+	}
+	public AddCoursesData withCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getUsername() {
 		return this.username;
 	}
@@ -71,6 +107,7 @@ public class AddCoursesData implements IAddCoursesData {
 		this.username = username;
 		return this;
 	}
+	
 	
 	
 	

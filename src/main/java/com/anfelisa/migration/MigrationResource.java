@@ -22,10 +22,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.AuthUser;
+import com.anfelisa.box.actions.AddCourseToBoxAction;
 import com.anfelisa.box.actions.CreateBoxAction;
-import com.anfelisa.box.actions_.AddCourseToBoxAction;
-import com.anfelisa.box.actions_.CreateCardAction;
-import com.anfelisa.box.actions_.CreateCardOfBoxAction;
+import com.anfelisa.box.actions.CreateCardAction;
+import com.anfelisa.box.actions.CreateCardOfBoxAction;
 import com.anfelisa.box.data.BoxCreationData;
 import com.anfelisa.box.data.BoxToCourseAdditionData;
 import com.anfelisa.box.data.CardCreationData;

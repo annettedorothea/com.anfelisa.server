@@ -11,7 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.ILoginLogModel;
-import com.anfelisa.user.models.ICredentialsModel;
+import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")
 public class LoginData implements ILoginData {
@@ -31,12 +31,6 @@ public class LoginData implements ILoginData {
 	@NotNull
 	private org.joda.time.DateTime date;
 	
-	@NotNull
-	private String credentialsUsername;
-	
-	@NotNull
-	private String credentialsRole;
-	
 
 	
 	
@@ -44,17 +38,13 @@ public class LoginData implements ILoginData {
 	public LoginData(
 		@JsonProperty("loginLogId") Integer loginLogId,
 		@JsonProperty("username") String username,
-		@JsonProperty("date") org.joda.time.DateTime date,
-		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole
+		@JsonProperty("date") org.joda.time.DateTime date
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
 		this.loginLogId = loginLogId;
 		this.username = username;
 		this.date = date;
-		this.credentialsUsername = credentialsUsername;
-		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -97,30 +87,6 @@ public class LoginData implements ILoginData {
 	}
 	public LoginData withDate(org.joda.time.DateTime date) {
 		this.date = date;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getCredentialsUsername() {
-		return this.credentialsUsername;
-	}
-	public void setCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
-	}
-	public LoginData withCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getCredentialsRole() {
-		return this.credentialsRole;
-	}
-	public void setCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
-	}
-	public LoginData withCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
 		return this;
 	}
 	

@@ -1,30 +1,44 @@
 package com.anfelisa.user.actions;
 
-import com.anfelisa.ace.DatabaseHandle;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.user.data.UsernameAvailableData;
 import com.anfelisa.user.models.UserDao;
+import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
-public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
+@Path("/users")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+	public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UsernameAvailableAction.class);
 
-	public UsernameAvailableAction(UsernameAvailableData actionParam, DatabaseHandle databaseHandle) {
-		super(actionParam, databaseHandle);
+	public UsernameAvailableAction(DBI jdbi) {
+		super(jdbi);
 	}
 
-	@Override
-	protected void captureActionParam() {
-		// capture all stuff that we need to replay this action (e.g. system time)
+	@GET
+	@Timed
+	@Path("/username")
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
+			@NotNull @QueryParam("username") String username) throws JsonProcessingException {
+		this.actionData = new UsernameAvailableData(uuid, schema).withUsername(username);
+		return this.apply();
 	}
 
-	@Override
-	protected void applyAction() {
-		// init actionData
-		this.actionData = this.actionParam;
+	protected final void loadDataForGetRequest() {
 		if (UserDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.actionData.getUsername(), this.actionData.getSchema()) == null) {
 			this.actionData.setAvailable(true);
 		} else {

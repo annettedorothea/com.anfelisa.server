@@ -11,7 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IPointsModel;
-import com.anfelisa.user.models.ICredentialsModel;
+import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("unused")
 public class PointsData implements IPointsData {
@@ -26,10 +26,7 @@ public class PointsData implements IPointsData {
 	private Integer points;
 	
 	@NotNull
-	private String credentialsUsername;
-	
-	@NotNull
-	private String credentialsRole;
+	private String username;
 	
 
 	
@@ -37,14 +34,12 @@ public class PointsData implements IPointsData {
 
 	public PointsData(
 		@JsonProperty("points") Integer points,
-		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole
+		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
 		this.points = points;
-		this.credentialsUsername = credentialsUsername;
-		this.credentialsRole = credentialsRole;
+		this.username = username;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -67,26 +62,14 @@ public class PointsData implements IPointsData {
 	}
 	
 	@JsonProperty
-	public String getCredentialsUsername() {
-		return this.credentialsUsername;
+	public String getUsername() {
+		return this.username;
 	}
-	public void setCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public PointsData withCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getCredentialsRole() {
-		return this.credentialsRole;
-	}
-	public void setCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
-	}
-	public PointsData withCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
+	public PointsData withUsername(String username) {
+		this.username = username;
 		return this;
 	}
 	

@@ -30,6 +30,11 @@ public abstract class AbstractLoginCommand extends Command<LoginData> {
 	protected void throwUnauthorized() {
 		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 	}
+
+	protected void throwBadRequest() {
+		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
 }
 
 /*       S.D.G.       */

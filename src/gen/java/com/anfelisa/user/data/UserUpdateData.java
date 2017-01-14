@@ -11,6 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IUserUpdateModel;
+import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("unused")
 public class UserUpdateData implements IUserUpdateData {
@@ -33,14 +34,23 @@ public class UserUpdateData implements IUserUpdateData {
 	@NotNull
 	private String email;
 	
+	@NotNull
+	private String credentialsUsername;
+	
+	@NotNull
+	private String credentialsRole;
+	
 
+	
 	
 
 	public UserUpdateData(
 		@JsonProperty("username") String username,
 		@JsonProperty("name") String name,
 		@JsonProperty("prename") String prename,
-		@JsonProperty("email") String email
+		@JsonProperty("email") String email,
+		@JsonProperty("credentialsUsername") String credentialsUsername,
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -48,6 +58,8 @@ public class UserUpdateData implements IUserUpdateData {
 		this.name = name;
 		this.prename = prename;
 		this.email = email;
+		this.credentialsUsername = credentialsUsername;
+		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -104,6 +116,31 @@ public class UserUpdateData implements IUserUpdateData {
 		this.email = email;
 		return this;
 	}
+	
+	@JsonProperty
+	public String getCredentialsUsername() {
+		return this.credentialsUsername;
+	}
+	public void setCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+	}
+	public UserUpdateData withCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCredentialsRole() {
+		return this.credentialsRole;
+	}
+	public void setCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+	}
+	public UserUpdateData withCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+		return this;
+	}
+	
 	
 	
 

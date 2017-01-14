@@ -1,10 +1,10 @@
 package com.anfelisa.user.commands;
 
-import com.anfelisa.ace.DatabaseHandle;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.AddCoursesData;
 
 public class AddCoursesCommand extends AbstractAddCoursesCommand {
@@ -17,9 +17,13 @@ public class AddCoursesCommand extends AbstractAddCoursesCommand {
 
 	@Override
 	protected void executeCommand() {
+		if (commandData.getCredentialsRole().equals(AuthUser.STUDENT)
+				&& !commandData.getUsername().equals(commandData.getCredentialsUsername())) {
+			throwUnauthorized();
+		}
 		this.outcome = success;
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

@@ -90,12 +90,12 @@ models {
 
 data {
 	UserCreation : ( User )
-	Login : ( LoginLog Credentials )
-	Points : ( Points Credentials )
+	Login : ( LoginLog Username )
+	Points : ( Points Username )
 	UserInfo : (User com.anfelisa.course.CourseList com.anfelisa.box.MyBoxList Username)
-	UserUpdate : (UserUpdate)
+	UserUpdate : (UserUpdate Credentials)
 	CourseSelection : (com.anfelisa.course.CourseList Username)
-	AddCourses : (CourseSelection Username)
+	AddCourses : (CourseSelection Credentials Username)
 	RemoveCourse : (CourseId Username)
 	PasswordUpdate : (UsernameAndPassword)
 	ForgotPassword : (ForgotPassword Language)

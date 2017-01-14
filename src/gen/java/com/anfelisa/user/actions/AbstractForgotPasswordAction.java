@@ -29,6 +29,10 @@ public abstract class AbstractForgotPasswordAction extends Action<ForgotPassword
 		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 	}
 
+	protected void throwBadRequest() {
+		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
 }
 
 /*       S.D.G.       */
