@@ -1,37 +1,61 @@
 package com.anfelisa.lesson.actions;
 
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.course.models.CourseDao;
 import com.anfelisa.course.models.ICourseModel;
 import com.anfelisa.lesson.data.LessonListData;
 import com.anfelisa.lesson.models.CustomLessonDao;
+import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
+@Path("/lessons")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class LoadPublicLessonsAction extends AbstractLoadPublicLessonsAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadPublicLessonsAction.class);
 
-	public LoadPublicLessonsAction(LessonListData actionParam, DatabaseHandle databaseHandle) {
-		super(actionParam, databaseHandle);
+	public LoadPublicLessonsAction(DBI jdbi) {
+		super(jdbi);
 	}
 
-	@Override
-	protected void captureActionParam() {
+	@GET
+	@Timed
+	@Path("/public")
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
+			@NotNull @QueryParam("courseId") Integer courseId) throws JsonProcessingException {
+		this.actionData = new LessonListData(uuid, schema).withCourseId(courseId);
+		;
+		return this.apply();
 	}
 
-	@Override
-	protected void applyAction() {
-		this.actionData = this.actionParam;
-		ICourseModel course = CourseDao.selectByCourseId(this.getDatabaseHandle().getHandle(), this.actionData.getCourseId(), this.getActionData().getSchema());
-		this.actionData.setCourseDescription(course.getDescription());
-		this.actionData.setCourseAuthor(course.getAuthor());
-		this.actionData.setIsPublic(course.getIsPublic());
-		this.actionData.setCourseName(course.getName());
-		this.actionData.setLessonList(CustomLessonDao.selectLessons(this.getDatabaseHandle().getHandle(), this.getActionData().getSchema(), this.actionParam.getCourseId()));
+	protected final void loadDataForGetRequest() {
+		ICourseModel course = CourseDao.selectByCourseId(this.getDatabaseHandle().getHandle(),
+				this.actionData.getCourseId(), this.getActionData().getSchema());
+		if (course == null) {
+			throwBadRequest();
+		} else {
+			this.actionData.setCourseDescription(course.getDescription());
+			this.actionData.setCourseAuthor(course.getAuthor());
+			this.actionData.setIsPublic(course.getIsPublic());
+			this.actionData.setCourseName(course.getName());
+			this.actionData.setLessonList(CustomLessonDao.selectLessons(this.getDatabaseHandle().getHandle(),
+					this.getActionData().getSchema(), this.actionData.getCourseId()));
+		}
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */
