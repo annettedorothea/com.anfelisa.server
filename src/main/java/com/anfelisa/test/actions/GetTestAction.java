@@ -1,32 +1,50 @@
 package com.anfelisa.test.actions;
 
-import com.anfelisa.ace.DatabaseHandle;
+import javax.annotation.security.RolesAllowed;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.test.data.TestCreationData;
 import com.anfelisa.test.models.ITestModel;
 import com.anfelisa.test.models.TestDao;
+import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
+@Path("/tests")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class GetTestAction extends AbstractGetTestAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetTestAction.class);
 
-	public GetTestAction(TestCreationData actionParam, DatabaseHandle databaseHandle) {
-		super(actionParam, databaseHandle);
+	public GetTestAction(DBI jdbi) {
+		super(jdbi);
 	}
 
-	@Override
-	protected void captureActionParam() {
-		// capture all stuff that we need to replay this action (e.g. system time)
+	@GET
+	@Timed
+	@Path("/single")
+	@RolesAllowed({ AuthUser.ADMIN, AuthUser.AUTHOR })
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
+			@NotNull @QueryParam("testId") Integer testId) throws JsonProcessingException {
+		this.actionData = new TestCreationData(uuid, schema).withTestId(testId);
+		return this.apply();
 	}
 
-	@Override
-	protected void applyAction() {
-		// init actionData
-		this.actionData = this.actionParam;
-		ITestModel test = TestDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionData.getTestId(), this.actionData.getSchema());
+	protected final void loadDataForGetRequest() {
+		ITestModel test = TestDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionData.getTestId(),
+				this.actionData.getSchema());
 		this.actionData.setAuthor(test.getAuthor());
 		this.actionData.setHtml(test.getHtml());
 		this.actionData.setLessonId(test.getLessonId());
@@ -36,4 +54,4 @@ public class GetTestAction extends AbstractGetTestAction {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

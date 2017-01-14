@@ -1,29 +1,48 @@
 package com.anfelisa.test.actions;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
+import javax.annotation.security.RolesAllowed;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.test.data.TestCreationData;
+import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
-public class CreateTestAction extends AbstractCreateTestAction {
+@Path("/tests")
+@Produces(MediaType.TEXT_PLAIN)
+@Consumes(MediaType.APPLICATION_JSON)
+	public class CreateTestAction extends AbstractCreateTestAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateTestAction.class);
 
-	public CreateTestAction(TestCreationData actionParam, DatabaseHandle databaseHandle) {
-		super(actionParam, databaseHandle);
+	public CreateTestAction(DBI jdbi) {
+		super(jdbi);
 	}
 
-	@Override
-	protected void captureActionParam() {
-		// capture all stuff that we need to replay this action (e.g. system time)
+	@POST
+	@Timed
+	@Path("/create")
+	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
+	public Response post(@NotNull TestCreationData testCreationData) throws JsonProcessingException, UnsupportedEncodingException {
+		String decodedHtml = URLDecoder.decode( testCreationData.getHtml(), "UTF-8" );
+		testCreationData.setHtml(decodedHtml);
+		this.actionData = testCreationData;
+		return this.apply();
 	}
 
-	@Override
-	protected void applyAction() {
-		// init actionData
-		this.actionData = this.actionParam;
-	}
 
 }
 

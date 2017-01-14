@@ -1,30 +1,55 @@
 package com.anfelisa.test.actions;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.auth.AuthUser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.skife.jdbi.v2.DBI;
+
 import com.anfelisa.test.data.TestCreationData;
 
-public class UpdateTestAction extends AbstractUpdateTestAction {
+@Path("/tests")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+	public class UpdateTestAction extends AbstractUpdateTestAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateTestAction.class);
 
-	public UpdateTestAction(TestCreationData actionParam, DatabaseHandle databaseHandle) {
-		super(actionParam, databaseHandle);
+	public UpdateTestAction(DBI jdbi) {
+		super(jdbi);
 	}
 
-	@Override
-	protected void captureActionParam() {
-		// capture all stuff that we need to replay this action (e.g. system time)
+	@PUT
+	@Timed
+	@Path("/update")
+	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
+	public Response put(@NotNull TestCreationData testData) throws JsonProcessingException, UnsupportedEncodingException {
+		String decodedHtml = URLDecoder.decode( testData.getHtml(), "UTF-8" );
+		testData.setHtml(decodedHtml);
+		this.actionData = testData;
+		return this.apply();
 	}
 
-	@Override
-	protected void applyAction() {
-		// init actionData
-		this.actionData = this.actionParam;
-	}
 
 }
 
