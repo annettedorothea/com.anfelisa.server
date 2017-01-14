@@ -54,11 +54,8 @@ public class MigrationResource {
 
 	private DBI jdbi;
 
-	private AuthUser adminUser;
-	
 	public MigrationResource(DBI jdbi) {
 		this.jdbi = jdbi;
-		adminUser = new AuthUser("Annette", "xxx", null);
 	}
 
 	private Connection openConnection() {
@@ -119,7 +116,7 @@ public class MigrationResource {
 				String uuid = UUID.randomUUID().toString();
 				UserCreationData userCreationData = new UserCreationData(username, password, name, prename, email,
 						role, true, uuid, schema);
-				new CreateUserAction(userCreationData, this.createDatabaseHandle()).apply();
+				new CreateUserAction(jdbi).applyWithActionData(userCreationData);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -147,7 +144,7 @@ public class MigrationResource {
 				boolean isPublic = rs.getBoolean("public");
 				String uuid = UUID.randomUUID().toString();
 				CourseCreationData courseCreationData = new CourseCreationData(id, name, "", sequence, isPublic, "Annette", uuid, schema);
-				new CreateCourseAction(courseCreationData, this.createDatabaseHandle()).apply();
+				new CreateCourseAction(jdbi).applyWithActionData(courseCreationData);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -175,7 +172,7 @@ public class MigrationResource {
 				String name = rs.getString("name");
 				String uuid = UUID.randomUUID().toString();
 				LessonCreationData lessonCreationData = new LessonCreationData(id, name, "", sequence, courseId, "Annette", uuid, schema);
-				new CreateLessonAction(lessonCreationData, this.createDatabaseHandle()).apply();
+				new CreateLessonAction(jdbi).applyWithActionData(lessonCreationData);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -204,7 +201,7 @@ public class MigrationResource {
 				String html = rs.getString("html");
 				String uuid = UUID.randomUUID().toString();
 				TestCreationData testCreationData = new TestCreationData(id, name, sequence, lessonId, html, "Annette", uuid, schema);
-				new CreateTestAction(testCreationData, this.createDatabaseHandle()).apply();
+				new CreateTestAction(jdbi).applyWithActionData(testCreationData);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -238,7 +235,7 @@ public class MigrationResource {
 				Integer maxPoints = rs.getInt("max_points");
 				String uuid = UUID.randomUUID().toString();
 				ResultCreationData resultCreationData = new ResultCreationData(id, username, testId, date, json, points, maxPoints, uuid, schema);
-				new CreateResultAction(resultCreationData, this.createDatabaseHandle()).apply();
+				new CreateResultAction(jdbi).applyWithActionData(resultCreationData);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -267,8 +264,8 @@ public class MigrationResource {
 					student = "Annette";
 				}
 				String uuid = UUID.randomUUID().toString();
-				BoxCreationData boxCreationData = new BoxCreationData(id, name, student, uuid, schema);
-				new CreateBoxAction(this.jdbi).post(boxCreationData, adminUser);
+				BoxCreationData boxCreationData = new BoxCreationData(id, name, student, student, AuthUser.STUDENT, uuid, schema);
+				new CreateBoxAction(this.jdbi).applyWithActionData(boxCreationData);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -296,8 +293,8 @@ public class MigrationResource {
 					username = "Annette";
 				}
 				String uuid = UUID.randomUUID().toString();
-				StudentToCourseAdditionData data = new StudentToCourseAdditionData(username, courseId, uuid, schema);
-				new AddStudentToCourseAction(data, this.createDatabaseHandle()).apply();
+				StudentToCourseAdditionData data = new StudentToCourseAdditionData(username, courseId, username, AuthUser.STUDENT, uuid, schema);
+				new AddStudentToCourseAction(jdbi).applyWithActionData(data);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -322,9 +319,8 @@ public class MigrationResource {
 				Integer boxId = rs.getInt("box_id");
 				Integer courseId = rs.getInt("course_id");
 				String uuid = UUID.randomUUID().toString();
-				BoxToCourseAdditionData data = new BoxToCourseAdditionData(boxId, courseId, false, uuid, schema);
-				new AddCourseToBoxAction(data, this.createDatabaseHandle()).apply();
-				new AddCourseToBoxAction(jdbi)
+				BoxToCourseAdditionData data = new BoxToCourseAdditionData(boxId, courseId, false, "Annette", AuthUser.ADMIN, uuid, schema);
+				new AddCourseToBoxAction(jdbi).applyWithActionData(data);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -340,8 +336,8 @@ public class MigrationResource {
 				Integer boxId = rs.getInt("box_id");
 				Integer courseId = rs.getInt("course_id");
 				String uuid = UUID.randomUUID().toString();
-				BoxToCourseAdditionData data = new BoxToCourseAdditionData(boxId, courseId, true, uuid, schema);
-				new AddCourseToBoxAction(data, this.createDatabaseHandle()).apply();
+				BoxToCourseAdditionData data = new BoxToCourseAdditionData(boxId, courseId, true, "Annette", AuthUser.ADMIN, uuid, schema);
+				new AddCourseToBoxAction(jdbi).applyWithActionData(data);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -370,7 +366,7 @@ public class MigrationResource {
 				Integer maxPoints = rs.getInt("max_points");
 				String uuid = UUID.randomUUID().toString();
 				CardCreationData data = new CardCreationData(id, content, testId, contentHash, maxPoints, uuid, schema);
-				new CreateCardAction(data, this.createDatabaseHandle()).apply();
+				new CreateCardAction(jdbi).applyWithActionData(data);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -415,7 +411,7 @@ public class MigrationResource {
 				Integer points = rs.getInt("points");
 				String uuid = UUID.randomUUID().toString();
 				CardOfBoxCreationData data = new CardOfBoxCreationData(id, cardId, ef, interval, n, count, next, boxId, quality, timestamp, points, uuid, schema);
-				new CreateCardOfBoxAction(data, this.createDatabaseHandle()).apply();
+				new CreateCardOfBoxAction(jdbi).applyWithActionData(data);
 			}
 			rs.close();
 		} catch (SQLException e) {

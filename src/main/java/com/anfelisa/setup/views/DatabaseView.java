@@ -1,13 +1,9 @@
 package com.anfelisa.setup.views;
 
-import java.text.MessageFormat;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
-import com.anfelisa.EmailService;
 import com.anfelisa.ace.AceDao;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.models.BoxDao;
@@ -76,18 +72,6 @@ public class DatabaseView {
 				dataContainer.getName(), dataContainer.getPrename(), dataContainer.getEmail(), AuthUser.ADMIN, false);
 		UserDao.insert(handle, user, dataContainer.getSchema());
 	};
-	/*public BiConsumer<SetupSchemaData, Handle> sendSchemaCreationEmail = (dataContainer, handle) -> {
-		Locale currentLocale = new Locale(dataContainer.getLanguage());
-		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
-		String link = EmailService.getLocalhost() + "#" + dataContainer.getSchema() + "profile/confirmEmail/" + dataContainer.getUsername() + "/"
-				+ dataContainer.getPassword();
-		Object[] params = { dataContainer.getPrename(), dataContainer.getName(), dataContainer.getSchema(),
-				dataContainer.getUsername(), link };
-		String message = MessageFormat.format(messages.getString("CreateSchemaEmailContent"), params);
-		String subject = messages.getString("CreateSchemaEmailHeader");
-
-		EmailService.sendEmail("info@anfelisa.com", dataContainer.getEmail(), subject, message);
-	};*/
 
 }
 

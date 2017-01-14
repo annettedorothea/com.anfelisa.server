@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.course.models.CustomCourseDao;
 import com.anfelisa.course.models.ICourseModel;
+import com.anfelisa.lesson.data.MyLessonListData;
 import com.anfelisa.lesson.models.CustomLessonDao;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -41,7 +42,7 @@ public class LoadPrivateLessonsAction extends AbstractLoadPrivateLessonsAction {
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
 			@NotNull @QueryParam("schema") String schema, @NotNull @QueryParam("courseId") Integer courseId)
 			throws JsonProcessingException {
-		this.actionData = null;
+		this.actionData = new MyLessonListData(uuid, schema).withCourseId(courseId).withUsername(user.getUsername());
 		return this.apply();
 	}
 
