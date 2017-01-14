@@ -13,7 +13,6 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.result.models.IResultModel;
 import com.anfelisa.test.models.ITestModel;
 import com.anfelisa.test.models.ILessonIdModel;
-import com.anfelisa.user.models.IUsernameModel;
 import com.anfelisa.lesson.models.ILessonAbstractModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
 import com.anfelisa.test.models.IMyTestListModel;
@@ -85,7 +84,6 @@ public class MyResultData implements IMyResultData {
 	private Integer courseId;
 	
 
-	
 	
 	
 	
@@ -386,7 +384,6 @@ public class MyResultData implements IMyResultData {
 		this.courseId = courseId;
 		return this;
 	}
-	
 	
 	
 	

@@ -21,7 +21,6 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.Resource;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.actions.CreateBoxAction;
 import com.anfelisa.box.actions_.AddCourseToBoxAction;

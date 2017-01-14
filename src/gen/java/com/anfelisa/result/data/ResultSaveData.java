@@ -12,6 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.result.models.IResultModel;
 import com.anfelisa.box.models.IFillBoxModel;
+import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("unused")
 public class ResultSaveData implements IResultSaveData {
@@ -45,9 +46,16 @@ public class ResultSaveData implements IResultSaveData {
 	
 	private Integer boxId;
 	
+	@NotNull
+	private String credentialsUsername;
+	
+	@NotNull
+	private String credentialsRole;
+	
 
 	
 	private java.util.List<com.anfelisa.box.models.ICardOfBoxModel> cardsToBeAdded;
+	
 	
 
 	public ResultSaveData(
@@ -58,7 +66,9 @@ public class ResultSaveData implements IResultSaveData {
 		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints,
-		@JsonProperty("boxId") Integer boxId
+		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("credentialsUsername") String credentialsUsername,
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
@@ -70,6 +80,8 @@ public class ResultSaveData implements IResultSaveData {
 		this.points = points;
 		this.maxPoints = maxPoints;
 		this.boxId = boxId;
+		this.credentialsUsername = credentialsUsername;
+		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
@@ -175,6 +187,30 @@ public class ResultSaveData implements IResultSaveData {
 		return this;
 	}
 	
+	@JsonProperty
+	public String getCredentialsUsername() {
+		return this.credentialsUsername;
+	}
+	public void setCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+	}
+	public ResultSaveData withCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCredentialsRole() {
+		return this.credentialsRole;
+	}
+	public void setCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+	}
+	public ResultSaveData withCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+		return this;
+	}
+	
 	
 	@JsonProperty
 	public java.util.List<com.anfelisa.box.models.ICardOfBoxModel> getCardsToBeAdded() {
@@ -183,6 +219,7 @@ public class ResultSaveData implements IResultSaveData {
 	public void setCardsToBeAdded(java.util.List<com.anfelisa.box.models.ICardOfBoxModel> cardsToBeAdded) {
 		this.cardsToBeAdded = cardsToBeAdded;
 	}
+	
 	
 
 	@JsonProperty

@@ -1,9 +1,20 @@
 package com.anfelisa.result.actions;
 
+import javax.annotation.security.PermitAll;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.course.models.CustomCourseDao;
 import com.anfelisa.course.models.ICourseModel;
 import com.anfelisa.lesson.models.CustomLessonDao;
@@ -14,24 +25,42 @@ import com.anfelisa.result.models.ResultDao;
 import com.anfelisa.test.models.CustomTestDao;
 import com.anfelisa.test.models.ITestModel;
 import com.anfelisa.test.models.TestDao;
+import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
+import io.dropwizard.auth.Auth;
+
+@Path("/results")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class LoadResultAction extends AbstractLoadResultAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadResultAction.class);
 
-	public LoadResultAction(MyResultData actionParam, DatabaseHandle databaseHandle) {
-		super(actionParam, databaseHandle);
+	public LoadResultAction(DBI jdbi) {
+		super(jdbi);
 	}
 
-	@Override
-	protected void captureActionParam() {
-		// capture all stuff that we need to replay this action (e.g. system time)
+	@GET
+	@Timed
+	@Path("/single")
+	@PermitAll
+	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
+			@NotNull @QueryParam("schema") String schema, @NotNull @QueryParam("resultId") Integer resultId)
+			throws JsonProcessingException {
+		this.actionData = new MyResultData(uuid, schema).withResultId(resultId).withUsername(user.getUsername());
+		return this.apply();
 	}
 
-	@Override
-	protected void applyAction() {
-		this.actionData = this.actionParam;
-		IResultModel result = ResultDao.selectByResultId(this.getDatabaseHandle().getHandle(), this.actionParam.getResultId(), this.getActionData().getSchema());
+	protected final void loadDataForGetRequest() {
+		IResultModel result = ResultDao.selectByResultId(this.getHandle(), actionData.getResultId(),
+				actionData.getSchema());
+		if (result == null) {
+			throwBadRequest();
+		}
+		if (!result.getUsername().equals(actionData.getUsername())) {
+			throwUnauthorized();
+		}
 		this.actionData.setDate(result.getDate());
 		this.actionData.setJson(result.getJson());
 		this.actionData.setMaxPoints(result.getMaxPoints());
@@ -49,15 +78,15 @@ public class LoadResultAction extends AbstractLoadResultAction {
 		this.actionData.setCourseDescription(course.getDescription());
 		this.actionData.setCourseName(course.getName());
 		this.actionData.setCourseId(course.getCourseId());
-		ITestModel test = TestDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionParam.getTestId(),
+		ITestModel test = TestDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionData.getTestId(),
 				this.getActionData().getSchema());
 		this.actionData.setAuthor(test.getAuthor());
 		this.actionData.setHtml(test.getHtml());
 		this.actionData.setName(test.getName());
 		this.actionData.setMyTestList(CustomTestDao.selectMyTests(this.getDatabaseHandle().getHandle(),
-				this.getActionData().getSchema(), this.actionParam.getLessonId(), this.actionParam.getUsername()));
+				this.getActionData().getSchema(), this.actionData.getLessonId(), this.actionData.getUsername()));
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

@@ -35,8 +35,8 @@ models {
 data {
 	ResultCreation : ( Result )
 	ResultAbstract : ( ResultAbstract )
-	MyResult : ( Result com.anfelisa.test.Test com.anfelisa.test.LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract com.anfelisa.test.MyTestList )
-	ResultSave : (Result com.anfelisa.box.FillBox)
+	MyResult : ( Result com.anfelisa.test.Test com.anfelisa.test.LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract com.anfelisa.test.MyTestList )
+	ResultSave : (Result com.anfelisa.box.FillBox com.anfelisa.user.Credentials)
 }
 
 actions {

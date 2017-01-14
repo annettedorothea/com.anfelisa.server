@@ -1,55 +1,45 @@
 package com.anfelisa.result.actions;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.security.PermitAll;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.box.models.CardOfBoxModel;
-import com.anfelisa.box.models.CustomBoxDao;
-import com.anfelisa.box.models.CustomCardDao;
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.ICardModel;
-import com.anfelisa.box.models.ICardOfBoxModel;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.result.data.ResultSaveData;
+import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
+import io.dropwizard.auth.Auth;
+
+@Path("/results")
+@Produces(MediaType.TEXT_PLAIN)
+@Consumes(MediaType.APPLICATION_JSON)
 public class SaveResultAction extends AbstractSaveResultAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(SaveResultAction.class);
 
-	public SaveResultAction(ResultSaveData actionParam, DatabaseHandle databaseHandle) {
-		super(actionParam, databaseHandle);
+	public SaveResultAction(DBI jdbi) {
+		super(jdbi);
 	}
 
-	@Override
-	protected void captureActionParam() {
-		this.actionParam.setDate(new DateTime(System.currentTimeMillis()));
-	}
-
-	@Override
-	protected void applyAction() {
-		this.actionData = this.actionParam;
-		if (this.actionData.getCardsToBeAdded() == null) {
-			this.actionData.setCardsToBeAdded(new ArrayList<>());
-		}
-		;
-		List<IBoxModel> boxes = CustomBoxDao.selectBoxesWhereCardMightBeAddedAfterEdit(
-				this.getDatabaseHandle().getHandle(), this.actionData.getSchema(), this.actionData.getTestId(),
-				this.actionData.getUsername());
-		for (IBoxModel box : boxes) {
-			List<ICardModel> allCards;
-			allCards = CustomCardDao.selectCardsToBeAddedAfterEdit(this.getDatabaseHandle().getHandle(),
-					this.actionData.getSchema(), this.actionData.getTestId(), box.getBoxId());
-			for (ICardModel card : allCards) {
-				ICardOfBoxModel cardOfBox = new CardOfBoxModel(null, card.getCardId(), 0F, 0, 0, 0, this.actionData.getDate(),
-						box.getBoxId(), null, this.actionData.getDate(), 0);
-				this.actionData.getCardsToBeAdded().add(cardOfBox);
-			}
-
-		}
+	@POST
+	@Timed
+	@Path("/save")
+	@PermitAll
+	public Response post(@Auth AuthUser user, @NotNull ResultSaveData actionParam) throws JsonProcessingException {
+		this.actionData = actionParam.withCredentialsRole(user.getRole()).withCredentialsUsername(user.getUsername())
+				.withDate(new DateTime());
+		return this.apply();
 	}
 
 }
