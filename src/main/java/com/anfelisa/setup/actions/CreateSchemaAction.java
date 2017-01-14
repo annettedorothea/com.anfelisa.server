@@ -1,27 +1,41 @@
 package com.anfelisa.setup.actions;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.setup.data.SchemaCreationData;
+import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
-public class CreateSchemaAction extends AbstractCreateSchemaAction {
+@Path("/schema")
+@Produces(MediaType.TEXT_PLAIN)
+@Consumes(MediaType.APPLICATION_JSON)
+	public class CreateSchemaAction extends AbstractCreateSchemaAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateSchemaAction.class);
 
-	public CreateSchemaAction(SchemaCreationData actionParam, DatabaseHandle databaseHandle) {
-		super(actionParam, databaseHandle);
+	public CreateSchemaAction(DBI jdbi) {
+		super(jdbi);
 	}
 
-	@Override
-	protected void captureActionParam() {
+	@POST
+	@Timed
+	@Path("/create")
+	public Response post(@Valid @NotNull SchemaCreationData actionParam) throws JsonProcessingException {
+		this.actionData = actionParam;
+		return this.apply();
 	}
 
-	@Override
-	protected void applyAction() {
-		this.actionData = this.actionParam;
-	}
 
 }
 
