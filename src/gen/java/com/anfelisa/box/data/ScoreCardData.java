@@ -68,10 +68,8 @@ public class ScoreCardData implements IScoreCardData {
 	
 	private org.joda.time.DateTime now;
 	
-	@NotNull
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 

@@ -7,10 +7,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class CredentialsModel implements ICredentialsModel {
 
-	@NotNull
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 

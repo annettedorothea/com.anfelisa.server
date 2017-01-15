@@ -211,7 +211,7 @@ data {
 	BoxId : ( Box com.anfelisa.user.Credentials )
 	BoxOfCourseList : (CourseToBoxAdditionList com.anfelisa.user.Credentials)
 	DeleteBox : (BoxId com.anfelisa.user.Credentials)
-	BoxConfig : (BoxConfig com.anfelisa.user.Credentials)
+	BoxConfig : (BoxConfig com.anfelisa.user.Username com.anfelisa.user.Credentials)
 	ScoreCard : (Card CardOfBox CardQuality Now com.anfelisa.user.Credentials )
 	FillBox : (FillBox com.anfelisa.user.Credentials Now)
 	CardId : (CardId)

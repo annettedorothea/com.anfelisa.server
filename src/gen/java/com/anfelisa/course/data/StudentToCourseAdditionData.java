@@ -28,10 +28,8 @@ public class StudentToCourseAdditionData implements IStudentToCourseAdditionData
 	@NotNull
 	private Integer courseId;
 	
-	@NotNull
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 

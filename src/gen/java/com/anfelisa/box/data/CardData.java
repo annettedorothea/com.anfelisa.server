@@ -94,10 +94,8 @@ public class CardData implements ICardData {
 	
 	private String header;
 	
-	@NotNull
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 

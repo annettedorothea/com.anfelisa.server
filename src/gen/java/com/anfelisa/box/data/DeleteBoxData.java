@@ -25,10 +25,8 @@ public class DeleteBoxData implements IDeleteBoxData {
 	@NotNull
 	private Integer boxId;
 	
-	@NotNull
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 

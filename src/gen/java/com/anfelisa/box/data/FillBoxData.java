@@ -25,10 +25,8 @@ public class FillBoxData implements IFillBoxData {
 	
 	private Integer boxId;
 	
-	@NotNull
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 	private org.joda.time.DateTime now;

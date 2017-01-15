@@ -31,10 +31,8 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	@NotNull
 	private Boolean autoAdd;
 	
-	@NotNull
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 

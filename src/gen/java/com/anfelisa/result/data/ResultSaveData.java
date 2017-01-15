@@ -46,10 +46,8 @@ public class ResultSaveData implements IResultSaveData {
 	
 	private Integer boxId;
 	
-	@NotNull
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 

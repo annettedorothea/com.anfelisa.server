@@ -31,10 +31,8 @@ public class BoxIdData implements IBoxIdData {
 	@NotNull
 	private String username;
 	
-	@NotNull
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 

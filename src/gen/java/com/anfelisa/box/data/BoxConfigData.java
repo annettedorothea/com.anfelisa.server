@@ -11,6 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IBoxConfigModel;
+import com.anfelisa.user.models.IUsernameModel;
 import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("unused")
@@ -26,9 +27,10 @@ public class BoxConfigData implements IBoxConfigData {
 	private Integer boxId;
 	
 	@NotNull
+	private String username;
+	
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 
@@ -36,15 +38,18 @@ public class BoxConfigData implements IBoxConfigData {
 	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems;
 	
 	
+	
 
 	public BoxConfigData(
 		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("username") String username,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
 		this.boxId = boxId;
+		this.username = username;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
@@ -65,6 +70,18 @@ public class BoxConfigData implements IBoxConfigData {
 	}
 	public BoxConfigData withBoxId(Integer boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUsername() {
+		return this.username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public BoxConfigData withUsername(String username) {
+		this.username = username;
 		return this;
 	}
 	
@@ -106,6 +123,7 @@ public class BoxConfigData implements IBoxConfigData {
 	public void setExistingItems(java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems) {
 		this.existingItems = existingItems;
 	}
+	
 	
 	
 

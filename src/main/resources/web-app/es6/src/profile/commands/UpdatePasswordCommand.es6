@@ -3,7 +3,7 @@
 class UpdatePasswordCommand extends AbstractUpdatePasswordCommand {
     execute() {
         return new Promise((resolve) => {
-            if (!this.commandParam.newPassword || !this.commandParam.passwordRepetition) {
+            if (this.commandParam.newPasswordEmpty || this.commandParam.passwordRepetitionEmpty) {
                 this.commandData.messageKey = "dataInvalid";
                 this.commandData.outcome = this.dataInvalid;
                 resolve();

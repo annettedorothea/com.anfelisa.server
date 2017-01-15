@@ -31,10 +31,8 @@ public class BoxCreationData implements IBoxCreationData {
 	@NotNull
 	private String username;
 	
-	@NotNull
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 

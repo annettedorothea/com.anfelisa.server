@@ -25,10 +25,8 @@ public class AddCoursesData implements IAddCoursesData {
 	
 	private java.util.List<Integer> courseIdList;
 	
-	@NotNull
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 	@NotNull

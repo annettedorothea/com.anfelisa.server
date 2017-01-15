@@ -34,10 +34,8 @@ public class UserUpdateData implements IUserUpdateData {
 	@NotNull
 	private String email;
 	
-	@NotNull
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 

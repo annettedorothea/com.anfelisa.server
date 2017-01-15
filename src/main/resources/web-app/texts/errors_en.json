@@ -15,7 +15,7 @@
   "readLastResultFailed" : "Failed to read last result.",
   "saveResultFailed" : "Failed to save result.",
   "readProfileFailed" : "Failed to load user info.",
-  "dataInvalid" : "The form is nor correctly filled.",
+  "dataInvalid" : "The form is not correctly filled.",
   "saveProfileFailed" : "Failed to save profile.",
   "readProfileCoursesFailed" : "Failed to load courses.",
   "addCoursesFailed" : "Failed to add courses.",

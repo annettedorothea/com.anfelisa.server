@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.BoxConfigData;
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.CustomBoxOfCourseDao;
@@ -24,7 +25,8 @@ public class SaveBoxConfigCommand extends AbstractSaveBoxConfigCommand {
 	@Override
 	protected void executeCommand() {
 		IBoxModel box = BoxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
-		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
+		if ((commandData.getCredentialsRole().equals(AuthUser.STUDENT))
+				&& !box.getUsername().equals(commandData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
 		List<IBoxOfCourseModel> list = this.commandData.getBoxOfCourseList();
@@ -39,4 +41,4 @@ public class SaveBoxConfigCommand extends AbstractSaveBoxConfigCommand {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

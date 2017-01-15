@@ -28,10 +28,8 @@ public class BoxOfCourseListData implements IBoxOfCourseListData {
 	@NotNull
 	private String boxName;
 	
-	@NotNull
 	private String credentialsUsername;
 	
-	@NotNull
 	private String credentialsRole;
 	
 

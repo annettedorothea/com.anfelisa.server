@@ -29,6 +29,10 @@ public abstract class AbstractFillBoxWithCardsAction extends Action<FillBoxData>
 		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 	}
 
+	protected void throwBadRequest() {
+		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
 }
 
 /*       S.D.G.       */
