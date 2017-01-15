@@ -10,11 +10,11 @@ import java.util.Map;
 @SuppressWarnings("all")
 public class CardDao {
 	
-	public static void create(Handle handle, String schema) {
+	public void create(Handle handle, String schema) {
 		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".card (cardId serial NOT NULL  , content character varying  , testId integer NOT NULL  , contentHash character varying NOT NULL  , maxPoints integer NOT NULL  , CONSTRAINT card_pkey PRIMARY KEY (cardId), CONSTRAINT card_testId_fkey FOREIGN KEY (testId) REFERENCES " + schema + ".test ( testId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT card_cardId_unique UNIQUE (cardId))");
 	}
 	
-	public static Integer insert(Handle handle, ICardModel cardModel, String schema) {
+	public Integer insert(Handle handle, ICardModel cardModel, String schema) {
 		if (cardModel.getCardId() != null) {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".card (cardId, content, testId, contentHash, maxPoints) VALUES (:cardId, :content, :testId, :contentHash, :maxPoints)");
 			statement.bind("cardId", cardModel.getCardId());

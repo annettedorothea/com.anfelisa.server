@@ -10,11 +10,11 @@ import java.util.Map;
 @SuppressWarnings("all")
 public class CourseDao {
 	
-	public static void create(Handle handle, String schema) {
+	public void create(Handle handle, String schema) {
 		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".course (courseId serial NOT NULL  , name character varying NOT NULL  , description character varying  , sequence integer  , isPublic boolean NOT NULL  , author character varying NOT NULL  , CONSTRAINT course_pkey PRIMARY KEY (courseId), CONSTRAINT course_author_fkey FOREIGN KEY (author) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT course_courseId_unique UNIQUE (courseId))");
 	}
 	
-	public static Integer insert(Handle handle, ICourseModel courseModel, String schema) {
+	public Integer insert(Handle handle, ICourseModel courseModel, String schema) {
 		if (courseModel.getCourseId() != null) {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".course (courseId, name, description, sequence, isPublic, author) VALUES (:courseId, :name, :description, :sequence, :isPublic, :author)");
 			statement.bind("courseId", courseModel.getCourseId());

@@ -10,11 +10,11 @@ import java.util.Map;
 @SuppressWarnings("all")
 public class CardOfBoxDao {
 	
-	public static void create(Handle handle, String schema) {
+	public void create(Handle handle, String schema) {
 		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".cardofbox (cardOfBoxId serial NOT NULL  , cardId integer NOT NULL  , ef numeric  , interval integer  , n integer  , count integer NOT NULL  , date timestamp with time zone  , boxId integer NOT NULL  , quality integer  , timestamp timestamp with time zone  , points integer  , CONSTRAINT cardofbox_pkey PRIMARY KEY (cardOfBoxId), CONSTRAINT cardofbox_cardId_fkey FOREIGN KEY (cardId) REFERENCES " + schema + ".card ( cardId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT cardofbox_boxId_fkey FOREIGN KEY (boxId) REFERENCES " + schema + ".box ( boxId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT cardofbox_cardOfBoxId_unique UNIQUE (cardOfBoxId))");
 	}
 	
-	public static Integer insert(Handle handle, ICardOfBoxModel cardOfBoxModel, String schema) {
+	public Integer insert(Handle handle, ICardOfBoxModel cardOfBoxModel, String schema) {
 		if (cardOfBoxModel.getCardOfBoxId() != null) {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".cardofbox (cardOfBoxId, cardId, ef, interval, n, count, date, boxId, quality, timestamp, points) VALUES (:cardOfBoxId, :cardId, :ef, :interval, :n, :count, :date, :boxId, :quality, :timestamp, :points)");
 			statement.bind("cardOfBoxId", cardOfBoxModel.getCardOfBoxId());

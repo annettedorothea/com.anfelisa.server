@@ -10,11 +10,11 @@ import java.util.Map;
 @SuppressWarnings("all")
 public class LoginLogDao {
 	
-	public static void create(Handle handle, String schema) {
+	public void create(Handle handle, String schema) {
 		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".loginlog (loginLogId serial NOT NULL  , username character varying NOT NULL  , date timestamp with time zone NOT NULL  , CONSTRAINT loginlog_pkey PRIMARY KEY (loginLogId), CONSTRAINT loginlog_loginLogId_unique UNIQUE (loginLogId))");
 	}
 	
-	public static Integer insert(Handle handle, ILoginLogModel loginLogModel, String schema) {
+	public Integer insert(Handle handle, ILoginLogModel loginLogModel, String schema) {
 		if (loginLogModel.getLoginLogId() != null) {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".loginlog (loginLogId, username, date) VALUES (:loginLogId, :username, :date)");
 			statement.bind("loginLogId", loginLogModel.getLoginLogId());

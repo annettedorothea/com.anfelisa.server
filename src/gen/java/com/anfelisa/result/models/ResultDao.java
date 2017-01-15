@@ -10,11 +10,11 @@ import java.util.Map;
 @SuppressWarnings("all")
 public class ResultDao {
 	
-	public static void create(Handle handle, String schema) {
+	public void create(Handle handle, String schema) {
 		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".result (resultId serial NOT NULL  , username character varying NOT NULL  , testId integer NOT NULL  , date timestamp with time zone NOT NULL  , json character varying NOT NULL  , points integer NOT NULL  , maxPoints integer NOT NULL  , CONSTRAINT result_pkey PRIMARY KEY (resultId), CONSTRAINT result_username_fkey FOREIGN KEY (username) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_testId_fkey FOREIGN KEY (testId) REFERENCES " + schema + ".test ( testId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_resultId_unique UNIQUE (resultId))");
 	}
 	
-	public static Integer insert(Handle handle, IResultModel resultModel, String schema) {
+	public Integer insert(Handle handle, IResultModel resultModel, String schema) {
 		if (resultModel.getResultId() != null) {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".result (resultId, username, testId, date, json, points, maxPoints) VALUES (:resultId, :username, :testId, :date, :json, :points, :maxPoints)");
 			statement.bind("resultId", resultModel.getResultId());

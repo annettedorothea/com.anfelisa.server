@@ -10,11 +10,11 @@ import java.util.Map;
 @SuppressWarnings("all")
 public class UserDao {
 	
-	public static void create(Handle handle, String schema) {
+	public void create(Handle handle, String schema) {
 		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".user (username character varying NOT NULL  , password character varying NOT NULL  , name character varying NOT NULL  , prename character varying NOT NULL  , email character varying NOT NULL  , role character varying NOT NULL  , emailConfirmed boolean NOT NULL  , CONSTRAINT user_pkey PRIMARY KEY (username), CONSTRAINT user_username_unique UNIQUE (username))");
 	}
 	
-	public static String insert(Handle handle, IUserModel userModel, String schema) {
+	public String insert(Handle handle, IUserModel userModel, String schema) {
 		if (userModel.getUsername() != null) {
 			Update statement = handle.createStatement("INSERT INTO " + schema + ".user (username, password, name, prename, email, role, emailConfirmed) VALUES (:username, :password, :name, :prename, :email, :role, :emailConfirmed)");
 			statement.bind("username", userModel.getUsername());
