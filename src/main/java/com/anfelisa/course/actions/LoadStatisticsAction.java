@@ -33,6 +33,8 @@ public class LoadStatisticsAction extends AbstractLoadStatisticsAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadStatisticsAction.class);
 
+	private CustomStatisticsDao customStatisticsDao = new CustomStatisticsDao();
+
 	public LoadStatisticsAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -51,7 +53,7 @@ public class LoadStatisticsAction extends AbstractLoadStatisticsAction {
 	protected final void loadDataForGetRequest() {
 		DateTime startDate = new DateTime(this.actionData.getYear(), this.actionData.getMonth(), 1, 0, 0, 0);
 		DateTime endDate = startDate.plusMonths(1);
-		List<IStatisticsItemModel> itemList = CustomStatisticsDao.selectStatistics(this.getDatabaseHandle().getHandle(),
+		List<IStatisticsItemModel> itemList = customStatisticsDao.selectStatistics(this.getDatabaseHandle().getHandle(),
 				this.actionData.getUsername(), startDate, endDate, this.actionData.getSchema());
 		this.actionData.setStatisticsItemList(itemList);
 		int points = 0;

@@ -39,6 +39,12 @@ public class LoadBoxOfCourseListAction extends AbstractLoadBoxOfCourseListAction
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadBoxOfCourseListAction.class);
 
+	private BoxDao boxDao = new BoxDao();
+
+	private CustomBoxDao customBoxDao = new CustomBoxDao();
+
+	private CustomCourseDao customCourseDao = new CustomCourseDao();
+
 	public LoadBoxOfCourseListAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -57,16 +63,16 @@ public class LoadBoxOfCourseListAction extends AbstractLoadBoxOfCourseListAction
 
 	@Override
 	protected void loadDataForGetRequest() {
-		IBoxModel box = BoxDao.selectByBoxId(this.getHandle(), actionData.getBoxId(), actionData.getSchema());
+		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), actionData.getBoxId(), actionData.getSchema());
 		if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
 		this.actionData.setBoxName(box.getName());
 		List<ICourseToBoxAdditionModel> list = new ArrayList<ICourseToBoxAdditionModel>();
-		List<IMyCourseModel> myCourses = CustomCourseDao.selectMyCourses(this.databaseHandle.getHandle(),
+		List<IMyCourseModel> myCourses = customCourseDao.selectMyCourses(this.databaseHandle.getHandle(),
 				this.actionData.getSchema(), this.actionData.getCredentialsUsername());
 		for (IMyCourseModel myCourse : myCourses) {
-			IBoxOfCourseModel boxOfCourse = CustomBoxDao.selectBoxOfCourse(this.databaseHandle.getHandle(),
+			IBoxOfCourseModel boxOfCourse = customBoxDao.selectBoxOfCourse(this.databaseHandle.getHandle(),
 					this.actionData.getSchema(), myCourse.getCourseId(), this.actionData.getCredentialsUsername(),
 					this.actionData.getBoxId());
 			if (boxOfCourse == null) {

@@ -15,6 +15,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.process.internal.RequestScoped;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.skife.jdbi.v2.DBI;
@@ -48,6 +49,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/migrate")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
+@RequestScoped
 public class MigrationResource {
 
 	static final Logger LOG = LoggerFactory.getLogger(MigrationResource.class);

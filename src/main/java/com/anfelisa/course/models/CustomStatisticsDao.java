@@ -6,7 +6,7 @@ import org.joda.time.DateTime;
 import org.skife.jdbi.v2.Handle;
 
 public class CustomStatisticsDao {
-	public static List<IStatisticsItemModel> selectStatistics(Handle handle, String username, DateTime startDate, DateTime endDate,
+	public List<IStatisticsItemModel> selectStatistics(Handle handle, String username, DateTime startDate, DateTime endDate,
 			String schema) {
 		return handle.createQuery("select * from ("
 				+ "select 'test' as type, count(*), result.date as timestamp, course.name as name, "

@@ -7,19 +7,19 @@ import org.skife.jdbi.v2.Update;
 
 public class CustomBoxDao {
 
-	public static List<IBoxModel> selectByUsername(Handle handle, String schema, String username) {
+	public List<IBoxModel> selectByUsername(Handle handle, String schema, String username) {
 		return handle.createQuery("SELECT * FROM " + schema + ".box where username = :username")
 				.bind("username", username).map(new BoxMapper()).list();
 	}
 
-	public static IBoxModel selectByCardOfBoxId(Handle handle, String schema, Integer cardOfBoxId) {
+	public IBoxModel selectByCardOfBoxId(Handle handle, String schema, Integer cardOfBoxId) {
 		return handle
 				.createQuery("SELECT b.* FROM " + schema + ".cardOfBox cb inner join " + schema
 						+ ".box b ON b.boxId = cb.boxId WHERE cb.cardOfBoxId = :cardOfBoxId")
 				.bind("cardOfBoxId", cardOfBoxId).map(new BoxMapper()).first();
 	}
 
-	public static List<ICardInfoModel> selectNextCardsByBoxId(Handle handle, String schema, Integer boxId) {
+	public List<ICardInfoModel> selectNextCardsByBoxId(Handle handle, String schema, Integer boxId) {
 		return handle.createQuery(
 				"SELECT b.cardid, c.content, b.count, b.date, b.quality, bos.name, b.timestamp, b.cardOfBoxId FROM "
 						+ schema + ".cardofbox b INNER JOIN (SELECT cardid, MAX(count) as maxCount FROM " + schema
@@ -29,7 +29,7 @@ public class CustomBoxDao {
 				.bind("boxId", boxId).map(new CardInfoMapper()).list();
 	}
 
-	public static List<ICardOfBoxModel> selectCardsOfBoxForToday(Handle handle, String schema, Integer boxId) {
+	public List<ICardOfBoxModel> selectCardsOfBoxForToday(Handle handle, String schema, Integer boxId) {
 		return handle
 				.createQuery("SELECT b.* FROM " + schema
 						+ ".cardofbox b INNER JOIN (SELECT cardid, MAX(count) as maxCount FROM " + schema
@@ -40,14 +40,14 @@ public class CustomBoxDao {
 				.bind("boxId", boxId).map(new CardOfBoxMapper()).list();
 	}
 
-	public static void updateBox(Handle handle, IBoxModel boxModel, String schema) {
+	public void updateBox(Handle handle, IBoxModel boxModel, String schema) {
 		Update statement = handle.createStatement("UPDATE " + schema + ".box SET name = :name WHERE boxId = :boxId");
 		statement.bind("boxId", boxModel.getBoxId());
 		statement.bind("name", boxModel.getName());
 		statement.execute();
 	}
 
-	public static IBoxOfCourseModel selectBoxOfCourse(Handle handle, String schema, Integer courseId, String username,
+	public IBoxOfCourseModel selectBoxOfCourse(Handle handle, String schema, Integer courseId, String username,
 			Integer boxId) {
 		return handle
 				.createQuery("SELECT bc.* FROM " + schema + ".boxofcourse bc INNER JOIN " + schema
@@ -56,7 +56,7 @@ public class CustomBoxDao {
 				.first();
 	}
 
-	public static List<IBoxModel> selectBoxesWhereCardMightBeAddedAfterEdit(Handle handle, String schema,
+	public List<IBoxModel> selectBoxesWhereCardMightBeAddedAfterEdit(Handle handle, String schema,
 			Integer testId, String username) {
 		return handle
 				.createQuery("SELECT b.* FROM " + schema + ".box b INNER JOIN " + schema

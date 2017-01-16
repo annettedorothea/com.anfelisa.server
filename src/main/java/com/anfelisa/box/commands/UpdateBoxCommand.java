@@ -12,13 +12,15 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateBoxCommand.class);
 
+	private BoxDao boxDao = new BoxDao();
+
 	public UpdateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 
 	@Override
 	protected void executeCommand() {
-		IBoxModel box = BoxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
+		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
 		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
@@ -27,4 +29,4 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

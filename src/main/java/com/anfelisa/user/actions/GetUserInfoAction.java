@@ -36,6 +36,12 @@ public class GetUserInfoAction extends AbstractGetUserInfoAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetUserInfoAction.class);
 
+	private UserDao userDao = new UserDao();
+
+	private CustomCourseDao customCourseDao = new CustomCourseDao();
+
+	private CustomBoxDao customBoxDao = new CustomBoxDao();
+
 	public GetUserInfoAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -51,17 +57,17 @@ public class GetUserInfoAction extends AbstractGetUserInfoAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		IUserModel user = UserDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.actionData.getUsername(),
+		IUserModel user = userDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.actionData.getUsername(),
 				this.actionData.getSchema());
 		this.actionData.setEmail(user.getEmail());
 		this.actionData.setName(user.getName());
 		this.actionData.setPrename(user.getPrename());
 
-		List<ICourseModel> courseList = CustomCourseDao.selectCourses(this.getDatabaseHandle().getHandle(),
+		List<ICourseModel> courseList = customCourseDao.selectCourses(this.getDatabaseHandle().getHandle(),
 				this.actionData.getSchema(), this.actionData.getUsername());
 		this.actionData.setCourseList(courseList);
 
-		List<IBoxModel> boxList = CustomBoxDao.selectByUsername(this.getDatabaseHandle().getHandle(),
+		List<IBoxModel> boxList = customBoxDao.selectByUsername(this.getDatabaseHandle().getHandle(),
 				this.actionData.getSchema(), this.actionData.getUsername());
 		this.actionData.setBoxList(boxList);
 	}

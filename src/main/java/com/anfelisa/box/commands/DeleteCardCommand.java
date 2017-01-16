@@ -12,18 +12,20 @@ public class DeleteCardCommand extends AbstractDeleteCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteCardCommand.class);
 
+	private CustomCardDao customCardDao = new CustomCardDao();
+
 	public DeleteCardCommand(CardIdData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 
 	@Override
 	protected void executeCommand() {
-		ICardModel card = CustomCardDao.selectByTestIdAndContentHash(this.getDatabaseHandle().getHandle(), this.commandData.getSchema(),
-				this.commandData.getTestId(), this.commandData.getContentHash());
+		ICardModel card = customCardDao.selectByTestIdAndContentHash(this.getDatabaseHandle().getHandle(),
+				this.commandData.getSchema(), this.commandData.getTestId(), this.commandData.getContentHash());
 		this.commandData.setCardId(card.getCardId());
 		this.outcome = deleted;
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

@@ -31,6 +31,8 @@ public class GetCardsOfTestAction extends AbstractGetCardsOfTestAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetCardsOfTestAction.class);
 
+	private CustomCardDao customCardDao = new CustomCardDao();
+
 	public GetCardsOfTestAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -46,7 +48,7 @@ public class GetCardsOfTestAction extends AbstractGetCardsOfTestAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		List<ICardModel> cards = CustomCardDao.selectByTestId(this.getDatabaseHandle().getHandle(),
+		List<ICardModel> cards = customCardDao.selectByTestId(this.getDatabaseHandle().getHandle(),
 				this.actionData.getSchema(), this.actionData.getTestId());
 		List<Integer> contentHashes = new ArrayList<Integer>();
 		for (ICardModel card : cards) {

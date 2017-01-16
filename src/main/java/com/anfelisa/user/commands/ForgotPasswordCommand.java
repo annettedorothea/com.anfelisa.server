@@ -12,13 +12,15 @@ public class ForgotPasswordCommand extends AbstractForgotPasswordCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ForgotPasswordCommand.class);
 
+	private UserDao userDao = new UserDao();
+
 	public ForgotPasswordCommand(ForgotPasswordData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 
 	@Override
 	protected void executeCommand() {
-		IUserModel user = UserDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.commandData.getUsername(),
+		IUserModel user = userDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.commandData.getUsername(),
 				this.commandData.getSchema());
 		if (user != null) {
 			this.commandData.setEmail(user.getEmail());

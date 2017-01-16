@@ -13,21 +13,25 @@ import com.anfelisa.box.models.IBoxOfCourseModel;
 
 public class BoxToCourseView {
 
+	private BoxOfCourseDao boxOfCourseDao = new BoxOfCourseDao();
+
+	private CustomBoxOfCourseDao customBoxOfCourseDao = new CustomBoxOfCourseDao();
+
 	public BiConsumer<BoxToCourseAdditionData, Handle> addCourseToBox = (dataContainer, handle) -> {
-		BoxOfCourseDao.insert(handle, dataContainer, dataContainer.getSchema());
+		boxOfCourseDao.insert(handle, dataContainer, dataContainer.getSchema());
 	};
 
 	public BiConsumer<BoxConfigData, Handle> saveBoxConfig = (dataContainer, handle) -> {
 		List<IBoxOfCourseModel> list = dataContainer.getBoxOfCourseList();
 		List<IBoxOfCourseModel> existingItems = dataContainer.getExistingItems();
-		for (int i=0; i<list.size(); i++) {
+		for (int i = 0; i < list.size(); i++) {
 			IBoxOfCourseModel item = list.get(i);
-			IBoxOfCourseModel existingItem  = existingItems.get(i);
+			IBoxOfCourseModel existingItem = existingItems.get(i);
 			if (item.getAutoAdd() != null) {
 				if (existingItem != null) {
-					CustomBoxOfCourseDao.updateAutoAdd(handle, dataContainer.getSchema(), item);
+					customBoxOfCourseDao.updateAutoAdd(handle, dataContainer.getSchema(), item);
 				} else {
-					BoxOfCourseDao.insert(handle, item, dataContainer.getSchema());
+					boxOfCourseDao.insert(handle, item, dataContainer.getSchema());
 				}
 			}
 		}

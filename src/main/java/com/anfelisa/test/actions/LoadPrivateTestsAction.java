@@ -33,6 +33,12 @@ public class LoadPrivateTestsAction extends AbstractLoadPrivateTestsAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadPrivateTestsAction.class);
 
+	private CustomTestDao customTestDao = new CustomTestDao();
+
+	private CustomLessonDao customLessonDao = new CustomLessonDao();
+
+	private CustomCourseDao customCourseDao = new CustomCourseDao();
+
 	public LoadPrivateTestsAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -49,7 +55,7 @@ public class LoadPrivateTestsAction extends AbstractLoadPrivateTestsAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		ILessonModel lesson = CustomLessonDao.selectByLessonIdAndUsername(this.getHandle(), actionData.getLessonId(),
+		ILessonModel lesson = customLessonDao.selectByLessonIdAndUsername(this.getHandle(), actionData.getLessonId(),
 				actionData.getUsername(), actionData.getSchema());
 		if (lesson == null) {
 			throwBadRequest();
@@ -57,13 +63,13 @@ public class LoadPrivateTestsAction extends AbstractLoadPrivateTestsAction {
 		this.actionData.setLessonDescription(lesson.getDescription());
 		this.actionData.setLessonAuthor(lesson.getAuthor());
 		this.actionData.setLessonName(lesson.getName());
-		ICourseModel course = CustomCourseDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
+		ICourseModel course = customCourseDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
 				this.actionData.getLessonId(), this.getActionData().getSchema());
 		this.actionData.setCourseAuthor(course.getAuthor());
 		this.actionData.setCourseDescription(course.getDescription());
 		this.actionData.setCourseName(course.getName());
 		this.actionData.setCourseId(course.getCourseId());
-		this.actionData.setMyTestList(CustomTestDao.selectMyTests(this.getDatabaseHandle().getHandle(),
+		this.actionData.setMyTestList(customTestDao.selectMyTests(this.getDatabaseHandle().getHandle(),
 				this.getActionData().getSchema(), this.actionData.getLessonId(), this.actionData.getUsername()));
 
 	}

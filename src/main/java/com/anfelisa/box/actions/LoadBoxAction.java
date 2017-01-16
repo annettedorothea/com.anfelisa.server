@@ -30,6 +30,8 @@ public class LoadBoxAction extends AbstractLoadBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadBoxAction.class);
 
+	private BoxDao boxDao = new BoxDao();
+
 	public LoadBoxAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -48,7 +50,7 @@ public class LoadBoxAction extends AbstractLoadBoxAction {
 
 	@Override
 	protected void loadDataForGetRequest() {
-		IBoxModel box = BoxDao.selectByBoxId(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId(),
+		IBoxModel box = boxDao.selectByBoxId(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId(),
 				this.actionData.getSchema());
 		if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
 			throwUnauthorized();

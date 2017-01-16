@@ -15,8 +15,12 @@ import com.anfelisa.result.models.ResultModel;
 
 public class ResultView {
 
+	private ResultDao resultDao = new ResultDao();
+
+	private CardOfBoxDao cardOfBoxDao = new CardOfBoxDao();
+
 	public BiConsumer<ResultCreationData, Handle> createResult = (dataContainer, handle) -> {
-		Integer resultId = ResultDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer resultId = resultDao.insert(handle, dataContainer, dataContainer.getSchema());
 		dataContainer.setCreatedId("" + resultId);
 	};
 
@@ -24,17 +28,16 @@ public class ResultView {
 		IResultModel result = new ResultModel(null, dataContainer.getUsername(), dataContainer.getTestId(),
 				dataContainer.getDate(), dataContainer.getJson(), dataContainer.getPoints(),
 				dataContainer.getMaxPoints());
-		Integer resultId = ResultDao.insert(handle, result, dataContainer.getSchema());
+		Integer resultId = resultDao.insert(handle, result, dataContainer.getSchema());
 		dataContainer.setCreatedId("" + resultId);
 	};
 
 	public BiConsumer<ResultSaveData, Handle> fillBoxWithCards = (dataContainer, handle) -> {
 		List<ICardOfBoxModel> cards = dataContainer.getCardsToBeAdded();
 		for (ICardOfBoxModel card : cards) {
-			CardOfBoxDao.insert(handle, card, dataContainer.getSchema());
+			cardOfBoxDao.insert(handle, card, dataContainer.getSchema());
 		}
 	};
-	
 
 }
 

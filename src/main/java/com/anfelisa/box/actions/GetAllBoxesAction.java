@@ -29,6 +29,8 @@ public class GetAllBoxesAction extends AbstractGetAllBoxesAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetAllBoxesAction.class);
 
+	private BoxDao boxDao = new BoxDao();
+
 	public GetAllBoxesAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -44,7 +46,7 @@ public class GetAllBoxesAction extends AbstractGetAllBoxesAction {
 
 	@Override
 	protected void loadDataForGetRequest() {
-		List<IBoxModel> allBoxes = BoxDao.selectAll(this.getDatabaseHandle().getHandle(), this.actionData.getSchema());
+		List<IBoxModel> allBoxes = boxDao.selectAll(this.getDatabaseHandle().getHandle(), this.actionData.getSchema());
 		this.actionData.setBoxList(allBoxes);
 	}
 

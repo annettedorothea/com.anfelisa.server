@@ -18,13 +18,17 @@ public class SaveBoxConfigCommand extends AbstractSaveBoxConfigCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(SaveBoxConfigCommand.class);
 
+	private BoxDao boxDao = new BoxDao();
+
+	private CustomBoxOfCourseDao customBoxOfCourseDao = new CustomBoxOfCourseDao();
+
 	public SaveBoxConfigCommand(BoxConfigData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 
 	@Override
 	protected void executeCommand() {
-		IBoxModel box = BoxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
+		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
 		if ((commandData.getCredentialsRole().equals(AuthUser.STUDENT))
 				&& !box.getUsername().equals(commandData.getCredentialsUsername())) {
 			throwUnauthorized();
@@ -32,7 +36,7 @@ public class SaveBoxConfigCommand extends AbstractSaveBoxConfigCommand {
 		List<IBoxOfCourseModel> list = this.commandData.getBoxOfCourseList();
 		this.commandData.setExistingItems(new ArrayList<IBoxOfCourseModel>());
 		for (IBoxOfCourseModel item : list) {
-			IBoxOfCourseModel existingItem = CustomBoxOfCourseDao.select(this.getDatabaseHandle().getHandle(),
+			IBoxOfCourseModel existingItem = customBoxOfCourseDao.select(this.getDatabaseHandle().getHandle(),
 					this.commandData.getSchema(), item.getBoxId(), item.getCourseId());
 			this.commandData.getExistingItems().add(existingItem);
 		}

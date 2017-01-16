@@ -10,15 +10,17 @@ import com.anfelisa.box.models.CardDao;
 
 public class CardView {
 
+	private CardDao cardDao = new CardDao();
+
 	public BiConsumer<CardCreationData, Handle> createCard = (dataContainer, handle) -> {
-		Integer cardId = CardDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer cardId = cardDao.insert(handle, dataContainer, dataContainer.getSchema());
 		dataContainer.setCreatedId("" + cardId);
 	};
 
 	public BiConsumer<CardIdData, Handle> deleteCard = (dataContainer, handle) -> {
-		CardDao.deleteByCardId(handle, dataContainer.getCardId(), dataContainer.getSchema());
+		cardDao.deleteByCardId(handle, dataContainer.getCardId(), dataContainer.getSchema());
 	};
-	
+
 }
 
-/*                    S.D.G.                    */
+/* S.D.G. */

@@ -10,6 +10,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.process.internal.RequestScoped;
 import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +28,14 @@ import io.dropwizard.auth.Auth;
 @Path("/lessons")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RequestScoped
 public class LoadPrivateLessonsAction extends AbstractLoadPrivateLessonsAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadPrivateLessonsAction.class);
+
+	private CustomCourseDao customCourseDao = new CustomCourseDao();
+
+	private CustomLessonDao customLessonDao = new CustomLessonDao();
 
 	public LoadPrivateLessonsAction(DBI jdbi) {
 		super(jdbi);
@@ -47,7 +53,7 @@ public class LoadPrivateLessonsAction extends AbstractLoadPrivateLessonsAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		ICourseModel course = CustomCourseDao.selectByCourseIdAndUsername(this.getHandle(),
+		ICourseModel course = customCourseDao.selectByCourseIdAndUsername(this.getHandle(),
 				this.actionData.getCourseId(), this.actionData.getUsername(), this.actionData.getSchema());
 		if (course == null) {
 			throwBadRequest();
@@ -56,7 +62,7 @@ public class LoadPrivateLessonsAction extends AbstractLoadPrivateLessonsAction {
 			this.actionData.setCourseAuthor(course.getAuthor());
 			this.actionData.setIsPublic(course.getIsPublic());
 			this.actionData.setCourseName(course.getName());
-			this.actionData.setMyLessonList(CustomLessonDao.selectMyLessons(this.getDatabaseHandle().getHandle(),
+			this.actionData.setMyLessonList(customLessonDao.selectMyLessons(this.getDatabaseHandle().getHandle(),
 					this.getActionData().getSchema(), this.actionData.getCourseId(), this.actionData.getUsername()));
 		}
 	}

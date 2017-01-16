@@ -7,7 +7,10 @@ import org.skife.jdbi.v2.Update;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @SuppressWarnings("all")
+@JsonIgnoreType
 public class CardDao {
 	
 	public void create(Handle handle, String schema) {
@@ -37,7 +40,7 @@ public class CardDao {
 	}
 	
 	
-	public static void updateByCardId(Handle handle, ICardModel cardModel, String schema) {
+	public void updateByCardId(Handle handle, ICardModel cardModel, String schema) {
 		Update statement = handle.createStatement("UPDATE " + schema + ".card SET cardId = :cardId, content = :content, testId = :testId, contentHash = :contentHash, maxPoints = :maxPoints WHERE cardId = :cardId");
 		statement.bind("cardId", cardModel.getCardId());
 		statement.bind("content", cardModel.getContent());
@@ -47,20 +50,20 @@ public class CardDao {
 		statement.execute();
 	}
 
-	public static void deleteByCardId(Handle handle, Integer cardId, String schema) {
+	public void deleteByCardId(Handle handle, Integer cardId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".card WHERE cardId = :cardId");
 		statement.bind("cardId", cardId);
 		statement.execute();
 	}
 
-	public static ICardModel selectByCardId(Handle handle, Integer cardId, String schema) {
+	public ICardModel selectByCardId(Handle handle, Integer cardId, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".card WHERE cardId = :cardId")
 			.bind("cardId", cardId)
 			.map(new CardMapper())
 			.first();
 	}
 	
-	public static List<ICardModel> selectAll(Handle handle, String schema) {
+	public List<ICardModel> selectAll(Handle handle, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".card")
 			.map(new CardMapper())
 			.list();

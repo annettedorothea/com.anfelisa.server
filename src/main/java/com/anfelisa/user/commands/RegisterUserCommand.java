@@ -13,13 +13,16 @@ public class RegisterUserCommand extends AbstractRegisterUserCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(RegisterUserCommand.class);
 
+	private UserDao userDao = new UserDao();
+
 	public RegisterUserCommand(UserRegistrationData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 
 	@Override
 	protected void executeCommand() {
-		IUserModel user = UserDao.selectByUsername(this.getHandle(), commandData.getUsername(), commandData.getSchema());
+		IUserModel user = userDao.selectByUsername(this.getHandle(), commandData.getUsername(),
+				commandData.getSchema());
 		if (user != null) {
 			throwBadRequest();
 		}

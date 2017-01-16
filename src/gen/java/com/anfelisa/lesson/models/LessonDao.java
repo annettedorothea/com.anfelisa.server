@@ -7,7 +7,10 @@ import org.skife.jdbi.v2.Update;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @SuppressWarnings("all")
+@JsonIgnoreType
 public class LessonDao {
 	
 	public void create(Handle handle, String schema) {
@@ -39,7 +42,7 @@ public class LessonDao {
 	}
 	
 	
-	public static void updateByLessonId(Handle handle, ILessonModel lessonModel, String schema) {
+	public void updateByLessonId(Handle handle, ILessonModel lessonModel, String schema) {
 		Update statement = handle.createStatement("UPDATE " + schema + ".lesson SET lessonId = :lessonId, name = :name, description = :description, sequence = :sequence, courseId = :courseId, author = :author WHERE lessonId = :lessonId");
 		statement.bind("lessonId", lessonModel.getLessonId());
 		statement.bind("name", lessonModel.getName());
@@ -50,20 +53,20 @@ public class LessonDao {
 		statement.execute();
 	}
 
-	public static void deleteByLessonId(Handle handle, Integer lessonId, String schema) {
+	public void deleteByLessonId(Handle handle, Integer lessonId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".lesson WHERE lessonId = :lessonId");
 		statement.bind("lessonId", lessonId);
 		statement.execute();
 	}
 
-	public static ILessonModel selectByLessonId(Handle handle, Integer lessonId, String schema) {
+	public ILessonModel selectByLessonId(Handle handle, Integer lessonId, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".lesson WHERE lessonId = :lessonId")
 			.bind("lessonId", lessonId)
 			.map(new LessonMapper())
 			.first();
 	}
 	
-	public static List<ILessonModel> selectAll(Handle handle, String schema) {
+	public List<ILessonModel> selectAll(Handle handle, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".lesson")
 			.map(new LessonMapper())
 			.list();

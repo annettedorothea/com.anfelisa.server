@@ -28,6 +28,8 @@ public class GetTestAction extends AbstractGetTestAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetTestAction.class);
 
+	private TestDao testDao = new TestDao();
+
 	public GetTestAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -43,7 +45,7 @@ public class GetTestAction extends AbstractGetTestAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		ITestModel test = TestDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionData.getTestId(),
+		ITestModel test = testDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionData.getTestId(),
 				this.actionData.getSchema());
 		this.actionData.setAuthor(test.getAuthor());
 		this.actionData.setHtml(test.getHtml());

@@ -7,7 +7,10 @@ import org.skife.jdbi.v2.Update;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @SuppressWarnings("all")
+@JsonIgnoreType
 public class ResultDao {
 	
 	public void create(Handle handle, String schema) {
@@ -41,7 +44,7 @@ public class ResultDao {
 	}
 	
 	
-	public static void updateByResultId(Handle handle, IResultModel resultModel, String schema) {
+	public void updateByResultId(Handle handle, IResultModel resultModel, String schema) {
 		Update statement = handle.createStatement("UPDATE " + schema + ".result SET resultId = :resultId, username = :username, testId = :testId, date = :date, json = :json, points = :points, maxPoints = :maxPoints WHERE resultId = :resultId");
 		statement.bind("resultId", resultModel.getResultId());
 		statement.bind("username", resultModel.getUsername());
@@ -53,20 +56,20 @@ public class ResultDao {
 		statement.execute();
 	}
 
-	public static void deleteByResultId(Handle handle, Integer resultId, String schema) {
+	public void deleteByResultId(Handle handle, Integer resultId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".result WHERE resultId = :resultId");
 		statement.bind("resultId", resultId);
 		statement.execute();
 	}
 
-	public static IResultModel selectByResultId(Handle handle, Integer resultId, String schema) {
+	public IResultModel selectByResultId(Handle handle, Integer resultId, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".result WHERE resultId = :resultId")
 			.bind("resultId", resultId)
 			.map(new ResultMapper())
 			.first();
 	}
 	
-	public static List<IResultModel> selectAll(Handle handle, String schema) {
+	public List<IResultModel> selectAll(Handle handle, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".result")
 			.map(new ResultMapper())
 			.list();

@@ -7,7 +7,10 @@ import org.skife.jdbi.v2.Update;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @SuppressWarnings("all")
+@JsonIgnoreType
 public class UserDao {
 	
 	public void create(Handle handle, String schema) {
@@ -40,7 +43,7 @@ public class UserDao {
 	}
 	
 	
-	public static void updateByUsername(Handle handle, IUserModel userModel, String schema) {
+	public void updateByUsername(Handle handle, IUserModel userModel, String schema) {
 		Update statement = handle.createStatement("UPDATE " + schema + ".user SET username = :username, password = :password, name = :name, prename = :prename, email = :email, role = :role, emailConfirmed = :emailConfirmed WHERE username = :username");
 		statement.bind("username", userModel.getUsername());
 		statement.bind("password", userModel.getPassword());
@@ -52,20 +55,20 @@ public class UserDao {
 		statement.execute();
 	}
 
-	public static void deleteByUsername(Handle handle, String username, String schema) {
+	public void deleteByUsername(Handle handle, String username, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".user WHERE username = :username");
 		statement.bind("username", username);
 		statement.execute();
 	}
 
-	public static IUserModel selectByUsername(Handle handle, String username, String schema) {
+	public IUserModel selectByUsername(Handle handle, String username, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".user WHERE username = :username")
 			.bind("username", username)
 			.map(new UserMapper())
 			.first();
 	}
 	
-	public static List<IUserModel> selectAll(Handle handle, String schema) {
+	public List<IUserModel> selectAll(Handle handle, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".user")
 			.map(new UserMapper())
 			.list();

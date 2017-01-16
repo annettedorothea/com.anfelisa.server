@@ -32,6 +32,8 @@ public class GetCourseSelectionAction extends AbstractGetCourseSelectionAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetCourseSelectionAction.class);
 
+	private CustomCourseDao customCourseDao = new CustomCourseDao();
+
 	public GetCourseSelectionAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -47,7 +49,7 @@ public class GetCourseSelectionAction extends AbstractGetCourseSelectionAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		List<ICourseModel> courses = CustomCourseDao.selectCourseSelection(this.getDatabaseHandle().getHandle(),
+		List<ICourseModel> courses = customCourseDao.selectCourseSelection(this.getDatabaseHandle().getHandle(),
 				this.actionData.getSchema(), this.actionData.getUsername());
 		this.actionData.setCourseList(courses);
 	}

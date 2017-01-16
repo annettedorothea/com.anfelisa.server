@@ -10,6 +10,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.process.internal.RequestScoped;
 import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +25,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/lessons")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RequestScoped
 public class GetLessonAction extends AbstractGetLessonAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetLessonAction.class);
+
+	private LessonDao lessonDao = new LessonDao();
 
 	public GetLessonAction(DBI jdbi) {
 		super(jdbi);
@@ -43,7 +47,7 @@ public class GetLessonAction extends AbstractGetLessonAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		ILessonModel lesson = LessonDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
+		ILessonModel lesson = lessonDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
 				this.actionData.getLessonId(), this.actionData.getSchema());
 		this.actionData.setAuthor(lesson.getAuthor());
 		this.actionData.setCourseId(lesson.getCourseId());

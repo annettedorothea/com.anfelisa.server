@@ -12,13 +12,16 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteBoxCommand.class);
 
+	private BoxDao boxDao = new BoxDao();
+
 	public DeleteBoxCommand(DeleteBoxData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 
 	@Override
 	protected void executeCommand() {
-		IBoxModel box = BoxDao.selectByBoxId(this.getHandle(), this.commandData.getBoxId(), this.commandData.getSchema());
+		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), this.commandData.getBoxId(),
+				this.commandData.getSchema());
 		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
 			this.throwUnauthorized();
 		}
@@ -27,4 +30,4 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

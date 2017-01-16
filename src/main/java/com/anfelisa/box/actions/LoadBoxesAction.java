@@ -36,6 +36,8 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadBoxesAction.class);
 
+	private CustomBoxDao customBoxDao = new CustomBoxDao();
+
 	public LoadBoxesAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -51,11 +53,11 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 
 	@Override
 	protected void loadDataForGetRequest() {
-		List<IBoxModel> boxList = CustomBoxDao.selectByUsername(this.getDatabaseHandle().getHandle(),
+		List<IBoxModel> boxList = customBoxDao.selectByUsername(this.getDatabaseHandle().getHandle(),
 				this.actionData.getSchema(), this.actionData.getUsername());
 		List<IBoxInfoModel> boxInfoList = new ArrayList<IBoxInfoModel>();
 		for (IBoxModel boxModel : boxList) {
-			List<ICardOfBoxModel> todaysCards = CustomBoxDao.selectCardsOfBoxForToday(
+			List<ICardOfBoxModel> todaysCards = customBoxDao.selectCardsOfBoxForToday(
 					this.getDatabaseHandle().getHandle(), this.actionData.getSchema(), boxModel.getBoxId());
 			BoxInfoModel boxInfoModel = new BoxInfoModel(todaysCards.size(), (todaysCards.size() > 0));
 			boxInfoModel.setBox(boxModel);
@@ -66,4 +68,4 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

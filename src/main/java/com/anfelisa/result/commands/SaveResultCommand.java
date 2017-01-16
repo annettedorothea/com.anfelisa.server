@@ -19,6 +19,10 @@ public class SaveResultCommand extends AbstractSaveResultCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(SaveResultCommand.class);
 
+	private CustomBoxDao customBoxDao = new CustomBoxDao();
+
+	private CustomCardDao customCardDao = new CustomCardDao();
+
 	public SaveResultCommand(ResultSaveData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
@@ -29,12 +33,12 @@ public class SaveResultCommand extends AbstractSaveResultCommand {
 			throwUnauthorized();
 		}
 		this.commandData.setCardsToBeAdded(new ArrayList<>());
-		List<IBoxModel> boxes = CustomBoxDao.selectBoxesWhereCardMightBeAddedAfterEdit(
+		List<IBoxModel> boxes = customBoxDao.selectBoxesWhereCardMightBeAddedAfterEdit(
 				this.getDatabaseHandle().getHandle(), this.commandData.getSchema(), this.commandData.getTestId(),
 				this.commandData.getUsername());
 		for (IBoxModel box : boxes) {
 			List<ICardModel> allCards;
-			allCards = CustomCardDao.selectCardsToBeAddedAfterEdit(this.getDatabaseHandle().getHandle(),
+			allCards = customCardDao.selectCardsToBeAddedAfterEdit(this.getDatabaseHandle().getHandle(),
 					this.commandData.getSchema(), this.commandData.getTestId(), box.getBoxId());
 			for (ICardModel card : allCards) {
 				ICardOfBoxModel cardOfBox = new CardOfBoxModel(null, card.getCardId(), 0F, 0, 0, 0,

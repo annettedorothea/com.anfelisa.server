@@ -28,6 +28,8 @@ public class GetCourseAction extends AbstractGetCourseAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetCourseAction.class);
 
+	private CourseDao courseDao = new CourseDao();
+
 	public GetCourseAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -43,7 +45,7 @@ public class GetCourseAction extends AbstractGetCourseAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		ICourseModel course = CourseDao.selectByCourseId(this.getDatabaseHandle().getHandle(),
+		ICourseModel course = courseDao.selectByCourseId(this.getDatabaseHandle().getHandle(),
 				this.actionData.getCourseId(), this.actionData.getSchema());
 		this.actionData.setAuthor(course.getAuthor());
 		this.actionData.setDescription(course.getDescription());

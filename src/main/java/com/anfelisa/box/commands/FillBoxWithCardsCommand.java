@@ -22,6 +22,12 @@ public class FillBoxWithCardsCommand extends AbstractFillBoxWithCardsCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(FillBoxWithCardsCommand.class);
 
+	private BoxDao boxDao = new BoxDao();
+
+	private CustomCardDao customCardDao = new CustomCardDao();
+
+	private CustomBoxOfCourseDao customBoxOfCourseDao = new CustomBoxOfCourseDao();
+
 	public FillBoxWithCardsCommand(FillBoxData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
@@ -29,23 +35,23 @@ public class FillBoxWithCardsCommand extends AbstractFillBoxWithCardsCommand {
 	@Override
 	protected void executeCommand() {
 		if (commandData.getCredentialsRole().equals(AuthUser.STUDENT)) {
-			IBoxModel box = BoxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
+			IBoxModel box = boxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
 			if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
 				throwUnauthorized();
 			}
 		}
 		this.commandData.setCardsToBeAdded(new ArrayList<>());
 		List<IBoxOfCourseModel> boxOfCourseList = new ArrayList<IBoxOfCourseModel>();
-		List<IBoxOfCourseModel> boxOfCourses = CustomBoxOfCourseDao.selectByBoxId(this.getDatabaseHandle().getHandle(),
+		List<IBoxOfCourseModel> boxOfCourses = customBoxOfCourseDao.selectByBoxId(this.getDatabaseHandle().getHandle(),
 				this.commandData.getSchema(), this.commandData.getBoxId());
 		boxOfCourseList.addAll(boxOfCourses);
 		for (IBoxOfCourseModel boxOfCourse : boxOfCourseList) {
 			List<ICardModel> allCards;
 			if (boxOfCourse.getAutoAdd()) {
-				allCards = CustomCardDao.selectCardsOfCourseThatAreNotAlreadyInBox(this.getDatabaseHandle().getHandle(),
+				allCards = customCardDao.selectCardsOfCourseThatAreNotAlreadyInBox(this.getDatabaseHandle().getHandle(),
 						this.commandData.getSchema(), boxOfCourse.getCourseId(), boxOfCourse.getBoxId());
 			} else {
-				allCards = CustomCardDao.selectCardsOfCourseThatAreNotAlreadyInBoxAndHaveResult(
+				allCards = customCardDao.selectCardsOfCourseThatAreNotAlreadyInBoxAndHaveResult(
 						this.getDatabaseHandle().getHandle(), this.commandData.getSchema(), boxOfCourse.getCourseId(),
 						boxOfCourse.getBoxId(), this.commandData.getCredentialsUsername());
 			}

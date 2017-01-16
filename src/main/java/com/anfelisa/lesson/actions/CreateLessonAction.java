@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.process.internal.RequestScoped;
 import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/lessons")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class CreateLessonAction extends AbstractCreateLessonAction {
+@RequestScoped
+public class CreateLessonAction extends AbstractCreateLessonAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateLessonAction.class);
 
@@ -38,7 +40,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

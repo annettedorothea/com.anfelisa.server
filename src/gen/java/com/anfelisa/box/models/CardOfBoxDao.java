@@ -7,7 +7,10 @@ import org.skife.jdbi.v2.Update;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @SuppressWarnings("all")
+@JsonIgnoreType
 public class CardOfBoxDao {
 	
 	public void create(Handle handle, String schema) {
@@ -49,7 +52,7 @@ public class CardOfBoxDao {
 	}
 	
 	
-	public static void updateByCardOfBoxId(Handle handle, ICardOfBoxModel cardOfBoxModel, String schema) {
+	public void updateByCardOfBoxId(Handle handle, ICardOfBoxModel cardOfBoxModel, String schema) {
 		Update statement = handle.createStatement("UPDATE " + schema + ".cardofbox SET cardOfBoxId = :cardOfBoxId, cardId = :cardId, ef = :ef, interval = :interval, n = :n, count = :count, date = :date, boxId = :boxId, quality = :quality, timestamp = :timestamp, points = :points WHERE cardOfBoxId = :cardOfBoxId");
 		statement.bind("cardOfBoxId", cardOfBoxModel.getCardOfBoxId());
 		statement.bind("cardId", cardOfBoxModel.getCardId());
@@ -65,20 +68,20 @@ public class CardOfBoxDao {
 		statement.execute();
 	}
 
-	public static void deleteByCardOfBoxId(Handle handle, Integer cardOfBoxId, String schema) {
+	public void deleteByCardOfBoxId(Handle handle, Integer cardOfBoxId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".cardofbox WHERE cardOfBoxId = :cardOfBoxId");
 		statement.bind("cardOfBoxId", cardOfBoxId);
 		statement.execute();
 	}
 
-	public static ICardOfBoxModel selectByCardOfBoxId(Handle handle, Integer cardOfBoxId, String schema) {
+	public ICardOfBoxModel selectByCardOfBoxId(Handle handle, Integer cardOfBoxId, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".cardofbox WHERE cardOfBoxId = :cardOfBoxId")
 			.bind("cardOfBoxId", cardOfBoxId)
 			.map(new CardOfBoxMapper())
 			.first();
 	}
 	
-	public static List<ICardOfBoxModel> selectAll(Handle handle, String schema) {
+	public List<ICardOfBoxModel> selectAll(Handle handle, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".cardofbox")
 			.map(new CardOfBoxMapper())
 			.list();

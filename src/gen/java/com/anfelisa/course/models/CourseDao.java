@@ -7,7 +7,10 @@ import org.skife.jdbi.v2.Update;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @SuppressWarnings("all")
+@JsonIgnoreType
 public class CourseDao {
 	
 	public void create(Handle handle, String schema) {
@@ -39,7 +42,7 @@ public class CourseDao {
 	}
 	
 	
-	public static void updateByCourseId(Handle handle, ICourseModel courseModel, String schema) {
+	public void updateByCourseId(Handle handle, ICourseModel courseModel, String schema) {
 		Update statement = handle.createStatement("UPDATE " + schema + ".course SET courseId = :courseId, name = :name, description = :description, sequence = :sequence, isPublic = :isPublic, author = :author WHERE courseId = :courseId");
 		statement.bind("courseId", courseModel.getCourseId());
 		statement.bind("name", courseModel.getName());
@@ -50,20 +53,20 @@ public class CourseDao {
 		statement.execute();
 	}
 
-	public static void deleteByCourseId(Handle handle, Integer courseId, String schema) {
+	public void deleteByCourseId(Handle handle, Integer courseId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".course WHERE courseId = :courseId");
 		statement.bind("courseId", courseId);
 		statement.execute();
 	}
 
-	public static ICourseModel selectByCourseId(Handle handle, Integer courseId, String schema) {
+	public ICourseModel selectByCourseId(Handle handle, Integer courseId, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".course WHERE courseId = :courseId")
 			.bind("courseId", courseId)
 			.map(new CourseMapper())
 			.first();
 	}
 	
-	public static List<ICourseModel> selectAll(Handle handle, String schema) {
+	public List<ICourseModel> selectAll(Handle handle, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".course")
 			.map(new CourseMapper())
 			.list();

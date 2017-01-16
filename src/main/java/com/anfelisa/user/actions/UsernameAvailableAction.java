@@ -21,9 +21,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
+public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UsernameAvailableAction.class);
+
+	private UserDao userDao = new UserDao();
 
 	public UsernameAvailableAction(DBI jdbi) {
 		super(jdbi);
@@ -39,7 +41,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 	}
 
 	protected final void loadDataForGetRequest() {
-		if (UserDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.actionData.getUsername(), this.actionData.getSchema()) == null) {
+		if (userDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.actionData.getUsername(),
+				this.actionData.getSchema()) == null) {
 			this.actionData.setAvailable(true);
 		} else {
 			this.actionData.setAvailable(false);
@@ -48,4 +51,4 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

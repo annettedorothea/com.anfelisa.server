@@ -17,18 +17,25 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScoreCardCommand.class);
 
+	private CardDao cardDao = new CardDao();
+
+	private CardOfBoxDao cardOfBoxDao = new CardOfBoxDao();
+
+	private CustomBoxDao customBoxDao = new CustomBoxDao();
+
 	public ScoreCardCommand(ScoreCardData commandData, DatabaseHandle databaseHandle) {
 		super(commandData, databaseHandle);
 	}
 
 	@Override
 	protected void executeCommand() {
-		IBoxModel box = CustomBoxDao.selectByCardOfBoxId(getHandle(), commandData.getSchema(), commandData.getCardOfBoxId());
+		IBoxModel box = customBoxDao.selectByCardOfBoxId(getHandle(), commandData.getSchema(),
+				commandData.getCardOfBoxId());
 		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
 
-		ICardOfBoxModel cardOfBox = CardOfBoxDao.selectByCardOfBoxId(this.getDatabaseHandle().getHandle(),
+		ICardOfBoxModel cardOfBox = cardOfBoxDao.selectByCardOfBoxId(this.getDatabaseHandle().getHandle(),
 				this.commandData.getCardOfBoxId(), this.commandData.getSchema());
 		this.commandData.setBoxId(cardOfBox.getBoxId());
 		this.commandData.setCardId(cardOfBox.getCardId());
@@ -41,7 +48,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		this.commandData.setEf(cardOfBox.getEf());
 		this.commandData.setTimestamp(cardOfBox.getTimestamp());
 
-		ICardModel card = CardDao.selectByCardId(this.getDatabaseHandle().getHandle(), this.commandData.getCardId(),
+		ICardModel card = cardDao.selectByCardId(this.getDatabaseHandle().getHandle(), this.commandData.getCardId(),
 				this.commandData.getSchema());
 		this.commandData.setMaxPoints(card.getMaxPoints());
 
@@ -52,7 +59,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		Integer n = this.commandData.getN() + 1;
 		Float newFactor = ef;
 		Integer quality = commandData.getSubmittedQuality();
-		
+
 		if (quality < 3) {
 			n = 1;
 		} else {
@@ -65,7 +72,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		Integer newInterval = 1;
 		if (n == 2) {
 			newInterval = 6;
-		} else if (n > 2){
+		} else if (n > 2) {
 			newInterval = Math.round(interval * newFactor);
 		}
 		DateTime next = this.commandData.getNow().plusDays(newInterval);
@@ -73,9 +80,9 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		if (quality > 2) {
 			points = maxPoints;
 		} else if (quality == 2) {
-			points = (maxPoints/2);
+			points = (maxPoints / 2);
 		}
-		
+
 		this.commandData.setCardOfBoxId(null);
 		this.commandData.setEf(newFactor);
 		this.commandData.setInterval(newInterval);
@@ -85,10 +92,10 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		this.commandData.setTimestamp(this.commandData.getNow());
 		this.commandData.setQuality(quality);
 		this.commandData.setPoints(points);
-		
+
 		this.outcome = scored;
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

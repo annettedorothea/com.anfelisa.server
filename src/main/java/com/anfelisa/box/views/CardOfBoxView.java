@@ -10,16 +10,18 @@ import com.anfelisa.box.models.CardOfBoxDao;
 
 public class CardOfBoxView {
 
+	private CardOfBoxDao cardOfBoxDao = new CardOfBoxDao();
+
 	public BiConsumer<CardOfBoxCreationData, Handle> createCardOfBox = (dataContainer, handle) -> {
-		Integer id = CardOfBoxDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer id = cardOfBoxDao.insert(handle, dataContainer, dataContainer.getSchema());
 		dataContainer.setCreatedId("" + id);
 	};
 
 	public BiConsumer<ScoreCardData, Handle> score = (dataContainer, handle) -> {
-		Integer id = CardOfBoxDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer id = cardOfBoxDao.insert(handle, dataContainer, dataContainer.getSchema());
 		dataContainer.setCreatedId("" + id);
 	};
-	
+
 }
 
-/*                    S.D.G.                    */
+/* S.D.G. */

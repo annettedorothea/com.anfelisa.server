@@ -15,31 +15,33 @@ import com.anfelisa.box.models.ICardOfBoxModel;
 
 public class BoxView {
 
+	private BoxDao boxDao = new BoxDao();
+
+	private CustomBoxDao customBoxDao = new CustomBoxDao();
+
+	private CardOfBoxDao cardOfBoxDao = new CardOfBoxDao();
+
 	public BiConsumer<BoxCreationData, Handle> createBox = (dataContainer, handle) -> {
-		// update view
-		Integer id = BoxDao.insert(handle, dataContainer, dataContainer.getSchema());
-		dataContainer.setCreatedId("" +  id);
+		Integer id = boxDao.insert(handle, dataContainer, dataContainer.getSchema());
+		dataContainer.setCreatedId("" + id);
 	};
 
 	public BiConsumer<BoxCreationData, Handle> updateBox = (dataContainer, handle) -> {
-		// update view
-		CustomBoxDao.updateBox(handle, dataContainer, dataContainer.getSchema());
+		customBoxDao.updateBox(handle, dataContainer, dataContainer.getSchema());
 	};
-	
+
 	public BiConsumer<DeleteBoxData, Handle> deleteBox = (dataContainer, handle) -> {
-		// update view
-		BoxDao.deleteByBoxId(handle, dataContainer.getBoxId(), dataContainer.getSchema());
+		boxDao.deleteByBoxId(handle, dataContainer.getBoxId(), dataContainer.getSchema());
 	};
-	
+
 	public BiConsumer<FillBoxData, Handle> fillBoxWithCards = (dataContainer, handle) -> {
-		// update view
 		List<ICardOfBoxModel> cards = dataContainer.getCardsToBeAdded();
 		for (ICardOfBoxModel card : cards) {
-			CardOfBoxDao.insert(handle, card, dataContainer.getSchema());
+			cardOfBoxDao.insert(handle, card, dataContainer.getSchema());
 		}
 		dataContainer.setCreatedId(dataContainer.getCardsToBeAdded().size() + "");
 	};
-	
+
 }
 
-/*                    S.D.G.                    */
+/* S.D.G. */

@@ -9,15 +9,17 @@ import com.anfelisa.test.models.TestDao;
 
 public class TestView {
 
+	private TestDao testDao = new TestDao();
+
 	public BiConsumer<TestCreationData, Handle> createTest = (dataContainer, handle) -> {
-		Integer testId = TestDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer testId = testDao.insert(handle, dataContainer, dataContainer.getSchema());
 		dataContainer.setCreatedId("" + testId);
 	};
 
 	public BiConsumer<TestCreationData, Handle> updateTest = (dataContainer, handle) -> {
-		TestDao.updateByTestId(handle, dataContainer, dataContainer.getSchema());
+		testDao.updateByTestId(handle, dataContainer, dataContainer.getSchema());
 	};
-	
+
 }
 
-/*                    S.D.G.                    */
+/* S.D.G. */

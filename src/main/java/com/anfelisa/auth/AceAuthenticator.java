@@ -16,6 +16,8 @@ public class AceAuthenticator implements Authenticator<BasicCredentials, AuthUse
 
 	private DBI jdbi;
 
+	private UserDao userDao = new UserDao();
+	
 	public AceAuthenticator(DBI jdbi) {
 		super();
 		this.jdbi = jdbi;
@@ -26,7 +28,7 @@ public class AceAuthenticator implements Authenticator<BasicCredentials, AuthUse
 		String username = BasicCredentialsHelper.extractUsernameFromUserName(credentials);
 		Handle handle = this.jdbi.open();
 		try {
-			IUserModel user = UserDao.selectByUsername(handle, username, schema);
+			IUserModel user = userDao.selectByUsername(handle, username, schema);
 			if (user != null && user.getPassword().equals(credentials.getPassword())) {
 				return Optional.of(new AuthUser(credentials.getUsername(), credentials.getPassword(), user.getRole()));
 			} else {

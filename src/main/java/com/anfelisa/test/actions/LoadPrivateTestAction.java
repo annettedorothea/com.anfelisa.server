@@ -34,6 +34,12 @@ public class LoadPrivateTestAction extends AbstractLoadPrivateTestAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadPrivateTestAction.class);
 
+	private CustomLessonDao customLessonDao = new CustomLessonDao();
+
+	private CustomCourseDao customCourseDao = new CustomCourseDao();
+
+	private CustomTestDao customTestDao = new CustomTestDao();
+
 	public LoadPrivateTestAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -50,20 +56,20 @@ public class LoadPrivateTestAction extends AbstractLoadPrivateTestAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		ITestModel test = CustomTestDao.selectByTestIdAndUsername(this.getHandle(), actionData.getTestId(),
+		ITestModel test = customTestDao.selectByTestIdAndUsername(this.getHandle(), actionData.getTestId(),
 				actionData.getUsername(), actionData.getSchema());
 		if (test == null) {
 			throwBadRequest();
 		}
 
-		ILessonModel lesson = CustomLessonDao.selectByTestId(this.getDatabaseHandle().getHandle(),
+		ILessonModel lesson = customLessonDao.selectByTestId(this.getDatabaseHandle().getHandle(),
 				this.actionData.getTestId(), this.getActionData().getSchema());
 		this.actionData.setLessonDescription(lesson.getDescription());
 		this.actionData.setLessonAuthor(lesson.getAuthor());
 		this.actionData.setLessonName(lesson.getName());
 		this.actionData.setLessonId(lesson.getLessonId());
 
-		ICourseModel course = CustomCourseDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
+		ICourseModel course = customCourseDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
 				lesson.getLessonId(), this.getActionData().getSchema());
 		this.actionData.setCourseAuthor(course.getAuthor());
 		this.actionData.setCourseDescription(course.getDescription());
@@ -73,7 +79,7 @@ public class LoadPrivateTestAction extends AbstractLoadPrivateTestAction {
 		this.actionData.setAuthor(test.getAuthor());
 		this.actionData.setHtml(test.getHtml());
 		this.actionData.setName(test.getName());
-		this.actionData.setMyTestList(CustomTestDao.selectMyTests(this.getDatabaseHandle().getHandle(),
+		this.actionData.setMyTestList(customTestDao.selectMyTests(this.getDatabaseHandle().getHandle(),
 				this.getActionData().getSchema(), this.actionData.getLessonId(), this.actionData.getUsername()));
 	}
 

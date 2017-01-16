@@ -29,6 +29,8 @@ public class LoadPrivateCoursesAction extends AbstractLoadPrivateCoursesAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadPrivateCoursesAction.class);
 
+	private CustomCourseDao customCourseDao = new CustomCourseDao();
+
 	public LoadPrivateCoursesAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -44,7 +46,7 @@ public class LoadPrivateCoursesAction extends AbstractLoadPrivateCoursesAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		this.actionData.setMyCourseList(CustomCourseDao.selectMyCourses(this.getDatabaseHandle().getHandle(),
+		this.actionData.setMyCourseList(customCourseDao.selectMyCourses(this.getDatabaseHandle().getHandle(),
 				this.getActionData().getSchema(), this.actionData.getUsername()));
 	}
 

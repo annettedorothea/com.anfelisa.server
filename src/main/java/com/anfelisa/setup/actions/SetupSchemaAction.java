@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.process.internal.RequestScoped;
 import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/schema")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class SetupSchemaAction extends AbstractSetupSchemaAction {
+@RequestScoped
+public class SetupSchemaAction extends AbstractSetupSchemaAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(SetupSchemaAction.class);
 
@@ -36,7 +38,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

@@ -25,6 +25,8 @@ public class LoadPublicCoursesAction extends AbstractLoadPublicCoursesAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadPublicCoursesAction.class);
 
+	private CustomCourseDao customCourseDao = new CustomCourseDao();
+
 	public LoadPublicCoursesAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -40,7 +42,7 @@ public class LoadPublicCoursesAction extends AbstractLoadPublicCoursesAction {
 
 	protected final void loadDataForGetRequest() {
 		this.actionData.setCourseList(
-				CustomCourseDao.selectPublic(this.getDatabaseHandle().getHandle(), this.getActionData().getSchema()));
+				customCourseDao.selectPublic(this.getDatabaseHandle().getHandle(), this.getActionData().getSchema()));
 	}
 
 }

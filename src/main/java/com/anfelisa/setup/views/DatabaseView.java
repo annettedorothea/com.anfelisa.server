@@ -25,52 +25,78 @@ import com.anfelisa.user.models.UserModel;
 
 public class DatabaseView {
 
+	private UserDao userDao = new UserDao();
+
+	private CourseDao courseDao = new CourseDao();
+
+	private LessonDao lessonDao = new LessonDao();
+
+	private TestDao testDao = new TestDao();
+
+	private ResultDao resultDao = new ResultDao();
+
+	private StudentOfCourseDao studentOfCourseDao = new StudentOfCourseDao();
+
+	private BoxDao boxDao = new BoxDao();
+
+	private CardDao cardDao = new CardDao();
+
+	private BoxOfCourseDao boxOfCourseDao = new BoxOfCourseDao();
+
+	private CardOfBoxDao cardOfBoxDao = new CardOfBoxDao();
+
+	private LoginLogDao loginLogDao = new LoginLogDao();
+	
+	private AceDao aceDao = new AceDao();
+	
+	private SchemaDao schemaDao = new SchemaDao();
+
 	public BiConsumer<SchemaCreationData, Handle> createSchema = (dataContainer, handle) -> {
-		SchemaDao.createSchema(handle, dataContainer.getSchemaToBeCreated());
+		schemaDao.createSchema(handle, dataContainer.getSchemaToBeCreated());
 	};
 	public BiConsumer<SchemaCreationData, Handle> createTimelineTable = (dataContainer, handle) -> {
-		AceDao.createTimelineTable(handle, dataContainer.getSchemaToBeCreated());
+		aceDao.createTimelineTable(handle, dataContainer.getSchemaToBeCreated());
 	};
 	public BiConsumer<SchemaCreationData, Handle> createErrorTimelineTable = (dataContainer, handle) -> {
-		AceDao.createErrorTimelineTable(handle, dataContainer.getSchemaToBeCreated());
+		aceDao.createErrorTimelineTable(handle, dataContainer.getSchemaToBeCreated());
 	};
 	public BiConsumer<SetupSchemaData, Handle> createUserTable = (dataContainer, handle) -> {
-		UserDao.create(handle, dataContainer.getSchema());
+		userDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupSchemaData, Handle> createCourseTable = (dataContainer, handle) -> {
-		CourseDao.create(handle, dataContainer.getSchema());
+		courseDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupSchemaData, Handle> createLessonTable = (dataContainer, handle) -> {
-		LessonDao.create(handle, dataContainer.getSchema());
+		lessonDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupSchemaData, Handle> createTestTable = (dataContainer, handle) -> {
-		TestDao.create(handle, dataContainer.getSchema());
+		testDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupSchemaData, Handle> createResultTable = (dataContainer, handle) -> {
-		ResultDao.create(handle, dataContainer.getSchema());
+		resultDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupSchemaData, Handle> createStudentOfCourseTable = (dataContainer, handle) -> {
-		StudentOfCourseDao.create(handle, dataContainer.getSchema());
+		studentOfCourseDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupSchemaData, Handle> createBoxTable = (dataContainer, handle) -> {
-		BoxDao.create(handle, dataContainer.getSchema());
+		boxDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupSchemaData, Handle> createCardTable = (dataContainer, handle) -> {
-		CardDao.create(handle, dataContainer.getSchema());
+		cardDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupSchemaData, Handle> createCardOfBoxTable = (dataContainer, handle) -> {
-		CardOfBoxDao.create(handle, dataContainer.getSchema());
+		cardOfBoxDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupSchemaData, Handle> createBoxOfCourse = (dataContainer, handle) -> {
-		BoxOfCourseDao.create(handle, dataContainer.getSchema());
+		boxOfCourseDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupSchemaData, Handle> createLoginLog = (dataContainer, handle) -> {
-		LoginLogDao.create(handle, dataContainer.getSchema());
+		loginLogDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupSchemaData, Handle> insertAdminUser = (dataContainer, handle) -> {
 		IUserModel user = new UserModel(dataContainer.getUsername(), dataContainer.getPassword(),
 				dataContainer.getName(), dataContainer.getPrename(), dataContainer.getEmail(), AuthUser.ADMIN, false);
-		UserDao.insert(handle, user, dataContainer.getSchema());
+		userDao.insert(handle, user, dataContainer.getSchema());
 	};
 
 }

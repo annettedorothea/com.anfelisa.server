@@ -7,7 +7,10 @@ import org.skife.jdbi.v2.Update;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @SuppressWarnings("all")
+@JsonIgnoreType
 public class StudentOfCourseDao {
 	
 	public void create(Handle handle, String schema) {
@@ -23,7 +26,7 @@ public class StudentOfCourseDao {
 	
 	
 	
-	public static List<IStudentOfCourseModel> selectAll(Handle handle, String schema) {
+	public List<IStudentOfCourseModel> selectAll(Handle handle, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".studentofcourse")
 			.map(new StudentOfCourseMapper())
 			.list();

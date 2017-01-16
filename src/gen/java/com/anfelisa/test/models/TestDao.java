@@ -7,7 +7,10 @@ import org.skife.jdbi.v2.Update;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @SuppressWarnings("all")
+@JsonIgnoreType
 public class TestDao {
 	
 	public void create(Handle handle, String schema) {
@@ -39,7 +42,7 @@ public class TestDao {
 	}
 	
 	
-	public static void updateByTestId(Handle handle, ITestModel testModel, String schema) {
+	public void updateByTestId(Handle handle, ITestModel testModel, String schema) {
 		Update statement = handle.createStatement("UPDATE " + schema + ".test SET testId = :testId, name = :name, sequence = :sequence, lessonId = :lessonId, html = :html, author = :author WHERE testId = :testId");
 		statement.bind("testId", testModel.getTestId());
 		statement.bind("name", testModel.getName());
@@ -50,20 +53,20 @@ public class TestDao {
 		statement.execute();
 	}
 
-	public static void deleteByTestId(Handle handle, Integer testId, String schema) {
+	public void deleteByTestId(Handle handle, Integer testId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".test WHERE testId = :testId");
 		statement.bind("testId", testId);
 		statement.execute();
 	}
 
-	public static ITestModel selectByTestId(Handle handle, Integer testId, String schema) {
+	public ITestModel selectByTestId(Handle handle, Integer testId, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".test WHERE testId = :testId")
 			.bind("testId", testId)
 			.map(new TestMapper())
 			.first();
 	}
 	
-	public static List<ITestModel> selectAll(Handle handle, String schema) {
+	public List<ITestModel> selectAll(Handle handle, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".test")
 			.map(new TestMapper())
 			.list();

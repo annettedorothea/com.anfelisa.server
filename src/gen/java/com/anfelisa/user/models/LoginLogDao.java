@@ -7,7 +7,10 @@ import org.skife.jdbi.v2.Update;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @SuppressWarnings("all")
+@JsonIgnoreType
 public class LoginLogDao {
 	
 	public void create(Handle handle, String schema) {
@@ -33,7 +36,7 @@ public class LoginLogDao {
 	}
 	
 	
-	public static void updateByLoginLogId(Handle handle, ILoginLogModel loginLogModel, String schema) {
+	public void updateByLoginLogId(Handle handle, ILoginLogModel loginLogModel, String schema) {
 		Update statement = handle.createStatement("UPDATE " + schema + ".loginlog SET loginLogId = :loginLogId, username = :username, date = :date WHERE loginLogId = :loginLogId");
 		statement.bind("loginLogId", loginLogModel.getLoginLogId());
 		statement.bind("username", loginLogModel.getUsername());
@@ -41,20 +44,20 @@ public class LoginLogDao {
 		statement.execute();
 	}
 
-	public static void deleteByLoginLogId(Handle handle, Integer loginLogId, String schema) {
+	public void deleteByLoginLogId(Handle handle, Integer loginLogId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".loginlog WHERE loginLogId = :loginLogId");
 		statement.bind("loginLogId", loginLogId);
 		statement.execute();
 	}
 
-	public static ILoginLogModel selectByLoginLogId(Handle handle, Integer loginLogId, String schema) {
+	public ILoginLogModel selectByLoginLogId(Handle handle, Integer loginLogId, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".loginlog WHERE loginLogId = :loginLogId")
 			.bind("loginLogId", loginLogId)
 			.map(new LoginLogMapper())
 			.first();
 	}
 	
-	public static List<ILoginLogModel> selectAll(Handle handle, String schema) {
+	public List<ILoginLogModel> selectAll(Handle handle, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".loginlog")
 			.map(new LoginLogMapper())
 			.list();

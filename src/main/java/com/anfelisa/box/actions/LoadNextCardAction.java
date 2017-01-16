@@ -43,6 +43,10 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadNextCardAction.class);
 
+	private BoxDao boxDao = new BoxDao();
+
+	private CustomBoxDao customBoxDao = new CustomBoxDao();
+
 	public LoadNextCardAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -62,11 +66,11 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void loadDataForGetRequest() {
-		IBoxModel box = BoxDao.selectByBoxId(this.getHandle(), this.actionData.getBoxId(), this.actionData.getSchema());
+		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), this.actionData.getBoxId(), this.actionData.getSchema());
 		if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
-		List<ICardInfoModel> nextCards = CustomBoxDao.selectNextCardsByBoxId(this.getDatabaseHandle().getHandle(),
+		List<ICardInfoModel> nextCards = customBoxDao.selectNextCardsByBoxId(this.getDatabaseHandle().getHandle(),
 				this.actionData.getSchema(), this.actionData.getBoxId());
 		ICardInfoModel nextCard = null;
 		int count = 0;
@@ -170,8 +174,9 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			this.actionData.setThree((int) Math.floor((100 * quality3Count / numberOfCardsWithQuality)));
 			this.actionData.setFour((int) Math.floor((100 * quality4Count / numberOfCardsWithQuality)));
 			this.actionData.setFive((int) Math.floor((100 * quality5Count / numberOfCardsWithQuality)));
-			this.actionData.setNoQuality(100 - this.actionData.getZero() - this.actionData.getOne() - this.actionData.getTwo()
-					- this.actionData.getThree() - this.actionData.getFour() - this.actionData.getFive());
+			this.actionData
+					.setNoQuality(100 - this.actionData.getZero() - this.actionData.getOne() - this.actionData.getTwo()
+							- this.actionData.getThree() - this.actionData.getFour() - this.actionData.getFive());
 		}
 	}
 

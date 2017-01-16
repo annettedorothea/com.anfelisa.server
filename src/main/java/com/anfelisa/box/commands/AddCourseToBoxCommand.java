@@ -13,14 +13,17 @@ public class AddCourseToBoxCommand extends AbstractAddCourseToBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(AddCourseToBoxCommand.class);
 
+	private BoxDao boxDao = new BoxDao();
+
 	public AddCourseToBoxCommand(BoxToCourseAdditionData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 
 	@Override
 	protected void executeCommand() {
-		IBoxModel box = BoxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
-		if (commandData.getCredentialsRole().equals(AuthUser.STUDENT) && !box.getUsername().equals(commandData.getCredentialsUsername())) {
+		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
+		if (commandData.getCredentialsRole().equals(AuthUser.STUDENT)
+				&& !box.getUsername().equals(commandData.getCredentialsUsername())) {
 			this.throwUnauthorized();
 		}
 		this.outcome = added;

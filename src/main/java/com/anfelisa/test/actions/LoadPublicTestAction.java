@@ -31,6 +31,14 @@ public class LoadPublicTestAction extends AbstractLoadPublicTestAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadPublicTestAction.class);
 
+	private CustomLessonDao customLessonDao = new CustomLessonDao();
+
+	private CustomCourseDao customCourseDao = new CustomCourseDao();
+
+	private TestDao testDao = new TestDao();
+
+	private CustomTestDao customTestDao = new CustomTestDao();
+
 	public LoadPublicTestAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -45,7 +53,7 @@ public class LoadPublicTestAction extends AbstractLoadPublicTestAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		ILessonModel lesson = CustomLessonDao.selectByTestId(this.getDatabaseHandle().getHandle(),
+		ILessonModel lesson = customLessonDao.selectByTestId(this.getDatabaseHandle().getHandle(),
 				this.actionData.getTestId(), this.getActionData().getSchema());
 		if (lesson == null) {
 			throwBadRequest();
@@ -54,7 +62,7 @@ public class LoadPublicTestAction extends AbstractLoadPublicTestAction {
 		this.actionData.setLessonAuthor(lesson.getAuthor());
 		this.actionData.setLessonName(lesson.getName());
 		this.actionData.setLessonId(lesson.getLessonId());
-		ICourseModel course = CustomCourseDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
+		ICourseModel course = customCourseDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
 				lesson.getLessonId(), this.getActionData().getSchema());
 		if (course == null) {
 			throwBadRequest();
@@ -63,7 +71,7 @@ public class LoadPublicTestAction extends AbstractLoadPublicTestAction {
 		this.actionData.setCourseDescription(course.getDescription());
 		this.actionData.setCourseName(course.getName());
 		this.actionData.setCourseId(course.getCourseId());
-		ITestModel test = TestDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionData.getTestId(),
+		ITestModel test = testDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionData.getTestId(),
 				this.getActionData().getSchema());
 		if (test == null) {
 			throwBadRequest();
@@ -71,7 +79,7 @@ public class LoadPublicTestAction extends AbstractLoadPublicTestAction {
 		this.actionData.setAuthor(test.getAuthor());
 		this.actionData.setHtml(test.getHtml());
 		this.actionData.setName(test.getName());
-		this.actionData.setTestList(CustomTestDao.selectTests(this.getDatabaseHandle().getHandle(),
+		this.actionData.setTestList(customTestDao.selectTests(this.getDatabaseHandle().getHandle(),
 				this.getActionData().getSchema(), this.actionData.getLessonId()));
 	}
 

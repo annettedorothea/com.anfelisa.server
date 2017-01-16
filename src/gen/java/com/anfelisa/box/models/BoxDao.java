@@ -7,7 +7,10 @@ import org.skife.jdbi.v2.Update;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 @SuppressWarnings("all")
+@JsonIgnoreType
 public class BoxDao {
 	
 	public void create(Handle handle, String schema) {
@@ -33,7 +36,7 @@ public class BoxDao {
 	}
 	
 	
-	public static void updateByBoxId(Handle handle, IBoxModel boxModel, String schema) {
+	public void updateByBoxId(Handle handle, IBoxModel boxModel, String schema) {
 		Update statement = handle.createStatement("UPDATE " + schema + ".box SET boxId = :boxId, name = :name, username = :username WHERE boxId = :boxId");
 		statement.bind("boxId", boxModel.getBoxId());
 		statement.bind("name", boxModel.getName());
@@ -41,20 +44,20 @@ public class BoxDao {
 		statement.execute();
 	}
 
-	public static void deleteByBoxId(Handle handle, Integer boxId, String schema) {
+	public void deleteByBoxId(Handle handle, Integer boxId, String schema) {
 		Update statement = handle.createStatement("DELETE FROM " + schema + ".box WHERE boxId = :boxId");
 		statement.bind("boxId", boxId);
 		statement.execute();
 	}
 
-	public static IBoxModel selectByBoxId(Handle handle, Integer boxId, String schema) {
+	public IBoxModel selectByBoxId(Handle handle, Integer boxId, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".box WHERE boxId = :boxId")
 			.bind("boxId", boxId)
 			.map(new BoxMapper())
 			.first();
 	}
 	
-	public static List<IBoxModel> selectAll(Handle handle, String schema) {
+	public List<IBoxModel> selectAll(Handle handle, String schema) {
 		return handle.createQuery("SELECT * FROM " + schema + ".box")
 			.map(new BoxMapper())
 			.list();

@@ -29,6 +29,8 @@ public class GetPointsAction extends AbstractGetPointsAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetPointsAction.class);
 
+	private CustomUserDao customUserDao = new CustomUserDao();
+
 	public GetPointsAction(DBI jdbi) {
 		super(jdbi);
 	}
@@ -44,9 +46,9 @@ public class GetPointsAction extends AbstractGetPointsAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		int boxPoints = CustomUserDao.selectBoxPoints(this.getDatabaseHandle().getHandle(),
+		int boxPoints = customUserDao.selectBoxPoints(this.getDatabaseHandle().getHandle(),
 				this.actionData.getUsername(), this.actionData.getSchema());
-		int testPoints = CustomUserDao.selectTestPoints(this.getDatabaseHandle().getHandle(),
+		int testPoints = customUserDao.selectTestPoints(this.getDatabaseHandle().getHandle(),
 				this.actionData.getUsername(), this.actionData.getSchema());
 		this.actionData.setPoints(boxPoints + testPoints);
 	}
