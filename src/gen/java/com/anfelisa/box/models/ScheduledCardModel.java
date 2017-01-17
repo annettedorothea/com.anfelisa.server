@@ -5,68 +5,68 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings("all")
-public class CardOfBoxModel implements ICardOfBoxModel {
+public class ScheduledCardModel implements IScheduledCardModel {
 
 	@NotNull
-	private Integer cardOfBoxId;
+	private Integer scheduledCardId;
 	
 	@NotNull
 	private Integer cardId;
 	
+	@NotNull
 	private Float ef;
 	
 	private Integer interval;
 	
+	@NotNull
 	private Integer n;
 	
 	@NotNull
 	private Integer count;
 	
-	private org.joda.time.DateTime date;
+	@NotNull
+	private org.joda.time.DateTime scheduledDate;
 	
 	@NotNull
 	private Integer boxId;
 	
-	private Integer quality;
+	private Integer lastQuality;
 	
+	@NotNull
 	private org.joda.time.DateTime timestamp;
 	
-	private Integer points;
-	
 
 
-	public CardOfBoxModel(
-		@JsonProperty("cardOfBoxId") Integer cardOfBoxId,
+	public ScheduledCardModel(
+		@JsonProperty("scheduledCardId") Integer scheduledCardId,
 		@JsonProperty("cardId") Integer cardId,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
 		@JsonProperty("n") Integer n,
 		@JsonProperty("count") Integer count,
-		@JsonProperty("date") org.joda.time.DateTime date,
+		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
 		@JsonProperty("boxId") Integer boxId,
-		@JsonProperty("quality") Integer quality,
-		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
-		@JsonProperty("points") Integer points
+		@JsonProperty("lastQuality") Integer lastQuality,
+		@JsonProperty("timestamp") org.joda.time.DateTime timestamp
 	) {
-		this.cardOfBoxId = cardOfBoxId;
+		this.scheduledCardId = scheduledCardId;
 		this.cardId = cardId;
 		this.ef = ef;
 		this.interval = interval;
 		this.n = n;
 		this.count = count;
-		this.date = date;
+		this.scheduledDate = scheduledDate;
 		this.boxId = boxId;
-		this.quality = quality;
+		this.lastQuality = lastQuality;
 		this.timestamp = timestamp;
-		this.points = points;
 	}
 
 	@JsonProperty
-	public Integer getCardOfBoxId() {
-		return this.cardOfBoxId;
+	public Integer getScheduledCardId() {
+		return this.scheduledCardId;
 	}
-	public void setCardOfBoxId(Integer cardOfBoxId) {
-		this.cardOfBoxId = cardOfBoxId;
+	public void setScheduledCardId(Integer scheduledCardId) {
+		this.scheduledCardId = scheduledCardId;
 	}
 	
 	@JsonProperty
@@ -110,11 +110,11 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getDate() {
-		return this.date;
+	public org.joda.time.DateTime getScheduledDate() {
+		return this.scheduledDate;
 	}
-	public void setDate(org.joda.time.DateTime date) {
-		this.date = date;
+	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
+		this.scheduledDate = scheduledDate;
 	}
 	
 	@JsonProperty
@@ -126,11 +126,11 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 	}
 	
 	@JsonProperty
-	public Integer getQuality() {
-		return this.quality;
+	public Integer getLastQuality() {
+		return this.lastQuality;
 	}
-	public void setQuality(Integer quality) {
-		this.quality = quality;
+	public void setLastQuality(Integer lastQuality) {
+		this.lastQuality = lastQuality;
 	}
 	
 	@JsonProperty
@@ -139,14 +139,6 @@ public class CardOfBoxModel implements ICardOfBoxModel {
 	}
 	public void setTimestamp(org.joda.time.DateTime timestamp) {
 		this.timestamp = timestamp;
-	}
-	
-	@JsonProperty
-	public Integer getPoints() {
-		return this.points;
-	}
-	public void setPoints(Integer points) {
-		this.points = points;
 	}
 	
 

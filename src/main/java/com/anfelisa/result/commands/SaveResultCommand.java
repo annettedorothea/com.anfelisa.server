@@ -7,12 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.box.models.CardOfBoxModel;
 import com.anfelisa.box.models.CustomBoxDao;
 import com.anfelisa.box.models.CustomCardDao;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.ICardModel;
-import com.anfelisa.box.models.ICardOfBoxModel;
+import com.anfelisa.box.models.IScheduledCardModel;
+import com.anfelisa.box.models.ScheduledCardModel;
 import com.anfelisa.result.data.ResultSaveData;
 
 public class SaveResultCommand extends AbstractSaveResultCommand {
@@ -41,9 +41,9 @@ public class SaveResultCommand extends AbstractSaveResultCommand {
 			allCards = customCardDao.selectCardsToBeAddedAfterEdit(this.getDatabaseHandle().getHandle(),
 					this.commandData.getSchema(), this.commandData.getTestId(), box.getBoxId());
 			for (ICardModel card : allCards) {
-				ICardOfBoxModel cardOfBox = new CardOfBoxModel(null, card.getCardId(), 0F, 0, 0, 0,
-						this.commandData.getDate(), box.getBoxId(), null, this.commandData.getDate(), 0);
-				this.commandData.getCardsToBeAdded().add(cardOfBox);
+				IScheduledCardModel scheduledCard = new ScheduledCardModel(null, card.getCardId(), 0F, 0, 0, 0,
+						this.commandData.getDate(), box.getBoxId(), null, this.commandData.getDate());
+				this.commandData.getCardsToBeAdded().add(scheduledCard);
 			}
 		}
 		this.outcome = saved;

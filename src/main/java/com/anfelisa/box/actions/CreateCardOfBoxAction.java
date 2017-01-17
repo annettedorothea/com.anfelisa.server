@@ -12,7 +12,7 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.CardOfBoxCreationData;
+import com.anfelisa.box.data.ScheduledCardData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -31,11 +31,11 @@ public class CreateCardOfBoxAction extends AbstractCreateCardOfBoxAction {
 	@Timed
 	@Path("/create")
 	@PermitAll
-	public Response post(CardOfBoxCreationData actionParam) throws JsonProcessingException {
+	public Response post(ScheduledCardData actionParam) throws JsonProcessingException {
 		this.actionData = actionParam;
 		return this.apply();
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

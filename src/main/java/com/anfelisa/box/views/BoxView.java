@@ -9,9 +9,9 @@ import com.anfelisa.box.data.BoxCreationData;
 import com.anfelisa.box.data.DeleteBoxData;
 import com.anfelisa.box.data.FillBoxData;
 import com.anfelisa.box.models.BoxDao;
-import com.anfelisa.box.models.CardOfBoxDao;
 import com.anfelisa.box.models.CustomBoxDao;
-import com.anfelisa.box.models.ICardOfBoxModel;
+import com.anfelisa.box.models.IScheduledCardModel;
+import com.anfelisa.box.models.ScheduledCardDao;
 
 public class BoxView {
 
@@ -19,7 +19,7 @@ public class BoxView {
 
 	private CustomBoxDao customBoxDao = new CustomBoxDao();
 
-	private CardOfBoxDao cardOfBoxDao = new CardOfBoxDao();
+	private ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
 
 	public BiConsumer<BoxCreationData, Handle> createBox = (dataContainer, handle) -> {
 		Integer id = boxDao.insert(handle, dataContainer, dataContainer.getSchema());
@@ -35,9 +35,9 @@ public class BoxView {
 	};
 
 	public BiConsumer<FillBoxData, Handle> fillBoxWithCards = (dataContainer, handle) -> {
-		List<ICardOfBoxModel> cards = dataContainer.getCardsToBeAdded();
-		for (ICardOfBoxModel card : cards) {
-			cardOfBoxDao.insert(handle, card, dataContainer.getSchema());
+		List<IScheduledCardModel> cards = dataContainer.getCardsToBeAdded();
+		for (IScheduledCardModel card : cards) {
+			scheduledCardDao.insert(handle, card, dataContainer.getSchema());
 		}
 		dataContainer.setCreatedId(dataContainer.getCardsToBeAdded().size() + "");
 	};

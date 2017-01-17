@@ -12,11 +12,11 @@ public class CustomBoxDao {
 				.bind("username", username).map(new BoxMapper()).list();
 	}
 
-	public IBoxModel selectByCardOfBoxId(Handle handle, String schema, Integer cardOfBoxId) {
+	public IBoxModel selectByScheduledCardId(Handle handle, String schema, Integer scheduledCardId) {
 		return handle
-				.createQuery("SELECT b.* FROM " + schema + ".cardOfBox cb inner join " + schema
-						+ ".box b ON b.boxId = cb.boxId WHERE cb.cardOfBoxId = :cardOfBoxId")
-				.bind("cardOfBoxId", cardOfBoxId).map(new BoxMapper()).first();
+				.createQuery("SELECT b.* FROM " + schema + ".scheduledCard sc inner join " + schema
+						+ ".box b ON b.boxId = sc.boxId WHERE sc.scheduledCardId = :scheduledCardId")
+				.bind("scheduledCardId", scheduledCardId).map(new BoxMapper()).first();
 	}
 
 	public List<ICardInfoModel> selectNextCardsByBoxId(Handle handle, String schema, Integer boxId) {
@@ -27,17 +27,6 @@ public class CustomBoxDao {
 						+ schema + ".card c ON c.cardid = b.cardid INNER JOIN " + schema
 						+ ".box bos ON b.boxid = bos.boxid WHERE b.boxid = :boxId ORDER BY b.timestamp DESC")
 				.bind("boxId", boxId).map(new CardInfoMapper()).list();
-	}
-
-	public List<ICardOfBoxModel> selectCardsOfBoxForToday(Handle handle, String schema, Integer boxId) {
-		return handle
-				.createQuery("SELECT b.* FROM " + schema
-						+ ".cardofbox b INNER JOIN (SELECT cardid, MAX(count) as maxCount FROM " + schema
-						+ ".cardofbox WHERE boxid = :boxId GROUP BY cardid ORDER BY cardid) latestCard ON b.cardid = latestCard.cardid "
-						+ "AND b.count = latestCard.maxCount AND date_trunc('day', b.date) <= date_trunc('day', now()) INNER JOIN "
-						+ schema + ".card c ON c.cardid = b.cardid INNER JOIN " + schema
-						+ ".box bos ON b.boxid = bos.boxid WHERE b.boxid = :boxId ORDER BY b.timestamp DESC")
-				.bind("boxId", boxId).map(new CardOfBoxMapper()).list();
 	}
 
 	public void updateBox(Handle handle, IBoxModel boxModel, String schema) {

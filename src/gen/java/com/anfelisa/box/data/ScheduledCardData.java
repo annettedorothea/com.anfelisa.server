@@ -10,10 +10,10 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.box.models.ICardOfBoxModel;
+import com.anfelisa.box.models.IScheduledCardModel;
 
 @SuppressWarnings("unused")
-public class CardOfBoxCreationData implements ICardOfBoxCreationData {
+public class ScheduledCardData implements IScheduledCardData {
 	
 	private String uuid;
 	
@@ -22,78 +22,78 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	private String createdId;
 	
 	@NotNull
-	private Integer cardOfBoxId;
+	private Integer scheduledCardId;
 	
 	@NotNull
 	private Integer cardId;
 	
+	@NotNull
 	private Float ef;
 	
 	private Integer interval;
 	
+	@NotNull
 	private Integer n;
 	
 	@NotNull
 	private Integer count;
 	
-	private org.joda.time.DateTime date;
+	@NotNull
+	private org.joda.time.DateTime scheduledDate;
 	
 	@NotNull
 	private Integer boxId;
 	
-	private Integer quality;
+	private Integer lastQuality;
 	
+	@NotNull
 	private org.joda.time.DateTime timestamp;
 	
-	private Integer points;
-	
 
 	
 
-	public CardOfBoxCreationData(
-		@JsonProperty("cardOfBoxId") Integer cardOfBoxId,
+	public ScheduledCardData(
+		@JsonProperty("scheduledCardId") Integer scheduledCardId,
 		@JsonProperty("cardId") Integer cardId,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
 		@JsonProperty("n") Integer n,
 		@JsonProperty("count") Integer count,
-		@JsonProperty("date") org.joda.time.DateTime date,
+		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
 		@JsonProperty("boxId") Integer boxId,
-		@JsonProperty("quality") Integer quality,
-		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
-		@JsonProperty("points") Integer points
+		@JsonProperty("lastQuality") Integer lastQuality,
+		@JsonProperty("timestamp") org.joda.time.DateTime timestamp
 ,		@JsonProperty("uuid") String uuid,
 		@JsonProperty("schema") String schema
 	) {
-		this.cardOfBoxId = cardOfBoxId;
+		this.scheduledCardId = scheduledCardId;
 		this.cardId = cardId;
 		this.ef = ef;
 		this.interval = interval;
 		this.n = n;
 		this.count = count;
-		this.date = date;
+		this.scheduledDate = scheduledDate;
 		this.boxId = boxId;
-		this.quality = quality;
+		this.lastQuality = lastQuality;
 		this.timestamp = timestamp;
-		this.points = points;
 		this.uuid = uuid;
 		this.schema = schema;
 	}
 
-	public CardOfBoxCreationData( String uuid,	String schema ) {
+	public ScheduledCardData( String uuid,	String schema ) {
 		this.uuid = uuid;
 		this.schema = schema;
 	}
 
 	@JsonProperty
-	public Integer getCardOfBoxId() {
-		return this.cardOfBoxId;
+	public Integer getScheduledCardId() {
+		return this.scheduledCardId;
 	}
-	public void setCardOfBoxId(Integer cardOfBoxId) {
-		this.cardOfBoxId = cardOfBoxId;
+	public void setScheduledCardId(Integer scheduledCardId) {
+		this.scheduledCardId = scheduledCardId;
 	}
-	public CardOfBoxCreationData withCardOfBoxId(Integer cardOfBoxId) {
-		this.cardOfBoxId = cardOfBoxId;
+	public ScheduledCardData withScheduledCardId(Integer scheduledCardId) {
+		this.scheduledCardId = scheduledCardId;
 		return this;
 	}
 	
@@ -104,7 +104,7 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setCardId(Integer cardId) {
 		this.cardId = cardId;
 	}
-	public CardOfBoxCreationData withCardId(Integer cardId) {
+	public ScheduledCardData withCardId(Integer cardId) {
 		this.cardId = cardId;
 		return this;
 	}
@@ -116,7 +116,7 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setEf(Float ef) {
 		this.ef = ef;
 	}
-	public CardOfBoxCreationData withEf(Float ef) {
+	public ScheduledCardData withEf(Float ef) {
 		this.ef = ef;
 		return this;
 	}
@@ -128,7 +128,7 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setInterval(Integer interval) {
 		this.interval = interval;
 	}
-	public CardOfBoxCreationData withInterval(Integer interval) {
+	public ScheduledCardData withInterval(Integer interval) {
 		this.interval = interval;
 		return this;
 	}
@@ -140,7 +140,7 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setN(Integer n) {
 		this.n = n;
 	}
-	public CardOfBoxCreationData withN(Integer n) {
+	public ScheduledCardData withN(Integer n) {
 		this.n = n;
 		return this;
 	}
@@ -152,20 +152,20 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setCount(Integer count) {
 		this.count = count;
 	}
-	public CardOfBoxCreationData withCount(Integer count) {
+	public ScheduledCardData withCount(Integer count) {
 		this.count = count;
 		return this;
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getDate() {
-		return this.date;
+	public org.joda.time.DateTime getScheduledDate() {
+		return this.scheduledDate;
 	}
-	public void setDate(org.joda.time.DateTime date) {
-		this.date = date;
+	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
+		this.scheduledDate = scheduledDate;
 	}
-	public CardOfBoxCreationData withDate(org.joda.time.DateTime date) {
-		this.date = date;
+	public ScheduledCardData withScheduledDate(org.joda.time.DateTime scheduledDate) {
+		this.scheduledDate = scheduledDate;
 		return this;
 	}
 	
@@ -176,20 +176,20 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setBoxId(Integer boxId) {
 		this.boxId = boxId;
 	}
-	public CardOfBoxCreationData withBoxId(Integer boxId) {
+	public ScheduledCardData withBoxId(Integer boxId) {
 		this.boxId = boxId;
 		return this;
 	}
 	
 	@JsonProperty
-	public Integer getQuality() {
-		return this.quality;
+	public Integer getLastQuality() {
+		return this.lastQuality;
 	}
-	public void setQuality(Integer quality) {
-		this.quality = quality;
+	public void setLastQuality(Integer lastQuality) {
+		this.lastQuality = lastQuality;
 	}
-	public CardOfBoxCreationData withQuality(Integer quality) {
-		this.quality = quality;
+	public ScheduledCardData withLastQuality(Integer lastQuality) {
+		this.lastQuality = lastQuality;
 		return this;
 	}
 	
@@ -200,20 +200,8 @@ public class CardOfBoxCreationData implements ICardOfBoxCreationData {
 	public void setTimestamp(org.joda.time.DateTime timestamp) {
 		this.timestamp = timestamp;
 	}
-	public CardOfBoxCreationData withTimestamp(org.joda.time.DateTime timestamp) {
+	public ScheduledCardData withTimestamp(org.joda.time.DateTime timestamp) {
 		this.timestamp = timestamp;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getPoints() {
-		return this.points;
-	}
-	public void setPoints(Integer points) {
-		this.points = points;
-	}
-	public CardOfBoxCreationData withPoints(Integer points) {
-		this.points = points;
 		return this;
 	}
 	

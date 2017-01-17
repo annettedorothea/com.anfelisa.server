@@ -6,13 +6,13 @@ import javax.ws.rs.core.Response;
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
 
-import com.anfelisa.box.data.CardOfBoxCreationData;
+import com.anfelisa.box.data.ScheduledCardData;
 
-public abstract class AbstractCreateCardOfBoxCommand extends Command<CardOfBoxCreationData> {
+public abstract class AbstractCreateCardOfBoxCommand extends Command<ScheduledCardData> {
 
 	protected static final String created = "created";
 
-	public AbstractCreateCardOfBoxCommand(CardOfBoxCreationData commandParam, DatabaseHandle databaseHandle) {
+	public AbstractCreateCardOfBoxCommand(ScheduledCardData commandParam, DatabaseHandle databaseHandle) {
 		super("CreateCardOfBoxCommand", commandParam, databaseHandle);
 	}
 

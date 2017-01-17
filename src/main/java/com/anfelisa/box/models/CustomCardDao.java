@@ -14,7 +14,7 @@ public class CustomCardDao {
 						+ ".test t on c.testId = t.testId INNER JOIN " + schema
 						+ ".lesson l on t.lessonId = l.lessonId WHERE l.courseId = :courseId EXCEPT SELECT DISTINCT c.* FROM "
 						+ schema + ".card c INNER JOIN " + schema
-						+ ".cardofbox cb on c.cardId = cb.cardId WHERE cb.boxId = :boxId")
+						+ ".ScheduledCard cb on c.cardId = cb.cardId WHERE cb.boxId = :boxId")
 				.bind("courseId", courseId).bind("boxId", boxId).map(new CardMapper()).list();
 	}
 
@@ -25,7 +25,7 @@ public class CustomCardDao {
 						+ ".test t on c.testId = t.testId INNER JOIN " + schema
 						+ ".lesson l on t.lessonId = l.lessonId WHERE l.courseId = :courseId AND r.testId = t.testId AND r.username = :username EXCEPT SELECT DISTINCT c.* FROM "
 						+ schema + ".card c INNER JOIN " + schema
-						+ ".cardofbox cb on c.cardId = cb.cardId WHERE cb.boxId = :boxId")
+						+ ".ScheduledCard cb on c.cardId = cb.cardId WHERE cb.boxId = :boxId")
 				.bind("courseId", courseId).bind("boxId", boxId).bind("username", username).map(new CardMapper())
 				.list();
 	}
@@ -55,7 +55,7 @@ public class CustomCardDao {
 						+ ".test t on c.testId = t.testId INNER JOIN " + schema
 						+ ".lesson l on t.lessonId = l.lessonId WHERE t.testId = :testId EXCEPT SELECT DISTINCT c.* FROM "
 						+ schema + ".card c INNER JOIN " + schema
-						+ ".cardofbox cb on c.cardId = cb.cardId WHERE cb.boxId = :boxId")
+						+ ".ScheduledCard cb on c.cardId = cb.cardId WHERE cb.boxId = :boxId")
 				.bind("testId", testId).bind("boxId", boxId).map(new CardMapper()).list();
 	}
 

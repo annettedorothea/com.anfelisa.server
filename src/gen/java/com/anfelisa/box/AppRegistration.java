@@ -33,16 +33,18 @@ public class AppRegistration {
 		BoxView boxView = new BoxView();
 		BoxToCourseView boxToCourseView = new BoxToCourseView();
 		CardView cardView = new CardView();
-		CardOfBoxView cardOfBoxView = new CardOfBoxView();
+		ScheduledCardView scheduledCardView = new ScheduledCardView();
+		ScoredCardView scoredCardView = new ScoredCardView();
 		
 		AceController.addConsumer("BoxCreatedEvent", boxView.createBox);
 		AceController.addConsumer("CardCreatedEvent", cardView.createCard);
-		AceController.addConsumer("CardOfBoxCreatedEvent", cardOfBoxView.createCardOfBox);
+		AceController.addConsumer("CardOfBoxCreatedEvent", scheduledCardView.createScheduledCard);
 		AceController.addConsumer("CourseAddedToBoxEvent", boxToCourseView.addCourseToBox);
 		AceController.addConsumer("BoxUpdatedEvent", boxView.updateBox);
 		AceController.addConsumer("BoxDeletedEvent", boxView.deleteBox);
 		AceController.addConsumer("BoxConfigSavedEvent", boxToCourseView.saveBoxConfig);
-		AceController.addConsumer("CardScoredEvent", cardOfBoxView.score);
+		AceController.addConsumer("CardScoredEvent", scoredCardView.score);
+		AceController.addConsumer("CardScoredEvent", scheduledCardView.score);
 		AceController.addConsumer("CardImportedEvent", cardView.createCard);
 		AceController.addConsumer("FillBoxWithCardsEvent", boxView.fillBoxWithCards);
 		AceController.addConsumer("CardDeletedEvent", cardView.deleteCard);

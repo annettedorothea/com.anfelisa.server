@@ -4,13 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.box.data.CardOfBoxCreationData;
+import com.anfelisa.box.data.ScheduledCardData;
 
 public class CardOfBoxCreatedEvent extends AbstractCardOfBoxCreatedEvent {
 
 	static final Logger LOG = LoggerFactory.getLogger(CardOfBoxCreatedEvent.class);
 
-	public CardOfBoxCreatedEvent(CardOfBoxCreationData eventParam, DatabaseHandle databaseHandle) {
+	public CardOfBoxCreatedEvent(ScheduledCardData eventParam, DatabaseHandle databaseHandle) {
 		super(eventParam, databaseHandle);
 	}
 

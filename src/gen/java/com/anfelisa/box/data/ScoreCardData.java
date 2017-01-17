@@ -11,7 +11,8 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.ICardModel;
-import com.anfelisa.box.models.ICardOfBoxModel;
+import com.anfelisa.box.models.IScheduledCardModel;
+import com.anfelisa.box.models.IScoredCardModel;
 import com.anfelisa.box.models.ICardQualityModel;
 import com.anfelisa.box.models.INowModel;
 import com.anfelisa.user.models.ICredentialsModel;
@@ -41,25 +42,36 @@ public class ScoreCardData implements IScoreCardData {
 	private Integer maxPoints;
 	
 	@NotNull
-	private Integer cardOfBoxId;
+	private Integer scheduledCardId;
 	
+	@NotNull
 	private Float ef;
 	
 	private Integer interval;
 	
+	@NotNull
 	private Integer n;
 	
 	@NotNull
 	private Integer count;
 	
-	private org.joda.time.DateTime date;
+	@NotNull
+	private org.joda.time.DateTime scheduledDate;
 	
 	@NotNull
 	private Integer boxId;
 	
-	private Integer quality;
+	private Integer lastQuality;
 	
+	@NotNull
 	private org.joda.time.DateTime timestamp;
+	
+	@NotNull
+	private Integer scoredCardId;
+	
+	private org.joda.time.DateTime scheduledDateOfScored;
+	
+	private Integer quality;
 	
 	private Integer points;
 	
@@ -78,6 +90,7 @@ public class ScoreCardData implements IScoreCardData {
 	
 	
 	
+	
 
 	public ScoreCardData(
 		@JsonProperty("cardId") Integer cardId,
@@ -85,15 +98,18 @@ public class ScoreCardData implements IScoreCardData {
 		@JsonProperty("testId") Integer testId,
 		@JsonProperty("contentHash") String contentHash,
 		@JsonProperty("maxPoints") Integer maxPoints,
-		@JsonProperty("cardOfBoxId") Integer cardOfBoxId,
+		@JsonProperty("scheduledCardId") Integer scheduledCardId,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
 		@JsonProperty("n") Integer n,
 		@JsonProperty("count") Integer count,
-		@JsonProperty("date") org.joda.time.DateTime date,
+		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
 		@JsonProperty("boxId") Integer boxId,
-		@JsonProperty("quality") Integer quality,
+		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
+		@JsonProperty("scoredCardId") Integer scoredCardId,
+		@JsonProperty("scheduledDateOfScored") org.joda.time.DateTime scheduledDateOfScored,
+		@JsonProperty("quality") Integer quality,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("submittedQuality") Integer submittedQuality,
 		@JsonProperty("now") org.joda.time.DateTime now,
@@ -107,15 +123,18 @@ public class ScoreCardData implements IScoreCardData {
 		this.testId = testId;
 		this.contentHash = contentHash;
 		this.maxPoints = maxPoints;
-		this.cardOfBoxId = cardOfBoxId;
+		this.scheduledCardId = scheduledCardId;
 		this.ef = ef;
 		this.interval = interval;
 		this.n = n;
 		this.count = count;
-		this.date = date;
+		this.scheduledDate = scheduledDate;
 		this.boxId = boxId;
-		this.quality = quality;
+		this.lastQuality = lastQuality;
 		this.timestamp = timestamp;
+		this.scoredCardId = scoredCardId;
+		this.scheduledDateOfScored = scheduledDateOfScored;
+		this.quality = quality;
 		this.points = points;
 		this.submittedQuality = submittedQuality;
 		this.now = now;
@@ -191,14 +210,14 @@ public class ScoreCardData implements IScoreCardData {
 	}
 	
 	@JsonProperty
-	public Integer getCardOfBoxId() {
-		return this.cardOfBoxId;
+	public Integer getScheduledCardId() {
+		return this.scheduledCardId;
 	}
-	public void setCardOfBoxId(Integer cardOfBoxId) {
-		this.cardOfBoxId = cardOfBoxId;
+	public void setScheduledCardId(Integer scheduledCardId) {
+		this.scheduledCardId = scheduledCardId;
 	}
-	public ScoreCardData withCardOfBoxId(Integer cardOfBoxId) {
-		this.cardOfBoxId = cardOfBoxId;
+	public ScoreCardData withScheduledCardId(Integer scheduledCardId) {
+		this.scheduledCardId = scheduledCardId;
 		return this;
 	}
 	
@@ -251,14 +270,14 @@ public class ScoreCardData implements IScoreCardData {
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getDate() {
-		return this.date;
+	public org.joda.time.DateTime getScheduledDate() {
+		return this.scheduledDate;
 	}
-	public void setDate(org.joda.time.DateTime date) {
-		this.date = date;
+	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
+		this.scheduledDate = scheduledDate;
 	}
-	public ScoreCardData withDate(org.joda.time.DateTime date) {
-		this.date = date;
+	public ScoreCardData withScheduledDate(org.joda.time.DateTime scheduledDate) {
+		this.scheduledDate = scheduledDate;
 		return this;
 	}
 	
@@ -275,14 +294,14 @@ public class ScoreCardData implements IScoreCardData {
 	}
 	
 	@JsonProperty
-	public Integer getQuality() {
-		return this.quality;
+	public Integer getLastQuality() {
+		return this.lastQuality;
 	}
-	public void setQuality(Integer quality) {
-		this.quality = quality;
+	public void setLastQuality(Integer lastQuality) {
+		this.lastQuality = lastQuality;
 	}
-	public ScoreCardData withQuality(Integer quality) {
-		this.quality = quality;
+	public ScoreCardData withLastQuality(Integer lastQuality) {
+		this.lastQuality = lastQuality;
 		return this;
 	}
 	
@@ -295,6 +314,42 @@ public class ScoreCardData implements IScoreCardData {
 	}
 	public ScoreCardData withTimestamp(org.joda.time.DateTime timestamp) {
 		this.timestamp = timestamp;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getScoredCardId() {
+		return this.scoredCardId;
+	}
+	public void setScoredCardId(Integer scoredCardId) {
+		this.scoredCardId = scoredCardId;
+	}
+	public ScoreCardData withScoredCardId(Integer scoredCardId) {
+		this.scoredCardId = scoredCardId;
+		return this;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getScheduledDateOfScored() {
+		return this.scheduledDateOfScored;
+	}
+	public void setScheduledDateOfScored(org.joda.time.DateTime scheduledDateOfScored) {
+		this.scheduledDateOfScored = scheduledDateOfScored;
+	}
+	public ScoreCardData withScheduledDateOfScored(org.joda.time.DateTime scheduledDateOfScored) {
+		this.scheduledDateOfScored = scheduledDateOfScored;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getQuality() {
+		return this.quality;
+	}
+	public void setQuality(Integer quality) {
+		this.quality = quality;
+	}
+	public ScoreCardData withQuality(Integer quality) {
+		this.quality = quality;
 		return this;
 	}
 	
@@ -357,6 +412,7 @@ public class ScoreCardData implements IScoreCardData {
 		this.credentialsRole = credentialsRole;
 		return this;
 	}
+	
 	
 	
 	

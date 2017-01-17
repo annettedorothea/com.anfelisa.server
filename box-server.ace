@@ -29,19 +29,31 @@ models {
 		}
 	}
 
-	persistent CardOfBox {
+	persistent ScheduledCard {
 		primitiveAttributes {
-			Unique PrimaryKey NotNull Serial cardOfBoxId
+			Unique PrimaryKey NotNull Serial scheduledCardId
 			NotNull Integer cardId references Card.cardId
-			Float ef
+			NotNull Float ef
 			Integer interval
-			Integer n
+			NotNull Integer n
 			NotNull Integer count
-			DateTime date
+			NotNull DateTime scheduledDate
+			NotNull Integer boxId references Box.boxId
+			Integer lastQuality
+			NotNull DateTime timestamp
+		}
+	}
+
+	persistent ScoredCard {
+		primitiveAttributes {
+			Unique PrimaryKey NotNull Serial scoredCardId
+			NotNull Integer cardId references Card.cardId
+			DateTime scheduledDateOfScored
 			NotNull Integer boxId references Box.boxId
 			Integer quality
 			DateTime timestamp
 			Integer points
+			NotNull Integer scheduledCardId references ScheduledCard.scheduledCardId
 		}
 	}
 
@@ -183,7 +195,7 @@ models {
 			Integer boxId
 		}
 		complexAttributes {
-			List CardOfBox cardsToBeAdded
+			List ScheduledCard cardsToBeAdded
 		}
 	}
 	
@@ -205,14 +217,14 @@ data {
 	BoxCreation : ( Box com.anfelisa.user.Credentials )
 	BoxToCourseAddition : ( BoxOfCourse com.anfelisa.user.Credentials )
 	CardCreation : ( Card )
-	CardOfBoxCreation : ( CardOfBox )
+	ScheduledCard : ( ScheduledCard )
 	BoxList : ( BoxList com.anfelisa.user.Username )
 	Card : ( Card Box Score CardInfo CardContent com.anfelisa.user.Credentials )
 	BoxId : ( Box com.anfelisa.user.Credentials )
 	BoxOfCourseList : (CourseToBoxAdditionList com.anfelisa.user.Credentials)
 	DeleteBox : (BoxId com.anfelisa.user.Credentials)
 	BoxConfig : (BoxConfig com.anfelisa.user.Username com.anfelisa.user.Credentials)
-	ScoreCard : (Card CardOfBox CardQuality Now com.anfelisa.user.Credentials )
+	ScoreCard : (Card ScheduledCard ScoredCard CardQuality Now com.anfelisa.user.Credentials )
 	FillBox : (FillBox com.anfelisa.user.Credentials Now)
 	CardId : (CardId)
 	AllBoxes : (AllBoxes)
@@ -222,7 +234,7 @@ actions {
 	POST CreateBox uses BoxCreation executes CreateBox
 	POST CreateCard uses CardCreation executes CreateCard
 	POST ImportCard uses CardCreation executes ImportCard
-	POST CreateCardOfBox uses CardOfBoxCreation executes CreateCardOfBox
+	POST CreateCardOfBox uses ScheduledCard executes CreateCardOfBox
 	POST AddCourseToBox uses BoxToCourseAddition executes AddCourseToBox
 	GET LoadBoxes uses BoxList
 	GET LoadNextCard uses Card
@@ -248,7 +260,7 @@ commands {
 		on imported publishes (CardImported)
 		on alreadyExists
 	}
-	CreateCardOfBox uses CardOfBoxCreation {
+	CreateCardOfBox uses ScheduledCard {
 		on created publishes (CardOfBoxCreated)
 	}
 	AddCourseToBox uses BoxToCourseAddition {
@@ -277,12 +289,12 @@ commands {
 events {
 	BoxCreated uses BoxCreation listenedToBy ( Box.createBox )
 	CardCreated uses CardCreation listenedToBy ( Card.createCard )
-	CardOfBoxCreated uses CardOfBoxCreation listenedToBy (CardOfBox.createCardOfBox)
+	CardOfBoxCreated uses ScheduledCard listenedToBy (ScheduledCard.createScheduledCard)
 	CourseAddedToBox uses BoxToCourseAddition listenedToBy ( BoxToCourse.addCourseToBox )
 	BoxUpdated uses BoxCreation listenedToBy ( Box.updateBox )
 	BoxDeleted uses DeleteBox  listenedToBy (Box.deleteBox)
 	BoxConfigSaved uses BoxConfig listenedToBy (BoxToCourse.saveBoxConfig)
-	CardScored uses ScoreCard listenedToBy (CardOfBox.score)
+	CardScored uses ScoreCard listenedToBy (ScoredCard.score ScheduledCard.score)
 	CardImported uses CardCreation listenedToBy ( Card.createCard )
 	FillBoxWithCards uses FillBox listenedToBy ( Box.fillBoxWithCards )
 	CardDeleted uses CardId listenedToBy (Card.deleteCard)
@@ -303,8 +315,11 @@ views {
 		createCard (CardCreation)
 		deleteCard(CardId)
 	}
-	CardOfBox {
-		createCardOfBox (CardOfBoxCreation)
+	ScheduledCard {
+		createScheduledCard (ScheduledCard)
+		score(ScoreCard)
+	}
+	ScoredCard {
 		score(ScoreCard)
 	}
 }

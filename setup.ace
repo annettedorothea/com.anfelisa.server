@@ -50,7 +50,8 @@ events {
 		Database.createStudentOfCourseTable
 		Database.createCardTable
 		Database.createBoxTable
-		Database.createCardOfBoxTable
+		Database.createScheduledCardTable
+		Database.createScoredCardDaoTable
 		Database.createBoxOfCourse
 		Database.createLoginLog
 		Database.insertAdminUser
@@ -76,7 +77,8 @@ views {
 		createStudentOfCourseTable (SetupSchema)
 		createBoxTable (SetupSchema)
 		createCardTable (SetupSchema)
-		createCardOfBoxTable (SetupSchema)
+		createScheduledCardTable (SetupSchema)
+		createScoredCardDaoTable (SetupSchema)
 		createBoxOfCourse (SetupSchema)
 		createLoginLog (SetupSchema)
 		

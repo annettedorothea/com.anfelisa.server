@@ -21,9 +21,10 @@ import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.BoxListData;
 import com.anfelisa.box.models.BoxInfoModel;
 import com.anfelisa.box.models.CustomBoxDao;
+import com.anfelisa.box.models.CustomScheduledCardDao;
 import com.anfelisa.box.models.IBoxInfoModel;
 import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.ICardOfBoxModel;
+import com.anfelisa.box.models.IScheduledCardModel;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -35,6 +36,8 @@ import io.dropwizard.auth.Auth;
 public class LoadBoxesAction extends AbstractLoadBoxesAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadBoxesAction.class);
+
+	private CustomScheduledCardDao customScheduledCardDao = new CustomScheduledCardDao();
 
 	private CustomBoxDao customBoxDao = new CustomBoxDao();
 
@@ -53,15 +56,20 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 
 	@Override
 	protected void loadDataForGetRequest() {
+		long start = System.currentTimeMillis();
 		List<IBoxModel> boxList = customBoxDao.selectByUsername(this.getDatabaseHandle().getHandle(),
 				this.actionData.getSchema(), this.actionData.getUsername());
 		List<IBoxInfoModel> boxInfoList = new ArrayList<IBoxInfoModel>();
+		long afterSelectByUsername = System.currentTimeMillis();
+		System.out.println(afterSelectByUsername - start);
 		for (IBoxModel boxModel : boxList) {
-			List<ICardOfBoxModel> todaysCards = customBoxDao.selectCardsOfBoxForToday(
-					this.getDatabaseHandle().getHandle(), this.actionData.getSchema(), boxModel.getBoxId());
+			long loopStart = System.currentTimeMillis();
+			List<IScheduledCardModel> todaysCards = customScheduledCardDao.selectTodaysCards(this.getHandle(), this.actionData.getSchema());
 			BoxInfoModel boxInfoModel = new BoxInfoModel(todaysCards.size(), (todaysCards.size() > 0));
 			boxInfoModel.setBox(boxModel);
 			boxInfoList.add(boxInfoModel);
+			long loopEnd = System.currentTimeMillis();
+			System.out.println("in loop " + boxModel.getName() + " " + boxModel.getBoxId() + " " + (loopEnd - loopStart));
 		}
 		this.actionData.setBoxList(boxInfoList);
 	}

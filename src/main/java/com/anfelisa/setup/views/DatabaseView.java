@@ -9,7 +9,8 @@ import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.BoxOfCourseDao;
 import com.anfelisa.box.models.CardDao;
-import com.anfelisa.box.models.CardOfBoxDao;
+import com.anfelisa.box.models.ScheduledCardDao;
+import com.anfelisa.box.models.ScoredCardDao;
 import com.anfelisa.course.models.CourseDao;
 import com.anfelisa.course.models.StudentOfCourseDao;
 import com.anfelisa.lesson.models.LessonDao;
@@ -43,12 +44,14 @@ public class DatabaseView {
 
 	private BoxOfCourseDao boxOfCourseDao = new BoxOfCourseDao();
 
-	private CardOfBoxDao cardOfBoxDao = new CardOfBoxDao();
+	private ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
+
+	private ScoredCardDao scoredCardDao = new ScoredCardDao();
 
 	private LoginLogDao loginLogDao = new LoginLogDao();
-	
+
 	private AceDao aceDao = new AceDao();
-	
+
 	private SchemaDao schemaDao = new SchemaDao();
 
 	public BiConsumer<SchemaCreationData, Handle> createSchema = (dataContainer, handle) -> {
@@ -84,8 +87,11 @@ public class DatabaseView {
 	public BiConsumer<SetupSchemaData, Handle> createCardTable = (dataContainer, handle) -> {
 		cardDao.create(handle, dataContainer.getSchema());
 	};
-	public BiConsumer<SetupSchemaData, Handle> createCardOfBoxTable = (dataContainer, handle) -> {
-		cardOfBoxDao.create(handle, dataContainer.getSchema());
+	public BiConsumer<SetupSchemaData, Handle> createScheduledCardTable = (dataContainer, handle) -> {
+		scheduledCardDao.create(handle, dataContainer.getSchema());
+	};
+	public BiConsumer<SetupSchemaData, Handle> createScoredCardDaoTable = (dataContainer, handle) -> {
+		scoredCardDao.create(handle, dataContainer.getSchema());
 	};
 	public BiConsumer<SetupSchemaData, Handle> createBoxOfCourse = (dataContainer, handle) -> {
 		boxOfCourseDao.create(handle, dataContainer.getSchema());

@@ -10,13 +10,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.FillBoxData;
 import com.anfelisa.box.models.BoxDao;
-import com.anfelisa.box.models.CardOfBoxModel;
 import com.anfelisa.box.models.CustomBoxOfCourseDao;
 import com.anfelisa.box.models.CustomCardDao;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.IBoxOfCourseModel;
 import com.anfelisa.box.models.ICardModel;
-import com.anfelisa.box.models.ICardOfBoxModel;
+import com.anfelisa.box.models.IScheduledCardModel;
+import com.anfelisa.box.models.ScheduledCardModel;
 
 public class FillBoxWithCardsCommand extends AbstractFillBoxWithCardsCommand {
 
@@ -56,9 +56,9 @@ public class FillBoxWithCardsCommand extends AbstractFillBoxWithCardsCommand {
 						boxOfCourse.getBoxId(), this.commandData.getCredentialsUsername());
 			}
 			for (ICardModel card : allCards) {
-				ICardOfBoxModel cardOfBox = new CardOfBoxModel(null, card.getCardId(), 0F, 0, 0, 0,
-						this.commandData.getNow(), boxOfCourse.getBoxId(), null, this.commandData.getNow(), 0);
-				this.commandData.getCardsToBeAdded().add(cardOfBox);
+				IScheduledCardModel scheduledCard = new ScheduledCardModel(null, card.getCardId(), 0F, 0, 0, 0,
+						this.commandData.getNow(), boxOfCourse.getBoxId(), null, this.commandData.getNow());
+				this.commandData.getCardsToBeAdded().add(scheduledCard);
 			}
 		}
 		this.outcome = fillBoxWithCards;

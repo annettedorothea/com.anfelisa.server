@@ -5,8 +5,8 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
-import com.anfelisa.box.models.CardOfBoxDao;
-import com.anfelisa.box.models.ICardOfBoxModel;
+import com.anfelisa.box.models.IScheduledCardModel;
+import com.anfelisa.box.models.ScheduledCardDao;
 import com.anfelisa.result.data.ResultCreationData;
 import com.anfelisa.result.data.ResultSaveData;
 import com.anfelisa.result.models.IResultModel;
@@ -17,7 +17,7 @@ public class ResultView {
 
 	private ResultDao resultDao = new ResultDao();
 
-	private CardOfBoxDao cardOfBoxDao = new CardOfBoxDao();
+	private ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
 
 	public BiConsumer<ResultCreationData, Handle> createResult = (dataContainer, handle) -> {
 		Integer resultId = resultDao.insert(handle, dataContainer, dataContainer.getSchema());
@@ -33,9 +33,9 @@ public class ResultView {
 	};
 
 	public BiConsumer<ResultSaveData, Handle> fillBoxWithCards = (dataContainer, handle) -> {
-		List<ICardOfBoxModel> cards = dataContainer.getCardsToBeAdded();
-		for (ICardOfBoxModel card : cards) {
-			cardOfBoxDao.insert(handle, card, dataContainer.getSchema());
+		List<IScheduledCardModel> cards = dataContainer.getCardsToBeAdded();
+		for (IScheduledCardModel card : cards) {
+			scheduledCardDao.insert(handle, card, dataContainer.getSchema());
 		}
 	};
 

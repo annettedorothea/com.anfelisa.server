@@ -7,11 +7,11 @@ import javax.ws.rs.core.Response;
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
-import com.anfelisa.box.data.CardOfBoxCreationData;
+import com.anfelisa.box.data.ScheduledCardData;
 
 import com.anfelisa.box.commands.CreateCardOfBoxCommand;
 
-public abstract class AbstractCreateCardOfBoxAction extends Action<CardOfBoxCreationData> {
+public abstract class AbstractCreateCardOfBoxAction extends Action<ScheduledCardData> {
 
 	public AbstractCreateCardOfBoxAction(DBI jdbi) {
 		super("CreateCardOfBoxAction", HttpMethod.POST, jdbi);

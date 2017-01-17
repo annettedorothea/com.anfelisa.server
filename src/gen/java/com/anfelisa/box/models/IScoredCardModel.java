@@ -2,20 +2,17 @@ package com.anfelisa.box.models;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(as=CardOfBoxModel.class)
-public interface ICardOfBoxModel {
+@JsonDeserialize(as=ScoredCardModel.class)
+public interface IScoredCardModel {
 
-	Integer getCardOfBoxId();
+	Integer getScoredCardId();
 	Integer getCardId();
-	Float getEf();
-	Integer getInterval();
-	Integer getN();
-	Integer getCount();
-	org.joda.time.DateTime getDate();
+	org.joda.time.DateTime getScheduledDateOfScored();
 	Integer getBoxId();
 	Integer getQuality();
 	org.joda.time.DateTime getTimestamp();
 	Integer getPoints();
+	Integer getScheduledCardId();
 
 
 }

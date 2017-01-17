@@ -3,11 +3,11 @@ package com.anfelisa.box.events;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
 
-import com.anfelisa.box.data.CardOfBoxCreationData;
+import com.anfelisa.box.data.ScheduledCardData;
 
-public abstract class AbstractCardOfBoxCreatedEvent extends Event<CardOfBoxCreationData> {
+public abstract class AbstractCardOfBoxCreatedEvent extends Event<ScheduledCardData> {
 
-	public AbstractCardOfBoxCreatedEvent(CardOfBoxCreationData eventParam, DatabaseHandle databaseHandle) {
+	public AbstractCardOfBoxCreatedEvent(ScheduledCardData eventParam, DatabaseHandle databaseHandle) {
 		super("CardOfBoxCreatedEvent", eventParam, databaseHandle);
 	}
 

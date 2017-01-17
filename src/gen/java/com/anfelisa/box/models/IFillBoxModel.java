@@ -7,7 +7,7 @@ public interface IFillBoxModel {
 
 	Integer getBoxId();
 
-	java.util.List<com.anfelisa.box.models.ICardOfBoxModel> getCardsToBeAdded();
+	java.util.List<com.anfelisa.box.models.IScheduledCardModel> getCardsToBeAdded();
 
 }
 

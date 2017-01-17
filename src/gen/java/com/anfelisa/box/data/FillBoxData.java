@@ -32,7 +32,7 @@ public class FillBoxData implements IFillBoxData {
 	private org.joda.time.DateTime now;
 	
 
-	private java.util.List<com.anfelisa.box.models.ICardOfBoxModel> cardsToBeAdded;
+	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
 	
 	
 	
@@ -107,10 +107,10 @@ public class FillBoxData implements IFillBoxData {
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.ICardOfBoxModel> getCardsToBeAdded() {
+	public java.util.List<com.anfelisa.box.models.IScheduledCardModel> getCardsToBeAdded() {
 		return this.cardsToBeAdded;
 	}
-	public void setCardsToBeAdded(java.util.List<com.anfelisa.box.models.ICardOfBoxModel> cardsToBeAdded) {
+	public void setCardsToBeAdded(java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded) {
 		this.cardsToBeAdded = cardsToBeAdded;
 	}
 	
