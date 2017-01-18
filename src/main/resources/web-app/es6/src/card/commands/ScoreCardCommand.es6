@@ -5,7 +5,7 @@ class ScoreCardCommand extends AbstractScoreCardCommand {
         return new Promise((resolve) => {
             var queryParams = [];
             queryParams.push({
-                key: "cardOfBoxId",
+                key: "scheduledCardId",
                 value: this.commandParam.cardOfBoxId
             });
             queryParams.push({

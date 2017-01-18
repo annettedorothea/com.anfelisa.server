@@ -17,7 +17,7 @@ public class CustomUserDao {
 
 	public int selectBoxPoints(Handle handle, String username, String schema) {
 		return handle
-				.createQuery("SELECT sum(points) as sum FROM " + schema + ".cardofbox c, " + schema
+				.createQuery("SELECT sum(points) as sum FROM " + schema + ".scoredcard c, " + schema
 						+ ". box b where c.boxid = b.boxid AND b.username = :username")
 				.bind("username", username).mapTo(Integer.class).first();
 	}

@@ -10,10 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreType;
 @JsonIgnoreType
 public class CustomScheduledCardDao {
 
-	public List<IScheduledCardModel> selectTodaysCards(Handle handle, String schema) {
+	public List<IScheduledCardModel> selectTodaysCards(Handle handle, String schema, Integer boxId) {
 		return handle
 				.createQuery("SELECT * FROM " + schema
-						+ ".scheduledcard WHERE date_trunc('day', scheduledDate) <= date_trunc('day', now())")
-				.map(new ScheduledCardMapper()).list();
+						+ ".scheduledcard WHERE boxid = :boxId AND date_trunc('day', scheduledDate) <= date_trunc('day', now())")
+				.bind("boxId", boxId).map(new ScheduledCardMapper()).list();
 	}
 }

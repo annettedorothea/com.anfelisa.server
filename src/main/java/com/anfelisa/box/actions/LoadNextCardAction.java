@@ -25,10 +25,12 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.CardData;
 import com.anfelisa.box.models.BoxDao;
-import com.anfelisa.box.models.CustomBoxDao;
+import com.anfelisa.box.models.CardDao;
+import com.anfelisa.box.models.CustomScheduledCardDao;
 import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.ICardInfoModel;
+import com.anfelisa.box.models.ICardModel;
 import com.anfelisa.box.models.ILineModel;
+import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.LineModel;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -45,7 +47,9 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 
 	private BoxDao boxDao = new BoxDao();
 
-	private CustomBoxDao customBoxDao = new CustomBoxDao();
+	private CustomScheduledCardDao scheduledCardDao = new CustomScheduledCardDao();
+
+	private CardDao cardDao = new CardDao();
 
 	public LoadNextCardAction(DBI jdbi) {
 		super(jdbi);
@@ -70,9 +74,9 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
-		List<ICardInfoModel> nextCards = customBoxDao.selectNextCardsByBoxId(this.getDatabaseHandle().getHandle(),
+		List<IScheduledCardModel> nextCards = scheduledCardDao.selectTodaysCards(this.getDatabaseHandle().getHandle(),
 				this.actionData.getSchema(), this.actionData.getBoxId());
-		ICardInfoModel nextCard = null;
+		IScheduledCardModel nextCard = null;
 		int count = 0;
 		int cardsForToday = 0;
 		int cardsForTomorrow = 0;
@@ -83,13 +87,13 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		int quality4Count = 0;
 		int quality5Count = 0;
 		int noQualityCount = 0;
-		for (ICardInfoModel cardInfoModel : nextCards) {
-			DateTime next = cardInfoModel.getNext();
+		for (IScheduledCardModel cardInfoModel : nextCards) {
+			DateTime next = cardInfoModel.getScheduledDate();
 			if (nextCard == null && next != null && new LocalDate().plusDays(1).isAfter(next.toLocalDate())) {
 				nextCard = cardInfoModel;
 			}
 			count++;
-			Integer quality = cardInfoModel.getQuality();
+			Integer quality = cardInfoModel.getLastQuality();
 			if (quality != null) {
 				switch (quality) {
 				case 0:
@@ -122,14 +126,16 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		}
 
 		if (nextCard != null) {
-			this.actionData.setBoxName(nextCard.getBoxName());
+			this.actionData.setBoxName(box.getName());
 			this.actionData.setCardId(nextCard.getCardId());
-			this.actionData.setCardOfBoxId(nextCard.getCardOfBoxId());
-			this.actionData.setContent(nextCard.getContent());
+			this.actionData.setCardOfBoxId(nextCard.getScheduledCardId());
+			ICardModel card = cardDao.selectByCardId(this.getHandle(), nextCard.getCardId(),
+					this.actionData.getSchema());
+			this.actionData.setContent(card.getContent());
 			this.actionData.setCount(nextCard.getCount());
-			this.actionData.setNext(nextCard.getNext());
-			this.actionData.setLast(nextCard.getLast());
-			this.actionData.setQuality(nextCard.getQuality());
+			this.actionData.setNext(nextCard.getScheduledDate());
+			// this.actionData.setLast(nextCard.getLast());
+			this.actionData.setQuality(nextCard.getLastQuality());
 
 			ObjectMapper mapper = new ObjectMapper();
 			try {

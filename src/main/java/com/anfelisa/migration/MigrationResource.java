@@ -67,7 +67,7 @@ public class MigrationResource {
 	private ResultDao resultDao = new ResultDao();
 
 	private TestDao testDao = new TestDao();
-	
+
 	private UserDao userDao = new UserDao();
 
 	public MigrationResource(DBI jdbi) {
@@ -270,7 +270,7 @@ public class MigrationResource {
 			LOG.error("error when migration results", e);
 			throw new WebApplicationException(e);
 		}
-		
+
 		handle.close();
 		closeConnection(connection);
 		return Response.ok().build();
@@ -528,92 +528,40 @@ public class MigrationResource {
 			this.points = points;
 		}
 
-		public Integer getId() {
-			return id;
-		}
-
-		public void setId(Integer id) {
-			this.id = id;
-		}
-
 		public Integer getCardId() {
 			return cardId;
-		}
-
-		public void setCardId(Integer cardId) {
-			this.cardId = cardId;
 		}
 
 		public Float getEf() {
 			return ef;
 		}
 
-		public void setEf(Float ef) {
-			this.ef = ef;
-		}
-
 		public Integer getInterval() {
 			return interval;
-		}
-
-		public void setInterval(Integer interval) {
-			this.interval = interval;
 		}
 
 		public Integer getN() {
 			return n;
 		}
 
-		public void setN(Integer n) {
-			this.n = n;
-		}
-
 		public Integer getCount() {
 			return count;
-		}
-
-		public void setCount(Integer count) {
-			this.count = count;
 		}
 
 		public DateTime getNext() {
 			return next;
 		}
 
-		public void setNext(DateTime next) {
-			this.next = next;
-		}
-
 		public Integer getBoxId() {
 			return boxId;
-		}
-
-		public void setBoxId(Integer boxId) {
-			this.boxId = boxId;
 		}
 
 		public Integer getQuality() {
 			return quality;
 		}
 
-		public void setQuality(Integer quality) {
-			this.quality = quality;
-		}
-
 		public DateTime getTimestamp() {
 			return timestamp;
-		}
-
-		public void setTimestamp(DateTime timestamp) {
-			this.timestamp = timestamp;
-		}
-
-		public Integer getPoints() {
-			return points;
-		}
-
-		public void setPoints(Integer points) {
-			this.points = points;
 		}
 
 	}

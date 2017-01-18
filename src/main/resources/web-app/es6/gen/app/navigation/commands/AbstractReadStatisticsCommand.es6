@@ -16,7 +16,6 @@ class AbstractReadStatisticsCommand extends Command {
         	break;
         case this.error:
         	promises.push(new ServerErrorEvent(this.commandData).publish());
-        	promises.push(new TriggerAction(new RouteHomeAction(this.commandData)).publish());
         	break;
     	default:
     		throw 'unhandled outcome: ' + this.commandData.outcome;
