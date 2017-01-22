@@ -14,7 +14,8 @@ public class AppRegistration {
 		environment.jersey().register(new CreateBoxAction(jdbi));
 		environment.jersey().register(new CreateCardAction(jdbi));
 		environment.jersey().register(new ImportCardAction(jdbi));
-		environment.jersey().register(new CreateCardOfBoxAction(jdbi));
+		environment.jersey().register(new CreateScheduledCardAction(jdbi));
+		environment.jersey().register(new CreateScoredCardAction(jdbi));
 		environment.jersey().register(new AddCourseToBoxAction(jdbi));
 		environment.jersey().register(new LoadBoxesAction(jdbi));
 		environment.jersey().register(new LoadNextCardAction(jdbi));
@@ -38,7 +39,8 @@ public class AppRegistration {
 		
 		AceController.addConsumer("BoxCreatedEvent", boxView.createBox);
 		AceController.addConsumer("CardCreatedEvent", cardView.createCard);
-		AceController.addConsumer("CardOfBoxCreatedEvent", scheduledCardView.createScheduledCard);
+		AceController.addConsumer("ScheduledCardCreatedEvent", scheduledCardView.createScheduledCard);
+		AceController.addConsumer("ScoredCardCreatedEvent", scoredCardView.createScoredCard);
 		AceController.addConsumer("CourseAddedToBoxEvent", boxToCourseView.addCourseToBox);
 		AceController.addConsumer("BoxUpdatedEvent", boxView.updateBox);
 		AceController.addConsumer("BoxDeletedEvent", boxView.deleteBox);

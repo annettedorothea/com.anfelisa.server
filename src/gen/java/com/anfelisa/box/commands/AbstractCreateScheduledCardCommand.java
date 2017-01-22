@@ -8,19 +8,19 @@ import com.anfelisa.ace.DatabaseHandle;
 
 import com.anfelisa.box.data.ScheduledCardData;
 
-public abstract class AbstractCreateCardOfBoxCommand extends Command<ScheduledCardData> {
+public abstract class AbstractCreateScheduledCardCommand extends Command<ScheduledCardData> {
 
 	protected static final String created = "created";
 
-	public AbstractCreateCardOfBoxCommand(ScheduledCardData commandParam, DatabaseHandle databaseHandle) {
-		super("CreateCardOfBoxCommand", commandParam, databaseHandle);
+	public AbstractCreateScheduledCardCommand(ScheduledCardData commandParam, DatabaseHandle databaseHandle) {
+		super("CreateScheduledCardCommand", commandParam, databaseHandle);
 	}
 
 	@Override
 	protected void publishEvents() {
 		switch (this.outcome) {
 		case created:
-			new com.anfelisa.box.events.CardOfBoxCreatedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.box.events.ScheduledCardCreatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + outcome);

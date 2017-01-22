@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import javax.ws.rs.Consumes;
@@ -29,10 +27,13 @@ import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.actions.AddCourseToBoxAction;
 import com.anfelisa.box.actions.CreateBoxAction;
 import com.anfelisa.box.actions.CreateCardAction;
+import com.anfelisa.box.actions.CreateScheduledCardAction;
+import com.anfelisa.box.actions.CreateScoredCardAction;
 import com.anfelisa.box.data.BoxCreationData;
 import com.anfelisa.box.data.BoxToCourseAdditionData;
 import com.anfelisa.box.data.CardCreationData;
 import com.anfelisa.box.data.ScheduledCardData;
+import com.anfelisa.box.data.ScoredCardData;
 import com.anfelisa.course.actions.AddStudentToCourseAction;
 import com.anfelisa.course.actions.CreateCourseAction;
 import com.anfelisa.course.data.CourseCreationData;
@@ -418,15 +419,16 @@ public class MigrationResource {
 		Connection connection = this.openConnection();
 		try {
 			Statement stmt = connection.createStatement();
-			String sql = "SELECT * FROM anfelisa.card_of_box order by box_id, card_id, id";
+			String sql = "SELECT * FROM anfelisa.card_of_box order by box_id, card_id, id ASC";
 			ResultSet rs = stmt.executeQuery(sql);
-			List<CardOfBox> list = new ArrayList<>();
-			Integer currentCardId = -1;
-			Integer currentBoxId = -1;
 			int numberOfNewScheduledCardsPerDay = 0;
 			DateTime nextForUnscheduled = new DateTime();
+			DateTime lastScheduledDate = null;
+			Integer currentBoxId = -1;
+			Integer currentCardId = -1;
+			Integer lastQuality = null;
+			Integer scheduledCardId = -1;
 			while (rs.next()) {
-				Integer id = rs.getInt("id");
 				Integer cardId = rs.getInt("card_id");
 				Float ef = rs.getFloat("ef");
 				Integer interval = rs.getInt("interval");
@@ -446,48 +448,43 @@ public class MigrationResource {
 				}
 				Integer points = rs.getInt("points");
 
-				CardOfBox cardOfBox = new CardOfBox(id, cardId, ef, interval, n, count, next, boxId, quality, timestamp,
-						points);
-
-				if (currentBoxId == boxId && currentCardId == cardId) {
-					list.add(cardOfBox);
-				} else {
-					if (list.size() > 0) {
-						cardOfBox = list.get(list.size() - 1);
-						String uuid = UUID.randomUUID().toString();
-						ScheduledCardData data = new ScheduledCardData(uuid, schema).withBoxId(cardOfBox.getBoxId())
-								.withCardId(cardOfBox.getCardId()).withCount(cardOfBox.getCount())
-								.withEf(cardOfBox.getEf()).withInterval(cardOfBox.getInterval()).withN(cardOfBox.getN())
-								.withScheduledDate(cardOfBox.getNext()).withTimestamp(cardOfBox.getTimestamp());
-						if (data.getScheduledDate() == null) {
-							data.setScheduledDate(nextForUnscheduled);
-							numberOfNewScheduledCardsPerDay++;
-							if (numberOfNewScheduledCardsPerDay >= 10) {
-								numberOfNewScheduledCardsPerDay = 0;
-								nextForUnscheduled = nextForUnscheduled.plusDays(1);
-							}
-						}
-						if (list.size() > 1) {
-							data.setLastQuality((list.get(list.size() - 1).getQuality()));
-						}
-						/*
-						 * new
-						 * CreateCardOfBoxAction(jdbi).applyWithActionData(data)
-						 * ; for (int i = 1; i < list.size(); i++) { String
-						 * uuid2 = UUID.randomUUID().toString(); cardOfBox =
-						 * list.get(i); ScoreCardData scoreCardData = new
-						 * ScoreCardData(uuid2,
-						 * schema).withBoxId(cardOfBox.getBoxId()).withCardId(
-						 * cardOfBox.getCardId()).wi; new
-						 * ScoreCardAction(jdbi).applyWithActionData(
-						 * scoreCardData ); }
-						 */
+				String uuid = UUID.randomUUID().toString();
+				ScheduledCardData data = new ScheduledCardData(uuid, schema).withBoxId(boxId).withCardId(cardId)
+						.withCount(count).withEf(ef).withInterval(interval).withN(n).withScheduledDate(next)
+						.withTimestamp(timestamp);
+				if (data.getScheduledDate() == null) {
+					data.setScheduledDate(nextForUnscheduled);
+					numberOfNewScheduledCardsPerDay++;
+					if (numberOfNewScheduledCardsPerDay >= 10) {
+						numberOfNewScheduledCardsPerDay = 0;
+						nextForUnscheduled = nextForUnscheduled.plusDays(1);
 					}
-					list.clear();
-					currentCardId = cardId;
-					currentBoxId = boxId;
-					list.add(cardOfBox);
 				}
+				if (lastQuality != null) {
+					data.setLastQuality(lastQuality);
+				}
+
+				if (currentBoxId != boxId || currentCardId != cardId) {
+					Response response = new CreateScheduledCardAction(jdbi).applyWithActionData(data);
+					scheduledCardId = Integer.parseInt(response.getEntity().toString());
+				}
+
+				if (quality != null) {
+					uuid = UUID.randomUUID().toString();
+					ScoredCardData scoredCardData = new ScoredCardData(uuid, schema).withBoxId(boxId).withCardId(cardId)
+							.withPoints(points).withQuality(quality).withScheduledCardId(scheduledCardId)
+							.withScheduledDateOfScored(lastScheduledDate).withTimestamp(timestamp);
+					new CreateScoredCardAction(jdbi).applyWithActionData(scoredCardData);
+				}
+				if (currentCardId == cardId && currentBoxId == boxId) {
+					lastScheduledDate = next;
+					lastQuality = quality;
+				} else {
+					lastScheduledDate = null;
+					lastQuality = null;
+				}
+				currentCardId = cardId;
+				currentBoxId = boxId;
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -497,73 +494,6 @@ public class MigrationResource {
 
 		closeConnection(connection);
 		return Response.ok().build();
-	}
-
-	private class CardOfBox {
-		private Integer id;
-		private Integer cardId;
-		private Float ef;
-		private Integer interval;
-		private Integer n;
-		private Integer count;
-		private DateTime next;
-		private Integer boxId;
-		private Integer quality;
-		private DateTime timestamp;
-		private Integer points;
-
-		public CardOfBox(Integer id, Integer cardId, Float ef, Integer interval, Integer n, Integer count,
-				DateTime next, Integer boxId, Integer quality, DateTime timestamp, Integer points) {
-			super();
-			this.id = id;
-			this.cardId = cardId;
-			this.ef = ef;
-			this.interval = interval;
-			this.n = n;
-			this.count = count;
-			this.next = next;
-			this.boxId = boxId;
-			this.quality = quality;
-			this.timestamp = timestamp;
-			this.points = points;
-		}
-
-		public Integer getCardId() {
-			return cardId;
-		}
-
-		public Float getEf() {
-			return ef;
-		}
-
-		public Integer getInterval() {
-			return interval;
-		}
-
-		public Integer getN() {
-			return n;
-		}
-
-		public Integer getCount() {
-			return count;
-		}
-
-		public DateTime getNext() {
-			return next;
-		}
-
-		public Integer getBoxId() {
-			return boxId;
-		}
-
-		public Integer getQuality() {
-			return quality;
-		}
-
-		public DateTime getTimestamp() {
-			return timestamp;
-		}
-
 	}
 
 }

@@ -16,14 +16,14 @@ import com.anfelisa.box.data.ScheduledCardData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-@Path("/cardofbox")
+@Path("/scheduledcards")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-public class CreateCardOfBoxAction extends AbstractCreateCardOfBoxAction {
+public class CreateScheduledCardAction extends AbstractCreateScheduledCardAction {
 
-	static final Logger LOG = LoggerFactory.getLogger(CreateCardOfBoxAction.class);
+	static final Logger LOG = LoggerFactory.getLogger(CreateScheduledCardAction.class);
 
-	public CreateCardOfBoxAction(DBI jdbi) {
+	public CreateScheduledCardAction(DBI jdbi) {
 		super(jdbi);
 	}
 

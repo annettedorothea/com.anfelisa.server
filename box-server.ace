@@ -218,6 +218,7 @@ data {
 	BoxToCourseAddition : ( BoxOfCourse com.anfelisa.user.Credentials )
 	CardCreation : ( Card )
 	ScheduledCard : ( ScheduledCard )
+	ScoredCard : ( ScoredCard )
 	BoxList : ( BoxList com.anfelisa.user.Username )
 	Card : ( Card Box Score CardInfo CardContent com.anfelisa.user.Credentials )
 	BoxId : ( Box com.anfelisa.user.Credentials )
@@ -234,7 +235,8 @@ actions {
 	POST CreateBox uses BoxCreation executes CreateBox
 	POST CreateCard uses CardCreation executes CreateCard
 	POST ImportCard uses CardCreation executes ImportCard
-	POST CreateCardOfBox uses ScheduledCard executes CreateCardOfBox
+	POST CreateScheduledCard uses ScheduledCard executes CreateScheduledCard
+	POST CreateScoredCard uses ScoredCard executes CreateScoredCard
 	POST AddCourseToBox uses BoxToCourseAddition executes AddCourseToBox
 	GET LoadBoxes uses BoxList
 	GET LoadNextCard uses Card
@@ -260,8 +262,11 @@ commands {
 		on imported publishes (CardImported)
 		on alreadyExists
 	}
-	CreateCardOfBox uses ScheduledCard {
-		on created publishes (CardOfBoxCreated)
+	CreateScheduledCard uses ScheduledCard {
+		on created publishes (ScheduledCardCreated)
+	}
+	CreateScoredCard uses ScoredCard {
+		on created publishes (ScoredCardCreated)
 	}
 	AddCourseToBox uses BoxToCourseAddition {
 		on added publishes ( CourseAddedToBox )
@@ -289,7 +294,8 @@ commands {
 events {
 	BoxCreated uses BoxCreation listenedToBy ( Box.createBox )
 	CardCreated uses CardCreation listenedToBy ( Card.createCard )
-	CardOfBoxCreated uses ScheduledCard listenedToBy (ScheduledCard.createScheduledCard)
+	ScheduledCardCreated uses ScheduledCard listenedToBy (ScheduledCard.createScheduledCard)
+	ScoredCardCreated uses ScoredCard listenedToBy (ScoredCard.createScoredCard)
 	CourseAddedToBox uses BoxToCourseAddition listenedToBy ( BoxToCourse.addCourseToBox )
 	BoxUpdated uses BoxCreation listenedToBy ( Box.updateBox )
 	BoxDeleted uses DeleteBox  listenedToBy (Box.deleteBox)
@@ -321,5 +327,6 @@ views {
 	}
 	ScoredCard {
 		score(ScoreCard)
+		createScoredCard(ScoredCard)
 	}
 }

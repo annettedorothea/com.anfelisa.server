@@ -7,19 +7,19 @@ import javax.ws.rs.core.Response;
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
-import com.anfelisa.box.data.ScheduledCardData;
+import com.anfelisa.box.data.ScoredCardData;
 
-import com.anfelisa.box.commands.CreateCardOfBoxCommand;
+import com.anfelisa.box.commands.CreateScoredCardCommand;
 
-public abstract class AbstractCreateCardOfBoxAction extends Action<ScheduledCardData> {
+public abstract class AbstractCreateScoredCardAction extends Action<ScoredCardData> {
 
-	public AbstractCreateCardOfBoxAction(DBI jdbi) {
-		super("CreateCardOfBoxAction", HttpMethod.POST, jdbi);
+	public AbstractCreateScoredCardAction(DBI jdbi) {
+		super("CreateScoredCardAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override
 	public ICommand getCommand() {
-		return new CreateCardOfBoxCommand(this.actionData, databaseHandle);
+		return new CreateScoredCardCommand(this.actionData, databaseHandle);
 	}
 
 	protected final void loadDataForGetRequest() {

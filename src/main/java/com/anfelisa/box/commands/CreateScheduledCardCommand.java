@@ -6,11 +6,11 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.ScheduledCardData;
 
-public class CreateCardOfBoxCommand extends AbstractCreateCardOfBoxCommand {
+public class CreateScheduledCardCommand extends AbstractCreateScheduledCardCommand {
 
-	static final Logger LOG = LoggerFactory.getLogger(CreateCardOfBoxCommand.class);
+	static final Logger LOG = LoggerFactory.getLogger(CreateScheduledCardCommand.class);
 
-	public CreateCardOfBoxCommand(ScheduledCardData commandParam, DatabaseHandle databaseHandle) {
+	public CreateScheduledCardCommand(ScheduledCardData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 
