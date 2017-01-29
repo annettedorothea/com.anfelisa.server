@@ -4,3 +4,4 @@ src/main/resources/.idea
 dev.yml
 src/main/resources/web-app/node_modules
 stage.yml
+live.yml

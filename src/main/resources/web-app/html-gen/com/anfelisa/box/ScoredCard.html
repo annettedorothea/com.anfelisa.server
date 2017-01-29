@@ -48,9 +48,9 @@
 	</div>
 	
 	<div class="form-group" id="timestampDiv">
-	    <label for="timestamp" class="col-sm-3 control-label">{{texts.timestamp}}</label>
+	    <label for="timestamp" class="col-sm-3 control-label">* {{texts.timestamp}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="timestamp" placeholder="{{texts.timestamp}}" value="{{timestamp}}">
+	        <input type="text" class="form-control" id="timestamp" placeholder="{{texts.timestamp}}" value="{{timestamp}}" onblur="new ValidateRequiredFieldAction({id : 'timestamp'}).apply()">
 	        <span class="help-block notEmpty" style="display: none">{{texts.timestampNotEmpty}}</span>
 	    </div>
 	</div>

@@ -56,22 +56,15 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 
 	@Override
 	protected void loadDataForGetRequest() {
-		long start = System.currentTimeMillis();
 		List<IBoxModel> boxList = customBoxDao.selectByUsername(this.getDatabaseHandle().getHandle(),
 				this.actionData.getSchema(), this.actionData.getUsername());
 		List<IBoxInfoModel> boxInfoList = new ArrayList<IBoxInfoModel>();
-		long afterSelectByUsername = System.currentTimeMillis();
-		System.out.println(afterSelectByUsername - start);
 		for (IBoxModel boxModel : boxList) {
-			long loopStart = System.currentTimeMillis();
 			List<IScheduledCardModel> todaysCards = customScheduledCardDao.selectTodaysCards(this.getHandle(),
 					this.actionData.getSchema(), boxModel.getBoxId());
 			BoxInfoModel boxInfoModel = new BoxInfoModel(todaysCards.size(), (todaysCards.size() > 0));
 			boxInfoModel.setBox(boxModel);
 			boxInfoList.add(boxInfoModel);
-			long loopEnd = System.currentTimeMillis();
-			System.out
-					.println("in loop " + boxModel.getName() + " " + boxModel.getBoxId() + " " + (loopEnd - loopStart));
 		}
 		this.actionData.setBoxList(boxInfoList);
 	}

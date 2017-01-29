@@ -16,8 +16,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,12 +72,8 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
-		List<IScheduledCardModel> nextCards = scheduledCardDao.selectTodaysCards(this.getDatabaseHandle().getHandle(),
+		List<IScheduledCardModel> allCards = scheduledCardDao.selectAllCards(this.getDatabaseHandle().getHandle(),
 				this.actionData.getSchema(), this.actionData.getBoxId());
-		IScheduledCardModel nextCard = null;
-		int count = 0;
-		int cardsForToday = 0;
-		int cardsForTomorrow = 0;
 		int quality0Count = 0;
 		int quality1Count = 0;
 		int quality2Count = 0;
@@ -87,12 +81,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		int quality4Count = 0;
 		int quality5Count = 0;
 		int noQualityCount = 0;
-		for (IScheduledCardModel cardInfoModel : nextCards) {
-			DateTime next = cardInfoModel.getScheduledDate();
-			if (nextCard == null && next != null && new LocalDate().plusDays(1).isAfter(next.toLocalDate())) {
-				nextCard = cardInfoModel;
-			}
-			count++;
+		for (IScheduledCardModel cardInfoModel : allCards) {
 			Integer quality = cardInfoModel.getLastQuality();
 			if (quality != null) {
 				switch (quality) {
@@ -118,14 +107,12 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			} else {
 				noQualityCount++;
 			}
-			if (next != null && new LocalDate().plusDays(1).isAfter(next.toLocalDate())) {
-				cardsForToday++;
-			} else if (next != null && new LocalDate().plusDays(1).equals(next.toLocalDate())) {
-				cardsForTomorrow++;
-			}
 		}
 
-		if (nextCard != null) {
+		List<IScheduledCardModel> todaysCards = scheduledCardDao.selectTodaysCards(this.getDatabaseHandle().getHandle(),
+				this.actionData.getSchema(), this.actionData.getBoxId());
+		if (todaysCards.size() > 0) {
+			IScheduledCardModel nextCard = todaysCards.get(0);
 			this.actionData.setBoxName(box.getName());
 			this.actionData.setCardId(nextCard.getCardId());
 			this.actionData.setCardOfBoxId(nextCard.getScheduledCardId());
@@ -134,7 +121,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			this.actionData.setContent(card.getContent());
 			this.actionData.setCount(nextCard.getCount());
 			this.actionData.setNext(nextCard.getScheduledDate());
-			// this.actionData.setLast(nextCard.getLast());
+			this.actionData.setLast(nextCard.getTimestamp());
 			this.actionData.setQuality(nextCard.getLastQuality());
 
 			ObjectMapper mapper = new ObjectMapper();
@@ -167,9 +154,11 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			this.actionData.setBoxName(box.getName());
 		}
 
-		this.actionData.setCards(count);
-		this.actionData.setCardsForToday(cardsForToday);
-		this.actionData.setCardsForTomorrow(cardsForTomorrow);
+		this.actionData.setCards(allCards.size());
+		this.actionData.setCardsForToday(todaysCards.size());
+		List<IScheduledCardModel> tomorrowsCards = scheduledCardDao.selectTomorrowsCards(this.getDatabaseHandle().getHandle(),
+				this.actionData.getSchema(), this.actionData.getBoxId());
+		this.actionData.setCardsForTomorrow(tomorrowsCards.size());
 
 		int numberOfCardsWithQuality = quality0Count + quality1Count + quality2Count + quality3Count + quality4Count
 				+ quality5Count + noQualityCount;

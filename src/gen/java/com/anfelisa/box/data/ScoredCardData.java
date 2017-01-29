@@ -34,6 +34,7 @@ public class ScoredCardData implements IScoredCardData {
 	
 	private Integer quality;
 	
+	@NotNull
 	private org.joda.time.DateTime timestamp;
 	
 	private Integer points;

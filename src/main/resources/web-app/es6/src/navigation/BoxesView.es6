@@ -8,7 +8,11 @@ class BoxesView {
             $(".box-navigation").html(rendered);
         });
     };
-    
+    static activateBox(eventData) {
+        $('.box-navigation li').removeClass('active');
+        $('.box-navigation .box_' +  eventData.data.boxId).addClass('active');
+    };
+
     static hideBoxes(eventData) {
         $('.box-navigation').empty();
     };

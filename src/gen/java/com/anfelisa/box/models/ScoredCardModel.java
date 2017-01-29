@@ -20,6 +20,7 @@ public class ScoredCardModel implements IScoredCardModel {
 	
 	private Integer quality;
 	
+	@NotNull
 	private org.joda.time.DateTime timestamp;
 	
 	private Integer points;

@@ -30,8 +30,8 @@ class NavigationView {
         $.get('templates/navigation/publicTestsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
-            $("ul.nav li").removeClass("active");
-            $("ul.nav li.test_" + eventData.data.testId).addClass("active");
+            $('.course-navigation li').removeClass('active');
+            $('.course-navigation .test_' +  eventData.data.testId).addClass('active');
         });
     };
     
@@ -56,8 +56,6 @@ class NavigationView {
         $.get('templates/navigation/privateTestsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
-            $("ul.nav li").removeClass("active");
-            $("ul.nav li.test_" + eventData.data.testId).addClass("active");
         });
     };
     
@@ -66,8 +64,12 @@ class NavigationView {
         $.get('templates/navigation/privateTestsTemplate.mst', function(template) {
             var rendered = Mustache.render(template, eventData.data);
             $('.course-navigation').html(rendered);
-            $("ul.nav li").removeClass("active");
-            $("ul.nav li.test_" + eventData.data.testId).addClass("active");
+            $('.course-navigation li').removeClass('active');
+            if (eventData.data.resultId === undefined) {
+                $('.course-navigation .test_' +  eventData.data.testId).addClass('active');
+            } else {
+                $('.course-navigation .result_' +  eventData.data.resultId).addClass('active');
+            }
         });
     };
     

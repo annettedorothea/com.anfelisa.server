@@ -77,10 +77,10 @@ events {
 	PrivateLessonsRead listenedToBy ( Navigation.renderPrivateLessons Content.renderPrivateLessons Breadcrumbs.renderPrivateLessonsBreadcrumbs )
 	PrivateTestsRead listenedToBy ( Navigation.renderPrivateTests Content.renderPrivateTests Breadcrumbs.renderPrivateTestsBreadcrumbs )
 	PrivateTestRead listenedToBy ( Navigation.renderPrivateTest Content.renderPrivateTest Breadcrumbs.renderPrivateTestsBreadcrumbs )
-	ResultRead listenedToBy ( Navigation.renderPrivateTest Content.renderPrivateTest Breadcrumbs.renderPrivateTestsBreadcrumbs Content.renderResult )
+	ResultRead listenedToBy ( Navigation.renderPrivateTest Content.renderPrivateTest Breadcrumbs.renderPrivateTestsBreadcrumbs Content.renderResult  )
 	StatisticsRead listenedToBy ( Content.renderStatistics )
 	BoxesRead listenedToBy ( Boxes.renderBoxes ) 
-	NextCardRead listenedToBy ( Content.renderCard )
+	NextCardRead listenedToBy ( Content.renderCard Boxes.activateBox )
 }
 
 views {
@@ -97,6 +97,7 @@ views {
 	Boxes {
 		renderBoxes
 		hideBoxes
+		activateBox
 	}
 	Content {
 		renderPublicCourses

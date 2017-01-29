@@ -32,6 +32,7 @@ class EventListenerRegistrationNavigation {
     	ACEController.registerListener('StatisticsReadEvent', ContentView.renderStatistics);
     	ACEController.registerListener('BoxesReadEvent', BoxesView.renderBoxes);
     	ACEController.registerListener('NextCardReadEvent', ContentView.renderCard);
+    	ACEController.registerListener('NextCardReadEvent', BoxesView.activateBox);
 	}
 
 }

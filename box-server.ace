@@ -51,7 +51,7 @@ models {
 			DateTime scheduledDateOfScored
 			NotNull Integer boxId references Box.boxId
 			Integer quality
-			DateTime timestamp
+			NotNull DateTime timestamp
 			Integer points
 			NotNull Integer scheduledCardId references ScheduledCard.scheduledCardId
 		}

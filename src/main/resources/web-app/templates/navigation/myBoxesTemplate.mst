@@ -3,7 +3,7 @@
         <a>{{texts.myBoxes}}</a>
     </li>
     {{#boxList}}
-    <li class="box_{{id}}">
+    <li class="box_{{box.boxId}}">
         <a onclick="new RouteAction({hash : 'box/{{box.boxId}}'}).apply()" {{#hasOpenCards}}class="open"{{/hasOpenCards}}>
         {{#hasOpenCards}}<i class="fa fa-pencil-square-o"></i>{{/hasOpenCards}}
         {{^hasOpenCards}}<i class="fa fa-check-square-o"></i>{{/hasOpenCards}}

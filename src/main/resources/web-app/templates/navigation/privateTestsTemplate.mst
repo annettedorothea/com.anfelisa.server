@@ -3,7 +3,7 @@
         <a> {{lessonName}}</a>
     </li>
     {{#myTestList}}
-    <li class="test_{{id}}">
+    <li class="test_{{testId}}">
         <a onclick="new RouteAction({ hash : 'private/{{courseId}}/{{lessonId}}/{{testId}}' }).apply()">
             {{name}}
         </a>

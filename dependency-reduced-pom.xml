@@ -28,7 +28,7 @@
               <transformers>
                 <transformer />
                 <transformer>
-                  <mainClass>com.anfelisa.l2m.App</mainClass>
+                  <mainClass>com.anfelisa.App</mainClass>
                 </transformer>
               </transformers>
             </configuration>

@@ -17,6 +17,7 @@
   "emptyBoxList" : "Keine Lern-Boxen vorhanden",
   "boxName" : "Name",
   "newBox" : "Neue Lern-Box anlegen",
+  "editBox" : "Lern-Box editieren",
   "noCoursesFound" : "Keine weiteren Kurse gefunden.",
   "courseList" : "Verfügbare Kurse",
   "cancel" : "Abbrechen",

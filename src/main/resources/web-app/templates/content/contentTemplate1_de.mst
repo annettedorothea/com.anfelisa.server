@@ -1,34 +1,7 @@
 <h2>Herzlich willkommen bei Anfelisa!</h2>
-<p>Diese Seite ist von mir (Annette) für meine Kinder und deren Freunde oder Freundinnen, um für die Schule zu üben.</p>
-<p>Ich bin Informatikerin und nutze dieses Projekt, um mich nebenbei weiterzubilden.</p>
-<p>Bei Fragen oder Anregungen schreiben Sie bitte eine <a href="mailto:annette_pohl@web.de">Email</a>.</p>
-<h3>Neu: Shortcuts - dann geht alles noch schneller!</h3>
-<p>Damit alles noch schneller geht, gibt es jetzt Shortcuts! Das bedeutet, man muss nicht immer die Maus in die Hand nehmen,
-    sondern kann mit der Tastatur eine bestimmte Aktion ausführen.</p>
-<p>Bei den Vokabel-Boxen gibt es folgende Shortcuts:</p>
-<ul>
-    <li>enter oder return zeigt die Vokabel an</li>
-    <li>q: Perfekt</li>
-    <li>a: Gewusst</li>
-    <li>y: Mit Mühe</li>
-    <li>w: Knapp daneben</li>
-    <li>s: Nicht gewusst</li>
-    <li>x: Kein Plan</li>
-</ul>
-<p>Bei den Vokabel-Übungen gibt es folgende Shortcuts:</p>
-<ul>
-    <li>ctrl+k: Korrigieren</li>
-    <li>ctrl+space: Weiter</li>
-    <li>z: Zeigen</li>
-    <li>g: Gewusst</li>
-    <li>n: Nicht gewusst</li>
-</ul>
-<h3>Jetzt gibt es auch einen Vokabeltrainer</h3>
-<p>Wer gerne mit <a href="http://www.supermemo.com/" target="refs">Super Memo 2</a> Vokabeln üben möchte, der kann sich bei mir melden und ich richte dann eine eigene
-    Vokabel-Kartei an. Allerdings sollte man dabei bedenken, dass dieses Vokabel-Lern-System darauf ausgerichtet ist,
-    dass man idealerweise jeden Tag damit übt. Dann soll das System aber sehr effektiv sein.</p>
-<h3>Lisa hat eine kleine Demo gemacht</h3>
-<iframe width="560" height="315" src="//www.youtube.com/embed/bXS9AQEsOE0" frameborder="0" allowfullscreen></iframe>
+<p>Anfelisa ist komplett überarbeitet und läuft jetzt in einer ersten Test-Phase auf dem neuen System.
+Es kann sein, dass es noch einige Bugs gibt. Wir arbeiten noch daran. <i class="fa fa-smile-o" aria-hidden="true"></i></p>
+
 <h3>Datenschutzerklärung für die Nutzung von YouTube</h3>
 <p>Unsere Webseite nutzt Plugins der von Google betriebenen Seite YouTube. Betreiber der Seiten ist die YouTube, LLC, 901 Cherry Ave., San Bruno, CA 94066, USA. Wenn Sie eine unserer mit einem YouTube-Plugin ausgestatteten Seiten besuchen, wird eine Verbindung zu den Servern von YouTube hergestellt. Dabei wird dem Youtube-Server mitgeteilt, welche unserer Seiten Sie besucht haben.</p>
 <p>Wenn Sie in Ihrem YouTube-Account eingeloggt sind ermöglichen Sie YouTube, Ihr Surfverhalten direkt Ihrem persönlichen Profil zuzuordnen. Dies können Sie verhindern, indem Sie sich aus Ihrem YouTube-Account ausloggen.</p>

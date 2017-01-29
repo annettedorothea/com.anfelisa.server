@@ -17,6 +17,7 @@
   "emptyBoxList" : "No boxes",
   "boxName" : "Name",
   "newBox" : "New box",
+  "editBox" : "Edit box",
   "noCoursesFound" : "No more courses found.",
   "courseList" : "Available courses",
   "cancel" : "Cancel",

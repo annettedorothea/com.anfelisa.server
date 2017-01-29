@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.ws.rs.Consumes;
@@ -119,10 +121,7 @@ public class MigrationResource {
 			while (rs.next()) {
 				String username = rs.getString("username");
 				String password = rs.getString("password");
-				String email = rs.getString("email");
-				if (email == null) {
-					email = username + "@anfelisa.com";
-				}
+				String email = "annette_pohl@web.de";
 				String name = rs.getString("lastname");
 				String prename = rs.getString("firstname");
 				String role = "STUDENT";
@@ -419,15 +418,11 @@ public class MigrationResource {
 		Connection connection = this.openConnection();
 		try {
 			Statement stmt = connection.createStatement();
-			String sql = "SELECT * FROM anfelisa.card_of_box order by box_id, card_id, id ASC";
+			String sql = "SELECT * FROM anfelisa.card_of_box order by box_id, card_id, id";
 			ResultSet rs = stmt.executeQuery(sql);
-			int numberOfNewScheduledCardsPerDay = 0;
-			DateTime nextForUnscheduled = new DateTime();
-			DateTime lastScheduledDate = null;
 			Integer currentBoxId = -1;
 			Integer currentCardId = -1;
-			Integer lastQuality = null;
-			Integer scheduledCardId = -1;
+			List<CardOfBox> cards = new ArrayList<MigrationResource.CardOfBox>();
 			while (rs.next()) {
 				Integer cardId = rs.getInt("card_id");
 				Float ef = rs.getFloat("ef");
@@ -443,48 +438,60 @@ public class MigrationResource {
 				DateTime timestamp = null;
 				if (rs.getDate("timestamp") != null) {
 					timestamp = new DateTime(rs.getDate("timestamp"));
-				} else {
-					timestamp = new DateTime();
 				}
 				Integer points = rs.getInt("points");
 
-				String uuid = UUID.randomUUID().toString();
-				ScheduledCardData data = new ScheduledCardData(uuid, schema).withBoxId(boxId).withCardId(cardId)
-						.withCount(count).withEf(ef).withInterval(interval).withN(n).withScheduledDate(next)
-						.withTimestamp(timestamp);
-				if (data.getScheduledDate() == null) {
-					data.setScheduledDate(nextForUnscheduled);
-					numberOfNewScheduledCardsPerDay++;
-					if (numberOfNewScheduledCardsPerDay >= 10) {
-						numberOfNewScheduledCardsPerDay = 0;
-						nextForUnscheduled = nextForUnscheduled.plusDays(1);
+				if (currentBoxId == -1) {
+					currentBoxId = boxId;
+				}
+				if (currentCardId == -1) {
+					currentCardId = cardId;
+				}
+				if (!(currentBoxId.equals(boxId) && currentCardId.equals(cardId))) {
+					String uuid = UUID.randomUUID().toString();
+					CardOfBox lastCard = cards.get(cards.size() - 1);
+					CardOfBox cardBeforeLastCard = null;
+					if (cards.size() > 1) {
+						cardBeforeLastCard = cards.get(cards.size() - 2);
 					}
-				}
-				if (lastQuality != null) {
-					data.setLastQuality(lastQuality);
-				}
-
-				if (currentBoxId != boxId || currentCardId != cardId) {
-					Response response = new CreateScheduledCardAction(jdbi).applyWithActionData(data);
-					scheduledCardId = Integer.parseInt(response.getEntity().toString());
-				}
-
-				if (quality != null) {
-					uuid = UUID.randomUUID().toString();
-					ScoredCardData scoredCardData = new ScoredCardData(uuid, schema).withBoxId(boxId).withCardId(cardId)
-							.withPoints(points).withQuality(quality).withScheduledCardId(scheduledCardId)
-							.withScheduledDateOfScored(lastScheduledDate).withTimestamp(timestamp);
-					new CreateScoredCardAction(jdbi).applyWithActionData(scoredCardData);
-				}
-				if (currentCardId == cardId && currentBoxId == boxId) {
-					lastScheduledDate = next;
-					lastQuality = quality;
-				} else {
-					lastScheduledDate = null;
-					lastQuality = null;
+					ScheduledCardData scheduledCardData = new ScheduledCardData(uuid, schema).withBoxId(lastCard.boxId)
+							.withCardId(lastCard.cardId).withCount(lastCard.count).withEf(lastCard.ef)
+							.withInterval(lastCard.interval).withN(lastCard.n);
+					if (lastCard.timestamp != null) {
+						scheduledCardData.setTimestamp(lastCard.timestamp);
+					} else {
+						scheduledCardData.setTimestamp(new DateTime().minusYears(1));
+					}
+					if (lastCard.next != null) {
+						scheduledCardData.setScheduledDate(lastCard.next);
+					} else {
+						scheduledCardData.setScheduledDate(new DateTime().minusYears(1));
+					}
+					if (cardBeforeLastCard != null) {
+						scheduledCardData.setLastQuality(cardBeforeLastCard.quality);
+					}
+					Response response = new CreateScheduledCardAction(jdbi).applyWithActionData(scheduledCardData);
+					Integer scheduledCardId = Integer.parseInt(response.getEntity().toString());
+					if (cards.size() > 1) {
+						for (int i = 1; i < cards.size(); i++) {
+							CardOfBox card = cards.get(i);
+							CardOfBox previousCard = cards.get(i - 1);
+							uuid = UUID.randomUUID().toString();
+							ScoredCardData scoredCardData = new ScoredCardData(uuid, schema).withBoxId(card.boxId)
+									.withCardId(card.cardId).withPoints(card.points).withQuality(card.quality)
+									.withScheduledCardId(scheduledCardId).withScheduledDateOfScored(previousCard.next)
+									.withTimestamp(card.timestamp);
+							scoredCardData.setScheduledCardId(scheduledCardId);
+							response = new CreateScoredCardAction(jdbi).applyWithActionData(scoredCardData);
+						}
+					}
+					cards.clear();
 				}
 				currentCardId = cardId;
 				currentBoxId = boxId;
+
+				CardOfBox card = new CardOfBox(cardId, ef, interval, n, count, next, boxId, quality, timestamp, points);
+				cards.add(card);
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -494,6 +501,35 @@ public class MigrationResource {
 
 		closeConnection(connection);
 		return Response.ok().build();
+	}
+
+	private class CardOfBox {
+		private Integer cardId;
+		private Float ef;
+		private Integer interval;
+		private Integer n;
+		private Integer count;
+		private DateTime next;
+		private Integer boxId;
+		private Integer quality;
+		private DateTime timestamp;
+		private Integer points;
+
+		public CardOfBox(Integer cardId, Float ef, Integer interval, Integer n, Integer count, DateTime next,
+				Integer boxId, Integer quality, DateTime timestamp, Integer points) {
+			super();
+			this.cardId = cardId;
+			this.ef = ef;
+			this.interval = interval;
+			this.n = n;
+			this.count = count;
+			this.next = next;
+			this.boxId = boxId;
+			this.quality = quality;
+			this.timestamp = timestamp;
+			this.points = points;
+		}
+
 	}
 
 }
