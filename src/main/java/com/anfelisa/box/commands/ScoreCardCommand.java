@@ -45,7 +45,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		ICardModel card = cardDao.selectByCardId(this.getDatabaseHandle().getHandle(), this.commandData.getCardId(),
 				this.commandData.getSchema());
 
-		Float ef = scheduledCard.getEf() == 0F ? 1F : scheduledCard.getEf();
+		Float ef = scheduledCard.getEf() == 0F ? 2.5F : scheduledCard.getEf();
 		Integer interval = scheduledCard.getInterval() == 0 ? 1 : scheduledCard.getInterval();
 		Integer count = scheduledCard.getCount() + 1;
 		Integer maxPoints = card.getMaxPoints();
