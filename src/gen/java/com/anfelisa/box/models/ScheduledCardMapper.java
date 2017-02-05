@@ -19,7 +19,8 @@ public class ScheduledCardMapper implements ResultSetMapper<IScheduledCardModel>
 			new org.joda.time.DateTime(r.getDate("scheduledDate")),
 			r.getInt("boxId"),
 			r.getInt("lastQuality"),
-			new org.joda.time.DateTime(r.getDate("timestamp"))
+			new org.joda.time.DateTime(r.getDate("timestamp")),
+			r.getBoolean("removed")
 		);
 	}
 }

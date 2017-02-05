@@ -28,6 +28,7 @@ public class AppRegistration {
 		environment.jersey().register(new FillBoxWithCardsAction(jdbi));
 		environment.jersey().register(new DeleteCardAction(jdbi));
 		environment.jersey().register(new GetAllBoxesAction(jdbi));
+		environment.jersey().register(new RemoveCardFromBoxAction(jdbi));
 	}
 
 	public static void registerConsumers() {
@@ -50,6 +51,7 @@ public class AppRegistration {
 		AceController.addConsumer("CardImportedEvent", cardView.createCard);
 		AceController.addConsumer("FillBoxWithCardsEvent", boxView.fillBoxWithCards);
 		AceController.addConsumer("CardDeletedEvent", cardView.deleteCard);
+		AceController.addConsumer("CardRemovedFromBoxEvent", scheduledCardView.removeFromBox);
     }
 }
 

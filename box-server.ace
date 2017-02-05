@@ -41,6 +41,7 @@ models {
 			NotNull Integer boxId references Box.boxId
 			Integer lastQuality
 			NotNull DateTime timestamp
+			NotNull Boolean removed
 		}
 	}
 
@@ -210,7 +211,11 @@ models {
 			DateTime now
 		}
 	}
-	
+	ScheduledCardId {
+		primitiveAttributes {
+			Integer scheduledCardId
+		}
+	}
 }
 
 data {
@@ -229,6 +234,7 @@ data {
 	FillBox : (FillBox com.anfelisa.user.Credentials Now)
 	CardId : (CardId)
 	AllBoxes : (AllBoxes)
+	ScheduledCardId : (ScheduledCardId)
 }
 
 actions {
@@ -249,6 +255,7 @@ actions {
 	POST FillBoxWithCards uses FillBox executes FillBoxWithCards
 	DELETE DeleteCard uses CardId executes DeleteCard
 	GET GetAllBoxes uses AllBoxes
+	DELETE RemoveCardFromBox uses ScheduledCardId executes RemoveCardFromBox
 }
 
 commands {
@@ -289,6 +296,9 @@ commands {
 	DeleteCard uses CardId {
 		on deleted publishes (CardDeleted)
 	}
+	RemoveCardFromBox uses ScheduledCardId {
+		on deleted publishes (CardRemovedFromBox)
+	}
 }
 
 events {
@@ -304,6 +314,7 @@ events {
 	CardImported uses CardCreation listenedToBy ( Card.createCard )
 	FillBoxWithCards uses FillBox listenedToBy ( Box.fillBoxWithCards )
 	CardDeleted uses CardId listenedToBy (Card.deleteCard)
+	CardRemovedFromBox uses ScheduledCardId listenedToBy (ScheduledCard.removeFromBox)
 }
 
 views {
@@ -324,6 +335,7 @@ views {
 	ScheduledCard {
 		createScheduledCard (ScheduledCard)
 		score(ScoreCard)
+		removeFromBox(ScheduledCardId)
 	}
 	ScoredCard {
 		score(ScoreCard)

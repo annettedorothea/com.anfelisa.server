@@ -67,6 +67,9 @@ public class ScoreCardData implements IScoreCardData {
 	private org.joda.time.DateTime timestamp;
 	
 	@NotNull
+	private Boolean removed;
+	
+	@NotNull
 	private Integer scoredCardId;
 	
 	private org.joda.time.DateTime scheduledDateOfScored;
@@ -107,6 +110,7 @@ public class ScoreCardData implements IScoreCardData {
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
+		@JsonProperty("removed") Boolean removed,
 		@JsonProperty("scoredCardId") Integer scoredCardId,
 		@JsonProperty("scheduledDateOfScored") org.joda.time.DateTime scheduledDateOfScored,
 		@JsonProperty("quality") Integer quality,
@@ -132,6 +136,7 @@ public class ScoreCardData implements IScoreCardData {
 		this.boxId = boxId;
 		this.lastQuality = lastQuality;
 		this.timestamp = timestamp;
+		this.removed = removed;
 		this.scoredCardId = scoredCardId;
 		this.scheduledDateOfScored = scheduledDateOfScored;
 		this.quality = quality;
@@ -314,6 +319,18 @@ public class ScoreCardData implements IScoreCardData {
 	}
 	public ScoreCardData withTimestamp(org.joda.time.DateTime timestamp) {
 		this.timestamp = timestamp;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getRemoved() {
+		return this.removed;
+	}
+	public void setRemoved(Boolean removed) {
+		this.removed = removed;
+	}
+	public ScoreCardData withRemoved(Boolean removed) {
+		this.removed = removed;
 		return this;
 	}
 	

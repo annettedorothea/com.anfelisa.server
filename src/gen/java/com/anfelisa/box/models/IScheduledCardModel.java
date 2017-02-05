@@ -15,6 +15,7 @@ public interface IScheduledCardModel {
 	Integer getBoxId();
 	Integer getLastQuality();
 	org.joda.time.DateTime getTimestamp();
+	Boolean getRemoved();
 
 
 }

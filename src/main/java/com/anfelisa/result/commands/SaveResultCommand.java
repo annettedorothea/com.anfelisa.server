@@ -42,7 +42,7 @@ public class SaveResultCommand extends AbstractSaveResultCommand {
 					this.commandData.getSchema(), this.commandData.getTestId(), box.getBoxId());
 			for (ICardModel card : allCards) {
 				IScheduledCardModel scheduledCard = new ScheduledCardModel(null, card.getCardId(), 2.5F, 0, 0, 0,
-						this.commandData.getDate().plusDays(1), box.getBoxId(), null, this.commandData.getDate());
+						this.commandData.getDate().plusDays(1), box.getBoxId(), null, this.commandData.getDate(), false);
 				this.commandData.getCardsToBeAdded().add(scheduledCard);
 			}
 		}
