@@ -34,6 +34,12 @@ public class CustomScheduledCardDao {
 		statement.bind("scheduledCardId", scheduledCardIdModel.getScheduledCardId());
 		statement.execute();
 	}
+	public List<IScheduledCardModel> selectReinforceCards(Handle handle, String schema, Integer boxId) {
+		return handle
+				.createQuery("SELECT * FROM " + schema
+						+ ".scheduledcard WHERE boxid = :boxId AND removed = false AND lastquality < 4 AND date_trunc('day', timestamp) >= date_trunc('day', now()) ORDER BY timestamp DESC")
+				.bind("boxId", boxId).map(new ScheduledCardMapper()).list();
+	}
 
 
 }

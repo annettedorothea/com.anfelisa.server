@@ -456,7 +456,7 @@ public class MigrationResource {
 					}
 					ScheduledCardData scheduledCardData = new ScheduledCardData(uuid, schema).withBoxId(lastCard.boxId)
 							.withCardId(lastCard.cardId).withCount(lastCard.count).withEf(lastCard.ef)
-							.withInterval(lastCard.interval).withN(lastCard.n);
+							.withInterval(lastCard.interval).withN(lastCard.n).withRemoved(false);
 					if (lastCard.timestamp != null) {
 						scheduledCardData.setTimestamp(lastCard.timestamp);
 					} else {

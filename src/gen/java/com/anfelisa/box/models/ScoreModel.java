@@ -13,6 +13,8 @@ public class ScoreModel implements IScoreModel {
 	
 	private Integer cardsForTomorrow;
 	
+	private Integer cardsToBeReinforced;
+	
 	private Integer zero;
 	
 	private Integer one;
@@ -35,6 +37,7 @@ public class ScoreModel implements IScoreModel {
 		@JsonProperty("cards") Integer cards,
 		@JsonProperty("cardsForToday") Integer cardsForToday,
 		@JsonProperty("cardsForTomorrow") Integer cardsForTomorrow,
+		@JsonProperty("cardsToBeReinforced") Integer cardsToBeReinforced,
 		@JsonProperty("zero") Integer zero,
 		@JsonProperty("one") Integer one,
 		@JsonProperty("two") Integer two,
@@ -47,6 +50,7 @@ public class ScoreModel implements IScoreModel {
 		this.cards = cards;
 		this.cardsForToday = cardsForToday;
 		this.cardsForTomorrow = cardsForTomorrow;
+		this.cardsToBeReinforced = cardsToBeReinforced;
 		this.zero = zero;
 		this.one = one;
 		this.two = two;
@@ -79,6 +83,14 @@ public class ScoreModel implements IScoreModel {
 	}
 	public void setCardsForTomorrow(Integer cardsForTomorrow) {
 		this.cardsForTomorrow = cardsForTomorrow;
+	}
+	
+	@JsonProperty
+	public Integer getCardsToBeReinforced() {
+		return this.cardsToBeReinforced;
+	}
+	public void setCardsToBeReinforced(Integer cardsToBeReinforced) {
+		this.cardsToBeReinforced = cardsToBeReinforced;
 	}
 	
 	@JsonProperty

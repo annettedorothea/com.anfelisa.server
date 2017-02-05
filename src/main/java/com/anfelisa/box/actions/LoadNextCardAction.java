@@ -159,6 +159,9 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		List<IScheduledCardModel> tomorrowsCards = scheduledCardDao.selectTomorrowsCards(this.getDatabaseHandle().getHandle(),
 				this.actionData.getSchema(), this.actionData.getBoxId());
 		this.actionData.setCardsForTomorrow(tomorrowsCards.size());
+		List<IScheduledCardModel> cardsToBeReinforced = scheduledCardDao.selectReinforceCards(this.getDatabaseHandle().getHandle(),
+				this.actionData.getSchema(), this.actionData.getBoxId());
+		this.actionData.setCardsToBeReinforced(cardsToBeReinforced.size());
 
 		int numberOfCardsWithQuality = quality0Count + quality1Count + quality2Count + quality3Count + quality4Count
 				+ quality5Count + noQualityCount;

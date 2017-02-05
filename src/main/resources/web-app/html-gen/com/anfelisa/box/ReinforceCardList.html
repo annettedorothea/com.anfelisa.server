@@ -1,0 +1,76 @@
+<form class="form-horizontal">
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+            <h4>{{texts.reinforceCardList}}</h4>
+        </div>
+    </div>
+
+	<div class="form-group" id="boxIdDiv">
+	    <label for="boxId" class="col-sm-3 control-label">* {{texts.boxId}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="boxId" placeholder="{{texts.boxId}}" value="{{boxId}}" onblur="new ValidateRequiredFieldAction({id : 'boxId'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.boxIdNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	<div class="form-group" id="boxNameDiv">
+	    <label for="boxName" class="col-sm-3 control-label">* {{texts.boxName}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="boxName" placeholder="{{texts.boxName}}" value="{{boxName}}" onblur="new ValidateRequiredFieldAction({id : 'boxName'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.boxNameNotEmpty}}</span>
+	    </div>
+	</div>
+	
+	{{#list}}
+	<div class="panel panel-default">
+	    <div class="panel-heading">
+			<h4 class="panel-title">{{texts.scheduledCardId}}: {{scheduledCardId}}</h4>
+			<h4 class="panel-title">{{texts.scheduledDate}}: {{scheduledDate}}</h4>
+			<h4 class="panel-title">{{texts.lastQuality}}: {{lastQuality}}</h4>
+			<h4 class="panel-title">{{texts.timestamp}}: {{timestamp}}</h4>
+	    </div>
+	    <div class="panel-body">
+			{{texts.scheduledCardId}}: {{scheduledCardId}}<br>
+			{{texts.scheduledDate}}: {{scheduledDate}}<br>
+			{{texts.lastQuality}}: {{lastQuality}}<br>
+			{{texts.timestamp}}: {{timestamp}}<br>
+	    </div>
+	</div>
+	{{/list}}
+	{{^list}}
+	<div class="panel panel-default">
+	    <div class="panel-heading">
+	        <h3 class="panel-title">{{texts.emptyList}}</h3>
+	    </div>
+	</div>
+	{{/list}}
+	
+	<div class="table-responsive">
+	    <table class="table table-bordered table-hover table-responsive">
+	        <tr>
+				<th>{{texts.scheduledCardId}}</th>
+				<th>{{texts.scheduledDate}}</th>
+				<th>{{texts.lastQuality}}</th>
+				<th>{{texts.timestamp}}</th>
+	        </tr>
+	        {{#list}}
+	        <tr>
+				<td>{{scheduledCardId}}</td>
+				<td>{{scheduledDate}}</td>
+				<td>{{lastQuality}}</td>
+				<td>{{timestamp}}</td>
+	        </tr>
+	        {{/list}}
+	        {{^list}}
+	        <tr>
+	            <td colspan="4">{{texts.emptyList}}</td>
+	        </tr>
+	        {{/list}}
+	    </table>
+	</div>
+	
+	
+	
+</form>

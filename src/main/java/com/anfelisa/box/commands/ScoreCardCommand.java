@@ -85,6 +85,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		this.commandData.setQuality(quality);
 		this.commandData.setLastQuality(quality);
 		this.commandData.setPoints(points);
+		this.commandData.setRemoved(false);
 
 		this.outcome = scored;
 	}

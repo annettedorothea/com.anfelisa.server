@@ -8,6 +8,7 @@ public interface IScoreModel {
 	Integer getCards();
 	Integer getCardsForToday();
 	Integer getCardsForTomorrow();
+	Integer getCardsToBeReinforced();
 	Integer getZero();
 	Integer getOne();
 	Integer getTwo();

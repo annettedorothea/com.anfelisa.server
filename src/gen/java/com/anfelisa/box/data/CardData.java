@@ -56,6 +56,8 @@ public class CardData implements ICardData {
 	
 	private Integer cardsForTomorrow;
 	
+	private Integer cardsToBeReinforced;
+	
 	private Integer zero;
 	
 	private Integer one;
@@ -119,6 +121,7 @@ public class CardData implements ICardData {
 		@JsonProperty("cards") Integer cards,
 		@JsonProperty("cardsForToday") Integer cardsForToday,
 		@JsonProperty("cardsForTomorrow") Integer cardsForTomorrow,
+		@JsonProperty("cardsToBeReinforced") Integer cardsToBeReinforced,
 		@JsonProperty("zero") Integer zero,
 		@JsonProperty("one") Integer one,
 		@JsonProperty("two") Integer two,
@@ -154,6 +157,7 @@ public class CardData implements ICardData {
 		this.cards = cards;
 		this.cardsForToday = cardsForToday;
 		this.cardsForTomorrow = cardsForTomorrow;
+		this.cardsToBeReinforced = cardsToBeReinforced;
 		this.zero = zero;
 		this.one = one;
 		this.two = two;
@@ -313,6 +317,18 @@ public class CardData implements ICardData {
 	}
 	public CardData withCardsForTomorrow(Integer cardsForTomorrow) {
 		this.cardsForTomorrow = cardsForTomorrow;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getCardsToBeReinforced() {
+		return this.cardsToBeReinforced;
+	}
+	public void setCardsToBeReinforced(Integer cardsToBeReinforced) {
+		this.cardsToBeReinforced = cardsToBeReinforced;
+	}
+	public CardData withCardsToBeReinforced(Integer cardsToBeReinforced) {
+		this.cardsToBeReinforced = cardsToBeReinforced;
 		return this;
 	}
 	

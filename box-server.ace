@@ -58,11 +58,34 @@ models {
 		}
 	}
 
+	ReinforceCard {
+		primitiveAttributes {
+			Unique PrimaryKey NotNull Serial scheduledCardId
+			NotNull DateTime scheduledDate
+			Integer lastQuality
+			NotNull DateTime timestamp
+		}
+		complexAttributes {
+			CardContent cardContent
+		}
+	}
+	
+	ReinforceCardList {
+		primitiveAttributes {
+			NotNull Integer boxId
+			NotNull String boxName
+		}
+		complexAttributes {
+			List ReinforceCard list
+		}
+	}
+
 	Score {
 		primitiveAttributes {
 			Integer cards
 			Integer cardsForToday
 			Integer cardsForTomorrow
+			Integer cardsToBeReinforced
 			Integer zero
 			Integer one
 			Integer two
@@ -235,6 +258,7 @@ data {
 	CardId : (CardId)
 	AllBoxes : (AllBoxes)
 	ScheduledCardId : (ScheduledCardId)
+	ReinforceCardList : (ReinforceCardList com.anfelisa.user.Credentials Box)
 }
 
 actions {
@@ -256,6 +280,7 @@ actions {
 	DELETE DeleteCard uses CardId executes DeleteCard
 	GET GetAllBoxes uses AllBoxes
 	DELETE RemoveCardFromBox uses ScheduledCardId executes RemoveCardFromBox
+	GET LoadReinforceCardList uses ReinforceCardList
 }
 
 commands {

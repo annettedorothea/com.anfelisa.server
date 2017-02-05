@@ -29,6 +29,7 @@ public class AppRegistration {
 		environment.jersey().register(new DeleteCardAction(jdbi));
 		environment.jersey().register(new GetAllBoxesAction(jdbi));
 		environment.jersey().register(new RemoveCardFromBoxAction(jdbi));
+		environment.jersey().register(new LoadReinforceCardListAction(jdbi));
 	}
 
 	public static void registerConsumers() {
