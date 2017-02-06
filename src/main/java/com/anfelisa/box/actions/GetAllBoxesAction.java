@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.AuthUser;
+import com.anfelisa.box.data.AllBoxesData;
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.IBoxModel;
 import com.codahale.metrics.annotation.Timed;
@@ -41,6 +42,7 @@ public class GetAllBoxesAction extends AbstractGetAllBoxesAction {
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
 	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema)
 			throws JsonProcessingException {
+		this.actionData = new AllBoxesData(uuid, schema);
 		return this.apply();
 	}
 

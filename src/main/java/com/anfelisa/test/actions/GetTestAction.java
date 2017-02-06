@@ -47,11 +47,13 @@ public class GetTestAction extends AbstractGetTestAction {
 	protected final void loadDataForGetRequest() {
 		ITestModel test = testDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionData.getTestId(),
 				this.actionData.getSchema());
-		this.actionData.setAuthor(test.getAuthor());
-		this.actionData.setHtml(test.getHtml());
-		this.actionData.setLessonId(test.getLessonId());
-		this.actionData.setName(test.getName());
-		this.actionData.setSequence(test.getSequence());
+		if (test != null) {
+			this.actionData.setAuthor(test.getAuthor());
+			this.actionData.setHtml(test.getHtml());
+			this.actionData.setLessonId(test.getLessonId());
+			this.actionData.setName(test.getName());
+			this.actionData.setSequence(test.getSequence());
+		}
 	}
 
 }
