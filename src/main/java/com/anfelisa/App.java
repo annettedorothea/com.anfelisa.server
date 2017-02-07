@@ -2,6 +2,8 @@ package com.anfelisa;
 
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.skife.jdbi.v2.DBI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AceResource;
 import com.anfelisa.auth.AceAuthenticator;
@@ -21,6 +23,8 @@ import io.dropwizard.setup.Environment;
 
 public class App extends Application<AppConfiguration> {
 
+	static final Logger LOG = LoggerFactory.getLogger(App.class);
+
 	public static void main(String[] args) throws Exception {
 		new App().run(args);
 	}
@@ -28,6 +32,10 @@ public class App extends Application<AppConfiguration> {
 	@Override
 	public String getName() {
 		return "anfelisa";
+	}
+	
+	public String getVersion() {
+		return "1.0.1";
 	}
 
 	@Override
@@ -37,6 +45,8 @@ public class App extends Application<AppConfiguration> {
 
 	@Override
 	public void run(AppConfiguration configuration, Environment environment) throws ClassNotFoundException {
+		LOG.info("running version {}", getVersion());
+		
 		final DBIFactory factory = new DBIFactory();
 
 		DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
