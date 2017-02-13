@@ -24,7 +24,7 @@ public class MyTestListModel implements IMyTestListModel {
 		this.myTestList = myTestList;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

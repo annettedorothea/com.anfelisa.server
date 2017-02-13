@@ -36,7 +36,7 @@ public class FillBoxModel implements IFillBoxModel {
 		this.cardsToBeAdded = cardsToBeAdded;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

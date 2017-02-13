@@ -53,7 +53,7 @@ public class BoxModel implements IBoxModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

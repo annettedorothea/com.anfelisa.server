@@ -48,7 +48,7 @@ public class BoxInfoModel implements IBoxInfoModel {
 		this.box = box;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

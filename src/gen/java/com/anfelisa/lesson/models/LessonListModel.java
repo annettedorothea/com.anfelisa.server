@@ -24,7 +24,7 @@ public class LessonListModel implements ILessonListModel {
 		this.lessonList = lessonList;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

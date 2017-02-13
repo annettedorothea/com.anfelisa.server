@@ -50,7 +50,7 @@ public class ReinforceCardListModel implements IReinforceCardListModel {
 		this.list = list;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

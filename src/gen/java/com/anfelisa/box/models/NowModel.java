@@ -26,7 +26,7 @@ public class NowModel implements INowModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

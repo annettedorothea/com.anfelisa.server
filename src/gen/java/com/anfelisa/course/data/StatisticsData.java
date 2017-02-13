@@ -45,6 +45,10 @@ public class StatisticsData implements IStatisticsData {
 	private java.util.List<com.anfelisa.course.models.IStatisticsItemModel> statisticsItemList;
 	
 
+	private org.joda.time.DateTime systemTime;
+	
+	private boolean replay;
+
 	public StatisticsData(
 		@JsonProperty("username") String username,
 		@JsonProperty("year") Integer year,
@@ -169,6 +173,26 @@ public class StatisticsData implements IStatisticsData {
 
 	public void setCreatedId(String createdId) {
 		this.createdId = createdId;
+	}
+
+	@JsonProperty
+	public org.joda.time.DateTime getSystemTime() {
+		return systemTime;
+	}
+
+	@JsonProperty
+	public void setSystemTime(org.joda.time.DateTime systemTime) {
+		this.systemTime = systemTime;
+	}
+
+	@JsonProperty
+	public boolean isReplay() {
+		return replay;
+	}
+
+	@JsonProperty
+	public void setReplay(boolean replay) {
+		this.replay = replay;
 	}
 
 }

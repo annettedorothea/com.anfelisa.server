@@ -51,7 +51,7 @@ public class ContentHashesOfCreatedCardsModel implements IContentHashesOfCreated
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

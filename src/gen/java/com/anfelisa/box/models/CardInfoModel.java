@@ -110,7 +110,7 @@ public class CardInfoModel implements ICardInfoModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

@@ -65,7 +65,7 @@ public class LessonAbstractModel implements ILessonAbstractModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

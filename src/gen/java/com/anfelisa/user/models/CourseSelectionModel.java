@@ -26,7 +26,7 @@ public class CourseSelectionModel implements ICourseSelectionModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

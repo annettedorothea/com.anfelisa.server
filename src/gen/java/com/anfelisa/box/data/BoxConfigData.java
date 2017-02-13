@@ -40,6 +40,10 @@ public class BoxConfigData implements IBoxConfigData {
 	
 	
 
+	private org.joda.time.DateTime systemTime;
+	
+	private boolean replay;
+
 	public BoxConfigData(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("username") String username,
@@ -144,6 +148,26 @@ public class BoxConfigData implements IBoxConfigData {
 
 	public void setCreatedId(String createdId) {
 		this.createdId = createdId;
+	}
+
+	@JsonProperty
+	public org.joda.time.DateTime getSystemTime() {
+		return systemTime;
+	}
+
+	@JsonProperty
+	public void setSystemTime(org.joda.time.DateTime systemTime) {
+		this.systemTime = systemTime;
+	}
+
+	@JsonProperty
+	public boolean isReplay() {
+		return replay;
+	}
+
+	@JsonProperty
+	public void setReplay(boolean replay) {
+		this.replay = replay;
 	}
 
 }

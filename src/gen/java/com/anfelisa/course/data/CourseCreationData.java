@@ -40,6 +40,10 @@ public class CourseCreationData implements ICourseCreationData {
 
 	
 
+	private org.joda.time.DateTime systemTime;
+	
+	private boolean replay;
+
 	public CourseCreationData(
 		@JsonProperty("courseId") Integer courseId,
 		@JsonProperty("name") String name,
@@ -156,6 +160,26 @@ public class CourseCreationData implements ICourseCreationData {
 
 	public void setCreatedId(String createdId) {
 		this.createdId = createdId;
+	}
+
+	@JsonProperty
+	public org.joda.time.DateTime getSystemTime() {
+		return systemTime;
+	}
+
+	@JsonProperty
+	public void setSystemTime(org.joda.time.DateTime systemTime) {
+		this.systemTime = systemTime;
+	}
+
+	@JsonProperty
+	public boolean isReplay() {
+		return replay;
+	}
+
+	@JsonProperty
+	public void setReplay(boolean replay) {
+		this.replay = replay;
 	}
 
 }

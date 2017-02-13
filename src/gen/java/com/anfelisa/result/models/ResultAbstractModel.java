@@ -66,7 +66,7 @@ public class ResultAbstractModel implements IResultAbstractModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

@@ -116,7 +116,7 @@ public class MyCourseModel implements IMyCourseModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

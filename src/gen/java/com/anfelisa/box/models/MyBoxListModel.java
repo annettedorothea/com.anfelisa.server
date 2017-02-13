@@ -24,7 +24,7 @@ public class MyBoxListModel implements IMyBoxListModel {
 		this.boxList = boxList;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

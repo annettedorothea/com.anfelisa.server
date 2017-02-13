@@ -40,7 +40,7 @@ public class StudentOfCourseModel implements IStudentOfCourseModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

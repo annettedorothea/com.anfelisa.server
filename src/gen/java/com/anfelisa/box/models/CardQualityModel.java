@@ -27,7 +27,7 @@ public class CardQualityModel implements ICardQualityModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

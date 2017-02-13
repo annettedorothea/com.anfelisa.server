@@ -92,7 +92,7 @@ public class StatisticsModel implements IStatisticsModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

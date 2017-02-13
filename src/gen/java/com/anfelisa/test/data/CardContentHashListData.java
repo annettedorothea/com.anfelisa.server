@@ -31,6 +31,10 @@ public class CardContentHashListData implements ICardContentHashListData {
 	
 	
 
+	private org.joda.time.DateTime systemTime;
+	
+	private boolean replay;
+
 	public CardContentHashListData(
 		@JsonProperty("contentHashList") java.util.List<Integer> contentHashList,
 		@JsonProperty("testId") Integer testId
@@ -92,6 +96,26 @@ public class CardContentHashListData implements ICardContentHashListData {
 
 	public void setCreatedId(String createdId) {
 		this.createdId = createdId;
+	}
+
+	@JsonProperty
+	public org.joda.time.DateTime getSystemTime() {
+		return systemTime;
+	}
+
+	@JsonProperty
+	public void setSystemTime(org.joda.time.DateTime systemTime) {
+		this.systemTime = systemTime;
+	}
+
+	@JsonProperty
+	public boolean isReplay() {
+		return replay;
+	}
+
+	@JsonProperty
+	public void setReplay(boolean replay) {
+		this.replay = replay;
 	}
 
 }

@@ -105,7 +105,7 @@ public class ResultModel implements IResultModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

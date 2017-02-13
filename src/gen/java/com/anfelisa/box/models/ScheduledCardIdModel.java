@@ -26,7 +26,7 @@ public class ScheduledCardIdModel implements IScheduledCardIdModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

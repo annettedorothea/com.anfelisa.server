@@ -118,7 +118,7 @@ public class StatisticsItemModel implements IStatisticsItemModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

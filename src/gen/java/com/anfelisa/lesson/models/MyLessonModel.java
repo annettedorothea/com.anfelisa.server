@@ -90,7 +90,7 @@ public class MyLessonModel implements IMyLessonModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

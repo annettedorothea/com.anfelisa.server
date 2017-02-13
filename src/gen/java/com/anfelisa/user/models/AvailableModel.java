@@ -26,7 +26,7 @@ public class AvailableModel implements IAvailableModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

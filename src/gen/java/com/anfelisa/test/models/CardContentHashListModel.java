@@ -26,7 +26,7 @@ public class CardContentHashListModel implements ICardContentHashListModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

@@ -27,7 +27,7 @@ public class PointsModel implements IPointsModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

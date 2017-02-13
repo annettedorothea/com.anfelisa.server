@@ -24,7 +24,7 @@ public class CourseListModel implements ICourseListModel {
 		this.courseList = courseList;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

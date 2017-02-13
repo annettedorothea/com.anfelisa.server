@@ -24,7 +24,7 @@ public class MyCourseListModel implements IMyCourseListModel {
 		this.myCourseList = myCourseList;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

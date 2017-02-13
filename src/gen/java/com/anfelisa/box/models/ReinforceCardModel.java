@@ -75,7 +75,7 @@ public class ReinforceCardModel implements IReinforceCardModel {
 		this.cardContent = cardContent;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

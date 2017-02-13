@@ -92,6 +92,10 @@ public class MyResultData implements IMyResultData {
 	private java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList;
 	
 
+	private org.joda.time.DateTime systemTime;
+	
+	private boolean replay;
+
 	public MyResultData(
 		@JsonProperty("resultId") Integer resultId,
 		@JsonProperty("username") String username,
@@ -416,6 +420,26 @@ public class MyResultData implements IMyResultData {
 
 	public void setCreatedId(String createdId) {
 		this.createdId = createdId;
+	}
+
+	@JsonProperty
+	public org.joda.time.DateTime getSystemTime() {
+		return systemTime;
+	}
+
+	@JsonProperty
+	public void setSystemTime(org.joda.time.DateTime systemTime) {
+		this.systemTime = systemTime;
+	}
+
+	@JsonProperty
+	public boolean isReplay() {
+		return replay;
+	}
+
+	@JsonProperty
+	public void setReplay(boolean replay) {
+		this.replay = replay;
 	}
 
 }

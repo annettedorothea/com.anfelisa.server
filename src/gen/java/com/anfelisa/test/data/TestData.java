@@ -72,6 +72,10 @@ public class TestData implements ITestData {
 	private java.util.List<com.anfelisa.test.models.ITestModel> testList;
 	
 
+	private org.joda.time.DateTime systemTime;
+	
+	private boolean replay;
+
 	public TestData(
 		@JsonProperty("testId") Integer testId,
 		@JsonProperty("name") String name,
@@ -311,6 +315,26 @@ public class TestData implements ITestData {
 
 	public void setCreatedId(String createdId) {
 		this.createdId = createdId;
+	}
+
+	@JsonProperty
+	public org.joda.time.DateTime getSystemTime() {
+		return systemTime;
+	}
+
+	@JsonProperty
+	public void setSystemTime(org.joda.time.DateTime systemTime) {
+		this.systemTime = systemTime;
+	}
+
+	@JsonProperty
+	public boolean isReplay() {
+		return replay;
+	}
+
+	@JsonProperty
+	public void setReplay(boolean replay) {
+		this.replay = replay;
 	}
 
 }
