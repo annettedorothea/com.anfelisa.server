@@ -79,7 +79,7 @@ public class CardModel implements ICardModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

@@ -84,7 +84,7 @@ public class CardContentModel implements ICardContentModel {
 		this.lines = lines;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

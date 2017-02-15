@@ -1,7 +1,6 @@
 package com.anfelisa.test.actions;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.NotNull;
@@ -37,8 +36,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 	@Path("/create")
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
 	public Response post(@NotNull TestCreationData testCreationData) throws JsonProcessingException, UnsupportedEncodingException {
-		String decodedHtml = URLDecoder.decode( testCreationData.getHtml(), "UTF-8" );
-		testCreationData.setHtml(decodedHtml);
 		this.actionData = testCreationData;
 		return this.apply();
 	}

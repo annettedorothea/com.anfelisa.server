@@ -42,6 +42,10 @@ public class UserUpdateData implements IUserUpdateData {
 	
 	
 
+	private org.joda.time.DateTime systemTime;
+	
+	private boolean replay;
+
 	public UserUpdateData(
 		@JsonProperty("username") String username,
 		@JsonProperty("name") String name,
@@ -159,6 +163,26 @@ public class UserUpdateData implements IUserUpdateData {
 
 	public void setCreatedId(String createdId) {
 		this.createdId = createdId;
+	}
+
+	@JsonProperty
+	public org.joda.time.DateTime getSystemTime() {
+		return systemTime;
+	}
+
+	@JsonProperty
+	public void setSystemTime(org.joda.time.DateTime systemTime) {
+		this.systemTime = systemTime;
+	}
+
+	@JsonProperty
+	public boolean isReplay() {
+		return replay;
+	}
+
+	@JsonProperty
+	public void setReplay(boolean replay) {
+		this.replay = replay;
 	}
 
 }

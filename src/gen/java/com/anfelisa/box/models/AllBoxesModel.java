@@ -24,7 +24,7 @@ public class AllBoxesModel implements IAllBoxesModel {
 		this.boxList = boxList;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

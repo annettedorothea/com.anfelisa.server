@@ -78,7 +78,7 @@ public class CourseAbstractModel implements ICourseAbstractModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

@@ -155,7 +155,7 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

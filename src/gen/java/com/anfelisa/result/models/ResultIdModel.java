@@ -27,7 +27,7 @@ public class ResultIdModel implements IResultIdModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

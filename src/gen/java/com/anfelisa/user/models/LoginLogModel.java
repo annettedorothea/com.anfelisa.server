@@ -53,7 +53,7 @@ public class LoginLogModel implements ILoginLogModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

@@ -47,7 +47,7 @@ public class BoxConfigModel implements IBoxConfigModel {
 		this.existingItems = existingItems;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

@@ -50,7 +50,7 @@ public class CourseToBoxAdditionListModel implements ICourseToBoxAdditionListMod
 		this.courseToBoxAdditionList = courseToBoxAdditionList;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

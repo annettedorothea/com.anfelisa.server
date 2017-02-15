@@ -1,7 +1,6 @@
 package com.anfelisa.test.actions;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.NotNull;
@@ -24,7 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/tests")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class UpdateTestAction extends AbstractUpdateTestAction {
+public class UpdateTestAction extends AbstractUpdateTestAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateTestAction.class);
 
@@ -36,14 +35,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 	@Timed
 	@Path("/update")
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
-	public Response put(@NotNull TestCreationData testData) throws JsonProcessingException, UnsupportedEncodingException {
-		String decodedHtml = URLDecoder.decode( testData.getHtml(), "UTF-8" );
-		testData.setHtml(decodedHtml);
+	public Response put(@NotNull TestCreationData testData)
+			throws JsonProcessingException, UnsupportedEncodingException {
 		this.actionData = testData;
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

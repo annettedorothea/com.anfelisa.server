@@ -158,7 +158,7 @@ public class ScoreModel implements IScoreModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

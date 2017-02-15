@@ -53,7 +53,7 @@ public class BoxOfCourseModel implements IBoxOfCourseModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

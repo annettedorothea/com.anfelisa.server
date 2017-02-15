@@ -66,7 +66,7 @@ public class CourseToBoxAdditionModel implements ICourseToBoxAdditionModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

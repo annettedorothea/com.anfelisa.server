@@ -115,7 +115,7 @@ public class ScoredCardModel implements IScoredCardModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

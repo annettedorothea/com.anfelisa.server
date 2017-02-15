@@ -53,7 +53,7 @@ public class CardIdModel implements ICardIdModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

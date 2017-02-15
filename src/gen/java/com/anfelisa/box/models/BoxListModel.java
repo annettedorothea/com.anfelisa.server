@@ -24,7 +24,7 @@ public class BoxListModel implements IBoxListModel {
 		this.boxList = boxList;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

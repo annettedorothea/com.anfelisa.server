@@ -37,6 +37,10 @@ public class FillBoxData implements IFillBoxData {
 	
 	
 
+	private org.joda.time.DateTime systemTime;
+	
+	private boolean replay;
+
 	public FillBoxData(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
@@ -134,6 +138,26 @@ public class FillBoxData implements IFillBoxData {
 
 	public void setCreatedId(String createdId) {
 		this.createdId = createdId;
+	}
+
+	@JsonProperty
+	public org.joda.time.DateTime getSystemTime() {
+		return systemTime;
+	}
+
+	@JsonProperty
+	public void setSystemTime(org.joda.time.DateTime systemTime) {
+		this.systemTime = systemTime;
+	}
+
+	@JsonProperty
+	public boolean isReplay() {
+		return replay;
+	}
+
+	@JsonProperty
+	public void setReplay(boolean replay) {
+		this.replay = replay;
 	}
 
 }

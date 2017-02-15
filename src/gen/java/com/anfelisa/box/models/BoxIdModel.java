@@ -27,7 +27,7 @@ public class BoxIdModel implements IBoxIdModel {
 	}
 	
 
-
+		
 }
 
 /*       S.D.G.       */

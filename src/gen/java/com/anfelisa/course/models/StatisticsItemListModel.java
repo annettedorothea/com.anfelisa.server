@@ -24,7 +24,7 @@ public class StatisticsItemListModel implements IStatisticsItemListModel {
 		this.statisticsItemList = statisticsItemList;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */

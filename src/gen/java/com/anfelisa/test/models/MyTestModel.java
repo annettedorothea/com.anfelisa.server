@@ -86,7 +86,7 @@ public class MyTestModel implements IMyTestModel {
 		this.resultAbstractList = resultAbstractList;
 	}
 	
-
+		
 }
 
 /*       S.D.G.       */
