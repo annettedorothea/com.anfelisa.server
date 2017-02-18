@@ -34,15 +34,15 @@ public class SaveResultCommand extends AbstractSaveResultCommand {
 		}
 		this.commandData.setCardsToBeAdded(new ArrayList<>());
 		List<IBoxModel> boxes = customBoxDao.selectBoxesWhereCardMightBeAddedAfterEdit(
-				this.getDatabaseHandle().getHandle(), this.commandData.getSchema(), this.commandData.getTestId(),
-				this.commandData.getUsername());
+				this.getDatabaseHandle().getHandle(), this.commandData.getTestId(), this.commandData.getUsername());
 		for (IBoxModel box : boxes) {
 			List<ICardModel> allCards;
 			allCards = customCardDao.selectCardsToBeAddedAfterEdit(this.getDatabaseHandle().getHandle(),
-					this.commandData.getSchema(), this.commandData.getTestId(), box.getBoxId());
+					this.commandData.getTestId(), box.getBoxId());
 			for (ICardModel card : allCards) {
 				IScheduledCardModel scheduledCard = new ScheduledCardModel(null, card.getCardId(), 2.5F, 0, 0, 0,
-						this.commandData.getDate().plusDays(1), box.getBoxId(), null, this.commandData.getDate(), false);
+						this.commandData.getDate().plusDays(1), box.getBoxId(), null, this.commandData.getDate(),
+						false);
 				this.commandData.getCardsToBeAdded().add(scheduledCard);
 			}
 		}

@@ -15,17 +15,17 @@ public class CardView {
 
 	public BiConsumer<CardCreationData, Handle> createCard = (dataContainer, handle) -> {
 		Integer cardId = dataContainer.getCardId();
-		ICardModel card = cardDao.selectByCardId(handle, cardId, dataContainer.getSchema());
+		ICardModel card = cardDao.selectByCardId(handle, cardId);
 		if (card == null) {
-			cardId = cardDao.insert(handle, dataContainer, dataContainer.getSchema());
+			cardId = cardDao.insert(handle, dataContainer);
 		} else {
-			cardDao.updateByCardId(handle, dataContainer, dataContainer.getSchema());
+			cardDao.updateByCardId(handle, dataContainer);
 		}
 		dataContainer.setCreatedId("" + cardId);
 	};
 
 	public BiConsumer<CardIdData, Handle> deleteCard = (dataContainer, handle) -> {
-		cardDao.deleteByCardId(handle, dataContainer.getCardId(), dataContainer.getSchema());
+		cardDao.deleteByCardId(handle, dataContainer.getCardId());
 	};
 
 }

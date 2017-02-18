@@ -38,15 +38,15 @@ public class GetCourseAction extends AbstractGetCourseAction {
 	@Timed
 	@Path("/single")
 	@RolesAllowed({ AuthUser.ADMIN, AuthUser.AUTHOR })
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
-			@NotNull @QueryParam("courseId") Integer courseId) throws JsonProcessingException {
-		this.actionData = new CourseData(uuid, schema).withCourseId(courseId);
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("courseId") Integer courseId)
+			throws JsonProcessingException {
+		this.actionData = new CourseData(uuid).withCourseId(courseId);
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
 		ICourseModel course = courseDao.selectByCourseId(this.getDatabaseHandle().getHandle(),
-				this.actionData.getCourseId(), this.actionData.getSchema());
+				this.actionData.getCourseId());
 		this.actionData.setAuthor(course.getAuthor());
 		this.actionData.setDescription(course.getDescription());
 		this.actionData.setName(course.getName());

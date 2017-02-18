@@ -20,8 +20,6 @@ public class UserInfoData implements IUserInfoData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -52,11 +50,8 @@ public class UserInfoData implements IUserInfoData {
 	private java.util.List<com.anfelisa.box.models.IBoxModel> boxList;
 	
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public UserInfoData(
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
@@ -65,8 +60,7 @@ public class UserInfoData implements IUserInfoData {
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
 		this.password = password;
@@ -76,12 +70,10 @@ public class UserInfoData implements IUserInfoData {
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public UserInfoData( String uuid,	String schema ) {
+	public UserInfoData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -192,11 +184,6 @@ public class UserInfoData implements IUserInfoData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -214,16 +201,6 @@ public class UserInfoData implements IUserInfoData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

@@ -48,20 +48,19 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 	@GET
 	@Timed
 	@PermitAll
-	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema) throws JsonProcessingException {
-		this.actionData = new BoxListData(user.getUsername(), uuid, schema);
+	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
+		this.actionData = new BoxListData(user.getUsername(), uuid);
 		return this.apply();
 	}
 
 	@Override
 	protected void loadDataForGetRequest() {
 		List<IBoxModel> boxList = customBoxDao.selectByUsername(this.getDatabaseHandle().getHandle(),
-				this.actionData.getSchema(), this.actionData.getUsername());
+				this.actionData.getUsername());
 		List<IBoxInfoModel> boxInfoList = new ArrayList<IBoxInfoModel>();
 		for (IBoxModel boxModel : boxList) {
 			List<IScheduledCardModel> todaysCards = customScheduledCardDao.selectTodaysCards(this.getHandle(),
-					this.actionData.getSchema(), boxModel.getBoxId());
+					boxModel.getBoxId());
 			BoxInfoModel boxInfoModel = new BoxInfoModel(todaysCards.size(), (todaysCards.size() > 0));
 			boxInfoModel.setBox(boxModel);
 			boxInfoList.add(boxInfoModel);

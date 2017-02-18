@@ -42,15 +42,15 @@ public class LoadPublicTestsAction extends AbstractLoadPublicTestsAction {
 	@GET
 	@Timed
 	@Path("/public")
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
-			@NotNull @QueryParam("lessonId") Integer lessonId) throws JsonProcessingException {
-		this.actionData = new TestListData(uuid, schema).withLessonId(lessonId);
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("lessonId") Integer lessonId)
+			throws JsonProcessingException {
+		this.actionData = new TestListData(uuid).withLessonId(lessonId);
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
 		ILessonModel lesson = lessonDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
-				this.actionData.getLessonId(), this.getActionData().getSchema());
+				this.actionData.getLessonId());
 		if (lesson == null) {
 			throwBadRequest();
 		}
@@ -58,7 +58,7 @@ public class LoadPublicTestsAction extends AbstractLoadPublicTestsAction {
 		this.actionData.setLessonAuthor(lesson.getAuthor());
 		this.actionData.setLessonName(lesson.getName());
 		ICourseModel course = customCourseDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
-				this.actionData.getLessonId(), this.getActionData().getSchema());
+				this.actionData.getLessonId());
 		if (course == null) {
 			throwBadRequest();
 		}
@@ -66,8 +66,8 @@ public class LoadPublicTestsAction extends AbstractLoadPublicTestsAction {
 		this.actionData.setCourseDescription(course.getDescription());
 		this.actionData.setCourseName(course.getName());
 		this.actionData.setCourseId(course.getCourseId());
-		this.actionData.setTestList(customTestDao.selectTests(this.getDatabaseHandle().getHandle(),
-				this.getActionData().getSchema(), this.actionData.getLessonId()));
+		this.actionData.setTestList(
+				customTestDao.selectTests(this.getDatabaseHandle().getHandle(), this.actionData.getLessonId()));
 	}
 
 }

@@ -17,8 +17,6 @@ public class UserCreationData implements IUserCreationData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -44,11 +42,8 @@ public class UserCreationData implements IUserCreationData {
 	
 
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public UserCreationData(
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
@@ -57,8 +52,7 @@ public class UserCreationData implements IUserCreationData {
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
 		this.password = password;
@@ -68,12 +62,10 @@ public class UserCreationData implements IUserCreationData {
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public UserCreationData( String uuid,	String schema ) {
+	public UserCreationData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -167,11 +159,6 @@ public class UserCreationData implements IUserCreationData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -189,16 +176,6 @@ public class UserCreationData implements IUserCreationData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

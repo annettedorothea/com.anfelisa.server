@@ -46,15 +46,14 @@ public class LoadPrivateLessonsAction extends AbstractLoadPrivateLessonsAction {
 	@Path("/private")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema, @NotNull @QueryParam("courseId") Integer courseId)
-			throws JsonProcessingException {
-		this.actionData = new MyLessonListData(uuid, schema).withCourseId(courseId).withUsername(user.getUsername());
+			@NotNull @QueryParam("courseId") Integer courseId) throws JsonProcessingException {
+		this.actionData = new MyLessonListData(uuid).withCourseId(courseId).withUsername(user.getUsername());
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
 		ICourseModel course = customCourseDao.selectByCourseIdAndUsername(this.getHandle(),
-				this.actionData.getCourseId(), this.actionData.getUsername(), this.actionData.getSchema());
+				this.actionData.getCourseId(), this.actionData.getUsername());
 		if (course == null) {
 			throwBadRequest();
 		} else {
@@ -63,7 +62,7 @@ public class LoadPrivateLessonsAction extends AbstractLoadPrivateLessonsAction {
 			this.actionData.setIsPublic(course.getIsPublic());
 			this.actionData.setCourseName(course.getName());
 			this.actionData.setMyLessonList(customLessonDao.selectMyLessons(this.getDatabaseHandle().getHandle(),
-					this.getActionData().getSchema(), this.actionData.getCourseId(), this.actionData.getUsername()));
+					this.actionData.getCourseId(), this.actionData.getUsername()));
 		}
 	}
 

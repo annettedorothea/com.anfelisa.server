@@ -39,17 +39,17 @@ public class GetPointsAction extends AbstractGetPointsAction {
 	@Timed
 	@Path("/points")
 	@PermitAll
-	public Response get(@Auth AuthUser principal, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema) throws JsonProcessingException {
-		this.actionData = new PointsData(uuid, schema).withUsername(principal.getUsername());
+	public Response get(@Auth AuthUser principal, @NotNull @QueryParam("uuid") String uuid)
+			throws JsonProcessingException {
+		this.actionData = new PointsData(uuid).withUsername(principal.getUsername());
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
 		int boxPoints = customUserDao.selectBoxPoints(this.getDatabaseHandle().getHandle(),
-				this.actionData.getUsername(), this.actionData.getSchema());
+				this.actionData.getUsername());
 		int testPoints = customUserDao.selectTestPoints(this.getDatabaseHandle().getHandle(),
-				this.actionData.getUsername(), this.actionData.getSchema());
+				this.actionData.getUsername());
 		this.actionData.setPoints(boxPoints + testPoints);
 	}
 

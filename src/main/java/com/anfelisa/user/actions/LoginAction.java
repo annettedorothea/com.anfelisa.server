@@ -37,9 +37,9 @@ public class LoginAction extends AbstractLoginAction {
 	@Timed
 	@Path("/login")
 	@PermitAll
-	public Response post(@Auth AuthUser principal, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema) throws JsonProcessingException {
-		this.actionData = new LoginData(uuid, schema).withUsername(principal.getUsername()).withDate(new DateTime());
+	public Response post(@Auth AuthUser principal, @NotNull @QueryParam("uuid") String uuid)
+			throws JsonProcessingException {
+		this.actionData = new LoginData(uuid).withUsername(principal.getUsername()).withDate(new DateTime());
 		return this.apply();
 	}
 

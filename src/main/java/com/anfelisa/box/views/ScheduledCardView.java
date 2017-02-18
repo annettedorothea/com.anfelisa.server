@@ -13,18 +13,18 @@ import com.anfelisa.box.models.ScheduledCardDao;
 public class ScheduledCardView {
 
 	private ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
-	
+
 	private CustomScheduledCardDao customScheduledCardDao = new CustomScheduledCardDao();
 
 	public BiConsumer<ScheduledCardData, Handle> createScheduledCard = (dataContainer, handle) -> {
-		Integer id = scheduledCardDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer id = scheduledCardDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId(id + "");
 	};
 	public BiConsumer<ScoreCardData, Handle> score = (dataContainer, handle) -> {
-		scheduledCardDao.updateByScheduledCardId(handle, dataContainer, dataContainer.getSchema());
+		scheduledCardDao.updateByScheduledCardId(handle, dataContainer);
 	};
 	public BiConsumer<ScheduledCardIdData, Handle> removeFromBox = (dataContainer, handle) -> {
-		customScheduledCardDao.removeScheduledCardFromBox(handle, dataContainer, dataContainer.getSchema());
+		customScheduledCardDao.removeScheduledCardFromBox(handle, dataContainer);
 	};
 
 }

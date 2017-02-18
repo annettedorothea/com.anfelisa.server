@@ -19,8 +19,6 @@ public class ResultSaveData implements IResultSaveData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -55,11 +53,8 @@ public class ResultSaveData implements IResultSaveData {
 	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
 	
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public ResultSaveData(
 		@JsonProperty("resultId") Integer resultId,
 		@JsonProperty("username") String username,
@@ -71,8 +66,7 @@ public class ResultSaveData implements IResultSaveData {
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.resultId = resultId;
 		this.username = username;
@@ -85,12 +79,10 @@ public class ResultSaveData implements IResultSaveData {
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public ResultSaveData( String uuid,	String schema ) {
+	public ResultSaveData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -229,11 +221,6 @@ public class ResultSaveData implements IResultSaveData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -251,16 +238,6 @@ public class ResultSaveData implements IResultSaveData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

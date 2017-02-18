@@ -17,8 +17,6 @@ public class PasswordUpdateData implements IPasswordUpdateData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -29,26 +27,20 @@ public class PasswordUpdateData implements IPasswordUpdateData {
 	
 
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public PasswordUpdateData(
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
 		this.password = password;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public PasswordUpdateData( String uuid,	String schema ) {
+	public PasswordUpdateData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -82,11 +74,6 @@ public class PasswordUpdateData implements IPasswordUpdateData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -104,16 +91,6 @@ public class PasswordUpdateData implements IPasswordUpdateData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

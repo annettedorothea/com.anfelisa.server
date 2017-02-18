@@ -58,9 +58,8 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 	@Path("/next")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema, @NotNull @QueryParam("boxId") Integer boxId)
-			throws JsonProcessingException {
-		actionData = new CardData(uuid, schema).withBoxId(boxId).withCredentialsRole(user.getRole())
+			@NotNull @QueryParam("boxId") Integer boxId) throws JsonProcessingException {
+		actionData = new CardData(uuid).withBoxId(boxId).withCredentialsRole(user.getRole())
 				.withCredentialsUsername(user.getUsername());
 		return this.apply();
 	}
@@ -68,12 +67,12 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void loadDataForGetRequest() {
-		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), this.actionData.getBoxId(), this.actionData.getSchema());
+		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), this.actionData.getBoxId());
 		if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
 		List<IScheduledCardModel> allCards = scheduledCardDao.selectAllCards(this.getDatabaseHandle().getHandle(),
-				this.actionData.getSchema(), this.actionData.getBoxId());
+				this.actionData.getBoxId());
 		int quality0Count = 0;
 		int quality1Count = 0;
 		int quality2Count = 0;
@@ -110,14 +109,13 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		}
 
 		List<IScheduledCardModel> todaysCards = scheduledCardDao.selectTodaysCards(this.getDatabaseHandle().getHandle(),
-				this.actionData.getSchema(), this.actionData.getBoxId());
+				this.actionData.getBoxId());
 		if (todaysCards.size() > 0) {
 			IScheduledCardModel nextCard = todaysCards.get(0);
 			this.actionData.setBoxName(box.getName());
 			this.actionData.setCardId(nextCard.getCardId());
 			this.actionData.setCardOfBoxId(nextCard.getScheduledCardId());
-			ICardModel card = cardDao.selectByCardId(this.getHandle(), nextCard.getCardId(),
-					this.actionData.getSchema());
+			ICardModel card = cardDao.selectByCardId(this.getHandle(), nextCard.getCardId());
 			this.actionData.setContent(card.getContent());
 			this.actionData.setCount(nextCard.getCount());
 			this.actionData.setNext(nextCard.getScheduledDate());
@@ -156,11 +154,11 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 
 		this.actionData.setCards(allCards.size());
 		this.actionData.setCardsForToday(todaysCards.size());
-		List<IScheduledCardModel> tomorrowsCards = scheduledCardDao.selectTomorrowsCards(this.getDatabaseHandle().getHandle(),
-				this.actionData.getSchema(), this.actionData.getBoxId());
+		List<IScheduledCardModel> tomorrowsCards = scheduledCardDao
+				.selectTomorrowsCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId());
 		this.actionData.setCardsForTomorrow(tomorrowsCards.size());
-		List<IScheduledCardModel> cardsToBeReinforced = scheduledCardDao.selectReinforceCards(this.getDatabaseHandle().getHandle(),
-				this.actionData.getSchema(), this.actionData.getBoxId());
+		List<IScheduledCardModel> cardsToBeReinforced = scheduledCardDao
+				.selectReinforceCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId());
 		this.actionData.setCardsToBeReinforced(cardsToBeReinforced.size());
 
 		int numberOfCardsWithQuality = quality0Count + quality1Count + quality2Count + quality3Count + quality4Count

@@ -9,19 +9,19 @@ import com.anfelisa.box.data.ScoredCardData;
 import com.anfelisa.box.models.ScoredCardDao;
 
 public class ScoredCardView {
-	
+
 	private ScoredCardDao scoredCardDao = new ScoredCardDao();
 
 	public BiConsumer<ScoreCardData, Handle> score = (dataContainer, handle) -> {
-		Integer id = scoredCardDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer id = scoredCardDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId(id + "");
 	};
 
 	public BiConsumer<ScoredCardData, Handle> createScoredCard = (dataContainer, handle) -> {
-		Integer id = scoredCardDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer id = scoredCardDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId(id + "");
 	};
-	
+
 }
 
-/*                    S.D.G.                    */
+/* S.D.G. */

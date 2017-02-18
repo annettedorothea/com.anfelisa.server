@@ -5,11 +5,9 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.AceResource;
 import com.anfelisa.auth.AceAuthenticator;
 import com.anfelisa.auth.AceAuthorizer;
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.migration.MigrationResource;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -61,12 +59,6 @@ public class App extends Application<AppConfiguration> {
 		environment.jersey().register(RolesAllowedDynamicFeature.class);
 		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
 
-		AceResource aceResource = new AceResource(jdbi);
-		environment.jersey().register(aceResource);
-
-		com.anfelisa.setup.AppRegistration.registerResources(environment, jdbi);
-		com.anfelisa.setup.AppRegistration.registerConsumers();
-
 		com.anfelisa.user.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.user.AppRegistration.registerConsumers();
 
@@ -84,8 +76,6 @@ public class App extends Application<AppConfiguration> {
 
 		com.anfelisa.box.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.box.AppRegistration.registerConsumers();
-
-		environment.jersey().register(new MigrationResource(jdbi));
 
 	}
 

@@ -13,12 +13,12 @@ public class LessonView {
 	private LessonDao lessonDao = new LessonDao();
 
 	public BiConsumer<LessonCreationData, Handle> createLesson = (dataContainer, handle) -> {
-		Integer lessonId = lessonDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer lessonId = lessonDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId("" + lessonId);
 	};
 
 	public BiConsumer<LessonData, Handle> updateLesson = (dataContainer, handle) -> {
-		lessonDao.updateByLessonId(handle, dataContainer, dataContainer.getSchema());
+		lessonDao.updateByLessonId(handle, dataContainer);
 	};
 
 }

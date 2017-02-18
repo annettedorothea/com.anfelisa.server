@@ -18,7 +18,7 @@ public class BoxToCourseView {
 	private CustomBoxOfCourseDao customBoxOfCourseDao = new CustomBoxOfCourseDao();
 
 	public BiConsumer<BoxToCourseAdditionData, Handle> addCourseToBox = (dataContainer, handle) -> {
-		boxOfCourseDao.insert(handle, dataContainer, dataContainer.getSchema());
+		boxOfCourseDao.insert(handle, dataContainer);
 	};
 
 	public BiConsumer<BoxConfigData, Handle> saveBoxConfig = (dataContainer, handle) -> {
@@ -29,9 +29,9 @@ public class BoxToCourseView {
 			IBoxOfCourseModel existingItem = existingItems.get(i);
 			if (item.getAutoAdd() != null) {
 				if (existingItem != null) {
-					customBoxOfCourseDao.updateAutoAdd(handle, dataContainer.getSchema(), item);
+					customBoxOfCourseDao.updateAutoAdd(handle, item);
 				} else {
-					boxOfCourseDao.insert(handle, item, dataContainer.getSchema());
+					boxOfCourseDao.insert(handle, item);
 				}
 			}
 		}

@@ -19,8 +19,6 @@ public class LessonListData implements ILessonListData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -42,19 +40,15 @@ public class LessonListData implements ILessonListData {
 	
 	
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public LessonListData(
 		@JsonProperty("courseId") Integer courseId,
 		@JsonProperty("courseName") String courseName,
 		@JsonProperty("courseDescription") String courseDescription,
 		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("courseAuthor") String courseAuthor
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.courseId = courseId;
 		this.courseName = courseName;
@@ -62,12 +56,10 @@ public class LessonListData implements ILessonListData {
 		this.isPublic = isPublic;
 		this.courseAuthor = courseAuthor;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public LessonListData( String uuid,	String schema ) {
+	public LessonListData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -146,11 +138,6 @@ public class LessonListData implements ILessonListData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -168,16 +155,6 @@ public class LessonListData implements ILessonListData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

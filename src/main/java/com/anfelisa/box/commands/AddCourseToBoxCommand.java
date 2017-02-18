@@ -21,7 +21,7 @@ public class AddCourseToBoxCommand extends AbstractAddCourseToBoxCommand {
 
 	@Override
 	protected void executeCommand() {
-		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
+		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), commandData.getBoxId());
 		if (commandData.getCredentialsRole().equals(AuthUser.STUDENT)
 				&& !box.getUsername().equals(commandData.getCredentialsUsername())) {
 			this.throwUnauthorized();

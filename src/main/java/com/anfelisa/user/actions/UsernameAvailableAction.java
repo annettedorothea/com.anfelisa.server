@@ -34,15 +34,14 @@ public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 	@GET
 	@Timed
 	@Path("/username")
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
-			@NotNull @QueryParam("username") String username) throws JsonProcessingException {
-		this.actionData = new UsernameAvailableData(uuid, schema).withUsername(username);
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("username") String username)
+			throws JsonProcessingException {
+		this.actionData = new UsernameAvailableData(uuid).withUsername(username);
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
-		if (userDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.actionData.getUsername(),
-				this.actionData.getSchema()) == null) {
+		if (userDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.actionData.getUsername()) == null) {
 			this.actionData.setAvailable(true);
 		} else {
 			this.actionData.setAvailable(false);

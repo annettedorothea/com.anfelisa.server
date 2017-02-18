@@ -61,27 +61,26 @@ public class LoadReinforceCardListAction extends AbstractLoadReinforceCardListAc
 	@Path("/reinforce")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema, @NotNull @QueryParam("boxId") Integer boxId)
-			throws JsonProcessingException {
-		this.actionData = new ReinforceCardListData(uuid, schema).withBoxId(boxId).withCredentialsRole(user.getRole()).withCredentialsUsername(user.getUsername()).withUsername(user.getUsername());
+			@NotNull @QueryParam("boxId") Integer boxId) throws JsonProcessingException {
+		this.actionData = new ReinforceCardListData(uuid).withBoxId(boxId).withCredentialsRole(user.getRole())
+				.withCredentialsUsername(user.getUsername()).withUsername(user.getUsername());
 		return this.apply();
 	}
 
 	@SuppressWarnings("unchecked")
 	protected final void loadDataForGetRequest() {
-		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), this.actionData.getBoxId(), this.actionData.getSchema());
+		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), this.actionData.getBoxId());
 		if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
 
 		this.actionData.setBoxName(box.getName());
-		
-		List<IScheduledCardModel> scheduledCards = scheduledCardDao.selectReinforceCards(
-				this.getDatabaseHandle().getHandle(), this.actionData.getSchema(), this.actionData.getBoxId());
+
+		List<IScheduledCardModel> scheduledCards = scheduledCardDao
+				.selectReinforceCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId());
 		List<IReinforceCardModel> reinforceCards = new ArrayList<>();
 		for (IScheduledCardModel scheduledCard : scheduledCards) {
-			ICardModel card = cardDao.selectByCardId(this.getHandle(), scheduledCard.getCardId(),
-					this.actionData.getSchema());
+			ICardModel card = cardDao.selectByCardId(this.getHandle(), scheduledCard.getCardId());
 			String content = card.getContent();
 			ObjectMapper mapper = new ObjectMapper();
 			try {
@@ -114,7 +113,7 @@ public class LoadReinforceCardListAction extends AbstractLoadReinforceCardListAc
 				e.printStackTrace();
 				throw new WebApplicationException("cannot parse " + content + ".");
 			}
-			
+
 			this.actionData.setList(reinforceCards);
 
 		}

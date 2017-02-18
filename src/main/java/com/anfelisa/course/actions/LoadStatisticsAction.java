@@ -43,10 +43,9 @@ public class LoadStatisticsAction extends AbstractLoadStatisticsAction {
 	@Timed
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema, @NotNull @QueryParam("year") Integer year,
-			@NotNull @QueryParam("month") Integer month) throws JsonProcessingException {
-		this.actionData = new StatisticsData(uuid, schema).withUsername(user.getUsername()).withMonth(month)
-				.withYear(year);
+			@NotNull @QueryParam("year") Integer year, @NotNull @QueryParam("month") Integer month)
+			throws JsonProcessingException {
+		this.actionData = new StatisticsData(uuid).withUsername(user.getUsername()).withMonth(month).withYear(year);
 		return this.apply();
 	}
 
@@ -54,7 +53,7 @@ public class LoadStatisticsAction extends AbstractLoadStatisticsAction {
 		DateTime startDate = new DateTime(this.actionData.getYear(), this.actionData.getMonth(), 1, 0, 0, 0);
 		DateTime endDate = startDate.plusMonths(1);
 		List<IStatisticsItemModel> itemList = customStatisticsDao.selectStatistics(this.getDatabaseHandle().getHandle(),
-				this.actionData.getUsername(), startDate, endDate, this.actionData.getSchema());
+				this.actionData.getUsername(), startDate, endDate);
 		this.actionData.setStatisticsItemList(itemList);
 		int points = 0;
 		int maxPoints = 0;

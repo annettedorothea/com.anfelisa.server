@@ -17,8 +17,6 @@ public class TestCreationData implements ITestCreationData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -40,11 +38,8 @@ public class TestCreationData implements ITestCreationData {
 	
 
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public TestCreationData(
 		@JsonProperty("testId") Integer testId,
 		@JsonProperty("name") String name,
@@ -52,8 +47,7 @@ public class TestCreationData implements ITestCreationData {
 		@JsonProperty("lessonId") Integer lessonId,
 		@JsonProperty("html") String html,
 		@JsonProperty("author") String author
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.testId = testId;
 		this.name = name;
@@ -62,12 +56,10 @@ public class TestCreationData implements ITestCreationData {
 		this.html = html;
 		this.author = author;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public TestCreationData( String uuid,	String schema ) {
+	public TestCreationData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -149,11 +141,6 @@ public class TestCreationData implements ITestCreationData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -171,16 +158,6 @@ public class TestCreationData implements ITestCreationData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

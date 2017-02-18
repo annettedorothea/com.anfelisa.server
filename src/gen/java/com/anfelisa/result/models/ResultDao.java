@@ -13,13 +13,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreType;
 @JsonIgnoreType
 public class ResultDao {
 	
-	public void create(Handle handle, String schema) {
-		handle.execute("CREATE TABLE IF NOT EXISTS " + schema + ".result (resultId serial NOT NULL  , username character varying NOT NULL  , testId integer NOT NULL  , date timestamp with time zone NOT NULL  , json character varying NOT NULL  , points integer NOT NULL  , maxPoints integer NOT NULL  , CONSTRAINT result_pkey PRIMARY KEY (resultId), CONSTRAINT result_username_fkey FOREIGN KEY (username) REFERENCES " + schema + ".user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_testId_fkey FOREIGN KEY (testId) REFERENCES " + schema + ".test ( testId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_resultId_unique UNIQUE (resultId))");
+	public void create(Handle handle) {
+		handle.execute("CREATE TABLE IF NOT EXISTS anfelisa.result (resultId serial NOT NULL  , username character varying NOT NULL  , testId integer NOT NULL  , date timestamp with time zone NOT NULL  , json character varying NOT NULL  , points integer NOT NULL  , maxPoints integer NOT NULL  , CONSTRAINT result_pkey PRIMARY KEY (resultId), CONSTRAINT result_username_fkey FOREIGN KEY (username) REFERENCES anfelisa.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_testId_fkey FOREIGN KEY (testId) REFERENCES anfelisa.test ( testId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_resultId_unique UNIQUE (resultId))");
 	}
 	
-	public Integer insert(Handle handle, IResultModel resultModel, String schema) {
+	public Integer insert(Handle handle, IResultModel resultModel) {
 		if (resultModel.getResultId() != null) {
-			Update statement = handle.createStatement("INSERT INTO " + schema + ".result (resultId, username, testId, date, json, points, maxPoints) VALUES (:resultId, :username, :testId, :date, :json, :points, :maxPoints)");
+			Update statement = handle.createStatement("INSERT INTO anfelisa.result (resultId, username, testId, date, json, points, maxPoints) VALUES (:resultId, :username, :testId, :date, :json, :points, :maxPoints)");
 			statement.bind("resultId", resultModel.getResultId());
 			statement.bind("username", resultModel.getUsername());
 			statement.bind("testId", resultModel.getTestId());
@@ -28,10 +28,10 @@ public class ResultDao {
 			statement.bind("points", resultModel.getPoints());
 			statement.bind("maxPoints", resultModel.getMaxPoints());
 			statement.execute();
-			handle.createStatement("SELECT setval('" + schema + ".result_resultId_seq', (SELECT MAX(resultId) FROM " + schema + ".result));").execute();
+			handle.createStatement("SELECT setval('anfelisa.result_resultId_seq', (SELECT MAX(resultId) FROM anfelisa.result));").execute();
 			return resultModel.getResultId();
 		} else {
-			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO " + schema + ".result (username, testId, date, json, points, maxPoints) VALUES (:username, :testId, :date, :json, :points, :maxPoints) RETURNING resultId");
+			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO anfelisa.result (username, testId, date, json, points, maxPoints) VALUES (:username, :testId, :date, :json, :points, :maxPoints) RETURNING resultId");
 			statement.bind("username", resultModel.getUsername());
 			statement.bind("testId", resultModel.getTestId());
 			statement.bind("date", resultModel.getDate());
@@ -44,8 +44,8 @@ public class ResultDao {
 	}
 	
 	
-	public void updateByResultId(Handle handle, IResultModel resultModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema + ".result SET resultId = :resultId, username = :username, testId = :testId, date = :date, json = :json, points = :points, maxPoints = :maxPoints WHERE resultId = :resultId");
+	public void updateByResultId(Handle handle, IResultModel resultModel) {
+		Update statement = handle.createStatement("UPDATE anfelisa.result SET resultId = :resultId, username = :username, testId = :testId, date = :date, json = :json, points = :points, maxPoints = :maxPoints WHERE resultId = :resultId");
 		statement.bind("resultId", resultModel.getResultId());
 		statement.bind("username", resultModel.getUsername());
 		statement.bind("testId", resultModel.getTestId());
@@ -56,21 +56,21 @@ public class ResultDao {
 		statement.execute();
 	}
 
-	public void deleteByResultId(Handle handle, Integer resultId, String schema) {
-		Update statement = handle.createStatement("DELETE FROM " + schema + ".result WHERE resultId = :resultId");
+	public void deleteByResultId(Handle handle, Integer resultId) {
+		Update statement = handle.createStatement("DELETE FROM anfelisa.result WHERE resultId = :resultId");
 		statement.bind("resultId", resultId);
 		statement.execute();
 	}
 
-	public IResultModel selectByResultId(Handle handle, Integer resultId, String schema) {
-		return handle.createQuery("SELECT * FROM " + schema + ".result WHERE resultId = :resultId")
+	public IResultModel selectByResultId(Handle handle, Integer resultId) {
+		return handle.createQuery("SELECT * FROM anfelisa.result WHERE resultId = :resultId")
 			.bind("resultId", resultId)
 			.map(new ResultMapper())
 			.first();
 	}
 	
-	public List<IResultModel> selectAll(Handle handle, String schema) {
-		return handle.createQuery("SELECT * FROM " + schema + ".result")
+	public List<IResultModel> selectAll(Handle handle) {
+		return handle.createQuery("SELECT * FROM anfelisa.result")
 			.map(new ResultMapper())
 			.list();
 	}

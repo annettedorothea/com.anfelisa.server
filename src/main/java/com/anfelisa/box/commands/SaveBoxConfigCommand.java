@@ -28,7 +28,7 @@ public class SaveBoxConfigCommand extends AbstractSaveBoxConfigCommand {
 
 	@Override
 	protected void executeCommand() {
-		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
+		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), commandData.getBoxId());
 		if ((commandData.getCredentialsRole().equals(AuthUser.STUDENT))
 				&& !box.getUsername().equals(commandData.getCredentialsUsername())) {
 			throwUnauthorized();
@@ -37,7 +37,7 @@ public class SaveBoxConfigCommand extends AbstractSaveBoxConfigCommand {
 		this.commandData.setExistingItems(new ArrayList<IBoxOfCourseModel>());
 		for (IBoxOfCourseModel item : list) {
 			IBoxOfCourseModel existingItem = customBoxOfCourseDao.select(this.getDatabaseHandle().getHandle(),
-					this.commandData.getSchema(), item.getBoxId(), item.getCourseId());
+					item.getBoxId(), item.getCourseId());
 			this.commandData.getExistingItems().add(existingItem);
 		}
 		this.outcome = saved;

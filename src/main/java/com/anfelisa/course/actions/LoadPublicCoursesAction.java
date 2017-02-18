@@ -34,15 +34,13 @@ public class LoadPublicCoursesAction extends AbstractLoadPublicCoursesAction {
 	@GET
 	@Timed
 	@Path("/public")
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema)
-			throws JsonProcessingException {
-		this.actionData = new CourseListData(uuid, schema);
+	public Response get(@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
+		this.actionData = new CourseListData(uuid);
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
-		this.actionData.setCourseList(
-				customCourseDao.selectPublic(this.getDatabaseHandle().getHandle(), this.getActionData().getSchema()));
+		this.actionData.setCourseList(customCourseDao.selectPublic(this.getDatabaseHandle().getHandle()));
 	}
 
 }

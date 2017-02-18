@@ -31,10 +31,10 @@ public class ForgotPasswordAction extends AbstractForgotPasswordAction {
 	@POST
 	@Timed
 	@Path("/forgot-password")
-	public Response post(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
+	public Response post(@NotNull @QueryParam("uuid") String uuid,
 			@NotNull @QueryParam("username") String username, @NotNull @QueryParam("language") String language)
 			throws JsonProcessingException {
-		this.actionData = new ForgotPasswordData(uuid, schema).withUsername(username).withLanguage(language);
+		this.actionData = new ForgotPasswordData(uuid).withUsername(username).withLanguage(language);
 		return this.apply();
 	}
 

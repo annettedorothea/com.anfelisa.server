@@ -21,8 +21,7 @@ public class RegisterUserCommand extends AbstractRegisterUserCommand {
 
 	@Override
 	protected void executeCommand() {
-		IUserModel user = userDao.selectByUsername(this.getHandle(), commandData.getUsername(),
-				commandData.getSchema());
+		IUserModel user = userDao.selectByUsername(this.getHandle(), commandData.getUsername());
 		if (user != null) {
 			throwBadRequest();
 		}

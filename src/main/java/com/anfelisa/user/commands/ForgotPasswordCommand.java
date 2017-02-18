@@ -20,8 +20,8 @@ public class ForgotPasswordCommand extends AbstractForgotPasswordCommand {
 
 	@Override
 	protected void executeCommand() {
-		IUserModel user = userDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.commandData.getUsername(),
-				this.commandData.getSchema());
+		IUserModel user = userDao.selectByUsername(this.getDatabaseHandle().getHandle(),
+				this.commandData.getUsername());
 		if (user != null) {
 			this.commandData.setEmail(user.getEmail());
 			this.commandData.setName(user.getName());

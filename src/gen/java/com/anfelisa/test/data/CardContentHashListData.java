@@ -18,8 +18,6 @@ public class CardContentHashListData implements ICardContentHashListData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	private java.util.List<Integer> contentHashList;
@@ -30,26 +28,20 @@ public class CardContentHashListData implements ICardContentHashListData {
 
 	
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public CardContentHashListData(
 		@JsonProperty("contentHashList") java.util.List<Integer> contentHashList,
 		@JsonProperty("testId") Integer testId
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.contentHashList = contentHashList;
 		this.testId = testId;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public CardContentHashListData( String uuid,	String schema ) {
+	public CardContentHashListData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -84,11 +76,6 @@ public class CardContentHashListData implements ICardContentHashListData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -106,16 +93,6 @@ public class CardContentHashListData implements ICardContentHashListData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

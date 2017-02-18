@@ -21,7 +21,7 @@ public class ImportCardCommand extends AbstractImportCardCommand {
 	@Override
 	protected void executeCommand() {
 		ICardModel existingCard = customCardDao.selectByTestIdAndContentHash(this.getHandle(),
-				this.commandData.getSchema(), this.commandData.getTestId(), this.commandData.getContentHash());
+				this.commandData.getTestId(), this.commandData.getContentHash());
 		if (existingCard != null) {
 			this.commandData.setCardId(existingCard.getCardId());
 			this.outcome = alreadyExists;

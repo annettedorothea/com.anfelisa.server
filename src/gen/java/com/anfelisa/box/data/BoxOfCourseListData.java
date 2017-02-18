@@ -18,8 +18,6 @@ public class BoxOfCourseListData implements IBoxOfCourseListData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -36,30 +34,24 @@ public class BoxOfCourseListData implements IBoxOfCourseListData {
 	private java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> courseToBoxAdditionList;
 	
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public BoxOfCourseListData(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("boxName") String boxName,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.boxId = boxId;
 		this.boxName = boxName;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public BoxOfCourseListData( String uuid,	String schema ) {
+	public BoxOfCourseListData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -125,11 +117,6 @@ public class BoxOfCourseListData implements IBoxOfCourseListData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -147,16 +134,6 @@ public class BoxOfCourseListData implements IBoxOfCourseListData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

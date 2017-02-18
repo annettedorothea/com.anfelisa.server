@@ -24,7 +24,7 @@ import io.dropwizard.auth.Auth;
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class RemoveCourseAction extends AbstractRemoveCourseAction {
+public class RemoveCourseAction extends AbstractRemoveCourseAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(RemoveCourseAction.class);
 
@@ -37,13 +37,11 @@ import io.dropwizard.auth.Auth;
 	@Path("/course")
 	@PermitAll
 	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("courseId") Integer courseId,
-			@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema) throws JsonProcessingException {
-		this.actionData = new RemoveCourseData(uuid, schema).withCourseId(courseId)
-				.withUsername(user.getUsername());
+			@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
+		this.actionData = new RemoveCourseData(uuid).withCourseId(courseId).withUsername(user.getUsername());
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

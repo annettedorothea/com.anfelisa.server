@@ -21,7 +21,7 @@ public class DeleteCardCommand extends AbstractDeleteCardCommand {
 	@Override
 	protected void executeCommand() {
 		ICardModel card = customCardDao.selectByTestIdAndContentHash(this.getDatabaseHandle().getHandle(),
-				this.commandData.getSchema(), this.commandData.getTestId(), this.commandData.getContentHash());
+				this.commandData.getTestId(), this.commandData.getContentHash());
 		this.commandData.setCardId(card.getCardId());
 		this.outcome = deleted;
 	}

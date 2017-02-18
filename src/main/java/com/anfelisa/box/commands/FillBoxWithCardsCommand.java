@@ -35,7 +35,7 @@ public class FillBoxWithCardsCommand extends AbstractFillBoxWithCardsCommand {
 	@Override
 	protected void executeCommand() {
 		if (commandData.getCredentialsRole().equals(AuthUser.STUDENT)) {
-			IBoxModel box = boxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
+			IBoxModel box = boxDao.selectByBoxId(this.getHandle(), commandData.getBoxId());
 			if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
 				throwUnauthorized();
 			}
@@ -43,17 +43,17 @@ public class FillBoxWithCardsCommand extends AbstractFillBoxWithCardsCommand {
 		this.commandData.setCardsToBeAdded(new ArrayList<>());
 		List<IBoxOfCourseModel> boxOfCourseList = new ArrayList<IBoxOfCourseModel>();
 		List<IBoxOfCourseModel> boxOfCourses = customBoxOfCourseDao.selectByBoxId(this.getDatabaseHandle().getHandle(),
-				this.commandData.getSchema(), this.commandData.getBoxId());
+				this.commandData.getBoxId());
 		boxOfCourseList.addAll(boxOfCourses);
 		for (IBoxOfCourseModel boxOfCourse : boxOfCourseList) {
 			List<ICardModel> allCards;
 			if (boxOfCourse.getAutoAdd()) {
 				allCards = customCardDao.selectCardsOfCourseThatAreNotAlreadyInBox(this.getDatabaseHandle().getHandle(),
-						this.commandData.getSchema(), boxOfCourse.getCourseId(), boxOfCourse.getBoxId());
+						boxOfCourse.getCourseId(), boxOfCourse.getBoxId());
 			} else {
 				allCards = customCardDao.selectCardsOfCourseThatAreNotAlreadyInBoxAndHaveResult(
-						this.getDatabaseHandle().getHandle(), this.commandData.getSchema(), boxOfCourse.getCourseId(),
-						boxOfCourse.getBoxId(), this.commandData.getCredentialsUsername());
+						this.getDatabaseHandle().getHandle(), boxOfCourse.getCourseId(), boxOfCourse.getBoxId(),
+						this.commandData.getCredentialsUsername());
 			}
 			for (ICardModel card : allCards) {
 				IScheduledCardModel scheduledCard = new ScheduledCardModel(null, card.getCardId(), 2.5F, 0, 0, 0,

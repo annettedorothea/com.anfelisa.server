@@ -20,7 +20,7 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 
 	@Override
 	protected void executeCommand() {
-		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), commandData.getBoxId(), commandData.getSchema());
+		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), commandData.getBoxId());
 		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}

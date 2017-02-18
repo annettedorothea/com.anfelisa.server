@@ -18,8 +18,6 @@ public class BoxIdData implements IBoxIdData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -38,19 +36,15 @@ public class BoxIdData implements IBoxIdData {
 
 	
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public BoxIdData(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("name") String name,
 		@JsonProperty("username") String username,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.boxId = boxId;
 		this.name = name;
@@ -58,12 +52,10 @@ public class BoxIdData implements IBoxIdData {
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public BoxIdData( String uuid,	String schema ) {
+	public BoxIdData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -134,11 +126,6 @@ public class BoxIdData implements IBoxIdData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -156,16 +143,6 @@ public class BoxIdData implements IBoxIdData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

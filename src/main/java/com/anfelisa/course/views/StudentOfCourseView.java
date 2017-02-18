@@ -12,7 +12,7 @@ public class StudentOfCourseView {
 	private StudentOfCourseDao studentOfCourseDao = new StudentOfCourseDao();
 
 	public BiConsumer<StudentToCourseAdditionData, Handle> addStudentToCourse = (dataContainer, handle) -> {
-		studentOfCourseDao.insert(handle, dataContainer, dataContainer.getSchema());
+		studentOfCourseDao.insert(handle, dataContainer);
 	};
 
 }

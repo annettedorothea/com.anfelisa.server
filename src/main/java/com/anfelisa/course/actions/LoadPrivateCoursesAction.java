@@ -39,15 +39,15 @@ public class LoadPrivateCoursesAction extends AbstractLoadPrivateCoursesAction {
 	@Timed
 	@Path("/private")
 	@PermitAll
-	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema) throws JsonProcessingException {
-		this.actionData = new MyCourseListData(uuid, schema).withUsername(user.getUsername());
+	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid)
+			throws JsonProcessingException {
+		this.actionData = new MyCourseListData(uuid).withUsername(user.getUsername());
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
-		this.actionData.setMyCourseList(customCourseDao.selectMyCourses(this.getDatabaseHandle().getHandle(),
-				this.getActionData().getSchema(), this.actionData.getUsername()));
+		this.actionData.setMyCourseList(
+				customCourseDao.selectMyCourses(this.getDatabaseHandle().getHandle(), this.actionData.getUsername()));
 	}
 
 }

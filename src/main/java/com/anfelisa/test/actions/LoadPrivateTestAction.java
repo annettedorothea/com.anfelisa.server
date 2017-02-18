@@ -49,28 +49,27 @@ public class LoadPrivateTestAction extends AbstractLoadPrivateTestAction {
 	@Path("/private/single")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema, @NotNull @QueryParam("testId") Integer testId)
-			throws JsonProcessingException {
-		this.actionData = new MyTestData(uuid, schema).withTestId(testId).withUsername(user.getUsername());
+			@NotNull @QueryParam("testId") Integer testId) throws JsonProcessingException {
+		this.actionData = new MyTestData(uuid).withTestId(testId).withUsername(user.getUsername());
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
 		ITestModel test = customTestDao.selectByTestIdAndUsername(this.getHandle(), actionData.getTestId(),
-				actionData.getUsername(), actionData.getSchema());
+				actionData.getUsername());
 		if (test == null) {
 			throwBadRequest();
 		}
 
 		ILessonModel lesson = customLessonDao.selectByTestId(this.getDatabaseHandle().getHandle(),
-				this.actionData.getTestId(), this.getActionData().getSchema());
+				this.actionData.getTestId());
 		this.actionData.setLessonDescription(lesson.getDescription());
 		this.actionData.setLessonAuthor(lesson.getAuthor());
 		this.actionData.setLessonName(lesson.getName());
 		this.actionData.setLessonId(lesson.getLessonId());
 
 		ICourseModel course = customCourseDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
-				lesson.getLessonId(), this.getActionData().getSchema());
+				lesson.getLessonId());
 		this.actionData.setCourseAuthor(course.getAuthor());
 		this.actionData.setCourseDescription(course.getDescription());
 		this.actionData.setCourseName(course.getName());
@@ -80,7 +79,7 @@ public class LoadPrivateTestAction extends AbstractLoadPrivateTestAction {
 		this.actionData.setHtml(test.getHtml());
 		this.actionData.setName(test.getName());
 		this.actionData.setMyTestList(customTestDao.selectMyTests(this.getDatabaseHandle().getHandle(),
-				this.getActionData().getSchema(), this.actionData.getLessonId(), this.actionData.getUsername()));
+				this.actionData.getLessonId(), this.actionData.getUsername()));
 	}
 
 }

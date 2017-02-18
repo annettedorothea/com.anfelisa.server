@@ -3,6 +3,7 @@ com.anfelisa.lesson
 target JAVA
 
 models {
+	schema anfelisa
 	persistent Lesson {
 		primitiveAttributes {
 			Unique PrimaryKey NotNull Serial lessonId

@@ -40,15 +40,15 @@ public class GetLessonAction extends AbstractGetLessonAction {
 	@Timed
 	@Path("/single")
 	@RolesAllowed({ AuthUser.ADMIN, AuthUser.AUTHOR })
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
-			@NotNull @QueryParam("lessonId") Integer lessonId) throws JsonProcessingException {
-		this.actionData = new LessonData(uuid, schema).withLessonId(lessonId);
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("lessonId") Integer lessonId)
+			throws JsonProcessingException {
+		this.actionData = new LessonData(uuid).withLessonId(lessonId);
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
 		ILessonModel lesson = lessonDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
-				this.actionData.getLessonId(), this.actionData.getSchema());
+				this.actionData.getLessonId());
 		this.actionData.setAuthor(lesson.getAuthor());
 		this.actionData.setCourseId(lesson.getCourseId());
 		this.actionData.setDescription(lesson.getDescription());

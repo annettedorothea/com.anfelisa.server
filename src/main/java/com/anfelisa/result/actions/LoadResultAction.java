@@ -56,15 +56,13 @@ public class LoadResultAction extends AbstractLoadResultAction {
 	@Path("/single")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema, @NotNull @QueryParam("resultId") Integer resultId)
-			throws JsonProcessingException {
-		this.actionData = new MyResultData(uuid, schema).withResultId(resultId).withUsername(user.getUsername());
+			@NotNull @QueryParam("resultId") Integer resultId) throws JsonProcessingException {
+		this.actionData = new MyResultData(uuid).withResultId(resultId).withUsername(user.getUsername());
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
-		IResultModel result = resultDao.selectByResultId(this.getHandle(), actionData.getResultId(),
-				actionData.getSchema());
+		IResultModel result = resultDao.selectByResultId(this.getHandle(), actionData.getResultId());
 		if (result == null) {
 			throwBadRequest();
 		}
@@ -77,24 +75,23 @@ public class LoadResultAction extends AbstractLoadResultAction {
 		this.actionData.setPoints(result.getPoints());
 		this.actionData.setTestId(result.getTestId());
 		ILessonModel lesson = customLessonDao.selectByTestId(this.getDatabaseHandle().getHandle(),
-				this.actionData.getTestId(), this.getActionData().getSchema());
+				this.actionData.getTestId());
 		this.actionData.setLessonDescription(lesson.getDescription());
 		this.actionData.setLessonAuthor(lesson.getAuthor());
 		this.actionData.setLessonName(lesson.getName());
 		this.actionData.setLessonId(lesson.getLessonId());
 		ICourseModel course = customCourseDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
-				lesson.getLessonId(), this.getActionData().getSchema());
+				lesson.getLessonId());
 		this.actionData.setCourseAuthor(course.getAuthor());
 		this.actionData.setCourseDescription(course.getDescription());
 		this.actionData.setCourseName(course.getName());
 		this.actionData.setCourseId(course.getCourseId());
-		ITestModel test = testDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionData.getTestId(),
-				this.getActionData().getSchema());
+		ITestModel test = testDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionData.getTestId());
 		this.actionData.setAuthor(test.getAuthor());
 		this.actionData.setHtml(test.getHtml());
 		this.actionData.setName(test.getName());
 		this.actionData.setMyTestList(customTestDao.selectMyTests(this.getDatabaseHandle().getHandle(),
-				this.getActionData().getSchema(), this.actionData.getLessonId(), this.actionData.getUsername()));
+				this.actionData.getLessonId(), this.actionData.getUsername()));
 	}
 
 }

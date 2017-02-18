@@ -6,33 +6,33 @@ import org.skife.jdbi.v2.Handle;
 
 public class CustomLessonDao {
 
-	public List<ILessonModel> selectLessons(Handle handle, String schema, Integer courseId) {
-		return handle.createQuery("SELECT * FROM " + schema + ".lesson WHERE courseId = :courseId ORDER By sequence")
+	public List<ILessonModel> selectLessons(Handle handle, Integer courseId) {
+		return handle.createQuery("SELECT * FROM anfelisa.lesson WHERE courseId = :courseId ORDER By sequence")
 				.bind("courseId", courseId).map(new LessonMapper()).list();
 	}
 
-	public List<IMyLessonModel> selectMyLessons(Handle handle, String schema, Integer courseId, String username) {
+	public List<IMyLessonModel> selectMyLessons(Handle handle, Integer courseId, String username) {
 		return handle
-				.createQuery("SELECT l.*, (SELECT count(*) as openTests from " + schema + ".lesson inner join " + schema
-						+ ".test on " + schema + ".lesson.lessonId = " + schema + ".test.lessonId left outer join "
-						+ schema + ".result on " + schema + ".test.testId = " + schema + ".result.testId and " + schema
-						+ ".result.username = :username WHERE " + schema + ".result.resultId is null AND " + schema
-						+ ".lesson.lessonId = l.lessonId) FROM " + schema
-						+ ".lesson l WHERE l.courseId = :courseId ORDER By sequence")
+				.createQuery("SELECT l.*, (SELECT count(*) as openTests from anfelisa.lesson "
+						+ "inner join anfelisa.test on anfelisa.lesson.lessonId = anfelisa.test.lessonId "
+						+ "left outer join anfelisa.result on anfelisa.test.testId = anfelisa.result.testId and anfelisa.result.username = :username "
+						+ "WHERE anfelisa.result.resultId is null AND anfelisa.lesson.lessonId = l.lessonId) "
+						+ "FROM anfelisa.lesson l WHERE l.courseId = :courseId ORDER By sequence")
 				.bind("courseId", courseId).bind("username", username).map(new MyLessonMapper()).list();
 	}
 
-	public ILessonModel selectByTestId(Handle handle, Integer testId, String schema) {
+	public ILessonModel selectByTestId(Handle handle, Integer testId) {
 		return handle
-				.createQuery("SELECT l.* FROM " + schema + ".lesson l, " + schema
-						+ ".test t WHERE t.testId = :testId AND t.lessonId = l.lessonId")
+				.createQuery(
+						"SELECT l.* FROM anfelisa.lesson l, anfelisa.test t WHERE t.testId = :testId AND t.lessonId = l.lessonId")
 				.bind("testId", testId).map(new LessonMapper()).first();
 	}
 
-	public ILessonModel selectByLessonIdAndUsername(Handle handle, Integer lessonId, String username, String schema) {
+	public ILessonModel selectByLessonIdAndUsername(Handle handle, Integer lessonId, String username) {
 		return handle
-				.createQuery("SELECT l.* FROM " + schema + ".course c, " + schema + ".studentofcourse sc, " + schema
-						+ ".lesson l WHERE l.lessonId = :lessonId AND l.courseId = c.courseId AND sc.courseId = c.courseId AND sc.username = :username")
+				.createQuery(
+						"SELECT l.* FROM anfelisa.course c, anfelisa.studentofcourse sc, anfelisa.lesson l "
+						+ "WHERE l.lessonId = :lessonId AND l.courseId = c.courseId AND sc.courseId = c.courseId AND sc.username = :username")
 				.bind("lessonId", lessonId).bind("username", username).map(new LessonMapper()).first();
 
 	}

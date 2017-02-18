@@ -42,15 +42,14 @@ public class GetCourseSelectionAction extends AbstractGetCourseSelectionAction {
 	@Timed
 	@Path("/courses")
 	@PermitAll
-	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema) throws JsonProcessingException {
-		this.actionData = new CourseSelectionData(uuid, schema).withUsername(user.getUsername());
+	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
+		this.actionData = new CourseSelectionData(uuid).withUsername(user.getUsername());
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
 		List<ICourseModel> courses = customCourseDao.selectCourseSelection(this.getDatabaseHandle().getHandle(),
-				this.actionData.getSchema(), this.actionData.getUsername());
+				this.actionData.getUsername());
 		this.actionData.setCourseList(courses);
 	}
 

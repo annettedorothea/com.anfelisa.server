@@ -40,15 +40,15 @@ public class GetAllBoxesAction extends AbstractGetAllBoxesAction {
 	@Timed
 	@Path("/all")
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema)
+	public Response get(@NotNull @QueryParam("uuid") String uuid)
 			throws JsonProcessingException {
-		this.actionData = new AllBoxesData(uuid, schema);
+		this.actionData = new AllBoxesData(uuid);
 		return this.apply();
 	}
 
 	@Override
 	protected void loadDataForGetRequest() {
-		List<IBoxModel> allBoxes = boxDao.selectAll(this.getDatabaseHandle().getHandle(), this.actionData.getSchema());
+		List<IBoxModel> allBoxes = boxDao.selectAll(this.getDatabaseHandle().getHandle());
 		this.actionData.setBoxList(allBoxes);
 	}
 

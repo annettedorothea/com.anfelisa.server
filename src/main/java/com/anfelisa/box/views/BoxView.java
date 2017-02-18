@@ -22,22 +22,22 @@ public class BoxView {
 	private ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
 
 	public BiConsumer<BoxCreationData, Handle> createBox = (dataContainer, handle) -> {
-		Integer id = boxDao.insert(handle, dataContainer, dataContainer.getSchema());
+		Integer id = boxDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId("" + id);
 	};
 
 	public BiConsumer<BoxCreationData, Handle> updateBox = (dataContainer, handle) -> {
-		customBoxDao.updateBox(handle, dataContainer, dataContainer.getSchema());
+		customBoxDao.updateBox(handle, dataContainer);
 	};
 
 	public BiConsumer<DeleteBoxData, Handle> deleteBox = (dataContainer, handle) -> {
-		boxDao.deleteByBoxId(handle, dataContainer.getBoxId(), dataContainer.getSchema());
+		boxDao.deleteByBoxId(handle, dataContainer.getBoxId());
 	};
 
 	public BiConsumer<FillBoxData, Handle> fillBoxWithCards = (dataContainer, handle) -> {
 		List<IScheduledCardModel> cards = dataContainer.getCardsToBeAdded();
 		for (IScheduledCardModel card : cards) {
-			scheduledCardDao.insert(handle, card, dataContainer.getSchema());
+			scheduledCardDao.insert(handle, card);
 		}
 		dataContainer.setCreatedId(dataContainer.getCardsToBeAdded().size() + "");
 	};

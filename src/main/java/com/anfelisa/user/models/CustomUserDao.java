@@ -10,21 +10,21 @@ import com.anfelisa.user.data.UserUpdateData;
 
 public class CustomUserDao {
 
-	public int selectTestPoints(Handle handle, String username, String schema) {
-		return handle.createQuery("select sum(points) as sum from " + schema + ".result WHERE username = :username")
+	public int selectTestPoints(Handle handle, String username) {
+		return handle.createQuery("select sum(points) as sum from anfelisa.result WHERE username = :username")
 				.bind("username", username).mapTo(Integer.class).first();
 	}
 
-	public int selectBoxPoints(Handle handle, String username, String schema) {
+	public int selectBoxPoints(Handle handle, String username) {
 		return handle
-				.createQuery("SELECT sum(points) as sum FROM " + schema + ".scoredcard c, " + schema
-						+ ". box b where c.boxid = b.boxid AND b.username = :username")
+				.createQuery(
+						"SELECT sum(points) as sum FROM anfelisa.scoredcard c, anfelisa.box b where c.boxid = b.boxid AND b.username = :username")
 				.bind("username", username).mapTo(Integer.class).first();
 	}
 
-	public void update(Handle handle, UserUpdateData userModel, String schema) {
-		Update statement = handle.createStatement("UPDATE " + schema
-				+ ".user SET name = :name, prename = :prename, email = :email WHERE username = :username");
+	public void update(Handle handle, UserUpdateData userModel) {
+		Update statement = handle.createStatement(
+				"UPDATE anfelisa.user SET name = :name, prename = :prename, email = :email WHERE username = :username");
 		statement.bind("username", userModel.getUsername());
 		statement.bind("name", userModel.getName());
 		statement.bind("prename", userModel.getPrename());
@@ -32,35 +32,35 @@ public class CustomUserDao {
 		statement.execute();
 	}
 
-	public void addCoursesToUser(Handle handle, AddCoursesData dataContainer, String schema) {
+	public void addCoursesToUser(Handle handle, AddCoursesData dataContainer) {
 		for (Integer courseId : dataContainer.getCourseIdList()) {
 			Update statement = handle.createStatement(
-					"INSERT INTO " + schema + ".studentofcourse (username, courseId) VALUES (:username, :courseId)");
+					"INSERT INTO anfelisa.studentofcourse (username, courseId) VALUES (:username, :courseId)");
 			statement.bind("username", dataContainer.getUsername());
 			statement.bind("courseId", courseId);
 			statement.execute();
 		}
 	}
 
-	public void removeCourseFromUser(Handle handle, RemoveCourseData dataContainer, String schema) {
+	public void removeCourseFromUser(Handle handle, RemoveCourseData dataContainer) {
 		Update statement = handle.createStatement(
-				"DELETE FROM " + schema + ".studentofcourse WHERE username = :username AND courseId = :courseId");
+				"DELETE FROM anfelisa.studentofcourse WHERE username = :username AND courseId = :courseId");
 		statement.bind("username", dataContainer.getUsername());
 		statement.bind("courseId", dataContainer.getCourseId());
 		statement.execute();
 	}
 
-	public void updatePassword(Handle handle, PasswordUpdateData userModel, String schema) {
+	public void updatePassword(Handle handle, PasswordUpdateData userModel) {
 		Update statement = handle
-				.createStatement("UPDATE " + schema + ".user SET password = :password WHERE username = :username");
+				.createStatement("UPDATE anfelisa.user SET password = :password WHERE username = :username");
 		statement.bind("username", userModel.getUsername());
 		statement.bind("password", userModel.getPassword());
 		statement.execute();
 	}
 
-	public void confirmEmail(Handle handle, String username, String schema) {
+	public void confirmEmail(Handle handle, String username) {
 		Update statement = handle
-				.createStatement("UPDATE " + schema + ".user SET emailConfirmed = true WHERE username = :username");
+				.createStatement("UPDATE anfelisa.user SET emailConfirmed = true WHERE username = :username");
 		statement.bind("username", username);
 		statement.execute();
 	}

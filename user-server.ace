@@ -3,6 +3,7 @@ com.anfelisa.user
 target JAVA
 
 models {
+	schema anfelisa
 	persistent User {
 		primitiveAttributes {
 			Unique PrimaryKey NotNull String username

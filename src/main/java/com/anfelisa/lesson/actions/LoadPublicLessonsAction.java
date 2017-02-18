@@ -40,16 +40,16 @@ public class LoadPublicLessonsAction extends AbstractLoadPublicLessonsAction {
 	@GET
 	@Timed
 	@Path("/public")
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
-			@NotNull @QueryParam("courseId") Integer courseId) throws JsonProcessingException {
-		this.actionData = new LessonListData(uuid, schema).withCourseId(courseId);
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("courseId") Integer courseId)
+			throws JsonProcessingException {
+		this.actionData = new LessonListData(uuid).withCourseId(courseId);
 		;
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
 		ICourseModel course = courseDao.selectByCourseId(this.getDatabaseHandle().getHandle(),
-				this.actionData.getCourseId(), this.getActionData().getSchema());
+				this.actionData.getCourseId());
 		if (course == null) {
 			throwBadRequest();
 		} else {
@@ -57,8 +57,8 @@ public class LoadPublicLessonsAction extends AbstractLoadPublicLessonsAction {
 			this.actionData.setCourseAuthor(course.getAuthor());
 			this.actionData.setIsPublic(course.getIsPublic());
 			this.actionData.setCourseName(course.getName());
-			this.actionData.setLessonList(customLessonDao.selectLessons(this.getDatabaseHandle().getHandle(),
-					this.getActionData().getSchema(), this.actionData.getCourseId()));
+			this.actionData.setLessonList(
+					customLessonDao.selectLessons(this.getDatabaseHandle().getHandle(), this.actionData.getCourseId()));
 		}
 	}
 

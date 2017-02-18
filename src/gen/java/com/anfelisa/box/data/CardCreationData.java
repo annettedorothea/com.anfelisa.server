@@ -17,8 +17,6 @@ public class CardCreationData implements ICardCreationData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -38,19 +36,15 @@ public class CardCreationData implements ICardCreationData {
 	
 
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public CardCreationData(
 		@JsonProperty("cardId") Integer cardId,
 		@JsonProperty("content") String content,
 		@JsonProperty("testId") Integer testId,
 		@JsonProperty("contentHash") String contentHash,
 		@JsonProperty("maxPoints") Integer maxPoints
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.cardId = cardId;
 		this.content = content;
@@ -58,12 +52,10 @@ public class CardCreationData implements ICardCreationData {
 		this.contentHash = contentHash;
 		this.maxPoints = maxPoints;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public CardCreationData( String uuid,	String schema ) {
+	public CardCreationData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -133,11 +125,6 @@ public class CardCreationData implements ICardCreationData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -155,16 +142,6 @@ public class CardCreationData implements ICardCreationData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

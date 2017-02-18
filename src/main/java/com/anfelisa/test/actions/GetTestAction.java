@@ -38,15 +38,14 @@ public class GetTestAction extends AbstractGetTestAction {
 	@Timed
 	@Path("/single")
 	@RolesAllowed({ AuthUser.ADMIN, AuthUser.AUTHOR })
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
-			@NotNull @QueryParam("testId") Integer testId) throws JsonProcessingException {
-		this.actionData = new TestCreationData(uuid, schema).withTestId(testId);
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("testId") Integer testId)
+			throws JsonProcessingException {
+		this.actionData = new TestCreationData(uuid).withTestId(testId);
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
-		ITestModel test = testDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionData.getTestId(),
-				this.actionData.getSchema());
+		ITestModel test = testDao.selectByTestId(this.getDatabaseHandle().getHandle(), this.actionData.getTestId());
 		if (test != null) {
 			this.actionData.setAuthor(test.getAuthor());
 			this.actionData.setHtml(test.getHtml());

@@ -24,7 +24,7 @@ import io.dropwizard.auth.Auth;
 @Path("/cards")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class RemoveCardFromBoxAction extends AbstractRemoveCardFromBoxAction {
+public class RemoveCardFromBoxAction extends AbstractRemoveCardFromBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(RemoveCardFromBoxAction.class);
 
@@ -37,13 +37,11 @@ import io.dropwizard.auth.Auth;
 	@Path("/removeFromBox")
 	@PermitAll
 	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema,
 			@NotNull @QueryParam("scheduledCardId") Integer scheduledCardId) throws JsonProcessingException {
-		this.actionData = new ScheduledCardIdData(uuid, schema).withScheduledCardId(scheduledCardId);
+		this.actionData = new ScheduledCardIdData(uuid).withScheduledCardId(scheduledCardId);
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

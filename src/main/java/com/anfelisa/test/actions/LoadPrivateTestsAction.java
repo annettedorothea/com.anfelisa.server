@@ -48,15 +48,14 @@ public class LoadPrivateTestsAction extends AbstractLoadPrivateTestsAction {
 	@Path("/private")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema, @NotNull @QueryParam("lessonId") Integer lessonId)
-			throws JsonProcessingException {
-		this.actionData = new MyTestListData(uuid, schema).withLessonId(lessonId).withUsername(user.getUsername());
+			@NotNull @QueryParam("lessonId") Integer lessonId) throws JsonProcessingException {
+		this.actionData = new MyTestListData(uuid).withLessonId(lessonId).withUsername(user.getUsername());
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
 		ILessonModel lesson = customLessonDao.selectByLessonIdAndUsername(this.getHandle(), actionData.getLessonId(),
-				actionData.getUsername(), actionData.getSchema());
+				actionData.getUsername());
 		if (lesson == null) {
 			throwBadRequest();
 		}
@@ -64,13 +63,13 @@ public class LoadPrivateTestsAction extends AbstractLoadPrivateTestsAction {
 		this.actionData.setLessonAuthor(lesson.getAuthor());
 		this.actionData.setLessonName(lesson.getName());
 		ICourseModel course = customCourseDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
-				this.actionData.getLessonId(), this.getActionData().getSchema());
+				this.actionData.getLessonId());
 		this.actionData.setCourseAuthor(course.getAuthor());
 		this.actionData.setCourseDescription(course.getDescription());
 		this.actionData.setCourseName(course.getName());
 		this.actionData.setCourseId(course.getCourseId());
 		this.actionData.setMyTestList(customTestDao.selectMyTests(this.getDatabaseHandle().getHandle(),
-				this.getActionData().getSchema(), this.actionData.getLessonId(), this.actionData.getUsername()));
+				this.actionData.getLessonId(), this.actionData.getUsername()));
 
 	}
 

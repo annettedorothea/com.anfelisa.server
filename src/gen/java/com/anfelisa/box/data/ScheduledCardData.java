@@ -17,8 +17,6 @@ public class ScheduledCardData implements IScheduledCardData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -54,11 +52,8 @@ public class ScheduledCardData implements IScheduledCardData {
 	
 
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public ScheduledCardData(
 		@JsonProperty("scheduledCardId") Integer scheduledCardId,
 		@JsonProperty("cardId") Integer cardId,
@@ -71,8 +66,7 @@ public class ScheduledCardData implements IScheduledCardData {
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
 		@JsonProperty("removed") Boolean removed
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.scheduledCardId = scheduledCardId;
 		this.cardId = cardId;
@@ -86,12 +80,10 @@ public class ScheduledCardData implements IScheduledCardData {
 		this.timestamp = timestamp;
 		this.removed = removed;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public ScheduledCardData( String uuid,	String schema ) {
+	public ScheduledCardData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -233,11 +225,6 @@ public class ScheduledCardData implements IScheduledCardData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -255,16 +242,6 @@ public class ScheduledCardData implements IScheduledCardData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

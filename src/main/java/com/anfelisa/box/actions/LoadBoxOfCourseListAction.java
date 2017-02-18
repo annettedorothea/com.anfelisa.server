@@ -54,26 +54,26 @@ public class LoadBoxOfCourseListAction extends AbstractLoadBoxOfCourseListAction
 	@Path("/courses")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema, @NotNull @QueryParam("boxId") Integer boxId)
+			@NotNull @QueryParam("boxId") Integer boxId)
 			throws JsonProcessingException {
-		this.actionData = new BoxOfCourseListData(uuid, schema).withCredentialsRole(user.getRole())
+		this.actionData = new BoxOfCourseListData(uuid).withCredentialsRole(user.getRole())
 				.withCredentialsUsername(user.getUsername()).withBoxId(boxId);
 		return this.apply();
 	}
 
 	@Override
 	protected void loadDataForGetRequest() {
-		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), actionData.getBoxId(), actionData.getSchema());
+		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), actionData.getBoxId());
 		if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
 		this.actionData.setBoxName(box.getName());
 		List<ICourseToBoxAdditionModel> list = new ArrayList<ICourseToBoxAdditionModel>();
 		List<IMyCourseModel> myCourses = customCourseDao.selectMyCourses(this.databaseHandle.getHandle(),
-				this.actionData.getSchema(), this.actionData.getCredentialsUsername());
+				this.actionData.getCredentialsUsername());
 		for (IMyCourseModel myCourse : myCourses) {
 			IBoxOfCourseModel boxOfCourse = customBoxDao.selectBoxOfCourse(this.databaseHandle.getHandle(),
-					this.actionData.getSchema(), myCourse.getCourseId(), this.actionData.getCredentialsUsername(),
+					myCourse.getCourseId(), this.actionData.getCredentialsUsername(),
 					this.actionData.getBoxId());
 			if (boxOfCourse == null) {
 				ICourseToBoxAdditionModel model = new CourseToBoxAdditionModel(null, myCourse.getCourseId(), null,

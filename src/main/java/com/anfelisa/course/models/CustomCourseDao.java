@@ -6,48 +6,48 @@ import org.skife.jdbi.v2.Handle;
 
 public class CustomCourseDao {
 
-	public List<ICourseModel> selectPublic(Handle handle, String schema) {
-		return handle.createQuery("SELECT * FROM " + schema + ".course WHERE isPublic = true ORDER By sequence")
+	public List<ICourseModel> selectPublic(Handle handle) {
+		return handle.createQuery("SELECT * FROM anfelisa.course WHERE isPublic = true ORDER By sequence")
 				.map(new CourseMapper()).list();
 	}
 
-	public List<IMyCourseModel> selectMyCourses(Handle handle, String schema, String username) {
-		return handle.createQuery("SELECT c.*, (SELECT count(*) as openTests from " + schema + ".course inner join "
-				+ schema + ".lesson on " + schema + ".course.courseId = " + schema + ".lesson.courseId inner join "
-				+ schema + ".test on " + schema + ".lesson.lessonId = " + schema + ".test.lessonId left outer join "
-				+ schema + ".result on " + schema + ".test.testId = " + schema + ".result.testId and " + schema
-				+ ".result.username = :username WHERE " + schema + ".result.resultId is null AND " + schema
-				+ ".course.courseId = c.courseId) FROM " + schema + ".course c, " + schema
-				+ ".studentofcourse sc WHERE sc.username = :username AND c.courseId = sc.courseId ORDER BY sequence")
+	public List<IMyCourseModel> selectMyCourses(Handle handle, String username) {
+		return handle
+				.createQuery("SELECT c.*, (SELECT count(*) as openTests from anfelisa.course "
+						+ "inner join anfelisa.lesson on anfelisa.course.courseId = anfelisa.lesson.courseId "
+						+ "inner join anfelisa.test on anfelisa.lesson.lessonId = anfelisa.test.lessonId "
+						+ "left outer join anfelisa.result on anfelisa.test.testId = anfelisa.result.testId and anfelisa.result.username = :username "
+						+ "WHERE anfelisa.result.resultId is null AND anfelisa.course.courseId = c.courseId) "
+						+ "FROM anfelisa.course c, anfelisa.studentofcourse sc WHERE sc.username = :username AND c.courseId = sc.courseId ORDER BY sequence")
 				.bind("username", username).map(new MyCourseMapper()).list();
 	}
 
-	public List<ICourseModel> selectCourses(Handle handle, String schema, String username) {
+	public List<ICourseModel> selectCourses(Handle handle, String username) {
 		return handle
-				.createQuery("SELECT c.* FROM " + schema + ".course c, " + schema
-						+ ".studentofcourse sc WHERE sc.username = :username AND sc.courseId = c.courseId ORDER BY sequence")
+				.createQuery(
+						"SELECT c.* FROM anfelisa.course c, anfelisa.studentofcourse sc WHERE sc.username = :username AND sc.courseId = c.courseId ORDER BY sequence")
 				.bind("username", username).map(new CourseMapper()).list();
 	}
 
-	public ICourseModel selectByLessonId(Handle handle, Integer lessonId, String schema) {
+	public ICourseModel selectByLessonId(Handle handle, Integer lessonId) {
 		return handle
-				.createQuery("SELECT c.* FROM " + schema + ".course c, " + schema
-						+ ".lesson l WHERE l.lessonId = :lessonId AND l.courseId = c.courseId")
+				.createQuery(
+						"SELECT c.* FROM anfelisa.course c, anfelisa.lesson l WHERE l.lessonId = :lessonId AND l.courseId = c.courseId")
 				.bind("lessonId", lessonId).map(new CourseMapper()).first();
 	}
 
-	public ICourseModel selectByCourseIdAndUsername(Handle handle, Integer courseId, String username, String schema) {
+	public ICourseModel selectByCourseIdAndUsername(Handle handle, Integer courseId, String username) {
 		return handle
-				.createQuery("SELECT c.* FROM " + schema + ".course c, " + schema
-						+ ".studentofcourse sc WHERE c.courseId = :courseId AND sc.courseId = c.courseId AND sc.username = :username")
+				.createQuery(
+						"SELECT c.* FROM anfelisa.course c, anfelisa.studentofcourse sc WHERE c.courseId = :courseId AND sc.courseId = c.courseId AND sc.username = :username")
 				.bind("courseId", courseId).bind("username", username).map(new CourseMapper()).first();
 	}
 
-	public List<ICourseModel> selectCourseSelection(Handle handle, String schema, String username) {
+	public List<ICourseModel> selectCourseSelection(Handle handle, String username) {
 		return handle
-				.createQuery("select * from ( select * from " + schema + ".course " + "EXCEPT " + "select c.* from "
-						+ schema + ".course c inner join " + schema
-						+ ".studentofcourse sc on sc.courseid = c.courseid where sc.username = :username) as courses order by sequence")
+				.createQuery(
+						"select * from ( select * from anfelisa.course "
+						+ "EXCEPT select c.* from anfelisa.course c inner join anfelisa.studentofcourse sc on sc.courseid = c.courseid where sc.username = :username) as courses order by sequence")
 				.bind("username", username).map(new CourseMapper()).list();
 	}
 

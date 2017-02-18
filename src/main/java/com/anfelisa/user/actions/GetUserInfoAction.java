@@ -50,25 +50,23 @@ public class GetUserInfoAction extends AbstractGetUserInfoAction {
 	@Timed
 	@Path("/info")
 	@PermitAll
-	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema) throws JsonProcessingException {
-		this.actionData = new UserInfoData(uuid, schema).withUsername(user.getUsername());
+	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
+		this.actionData = new UserInfoData(uuid).withUsername(user.getUsername());
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
-		IUserModel user = userDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.actionData.getUsername(),
-				this.actionData.getSchema());
+		IUserModel user = userDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.actionData.getUsername());
 		this.actionData.setEmail(user.getEmail());
 		this.actionData.setName(user.getName());
 		this.actionData.setPrename(user.getPrename());
 
 		List<ICourseModel> courseList = customCourseDao.selectCourses(this.getDatabaseHandle().getHandle(),
-				this.actionData.getSchema(), this.actionData.getUsername());
+				this.actionData.getUsername());
 		this.actionData.setCourseList(courseList);
 
 		List<IBoxModel> boxList = customBoxDao.selectByUsername(this.getDatabaseHandle().getHandle(),
-				this.actionData.getSchema(), this.actionData.getUsername());
+				this.actionData.getUsername());
 		this.actionData.setBoxList(boxList);
 	}
 

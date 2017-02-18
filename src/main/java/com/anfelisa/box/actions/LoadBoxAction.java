@@ -41,17 +41,16 @@ public class LoadBoxAction extends AbstractLoadBoxAction {
 	@Path("/single")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema, @NotNull @QueryParam("boxId") Integer boxId)
+			@NotNull @QueryParam("boxId") Integer boxId)
 			throws JsonProcessingException {
-		this.actionData = new BoxIdData(uuid, schema).withBoxId(boxId).withCredentialsRole(user.getRole())
+		this.actionData = new BoxIdData(uuid).withBoxId(boxId).withCredentialsRole(user.getRole())
 				.withCredentialsUsername(user.getUsername());
 		return this.apply();
 	}
 
 	@Override
 	protected void loadDataForGetRequest() {
-		IBoxModel box = boxDao.selectByBoxId(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId(),
-				this.actionData.getSchema());
+		IBoxModel box = boxDao.selectByBoxId(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId());
 		if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}

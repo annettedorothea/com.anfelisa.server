@@ -18,8 +18,6 @@ public class ForgotPasswordData implements IForgotPasswordData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -43,11 +41,8 @@ public class ForgotPasswordData implements IForgotPasswordData {
 
 	
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public ForgotPasswordData(
 		@JsonProperty("username") String username,
 		@JsonProperty("email") String email,
@@ -55,8 +50,7 @@ public class ForgotPasswordData implements IForgotPasswordData {
 		@JsonProperty("prename") String prename,
 		@JsonProperty("password") String password,
 		@JsonProperty("language") String language
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
 		this.email = email;
@@ -65,12 +59,10 @@ public class ForgotPasswordData implements IForgotPasswordData {
 		this.password = password;
 		this.language = language;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public ForgotPasswordData( String uuid,	String schema ) {
+	public ForgotPasswordData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -153,11 +145,6 @@ public class ForgotPasswordData implements IForgotPasswordData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -175,16 +162,6 @@ public class ForgotPasswordData implements IForgotPasswordData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

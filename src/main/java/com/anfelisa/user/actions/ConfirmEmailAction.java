@@ -36,9 +36,8 @@ import io.dropwizard.auth.Auth;
 	@Timed
 	@Path("/confirm")
 	@PermitAll
-	public Response put(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("schema") String schema) throws JsonProcessingException {
-		this.actionData = new UsernameData(uuid, schema).withUsername(user.getUsername());
+	public Response put(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
+		this.actionData = new UsernameData(uuid).withUsername(user.getUsername());
 		return this.apply();
 	}
 

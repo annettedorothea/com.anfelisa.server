@@ -17,18 +17,17 @@ public class AceAuthenticator implements Authenticator<BasicCredentials, AuthUse
 	private DBI jdbi;
 
 	private UserDao userDao = new UserDao();
-	
+
 	public AceAuthenticator(DBI jdbi) {
 		super();
 		this.jdbi = jdbi;
 	}
 
 	public Optional<AuthUser> authenticate(BasicCredentials credentials) throws AuthenticationException {
-		String schema = BasicCredentialsHelper.extractSchemaFromUserName(credentials);
-		String username = BasicCredentialsHelper.extractUsernameFromUserName(credentials);
+		String username = credentials.getUsername();
 		Handle handle = this.jdbi.open();
 		try {
-			IUserModel user = userDao.selectByUsername(handle, username, schema);
+			IUserModel user = userDao.selectByUsername(handle, username);
 			if (user != null && user.getPassword().equals(credentials.getPassword())) {
 				return Optional.of(new AuthUser(credentials.getUsername(), credentials.getPassword(), user.getRole()));
 			} else {

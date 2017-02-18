@@ -17,24 +17,17 @@ public class AllBoxesData implements IAllBoxesData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 
 	private java.util.List<com.anfelisa.box.models.IBoxModel> boxList;
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public AllBoxesData(
-		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+		@JsonProperty("uuid") String uuid
 	) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 
@@ -50,11 +43,6 @@ public class AllBoxesData implements IAllBoxesData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
 	}
 
 	@JsonIgnore
@@ -74,16 +62,6 @@ public class AllBoxesData implements IAllBoxesData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

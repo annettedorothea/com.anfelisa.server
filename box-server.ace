@@ -3,6 +3,7 @@ com.anfelisa.box
 target JAVA
 
 models {
+	schema anfelisa
 	persistent Box {
 		primitiveAttributes {
 			Unique PrimaryKey NotNull Serial boxId

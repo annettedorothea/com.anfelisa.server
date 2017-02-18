@@ -18,8 +18,6 @@ public class UsernameAvailableData implements IUsernameAvailableData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -30,26 +28,20 @@ public class UsernameAvailableData implements IUsernameAvailableData {
 
 	
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public UsernameAvailableData(
 		@JsonProperty("username") String username,
 		@JsonProperty("available") Boolean available
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
 		this.available = available;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public UsernameAvailableData( String uuid,	String schema ) {
+	public UsernameAvailableData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -84,11 +76,6 @@ public class UsernameAvailableData implements IUsernameAvailableData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -106,16 +93,6 @@ public class UsernameAvailableData implements IUsernameAvailableData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

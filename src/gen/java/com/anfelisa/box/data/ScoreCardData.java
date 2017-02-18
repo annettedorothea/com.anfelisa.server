@@ -22,8 +22,6 @@ public class ScoreCardData implements IScoreCardData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -94,11 +92,8 @@ public class ScoreCardData implements IScoreCardData {
 	
 	
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public ScoreCardData(
 		@JsonProperty("cardId") Integer cardId,
 		@JsonProperty("content") String content,
@@ -123,8 +118,7 @@ public class ScoreCardData implements IScoreCardData {
 		@JsonProperty("now") org.joda.time.DateTime now,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.cardId = cardId;
 		this.content = content;
@@ -150,12 +144,10 @@ public class ScoreCardData implements IScoreCardData {
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public ScoreCardData( String uuid,	String schema ) {
+	public ScoreCardData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -446,11 +438,6 @@ public class ScoreCardData implements IScoreCardData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -468,16 +455,6 @@ public class ScoreCardData implements IScoreCardData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

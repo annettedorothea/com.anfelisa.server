@@ -18,8 +18,6 @@ public class StatisticsData implements IStatisticsData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -44,11 +42,8 @@ public class StatisticsData implements IStatisticsData {
 	
 	private java.util.List<com.anfelisa.course.models.IStatisticsItemModel> statisticsItemList;
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public StatisticsData(
 		@JsonProperty("username") String username,
 		@JsonProperty("year") Integer year,
@@ -56,8 +51,7 @@ public class StatisticsData implements IStatisticsData {
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints,
 		@JsonProperty("rate") Integer rate
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
 		this.year = year;
@@ -66,12 +60,10 @@ public class StatisticsData implements IStatisticsData {
 		this.maxPoints = maxPoints;
 		this.rate = rate;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public StatisticsData( String uuid,	String schema ) {
+	public StatisticsData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -161,11 +153,6 @@ public class StatisticsData implements IStatisticsData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -183,16 +170,6 @@ public class StatisticsData implements IStatisticsData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

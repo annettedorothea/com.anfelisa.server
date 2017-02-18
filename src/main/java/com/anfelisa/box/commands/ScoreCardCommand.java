@@ -29,21 +29,19 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 	@Override
 	protected void executeCommand() {
-		IBoxModel box = customBoxDao.selectByScheduledCardId(getHandle(), commandData.getSchema(),
-				commandData.getScheduledCardId());
+		IBoxModel box = customBoxDao.selectByScheduledCardId(getHandle(), commandData.getScheduledCardId());
 		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
 
-		IScheduledCardModel scheduledCard = scheduledCardDao.selectByScheduledCardId(this.getDatabaseHandle().getHandle(),
-				this.commandData.getScheduledCardId(), this.commandData.getSchema());
+		IScheduledCardModel scheduledCard = scheduledCardDao
+				.selectByScheduledCardId(this.getDatabaseHandle().getHandle(), this.commandData.getScheduledCardId());
 		this.commandData.setBoxId(scheduledCard.getBoxId());
 		this.commandData.setCardId(scheduledCard.getCardId());
-		
+
 		this.commandData.setScheduledDateOfScored(scheduledCard.getScheduledDate());
 
-		ICardModel card = cardDao.selectByCardId(this.getDatabaseHandle().getHandle(), this.commandData.getCardId(),
-				this.commandData.getSchema());
+		ICardModel card = cardDao.selectByCardId(this.getDatabaseHandle().getHandle(), this.commandData.getCardId());
 
 		Float ef = scheduledCard.getEf() == 0F ? 2.5F : scheduledCard.getEf();
 		Integer interval = scheduledCard.getInterval() == 0 ? 1 : scheduledCard.getInterval();

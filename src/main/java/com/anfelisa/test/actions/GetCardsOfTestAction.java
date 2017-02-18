@@ -41,15 +41,15 @@ public class GetCardsOfTestAction extends AbstractGetCardsOfTestAction {
 	@Timed
 	@Path("/cards")
 	@RolesAllowed({ AuthUser.ADMIN, AuthUser.AUTHOR })
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("schema") String schema,
+	public Response get(@NotNull @QueryParam("uuid") String uuid,
 			@NotNull @QueryParam("testId") Integer testId) throws JsonProcessingException {
-		this.actionData = new CardContentHashListData(uuid, schema).withTestId(testId);
+		this.actionData = new CardContentHashListData(uuid).withTestId(testId);
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
 		List<ICardModel> cards = customCardDao.selectByTestId(this.getDatabaseHandle().getHandle(),
-				this.actionData.getSchema(), this.actionData.getTestId());
+				this.actionData.getTestId());
 		List<Integer> contentHashes = new ArrayList<Integer>();
 		for (ICardModel card : cards) {
 			contentHashes.add(Integer.parseInt(card.getContentHash()));

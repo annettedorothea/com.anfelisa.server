@@ -17,8 +17,6 @@ public class ResultAbstractData implements IResultAbstractData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -35,30 +33,24 @@ public class ResultAbstractData implements IResultAbstractData {
 	
 
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public ResultAbstractData(
 		@JsonProperty("resultId") Integer resultId,
 		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.resultId = resultId;
 		this.date = date;
 		this.points = points;
 		this.maxPoints = maxPoints;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public ResultAbstractData( String uuid,	String schema ) {
+	public ResultAbstractData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -116,11 +108,6 @@ public class ResultAbstractData implements IResultAbstractData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -138,16 +125,6 @@ public class ResultAbstractData implements IResultAbstractData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }

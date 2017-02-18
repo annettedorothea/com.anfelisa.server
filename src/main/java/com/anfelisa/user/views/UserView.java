@@ -26,33 +26,33 @@ public class UserView {
 	private CustomUserDao customUserDao = new CustomUserDao();
 
 	public BiConsumer<UserCreationData, Handle> createUser = (dataContainer, handle) -> {
-		String username = userDao.insert(handle, dataContainer, dataContainer.getSchema());
+		String username = userDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId(username);
 	};
 
 	public BiConsumer<UserRegistrationData, Handle> registerUser = (dataContainer, handle) -> {
-		String username = userDao.insert(handle, dataContainer, dataContainer.getSchema());
+		String username = userDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId(username);
 	};
 
 	public BiConsumer<UserUpdateData, Handle> updateUser = (dataContainer, handle) -> {
-		customUserDao.update(handle, dataContainer, dataContainer.getSchema());
+		customUserDao.update(handle, dataContainer);
 	};
 
 	public BiConsumer<AddCoursesData, Handle> addCourses = (dataContainer, handle) -> {
-		customUserDao.addCoursesToUser(handle, dataContainer, dataContainer.getSchema());
+		customUserDao.addCoursesToUser(handle, dataContainer);
 	};
 
 	public BiConsumer<RemoveCourseData, Handle> removeCourse = (dataContainer, handle) -> {
-		customUserDao.removeCourseFromUser(handle, dataContainer, dataContainer.getSchema());
+		customUserDao.removeCourseFromUser(handle, dataContainer);
 	};
 
 	public BiConsumer<PasswordUpdateData, Handle> updatePassword = (dataContainer, handle) -> {
-		customUserDao.updatePassword(handle, dataContainer, dataContainer.getSchema());
+		customUserDao.updatePassword(handle, dataContainer);
 	};
 
 	public BiConsumer<UsernameData, Handle> confirmEmail = (dataContainer, handle) -> {
-		customUserDao.confirmEmail(handle, dataContainer.getUsername(), dataContainer.getSchema());
+		customUserDao.confirmEmail(handle, dataContainer.getUsername());
 	};
 
 	public BiConsumer<ForgotPasswordData, Handle> sendForgotPasswordEmail = (dataContainer, handle) -> {

@@ -18,8 +18,6 @@ public class PointsData implements IPointsData {
 	
 	private String uuid;
 	
-	private String schema;
-	
 	private String createdId;
 	
 	@NotNull
@@ -31,26 +29,20 @@ public class PointsData implements IPointsData {
 
 	
 	
-
 	private org.joda.time.DateTime systemTime;
 	
-	private boolean replay;
-
 	public PointsData(
 		@JsonProperty("points") Integer points,
 		@JsonProperty("username") String username
-,		@JsonProperty("uuid") String uuid,
-		@JsonProperty("schema") String schema
+,		@JsonProperty("uuid") String uuid
 	) {
 		this.points = points;
 		this.username = username;
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
-	public PointsData( String uuid,	String schema ) {
+	public PointsData( String uuid ) {
 		this.uuid = uuid;
-		this.schema = schema;
 	}
 
 	@JsonProperty
@@ -85,11 +77,6 @@ public class PointsData implements IPointsData {
 		return this.uuid;
 	}
 
-	@JsonProperty
-	public String getSchema() {
-		return this.schema;
-	}
-
 	@JsonIgnore
 	public String getCreatedId() {
 		return createdId;
@@ -107,16 +94,6 @@ public class PointsData implements IPointsData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	@JsonProperty
-	public boolean isReplay() {
-		return replay;
-	}
-
-	@JsonProperty
-	public void setReplay(boolean replay) {
-		this.replay = replay;
 	}
 
 }
