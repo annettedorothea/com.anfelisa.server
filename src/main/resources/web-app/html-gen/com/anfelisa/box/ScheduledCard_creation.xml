@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="xxx" author="xxx">
+        <createTable tableName="anfelisa.scheduledcard">
+        	<column name="scheduledCardId" type="serial" autoIncrement="true">
+        		<constraints primaryKey="true" nullable="false"/>
+        	</column>
+        	<column name="cardId" type="integer" autoIncrement="true">
+        		<constraints  nullable="false"/>
+        	</column>
+        	<column name="ef" type="numeric" autoIncrement="true">
+        		<constraints  nullable="false"/>
+        	</column>
+        	<column name="interval" type="integer" autoIncrement="true">
+        		<constraints  />
+        	</column>
+        	<column name="n" type="integer" autoIncrement="true">
+        		<constraints  nullable="false"/>
+        	</column>
+        	<column name="count" type="integer" autoIncrement="true">
+        		<constraints  nullable="false"/>
+        	</column>
+        	<column name="scheduledDate" type="timestamp with time zone" autoIncrement="true">
+        		<constraints  nullable="false"/>
+        	</column>
+        	<column name="boxId" type="integer" autoIncrement="true">
+        		<constraints  nullable="false"/>
+        	</column>
+        	<column name="lastQuality" type="integer" autoIncrement="true">
+        		<constraints  />
+        	</column>
+        	<column name="timestamp" type="timestamp with time zone" autoIncrement="true">
+        		<constraints  nullable="false"/>
+        	</column>
+        	<column name="removed" type="boolean" autoIncrement="true">
+        		<constraints  nullable="false"/>
+        	</column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
