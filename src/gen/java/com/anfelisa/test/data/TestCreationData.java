@@ -12,7 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.test.models.ITestModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class TestCreationData implements ITestCreationData {
 	
 	private String uuid;

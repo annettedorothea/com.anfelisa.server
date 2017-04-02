@@ -12,7 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IScheduledCardModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class ScheduledCardData implements IScheduledCardData {
 	
 	private String uuid;

@@ -1,37 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
-
-    <changeSet id="xxx" author="xxx">
-        <createTable tableName="anfelisa.scoredcard">
-        	<column name="scoredCardId" type="serial" autoIncrement="true">
-        		<constraints primaryKey="true" nullable="false"/>
-        	</column>
-        	<column name="cardId" type="integer" autoIncrement="true">
-        		<constraints  nullable="false"/>
-        	</column>
-        	<column name="scheduledDateOfScored" type="timestamp with time zone" autoIncrement="true">
-        		<constraints  />
-        	</column>
-        	<column name="boxId" type="integer" autoIncrement="true">
-        		<constraints  nullable="false"/>
-        	</column>
-        	<column name="quality" type="integer" autoIncrement="true">
-        		<constraints  />
-        	</column>
-        	<column name="timestamp" type="timestamp with time zone" autoIncrement="true">
-        		<constraints  nullable="false"/>
-        	</column>
-        	<column name="points" type="integer" autoIncrement="true">
-        		<constraints  />
-        	</column>
-        	<column name="scheduledCardId" type="integer" autoIncrement="true">
-        		<constraints  nullable="false"/>
-        	</column>
-        </createTable>
-    </changeSet>
-</databaseChangeLog>
+<createTable tableName="scoredcard">
+	<column name="scoredCardId" type="serial">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="cardId" type="integer">
+		<constraints  nullable="false"/>
+	</column>
+	<column name="scheduledDateOfScored" type="timestamp with time zone">
+		<constraints  />
+	</column>
+	<column name="boxId" type="integer">
+		<constraints  nullable="false"/>
+	</column>
+	<column name="quality" type="integer">
+		<constraints  />
+	</column>
+	<column name="timestamp" type="timestamp with time zone">
+		<constraints  nullable="false"/>
+	</column>
+	<column name="points" type="integer">
+		<constraints  />
+	</column>
+	<column name="scheduledCardId" type="integer">
+		<constraints  nullable="false"/>
+	</column>
+</createTable>

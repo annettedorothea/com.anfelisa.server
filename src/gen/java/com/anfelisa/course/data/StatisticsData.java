@@ -13,7 +13,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.course.models.IStatisticsModel;
 import com.anfelisa.course.models.IStatisticsItemListModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class StatisticsData implements IStatisticsData {
 	
 	private String uuid;

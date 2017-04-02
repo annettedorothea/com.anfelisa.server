@@ -13,7 +13,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.box.models.IBoxIdModel;
 import com.anfelisa.user.models.ICredentialsModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class DeleteBoxData implements IDeleteBoxData {
 	
 	private String uuid;

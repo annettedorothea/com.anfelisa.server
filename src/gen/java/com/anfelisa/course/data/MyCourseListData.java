@@ -13,7 +13,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.course.models.IMyCourseListModel;
 import com.anfelisa.user.models.IUsernameModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class MyCourseListData implements IMyCourseListData {
 	
 	private String uuid;

@@ -7,59 +7,59 @@
         </div>
     </div>
 
-	<div class="form-group" id="usernameDiv">
-	    <label for="username" class="col-sm-3 control-label">* {{texts.username}}</label>
+	<div class="form-group" id="userUsernameDiv">
+	    <label for="userUsername" class="col-sm-3 control-label">* {{texts.user.username}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="username" placeholder="{{texts.username}}" value="{{username}}" onblur="new ValidateRequiredFieldAction({id : 'username'}).apply()">
-	        <span class="help-block notEmpty" style="display: none">{{texts.usernameNotEmpty}}</span>
+	        <input type="text" class="form-control" id="userUsername" placeholder="{{texts.user.username}}" value="{{user.username}}" onblur="new ValidateRequiredFieldAction({id : 'userUsername'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.user.usernameNotEmpty}}</span>
 	    </div>
 	</div>
 	
-	<div class="form-group" id="passwordDiv">
-	    <label for="password" class="col-sm-3 control-label">* {{texts.password}}</label>
+	<div class="form-group" id="userPasswordDiv">
+	    <label for="userPassword" class="col-sm-3 control-label">* {{texts.user.password}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="password" placeholder="{{texts.password}}" value="{{password}}" onblur="new ValidateRequiredFieldAction({id : 'password'}).apply()">
-	        <span class="help-block notEmpty" style="display: none">{{texts.passwordNotEmpty}}</span>
+	        <input type="text" class="form-control" id="userPassword" placeholder="{{texts.user.password}}" value="{{user.password}}" onblur="new ValidateRequiredFieldAction({id : 'userPassword'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.user.passwordNotEmpty}}</span>
 	    </div>
 	</div>
 	
-	<div class="form-group" id="nameDiv">
-	    <label for="name" class="col-sm-3 control-label">* {{texts.name}}</label>
+	<div class="form-group" id="userNameDiv">
+	    <label for="userName" class="col-sm-3 control-label">* {{texts.user.name}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="name" placeholder="{{texts.name}}" value="{{name}}" onblur="new ValidateRequiredFieldAction({id : 'name'}).apply()">
-	        <span class="help-block notEmpty" style="display: none">{{texts.nameNotEmpty}}</span>
+	        <input type="text" class="form-control" id="userName" placeholder="{{texts.user.name}}" value="{{user.name}}" onblur="new ValidateRequiredFieldAction({id : 'userName'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.user.nameNotEmpty}}</span>
 	    </div>
 	</div>
 	
-	<div class="form-group" id="prenameDiv">
-	    <label for="prename" class="col-sm-3 control-label">* {{texts.prename}}</label>
+	<div class="form-group" id="userPrenameDiv">
+	    <label for="userPrename" class="col-sm-3 control-label">* {{texts.user.prename}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="prename" placeholder="{{texts.prename}}" value="{{prename}}" onblur="new ValidateRequiredFieldAction({id : 'prename'}).apply()">
-	        <span class="help-block notEmpty" style="display: none">{{texts.prenameNotEmpty}}</span>
+	        <input type="text" class="form-control" id="userPrename" placeholder="{{texts.user.prename}}" value="{{user.prename}}" onblur="new ValidateRequiredFieldAction({id : 'userPrename'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.user.prenameNotEmpty}}</span>
 	    </div>
 	</div>
 	
-	<div class="form-group" id="emailDiv">
-	    <label for="email" class="col-sm-3 control-label">* {{texts.email}}</label>
+	<div class="form-group" id="userEmailDiv">
+	    <label for="userEmail" class="col-sm-3 control-label">* {{texts.user.email}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="email" placeholder="{{texts.email}}" value="{{email}}" onblur="new ValidateRequiredFieldAction({id : 'email'}).apply()">
-	        <span class="help-block notEmpty" style="display: none">{{texts.emailNotEmpty}}</span>
+	        <input type="text" class="form-control" id="userEmail" placeholder="{{texts.user.email}}" value="{{user.email}}" onblur="new ValidateRequiredFieldAction({id : 'userEmail'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.user.emailNotEmpty}}</span>
 	    </div>
 	</div>
 	
-	<div class="form-group" id="roleDiv">
-	    <label for="role" class="col-sm-3 control-label">* {{texts.role}}</label>
+	<div class="form-group" id="userRoleDiv">
+	    <label for="userRole" class="col-sm-3 control-label">* {{texts.user.role}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="role" placeholder="{{texts.role}}" value="{{role}}" onblur="new ValidateRequiredFieldAction({id : 'role'}).apply()">
-	        <span class="help-block notEmpty" style="display: none">{{texts.roleNotEmpty}}</span>
+	        <input type="text" class="form-control" id="userRole" placeholder="{{texts.user.role}}" value="{{user.role}}" onblur="new ValidateRequiredFieldAction({id : 'userRole'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.user.roleNotEmpty}}</span>
 	    </div>
 	</div>
 	
-	<div class="form-group" id="emailConfirmedDiv">
-	    <label for="emailConfirmed" class="col-sm-3 control-label">* {{texts.emailConfirmed}}</label>
+	<div class="form-group" id="userEmailConfirmedDiv">
+	    <label for="userEmailConfirmed" class="col-sm-3 control-label">* {{texts.user.emailConfirmed}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="emailConfirmed" placeholder="{{texts.emailConfirmed}}" value="{{emailConfirmed}}" onblur="new ValidateRequiredFieldAction({id : 'emailConfirmed'}).apply()">
-	        <span class="help-block notEmpty" style="display: none">{{texts.emailConfirmedNotEmpty}}</span>
+	        <input type="text" class="form-control" id="userEmailConfirmed" placeholder="{{texts.user.emailConfirmed}}" value="{{user.emailConfirmed}}" onblur="new ValidateRequiredFieldAction({id : 'userEmailConfirmed'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.user.emailConfirmedNotEmpty}}</span>
 	    </div>
 	</div>
 	

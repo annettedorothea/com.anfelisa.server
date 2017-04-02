@@ -15,7 +15,7 @@ import com.anfelisa.course.models.ICourseListModel;
 import com.anfelisa.box.models.IMyBoxListModel;
 import com.anfelisa.user.models.IUsernameModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class UserInfoData implements IUserInfoData {
 	
 	private String uuid;

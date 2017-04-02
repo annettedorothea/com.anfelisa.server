@@ -12,7 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.lesson.models.ILessonModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class LessonCreationData implements ILessonCreationData {
 	
 	private String uuid;

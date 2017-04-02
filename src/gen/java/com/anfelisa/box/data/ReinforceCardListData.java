@@ -14,7 +14,7 @@ import com.anfelisa.box.models.IReinforceCardListModel;
 import com.anfelisa.user.models.ICredentialsModel;
 import com.anfelisa.box.models.IBoxModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class ReinforceCardListData implements IReinforceCardListData {
 	
 	private String uuid;

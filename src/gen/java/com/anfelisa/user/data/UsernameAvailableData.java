@@ -13,7 +13,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.user.models.IUsernameModel;
 import com.anfelisa.user.models.IAvailableModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class UsernameAvailableData implements IUsernameAvailableData {
 	
 	private String uuid;

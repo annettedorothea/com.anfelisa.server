@@ -13,7 +13,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.user.models.IForgotPasswordModel;
 import com.anfelisa.user.models.ILanguageModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class ForgotPasswordData implements IForgotPasswordData {
 	
 	private String uuid;

@@ -12,7 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IScoredCardModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class ScoredCardData implements IScoredCardData {
 	
 	private String uuid;

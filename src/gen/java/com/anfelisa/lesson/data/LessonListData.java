@@ -14,7 +14,7 @@ import com.anfelisa.lesson.models.ILessonListModel;
 import com.anfelisa.course.models.ICourseIdModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class LessonListData implements ILessonListData {
 	
 	private String uuid;

@@ -17,7 +17,7 @@ import com.anfelisa.box.models.ICardQualityModel;
 import com.anfelisa.box.models.INowModel;
 import com.anfelisa.user.models.ICredentialsModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class ScoreCardData implements IScoreCardData {
 	
 	private String uuid;

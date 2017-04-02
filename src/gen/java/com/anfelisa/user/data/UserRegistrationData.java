@@ -13,7 +13,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.user.models.IUserModel;
 import com.anfelisa.user.models.ILanguageModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class UserRegistrationData implements IUserRegistrationData {
 	
 	private String uuid;

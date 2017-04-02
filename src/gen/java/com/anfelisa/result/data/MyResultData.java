@@ -17,7 +17,7 @@ import com.anfelisa.lesson.models.ILessonAbstractModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
 import com.anfelisa.test.models.IMyTestListModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class MyResultData implements IMyResultData {
 	
 	private String uuid;

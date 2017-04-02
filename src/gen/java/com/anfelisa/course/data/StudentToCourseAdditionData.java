@@ -13,7 +13,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.course.models.IStudentOfCourseModel;
 import com.anfelisa.user.models.ICredentialsModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class StudentToCourseAdditionData implements IStudentToCourseAdditionData {
 	
 	private String uuid;

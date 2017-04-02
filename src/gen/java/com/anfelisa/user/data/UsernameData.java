@@ -12,7 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IUsernameModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class UsernameData implements IUsernameData {
 	
 	private String uuid;

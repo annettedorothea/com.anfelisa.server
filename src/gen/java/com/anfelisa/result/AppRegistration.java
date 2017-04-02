@@ -8,6 +8,7 @@ import org.skife.jdbi.v2.DBI;
 import com.anfelisa.result.views.*;
 import com.anfelisa.result.actions.*;
 
+@SuppressWarnings("all")
 public class AppRegistration {
 
 	public static void registerResources(Environment environment, DBI jdbi) {

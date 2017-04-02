@@ -12,7 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.result.models.IResultModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class ResultCreationData implements IResultCreationData {
 	
 	private String uuid;

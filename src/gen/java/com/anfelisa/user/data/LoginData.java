@@ -13,7 +13,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.user.models.ILoginLogModel;
 import com.anfelisa.user.models.IUsernameModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class LoginData implements ILoginData {
 	
 	private String uuid;

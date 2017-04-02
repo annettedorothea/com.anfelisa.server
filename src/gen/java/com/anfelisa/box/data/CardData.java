@@ -17,7 +17,7 @@ import com.anfelisa.box.models.ICardInfoModel;
 import com.anfelisa.box.models.ICardContentModel;
 import com.anfelisa.user.models.ICredentialsModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class CardData implements ICardData {
 	
 	private String uuid;

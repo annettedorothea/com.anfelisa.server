@@ -14,7 +14,7 @@ import com.anfelisa.box.models.IFillBoxModel;
 import com.anfelisa.user.models.ICredentialsModel;
 import com.anfelisa.box.models.INowModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class FillBoxData implements IFillBoxData {
 	
 	private String uuid;

@@ -14,7 +14,7 @@ import com.anfelisa.box.models.IBoxConfigModel;
 import com.anfelisa.user.models.IUsernameModel;
 import com.anfelisa.user.models.ICredentialsModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class BoxConfigData implements IBoxConfigData {
 	
 	private String uuid;

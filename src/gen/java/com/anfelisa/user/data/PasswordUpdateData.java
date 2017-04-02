@@ -12,7 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IUsernameAndPasswordModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class PasswordUpdateData implements IPasswordUpdateData {
 	
 	private String uuid;

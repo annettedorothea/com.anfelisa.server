@@ -13,7 +13,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.box.models.IBoxOfCourseModel;
 import com.anfelisa.user.models.ICredentialsModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	
 	private String uuid;

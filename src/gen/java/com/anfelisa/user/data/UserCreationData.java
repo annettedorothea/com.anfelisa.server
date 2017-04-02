@@ -12,7 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IUserModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class UserCreationData implements IUserCreationData {
 	
 	private String uuid;

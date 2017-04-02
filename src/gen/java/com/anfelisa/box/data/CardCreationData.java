@@ -12,7 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.ICardModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class CardCreationData implements ICardCreationData {
 	
 	private String uuid;

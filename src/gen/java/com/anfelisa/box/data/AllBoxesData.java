@@ -12,7 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IAllBoxesModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class AllBoxesData implements IAllBoxesData {
 	
 	private String uuid;

@@ -13,7 +13,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.test.models.ICardContentHashListModel;
 import com.anfelisa.test.models.ITestIdModel;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class CardContentHashListData implements ICardContentHashListData {
 	
 	private String uuid;

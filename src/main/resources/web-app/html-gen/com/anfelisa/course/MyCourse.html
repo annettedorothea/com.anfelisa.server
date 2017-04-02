@@ -7,67 +7,65 @@
         </div>
     </div>
 
-	<div class="form-group" id="courseIdDiv">
-	    <label for="courseId" class="col-sm-3 control-label">* {{texts.courseId}}</label>
+	<div class="form-group" id="myCourseCourseIdDiv">
+	    <label for="myCourseCourseId" class="col-sm-3 control-label">* {{texts.mycourse.courseId}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="courseId" placeholder="{{texts.courseId}}" value="{{courseId}}" onblur="new ValidateRequiredFieldAction({id : 'courseId'}).apply()">
-	        <span class="help-block notEmpty" style="display: none">{{texts.courseIdNotEmpty}}</span>
+	        <input type="text" class="form-control" id="myCourseCourseId" placeholder="{{texts.mycourse.courseId}}" value="{{myCourse.courseId}}" onblur="new ValidateRequiredFieldAction({id : 'myCourseCourseId'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.mycourse.courseIdNotEmpty}}</span>
 	    </div>
 	</div>
 	
-	<div class="form-group" id="nameDiv">
-	    <label for="name" class="col-sm-3 control-label">* {{texts.name}}</label>
+	<div class="form-group" id="myCourseNameDiv">
+	    <label for="myCourseName" class="col-sm-3 control-label">* {{texts.mycourse.name}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="name" placeholder="{{texts.name}}" value="{{name}}" onblur="new ValidateRequiredFieldAction({id : 'name'}).apply()">
-	        <span class="help-block notEmpty" style="display: none">{{texts.nameNotEmpty}}</span>
+	        <input type="text" class="form-control" id="myCourseName" placeholder="{{texts.mycourse.name}}" value="{{myCourse.name}}" onblur="new ValidateRequiredFieldAction({id : 'myCourseName'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.mycourse.nameNotEmpty}}</span>
 	    </div>
 	</div>
 	
-	<div class="form-group" id="descriptionDiv">
-	    <label for="description" class="col-sm-3 control-label">{{texts.description}}</label>
+	<div class="form-group" id="myCourseDescriptionDiv">
+	    <label for="myCourseDescription" class="col-sm-3 control-label">{{texts.mycourse.description}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="description" placeholder="{{texts.description}}" value="{{description}}">
-	        <span class="help-block notEmpty" style="display: none">{{texts.descriptionNotEmpty}}</span>
+	        <input type="text" class="form-control" id="myCourseDescription" placeholder="{{texts.mycourse.description}}" value="{{myCourse.description}}">
 	    </div>
 	</div>
 	
-	<div class="form-group" id="sequenceDiv">
-	    <label for="sequence" class="col-sm-3 control-label">{{texts.sequence}}</label>
+	<div class="form-group" id="myCourseSequenceDiv">
+	    <label for="myCourseSequence" class="col-sm-3 control-label">{{texts.mycourse.sequence}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="sequence" placeholder="{{texts.sequence}}" value="{{sequence}}">
-	        <span class="help-block notEmpty" style="display: none">{{texts.sequenceNotEmpty}}</span>
+	        <input type="text" class="form-control" id="myCourseSequence" placeholder="{{texts.mycourse.sequence}}" value="{{myCourse.sequence}}">
 	    </div>
 	</div>
 	
-	<div class="form-group" id="isPublicDiv">
-	    <label for="isPublic" class="col-sm-3 control-label">* {{texts.isPublic}}</label>
+	<div class="form-group" id="myCourseIsPublicDiv">
+	    <label for="myCourseIsPublic" class="col-sm-3 control-label">* {{texts.mycourse.isPublic}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="isPublic" placeholder="{{texts.isPublic}}" value="{{isPublic}}" onblur="new ValidateRequiredFieldAction({id : 'isPublic'}).apply()">
-	        <span class="help-block notEmpty" style="display: none">{{texts.isPublicNotEmpty}}</span>
+	        <input type="text" class="form-control" id="myCourseIsPublic" placeholder="{{texts.mycourse.isPublic}}" value="{{myCourse.isPublic}}" onblur="new ValidateRequiredFieldAction({id : 'myCourseIsPublic'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.mycourse.isPublicNotEmpty}}</span>
 	    </div>
 	</div>
 	
-	<div class="form-group" id="authorDiv">
-	    <label for="author" class="col-sm-3 control-label">* {{texts.author}}</label>
+	<div class="form-group" id="myCourseAuthorDiv">
+	    <label for="myCourseAuthor" class="col-sm-3 control-label">* {{texts.mycourse.author}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="author" placeholder="{{texts.author}}" value="{{author}}" onblur="new ValidateRequiredFieldAction({id : 'author'}).apply()">
-	        <span class="help-block notEmpty" style="display: none">{{texts.authorNotEmpty}}</span>
+	        <input type="text" class="form-control" id="myCourseAuthor" placeholder="{{texts.mycourse.author}}" value="{{myCourse.author}}" onblur="new ValidateRequiredFieldAction({id : 'myCourseAuthor'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.mycourse.authorNotEmpty}}</span>
 	    </div>
 	</div>
 	
-	<div class="form-group" id="openTestsDiv">
-	    <label for="openTests" class="col-sm-3 control-label">* {{texts.openTests}}</label>
+	<div class="form-group" id="myCourseOpenTestsDiv">
+	    <label for="myCourseOpenTests" class="col-sm-3 control-label">* {{texts.mycourse.openTests}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="openTests" placeholder="{{texts.openTests}}" value="{{openTests}}" onblur="new ValidateRequiredFieldAction({id : 'openTests'}).apply()">
-	        <span class="help-block notEmpty" style="display: none">{{texts.openTestsNotEmpty}}</span>
+	        <input type="text" class="form-control" id="myCourseOpenTests" placeholder="{{texts.mycourse.openTests}}" value="{{myCourse.openTests}}" onblur="new ValidateRequiredFieldAction({id : 'myCourseOpenTests'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.mycourse.openTestsNotEmpty}}</span>
 	    </div>
 	</div>
 	
-	<div class="form-group" id="hasOpenTestsDiv">
-	    <label for="hasOpenTests" class="col-sm-3 control-label">* {{texts.hasOpenTests}}</label>
+	<div class="form-group" id="myCourseHasOpenTestsDiv">
+	    <label for="myCourseHasOpenTests" class="col-sm-3 control-label">* {{texts.mycourse.hasOpenTests}}</label>
 	    <div class="col-sm-9">
-	        <input type="text" class="form-control" id="hasOpenTests" placeholder="{{texts.hasOpenTests}}" value="{{hasOpenTests}}" onblur="new ValidateRequiredFieldAction({id : 'hasOpenTests'}).apply()">
-	        <span class="help-block notEmpty" style="display: none">{{texts.hasOpenTestsNotEmpty}}</span>
+	        <input type="text" class="form-control" id="myCourseHasOpenTests" placeholder="{{texts.mycourse.hasOpenTests}}" value="{{myCourse.hasOpenTests}}" onblur="new ValidateRequiredFieldAction({id : 'myCourseHasOpenTests'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.mycourse.hasOpenTestsNotEmpty}}</span>
 	    </div>
 	</div>
 	
