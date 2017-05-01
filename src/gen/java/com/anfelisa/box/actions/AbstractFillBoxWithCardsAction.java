@@ -14,7 +14,7 @@ import com.anfelisa.box.commands.FillBoxWithCardsCommand;
 public abstract class AbstractFillBoxWithCardsAction extends Action<FillBoxData> {
 
 	public AbstractFillBoxWithCardsAction(DBI jdbi) {
-		super("FillBoxWithCardsAction", HttpMethod.POST, jdbi);
+		super("com.anfelisa.box.actions.FillBoxWithCardsAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

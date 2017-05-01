@@ -13,7 +13,7 @@ import com.anfelisa.user.data.PointsData;
 public abstract class AbstractGetPointsAction extends Action<PointsData> {
 
 	public AbstractGetPointsAction(DBI jdbi) {
-		super("GetPointsAction", HttpMethod.GET, jdbi);
+		super("com.anfelisa.user.actions.GetPointsAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

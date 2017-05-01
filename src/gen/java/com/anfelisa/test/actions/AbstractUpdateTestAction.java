@@ -14,7 +14,7 @@ import com.anfelisa.test.commands.UpdateTestCommand;
 public abstract class AbstractUpdateTestAction extends Action<TestCreationData> {
 
 	public AbstractUpdateTestAction(DBI jdbi) {
-		super("UpdateTestAction", HttpMethod.PUT, jdbi);
+		super("com.anfelisa.test.actions.UpdateTestAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

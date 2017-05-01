@@ -8,7 +8,7 @@ import com.anfelisa.box.data.CardIdData;
 public abstract class AbstractCardDeletedEvent extends Event<CardIdData> {
 
 	public AbstractCardDeletedEvent(CardIdData eventParam, DatabaseHandle databaseHandle) {
-		super("CardDeletedEvent", eventParam, databaseHandle);
+		super("com.anfelisa.box.events.CardDeletedEvent", eventParam, databaseHandle);
 	}
 
 }

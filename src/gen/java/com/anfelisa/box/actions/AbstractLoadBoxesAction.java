@@ -13,7 +13,7 @@ import com.anfelisa.box.data.BoxListData;
 public abstract class AbstractLoadBoxesAction extends Action<BoxListData> {
 
 	public AbstractLoadBoxesAction(DBI jdbi) {
-		super("LoadBoxesAction", HttpMethod.GET, jdbi);
+		super("com.anfelisa.box.actions.LoadBoxesAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

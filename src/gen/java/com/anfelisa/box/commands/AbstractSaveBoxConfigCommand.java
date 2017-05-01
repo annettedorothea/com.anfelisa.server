@@ -13,7 +13,7 @@ public abstract class AbstractSaveBoxConfigCommand extends Command<BoxConfigData
 	protected static final String saved = "saved";
 
 	public AbstractSaveBoxConfigCommand(BoxConfigData commandParam, DatabaseHandle databaseHandle) {
-		super("SaveBoxConfigCommand", commandParam, databaseHandle);
+		super("com.anfelisa.box.commands.SaveBoxConfigCommand", commandParam, databaseHandle);
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public abstract class AbstractCreateTestCommand extends Command<TestCreationData
 	protected static final String created = "created";
 
 	public AbstractCreateTestCommand(TestCreationData commandParam, DatabaseHandle databaseHandle) {
-		super("CreateTestCommand", commandParam, databaseHandle);
+		super("com.anfelisa.test.commands.CreateTestCommand", commandParam, databaseHandle);
 	}
 
 	@Override

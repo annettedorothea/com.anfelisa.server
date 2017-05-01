@@ -8,7 +8,7 @@ import com.anfelisa.box.data.ScheduledCardData;
 public abstract class AbstractScheduledCardCreatedEvent extends Event<ScheduledCardData> {
 
 	public AbstractScheduledCardCreatedEvent(ScheduledCardData eventParam, DatabaseHandle databaseHandle) {
-		super("ScheduledCardCreatedEvent", eventParam, databaseHandle);
+		super("com.anfelisa.box.events.ScheduledCardCreatedEvent", eventParam, databaseHandle);
 	}
 
 }

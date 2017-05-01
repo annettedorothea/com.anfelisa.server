@@ -9,62 +9,64 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 
+import com.anfelisa.ace.encryption.EncryptionService;
+
 @SuppressWarnings("all")
 @JsonIgnoreType
 public class ResultDao {
 	
 	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS anfelisa.result (resultId serial NOT NULL  , username character varying NOT NULL  , testId integer NOT NULL  , date timestamp with time zone NOT NULL  , json character varying NOT NULL  , points integer NOT NULL  , maxPoints integer NOT NULL  , CONSTRAINT result_pkey PRIMARY KEY (resultId), CONSTRAINT result_username_fkey FOREIGN KEY (username) REFERENCES anfelisa.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_testId_fkey FOREIGN KEY (testId) REFERENCES anfelisa.test ( testId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_resultId_unique UNIQUE (resultId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS anfelisa.result (resultid serial NOT NULL  , username character varying NOT NULL  , testid integer NOT NULL  , date timestamp with time zone NOT NULL  , json character varying NOT NULL  , points integer NOT NULL  , maxpoints integer NOT NULL  , CONSTRAINT result_pkey PRIMARY KEY (resultid), CONSTRAINT result_username_fkey FOREIGN KEY (username) REFERENCES anfelisa.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_testid_fkey FOREIGN KEY (testid) REFERENCES anfelisa.test ( testid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT result_resultId_unique UNIQUE (resultId))");
 	}
 	
 	public Integer insert(Handle handle, IResultModel resultModel) {
 		if (resultModel.getResultId() != null) {
-			Update statement = handle.createStatement("INSERT INTO anfelisa.result (resultId, username, testId, date, json, points, maxPoints) VALUES (:resultId, :username, :testId, :date, :json, :points, :maxPoints)");
-			statement.bind("resultId", resultModel.getResultId());
-			statement.bind("username", resultModel.getUsername());
-			statement.bind("testId", resultModel.getTestId());
-			statement.bind("date", resultModel.getDate());
-			statement.bind("json", resultModel.getJson());
-			statement.bind("points", resultModel.getPoints());
-			statement.bind("maxPoints", resultModel.getMaxPoints());
+			Update statement = handle.createStatement("INSERT INTO anfelisa.result (resultid, username, testid, date, json, points, maxpoints) VALUES (:resultid, :username, :testid, :date, :json, :points, :maxpoints)");
+			statement.bind("resultid",  resultModel.getResultId() );
+			statement.bind("username",  resultModel.getUsername() );
+			statement.bind("testid",  resultModel.getTestId() );
+			statement.bind("date",  resultModel.getDate() );
+			statement.bind("json",  resultModel.getJson() );
+			statement.bind("points",  resultModel.getPoints() );
+			statement.bind("maxpoints",  resultModel.getMaxPoints() );
 			statement.execute();
-			handle.createStatement("SELECT setval('anfelisa.result_resultId_seq', (SELECT MAX(resultId) FROM anfelisa.result));").execute();
+			handle.createStatement("SELECT setval('anfelisa.result_resultid_seq', (SELECT MAX(resultid) FROM anfelisa.result));").execute();
 			return resultModel.getResultId();
 		} else {
-			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO anfelisa.result (username, testId, date, json, points, maxPoints) VALUES (:username, :testId, :date, :json, :points, :maxPoints) RETURNING resultId");
-			statement.bind("username", resultModel.getUsername());
-			statement.bind("testId", resultModel.getTestId());
-			statement.bind("date", resultModel.getDate());
-			statement.bind("json", resultModel.getJson());
-			statement.bind("points", resultModel.getPoints());
-			statement.bind("maxPoints", resultModel.getMaxPoints());
+			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO anfelisa.result (username, testid, date, json, points, maxpoints) VALUES (:username, :testid, :date, :json, :points, :maxpoints) RETURNING resultid");
+			statement.bind("username",  resultModel.getUsername() );
+			statement.bind("testid",  resultModel.getTestId() );
+			statement.bind("date",  resultModel.getDate() );
+			statement.bind("json",  resultModel.getJson() );
+			statement.bind("points",  resultModel.getPoints() );
+			statement.bind("maxpoints",  resultModel.getMaxPoints() );
 			Map<String, Object> first = statement.first();
-			return (Integer) first.get("resultId");
+			return (Integer) first.get("resultid");
 		}
 	}
 	
 	
 	public void updateByResultId(Handle handle, IResultModel resultModel) {
-		Update statement = handle.createStatement("UPDATE anfelisa.result SET resultId = :resultId, username = :username, testId = :testId, date = :date, json = :json, points = :points, maxPoints = :maxPoints WHERE resultId = :resultId");
-		statement.bind("resultId", resultModel.getResultId());
-		statement.bind("username", resultModel.getUsername());
-		statement.bind("testId", resultModel.getTestId());
-		statement.bind("date", resultModel.getDate());
-		statement.bind("json", resultModel.getJson());
-		statement.bind("points", resultModel.getPoints());
-		statement.bind("maxPoints", resultModel.getMaxPoints());
+		Update statement = handle.createStatement("UPDATE anfelisa.result SET resultid = :resultid, username = :username, testid = :testid, date = :date, json = :json, points = :points, maxpoints = :maxpoints WHERE resultid = :resultid");
+		statement.bind("resultid",  resultModel.getResultId() );
+		statement.bind("username",  resultModel.getResultId() );
+		statement.bind("testid",  resultModel.getResultId() );
+		statement.bind("date",  resultModel.getResultId() );
+		statement.bind("json",  resultModel.getResultId() );
+		statement.bind("points",  resultModel.getResultId() );
+		statement.bind("maxpoints",  resultModel.getResultId() );
 		statement.execute();
 	}
 
 	public void deleteByResultId(Handle handle, Integer resultId) {
-		Update statement = handle.createStatement("DELETE FROM anfelisa.result WHERE resultId = :resultId");
-		statement.bind("resultId", resultId);
+		Update statement = handle.createStatement("DELETE FROM anfelisa.result WHERE resultid = :resultid");
+		statement.bind("resultid", resultId);
 		statement.execute();
 	}
 
 	public IResultModel selectByResultId(Handle handle, Integer resultId) {
-		return handle.createQuery("SELECT * FROM anfelisa.result WHERE resultId = :resultId")
-			.bind("resultId", resultId)
+		return handle.createQuery("SELECT * FROM anfelisa.result WHERE resultid = :resultid")
+			.bind("resultid", resultId)
 			.map(new ResultMapper())
 			.first();
 	}

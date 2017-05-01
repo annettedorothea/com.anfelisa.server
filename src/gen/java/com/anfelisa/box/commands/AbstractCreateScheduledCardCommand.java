@@ -13,7 +13,7 @@ public abstract class AbstractCreateScheduledCardCommand extends Command<Schedul
 	protected static final String created = "created";
 
 	public AbstractCreateScheduledCardCommand(ScheduledCardData commandParam, DatabaseHandle databaseHandle) {
-		super("CreateScheduledCardCommand", commandParam, databaseHandle);
+		super("com.anfelisa.box.commands.CreateScheduledCardCommand", commandParam, databaseHandle);
 	}
 
 	@Override

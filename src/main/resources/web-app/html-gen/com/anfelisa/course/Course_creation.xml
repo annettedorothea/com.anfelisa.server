@@ -1,5 +1,5 @@
 <createTable tableName="course">
-	<column name="courseId" type="serial">
+	<column name="courseid" type="serial">
 		<constraints primaryKey="true" nullable="false"/>
 	</column>
 	<column name="name" type="character varying">
@@ -11,7 +11,7 @@
 	<column name="sequence" type="integer">
 		<constraints  />
 	</column>
-	<column name="isPublic" type="boolean">
+	<column name="ispublic" type="boolean">
 		<constraints  nullable="false"/>
 	</column>
 	<column name="author" type="character varying">

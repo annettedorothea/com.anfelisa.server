@@ -13,7 +13,7 @@ public abstract class AbstractAddStudentToCourseCommand extends Command<StudentT
 	protected static final String added = "added";
 
 	public AbstractAddStudentToCourseCommand(StudentToCourseAdditionData commandParam, DatabaseHandle databaseHandle) {
-		super("AddStudentToCourseCommand", commandParam, databaseHandle);
+		super("com.anfelisa.course.commands.AddStudentToCourseCommand", commandParam, databaseHandle);
 	}
 
 	@Override

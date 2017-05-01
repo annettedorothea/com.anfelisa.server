@@ -13,7 +13,7 @@ import com.anfelisa.box.data.ReinforceCardListData;
 public abstract class AbstractLoadReinforceCardListAction extends Action<ReinforceCardListData> {
 
 	public AbstractLoadReinforceCardListAction(DBI jdbi) {
-		super("LoadReinforceCardListAction", HttpMethod.GET, jdbi);
+		super("com.anfelisa.box.actions.LoadReinforceCardListAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

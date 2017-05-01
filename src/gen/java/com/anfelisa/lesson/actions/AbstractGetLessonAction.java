@@ -13,7 +13,7 @@ import com.anfelisa.lesson.data.LessonData;
 public abstract class AbstractGetLessonAction extends Action<LessonData> {
 
 	public AbstractGetLessonAction(DBI jdbi) {
-		super("GetLessonAction", HttpMethod.GET, jdbi);
+		super("com.anfelisa.lesson.actions.GetLessonAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

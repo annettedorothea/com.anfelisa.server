@@ -8,7 +8,7 @@ import com.anfelisa.box.data.DeleteBoxData;
 public abstract class AbstractBoxDeletedEvent extends Event<DeleteBoxData> {
 
 	public AbstractBoxDeletedEvent(DeleteBoxData eventParam, DatabaseHandle databaseHandle) {
-		super("BoxDeletedEvent", eventParam, databaseHandle);
+		super("com.anfelisa.box.events.BoxDeletedEvent", eventParam, databaseHandle);
 	}
 
 }

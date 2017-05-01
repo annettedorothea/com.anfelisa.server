@@ -8,7 +8,7 @@ import com.anfelisa.box.data.ScoredCardData;
 public abstract class AbstractScoredCardCreatedEvent extends Event<ScoredCardData> {
 
 	public AbstractScoredCardCreatedEvent(ScoredCardData eventParam, DatabaseHandle databaseHandle) {
-		super("ScoredCardCreatedEvent", eventParam, databaseHandle);
+		super("com.anfelisa.box.events.ScoredCardCreatedEvent", eventParam, databaseHandle);
 	}
 
 }

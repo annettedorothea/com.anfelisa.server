@@ -8,7 +8,7 @@ import com.anfelisa.result.data.ResultCreationData;
 public abstract class AbstractResultCreatedEvent extends Event<ResultCreationData> {
 
 	public AbstractResultCreatedEvent(ResultCreationData eventParam, DatabaseHandle databaseHandle) {
-		super("ResultCreatedEvent", eventParam, databaseHandle);
+		super("com.anfelisa.result.events.ResultCreatedEvent", eventParam, databaseHandle);
 	}
 
 }

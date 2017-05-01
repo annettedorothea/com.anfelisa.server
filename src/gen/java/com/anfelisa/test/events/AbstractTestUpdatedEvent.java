@@ -8,7 +8,7 @@ import com.anfelisa.test.data.TestCreationData;
 public abstract class AbstractTestUpdatedEvent extends Event<TestCreationData> {
 
 	public AbstractTestUpdatedEvent(TestCreationData eventParam, DatabaseHandle databaseHandle) {
-		super("TestUpdatedEvent", eventParam, databaseHandle);
+		super("com.anfelisa.test.events.TestUpdatedEvent", eventParam, databaseHandle);
 	}
 
 }

@@ -13,7 +13,7 @@ import com.anfelisa.course.data.CourseListData;
 public abstract class AbstractLoadPublicCoursesAction extends Action<CourseListData> {
 
 	public AbstractLoadPublicCoursesAction(DBI jdbi) {
-		super("LoadPublicCoursesAction", HttpMethod.GET, jdbi);
+		super("com.anfelisa.course.actions.LoadPublicCoursesAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

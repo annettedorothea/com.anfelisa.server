@@ -14,7 +14,7 @@ import com.anfelisa.lesson.commands.UpdateLessonCommand;
 public abstract class AbstractUpdateLessonAction extends Action<LessonData> {
 
 	public AbstractUpdateLessonAction(DBI jdbi) {
-		super("UpdateLessonAction", HttpMethod.PUT, jdbi);
+		super("com.anfelisa.lesson.actions.UpdateLessonAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

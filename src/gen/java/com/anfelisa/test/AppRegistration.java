@@ -25,8 +25,8 @@ public class AppRegistration {
 	public static void registerConsumers() {
 		TestView testView = new TestView();
 		
-		AceController.addConsumer("TestCreatedEvent", testView.createTest);
-		AceController.addConsumer("TestUpdatedEvent", testView.updateTest);
+		AceController.addConsumer("com.anfelisa.test.events.TestCreatedEvent", testView.createTest);
+		AceController.addConsumer("com.anfelisa.test.events.TestUpdatedEvent", testView.updateTest);
     }
 }
 

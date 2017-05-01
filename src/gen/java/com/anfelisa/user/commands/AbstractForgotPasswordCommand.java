@@ -14,7 +14,7 @@ public abstract class AbstractForgotPasswordCommand extends Command<ForgotPasswo
 	protected static final String userNotFound = "userNotFound";
 
 	public AbstractForgotPasswordCommand(ForgotPasswordData commandParam, DatabaseHandle databaseHandle) {
-		super("ForgotPasswordCommand", commandParam, databaseHandle);
+		super("com.anfelisa.user.commands.ForgotPasswordCommand", commandParam, databaseHandle);
 	}
 
 	@Override

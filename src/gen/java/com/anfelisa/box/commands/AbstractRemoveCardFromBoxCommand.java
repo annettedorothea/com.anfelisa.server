@@ -13,7 +13,7 @@ public abstract class AbstractRemoveCardFromBoxCommand extends Command<Scheduled
 	protected static final String deleted = "deleted";
 
 	public AbstractRemoveCardFromBoxCommand(ScheduledCardIdData commandParam, DatabaseHandle databaseHandle) {
-		super("RemoveCardFromBoxCommand", commandParam, databaseHandle);
+		super("com.anfelisa.box.commands.RemoveCardFromBoxCommand", commandParam, databaseHandle);
 	}
 
 	@Override

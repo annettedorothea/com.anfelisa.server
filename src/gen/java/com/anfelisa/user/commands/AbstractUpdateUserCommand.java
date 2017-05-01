@@ -13,7 +13,7 @@ public abstract class AbstractUpdateUserCommand extends Command<UserUpdateData> 
 	protected static final String success = "success";
 
 	public AbstractUpdateUserCommand(UserUpdateData commandParam, DatabaseHandle databaseHandle) {
-		super("UpdateUserCommand", commandParam, databaseHandle);
+		super("com.anfelisa.user.commands.UpdateUserCommand", commandParam, databaseHandle);
 	}
 
 	@Override

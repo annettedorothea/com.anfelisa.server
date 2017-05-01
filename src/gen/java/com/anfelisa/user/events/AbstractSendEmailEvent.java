@@ -8,7 +8,7 @@ import com.anfelisa.user.data.ForgotPasswordData;
 public abstract class AbstractSendEmailEvent extends Event<ForgotPasswordData> {
 
 	public AbstractSendEmailEvent(ForgotPasswordData eventParam, DatabaseHandle databaseHandle) {
-		super("SendEmailEvent", eventParam, databaseHandle);
+		super("com.anfelisa.user.events.SendEmailEvent", eventParam, databaseHandle);
 	}
 
 }

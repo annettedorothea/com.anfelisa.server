@@ -14,7 +14,7 @@ import com.anfelisa.box.commands.UpdateBoxCommand;
 public abstract class AbstractUpdateBoxAction extends Action<BoxCreationData> {
 
 	public AbstractUpdateBoxAction(DBI jdbi) {
-		super("UpdateBoxAction", HttpMethod.PUT, jdbi);
+		super("com.anfelisa.box.actions.UpdateBoxAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

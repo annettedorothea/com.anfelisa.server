@@ -8,7 +8,7 @@ import com.anfelisa.box.data.BoxCreationData;
 public abstract class AbstractBoxUpdatedEvent extends Event<BoxCreationData> {
 
 	public AbstractBoxUpdatedEvent(BoxCreationData eventParam, DatabaseHandle databaseHandle) {
-		super("BoxUpdatedEvent", eventParam, databaseHandle);
+		super("com.anfelisa.box.events.BoxUpdatedEvent", eventParam, databaseHandle);
 	}
 
 }

@@ -14,7 +14,7 @@ import com.anfelisa.user.commands.RemoveCourseCommand;
 public abstract class AbstractRemoveCourseAction extends Action<RemoveCourseData> {
 
 	public AbstractRemoveCourseAction(DBI jdbi) {
-		super("RemoveCourseAction", HttpMethod.DELETE, jdbi);
+		super("com.anfelisa.user.actions.RemoveCourseAction", HttpMethod.DELETE, jdbi);
 	}
 
 	@Override

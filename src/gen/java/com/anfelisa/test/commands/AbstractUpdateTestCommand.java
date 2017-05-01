@@ -13,7 +13,7 @@ public abstract class AbstractUpdateTestCommand extends Command<TestCreationData
 	protected static final String updated = "updated";
 
 	public AbstractUpdateTestCommand(TestCreationData commandParam, DatabaseHandle databaseHandle) {
-		super("UpdateTestCommand", commandParam, databaseHandle);
+		super("com.anfelisa.test.commands.UpdateTestCommand", commandParam, databaseHandle);
 	}
 
 	@Override

@@ -8,7 +8,7 @@ import com.anfelisa.box.data.FillBoxData;
 public abstract class AbstractFillBoxWithCardsEvent extends Event<FillBoxData> {
 
 	public AbstractFillBoxWithCardsEvent(FillBoxData eventParam, DatabaseHandle databaseHandle) {
-		super("FillBoxWithCardsEvent", eventParam, databaseHandle);
+		super("com.anfelisa.box.events.FillBoxWithCardsEvent", eventParam, databaseHandle);
 	}
 
 }

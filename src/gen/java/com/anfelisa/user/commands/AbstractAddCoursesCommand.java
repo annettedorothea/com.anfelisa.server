@@ -13,7 +13,7 @@ public abstract class AbstractAddCoursesCommand extends Command<AddCoursesData> 
 	protected static final String success = "success";
 
 	public AbstractAddCoursesCommand(AddCoursesData commandParam, DatabaseHandle databaseHandle) {
-		super("AddCoursesCommand", commandParam, databaseHandle);
+		super("com.anfelisa.user.commands.AddCoursesCommand", commandParam, databaseHandle);
 	}
 
 	@Override

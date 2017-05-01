@@ -14,7 +14,7 @@ import com.anfelisa.user.commands.CreateUserCommand;
 public abstract class AbstractCreateUserAction extends Action<UserCreationData> {
 
 	public AbstractCreateUserAction(DBI jdbi) {
-		super("CreateUserAction", HttpMethod.POST, jdbi);
+		super("com.anfelisa.user.actions.CreateUserAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

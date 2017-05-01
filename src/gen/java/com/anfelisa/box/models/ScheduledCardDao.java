@@ -9,74 +9,76 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 
+import com.anfelisa.ace.encryption.EncryptionService;
+
 @SuppressWarnings("all")
 @JsonIgnoreType
 public class ScheduledCardDao {
 	
 	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS anfelisa.scheduledcard (scheduledCardId serial NOT NULL  , cardId integer NOT NULL  , ef numeric NOT NULL  , interval integer  , n integer NOT NULL  , count integer NOT NULL  , scheduledDate timestamp with time zone NOT NULL  , boxId integer NOT NULL  , lastQuality integer  , timestamp timestamp with time zone NOT NULL  , removed boolean NOT NULL  , CONSTRAINT scheduledcard_pkey PRIMARY KEY (scheduledCardId), CONSTRAINT scheduledcard_cardId_fkey FOREIGN KEY (cardId) REFERENCES anfelisa.card ( cardId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT scheduledcard_boxId_fkey FOREIGN KEY (boxId) REFERENCES anfelisa.box ( boxId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT scheduledcard_scheduledCardId_unique UNIQUE (scheduledCardId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS anfelisa.scheduledcard (scheduledcardid serial NOT NULL  , cardid integer NOT NULL  , ef numeric NOT NULL  , interval integer  , n integer NOT NULL  , count integer NOT NULL  , scheduleddate timestamp with time zone NOT NULL  , boxid integer NOT NULL  , lastquality integer  , timestamp timestamp with time zone NOT NULL  , removed boolean NOT NULL  , CONSTRAINT scheduledcard_pkey PRIMARY KEY (scheduledcardid), CONSTRAINT scheduledcard_cardid_fkey FOREIGN KEY (cardid) REFERENCES anfelisa.card ( cardid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT scheduledcard_boxid_fkey FOREIGN KEY (boxid) REFERENCES anfelisa.box ( boxid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT scheduledcard_scheduledCardId_unique UNIQUE (scheduledCardId))");
 	}
 	
 	public Integer insert(Handle handle, IScheduledCardModel scheduledCardModel) {
 		if (scheduledCardModel.getScheduledCardId() != null) {
-			Update statement = handle.createStatement("INSERT INTO anfelisa.scheduledcard (scheduledCardId, cardId, ef, interval, n, count, scheduledDate, boxId, lastQuality, timestamp, removed) VALUES (:scheduledCardId, :cardId, :ef, :interval, :n, :count, :scheduledDate, :boxId, :lastQuality, :timestamp, :removed)");
-			statement.bind("scheduledCardId", scheduledCardModel.getScheduledCardId());
-			statement.bind("cardId", scheduledCardModel.getCardId());
-			statement.bind("ef", scheduledCardModel.getEf());
-			statement.bind("interval", scheduledCardModel.getInterval());
-			statement.bind("n", scheduledCardModel.getN());
-			statement.bind("count", scheduledCardModel.getCount());
-			statement.bind("scheduledDate", scheduledCardModel.getScheduledDate());
-			statement.bind("boxId", scheduledCardModel.getBoxId());
-			statement.bind("lastQuality", scheduledCardModel.getLastQuality());
-			statement.bind("timestamp", scheduledCardModel.getTimestamp());
-			statement.bind("removed", scheduledCardModel.getRemoved());
+			Update statement = handle.createStatement("INSERT INTO anfelisa.scheduledcard (scheduledcardid, cardid, ef, interval, n, count, scheduleddate, boxid, lastquality, timestamp, removed) VALUES (:scheduledcardid, :cardid, :ef, :interval, :n, :count, :scheduleddate, :boxid, :lastquality, :timestamp, :removed)");
+			statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId() );
+			statement.bind("cardid",  scheduledCardModel.getCardId() );
+			statement.bind("ef",  scheduledCardModel.getEf() );
+			statement.bind("interval",  scheduledCardModel.getInterval() );
+			statement.bind("n",  scheduledCardModel.getN() );
+			statement.bind("count",  scheduledCardModel.getCount() );
+			statement.bind("scheduleddate",  scheduledCardModel.getScheduledDate() );
+			statement.bind("boxid",  scheduledCardModel.getBoxId() );
+			statement.bind("lastquality",  scheduledCardModel.getLastQuality() );
+			statement.bind("timestamp",  scheduledCardModel.getTimestamp() );
+			statement.bind("removed",  scheduledCardModel.getRemoved() );
 			statement.execute();
-			handle.createStatement("SELECT setval('anfelisa.scheduledcard_scheduledCardId_seq', (SELECT MAX(scheduledCardId) FROM anfelisa.scheduledcard));").execute();
+			handle.createStatement("SELECT setval('anfelisa.scheduledcard_scheduledcardid_seq', (SELECT MAX(scheduledcardid) FROM anfelisa.scheduledcard));").execute();
 			return scheduledCardModel.getScheduledCardId();
 		} else {
-			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO anfelisa.scheduledcard (cardId, ef, interval, n, count, scheduledDate, boxId, lastQuality, timestamp, removed) VALUES (:cardId, :ef, :interval, :n, :count, :scheduledDate, :boxId, :lastQuality, :timestamp, :removed) RETURNING scheduledCardId");
-			statement.bind("cardId", scheduledCardModel.getCardId());
-			statement.bind("ef", scheduledCardModel.getEf());
-			statement.bind("interval", scheduledCardModel.getInterval());
-			statement.bind("n", scheduledCardModel.getN());
-			statement.bind("count", scheduledCardModel.getCount());
-			statement.bind("scheduledDate", scheduledCardModel.getScheduledDate());
-			statement.bind("boxId", scheduledCardModel.getBoxId());
-			statement.bind("lastQuality", scheduledCardModel.getLastQuality());
-			statement.bind("timestamp", scheduledCardModel.getTimestamp());
-			statement.bind("removed", scheduledCardModel.getRemoved());
+			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO anfelisa.scheduledcard (cardid, ef, interval, n, count, scheduleddate, boxid, lastquality, timestamp, removed) VALUES (:cardid, :ef, :interval, :n, :count, :scheduleddate, :boxid, :lastquality, :timestamp, :removed) RETURNING scheduledcardid");
+			statement.bind("cardid",  scheduledCardModel.getCardId() );
+			statement.bind("ef",  scheduledCardModel.getEf() );
+			statement.bind("interval",  scheduledCardModel.getInterval() );
+			statement.bind("n",  scheduledCardModel.getN() );
+			statement.bind("count",  scheduledCardModel.getCount() );
+			statement.bind("scheduleddate",  scheduledCardModel.getScheduledDate() );
+			statement.bind("boxid",  scheduledCardModel.getBoxId() );
+			statement.bind("lastquality",  scheduledCardModel.getLastQuality() );
+			statement.bind("timestamp",  scheduledCardModel.getTimestamp() );
+			statement.bind("removed",  scheduledCardModel.getRemoved() );
 			Map<String, Object> first = statement.first();
-			return (Integer) first.get("scheduledCardId");
+			return (Integer) first.get("scheduledcardid");
 		}
 	}
 	
 	
 	public void updateByScheduledCardId(Handle handle, IScheduledCardModel scheduledCardModel) {
-		Update statement = handle.createStatement("UPDATE anfelisa.scheduledcard SET scheduledCardId = :scheduledCardId, cardId = :cardId, ef = :ef, interval = :interval, n = :n, count = :count, scheduledDate = :scheduledDate, boxId = :boxId, lastQuality = :lastQuality, timestamp = :timestamp, removed = :removed WHERE scheduledCardId = :scheduledCardId");
-		statement.bind("scheduledCardId", scheduledCardModel.getScheduledCardId());
-		statement.bind("cardId", scheduledCardModel.getCardId());
-		statement.bind("ef", scheduledCardModel.getEf());
-		statement.bind("interval", scheduledCardModel.getInterval());
-		statement.bind("n", scheduledCardModel.getN());
-		statement.bind("count", scheduledCardModel.getCount());
-		statement.bind("scheduledDate", scheduledCardModel.getScheduledDate());
-		statement.bind("boxId", scheduledCardModel.getBoxId());
-		statement.bind("lastQuality", scheduledCardModel.getLastQuality());
-		statement.bind("timestamp", scheduledCardModel.getTimestamp());
-		statement.bind("removed", scheduledCardModel.getRemoved());
+		Update statement = handle.createStatement("UPDATE anfelisa.scheduledcard SET scheduledcardid = :scheduledcardid, cardid = :cardid, ef = :ef, interval = :interval, n = :n, count = :count, scheduleddate = :scheduleddate, boxid = :boxid, lastquality = :lastquality, timestamp = :timestamp, removed = :removed WHERE scheduledcardid = :scheduledcardid");
+		statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId() );
+		statement.bind("cardid",  scheduledCardModel.getScheduledCardId() );
+		statement.bind("ef",  scheduledCardModel.getScheduledCardId() );
+		statement.bind("interval",  scheduledCardModel.getScheduledCardId() );
+		statement.bind("n",  scheduledCardModel.getScheduledCardId() );
+		statement.bind("count",  scheduledCardModel.getScheduledCardId() );
+		statement.bind("scheduleddate",  scheduledCardModel.getScheduledCardId() );
+		statement.bind("boxid",  scheduledCardModel.getScheduledCardId() );
+		statement.bind("lastquality",  scheduledCardModel.getScheduledCardId() );
+		statement.bind("timestamp",  scheduledCardModel.getScheduledCardId() );
+		statement.bind("removed",  scheduledCardModel.getScheduledCardId() );
 		statement.execute();
 	}
 
 	public void deleteByScheduledCardId(Handle handle, Integer scheduledCardId) {
-		Update statement = handle.createStatement("DELETE FROM anfelisa.scheduledcard WHERE scheduledCardId = :scheduledCardId");
-		statement.bind("scheduledCardId", scheduledCardId);
+		Update statement = handle.createStatement("DELETE FROM anfelisa.scheduledcard WHERE scheduledcardid = :scheduledcardid");
+		statement.bind("scheduledcardid", scheduledCardId);
 		statement.execute();
 	}
 
 	public IScheduledCardModel selectByScheduledCardId(Handle handle, Integer scheduledCardId) {
-		return handle.createQuery("SELECT * FROM anfelisa.scheduledcard WHERE scheduledCardId = :scheduledCardId")
-			.bind("scheduledCardId", scheduledCardId)
+		return handle.createQuery("SELECT * FROM anfelisa.scheduledcard WHERE scheduledcardid = :scheduledcardid")
+			.bind("scheduledcardid", scheduledCardId)
 			.map(new ScheduledCardMapper())
 			.first();
 	}

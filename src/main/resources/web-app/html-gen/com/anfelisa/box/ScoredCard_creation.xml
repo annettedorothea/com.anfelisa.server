@@ -1,14 +1,14 @@
 <createTable tableName="scoredcard">
-	<column name="scoredCardId" type="serial">
+	<column name="scoredcardid" type="serial">
 		<constraints primaryKey="true" nullable="false"/>
 	</column>
-	<column name="cardId" type="integer">
+	<column name="cardid" type="integer">
 		<constraints  nullable="false"/>
 	</column>
-	<column name="scheduledDateOfScored" type="timestamp with time zone">
+	<column name="scheduleddateofscored" type="timestamp with time zone">
 		<constraints  />
 	</column>
-	<column name="boxId" type="integer">
+	<column name="boxid" type="integer">
 		<constraints  nullable="false"/>
 	</column>
 	<column name="quality" type="integer">
@@ -20,7 +20,7 @@
 	<column name="points" type="integer">
 		<constraints  />
 	</column>
-	<column name="scheduledCardId" type="integer">
+	<column name="scheduledcardid" type="integer">
 		<constraints  nullable="false"/>
 	</column>
 </createTable>

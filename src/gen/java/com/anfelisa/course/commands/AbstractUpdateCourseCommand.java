@@ -13,7 +13,7 @@ public abstract class AbstractUpdateCourseCommand extends Command<CourseData> {
 	protected static final String updated = "updated";
 
 	public AbstractUpdateCourseCommand(CourseData commandParam, DatabaseHandle databaseHandle) {
-		super("UpdateCourseCommand", commandParam, databaseHandle);
+		super("com.anfelisa.course.commands.UpdateCourseCommand", commandParam, databaseHandle);
 	}
 
 	@Override

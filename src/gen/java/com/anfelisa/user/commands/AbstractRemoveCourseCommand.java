@@ -13,7 +13,7 @@ public abstract class AbstractRemoveCourseCommand extends Command<RemoveCourseDa
 	protected static final String success = "success";
 
 	public AbstractRemoveCourseCommand(RemoveCourseData commandParam, DatabaseHandle databaseHandle) {
-		super("RemoveCourseCommand", commandParam, databaseHandle);
+		super("com.anfelisa.user.commands.RemoveCourseCommand", commandParam, databaseHandle);
 	}
 
 	@Override

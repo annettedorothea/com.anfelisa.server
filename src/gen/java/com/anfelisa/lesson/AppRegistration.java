@@ -22,8 +22,8 @@ public class AppRegistration {
 	public static void registerConsumers() {
 		LessonView lessonView = new LessonView();
 		
-		AceController.addConsumer("LessonCreatedEvent", lessonView.createLesson);
-		AceController.addConsumer("LessonUpdatedEvent", lessonView.updateLesson);
+		AceController.addConsumer("com.anfelisa.lesson.events.LessonCreatedEvent", lessonView.createLesson);
+		AceController.addConsumer("com.anfelisa.lesson.events.LessonUpdatedEvent", lessonView.updateLesson);
     }
 }
 

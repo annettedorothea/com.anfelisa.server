@@ -1,11 +1,11 @@
 <createTable tableName="result">
-	<column name="resultId" type="serial">
+	<column name="resultid" type="serial">
 		<constraints primaryKey="true" nullable="false"/>
 	</column>
 	<column name="username" type="character varying">
 		<constraints  nullable="false"/>
 	</column>
-	<column name="testId" type="integer">
+	<column name="testid" type="integer">
 		<constraints  nullable="false"/>
 	</column>
 	<column name="date" type="timestamp with time zone">
@@ -17,7 +17,7 @@
 	<column name="points" type="integer">
 		<constraints  nullable="false"/>
 	</column>
-	<column name="maxPoints" type="integer">
+	<column name="maxpoints" type="integer">
 		<constraints  nullable="false"/>
 	</column>
 </createTable>

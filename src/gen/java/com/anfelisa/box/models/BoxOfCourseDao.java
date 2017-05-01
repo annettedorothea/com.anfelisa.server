@@ -9,19 +9,21 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 
+import com.anfelisa.ace.encryption.EncryptionService;
+
 @SuppressWarnings("all")
 @JsonIgnoreType
 public class BoxOfCourseDao {
 	
 	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS anfelisa.boxofcourse (boxId integer NOT NULL  , courseId integer NOT NULL  , autoAdd boolean NOT NULL  , CONSTRAINT boxofcourse_boxId_fkey FOREIGN KEY (boxId) REFERENCES anfelisa.box ( boxId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT boxofcourse_courseId_fkey FOREIGN KEY (courseId) REFERENCES anfelisa.course ( courseId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE)");
+		handle.execute("CREATE TABLE IF NOT EXISTS anfelisa.boxofcourse (boxid integer NOT NULL  , courseid integer NOT NULL  , autoadd boolean NOT NULL  , CONSTRAINT boxofcourse_boxid_fkey FOREIGN KEY (boxid) REFERENCES anfelisa.box ( boxid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT boxofcourse_courseid_fkey FOREIGN KEY (courseid) REFERENCES anfelisa.course ( courseid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE)");
 	}
 	
 	public void insert(Handle handle, IBoxOfCourseModel boxOfCourseModel) {
-		Update statement = handle.createStatement("INSERT INTO anfelisa.boxofcourse (boxId, courseId, autoAdd) VALUES (:boxId, :courseId, :autoAdd)");
-		statement.bind("boxId", boxOfCourseModel.getBoxId());
-		statement.bind("courseId", boxOfCourseModel.getCourseId());
-		statement.bind("autoAdd", boxOfCourseModel.getAutoAdd());
+		Update statement = handle.createStatement("INSERT INTO anfelisa.boxofcourse (boxid, courseid, autoadd) VALUES (:boxid, :courseid, :autoadd)");
+		statement.bind("boxid",  boxOfCourseModel.getBoxId() );
+		statement.bind("courseid",  boxOfCourseModel.getCourseId() );
+		statement.bind("autoadd",  boxOfCourseModel.getAutoAdd() );
 		statement.execute();
 	}
 	

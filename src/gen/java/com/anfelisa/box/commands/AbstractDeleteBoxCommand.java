@@ -13,7 +13,7 @@ public abstract class AbstractDeleteBoxCommand extends Command<DeleteBoxData> {
 	protected static final String deleted = "deleted";
 
 	public AbstractDeleteBoxCommand(DeleteBoxData commandParam, DatabaseHandle databaseHandle) {
-		super("DeleteBoxCommand", commandParam, databaseHandle);
+		super("com.anfelisa.box.commands.DeleteBoxCommand", commandParam, databaseHandle);
 	}
 
 	@Override

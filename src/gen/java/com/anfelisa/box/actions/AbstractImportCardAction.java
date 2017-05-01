@@ -14,7 +14,7 @@ import com.anfelisa.box.commands.ImportCardCommand;
 public abstract class AbstractImportCardAction extends Action<CardCreationData> {
 
 	public AbstractImportCardAction(DBI jdbi) {
-		super("ImportCardAction", HttpMethod.POST, jdbi);
+		super("com.anfelisa.box.actions.ImportCardAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

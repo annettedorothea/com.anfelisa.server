@@ -14,7 +14,7 @@ public abstract class AbstractImportCardCommand extends Command<CardCreationData
 	protected static final String alreadyExists = "alreadyExists";
 
 	public AbstractImportCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle) {
-		super("ImportCardCommand", commandParam, databaseHandle);
+		super("com.anfelisa.box.commands.ImportCardCommand", commandParam, databaseHandle);
 	}
 
 	@Override

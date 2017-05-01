@@ -13,7 +13,7 @@ public abstract class AbstractRegisterUserCommand extends Command<UserRegistrati
 	protected static final String ok = "ok";
 
 	public AbstractRegisterUserCommand(UserRegistrationData commandParam, DatabaseHandle databaseHandle) {
-		super("RegisterUserCommand", commandParam, databaseHandle);
+		super("com.anfelisa.user.commands.RegisterUserCommand", commandParam, databaseHandle);
 	}
 
 	@Override

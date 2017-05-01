@@ -8,7 +8,7 @@ import com.anfelisa.user.data.UserRegistrationData;
 public abstract class AbstractUserRegisteredEvent extends Event<UserRegistrationData> {
 
 	public AbstractUserRegisteredEvent(UserRegistrationData eventParam, DatabaseHandle databaseHandle) {
-		super("UserRegisteredEvent", eventParam, databaseHandle);
+		super("com.anfelisa.user.events.UserRegisteredEvent", eventParam, databaseHandle);
 	}
 
 }

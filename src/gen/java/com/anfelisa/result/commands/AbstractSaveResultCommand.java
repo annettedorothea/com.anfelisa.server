@@ -13,7 +13,7 @@ public abstract class AbstractSaveResultCommand extends Command<ResultSaveData> 
 	protected static final String saved = "saved";
 
 	public AbstractSaveResultCommand(ResultSaveData commandParam, DatabaseHandle databaseHandle) {
-		super("SaveResultCommand", commandParam, databaseHandle);
+		super("com.anfelisa.result.commands.SaveResultCommand", commandParam, databaseHandle);
 	}
 
 	@Override

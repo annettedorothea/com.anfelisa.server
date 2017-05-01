@@ -14,7 +14,7 @@ import com.anfelisa.user.commands.ConfirmEmailCommand;
 public abstract class AbstractConfirmEmailAction extends Action<UsernameData> {
 
 	public AbstractConfirmEmailAction(DBI jdbi) {
-		super("ConfirmEmailAction", HttpMethod.PUT, jdbi);
+		super("com.anfelisa.user.actions.ConfirmEmailAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

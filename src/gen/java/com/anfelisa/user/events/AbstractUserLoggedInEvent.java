@@ -8,7 +8,7 @@ import com.anfelisa.user.data.LoginData;
 public abstract class AbstractUserLoggedInEvent extends Event<LoginData> {
 
 	public AbstractUserLoggedInEvent(LoginData eventParam, DatabaseHandle databaseHandle) {
-		super("UserLoggedInEvent", eventParam, databaseHandle);
+		super("com.anfelisa.user.events.UserLoggedInEvent", eventParam, databaseHandle);
 	}
 
 }

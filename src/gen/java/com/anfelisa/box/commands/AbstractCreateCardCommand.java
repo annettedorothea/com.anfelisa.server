@@ -13,7 +13,7 @@ public abstract class AbstractCreateCardCommand extends Command<CardCreationData
 	protected static final String created = "created";
 
 	public AbstractCreateCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle) {
-		super("CreateCardCommand", commandParam, databaseHandle);
+		super("com.anfelisa.box.commands.CreateCardCommand", commandParam, databaseHandle);
 	}
 
 	@Override

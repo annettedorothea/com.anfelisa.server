@@ -13,7 +13,7 @@ import com.anfelisa.test.data.MyTestData;
 public abstract class AbstractLoadPrivateTestAction extends Action<MyTestData> {
 
 	public AbstractLoadPrivateTestAction(DBI jdbi) {
-		super("LoadPrivateTestAction", HttpMethod.GET, jdbi);
+		super("com.anfelisa.test.actions.LoadPrivateTestAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

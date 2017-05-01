@@ -9,18 +9,20 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 
+import com.anfelisa.ace.encryption.EncryptionService;
+
 @SuppressWarnings("all")
 @JsonIgnoreType
 public class StudentOfCourseDao {
 	
 	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS anfelisa.studentofcourse (username character varying NOT NULL  , courseId integer NOT NULL  , CONSTRAINT studentofcourse_username_fkey FOREIGN KEY (username) REFERENCES anfelisa.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT studentofcourse_courseId_fkey FOREIGN KEY (courseId) REFERENCES anfelisa.course ( courseId ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE)");
+		handle.execute("CREATE TABLE IF NOT EXISTS anfelisa.studentofcourse (username character varying NOT NULL  , courseid integer NOT NULL  , CONSTRAINT studentofcourse_username_fkey FOREIGN KEY (username) REFERENCES anfelisa.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT studentofcourse_courseid_fkey FOREIGN KEY (courseid) REFERENCES anfelisa.course ( courseid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE)");
 	}
 	
 	public void insert(Handle handle, IStudentOfCourseModel studentOfCourseModel) {
-		Update statement = handle.createStatement("INSERT INTO anfelisa.studentofcourse (username, courseId) VALUES (:username, :courseId)");
-		statement.bind("username", studentOfCourseModel.getUsername());
-		statement.bind("courseId", studentOfCourseModel.getCourseId());
+		Update statement = handle.createStatement("INSERT INTO anfelisa.studentofcourse (username, courseid) VALUES (:username, :courseid)");
+		statement.bind("username",  studentOfCourseModel.getUsername() );
+		statement.bind("courseid",  studentOfCourseModel.getCourseId() );
 		statement.execute();
 	}
 	

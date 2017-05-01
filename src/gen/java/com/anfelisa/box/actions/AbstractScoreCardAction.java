@@ -14,7 +14,7 @@ import com.anfelisa.box.commands.ScoreCardCommand;
 public abstract class AbstractScoreCardAction extends Action<ScoreCardData> {
 
 	public AbstractScoreCardAction(DBI jdbi) {
-		super("ScoreCardAction", HttpMethod.POST, jdbi);
+		super("com.anfelisa.box.actions.ScoreCardAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

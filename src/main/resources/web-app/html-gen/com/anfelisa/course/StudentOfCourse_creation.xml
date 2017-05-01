@@ -2,7 +2,7 @@
 	<column name="username" type="character varying">
 		<constraints  nullable="false"/>
 	</column>
-	<column name="courseId" type="integer">
+	<column name="courseid" type="integer">
 		<constraints  nullable="false"/>
 	</column>
 </createTable>

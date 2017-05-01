@@ -13,7 +13,7 @@ public abstract class AbstractUpdateBoxCommand extends Command<BoxCreationData> 
 	protected static final String created = "created";
 
 	public AbstractUpdateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle) {
-		super("UpdateBoxCommand", commandParam, databaseHandle);
+		super("com.anfelisa.box.commands.UpdateBoxCommand", commandParam, databaseHandle);
 	}
 
 	@Override

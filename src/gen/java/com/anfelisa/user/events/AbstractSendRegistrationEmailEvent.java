@@ -8,7 +8,7 @@ import com.anfelisa.user.data.UserRegistrationData;
 public abstract class AbstractSendRegistrationEmailEvent extends Event<UserRegistrationData> {
 
 	public AbstractSendRegistrationEmailEvent(UserRegistrationData eventParam, DatabaseHandle databaseHandle) {
-		super("SendRegistrationEmailEvent", eventParam, databaseHandle);
+		super("com.anfelisa.user.events.SendRegistrationEmailEvent", eventParam, databaseHandle);
 	}
 
 }

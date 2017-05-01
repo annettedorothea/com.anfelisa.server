@@ -25,9 +25,9 @@ public class AppRegistration {
 		CourseView courseView = new CourseView();
 		StudentOfCourseView studentOfCourseView = new StudentOfCourseView();
 		
-		AceController.addConsumer("CourseCreatedEvent", courseView.createCourse);
-		AceController.addConsumer("StudentAddedToCourseEvent", studentOfCourseView.addStudentToCourse);
-		AceController.addConsumer("CourseUpdatedEvent", courseView.updateCourse);
+		AceController.addConsumer("com.anfelisa.course.events.CourseCreatedEvent", courseView.createCourse);
+		AceController.addConsumer("com.anfelisa.course.events.StudentAddedToCourseEvent", studentOfCourseView.addStudentToCourse);
+		AceController.addConsumer("com.anfelisa.course.events.CourseUpdatedEvent", courseView.updateCourse);
     }
 }
 

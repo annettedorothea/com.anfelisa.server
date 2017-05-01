@@ -20,9 +20,9 @@ public class AppRegistration {
 	public static void registerConsumers() {
 		ResultView resultView = new ResultView();
 		
-		AceController.addConsumer("ResultCreatedEvent", resultView.createResult);
-		AceController.addConsumer("ResultSavedEvent", resultView.saveResult);
-		AceController.addConsumer("ResultSavedEvent", resultView.fillBoxWithCards);
+		AceController.addConsumer("com.anfelisa.result.events.ResultCreatedEvent", resultView.createResult);
+		AceController.addConsumer("com.anfelisa.result.events.ResultSavedEvent", resultView.saveResult);
+		AceController.addConsumer("com.anfelisa.result.events.ResultSavedEvent", resultView.fillBoxWithCards);
     }
 }
 

@@ -8,7 +8,7 @@ import com.anfelisa.user.data.RemoveCourseData;
 public abstract class AbstractCourseRemovedEvent extends Event<RemoveCourseData> {
 
 	public AbstractCourseRemovedEvent(RemoveCourseData eventParam, DatabaseHandle databaseHandle) {
-		super("CourseRemovedEvent", eventParam, databaseHandle);
+		super("com.anfelisa.user.events.CourseRemovedEvent", eventParam, databaseHandle);
 	}
 
 }

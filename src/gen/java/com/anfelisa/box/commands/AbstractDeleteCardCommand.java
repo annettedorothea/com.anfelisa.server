@@ -13,7 +13,7 @@ public abstract class AbstractDeleteCardCommand extends Command<CardIdData> {
 	protected static final String deleted = "deleted";
 
 	public AbstractDeleteCardCommand(CardIdData commandParam, DatabaseHandle databaseHandle) {
-		super("DeleteCardCommand", commandParam, databaseHandle);
+		super("com.anfelisa.box.commands.DeleteCardCommand", commandParam, databaseHandle);
 	}
 
 	@Override

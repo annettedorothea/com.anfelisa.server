@@ -13,7 +13,7 @@ public abstract class AbstractFillBoxWithCardsCommand extends Command<FillBoxDat
 	protected static final String fillBoxWithCards = "fillBoxWithCards";
 
 	public AbstractFillBoxWithCardsCommand(FillBoxData commandParam, DatabaseHandle databaseHandle) {
-		super("FillBoxWithCardsCommand", commandParam, databaseHandle);
+		super("com.anfelisa.box.commands.FillBoxWithCardsCommand", commandParam, databaseHandle);
 	}
 
 	@Override

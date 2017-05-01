@@ -13,7 +13,7 @@ public abstract class AbstractAddCourseToBoxCommand extends Command<BoxToCourseA
 	protected static final String added = "added";
 
 	public AbstractAddCourseToBoxCommand(BoxToCourseAdditionData commandParam, DatabaseHandle databaseHandle) {
-		super("AddCourseToBoxCommand", commandParam, databaseHandle);
+		super("com.anfelisa.box.commands.AddCourseToBoxCommand", commandParam, databaseHandle);
 	}
 
 	@Override

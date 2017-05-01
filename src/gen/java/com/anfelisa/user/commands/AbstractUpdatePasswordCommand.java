@@ -13,7 +13,7 @@ public abstract class AbstractUpdatePasswordCommand extends Command<PasswordUpda
 	protected static final String success = "success";
 
 	public AbstractUpdatePasswordCommand(PasswordUpdateData commandParam, DatabaseHandle databaseHandle) {
-		super("UpdatePasswordCommand", commandParam, databaseHandle);
+		super("com.anfelisa.user.commands.UpdatePasswordCommand", commandParam, databaseHandle);
 	}
 
 	@Override

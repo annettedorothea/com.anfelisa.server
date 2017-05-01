@@ -13,7 +13,7 @@ public abstract class AbstractLoginCommand extends Command<LoginData> {
 	protected static final String success = "success";
 
 	public AbstractLoginCommand(LoginData commandParam, DatabaseHandle databaseHandle) {
-		super("LoginCommand", commandParam, databaseHandle);
+		super("com.anfelisa.user.commands.LoginCommand", commandParam, databaseHandle);
 	}
 
 	@Override

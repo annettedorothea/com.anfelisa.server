@@ -13,7 +13,7 @@ public abstract class AbstractCreateLessonCommand extends Command<LessonCreation
 	protected static final String created = "created";
 
 	public AbstractCreateLessonCommand(LessonCreationData commandParam, DatabaseHandle databaseHandle) {
-		super("CreateLessonCommand", commandParam, databaseHandle);
+		super("com.anfelisa.lesson.commands.CreateLessonCommand", commandParam, databaseHandle);
 	}
 
 	@Override

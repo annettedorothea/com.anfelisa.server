@@ -8,7 +8,7 @@ import com.anfelisa.box.data.BoxToCourseAdditionData;
 public abstract class AbstractCourseAddedToBoxEvent extends Event<BoxToCourseAdditionData> {
 
 	public AbstractCourseAddedToBoxEvent(BoxToCourseAdditionData eventParam, DatabaseHandle databaseHandle) {
-		super("CourseAddedToBoxEvent", eventParam, databaseHandle);
+		super("com.anfelisa.box.events.CourseAddedToBoxEvent", eventParam, databaseHandle);
 	}
 
 }

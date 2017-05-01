@@ -13,7 +13,7 @@ public abstract class AbstractCreateResultCommand extends Command<ResultCreation
 	protected static final String created = "created";
 
 	public AbstractCreateResultCommand(ResultCreationData commandParam, DatabaseHandle databaseHandle) {
-		super("CreateResultCommand", commandParam, databaseHandle);
+		super("com.anfelisa.result.commands.CreateResultCommand", commandParam, databaseHandle);
 	}
 
 	@Override

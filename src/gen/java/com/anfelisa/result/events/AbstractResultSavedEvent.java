@@ -8,7 +8,7 @@ import com.anfelisa.result.data.ResultSaveData;
 public abstract class AbstractResultSavedEvent extends Event<ResultSaveData> {
 
 	public AbstractResultSavedEvent(ResultSaveData eventParam, DatabaseHandle databaseHandle) {
-		super("ResultSavedEvent", eventParam, databaseHandle);
+		super("com.anfelisa.result.events.ResultSavedEvent", eventParam, databaseHandle);
 	}
 
 }

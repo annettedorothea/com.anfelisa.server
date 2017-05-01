@@ -13,7 +13,7 @@ public abstract class AbstractConfirmEmailCommand extends Command<UsernameData> 
 	protected static final String ok = "ok";
 
 	public AbstractConfirmEmailCommand(UsernameData commandParam, DatabaseHandle databaseHandle) {
-		super("ConfirmEmailCommand", commandParam, databaseHandle);
+		super("com.anfelisa.user.commands.ConfirmEmailCommand", commandParam, databaseHandle);
 	}
 
 	@Override

@@ -13,7 +13,7 @@ import com.anfelisa.test.data.CardContentHashListData;
 public abstract class AbstractGetCardsOfTestAction extends Action<CardContentHashListData> {
 
 	public AbstractGetCardsOfTestAction(DBI jdbi) {
-		super("GetCardsOfTestAction", HttpMethod.GET, jdbi);
+		super("com.anfelisa.test.actions.GetCardsOfTestAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

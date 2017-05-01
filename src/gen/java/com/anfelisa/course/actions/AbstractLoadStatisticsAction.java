@@ -13,7 +13,7 @@ import com.anfelisa.course.data.StatisticsData;
 public abstract class AbstractLoadStatisticsAction extends Action<StatisticsData> {
 
 	public AbstractLoadStatisticsAction(DBI jdbi) {
-		super("LoadStatisticsAction", HttpMethod.GET, jdbi);
+		super("com.anfelisa.course.actions.LoadStatisticsAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

@@ -13,7 +13,7 @@ import com.anfelisa.user.data.UserInfoData;
 public abstract class AbstractGetUserInfoAction extends Action<UserInfoData> {
 
 	public AbstractGetUserInfoAction(DBI jdbi) {
-		super("GetUserInfoAction", HttpMethod.GET, jdbi);
+		super("com.anfelisa.user.actions.GetUserInfoAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

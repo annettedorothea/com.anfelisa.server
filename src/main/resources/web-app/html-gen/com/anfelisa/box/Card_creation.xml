@@ -1,17 +1,17 @@
 <createTable tableName="card">
-	<column name="cardId" type="serial">
+	<column name="cardid" type="serial">
 		<constraints primaryKey="true" nullable="false"/>
 	</column>
 	<column name="content" type="character varying">
 		<constraints  />
 	</column>
-	<column name="testId" type="integer">
+	<column name="testid" type="integer">
 		<constraints  nullable="false"/>
 	</column>
-	<column name="contentHash" type="character varying">
+	<column name="contenthash" type="character varying">
 		<constraints  nullable="false"/>
 	</column>
-	<column name="maxPoints" type="integer">
+	<column name="maxpoints" type="integer">
 		<constraints  nullable="false"/>
 	</column>
 </createTable>

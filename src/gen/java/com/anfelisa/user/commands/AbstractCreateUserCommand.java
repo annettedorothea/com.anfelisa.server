@@ -13,7 +13,7 @@ public abstract class AbstractCreateUserCommand extends Command<UserCreationData
 	protected static final String go = "go";
 
 	public AbstractCreateUserCommand(UserCreationData commandParam, DatabaseHandle databaseHandle) {
-		super("CreateUserCommand", commandParam, databaseHandle);
+		super("com.anfelisa.user.commands.CreateUserCommand", commandParam, databaseHandle);
 	}
 
 	@Override

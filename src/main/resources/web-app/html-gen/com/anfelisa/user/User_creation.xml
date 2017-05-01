@@ -17,7 +17,7 @@
 	<column name="role" type="character varying">
 		<constraints  nullable="false"/>
 	</column>
-	<column name="emailConfirmed" type="boolean">
+	<column name="emailconfirmed" type="boolean">
 		<constraints  nullable="false"/>
 	</column>
 </createTable>

@@ -14,7 +14,7 @@ import com.anfelisa.box.commands.SaveBoxConfigCommand;
 public abstract class AbstractSaveBoxConfigAction extends Action<BoxConfigData> {
 
 	public AbstractSaveBoxConfigAction(DBI jdbi) {
-		super("SaveBoxConfigAction", HttpMethod.PUT, jdbi);
+		super("com.anfelisa.box.actions.SaveBoxConfigAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

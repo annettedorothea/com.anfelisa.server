@@ -8,7 +8,7 @@ import com.anfelisa.lesson.data.LessonCreationData;
 public abstract class AbstractLessonCreatedEvent extends Event<LessonCreationData> {
 
 	public AbstractLessonCreatedEvent(LessonCreationData eventParam, DatabaseHandle databaseHandle) {
-		super("LessonCreatedEvent", eventParam, databaseHandle);
+		super("com.anfelisa.lesson.events.LessonCreatedEvent", eventParam, databaseHandle);
 	}
 
 }

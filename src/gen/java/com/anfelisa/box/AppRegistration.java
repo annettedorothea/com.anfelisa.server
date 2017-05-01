@@ -40,20 +40,20 @@ public class AppRegistration {
 		ScheduledCardView scheduledCardView = new ScheduledCardView();
 		ScoredCardView scoredCardView = new ScoredCardView();
 		
-		AceController.addConsumer("BoxCreatedEvent", boxView.createBox);
-		AceController.addConsumer("CardCreatedEvent", cardView.createCard);
-		AceController.addConsumer("ScheduledCardCreatedEvent", scheduledCardView.createScheduledCard);
-		AceController.addConsumer("ScoredCardCreatedEvent", scoredCardView.createScoredCard);
-		AceController.addConsumer("CourseAddedToBoxEvent", boxToCourseView.addCourseToBox);
-		AceController.addConsumer("BoxUpdatedEvent", boxView.updateBox);
-		AceController.addConsumer("BoxDeletedEvent", boxView.deleteBox);
-		AceController.addConsumer("BoxConfigSavedEvent", boxToCourseView.saveBoxConfig);
-		AceController.addConsumer("CardScoredEvent", scoredCardView.score);
-		AceController.addConsumer("CardScoredEvent", scheduledCardView.score);
-		AceController.addConsumer("CardImportedEvent", cardView.createCard);
-		AceController.addConsumer("FillBoxWithCardsEvent", boxView.fillBoxWithCards);
-		AceController.addConsumer("CardDeletedEvent", cardView.deleteCard);
-		AceController.addConsumer("CardRemovedFromBoxEvent", scheduledCardView.removeFromBox);
+		AceController.addConsumer("com.anfelisa.box.events.BoxCreatedEvent", boxView.createBox);
+		AceController.addConsumer("com.anfelisa.box.events.CardCreatedEvent", cardView.createCard);
+		AceController.addConsumer("com.anfelisa.box.events.ScheduledCardCreatedEvent", scheduledCardView.createScheduledCard);
+		AceController.addConsumer("com.anfelisa.box.events.ScoredCardCreatedEvent", scoredCardView.createScoredCard);
+		AceController.addConsumer("com.anfelisa.box.events.CourseAddedToBoxEvent", boxToCourseView.addCourseToBox);
+		AceController.addConsumer("com.anfelisa.box.events.BoxUpdatedEvent", boxView.updateBox);
+		AceController.addConsumer("com.anfelisa.box.events.BoxDeletedEvent", boxView.deleteBox);
+		AceController.addConsumer("com.anfelisa.box.events.BoxConfigSavedEvent", boxToCourseView.saveBoxConfig);
+		AceController.addConsumer("com.anfelisa.box.events.CardScoredEvent", scoredCardView.score);
+		AceController.addConsumer("com.anfelisa.box.events.CardScoredEvent", scheduledCardView.score);
+		AceController.addConsumer("com.anfelisa.box.events.CardImportedEvent", cardView.createCard);
+		AceController.addConsumer("com.anfelisa.box.events.FillBoxWithCardsEvent", boxView.fillBoxWithCards);
+		AceController.addConsumer("com.anfelisa.box.events.CardDeletedEvent", cardView.deleteCard);
+		AceController.addConsumer("com.anfelisa.box.events.CardRemovedFromBoxEvent", scheduledCardView.removeFromBox);
     }
 }
 

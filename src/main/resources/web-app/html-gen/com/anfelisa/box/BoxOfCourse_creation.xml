@@ -1,11 +1,11 @@
 <createTable tableName="boxofcourse">
-	<column name="boxId" type="integer">
+	<column name="boxid" type="integer">
 		<constraints  nullable="false"/>
 	</column>
-	<column name="courseId" type="integer">
+	<column name="courseid" type="integer">
 		<constraints  nullable="false"/>
 	</column>
-	<column name="autoAdd" type="boolean">
+	<column name="autoadd" type="boolean">
 		<constraints  nullable="false"/>
 	</column>
 </createTable>
