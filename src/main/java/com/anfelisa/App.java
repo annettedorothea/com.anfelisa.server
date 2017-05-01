@@ -33,7 +33,7 @@ public class App extends Application<AppConfiguration> {
 	}
 	
 	public String getVersion() {
-		return "1.0.2";
+		return "1.0.5";
 	}
 
 	@Override
@@ -54,10 +54,15 @@ public class App extends Application<AppConfiguration> {
 
 		EmailService.setEmailConfiguration(configuration.getEmail());
 
-		environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<AuthUser>()
-				.setAuthenticator(new AceAuthenticator(jdbi)).setAuthorizer(new AceAuthorizer()).buildAuthFilter()));
-		environment.jersey().register(RolesAllowedDynamicFeature.class);
-		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
+		environment.jersey().register(new AuthDynamicFeature(
+	            new BasicCredentialAuthFilter.Builder<AuthUser>()
+	                .setAuthenticator(new AceAuthenticator(jdbi))
+	                .setAuthorizer(new AceAuthorizer())
+	                .setPrefix("anfelisaBasic")
+	                .setRealm("anfelisa private realm")
+	                .buildAuthFilter()));
+	    environment.jersey().register(RolesAllowedDynamicFeature.class);
+	    environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
 
 		com.anfelisa.user.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.user.AppRegistration.registerConsumers();

@@ -22,7 +22,7 @@ public class EmailService {
 			email.setSmtpPort(emailConfiguration.getPort());
 			email.setAuthenticator(
 					new DefaultAuthenticator(emailConfiguration.getUser(), emailConfiguration.getPassword()));
-			email.setSSLOnConnect(true);
+			email.setStartTLSEnabled(true);
 			email.setFrom(from);
 			email.setSubject(subject);
 			email.setMsg(message);
