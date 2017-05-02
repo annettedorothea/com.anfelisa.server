@@ -45,10 +45,10 @@ public class CardDao {
 	public void updateByCardId(Handle handle, ICardModel cardModel) {
 		Update statement = handle.createStatement("UPDATE anfelisa.card SET cardid = :cardid, content = :content, testid = :testid, contenthash = :contenthash, maxpoints = :maxpoints WHERE cardid = :cardid");
 		statement.bind("cardid",  cardModel.getCardId() );
-		statement.bind("content",  cardModel.getCardId() );
-		statement.bind("testid",  cardModel.getCardId() );
-		statement.bind("contenthash",  cardModel.getCardId() );
-		statement.bind("maxpoints",  cardModel.getCardId() );
+		statement.bind("content",  cardModel.getContent() );
+		statement.bind("testid",  cardModel.getTestId() );
+		statement.bind("contenthash",  cardModel.getContentHash() );
+		statement.bind("maxpoints",  cardModel.getMaxPoints() );
 		statement.execute();
 	}
 

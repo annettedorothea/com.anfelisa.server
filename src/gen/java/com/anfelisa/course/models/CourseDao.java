@@ -47,11 +47,11 @@ public class CourseDao {
 	public void updateByCourseId(Handle handle, ICourseModel courseModel) {
 		Update statement = handle.createStatement("UPDATE anfelisa.course SET courseid = :courseid, name = :name, description = :description, sequence = :sequence, ispublic = :ispublic, author = :author WHERE courseid = :courseid");
 		statement.bind("courseid",  courseModel.getCourseId() );
-		statement.bind("name",  courseModel.getCourseId() );
-		statement.bind("description",  courseModel.getCourseId() );
-		statement.bind("sequence",  courseModel.getCourseId() );
-		statement.bind("ispublic",  courseModel.getCourseId() );
-		statement.bind("author",  courseModel.getCourseId() );
+		statement.bind("name",  courseModel.getName() );
+		statement.bind("description",  courseModel.getDescription() );
+		statement.bind("sequence",  courseModel.getSequence() );
+		statement.bind("ispublic",  courseModel.getIsPublic() );
+		statement.bind("author",  courseModel.getAuthor() );
 		statement.execute();
 	}
 

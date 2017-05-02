@@ -57,16 +57,16 @@ public class ScheduledCardDao {
 	public void updateByScheduledCardId(Handle handle, IScheduledCardModel scheduledCardModel) {
 		Update statement = handle.createStatement("UPDATE anfelisa.scheduledcard SET scheduledcardid = :scheduledcardid, cardid = :cardid, ef = :ef, interval = :interval, n = :n, count = :count, scheduleddate = :scheduleddate, boxid = :boxid, lastquality = :lastquality, timestamp = :timestamp, removed = :removed WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId() );
-		statement.bind("cardid",  scheduledCardModel.getScheduledCardId() );
-		statement.bind("ef",  scheduledCardModel.getScheduledCardId() );
-		statement.bind("interval",  scheduledCardModel.getScheduledCardId() );
-		statement.bind("n",  scheduledCardModel.getScheduledCardId() );
-		statement.bind("count",  scheduledCardModel.getScheduledCardId() );
-		statement.bind("scheduleddate",  scheduledCardModel.getScheduledCardId() );
-		statement.bind("boxid",  scheduledCardModel.getScheduledCardId() );
-		statement.bind("lastquality",  scheduledCardModel.getScheduledCardId() );
-		statement.bind("timestamp",  scheduledCardModel.getScheduledCardId() );
-		statement.bind("removed",  scheduledCardModel.getScheduledCardId() );
+		statement.bind("cardid",  scheduledCardModel.getCardId() );
+		statement.bind("ef",  scheduledCardModel.getEf() );
+		statement.bind("interval",  scheduledCardModel.getInterval() );
+		statement.bind("n",  scheduledCardModel.getN() );
+		statement.bind("count",  scheduledCardModel.getCount() );
+		statement.bind("scheduleddate",  scheduledCardModel.getScheduledDate() );
+		statement.bind("boxid",  scheduledCardModel.getBoxId() );
+		statement.bind("lastquality",  scheduledCardModel.getLastQuality() );
+		statement.bind("timestamp",  scheduledCardModel.getTimestamp() );
+		statement.bind("removed",  scheduledCardModel.getRemoved() );
 		statement.execute();
 	}
 

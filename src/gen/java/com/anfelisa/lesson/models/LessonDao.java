@@ -47,11 +47,11 @@ public class LessonDao {
 	public void updateByLessonId(Handle handle, ILessonModel lessonModel) {
 		Update statement = handle.createStatement("UPDATE anfelisa.lesson SET lessonid = :lessonid, name = :name, description = :description, sequence = :sequence, courseid = :courseid, author = :author WHERE lessonid = :lessonid");
 		statement.bind("lessonid",  lessonModel.getLessonId() );
-		statement.bind("name",  lessonModel.getLessonId() );
-		statement.bind("description",  lessonModel.getLessonId() );
-		statement.bind("sequence",  lessonModel.getLessonId() );
-		statement.bind("courseid",  lessonModel.getLessonId() );
-		statement.bind("author",  lessonModel.getLessonId() );
+		statement.bind("name",  lessonModel.getName() );
+		statement.bind("description",  lessonModel.getDescription() );
+		statement.bind("sequence",  lessonModel.getSequence() );
+		statement.bind("courseid",  lessonModel.getCourseId() );
+		statement.bind("author",  lessonModel.getAuthor() );
 		statement.execute();
 	}
 

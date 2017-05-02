@@ -51,13 +51,13 @@ public class ScoredCardDao {
 	public void updateByScoredCardId(Handle handle, IScoredCardModel scoredCardModel) {
 		Update statement = handle.createStatement("UPDATE anfelisa.scoredcard SET scoredcardid = :scoredcardid, cardid = :cardid, scheduleddateofscored = :scheduleddateofscored, boxid = :boxid, quality = :quality, timestamp = :timestamp, points = :points, scheduledcardid = :scheduledcardid WHERE scoredcardid = :scoredcardid");
 		statement.bind("scoredcardid",  scoredCardModel.getScoredCardId() );
-		statement.bind("cardid",  scoredCardModel.getScoredCardId() );
-		statement.bind("scheduleddateofscored",  scoredCardModel.getScoredCardId() );
-		statement.bind("boxid",  scoredCardModel.getScoredCardId() );
-		statement.bind("quality",  scoredCardModel.getScoredCardId() );
-		statement.bind("timestamp",  scoredCardModel.getScoredCardId() );
-		statement.bind("points",  scoredCardModel.getScoredCardId() );
-		statement.bind("scheduledcardid",  scoredCardModel.getScoredCardId() );
+		statement.bind("cardid",  scoredCardModel.getCardId() );
+		statement.bind("scheduleddateofscored",  scoredCardModel.getScheduledDateOfScored() );
+		statement.bind("boxid",  scoredCardModel.getBoxId() );
+		statement.bind("quality",  scoredCardModel.getQuality() );
+		statement.bind("timestamp",  scoredCardModel.getTimestamp() );
+		statement.bind("points",  scoredCardModel.getPoints() );
+		statement.bind("scheduledcardid",  scoredCardModel.getScheduledCardId() );
 		statement.execute();
 	}
 

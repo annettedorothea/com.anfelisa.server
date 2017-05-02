@@ -41,8 +41,8 @@ public class LoginLogDao {
 	public void updateByLoginLogId(Handle handle, ILoginLogModel loginLogModel) {
 		Update statement = handle.createStatement("UPDATE anfelisa.loginlog SET loginlogid = :loginlogid, username = :username, date = :date WHERE loginlogid = :loginlogid");
 		statement.bind("loginlogid",  loginLogModel.getLoginLogId() );
-		statement.bind("username",  loginLogModel.getLoginLogId() );
-		statement.bind("date",  loginLogModel.getLoginLogId() );
+		statement.bind("username",  loginLogModel.getUsername() );
+		statement.bind("date",  loginLogModel.getDate() );
 		statement.execute();
 	}
 

@@ -47,11 +47,11 @@ public class TestDao {
 	public void updateByTestId(Handle handle, ITestModel testModel) {
 		Update statement = handle.createStatement("UPDATE anfelisa.test SET testid = :testid, name = :name, sequence = :sequence, lessonid = :lessonid, html = :html, author = :author WHERE testid = :testid");
 		statement.bind("testid",  testModel.getTestId() );
-		statement.bind("name",  testModel.getTestId() );
-		statement.bind("sequence",  testModel.getTestId() );
-		statement.bind("lessonid",  testModel.getTestId() );
-		statement.bind("html",  testModel.getTestId() );
-		statement.bind("author",  testModel.getTestId() );
+		statement.bind("name",  testModel.getName() );
+		statement.bind("sequence",  testModel.getSequence() );
+		statement.bind("lessonid",  testModel.getLessonId() );
+		statement.bind("html",  testModel.getHtml() );
+		statement.bind("author",  testModel.getAuthor() );
 		statement.execute();
 	}
 

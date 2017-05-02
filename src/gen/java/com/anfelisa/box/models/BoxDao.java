@@ -41,8 +41,8 @@ public class BoxDao {
 	public void updateByBoxId(Handle handle, IBoxModel boxModel) {
 		Update statement = handle.createStatement("UPDATE anfelisa.box SET boxid = :boxid, name = :name, username = :username WHERE boxid = :boxid");
 		statement.bind("boxid",  boxModel.getBoxId() );
-		statement.bind("name",  boxModel.getBoxId() );
-		statement.bind("username",  boxModel.getBoxId() );
+		statement.bind("name",  boxModel.getName() );
+		statement.bind("username",  boxModel.getUsername() );
 		statement.execute();
 	}
 

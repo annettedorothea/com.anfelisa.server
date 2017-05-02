@@ -48,12 +48,12 @@ public class UserDao {
 	public void updateByUsername(Handle handle, IUserModel userModel) {
 		Update statement = handle.createStatement("UPDATE anfelisa.user SET username = :username, password = :password, name = :name, prename = :prename, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE username = :username");
 		statement.bind("username",  userModel.getUsername() );
-		statement.bind("password",  userModel.getUsername() );
-		statement.bind("name",  userModel.getUsername() );
-		statement.bind("prename",  userModel.getUsername() );
-		statement.bind("email",  userModel.getUsername() );
-		statement.bind("role",  userModel.getUsername() );
-		statement.bind("emailconfirmed",  userModel.getUsername() );
+		statement.bind("password",  userModel.getPassword() );
+		statement.bind("name",  userModel.getName() );
+		statement.bind("prename",  userModel.getPrename() );
+		statement.bind("email",  userModel.getEmail() );
+		statement.bind("role",  userModel.getRole() );
+		statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
 		statement.execute();
 	}
 

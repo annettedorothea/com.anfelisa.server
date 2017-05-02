@@ -49,12 +49,12 @@ public class ResultDao {
 	public void updateByResultId(Handle handle, IResultModel resultModel) {
 		Update statement = handle.createStatement("UPDATE anfelisa.result SET resultid = :resultid, username = :username, testid = :testid, date = :date, json = :json, points = :points, maxpoints = :maxpoints WHERE resultid = :resultid");
 		statement.bind("resultid",  resultModel.getResultId() );
-		statement.bind("username",  resultModel.getResultId() );
-		statement.bind("testid",  resultModel.getResultId() );
-		statement.bind("date",  resultModel.getResultId() );
-		statement.bind("json",  resultModel.getResultId() );
-		statement.bind("points",  resultModel.getResultId() );
-		statement.bind("maxpoints",  resultModel.getResultId() );
+		statement.bind("username",  resultModel.getUsername() );
+		statement.bind("testid",  resultModel.getTestId() );
+		statement.bind("date",  resultModel.getDate() );
+		statement.bind("json",  resultModel.getJson() );
+		statement.bind("points",  resultModel.getPoints() );
+		statement.bind("maxpoints",  resultModel.getMaxPoints() );
 		statement.execute();
 	}
 
