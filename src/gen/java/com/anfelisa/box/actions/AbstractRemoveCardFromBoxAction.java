@@ -7,14 +7,14 @@ import javax.ws.rs.core.Response;
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
-import com.anfelisa.box.data.ScheduledCardIdData;
+import com.anfelisa.box.data.RemoveCardFromBoxData;
 
 import com.anfelisa.box.commands.RemoveCardFromBoxCommand;
 
-public abstract class AbstractRemoveCardFromBoxAction extends Action<ScheduledCardIdData> {
+public abstract class AbstractRemoveCardFromBoxAction extends Action<RemoveCardFromBoxData> {
 
-	public AbstractRemoveCardFromBoxAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.RemoveCardFromBoxAction", HttpMethod.DELETE, jdbi);
+	public AbstractRemoveCardFromBoxAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.box.actions.RemoveCardFromBoxAction", HttpMethod.DELETE, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractRemoveCardFromBoxAction extends Action<ScheduledCa
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, RemoveCardFromBoxData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

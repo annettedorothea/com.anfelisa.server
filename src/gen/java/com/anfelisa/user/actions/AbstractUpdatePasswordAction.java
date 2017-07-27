@@ -13,8 +13,8 @@ import com.anfelisa.user.commands.UpdatePasswordCommand;
 
 public abstract class AbstractUpdatePasswordAction extends Action<PasswordUpdateData> {
 
-	public AbstractUpdatePasswordAction(DBI jdbi) {
-		super("com.anfelisa.user.actions.UpdatePasswordAction", HttpMethod.PUT, jdbi);
+	public AbstractUpdatePasswordAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.user.actions.UpdatePasswordAction", HttpMethod.PUT, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractUpdatePasswordAction extends Action<PasswordUpdate
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, PasswordUpdateData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

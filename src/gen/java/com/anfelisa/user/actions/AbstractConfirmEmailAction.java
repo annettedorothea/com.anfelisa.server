@@ -13,8 +13,8 @@ import com.anfelisa.user.commands.ConfirmEmailCommand;
 
 public abstract class AbstractConfirmEmailAction extends Action<UsernameData> {
 
-	public AbstractConfirmEmailAction(DBI jdbi) {
-		super("com.anfelisa.user.actions.ConfirmEmailAction", HttpMethod.PUT, jdbi);
+	public AbstractConfirmEmailAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.user.actions.ConfirmEmailAction", HttpMethod.PUT, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractConfirmEmailAction extends Action<UsernameData> {
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, UsernameData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

@@ -27,8 +27,8 @@ public class UpdateTestAction extends AbstractUpdateTestAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateTestAction.class);
 
-	public UpdateTestAction(DBI jdbi) {
-		super(jdbi);
+	public UpdateTestAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@PUT

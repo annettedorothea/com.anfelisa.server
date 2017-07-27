@@ -64,6 +64,12 @@ public class BoxDao {
 			.map(new BoxMapper())
 			.list();
 	}
+
+	public void truncate(Handle handle) {
+		Update statement = handle.createStatement("TRUNCATE anfelisa.box");
+		statement.execute();
+	}
+
 }
 
 /*       S.D.G.       */

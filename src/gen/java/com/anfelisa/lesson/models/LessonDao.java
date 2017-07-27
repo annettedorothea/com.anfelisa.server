@@ -73,6 +73,12 @@ public class LessonDao {
 			.map(new LessonMapper())
 			.list();
 	}
+
+	public void truncate(Handle handle) {
+		Update statement = handle.createStatement("TRUNCATE anfelisa.lesson");
+		statement.execute();
+	}
+
 }
 
 /*       S.D.G.       */

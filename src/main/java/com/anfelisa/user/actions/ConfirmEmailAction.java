@@ -28,8 +28,8 @@ import io.dropwizard.auth.Auth;
 
 	static final Logger LOG = LoggerFactory.getLogger(ConfirmEmailAction.class);
 
-	public ConfirmEmailAction(DBI jdbi) {
-		super(jdbi);
+	public ConfirmEmailAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@PUT

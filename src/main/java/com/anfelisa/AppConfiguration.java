@@ -14,6 +14,8 @@ public class AppConfiguration extends Configuration {
 	@NotNull
 	private DataSourceFactory database = new DataSourceFactory();
 
+	private DataSourceFactory timelineDatabase = new DataSourceFactory();
+	
 	@NotNull
     @JsonProperty
     private EmailConfiguration email;
@@ -32,6 +34,14 @@ public class AppConfiguration extends Configuration {
 		return email;
 	}
 	
+	@JsonProperty("timelineDatabase")
+	public DataSourceFactory getTimelineDataSourceFactory() {
+		return timelineDatabase;
+	}
 	
-
+	@JsonProperty("timelineDatabase")
+	public void setTimelineDataSourceFactory(DataSourceFactory dataSourceFactory) {
+		this.timelineDatabase = dataSourceFactory;
+	}
+	
 }

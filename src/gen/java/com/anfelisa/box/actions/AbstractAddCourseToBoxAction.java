@@ -13,8 +13,8 @@ import com.anfelisa.box.commands.AddCourseToBoxCommand;
 
 public abstract class AbstractAddCourseToBoxAction extends Action<BoxToCourseAdditionData> {
 
-	public AbstractAddCourseToBoxAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.AddCourseToBoxAction", HttpMethod.POST, jdbi);
+	public AbstractAddCourseToBoxAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.box.actions.AddCourseToBoxAction", HttpMethod.POST, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractAddCourseToBoxAction extends Action<BoxToCourseAdd
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, BoxToCourseAdditionData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

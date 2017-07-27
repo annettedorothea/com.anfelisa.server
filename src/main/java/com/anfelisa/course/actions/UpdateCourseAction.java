@@ -25,8 +25,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateCourseAction.class);
 
-	public UpdateCourseAction(DBI jdbi) {
-		super(jdbi);
+	public UpdateCourseAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@PUT

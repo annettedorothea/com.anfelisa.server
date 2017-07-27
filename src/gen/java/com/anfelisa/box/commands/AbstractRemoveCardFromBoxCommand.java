@@ -6,13 +6,13 @@ import javax.ws.rs.core.Response;
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
 
-import com.anfelisa.box.data.ScheduledCardIdData;
+import com.anfelisa.box.data.RemoveCardFromBoxData;
 
-public abstract class AbstractRemoveCardFromBoxCommand extends Command<ScheduledCardIdData> {
+public abstract class AbstractRemoveCardFromBoxCommand extends Command<RemoveCardFromBoxData> {
 
 	protected static final String deleted = "deleted";
 
-	public AbstractRemoveCardFromBoxCommand(ScheduledCardIdData commandParam, DatabaseHandle databaseHandle) {
+	public AbstractRemoveCardFromBoxCommand(RemoveCardFromBoxData commandParam, DatabaseHandle databaseHandle) {
 		super("com.anfelisa.box.commands.RemoveCardFromBoxCommand", commandParam, databaseHandle);
 	}
 

@@ -88,6 +88,12 @@ public class ScheduledCardDao {
 			.map(new ScheduledCardMapper())
 			.list();
 	}
+
+	public void truncate(Handle handle) {
+		Update statement = handle.createStatement("TRUNCATE anfelisa.scheduledcard");
+		statement.execute();
+	}
+
 }
 
 /*       S.D.G.       */

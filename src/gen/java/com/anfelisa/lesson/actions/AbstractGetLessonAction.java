@@ -12,8 +12,8 @@ import com.anfelisa.lesson.data.LessonData;
 
 public abstract class AbstractGetLessonAction extends Action<LessonData> {
 
-	public AbstractGetLessonAction(DBI jdbi) {
-		super("com.anfelisa.lesson.actions.GetLessonAction", HttpMethod.GET, jdbi);
+	public AbstractGetLessonAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.lesson.actions.GetLessonAction", HttpMethod.GET, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -28,6 +28,14 @@ public abstract class AbstractGetLessonAction extends Action<LessonData> {
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, LessonData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

@@ -33,8 +33,8 @@ public class GetCardsOfTestAction extends AbstractGetCardsOfTestAction {
 
 	private CustomCardDao customCardDao = new CustomCardDao();
 
-	public GetCardsOfTestAction(DBI jdbi) {
-		super(jdbi);
+	public GetCardsOfTestAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@GET

@@ -64,6 +64,12 @@ public class LoginLogDao {
 			.map(new LoginLogMapper())
 			.list();
 	}
+
+	public void truncate(Handle handle) {
+		Update statement = handle.createStatement("TRUNCATE anfelisa.loginlog");
+		statement.execute();
+	}
+
 }
 
 /*       S.D.G.       */

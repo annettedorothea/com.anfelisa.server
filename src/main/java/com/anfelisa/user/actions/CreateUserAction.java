@@ -23,8 +23,8 @@ public class CreateUserAction extends AbstractCreateUserAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateUserAction.class);
 
-	public CreateUserAction(DBI jdbi) {
-		super(jdbi);
+	public CreateUserAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@POST

@@ -23,8 +23,8 @@ public class CreateScheduledCardAction extends AbstractCreateScheduledCardAction
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateScheduledCardAction.class);
 
-	public CreateScheduledCardAction(DBI jdbi) {
-		super(jdbi);
+	public CreateScheduledCardAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@POST

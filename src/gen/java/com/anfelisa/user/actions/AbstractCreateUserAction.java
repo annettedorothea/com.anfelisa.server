@@ -13,8 +13,8 @@ import com.anfelisa.user.commands.CreateUserCommand;
 
 public abstract class AbstractCreateUserAction extends Action<UserCreationData> {
 
-	public AbstractCreateUserAction(DBI jdbi) {
-		super("com.anfelisa.user.actions.CreateUserAction", HttpMethod.POST, jdbi);
+	public AbstractCreateUserAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.user.actions.CreateUserAction", HttpMethod.POST, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractCreateUserAction extends Action<UserCreationData> 
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, UserCreationData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

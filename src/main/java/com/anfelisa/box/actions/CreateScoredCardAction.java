@@ -23,8 +23,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateScoredCardAction.class);
 
-	public CreateScoredCardAction(DBI jdbi) {
-		super(jdbi);
+	public CreateScoredCardAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@POST

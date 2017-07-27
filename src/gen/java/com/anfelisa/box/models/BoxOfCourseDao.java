@@ -34,6 +34,12 @@ public class BoxOfCourseDao {
 			.map(new BoxOfCourseMapper())
 			.list();
 	}
+
+	public void truncate(Handle handle) {
+		Update statement = handle.createStatement("TRUNCATE anfelisa.boxofcourse");
+		statement.execute();
+	}
+
 }
 
 /*       S.D.G.       */

@@ -12,8 +12,8 @@ import com.anfelisa.box.data.AllBoxesData;
 
 public abstract class AbstractGetAllBoxesAction extends Action<AllBoxesData> {
 
-	public AbstractGetAllBoxesAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.GetAllBoxesAction", HttpMethod.GET, jdbi);
+	public AbstractGetAllBoxesAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.box.actions.GetAllBoxesAction", HttpMethod.GET, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -28,6 +28,14 @@ public abstract class AbstractGetAllBoxesAction extends Action<AllBoxesData> {
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, AllBoxesData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

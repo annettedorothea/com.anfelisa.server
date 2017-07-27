@@ -35,8 +35,8 @@ public class LoadPublicTestsAction extends AbstractLoadPublicTestsAction {
 
 	private CustomTestDao customTestDao = new CustomTestDao();
 
-	public LoadPublicTestsAction(DBI jdbi) {
-		super(jdbi);
+	public LoadPublicTestsAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@GET

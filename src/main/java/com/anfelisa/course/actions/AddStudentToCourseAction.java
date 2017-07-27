@@ -27,8 +27,8 @@ import io.dropwizard.auth.Auth;
 
 	static final Logger LOG = LoggerFactory.getLogger(AddStudentToCourseAction.class);
 
-	public AddStudentToCourseAction(DBI jdbi) {
-		super(jdbi);
+	public AddStudentToCourseAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@POST

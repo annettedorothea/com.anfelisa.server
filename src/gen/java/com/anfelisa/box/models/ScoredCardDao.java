@@ -79,6 +79,12 @@ public class ScoredCardDao {
 			.map(new ScoredCardMapper())
 			.list();
 	}
+
+	public void truncate(Handle handle) {
+		Update statement = handle.createStatement("TRUNCATE anfelisa.scoredcard");
+		statement.execute();
+	}
+
 }
 
 /*       S.D.G.       */

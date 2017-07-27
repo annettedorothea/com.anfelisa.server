@@ -11,15 +11,15 @@ import com.anfelisa.test.actions.*;
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public static void registerResources(Environment environment, DBI jdbi) {
-		environment.jersey().register(new CreateTestAction(jdbi));
-		environment.jersey().register(new LoadPublicTestsAction(jdbi));
-		environment.jersey().register(new LoadPublicTestAction(jdbi));
-		environment.jersey().register(new LoadPrivateTestsAction(jdbi));
-		environment.jersey().register(new LoadPrivateTestAction(jdbi));
-		environment.jersey().register(new GetTestAction(jdbi));
-		environment.jersey().register(new UpdateTestAction(jdbi));
-		environment.jersey().register(new GetCardsOfTestAction(jdbi));
+	public static void registerResources(Environment environment, DBI jdbi, DBI jdbiTimeline) {
+		environment.jersey().register(new CreateTestAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new LoadPublicTestsAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new LoadPublicTestAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new LoadPrivateTestsAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new LoadPrivateTestAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new GetTestAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new UpdateTestAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new GetCardsOfTestAction(jdbi, jdbiTimeline));
 	}
 
 	public static void registerConsumers() {

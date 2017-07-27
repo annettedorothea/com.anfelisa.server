@@ -28,8 +28,8 @@ public class RemoveCourseAction extends AbstractRemoveCourseAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(RemoveCourseAction.class);
 
-	public RemoveCourseAction(DBI jdbi) {
-		super(jdbi);
+	public RemoveCourseAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@DELETE

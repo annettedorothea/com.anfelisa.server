@@ -25,8 +25,8 @@ public class CreateCardAction extends AbstractCreateCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateCardAction.class);
 
-	public CreateCardAction(DBI jdbi) {
-		super(jdbi);
+	public CreateCardAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@POST

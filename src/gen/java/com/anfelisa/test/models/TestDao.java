@@ -73,6 +73,12 @@ public class TestDao {
 			.map(new TestMapper())
 			.list();
 	}
+
+	public void truncate(Handle handle) {
+		Update statement = handle.createStatement("TRUNCATE anfelisa.test");
+		statement.execute();
+	}
+
 }
 
 /*       S.D.G.       */

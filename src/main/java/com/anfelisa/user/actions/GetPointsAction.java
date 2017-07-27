@@ -31,8 +31,8 @@ public class GetPointsAction extends AbstractGetPointsAction {
 
 	private CustomUserDao customUserDao = new CustomUserDao();
 
-	public GetPointsAction(DBI jdbi) {
-		super(jdbi);
+	public GetPointsAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@GET

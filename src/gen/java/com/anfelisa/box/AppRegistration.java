@@ -11,26 +11,27 @@ import com.anfelisa.box.actions.*;
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public static void registerResources(Environment environment, DBI jdbi) {
-		environment.jersey().register(new CreateBoxAction(jdbi));
-		environment.jersey().register(new CreateCardAction(jdbi));
-		environment.jersey().register(new ImportCardAction(jdbi));
-		environment.jersey().register(new CreateScheduledCardAction(jdbi));
-		environment.jersey().register(new CreateScoredCardAction(jdbi));
-		environment.jersey().register(new AddCourseToBoxAction(jdbi));
-		environment.jersey().register(new LoadBoxesAction(jdbi));
-		environment.jersey().register(new LoadNextCardAction(jdbi));
-		environment.jersey().register(new UpdateBoxAction(jdbi));
-		environment.jersey().register(new LoadBoxAction(jdbi));
-		environment.jersey().register(new LoadBoxOfCourseListAction(jdbi));
-		environment.jersey().register(new DeleteBoxAction(jdbi));
-		environment.jersey().register(new SaveBoxConfigAction(jdbi));
-		environment.jersey().register(new ScoreCardAction(jdbi));
-		environment.jersey().register(new FillBoxWithCardsAction(jdbi));
-		environment.jersey().register(new DeleteCardAction(jdbi));
-		environment.jersey().register(new GetAllBoxesAction(jdbi));
-		environment.jersey().register(new RemoveCardFromBoxAction(jdbi));
-		environment.jersey().register(new LoadReinforceCardListAction(jdbi));
+	public static void registerResources(Environment environment, DBI jdbi, DBI jdbiTimeline) {
+		environment.jersey().register(new CreateBoxAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new CreateCardAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new ImportCardAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new CreateScheduledCardAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new CreateScoredCardAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new AddCourseToBoxAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new LoadBoxesAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new LoadNextCardAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new UpdateBoxAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new LoadBoxAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new LoadBoxOfCourseListAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new DeleteBoxAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new SaveBoxConfigAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new ScoreCardAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new FillBoxWithCardsAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new DeleteCardAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new GetAllBoxesAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new RemoveCardFromBoxAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new LoadReinforceCardListAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new RecalculateScheduledCardsAction(jdbi, jdbiTimeline));
 	}
 
 	public static void registerConsumers() {
@@ -54,6 +55,7 @@ public class AppRegistration {
 		AceController.addConsumer("com.anfelisa.box.events.FillBoxWithCardsEvent", boxView.fillBoxWithCards);
 		AceController.addConsumer("com.anfelisa.box.events.CardDeletedEvent", cardView.deleteCard);
 		AceController.addConsumer("com.anfelisa.box.events.CardRemovedFromBoxEvent", scheduledCardView.removeFromBox);
+		AceController.addConsumer("com.anfelisa.box.events.RecalculateScheduledCardsEvent", scheduledCardView.recalculateScheduledCards);
     }
 }
 

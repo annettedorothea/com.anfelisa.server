@@ -13,8 +13,8 @@ import com.anfelisa.box.commands.DeleteCardCommand;
 
 public abstract class AbstractDeleteCardAction extends Action<CardIdData> {
 
-	public AbstractDeleteCardAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.DeleteCardAction", HttpMethod.DELETE, jdbi);
+	public AbstractDeleteCardAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.box.actions.DeleteCardAction", HttpMethod.DELETE, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractDeleteCardAction extends Action<CardIdData> {
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, CardIdData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

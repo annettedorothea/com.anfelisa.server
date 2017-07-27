@@ -73,6 +73,12 @@ public class CourseDao {
 			.map(new CourseMapper())
 			.list();
 	}
+
+	public void truncate(Handle handle) {
+		Update statement = handle.createStatement("TRUNCATE anfelisa.course");
+		statement.execute();
+	}
+
 }
 
 /*       S.D.G.       */

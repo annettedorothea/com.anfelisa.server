@@ -240,6 +240,11 @@ models {
 			Integer scheduledCardId
 		}
 	}
+	DaysBehind {
+		primitiveAttributes {
+			Integer daysBehind
+		}
+	}
 }
 
 data {
@@ -249,7 +254,7 @@ data {
 	ScheduledCard : ( ScheduledCard )
 	ScoredCard : ( ScoredCard )
 	BoxList : ( BoxList com.anfelisa.user.Username )
-	Card : ( Card Box Score CardInfo CardContent com.anfelisa.user.Credentials )
+	Card : ( Card Box Score CardInfo CardContent com.anfelisa.user.Credentials DaysBehind )
 	BoxId : ( Box com.anfelisa.user.Credentials )
 	BoxOfCourseList : (CourseToBoxAdditionList com.anfelisa.user.Credentials)
 	DeleteBox : (BoxId com.anfelisa.user.Credentials)
@@ -260,6 +265,8 @@ data {
 	AllBoxes : (AllBoxes)
 	ScheduledCardId : (ScheduledCardId)
 	ReinforceCardList : (ReinforceCardList com.anfelisa.user.Credentials Box)
+	RecalculateScheduledCards : (Box DaysBehind)
+	RemoveCardFromBox : (ScheduledCardId com.anfelisa.user.Credentials)
 }
 
 actions {
@@ -280,8 +287,9 @@ actions {
 	POST FillBoxWithCards uses FillBox executes FillBoxWithCards
 	DELETE DeleteCard uses CardId executes DeleteCard
 	GET GetAllBoxes uses AllBoxes
-	DELETE RemoveCardFromBox uses ScheduledCardId executes RemoveCardFromBox
+	DELETE RemoveCardFromBox uses RemoveCardFromBox executes RemoveCardFromBox
 	GET LoadReinforceCardList uses ReinforceCardList
+	PUT RecalculateScheduledCards uses RecalculateScheduledCards executes RecalculateScheduledCards
 }
 
 commands {
@@ -322,8 +330,11 @@ commands {
 	DeleteCard uses CardId {
 		on deleted publishes (CardDeleted)
 	}
-	RemoveCardFromBox uses ScheduledCardId {
+	RemoveCardFromBox uses RemoveCardFromBox {
 		on deleted publishes (CardRemovedFromBox)
+	}
+	RecalculateScheduledCards uses RecalculateScheduledCards {
+		on ok publishes (RecalculateScheduledCards)
 	}
 }
 
@@ -340,7 +351,8 @@ events {
 	CardImported uses CardCreation listenedToBy ( Card.createCard )
 	FillBoxWithCards uses FillBox listenedToBy ( Box.fillBoxWithCards )
 	CardDeleted uses CardId listenedToBy (Card.deleteCard)
-	CardRemovedFromBox uses ScheduledCardId listenedToBy (ScheduledCard.removeFromBox)
+	CardRemovedFromBox uses RemoveCardFromBox listenedToBy (ScheduledCard.removeFromBox)
+	RecalculateScheduledCards uses RecalculateScheduledCards listenedToBy (ScheduledCard.recalculateScheduledCards)
 }
 
 views {
@@ -361,7 +373,8 @@ views {
 	ScheduledCard {
 		createScheduledCard (ScheduledCard)
 		score(ScoreCard)
-		removeFromBox(ScheduledCardId)
+		removeFromBox(RemoveCardFromBox)
+		recalculateScheduledCards(RecalculateScheduledCards)
 	}
 	ScoredCard {
 		score(ScoreCard)

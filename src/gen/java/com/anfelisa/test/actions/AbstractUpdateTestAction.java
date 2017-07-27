@@ -13,8 +13,8 @@ import com.anfelisa.test.commands.UpdateTestCommand;
 
 public abstract class AbstractUpdateTestAction extends Action<TestCreationData> {
 
-	public AbstractUpdateTestAction(DBI jdbi) {
-		super("com.anfelisa.test.actions.UpdateTestAction", HttpMethod.PUT, jdbi);
+	public AbstractUpdateTestAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.test.actions.UpdateTestAction", HttpMethod.PUT, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractUpdateTestAction extends Action<TestCreationData> 
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, TestCreationData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

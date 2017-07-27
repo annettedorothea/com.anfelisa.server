@@ -16,6 +16,9 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,8 +52,8 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 
 	private CardDao cardDao = new CardDao();
 
-	public LoadNextCardAction(DBI jdbi) {
-		super(jdbi);
+	public LoadNextCardAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@GET
@@ -173,6 +176,13 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			this.actionData
 					.setNoQuality(100 - this.actionData.getZero() - this.actionData.getOne() - this.actionData.getTwo()
 							- this.actionData.getThree() - this.actionData.getFour() - this.actionData.getFive());
+		}
+		
+		IScheduledCardModel firstScheduledCard = this.scheduledCardDao.selectFirstScheduledCard(getHandle(), actionData.getBoxId());
+		LocalDate date = firstScheduledCard.getScheduledDate().toLocalDate();
+		LocalDate now = new DateTime().toLocalDate();
+		if (date.isBefore(now)) {
+			this.actionData.setDaysBehind(Days.daysBetween(date, now).getDays());
 		}
 	}
 

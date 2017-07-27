@@ -13,8 +13,8 @@ import com.anfelisa.result.commands.CreateResultCommand;
 
 public abstract class AbstractCreateResultAction extends Action<ResultCreationData> {
 
-	public AbstractCreateResultAction(DBI jdbi) {
-		super("com.anfelisa.result.actions.CreateResultAction", HttpMethod.POST, jdbi);
+	public AbstractCreateResultAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.result.actions.CreateResultAction", HttpMethod.POST, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractCreateResultAction extends Action<ResultCreationDa
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, ResultCreationData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

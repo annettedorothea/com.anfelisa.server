@@ -13,8 +13,8 @@ import com.anfelisa.box.commands.FillBoxWithCardsCommand;
 
 public abstract class AbstractFillBoxWithCardsAction extends Action<FillBoxData> {
 
-	public AbstractFillBoxWithCardsAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.FillBoxWithCardsAction", HttpMethod.POST, jdbi);
+	public AbstractFillBoxWithCardsAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.box.actions.FillBoxWithCardsAction", HttpMethod.POST, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractFillBoxWithCardsAction extends Action<FillBoxData>
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, FillBoxData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

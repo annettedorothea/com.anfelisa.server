@@ -12,8 +12,8 @@ import com.anfelisa.box.data.ReinforceCardListData;
 
 public abstract class AbstractLoadReinforceCardListAction extends Action<ReinforceCardListData> {
 
-	public AbstractLoadReinforceCardListAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.LoadReinforceCardListAction", HttpMethod.GET, jdbi);
+	public AbstractLoadReinforceCardListAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.box.actions.LoadReinforceCardListAction", HttpMethod.GET, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -28,6 +28,14 @@ public abstract class AbstractLoadReinforceCardListAction extends Action<Reinfor
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, ReinforceCardListData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

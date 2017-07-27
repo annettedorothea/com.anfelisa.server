@@ -52,8 +52,8 @@ public class LoadReinforceCardListAction extends AbstractLoadReinforceCardListAc
 
 	private CardDao cardDao = new CardDao();
 
-	public LoadReinforceCardListAction(DBI jdbi) {
-		super(jdbi);
+	public LoadReinforceCardListAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@GET

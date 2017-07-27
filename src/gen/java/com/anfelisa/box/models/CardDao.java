@@ -70,6 +70,12 @@ public class CardDao {
 			.map(new CardMapper())
 			.list();
 	}
+
+	public void truncate(Handle handle) {
+		Update statement = handle.createStatement("TRUNCATE anfelisa.card");
+		statement.execute();
+	}
+
 }
 
 /*       S.D.G.       */

@@ -13,8 +13,8 @@ import com.anfelisa.box.commands.CreateScoredCardCommand;
 
 public abstract class AbstractCreateScoredCardAction extends Action<ScoredCardData> {
 
-	public AbstractCreateScoredCardAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.CreateScoredCardAction", HttpMethod.POST, jdbi);
+	public AbstractCreateScoredCardAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.box.actions.CreateScoredCardAction", HttpMethod.POST, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractCreateScoredCardAction extends Action<ScoredCardDa
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, ScoredCardData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

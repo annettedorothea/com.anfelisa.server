@@ -30,8 +30,8 @@ public class GetCourseAction extends AbstractGetCourseAction {
 
 	private CourseDao courseDao = new CourseDao();
 
-	public GetCourseAction(DBI jdbi) {
-		super(jdbi);
+	public GetCourseAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@GET

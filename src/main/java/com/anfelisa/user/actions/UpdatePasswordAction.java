@@ -27,8 +27,8 @@ import io.dropwizard.auth.Auth;
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdatePasswordAction.class);
 
-	public UpdatePasswordAction(DBI jdbi) {
-		super(jdbi);
+	public UpdatePasswordAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@PUT

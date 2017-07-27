@@ -12,8 +12,8 @@ import com.anfelisa.box.data.BoxOfCourseListData;
 
 public abstract class AbstractLoadBoxOfCourseListAction extends Action<BoxOfCourseListData> {
 
-	public AbstractLoadBoxOfCourseListAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.LoadBoxOfCourseListAction", HttpMethod.GET, jdbi);
+	public AbstractLoadBoxOfCourseListAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.box.actions.LoadBoxOfCourseListAction", HttpMethod.GET, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -28,6 +28,14 @@ public abstract class AbstractLoadBoxOfCourseListAction extends Action<BoxOfCour
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, BoxOfCourseListData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

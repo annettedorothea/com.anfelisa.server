@@ -42,8 +42,8 @@ public class GetUserInfoAction extends AbstractGetUserInfoAction {
 
 	private CustomBoxDao customBoxDao = new CustomBoxDao();
 
-	public GetUserInfoAction(DBI jdbi) {
-		super(jdbi);
+	public GetUserInfoAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@GET

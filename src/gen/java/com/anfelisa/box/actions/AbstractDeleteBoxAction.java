@@ -13,8 +13,8 @@ import com.anfelisa.box.commands.DeleteBoxCommand;
 
 public abstract class AbstractDeleteBoxAction extends Action<DeleteBoxData> {
 
-	public AbstractDeleteBoxAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.DeleteBoxAction", HttpMethod.DELETE, jdbi);
+	public AbstractDeleteBoxAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.box.actions.DeleteBoxAction", HttpMethod.DELETE, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractDeleteBoxAction extends Action<DeleteBoxData> {
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, DeleteBoxData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

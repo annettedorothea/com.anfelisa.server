@@ -13,8 +13,8 @@ import com.anfelisa.box.commands.SaveBoxConfigCommand;
 
 public abstract class AbstractSaveBoxConfigAction extends Action<BoxConfigData> {
 
-	public AbstractSaveBoxConfigAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.SaveBoxConfigAction", HttpMethod.PUT, jdbi);
+	public AbstractSaveBoxConfigAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.box.actions.SaveBoxConfigAction", HttpMethod.PUT, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractSaveBoxConfigAction extends Action<BoxConfigData> 
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, BoxConfigData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

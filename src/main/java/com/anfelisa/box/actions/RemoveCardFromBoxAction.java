@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.box.data.ScheduledCardIdData;
+import com.anfelisa.box.data.RemoveCardFromBoxData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -28,8 +28,8 @@ public class RemoveCardFromBoxAction extends AbstractRemoveCardFromBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(RemoveCardFromBoxAction.class);
 
-	public RemoveCardFromBoxAction(DBI jdbi) {
-		super(jdbi);
+	public RemoveCardFromBoxAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@DELETE
@@ -38,7 +38,7 @@ public class RemoveCardFromBoxAction extends AbstractRemoveCardFromBoxAction {
 	@PermitAll
 	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
 			@NotNull @QueryParam("scheduledCardId") Integer scheduledCardId) throws JsonProcessingException {
-		this.actionData = new ScheduledCardIdData(uuid).withScheduledCardId(scheduledCardId);
+		this.actionData = new RemoveCardFromBoxData(uuid).withScheduledCardId(scheduledCardId).withCredentialsUsername(user.getUsername());
 		return this.apply();
 	}
 

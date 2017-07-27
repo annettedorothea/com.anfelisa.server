@@ -12,8 +12,8 @@ import com.anfelisa.box.data.CardData;
 
 public abstract class AbstractLoadNextCardAction extends Action<CardData> {
 
-	public AbstractLoadNextCardAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.LoadNextCardAction", HttpMethod.GET, jdbi);
+	public AbstractLoadNextCardAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.box.actions.LoadNextCardAction", HttpMethod.GET, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -28,6 +28,14 @@ public abstract class AbstractLoadNextCardAction extends Action<CardData> {
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, CardData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

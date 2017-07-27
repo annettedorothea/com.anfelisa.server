@@ -12,8 +12,8 @@ import com.anfelisa.test.data.MyTestListData;
 
 public abstract class AbstractLoadPrivateTestsAction extends Action<MyTestListData> {
 
-	public AbstractLoadPrivateTestsAction(DBI jdbi) {
-		super("com.anfelisa.test.actions.LoadPrivateTestsAction", HttpMethod.GET, jdbi);
+	public AbstractLoadPrivateTestsAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.test.actions.LoadPrivateTestsAction", HttpMethod.GET, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -28,6 +28,14 @@ public abstract class AbstractLoadPrivateTestsAction extends Action<MyTestListDa
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, MyTestListData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

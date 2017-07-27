@@ -12,8 +12,8 @@ import com.anfelisa.user.data.PointsData;
 
 public abstract class AbstractGetPointsAction extends Action<PointsData> {
 
-	public AbstractGetPointsAction(DBI jdbi) {
-		super("com.anfelisa.user.actions.GetPointsAction", HttpMethod.GET, jdbi);
+	public AbstractGetPointsAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.user.actions.GetPointsAction", HttpMethod.GET, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -28,6 +28,14 @@ public abstract class AbstractGetPointsAction extends Action<PointsData> {
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, PointsData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

@@ -12,8 +12,8 @@ import com.anfelisa.test.data.CardContentHashListData;
 
 public abstract class AbstractGetCardsOfTestAction extends Action<CardContentHashListData> {
 
-	public AbstractGetCardsOfTestAction(DBI jdbi) {
-		super("com.anfelisa.test.actions.GetCardsOfTestAction", HttpMethod.GET, jdbi);
+	public AbstractGetCardsOfTestAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.test.actions.GetCardsOfTestAction", HttpMethod.GET, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -28,6 +28,14 @@ public abstract class AbstractGetCardsOfTestAction extends Action<CardContentHas
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, CardContentHashListData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

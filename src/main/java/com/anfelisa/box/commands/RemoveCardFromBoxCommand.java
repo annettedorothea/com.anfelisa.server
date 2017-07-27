@@ -1,25 +1,40 @@
 package com.anfelisa.box.commands;
 
-import com.anfelisa.ace.DatabaseHandle;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.box.data.ScheduledCardIdData;
+import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.box.data.RemoveCardFromBoxData;
+import com.anfelisa.box.models.BoxDao;
+import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.IScheduledCardModel;
+import com.anfelisa.box.models.ScheduledCardDao;
 
 public class RemoveCardFromBoxCommand extends AbstractRemoveCardFromBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(RemoveCardFromBoxCommand.class);
 
-	public RemoveCardFromBoxCommand(ScheduledCardIdData commandParam, DatabaseHandle databaseHandle) {
+	private BoxDao boxDao = new BoxDao();
+	
+	private ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
+
+	public RemoveCardFromBoxCommand(RemoveCardFromBoxData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 
 	@Override
 	protected void executeCommand() {
+		IScheduledCardModel scheduledCard = scheduledCardDao.selectByScheduledCardId(getHandle(), this.commandData.getScheduledCardId());
+		if (scheduledCard == null) {
+			this.throwBadRequest();
+		}
+		IBoxModel box = boxDao.selectByBoxId(getHandle(), scheduledCard.getBoxId());
+		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
+			throwUnauthorized();
+		}
 		this.outcome = deleted;
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

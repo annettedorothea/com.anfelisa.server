@@ -27,8 +27,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateTestAction.class);
 
-	public CreateTestAction(DBI jdbi) {
-		super(jdbi);
+	public CreateTestAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@POST

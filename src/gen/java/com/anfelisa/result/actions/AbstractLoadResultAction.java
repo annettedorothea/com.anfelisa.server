@@ -12,8 +12,8 @@ import com.anfelisa.result.data.MyResultData;
 
 public abstract class AbstractLoadResultAction extends Action<MyResultData> {
 
-	public AbstractLoadResultAction(DBI jdbi) {
-		super("com.anfelisa.result.actions.LoadResultAction", HttpMethod.GET, jdbi);
+	public AbstractLoadResultAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.result.actions.LoadResultAction", HttpMethod.GET, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -28,6 +28,14 @@ public abstract class AbstractLoadResultAction extends Action<MyResultData> {
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, MyResultData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

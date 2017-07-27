@@ -27,8 +27,8 @@ public class UpdateUserAction extends AbstractUpdateUserAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateUserAction.class);
 
-	public UpdateUserAction(DBI jdbi) {
-		super(jdbi);
+	public UpdateUserAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@PUT

@@ -13,8 +13,8 @@ import com.anfelisa.user.commands.LoginCommand;
 
 public abstract class AbstractLoginAction extends Action<LoginData> {
 
-	public AbstractLoginAction(DBI jdbi) {
-		super("com.anfelisa.user.actions.LoginAction", HttpMethod.POST, jdbi);
+	public AbstractLoginAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.user.actions.LoginAction", HttpMethod.POST, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractLoginAction extends Action<LoginData> {
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, LoginData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

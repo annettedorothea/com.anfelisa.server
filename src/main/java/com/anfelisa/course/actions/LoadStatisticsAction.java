@@ -35,8 +35,8 @@ public class LoadStatisticsAction extends AbstractLoadStatisticsAction {
 
 	private CustomStatisticsDao customStatisticsDao = new CustomStatisticsDao();
 
-	public LoadStatisticsAction(DBI jdbi) {
-		super(jdbi);
+	public LoadStatisticsAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@GET

@@ -27,8 +27,8 @@ public class CreateLessonAction extends AbstractCreateLessonAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateLessonAction.class);
 
-	public CreateLessonAction(DBI jdbi) {
-		super(jdbi);
+	public CreateLessonAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@POST

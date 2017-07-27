@@ -32,8 +32,8 @@ public class GetAllBoxesAction extends AbstractGetAllBoxesAction {
 
 	private BoxDao boxDao = new BoxDao();
 
-	public GetAllBoxesAction(DBI jdbi) {
-		super(jdbi);
+	public GetAllBoxesAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@GET

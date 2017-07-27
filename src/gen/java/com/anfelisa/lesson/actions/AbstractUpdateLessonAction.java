@@ -13,8 +13,8 @@ import com.anfelisa.lesson.commands.UpdateLessonCommand;
 
 public abstract class AbstractUpdateLessonAction extends Action<LessonData> {
 
-	public AbstractUpdateLessonAction(DBI jdbi) {
-		super("com.anfelisa.lesson.actions.UpdateLessonAction", HttpMethod.PUT, jdbi);
+	public AbstractUpdateLessonAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.lesson.actions.UpdateLessonAction", HttpMethod.PUT, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractUpdateLessonAction extends Action<LessonData> {
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, LessonData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

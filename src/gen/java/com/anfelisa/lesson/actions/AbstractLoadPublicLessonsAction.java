@@ -12,8 +12,8 @@ import com.anfelisa.lesson.data.LessonListData;
 
 public abstract class AbstractLoadPublicLessonsAction extends Action<LessonListData> {
 
-	public AbstractLoadPublicLessonsAction(DBI jdbi) {
-		super("com.anfelisa.lesson.actions.LoadPublicLessonsAction", HttpMethod.GET, jdbi);
+	public AbstractLoadPublicLessonsAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.lesson.actions.LoadPublicLessonsAction", HttpMethod.GET, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -28,6 +28,14 @@ public abstract class AbstractLoadPublicLessonsAction extends Action<LessonListD
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, LessonListData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

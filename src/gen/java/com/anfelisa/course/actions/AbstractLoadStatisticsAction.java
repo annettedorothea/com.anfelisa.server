@@ -12,8 +12,8 @@ import com.anfelisa.course.data.StatisticsData;
 
 public abstract class AbstractLoadStatisticsAction extends Action<StatisticsData> {
 
-	public AbstractLoadStatisticsAction(DBI jdbi) {
-		super("com.anfelisa.course.actions.LoadStatisticsAction", HttpMethod.GET, jdbi);
+	public AbstractLoadStatisticsAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.course.actions.LoadStatisticsAction", HttpMethod.GET, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -28,6 +28,14 @@ public abstract class AbstractLoadStatisticsAction extends Action<StatisticsData
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, StatisticsData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

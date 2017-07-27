@@ -45,8 +45,8 @@ public class LoadBoxOfCourseListAction extends AbstractLoadBoxOfCourseListAction
 
 	private CustomCourseDao customCourseDao = new CustomCourseDao();
 
-	public LoadBoxOfCourseListAction(DBI jdbi) {
-		super(jdbi);
+	public LoadBoxOfCourseListAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@GET

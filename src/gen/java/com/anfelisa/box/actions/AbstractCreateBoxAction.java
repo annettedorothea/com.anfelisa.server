@@ -13,8 +13,8 @@ import com.anfelisa.box.commands.CreateBoxCommand;
 
 public abstract class AbstractCreateBoxAction extends Action<BoxCreationData> {
 
-	public AbstractCreateBoxAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.CreateBoxAction", HttpMethod.POST, jdbi);
+	public AbstractCreateBoxAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.box.actions.CreateBoxAction", HttpMethod.POST, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractCreateBoxAction extends Action<BoxCreationData> {
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, BoxCreationData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

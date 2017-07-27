@@ -75,6 +75,12 @@ public class UserDao {
 			.map(new UserMapper())
 			.list();
 	}
+
+	public void truncate(Handle handle) {
+		Update statement = handle.createStatement("TRUNCATE anfelisa.user");
+		statement.execute();
+	}
+
 }
 
 /*       S.D.G.       */

@@ -12,8 +12,8 @@ import com.anfelisa.user.data.UsernameAvailableData;
 
 public abstract class AbstractUsernameAvailableAction extends Action<UsernameAvailableData> {
 
-	public AbstractUsernameAvailableAction(DBI jdbi) {
-		super("com.anfelisa.user.actions.UsernameAvailableAction", HttpMethod.GET, jdbi);
+	public AbstractUsernameAvailableAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.user.actions.UsernameAvailableAction", HttpMethod.GET, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -28,6 +28,14 @@ public abstract class AbstractUsernameAvailableAction extends Action<UsernameAva
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, UsernameAvailableData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

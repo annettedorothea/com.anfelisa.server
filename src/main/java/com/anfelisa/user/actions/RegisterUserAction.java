@@ -23,8 +23,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 	static final Logger LOG = LoggerFactory.getLogger(RegisterUserAction.class);
 
-	public RegisterUserAction(DBI jdbi) {
-		super(jdbi);
+	public RegisterUserAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@POST

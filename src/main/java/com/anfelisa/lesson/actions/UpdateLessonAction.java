@@ -27,8 +27,8 @@ public class UpdateLessonAction extends AbstractUpdateLessonAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateLessonAction.class);
 
-	public UpdateLessonAction(DBI jdbi) {
-		super(jdbi);
+	public UpdateLessonAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@PUT

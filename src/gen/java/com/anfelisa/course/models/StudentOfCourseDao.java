@@ -33,6 +33,12 @@ public class StudentOfCourseDao {
 			.map(new StudentOfCourseMapper())
 			.list();
 	}
+
+	public void truncate(Handle handle) {
+		Update statement = handle.createStatement("TRUNCATE anfelisa.studentofcourse");
+		statement.execute();
+	}
+
 }
 
 /*       S.D.G.       */

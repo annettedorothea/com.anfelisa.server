@@ -13,8 +13,8 @@ import com.anfelisa.user.commands.RegisterUserCommand;
 
 public abstract class AbstractRegisterUserAction extends Action<UserRegistrationData> {
 
-	public AbstractRegisterUserAction(DBI jdbi) {
-		super("com.anfelisa.user.actions.RegisterUserAction", HttpMethod.POST, jdbi);
+	public AbstractRegisterUserAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.user.actions.RegisterUserAction", HttpMethod.POST, jdbi, jdbiTimeline);
 	}
 
 	@Override
@@ -31,6 +31,14 @@ public abstract class AbstractRegisterUserAction extends Action<UserRegistration
 
 	protected void throwBadRequest() {
 		throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	}
+
+	public void initActionData(String json) {
+		try {
+			this.actionData = mapper.readValue(json, UserRegistrationData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
 	}
 
 }

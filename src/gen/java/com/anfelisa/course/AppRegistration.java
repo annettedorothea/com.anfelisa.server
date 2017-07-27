@@ -11,14 +11,14 @@ import com.anfelisa.course.actions.*;
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public static void registerResources(Environment environment, DBI jdbi) {
-		environment.jersey().register(new CreateCourseAction(jdbi));
-		environment.jersey().register(new AddStudentToCourseAction(jdbi));
-		environment.jersey().register(new LoadPublicCoursesAction(jdbi));
-		environment.jersey().register(new LoadPrivateCoursesAction(jdbi));
-		environment.jersey().register(new LoadStatisticsAction(jdbi));
-		environment.jersey().register(new GetCourseAction(jdbi));
-		environment.jersey().register(new UpdateCourseAction(jdbi));
+	public static void registerResources(Environment environment, DBI jdbi, DBI jdbiTimeline) {
+		environment.jersey().register(new CreateCourseAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new AddStudentToCourseAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new LoadPublicCoursesAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new LoadPrivateCoursesAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new LoadStatisticsAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new GetCourseAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new UpdateCourseAction(jdbi, jdbiTimeline));
 	}
 
 	public static void registerConsumers() {

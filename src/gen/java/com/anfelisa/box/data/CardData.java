@@ -16,6 +16,7 @@ import com.anfelisa.box.models.IScoreModel;
 import com.anfelisa.box.models.ICardInfoModel;
 import com.anfelisa.box.models.ICardContentModel;
 import com.anfelisa.user.models.ICredentialsModel;
+import com.anfelisa.box.models.IDaysBehindModel;
 
 @SuppressWarnings("all")
 public class CardData implements ICardData {
@@ -98,12 +99,15 @@ public class CardData implements ICardData {
 	
 	private String credentialsRole;
 	
+	private Integer daysBehind;
+	
 
 	
 	
 	
 	
 	private java.util.List<com.anfelisa.box.models.ILineModel> lines;
+	
 	
 	
 	private org.joda.time.DateTime systemTime;
@@ -141,7 +145,8 @@ public class CardData implements ICardData {
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("header") String header,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole
+		@JsonProperty("credentialsRole") String credentialsRole,
+		@JsonProperty("daysBehind") Integer daysBehind
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.cardId = cardId;
@@ -177,6 +182,7 @@ public class CardData implements ICardData {
 		this.header = header;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
+		this.daysBehind = daysBehind;
 		this.uuid = uuid;
 	}
 
@@ -580,6 +586,18 @@ public class CardData implements ICardData {
 		return this;
 	}
 	
+	@JsonProperty
+	public Integer getDaysBehind() {
+		return this.daysBehind;
+	}
+	public void setDaysBehind(Integer daysBehind) {
+		this.daysBehind = daysBehind;
+	}
+	public CardData withDaysBehind(Integer daysBehind) {
+		this.daysBehind = daysBehind;
+		return this;
+	}
+	
 	
 	
 	
@@ -591,6 +609,7 @@ public class CardData implements ICardData {
 	public void setLines(java.util.List<com.anfelisa.box.models.ILineModel> lines) {
 		this.lines = lines;
 	}
+	
 	
 	
 

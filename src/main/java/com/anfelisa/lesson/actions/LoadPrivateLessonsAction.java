@@ -37,8 +37,8 @@ public class LoadPrivateLessonsAction extends AbstractLoadPrivateLessonsAction {
 
 	private CustomLessonDao customLessonDao = new CustomLessonDao();
 
-	public LoadPrivateLessonsAction(DBI jdbi) {
-		super(jdbi);
+	public LoadPrivateLessonsAction(DBI jdbi, DBI jdbiTimeline) {
+		super(jdbi, jdbiTimeline);
 	}
 
 	@GET
