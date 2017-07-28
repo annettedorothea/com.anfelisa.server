@@ -65,4 +65,11 @@ public class CustomUserDao {
 		statement.execute();
 	}
 
+	public void changeUserToPremium(Handle handle, String username) {
+		Update statement = handle
+				.createStatement("UPDATE anfelisa.user SET premium = true WHERE username = :username");
+		statement.bind("username", username);
+		statement.execute();
+	}
+	
 }

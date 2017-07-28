@@ -1,4 +1,4 @@
-package com.anfelisa.box.data;
+package com.anfelisa.user.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,24 +10,18 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.box.models.IBoxOfCourseModel;
+import com.anfelisa.user.models.IUsernameModel;
 import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("all")
-public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
+public class ChangeUserToPremiumData implements IChangeUserToPremiumData {
 	
 	private String uuid;
 	
 	private String createdId;
 	
 	@NotNull
-	private Integer boxId;
-	
-	@NotNull
-	private Integer courseId;
-	
-	@NotNull
-	private Boolean autoAdd;
+	private String username;
 	
 	private String credentialsUsername;
 	
@@ -40,61 +34,33 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	
 	private org.joda.time.DateTime systemTime;
 	
-	public BoxToCourseAdditionData(
-		@JsonProperty("boxId") Integer boxId,
-		@JsonProperty("courseId") Integer courseId,
-		@JsonProperty("autoAdd") Boolean autoAdd,
+	public ChangeUserToPremiumData(
+		@JsonProperty("username") String username,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole,
 		@JsonProperty("credentialsPremium") Boolean credentialsPremium
 ,		@JsonProperty("uuid") String uuid
 	) {
-		this.boxId = boxId;
-		this.courseId = courseId;
-		this.autoAdd = autoAdd;
+		this.username = username;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.credentialsPremium = credentialsPremium;
 		this.uuid = uuid;
 	}
 
-	public BoxToCourseAdditionData( String uuid ) {
+	public ChangeUserToPremiumData( String uuid ) {
 		this.uuid = uuid;
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
-		return this.boxId;
+	public String getUsername() {
+		return this.username;
 	}
-	public void setBoxId(Integer boxId) {
-		this.boxId = boxId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public BoxToCourseAdditionData withBoxId(Integer boxId) {
-		this.boxId = boxId;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getCourseId() {
-		return this.courseId;
-	}
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
-	}
-	public BoxToCourseAdditionData withCourseId(Integer courseId) {
-		this.courseId = courseId;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getAutoAdd() {
-		return this.autoAdd;
-	}
-	public void setAutoAdd(Boolean autoAdd) {
-		this.autoAdd = autoAdd;
-	}
-	public BoxToCourseAdditionData withAutoAdd(Boolean autoAdd) {
-		this.autoAdd = autoAdd;
+	public ChangeUserToPremiumData withUsername(String username) {
+		this.username = username;
 		return this;
 	}
 	
@@ -105,7 +71,7 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	public void setCredentialsUsername(String credentialsUsername) {
 		this.credentialsUsername = credentialsUsername;
 	}
-	public BoxToCourseAdditionData withCredentialsUsername(String credentialsUsername) {
+	public ChangeUserToPremiumData withCredentialsUsername(String credentialsUsername) {
 		this.credentialsUsername = credentialsUsername;
 		return this;
 	}
@@ -117,7 +83,7 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	public void setCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
 	}
-	public BoxToCourseAdditionData withCredentialsRole(String credentialsRole) {
+	public ChangeUserToPremiumData withCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
 		return this;
 	}
@@ -129,7 +95,7 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	public void setCredentialsPremium(Boolean credentialsPremium) {
 		this.credentialsPremium = credentialsPremium;
 	}
-	public BoxToCourseAdditionData withCredentialsPremium(Boolean credentialsPremium) {
+	public ChangeUserToPremiumData withCredentialsPremium(Boolean credentialsPremium) {
 		this.credentialsPremium = credentialsPremium;
 		return this;
 	}

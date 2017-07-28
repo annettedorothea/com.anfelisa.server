@@ -99,6 +99,8 @@ public class CardData implements ICardData {
 	
 	private String credentialsRole;
 	
+	private Boolean credentialsPremium;
+	
 	private Integer daysBehind;
 	
 
@@ -146,6 +148,7 @@ public class CardData implements ICardData {
 		@JsonProperty("header") String header,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole,
+		@JsonProperty("credentialsPremium") Boolean credentialsPremium,
 		@JsonProperty("daysBehind") Integer daysBehind
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -182,6 +185,7 @@ public class CardData implements ICardData {
 		this.header = header;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
+		this.credentialsPremium = credentialsPremium;
 		this.daysBehind = daysBehind;
 		this.uuid = uuid;
 	}
@@ -583,6 +587,18 @@ public class CardData implements ICardData {
 	}
 	public CardData withCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getCredentialsPremium() {
+		return this.credentialsPremium;
+	}
+	public void setCredentialsPremium(Boolean credentialsPremium) {
+		this.credentialsPremium = credentialsPremium;
+	}
+	public CardData withCredentialsPremium(Boolean credentialsPremium) {
+		this.credentialsPremium = credentialsPremium;
 		return this;
 	}
 	

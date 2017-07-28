@@ -9,6 +9,7 @@ import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.EmailService;
 import com.anfelisa.user.data.AddCoursesData;
+import com.anfelisa.user.data.ChangeUserToPremiumData;
 import com.anfelisa.user.data.ForgotPasswordData;
 import com.anfelisa.user.data.PasswordUpdateData;
 import com.anfelisa.user.data.RemoveCourseData;
@@ -77,6 +78,10 @@ public class UserView {
 		String subject = messages.getString("RegistrationEmailHeader");
 
 		EmailService.sendEmail("annette_pohl@web.de", dataContainer.getEmail(), subject, message);
+	};
+
+	public BiConsumer<ChangeUserToPremiumData, Handle> changeUserToPremium = (dataContainer, handle) -> {
+		customUserDao.changeUserToPremium(handle, dataContainer.getUsername());
 	};
 
 }

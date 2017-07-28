@@ -48,6 +48,8 @@ public class ResultSaveData implements IResultSaveData {
 	
 	private String credentialsRole;
 	
+	private Boolean credentialsPremium;
+	
 
 	
 	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
@@ -65,7 +67,8 @@ public class ResultSaveData implements IResultSaveData {
 		@JsonProperty("maxPoints") Integer maxPoints,
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole
+		@JsonProperty("credentialsRole") String credentialsRole,
+		@JsonProperty("credentialsPremium") Boolean credentialsPremium
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.resultId = resultId;
@@ -78,6 +81,7 @@ public class ResultSaveData implements IResultSaveData {
 		this.boxId = boxId;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
+		this.credentialsPremium = credentialsPremium;
 		this.uuid = uuid;
 	}
 
@@ -202,6 +206,18 @@ public class ResultSaveData implements IResultSaveData {
 	}
 	public ResultSaveData withCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getCredentialsPremium() {
+		return this.credentialsPremium;
+	}
+	public void setCredentialsPremium(Boolean credentialsPremium) {
+		this.credentialsPremium = credentialsPremium;
+	}
+	public ResultSaveData withCredentialsPremium(Boolean credentialsPremium) {
+		this.credentialsPremium = credentialsPremium;
 		return this;
 	}
 	

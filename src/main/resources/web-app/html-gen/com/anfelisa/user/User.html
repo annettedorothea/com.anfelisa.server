@@ -63,5 +63,13 @@
 	    </div>
 	</div>
 	
+	<div class="form-group" id="userPremiumDiv">
+	    <label for="userPremium" class="col-sm-3 control-label">* {{texts.user.premium}}</label>
+	    <div class="col-sm-9">
+	        <input type="text" class="form-control" id="userPremium" placeholder="{{texts.user.premium}}" value="{{user.premium}}" onblur="new ValidateRequiredFieldAction({id : 'userPremium'}).apply()">
+	        <span class="help-block notEmpty" style="display: none">{{texts.user.premiumNotEmpty}}</span>
+	    </div>
+	</div>
+	
 	
 </form>

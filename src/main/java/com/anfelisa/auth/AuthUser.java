@@ -11,12 +11,14 @@ public class AuthUser implements Principal {
 	private String username;
 	private String password;
 	private String role;
+	private boolean premium;
 
-	public AuthUser(String username, String password, String role) {
+	public AuthUser(String username, String password, String role, boolean premium) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		this.premium = premium;
 	}
 
 	public String getPassword() {
@@ -46,5 +48,11 @@ public class AuthUser implements Principal {
 	public String getName() {
 		return "AuthUser";
 	}
+
+	public boolean isPremium() {
+		return premium;
+	}
+	
+	
 
 }

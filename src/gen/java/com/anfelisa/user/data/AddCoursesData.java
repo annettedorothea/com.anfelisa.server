@@ -12,7 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.ICourseSelectionModel;
 import com.anfelisa.user.models.ICredentialsModel;
-import com.anfelisa.user.models.IUsernameModel;
+import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("all")
 public class AddCoursesData implements IAddCoursesData {
@@ -27,8 +27,7 @@ public class AddCoursesData implements IAddCoursesData {
 	
 	private String credentialsRole;
 	
-	@NotNull
-	private String username;
+	private Boolean credentialsPremium;
 	
 
 	
@@ -40,13 +39,13 @@ public class AddCoursesData implements IAddCoursesData {
 		@JsonProperty("courseIdList") java.util.List<Integer> courseIdList,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole,
-		@JsonProperty("username") String username
+		@JsonProperty("credentialsPremium") Boolean credentialsPremium
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.courseIdList = courseIdList;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
-		this.username = username;
+		this.credentialsPremium = credentialsPremium;
 		this.uuid = uuid;
 	}
 
@@ -91,14 +90,14 @@ public class AddCoursesData implements IAddCoursesData {
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public Boolean getCredentialsPremium() {
+		return this.credentialsPremium;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCredentialsPremium(Boolean credentialsPremium) {
+		this.credentialsPremium = credentialsPremium;
 	}
-	public AddCoursesData withUsername(String username) {
-		this.username = username;
+	public AddCoursesData withCredentialsPremium(Boolean credentialsPremium) {
+		this.credentialsPremium = credentialsPremium;
 		return this;
 	}
 	

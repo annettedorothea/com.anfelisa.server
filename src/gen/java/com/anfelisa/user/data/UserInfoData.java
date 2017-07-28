@@ -43,6 +43,9 @@ public class UserInfoData implements IUserInfoData {
 	@NotNull
 	private Boolean emailConfirmed;
 	
+	@NotNull
+	private Boolean premium;
+	
 
 	
 	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
@@ -59,7 +62,8 @@ public class UserInfoData implements IUserInfoData {
 		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
+		@JsonProperty("premium") Boolean premium
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
@@ -69,6 +73,7 @@ public class UserInfoData implements IUserInfoData {
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
+		this.premium = premium;
 		this.uuid = uuid;
 	}
 
@@ -157,6 +162,18 @@ public class UserInfoData implements IUserInfoData {
 	}
 	public UserInfoData withEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getPremium() {
+		return this.premium;
+	}
+	public void setPremium(Boolean premium) {
+		this.premium = premium;
+	}
+	public UserInfoData withPremium(Boolean premium) {
+		this.premium = premium;
 		return this;
 	}
 	

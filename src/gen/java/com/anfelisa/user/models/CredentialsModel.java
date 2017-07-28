@@ -11,14 +11,18 @@ public class CredentialsModel implements ICredentialsModel {
 	
 	private String credentialsRole;
 	
+	private Boolean credentialsPremium;
+	
 
 
 	public CredentialsModel(
 		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole
+		@JsonProperty("credentialsRole") String credentialsRole,
+		@JsonProperty("credentialsPremium") Boolean credentialsPremium
 	) {
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
+		this.credentialsPremium = credentialsPremium;
 	}
 
 	@JsonProperty
@@ -35,6 +39,14 @@ public class CredentialsModel implements ICredentialsModel {
 	}
 	public void setCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
+	}
+	
+	@JsonProperty
+	public Boolean getCredentialsPremium() {
+		return this.credentialsPremium;
+	}
+	public void setCredentialsPremium(Boolean credentialsPremium) {
+		this.credentialsPremium = credentialsPremium;
 	}
 	
 
