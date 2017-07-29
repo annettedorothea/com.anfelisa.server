@@ -46,9 +46,17 @@ public class CustomCourseDao {
 	public List<ICourseModel> selectCourseSelection(Handle handle, String username) {
 		return handle
 				.createQuery(
-						"select * from ( select * from anfelisa.course "
+						"select * from ( select * from anfelisa.course WHERE ispublic = true "
 						+ "EXCEPT select c.* from anfelisa.course c inner join anfelisa.studentofcourse sc on sc.courseid = c.courseid where sc.username = :username) as courses order by sequence")
 				.bind("username", username).map(new CourseMapper()).list();
 	}
 
+	public List<ICourseModel> selectCourseSelectionPremium(Handle handle, String username) {
+		return handle
+				.createQuery(
+						"select * from ( select * from anfelisa.course "
+								+ "EXCEPT select c.* from anfelisa.course c inner join anfelisa.studentofcourse sc on sc.courseid = c.courseid where sc.username = :username) as courses order by sequence")
+				.bind("username", username).map(new CourseMapper()).list();
+	}
+	
 }

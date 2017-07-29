@@ -42,9 +42,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 	private Boolean emailConfirmed;
 	
 	@NotNull
-	private Boolean premium;
-	
-	@NotNull
 	private String language;
 	
 
@@ -60,7 +57,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
-		@JsonProperty("premium") Boolean premium,
 		@JsonProperty("language") String language
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -71,7 +67,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
-		this.premium = premium;
 		this.language = language;
 		this.uuid = uuid;
 	}
@@ -161,18 +156,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 	}
 	public UserRegistrationData withEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getPremium() {
-		return this.premium;
-	}
-	public void setPremium(Boolean premium) {
-		this.premium = premium;
-	}
-	public UserRegistrationData withPremium(Boolean premium) {
-		this.premium = premium;
 		return this;
 	}
 	

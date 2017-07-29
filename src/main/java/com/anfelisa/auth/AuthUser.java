@@ -6,19 +6,18 @@ public class AuthUser implements Principal {
 
 	public final static String ADMIN = "ADMIN";
 	public final static String AUTHOR = "AUTHOR";
+	public final static String PREMIUM = "PREMIUM";
 	public final static String STUDENT = "STUDENT";
 
 	private String username;
 	private String password;
 	private String role;
-	private boolean premium;
 
-	public AuthUser(String username, String password, String role, boolean premium) {
+	public AuthUser(String username, String password, String role) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.role = role;
-		this.premium = premium;
 	}
 
 	public String getPassword() {
@@ -41,18 +40,16 @@ public class AuthUser implements Principal {
 		return ADMIN.equals(this.role);
 	}
 
+	public boolean isPreium() {
+		return PREMIUM.equals(this.role);
+	}
+
 	public boolean isStudent() {
 		return STUDENT.equals(this.role);
 	}
-
+	
 	public String getName() {
 		return "AuthUser";
 	}
-
-	public boolean isPremium() {
-		return premium;
-	}
-	
-	
 
 }

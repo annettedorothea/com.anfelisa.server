@@ -40,9 +40,6 @@ public class UserCreationData implements IUserCreationData {
 	@NotNull
 	private Boolean emailConfirmed;
 	
-	@NotNull
-	private Boolean premium;
-	
 
 	
 	private org.joda.time.DateTime systemTime;
@@ -54,8 +51,7 @@ public class UserCreationData implements IUserCreationData {
 		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
-		@JsonProperty("premium") Boolean premium
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
@@ -65,7 +61,6 @@ public class UserCreationData implements IUserCreationData {
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
-		this.premium = premium;
 		this.uuid = uuid;
 	}
 
@@ -154,18 +149,6 @@ public class UserCreationData implements IUserCreationData {
 	}
 	public UserCreationData withEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getPremium() {
-		return this.premium;
-	}
-	public void setPremium(Boolean premium) {
-		this.premium = premium;
-	}
-	public UserCreationData withPremium(Boolean premium) {
-		this.premium = premium;
 		return this;
 	}
 	

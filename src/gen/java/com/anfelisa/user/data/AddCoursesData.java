@@ -12,7 +12,6 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.ICourseSelectionModel;
 import com.anfelisa.user.models.ICredentialsModel;
-import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("all")
 public class AddCoursesData implements IAddCoursesData {
@@ -27,10 +26,7 @@ public class AddCoursesData implements IAddCoursesData {
 	
 	private String credentialsRole;
 	
-	private Boolean credentialsPremium;
-	
 
-	
 	
 	
 	private org.joda.time.DateTime systemTime;
@@ -38,14 +34,12 @@ public class AddCoursesData implements IAddCoursesData {
 	public AddCoursesData(
 		@JsonProperty("courseIdList") java.util.List<Integer> courseIdList,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole,
-		@JsonProperty("credentialsPremium") Boolean credentialsPremium
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.courseIdList = courseIdList;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
-		this.credentialsPremium = credentialsPremium;
 		this.uuid = uuid;
 	}
 
@@ -88,19 +82,6 @@ public class AddCoursesData implements IAddCoursesData {
 		this.credentialsRole = credentialsRole;
 		return this;
 	}
-	
-	@JsonProperty
-	public Boolean getCredentialsPremium() {
-		return this.credentialsPremium;
-	}
-	public void setCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
-	}
-	public AddCoursesData withCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
-		return this;
-	}
-	
 	
 	
 	

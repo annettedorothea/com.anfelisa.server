@@ -31,8 +31,6 @@ public class BoxConfigData implements IBoxConfigData {
 	
 	private String credentialsRole;
 	
-	private Boolean credentialsPremium;
-	
 
 	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList;
 	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems;
@@ -45,15 +43,13 @@ public class BoxConfigData implements IBoxConfigData {
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("username") String username,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole,
-		@JsonProperty("credentialsPremium") Boolean credentialsPremium
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.boxId = boxId;
 		this.username = username;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
-		this.credentialsPremium = credentialsPremium;
 		this.uuid = uuid;
 	}
 
@@ -106,18 +102,6 @@ public class BoxConfigData implements IBoxConfigData {
 	}
 	public BoxConfigData withCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getCredentialsPremium() {
-		return this.credentialsPremium;
-	}
-	public void setCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
-	}
-	public BoxConfigData withCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
 		return this;
 	}
 	

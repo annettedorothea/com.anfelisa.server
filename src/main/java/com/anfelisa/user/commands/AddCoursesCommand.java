@@ -18,7 +18,7 @@ public class AddCoursesCommand extends AbstractAddCoursesCommand {
 	@Override
 	protected void executeCommand() {
 		if (commandData.getCredentialsRole().equals(AuthUser.STUDENT)
-				&& !commandData.getUsername().equals(commandData.getCredentialsUsername())) {
+				&& !commandData.getCredentialsUsername().equals(commandData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
 		this.outcome = success;

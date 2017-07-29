@@ -11,7 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.course.models.ICourseListModel;
-import com.anfelisa.user.models.IUsernameModel;
+import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("all")
 public class CourseSelectionData implements ICourseSelectionData {
@@ -20,8 +20,9 @@ public class CourseSelectionData implements ICourseSelectionData {
 	
 	private String createdId;
 	
-	@NotNull
-	private String username;
+	private String credentialsUsername;
+	
+	private String credentialsRole;
 	
 
 	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
@@ -30,10 +31,12 @@ public class CourseSelectionData implements ICourseSelectionData {
 	private org.joda.time.DateTime systemTime;
 	
 	public CourseSelectionData(
-		@JsonProperty("username") String username
+		@JsonProperty("credentialsUsername") String credentialsUsername,
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
-		this.username = username;
+		this.credentialsUsername = credentialsUsername;
+		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
 	}
 
@@ -42,14 +45,26 @@ public class CourseSelectionData implements ICourseSelectionData {
 	}
 
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getCredentialsUsername() {
+		return this.credentialsUsername;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
 	}
-	public CourseSelectionData withUsername(String username) {
-		this.username = username;
+	public CourseSelectionData withCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCredentialsRole() {
+		return this.credentialsRole;
+	}
+	public void setCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+	}
+	public CourseSelectionData withCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
 		return this;
 	}
 	

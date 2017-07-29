@@ -31,8 +31,6 @@ public class ReinforceCardListData implements IReinforceCardListData {
 	
 	private String credentialsRole;
 	
-	private Boolean credentialsPremium;
-	
 	@NotNull
 	private String name;
 	
@@ -51,7 +49,6 @@ public class ReinforceCardListData implements IReinforceCardListData {
 		@JsonProperty("boxName") String boxName,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole,
-		@JsonProperty("credentialsPremium") Boolean credentialsPremium,
 		@JsonProperty("name") String name,
 		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid
@@ -60,7 +57,6 @@ public class ReinforceCardListData implements IReinforceCardListData {
 		this.boxName = boxName;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
-		this.credentialsPremium = credentialsPremium;
 		this.name = name;
 		this.username = username;
 		this.uuid = uuid;
@@ -115,18 +111,6 @@ public class ReinforceCardListData implements IReinforceCardListData {
 	}
 	public ReinforceCardListData withCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getCredentialsPremium() {
-		return this.credentialsPremium;
-	}
-	public void setCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
-	}
-	public ReinforceCardListData withCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
 		return this;
 	}
 	

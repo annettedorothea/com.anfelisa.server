@@ -13,7 +13,6 @@ models {
 			NotNull String email
 			NotNull String role
 			NotNull Boolean emailConfirmed
-			NotNull Boolean premium
 		}
 	}
 
@@ -29,7 +28,6 @@ models {
 		primitiveAttributes {
 			String credentialsUsername
 			String credentialsRole
-			Boolean credentialsPremium
 		}
 	} 
 
@@ -97,8 +95,8 @@ data {
 	Points : ( Points Username )
 	UserInfo : (User com.anfelisa.course.CourseList com.anfelisa.box.MyBoxList Username)
 	UserUpdate : (UserUpdate Credentials)
-	CourseSelection : (com.anfelisa.course.CourseList Username)
-	AddCourses : (CourseSelection Credentials Credentials)
+	CourseSelection : (com.anfelisa.course.CourseList Credentials)
+	AddCourses : (CourseSelection Credentials)
 	RemoveCourse : (CourseId Username)
 	PasswordUpdate : (UsernameAndPassword)
 	ForgotPassword : (ForgotPassword Language)

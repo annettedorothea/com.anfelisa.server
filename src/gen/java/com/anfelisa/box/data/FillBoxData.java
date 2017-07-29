@@ -27,8 +27,6 @@ public class FillBoxData implements IFillBoxData {
 	
 	private String credentialsRole;
 	
-	private Boolean credentialsPremium;
-	
 	private org.joda.time.DateTime now;
 	
 
@@ -42,14 +40,12 @@ public class FillBoxData implements IFillBoxData {
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole,
-		@JsonProperty("credentialsPremium") Boolean credentialsPremium,
 		@JsonProperty("now") org.joda.time.DateTime now
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.boxId = boxId;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
-		this.credentialsPremium = credentialsPremium;
 		this.now = now;
 		this.uuid = uuid;
 	}
@@ -91,18 +87,6 @@ public class FillBoxData implements IFillBoxData {
 	}
 	public FillBoxData withCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getCredentialsPremium() {
-		return this.credentialsPremium;
-	}
-	public void setCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
-	}
-	public FillBoxData withCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
 		return this;
 	}
 	

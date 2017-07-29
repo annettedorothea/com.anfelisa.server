@@ -43,13 +43,19 @@ public class GetCourseSelectionAction extends AbstractGetCourseSelectionAction {
 	@Path("/courses")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new CourseSelectionData(uuid).withUsername(user.getUsername());
+		this.actionData = new CourseSelectionData(uuid).withCredentialsUsername(user.getUsername()).withCredentialsRole(user.getRole());
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
-		List<ICourseModel> courses = customCourseDao.selectCourseSelection(this.getDatabaseHandle().getHandle(),
-				this.actionData.getUsername());
+		List<ICourseModel> courses;
+		if (AuthUser.STUDENT.equals(this.actionData.getCredentialsRole())) {
+			courses = customCourseDao.selectCourseSelection(this.getDatabaseHandle().getHandle(),
+					this.actionData.getCredentialsUsername());
+		} else {
+			courses = customCourseDao.selectCourseSelectionPremium(this.getDatabaseHandle().getHandle(),
+					this.actionData.getCredentialsUsername());
+		}
 		this.actionData.setCourseList(courses);
 	}
 

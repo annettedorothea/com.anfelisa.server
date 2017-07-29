@@ -20,7 +20,4 @@
 	<column name="emailconfirmed" type="boolean">
 		<constraints  nullable="false"/>
 	</column>
-	<column name="premium" type="boolean">
-		<constraints  nullable="false"/>
-	</column>
 </createTable>

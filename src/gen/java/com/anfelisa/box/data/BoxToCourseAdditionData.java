@@ -33,8 +33,6 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	
 	private String credentialsRole;
 	
-	private Boolean credentialsPremium;
-	
 
 	
 	
@@ -45,8 +43,7 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 		@JsonProperty("courseId") Integer courseId,
 		@JsonProperty("autoAdd") Boolean autoAdd,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole,
-		@JsonProperty("credentialsPremium") Boolean credentialsPremium
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.boxId = boxId;
@@ -54,7 +51,6 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 		this.autoAdd = autoAdd;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
-		this.credentialsPremium = credentialsPremium;
 		this.uuid = uuid;
 	}
 
@@ -119,18 +115,6 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	}
 	public BoxToCourseAdditionData withCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getCredentialsPremium() {
-		return this.credentialsPremium;
-	}
-	public void setCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
-	}
-	public BoxToCourseAdditionData withCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
 		return this;
 	}
 	

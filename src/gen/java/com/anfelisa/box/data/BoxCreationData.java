@@ -33,8 +33,6 @@ public class BoxCreationData implements IBoxCreationData {
 	
 	private String credentialsRole;
 	
-	private Boolean credentialsPremium;
-	
 
 	
 	
@@ -45,8 +43,7 @@ public class BoxCreationData implements IBoxCreationData {
 		@JsonProperty("name") String name,
 		@JsonProperty("username") String username,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole,
-		@JsonProperty("credentialsPremium") Boolean credentialsPremium
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.boxId = boxId;
@@ -54,7 +51,6 @@ public class BoxCreationData implements IBoxCreationData {
 		this.username = username;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
-		this.credentialsPremium = credentialsPremium;
 		this.uuid = uuid;
 	}
 
@@ -119,18 +115,6 @@ public class BoxCreationData implements IBoxCreationData {
 	}
 	public BoxCreationData withCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getCredentialsPremium() {
-		return this.credentialsPremium;
-	}
-	public void setCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
-	}
-	public BoxCreationData withCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
 		return this;
 	}
 	

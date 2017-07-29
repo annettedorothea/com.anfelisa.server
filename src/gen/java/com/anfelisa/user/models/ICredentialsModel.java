@@ -7,7 +7,6 @@ public interface ICredentialsModel {
 
 	String getCredentialsUsername();
 	String getCredentialsRole();
-	Boolean getCredentialsPremium();
 
 
 }

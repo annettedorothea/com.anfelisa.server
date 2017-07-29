@@ -36,7 +36,7 @@ public class CustomUserDao {
 		for (Integer courseId : dataContainer.getCourseIdList()) {
 			Update statement = handle.createStatement(
 					"INSERT INTO anfelisa.studentofcourse (username, courseId) VALUES (:username, :courseId)");
-			statement.bind("username", dataContainer.getUsername());
+			statement.bind("username", dataContainer.getCredentialsUsername());
 			statement.bind("courseId", courseId);
 			statement.execute();
 		}
@@ -67,7 +67,7 @@ public class CustomUserDao {
 
 	public void changeUserToPremium(Handle handle, String username) {
 		Update statement = handle
-				.createStatement("UPDATE anfelisa.user SET premium = true WHERE username = :username");
+				.createStatement("UPDATE anfelisa.user SET role = 'PREMIUM' WHERE username = :username");
 		statement.bind("username", username);
 		statement.execute();
 	}

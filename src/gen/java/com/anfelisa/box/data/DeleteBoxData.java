@@ -27,8 +27,6 @@ public class DeleteBoxData implements IDeleteBoxData {
 	
 	private String credentialsRole;
 	
-	private Boolean credentialsPremium;
-	
 
 	
 	
@@ -37,14 +35,12 @@ public class DeleteBoxData implements IDeleteBoxData {
 	public DeleteBoxData(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole,
-		@JsonProperty("credentialsPremium") Boolean credentialsPremium
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.boxId = boxId;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
-		this.credentialsPremium = credentialsPremium;
 		this.uuid = uuid;
 	}
 
@@ -85,18 +81,6 @@ public class DeleteBoxData implements IDeleteBoxData {
 	}
 	public DeleteBoxData withCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getCredentialsPremium() {
-		return this.credentialsPremium;
-	}
-	public void setCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
-	}
-	public DeleteBoxData withCredentialsPremium(Boolean credentialsPremium) {
-		this.credentialsPremium = credentialsPremium;
 		return this;
 	}
 	
