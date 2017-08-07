@@ -34,6 +34,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 	@Path("/create")
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
 	public Response post(@NotNull CourseCreationData courseCreationData) throws JsonProcessingException {
+		this.actionData = courseCreationData;
 		return this.apply();
 	}
 
