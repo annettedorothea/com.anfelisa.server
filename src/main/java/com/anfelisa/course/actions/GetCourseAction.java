@@ -47,11 +47,13 @@ public class GetCourseAction extends AbstractGetCourseAction {
 	protected final void loadDataForGetRequest() {
 		ICourseModel course = courseDao.selectByCourseId(this.getDatabaseHandle().getHandle(),
 				this.actionData.getCourseId());
-		this.actionData.setAuthor(course.getAuthor());
-		this.actionData.setDescription(course.getDescription());
-		this.actionData.setName(course.getName());
-		this.actionData.setIsPublic(course.getIsPublic());
-		this.actionData.setSequence(course.getSequence());
+		if (course != null) {
+			this.actionData.setAuthor(course.getAuthor());
+			this.actionData.setDescription(course.getDescription());
+			this.actionData.setName(course.getName());
+			this.actionData.setIsPublic(course.getIsPublic());
+			this.actionData.setSequence(course.getSequence());
+		}
 	}
 
 }

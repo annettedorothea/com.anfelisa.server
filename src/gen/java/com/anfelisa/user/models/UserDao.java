@@ -16,12 +16,12 @@ import com.anfelisa.ace.encryption.EncryptionService;
 public class UserDao {
 	
 	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS anfelisa.user (username character varying NOT NULL  , password character varying NOT NULL  , name character varying NOT NULL  , prename character varying NOT NULL  , email character varying NOT NULL  , role character varying NOT NULL  , emailconfirmed boolean NOT NULL  , CONSTRAINT user_pkey PRIMARY KEY (username), CONSTRAINT user_username_unique UNIQUE (username))");
+		handle.execute("CREATE TABLE IF NOT EXISTS public.user (username character varying NOT NULL  , password character varying NOT NULL  , name character varying NOT NULL  , prename character varying NOT NULL  , email character varying NOT NULL  , role character varying NOT NULL  , emailconfirmed boolean NOT NULL  , CONSTRAINT user_pkey PRIMARY KEY (username), CONSTRAINT user_username_unique UNIQUE (username))");
 	}
 	
 	public String insert(Handle handle, IUserModel userModel) {
 		if (userModel.getUsername() != null) {
-			Update statement = handle.createStatement("INSERT INTO anfelisa.user (username, password, name, prename, email, role, emailconfirmed) VALUES (:username, :password, :name, :prename, :email, :role, :emailconfirmed)");
+			Update statement = handle.createStatement("INSERT INTO public.user (username, password, name, prename, email, role, emailconfirmed) VALUES (:username, :password, :name, :prename, :email, :role, :emailconfirmed)");
 			statement.bind("username",  userModel.getUsername() );
 			statement.bind("password",  userModel.getPassword() );
 			statement.bind("name",  userModel.getName() );
@@ -32,7 +32,7 @@ public class UserDao {
 			statement.execute();
 			return userModel.getUsername();
 		} else {
-			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO anfelisa.user (password, name, prename, email, role, emailconfirmed) VALUES (:password, :name, :prename, :email, :role, :emailconfirmed) RETURNING username");
+			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.user (password, name, prename, email, role, emailconfirmed) VALUES (:password, :name, :prename, :email, :role, :emailconfirmed) RETURNING username");
 			statement.bind("password",  userModel.getPassword() );
 			statement.bind("name",  userModel.getName() );
 			statement.bind("prename",  userModel.getPrename() );
@@ -46,7 +46,7 @@ public class UserDao {
 	
 	
 	public void updateByUsername(Handle handle, IUserModel userModel) {
-		Update statement = handle.createStatement("UPDATE anfelisa.user SET username = :username, password = :password, name = :name, prename = :prename, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE username = :username");
+		Update statement = handle.createStatement("UPDATE public.user SET username = :username, password = :password, name = :name, prename = :prename, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE username = :username");
 		statement.bind("username",  userModel.getUsername() );
 		statement.bind("password",  userModel.getPassword() );
 		statement.bind("name",  userModel.getName() );
@@ -58,26 +58,26 @@ public class UserDao {
 	}
 
 	public void deleteByUsername(Handle handle, String username) {
-		Update statement = handle.createStatement("DELETE FROM anfelisa.user WHERE username = :username");
+		Update statement = handle.createStatement("DELETE FROM public.user WHERE username = :username");
 		statement.bind("username", username);
 		statement.execute();
 	}
 
 	public IUserModel selectByUsername(Handle handle, String username) {
-		return handle.createQuery("SELECT * FROM anfelisa.user WHERE username = :username")
+		return handle.createQuery("SELECT * FROM public.user WHERE username = :username")
 			.bind("username", username)
 			.map(new UserMapper())
 			.first();
 	}
 	
 	public List<IUserModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT * FROM anfelisa.user")
+		return handle.createQuery("SELECT * FROM public.user")
 			.map(new UserMapper())
 			.list();
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE anfelisa.user");
+		Update statement = handle.createStatement("TRUNCATE public.user");
 		statement.execute();
 	}
 

@@ -26,6 +26,8 @@ public class AppRegistration {
 		environment.jersey().register(new UsernameAvailableAction(jdbi, jdbiTimeline));
 		environment.jersey().register(new ConfirmEmailAction(jdbi, jdbiTimeline));
 		environment.jersey().register(new ChangeUserToPremiumAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new ChangeUserToAuthorAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new ChangeUserToAdminAction(jdbi, jdbiTimeline));
 	}
 
 	public static void registerConsumers() {
@@ -43,6 +45,8 @@ public class AppRegistration {
 		AceController.addConsumer("com.anfelisa.user.events.SendRegistrationEmailEvent", userView.sendRegistrationEmail);
 		AceController.addConsumer("com.anfelisa.user.events.EmailConfirmedEvent", userView.confirmEmail);
 		AceController.addConsumer("com.anfelisa.user.events.ChangeUserToPremiumEvent", userView.changeUserToPremium);
+		AceController.addConsumer("com.anfelisa.user.events.ChangeUserToAuthorEvent", userView.changeUserToAuthor);
+		AceController.addConsumer("com.anfelisa.user.events.ChangeUserToAdminEvent", userView.changeUserToAdmin);
     }
 }
 

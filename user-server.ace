@@ -3,7 +3,7 @@ com.anfelisa.user
 target JAVA
 
 models {
-	schema anfelisa
+	schema public
 	persistent User {
 		primitiveAttributes {
 			Unique PrimaryKey NotNull String username
@@ -103,7 +103,7 @@ data {
 	UsernameAvailable : (Username Available)
 	UserRegistration : (User Language)
 	Username : (Username)
-	ChangeUserToPremium : (Username Credentials)
+	ChangeUserRole : (Username Credentials)
 }
 
 actions {
@@ -120,7 +120,9 @@ actions {
 	POST RegisterUser uses UserRegistration executes RegisterUser
 	GET UsernameAvailable uses UsernameAvailable
 	PUT ConfirmEmail uses Username executes ConfirmEmail
-	PUT ChangeUserToPremium uses ChangeUserToPremium executes ChangeUserToPremium
+	PUT ChangeUserToPremium uses ChangeUserRole executes ChangeUserToPremium
+	PUT ChangeUserToAuthor uses ChangeUserRole executes ChangeUserToAuthor
+	PUT ChangeUserToAdmin uses ChangeUserRole executes ChangeUserToAdmin
 }
 
 commands {
@@ -152,8 +154,14 @@ commands {
 	ConfirmEmail uses Username {
 		on ok publishes (EmailConfirmed)
 	}
-	ChangeUserToPremium uses ChangeUserToPremium {
+	ChangeUserToPremium uses ChangeUserRole {
 		on ok publishes (ChangeUserToPremium)
+	}
+	ChangeUserToAuthor uses ChangeUserRole {
+		on ok publishes (ChangeUserToAuthor)
+	}
+	ChangeUserToAdmin uses ChangeUserRole {
+		on ok publishes (ChangeUserToAdmin)
 	}
 }
 
@@ -168,7 +176,9 @@ events {
 	SendEmail uses ForgotPassword listenedToBy (User.sendForgotPasswordEmail)
 	SendRegistrationEmail uses UserRegistration listenedToBy (User.sendRegistrationEmail)
 	EmailConfirmed uses Username listenedToBy (User.confirmEmail)
-	ChangeUserToPremium uses ChangeUserToPremium listenedToBy (User.changeUserToPremium)
+	ChangeUserToPremium uses ChangeUserRole listenedToBy (User.changeUserToPremium)
+	ChangeUserToAuthor uses ChangeUserRole listenedToBy (User.changeUserToAuthor)
+	ChangeUserToAdmin uses ChangeUserRole listenedToBy (User.changeUserToAdmin)
 }
 
 views {
@@ -182,7 +192,9 @@ views {
 		sendRegistrationEmail(UserRegistration)
 		registerUser(UserRegistration)
 		confirmEmail(Username)
-		changeUserToPremium(ChangeUserToPremium)
+		changeUserToPremium(ChangeUserRole)
+		changeUserToAuthor(ChangeUserRole)
+		changeUserToAdmin(ChangeUserRole)
 	}
 	LoginLog {
 		userLoggedIn(Login)

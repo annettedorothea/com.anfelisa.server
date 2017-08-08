@@ -4,21 +4,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.user.data.ChangeUserToPremiumData;
+import com.anfelisa.user.data.ChangeUserRoleData;
 
 public class ChangeUserToPremiumCommand extends AbstractChangeUserToPremiumCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ChangeUserToPremiumCommand.class);
 
-	public ChangeUserToPremiumCommand(ChangeUserToPremiumData commandParam, DatabaseHandle databaseHandle) {
+	public ChangeUserToPremiumCommand(ChangeUserRoleData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 
 	@Override
 	protected void executeCommand() {
-		if (!commandData.getCredentialsUsername().equals("Annette")) {
-			throwUnauthorized();
-		}
 		this.outcome = ok;
 	}
 

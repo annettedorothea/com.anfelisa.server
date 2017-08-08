@@ -11,20 +11,20 @@ import com.anfelisa.user.data.UserUpdateData;
 public class CustomUserDao {
 
 	public int selectTestPoints(Handle handle, String username) {
-		return handle.createQuery("select sum(points) as sum from anfelisa.result WHERE username = :username")
+		return handle.createQuery("select sum(points) as sum from public.result WHERE username = :username")
 				.bind("username", username).mapTo(Integer.class).first();
 	}
 
 	public int selectBoxPoints(Handle handle, String username) {
 		return handle
 				.createQuery(
-						"SELECT sum(points) as sum FROM anfelisa.scoredcard c, anfelisa.box b where c.boxid = b.boxid AND b.username = :username")
+						"SELECT sum(points) as sum FROM public.scoredcard c, public.box b where c.boxid = b.boxid AND b.username = :username")
 				.bind("username", username).mapTo(Integer.class).first();
 	}
 
 	public void update(Handle handle, UserUpdateData userModel) {
 		Update statement = handle.createStatement(
-				"UPDATE anfelisa.user SET name = :name, prename = :prename, email = :email WHERE username = :username");
+				"UPDATE public.user SET name = :name, prename = :prename, email = :email WHERE username = :username");
 		statement.bind("username", userModel.getUsername());
 		statement.bind("name", userModel.getName());
 		statement.bind("prename", userModel.getPrename());
@@ -35,7 +35,7 @@ public class CustomUserDao {
 	public void addCoursesToUser(Handle handle, AddCoursesData dataContainer) {
 		for (Integer courseId : dataContainer.getCourseIdList()) {
 			Update statement = handle.createStatement(
-					"INSERT INTO anfelisa.studentofcourse (username, courseId) VALUES (:username, :courseId)");
+					"INSERT INTO public.studentofcourse (username, courseId) VALUES (:username, :courseId)");
 			statement.bind("username", dataContainer.getCredentialsUsername());
 			statement.bind("courseId", courseId);
 			statement.execute();
@@ -44,7 +44,7 @@ public class CustomUserDao {
 
 	public void removeCourseFromUser(Handle handle, RemoveCourseData dataContainer) {
 		Update statement = handle.createStatement(
-				"DELETE FROM anfelisa.studentofcourse WHERE username = :username AND courseId = :courseId");
+				"DELETE FROM public.studentofcourse WHERE username = :username AND courseId = :courseId");
 		statement.bind("username", dataContainer.getUsername());
 		statement.bind("courseId", dataContainer.getCourseId());
 		statement.execute();
@@ -52,7 +52,7 @@ public class CustomUserDao {
 
 	public void updatePassword(Handle handle, PasswordUpdateData userModel) {
 		Update statement = handle
-				.createStatement("UPDATE anfelisa.user SET password = :password WHERE username = :username");
+				.createStatement("UPDATE public.user SET password = :password WHERE username = :username");
 		statement.bind("username", userModel.getUsername());
 		statement.bind("password", userModel.getPassword());
 		statement.execute();
@@ -60,15 +60,16 @@ public class CustomUserDao {
 
 	public void confirmEmail(Handle handle, String username) {
 		Update statement = handle
-				.createStatement("UPDATE anfelisa.user SET emailConfirmed = true WHERE username = :username");
+				.createStatement("UPDATE public.user SET emailConfirmed = true WHERE username = :username");
 		statement.bind("username", username);
 		statement.execute();
 	}
 
-	public void changeUserToPremium(Handle handle, String username) {
+	public void changeUserRole(Handle handle, String username, String role) {
 		Update statement = handle
-				.createStatement("UPDATE anfelisa.user SET role = 'PREMIUM' WHERE username = :username");
+				.createStatement("UPDATE public.user SET role = ':role' WHERE username = :username");
 		statement.bind("username", username);
+		statement.bind("role", role);
 		statement.execute();
 	}
 	

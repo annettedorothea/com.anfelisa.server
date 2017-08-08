@@ -7,8 +7,8 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.user.models.IUsernameModel;
 import com.anfelisa.user.models.ICredentialsModel;
 
-@JsonDeserialize(as=ChangeUserToPremiumData.class)
-public interface IChangeUserToPremiumData extends IUsernameModel, ICredentialsModel, IDataContainer {
+@JsonDeserialize(as=ChangeUserRoleData.class)
+public interface IChangeUserRoleData extends IUsernameModel, ICredentialsModel, IDataContainer {
 
 }
 

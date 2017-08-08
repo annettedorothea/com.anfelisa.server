@@ -66,7 +66,7 @@ public class Importer {
 				}
 				if (nextGiven.size() == 8) {
 					String testName = "E " + index;
-					String fileName = StringUtils.leftPad(index + "", 3, "0") + "_" + testName + ".anfelisa";
+					String fileName = StringUtils.leftPad(index + "", 2, "0") + "_" + testName + ".anfelisa";
 					PrintWriter writer = new PrintWriter(fileName);
 					writer.println("vocabularyTest \"" + testName+ "\" {");
 					for (int i = 0; i < nextGiven.size(); i++) {

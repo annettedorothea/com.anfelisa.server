@@ -13,7 +13,7 @@ public class CustomTestDao {
 	private CustomResultDao customResultDao = new CustomResultDao();
 
 	public List<ITestModel> selectTests(Handle handle, Integer lessonId) {
-		return handle.createQuery("SELECT * FROM anfelisa.test WHERE lessonId = :lessonId ORDER By sequence")
+		return handle.createQuery("SELECT * FROM public.test WHERE lessonId = :lessonId ORDER By sequence")
 				.bind("lessonId", lessonId).map(new TestMapper()).list();
 	}
 
@@ -35,7 +35,7 @@ public class CustomTestDao {
 	public ITestModel selectByTestIdAndUsername(Handle handle, Integer testId, String username) {
 		return handle
 				.createQuery(
-						"SELECT t.* FROM anfelisa.course c, anfelisa.studentofcourse sc, anfelisa.lesson l, anfelisa.test t "
+						"SELECT t.* FROM public.course c, public.studentofcourse sc, public.lesson l, public.test t "
 								+ "WHERE t.testId = :testId AND t.lessonId = l.lessonId AND l.courseId = c.courseId AND sc.courseId = c.courseId AND sc.username = :username")
 				.bind("testId", testId).bind("username", username).map(new TestMapper()).first();
 

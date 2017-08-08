@@ -24,17 +24,17 @@ import io.dropwizard.auth.Auth;
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class ChangeUserToPremiumAction extends AbstractChangeUserToPremiumAction {
+	public class ChangeUserToAuthorAction extends AbstractChangeUserToAuthorAction {
 
-	static final Logger LOG = LoggerFactory.getLogger(ChangeUserToPremiumAction.class);
+	static final Logger LOG = LoggerFactory.getLogger(ChangeUserToAuthorAction.class);
 
-	public ChangeUserToPremiumAction(DBI jdbi, DBI jdbiTimeline) {
+	public ChangeUserToAuthorAction(DBI jdbi, DBI jdbiTimeline) {
 		super(jdbi, jdbiTimeline);
 	}
 
 	@PUT
 	@Timed
-	@Path("/premium")
+	@Path("/author")
 	@RolesAllowed({ AuthUser.ADMIN })
 	public Response put(@Auth AuthUser user, @NotNull @QueryParam("username") String username,
 			@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
@@ -43,6 +43,7 @@ public class ChangeUserToPremiumAction extends AbstractChangeUserToPremiumAction
 		return this.apply();
 	}
 
+
 }
 
-/* S.D.G. */
+/*       S.D.G.       */

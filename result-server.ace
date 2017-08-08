@@ -3,7 +3,7 @@ com.anfelisa.result
 target JAVA
 
 models {
-	schema anfelisa
+	schema public
 	persistent Result {
 		primitiveAttributes {
 			Unique PrimaryKey NotNull Serial resultId

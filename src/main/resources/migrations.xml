@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+	<changeSet id="001" author="annette">
+		<createTable tableName="timeline">
+			<column name="id" type="serial">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="type" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="method" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="time" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="data" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="uuid" type="character varying">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="errortimeline">
+			<column name="id" type="serial">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="type" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="method" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="time" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="data" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="uuid" type="character varying">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet id="002" author="annette">
+		<createTable tableName="user">
+			<column name="username" type="character varying">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="password" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="prename" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="email" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="role" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="emailconfirmed" type="boolean">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="loginlog">
+			<column name="loginlogid" type="serial">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="username" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="date" type="timestamp with time zone">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="box">
+			<column name="boxid" type="serial">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="name" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="username" type="character varying">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="course">
+			<column name="courseid" type="serial">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="name" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="character varying">
+				<constraints />
+			</column>
+			<column name="sequence" type="integer">
+				<constraints />
+			</column>
+			<column name="ispublic" type="boolean">
+				<constraints nullable="false" />
+			</column>
+			<column name="author" type="character varying">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="studentofcourse">
+			<column name="username" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="courseid" type="integer">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="boxofcourse">
+			<column name="boxid" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="courseid" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="autoadd" type="boolean">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="lesson">
+			<column name="lessonid" type="serial">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="name" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="character varying">
+				<constraints />
+			</column>
+			<column name="sequence" type="integer">
+				<constraints />
+			</column>
+			<column name="courseid" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="author" type="character varying">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="test">
+			<column name="testid" type="serial">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="name" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="sequence" type="integer">
+				<constraints />
+			</column>
+			<column name="lessonid" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="html" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="author" type="character varying">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="result">
+			<column name="resultid" type="serial">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="username" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="testid" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="date" type="timestamp with time zone">
+				<constraints nullable="false" />
+			</column>
+			<column name="json" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="points" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="maxpoints" type="integer">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="card">
+			<column name="cardid" type="serial">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="content" type="character varying">
+				<constraints />
+			</column>
+			<column name="testid" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="contenthash" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="maxpoints" type="integer">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="scheduledcard">
+			<column name="scheduledcardid" type="serial">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="cardid" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="ef" type="numeric">
+				<constraints nullable="false" />
+			</column>
+			<column name="interval" type="integer">
+				<constraints />
+			</column>
+			<column name="n" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="count" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="scheduleddate" type="timestamp with time zone">
+				<constraints nullable="false" />
+			</column>
+			<column name="boxid" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="lastquality" type="integer">
+				<constraints />
+			</column>
+			<column name="timestamp" type="timestamp with time zone">
+				<constraints nullable="false" />
+			</column>
+			<column name="removed" type="boolean">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="scoredcard">
+			<column name="scoredcardid" type="serial">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="cardid" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="scheduleddateofscored" type="timestamp with time zone">
+				<constraints />
+			</column>
+			<column name="boxid" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="quality" type="integer">
+				<constraints />
+			</column>
+			<column name="timestamp" type="timestamp with time zone">
+				<constraints nullable="false" />
+			</column>
+			<column name="points" type="integer">
+				<constraints />
+			</column>
+			<column name="scheduledcardid" type="integer">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="003" author="annette">
+		<insert tableName="user">
+			<column name="username" value="Annette" />
+			<column name="password" value="00161e7f79e404bad9cc8f53c0f663f2" />
+			<column name="name" value="Pohl" />
+			<column name="prename" value="Annette" />
+			<column name="email" value="annette_pohl@web.de" />
+			<column name="role" value="ADMIN" />
+			<column name="emailconfirmed" value="TRUE" />
+		</insert>
+	</changeSet>
+
+</databaseChangeLog>

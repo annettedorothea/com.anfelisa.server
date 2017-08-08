@@ -1,16 +1,17 @@
 package com.anfelisa.user.events;
 
+import com.anfelisa.ace.DatabaseHandle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.user.data.ChangeUserRoleData;
 
-public class ChangeUserToPremiumEvent extends AbstractChangeUserToPremiumEvent {
+public class ChangeUserToAdminEvent extends AbstractChangeUserToAdminEvent {
 
-	static final Logger LOG = LoggerFactory.getLogger(ChangeUserToPremiumEvent.class);
+	static final Logger LOG = LoggerFactory.getLogger(ChangeUserToAdminEvent.class);
 
-	public ChangeUserToPremiumEvent(ChangeUserRoleData eventParam, DatabaseHandle databaseHandle) {
+	public ChangeUserToAdminEvent(ChangeUserRoleData eventParam, DatabaseHandle databaseHandle) {
 		super(eventParam, databaseHandle);
 	}
 

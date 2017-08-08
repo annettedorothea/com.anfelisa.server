@@ -3,7 +3,7 @@ com.anfelisa.course
 target JAVA
 
 models {
-	schema anfelisa
+	schema public
 	persistent Course {
 		primitiveAttributes {
 			Unique PrimaryKey NotNull Serial courseId

@@ -14,7 +14,7 @@ import com.anfelisa.user.models.IUsernameModel;
 import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("all")
-public class ChangeUserToPremiumData implements IChangeUserToPremiumData {
+public class ChangeUserRoleData implements IChangeUserRoleData {
 	
 	private String uuid;
 	
@@ -32,7 +32,7 @@ public class ChangeUserToPremiumData implements IChangeUserToPremiumData {
 	
 	private org.joda.time.DateTime systemTime;
 	
-	public ChangeUserToPremiumData(
+	public ChangeUserRoleData(
 		@JsonProperty("username") String username,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
@@ -44,7 +44,7 @@ public class ChangeUserToPremiumData implements IChangeUserToPremiumData {
 		this.uuid = uuid;
 	}
 
-	public ChangeUserToPremiumData( String uuid ) {
+	public ChangeUserRoleData( String uuid ) {
 		this.uuid = uuid;
 	}
 
@@ -55,7 +55,7 @@ public class ChangeUserToPremiumData implements IChangeUserToPremiumData {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public ChangeUserToPremiumData withUsername(String username) {
+	public ChangeUserRoleData withUsername(String username) {
 		this.username = username;
 		return this;
 	}
@@ -67,7 +67,7 @@ public class ChangeUserToPremiumData implements IChangeUserToPremiumData {
 	public void setCredentialsUsername(String credentialsUsername) {
 		this.credentialsUsername = credentialsUsername;
 	}
-	public ChangeUserToPremiumData withCredentialsUsername(String credentialsUsername) {
+	public ChangeUserRoleData withCredentialsUsername(String credentialsUsername) {
 		this.credentialsUsername = credentialsUsername;
 		return this;
 	}
@@ -79,7 +79,7 @@ public class ChangeUserToPremiumData implements IChangeUserToPremiumData {
 	public void setCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
 	}
-	public ChangeUserToPremiumData withCredentialsRole(String credentialsRole) {
+	public ChangeUserRoleData withCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
 		return this;
 	}

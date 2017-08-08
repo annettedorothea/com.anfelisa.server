@@ -12,12 +12,13 @@ import com.anfelisa.auth.AceAuthorizer;
 import com.anfelisa.auth.AuthUser;
 
 import io.dropwizard.Application;
-import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
+import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.jdbi.bundles.DBIExceptionsBundle;
+import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -35,12 +36,17 @@ public class App extends Application<AppConfiguration> {
 	}
 	
 	public String getVersion() {
-		return "1.0.6";
+		return "1.2.0";
 	}
 
 	@Override
 	public void initialize(Bootstrap<AppConfiguration> bootstrap) {
-		bootstrap.addBundle(new AssetsBundle("/web-app/", "/"));
+		bootstrap.addBundle(new MigrationsBundle<AppConfiguration>() {
+			@Override
+			public DataSourceFactory getDataSourceFactory(AppConfiguration configuration) {
+				return configuration.getDataSourceFactory();
+			}
+		});
 	}
 
 	@Override

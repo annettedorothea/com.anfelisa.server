@@ -4,7 +4,7 @@ com.anfelisa.test
 target JAVA
 
 models {
-	schema anfelisa
+	schema public
 	persistent Test {
 		primitiveAttributes {
 			Unique PrimaryKey NotNull Serial testId

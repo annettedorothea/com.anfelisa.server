@@ -49,11 +49,13 @@ public class GetLessonAction extends AbstractGetLessonAction {
 	protected final void loadDataForGetRequest() {
 		ILessonModel lesson = lessonDao.selectByLessonId(this.getDatabaseHandle().getHandle(),
 				this.actionData.getLessonId());
-		this.actionData.setAuthor(lesson.getAuthor());
-		this.actionData.setCourseId(lesson.getCourseId());
-		this.actionData.setDescription(lesson.getDescription());
-		this.actionData.setName(lesson.getName());
-		this.actionData.setSequence(lesson.getSequence());
+		if (lesson != null) {
+			this.actionData.setAuthor(lesson.getAuthor());
+			this.actionData.setCourseId(lesson.getCourseId());
+			this.actionData.setDescription(lesson.getDescription());
+			this.actionData.setName(lesson.getName());
+			this.actionData.setSequence(lesson.getSequence());
+		}
 	}
 
 }

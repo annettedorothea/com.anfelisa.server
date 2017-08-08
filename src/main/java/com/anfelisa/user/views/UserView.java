@@ -8,8 +8,9 @@ import java.util.function.BiConsumer;
 import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.EmailService;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.AddCoursesData;
-import com.anfelisa.user.data.ChangeUserToPremiumData;
+import com.anfelisa.user.data.ChangeUserRoleData;
 import com.anfelisa.user.data.ForgotPasswordData;
 import com.anfelisa.user.data.PasswordUpdateData;
 import com.anfelisa.user.data.RemoveCourseData;
@@ -80,10 +81,18 @@ public class UserView {
 		EmailService.sendEmail("annette@anfelisa.de", dataContainer.getEmail(), subject, message);
 	};
 
-	public BiConsumer<ChangeUserToPremiumData, Handle> changeUserToPremium = (dataContainer, handle) -> {
-		customUserDao.changeUserToPremium(handle, dataContainer.getUsername());
+	public BiConsumer<ChangeUserRoleData, Handle> changeUserToPremium = (dataContainer, handle) -> {
+		customUserDao.changeUserRole(handle, dataContainer.getUsername(), AuthUser.PREMIUM);
 	};
 
+	public BiConsumer<ChangeUserRoleData, Handle> changeUserToAuthor = (dataContainer, handle) -> {
+		customUserDao.changeUserRole(handle, dataContainer.getUsername(), AuthUser.AUTHOR);
+	};
+	
+	public BiConsumer<ChangeUserRoleData, Handle> changeUserToAdmin = (dataContainer, handle) -> {
+		customUserDao.changeUserRole(handle, dataContainer.getUsername(), AuthUser.ADMIN);
+	};
+	
 }
 
 /* S.D.G. */

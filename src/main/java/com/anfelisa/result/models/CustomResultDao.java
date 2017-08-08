@@ -9,7 +9,7 @@ public class CustomResultDao {
 	public List<IResultAbstractModel> selectByTestIdAndUsername(Handle handle, Integer testId, String username) {
 		return handle
 				.createQuery(
-						"SELECT * FROM anfelisa.result WHERE testId = :testId AND username = :username ORDER BY date")
+						"SELECT * FROM public.result WHERE testId = :testId AND username = :username ORDER BY date")
 				.bind("testId", testId).bind("username", username).map(new ResultAbstractMapper()).list();
 	}
 

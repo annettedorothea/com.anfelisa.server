@@ -9,17 +9,17 @@ import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.user.data.ChangeUserRoleData;
 
-import com.anfelisa.user.commands.ChangeUserToPremiumCommand;
+import com.anfelisa.user.commands.ChangeUserToAdminCommand;
 
-public abstract class AbstractChangeUserToPremiumAction extends Action<ChangeUserRoleData> {
+public abstract class AbstractChangeUserToAdminAction extends Action<ChangeUserRoleData> {
 
-	public AbstractChangeUserToPremiumAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.user.actions.ChangeUserToPremiumAction", HttpMethod.PUT, jdbi, jdbiTimeline);
+	public AbstractChangeUserToAdminAction(DBI jdbi, DBI jdbiTimeline) {
+		super("com.anfelisa.user.actions.ChangeUserToAdminAction", HttpMethod.PUT, jdbi, jdbiTimeline);
 	}
 
 	@Override
 	public ICommand getCommand() {
-		return new ChangeUserToPremiumCommand(this.actionData, databaseHandle);
+		return new ChangeUserToAdminCommand(this.actionData, databaseHandle);
 	}
 
 	protected final void loadDataForGetRequest() {
