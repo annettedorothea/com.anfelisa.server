@@ -26,7 +26,7 @@ public class Importer {
 			int index = 1;
 			while ((nextLine = reader.readNext()) != null) {
 				System.out.println(nextLine[0] + " - "+ nextLine[1] );
-				if (!nextLine[0].startsWith("Elementarwortschatz") && StringUtils.isNotBlank(nextLine[0])) {
+				if (!nextLine[0].startsWith("Elementarwortschatz") && !nextLine[0].startsWith("Grundwortschatz") && StringUtils.isNotBlank(nextLine[0])) {
 					String given = nextLine[0]; 
 					if (StringUtils.endsWith(given, " v")) {
 						given = given.substring(0, given.length() - 1);
@@ -65,21 +65,14 @@ public class Importer {
 					nextWanted.add(wanted);
 				}
 				if (nextGiven.size() == 8) {
-					String testName = "E " + index;
-					String fileName = StringUtils.leftPad(index + "", 2, "0") + "_" + testName + ".anfelisa";
-					PrintWriter writer = new PrintWriter(fileName);
-					writer.println("vocabularyTest \"" + testName+ "\" {");
-					for (int i = 0; i < nextGiven.size(); i++) {
-						String given = nextGiven.get(i);
-						String wanted = nextWanted.get(i);
-						writer.println("   \"" + given + "\" \"" + wanted + "\"");
-					}
-					writer.println("}");
-					writer.close();
+					writeTest(index, nextGiven, nextWanted);
 					nextGiven.clear();
 					nextWanted.clear();
 					index++;
 				}
+			}
+			if (nextGiven.size() > 0) {
+				writeTest(index, nextGiven, nextWanted);
 			}
 			reader.close();
 		} catch (FileNotFoundException e) {
@@ -87,6 +80,20 @@ public class Importer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void writeTest(int index, List<String> nextGiven,	List<String> nextWanted) throws FileNotFoundException {
+		String testName = "G " + index;
+		String fileName = StringUtils.leftPad(index + "", 2, "0") + "_" + testName + ".anfelisa";
+		PrintWriter writer = new PrintWriter(fileName);
+		writer.println("vocabularyTest \"" + testName+ "\" {");
+		for (int i = 0; i < nextGiven.size(); i++) {
+			String given = nextGiven.get(i);
+			String wanted = nextWanted.get(i);
+			writer.println("   \"" + given + "\" \"" + wanted + "\"");
+		}
+		writer.println("}");
+		writer.close();
 	}
 
 }

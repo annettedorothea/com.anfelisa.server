@@ -179,10 +179,12 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		}
 		
 		IScheduledCardModel firstScheduledCard = this.scheduledCardDao.selectFirstScheduledCard(getHandle(), actionData.getBoxId());
-		LocalDate date = firstScheduledCard.getScheduledDate().toLocalDate();
-		LocalDate now = new DateTime().toLocalDate();
-		if (date.isBefore(now)) {
-			this.actionData.setDaysBehind(Days.daysBetween(date, now).getDays());
+		if (firstScheduledCard != null) {
+			LocalDate date = firstScheduledCard.getScheduledDate().toLocalDate();
+			LocalDate now = new DateTime().toLocalDate();
+			if (date.isBefore(now)) {
+				this.actionData.setDaysBehind(Days.daysBetween(date, now).getDays());
+			}
 		}
 	}
 
