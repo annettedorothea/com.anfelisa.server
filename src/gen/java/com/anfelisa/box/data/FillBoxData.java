@@ -12,7 +12,6 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IFillBoxModel;
 import com.anfelisa.user.models.ICredentialsModel;
-import com.anfelisa.box.models.INowModel;
 
 @SuppressWarnings("all")
 public class FillBoxData implements IFillBoxData {
@@ -27,11 +26,8 @@ public class FillBoxData implements IFillBoxData {
 	
 	private String credentialsRole;
 	
-	private org.joda.time.DateTime now;
-	
 
 	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
-	
 	
 	
 	private org.joda.time.DateTime systemTime;
@@ -39,14 +35,12 @@ public class FillBoxData implements IFillBoxData {
 	public FillBoxData(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole,
-		@JsonProperty("now") org.joda.time.DateTime now
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.boxId = boxId;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
-		this.now = now;
 		this.uuid = uuid;
 	}
 
@@ -91,25 +85,12 @@ public class FillBoxData implements IFillBoxData {
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getNow() {
-		return this.now;
-	}
-	public void setNow(org.joda.time.DateTime now) {
-		this.now = now;
-	}
-	public FillBoxData withNow(org.joda.time.DateTime now) {
-		this.now = now;
-		return this;
-	}
-	
-	@JsonProperty
 	public java.util.List<com.anfelisa.box.models.IScheduledCardModel> getCardsToBeAdded() {
 		return this.cardsToBeAdded;
 	}
 	public void setCardsToBeAdded(java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded) {
 		this.cardsToBeAdded = cardsToBeAdded;
 	}
-	
 	
 	
 

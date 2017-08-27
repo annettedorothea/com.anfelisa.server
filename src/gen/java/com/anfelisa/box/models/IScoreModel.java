@@ -16,7 +16,6 @@ public interface IScoreModel {
 	Integer getFour();
 	Integer getFive();
 	Integer getNoQuality();
-	org.joda.time.DateTime getNow();
 
 
 }

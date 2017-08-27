@@ -10,7 +10,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.joda.time.DateTime;
 import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +40,7 @@ public class ScoreCardAction extends AbstractScoreCardAction {
 			@NotNull @QueryParam("scheduledCardId") Integer scheduledCardId,
 			@NotNull @QueryParam("quality") Integer quality) throws JsonProcessingException {
 		this.actionData = new ScoreCardData(uuid).withScheduledCardId(scheduledCardId).withSubmittedQuality(quality)
-				.withNow(new DateTime()).withCredentialsRole(user.getRole())
+				.withCredentialsRole(user.getRole())
 				.withCredentialsUsername(user.getUsername());
 		return this.apply();
 	}

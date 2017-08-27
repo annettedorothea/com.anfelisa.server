@@ -14,7 +14,6 @@ import com.anfelisa.box.models.ICardModel;
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.IScoredCardModel;
 import com.anfelisa.box.models.ICardQualityModel;
-import com.anfelisa.box.models.INowModel;
 import com.anfelisa.user.models.ICredentialsModel;
 
 @SuppressWarnings("all")
@@ -79,14 +78,11 @@ public class ScoreCardData implements IScoreCardData {
 	@NotNull
 	private Integer submittedQuality;
 	
-	private org.joda.time.DateTime now;
-	
 	private String credentialsUsername;
 	
 	private String credentialsRole;
 	
 
-	
 	
 	
 	
@@ -115,7 +111,6 @@ public class ScoreCardData implements IScoreCardData {
 		@JsonProperty("quality") Integer quality,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("submittedQuality") Integer submittedQuality,
-		@JsonProperty("now") org.joda.time.DateTime now,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
@@ -140,7 +135,6 @@ public class ScoreCardData implements IScoreCardData {
 		this.quality = quality;
 		this.points = points;
 		this.submittedQuality = submittedQuality;
-		this.now = now;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
@@ -391,18 +385,6 @@ public class ScoreCardData implements IScoreCardData {
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getNow() {
-		return this.now;
-	}
-	public void setNow(org.joda.time.DateTime now) {
-		this.now = now;
-	}
-	public ScoreCardData withNow(org.joda.time.DateTime now) {
-		this.now = now;
-		return this;
-	}
-	
-	@JsonProperty
 	public String getCredentialsUsername() {
 		return this.credentialsUsername;
 	}
@@ -425,7 +407,6 @@ public class ScoreCardData implements IScoreCardData {
 		this.credentialsRole = credentialsRole;
 		return this;
 	}
-	
 	
 	
 	

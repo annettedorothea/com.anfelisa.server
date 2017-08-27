@@ -10,7 +10,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.joda.time.DateTime;
 import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +39,7 @@ public class FillBoxWithCardsAction extends AbstractFillBoxWithCardsAction {
 	public Response post(@NotNull @QueryParam("uuid") String uuid,
 			@NotNull @QueryParam("boxId") Integer boxId, @Auth AuthUser user) throws JsonProcessingException {
 		this.actionData = new FillBoxData(uuid).withBoxId(boxId).withCredentialsRole(user.getRole())
-				.withCredentialsUsername(user.getUsername()).withNow(new DateTime());
+				.withCredentialsUsername(user.getUsername());
 		return this.apply();
 	}
 

@@ -94,7 +94,6 @@ models {
 			Integer four
 			Integer five
 			Integer noQuality
-			DateTime now
 		}
 	}
 
@@ -230,11 +229,6 @@ models {
 		}
 	}
 	
-	Now {
-		primitiveAttributes {
-			DateTime now
-		}
-	}
 	ScheduledCardId {
 		primitiveAttributes {
 			Integer scheduledCardId
@@ -259,8 +253,8 @@ data {
 	BoxOfCourseList : (CourseToBoxAdditionList com.anfelisa.user.Credentials)
 	DeleteBox : (BoxId com.anfelisa.user.Credentials)
 	BoxConfig : (BoxConfig com.anfelisa.user.Username com.anfelisa.user.Credentials)
-	ScoreCard : (Card ScheduledCard ScoredCard CardQuality Now com.anfelisa.user.Credentials )
-	FillBox : (FillBox com.anfelisa.user.Credentials Now)
+	ScoreCard : (Card ScheduledCard ScoredCard CardQuality com.anfelisa.user.Credentials )
+	FillBox : (FillBox com.anfelisa.user.Credentials)
 	CardId : (CardId)
 	AllBoxes : (AllBoxes)
 	ScheduledCardId : (ScheduledCardId)
