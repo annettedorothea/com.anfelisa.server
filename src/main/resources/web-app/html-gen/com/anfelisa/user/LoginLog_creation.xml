@@ -1,5 +1,5 @@
 <createTable tableName="loginlog">
-	<column name="loginlogid" type="serial">
+	<column name="loginlogid" type="integer">
 		<constraints primaryKey="true" nullable="false"/>
 	</column>
 	<column name="username" type="character varying">

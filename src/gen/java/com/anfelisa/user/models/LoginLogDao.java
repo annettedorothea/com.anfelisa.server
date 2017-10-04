@@ -16,25 +16,15 @@ import com.anfelisa.ace.encryption.EncryptionService;
 public class LoginLogDao {
 	
 	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS public.loginlog (loginlogid serial NOT NULL  , username character varying NOT NULL  , date timestamp with time zone NOT NULL  , CONSTRAINT loginlog_pkey PRIMARY KEY (loginlogid), CONSTRAINT loginlog_loginLogId_unique UNIQUE (loginLogId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS public.loginlog (loginlogid integer NOT NULL  , username character varying NOT NULL  , date timestamp with time zone NOT NULL  , CONSTRAINT loginlog_pkey PRIMARY KEY (loginlogid), CONSTRAINT loginlog_loginLogId_unique UNIQUE (loginLogId))");
 	}
 	
 	public Integer insert(Handle handle, ILoginLogModel loginLogModel) {
-		if (loginLogModel.getLoginLogId() != null) {
-			Update statement = handle.createStatement("INSERT INTO public.loginlog (loginlogid, username, date) VALUES (:loginlogid, :username, :date)");
-			statement.bind("loginlogid",  loginLogModel.getLoginLogId() );
-			statement.bind("username",  loginLogModel.getUsername() );
-			statement.bind("date",  loginLogModel.getDate() );
-			statement.execute();
-			handle.createStatement("SELECT setval('public.loginlog_loginlogid_seq', (SELECT MAX(loginlogid) FROM public.loginlog));").execute();
-			return loginLogModel.getLoginLogId();
-		} else {
-			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.loginlog (username, date) VALUES (:username, :date) RETURNING loginlogid");
-			statement.bind("username",  loginLogModel.getUsername() );
-			statement.bind("date",  loginLogModel.getDate() );
-			Map<String, Object> first = statement.first();
-			return (Integer) first.get("loginlogid");
-		}
+		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.loginlog (loginlogid, username, date) VALUES ( (SELECT COALESCE(MAX(loginlogid),0) + 1 FROM public.loginlog), :username, :date) RETURNING loginlogid");
+		statement.bind("username",  loginLogModel.getUsername() );
+		statement.bind("date",  loginLogModel.getDate() );
+		Map<String, Object> first = statement.first();
+		return (Integer) first.get("loginlogid");
 	}
 	
 	

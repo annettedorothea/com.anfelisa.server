@@ -16,25 +16,15 @@ import com.anfelisa.ace.encryption.EncryptionService;
 public class BoxDao {
 	
 	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS public.box (boxid serial NOT NULL  , name character varying NOT NULL  , username character varying NOT NULL  , CONSTRAINT box_pkey PRIMARY KEY (boxid), CONSTRAINT box_username_fkey FOREIGN KEY (username) REFERENCES public.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT box_boxId_unique UNIQUE (boxId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS public.box (boxid integer NOT NULL  , name character varying NOT NULL  , username character varying NOT NULL  , CONSTRAINT box_pkey PRIMARY KEY (boxid), CONSTRAINT box_username_fkey FOREIGN KEY (username) REFERENCES public.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT box_boxId_unique UNIQUE (boxId))");
 	}
 	
 	public Integer insert(Handle handle, IBoxModel boxModel) {
-		if (boxModel.getBoxId() != null) {
-			Update statement = handle.createStatement("INSERT INTO public.box (boxid, name, username) VALUES (:boxid, :name, :username)");
-			statement.bind("boxid",  boxModel.getBoxId() );
-			statement.bind("name",  boxModel.getName() );
-			statement.bind("username",  boxModel.getUsername() );
-			statement.execute();
-			handle.createStatement("SELECT setval('public.box_boxid_seq', (SELECT MAX(boxid) FROM public.box));").execute();
-			return boxModel.getBoxId();
-		} else {
-			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.box (name, username) VALUES (:name, :username) RETURNING boxid");
-			statement.bind("name",  boxModel.getName() );
-			statement.bind("username",  boxModel.getUsername() );
-			Map<String, Object> first = statement.first();
-			return (Integer) first.get("boxid");
-		}
+		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.box (boxid, name, username) VALUES ( (SELECT COALESCE(MAX(boxid),0) + 1 FROM public.box), :name, :username) RETURNING boxid");
+		statement.bind("name",  boxModel.getName() );
+		statement.bind("username",  boxModel.getUsername() );
+		Map<String, Object> first = statement.first();
+		return (Integer) first.get("boxid");
 	}
 	
 	

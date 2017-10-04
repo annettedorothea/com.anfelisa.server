@@ -20,28 +20,15 @@ public class UserDao {
 	}
 	
 	public String insert(Handle handle, IUserModel userModel) {
-		if (userModel.getUsername() != null) {
-			Update statement = handle.createStatement("INSERT INTO public.user (username, password, name, prename, email, role, emailconfirmed) VALUES (:username, :password, :name, :prename, :email, :role, :emailconfirmed)");
-			statement.bind("username",  userModel.getUsername() );
-			statement.bind("password",  userModel.getPassword() );
-			statement.bind("name",  userModel.getName() );
-			statement.bind("prename",  userModel.getPrename() );
-			statement.bind("email",  userModel.getEmail() );
-			statement.bind("role",  userModel.getRole() );
-			statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
-			statement.execute();
-			return userModel.getUsername();
-		} else {
-			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.user (password, name, prename, email, role, emailconfirmed) VALUES (:password, :name, :prename, :email, :role, :emailconfirmed) RETURNING username");
-			statement.bind("password",  userModel.getPassword() );
-			statement.bind("name",  userModel.getName() );
-			statement.bind("prename",  userModel.getPrename() );
-			statement.bind("email",  userModel.getEmail() );
-			statement.bind("role",  userModel.getRole() );
-			statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
-			Map<String, Object> first = statement.first();
-			return (String) first.get("username");
-		}
+		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.user (username, password, name, prename, email, role, emailconfirmed) VALUES (:username, :password, :name, :prename, :email, :role, :emailconfirmed) RETURNING username");
+		statement.bind("password",  userModel.getPassword() );
+		statement.bind("name",  userModel.getName() );
+		statement.bind("prename",  userModel.getPrename() );
+		statement.bind("email",  userModel.getEmail() );
+		statement.bind("role",  userModel.getRole() );
+		statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
+		Map<String, Object> first = statement.first();
+		return (String) first.get("username");
 	}
 	
 	

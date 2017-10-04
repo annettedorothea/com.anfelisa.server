@@ -26,14 +26,6 @@ public abstract class AbstractChangeUserToAuthorCommand extends Command<ChangeUs
 			throw new WebApplicationException("unhandled outcome " + outcome);
 		}
 	}
-	
-	protected void throwUnauthorized() {
-		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
-	}
-
-	protected void throwBadRequest() {
-		throw new WebApplicationException(Response.Status.BAD_REQUEST);
-	}
 
 }
 

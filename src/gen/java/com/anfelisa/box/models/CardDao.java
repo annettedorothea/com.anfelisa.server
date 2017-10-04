@@ -16,29 +16,17 @@ import com.anfelisa.ace.encryption.EncryptionService;
 public class CardDao {
 	
 	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS public.card (cardid serial NOT NULL  , content character varying  , testid integer NOT NULL  , contenthash character varying NOT NULL  , maxpoints integer NOT NULL  , CONSTRAINT card_pkey PRIMARY KEY (cardid), CONSTRAINT card_testid_fkey FOREIGN KEY (testid) REFERENCES public.test ( testid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT card_cardId_unique UNIQUE (cardId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS public.card (cardid integer NOT NULL  , content character varying  , testid integer NOT NULL  , contenthash character varying NOT NULL  , maxpoints integer NOT NULL  , CONSTRAINT card_pkey PRIMARY KEY (cardid), CONSTRAINT card_testid_fkey FOREIGN KEY (testid) REFERENCES public.test ( testid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT card_cardId_unique UNIQUE (cardId))");
 	}
 	
 	public Integer insert(Handle handle, ICardModel cardModel) {
-		if (cardModel.getCardId() != null) {
-			Update statement = handle.createStatement("INSERT INTO public.card (cardid, content, testid, contenthash, maxpoints) VALUES (:cardid, :content, :testid, :contenthash, :maxpoints)");
-			statement.bind("cardid",  cardModel.getCardId() );
-			statement.bind("content",  cardModel.getContent() );
-			statement.bind("testid",  cardModel.getTestId() );
-			statement.bind("contenthash",  cardModel.getContentHash() );
-			statement.bind("maxpoints",  cardModel.getMaxPoints() );
-			statement.execute();
-			handle.createStatement("SELECT setval('public.card_cardid_seq', (SELECT MAX(cardid) FROM public.card));").execute();
-			return cardModel.getCardId();
-		} else {
-			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.card (content, testid, contenthash, maxpoints) VALUES (:content, :testid, :contenthash, :maxpoints) RETURNING cardid");
-			statement.bind("content",  cardModel.getContent() );
-			statement.bind("testid",  cardModel.getTestId() );
-			statement.bind("contenthash",  cardModel.getContentHash() );
-			statement.bind("maxpoints",  cardModel.getMaxPoints() );
-			Map<String, Object> first = statement.first();
-			return (Integer) first.get("cardid");
-		}
+		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.card (cardid, content, testid, contenthash, maxpoints) VALUES ( (SELECT COALESCE(MAX(cardid),0) + 1 FROM public.card), :content, :testid, :contenthash, :maxpoints) RETURNING cardid");
+		statement.bind("content",  cardModel.getContent() );
+		statement.bind("testid",  cardModel.getTestId() );
+		statement.bind("contenthash",  cardModel.getContentHash() );
+		statement.bind("maxpoints",  cardModel.getMaxPoints() );
+		Map<String, Object> first = statement.first();
+		return (Integer) first.get("cardid");
 	}
 	
 	

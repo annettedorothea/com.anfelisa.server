@@ -16,31 +16,18 @@ import com.anfelisa.ace.encryption.EncryptionService;
 public class TestDao {
 	
 	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS public.test (testid serial NOT NULL  , name character varying NOT NULL  , sequence integer  , lessonid integer NOT NULL  , html character varying NOT NULL  , author character varying NOT NULL  , CONSTRAINT test_pkey PRIMARY KEY (testid), CONSTRAINT test_lessonid_fkey FOREIGN KEY (lessonid) REFERENCES public.lesson ( lessonid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT test_author_fkey FOREIGN KEY (author) REFERENCES public.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT test_testId_unique UNIQUE (testId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS public.test (testid integer NOT NULL  , name character varying NOT NULL  , sequence integer  , lessonid integer NOT NULL  , html character varying NOT NULL  , author character varying NOT NULL  , CONSTRAINT test_pkey PRIMARY KEY (testid), CONSTRAINT test_lessonid_fkey FOREIGN KEY (lessonid) REFERENCES public.lesson ( lessonid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT test_author_fkey FOREIGN KEY (author) REFERENCES public.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT test_testId_unique UNIQUE (testId))");
 	}
 	
 	public Integer insert(Handle handle, ITestModel testModel) {
-		if (testModel.getTestId() != null) {
-			Update statement = handle.createStatement("INSERT INTO public.test (testid, name, sequence, lessonid, html, author) VALUES (:testid, :name, :sequence, :lessonid, :html, :author)");
-			statement.bind("testid",  testModel.getTestId() );
-			statement.bind("name",  testModel.getName() );
-			statement.bind("sequence",  testModel.getSequence() );
-			statement.bind("lessonid",  testModel.getLessonId() );
-			statement.bind("html",  testModel.getHtml() );
-			statement.bind("author",  testModel.getAuthor() );
-			statement.execute();
-			handle.createStatement("SELECT setval('public.test_testid_seq', (SELECT MAX(testid) FROM public.test));").execute();
-			return testModel.getTestId();
-		} else {
-			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.test (name, sequence, lessonid, html, author) VALUES (:name, :sequence, :lessonid, :html, :author) RETURNING testid");
-			statement.bind("name",  testModel.getName() );
-			statement.bind("sequence",  testModel.getSequence() );
-			statement.bind("lessonid",  testModel.getLessonId() );
-			statement.bind("html",  testModel.getHtml() );
-			statement.bind("author",  testModel.getAuthor() );
-			Map<String, Object> first = statement.first();
-			return (Integer) first.get("testid");
-		}
+		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.test (testid, name, sequence, lessonid, html, author) VALUES ( (SELECT COALESCE(MAX(testid),0) + 1 FROM public.test), :name, :sequence, :lessonid, :html, :author) RETURNING testid");
+		statement.bind("name",  testModel.getName() );
+		statement.bind("sequence",  testModel.getSequence() );
+		statement.bind("lessonid",  testModel.getLessonId() );
+		statement.bind("html",  testModel.getHtml() );
+		statement.bind("author",  testModel.getAuthor() );
+		Map<String, Object> first = statement.first();
+		return (Integer) first.get("testid");
 	}
 	
 	

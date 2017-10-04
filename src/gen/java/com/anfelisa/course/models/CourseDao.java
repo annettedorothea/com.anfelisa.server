@@ -16,31 +16,18 @@ import com.anfelisa.ace.encryption.EncryptionService;
 public class CourseDao {
 	
 	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS public.course (courseid serial NOT NULL  , name character varying NOT NULL  , description character varying  , sequence integer  , ispublic boolean NOT NULL  , author character varying NOT NULL  , CONSTRAINT course_pkey PRIMARY KEY (courseid), CONSTRAINT course_author_fkey FOREIGN KEY (author) REFERENCES public.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT course_courseId_unique UNIQUE (courseId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS public.course (courseid integer NOT NULL  , name character varying NOT NULL  , description character varying  , sequence integer  , ispublic boolean NOT NULL  , author character varying NOT NULL  , CONSTRAINT course_pkey PRIMARY KEY (courseid), CONSTRAINT course_author_fkey FOREIGN KEY (author) REFERENCES public.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT course_courseId_unique UNIQUE (courseId))");
 	}
 	
 	public Integer insert(Handle handle, ICourseModel courseModel) {
-		if (courseModel.getCourseId() != null) {
-			Update statement = handle.createStatement("INSERT INTO public.course (courseid, name, description, sequence, ispublic, author) VALUES (:courseid, :name, :description, :sequence, :ispublic, :author)");
-			statement.bind("courseid",  courseModel.getCourseId() );
-			statement.bind("name",  courseModel.getName() );
-			statement.bind("description",  courseModel.getDescription() );
-			statement.bind("sequence",  courseModel.getSequence() );
-			statement.bind("ispublic",  courseModel.getIsPublic() );
-			statement.bind("author",  courseModel.getAuthor() );
-			statement.execute();
-			handle.createStatement("SELECT setval('public.course_courseid_seq', (SELECT MAX(courseid) FROM public.course));").execute();
-			return courseModel.getCourseId();
-		} else {
-			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.course (name, description, sequence, ispublic, author) VALUES (:name, :description, :sequence, :ispublic, :author) RETURNING courseid");
-			statement.bind("name",  courseModel.getName() );
-			statement.bind("description",  courseModel.getDescription() );
-			statement.bind("sequence",  courseModel.getSequence() );
-			statement.bind("ispublic",  courseModel.getIsPublic() );
-			statement.bind("author",  courseModel.getAuthor() );
-			Map<String, Object> first = statement.first();
-			return (Integer) first.get("courseid");
-		}
+		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.course (courseid, name, description, sequence, ispublic, author) VALUES ( (SELECT COALESCE(MAX(courseid),0) + 1 FROM public.course), :name, :description, :sequence, :ispublic, :author) RETURNING courseid");
+		statement.bind("name",  courseModel.getName() );
+		statement.bind("description",  courseModel.getDescription() );
+		statement.bind("sequence",  courseModel.getSequence() );
+		statement.bind("ispublic",  courseModel.getIsPublic() );
+		statement.bind("author",  courseModel.getAuthor() );
+		Map<String, Object> first = statement.first();
+		return (Integer) first.get("courseid");
 	}
 	
 	

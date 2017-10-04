@@ -16,35 +16,20 @@ import com.anfelisa.ace.encryption.EncryptionService;
 public class ScoredCardDao {
 	
 	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS public.scoredcard (scoredcardid serial NOT NULL  , cardid integer NOT NULL  , scheduleddateofscored timestamp with time zone  , boxid integer NOT NULL  , quality integer  , timestamp timestamp with time zone NOT NULL  , points integer  , scheduledcardid integer NOT NULL  , CONSTRAINT scoredcard_pkey PRIMARY KEY (scoredcardid), CONSTRAINT scoredcard_cardid_fkey FOREIGN KEY (cardid) REFERENCES public.card ( cardid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT scoredcard_boxid_fkey FOREIGN KEY (boxid) REFERENCES public.box ( boxid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT scoredcard_scheduledcardid_fkey FOREIGN KEY (scheduledcardid) REFERENCES public.scheduledcard ( scheduledcardid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT scoredcard_scoredCardId_unique UNIQUE (scoredCardId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS public.scoredcard (scoredcardid integer NOT NULL  , cardid integer NOT NULL  , scheduleddateofscored timestamp with time zone  , boxid integer NOT NULL  , quality integer  , timestamp timestamp with time zone NOT NULL  , points integer  , scheduledcardid integer NOT NULL  , CONSTRAINT scoredcard_pkey PRIMARY KEY (scoredcardid), CONSTRAINT scoredcard_cardid_fkey FOREIGN KEY (cardid) REFERENCES public.card ( cardid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT scoredcard_boxid_fkey FOREIGN KEY (boxid) REFERENCES public.box ( boxid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT scoredcard_scheduledcardid_fkey FOREIGN KEY (scheduledcardid) REFERENCES public.scheduledcard ( scheduledcardid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT scoredcard_scoredCardId_unique UNIQUE (scoredCardId))");
 	}
 	
 	public Integer insert(Handle handle, IScoredCardModel scoredCardModel) {
-		if (scoredCardModel.getScoredCardId() != null) {
-			Update statement = handle.createStatement("INSERT INTO public.scoredcard (scoredcardid, cardid, scheduleddateofscored, boxid, quality, timestamp, points, scheduledcardid) VALUES (:scoredcardid, :cardid, :scheduleddateofscored, :boxid, :quality, :timestamp, :points, :scheduledcardid)");
-			statement.bind("scoredcardid",  scoredCardModel.getScoredCardId() );
-			statement.bind("cardid",  scoredCardModel.getCardId() );
-			statement.bind("scheduleddateofscored",  scoredCardModel.getScheduledDateOfScored() );
-			statement.bind("boxid",  scoredCardModel.getBoxId() );
-			statement.bind("quality",  scoredCardModel.getQuality() );
-			statement.bind("timestamp",  scoredCardModel.getTimestamp() );
-			statement.bind("points",  scoredCardModel.getPoints() );
-			statement.bind("scheduledcardid",  scoredCardModel.getScheduledCardId() );
-			statement.execute();
-			handle.createStatement("SELECT setval('public.scoredcard_scoredcardid_seq', (SELECT MAX(scoredcardid) FROM public.scoredcard));").execute();
-			return scoredCardModel.getScoredCardId();
-		} else {
-			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.scoredcard (cardid, scheduleddateofscored, boxid, quality, timestamp, points, scheduledcardid) VALUES (:cardid, :scheduleddateofscored, :boxid, :quality, :timestamp, :points, :scheduledcardid) RETURNING scoredcardid");
-			statement.bind("cardid",  scoredCardModel.getCardId() );
-			statement.bind("scheduleddateofscored",  scoredCardModel.getScheduledDateOfScored() );
-			statement.bind("boxid",  scoredCardModel.getBoxId() );
-			statement.bind("quality",  scoredCardModel.getQuality() );
-			statement.bind("timestamp",  scoredCardModel.getTimestamp() );
-			statement.bind("points",  scoredCardModel.getPoints() );
-			statement.bind("scheduledcardid",  scoredCardModel.getScheduledCardId() );
-			Map<String, Object> first = statement.first();
-			return (Integer) first.get("scoredcardid");
-		}
+		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.scoredcard (scoredcardid, cardid, scheduleddateofscored, boxid, quality, timestamp, points, scheduledcardid) VALUES ( (SELECT COALESCE(MAX(scoredcardid),0) + 1 FROM public.scoredcard), :cardid, :scheduleddateofscored, :boxid, :quality, :timestamp, :points, :scheduledcardid) RETURNING scoredcardid");
+		statement.bind("cardid",  scoredCardModel.getCardId() );
+		statement.bind("scheduleddateofscored",  scoredCardModel.getScheduledDateOfScored() );
+		statement.bind("boxid",  scoredCardModel.getBoxId() );
+		statement.bind("quality",  scoredCardModel.getQuality() );
+		statement.bind("timestamp",  scoredCardModel.getTimestamp() );
+		statement.bind("points",  scoredCardModel.getPoints() );
+		statement.bind("scheduledcardid",  scoredCardModel.getScheduledCardId() );
+		Map<String, Object> first = statement.first();
+		return (Integer) first.get("scoredcardid");
 	}
 	
 	

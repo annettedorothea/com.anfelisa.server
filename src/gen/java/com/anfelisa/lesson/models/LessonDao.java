@@ -16,31 +16,18 @@ import com.anfelisa.ace.encryption.EncryptionService;
 public class LessonDao {
 	
 	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS public.lesson (lessonid serial NOT NULL  , name character varying NOT NULL  , description character varying  , sequence integer  , courseid integer NOT NULL  , author character varying NOT NULL  , CONSTRAINT lesson_pkey PRIMARY KEY (lessonid), CONSTRAINT lesson_courseid_fkey FOREIGN KEY (courseid) REFERENCES public.course ( courseid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_author_fkey FOREIGN KEY (author) REFERENCES public.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_lessonId_unique UNIQUE (lessonId))");
+		handle.execute("CREATE TABLE IF NOT EXISTS public.lesson (lessonid integer NOT NULL  , name character varying NOT NULL  , description character varying  , sequence integer  , courseid integer NOT NULL  , author character varying NOT NULL  , CONSTRAINT lesson_pkey PRIMARY KEY (lessonid), CONSTRAINT lesson_courseid_fkey FOREIGN KEY (courseid) REFERENCES public.course ( courseid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_author_fkey FOREIGN KEY (author) REFERENCES public.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_lessonId_unique UNIQUE (lessonId))");
 	}
 	
 	public Integer insert(Handle handle, ILessonModel lessonModel) {
-		if (lessonModel.getLessonId() != null) {
-			Update statement = handle.createStatement("INSERT INTO public.lesson (lessonid, name, description, sequence, courseid, author) VALUES (:lessonid, :name, :description, :sequence, :courseid, :author)");
-			statement.bind("lessonid",  lessonModel.getLessonId() );
-			statement.bind("name",  lessonModel.getName() );
-			statement.bind("description",  lessonModel.getDescription() );
-			statement.bind("sequence",  lessonModel.getSequence() );
-			statement.bind("courseid",  lessonModel.getCourseId() );
-			statement.bind("author",  lessonModel.getAuthor() );
-			statement.execute();
-			handle.createStatement("SELECT setval('public.lesson_lessonid_seq', (SELECT MAX(lessonid) FROM public.lesson));").execute();
-			return lessonModel.getLessonId();
-		} else {
-			Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.lesson (name, description, sequence, courseid, author) VALUES (:name, :description, :sequence, :courseid, :author) RETURNING lessonid");
-			statement.bind("name",  lessonModel.getName() );
-			statement.bind("description",  lessonModel.getDescription() );
-			statement.bind("sequence",  lessonModel.getSequence() );
-			statement.bind("courseid",  lessonModel.getCourseId() );
-			statement.bind("author",  lessonModel.getAuthor() );
-			Map<String, Object> first = statement.first();
-			return (Integer) first.get("lessonid");
-		}
+		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.lesson (lessonid, name, description, sequence, courseid, author) VALUES ( (SELECT COALESCE(MAX(lessonid),0) + 1 FROM public.lesson), :name, :description, :sequence, :courseid, :author) RETURNING lessonid");
+		statement.bind("name",  lessonModel.getName() );
+		statement.bind("description",  lessonModel.getDescription() );
+		statement.bind("sequence",  lessonModel.getSequence() );
+		statement.bind("courseid",  lessonModel.getCourseId() );
+		statement.bind("author",  lessonModel.getAuthor() );
+		Map<String, Object> first = statement.first();
+		return (Integer) first.get("lessonid");
 	}
 	
 	

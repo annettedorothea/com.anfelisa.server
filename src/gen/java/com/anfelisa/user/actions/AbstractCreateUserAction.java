@@ -2,7 +2,6 @@ package com.anfelisa.user.actions;
 
 import org.skife.jdbi.v2.DBI;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.HttpMethod;
@@ -23,14 +22,6 @@ public abstract class AbstractCreateUserAction extends Action<UserCreationData> 
 	}
 
 	protected final void loadDataForGetRequest() {
-	}
-
-	protected void throwUnauthorized() {
-		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
-	}
-
-	protected void throwBadRequest() {
-		throw new WebApplicationException(Response.Status.BAD_REQUEST);
 	}
 
 	public void initActionData(String json) {
