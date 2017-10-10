@@ -22,9 +22,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.dropwizard.auth.Auth;
 
 @Path("/user")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class ChangeUserToAuthorAction extends AbstractChangeUserToAuthorAction {
+public class ChangeUserToAuthorAction extends AbstractChangeUserToAuthorAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ChangeUserToAuthorAction.class);
 
@@ -43,7 +43,6 @@ import io.dropwizard.auth.Auth;
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

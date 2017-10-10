@@ -40,8 +40,7 @@ public class GetAllBoxesAction extends AbstractGetAllBoxesAction {
 	@Timed
 	@Path("/all")
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
-	public Response get(@NotNull @QueryParam("uuid") String uuid)
-			throws JsonProcessingException {
+	public Response get(@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
 		this.actionData = new AllBoxesData(uuid);
 		return this.apply();
 	}

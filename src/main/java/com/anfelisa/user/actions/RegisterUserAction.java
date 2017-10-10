@@ -19,7 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/users")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class RegisterUserAction extends AbstractRegisterUserAction {
+public class RegisterUserAction extends AbstractRegisterUserAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(RegisterUserAction.class);
 
@@ -35,7 +35,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

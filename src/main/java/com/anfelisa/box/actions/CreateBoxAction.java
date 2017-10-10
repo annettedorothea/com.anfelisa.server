@@ -44,4 +44,4 @@ public class CreateBoxAction extends AbstractCreateBoxAction {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

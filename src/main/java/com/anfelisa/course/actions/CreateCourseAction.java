@@ -21,7 +21,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/courses")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class CreateCourseAction extends AbstractCreateCourseAction {
+public class CreateCourseAction extends AbstractCreateCourseAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateCourseAction.class);
 
@@ -38,7 +38,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

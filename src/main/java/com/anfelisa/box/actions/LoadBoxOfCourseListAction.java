@@ -54,8 +54,7 @@ public class LoadBoxOfCourseListAction extends AbstractLoadBoxOfCourseListAction
 	@Path("/courses")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("boxId") Integer boxId)
-			throws JsonProcessingException {
+			@NotNull @QueryParam("boxId") Integer boxId) throws JsonProcessingException {
 		this.actionData = new BoxOfCourseListData(uuid).withCredentialsRole(user.getRole())
 				.withCredentialsUsername(user.getUsername()).withBoxId(boxId);
 		return this.apply();
@@ -73,8 +72,7 @@ public class LoadBoxOfCourseListAction extends AbstractLoadBoxOfCourseListAction
 				this.actionData.getCredentialsUsername());
 		for (IMyCourseModel myCourse : myCourses) {
 			IBoxOfCourseModel boxOfCourse = customBoxDao.selectBoxOfCourse(this.databaseHandle.getHandle(),
-					myCourse.getCourseId(), this.actionData.getCredentialsUsername(),
-					this.actionData.getBoxId());
+					myCourse.getCourseId(), this.actionData.getCredentialsUsername(), this.actionData.getBoxId());
 			if (boxOfCourse == null) {
 				ICourseToBoxAdditionModel model = new CourseToBoxAdditionModel(null, myCourse.getCourseId(), null,
 						myCourse.getName());

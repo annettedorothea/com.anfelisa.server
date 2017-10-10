@@ -21,7 +21,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.dropwizard.auth.Auth;
 
 @Path("/boxes")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
 public class SaveBoxConfigAction extends AbstractSaveBoxConfigAction {
 
@@ -42,4 +42,4 @@ public class SaveBoxConfigAction extends AbstractSaveBoxConfigAction {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

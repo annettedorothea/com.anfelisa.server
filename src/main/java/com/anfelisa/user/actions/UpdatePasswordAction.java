@@ -21,9 +21,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.dropwizard.auth.Auth;
 
 @Path("/users")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class UpdatePasswordAction extends AbstractUpdatePasswordAction {
+public class UpdatePasswordAction extends AbstractUpdatePasswordAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdatePasswordAction.class);
 
@@ -35,13 +35,13 @@ import io.dropwizard.auth.Auth;
 	@Timed
 	@Path("/password")
 	@PermitAll
-	public Response put(@Auth AuthUser user, @NotNull PasswordUpdateData passwordUpdateData) throws JsonProcessingException {
+	public Response put(@Auth AuthUser user, @NotNull PasswordUpdateData passwordUpdateData)
+			throws JsonProcessingException {
 		passwordUpdateData.setUsername(user.getUsername());
 		this.actionData = passwordUpdateData;
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

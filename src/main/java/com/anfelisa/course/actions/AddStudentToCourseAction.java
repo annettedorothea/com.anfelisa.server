@@ -23,7 +23,7 @@ import io.dropwizard.auth.Auth;
 @Path("/courses")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class AddStudentToCourseAction extends AbstractAddStudentToCourseAction {
+public class AddStudentToCourseAction extends AbstractAddStudentToCourseAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(AddStudentToCourseAction.class);
 
@@ -35,12 +35,12 @@ import io.dropwizard.auth.Auth;
 	@Timed
 	@Path("/addstudent")
 	@PermitAll
-	public Response post(@NotNull StudentToCourseAdditionData actionParam, @Auth AuthUser user) throws JsonProcessingException {
+	public Response post(@NotNull StudentToCourseAdditionData actionParam, @Auth AuthUser user)
+			throws JsonProcessingException {
 		this.actionData = actionParam.withCredentialsRole(user.getRole()).withCredentialsUsername(user.getUsername());
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

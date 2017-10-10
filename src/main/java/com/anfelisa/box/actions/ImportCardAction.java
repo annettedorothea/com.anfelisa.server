@@ -36,8 +36,9 @@ public class ImportCardAction extends AbstractImportCardAction {
 	@Timed
 	@Path("/import")
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
-	public Response post(@NotNull CardCreationData actionParam) throws JsonProcessingException, UnsupportedEncodingException {
-		String decodedContent = URLDecoder.decode( actionParam.getContent(), "UTF-8" );
+	public Response post(@NotNull CardCreationData actionParam)
+			throws JsonProcessingException, UnsupportedEncodingException {
+		String decodedContent = URLDecoder.decode(actionParam.getContent(), "UTF-8");
 		actionParam.setContent(decodedContent);
 		this.actionData = actionParam;
 		return this.apply();
@@ -45,4 +46,4 @@ public class ImportCardAction extends AbstractImportCardAction {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

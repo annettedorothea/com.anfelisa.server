@@ -22,7 +22,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.dropwizard.auth.Auth;
 
 @Path("/cards")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RemoveCardFromBoxAction extends AbstractRemoveCardFromBoxAction {
 
@@ -38,7 +38,8 @@ public class RemoveCardFromBoxAction extends AbstractRemoveCardFromBoxAction {
 	@PermitAll
 	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
 			@NotNull @QueryParam("scheduledCardId") Integer scheduledCardId) throws JsonProcessingException {
-		this.actionData = new RemoveCardFromBoxData(uuid).withScheduledCardId(scheduledCardId).withCredentialsUsername(user.getUsername());
+		this.actionData = new RemoveCardFromBoxData(uuid).withScheduledCardId(scheduledCardId)
+				.withCredentialsUsername(user.getUsername());
 		return this.apply();
 	}
 

@@ -36,8 +36,8 @@ public class FillBoxWithCardsAction extends AbstractFillBoxWithCardsAction {
 	@Timed
 	@Path("/fill")
 	@PermitAll
-	public Response post(@NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("boxId") Integer boxId, @Auth AuthUser user) throws JsonProcessingException {
+	public Response post(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("boxId") Integer boxId,
+			@Auth AuthUser user) throws JsonProcessingException {
 		this.actionData = new FillBoxData(uuid).withBoxId(boxId).withCredentialsRole(user.getRole())
 				.withCredentialsUsername(user.getUsername());
 		return this.apply();

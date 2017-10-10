@@ -1,7 +1,6 @@
 package com.anfelisa.box.commands;
 
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;

@@ -22,9 +22,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.dropwizard.auth.Auth;
 
 @Path("/boxes")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class RecalculateScheduledCardsAction extends AbstractRecalculateScheduledCardsAction {
+public class RecalculateScheduledCardsAction extends AbstractRecalculateScheduledCardsAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(RecalculateScheduledCardsAction.class);
 
@@ -37,12 +37,13 @@ import io.dropwizard.auth.Auth;
 	@Path("/recalculate")
 	@PermitAll
 	public Response put(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("boxId") Integer boxId, @NotNull @QueryParam("daysBehind") Integer daysBehind) throws JsonProcessingException {
-		this.actionData = new RecalculateScheduledCardsData(uuid).withBoxId(boxId).withDaysBehind(daysBehind).withUsername(user.getUsername());
+			@NotNull @QueryParam("boxId") Integer boxId, @NotNull @QueryParam("daysBehind") Integer daysBehind)
+			throws JsonProcessingException {
+		this.actionData = new RecalculateScheduledCardsData(uuid).withBoxId(boxId).withDaysBehind(daysBehind)
+				.withUsername(user.getUsername());
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

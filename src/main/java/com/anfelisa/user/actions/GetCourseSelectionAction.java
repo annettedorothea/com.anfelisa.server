@@ -43,7 +43,8 @@ public class GetCourseSelectionAction extends AbstractGetCourseSelectionAction {
 	@Path("/courses")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new CourseSelectionData(uuid).withCredentialsUsername(user.getUsername()).withCredentialsRole(user.getRole());
+		this.actionData = new CourseSelectionData(uuid).withCredentialsUsername(user.getUsername())
+				.withCredentialsRole(user.getRole());
 		return this.apply();
 	}
 

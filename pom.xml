@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.anfelisa</groupId>
 	<artifactId>anfelisa-server</artifactId>
-	<version>1.2.3</version>
+	<version>1.3.0</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<dropwizard.version>1.0.2</dropwizard.version>
@@ -117,7 +117,7 @@
 		<dependency>
 			<groupId>com.anfelisa</groupId>
 			<artifactId>ace</artifactId>
-			<version>1.1.2</version>
+			<version>1.1.3</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->

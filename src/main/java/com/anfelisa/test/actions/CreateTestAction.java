@@ -23,7 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/tests")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class CreateTestAction extends AbstractCreateTestAction {
+public class CreateTestAction extends AbstractCreateTestAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateTestAction.class);
 
@@ -35,12 +35,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 	@Timed
 	@Path("/create")
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
-	public Response post(@NotNull TestCreationData testCreationData) throws JsonProcessingException, UnsupportedEncodingException {
+	public Response post(@NotNull TestCreationData testCreationData)
+			throws JsonProcessingException, UnsupportedEncodingException {
 		this.actionData = testCreationData;
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

@@ -40,4 +40,4 @@ public class CreateCardAction extends AbstractCreateCardAction {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

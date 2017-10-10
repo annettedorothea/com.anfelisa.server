@@ -19,7 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @Path("/scoredcards")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class CreateScoredCardAction extends AbstractCreateScoredCardAction {
+public class CreateScoredCardAction extends AbstractCreateScoredCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateScoredCardAction.class);
 
@@ -36,7 +36,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

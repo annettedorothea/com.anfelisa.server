@@ -41,8 +41,8 @@ public class GetCardsOfTestAction extends AbstractGetCardsOfTestAction {
 	@Timed
 	@Path("/cards")
 	@RolesAllowed({ AuthUser.ADMIN, AuthUser.AUTHOR })
-	public Response get(@NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("testId") Integer testId) throws JsonProcessingException {
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("testId") Integer testId)
+			throws JsonProcessingException {
 		this.actionData = new CardContentHashListData(uuid).withTestId(testId);
 		return this.apply();
 	}
