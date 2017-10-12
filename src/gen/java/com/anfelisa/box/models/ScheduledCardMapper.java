@@ -19,10 +19,10 @@ public class ScheduledCardMapper implements ResultSetMapper<IScheduledCardModel>
 			r.getInt("interval"),
 			r.getInt("n"),
 			r.getInt("count"),
-			new org.joda.time.DateTime(r.getTimestamp("scheduledDate")),
+			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")) : null,
 			r.getInt("boxId"),
 			r.getInt("lastQuality"),
-			new org.joda.time.DateTime(r.getTimestamp("timestamp")),
+			r.getTimestamp("timestamp") != null ? new org.joda.time.DateTime(r.getTimestamp("timestamp")) : null,
 			r.getBoolean("removed")
 		);
 	}

@@ -16,7 +16,7 @@ public class ResultMapper implements ResultSetMapper<IResultModel> {
 			r.getInt("resultId"),
 			r.getString("username"),
 			r.getInt("testId"),
-			new org.joda.time.DateTime(r.getTimestamp("date")),
+			r.getTimestamp("date") != null ? new org.joda.time.DateTime(r.getTimestamp("date")) : null,
 			r.getString("json"),
 			r.getInt("points"),
 			r.getInt("maxPoints")

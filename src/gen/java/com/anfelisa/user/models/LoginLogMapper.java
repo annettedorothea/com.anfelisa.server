@@ -15,7 +15,7 @@ public class LoginLogMapper implements ResultSetMapper<ILoginLogModel> {
 		return new LoginLogModel(
 			r.getInt("loginLogId"),
 			r.getString("username"),
-			new org.joda.time.DateTime(r.getTimestamp("date"))
+			r.getTimestamp("date") != null ? new org.joda.time.DateTime(r.getTimestamp("date")) : null
 		);
 	}
 }

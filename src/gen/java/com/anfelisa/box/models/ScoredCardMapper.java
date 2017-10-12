@@ -15,10 +15,10 @@ public class ScoredCardMapper implements ResultSetMapper<IScoredCardModel> {
 		return new ScoredCardModel(
 			r.getInt("scoredCardId"),
 			r.getInt("cardId"),
-			new org.joda.time.DateTime(r.getTimestamp("scheduledDateOfScored")),
+			r.getTimestamp("scheduledDateOfScored") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDateOfScored")) : null,
 			r.getInt("boxId"),
 			r.getInt("quality"),
-			new org.joda.time.DateTime(r.getTimestamp("timestamp")),
+			r.getTimestamp("timestamp") != null ? new org.joda.time.DateTime(r.getTimestamp("timestamp")) : null,
 			r.getInt("points"),
 			r.getInt("scheduledCardId")
 		);
