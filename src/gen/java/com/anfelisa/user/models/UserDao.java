@@ -21,6 +21,7 @@ public class UserDao {
 	
 	public String insert(Handle handle, IUserModel userModel) {
 		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.user (username, password, name, prename, email, role, emailconfirmed) VALUES (:username, :password, :name, :prename, :email, :role, :emailconfirmed) RETURNING username");
+		statement.bind("username",  userModel.getUsername() );
 		statement.bind("password",  userModel.getPassword() );
 		statement.bind("name",  userModel.getName() );
 		statement.bind("prename",  userModel.getPrename() );
