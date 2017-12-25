@@ -1,9 +1,10 @@
 package com.anfelisa.lesson.events;
 
+import com.anfelisa.ace.DatabaseHandle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.lesson.data.LessonCreationData;
 
 public class LessonCreatedEvent extends AbstractLessonCreatedEvent {
@@ -14,9 +15,12 @@ public class LessonCreatedEvent extends AbstractLessonCreatedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public LessonCreatedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

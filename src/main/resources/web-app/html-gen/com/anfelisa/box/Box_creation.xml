@@ -1,5 +1,5 @@
 <createTable tableName="box">
-	<column name="boxid" type="integer">
+	<column name="boxid" type="serial">
 		<constraints primaryKey="true" nullable="false"/>
 	</column>
 	<column name="name" type="character varying">

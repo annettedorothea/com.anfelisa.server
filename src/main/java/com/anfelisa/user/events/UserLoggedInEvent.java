@@ -1,9 +1,10 @@
 package com.anfelisa.user.events;
 
+import com.anfelisa.ace.DatabaseHandle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.user.data.LoginData;
 
 public class UserLoggedInEvent extends AbstractUserLoggedInEvent {
@@ -14,9 +15,12 @@ public class UserLoggedInEvent extends AbstractUserLoggedInEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public UserLoggedInEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

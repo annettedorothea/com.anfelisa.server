@@ -304,4 +304,101 @@
 		</insert>
 	</changeSet>
 
+	<changeSet id="004" author="annette">
+		<sql splitStatements="true" stripComments="true">
+			SELECT
+			setval('box_boxid_seq', COALESCE((SELECT MAX(boxid)+1 FROM
+			public.box), 1), false)
+		</sql>
+		<sql splitStatements="true" stripComments="true">
+			SELECT
+			setval('course_courseid_seq', COALESCE((SELECT MAX(courseid)+1 FROM
+			public.course), 1), false)
+		</sql>
+		<sql splitStatements="true" stripComments="true">
+			SELECT
+			setval('errortimeline_id_seq', COALESCE((SELECT MAX(id)+1 FROM
+			public.errortimeline), 1), false)
+		</sql>
+		<sql splitStatements="true" stripComments="true">
+			SELECT
+			setval('lesson_lessonid_seq', COALESCE((SELECT MAX(lessonid)+1 FROM
+			public.lesson), 1), false)
+		</sql>
+		<sql splitStatements="true" stripComments="true">
+			SELECT
+			setval('loginlog_loginlogid_seq', COALESCE((SELECT MAX(loginlogid)+1
+			FROM public.loginlog), 1), false)
+		</sql>
+		<sql splitStatements="true" stripComments="true">
+			SELECT
+			setval('result_resultid_seq', COALESCE((SELECT MAX(resultid)+1 FROM
+			public.result), 1), false)
+		</sql>
+		<sql splitStatements="true" stripComments="true">
+			SELECT
+			setval('scheduledcard_scheduledcardid_seq', COALESCE((SELECT
+			MAX(scheduledcardid)+1 FROM public.scheduledcard), 1), false)
+		</sql>
+		<sql splitStatements="true" stripComments="true">
+			SELECT
+			setval('scoredcard_scoredcardid_seq', COALESCE((SELECT
+			MAX(scoredcardid)+1 FROM public.scoredcard), 1), false)
+		</sql>
+		<sql splitStatements="true" stripComments="true">
+			SELECT
+			setval('test_testid_seq', COALESCE((SELECT MAX(testid)+1 FROM
+			public.test), 1), false)
+		</sql>
+		<sql splitStatements="true" stripComments="true">
+			SELECT
+			setval('timeline_id_seq', COALESCE((SELECT MAX(id)+1 FROM
+			public.timeline), 1), false)
+		</sql>
+	</changeSet>
+
+	<changeSet id="005" author="annette">
+		<createTable tableName="scenario">
+			<column name="id" type="serial">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="description" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="data" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="createddatetime" type="timestamp with time zone">
+				<constraints />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="006" author="annette">
+		<createTable tableName="bug">
+			<column name="id" type="serial">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="description" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="data" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="reporter" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="resolved" type="boolean">
+				<constraints nullable="false" />
+			</column>
+			<column name="createddatetime" type="timestamp with time zone">
+				<constraints />
+			</column>
+			<column name="updateddatetime" type="timestamp with time zone">
+				<constraints />
+			</column>
+		</createTable>
+	</changeSet>
+
+
 </databaseChangeLog>

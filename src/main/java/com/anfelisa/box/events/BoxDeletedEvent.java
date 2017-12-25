@@ -15,9 +15,12 @@ public class BoxDeletedEvent extends AbstractBoxDeletedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public BoxDeletedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

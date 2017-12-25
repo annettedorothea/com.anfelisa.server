@@ -1,9 +1,10 @@
 package com.anfelisa.user.events;
 
+import com.anfelisa.ace.DatabaseHandle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.user.data.ForgotPasswordData;
 
 public class SendEmailEvent extends AbstractSendEmailEvent {
@@ -14,9 +15,12 @@ public class SendEmailEvent extends AbstractSendEmailEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public SendEmailEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

@@ -1,9 +1,10 @@
 package com.anfelisa.course.events;
 
+import com.anfelisa.ace.DatabaseHandle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.course.data.StudentToCourseAdditionData;
 
 public class StudentAddedToCourseEvent extends AbstractStudentAddedToCourseEvent {
@@ -14,9 +15,12 @@ public class StudentAddedToCourseEvent extends AbstractStudentAddedToCourseEvent
 		super(eventParam, databaseHandle);
 	}
 
+	public StudentAddedToCourseEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

@@ -1,9 +1,10 @@
 package com.anfelisa.box.events;
 
+import com.anfelisa.ace.DatabaseHandle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.CardCreationData;
 
 public class CardCreatedEvent extends AbstractCardCreatedEvent {
@@ -14,9 +15,12 @@ public class CardCreatedEvent extends AbstractCardCreatedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public CardCreatedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

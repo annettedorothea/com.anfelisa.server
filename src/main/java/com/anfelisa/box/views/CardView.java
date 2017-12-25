@@ -11,9 +11,9 @@ import com.anfelisa.box.models.ICardModel;
 
 public class CardView {
 
-	private CardDao cardDao = new CardDao();
+	private static CardDao cardDao = new CardDao();
 
-	public BiConsumer<CardCreationData, Handle> createCard = (dataContainer, handle) -> {
+	public static BiConsumer<CardCreationData, Handle> createCard = (dataContainer, handle) -> {
 		Integer cardId = dataContainer.getCardId();
 		ICardModel card = cardDao.selectByCardId(handle, cardId);
 		if (card == null) {
@@ -24,7 +24,7 @@ public class CardView {
 		dataContainer.setCreatedId("" + cardId);
 	};
 
-	public BiConsumer<CardIdData, Handle> deleteCard = (dataContainer, handle) -> {
+	public static BiConsumer<CardIdData, Handle> deleteCard = (dataContainer, handle) -> {
 		cardDao.deleteByCardId(handle, dataContainer.getCardId());
 	};
 

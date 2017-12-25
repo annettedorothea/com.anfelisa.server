@@ -1,5 +1,5 @@
 <createTable tableName="course">
-	<column name="courseid" type="integer">
+	<column name="courseid" type="serial">
 		<constraints primaryKey="true" nullable="false"/>
 	</column>
 	<column name="name" type="character varying">

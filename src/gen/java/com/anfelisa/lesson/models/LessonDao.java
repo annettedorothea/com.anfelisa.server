@@ -15,12 +15,8 @@ import com.anfelisa.ace.encryption.EncryptionService;
 @JsonIgnoreType
 public class LessonDao {
 	
-	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS public.lesson (lessonid integer NOT NULL  , name character varying NOT NULL  , description character varying  , sequence integer  , courseid integer NOT NULL  , author character varying NOT NULL  , CONSTRAINT lesson_pkey PRIMARY KEY (lessonid), CONSTRAINT lesson_courseid_fkey FOREIGN KEY (courseid) REFERENCES public.course ( courseid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_author_fkey FOREIGN KEY (author) REFERENCES public.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT lesson_lessonId_unique UNIQUE (lessonId))");
-	}
-	
 	public Integer insert(Handle handle, ILessonModel lessonModel) {
-		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.lesson (lessonid, name, description, sequence, courseid, author) VALUES ( (SELECT COALESCE(MAX(lessonid),0) + 1 FROM public.lesson), :name, :description, :sequence, :courseid, :author) RETURNING lessonid");
+		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.lesson (name, description, sequence, courseid, author) VALUES (:name, :description, :sequence, :courseid, :author) RETURNING lessonid");
 		statement.bind("name",  lessonModel.getName() );
 		statement.bind("description",  lessonModel.getDescription() );
 		statement.bind("sequence",  lessonModel.getSequence() );
@@ -32,13 +28,13 @@ public class LessonDao {
 	
 	
 	public void updateByLessonId(Handle handle, ILessonModel lessonModel) {
-		Update statement = handle.createStatement("UPDATE public.lesson SET lessonid = :lessonid, name = :name, description = :description, sequence = :sequence, courseid = :courseid, author = :author WHERE lessonid = :lessonid");
-		statement.bind("lessonid",  lessonModel.getLessonId() );
+		Update statement = handle.createStatement("UPDATE public.lesson SET name = :name, description = :description, sequence = :sequence, courseid = :courseid, author = :author WHERE lessonid = :lessonid");
 		statement.bind("name",  lessonModel.getName() );
 		statement.bind("description",  lessonModel.getDescription() );
 		statement.bind("sequence",  lessonModel.getSequence() );
 		statement.bind("courseid",  lessonModel.getCourseId() );
 		statement.bind("author",  lessonModel.getAuthor() );
+		statement.bind("lessonid",  lessonModel.getLessonId()  );
 		statement.execute();
 	}
 
@@ -49,20 +45,22 @@ public class LessonDao {
 	}
 
 	public ILessonModel selectByLessonId(Handle handle, Integer lessonId) {
-		return handle.createQuery("SELECT * FROM public.lesson WHERE lessonid = :lessonid")
+		return handle.createQuery("SELECT lessonid, name, description, sequence, courseid, author FROM public.lesson WHERE lessonid = :lessonid")
 			.bind("lessonid", lessonId)
 			.map(new LessonMapper())
 			.first();
 	}
 	
 	public List<ILessonModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT * FROM public.lesson")
+		return handle.createQuery("SELECT lessonid, name, description, sequence, courseid, author FROM public.lesson")
 			.map(new LessonMapper())
 			.list();
 	}
 
 	public void truncate(Handle handle) {
 		Update statement = handle.createStatement("TRUNCATE public.lesson");
+		statement.execute();
+		statement = handle.createStatement("ALTER SEQUENCE public.lesson_lessonId_seq RESTART");
 		statement.execute();
 	}
 

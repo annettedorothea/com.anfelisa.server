@@ -15,6 +15,10 @@ public class ChangeUserToAuthorEvent extends AbstractChangeUserToAuthorEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public ChangeUserToAuthorEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
 		this.eventData = this.eventParam;

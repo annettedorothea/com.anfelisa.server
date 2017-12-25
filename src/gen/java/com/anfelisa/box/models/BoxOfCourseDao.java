@@ -15,10 +15,6 @@ import com.anfelisa.ace.encryption.EncryptionService;
 @JsonIgnoreType
 public class BoxOfCourseDao {
 	
-	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS public.boxofcourse (boxid integer NOT NULL  , courseid integer NOT NULL  , autoadd boolean NOT NULL  , CONSTRAINT boxofcourse_boxid_fkey FOREIGN KEY (boxid) REFERENCES public.box ( boxid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT boxofcourse_courseid_fkey FOREIGN KEY (courseid) REFERENCES public.course ( courseid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE)");
-	}
-	
 	public void insert(Handle handle, IBoxOfCourseModel boxOfCourseModel) {
 		Update statement = handle.createStatement("INSERT INTO public.boxofcourse (boxid, courseid, autoadd) VALUES (:boxid, :courseid, :autoadd)");
 		statement.bind("boxid",  boxOfCourseModel.getBoxId() );
@@ -30,7 +26,7 @@ public class BoxOfCourseDao {
 	
 	
 	public List<IBoxOfCourseModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT * FROM public.boxofcourse")
+		return handle.createQuery("SELECT boxid, courseid, autoadd FROM public.boxofcourse")
 			.map(new BoxOfCourseMapper())
 			.list();
 	}

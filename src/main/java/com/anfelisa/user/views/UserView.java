@@ -23,41 +23,41 @@ import com.anfelisa.user.models.UserDao;
 
 public class UserView {
 
-	private UserDao userDao = new UserDao();
+	private static UserDao userDao = new UserDao();
 
-	private CustomUserDao customUserDao = new CustomUserDao();
+	private static CustomUserDao customUserDao = new CustomUserDao();
 
-	public BiConsumer<UserCreationData, Handle> createUser = (dataContainer, handle) -> {
+	public static BiConsumer<UserCreationData, Handle> createUser = (dataContainer, handle) -> {
 		String username = userDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId(username);
 	};
 
-	public BiConsumer<UserRegistrationData, Handle> registerUser = (dataContainer, handle) -> {
+	public static BiConsumer<UserRegistrationData, Handle> registerUser = (dataContainer, handle) -> {
 		String username = userDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId(username);
 	};
 
-	public BiConsumer<UserUpdateData, Handle> updateUser = (dataContainer, handle) -> {
+	public static BiConsumer<UserUpdateData, Handle> updateUser = (dataContainer, handle) -> {
 		customUserDao.update(handle, dataContainer);
 	};
 
-	public BiConsumer<AddCoursesData, Handle> addCourses = (dataContainer, handle) -> {
+	public static BiConsumer<AddCoursesData, Handle> addCourses = (dataContainer, handle) -> {
 		customUserDao.addCoursesToUser(handle, dataContainer);
 	};
 
-	public BiConsumer<RemoveCourseData, Handle> removeCourse = (dataContainer, handle) -> {
+	public static BiConsumer<RemoveCourseData, Handle> removeCourse = (dataContainer, handle) -> {
 		customUserDao.removeCourseFromUser(handle, dataContainer);
 	};
 
-	public BiConsumer<PasswordUpdateData, Handle> updatePassword = (dataContainer, handle) -> {
+	public static BiConsumer<PasswordUpdateData, Handle> updatePassword = (dataContainer, handle) -> {
 		customUserDao.updatePassword(handle, dataContainer);
 	};
 
-	public BiConsumer<UsernameData, Handle> confirmEmail = (dataContainer, handle) -> {
+	public static BiConsumer<UsernameData, Handle> confirmEmail = (dataContainer, handle) -> {
 		customUserDao.confirmEmail(handle, dataContainer.getUsername());
 	};
 
-	public BiConsumer<ForgotPasswordData, Handle> sendForgotPasswordEmail = (dataContainer, handle) -> {
+	public static BiConsumer<ForgotPasswordData, Handle> sendForgotPasswordEmail = (dataContainer, handle) -> {
 		Locale currentLocale = new Locale(dataContainer.getLanguage());
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
 		String link = EmailService.getLocalhost() + "#profile/newPassword/" + dataContainer.getUsername() + "/"
@@ -69,7 +69,7 @@ public class UserView {
 		EmailService.sendEmail("annette@anfelisa.de", dataContainer.getEmail(), subject, message);
 	};
 
-	public BiConsumer<UserRegistrationData, Handle> sendRegistrationEmail = (dataContainer, handle) -> {
+	public static BiConsumer<UserRegistrationData, Handle> sendRegistrationEmail = (dataContainer, handle) -> {
 		Locale currentLocale = new Locale(dataContainer.getLanguage());
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
 		String link = EmailService.getLocalhost() + "#profile/confirmEmail/" + dataContainer.getUsername() + "/"
@@ -81,15 +81,15 @@ public class UserView {
 		EmailService.sendEmail("annette@anfelisa.de", dataContainer.getEmail(), subject, message);
 	};
 
-	public BiConsumer<ChangeUserRoleData, Handle> changeUserToPremium = (dataContainer, handle) -> {
+	public static BiConsumer<ChangeUserRoleData, Handle> changeUserToPremium = (dataContainer, handle) -> {
 		customUserDao.changeUserRole(handle, dataContainer.getUsername(), AuthUser.PREMIUM);
 	};
 
-	public BiConsumer<ChangeUserRoleData, Handle> changeUserToAuthor = (dataContainer, handle) -> {
+	public static BiConsumer<ChangeUserRoleData, Handle> changeUserToAuthor = (dataContainer, handle) -> {
 		customUserDao.changeUserRole(handle, dataContainer.getUsername(), AuthUser.AUTHOR);
 	};
 	
-	public BiConsumer<ChangeUserRoleData, Handle> changeUserToAdmin = (dataContainer, handle) -> {
+	public static BiConsumer<ChangeUserRoleData, Handle> changeUserToAdmin = (dataContainer, handle) -> {
 		customUserDao.changeUserRole(handle, dataContainer.getUsername(), AuthUser.ADMIN);
 	};
 	

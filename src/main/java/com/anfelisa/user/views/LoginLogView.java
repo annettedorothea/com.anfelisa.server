@@ -9,9 +9,9 @@ import com.anfelisa.user.models.LoginLogDao;
 
 public class LoginLogView {
 
-	private LoginLogDao loginLogDao = new LoginLogDao();
+	private static LoginLogDao loginLogDao = new LoginLogDao();
 
-	public BiConsumer<LoginData, Handle> userLoggedIn = (dataContainer, handle) -> {
+	public static BiConsumer<LoginData, Handle> userLoggedIn = (dataContainer, handle) -> {
 		Integer id = loginLogDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId("" + id);
 	};

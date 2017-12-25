@@ -15,6 +15,10 @@ public class ChangeUserToAdminEvent extends AbstractChangeUserToAdminEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public ChangeUserToAdminEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
 		this.eventData = this.eventParam;

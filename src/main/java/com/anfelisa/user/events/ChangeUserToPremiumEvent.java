@@ -1,9 +1,10 @@
 package com.anfelisa.user.events;
 
+import com.anfelisa.ace.DatabaseHandle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.user.data.ChangeUserRoleData;
 
 public class ChangeUserToPremiumEvent extends AbstractChangeUserToPremiumEvent {
@@ -12,6 +13,10 @@ public class ChangeUserToPremiumEvent extends AbstractChangeUserToPremiumEvent {
 
 	public ChangeUserToPremiumEvent(ChangeUserRoleData eventParam, DatabaseHandle databaseHandle) {
 		super(eventParam, databaseHandle);
+	}
+
+	public ChangeUserToPremiumEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
 	}
 
 	@Override

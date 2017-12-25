@@ -1,9 +1,10 @@
 package com.anfelisa.box.events;
 
+import com.anfelisa.ace.DatabaseHandle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.BoxToCourseAdditionData;
 
 public class CourseAddedToBoxEvent extends AbstractCourseAddedToBoxEvent {
@@ -14,9 +15,12 @@ public class CourseAddedToBoxEvent extends AbstractCourseAddedToBoxEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public CourseAddedToBoxEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

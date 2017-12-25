@@ -1,9 +1,10 @@
 package com.anfelisa.result.events;
 
+import com.anfelisa.ace.DatabaseHandle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.result.data.ResultCreationData;
 
 public class ResultCreatedEvent extends AbstractResultCreatedEvent {
@@ -14,9 +15,12 @@ public class ResultCreatedEvent extends AbstractResultCreatedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public ResultCreatedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

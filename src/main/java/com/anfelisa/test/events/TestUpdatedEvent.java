@@ -15,9 +15,12 @@ public class TestUpdatedEvent extends AbstractTestUpdatedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public TestUpdatedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

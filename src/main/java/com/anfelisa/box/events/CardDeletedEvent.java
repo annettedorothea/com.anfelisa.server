@@ -15,6 +15,10 @@ public class CardDeletedEvent extends AbstractCardDeletedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public CardDeletedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
 		this.eventData = this.eventParam;

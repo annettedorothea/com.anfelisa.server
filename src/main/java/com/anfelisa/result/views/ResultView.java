@@ -15,16 +15,16 @@ import com.anfelisa.result.models.ResultModel;
 
 public class ResultView {
 
-	private ResultDao resultDao = new ResultDao();
+	private static ResultDao resultDao = new ResultDao();
 
-	private ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
+	private static ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
 
-	public BiConsumer<ResultCreationData, Handle> createResult = (dataContainer, handle) -> {
+	public static BiConsumer<ResultCreationData, Handle> createResult = (dataContainer, handle) -> {
 		Integer resultId = resultDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId("" + resultId);
 	};
 
-	public BiConsumer<ResultSaveData, Handle> saveResult = (dataContainer, handle) -> {
+	public static BiConsumer<ResultSaveData, Handle> saveResult = (dataContainer, handle) -> {
 		IResultModel result = new ResultModel(null, dataContainer.getUsername(), dataContainer.getTestId(),
 				dataContainer.getDate(), dataContainer.getJson(), dataContainer.getPoints(),
 				dataContainer.getMaxPoints());
@@ -32,7 +32,7 @@ public class ResultView {
 		dataContainer.setCreatedId("" + resultId);
 	};
 
-	public BiConsumer<ResultSaveData, Handle> fillBoxWithCards = (dataContainer, handle) -> {
+	public static BiConsumer<ResultSaveData, Handle> fillBoxWithCards = (dataContainer, handle) -> {
 		List<IScheduledCardModel> cards = dataContainer.getCardsToBeAdded();
 		for (IScheduledCardModel card : cards) {
 			scheduledCardDao.insert(handle, card);

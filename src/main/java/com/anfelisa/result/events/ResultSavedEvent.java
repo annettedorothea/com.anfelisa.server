@@ -15,9 +15,12 @@ public class ResultSavedEvent extends AbstractResultSavedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public ResultSavedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

@@ -15,10 +15,6 @@ import com.anfelisa.ace.encryption.EncryptionService;
 @JsonIgnoreType
 public class StudentOfCourseDao {
 	
-	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS public.studentofcourse (username character varying NOT NULL  , courseid integer NOT NULL  , CONSTRAINT studentofcourse_username_fkey FOREIGN KEY (username) REFERENCES public.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT studentofcourse_courseid_fkey FOREIGN KEY (courseid) REFERENCES public.course ( courseid ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE)");
-	}
-	
 	public void insert(Handle handle, IStudentOfCourseModel studentOfCourseModel) {
 		Update statement = handle.createStatement("INSERT INTO public.studentofcourse (username, courseid) VALUES (:username, :courseid)");
 		statement.bind("username",  studentOfCourseModel.getUsername() );
@@ -29,7 +25,7 @@ public class StudentOfCourseDao {
 	
 	
 	public List<IStudentOfCourseModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT * FROM public.studentofcourse")
+		return handle.createQuery("SELECT username, courseid FROM public.studentofcourse")
 			.map(new StudentOfCourseMapper())
 			.list();
 	}

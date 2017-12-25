@@ -15,9 +15,12 @@ public class EmailConfirmedEvent extends AbstractEmailConfirmedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public EmailConfirmedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

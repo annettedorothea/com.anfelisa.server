@@ -1,9 +1,10 @@
 package com.anfelisa.test.events;
 
+import com.anfelisa.ace.DatabaseHandle;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.test.data.TestCreationData;
 
 public class TestCreatedEvent extends AbstractTestCreatedEvent {
@@ -14,9 +15,12 @@ public class TestCreatedEvent extends AbstractTestCreatedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public TestCreatedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

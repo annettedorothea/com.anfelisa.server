@@ -10,14 +10,14 @@ import com.anfelisa.course.models.CourseDao;
 
 public class CourseView {
 
-	private CourseDao courseDao = new CourseDao();
+	private static CourseDao courseDao = new CourseDao();
 
-	public BiConsumer<CourseCreationData, Handle> createCourse = (dataContainer, handle) -> {
+	public static BiConsumer<CourseCreationData, Handle> createCourse = (dataContainer, handle) -> {
 		Integer courseId = courseDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId("" + courseId);
 	};
 
-	public BiConsumer<CourseData, Handle> updateCourse = (dataContainer, handle) -> {
+	public static BiConsumer<CourseData, Handle> updateCourse = (dataContainer, handle) -> {
 		courseDao.updateByCourseId(handle, dataContainer);
 	};
 

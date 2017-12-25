@@ -10,14 +10,14 @@ import com.anfelisa.lesson.models.LessonDao;
 
 public class LessonView {
 
-	private LessonDao lessonDao = new LessonDao();
+	private static LessonDao lessonDao = new LessonDao();
 
-	public BiConsumer<LessonCreationData, Handle> createLesson = (dataContainer, handle) -> {
+	public static BiConsumer<LessonCreationData, Handle> createLesson = (dataContainer, handle) -> {
 		Integer lessonId = lessonDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId("" + lessonId);
 	};
 
-	public BiConsumer<LessonData, Handle> updateLesson = (dataContainer, handle) -> {
+	public static BiConsumer<LessonData, Handle> updateLesson = (dataContainer, handle) -> {
 		lessonDao.updateByLessonId(handle, dataContainer);
 	};
 

@@ -15,9 +15,12 @@ public class CourseRemovedEvent extends AbstractCourseRemovedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public CourseRemovedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

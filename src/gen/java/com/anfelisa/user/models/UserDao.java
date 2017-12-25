@@ -15,10 +15,6 @@ import com.anfelisa.ace.encryption.EncryptionService;
 @JsonIgnoreType
 public class UserDao {
 	
-	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS public.user (username character varying NOT NULL  , password character varying NOT NULL  , name character varying NOT NULL  , prename character varying NOT NULL  , email character varying NOT NULL  , role character varying NOT NULL  , emailconfirmed boolean NOT NULL  , CONSTRAINT user_pkey PRIMARY KEY (username), CONSTRAINT user_username_unique UNIQUE (username))");
-	}
-	
 	public String insert(Handle handle, IUserModel userModel) {
 		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.user (username, password, name, prename, email, role, emailconfirmed) VALUES (:username, :password, :name, :prename, :email, :role, :emailconfirmed) RETURNING username");
 		statement.bind("username",  userModel.getUsername() );
@@ -42,6 +38,7 @@ public class UserDao {
 		statement.bind("email",  userModel.getEmail() );
 		statement.bind("role",  userModel.getRole() );
 		statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
+		statement.bind("username",  userModel.getUsername()  );
 		statement.execute();
 	}
 
@@ -52,14 +49,14 @@ public class UserDao {
 	}
 
 	public IUserModel selectByUsername(Handle handle, String username) {
-		return handle.createQuery("SELECT * FROM public.user WHERE username = :username")
+		return handle.createQuery("SELECT username, password, name, prename, email, role, emailconfirmed FROM public.user WHERE username = :username")
 			.bind("username", username)
 			.map(new UserMapper())
 			.first();
 	}
 	
 	public List<IUserModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT * FROM public.user")
+		return handle.createQuery("SELECT username, password, name, prename, email, role, emailconfirmed FROM public.user")
 			.map(new UserMapper())
 			.list();
 	}

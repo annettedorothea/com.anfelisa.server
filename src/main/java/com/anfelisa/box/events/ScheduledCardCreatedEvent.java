@@ -15,6 +15,10 @@ public class ScheduledCardCreatedEvent extends AbstractScheduledCardCreatedEvent
 		super(eventParam, databaseHandle);
 	}
 
+	public ScheduledCardCreatedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
 		this.eventData = this.eventParam;

@@ -15,9 +15,12 @@ public class CardImportedEvent extends AbstractCardImportedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public CardImportedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

@@ -15,9 +15,12 @@ public class BoxUpdatedEvent extends AbstractBoxUpdatedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public BoxUpdatedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

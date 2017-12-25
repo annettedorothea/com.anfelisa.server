@@ -2,10 +2,15 @@ package com.anfelisa.box;
 
 import io.dropwizard.setup.Environment;
 import com.anfelisa.ace.AceController;
+import com.anfelisa.ace.AceExecutionMode;
 
 import org.skife.jdbi.v2.DBI;
 
-import com.anfelisa.box.views.*;
+import com.anfelisa.box.views.BoxView;
+import com.anfelisa.box.views.CardView;
+import com.anfelisa.box.views.ScheduledCardView;
+import com.anfelisa.box.views.ScoredCardView;
+import com.anfelisa.box.views.BoxToCourseView;
 import com.anfelisa.box.actions.*;
 
 @SuppressWarnings("all")
@@ -35,27 +40,21 @@ public class AppRegistration {
 	}
 
 	public static void registerConsumers() {
-		BoxView boxView = new BoxView();
-		BoxToCourseView boxToCourseView = new BoxToCourseView();
-		CardView cardView = new CardView();
-		ScheduledCardView scheduledCardView = new ScheduledCardView();
-		ScoredCardView scoredCardView = new ScoredCardView();
-		
-		AceController.addConsumer("com.anfelisa.box.events.BoxCreatedEvent", boxView.createBox);
-		AceController.addConsumer("com.anfelisa.box.events.CardCreatedEvent", cardView.createCard);
-		AceController.addConsumer("com.anfelisa.box.events.ScheduledCardCreatedEvent", scheduledCardView.createScheduledCard);
-		AceController.addConsumer("com.anfelisa.box.events.ScoredCardCreatedEvent", scoredCardView.createScoredCard);
-		AceController.addConsumer("com.anfelisa.box.events.CourseAddedToBoxEvent", boxToCourseView.addCourseToBox);
-		AceController.addConsumer("com.anfelisa.box.events.BoxUpdatedEvent", boxView.updateBox);
-		AceController.addConsumer("com.anfelisa.box.events.BoxDeletedEvent", boxView.deleteBox);
-		AceController.addConsumer("com.anfelisa.box.events.BoxConfigSavedEvent", boxToCourseView.saveBoxConfig);
-		AceController.addConsumer("com.anfelisa.box.events.CardScoredEvent", scoredCardView.score);
-		AceController.addConsumer("com.anfelisa.box.events.CardScoredEvent", scheduledCardView.score);
-		AceController.addConsumer("com.anfelisa.box.events.CardImportedEvent", cardView.createCard);
-		AceController.addConsumer("com.anfelisa.box.events.FillBoxWithCardsEvent", boxView.fillBoxWithCards);
-		AceController.addConsumer("com.anfelisa.box.events.CardDeletedEvent", cardView.deleteCard);
-		AceController.addConsumer("com.anfelisa.box.events.CardRemovedFromBoxEvent", scheduledCardView.removeFromBox);
-		AceController.addConsumer("com.anfelisa.box.events.RecalculateScheduledCardsEvent", scheduledCardView.recalculateScheduledCards);
+			AceController.addConsumer("com.anfelisa.box.events.BoxCreatedEvent", BoxView.createBox);
+			AceController.addConsumer("com.anfelisa.box.events.CardCreatedEvent", CardView.createCard);
+			AceController.addConsumer("com.anfelisa.box.events.ScheduledCardCreatedEvent", ScheduledCardView.createScheduledCard);
+			AceController.addConsumer("com.anfelisa.box.events.ScoredCardCreatedEvent", ScoredCardView.createScoredCard);
+			AceController.addConsumer("com.anfelisa.box.events.CourseAddedToBoxEvent", BoxToCourseView.addCourseToBox);
+			AceController.addConsumer("com.anfelisa.box.events.BoxUpdatedEvent", BoxView.updateBox);
+			AceController.addConsumer("com.anfelisa.box.events.BoxDeletedEvent", BoxView.deleteBox);
+			AceController.addConsumer("com.anfelisa.box.events.BoxConfigSavedEvent", BoxToCourseView.saveBoxConfig);
+			AceController.addConsumer("com.anfelisa.box.events.CardScoredEvent", ScoredCardView.score);
+			AceController.addConsumer("com.anfelisa.box.events.CardScoredEvent", ScheduledCardView.score);
+			AceController.addConsumer("com.anfelisa.box.events.CardImportedEvent", CardView.createCard);
+			AceController.addConsumer("com.anfelisa.box.events.FillBoxWithCardsEvent", BoxView.fillBoxWithCards);
+			AceController.addConsumer("com.anfelisa.box.events.CardDeletedEvent", CardView.deleteCard);
+			AceController.addConsumer("com.anfelisa.box.events.CardRemovedFromBoxEvent", ScheduledCardView.removeFromBox);
+			AceController.addConsumer("com.anfelisa.box.events.RecalculateScheduledCardsEvent", ScheduledCardView.recalculateScheduledCards);
     }
 }
 

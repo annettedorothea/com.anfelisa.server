@@ -15,6 +15,10 @@ public class RecalculateScheduledCardsEvent extends AbstractRecalculateScheduled
 		super(eventParam, databaseHandle);
 	}
 
+	public RecalculateScheduledCardsEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
 		this.eventData = this.eventParam;

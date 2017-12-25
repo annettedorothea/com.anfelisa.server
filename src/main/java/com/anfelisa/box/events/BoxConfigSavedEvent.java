@@ -15,9 +15,12 @@ public class BoxConfigSavedEvent extends AbstractBoxConfigSavedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public BoxConfigSavedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

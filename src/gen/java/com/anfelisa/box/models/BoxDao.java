@@ -15,12 +15,8 @@ import com.anfelisa.ace.encryption.EncryptionService;
 @JsonIgnoreType
 public class BoxDao {
 	
-	public void create(Handle handle) {
-		handle.execute("CREATE TABLE IF NOT EXISTS public.box (boxid integer NOT NULL  , name character varying NOT NULL  , username character varying NOT NULL  , CONSTRAINT box_pkey PRIMARY KEY (boxid), CONSTRAINT box_username_fkey FOREIGN KEY (username) REFERENCES public.user ( username ) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE CASCADE, CONSTRAINT box_boxId_unique UNIQUE (boxId))");
-	}
-	
 	public Integer insert(Handle handle, IBoxModel boxModel) {
-		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.box (boxid, name, username) VALUES ( (SELECT COALESCE(MAX(boxid),0) + 1 FROM public.box), :name, :username) RETURNING boxid");
+		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.box (name, username) VALUES (:name, :username) RETURNING boxid");
 		statement.bind("name",  boxModel.getName() );
 		statement.bind("username",  boxModel.getUsername() );
 		Map<String, Object> first = statement.first();
@@ -29,10 +25,10 @@ public class BoxDao {
 	
 	
 	public void updateByBoxId(Handle handle, IBoxModel boxModel) {
-		Update statement = handle.createStatement("UPDATE public.box SET boxid = :boxid, name = :name, username = :username WHERE boxid = :boxid");
-		statement.bind("boxid",  boxModel.getBoxId() );
+		Update statement = handle.createStatement("UPDATE public.box SET name = :name, username = :username WHERE boxid = :boxid");
 		statement.bind("name",  boxModel.getName() );
 		statement.bind("username",  boxModel.getUsername() );
+		statement.bind("boxid",  boxModel.getBoxId()  );
 		statement.execute();
 	}
 
@@ -43,20 +39,22 @@ public class BoxDao {
 	}
 
 	public IBoxModel selectByBoxId(Handle handle, Integer boxId) {
-		return handle.createQuery("SELECT * FROM public.box WHERE boxid = :boxid")
+		return handle.createQuery("SELECT boxid, name, username FROM public.box WHERE boxid = :boxid")
 			.bind("boxid", boxId)
 			.map(new BoxMapper())
 			.first();
 	}
 	
 	public List<IBoxModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT * FROM public.box")
+		return handle.createQuery("SELECT boxid, name, username FROM public.box")
 			.map(new BoxMapper())
 			.list();
 	}
 
 	public void truncate(Handle handle) {
 		Update statement = handle.createStatement("TRUNCATE public.box");
+		statement.execute();
+		statement = handle.createStatement("ALTER SEQUENCE public.box_boxId_seq RESTART");
 		statement.execute();
 	}
 

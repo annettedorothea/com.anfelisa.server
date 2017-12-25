@@ -15,9 +15,12 @@ public class UserRegisteredEvent extends AbstractUserRegisteredEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public UserRegisteredEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

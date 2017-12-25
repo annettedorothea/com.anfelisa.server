@@ -2,10 +2,11 @@ package com.anfelisa.test;
 
 import io.dropwizard.setup.Environment;
 import com.anfelisa.ace.AceController;
+import com.anfelisa.ace.AceExecutionMode;
 
 import org.skife.jdbi.v2.DBI;
 
-import com.anfelisa.test.views.*;
+import com.anfelisa.test.views.TestView;
 import com.anfelisa.test.actions.*;
 
 @SuppressWarnings("all")
@@ -23,10 +24,8 @@ public class AppRegistration {
 	}
 
 	public static void registerConsumers() {
-		TestView testView = new TestView();
-		
-		AceController.addConsumer("com.anfelisa.test.events.TestCreatedEvent", testView.createTest);
-		AceController.addConsumer("com.anfelisa.test.events.TestUpdatedEvent", testView.updateTest);
+			AceController.addConsumer("com.anfelisa.test.events.TestCreatedEvent", TestView.createTest);
+			AceController.addConsumer("com.anfelisa.test.events.TestUpdatedEvent", TestView.updateTest);
     }
 }
 

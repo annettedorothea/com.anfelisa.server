@@ -9,9 +9,9 @@ import com.anfelisa.course.models.StudentOfCourseDao;
 
 public class StudentOfCourseView {
 
-	private StudentOfCourseDao studentOfCourseDao = new StudentOfCourseDao();
+	private static StudentOfCourseDao studentOfCourseDao = new StudentOfCourseDao();
 
-	public BiConsumer<StudentToCourseAdditionData, Handle> addStudentToCourse = (dataContainer, handle) -> {
+	public static BiConsumer<StudentToCourseAdditionData, Handle> addStudentToCourse = (dataContainer, handle) -> {
 		studentOfCourseDao.insert(handle, dataContainer);
 	};
 

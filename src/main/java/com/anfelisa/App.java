@@ -7,6 +7,13 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AceController;
 import com.anfelisa.ace.AceExecutionMode;
+import com.anfelisa.admin.bug.CreateBugResource;
+import com.anfelisa.admin.bug.DeleteBugResource;
+import com.anfelisa.admin.bug.GetAllBugsResource;
+import com.anfelisa.admin.bug.ResolveBugResource;
+import com.anfelisa.admin.scenario.CreateScenarioResource;
+import com.anfelisa.admin.scenario.DeleteScenarioResource;
+import com.anfelisa.admin.scenario.GetAllScenariosResource;
 import com.anfelisa.auth.AceAuthenticator;
 import com.anfelisa.auth.AceAuthorizer;
 import com.anfelisa.auth.AuthUser;
@@ -34,9 +41,9 @@ public class App extends Application<AppConfiguration> {
 	public String getName() {
 		return "anfelisa";
 	}
-	
+
 	public String getVersion() {
-		return "1.3.1";
+		return "1.4.0";
 	}
 
 	@Override
@@ -52,20 +59,30 @@ public class App extends Application<AppConfiguration> {
 	@Override
 	public void run(AppConfiguration configuration, Environment environment) throws ClassNotFoundException {
 		LOG.info("running version {}", getVersion());
-		
+
 		final DBIFactory factory = new DBIFactory();
 
 		DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
 		DBI jdbiTimeline = null;
 
 		if (configuration.getTimelineDataSourceFactory().getUrl() != null) {
-			AceController.setAceExecutionMode(AceExecutionMode.E2E);
-			jdbiTimeline = factory.build(environment, configuration.getTimelineDataSourceFactory(),
-					"anfelisa_replay");
-			//environment.jersey().register(new ClearDatabaseResource(jdbi));
-			//environment.jersey().register(new PrepareDatabaseResource(jdbi, jdbiTimeline));
+			AceController.setAceExecutionMode(AceExecutionMode.REPLAY);
+			jdbiTimeline = factory.build(environment, configuration.getTimelineDataSourceFactory(), "anfelisa_replay");
+			environment.jersey().register(new ClearDatabaseResource(jdbi));
+			environment.jersey().register(new PrepareDatabaseResource(jdbi, jdbiTimeline));
 		} else {
 			AceController.setAceExecutionMode(AceExecutionMode.LIVE);
+
+			environment.jersey().register(new MigrateDatabaseResource(jdbi));
+
+			environment.jersey().register(new CreateScenarioResource(jdbi));
+			environment.jersey().register(new DeleteScenarioResource(jdbi));
+			environment.jersey().register(new GetAllScenariosResource(jdbi));
+
+			environment.jersey().register(new CreateBugResource(jdbi));
+			environment.jersey().register(new DeleteBugResource(jdbi));
+			environment.jersey().register(new GetAllBugsResource(jdbi));
+			environment.jersey().register(new ResolveBugResource(jdbi));
 		}
 
 		DBIExceptionsBundle dbiExceptionsBundle = new DBIExceptionsBundle();
@@ -73,15 +90,12 @@ public class App extends Application<AppConfiguration> {
 
 		EmailService.setEmailConfiguration(configuration.getEmail());
 
-		environment.jersey().register(new AuthDynamicFeature(
-	            new BasicCredentialAuthFilter.Builder<AuthUser>()
-	                .setAuthenticator(new AceAuthenticator(jdbi))
-	                .setAuthorizer(new AceAuthorizer())
-	                .setPrefix("anfelisaBasic")
-	                .setRealm("anfelisa private realm")
-	                .buildAuthFilter()));
-	    environment.jersey().register(RolesAllowedDynamicFeature.class);
-	    environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
+		environment.jersey()
+				.register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<AuthUser>()
+						.setAuthenticator(new AceAuthenticator(jdbi)).setAuthorizer(new AceAuthorizer())
+						.setPrefix("anfelisaBasic").setRealm("anfelisa private realm").buildAuthFilter()));
+		environment.jersey().register(RolesAllowedDynamicFeature.class);
+		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
 
 		com.anfelisa.user.AppRegistration.registerResources(environment, jdbi, jdbiTimeline);
 		com.anfelisa.user.AppRegistration.registerConsumers();

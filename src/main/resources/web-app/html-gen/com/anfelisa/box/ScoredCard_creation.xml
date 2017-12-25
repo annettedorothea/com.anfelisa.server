@@ -1,5 +1,5 @@
 <createTable tableName="scoredcard">
-	<column name="scoredcardid" type="integer">
+	<column name="scoredcardid" type="serial">
 		<constraints primaryKey="true" nullable="false"/>
 	</column>
 	<column name="cardid" type="integer">

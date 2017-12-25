@@ -13,15 +13,15 @@ import com.anfelisa.box.models.IBoxOfCourseModel;
 
 public class BoxToCourseView {
 
-	private BoxOfCourseDao boxOfCourseDao = new BoxOfCourseDao();
+	private static BoxOfCourseDao boxOfCourseDao = new BoxOfCourseDao();
 
-	private CustomBoxOfCourseDao customBoxOfCourseDao = new CustomBoxOfCourseDao();
+	private static CustomBoxOfCourseDao customBoxOfCourseDao = new CustomBoxOfCourseDao();
 
-	public BiConsumer<BoxToCourseAdditionData, Handle> addCourseToBox = (dataContainer, handle) -> {
+	public static BiConsumer<BoxToCourseAdditionData, Handle> addCourseToBox = (dataContainer, handle) -> {
 		boxOfCourseDao.insert(handle, dataContainer);
 	};
 
-	public BiConsumer<BoxConfigData, Handle> saveBoxConfig = (dataContainer, handle) -> {
+	public static BiConsumer<BoxConfigData, Handle> saveBoxConfig = (dataContainer, handle) -> {
 		List<IBoxOfCourseModel> list = dataContainer.getBoxOfCourseList();
 		List<IBoxOfCourseModel> existingItems = dataContainer.getExistingItems();
 		for (int i = 0; i < list.size(); i++) {

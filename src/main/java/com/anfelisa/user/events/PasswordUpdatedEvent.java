@@ -15,9 +15,12 @@ public class PasswordUpdatedEvent extends AbstractPasswordUpdatedEvent {
 		super(eventParam, databaseHandle);
 	}
 
+	public PasswordUpdatedEvent(DatabaseHandle databaseHandle) {
+		this(null, databaseHandle);
+	}
+
 	@Override
 	protected void prepareDataForView() {
-		// prepare data for view
 		this.eventData = this.eventParam;
 	}
 

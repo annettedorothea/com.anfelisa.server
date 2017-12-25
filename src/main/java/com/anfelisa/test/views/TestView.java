@@ -9,14 +9,14 @@ import com.anfelisa.test.models.TestDao;
 
 public class TestView {
 
-	private TestDao testDao = new TestDao();
+	private static TestDao testDao = new TestDao();
 
-	public BiConsumer<TestCreationData, Handle> createTest = (dataContainer, handle) -> {
+	public static BiConsumer<TestCreationData, Handle> createTest = (dataContainer, handle) -> {
 		Integer testId = testDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId("" + testId);
 	};
 
-	public BiConsumer<TestCreationData, Handle> updateTest = (dataContainer, handle) -> {
+	public static BiConsumer<TestCreationData, Handle> updateTest = (dataContainer, handle) -> {
 		testDao.updateByTestId(handle, dataContainer);
 	};
 

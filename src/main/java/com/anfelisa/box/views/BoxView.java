@@ -15,26 +15,26 @@ import com.anfelisa.box.models.ScheduledCardDao;
 
 public class BoxView {
 
-	private BoxDao boxDao = new BoxDao();
+	private static BoxDao boxDao = new BoxDao();
 
-	private CustomBoxDao customBoxDao = new CustomBoxDao();
+	private static CustomBoxDao customBoxDao = new CustomBoxDao();
 
-	private ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
+	private static ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
 
-	public BiConsumer<BoxCreationData, Handle> createBox = (dataContainer, handle) -> {
+	public static BiConsumer<BoxCreationData, Handle> createBox = (dataContainer, handle) -> {
 		Integer id = boxDao.insert(handle, dataContainer);
 		dataContainer.setCreatedId("" + id);
 	};
 
-	public BiConsumer<BoxCreationData, Handle> updateBox = (dataContainer, handle) -> {
+	public static BiConsumer<BoxCreationData, Handle> updateBox = (dataContainer, handle) -> {
 		customBoxDao.updateBox(handle, dataContainer);
 	};
 
-	public BiConsumer<DeleteBoxData, Handle> deleteBox = (dataContainer, handle) -> {
+	public static BiConsumer<DeleteBoxData, Handle> deleteBox = (dataContainer, handle) -> {
 		boxDao.deleteByBoxId(handle, dataContainer.getBoxId());
 	};
 
-	public BiConsumer<FillBoxData, Handle> fillBoxWithCards = (dataContainer, handle) -> {
+	public static BiConsumer<FillBoxData, Handle> fillBoxWithCards = (dataContainer, handle) -> {
 		List<IScheduledCardModel> cards = dataContainer.getCardsToBeAdded();
 		for (IScheduledCardModel card : cards) {
 			scheduledCardDao.insert(handle, card);
