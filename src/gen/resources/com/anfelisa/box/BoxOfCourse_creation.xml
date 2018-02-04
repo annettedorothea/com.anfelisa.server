@@ -1,0 +1,11 @@
+<createTable tableName="boxofcourse">
+	<column name="boxid" type="integer">
+		<constraints  nullable="false" 	references="box(boxid)" deleteCascade="true" foreignKeyName="fk_boxofcourse_box" />
+	</column>
+	<column name="courseid" type="integer">
+		<constraints  nullable="false" 	references="course(courseid)" deleteCascade="true" foreignKeyName="fk_boxofcourse_course" />
+	</column>
+	<column name="autoadd" type="boolean">
+		<constraints  nullable="false"  />
+	</column>
+</createTable>

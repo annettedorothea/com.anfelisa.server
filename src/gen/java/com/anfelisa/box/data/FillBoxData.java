@@ -18,6 +18,8 @@ public class FillBoxData implements IFillBoxData {
 	
 	private String uuid;
 	
+	private String outcome;
+	
 	private String createdId;
 	
 	private Integer boxId;
@@ -116,6 +118,16 @@ public class FillBoxData implements IFillBoxData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
+	}
+
+	@JsonProperty
+	public String getOutcome() {
+		return outcome;
+	}
+
+	@JsonProperty
+	public void setOutcome(String outcome) {
+		this.outcome = outcome;
 	}
 
 }

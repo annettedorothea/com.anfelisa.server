@@ -15,14 +15,26 @@ public abstract class AbstractSaveResultCommand extends Command<ResultSaveData> 
 		super("com.anfelisa.result.commands.SaveResultCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractSaveResultCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.result.commands.SaveResultCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case saved:
 			new com.anfelisa.result.events.ResultSavedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, ResultSaveData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

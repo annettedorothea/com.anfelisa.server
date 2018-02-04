@@ -1,17 +1,12 @@
 package com.anfelisa.user.views;
 
-import java.text.MessageFormat;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
-import com.anfelisa.EmailService;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.AddCoursesData;
 import com.anfelisa.user.data.ChangeUserRoleData;
-import com.anfelisa.user.data.ForgotPasswordData;
 import com.anfelisa.user.data.PasswordUpdateData;
 import com.anfelisa.user.data.RemoveCourseData;
 import com.anfelisa.user.data.UserCreationData;
@@ -55,30 +50,6 @@ public class UserView {
 
 	public static BiConsumer<UsernameData, Handle> confirmEmail = (dataContainer, handle) -> {
 		customUserDao.confirmEmail(handle, dataContainer.getUsername());
-	};
-
-	public static BiConsumer<ForgotPasswordData, Handle> sendForgotPasswordEmail = (dataContainer, handle) -> {
-		Locale currentLocale = new Locale(dataContainer.getLanguage());
-		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
-		String link = EmailService.getLocalhost() + "#profile/newPassword/" + dataContainer.getUsername() + "/"
-				+ dataContainer.getPassword();
-		Object[] params = { dataContainer.getPrename(), dataContainer.getName(), link };
-		String message = MessageFormat.format(messages.getString("passwordResetEmailContent"), params);
-		String subject = messages.getString("passwordResetEmailHeader");
-
-		EmailService.sendEmail("annette@anfelisa.de", dataContainer.getEmail(), subject, message);
-	};
-
-	public static BiConsumer<UserRegistrationData, Handle> sendRegistrationEmail = (dataContainer, handle) -> {
-		Locale currentLocale = new Locale(dataContainer.getLanguage());
-		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
-		String link = EmailService.getLocalhost() + "#profile/confirmEmail/" + dataContainer.getUsername() + "/"
-				+ dataContainer.getPassword();
-		Object[] params = { dataContainer.getPrename(), dataContainer.getName(), link };
-		String message = MessageFormat.format(messages.getString("RegistrationEmailContent"), params);
-		String subject = messages.getString("RegistrationEmailHeader");
-
-		EmailService.sendEmail("annette@anfelisa.de", dataContainer.getEmail(), subject, message);
 	};
 
 	public static BiConsumer<ChangeUserRoleData, Handle> changeUserToPremium = (dataContainer, handle) -> {

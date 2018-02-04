@@ -1,8 +1,0 @@
-<createTable tableName="studentofcourse">
-	<column name="username" type="character varying">
-		<constraints  nullable="false"/>
-	</column>
-	<column name="courseid" type="integer">
-		<constraints  nullable="false"/>
-	</column>
-</createTable>

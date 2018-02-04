@@ -18,6 +18,8 @@ public class RemoveCardFromBoxData implements IRemoveCardFromBoxData {
 	
 	private String uuid;
 	
+	private String outcome;
+	
 	private String createdId;
 	
 	private Integer scheduledCardId;
@@ -108,6 +110,16 @@ public class RemoveCardFromBoxData implements IRemoveCardFromBoxData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
+	}
+
+	@JsonProperty
+	public String getOutcome() {
+		return outcome;
+	}
+
+	@JsonProperty
+	public void setOutcome(String outcome) {
+		this.outcome = outcome;
 	}
 
 }

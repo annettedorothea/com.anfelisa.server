@@ -15,14 +15,26 @@ public abstract class AbstractCreateBoxCommand extends Command<BoxCreationData> 
 		super("com.anfelisa.box.commands.CreateBoxCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractCreateBoxCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.box.commands.CreateBoxCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case created:
 			new com.anfelisa.box.events.BoxCreatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, BoxCreationData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

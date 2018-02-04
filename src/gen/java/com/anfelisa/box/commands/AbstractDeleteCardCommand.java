@@ -15,14 +15,26 @@ public abstract class AbstractDeleteCardCommand extends Command<CardIdData> {
 		super("com.anfelisa.box.commands.DeleteCardCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractDeleteCardCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.box.commands.DeleteCardCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case deleted:
 			new com.anfelisa.box.events.CardDeletedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, CardIdData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

@@ -16,7 +16,7 @@ public class CreateScheduledCardCommand extends AbstractCreateScheduledCardComma
 
 	@Override
 	protected void executeCommand() {
-		this.outcome = created;
+		this.commandData.setOutcome(created);
 	}
 
 }

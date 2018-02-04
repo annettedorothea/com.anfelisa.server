@@ -24,10 +24,10 @@ public class ImportCardCommand extends AbstractImportCardCommand {
 				this.commandData.getTestId(), this.commandData.getContentHash());
 		if (existingCard != null) {
 			this.commandData.setCardId(existingCard.getCardId());
-			this.outcome = alreadyExists;
+			this.commandData.setOutcome(alreadyExists);
 		} else {
 			this.commandData.setCardId(null);
-			this.outcome = imported;
+			this.commandData.setOutcome(imported);
 		}
 	}
 

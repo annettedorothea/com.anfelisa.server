@@ -31,7 +31,7 @@ public class StudentOfCourseDao {
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE public.studentofcourse");
+		Update statement = handle.createStatement("TRUNCATE public.studentofcourse CASCADE");
 		statement.execute();
 	}
 

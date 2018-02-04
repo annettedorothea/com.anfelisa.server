@@ -1,8 +1,9 @@
 package com.anfelisa.user.events;
 
+import javax.ws.rs.WebApplicationException;
+
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
-import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.user.data.AddCoursesData;
 
@@ -10,6 +11,10 @@ public abstract class AbstractCoursesAddedEvent extends Event<AddCoursesData> {
 
 	public AbstractCoursesAddedEvent(AddCoursesData eventParam, DatabaseHandle databaseHandle) {
 		super("com.anfelisa.user.events.CoursesAddedEvent", eventParam, databaseHandle);
+	}
+	
+	public AbstractCoursesAddedEvent(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.events.CoursesAddedEvent", null, databaseHandle);
 	}
 	
 	public void initEventData(String json) {

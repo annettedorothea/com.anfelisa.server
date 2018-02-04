@@ -15,14 +15,26 @@ public abstract class AbstractCreateUserCommand extends Command<UserCreationData
 		super("com.anfelisa.user.commands.CreateUserCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractCreateUserCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.commands.CreateUserCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case go:
 			new com.anfelisa.user.events.UserCreatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, UserCreationData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

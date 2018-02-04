@@ -1,0 +1,23 @@
+<createTable tableName="user">
+	<column name="username" type="character varying">
+		<constraints primaryKey="true" nullable="false"  />
+	</column>
+	<column name="password" type="character varying">
+		<constraints  nullable="false"  />
+	</column>
+	<column name="name" type="character varying">
+		<constraints  nullable="false"  />
+	</column>
+	<column name="prename" type="character varying">
+		<constraints  nullable="false"  />
+	</column>
+	<column name="email" type="character varying">
+		<constraints  nullable="false"  />
+	</column>
+	<column name="role" type="character varying">
+		<constraints  nullable="false"  />
+	</column>
+	<column name="emailconfirmed" type="boolean">
+		<constraints  nullable="false"  />
+	</column>
+</createTable>

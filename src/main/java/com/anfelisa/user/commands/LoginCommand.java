@@ -16,7 +16,7 @@ public class LoginCommand extends AbstractLoginCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.outcome = success;
+		this.commandData.setOutcome(success);
 	}
 
 }

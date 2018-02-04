@@ -16,7 +16,7 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.outcome = created;
+		this.commandData.setOutcome(created);
 	}
 
 }

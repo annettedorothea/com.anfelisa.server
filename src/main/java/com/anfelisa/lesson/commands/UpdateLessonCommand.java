@@ -17,7 +17,7 @@ public class UpdateLessonCommand extends AbstractUpdateLessonCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.outcome = updated;
+		this.commandData.setOutcome(updated);
 	}
 
 }

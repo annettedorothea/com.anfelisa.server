@@ -15,14 +15,26 @@ public abstract class AbstractUpdateUserCommand extends Command<UserUpdateData> 
 		super("com.anfelisa.user.commands.UpdateUserCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractUpdateUserCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.commands.UpdateUserCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case success:
 			new com.anfelisa.user.events.UserUpdatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, UserUpdateData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

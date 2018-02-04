@@ -15,14 +15,26 @@ public abstract class AbstractSaveBoxConfigCommand extends Command<BoxConfigData
 		super("com.anfelisa.box.commands.SaveBoxConfigCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractSaveBoxConfigCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.box.commands.SaveBoxConfigCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case saved:
 			new com.anfelisa.box.events.BoxConfigSavedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, BoxConfigData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

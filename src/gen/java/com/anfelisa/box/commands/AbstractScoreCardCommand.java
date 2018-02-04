@@ -15,14 +15,26 @@ public abstract class AbstractScoreCardCommand extends Command<ScoreCardData> {
 		super("com.anfelisa.box.commands.ScoreCardCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractScoreCardCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.box.commands.ScoreCardCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case scored:
 			new com.anfelisa.box.events.CardScoredEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, ScoreCardData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

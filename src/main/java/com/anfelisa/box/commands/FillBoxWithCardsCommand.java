@@ -61,7 +61,7 @@ public class FillBoxWithCardsCommand extends AbstractFillBoxWithCardsCommand {
 				this.commandData.getCardsToBeAdded().add(scheduledCard);
 			}
 		}
-		this.outcome = fillBoxWithCards;
+		this.commandData.setOutcome(fillBoxWithCards);
 	}
 
 }

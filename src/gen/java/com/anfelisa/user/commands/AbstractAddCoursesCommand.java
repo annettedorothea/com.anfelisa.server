@@ -15,14 +15,26 @@ public abstract class AbstractAddCoursesCommand extends Command<AddCoursesData> 
 		super("com.anfelisa.user.commands.AddCoursesCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractAddCoursesCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.commands.AddCoursesCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case success:
 			new com.anfelisa.user.events.CoursesAddedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, AddCoursesData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

@@ -16,7 +16,7 @@ public class ChangeUserToPremiumCommand extends AbstractChangeUserToPremiumComma
 
 	@Override
 	protected void executeCommand() {
-		this.outcome = ok;
+		this.commandData.setOutcome(ok);
 	}
 
 }

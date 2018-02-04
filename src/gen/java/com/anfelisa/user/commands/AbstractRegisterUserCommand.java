@@ -15,15 +15,27 @@ public abstract class AbstractRegisterUserCommand extends Command<UserRegistrati
 		super("com.anfelisa.user.commands.RegisterUserCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractRegisterUserCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.commands.RegisterUserCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case ok:
 			new com.anfelisa.user.events.UserRegisteredEvent(this.commandData, databaseHandle).publish();
 			new com.anfelisa.user.events.SendRegistrationEmailEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, UserRegistrationData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

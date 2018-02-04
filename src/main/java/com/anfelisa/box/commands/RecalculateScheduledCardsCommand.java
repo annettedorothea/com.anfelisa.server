@@ -25,7 +25,7 @@ public class RecalculateScheduledCardsCommand extends AbstractRecalculateSchedul
 		if (!box.getUsername().equals(commandData.getUsername())) {
 			this.throwUnauthorized();
 		}
-		this.outcome = ok;
+		this.commandData.setOutcome(ok);
 	}
 
 }

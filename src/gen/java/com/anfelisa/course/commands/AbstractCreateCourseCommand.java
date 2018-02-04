@@ -15,14 +15,26 @@ public abstract class AbstractCreateCourseCommand extends Command<CourseCreation
 		super("com.anfelisa.course.commands.CreateCourseCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractCreateCourseCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.course.commands.CreateCourseCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case created:
 			new com.anfelisa.course.events.CourseCreatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, CourseCreationData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

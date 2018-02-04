@@ -23,7 +23,7 @@ public class DeleteCardCommand extends AbstractDeleteCardCommand {
 		ICardModel card = customCardDao.selectByTestIdAndContentHash(this.getDatabaseHandle().getHandle(),
 				this.commandData.getTestId(), this.commandData.getContentHash());
 		this.commandData.setCardId(card.getCardId());
-		this.outcome = deleted;
+		this.commandData.setOutcome(deleted);
 	}
 
 }

@@ -68,7 +68,7 @@ public class ScheduledCardDao {
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE public.scheduledcard");
+		Update statement = handle.createStatement("TRUNCATE public.scheduledcard CASCADE");
 		statement.execute();
 		statement = handle.createStatement("ALTER SEQUENCE public.scheduledcard_scheduledCardId_seq RESTART");
 		statement.execute();

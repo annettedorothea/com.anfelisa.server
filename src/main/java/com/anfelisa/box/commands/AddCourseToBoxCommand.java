@@ -26,7 +26,7 @@ public class AddCourseToBoxCommand extends AbstractAddCourseToBoxCommand {
 				&& !box.getUsername().equals(commandData.getCredentialsUsername())) {
 			this.throwUnauthorized();
 		}
-		this.outcome = added;
+		this.commandData.setOutcome(added);
 	}
 
 }

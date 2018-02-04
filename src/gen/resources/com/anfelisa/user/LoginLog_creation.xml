@@ -1,0 +1,11 @@
+<createTable tableName="loginlog">
+	<column name="loginlogid" type="serial">
+		<constraints primaryKey="true" nullable="false"  />
+	</column>
+	<column name="username" type="character varying">
+		<constraints  nullable="false"  />
+	</column>
+	<column name="date" type="timestamp with time zone">
+		<constraints  nullable="false"  />
+	</column>
+</createTable>

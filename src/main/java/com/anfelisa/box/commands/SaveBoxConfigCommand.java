@@ -40,7 +40,7 @@ public class SaveBoxConfigCommand extends AbstractSaveBoxConfigCommand {
 					item.getBoxId(), item.getCourseId());
 			this.commandData.getExistingItems().add(existingItem);
 		}
-		this.outcome = saved;
+		this.commandData.setOutcome(saved);
 	}
 
 }

@@ -24,7 +24,7 @@ public class AddStudentToCourseCommand extends AbstractAddStudentToCourseCommand
 				&& !commandData.getUsername().equals(commandData.getCredentialsUsername())) {
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 		}
-		this.outcome = added;
+		this.commandData.setOutcome(added);
 	}
 
 }

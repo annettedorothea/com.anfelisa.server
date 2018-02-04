@@ -15,14 +15,26 @@ public abstract class AbstractCreateScheduledCardCommand extends Command<Schedul
 		super("com.anfelisa.box.commands.CreateScheduledCardCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractCreateScheduledCardCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.box.commands.CreateScheduledCardCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case created:
 			new com.anfelisa.box.events.ScheduledCardCreatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, ScheduledCardData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

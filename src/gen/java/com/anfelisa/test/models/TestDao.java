@@ -58,7 +58,7 @@ public class TestDao {
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE public.test");
+		Update statement = handle.createStatement("TRUNCATE public.test CASCADE");
 		statement.execute();
 		statement = handle.createStatement("ALTER SEQUENCE public.test_testId_seq RESTART");
 		statement.execute();

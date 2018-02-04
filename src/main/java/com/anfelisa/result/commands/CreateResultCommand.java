@@ -16,7 +16,7 @@ public class CreateResultCommand extends AbstractCreateResultCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.outcome = created;
+		this.commandData.setOutcome(created);
 	}
 
 }

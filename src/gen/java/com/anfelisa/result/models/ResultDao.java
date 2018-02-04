@@ -60,7 +60,7 @@ public class ResultDao {
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE public.result");
+		Update statement = handle.createStatement("TRUNCATE public.result CASCADE");
 		statement.execute();
 		statement = handle.createStatement("ALTER SEQUENCE public.result_resultId_seq RESTART");
 		statement.execute();

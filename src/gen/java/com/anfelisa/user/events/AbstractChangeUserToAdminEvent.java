@@ -1,8 +1,9 @@
 package com.anfelisa.user.events;
 
+import javax.ws.rs.WebApplicationException;
+
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
-import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.user.data.ChangeUserRoleData;
 
@@ -10,6 +11,10 @@ public abstract class AbstractChangeUserToAdminEvent extends Event<ChangeUserRol
 
 	public AbstractChangeUserToAdminEvent(ChangeUserRoleData eventParam, DatabaseHandle databaseHandle) {
 		super("com.anfelisa.user.events.ChangeUserToAdminEvent", eventParam, databaseHandle);
+	}
+	
+	public AbstractChangeUserToAdminEvent(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.events.ChangeUserToAdminEvent", null, databaseHandle);
 	}
 	
 	public void initEventData(String json) {

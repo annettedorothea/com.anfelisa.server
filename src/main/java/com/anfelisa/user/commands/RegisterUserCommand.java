@@ -27,7 +27,7 @@ public class RegisterUserCommand extends AbstractRegisterUserCommand {
 		}
 		this.commandData.setRole(AuthUser.STUDENT);
 		this.commandData.setEmailConfirmed(false);
-		this.outcome = ok;
+		this.commandData.setOutcome(ok);
 	}
 
 }

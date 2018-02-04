@@ -15,14 +15,26 @@ public abstract class AbstractRemoveCardFromBoxCommand extends Command<RemoveCar
 		super("com.anfelisa.box.commands.RemoveCardFromBoxCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractRemoveCardFromBoxCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.box.commands.RemoveCardFromBoxCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case deleted:
 			new com.anfelisa.box.events.CardRemovedFromBoxEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, RemoveCardFromBoxData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

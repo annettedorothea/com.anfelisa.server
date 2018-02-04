@@ -8,6 +8,7 @@ import org.skife.jdbi.v2.DBI;
 
 import com.anfelisa.user.views.UserView;
 import com.anfelisa.user.views.LoginLogView;
+import com.anfelisa.user.views.EmailView;
 import com.anfelisa.user.actions.*;
 
 @SuppressWarnings("all")
@@ -40,8 +41,12 @@ public class AppRegistration {
 			AceController.addConsumer("com.anfelisa.user.events.CoursesAddedEvent", UserView.addCourses);
 			AceController.addConsumer("com.anfelisa.user.events.CourseRemovedEvent", UserView.removeCourse);
 			AceController.addConsumer("com.anfelisa.user.events.PasswordUpdatedEvent", UserView.updatePassword);
-			AceController.addConsumer("com.anfelisa.user.events.SendEmailEvent", UserView.sendForgotPasswordEmail);
-			AceController.addConsumer("com.anfelisa.user.events.SendRegistrationEmailEvent", UserView.sendRegistrationEmail);
+		if (AceController.getAceExecutionMode() == AceExecutionMode.LIVE) {
+			AceController.addConsumer("com.anfelisa.user.events.SendEmailEvent", EmailView.sendForgotPasswordEmail);
+		}
+		if (AceController.getAceExecutionMode() == AceExecutionMode.LIVE) {
+			AceController.addConsumer("com.anfelisa.user.events.SendRegistrationEmailEvent", EmailView.sendRegistrationEmail);
+		}
 			AceController.addConsumer("com.anfelisa.user.events.EmailConfirmedEvent", UserView.confirmEmail);
 			AceController.addConsumer("com.anfelisa.user.events.ChangeUserToPremiumEvent", UserView.changeUserToPremium);
 			AceController.addConsumer("com.anfelisa.user.events.ChangeUserToAuthorEvent", UserView.changeUserToAuthor);

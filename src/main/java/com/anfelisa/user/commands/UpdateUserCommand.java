@@ -25,7 +25,7 @@ public class UpdateUserCommand extends AbstractUpdateUserCommand {
 				&& !commandData.getUsername().equals(commandData.getCredentialsUsername())) {
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 		}
-		this.outcome = success;
+		this.commandData.setOutcome(success);
 	}
 
 }

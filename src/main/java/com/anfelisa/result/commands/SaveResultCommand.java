@@ -46,7 +46,7 @@ public class SaveResultCommand extends AbstractSaveResultCommand {
 				this.commandData.getCardsToBeAdded().add(scheduledCard);
 			}
 		}
-		this.outcome = saved;
+		this.commandData.setOutcome(saved);
 	}
 
 }

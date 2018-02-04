@@ -21,7 +21,7 @@ public class AddCoursesCommand extends AbstractAddCoursesCommand {
 				&& !commandData.getCredentialsUsername().equals(commandData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
-		this.outcome = success;
+		this.commandData.setOutcome(success);
 	}
 
 }

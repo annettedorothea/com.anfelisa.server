@@ -52,7 +52,7 @@ public class LoginLogDao {
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE public.loginlog");
+		Update statement = handle.createStatement("TRUNCATE public.loginlog CASCADE");
 		statement.execute();
 		statement = handle.createStatement("ALTER SEQUENCE public.loginlog_loginLogId_seq RESTART");
 		statement.execute();

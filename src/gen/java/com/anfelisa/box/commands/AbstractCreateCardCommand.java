@@ -15,14 +15,26 @@ public abstract class AbstractCreateCardCommand extends Command<CardCreationData
 		super("com.anfelisa.box.commands.CreateCardCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractCreateCardCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.box.commands.CreateCardCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case created:
 			new com.anfelisa.box.events.CardCreatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, CardCreationData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

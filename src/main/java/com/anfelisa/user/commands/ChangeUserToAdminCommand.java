@@ -17,7 +17,7 @@ public class ChangeUserToAdminCommand extends AbstractChangeUserToAdminCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.outcome = ok;
+		this.commandData.setOutcome(ok);
 	}
 
 }

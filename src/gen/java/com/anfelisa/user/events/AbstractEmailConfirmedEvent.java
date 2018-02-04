@@ -1,8 +1,9 @@
 package com.anfelisa.user.events;
 
+import javax.ws.rs.WebApplicationException;
+
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
-import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.user.data.UsernameData;
 
@@ -10,6 +11,10 @@ public abstract class AbstractEmailConfirmedEvent extends Event<UsernameData> {
 
 	public AbstractEmailConfirmedEvent(UsernameData eventParam, DatabaseHandle databaseHandle) {
 		super("com.anfelisa.user.events.EmailConfirmedEvent", eventParam, databaseHandle);
+	}
+	
+	public AbstractEmailConfirmedEvent(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.events.EmailConfirmedEvent", null, databaseHandle);
 	}
 	
 	public void initEventData(String json) {

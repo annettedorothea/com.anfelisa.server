@@ -87,7 +87,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 			this.commandData.setPoints(points);
 			this.commandData.setRemoved(false);
 
-			this.outcome = scored;
+			this.commandData.setOutcome(scored);
 		} catch (Exception e) {
 			this.throwInternalServerError(e);
 		}

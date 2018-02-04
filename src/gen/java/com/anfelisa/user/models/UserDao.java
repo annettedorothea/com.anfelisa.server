@@ -62,7 +62,7 @@ public class UserDao {
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE public.user");
+		Update statement = handle.createStatement("TRUNCATE public.user CASCADE");
 		statement.execute();
 	}
 

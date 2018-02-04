@@ -52,7 +52,7 @@ public class BoxDao {
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE public.box");
+		Update statement = handle.createStatement("TRUNCATE public.box CASCADE");
 		statement.execute();
 		statement = handle.createStatement("ALTER SEQUENCE public.box_boxId_seq RESTART");
 		statement.execute();

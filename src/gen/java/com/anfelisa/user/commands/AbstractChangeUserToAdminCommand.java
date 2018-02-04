@@ -15,14 +15,26 @@ public abstract class AbstractChangeUserToAdminCommand extends Command<ChangeUse
 		super("com.anfelisa.user.commands.ChangeUserToAdminCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractChangeUserToAdminCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.commands.ChangeUserToAdminCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case ok:
 			new com.anfelisa.user.events.ChangeUserToAdminEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, ChangeUserRoleData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

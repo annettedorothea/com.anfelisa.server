@@ -1,8 +1,9 @@
 package com.anfelisa.user.events;
 
+import javax.ws.rs.WebApplicationException;
+
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
-import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.user.data.UserRegistrationData;
 
@@ -10,6 +11,10 @@ public abstract class AbstractSendRegistrationEmailEvent extends Event<UserRegis
 
 	public AbstractSendRegistrationEmailEvent(UserRegistrationData eventParam, DatabaseHandle databaseHandle) {
 		super("com.anfelisa.user.events.SendRegistrationEmailEvent", eventParam, databaseHandle);
+	}
+	
+	public AbstractSendRegistrationEmailEvent(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.events.SendRegistrationEmailEvent", null, databaseHandle);
 	}
 	
 	public void initEventData(String json) {

@@ -17,7 +17,7 @@ public class ChangeUserToAuthorCommand extends AbstractChangeUserToAuthorCommand
 
 	@Override
 	protected void executeCommand() {
-		this.outcome = ok;
+		this.commandData.setOutcome(ok);
 	}
 
 }

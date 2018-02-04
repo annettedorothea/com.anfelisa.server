@@ -173,8 +173,8 @@ events {
 	CoursesAdded uses AddCourses listenedToBy (User.addCourses)
 	CourseRemoved uses RemoveCourse listenedToBy ( User.removeCourse )
 	PasswordUpdated uses PasswordUpdate listenedToBy (User.updatePassword)
-	SendEmail uses ForgotPassword listenedToBy (User.sendForgotPasswordEmail)
-	SendRegistrationEmail uses UserRegistration listenedToBy (User.sendRegistrationEmail)
+	SendEmail uses ForgotPassword listenedToBy (Email.sendForgotPasswordEmail)
+	SendRegistrationEmail uses UserRegistration listenedToBy (Email.sendRegistrationEmail)
 	EmailConfirmed uses Username listenedToBy (User.confirmEmail)
 	ChangeUserToPremium uses ChangeUserRole listenedToBy (User.changeUserToPremium)
 	ChangeUserToAuthor uses ChangeUserRole listenedToBy (User.changeUserToAuthor)
@@ -188,8 +188,6 @@ views {
 		addCourses(AddCourses)
 		removeCourse(RemoveCourse)
 		updatePassword(PasswordUpdate)
-		sendForgotPasswordEmail(ForgotPassword)
-		sendRegistrationEmail(UserRegistration)
 		registerUser(UserRegistration)
 		confirmEmail(Username)
 		changeUserToPremium(ChangeUserRole)
@@ -198,5 +196,9 @@ views {
 	}
 	LoginLog {
 		userLoggedIn(Login)
+	}
+	external Email {
+		sendForgotPasswordEmail(ForgotPassword)
+		sendRegistrationEmail(UserRegistration)
 	}
 }

@@ -58,7 +58,7 @@ public class CourseDao {
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE public.course");
+		Update statement = handle.createStatement("TRUNCATE public.course CASCADE");
 		statement.execute();
 		statement = handle.createStatement("ALTER SEQUENCE public.course_courseId_seq RESTART");
 		statement.execute();

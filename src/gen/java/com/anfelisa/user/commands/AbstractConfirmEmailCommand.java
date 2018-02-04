@@ -15,14 +15,26 @@ public abstract class AbstractConfirmEmailCommand extends Command<UsernameData> 
 		super("com.anfelisa.user.commands.ConfirmEmailCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractConfirmEmailCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.commands.ConfirmEmailCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case ok:
 			new com.anfelisa.user.events.EmailConfirmedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, UsernameData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

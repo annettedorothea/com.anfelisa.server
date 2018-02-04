@@ -32,7 +32,7 @@ public class BoxOfCourseDao {
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE public.boxofcourse");
+		Update statement = handle.createStatement("TRUNCATE public.boxofcourse CASCADE");
 		statement.execute();
 	}
 

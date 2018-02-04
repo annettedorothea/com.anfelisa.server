@@ -17,7 +17,7 @@ public class RemoveCourseCommand extends AbstractRemoveCourseCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.outcome = success;
+		this.commandData.setOutcome(success);
 	}
 
 }

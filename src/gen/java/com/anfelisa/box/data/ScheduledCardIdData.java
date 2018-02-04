@@ -17,6 +17,8 @@ public class ScheduledCardIdData implements IScheduledCardIdData {
 	
 	private String uuid;
 	
+	private String outcome;
+	
 	private String createdId;
 	
 	private Integer scheduledCardId;
@@ -73,6 +75,16 @@ public class ScheduledCardIdData implements IScheduledCardIdData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
+	}
+
+	@JsonProperty
+	public String getOutcome() {
+		return outcome;
+	}
+
+	@JsonProperty
+	public void setOutcome(String outcome) {
+		this.outcome = outcome;
 	}
 
 }

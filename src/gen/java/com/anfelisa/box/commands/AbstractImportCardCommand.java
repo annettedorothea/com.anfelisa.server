@@ -16,16 +16,28 @@ public abstract class AbstractImportCardCommand extends Command<CardCreationData
 		super("com.anfelisa.box.commands.ImportCardCommand", commandParam, databaseHandle);
 	}
 
+	public AbstractImportCardCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.box.commands.ImportCardCommand", null, databaseHandle);
+	}
+
 	@Override
-	protected void publishEvents() {
-		switch (this.outcome) {
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
 		case imported:
 			new com.anfelisa.box.events.CardImportedEvent(this.commandData, databaseHandle).publish();
 			break;
 		case alreadyExists:
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + outcome);
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, CardCreationData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
 		}
 	}
 

@@ -62,7 +62,7 @@ public class ScoredCardDao {
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE public.scoredcard");
+		Update statement = handle.createStatement("TRUNCATE public.scoredcard CASCADE");
 		statement.execute();
 		statement = handle.createStatement("ALTER SEQUENCE public.scoredcard_scoredCardId_seq RESTART");
 		statement.execute();

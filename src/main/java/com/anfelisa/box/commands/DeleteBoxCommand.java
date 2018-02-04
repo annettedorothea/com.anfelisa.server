@@ -24,7 +24,7 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
 			this.throwUnauthorized();
 		}
-		this.outcome = deleted;
+		this.commandData.setOutcome(deleted);
 	}
 
 }

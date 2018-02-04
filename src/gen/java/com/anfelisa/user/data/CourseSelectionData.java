@@ -18,6 +18,8 @@ public class CourseSelectionData implements ICourseSelectionData {
 	
 	private String uuid;
 	
+	private String outcome;
+	
 	private String createdId;
 	
 	private String credentialsUsername;
@@ -100,6 +102,16 @@ public class CourseSelectionData implements ICourseSelectionData {
 	@JsonProperty
 	public void setSystemTime(org.joda.time.DateTime systemTime) {
 		this.systemTime = systemTime;
+	}
+
+	@JsonProperty
+	public String getOutcome() {
+		return outcome;
+	}
+
+	@JsonProperty
+	public void setOutcome(String outcome) {
+		this.outcome = outcome;
 	}
 
 }

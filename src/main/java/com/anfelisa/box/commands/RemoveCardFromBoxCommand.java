@@ -32,7 +32,7 @@ public class RemoveCardFromBoxCommand extends AbstractRemoveCardFromBoxCommand {
 		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
-		this.outcome = deleted;
+		this.commandData.setOutcome(deleted);
 	}
 
 }

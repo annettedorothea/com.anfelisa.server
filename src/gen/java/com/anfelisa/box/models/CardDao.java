@@ -56,7 +56,7 @@ public class CardDao {
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE public.card");
+		Update statement = handle.createStatement("TRUNCATE public.card CASCADE");
 		statement.execute();
 		statement = handle.createStatement("ALTER SEQUENCE public.card_cardId_seq RESTART");
 		statement.execute();

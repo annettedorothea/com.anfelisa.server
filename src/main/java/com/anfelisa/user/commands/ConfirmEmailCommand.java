@@ -17,7 +17,7 @@ public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.outcome = ok;
+		this.commandData.setOutcome(ok);
 	}
 
 }

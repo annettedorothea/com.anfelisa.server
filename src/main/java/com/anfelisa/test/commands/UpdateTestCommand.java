@@ -17,7 +17,7 @@ public class UpdateTestCommand extends AbstractUpdateTestCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.outcome = updated;
+		this.commandData.setOutcome(updated);
 	}
 
 }
