@@ -1,4 +1,4 @@
-package com.anfelisa.test.models;
+package com.anfelisa.lesson.models;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 

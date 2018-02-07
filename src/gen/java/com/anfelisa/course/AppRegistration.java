@@ -21,12 +21,15 @@ public class AppRegistration {
 		environment.jersey().register(new LoadStatisticsAction(jdbi, jdbiTimeline));
 		environment.jersey().register(new GetCourseAction(jdbi, jdbiTimeline));
 		environment.jersey().register(new UpdateCourseAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new DeleteCourseAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new LoadAllCoursesAction(jdbi, jdbiTimeline));
 	}
 
 	public static void registerConsumers() {
 			AceController.addConsumer("com.anfelisa.course.events.CourseCreatedEvent", CourseView.createCourse);
 			AceController.addConsumer("com.anfelisa.course.events.StudentAddedToCourseEvent", StudentOfCourseView.addStudentToCourse);
 			AceController.addConsumer("com.anfelisa.course.events.CourseUpdatedEvent", CourseView.updateCourse);
+			AceController.addConsumer("com.anfelisa.course.events.CourseDeletedEvent", CourseView.deleteCourse);
     }
 }
 

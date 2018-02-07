@@ -21,11 +21,14 @@ public class AppRegistration {
 		environment.jersey().register(new GetTestAction(jdbi, jdbiTimeline));
 		environment.jersey().register(new UpdateTestAction(jdbi, jdbiTimeline));
 		environment.jersey().register(new GetCardsOfTestAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new GetAllTestsAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new DeleteTestAction(jdbi, jdbiTimeline));
 	}
 
 	public static void registerConsumers() {
 			AceController.addConsumer("com.anfelisa.test.events.TestCreatedEvent", TestView.createTest);
 			AceController.addConsumer("com.anfelisa.test.events.TestUpdatedEvent", TestView.updateTest);
+			AceController.addConsumer("com.anfelisa.test.events.TestDeletedEvent", TestView.deleteTest);
     }
 }
 

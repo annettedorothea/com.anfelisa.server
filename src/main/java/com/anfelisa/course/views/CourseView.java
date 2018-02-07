@@ -6,6 +6,7 @@ import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.course.data.CourseCreationData;
 import com.anfelisa.course.data.CourseData;
+import com.anfelisa.course.data.CourseIdData;
 import com.anfelisa.course.models.CourseDao;
 
 public class CourseView {
@@ -21,6 +22,10 @@ public class CourseView {
 		courseDao.updateByCourseId(handle, dataContainer);
 	};
 
+	public static BiConsumer<CourseIdData, Handle> deleteCourse = (dataContainer, handle) -> {
+		courseDao.deleteByCourseId(handle, dataContainer.getCourseId());
+	};
+	
 }
 
 /* S.D.G. */

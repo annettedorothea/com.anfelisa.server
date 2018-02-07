@@ -11,7 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.test.models.IMyTestListModel;
-import com.anfelisa.test.models.ILessonIdModel;
+import com.anfelisa.lesson.models.ILessonIdModel;
 import com.anfelisa.user.models.IUsernameModel;
 import com.anfelisa.lesson.models.ILessonAbstractModel;
 import com.anfelisa.course.models.ICourseAbstractModel;

@@ -507,5 +507,32 @@
 
 	</changeSet>
 
+	<changeSet id="008" author="annette">
+		<addForeignKeyConstraint baseColumnNames="courseid"
+			baseTableName="lesson" constraintName="fk_lesson_courseid"
+			referencedColumnNames="courseid" referencedTableName="course"
+			onDelete="CASCADE" />
+		<addForeignKeyConstraint baseColumnNames="lessonid"
+			baseTableName="test" constraintName="fk_test_lessonid"
+			referencedColumnNames="lessonid" referencedTableName="lesson"
+			onDelete="CASCADE" />
+		<addForeignKeyConstraint baseColumnNames="testid"
+			baseTableName="result" constraintName="fk_result_testid"
+			referencedColumnNames="testid" referencedTableName="test"
+			onDelete="CASCADE" />
+		<addForeignKeyConstraint baseColumnNames="testid"
+			baseTableName="card" constraintName="fk_card_testid"
+			referencedColumnNames="testid" referencedTableName="test"
+			onDelete="CASCADE" />
+		<addForeignKeyConstraint baseColumnNames="cardid"
+			baseTableName="scoredcard" constraintName="fk_scoredcard_cardid"
+			referencedColumnNames="cardid" referencedTableName="card"
+			onDelete="CASCADE" />
+		<addForeignKeyConstraint baseColumnNames="cardid"
+			baseTableName="scheduledcard" constraintName="fk_scheduledcard_cardid"
+			referencedColumnNames="cardid" referencedTableName="card"
+			onDelete="CASCADE" />
+	</changeSet>
+
 
 </databaseChangeLog>

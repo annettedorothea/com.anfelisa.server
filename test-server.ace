@@ -16,12 +16,6 @@ models {
 		}
 	}
 
-	LessonId {
-		primitiveAttributes {
-			NotNull Integer lessonId
-		}
-	}
-
 	TestId {
 		primitiveAttributes {
 			NotNull Integer testId
@@ -64,11 +58,13 @@ models {
 
 data {
 	TestCreation : ( Test )
-	TestList : (TestList LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
-	Test : ( Test LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract TestList) 
-	MyTestList : (MyTestList LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
-	MyTest : ( Test LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract MyTestList) 
+	TestList : (TestList com.anfelisa.lesson.LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
+	SimpleTestList : (TestList com.anfelisa.lesson.LessonId)
+	Test : ( Test com.anfelisa.lesson.LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract TestList) 
+	MyTestList : (MyTestList com.anfelisa.lesson.LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract)
+	MyTest : ( Test com.anfelisa.lesson.LessonId com.anfelisa.user.Username com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract MyTestList) 
 	CardContentHashList : (CardContentHashList TestId)
+	TestId : (TestId)
 }
 
 actions {
@@ -80,6 +76,8 @@ actions {
 	GET GetTest uses TestCreation
 	PUT UpdateTest uses TestCreation executes UpdateTest
 	GET GetCardsOfTest uses CardContentHashList
+	GET GetAllTests uses SimpleTestList
+	DELETE DeleteTest uses TestId executes DeleteTest
 }
 
 commands {
@@ -89,16 +87,21 @@ commands {
 	UpdateTest uses TestCreation {
 		on updated publishes (TestUpdated)
 	}
+	DeleteTest uses TestId {
+		on deleted publishes (TestDeleted)
+	}
 }
 
 events {
 	TestCreated uses TestCreation listenedToBy ( Test.createTest )
 	TestUpdated uses TestCreation listenedToBy (Test.updateTest)
+	TestDeleted uses TestId listenedToBy (Test.deleteTest)
 }
 
 views {
 	Test {
 		createTest (TestCreation)
 		updateTest (TestCreation)
+		deleteTest (TestId)
 	}
 }

@@ -18,11 +18,14 @@ public class AppRegistration {
 		environment.jersey().register(new LoadPrivateLessonsAction(jdbi, jdbiTimeline));
 		environment.jersey().register(new GetLessonAction(jdbi, jdbiTimeline));
 		environment.jersey().register(new UpdateLessonAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new GetAllLessonsAction(jdbi, jdbiTimeline));
+		environment.jersey().register(new DeleteLessonAction(jdbi, jdbiTimeline));
 	}
 
 	public static void registerConsumers() {
 			AceController.addConsumer("com.anfelisa.lesson.events.LessonCreatedEvent", LessonView.createLesson);
 			AceController.addConsumer("com.anfelisa.lesson.events.LessonUpdatedEvent", LessonView.updateLesson);
+			AceController.addConsumer("com.anfelisa.lesson.events.LessonDeletedEvent", LessonView.deleteLesson);
     }
 }
 

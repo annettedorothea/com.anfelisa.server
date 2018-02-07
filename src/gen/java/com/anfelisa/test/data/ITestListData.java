@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.test.models.ITestListModel;
-import com.anfelisa.test.models.ILessonIdModel;
+import com.anfelisa.lesson.models.ILessonIdModel;
 import com.anfelisa.lesson.models.ILessonAbstractModel;
 import com.anfelisa.course.models.ICourseAbstractModel;
 

@@ -102,6 +102,7 @@ data {
 	MyCourseList: (MyCourseList com.anfelisa.user.Username)
 	Statistics: ( Statistics StatisticsItemList )
 	Course : (Course)
+	CourseId : (CourseId)
 }
 
 actions {
@@ -112,6 +113,8 @@ actions {
 	GET LoadStatistics uses Statistics
 	GET GetCourse uses Course
 	PUT UpdateCourse uses Course executes UpdateCourse
+	DELETE DeleteCourse uses CourseId executes DeleteCourse
+	GET LoadAllCourses uses CourseList
 }
 
 commands {
@@ -124,18 +127,23 @@ commands {
 	UpdateCourse uses Course {
 		on updated publishes (CourseUpdated)
 	}
+	DeleteCourse uses CourseId {
+		on deleted publishes (CourseDeleted)
+	}
 }
 
 events {
 	CourseCreated uses CourseCreation listenedToBy ( Course.createCourse )
 	StudentAddedToCourse uses StudentToCourseAddition listenedToBy (StudentOfCourse.addStudentToCourse)
 	CourseUpdated uses Course listenedToBy (Course.updateCourse)
+	CourseDeleted uses CourseId listenedToBy (Course.deleteCourse)
 }
 
 views {
 	Course {
 		createCourse (CourseCreation)
 		updateCourse(Course)
+		deleteCourse(CourseId)
 	}
 	StudentOfCourse {
 		addStudentToCourse (StudentToCourseAddition)

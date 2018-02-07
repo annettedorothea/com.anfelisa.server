@@ -6,6 +6,7 @@ import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.lesson.data.LessonCreationData;
 import com.anfelisa.lesson.data.LessonData;
+import com.anfelisa.lesson.data.LessonIdData;
 import com.anfelisa.lesson.models.LessonDao;
 
 public class LessonView {
@@ -21,6 +22,10 @@ public class LessonView {
 		lessonDao.updateByLessonId(handle, dataContainer);
 	};
 
+	public static BiConsumer<LessonIdData, Handle> deleteLesson = (dataContainer, handle) -> {
+		lessonDao.deleteByLessonId(handle, dataContainer.getLessonId());
+	};
+	
 }
 
 /* S.D.G. */
