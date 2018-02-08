@@ -534,5 +534,16 @@
 			onDelete="CASCADE" />
 	</changeSet>
 
+	<changeSet id="009" author="annette">
+		<addForeignKeyConstraint baseColumnNames="courseid"
+			baseTableName="boxofcourse" constraintName="fk_boxofcourse_courseid"
+			referencedColumnNames="courseid" referencedTableName="course"
+			onDelete="CASCADE" />
+		<addForeignKeyConstraint baseColumnNames="boxid"
+			baseTableName="boxofcourse" constraintName="fk_boxofcourse_boxid"
+			referencedColumnNames="boxid" referencedTableName="box"
+			onDelete="CASCADE" />
+	</changeSet>
+
 
 </databaseChangeLog>
