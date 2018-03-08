@@ -13,18 +13,18 @@ import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Environment;
 import net.sourceforge.argparse4j.inf.Namespace;
 
-public class EventReplayCommand extends EnvironmentCommand<AppConfiguration> {
+public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguration> {
 
 	static final Logger LOG = LoggerFactory.getLogger(EventReplayCommand.class);
 
 	private AceDao aceDao = new AceDao();
 
-	protected EventReplayCommand(Application<AppConfiguration> application) {
+	protected EventReplayCommand(Application<CustomAppConfiguration> application) {
 		super(application, "replay", "truncates views and replays events");
 	}
 
 	@Override
-	protected void run(Environment environment, Namespace namespace, AppConfiguration configuration) throws Exception {
+	protected void run(Environment environment, Namespace namespace, CustomAppConfiguration configuration) throws Exception {
 		if (AceController.getAceExecutionMode() == AceExecutionMode.LIVE) {	
 			throw new RuntimeException("we won't truncate all views and replay events in a live environment");
 		}
