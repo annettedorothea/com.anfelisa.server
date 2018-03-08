@@ -12,8 +12,8 @@ import com.anfelisa.user.commands.ForgotPasswordCommand;
 
 public abstract class AbstractForgotPasswordAction extends Action<ForgotPasswordData> {
 
-	public AbstractForgotPasswordAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.user.actions.ForgotPasswordAction", HttpMethod.POST, jdbi, jdbiTimeline);
+	public AbstractForgotPasswordAction(DBI jdbi) {
+		super("com.anfelisa.user.actions.ForgotPasswordAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

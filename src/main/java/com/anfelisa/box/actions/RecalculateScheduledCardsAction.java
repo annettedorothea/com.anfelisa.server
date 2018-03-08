@@ -28,8 +28,8 @@ public class RecalculateScheduledCardsAction extends AbstractRecalculateSchedule
 
 	static final Logger LOG = LoggerFactory.getLogger(RecalculateScheduledCardsAction.class);
 
-	public RecalculateScheduledCardsAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public RecalculateScheduledCardsAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@PUT

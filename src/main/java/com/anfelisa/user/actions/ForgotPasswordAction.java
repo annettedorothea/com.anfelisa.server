@@ -24,8 +24,8 @@ public class ForgotPasswordAction extends AbstractForgotPasswordAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ForgotPasswordAction.class);
 
-	public ForgotPasswordAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public ForgotPasswordAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@POST

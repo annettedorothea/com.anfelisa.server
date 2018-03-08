@@ -27,8 +27,8 @@ public class AddCoursesAction extends AbstractAddCoursesAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(AddCoursesAction.class);
 
-	public AddCoursesAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public AddCoursesAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@POST

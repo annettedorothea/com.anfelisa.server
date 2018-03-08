@@ -32,8 +32,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 	private CourseDao courseDao = new CourseDao();
 	
-	public LoadAllCoursesAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public LoadAllCoursesAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@GET

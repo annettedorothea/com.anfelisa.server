@@ -11,8 +11,8 @@ import com.anfelisa.box.data.CardData;
 
 public abstract class AbstractLoadNextCardAction extends Action<CardData> {
 
-	public AbstractLoadNextCardAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.box.actions.LoadNextCardAction", HttpMethod.GET, jdbi, jdbiTimeline);
+	public AbstractLoadNextCardAction(DBI jdbi) {
+		super("com.anfelisa.box.actions.LoadNextCardAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

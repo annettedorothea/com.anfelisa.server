@@ -52,8 +52,8 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 
 	private CardDao cardDao = new CardDao();
 
-	public LoadNextCardAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public LoadNextCardAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@GET

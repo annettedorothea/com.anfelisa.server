@@ -40,8 +40,8 @@ public class LoadPrivateTestAction extends AbstractLoadPrivateTestAction {
 
 	private CustomTestDao customTestDao = new CustomTestDao();
 
-	public LoadPrivateTestAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public LoadPrivateTestAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@GET

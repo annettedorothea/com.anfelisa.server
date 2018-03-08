@@ -12,8 +12,8 @@ import com.anfelisa.user.commands.ChangeUserToAuthorCommand;
 
 public abstract class AbstractChangeUserToAuthorAction extends Action<ChangeUserRoleData> {
 
-	public AbstractChangeUserToAuthorAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.user.actions.ChangeUserToAuthorAction", HttpMethod.PUT, jdbi, jdbiTimeline);
+	public AbstractChangeUserToAuthorAction(DBI jdbi) {
+		super("com.anfelisa.user.actions.ChangeUserToAuthorAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

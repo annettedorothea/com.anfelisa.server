@@ -23,8 +23,8 @@ public class RegisterUserAction extends AbstractRegisterUserAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(RegisterUserAction.class);
 
-	public RegisterUserAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public RegisterUserAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@POST

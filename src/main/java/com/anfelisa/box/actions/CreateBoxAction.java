@@ -27,8 +27,8 @@ public class CreateBoxAction extends AbstractCreateBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateBoxAction.class);
 
-	public CreateBoxAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public CreateBoxAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@POST

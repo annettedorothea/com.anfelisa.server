@@ -11,8 +11,8 @@ import com.anfelisa.test.data.SimpleTestListData;
 
 public abstract class AbstractGetAllTestsAction extends Action<SimpleTestListData> {
 
-	public AbstractGetAllTestsAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.test.actions.GetAllTestsAction", HttpMethod.GET, jdbi, jdbiTimeline);
+	public AbstractGetAllTestsAction(DBI jdbi) {
+		super("com.anfelisa.test.actions.GetAllTestsAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

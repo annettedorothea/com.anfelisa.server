@@ -12,8 +12,8 @@ import com.anfelisa.box.commands.CreateScheduledCardCommand;
 
 public abstract class AbstractCreateScheduledCardAction extends Action<ScheduledCardData> {
 
-	public AbstractCreateScheduledCardAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.box.actions.CreateScheduledCardAction", HttpMethod.POST, jdbi, jdbiTimeline);
+	public AbstractCreateScheduledCardAction(DBI jdbi) {
+		super("com.anfelisa.box.actions.CreateScheduledCardAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

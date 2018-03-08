@@ -11,8 +11,8 @@ import com.anfelisa.user.data.UsernameAvailableData;
 
 public abstract class AbstractUsernameAvailableAction extends Action<UsernameAvailableData> {
 
-	public AbstractUsernameAvailableAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.user.actions.UsernameAvailableAction", HttpMethod.GET, jdbi, jdbiTimeline);
+	public AbstractUsernameAvailableAction(DBI jdbi) {
+		super("com.anfelisa.user.actions.UsernameAvailableAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

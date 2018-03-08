@@ -11,8 +11,8 @@ import com.anfelisa.user.data.CourseSelectionData;
 
 public abstract class AbstractGetCourseSelectionAction extends Action<CourseSelectionData> {
 
-	public AbstractGetCourseSelectionAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.user.actions.GetCourseSelectionAction", HttpMethod.GET, jdbi, jdbiTimeline);
+	public AbstractGetCourseSelectionAction(DBI jdbi) {
+		super("com.anfelisa.user.actions.GetCourseSelectionAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

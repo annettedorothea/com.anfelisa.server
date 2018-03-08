@@ -29,8 +29,8 @@ public class GetAllTestsAction extends AbstractGetAllTestsAction {
 
 	private CustomTestDao customTestDao = new CustomTestDao();
 
-	public GetAllTestsAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public GetAllTestsAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@GET

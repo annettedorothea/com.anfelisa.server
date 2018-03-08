@@ -30,8 +30,8 @@ public class GetTestAction extends AbstractGetTestAction {
 
 	private TestDao testDao = new TestDao();
 
-	public GetTestAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public GetTestAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@GET

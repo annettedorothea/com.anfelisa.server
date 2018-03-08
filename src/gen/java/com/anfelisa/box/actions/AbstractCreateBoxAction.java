@@ -12,8 +12,8 @@ import com.anfelisa.box.commands.CreateBoxCommand;
 
 public abstract class AbstractCreateBoxAction extends Action<BoxCreationData> {
 
-	public AbstractCreateBoxAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.box.actions.CreateBoxAction", HttpMethod.POST, jdbi, jdbiTimeline);
+	public AbstractCreateBoxAction(DBI jdbi) {
+		super("com.anfelisa.box.actions.CreateBoxAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

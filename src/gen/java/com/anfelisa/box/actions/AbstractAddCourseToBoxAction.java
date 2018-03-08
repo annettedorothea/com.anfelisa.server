@@ -12,8 +12,8 @@ import com.anfelisa.box.commands.AddCourseToBoxCommand;
 
 public abstract class AbstractAddCourseToBoxAction extends Action<BoxToCourseAdditionData> {
 
-	public AbstractAddCourseToBoxAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.box.actions.AddCourseToBoxAction", HttpMethod.POST, jdbi, jdbiTimeline);
+	public AbstractAddCourseToBoxAction(DBI jdbi) {
+		super("com.anfelisa.box.actions.AddCourseToBoxAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

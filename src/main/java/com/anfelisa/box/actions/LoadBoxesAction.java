@@ -41,8 +41,8 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 
 	private CustomBoxDao customBoxDao = new CustomBoxDao();
 
-	public LoadBoxesAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public LoadBoxesAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@GET

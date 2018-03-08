@@ -12,8 +12,8 @@ import com.anfelisa.result.commands.SaveResultCommand;
 
 public abstract class AbstractSaveResultAction extends Action<ResultSaveData> {
 
-	public AbstractSaveResultAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.result.actions.SaveResultAction", HttpMethod.POST, jdbi, jdbiTimeline);
+	public AbstractSaveResultAction(DBI jdbi) {
+		super("com.anfelisa.result.actions.SaveResultAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

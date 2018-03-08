@@ -11,8 +11,8 @@ import com.anfelisa.box.data.AllBoxesData;
 
 public abstract class AbstractGetAllBoxesAction extends Action<AllBoxesData> {
 
-	public AbstractGetAllBoxesAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.box.actions.GetAllBoxesAction", HttpMethod.GET, jdbi, jdbiTimeline);
+	public AbstractGetAllBoxesAction(DBI jdbi) {
+		super("com.anfelisa.box.actions.GetAllBoxesAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

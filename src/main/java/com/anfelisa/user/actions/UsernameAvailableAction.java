@@ -27,8 +27,8 @@ public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 
 	private UserDao userDao = new UserDao();
 
-	public UsernameAvailableAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public UsernameAvailableAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@GET

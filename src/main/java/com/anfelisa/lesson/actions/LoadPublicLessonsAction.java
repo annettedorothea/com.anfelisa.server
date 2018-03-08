@@ -33,8 +33,8 @@ public class LoadPublicLessonsAction extends AbstractLoadPublicLessonsAction {
 
 	private CourseDao courseDao = new CourseDao();
 
-	public LoadPublicLessonsAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public LoadPublicLessonsAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@GET

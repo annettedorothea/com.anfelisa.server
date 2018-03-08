@@ -18,7 +18,7 @@ public class CustomLessonDao {
 						+ "left outer join public.result on public.test.testId = public.result.testId and public.result.username = :username "
 						+ "WHERE public.result.resultId is null AND public.lesson.lessonId = l.lessonId) "
 						+ "FROM public.lesson l WHERE l.courseId = :courseId ORDER By sequence")
-				.bind("courseId", courseId).bind("username", username).map(new MyLessonMapper()).list();
+				.bind("courseId", courseId).bind("username", username).map(new CustomMyLessonMapper()).list();
 	}
 
 	public ILessonModel selectByTestId(Handle handle, Integer testId) {

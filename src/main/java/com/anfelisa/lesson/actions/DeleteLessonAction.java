@@ -26,8 +26,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteLessonAction.class);
 
-	public DeleteLessonAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public DeleteLessonAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@DELETE

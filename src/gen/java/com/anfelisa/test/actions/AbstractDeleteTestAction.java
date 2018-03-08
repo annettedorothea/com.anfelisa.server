@@ -12,8 +12,8 @@ import com.anfelisa.test.commands.DeleteTestCommand;
 
 public abstract class AbstractDeleteTestAction extends Action<TestIdData> {
 
-	public AbstractDeleteTestAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.test.actions.DeleteTestAction", HttpMethod.DELETE, jdbi, jdbiTimeline);
+	public AbstractDeleteTestAction(DBI jdbi) {
+		super("com.anfelisa.test.actions.DeleteTestAction", HttpMethod.DELETE, jdbi);
 	}
 
 	@Override

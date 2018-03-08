@@ -11,8 +11,8 @@ import com.anfelisa.test.data.TestCreationData;
 
 public abstract class AbstractGetTestAction extends Action<TestCreationData> {
 
-	public AbstractGetTestAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.test.actions.GetTestAction", HttpMethod.GET, jdbi, jdbiTimeline);
+	public AbstractGetTestAction(DBI jdbi) {
+		super("com.anfelisa.test.actions.GetTestAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

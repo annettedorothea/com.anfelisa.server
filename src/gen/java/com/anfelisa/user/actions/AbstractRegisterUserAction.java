@@ -12,8 +12,8 @@ import com.anfelisa.user.commands.RegisterUserCommand;
 
 public abstract class AbstractRegisterUserAction extends Action<UserRegistrationData> {
 
-	public AbstractRegisterUserAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.user.actions.RegisterUserAction", HttpMethod.POST, jdbi, jdbiTimeline);
+	public AbstractRegisterUserAction(DBI jdbi) {
+		super("com.anfelisa.user.actions.RegisterUserAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

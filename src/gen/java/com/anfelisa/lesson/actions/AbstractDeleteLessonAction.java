@@ -12,8 +12,8 @@ import com.anfelisa.lesson.commands.DeleteLessonCommand;
 
 public abstract class AbstractDeleteLessonAction extends Action<LessonIdData> {
 
-	public AbstractDeleteLessonAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.lesson.actions.DeleteLessonAction", HttpMethod.DELETE, jdbi, jdbiTimeline);
+	public AbstractDeleteLessonAction(DBI jdbi) {
+		super("com.anfelisa.lesson.actions.DeleteLessonAction", HttpMethod.DELETE, jdbi);
 	}
 
 	@Override

@@ -12,8 +12,8 @@ import com.anfelisa.course.commands.AddStudentToCourseCommand;
 
 public abstract class AbstractAddStudentToCourseAction extends Action<StudentToCourseAdditionData> {
 
-	public AbstractAddStudentToCourseAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.course.actions.AddStudentToCourseAction", HttpMethod.POST, jdbi, jdbiTimeline);
+	public AbstractAddStudentToCourseAction(DBI jdbi) {
+		super("com.anfelisa.course.actions.AddStudentToCourseAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

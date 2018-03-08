@@ -28,8 +28,8 @@ public class SaveResultAction extends AbstractSaveResultAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(SaveResultAction.class);
 
-	public SaveResultAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public SaveResultAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@POST

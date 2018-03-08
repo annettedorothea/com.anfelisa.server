@@ -12,8 +12,8 @@ import com.anfelisa.box.commands.DeleteCardCommand;
 
 public abstract class AbstractDeleteCardAction extends Action<CardIdData> {
 
-	public AbstractDeleteCardAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.box.actions.DeleteCardAction", HttpMethod.DELETE, jdbi, jdbiTimeline);
+	public AbstractDeleteCardAction(DBI jdbi) {
+		super("com.anfelisa.box.actions.DeleteCardAction", HttpMethod.DELETE, jdbi);
 	}
 
 	@Override

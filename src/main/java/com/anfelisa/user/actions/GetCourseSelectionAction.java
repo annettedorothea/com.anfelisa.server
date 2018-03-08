@@ -34,8 +34,8 @@ public class GetCourseSelectionAction extends AbstractGetCourseSelectionAction {
 
 	private CustomCourseDao customCourseDao = new CustomCourseDao();
 
-	public GetCourseSelectionAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public GetCourseSelectionAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@GET

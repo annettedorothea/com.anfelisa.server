@@ -27,8 +27,8 @@ public class AddStudentToCourseAction extends AbstractAddStudentToCourseAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(AddStudentToCourseAction.class);
 
-	public AddStudentToCourseAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public AddStudentToCourseAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@POST

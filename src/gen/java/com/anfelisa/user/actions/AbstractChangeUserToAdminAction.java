@@ -12,8 +12,8 @@ import com.anfelisa.user.commands.ChangeUserToAdminCommand;
 
 public abstract class AbstractChangeUserToAdminAction extends Action<ChangeUserRoleData> {
 
-	public AbstractChangeUserToAdminAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.user.actions.ChangeUserToAdminAction", HttpMethod.PUT, jdbi, jdbiTimeline);
+	public AbstractChangeUserToAdminAction(DBI jdbi) {
+		super("com.anfelisa.user.actions.ChangeUserToAdminAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

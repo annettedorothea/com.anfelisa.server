@@ -28,8 +28,8 @@ public class ImportCardAction extends AbstractImportCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ImportCardAction.class);
 
-	public ImportCardAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public ImportCardAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@POST

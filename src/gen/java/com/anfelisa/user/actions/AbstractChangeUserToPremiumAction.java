@@ -12,8 +12,8 @@ import com.anfelisa.user.commands.ChangeUserToPremiumCommand;
 
 public abstract class AbstractChangeUserToPremiumAction extends Action<ChangeUserRoleData> {
 
-	public AbstractChangeUserToPremiumAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.user.actions.ChangeUserToPremiumAction", HttpMethod.PUT, jdbi, jdbiTimeline);
+	public AbstractChangeUserToPremiumAction(DBI jdbi) {
+		super("com.anfelisa.user.actions.ChangeUserToPremiumAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

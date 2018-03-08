@@ -24,8 +24,8 @@ public class CreateResultAction extends AbstractCreateResultAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateResultAction.class);
 
-	public CreateResultAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public CreateResultAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@POST

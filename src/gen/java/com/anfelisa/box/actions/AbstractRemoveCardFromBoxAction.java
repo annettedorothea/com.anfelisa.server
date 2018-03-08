@@ -12,8 +12,8 @@ import com.anfelisa.box.commands.RemoveCardFromBoxCommand;
 
 public abstract class AbstractRemoveCardFromBoxAction extends Action<RemoveCardFromBoxData> {
 
-	public AbstractRemoveCardFromBoxAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.box.actions.RemoveCardFromBoxAction", HttpMethod.DELETE, jdbi, jdbiTimeline);
+	public AbstractRemoveCardFromBoxAction(DBI jdbi) {
+		super("com.anfelisa.box.actions.RemoveCardFromBoxAction", HttpMethod.DELETE, jdbi);
 	}
 
 	@Override

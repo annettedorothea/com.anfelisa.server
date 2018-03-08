@@ -12,8 +12,8 @@ import com.anfelisa.user.commands.AddCoursesCommand;
 
 public abstract class AbstractAddCoursesAction extends Action<AddCoursesData> {
 
-	public AbstractAddCoursesAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.user.actions.AddCoursesAction", HttpMethod.POST, jdbi, jdbiTimeline);
+	public AbstractAddCoursesAction(DBI jdbi) {
+		super("com.anfelisa.user.actions.AddCoursesAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

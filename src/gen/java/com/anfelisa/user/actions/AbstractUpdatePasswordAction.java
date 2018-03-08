@@ -12,8 +12,8 @@ import com.anfelisa.user.commands.UpdatePasswordCommand;
 
 public abstract class AbstractUpdatePasswordAction extends Action<PasswordUpdateData> {
 
-	public AbstractUpdatePasswordAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.user.actions.UpdatePasswordAction", HttpMethod.PUT, jdbi, jdbiTimeline);
+	public AbstractUpdatePasswordAction(DBI jdbi) {
+		super("com.anfelisa.user.actions.UpdatePasswordAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

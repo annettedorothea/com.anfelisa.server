@@ -27,8 +27,8 @@ public class UpdateBoxAction extends AbstractUpdateBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateBoxAction.class);
 
-	public UpdateBoxAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public UpdateBoxAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@PUT

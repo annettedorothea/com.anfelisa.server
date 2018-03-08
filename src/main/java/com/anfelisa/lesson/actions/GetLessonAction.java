@@ -32,8 +32,8 @@ public class GetLessonAction extends AbstractGetLessonAction {
 
 	private LessonDao lessonDao = new LessonDao();
 
-	public GetLessonAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public GetLessonAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@GET

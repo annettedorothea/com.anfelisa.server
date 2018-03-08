@@ -39,8 +39,8 @@ public class LoadPrivateTestsAction extends AbstractLoadPrivateTestsAction {
 
 	private CustomCourseDao customCourseDao = new CustomCourseDao();
 
-	public LoadPrivateTestsAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public LoadPrivateTestsAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@GET

@@ -12,8 +12,8 @@ import com.anfelisa.result.commands.CreateResultCommand;
 
 public abstract class AbstractCreateResultAction extends Action<ResultCreationData> {
 
-	public AbstractCreateResultAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.result.actions.CreateResultAction", HttpMethod.POST, jdbi, jdbiTimeline);
+	public AbstractCreateResultAction(DBI jdbi) {
+		super("com.anfelisa.result.actions.CreateResultAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

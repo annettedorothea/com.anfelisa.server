@@ -28,8 +28,8 @@ public class ChangeUserToAdminAction extends AbstractChangeUserToAdminAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ChangeUserToAdminAction.class);
 
-	public ChangeUserToAdminAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public ChangeUserToAdminAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@PUT

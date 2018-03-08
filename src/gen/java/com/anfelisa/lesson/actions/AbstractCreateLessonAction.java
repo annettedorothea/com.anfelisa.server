@@ -12,8 +12,8 @@ import com.anfelisa.lesson.commands.CreateLessonCommand;
 
 public abstract class AbstractCreateLessonAction extends Action<LessonCreationData> {
 
-	public AbstractCreateLessonAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.lesson.actions.CreateLessonAction", HttpMethod.POST, jdbi, jdbiTimeline);
+	public AbstractCreateLessonAction(DBI jdbi) {
+		super("com.anfelisa.lesson.actions.CreateLessonAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

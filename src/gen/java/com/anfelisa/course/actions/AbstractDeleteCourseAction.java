@@ -12,8 +12,8 @@ import com.anfelisa.course.commands.DeleteCourseCommand;
 
 public abstract class AbstractDeleteCourseAction extends Action<CourseIdData> {
 
-	public AbstractDeleteCourseAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.course.actions.DeleteCourseAction", HttpMethod.DELETE, jdbi, jdbiTimeline);
+	public AbstractDeleteCourseAction(DBI jdbi) {
+		super("com.anfelisa.course.actions.DeleteCourseAction", HttpMethod.DELETE, jdbi);
 	}
 
 	@Override

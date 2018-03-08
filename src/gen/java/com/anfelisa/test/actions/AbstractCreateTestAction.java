@@ -12,8 +12,8 @@ import com.anfelisa.test.commands.CreateTestCommand;
 
 public abstract class AbstractCreateTestAction extends Action<TestCreationData> {
 
-	public AbstractCreateTestAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.test.actions.CreateTestAction", HttpMethod.POST, jdbi, jdbiTimeline);
+	public AbstractCreateTestAction(DBI jdbi) {
+		super("com.anfelisa.test.actions.CreateTestAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

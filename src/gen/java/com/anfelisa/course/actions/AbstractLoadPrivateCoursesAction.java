@@ -11,8 +11,8 @@ import com.anfelisa.course.data.MyCourseListData;
 
 public abstract class AbstractLoadPrivateCoursesAction extends Action<MyCourseListData> {
 
-	public AbstractLoadPrivateCoursesAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.course.actions.LoadPrivateCoursesAction", HttpMethod.GET, jdbi, jdbiTimeline);
+	public AbstractLoadPrivateCoursesAction(DBI jdbi) {
+		super("com.anfelisa.course.actions.LoadPrivateCoursesAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

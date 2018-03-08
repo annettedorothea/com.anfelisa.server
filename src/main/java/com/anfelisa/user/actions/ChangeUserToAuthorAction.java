@@ -28,8 +28,8 @@ public class ChangeUserToAuthorAction extends AbstractChangeUserToAuthorAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ChangeUserToAuthorAction.class);
 
-	public ChangeUserToAuthorAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public ChangeUserToAuthorAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@PUT

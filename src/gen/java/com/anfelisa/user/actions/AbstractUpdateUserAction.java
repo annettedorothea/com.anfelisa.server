@@ -12,8 +12,8 @@ import com.anfelisa.user.commands.UpdateUserCommand;
 
 public abstract class AbstractUpdateUserAction extends Action<UserUpdateData> {
 
-	public AbstractUpdateUserAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.user.actions.UpdateUserAction", HttpMethod.PUT, jdbi, jdbiTimeline);
+	public AbstractUpdateUserAction(DBI jdbi) {
+		super("com.anfelisa.user.actions.UpdateUserAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

@@ -11,8 +11,8 @@ import com.anfelisa.box.data.BoxIdData;
 
 public abstract class AbstractLoadBoxAction extends Action<BoxIdData> {
 
-	public AbstractLoadBoxAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.box.actions.LoadBoxAction", HttpMethod.GET, jdbi, jdbiTimeline);
+	public AbstractLoadBoxAction(DBI jdbi) {
+		super("com.anfelisa.box.actions.LoadBoxAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

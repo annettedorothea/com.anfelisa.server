@@ -28,8 +28,8 @@ public class ChangeUserToPremiumAction extends AbstractChangeUserToPremiumAction
 
 	static final Logger LOG = LoggerFactory.getLogger(ChangeUserToPremiumAction.class);
 
-	public ChangeUserToPremiumAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public ChangeUserToPremiumAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@PUT

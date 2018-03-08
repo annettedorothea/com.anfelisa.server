@@ -11,8 +11,8 @@ import com.anfelisa.result.data.MyResultData;
 
 public abstract class AbstractLoadResultAction extends Action<MyResultData> {
 
-	public AbstractLoadResultAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.result.actions.LoadResultAction", HttpMethod.GET, jdbi, jdbiTimeline);
+	public AbstractLoadResultAction(DBI jdbi) {
+		super("com.anfelisa.result.actions.LoadResultAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

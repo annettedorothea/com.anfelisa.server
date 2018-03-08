@@ -28,8 +28,8 @@ public class DeleteBoxAction extends AbstractDeleteBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteBoxAction.class);
 
-	public DeleteBoxAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public DeleteBoxAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@DELETE

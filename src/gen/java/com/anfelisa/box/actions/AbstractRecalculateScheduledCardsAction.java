@@ -12,8 +12,8 @@ import com.anfelisa.box.commands.RecalculateScheduledCardsCommand;
 
 public abstract class AbstractRecalculateScheduledCardsAction extends Action<RecalculateScheduledCardsData> {
 
-	public AbstractRecalculateScheduledCardsAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.box.actions.RecalculateScheduledCardsAction", HttpMethod.PUT, jdbi, jdbiTimeline);
+	public AbstractRecalculateScheduledCardsAction(DBI jdbi) {
+		super("com.anfelisa.box.actions.RecalculateScheduledCardsAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override

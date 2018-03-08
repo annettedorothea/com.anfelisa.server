@@ -27,8 +27,8 @@ public class SaveBoxConfigAction extends AbstractSaveBoxConfigAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(SaveBoxConfigAction.class);
 
-	public SaveBoxConfigAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public SaveBoxConfigAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@PUT

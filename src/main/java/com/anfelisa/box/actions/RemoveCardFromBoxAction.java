@@ -28,8 +28,8 @@ public class RemoveCardFromBoxAction extends AbstractRemoveCardFromBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(RemoveCardFromBoxAction.class);
 
-	public RemoveCardFromBoxAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public RemoveCardFromBoxAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@DELETE

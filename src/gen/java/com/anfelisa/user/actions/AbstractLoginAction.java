@@ -12,8 +12,8 @@ import com.anfelisa.user.commands.LoginCommand;
 
 public abstract class AbstractLoginAction extends Action<LoginData> {
 
-	public AbstractLoginAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.user.actions.LoginAction", HttpMethod.POST, jdbi, jdbiTimeline);
+	public AbstractLoginAction(DBI jdbi) {
+		super("com.anfelisa.user.actions.LoginAction", HttpMethod.POST, jdbi);
 	}
 
 	@Override

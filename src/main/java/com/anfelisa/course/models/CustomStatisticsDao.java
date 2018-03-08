@@ -21,7 +21,7 @@ public class CustomStatisticsDao {
 				+ "where box.username = :username and timestamp >= :startDate "
 				+ "and timestamp < :endDate " + "group by day, name) as statistics order by timestamp, name")
 				.bind("username", username).bind("startDate", startDate).bind("endDate", endDate)
-				.map(new StatisticsItemMapper()).list();
+				.map(new CustomStatisticsItemMapper()).list();
 
 	}
 }

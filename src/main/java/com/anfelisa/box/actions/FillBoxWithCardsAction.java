@@ -28,8 +28,8 @@ public class FillBoxWithCardsAction extends AbstractFillBoxWithCardsAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(FillBoxWithCardsAction.class);
 
-	public FillBoxWithCardsAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public FillBoxWithCardsAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@POST

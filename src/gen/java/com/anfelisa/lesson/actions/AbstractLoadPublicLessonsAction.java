@@ -11,8 +11,8 @@ import com.anfelisa.lesson.data.LessonListData;
 
 public abstract class AbstractLoadPublicLessonsAction extends Action<LessonListData> {
 
-	public AbstractLoadPublicLessonsAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.lesson.actions.LoadPublicLessonsAction", HttpMethod.GET, jdbi, jdbiTimeline);
+	public AbstractLoadPublicLessonsAction(DBI jdbi) {
+		super("com.anfelisa.lesson.actions.LoadPublicLessonsAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

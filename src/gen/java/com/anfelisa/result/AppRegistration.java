@@ -12,16 +12,19 @@ import com.anfelisa.result.actions.*;
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public static void registerResources(Environment environment, DBI jdbi, DBI jdbiTimeline) {
-		environment.jersey().register(new CreateResultAction(jdbi, jdbiTimeline));
-		environment.jersey().register(new SaveResultAction(jdbi, jdbiTimeline));
-		environment.jersey().register(new LoadResultAction(jdbi, jdbiTimeline));
+	public static void registerResources(Environment environment, DBI jdbi) {
+		environment.jersey().register(new CreateResultAction(jdbi));
+		environment.jersey().register(new SaveResultAction(jdbi));
+		environment.jersey().register(new LoadResultAction(jdbi));
 	}
 
 	public static void registerConsumers() {
-			AceController.addConsumer("com.anfelisa.result.events.ResultCreatedEvent", ResultView.createResult);
-			AceController.addConsumer("com.anfelisa.result.events.ResultSavedEvent", ResultView.saveResult);
-			AceController.addConsumer("com.anfelisa.result.events.ResultSavedEvent", ResultView.fillBoxWithCards);
+		AceController.addConsumer("com.anfelisa.result.events.ResultCreatedEvent", ResultView.createResult);
+
+		AceController.addConsumer("com.anfelisa.result.events.ResultSavedEvent", ResultView.saveResult);
+
+		AceController.addConsumer("com.anfelisa.result.events.ResultSavedEvent", ResultView.fillBoxWithCards);
+
     }
 }
 

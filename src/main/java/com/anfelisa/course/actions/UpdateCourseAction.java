@@ -25,8 +25,8 @@ public class UpdateCourseAction extends AbstractUpdateCourseAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateCourseAction.class);
 
-	public UpdateCourseAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public UpdateCourseAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@PUT

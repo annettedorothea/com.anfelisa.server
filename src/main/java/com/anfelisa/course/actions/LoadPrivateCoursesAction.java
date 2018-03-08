@@ -31,8 +31,8 @@ public class LoadPrivateCoursesAction extends AbstractLoadPrivateCoursesAction {
 
 	private CustomCourseDao customCourseDao = new CustomCourseDao();
 
-	public LoadPrivateCoursesAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public LoadPrivateCoursesAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@GET

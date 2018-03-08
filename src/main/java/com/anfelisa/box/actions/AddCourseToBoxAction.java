@@ -27,8 +27,8 @@ public class AddCourseToBoxAction extends AbstractAddCourseToBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(AddCourseToBoxAction.class);
 
-	public AddCourseToBoxAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public AddCourseToBoxAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@POST

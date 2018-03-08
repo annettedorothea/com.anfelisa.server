@@ -19,7 +19,7 @@ public class CustomCourseDao {
 						+ "left outer join public.result on public.test.testId = public.result.testId and public.result.username = :username "
 						+ "WHERE public.result.resultId is null AND public.course.courseId = c.courseId) "
 						+ "FROM public.course c, public.studentofcourse sc WHERE sc.username = :username AND c.courseId = sc.courseId ORDER BY sequence")
-				.bind("username", username).map(new MyCourseMapper()).list();
+				.bind("username", username).map(new CustomMyCourseMapper()).list();
 	}
 
 	public List<ICourseModel> selectCourses(Handle handle, String username) {

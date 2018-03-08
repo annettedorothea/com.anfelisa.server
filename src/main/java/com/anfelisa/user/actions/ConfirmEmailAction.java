@@ -28,8 +28,8 @@ public class ConfirmEmailAction extends AbstractConfirmEmailAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ConfirmEmailAction.class);
 
-	public ConfirmEmailAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public ConfirmEmailAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@PUT

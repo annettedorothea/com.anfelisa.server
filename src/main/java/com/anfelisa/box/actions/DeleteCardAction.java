@@ -26,8 +26,8 @@ public class DeleteCardAction extends AbstractDeleteCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteCardAction.class);
 
-	public DeleteCardAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public DeleteCardAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@DELETE

@@ -29,8 +29,8 @@ public class LoginAction extends AbstractLoginAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoginAction.class);
 
-	public LoginAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public LoginAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@POST

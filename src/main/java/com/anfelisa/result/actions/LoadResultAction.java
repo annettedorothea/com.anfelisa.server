@@ -47,8 +47,8 @@ public class LoadResultAction extends AbstractLoadResultAction {
 
 	private CustomTestDao customTestDao = new CustomTestDao();
 
-	public LoadResultAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public LoadResultAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@GET

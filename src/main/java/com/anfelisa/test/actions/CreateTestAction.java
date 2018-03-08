@@ -27,8 +27,8 @@ public class CreateTestAction extends AbstractCreateTestAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateTestAction.class);
 
-	public CreateTestAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public CreateTestAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@POST

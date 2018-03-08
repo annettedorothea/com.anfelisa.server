@@ -5,23 +5,13 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.bug.CreateBugResource;
-import com.anfelisa.ace.bug.DeleteBugResource;
-import com.anfelisa.ace.bug.GetAllBugsResource;
-import com.anfelisa.ace.bug.ResolveBugResource;
-import com.anfelisa.ace.scenario.CreateScenarioResource;
-import com.anfelisa.ace.scenario.CreateScenarioResultResource;
-import com.anfelisa.ace.scenario.DeleteScenarioResource;
-import com.anfelisa.ace.scenario.GetAllScenariosResource;
-import com.anfelisa.ace.scenario.GetScenarioResource;
-import com.anfelisa.auth.AceAuthenticator;
-import com.anfelisa.auth.AceAuthorizer;
+import com.anfelisa.ace.AceController;
+import com.anfelisa.ace.AceDao;
+import com.anfelisa.ace.AceExecutionMode;
 import com.anfelisa.auth.AuthUser;
 
 import io.dropwizard.Application;
-import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
-import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.jdbi.bundles.DBIExceptionsBundle;
@@ -43,7 +33,7 @@ public class App extends Application<AppConfiguration> {
 	}
 
 	public static String getVersion() {
-		return "2.1.0";
+		return "3.0.0";
 	}
 
 	@Override
@@ -54,6 +44,8 @@ public class App extends Application<AppConfiguration> {
 				return configuration.getDataSourceFactory();
 			}
 		});
+		
+		bootstrap.addCommand(new EventReplayCommand(this));
 	}
 
 	@Override
@@ -64,60 +56,45 @@ public class App extends Application<AppConfiguration> {
 
 		final DBIFactory factory = new DBIFactory();
 
-		DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "anfelisa");
-		DBI jdbiTimeline = null;
+		DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "data-source-name");
 
-		if (configuration.getTimelineDataSourceFactory().getUrl() != null) {
+		if (ServerConfiguration.REPLAY.equals(configuration.getServerConfiguration().getMode())) {
 			AceController.setAceExecutionMode(AceExecutionMode.REPLAY);
-			jdbiTimeline = factory.build(environment, configuration.getTimelineDataSourceFactory(),
-					"anfelisa_replay");
-			environment.jersey().register(new ClearDatabaseResource(jdbi));
-			environment.jersey().register(new PrepareDatabaseResource(jdbi, jdbiTimeline));
+			environment.jersey().register(new PrepareE2EResource(jdbi));
+			environment.jersey().register(new StartE2ESessionResource(jdbi));
+			environment.jersey().register(new StopE2ESessionResource());
+			environment.jersey().register(new GetServerTimelineResource(jdbi));
+		} else if (ServerConfiguration.DEV.equals(configuration.getServerConfiguration().getMode())) {
+			AceController.setAceExecutionMode(AceExecutionMode.DEV);
+			environment.jersey().register(new GetServerTimelineResource(jdbi));
 		} else {
 			AceController.setAceExecutionMode(AceExecutionMode.LIVE);
-			
-			environment.jersey().register(new MigrateDatabaseResource(jdbi));
-			
-			environment.jersey().register(new CreateScenarioResource(jdbi));
-			environment.jersey().register(new CreateScenarioResultResource(jdbi));
-			environment.jersey().register(new DeleteScenarioResource(jdbi));
-			environment.jersey().register(new GetAllScenariosResource(jdbi));
-			environment.jersey().register(new GetScenarioResource(jdbi));
-			
-			environment.jersey().register(new CreateBugResource(jdbi));
-			environment.jersey().register(new DeleteBugResource(jdbi));
-			environment.jersey().register(new GetAllBugsResource(jdbi));
-			environment.jersey().register(new ResolveBugResource(jdbi));
 		}
+
+		environment.jersey().register(new GetServerInfoResource());
 
 		DBIExceptionsBundle dbiExceptionsBundle = new DBIExceptionsBundle();
 		environment.jersey().register(dbiExceptionsBundle);
 
-		EmailService.setEmailConfiguration(configuration.getEmail());
-
-		environment.jersey()
-				.register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<AuthUser>()
-						.setAuthenticator(new AceAuthenticator(jdbi)).setAuthorizer(new AceAuthorizer())
-						.setPrefix("anfelisaBasic").setRealm("anfelisa private realm").buildAuthFilter()));
 		environment.jersey().register(RolesAllowedDynamicFeature.class);
 		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
 
-		com.anfelisa.user.AppRegistration.registerResources(environment, jdbi, jdbiTimeline);
+		com.anfelisa.user.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.user.AppRegistration.registerConsumers();
 
-		com.anfelisa.course.AppRegistration.registerResources(environment, jdbi, jdbiTimeline);
+		com.anfelisa.course.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.course.AppRegistration.registerConsumers();
 
-		com.anfelisa.lesson.AppRegistration.registerResources(environment, jdbi, jdbiTimeline);
+		com.anfelisa.lesson.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.lesson.AppRegistration.registerConsumers();
 
-		com.anfelisa.test.AppRegistration.registerResources(environment, jdbi, jdbiTimeline);
+		com.anfelisa.test.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.test.AppRegistration.registerConsumers();
 
-		com.anfelisa.result.AppRegistration.registerResources(environment, jdbi, jdbiTimeline);
+		com.anfelisa.result.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.result.AppRegistration.registerConsumers();
 
-		com.anfelisa.box.AppRegistration.registerResources(environment, jdbi, jdbiTimeline);
+		com.anfelisa.box.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.box.AppRegistration.registerConsumers();
 
 	}

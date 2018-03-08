@@ -11,8 +11,8 @@ import com.anfelisa.lesson.data.SimpleLessonListData;
 
 public abstract class AbstractGetAllLessonsAction extends Action<SimpleLessonListData> {
 
-	public AbstractGetAllLessonsAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.lesson.actions.GetAllLessonsAction", HttpMethod.GET, jdbi, jdbiTimeline);
+	public AbstractGetAllLessonsAction(DBI jdbi) {
+		super("com.anfelisa.lesson.actions.GetAllLessonsAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override

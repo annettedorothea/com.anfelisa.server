@@ -12,8 +12,8 @@ import com.anfelisa.box.commands.DeleteBoxCommand;
 
 public abstract class AbstractDeleteBoxAction extends Action<DeleteBoxData> {
 
-	public AbstractDeleteBoxAction(DBI jdbi, DBI jdbiTimeline) {
-		super("com.anfelisa.box.actions.DeleteBoxAction", HttpMethod.DELETE, jdbi, jdbiTimeline);
+	public AbstractDeleteBoxAction(DBI jdbi) {
+		super("com.anfelisa.box.actions.DeleteBoxAction", HttpMethod.DELETE, jdbi);
 	}
 
 	@Override

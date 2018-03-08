@@ -28,8 +28,8 @@ public class ScoreCardAction extends AbstractScoreCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScoreCardAction.class);
 
-	public ScoreCardAction(DBI jdbi, DBI jdbiTimeline) {
-		super(jdbi, jdbiTimeline);
+	public ScoreCardAction(DBI jdbi) {
+		super(jdbi);
 	}
 
 	@POST
