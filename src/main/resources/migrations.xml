@@ -545,5 +545,11 @@
 			onDelete="CASCADE" />
 	</changeSet>
 
+	<changeSet id="010" author="annette">
+		<dropTable tableName="scenarioresult" />
+		<dropTable tableName="bug" />
+		<dropTable tableName="scenario" />
+	</changeSet>
+
 
 </databaseChangeLog>

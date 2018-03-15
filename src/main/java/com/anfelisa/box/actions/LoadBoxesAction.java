@@ -60,7 +60,7 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 		List<IBoxInfoModel> boxInfoList = new ArrayList<IBoxInfoModel>();
 		for (IBoxModel boxModel : boxList) {
 			List<IScheduledCardModel> todaysCards = customScheduledCardDao.selectTodaysCards(this.getHandle(),
-					boxModel.getBoxId());
+					boxModel.getBoxId(), this.actionData.getSystemTime());
 			BoxInfoModel boxInfoModel = new BoxInfoModel(todaysCards.size(), (todaysCards.size() > 0));
 			boxInfoModel.setBox(boxModel);
 			boxInfoList.add(boxInfoModel);

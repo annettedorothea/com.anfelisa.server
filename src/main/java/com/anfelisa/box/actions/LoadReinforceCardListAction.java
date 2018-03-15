@@ -77,7 +77,7 @@ public class LoadReinforceCardListAction extends AbstractLoadReinforceCardListAc
 		this.actionData.setBoxName(box.getName());
 
 		List<IScheduledCardModel> scheduledCards = scheduledCardDao
-				.selectReinforceCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId());
+				.selectReinforceCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId(), this.actionData.getSystemTime());
 		List<IReinforceCardModel> reinforceCards = new ArrayList<>();
 		for (IScheduledCardModel scheduledCard : scheduledCards) {
 			ICardModel card = cardDao.selectByCardId(this.getHandle(), scheduledCard.getCardId());

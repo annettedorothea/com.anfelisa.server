@@ -114,7 +114,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			}
 
 			List<IScheduledCardModel> todaysCards = scheduledCardDao
-					.selectTodaysCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId());
+					.selectTodaysCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId(), this.actionData.getSystemTime());
 			if (todaysCards.size() > 0) {
 				IScheduledCardModel nextCard = todaysCards.get(0);
 				this.actionData.setBoxName(box.getName());
@@ -160,10 +160,10 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			this.actionData.setCards(allCards.size());
 			this.actionData.setCardsForToday(todaysCards.size());
 			List<IScheduledCardModel> tomorrowsCards = scheduledCardDao
-					.selectTomorrowsCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId());
+					.selectTomorrowsCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId(), this.actionData.getSystemTime());
 			this.actionData.setCardsForTomorrow(tomorrowsCards.size());
 			List<IScheduledCardModel> cardsToBeReinforced = scheduledCardDao
-					.selectReinforceCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId());
+					.selectReinforceCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId(), this.actionData.getSystemTime());
 			this.actionData.setCardsToBeReinforced(cardsToBeReinforced.size());
 
 			int numberOfCardsWithQuality = quality0Count + quality1Count + quality2Count + quality3Count + quality4Count
