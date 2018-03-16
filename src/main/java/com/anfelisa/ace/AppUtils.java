@@ -1,7 +1,6 @@
 package com.anfelisa.ace;
 
 import org.skife.jdbi.v2.Handle;
-import org.skife.jdbi.v2.Update;
 
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.BoxOfCourseDao;
