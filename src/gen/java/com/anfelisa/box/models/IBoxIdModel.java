@@ -7,7 +7,6 @@ public interface IBoxIdModel {
 
 	Integer getBoxId();
 
-
 }
 
 /*       S.D.G.       */

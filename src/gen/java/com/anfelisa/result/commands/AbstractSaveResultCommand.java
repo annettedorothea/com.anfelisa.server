@@ -23,7 +23,7 @@ public abstract class AbstractSaveResultCommand extends Command<ResultSaveData> 
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case saved:
-			new com.anfelisa.result.events.ResultSavedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.result.events.SaveResultSavedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

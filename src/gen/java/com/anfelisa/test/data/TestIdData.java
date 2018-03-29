@@ -21,11 +21,12 @@ public class TestIdData implements ITestIdData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer testId;
 	
 
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public TestIdData(
@@ -34,6 +35,7 @@ public class TestIdData implements ITestIdData {
 	) {
 		this.testId = testId;
 		this.uuid = uuid;
+		
 	}
 
 	public TestIdData( String uuid ) {
@@ -51,7 +53,6 @@ public class TestIdData implements ITestIdData {
 		this.testId = testId;
 		return this;
 	}
-	
 	
 
 	@JsonProperty
@@ -86,6 +87,25 @@ public class TestIdData implements ITestIdData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new TestIdPresentationalData(
+			this.testId
+		);
 	}
 
 }

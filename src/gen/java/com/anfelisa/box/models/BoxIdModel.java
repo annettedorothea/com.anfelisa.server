@@ -11,7 +11,6 @@ public class BoxIdModel implements IBoxIdModel {
 	private Integer boxId;
 	
 
-
 	public BoxIdModel(
 		@JsonProperty("boxId") Integer boxId
 	) {
@@ -27,7 +26,6 @@ public class BoxIdModel implements IBoxIdModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

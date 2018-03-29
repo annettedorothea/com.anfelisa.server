@@ -21,6 +21,8 @@ public class ScheduledCardData implements IScheduledCardData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer scheduledCardId;
 	
@@ -53,7 +55,6 @@ public class ScheduledCardData implements IScheduledCardData {
 	private Boolean removed;
 	
 
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public ScheduledCardData(
@@ -82,6 +83,7 @@ public class ScheduledCardData implements IScheduledCardData {
 		this.timestamp = timestamp;
 		this.removed = removed;
 		this.uuid = uuid;
+		
 	}
 
 	public ScheduledCardData( String uuid ) {
@@ -220,7 +222,6 @@ public class ScheduledCardData implements IScheduledCardData {
 		return this;
 	}
 	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -254,6 +255,35 @@ public class ScheduledCardData implements IScheduledCardData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new ScheduledCardPresentationalData(
+			this.scheduledCardId,
+			this.cardId,
+			this.ef,
+			this.interval,
+			this.n,
+			this.count,
+			this.scheduledDate,
+			this.boxId,
+			this.lastQuality,
+			this.timestamp,
+			this.removed
+		);
 	}
 
 }

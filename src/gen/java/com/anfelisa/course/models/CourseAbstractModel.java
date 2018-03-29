@@ -22,7 +22,6 @@ public class CourseAbstractModel implements ICourseAbstractModel {
 	private Integer courseId;
 	
 
-
 	public CourseAbstractModel(
 		@JsonProperty("courseName") String courseName,
 		@JsonProperty("courseDescription") String courseDescription,
@@ -78,7 +77,6 @@ public class CourseAbstractModel implements ICourseAbstractModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

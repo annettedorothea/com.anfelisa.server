@@ -39,7 +39,6 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	private Boolean removed;
 	
 
-
 	public ScheduledCardModel(
 		@JsonProperty("scheduledCardId") Integer scheduledCardId,
 		@JsonProperty("cardId") Integer cardId,
@@ -155,7 +154,6 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

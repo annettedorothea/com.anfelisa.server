@@ -7,7 +7,6 @@ public interface IContentHashModel {
 
 	String getContentHash();
 
-
 }
 
 /*       S.D.G.       */

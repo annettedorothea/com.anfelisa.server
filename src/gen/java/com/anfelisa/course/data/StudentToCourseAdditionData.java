@@ -22,6 +22,8 @@ public class StudentToCourseAdditionData implements IStudentToCourseAdditionData
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private String username;
 	
@@ -33,8 +35,6 @@ public class StudentToCourseAdditionData implements IStudentToCourseAdditionData
 	private String credentialsRole;
 	
 
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public StudentToCourseAdditionData(
@@ -49,6 +49,7 @@ public class StudentToCourseAdditionData implements IStudentToCourseAdditionData
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
+		
 	}
 
 	public StudentToCourseAdditionData( String uuid ) {
@@ -103,8 +104,6 @@ public class StudentToCourseAdditionData implements IStudentToCourseAdditionData
 		return this;
 	}
 	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -138,6 +137,28 @@ public class StudentToCourseAdditionData implements IStudentToCourseAdditionData
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new StudentToCourseAdditionPresentationalData(
+			this.username,
+			this.courseId,
+			this.credentialsUsername,
+			this.credentialsRole
+		);
 	}
 
 }

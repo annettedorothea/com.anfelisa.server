@@ -27,6 +27,8 @@ public class CardData implements ICardData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer cardId;
 	
@@ -95,6 +97,8 @@ public class CardData implements ICardData {
 	
 	private String header;
 	
+	private java.util.List<com.anfelisa.box.models.ILineModel> lines;
+	
 	private String credentialsUsername;
 	
 	private String credentialsRole;
@@ -102,14 +106,6 @@ public class CardData implements ICardData {
 	private Integer daysBehind;
 	
 
-	
-	
-	
-	
-	private java.util.List<com.anfelisa.box.models.ILineModel> lines;
-	
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public CardData(
@@ -143,6 +139,7 @@ public class CardData implements ICardData {
 		@JsonProperty("large") Boolean large,
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("header") String header,
+		@JsonProperty("lines") java.util.List<com.anfelisa.box.models.ILineModel> lines,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole,
 		@JsonProperty("daysBehind") Integer daysBehind
@@ -178,10 +175,12 @@ public class CardData implements ICardData {
 		this.large = large;
 		this.wanted = wanted;
 		this.header = header;
+		this.lines = lines;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.daysBehind = daysBehind;
 		this.uuid = uuid;
+		
 	}
 
 	public CardData( String uuid ) {
@@ -549,6 +548,18 @@ public class CardData implements ICardData {
 	}
 	
 	@JsonProperty
+	public java.util.List<com.anfelisa.box.models.ILineModel> getLines() {
+		return this.lines;
+	}
+	public void setLines(java.util.List<com.anfelisa.box.models.ILineModel> lines) {
+		this.lines = lines;
+	}
+	public CardData withLines(java.util.List<com.anfelisa.box.models.ILineModel> lines) {
+		this.lines = lines;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getCredentialsUsername() {
 		return this.credentialsUsername;
 	}
@@ -584,20 +595,6 @@ public class CardData implements ICardData {
 		return this;
 	}
 	
-	
-	
-	
-	
-	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.ILineModel> getLines() {
-		return this.lines;
-	}
-	public void setLines(java.util.List<com.anfelisa.box.models.ILineModel> lines) {
-		this.lines = lines;
-	}
-	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -631,6 +628,58 @@ public class CardData implements ICardData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new CardPresentationalData(
+			this.cardId,
+			this.content,
+			this.testId,
+			this.contentHash,
+			this.maxPoints,
+			this.boxId,
+			this.name,
+			this.username,
+			this.cards,
+			this.cardsForToday,
+			this.cardsForTomorrow,
+			this.cardsToBeReinforced,
+			this.zero,
+			this.one,
+			this.two,
+			this.three,
+			this.four,
+			this.five,
+			this.noQuality,
+			this.cardOfBoxId,
+			this.boxName,
+			this.count,
+			this.last,
+			this.next,
+			this.quality,
+			this.complex,
+			this.given,
+			this.large,
+			this.wanted,
+			this.header,
+			this.lines,
+			this.credentialsUsername,
+			this.credentialsRole,
+			this.daysBehind
+		);
 	}
 
 }

@@ -22,14 +22,14 @@ public class UsernameAvailableData implements IUsernameAvailableData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private String username;
 	
 	private Boolean available;
 	
 
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public UsernameAvailableData(
@@ -40,6 +40,7 @@ public class UsernameAvailableData implements IUsernameAvailableData {
 		this.username = username;
 		this.available = available;
 		this.uuid = uuid;
+		
 	}
 
 	public UsernameAvailableData( String uuid ) {
@@ -69,8 +70,6 @@ public class UsernameAvailableData implements IUsernameAvailableData {
 		this.available = available;
 		return this;
 	}
-	
-	
 	
 
 	@JsonProperty
@@ -105,6 +104,26 @@ public class UsernameAvailableData implements IUsernameAvailableData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new UsernameAvailablePresentationalData(
+			this.username,
+			this.available
+		);
 	}
 
 }

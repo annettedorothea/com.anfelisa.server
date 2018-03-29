@@ -21,6 +21,8 @@ public class UserCreationData implements IUserCreationData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private String username;
 	
@@ -43,7 +45,6 @@ public class UserCreationData implements IUserCreationData {
 	private Boolean emailConfirmed;
 	
 
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public UserCreationData(
@@ -64,6 +65,7 @@ public class UserCreationData implements IUserCreationData {
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
 		this.uuid = uuid;
+		
 	}
 
 	public UserCreationData( String uuid ) {
@@ -154,7 +156,6 @@ public class UserCreationData implements IUserCreationData {
 		return this;
 	}
 	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -188,6 +189,31 @@ public class UserCreationData implements IUserCreationData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new UserCreationPresentationalData(
+			this.username,
+			this.password,
+			this.name,
+			this.prename,
+			this.email,
+			this.role,
+			this.emailConfirmed
+		);
 	}
 
 }

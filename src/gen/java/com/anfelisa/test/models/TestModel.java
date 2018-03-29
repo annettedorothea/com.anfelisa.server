@@ -25,7 +25,6 @@ public class TestModel implements ITestModel {
 	private String author;
 	
 
-
 	public TestModel(
 		@JsonProperty("testId") Integer testId,
 		@JsonProperty("name") String name,
@@ -91,7 +90,6 @@ public class TestModel implements ITestModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

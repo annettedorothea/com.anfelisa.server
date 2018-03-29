@@ -13,25 +13,22 @@ import com.anfelisa.test.actions.*;
 public class AppRegistration {
 
 	public static void registerResources(Environment environment, DBI jdbi) {
-		environment.jersey().register(new CreateTestAction(jdbi));
 		environment.jersey().register(new LoadPublicTestsAction(jdbi));
 		environment.jersey().register(new LoadPublicTestAction(jdbi));
 		environment.jersey().register(new LoadPrivateTestsAction(jdbi));
 		environment.jersey().register(new LoadPrivateTestAction(jdbi));
 		environment.jersey().register(new GetTestAction(jdbi));
-		environment.jersey().register(new UpdateTestAction(jdbi));
 		environment.jersey().register(new GetCardsOfTestAction(jdbi));
 		environment.jersey().register(new GetAllTestsAction(jdbi));
+		environment.jersey().register(new CreateTestAction(jdbi));
+		environment.jersey().register(new UpdateTestAction(jdbi));
 		environment.jersey().register(new DeleteTestAction(jdbi));
 	}
 
 	public static void registerConsumers() {
-		AceController.addConsumer("com.anfelisa.test.events.TestCreatedEvent", TestView.createTest);
-
-		AceController.addConsumer("com.anfelisa.test.events.TestUpdatedEvent", TestView.updateTest);
-
-		AceController.addConsumer("com.anfelisa.test.events.TestDeletedEvent", TestView.deleteTest);
-
+				AceController.addConsumer("com.anfelisa.test.events.CreateTestCreatedEvent", TestView.createTest);
+				AceController.addConsumer("com.anfelisa.test.events.UpdateTestUpdatedEvent", TestView.updateTest);
+				AceController.addConsumer("com.anfelisa.test.events.DeleteTestDeletedEvent", TestView.deleteTest);
     }
 }
 

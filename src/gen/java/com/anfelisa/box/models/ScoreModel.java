@@ -30,7 +30,6 @@ public class ScoreModel implements IScoreModel {
 	private Integer noQuality;
 	
 
-
 	public ScoreModel(
 		@JsonProperty("cards") Integer cards,
 		@JsonProperty("cardsForToday") Integer cardsForToday,
@@ -146,7 +145,6 @@ public class ScoreModel implements IScoreModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

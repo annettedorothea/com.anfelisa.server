@@ -23,7 +23,7 @@ public abstract class AbstractCreateCardCommand extends Command<CardCreationData
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case created:
-			new com.anfelisa.box.events.CardCreatedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.box.events.CreateCardCreatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

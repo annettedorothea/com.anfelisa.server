@@ -7,7 +7,6 @@ public interface ICourseIdModel {
 
 	Integer getCourseId();
 
-
 }
 
 /*       S.D.G.       */

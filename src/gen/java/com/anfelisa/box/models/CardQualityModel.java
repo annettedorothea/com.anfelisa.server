@@ -11,7 +11,6 @@ public class CardQualityModel implements ICardQualityModel {
 	private Integer submittedQuality;
 	
 
-
 	public CardQualityModel(
 		@JsonProperty("submittedQuality") Integer submittedQuality
 	) {
@@ -27,7 +26,6 @@ public class CardQualityModel implements ICardQualityModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

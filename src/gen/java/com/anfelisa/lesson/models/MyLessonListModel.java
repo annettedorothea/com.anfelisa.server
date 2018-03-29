@@ -7,14 +7,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class MyLessonListModel implements IMyLessonListModel {
 
-
 	private java.util.List<com.anfelisa.lesson.models.IMyLessonModel> myLessonList;
 	
 
 	public MyLessonListModel(
+		@JsonProperty("myLessonList") java.util.List<com.anfelisa.lesson.models.IMyLessonModel> myLessonList
 	) {
+		this.myLessonList = myLessonList;
 	}
-
 
 	@JsonProperty
 	public java.util.List<com.anfelisa.lesson.models.IMyLessonModel> getMyLessonList() {
@@ -24,7 +24,7 @@ public class MyLessonListModel implements IMyLessonListModel {
 		this.myLessonList = myLessonList;
 	}
 	
-		
+
 }
 
 /*       S.D.G.       */

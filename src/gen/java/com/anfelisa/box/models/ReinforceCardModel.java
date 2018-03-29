@@ -18,7 +18,6 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	@NotNull
 	private org.joda.time.DateTime timestamp;
 	
-
 	private com.anfelisa.box.models.ICardContentModel cardContent;
 	
 
@@ -26,12 +25,14 @@ public class ReinforceCardModel implements IReinforceCardModel {
 		@JsonProperty("scheduledCardId") Integer scheduledCardId,
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
 		@JsonProperty("lastQuality") Integer lastQuality,
-		@JsonProperty("timestamp") org.joda.time.DateTime timestamp
+		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
+		@JsonProperty("cardContent") com.anfelisa.box.models.ICardContentModel cardContent
 	) {
 		this.scheduledCardId = scheduledCardId;
 		this.scheduledDate = scheduledDate;
 		this.lastQuality = lastQuality;
 		this.timestamp = timestamp;
+		this.cardContent = cardContent;
 	}
 
 	@JsonProperty
@@ -66,7 +67,6 @@ public class ReinforceCardModel implements IReinforceCardModel {
 		this.timestamp = timestamp;
 	}
 	
-
 	@JsonProperty
 	public com.anfelisa.box.models.ICardContentModel getCardContent() {
 		return this.cardContent;
@@ -75,7 +75,7 @@ public class ReinforceCardModel implements IReinforceCardModel {
 		this.cardContent = cardContent;
 	}
 	
-		
+
 }
 
 /*       S.D.G.       */

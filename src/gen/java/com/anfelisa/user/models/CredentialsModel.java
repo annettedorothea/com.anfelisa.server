@@ -12,7 +12,6 @@ public class CredentialsModel implements ICredentialsModel {
 	private String credentialsRole;
 	
 
-
 	public CredentialsModel(
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
@@ -38,7 +37,6 @@ public class CredentialsModel implements ICredentialsModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

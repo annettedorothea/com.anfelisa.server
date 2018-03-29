@@ -24,7 +24,6 @@ public class CardInfoModel implements ICardInfoModel {
 	private Integer quality;
 	
 
-
 	public CardInfoModel(
 		@JsonProperty("cardId") Integer cardId,
 		@JsonProperty("cardOfBoxId") Integer cardOfBoxId,
@@ -110,7 +109,6 @@ public class CardInfoModel implements ICardInfoModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

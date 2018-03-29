@@ -17,7 +17,8 @@ public class MyTestMapper implements ResultSetMapper<IMyTestModel> {
 			r.getString("name"),
 			r.getInt("sequence"),
 			r.getInt("resultCount"),
-			r.getBoolean("hasResults")
+			r.getBoolean("hasResults"),
+			null
 		);
 	}
 }

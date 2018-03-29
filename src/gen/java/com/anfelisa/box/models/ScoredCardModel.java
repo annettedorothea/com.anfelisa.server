@@ -29,7 +29,6 @@ public class ScoredCardModel implements IScoredCardModel {
 	private Integer scheduledCardId;
 	
 
-
 	public ScoredCardModel(
 		@JsonProperty("scoredCardId") Integer scoredCardId,
 		@JsonProperty("cardId") Integer cardId,
@@ -115,7 +114,6 @@ public class ScoredCardModel implements IScoredCardModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

@@ -17,7 +17,8 @@ public class CardContentMapper implements ResultSetMapper<ICardContentModel> {
 			r.getString("given"),
 			r.getBoolean("large"),
 			r.getString("wanted"),
-			r.getString("header")
+			r.getString("header"),
+			null
 		);
 	}
 }

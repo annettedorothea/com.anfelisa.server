@@ -20,7 +20,6 @@ public class UserUpdateModel implements IUserUpdateModel {
 	private String email;
 	
 
-
 	public UserUpdateModel(
 		@JsonProperty("username") String username,
 		@JsonProperty("name") String name,
@@ -66,7 +65,6 @@ public class UserUpdateModel implements IUserUpdateModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

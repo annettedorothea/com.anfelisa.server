@@ -7,7 +7,6 @@ public interface ICourseSelectionModel {
 
 	java.util.List<Integer> getCourseIdList();
 
-
 }
 
 /*       S.D.G.       */

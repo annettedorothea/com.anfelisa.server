@@ -7,7 +7,6 @@ public interface IScheduledCardIdModel {
 
 	Integer getScheduledCardId();
 
-
 }
 
 /*       S.D.G.       */

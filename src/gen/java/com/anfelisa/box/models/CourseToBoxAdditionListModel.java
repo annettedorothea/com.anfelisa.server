@@ -13,16 +13,17 @@ public class CourseToBoxAdditionListModel implements ICourseToBoxAdditionListMod
 	@NotNull
 	private String boxName;
 	
-
 	private java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> courseToBoxAdditionList;
 	
 
 	public CourseToBoxAdditionListModel(
 		@JsonProperty("boxId") Integer boxId,
-		@JsonProperty("boxName") String boxName
+		@JsonProperty("boxName") String boxName,
+		@JsonProperty("courseToBoxAdditionList") java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> courseToBoxAdditionList
 	) {
 		this.boxId = boxId;
 		this.boxName = boxName;
+		this.courseToBoxAdditionList = courseToBoxAdditionList;
 	}
 
 	@JsonProperty
@@ -41,7 +42,6 @@ public class CourseToBoxAdditionListModel implements ICourseToBoxAdditionListMod
 		this.boxName = boxName;
 	}
 	
-
 	@JsonProperty
 	public java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> getCourseToBoxAdditionList() {
 		return this.courseToBoxAdditionList;
@@ -50,7 +50,7 @@ public class CourseToBoxAdditionListModel implements ICourseToBoxAdditionListMod
 		this.courseToBoxAdditionList = courseToBoxAdditionList;
 	}
 	
-		
+
 }
 
 /*       S.D.G.       */

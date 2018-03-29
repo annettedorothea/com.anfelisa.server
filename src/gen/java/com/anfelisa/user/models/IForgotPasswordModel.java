@@ -11,7 +11,6 @@ public interface IForgotPasswordModel {
 	String getPrename();
 	String getPassword();
 
-
 }
 
 /*       S.D.G.       */

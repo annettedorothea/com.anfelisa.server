@@ -7,7 +7,6 @@ public interface IDaysBehindModel {
 
 	Integer getDaysBehind();
 
-
 }
 
 /*       S.D.G.       */

@@ -23,8 +23,7 @@ public abstract class AbstractRegisterUserCommand extends Command<UserRegistrati
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.user.events.UserRegisteredEvent(this.commandData, databaseHandle).publish();
-			new com.anfelisa.user.events.SendRegistrationEmailEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.user.events.RegisterUserOkEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

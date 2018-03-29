@@ -23,11 +23,15 @@ public class ReinforceCardListData implements IReinforceCardListData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer boxId;
 	
 	@NotNull
 	private String boxName;
+	
+	private java.util.List<com.anfelisa.box.models.IReinforceCardModel> list;
 	
 	private String credentialsUsername;
 	
@@ -40,15 +44,12 @@ public class ReinforceCardListData implements IReinforceCardListData {
 	private String username;
 	
 
-	private java.util.List<com.anfelisa.box.models.IReinforceCardModel> list;
-	
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public ReinforceCardListData(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("boxName") String boxName,
+		@JsonProperty("list") java.util.List<com.anfelisa.box.models.IReinforceCardModel> list,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole,
 		@JsonProperty("name") String name,
@@ -57,11 +58,13 @@ public class ReinforceCardListData implements IReinforceCardListData {
 	) {
 		this.boxId = boxId;
 		this.boxName = boxName;
+		this.list = list;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.name = name;
 		this.username = username;
 		this.uuid = uuid;
+		
 	}
 
 	public ReinforceCardListData( String uuid ) {
@@ -89,6 +92,18 @@ public class ReinforceCardListData implements IReinforceCardListData {
 	}
 	public ReinforceCardListData withBoxName(String boxName) {
 		this.boxName = boxName;
+		return this;
+	}
+	
+	@JsonProperty
+	public java.util.List<com.anfelisa.box.models.IReinforceCardModel> getList() {
+		return this.list;
+	}
+	public void setList(java.util.List<com.anfelisa.box.models.IReinforceCardModel> list) {
+		this.list = list;
+	}
+	public ReinforceCardListData withList(java.util.List<com.anfelisa.box.models.IReinforceCardModel> list) {
+		this.list = list;
 		return this;
 	}
 	
@@ -140,16 +155,6 @@ public class ReinforceCardListData implements IReinforceCardListData {
 		return this;
 	}
 	
-	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IReinforceCardModel> getList() {
-		return this.list;
-	}
-	public void setList(java.util.List<com.anfelisa.box.models.IReinforceCardModel> list) {
-		this.list = list;
-	}
-	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -183,6 +188,31 @@ public class ReinforceCardListData implements IReinforceCardListData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new ReinforceCardListPresentationalData(
+			this.boxId,
+			this.boxName,
+			this.list,
+			this.credentialsUsername,
+			this.credentialsRole,
+			this.name,
+			this.username
+		);
 	}
 
 }

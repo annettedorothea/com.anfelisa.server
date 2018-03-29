@@ -22,27 +22,43 @@ public class SimpleTestListData implements ISimpleTestListData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
+	private java.util.List<com.anfelisa.test.models.ITestModel> testList;
+	
 	@NotNull
 	private Integer lessonId;
 	
 
-	private java.util.List<com.anfelisa.test.models.ITestModel> testList;
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public SimpleTestListData(
+		@JsonProperty("testList") java.util.List<com.anfelisa.test.models.ITestModel> testList,
 		@JsonProperty("lessonId") Integer lessonId
 ,		@JsonProperty("uuid") String uuid
 	) {
+		this.testList = testList;
 		this.lessonId = lessonId;
 		this.uuid = uuid;
+		
 	}
 
 	public SimpleTestListData( String uuid ) {
 		this.uuid = uuid;
 	}
 
+	@JsonProperty
+	public java.util.List<com.anfelisa.test.models.ITestModel> getTestList() {
+		return this.testList;
+	}
+	public void setTestList(java.util.List<com.anfelisa.test.models.ITestModel> testList) {
+		this.testList = testList;
+	}
+	public SimpleTestListData withTestList(java.util.List<com.anfelisa.test.models.ITestModel> testList) {
+		this.testList = testList;
+		return this;
+	}
+	
 	@JsonProperty
 	public Integer getLessonId() {
 		return this.lessonId;
@@ -54,15 +70,6 @@ public class SimpleTestListData implements ISimpleTestListData {
 		this.lessonId = lessonId;
 		return this;
 	}
-	
-	@JsonProperty
-	public java.util.List<com.anfelisa.test.models.ITestModel> getTestList() {
-		return this.testList;
-	}
-	public void setTestList(java.util.List<com.anfelisa.test.models.ITestModel> testList) {
-		this.testList = testList;
-	}
-	
 	
 
 	@JsonProperty
@@ -97,6 +104,26 @@ public class SimpleTestListData implements ISimpleTestListData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new SimpleTestListPresentationalData(
+			this.testList,
+			this.lessonId
+		);
 	}
 
 }

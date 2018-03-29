@@ -2,353 +2,74 @@ com.anfelisa.box
 
 target JAVA
 
-models {
-	schema public
-	persistent Box {
-		primitiveAttributes {
-			Unique PrimaryKey NotNull Serial boxId
-			NotNull String name
-			NotNull String username references com.anfelisa.user.User.username
-		}
-	}
-
-	persistent BoxOfCourse {
-		primitiveAttributes {
-			NotNull Integer boxId references Box.boxId
-			NotNull Integer courseId references com.anfelisa.course.Course.courseId
-			NotNull Boolean autoAdd
-		}
-	}
-
-	persistent Card {
-		primitiveAttributes {
-			Unique PrimaryKey NotNull Serial cardId
-			NotEmpty String content
-			NotNull Integer testId references com.anfelisa.test.Test.testId
-			NotNull String contentHash
-			NotNull Integer maxPoints
-		}
-	}
-
-	persistent ScheduledCard {
-		primitiveAttributes {
-			Unique PrimaryKey NotNull Serial scheduledCardId
-			NotNull Integer cardId references Card.cardId
-			NotNull Float ef
-			Integer interval
-			NotNull Integer n
-			NotNull Integer count
-			NotNull DateTime scheduledDate
-			NotNull Integer boxId references Box.boxId
-			Integer lastQuality
-			NotNull DateTime timestamp
-			NotNull Boolean removed
-		}
-	}
-
-	persistent ScoredCard {
-		primitiveAttributes {
-			Unique PrimaryKey NotNull Serial scoredCardId
-			NotNull Integer cardId references Card.cardId
-			DateTime scheduledDateOfScored
-			NotNull Integer boxId references Box.boxId
-			Integer quality
-			NotNull DateTime timestamp
-			Integer points
-			NotNull Integer scheduledCardId references ScheduledCard.scheduledCardId
-		}
-	}
-
-	ReinforceCard {
-		primitiveAttributes {
-			Unique PrimaryKey NotNull Serial scheduledCardId
-			NotNull DateTime scheduledDate
-			Integer lastQuality
-			NotNull DateTime timestamp
-		}
-		complexAttributes {
-			CardContent cardContent
-		}
-	}
-	
-	ReinforceCardList {
-		primitiveAttributes {
-			NotNull Integer boxId
-			NotNull String boxName
-		}
-		complexAttributes {
-			List ReinforceCard list
-		}
-	}
-
-	Score {
-		primitiveAttributes {
-			Integer cards
-			Integer cardsForToday
-			Integer cardsForTomorrow
-			Integer cardsToBeReinforced
-			Integer zero
-			Integer one
-			Integer two
-			Integer three
-			Integer four
-			Integer five
-			Integer noQuality
-		}
-	}
-
-	CardInfo {
-		primitiveAttributes {
-			Integer cardId
-			Integer cardOfBoxId
-			String content
-			String boxName
-			Integer count
-			DateTime last
-			DateTime next
-			Integer quality
-		}
-	}
-	
-	BoxInfo {
-		primitiveAttributes {
-			Integer todaysCards
-			Boolean hasOpenCards
-		}
-		complexAttributes {
-			Box box
-		}
-	}
-		
-	BoxList {
-		complexAttributes {
-			List BoxInfo boxList
-		}
-	}
-		
-	MyBoxList {
-		complexAttributes {
-			List Box boxList
-		}
-	}
-		
-	CardContent {
-		primitiveAttributes {
-			Boolean complex
-			String given
-			Boolean large
-			String wanted
-			String header
-		}
-		complexAttributes {
-			List Line lines
-		}
-	}
-	
-	Line {
-		primitiveAttributes {
-			List String words
-		}
-	}
-	
-	CourseToBoxAddition {
-		primitiveAttributes {
-			NotNull Integer boxId 
-			NotNull Integer courseId 
-			NotNull Boolean autoAdd
-			NotNull String name
-		}
-		
-	}
-	
-	CourseToBoxAdditionList {
-		primitiveAttributes {
-			NotNull Integer boxId 
-			NotNull String boxName 
-		}
-		complexAttributes {
-			List CourseToBoxAddition courseToBoxAdditionList
-		}
-	}
-	
-	BoxId {
-		primitiveAttributes {
-			NotNull Integer boxId 
-		}
-	}
-	
-	CardId {
-		primitiveAttributes {
-			NotNull Integer cardId
-			NotNull Integer testId
-			NotNull String contentHash 
-		}
-	}
-	
-	BoxConfig {
-		primitiveAttributes {
-			NotNull Integer boxId 
-		}
-		complexAttributes {
-			List BoxOfCourse boxOfCourseList
-			List BoxOfCourse existingItems
-		}
-	}
-	
-	CardQuality {
-		primitiveAttributes {
-			NotNull Integer submittedQuality
-		}
-	}
-	
-	ContentHash {
-		primitiveAttributes {
-			NotNull String contentHash
-		}
-	}
-	ContentHashesOfCreatedCards {
-		primitiveAttributes {
-			NotNull Integer testId
-			List String contentHashesOfCreatedCards
-			List String contentHashesOfObsoleteCards
-		}
-	}
-	
-	FillBox {
-		primitiveAttributes {
-			Integer boxId
-		}
-		complexAttributes {
-			List ScheduledCard cardsToBeAdded
-		}
-	}
-	
-	AllBoxes {
-		complexAttributes {
-			List Box boxList
-		}
-	}
-	
-	ScheduledCardId {
-		primitiveAttributes {
-			Integer scheduledCardId
-		}
-	}
-	DaysBehind {
-		primitiveAttributes {
-			Integer daysBehind
-		}
-	}
-}
-
-data {
-	BoxCreation : ( Box com.anfelisa.user.Credentials )
-	BoxToCourseAddition : ( BoxOfCourse com.anfelisa.user.Credentials )
-	CardCreation : ( Card )
-	ScheduledCard : ( ScheduledCard )
-	ScoredCard : ( ScoredCard )
-	BoxList : ( BoxList com.anfelisa.user.Username )
-	Card : ( Card Box Score CardInfo CardContent com.anfelisa.user.Credentials DaysBehind )
-	BoxId : ( Box com.anfelisa.user.Credentials )
-	BoxOfCourseList : (CourseToBoxAdditionList com.anfelisa.user.Credentials)
-	DeleteBox : (BoxId com.anfelisa.user.Credentials)
-	BoxConfig : (BoxConfig com.anfelisa.user.Username com.anfelisa.user.Credentials)
-	ScoreCard : (Card ScheduledCard ScoredCard CardQuality com.anfelisa.user.Credentials )
-	FillBox : (FillBox com.anfelisa.user.Credentials)
-	CardId : (CardId)
-	AllBoxes : (AllBoxes)
-	ScheduledCardId : (ScheduledCardId)
-	ReinforceCardList : (ReinforceCardList com.anfelisa.user.Credentials Box)
-	RecalculateScheduledCards : (Box DaysBehind)
-	RemoveCardFromBox : (ScheduledCardId com.anfelisa.user.Credentials)
-}
-
-actions {
-	POST CreateBox uses BoxCreation executes CreateBox
-	POST CreateCard uses CardCreation executes CreateCard
-	POST ImportCard uses CardCreation executes ImportCard
-	POST CreateScheduledCard uses ScheduledCard executes CreateScheduledCard
-	POST CreateScoredCard uses ScoredCard executes CreateScoredCard
-	POST AddCourseToBox uses BoxToCourseAddition executes AddCourseToBox
+ACE {
 	GET LoadBoxes uses BoxList
 	GET LoadNextCard uses Card
-	PUT UpdateBox uses BoxCreation executes UpdateBox
 	GET LoadBox uses BoxId
 	GET LoadBoxOfCourseList uses BoxOfCourseList
-	DELETE DeleteBox uses DeleteBox executes DeleteBox
-	PUT SaveBoxConfig uses BoxConfig executes SaveBoxConfig
-	POST ScoreCard uses ScoreCard executes ScoreCard
-	POST FillBoxWithCards uses FillBox executes FillBoxWithCards
-	DELETE DeleteCard uses CardId executes DeleteCard
 	GET GetAllBoxes uses AllBoxes
-	DELETE RemoveCardFromBox uses RemoveCardFromBox executes RemoveCardFromBox
 	GET LoadReinforceCardList uses ReinforceCardList
-	PUT RecalculateScheduledCards uses RecalculateScheduledCards executes RecalculateScheduledCards
+	
+	POST CreateBox uses BoxCreation {
+		on created ( Box.createBox )
+	}
+	POST CreateCard uses CardCreation {
+		on created (Card.createCard)
+	}
+	POST ImportCard uses CardCreation {
+		on imported (Card.createCard)
+		on alreadyExists
+	}
+	POST CreateScheduledCard uses ScheduledCard {
+		on created (ScheduledCard.createScheduledCard)
+	}
+	POST CreateScoredCard uses ScoredCard {
+		on created (ScoredCard.createScoredCard)
+	}
+	POST AddCourseToBox uses BoxToCourseAddition {
+		on added ( BoxToCourse.addCourseToBox  )
+	}
+	PUT UpdateBox uses BoxCreation {
+		on updated ( Box.updateBox )
+	}
+	DELETE DeleteBox uses DeleteBox {
+		on deleted (Box.deleteBox)
+	}
+	PUT SaveBoxConfig uses BoxConfig {
+		on saved (BoxToCourse.saveBoxConfig)
+	}
+	POST ScoreCard uses ScoreCard {
+		on scored (ScoredCard.score ScheduledCard.score)
+	}
+	POST FillBoxWithCards uses FillBox {
+		on fillBoxWithCards (Box.fillBoxWithCards )
+	}
+	DELETE DeleteCard uses CardId {
+		on deleted (Card.deleteCard)
+	}
+	DELETE RemoveCardFromBox uses RemoveCardFromBox {
+		on deleted (ScheduledCard.removeFromBox)
+	}
+	PUT RecalculateScheduledCards uses RecalculateScheduledCards {
+		on ok (ScheduledCard.recalculateScheduledCards)
+	}
+}
+/*
+actions {
 }
 
 commands {
-	CreateBox uses BoxCreation {
-		on created publishes ( BoxCreated )
-	}
-	CreateCard uses CardCreation {
-		on created publishes (CardCreated)
-	}
-	ImportCard uses CardCreation {
-		on imported publishes (CardImported)
-		on alreadyExists
-	}
-	CreateScheduledCard uses ScheduledCard {
-		on created publishes (ScheduledCardCreated)
-	}
-	CreateScoredCard uses ScoredCard {
-		on created publishes (ScoredCardCreated)
-	}
-	AddCourseToBox uses BoxToCourseAddition {
-		on added publishes ( CourseAddedToBox )
-	}
-	UpdateBox uses BoxCreation {
-		on created publishes ( BoxUpdated )
-	}
-	DeleteBox uses DeleteBox {
-		on deleted publishes (BoxDeleted)
-	}
-	SaveBoxConfig uses BoxConfig {
-		on saved publishes (BoxConfigSaved)
-	}
-	ScoreCard uses ScoreCard {
-		on scored publishes (CardScored)
-	}
-	FillBoxWithCards uses FillBox {
-		on fillBoxWithCards publishes (FillBoxWithCards)
-	}
-	DeleteCard uses CardId {
-		on deleted publishes (CardDeleted)
-	}
 	RemoveCardFromBox uses RemoveCardFromBox {
-		on deleted publishes (CardRemovedFromBox)
 	}
 	RecalculateScheduledCards uses RecalculateScheduledCards {
-		on ok publishes (RecalculateScheduledCards)
 	}
 }
 
 events {
-	BoxCreated uses BoxCreation listenedToBy ( Box.createBox )
-	CardCreated uses CardCreation listenedToBy ( Card.createCard )
-	ScheduledCardCreated uses ScheduledCard listenedToBy (ScheduledCard.createScheduledCard)
-	ScoredCardCreated uses ScoredCard listenedToBy (ScoredCard.createScoredCard)
-	CourseAddedToBox uses BoxToCourseAddition listenedToBy ( BoxToCourse.addCourseToBox )
-	BoxUpdated uses BoxCreation listenedToBy ( Box.updateBox )
-	BoxDeleted uses DeleteBox  listenedToBy (Box.deleteBox)
-	BoxConfigSaved uses BoxConfig listenedToBy (BoxToCourse.saveBoxConfig)
-	CardScored uses ScoreCard listenedToBy (ScoredCard.score ScheduledCard.score)
-	CardImported uses CardCreation listenedToBy ( Card.createCard )
-	FillBoxWithCards uses FillBox listenedToBy ( Box.fillBoxWithCards )
-	CardDeleted uses CardId listenedToBy (Card.deleteCard)
-	CardRemovedFromBox uses RemoveCardFromBox listenedToBy (ScheduledCard.removeFromBox)
 	RecalculateScheduledCards uses RecalculateScheduledCards listenedToBy (ScheduledCard.recalculateScheduledCards)
 }
 
+*/
 views {
 	Box {
 		createBox (BoxCreation)
@@ -374,4 +95,198 @@ views {
 		score(ScoreCard)
 		createScoredCard(ScoredCard)
 	}
+}
+
+models {
+	schema public
+	persistent Box {
+		Unique PrimaryKey NotNull Serial boxId
+		NotNull String name
+		NotNull String username references com.anfelisa.user.User.username
+	}
+
+	persistent BoxOfCourse {
+		NotNull Integer boxId references Box.boxId
+		NotNull Integer courseId references com.anfelisa.course.Course.courseId
+		NotNull Boolean autoAdd
+	}
+
+	persistent Card {
+		Unique PrimaryKey NotNull Serial cardId
+		NotEmpty String content
+		NotNull Integer testId references com.anfelisa.test.Test.testId
+		NotNull String contentHash
+		NotNull Integer maxPoints
+	}
+
+	persistent ScheduledCard {
+		Unique PrimaryKey NotNull Serial scheduledCardId
+		NotNull Integer cardId references Card.cardId
+		NotNull Float ef
+		Integer interval
+		NotNull Integer n
+		NotNull Integer count
+		NotNull DateTime scheduledDate
+		NotNull Integer boxId references Box.boxId
+		Integer lastQuality
+		NotNull DateTime timestamp
+		NotNull Boolean removed
+	}
+
+	persistent ScoredCard {
+		Unique PrimaryKey NotNull Serial scoredCardId
+		NotNull Integer cardId references Card.cardId
+		DateTime scheduledDateOfScored
+		NotNull Integer boxId references Box.boxId
+		Integer quality
+		NotNull DateTime timestamp
+		Integer points
+		NotNull Integer scheduledCardId references ScheduledCard.scheduledCardId
+	}
+
+	ReinforceCard {
+		Unique PrimaryKey NotNull Serial scheduledCardId
+		NotNull DateTime scheduledDate
+		Integer lastQuality
+		NotNull DateTime timestamp			
+		CardContent cardContent
+	}
+	
+	ReinforceCardList {
+		NotNull Integer boxId
+		NotNull String boxName
+		List ReinforceCard list
+	}
+
+	Score {
+		Integer cards
+		Integer cardsForToday
+		Integer cardsForTomorrow
+		Integer cardsToBeReinforced
+		Integer zero
+		Integer one
+		Integer two
+		Integer three
+		Integer four
+		Integer five
+		Integer noQuality
+	}
+
+	CardInfo {
+		Integer cardId
+		Integer cardOfBoxId
+		String content
+		String boxName
+		Integer count
+		DateTime last
+		DateTime next
+		Integer quality
+	}
+	
+	BoxInfo {
+		Integer todaysCards
+		Boolean hasOpenCards
+		Box box
+	}
+		
+	BoxList {
+		List BoxInfo boxList
+	}
+		
+	MyBoxList {
+		List Box boxList
+	}
+		
+	CardContent {
+		Boolean complex
+		String given
+		Boolean large
+		String wanted
+		String header
+		List Line lines
+	}
+	
+	Line {
+		List String words
+	}
+	
+	CourseToBoxAddition {
+		NotNull Integer boxId 
+		NotNull Integer courseId 
+		NotNull Boolean autoAdd
+		NotNull String name
+	}
+	
+	CourseToBoxAdditionList {
+		NotNull Integer boxId 
+		NotNull String boxName 
+		List CourseToBoxAddition courseToBoxAdditionList
+	}
+	
+	BoxId {
+		NotNull Integer boxId 
+	}
+	
+	CardId {
+		NotNull Integer cardId
+		NotNull Integer testId
+		NotNull String contentHash 
+	}
+	
+	BoxConfig {
+		NotNull Integer boxId 
+		List BoxOfCourse boxOfCourseList
+		List BoxOfCourse existingItems
+	}
+	
+	CardQuality {
+		NotNull Integer submittedQuality
+	}
+	
+	ContentHash {
+		NotNull String contentHash
+	}
+	ContentHashesOfCreatedCards {
+		NotNull Integer testId
+		List String contentHashesOfCreatedCards
+		List String contentHashesOfObsoleteCards
+	}
+	
+	FillBox {
+		Integer boxId
+		List ScheduledCard cardsToBeAdded
+	}
+	
+	AllBoxes {
+		List Box boxList
+	}
+	
+	ScheduledCardId {
+		Integer scheduledCardId
+	}
+	DaysBehind {
+		Integer daysBehind
+	}
+}
+
+data {
+	BoxCreation : ( Box com.anfelisa.user.Credentials )
+	BoxToCourseAddition : ( BoxOfCourse com.anfelisa.user.Credentials )
+	CardCreation : ( Card )
+	ScheduledCard : ( ScheduledCard )
+	ScoredCard : ( ScoredCard )
+	BoxList : ( BoxList com.anfelisa.user.Username )
+	Card : ( Card Box Score CardInfo CardContent com.anfelisa.user.Credentials DaysBehind )
+	BoxId : ( Box com.anfelisa.user.Credentials )
+	BoxOfCourseList : (CourseToBoxAdditionList com.anfelisa.user.Credentials)
+	DeleteBox : (BoxId com.anfelisa.user.Credentials)
+	BoxConfig : (BoxConfig com.anfelisa.user.Username com.anfelisa.user.Credentials)
+	ScoreCard : (Card ScheduledCard ScoredCard CardQuality com.anfelisa.user.Credentials )
+	FillBox : (FillBox com.anfelisa.user.Credentials)
+	CardId : (CardId)
+	AllBoxes : (AllBoxes)
+	ScheduledCardId : (ScheduledCardId)
+	ReinforceCardList : (ReinforceCardList com.anfelisa.user.Credentials Box)
+	RecalculateScheduledCards : (Box DaysBehind)
+	RemoveCardFromBox : (ScheduledCardId com.anfelisa.user.Credentials)
 }

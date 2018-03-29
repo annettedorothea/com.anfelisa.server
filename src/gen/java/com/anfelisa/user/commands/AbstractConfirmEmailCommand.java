@@ -23,7 +23,7 @@ public abstract class AbstractConfirmEmailCommand extends Command<UsernameData> 
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.user.events.EmailConfirmedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.user.events.ConfirmEmailOkEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

@@ -2,96 +2,128 @@ com.anfelisa.course
 
 target JAVA
 
+ACE {
+	GET LoadPublicCourses uses CourseList
+	GET LoadPrivateCourses uses MyCourseList
+	GET LoadStatistics uses Statistics
+	GET GetCourse uses Course
+	GET LoadAllCourses uses CourseList
+
+	POST CreateCourse uses CourseCreation {
+		on created ( Course.createCourse )
+	}
+	POST AddStudentToCourse uses StudentToCourseAddition {
+		on added ( StudentOfCourse.addStudentToCourse)
+	}
+	PUT UpdateCourse uses Course {
+		on updated (Course.updateCourse)
+	}
+	DELETE DeleteCourse uses CourseId {
+		on deleted (Course.deleteCourse)
+	}
+}
+
+/*
+actions {
+}
+
+commands {
+	CreateCourse uses CourseCreation {
+	}
+	AddStudentToCourse uses StudentToCourseAddition {
+	}
+	UpdateCourse uses Course {
+	}
+	DeleteCourse uses CourseId {
+	}
+}
+
+events {
+	CourseDeleted uses CourseId listenedToBy (Course.deleteCourse)
+}
+
+*/
+views {
+	Course {
+		createCourse (CourseCreation)
+		updateCourse(Course)
+		deleteCourse(CourseId)
+	}
+	StudentOfCourse {
+		addStudentToCourse (StudentToCourseAddition)
+	}
+}
+
 models {
 	schema public
 	persistent Course {
-		primitiveAttributes {
-			Unique PrimaryKey NotNull Serial courseId
-			NotNull String name
-			String description
-			Integer sequence
-			NotNull Boolean isPublic
-			NotNull String author references com.anfelisa.user.User.username
-		}
+		Unique PrimaryKey NotNull Serial courseId
+		NotNull String name
+		String description
+		Integer sequence
+		NotNull Boolean isPublic
+		NotNull String author references com.anfelisa.user.User.username
 	}
 
 	persistent StudentOfCourse {
-		primitiveAttributes {
-			NotNull String username references com.anfelisa.user.User.username
-			NotNull Integer courseId references Course.courseId
-		}
+		NotNull String username references com.anfelisa.user.User.username
+		NotNull Integer courseId references Course.courseId
 	} 
 
 	CourseAbstract {
-		primitiveAttributes {
-			NotNull String courseName
-			String courseDescription
-			NotNull Boolean isPublic
-			NotNull String courseAuthor
-			NotNull Integer courseId
-		}
+		NotNull String courseName
+		String courseDescription
+		NotNull Boolean isPublic
+		NotNull String courseAuthor
+		NotNull Integer courseId
 	} 
 
 	MyCourse {
-		primitiveAttributes {
-			NotNull Integer courseId
-			NotNull String name
-			String description
-			Integer sequence
-			NotNull Boolean isPublic
-			NotNull String author
-			NotNull Integer openTests
-			NotNull Boolean hasOpenTests
-		}
+		NotNull Integer courseId
+		NotNull String name
+		String description
+		Integer sequence
+		NotNull Boolean isPublic
+		NotNull String author
+		NotNull Integer openTests
+		NotNull Boolean hasOpenTests
 	}
 
 	Statistics {
-		primitiveAttributes {
-			NotNull String username
-			NotNull Integer year
-			NotNull Integer month
-			NotNull Integer points
-			NotNull Integer maxPoints
-			NotNull Integer rate
-		}
+		NotNull String username
+		NotNull Integer year
+		NotNull Integer month
+		NotNull Integer points
+		NotNull Integer maxPoints
+		NotNull Integer rate
 	}
 
 	StatisticsItem {
-		primitiveAttributes {
-			NotNull String type
-			NotNull Boolean isBox
-			NotNull Integer count
-			NotNull Integer day
-			NotNull String name
-			NotNull Integer points
-			NotNull Integer maxPoints
-			NotNull Integer rate
-		}
+		NotNull String type
+		NotNull Boolean isBox
+		NotNull Integer count
+		NotNull Integer day
+		NotNull String name
+		NotNull Integer points
+		NotNull Integer maxPoints
+		NotNull Integer rate
 	} 
 		
 	CourseId {
-		primitiveAttributes {
-			NotNull Integer courseId
-		}
+		NotNull Integer courseId
 	}
 
 		
 	CourseList {
-		complexAttributes {
-			List Course courseList
-		}
+		List Course courseList
 	}
 		
 	MyCourseList {
-		complexAttributes {
-			List MyCourse myCourseList
-		}
+		List MyCourse myCourseList
 	}
 		
 	StatisticsItemList {
-		complexAttributes {
-			List StatisticsItem statisticsItemList
-		}
+		List StatisticsItem statisticsItemList
 	}
 }
 
@@ -104,49 +136,3 @@ data {
 	Course : (Course)
 	CourseId : (CourseId)
 }
-
-actions {
-	POST CreateCourse uses CourseCreation executes CreateCourse
-	POST AddStudentToCourse uses StudentToCourseAddition executes AddStudentToCourse
-	GET LoadPublicCourses uses CourseList
-	GET LoadPrivateCourses uses MyCourseList
-	GET LoadStatistics uses Statistics
-	GET GetCourse uses Course
-	PUT UpdateCourse uses Course executes UpdateCourse
-	DELETE DeleteCourse uses CourseId executes DeleteCourse
-	GET LoadAllCourses uses CourseList
-}
-
-commands {
-	CreateCourse uses CourseCreation {
-		on created publishes ( CourseCreated )
-	}
-	AddStudentToCourse uses StudentToCourseAddition {
-		on added publishes ( StudentAddedToCourse)
-	}
-	UpdateCourse uses Course {
-		on updated publishes (CourseUpdated)
-	}
-	DeleteCourse uses CourseId {
-		on deleted publishes (CourseDeleted)
-	}
-}
-
-events {
-	CourseCreated uses CourseCreation listenedToBy ( Course.createCourse )
-	StudentAddedToCourse uses StudentToCourseAddition listenedToBy (StudentOfCourse.addStudentToCourse)
-	CourseUpdated uses Course listenedToBy (Course.updateCourse)
-	CourseDeleted uses CourseId listenedToBy (Course.deleteCourse)
-}
-
-views {
-	Course {
-		createCourse (CourseCreation)
-		updateCourse(Course)
-		deleteCourse(CourseId)
-	}
-	StudentOfCourse {
-		addStudentToCourse (StudentToCourseAddition)
-	}
-}
-

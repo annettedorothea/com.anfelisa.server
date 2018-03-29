@@ -21,6 +21,8 @@ public class CourseData implements ICourseData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer courseId;
 	
@@ -38,7 +40,6 @@ public class CourseData implements ICourseData {
 	private String author;
 	
 
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public CourseData(
@@ -57,6 +58,7 @@ public class CourseData implements ICourseData {
 		this.isPublic = isPublic;
 		this.author = author;
 		this.uuid = uuid;
+		
 	}
 
 	public CourseData( String uuid ) {
@@ -135,7 +137,6 @@ public class CourseData implements ICourseData {
 		return this;
 	}
 	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -169,6 +170,30 @@ public class CourseData implements ICourseData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new CoursePresentationalData(
+			this.courseId,
+			this.name,
+			this.description,
+			this.sequence,
+			this.isPublic,
+			this.author
+		);
 	}
 
 }

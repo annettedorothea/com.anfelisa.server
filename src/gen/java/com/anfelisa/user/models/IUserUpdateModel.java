@@ -10,7 +10,6 @@ public interface IUserUpdateModel {
 	String getPrename();
 	String getEmail();
 
-
 }
 
 /*       S.D.G.       */

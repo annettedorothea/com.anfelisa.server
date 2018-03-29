@@ -1,0 +1,39 @@
+package com.anfelisa.user.commands;
+
+import javax.ws.rs.WebApplicationException;
+
+import com.anfelisa.ace.Command;
+import com.anfelisa.ace.DatabaseHandle;
+
+import com.anfelisa.user.data.UserInfoData;
+
+public abstract class AbstractGetUserInfoCommand extends Command<UserInfoData> {
+
+
+	public AbstractGetUserInfoCommand(UserInfoData commandParam, DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.commands.GetUserInfoCommand", commandParam, databaseHandle);
+	}
+
+	public AbstractGetUserInfoCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.commands.GetUserInfoCommand", null, databaseHandle);
+	}
+
+	@Override
+	public void publishEvents() {
+		switch (this.commandData.getOutcome()) {
+		default:
+			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+		}
+	}
+	
+	public void initCommandData(String json) {
+		try {
+			this.commandData = mapper.readValue(json, UserInfoData.class);
+		} catch (Exception e) {
+			throw new WebApplicationException(e);
+		}
+	}
+
+}
+
+/*       S.D.G.       */

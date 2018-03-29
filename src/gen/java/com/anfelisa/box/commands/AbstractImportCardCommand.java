@@ -24,7 +24,7 @@ public abstract class AbstractImportCardCommand extends Command<CardCreationData
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case imported:
-			new com.anfelisa.box.events.CardImportedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.box.events.ImportCardImportedEvent(this.commandData, databaseHandle).publish();
 			break;
 		case alreadyExists:
 			break;

@@ -13,6 +13,7 @@ public class MyBoxListMapper implements ResultSetMapper<IMyBoxListModel> {
 	
 	public IMyBoxListModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new MyBoxListModel(
+			null
 		);
 	}
 }

@@ -8,7 +8,6 @@ public interface ICredentialsModel {
 	String getCredentialsUsername();
 	String getCredentialsRole();
 
-
 }
 
 /*       S.D.G.       */

@@ -7,7 +7,6 @@ public interface ILineModel {
 
 	java.util.List<String> getWords();
 
-
 }
 
 /*       S.D.G.       */

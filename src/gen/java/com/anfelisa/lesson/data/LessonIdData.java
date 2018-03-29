@@ -21,11 +21,12 @@ public class LessonIdData implements ILessonIdData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer lessonId;
 	
 
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public LessonIdData(
@@ -34,6 +35,7 @@ public class LessonIdData implements ILessonIdData {
 	) {
 		this.lessonId = lessonId;
 		this.uuid = uuid;
+		
 	}
 
 	public LessonIdData( String uuid ) {
@@ -51,7 +53,6 @@ public class LessonIdData implements ILessonIdData {
 		this.lessonId = lessonId;
 		return this;
 	}
-	
 	
 
 	@JsonProperty
@@ -86,6 +87,25 @@ public class LessonIdData implements ILessonIdData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new LessonIdPresentationalData(
+			this.lessonId
+		);
 	}
 
 }

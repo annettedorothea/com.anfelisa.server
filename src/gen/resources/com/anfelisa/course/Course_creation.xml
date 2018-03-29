@@ -15,6 +15,6 @@
 		<constraints  nullable="false"  />
 	</column>
 	<column name="author" type="character varying">
-		<constraints  nullable="false" 	references="user(username)" deleteCascade="true" foreignKeyName="fk_course_user" />
+		<constraints  nullable="false" 	references="user(username)" deleteCascade="true" />
 	</column>
 </createTable>

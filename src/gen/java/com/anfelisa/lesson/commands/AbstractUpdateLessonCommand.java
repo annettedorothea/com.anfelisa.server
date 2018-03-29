@@ -23,7 +23,7 @@ public abstract class AbstractUpdateLessonCommand extends Command<LessonData> {
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case updated:
-			new com.anfelisa.lesson.events.LessonUpdatedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.lesson.events.UpdateLessonUpdatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

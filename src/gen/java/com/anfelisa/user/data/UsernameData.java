@@ -21,11 +21,12 @@ public class UsernameData implements IUsernameData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private String username;
 	
 
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public UsernameData(
@@ -34,6 +35,7 @@ public class UsernameData implements IUsernameData {
 	) {
 		this.username = username;
 		this.uuid = uuid;
+		
 	}
 
 	public UsernameData( String uuid ) {
@@ -51,7 +53,6 @@ public class UsernameData implements IUsernameData {
 		this.username = username;
 		return this;
 	}
-	
 	
 
 	@JsonProperty
@@ -86,6 +87,25 @@ public class UsernameData implements IUsernameData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new UsernamePresentationalData(
+			this.username
+		);
 	}
 
 }

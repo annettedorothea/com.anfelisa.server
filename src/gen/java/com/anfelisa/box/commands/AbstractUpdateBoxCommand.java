@@ -9,7 +9,7 @@ import com.anfelisa.box.data.BoxCreationData;
 
 public abstract class AbstractUpdateBoxCommand extends Command<BoxCreationData> {
 
-	protected static final String created = "created";
+	protected static final String updated = "updated";
 
 	public AbstractUpdateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle) {
 		super("com.anfelisa.box.commands.UpdateBoxCommand", commandParam, databaseHandle);
@@ -22,8 +22,8 @@ public abstract class AbstractUpdateBoxCommand extends Command<BoxCreationData> 
 	@Override
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
-		case created:
-			new com.anfelisa.box.events.BoxUpdatedEvent(this.commandData, databaseHandle).publish();
+		case updated:
+			new com.anfelisa.box.events.UpdateBoxUpdatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

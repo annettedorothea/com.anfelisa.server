@@ -10,7 +10,6 @@ public class DaysBehindModel implements IDaysBehindModel {
 	private Integer daysBehind;
 	
 
-
 	public DaysBehindModel(
 		@JsonProperty("daysBehind") Integer daysBehind
 	) {
@@ -26,7 +25,6 @@ public class DaysBehindModel implements IDaysBehindModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

@@ -11,7 +11,6 @@ public class TestIdModel implements ITestIdModel {
 	private Integer testId;
 	
 
-
 	public TestIdModel(
 		@JsonProperty("testId") Integer testId
 	) {
@@ -27,7 +26,6 @@ public class TestIdModel implements ITestIdModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

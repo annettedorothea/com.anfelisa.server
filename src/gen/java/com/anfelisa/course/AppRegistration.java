@@ -14,26 +14,22 @@ import com.anfelisa.course.actions.*;
 public class AppRegistration {
 
 	public static void registerResources(Environment environment, DBI jdbi) {
-		environment.jersey().register(new CreateCourseAction(jdbi));
-		environment.jersey().register(new AddStudentToCourseAction(jdbi));
 		environment.jersey().register(new LoadPublicCoursesAction(jdbi));
 		environment.jersey().register(new LoadPrivateCoursesAction(jdbi));
 		environment.jersey().register(new LoadStatisticsAction(jdbi));
 		environment.jersey().register(new GetCourseAction(jdbi));
+		environment.jersey().register(new LoadAllCoursesAction(jdbi));
+		environment.jersey().register(new CreateCourseAction(jdbi));
+		environment.jersey().register(new AddStudentToCourseAction(jdbi));
 		environment.jersey().register(new UpdateCourseAction(jdbi));
 		environment.jersey().register(new DeleteCourseAction(jdbi));
-		environment.jersey().register(new LoadAllCoursesAction(jdbi));
 	}
 
 	public static void registerConsumers() {
-		AceController.addConsumer("com.anfelisa.course.events.CourseCreatedEvent", CourseView.createCourse);
-
-		AceController.addConsumer("com.anfelisa.course.events.StudentAddedToCourseEvent", StudentOfCourseView.addStudentToCourse);
-
-		AceController.addConsumer("com.anfelisa.course.events.CourseUpdatedEvent", CourseView.updateCourse);
-
-		AceController.addConsumer("com.anfelisa.course.events.CourseDeletedEvent", CourseView.deleteCourse);
-
+				AceController.addConsumer("com.anfelisa.course.events.CreateCourseCreatedEvent", CourseView.createCourse);
+				AceController.addConsumer("com.anfelisa.course.events.AddStudentToCourseAddedEvent", StudentOfCourseView.addStudentToCourse);
+				AceController.addConsumer("com.anfelisa.course.events.UpdateCourseUpdatedEvent", CourseView.updateCourse);
+				AceController.addConsumer("com.anfelisa.course.events.DeleteCourseDeletedEvent", CourseView.deleteCourse);
     }
 }
 

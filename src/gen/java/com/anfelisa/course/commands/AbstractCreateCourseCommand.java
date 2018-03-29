@@ -23,7 +23,7 @@ public abstract class AbstractCreateCourseCommand extends Command<CourseCreation
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case created:
-			new com.anfelisa.course.events.CourseCreatedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.course.events.CreateCourseCreatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

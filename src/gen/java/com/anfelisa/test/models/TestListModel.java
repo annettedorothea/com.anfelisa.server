@@ -7,14 +7,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class TestListModel implements ITestListModel {
 
-
 	private java.util.List<com.anfelisa.test.models.ITestModel> testList;
 	
 
 	public TestListModel(
+		@JsonProperty("testList") java.util.List<com.anfelisa.test.models.ITestModel> testList
 	) {
+		this.testList = testList;
 	}
-
 
 	@JsonProperty
 	public java.util.List<com.anfelisa.test.models.ITestModel> getTestList() {
@@ -24,7 +24,7 @@ public class TestListModel implements ITestListModel {
 		this.testList = testList;
 	}
 	
-		
+
 }
 
 /*       S.D.G.       */

@@ -7,7 +7,6 @@ public interface IResultIdModel {
 
 	Integer getResultId();
 
-
 }
 
 /*       S.D.G.       */

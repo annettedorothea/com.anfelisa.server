@@ -9,7 +9,6 @@ public interface IBoxModel {
 	String getName();
 	String getUsername();
 
-
 }
 
 /*       S.D.G.       */

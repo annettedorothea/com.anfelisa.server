@@ -22,6 +22,8 @@ public class ForgotPasswordData implements IForgotPasswordData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private String username;
 	
@@ -41,8 +43,6 @@ public class ForgotPasswordData implements IForgotPasswordData {
 	private String language;
 	
 
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public ForgotPasswordData(
@@ -61,6 +61,7 @@ public class ForgotPasswordData implements IForgotPasswordData {
 		this.password = password;
 		this.language = language;
 		this.uuid = uuid;
+		
 	}
 
 	public ForgotPasswordData( String uuid ) {
@@ -139,8 +140,6 @@ public class ForgotPasswordData implements IForgotPasswordData {
 		return this;
 	}
 	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -174,6 +173,30 @@ public class ForgotPasswordData implements IForgotPasswordData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new ForgotPasswordPresentationalData(
+			this.username,
+			this.email,
+			this.name,
+			this.prename,
+			this.password,
+			this.language
+		);
 	}
 
 }

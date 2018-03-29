@@ -10,7 +10,6 @@ public interface IResultAbstractModel {
 	Integer getPoints();
 	Integer getMaxPoints();
 
-
 }
 
 /*       S.D.G.       */

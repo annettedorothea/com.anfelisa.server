@@ -14,7 +14,6 @@ public class StudentOfCourseModel implements IStudentOfCourseModel {
 	private Integer courseId;
 	
 
-
 	public StudentOfCourseModel(
 		@JsonProperty("username") String username,
 		@JsonProperty("courseId") Integer courseId
@@ -40,7 +39,6 @@ public class StudentOfCourseModel implements IStudentOfCourseModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

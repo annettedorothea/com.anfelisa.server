@@ -20,7 +20,6 @@ public class CourseToBoxAdditionModel implements ICourseToBoxAdditionModel {
 	private String name;
 	
 
-
 	public CourseToBoxAdditionModel(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("courseId") Integer courseId,
@@ -66,7 +65,6 @@ public class CourseToBoxAdditionModel implements ICourseToBoxAdditionModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

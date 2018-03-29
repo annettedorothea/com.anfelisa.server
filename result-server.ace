@@ -2,33 +2,46 @@ com.anfelisa.result
 
 target JAVA
 
+ACE {
+	GET LoadResult uses MyResult
+	
+	POST CreateResult uses ResultCreation {
+		on created ( Result.createResult )
+	}
+	POST SaveResult uses ResultSave {
+		on saved ( Result.saveResult Result.fillBoxWithCards )
+	}
+}
+
+views {
+	Result {
+		createResult (ResultCreation)
+		saveResult ( ResultSave )
+		fillBoxWithCards (ResultSave)
+	}
+}
+
 models {
 	schema public
 	persistent Result {
-		primitiveAttributes {
-			Unique PrimaryKey NotNull Serial resultId
-			NotNull String username references com.anfelisa.user.User.username
-			NotNull Integer testId references com.anfelisa.test.Test.testId
-			NotNull DateTime date
-			NotNull String json
-			NotNull Integer points
-			NotNull Integer maxPoints
-		}
+		Unique PrimaryKey NotNull Serial resultId
+		NotNull String username references com.anfelisa.user.User.username
+		NotNull Integer testId references com.anfelisa.test.Test.testId
+		NotNull DateTime date
+		NotNull String json
+		NotNull Integer points
+		NotNull Integer maxPoints
 	}
 
 	ResultAbstract {
-		primitiveAttributes {
-			NotNull Serial resultId
-			NotNull DateTime date
-			NotNull Integer points
-			NotNull Integer maxPoints
-		}
+		NotNull Serial resultId
+		NotNull DateTime date
+		NotNull Integer points
+		NotNull Integer maxPoints
 	}
 	
 	ResultId {
-		primitiveAttributes {
-			NotNull Serial resultId
-		}
+		NotNull Serial resultId
 	}
 	
 }
@@ -38,32 +51,4 @@ data {
 	ResultAbstract : ( ResultAbstract )
 	MyResult : ( Result com.anfelisa.test.Test com.anfelisa.lesson.LessonId com.anfelisa.lesson.LessonAbstract com.anfelisa.course.CourseAbstract com.anfelisa.test.MyTestList )
 	ResultSave : (Result com.anfelisa.box.FillBox com.anfelisa.user.Credentials)
-}
-
-actions {
-	POST CreateResult uses ResultCreation executes CreateResult
-	POST SaveResult uses ResultSave executes SaveResult
-	GET LoadResult uses MyResult
-}
-
-commands {
-	CreateResult uses ResultCreation {
-		on created publishes ( ResultCreated )
-	}
-	SaveResult uses ResultSave {
-		on saved publishes ( ResultSaved )
-	}
-}
-
-events {
-	ResultCreated uses ResultCreation listenedToBy ( Result.createResult )
-	ResultSaved uses ResultSave listenedToBy ( Result.saveResult Result.fillBoxWithCards)
-}
-
-views {
-	Result {
-		createResult (ResultCreation)
-		saveResult ( ResultSave )
-		fillBoxWithCards (ResultSave)
-	}
 }

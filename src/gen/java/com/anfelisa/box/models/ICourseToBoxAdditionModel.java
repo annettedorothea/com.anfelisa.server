@@ -10,7 +10,6 @@ public interface ICourseToBoxAdditionModel {
 	Boolean getAutoAdd();
 	String getName();
 
-
 }
 
 /*       S.D.G.       */

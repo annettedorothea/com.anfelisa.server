@@ -14,7 +14,6 @@ public class UsernameAndPasswordModel implements IUsernameAndPasswordModel {
 	private String password;
 	
 
-
 	public UsernameAndPasswordModel(
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password
@@ -40,7 +39,6 @@ public class UsernameAndPasswordModel implements IUsernameAndPasswordModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

@@ -22,27 +22,43 @@ public class BoxListData implements IBoxListData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
+	private java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList;
+	
 	@NotNull
 	private String username;
 	
 
-	private java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList;
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public BoxListData(
+		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList,
 		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid
 	) {
+		this.boxList = boxList;
 		this.username = username;
 		this.uuid = uuid;
+		
 	}
 
 	public BoxListData( String uuid ) {
 		this.uuid = uuid;
 	}
 
+	@JsonProperty
+	public java.util.List<com.anfelisa.box.models.IBoxInfoModel> getBoxList() {
+		return this.boxList;
+	}
+	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList) {
+		this.boxList = boxList;
+	}
+	public BoxListData withBoxList(java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList) {
+		this.boxList = boxList;
+		return this;
+	}
+	
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
@@ -54,15 +70,6 @@ public class BoxListData implements IBoxListData {
 		this.username = username;
 		return this;
 	}
-	
-	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxInfoModel> getBoxList() {
-		return this.boxList;
-	}
-	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList) {
-		this.boxList = boxList;
-	}
-	
 	
 
 	@JsonProperty
@@ -97,6 +104,26 @@ public class BoxListData implements IBoxListData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new BoxListPresentationalData(
+			this.boxList,
+			this.username
+		);
 	}
 
 }

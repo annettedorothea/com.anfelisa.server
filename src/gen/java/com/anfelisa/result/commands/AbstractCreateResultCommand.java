@@ -23,7 +23,7 @@ public abstract class AbstractCreateResultCommand extends Command<ResultCreation
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case created:
-			new com.anfelisa.result.events.ResultCreatedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.result.events.CreateResultCreatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

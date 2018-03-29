@@ -21,6 +21,8 @@ public class TestCreationData implements ITestCreationData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer testId;
 	
@@ -39,7 +41,6 @@ public class TestCreationData implements ITestCreationData {
 	private String author;
 	
 
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public TestCreationData(
@@ -58,6 +59,7 @@ public class TestCreationData implements ITestCreationData {
 		this.html = html;
 		this.author = author;
 		this.uuid = uuid;
+		
 	}
 
 	public TestCreationData( String uuid ) {
@@ -136,7 +138,6 @@ public class TestCreationData implements ITestCreationData {
 		return this;
 	}
 	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -170,6 +171,30 @@ public class TestCreationData implements ITestCreationData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new TestCreationPresentationalData(
+			this.testId,
+			this.name,
+			this.sequence,
+			this.lessonId,
+			this.html,
+			this.author
+		);
 	}
 
 }

@@ -21,6 +21,8 @@ public class CardCreationData implements ICardCreationData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer cardId;
 	
@@ -37,7 +39,6 @@ public class CardCreationData implements ICardCreationData {
 	private Integer maxPoints;
 	
 
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public CardCreationData(
@@ -54,6 +55,7 @@ public class CardCreationData implements ICardCreationData {
 		this.contentHash = contentHash;
 		this.maxPoints = maxPoints;
 		this.uuid = uuid;
+		
 	}
 
 	public CardCreationData( String uuid ) {
@@ -120,7 +122,6 @@ public class CardCreationData implements ICardCreationData {
 		return this;
 	}
 	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -154,6 +155,29 @@ public class CardCreationData implements ICardCreationData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new CardCreationPresentationalData(
+			this.cardId,
+			this.content,
+			this.testId,
+			this.contentHash,
+			this.maxPoints
+		);
 	}
 
 }

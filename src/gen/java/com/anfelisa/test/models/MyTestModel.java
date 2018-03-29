@@ -19,7 +19,6 @@ public class MyTestModel implements IMyTestModel {
 	
 	private Boolean hasResults;
 	
-
 	private java.util.List<com.anfelisa.result.models.IResultAbstractModel> resultAbstractList;
 	
 
@@ -28,13 +27,15 @@ public class MyTestModel implements IMyTestModel {
 		@JsonProperty("name") String name,
 		@JsonProperty("sequence") Integer sequence,
 		@JsonProperty("resultCount") Integer resultCount,
-		@JsonProperty("hasResults") Boolean hasResults
+		@JsonProperty("hasResults") Boolean hasResults,
+		@JsonProperty("resultAbstractList") java.util.List<com.anfelisa.result.models.IResultAbstractModel> resultAbstractList
 	) {
 		this.testId = testId;
 		this.name = name;
 		this.sequence = sequence;
 		this.resultCount = resultCount;
 		this.hasResults = hasResults;
+		this.resultAbstractList = resultAbstractList;
 	}
 
 	@JsonProperty
@@ -77,7 +78,6 @@ public class MyTestModel implements IMyTestModel {
 		this.hasResults = hasResults;
 	}
 	
-
 	@JsonProperty
 	public java.util.List<com.anfelisa.result.models.IResultAbstractModel> getResultAbstractList() {
 		return this.resultAbstractList;
@@ -86,7 +86,7 @@ public class MyTestModel implements IMyTestModel {
 		this.resultAbstractList = resultAbstractList;
 	}
 	
-		
+
 }
 
 /*       S.D.G.       */

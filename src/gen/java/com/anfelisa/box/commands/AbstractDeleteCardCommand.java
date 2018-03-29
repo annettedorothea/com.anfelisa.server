@@ -23,7 +23,7 @@ public abstract class AbstractDeleteCardCommand extends Command<CardIdData> {
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case deleted:
-			new com.anfelisa.box.events.CardDeletedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.box.events.DeleteCardDeletedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

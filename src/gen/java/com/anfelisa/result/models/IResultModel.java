@@ -13,7 +13,6 @@ public interface IResultModel {
 	Integer getPoints();
 	Integer getMaxPoints();
 
-
 }
 
 /*       S.D.G.       */

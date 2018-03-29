@@ -25,6 +25,8 @@ public class ScoreCardData implements IScoreCardData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer cardId;
 	
@@ -85,11 +87,6 @@ public class ScoreCardData implements IScoreCardData {
 	private String credentialsRole;
 	
 
-	
-	
-	
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public ScoreCardData(
@@ -140,6 +137,7 @@ public class ScoreCardData implements IScoreCardData {
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
+		
 	}
 
 	public ScoreCardData( String uuid ) {
@@ -410,11 +408,6 @@ public class ScoreCardData implements IScoreCardData {
 		return this;
 	}
 	
-	
-	
-	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -448,6 +441,46 @@ public class ScoreCardData implements IScoreCardData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new ScoreCardPresentationalData(
+			this.cardId,
+			this.content,
+			this.testId,
+			this.contentHash,
+			this.maxPoints,
+			this.scheduledCardId,
+			this.ef,
+			this.interval,
+			this.n,
+			this.count,
+			this.scheduledDate,
+			this.boxId,
+			this.lastQuality,
+			this.timestamp,
+			this.removed,
+			this.scoredCardId,
+			this.scheduledDateOfScored,
+			this.quality,
+			this.points,
+			this.submittedQuality,
+			this.credentialsUsername,
+			this.credentialsRole
+		);
 	}
 
 }

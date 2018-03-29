@@ -3,56 +3,68 @@ com.anfelisa.test
 
 target JAVA
 
+ACE {
+	GET LoadPublicTests uses TestList
+	GET LoadPublicTest uses Test
+	GET LoadPrivateTests uses MyTestList
+	GET LoadPrivateTest uses MyTest
+	GET GetTest uses TestCreation
+	GET GetCardsOfTest uses CardContentHashList
+	GET GetAllTests uses SimpleTestList
+	
+	POST CreateTest uses TestCreation {
+		on created ( Test.createTest )
+	}
+	PUT UpdateTest uses TestCreation {
+		on updated (Test.updateTest)
+	}
+	DELETE DeleteTest uses TestId {
+		on deleted (Test.deleteTest)
+	}
+}
+
+views {
+	Test {
+		createTest (TestCreation)
+		updateTest (TestCreation)
+		deleteTest (TestId)
+	}
+}
+
 models {
 	schema public
 	persistent Test {
-		primitiveAttributes {
-			Unique PrimaryKey NotNull Serial testId
-			NotNull String name
-			Integer sequence
-			NotNull Integer lessonId references com.anfelisa.lesson.Lesson.lessonId
-			NotNull String html
-			NotNull String author references com.anfelisa.user.User.username
-		}
+		Unique PrimaryKey NotNull Serial testId
+		NotNull String name
+		Integer sequence
+		NotNull Integer lessonId references com.anfelisa.lesson.Lesson.lessonId
+		NotNull String html
+		NotNull String author references com.anfelisa.user.User.username
 	}
 
 	TestId {
-		primitiveAttributes {
-			NotNull Integer testId
-		}
-		
+		NotNull Integer testId
 	} 
 
 	MyTest {
-		primitiveAttributes {
-			NotNull Serial testId
-			NotNull String name
-			Integer sequence
-			Integer resultCount
-			Boolean hasResults
-		}
-		complexAttributes {
-			List com.anfelisa.result.ResultAbstract resultAbstractList
-		}
-		
+		NotNull Serial testId
+		NotNull String name
+		Integer sequence
+		Integer resultCount
+		Boolean hasResults
+		List com.anfelisa.result.ResultAbstract resultAbstractList 
 	} 
 	
 	TestList {
-		complexAttributes {
-			List Test testList
-		}
+		List Test testList
 	}
 	
 	MyTestList {
-		complexAttributes {
-			List MyTest myTestList
-		} 
+		List MyTest myTestList
 	}
 	
 	CardContentHashList {
-		primitiveAttributes {
-			List Integer contentHashList
-		}
+		List Integer contentHashList
 	}
 }
 
@@ -67,41 +79,3 @@ data {
 	TestId : (TestId)
 }
 
-actions {
-	POST CreateTest uses TestCreation executes CreateTest
-	GET LoadPublicTests uses TestList
-	GET LoadPublicTest uses Test
-	GET LoadPrivateTests uses MyTestList
-	GET LoadPrivateTest uses MyTest
-	GET GetTest uses TestCreation
-	PUT UpdateTest uses TestCreation executes UpdateTest
-	GET GetCardsOfTest uses CardContentHashList
-	GET GetAllTests uses SimpleTestList
-	DELETE DeleteTest uses TestId executes DeleteTest
-}
-
-commands {
-	CreateTest uses TestCreation {
-		on created publishes ( TestCreated )
-	}
-	UpdateTest uses TestCreation {
-		on updated publishes (TestUpdated)
-	}
-	DeleteTest uses TestId {
-		on deleted publishes (TestDeleted)
-	}
-}
-
-events {
-	TestCreated uses TestCreation listenedToBy ( Test.createTest )
-	TestUpdated uses TestCreation listenedToBy (Test.updateTest)
-	TestDeleted uses TestId listenedToBy (Test.deleteTest)
-}
-
-views {
-	Test {
-		createTest (TestCreation)
-		updateTest (TestCreation)
-		deleteTest (TestId)
-	}
-}

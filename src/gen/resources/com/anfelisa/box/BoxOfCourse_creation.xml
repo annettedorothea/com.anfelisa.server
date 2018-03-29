@@ -1,9 +1,9 @@
 <createTable tableName="boxofcourse">
 	<column name="boxid" type="integer">
-		<constraints  nullable="false" 	references="box(boxid)" deleteCascade="true" foreignKeyName="fk_boxofcourse_box" />
+		<constraints  nullable="false" 	references="box(boxid)" deleteCascade="true" />
 	</column>
 	<column name="courseid" type="integer">
-		<constraints  nullable="false" 	references="course(courseid)" deleteCascade="true" foreignKeyName="fk_boxofcourse_course" />
+		<constraints  nullable="false" 	references="course(courseid)" deleteCascade="true" />
 	</column>
 	<column name="autoadd" type="boolean">
 		<constraints  nullable="false"  />

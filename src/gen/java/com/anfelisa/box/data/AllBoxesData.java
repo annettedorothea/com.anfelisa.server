@@ -21,17 +21,25 @@ public class AllBoxesData implements IAllBoxesData {
 	
 	private String createdId;
 	
-
+	private String[] notifiedListeners;
+	
 	private java.util.List<com.anfelisa.box.models.IBoxModel> boxList;
 	
+
 	private org.joda.time.DateTime systemTime;
 	
 	public AllBoxesData(
-		@JsonProperty("uuid") String uuid
+		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxModel> boxList
+,		@JsonProperty("uuid") String uuid
 	) {
+		this.boxList = boxList;
 		this.uuid = uuid;
+		
 	}
 
+	public AllBoxesData( String uuid ) {
+		this.uuid = uuid;
+	}
 
 	@JsonProperty
 	public java.util.List<com.anfelisa.box.models.IBoxModel> getBoxList() {
@@ -39,6 +47,10 @@ public class AllBoxesData implements IAllBoxesData {
 	}
 	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxModel> boxList) {
 		this.boxList = boxList;
+	}
+	public AllBoxesData withBoxList(java.util.List<com.anfelisa.box.models.IBoxModel> boxList) {
+		this.boxList = boxList;
+		return this;
 	}
 	
 
@@ -74,6 +86,25 @@ public class AllBoxesData implements IAllBoxesData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new AllBoxesPresentationalData(
+			this.boxList
+		);
 	}
 
 }

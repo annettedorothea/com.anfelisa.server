@@ -23,7 +23,7 @@ public abstract class AbstractRecalculateScheduledCardsCommand extends Command<R
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.box.events.RecalculateScheduledCardsEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.box.events.RecalculateScheduledCardsOkEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

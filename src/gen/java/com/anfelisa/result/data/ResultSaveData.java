@@ -23,6 +23,8 @@ public class ResultSaveData implements IResultSaveData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer resultId;
 	
@@ -46,15 +48,13 @@ public class ResultSaveData implements IResultSaveData {
 	
 	private Integer boxId;
 	
+	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
+	
 	private String credentialsUsername;
 	
 	private String credentialsRole;
 	
 
-	
-	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public ResultSaveData(
@@ -66,6 +66,7 @@ public class ResultSaveData implements IResultSaveData {
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints,
 		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("cardsToBeAdded") java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
@@ -78,9 +79,11 @@ public class ResultSaveData implements IResultSaveData {
 		this.points = points;
 		this.maxPoints = maxPoints;
 		this.boxId = boxId;
+		this.cardsToBeAdded = cardsToBeAdded;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
+		
 	}
 
 	public ResultSaveData( String uuid ) {
@@ -184,6 +187,18 @@ public class ResultSaveData implements IResultSaveData {
 	}
 	
 	@JsonProperty
+	public java.util.List<com.anfelisa.box.models.IScheduledCardModel> getCardsToBeAdded() {
+		return this.cardsToBeAdded;
+	}
+	public void setCardsToBeAdded(java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded) {
+		this.cardsToBeAdded = cardsToBeAdded;
+	}
+	public ResultSaveData withCardsToBeAdded(java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded) {
+		this.cardsToBeAdded = cardsToBeAdded;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getCredentialsUsername() {
 		return this.credentialsUsername;
 	}
@@ -206,16 +221,6 @@ public class ResultSaveData implements IResultSaveData {
 		this.credentialsRole = credentialsRole;
 		return this;
 	}
-	
-	
-	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IScheduledCardModel> getCardsToBeAdded() {
-		return this.cardsToBeAdded;
-	}
-	public void setCardsToBeAdded(java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded) {
-		this.cardsToBeAdded = cardsToBeAdded;
-	}
-	
 	
 
 	@JsonProperty
@@ -250,6 +255,35 @@ public class ResultSaveData implements IResultSaveData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new ResultSavePresentationalData(
+			this.resultId,
+			this.username,
+			this.testId,
+			this.date,
+			this.json,
+			this.points,
+			this.maxPoints,
+			this.boxId,
+			this.cardsToBeAdded,
+			this.credentialsUsername,
+			this.credentialsRole
+		);
 	}
 
 }

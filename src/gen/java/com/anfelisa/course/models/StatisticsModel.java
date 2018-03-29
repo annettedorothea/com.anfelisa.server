@@ -26,7 +26,6 @@ public class StatisticsModel implements IStatisticsModel {
 	private Integer rate;
 	
 
-
 	public StatisticsModel(
 		@JsonProperty("username") String username,
 		@JsonProperty("year") Integer year,
@@ -92,7 +91,6 @@ public class StatisticsModel implements IStatisticsModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

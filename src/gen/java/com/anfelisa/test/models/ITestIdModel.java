@@ -7,7 +7,6 @@ public interface ITestIdModel {
 
 	Integer getTestId();
 
-
 }
 
 /*       S.D.G.       */

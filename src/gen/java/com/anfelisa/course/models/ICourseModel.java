@@ -12,7 +12,6 @@ public interface ICourseModel {
 	Boolean getIsPublic();
 	String getAuthor();
 
-
 }
 
 /*       S.D.G.       */

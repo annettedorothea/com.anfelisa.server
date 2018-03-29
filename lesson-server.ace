@@ -2,55 +2,85 @@ com.anfelisa.lesson
 
 target JAVA
 
+ACE {
+	GET LoadPublicLessons uses LessonList
+	GET LoadPrivateLessons uses MyLessonList
+	GET GetLesson uses Lesson
+	GET GetAllLessons uses SimpleLessonList
+	
+	POST CreateLesson uses LessonCreation {
+		on created ( Lesson.createLesson )
+	}
+	PUT UpdateLesson uses Lesson {
+		on updated (Lesson.updateLesson)
+	}
+	DELETE DeleteLesson uses LessonId {
+		on deleted (Lesson.deleteLesson)
+	}
+}
+/*
+actions {
+}
+
+commands {
+	UpdateLesson uses Lesson {
+	}
+	DeleteLesson uses LessonId {
+	}
+}
+
+events {
+	LessonCreated uses LessonCreation listenedToBy ( Lesson.createLesson )
+	LessonUpdated uses Lesson listenedToBy (Lesson.updateLesson)
+	LessonDeleted uses LessonId listenedToBy (Lesson.deleteLesson)
+}
+
+*/
+views {
+	Lesson {
+		createLesson (LessonCreation)
+		updateLesson (Lesson)
+		deleteLesson (LessonId)
+	}
+}
+
 models {
 	schema public
 	persistent Lesson {
-		primitiveAttributes {
-			Unique PrimaryKey NotNull Serial lessonId
-			NotNull String name
-			String description
-			Integer sequence
-			NotNull Integer courseId references com.anfelisa.course.Course.courseId
-			NotNull String author references com.anfelisa.user.User.username
-		}
+		Unique PrimaryKey NotNull Serial lessonId
+		NotNull String name
+		String description
+		Integer sequence
+		NotNull Integer courseId references com.anfelisa.course.Course.courseId
+		NotNull String author references com.anfelisa.user.User.username
 	}
 
 	LessonAbstract {
-		primitiveAttributes {
-			NotNull String lessonName
-			String lessonDescription
-			NotNull String lessonAuthor
-			NotNull Integer lessonId
-		}
+		NotNull String lessonName
+		String lessonDescription
+		NotNull String lessonAuthor
+		NotNull Integer lessonId
 	} 
 
 	MyLesson {
-		primitiveAttributes {
-			NotNull Integer lessonId
-			NotNull String name
-			String description
-			Integer sequence
-			NotNull Integer openTests
-			NotNull Boolean hasOpenTests
-		}
+		NotNull Integer lessonId
+		NotNull String name
+		String description
+		Integer sequence
+		NotNull Integer openTests
+		NotNull Boolean hasOpenTests
 	} 
 
 	LessonList {
-		complexAttributes {
-			List Lesson lessonList
-		}
+		List Lesson lessonList
 	}
 		
 	MyLessonList {
-		complexAttributes {
-			List MyLesson myLessonList
-		}
+		List MyLesson myLessonList
 	}
 	
 	LessonId {
-		primitiveAttributes {
-			NotNull Integer lessonId
-		}
+		NotNull Integer lessonId
 	}
 	
 }
@@ -62,40 +92,4 @@ data {
 	MyLessonList: (MyLessonList com.anfelisa.user.Username com.anfelisa.course.CourseId com.anfelisa.course.CourseAbstract )
 	Lesson : (Lesson)
 	LessonId : (LessonId)
-}
-
-actions {
-	POST CreateLesson uses LessonCreation executes CreateLesson
-	GET LoadPublicLessons uses LessonList
-	GET LoadPrivateLessons uses MyLessonList
-	GET GetLesson uses Lesson
-	PUT UpdateLesson uses Lesson executes UpdateLesson
-	GET GetAllLessons uses SimpleLessonList
-	DELETE DeleteLesson uses LessonId executes DeleteLesson
-}
-
-commands {
-	CreateLesson uses LessonCreation {
-		on created publishes ( LessonCreated )
-	}
-	UpdateLesson uses Lesson {
-		on updated publishes (LessonUpdated)
-	}
-	DeleteLesson uses LessonId {
-		on deleted publishes (LessonDeleted)
-	}
-}
-
-events {
-	LessonCreated uses LessonCreation listenedToBy ( Lesson.createLesson )
-	LessonUpdated uses Lesson listenedToBy (Lesson.updateLesson)
-	LessonDeleted uses LessonId listenedToBy (Lesson.deleteLesson)
-}
-
-views {
-	Lesson {
-		createLesson (LessonCreation)
-		updateLesson (Lesson)
-		deleteLesson (LessonId)
-	}
 }

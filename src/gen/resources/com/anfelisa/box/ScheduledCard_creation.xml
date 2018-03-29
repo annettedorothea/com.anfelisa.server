@@ -3,7 +3,7 @@
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
 	<column name="cardid" type="integer">
-		<constraints  nullable="false" 	references="card(cardid)" deleteCascade="true" foreignKeyName="fk_scheduledcard_card" />
+		<constraints  nullable="false" 	references="card(cardid)" deleteCascade="true" />
 	</column>
 	<column name="ef" type="numeric">
 		<constraints  nullable="false"  />
@@ -21,7 +21,7 @@
 		<constraints  nullable="false"  />
 	</column>
 	<column name="boxid" type="integer">
-		<constraints  nullable="false" 	references="box(boxid)" deleteCascade="true" foreignKeyName="fk_scheduledcard_box" />
+		<constraints  nullable="false" 	references="box(boxid)" deleteCascade="true" />
 	</column>
 	<column name="lastquality" type="integer">
 		<constraints    />

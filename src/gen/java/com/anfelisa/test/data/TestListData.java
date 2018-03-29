@@ -24,6 +24,10 @@ public class TestListData implements ITestListData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
+	private java.util.List<com.anfelisa.test.models.ITestModel> testList;
+	
 	@NotNull
 	private Integer lessonId;
 	
@@ -50,14 +54,10 @@ public class TestListData implements ITestListData {
 	private Integer courseId;
 	
 
-	private java.util.List<com.anfelisa.test.models.ITestModel> testList;
-	
-	
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public TestListData(
+		@JsonProperty("testList") java.util.List<com.anfelisa.test.models.ITestModel> testList,
 		@JsonProperty("lessonId") Integer lessonId,
 		@JsonProperty("lessonName") String lessonName,
 		@JsonProperty("lessonDescription") String lessonDescription,
@@ -69,6 +69,7 @@ public class TestListData implements ITestListData {
 		@JsonProperty("courseId") Integer courseId
 ,		@JsonProperty("uuid") String uuid
 	) {
+		this.testList = testList;
 		this.lessonId = lessonId;
 		this.lessonName = lessonName;
 		this.lessonDescription = lessonDescription;
@@ -79,12 +80,25 @@ public class TestListData implements ITestListData {
 		this.courseAuthor = courseAuthor;
 		this.courseId = courseId;
 		this.uuid = uuid;
+		
 	}
 
 	public TestListData( String uuid ) {
 		this.uuid = uuid;
 	}
 
+	@JsonProperty
+	public java.util.List<com.anfelisa.test.models.ITestModel> getTestList() {
+		return this.testList;
+	}
+	public void setTestList(java.util.List<com.anfelisa.test.models.ITestModel> testList) {
+		this.testList = testList;
+	}
+	public TestListData withTestList(java.util.List<com.anfelisa.test.models.ITestModel> testList) {
+		this.testList = testList;
+		return this;
+	}
+	
 	@JsonProperty
 	public Integer getLessonId() {
 		return this.lessonId;
@@ -193,17 +207,6 @@ public class TestListData implements ITestListData {
 		return this;
 	}
 	
-	@JsonProperty
-	public java.util.List<com.anfelisa.test.models.ITestModel> getTestList() {
-		return this.testList;
-	}
-	public void setTestList(java.util.List<com.anfelisa.test.models.ITestModel> testList) {
-		this.testList = testList;
-	}
-	
-	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -237,6 +240,34 @@ public class TestListData implements ITestListData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new TestListPresentationalData(
+			this.testList,
+			this.lessonId,
+			this.lessonName,
+			this.lessonDescription,
+			this.lessonAuthor,
+			this.courseName,
+			this.courseDescription,
+			this.isPublic,
+			this.courseAuthor,
+			this.courseId
+		);
 	}
 
 }

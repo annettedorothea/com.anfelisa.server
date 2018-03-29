@@ -12,7 +12,6 @@ public interface ILessonModel {
 	Integer getCourseId();
 	String getAuthor();
 
-
 }
 
 /*       S.D.G.       */

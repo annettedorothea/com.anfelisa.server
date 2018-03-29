@@ -10,7 +10,6 @@ public class CardContentHashListModel implements ICardContentHashListModel {
 	private java.util.List<Integer> contentHashList;
 	
 
-
 	public CardContentHashListModel(
 		@JsonProperty("contentHashList") java.util.List<Integer> contentHashList
 	) {
@@ -26,7 +25,6 @@ public class CardContentHashListModel implements ICardContentHashListModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

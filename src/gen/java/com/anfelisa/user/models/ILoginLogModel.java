@@ -9,7 +9,6 @@ public interface ILoginLogModel {
 	String getUsername();
 	org.joda.time.DateTime getDate();
 
-
 }
 
 /*       S.D.G.       */

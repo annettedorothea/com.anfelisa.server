@@ -23,7 +23,7 @@ public abstract class AbstractCreateTestCommand extends Command<TestCreationData
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case created:
-			new com.anfelisa.test.events.TestCreatedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.test.events.CreateTestCreatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

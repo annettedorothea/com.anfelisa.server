@@ -2,183 +2,49 @@ com.anfelisa.user
 
 target JAVA
 
-models {
-	schema public
-	persistent User {
-		primitiveAttributes {
-			Unique PrimaryKey NotNull String username
-			NotNull String password
-			NotNull String name
-			NotNull String prename
-			NotNull String email
-			NotNull String role
-			NotNull Boolean emailConfirmed
-		}
-	}
-
-	persistent LoginLog {
-		primitiveAttributes {
-			Unique PrimaryKey NotNull Serial loginLogId
-			NotNull String username
-			NotNull DateTime date
-		}
-	} 
-
-	Credentials {
-		primitiveAttributes {
-			String credentialsUsername
-			String credentialsRole
-		}
-	} 
-
-	Points {
-		primitiveAttributes {
-			NotNull Integer points
-		}
-	} 
-
-	Username {
-		primitiveAttributes {
-			NotNull String username
-		}
-	} 
-	Available {
-		primitiveAttributes {
-			Boolean available
-		}
-	}
-	UsernameAndPassword {
-		primitiveAttributes {
-			NotNull String username
-			NotNull String password
-		}
-	} 
-	UserUpdate {
-		primitiveAttributes {
-			NotNull String username
-			NotNull String name
-			NotNull String prename
-			NotNull String email
-		}
-	}
-	CourseSelection {
-		primitiveAttributes {
-			List Integer courseIdList
-		}
-	}
-	
-	CourseId {
-		primitiveAttributes {
-			Integer courseId
-		}
-	}
-	
-	ForgotPassword {
-		primitiveAttributes {
-			NotNull String username
-			NotNull String email
-			NotNull String name
-			NotNull String prename
-			NotNull String password
-		}
-	}
-	Language {
-		primitiveAttributes {
-			NotNull String language
-		}
-	}
-}
-
-data {
-	UserCreation : ( User )
-	Login : ( LoginLog Username )
-	Points : ( Points Username )
-	UserInfo : (User com.anfelisa.course.CourseList com.anfelisa.box.MyBoxList Username)
-	UserUpdate : (UserUpdate Credentials)
-	CourseSelection : (com.anfelisa.course.CourseList Credentials)
-	AddCourses : (CourseSelection Credentials)
-	RemoveCourse : (CourseId Username)
-	PasswordUpdate : (UsernameAndPassword)
-	ForgotPassword : (ForgotPassword Language)
-	UsernameAvailable : (Username Available)
-	UserRegistration : (User Language)
-	Username : (Username)
-	ChangeUserRole : (Username Credentials)
-}
-
-actions {
-	POST CreateUser uses UserCreation executes CreateUser 
-	POST Login uses Login executes Login
+ACE {
 	GET GetPoints uses Points
 	GET GetUserInfo uses UserInfo
-	PUT UpdateUser uses UserUpdate executes UpdateUser
 	GET GetCourseSelection uses CourseSelection
-	POST AddCourses uses AddCourses executes AddCourses
-	DELETE RemoveCourse uses RemoveCourse executes RemoveCourse
-	PUT UpdatePassword uses PasswordUpdate executes UpdatePassword
-	POST ForgotPassword uses ForgotPassword executes ForgotPassword
-	POST RegisterUser uses UserRegistration executes RegisterUser
 	GET UsernameAvailable uses UsernameAvailable
-	PUT ConfirmEmail uses Username executes ConfirmEmail
-	PUT ChangeUserToPremium uses ChangeUserRole executes ChangeUserToPremium
-	PUT ChangeUserToAuthor uses ChangeUserRole executes ChangeUserToAuthor
-	PUT ChangeUserToAdmin uses ChangeUserRole executes ChangeUserToAdmin
-}
 
-commands {
-	CreateUser uses UserCreation {
-		on go publishes (UserCreated)
+	POST CreateUser uses UserCreation {
+		on success (User.createUser)
 	}
-	Login uses Login {
-		on success publishes (UserLoggedIn)
+	POST Login uses Login {
+		on success (LoginLog.userLoggedIn)
 	}
-	UpdateUser uses UserUpdate {
-		on success publishes ( UserUpdated )
+	PUT UpdateUser uses UserUpdate {
+		on success ( User.updateUser )
 	}
-	AddCourses uses AddCourses {
-		on success publishes (CoursesAdded)
+	POST AddCourses uses AddCourses {
+		on success (User.addCourses)
 	}
-	RemoveCourse uses RemoveCourse {
-		on success publishes (CourseRemoved)
+	DELETE RemoveCourse uses RemoveCourse {
+		on success (User.removeCourse)
 	}
-	UpdatePassword uses PasswordUpdate {
-		on success publishes (PasswordUpdated)
+	PUT UpdatePassword uses PasswordUpdate {
+		on success (User.updatePassword)
 	}
-	ForgotPassword uses ForgotPassword {
-		on ok publishes (SendEmail)
+	POST ForgotPassword uses ForgotPassword {
+		on ok (Email.sendForgotPasswordEmail)
 		on userNotFound 
 	}
-	RegisterUser uses UserRegistration {
-		on ok publishes (UserRegistered SendRegistrationEmail)
+	POST RegisterUser uses UserRegistration {
+		on ok (User.registerUser Email.sendRegistrationEmail)
 	}
-	ConfirmEmail uses Username {
-		on ok publishes (EmailConfirmed)
+	PUT ConfirmEmail uses Username {
+		on ok (User.confirmEmail)
 	}
-	ChangeUserToPremium uses ChangeUserRole {
-		on ok publishes (ChangeUserToPremium)
-	}
-	ChangeUserToAuthor uses ChangeUserRole {
-		on ok publishes (ChangeUserToAuthor)
-	}
-	ChangeUserToAdmin uses ChangeUserRole {
-		on ok publishes (ChangeUserToAdmin)
-	}
-}
-
-events {
-	UserCreated uses UserCreation listenedToBy ( User.createUser	)
-	UserRegistered uses UserRegistration listenedToBy ( User.registerUser	)
-	UserLoggedIn uses Login listenedToBy ( LoginLog.userLoggedIn )
-	UserUpdated uses UserUpdate listenedToBy (User.updateUser)
-	CoursesAdded uses AddCourses listenedToBy (User.addCourses)
-	CourseRemoved uses RemoveCourse listenedToBy ( User.removeCourse )
-	PasswordUpdated uses PasswordUpdate listenedToBy (User.updatePassword)
-	SendEmail uses ForgotPassword listenedToBy (Email.sendForgotPasswordEmail)
-	SendRegistrationEmail uses UserRegistration listenedToBy (Email.sendRegistrationEmail)
-	EmailConfirmed uses Username listenedToBy (User.confirmEmail)
-	ChangeUserToPremium uses ChangeUserRole listenedToBy (User.changeUserToPremium)
-	ChangeUserToAuthor uses ChangeUserRole listenedToBy (User.changeUserToAuthor)
-	ChangeUserToAdmin uses ChangeUserRole listenedToBy (User.changeUserToAdmin)
+	PUT ChangeUserToPremium uses ChangeUserRole {
+		on ok (User.changeUserToPremium)
+	} 
+	PUT ChangeUserToAuthor uses ChangeUserRole {
+		on ok (User.changeUserToAuthor)
+	} 
+	PUT ChangeUserToAdmin uses ChangeUserRole {
+		on ok (User.changeUserToAdmin)
+	} 
 }
 
 views {
@@ -202,3 +68,84 @@ views {
 		sendRegistrationEmail(UserRegistration)
 	}
 }
+
+models {
+	schema public
+	persistent User {
+		Unique PrimaryKey NotNull String username
+		NotNull String password
+		NotNull String name
+		NotNull String prename
+		NotNull String email
+		NotNull String role
+		NotNull Boolean emailConfirmed
+	}
+
+	persistent LoginLog {
+		Unique PrimaryKey NotNull Serial loginLogId
+		NotNull String username
+		NotNull DateTime date
+	} 
+
+	Credentials {
+		String credentialsUsername
+		String credentialsRole
+	} 
+
+	Points {
+		NotNull Integer points
+	} 
+
+	Username {
+		NotNull String username
+	} 
+	Available {
+		Boolean available
+	}
+	UsernameAndPassword {
+		NotNull String username
+		NotNull String password
+	} 
+	UserUpdate {
+		NotNull String username
+		NotNull String name
+		NotNull String prename
+		NotNull String email
+	}
+	CourseSelection {
+		List Integer courseIdList
+	}
+	
+	CourseId {
+		Integer courseId
+	}
+	
+	ForgotPassword {
+		NotNull String username
+		NotNull String email
+		NotNull String name
+		NotNull String prename
+		NotNull String password
+	}
+	Language {
+		NotNull String language
+	}
+}
+
+data {
+	UserCreation : ( User )
+	Login : ( LoginLog Username )
+	Points : ( Points Username )
+	UserInfo : (User com.anfelisa.course.CourseList com.anfelisa.box.MyBoxList Username)
+	UserUpdate : (UserUpdate Credentials)
+	CourseSelection : (com.anfelisa.course.CourseList Credentials)
+	AddCourses : (CourseSelection Credentials)
+	RemoveCourse : (CourseId Username)
+	PasswordUpdate : (UsernameAndPassword)
+	ForgotPassword : (ForgotPassword Language)
+	UsernameAvailable : (Username Available)
+	UserRegistration : (User Language)
+	Username : (Username)
+	ChangeUserRole : (Username Credentials)
+}
+

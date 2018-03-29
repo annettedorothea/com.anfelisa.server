@@ -9,7 +9,6 @@ public interface IReinforceCardModel {
 	org.joda.time.DateTime getScheduledDate();
 	Integer getLastQuality();
 	org.joda.time.DateTime getTimestamp();
-
 	com.anfelisa.box.models.ICardContentModel getCardContent();
 
 }

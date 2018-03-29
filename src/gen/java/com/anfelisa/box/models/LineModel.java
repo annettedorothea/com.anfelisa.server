@@ -10,7 +10,6 @@ public class LineModel implements ILineModel {
 	private java.util.List<String> words;
 	
 
-
 	public LineModel(
 		@JsonProperty("words") java.util.List<String> words
 	) {
@@ -26,7 +25,6 @@ public class LineModel implements ILineModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

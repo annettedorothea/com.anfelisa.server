@@ -13,7 +13,8 @@ public class FillBoxMapper implements ResultSetMapper<IFillBoxModel> {
 	
 	public IFillBoxModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new FillBoxModel(
-			r.getInt("boxId")
+			r.getInt("boxId"),
+			null
 		);
 	}
 }

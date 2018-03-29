@@ -13,6 +13,7 @@ public class AllBoxesMapper implements ResultSetMapper<IAllBoxesModel> {
 	
 	public IAllBoxesModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new AllBoxesModel(
+			null
 		);
 	}
 }

@@ -22,6 +22,8 @@ public class BoxIdData implements IBoxIdData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer boxId;
 	
@@ -36,8 +38,6 @@ public class BoxIdData implements IBoxIdData {
 	private String credentialsRole;
 	
 
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public BoxIdData(
@@ -54,6 +54,7 @@ public class BoxIdData implements IBoxIdData {
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
+		
 	}
 
 	public BoxIdData( String uuid ) {
@@ -120,8 +121,6 @@ public class BoxIdData implements IBoxIdData {
 		return this;
 	}
 	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -155,6 +154,29 @@ public class BoxIdData implements IBoxIdData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new BoxIdPresentationalData(
+			this.boxId,
+			this.name,
+			this.username,
+			this.credentialsUsername,
+			this.credentialsRole
+		);
 	}
 
 }

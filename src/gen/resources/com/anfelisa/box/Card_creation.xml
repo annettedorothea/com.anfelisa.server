@@ -6,7 +6,7 @@
 		<constraints    />
 	</column>
 	<column name="testid" type="integer">
-		<constraints  nullable="false" 	references="test(testid)" deleteCascade="true" foreignKeyName="fk_card_test" />
+		<constraints  nullable="false" 	references="test(testid)" deleteCascade="true" />
 	</column>
 	<column name="contenthash" type="character varying">
 		<constraints  nullable="false"  />

@@ -9,7 +9,6 @@ public interface ICardIdModel {
 	Integer getTestId();
 	String getContentHash();
 
-
 }
 
 /*       S.D.G.       */

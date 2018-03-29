@@ -22,27 +22,43 @@ public class MyCourseListData implements IMyCourseListData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
+	private java.util.List<com.anfelisa.course.models.IMyCourseModel> myCourseList;
+	
 	@NotNull
 	private String username;
 	
 
-	private java.util.List<com.anfelisa.course.models.IMyCourseModel> myCourseList;
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public MyCourseListData(
+		@JsonProperty("myCourseList") java.util.List<com.anfelisa.course.models.IMyCourseModel> myCourseList,
 		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid
 	) {
+		this.myCourseList = myCourseList;
 		this.username = username;
 		this.uuid = uuid;
+		
 	}
 
 	public MyCourseListData( String uuid ) {
 		this.uuid = uuid;
 	}
 
+	@JsonProperty
+	public java.util.List<com.anfelisa.course.models.IMyCourseModel> getMyCourseList() {
+		return this.myCourseList;
+	}
+	public void setMyCourseList(java.util.List<com.anfelisa.course.models.IMyCourseModel> myCourseList) {
+		this.myCourseList = myCourseList;
+	}
+	public MyCourseListData withMyCourseList(java.util.List<com.anfelisa.course.models.IMyCourseModel> myCourseList) {
+		this.myCourseList = myCourseList;
+		return this;
+	}
+	
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
@@ -54,15 +70,6 @@ public class MyCourseListData implements IMyCourseListData {
 		this.username = username;
 		return this;
 	}
-	
-	@JsonProperty
-	public java.util.List<com.anfelisa.course.models.IMyCourseModel> getMyCourseList() {
-		return this.myCourseList;
-	}
-	public void setMyCourseList(java.util.List<com.anfelisa.course.models.IMyCourseModel> myCourseList) {
-		this.myCourseList = myCourseList;
-	}
-	
 	
 
 	@JsonProperty
@@ -97,6 +104,26 @@ public class MyCourseListData implements IMyCourseListData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new MyCourseListPresentationalData(
+			this.myCourseList,
+			this.username
+		);
 	}
 
 }

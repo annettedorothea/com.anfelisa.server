@@ -14,7 +14,6 @@ public interface ICardInfoModel {
 	org.joda.time.DateTime getNext();
 	Integer getQuality();
 
-
 }
 
 /*       S.D.G.       */

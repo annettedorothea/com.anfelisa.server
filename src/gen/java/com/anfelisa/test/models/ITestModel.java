@@ -12,7 +12,6 @@ public interface ITestModel {
 	String getHtml();
 	String getAuthor();
 
-
 }
 
 /*       S.D.G.       */

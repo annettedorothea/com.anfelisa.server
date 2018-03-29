@@ -29,7 +29,6 @@ public class UserModel implements IUserModel {
 	private Boolean emailConfirmed;
 	
 
-
 	public UserModel(
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
@@ -105,7 +104,6 @@ public class UserModel implements IUserModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

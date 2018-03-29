@@ -23,7 +23,7 @@ public abstract class AbstractFillBoxWithCardsCommand extends Command<FillBoxDat
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case fillBoxWithCards:
-			new com.anfelisa.box.events.FillBoxWithCardsEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.box.events.FillBoxWithCardsFillBoxWithCardsEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

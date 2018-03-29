@@ -14,7 +14,6 @@ public interface IScoredCardModel {
 	Integer getPoints();
 	Integer getScheduledCardId();
 
-
 }
 
 /*       S.D.G.       */

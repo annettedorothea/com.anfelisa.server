@@ -21,6 +21,8 @@ public class ScoredCardData implements IScoredCardData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer scoredCardId;
 	
@@ -43,7 +45,6 @@ public class ScoredCardData implements IScoredCardData {
 	private Integer scheduledCardId;
 	
 
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public ScoredCardData(
@@ -66,6 +67,7 @@ public class ScoredCardData implements IScoredCardData {
 		this.points = points;
 		this.scheduledCardId = scheduledCardId;
 		this.uuid = uuid;
+		
 	}
 
 	public ScoredCardData( String uuid ) {
@@ -168,7 +170,6 @@ public class ScoredCardData implements IScoredCardData {
 		return this;
 	}
 	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -202,6 +203,32 @@ public class ScoredCardData implements IScoredCardData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new ScoredCardPresentationalData(
+			this.scoredCardId,
+			this.cardId,
+			this.scheduledDateOfScored,
+			this.boxId,
+			this.quality,
+			this.timestamp,
+			this.points,
+			this.scheduledCardId
+		);
 	}
 
 }

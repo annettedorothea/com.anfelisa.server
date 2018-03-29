@@ -11,16 +11,17 @@ public class BoxInfoModel implements IBoxInfoModel {
 	
 	private Boolean hasOpenCards;
 	
-
 	private com.anfelisa.box.models.IBoxModel box;
 	
 
 	public BoxInfoModel(
 		@JsonProperty("todaysCards") Integer todaysCards,
-		@JsonProperty("hasOpenCards") Boolean hasOpenCards
+		@JsonProperty("hasOpenCards") Boolean hasOpenCards,
+		@JsonProperty("box") com.anfelisa.box.models.IBoxModel box
 	) {
 		this.todaysCards = todaysCards;
 		this.hasOpenCards = hasOpenCards;
+		this.box = box;
 	}
 
 	@JsonProperty
@@ -39,7 +40,6 @@ public class BoxInfoModel implements IBoxInfoModel {
 		this.hasOpenCards = hasOpenCards;
 	}
 	
-
 	@JsonProperty
 	public com.anfelisa.box.models.IBoxModel getBox() {
 		return this.box;
@@ -48,7 +48,7 @@ public class BoxInfoModel implements IBoxInfoModel {
 		this.box = box;
 	}
 	
-		
+
 }
 
 /*       S.D.G.       */

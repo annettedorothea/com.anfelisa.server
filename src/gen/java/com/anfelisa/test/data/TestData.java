@@ -25,6 +25,8 @@ public class TestData implements ITestData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer testId;
 	
@@ -64,13 +66,9 @@ public class TestData implements ITestData {
 	@NotNull
 	private Integer courseId;
 	
-
-	
-	
-	
-	
 	private java.util.List<com.anfelisa.test.models.ITestModel> testList;
 	
+
 	private org.joda.time.DateTime systemTime;
 	
 	public TestData(
@@ -87,7 +85,8 @@ public class TestData implements ITestData {
 		@JsonProperty("courseDescription") String courseDescription,
 		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("courseAuthor") String courseAuthor,
-		@JsonProperty("courseId") Integer courseId
+		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("testList") java.util.List<com.anfelisa.test.models.ITestModel> testList
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.testId = testId;
@@ -104,7 +103,9 @@ public class TestData implements ITestData {
 		this.isPublic = isPublic;
 		this.courseAuthor = courseAuthor;
 		this.courseId = courseId;
+		this.testList = testList;
 		this.uuid = uuid;
+		
 	}
 
 	public TestData( String uuid ) {
@@ -279,16 +280,16 @@ public class TestData implements ITestData {
 		return this;
 	}
 	
-	
-	
-	
-	
 	@JsonProperty
 	public java.util.List<com.anfelisa.test.models.ITestModel> getTestList() {
 		return this.testList;
 	}
 	public void setTestList(java.util.List<com.anfelisa.test.models.ITestModel> testList) {
 		this.testList = testList;
+	}
+	public TestData withTestList(java.util.List<com.anfelisa.test.models.ITestModel> testList) {
+		this.testList = testList;
+		return this;
 	}
 	
 
@@ -324,6 +325,39 @@ public class TestData implements ITestData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new TestPresentationalData(
+			this.testId,
+			this.name,
+			this.sequence,
+			this.lessonId,
+			this.html,
+			this.author,
+			this.lessonName,
+			this.lessonDescription,
+			this.lessonAuthor,
+			this.courseName,
+			this.courseDescription,
+			this.isPublic,
+			this.courseAuthor,
+			this.courseId,
+			this.testList
+		);
 	}
 
 }

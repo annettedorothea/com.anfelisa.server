@@ -11,7 +11,6 @@ public class LanguageModel implements ILanguageModel {
 	private String language;
 	
 
-
 	public LanguageModel(
 		@JsonProperty("language") String language
 	) {
@@ -27,7 +26,6 @@ public class LanguageModel implements ILanguageModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

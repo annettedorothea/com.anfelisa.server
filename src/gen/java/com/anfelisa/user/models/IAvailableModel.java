@@ -7,7 +7,6 @@ public interface IAvailableModel {
 
 	Boolean getAvailable();
 
-
 }
 
 /*       S.D.G.       */

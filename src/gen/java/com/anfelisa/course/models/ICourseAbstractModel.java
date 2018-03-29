@@ -11,7 +11,6 @@ public interface ICourseAbstractModel {
 	String getCourseAuthor();
 	Integer getCourseId();
 
-
 }
 
 /*       S.D.G.       */

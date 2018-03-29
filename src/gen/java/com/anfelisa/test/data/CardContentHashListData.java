@@ -22,14 +22,14 @@ public class CardContentHashListData implements ICardContentHashListData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	private java.util.List<Integer> contentHashList;
 	
 	@NotNull
 	private Integer testId;
 	
 
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public CardContentHashListData(
@@ -40,6 +40,7 @@ public class CardContentHashListData implements ICardContentHashListData {
 		this.contentHashList = contentHashList;
 		this.testId = testId;
 		this.uuid = uuid;
+		
 	}
 
 	public CardContentHashListData( String uuid ) {
@@ -69,8 +70,6 @@ public class CardContentHashListData implements ICardContentHashListData {
 		this.testId = testId;
 		return this;
 	}
-	
-	
 	
 
 	@JsonProperty
@@ -105,6 +104,26 @@ public class CardContentHashListData implements ICardContentHashListData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new CardContentHashListPresentationalData(
+			this.contentHashList,
+			this.testId
+		);
 	}
 
 }

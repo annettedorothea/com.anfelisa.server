@@ -14,7 +14,8 @@ public class ReinforceCardListMapper implements ResultSetMapper<IReinforceCardLi
 	public IReinforceCardListModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new ReinforceCardListModel(
 			r.getInt("boxId"),
-			r.getString("boxName")
+			r.getString("boxName"),
+			null
 		);
 	}
 }

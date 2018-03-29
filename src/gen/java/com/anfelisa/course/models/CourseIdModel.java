@@ -11,7 +11,6 @@ public class CourseIdModel implements ICourseIdModel {
 	private Integer courseId;
 	
 
-
 	public CourseIdModel(
 		@JsonProperty("courseId") Integer courseId
 	) {
@@ -27,7 +26,6 @@ public class CourseIdModel implements ICourseIdModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

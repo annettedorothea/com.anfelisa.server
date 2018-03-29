@@ -11,7 +11,6 @@ public class PointsModel implements IPointsModel {
 	private Integer points;
 	
 
-
 	public PointsModel(
 		@JsonProperty("points") Integer points
 	) {
@@ -27,7 +26,6 @@ public class PointsModel implements IPointsModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

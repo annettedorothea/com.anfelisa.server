@@ -17,7 +17,6 @@ public class BoxModel implements IBoxModel {
 	private String username;
 	
 
-
 	public BoxModel(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("name") String name,
@@ -53,7 +52,6 @@ public class BoxModel implements IBoxModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

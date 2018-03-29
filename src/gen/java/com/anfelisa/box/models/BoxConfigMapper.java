@@ -13,7 +13,9 @@ public class BoxConfigMapper implements ResultSetMapper<IBoxConfigModel> {
 	
 	public IBoxConfigModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxConfigModel(
-			r.getInt("boxId")
+			r.getInt("boxId"),
+			null,
+			null
 		);
 	}
 }

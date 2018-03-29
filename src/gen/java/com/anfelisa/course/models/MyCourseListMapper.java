@@ -13,6 +13,7 @@ public class MyCourseListMapper implements ResultSetMapper<IMyCourseListModel> {
 	
 	public IMyCourseListModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new MyCourseListModel(
+			null
 		);
 	}
 }

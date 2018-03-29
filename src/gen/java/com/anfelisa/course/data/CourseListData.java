@@ -21,17 +21,25 @@ public class CourseListData implements ICourseListData {
 	
 	private String createdId;
 	
-
+	private String[] notifiedListeners;
+	
 	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
 	
+
 	private org.joda.time.DateTime systemTime;
 	
 	public CourseListData(
-		@JsonProperty("uuid") String uuid
+		@JsonProperty("courseList") java.util.List<com.anfelisa.course.models.ICourseModel> courseList
+,		@JsonProperty("uuid") String uuid
 	) {
+		this.courseList = courseList;
 		this.uuid = uuid;
+		
 	}
 
+	public CourseListData( String uuid ) {
+		this.uuid = uuid;
+	}
 
 	@JsonProperty
 	public java.util.List<com.anfelisa.course.models.ICourseModel> getCourseList() {
@@ -39,6 +47,10 @@ public class CourseListData implements ICourseListData {
 	}
 	public void setCourseList(java.util.List<com.anfelisa.course.models.ICourseModel> courseList) {
 		this.courseList = courseList;
+	}
+	public CourseListData withCourseList(java.util.List<com.anfelisa.course.models.ICourseModel> courseList) {
+		this.courseList = courseList;
+		return this;
 	}
 	
 
@@ -74,6 +86,25 @@ public class CourseListData implements ICourseListData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new CourseListPresentationalData(
+			this.courseList
+		);
 	}
 
 }

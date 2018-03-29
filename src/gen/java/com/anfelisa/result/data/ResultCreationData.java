@@ -21,6 +21,8 @@ public class ResultCreationData implements IResultCreationData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer resultId;
 	
@@ -43,7 +45,6 @@ public class ResultCreationData implements IResultCreationData {
 	private Integer maxPoints;
 	
 
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public ResultCreationData(
@@ -64,6 +65,7 @@ public class ResultCreationData implements IResultCreationData {
 		this.points = points;
 		this.maxPoints = maxPoints;
 		this.uuid = uuid;
+		
 	}
 
 	public ResultCreationData( String uuid ) {
@@ -154,7 +156,6 @@ public class ResultCreationData implements IResultCreationData {
 		return this;
 	}
 	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -188,6 +189,31 @@ public class ResultCreationData implements IResultCreationData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new ResultCreationPresentationalData(
+			this.resultId,
+			this.username,
+			this.testId,
+			this.date,
+			this.json,
+			this.points,
+			this.maxPoints
+		);
 	}
 
 }

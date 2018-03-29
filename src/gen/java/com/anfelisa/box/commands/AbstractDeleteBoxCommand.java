@@ -23,7 +23,7 @@ public abstract class AbstractDeleteBoxCommand extends Command<DeleteBoxData> {
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case deleted:
-			new com.anfelisa.box.events.BoxDeletedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.box.events.DeleteBoxDeletedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

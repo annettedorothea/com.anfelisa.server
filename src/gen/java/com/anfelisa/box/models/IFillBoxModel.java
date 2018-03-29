@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IFillBoxModel {
 
 	Integer getBoxId();
-
 	java.util.List<com.anfelisa.box.models.IScheduledCardModel> getCardsToBeAdded();
 
 }

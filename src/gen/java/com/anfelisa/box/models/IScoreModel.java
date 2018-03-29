@@ -17,7 +17,6 @@ public interface IScoreModel {
 	Integer getFive();
 	Integer getNoQuality();
 
-
 }
 
 /*       S.D.G.       */

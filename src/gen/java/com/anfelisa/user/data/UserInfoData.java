@@ -24,6 +24,8 @@ public class UserInfoData implements IUserInfoData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private String username;
 	
@@ -45,13 +47,11 @@ public class UserInfoData implements IUserInfoData {
 	@NotNull
 	private Boolean emailConfirmed;
 	
-
-	
 	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
 	
 	private java.util.List<com.anfelisa.box.models.IBoxModel> boxList;
 	
-	
+
 	private org.joda.time.DateTime systemTime;
 	
 	public UserInfoData(
@@ -61,7 +61,9 @@ public class UserInfoData implements IUserInfoData {
 		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
+		@JsonProperty("courseList") java.util.List<com.anfelisa.course.models.ICourseModel> courseList,
+		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxModel> boxList
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
@@ -71,7 +73,10 @@ public class UserInfoData implements IUserInfoData {
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
+		this.courseList = courseList;
+		this.boxList = boxList;
 		this.uuid = uuid;
+		
 	}
 
 	public UserInfoData( String uuid ) {
@@ -162,13 +167,16 @@ public class UserInfoData implements IUserInfoData {
 		return this;
 	}
 	
-	
 	@JsonProperty
 	public java.util.List<com.anfelisa.course.models.ICourseModel> getCourseList() {
 		return this.courseList;
 	}
 	public void setCourseList(java.util.List<com.anfelisa.course.models.ICourseModel> courseList) {
 		this.courseList = courseList;
+	}
+	public UserInfoData withCourseList(java.util.List<com.anfelisa.course.models.ICourseModel> courseList) {
+		this.courseList = courseList;
+		return this;
 	}
 	
 	@JsonProperty
@@ -178,7 +186,10 @@ public class UserInfoData implements IUserInfoData {
 	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxModel> boxList) {
 		this.boxList = boxList;
 	}
-	
+	public UserInfoData withBoxList(java.util.List<com.anfelisa.box.models.IBoxModel> boxList) {
+		this.boxList = boxList;
+		return this;
+	}
 	
 
 	@JsonProperty
@@ -213,6 +224,33 @@ public class UserInfoData implements IUserInfoData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new UserInfoPresentationalData(
+			this.username,
+			this.password,
+			this.name,
+			this.prename,
+			this.email,
+			this.role,
+			this.emailConfirmed,
+			this.courseList,
+			this.boxList
+		);
 	}
 
 }

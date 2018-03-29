@@ -26,6 +26,8 @@ public class MyResultData implements IMyResultData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer resultId;
 	
@@ -83,14 +85,9 @@ public class MyResultData implements IMyResultData {
 	@NotNull
 	private Integer courseId;
 	
-
-	
-	
-	
-	
-	
 	private java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList;
 	
+
 	private org.joda.time.DateTime systemTime;
 	
 	public MyResultData(
@@ -113,7 +110,8 @@ public class MyResultData implements IMyResultData {
 		@JsonProperty("courseDescription") String courseDescription,
 		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("courseAuthor") String courseAuthor,
-		@JsonProperty("courseId") Integer courseId
+		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("myTestList") java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.resultId = resultId;
@@ -136,7 +134,9 @@ public class MyResultData implements IMyResultData {
 		this.isPublic = isPublic;
 		this.courseAuthor = courseAuthor;
 		this.courseId = courseId;
+		this.myTestList = myTestList;
 		this.uuid = uuid;
+		
 	}
 
 	public MyResultData( String uuid ) {
@@ -383,17 +383,16 @@ public class MyResultData implements IMyResultData {
 		return this;
 	}
 	
-	
-	
-	
-	
-	
 	@JsonProperty
 	public java.util.List<com.anfelisa.test.models.IMyTestModel> getMyTestList() {
 		return this.myTestList;
 	}
 	public void setMyTestList(java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList) {
 		this.myTestList = myTestList;
+	}
+	public MyResultData withMyTestList(java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList) {
+		this.myTestList = myTestList;
+		return this;
 	}
 	
 
@@ -429,6 +428,45 @@ public class MyResultData implements IMyResultData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new MyResultPresentationalData(
+			this.resultId,
+			this.username,
+			this.testId,
+			this.date,
+			this.json,
+			this.points,
+			this.maxPoints,
+			this.name,
+			this.sequence,
+			this.lessonId,
+			this.html,
+			this.author,
+			this.lessonName,
+			this.lessonDescription,
+			this.lessonAuthor,
+			this.courseName,
+			this.courseDescription,
+			this.isPublic,
+			this.courseAuthor,
+			this.courseId,
+			this.myTestList
+		);
 	}
 
 }

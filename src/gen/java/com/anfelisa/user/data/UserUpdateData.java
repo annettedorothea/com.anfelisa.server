@@ -22,6 +22,8 @@ public class UserUpdateData implements IUserUpdateData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private String username;
 	
@@ -39,8 +41,6 @@ public class UserUpdateData implements IUserUpdateData {
 	private String credentialsRole;
 	
 
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public UserUpdateData(
@@ -59,6 +59,7 @@ public class UserUpdateData implements IUserUpdateData {
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
+		
 	}
 
 	public UserUpdateData( String uuid ) {
@@ -137,8 +138,6 @@ public class UserUpdateData implements IUserUpdateData {
 		return this;
 	}
 	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -172,6 +171,30 @@ public class UserUpdateData implements IUserUpdateData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new UserUpdatePresentationalData(
+			this.username,
+			this.name,
+			this.prename,
+			this.email,
+			this.credentialsUsername,
+			this.credentialsRole
+		);
 	}
 
 }

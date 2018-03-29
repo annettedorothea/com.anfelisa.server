@@ -22,6 +22,8 @@ public class DeleteBoxData implements IDeleteBoxData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer boxId;
 	
@@ -30,8 +32,6 @@ public class DeleteBoxData implements IDeleteBoxData {
 	private String credentialsRole;
 	
 
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public DeleteBoxData(
@@ -44,6 +44,7 @@ public class DeleteBoxData implements IDeleteBoxData {
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
+		
 	}
 
 	public DeleteBoxData( String uuid ) {
@@ -86,8 +87,6 @@ public class DeleteBoxData implements IDeleteBoxData {
 		return this;
 	}
 	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -121,6 +120,27 @@ public class DeleteBoxData implements IDeleteBoxData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new DeleteBoxPresentationalData(
+			this.boxId,
+			this.credentialsUsername,
+			this.credentialsRole
+		);
 	}
 
 }

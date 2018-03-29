@@ -17,7 +17,6 @@ public interface IScheduledCardModel {
 	org.joda.time.DateTime getTimestamp();
 	Boolean getRemoved();
 
-
 }
 
 /*       S.D.G.       */

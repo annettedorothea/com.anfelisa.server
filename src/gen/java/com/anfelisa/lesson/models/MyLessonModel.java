@@ -24,7 +24,6 @@ public class MyLessonModel implements IMyLessonModel {
 	private Boolean hasOpenTests;
 	
 
-
 	public MyLessonModel(
 		@JsonProperty("lessonId") Integer lessonId,
 		@JsonProperty("name") String name,
@@ -90,7 +89,6 @@ public class MyLessonModel implements IMyLessonModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

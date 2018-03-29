@@ -23,7 +23,6 @@ public class ForgotPasswordModel implements IForgotPasswordModel {
 	private String password;
 	
 
-
 	public ForgotPasswordModel(
 		@JsonProperty("username") String username,
 		@JsonProperty("email") String email,
@@ -79,7 +78,6 @@ public class ForgotPasswordModel implements IForgotPasswordModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

@@ -17,7 +17,6 @@ public class CardIdModel implements ICardIdModel {
 	private String contentHash;
 	
 
-
 	public CardIdModel(
 		@JsonProperty("cardId") Integer cardId,
 		@JsonProperty("testId") Integer testId,
@@ -53,7 +52,6 @@ public class CardIdModel implements ICardIdModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

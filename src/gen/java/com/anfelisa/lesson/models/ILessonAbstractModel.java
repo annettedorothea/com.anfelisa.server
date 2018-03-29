@@ -10,7 +10,6 @@ public interface ILessonAbstractModel {
 	String getLessonAuthor();
 	Integer getLessonId();
 
-
 }
 
 /*       S.D.G.       */

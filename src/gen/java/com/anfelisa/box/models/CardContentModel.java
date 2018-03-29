@@ -17,7 +17,6 @@ public class CardContentModel implements ICardContentModel {
 	
 	private String header;
 	
-
 	private java.util.List<com.anfelisa.box.models.ILineModel> lines;
 	
 
@@ -26,13 +25,15 @@ public class CardContentModel implements ICardContentModel {
 		@JsonProperty("given") String given,
 		@JsonProperty("large") Boolean large,
 		@JsonProperty("wanted") String wanted,
-		@JsonProperty("header") String header
+		@JsonProperty("header") String header,
+		@JsonProperty("lines") java.util.List<com.anfelisa.box.models.ILineModel> lines
 	) {
 		this.complex = complex;
 		this.given = given;
 		this.large = large;
 		this.wanted = wanted;
 		this.header = header;
+		this.lines = lines;
 	}
 
 	@JsonProperty
@@ -75,7 +76,6 @@ public class CardContentModel implements ICardContentModel {
 		this.header = header;
 	}
 	
-
 	@JsonProperty
 	public java.util.List<com.anfelisa.box.models.ILineModel> getLines() {
 		return this.lines;
@@ -84,7 +84,7 @@ public class CardContentModel implements ICardContentModel {
 		this.lines = lines;
 	}
 	
-		
+
 }
 
 /*       S.D.G.       */

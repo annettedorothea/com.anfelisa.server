@@ -11,7 +11,6 @@ public class UsernameModel implements IUsernameModel {
 	private String username;
 	
 
-
 	public UsernameModel(
 		@JsonProperty("username") String username
 	) {
@@ -27,7 +26,6 @@ public class UsernameModel implements IUsernameModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

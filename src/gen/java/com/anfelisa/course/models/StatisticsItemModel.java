@@ -32,7 +32,6 @@ public class StatisticsItemModel implements IStatisticsItemModel {
 	private Integer rate;
 	
 
-
 	public StatisticsItemModel(
 		@JsonProperty("type") String type,
 		@JsonProperty("isBox") Boolean isBox,
@@ -118,7 +117,6 @@ public class StatisticsItemModel implements IStatisticsItemModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

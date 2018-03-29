@@ -24,7 +24,6 @@ public class LessonModel implements ILessonModel {
 	private String author;
 	
 
-
 	public LessonModel(
 		@JsonProperty("lessonId") Integer lessonId,
 		@JsonProperty("name") String name,
@@ -90,7 +89,6 @@ public class LessonModel implements ILessonModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

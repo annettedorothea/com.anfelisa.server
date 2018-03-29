@@ -30,7 +30,6 @@ public class MyCourseModel implements IMyCourseModel {
 	private Boolean hasOpenTests;
 	
 
-
 	public MyCourseModel(
 		@JsonProperty("courseId") Integer courseId,
 		@JsonProperty("name") String name,
@@ -116,7 +115,6 @@ public class MyCourseModel implements IMyCourseModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

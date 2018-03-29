@@ -17,7 +17,6 @@ public class BoxOfCourseModel implements IBoxOfCourseModel {
 	private Boolean autoAdd;
 	
 
-
 	public BoxOfCourseModel(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("courseId") Integer courseId,
@@ -53,7 +52,6 @@ public class BoxOfCourseModel implements IBoxOfCourseModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

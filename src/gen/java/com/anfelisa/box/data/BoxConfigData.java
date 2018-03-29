@@ -23,8 +23,14 @@ public class BoxConfigData implements IBoxConfigData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer boxId;
+	
+	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList;
+	
+	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems;
 	
 	@NotNull
 	private String username;
@@ -34,25 +40,25 @@ public class BoxConfigData implements IBoxConfigData {
 	private String credentialsRole;
 	
 
-	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList;
-	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems;
-	
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public BoxConfigData(
 		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxOfCourseList") java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList,
+		@JsonProperty("existingItems") java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems,
 		@JsonProperty("username") String username,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.boxId = boxId;
+		this.boxOfCourseList = boxOfCourseList;
+		this.existingItems = existingItems;
 		this.username = username;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
+		
 	}
 
 	public BoxConfigData( String uuid ) {
@@ -68,6 +74,30 @@ public class BoxConfigData implements IBoxConfigData {
 	}
 	public BoxConfigData withBoxId(Integer boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	public java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> getBoxOfCourseList() {
+		return this.boxOfCourseList;
+	}
+	public void setBoxOfCourseList(java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList) {
+		this.boxOfCourseList = boxOfCourseList;
+	}
+	public BoxConfigData withBoxOfCourseList(java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList) {
+		this.boxOfCourseList = boxOfCourseList;
+		return this;
+	}
+	
+	@JsonProperty
+	public java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> getExistingItems() {
+		return this.existingItems;
+	}
+	public void setExistingItems(java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems) {
+		this.existingItems = existingItems;
+	}
+	public BoxConfigData withExistingItems(java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems) {
+		this.existingItems = existingItems;
 		return this;
 	}
 	
@@ -107,23 +137,6 @@ public class BoxConfigData implements IBoxConfigData {
 		return this;
 	}
 	
-	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> getBoxOfCourseList() {
-		return this.boxOfCourseList;
-	}
-	public void setBoxOfCourseList(java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList) {
-		this.boxOfCourseList = boxOfCourseList;
-	}
-	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> getExistingItems() {
-		return this.existingItems;
-	}
-	public void setExistingItems(java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems) {
-		this.existingItems = existingItems;
-	}
-	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -157,6 +170,30 @@ public class BoxConfigData implements IBoxConfigData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new BoxConfigPresentationalData(
+			this.boxId,
+			this.boxOfCourseList,
+			this.existingItems,
+			this.username,
+			this.credentialsUsername,
+			this.credentialsRole
+		);
 	}
 
 }

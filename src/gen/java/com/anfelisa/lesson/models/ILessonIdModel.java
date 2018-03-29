@@ -7,7 +7,6 @@ public interface ILessonIdModel {
 
 	Integer getLessonId();
 
-
 }
 
 /*       S.D.G.       */

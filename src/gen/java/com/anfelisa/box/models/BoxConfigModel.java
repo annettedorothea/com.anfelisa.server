@@ -10,16 +10,19 @@ public class BoxConfigModel implements IBoxConfigModel {
 	@NotNull
 	private Integer boxId;
 	
-
 	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList;
 	
 	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems;
 	
 
 	public BoxConfigModel(
-		@JsonProperty("boxId") Integer boxId
+		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxOfCourseList") java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList,
+		@JsonProperty("existingItems") java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems
 	) {
 		this.boxId = boxId;
+		this.boxOfCourseList = boxOfCourseList;
+		this.existingItems = existingItems;
 	}
 
 	@JsonProperty
@@ -30,7 +33,6 @@ public class BoxConfigModel implements IBoxConfigModel {
 		this.boxId = boxId;
 	}
 	
-
 	@JsonProperty
 	public java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> getBoxOfCourseList() {
 		return this.boxOfCourseList;
@@ -47,7 +49,7 @@ public class BoxConfigModel implements IBoxConfigModel {
 		this.existingItems = existingItems;
 	}
 	
-		
+
 }
 
 /*       S.D.G.       */

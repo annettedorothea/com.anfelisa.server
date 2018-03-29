@@ -20,7 +20,6 @@ public class ResultAbstractModel implements IResultAbstractModel {
 	private Integer maxPoints;
 	
 
-
 	public ResultAbstractModel(
 		@JsonProperty("resultId") Integer resultId,
 		@JsonProperty("date") org.joda.time.DateTime date,
@@ -66,7 +65,6 @@ public class ResultAbstractModel implements IResultAbstractModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

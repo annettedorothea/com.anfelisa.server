@@ -22,30 +22,46 @@ public class CourseSelectionData implements ICourseSelectionData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
+	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
+	
 	private String credentialsUsername;
 	
 	private String credentialsRole;
 	
 
-	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public CourseSelectionData(
+		@JsonProperty("courseList") java.util.List<com.anfelisa.course.models.ICourseModel> courseList,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
+		this.courseList = courseList;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
+		
 	}
 
 	public CourseSelectionData( String uuid ) {
 		this.uuid = uuid;
 	}
 
+	@JsonProperty
+	public java.util.List<com.anfelisa.course.models.ICourseModel> getCourseList() {
+		return this.courseList;
+	}
+	public void setCourseList(java.util.List<com.anfelisa.course.models.ICourseModel> courseList) {
+		this.courseList = courseList;
+	}
+	public CourseSelectionData withCourseList(java.util.List<com.anfelisa.course.models.ICourseModel> courseList) {
+		this.courseList = courseList;
+		return this;
+	}
+	
 	@JsonProperty
 	public String getCredentialsUsername() {
 		return this.credentialsUsername;
@@ -69,15 +85,6 @@ public class CourseSelectionData implements ICourseSelectionData {
 		this.credentialsRole = credentialsRole;
 		return this;
 	}
-	
-	@JsonProperty
-	public java.util.List<com.anfelisa.course.models.ICourseModel> getCourseList() {
-		return this.courseList;
-	}
-	public void setCourseList(java.util.List<com.anfelisa.course.models.ICourseModel> courseList) {
-		this.courseList = courseList;
-	}
-	
 	
 
 	@JsonProperty
@@ -112,6 +119,27 @@ public class CourseSelectionData implements ICourseSelectionData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new CourseSelectionPresentationalData(
+			this.courseList,
+			this.credentialsUsername,
+			this.credentialsRole
+		);
 	}
 
 }

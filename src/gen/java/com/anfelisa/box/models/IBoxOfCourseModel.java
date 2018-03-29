@@ -9,7 +9,6 @@ public interface IBoxOfCourseModel {
 	Integer getCourseId();
 	Boolean getAutoAdd();
 
-
 }
 
 /*       S.D.G.       */

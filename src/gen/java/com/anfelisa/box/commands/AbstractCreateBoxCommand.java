@@ -23,7 +23,7 @@ public abstract class AbstractCreateBoxCommand extends Command<BoxCreationData> 
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case created:
-			new com.anfelisa.box.events.BoxCreatedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.box.events.CreateBoxCreatedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

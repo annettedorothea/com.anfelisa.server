@@ -23,7 +23,7 @@ public abstract class AbstractRemoveCourseCommand extends Command<RemoveCourseDa
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case success:
-			new com.anfelisa.user.events.CourseRemovedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.user.events.RemoveCourseSuccessEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

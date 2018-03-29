@@ -11,7 +11,6 @@ public class ContentHashModel implements IContentHashModel {
 	private String contentHash;
 	
 
-
 	public ContentHashModel(
 		@JsonProperty("contentHash") String contentHash
 	) {
@@ -27,7 +26,6 @@ public class ContentHashModel implements IContentHashModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

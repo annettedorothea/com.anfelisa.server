@@ -17,7 +17,6 @@ public class LoginLogModel implements ILoginLogModel {
 	private org.joda.time.DateTime date;
 	
 
-
 	public LoginLogModel(
 		@JsonProperty("loginLogId") Integer loginLogId,
 		@JsonProperty("username") String username,
@@ -53,7 +52,6 @@ public class LoginLogModel implements ILoginLogModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

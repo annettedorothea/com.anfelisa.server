@@ -10,7 +10,6 @@ public class AvailableModel implements IAvailableModel {
 	private Boolean available;
 	
 
-
 	public AvailableModel(
 		@JsonProperty("available") Boolean available
 	) {
@@ -26,7 +25,6 @@ public class AvailableModel implements IAvailableModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

@@ -7,7 +7,6 @@ public interface ILanguageModel {
 
 	String getLanguage();
 
-
 }
 
 /*       S.D.G.       */

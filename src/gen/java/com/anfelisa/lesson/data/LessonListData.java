@@ -23,6 +23,10 @@ public class LessonListData implements ILessonListData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
+	private java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList;
+	
 	@NotNull
 	private Integer courseId;
 	
@@ -38,13 +42,10 @@ public class LessonListData implements ILessonListData {
 	private String courseAuthor;
 	
 
-	private java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList;
-	
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public LessonListData(
+		@JsonProperty("lessonList") java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList,
 		@JsonProperty("courseId") Integer courseId,
 		@JsonProperty("courseName") String courseName,
 		@JsonProperty("courseDescription") String courseDescription,
@@ -52,18 +53,32 @@ public class LessonListData implements ILessonListData {
 		@JsonProperty("courseAuthor") String courseAuthor
 ,		@JsonProperty("uuid") String uuid
 	) {
+		this.lessonList = lessonList;
 		this.courseId = courseId;
 		this.courseName = courseName;
 		this.courseDescription = courseDescription;
 		this.isPublic = isPublic;
 		this.courseAuthor = courseAuthor;
 		this.uuid = uuid;
+		
 	}
 
 	public LessonListData( String uuid ) {
 		this.uuid = uuid;
 	}
 
+	@JsonProperty
+	public java.util.List<com.anfelisa.lesson.models.ILessonModel> getLessonList() {
+		return this.lessonList;
+	}
+	public void setLessonList(java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList) {
+		this.lessonList = lessonList;
+	}
+	public LessonListData withLessonList(java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList) {
+		this.lessonList = lessonList;
+		return this;
+	}
+	
 	@JsonProperty
 	public Integer getCourseId() {
 		return this.courseId;
@@ -124,16 +139,6 @@ public class LessonListData implements ILessonListData {
 		return this;
 	}
 	
-	@JsonProperty
-	public java.util.List<com.anfelisa.lesson.models.ILessonModel> getLessonList() {
-		return this.lessonList;
-	}
-	public void setLessonList(java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList) {
-		this.lessonList = lessonList;
-	}
-	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -167,6 +172,30 @@ public class LessonListData implements ILessonListData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new LessonListPresentationalData(
+			this.lessonList,
+			this.courseId,
+			this.courseName,
+			this.courseDescription,
+			this.isPublic,
+			this.courseAuthor
+		);
 	}
 
 }

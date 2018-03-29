@@ -9,7 +9,6 @@ public interface IContentHashesOfCreatedCardsModel {
 	java.util.List<String> getContentHashesOfCreatedCards();
 	java.util.List<String> getContentHashesOfObsoleteCards();
 
-
 }
 
 /*       S.D.G.       */

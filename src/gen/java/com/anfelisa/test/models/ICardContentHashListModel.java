@@ -7,7 +7,6 @@ public interface ICardContentHashListModel {
 
 	java.util.List<Integer> getContentHashList();
 
-
 }
 
 /*       S.D.G.       */

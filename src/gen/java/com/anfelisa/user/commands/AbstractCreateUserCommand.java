@@ -9,7 +9,7 @@ import com.anfelisa.user.data.UserCreationData;
 
 public abstract class AbstractCreateUserCommand extends Command<UserCreationData> {
 
-	protected static final String go = "go";
+	protected static final String success = "success";
 
 	public AbstractCreateUserCommand(UserCreationData commandParam, DatabaseHandle databaseHandle) {
 		super("com.anfelisa.user.commands.CreateUserCommand", commandParam, databaseHandle);
@@ -22,8 +22,8 @@ public abstract class AbstractCreateUserCommand extends Command<UserCreationData
 	@Override
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
-		case go:
-			new com.anfelisa.user.events.UserCreatedEvent(this.commandData, databaseHandle).publish();
+		case success:
+			new com.anfelisa.user.events.CreateUserSuccessEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

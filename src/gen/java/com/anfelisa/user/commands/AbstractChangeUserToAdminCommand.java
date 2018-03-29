@@ -23,7 +23,7 @@ public abstract class AbstractChangeUserToAdminCommand extends Command<ChangeUse
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.user.events.ChangeUserToAdminEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.user.events.ChangeUserToAdminOkEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

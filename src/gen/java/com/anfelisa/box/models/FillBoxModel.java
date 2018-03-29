@@ -9,14 +9,15 @@ public class FillBoxModel implements IFillBoxModel {
 
 	private Integer boxId;
 	
-
 	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
 	
 
 	public FillBoxModel(
-		@JsonProperty("boxId") Integer boxId
+		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("cardsToBeAdded") java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded
 	) {
 		this.boxId = boxId;
+		this.cardsToBeAdded = cardsToBeAdded;
 	}
 
 	@JsonProperty
@@ -27,7 +28,6 @@ public class FillBoxModel implements IFillBoxModel {
 		this.boxId = boxId;
 	}
 	
-
 	@JsonProperty
 	public java.util.List<com.anfelisa.box.models.IScheduledCardModel> getCardsToBeAdded() {
 		return this.cardsToBeAdded;
@@ -36,7 +36,7 @@ public class FillBoxModel implements IFillBoxModel {
 		this.cardsToBeAdded = cardsToBeAdded;
 	}
 	
-		
+
 }
 
 /*       S.D.G.       */

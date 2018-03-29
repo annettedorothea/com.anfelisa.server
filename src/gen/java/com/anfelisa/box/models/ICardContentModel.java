@@ -10,7 +10,6 @@ public interface ICardContentModel {
 	Boolean getLarge();
 	String getWanted();
 	String getHeader();
-
 	java.util.List<com.anfelisa.box.models.ILineModel> getLines();
 
 }

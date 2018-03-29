@@ -25,6 +25,10 @@ public class MyTestListData implements IMyTestListData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
+	private java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList;
+	
 	@NotNull
 	private Integer lessonId;
 	
@@ -54,15 +58,10 @@ public class MyTestListData implements IMyTestListData {
 	private Integer courseId;
 	
 
-	private java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList;
-	
-	
-	
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public MyTestListData(
+		@JsonProperty("myTestList") java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList,
 		@JsonProperty("lessonId") Integer lessonId,
 		@JsonProperty("username") String username,
 		@JsonProperty("lessonName") String lessonName,
@@ -75,6 +74,7 @@ public class MyTestListData implements IMyTestListData {
 		@JsonProperty("courseId") Integer courseId
 ,		@JsonProperty("uuid") String uuid
 	) {
+		this.myTestList = myTestList;
 		this.lessonId = lessonId;
 		this.username = username;
 		this.lessonName = lessonName;
@@ -86,12 +86,25 @@ public class MyTestListData implements IMyTestListData {
 		this.courseAuthor = courseAuthor;
 		this.courseId = courseId;
 		this.uuid = uuid;
+		
 	}
 
 	public MyTestListData( String uuid ) {
 		this.uuid = uuid;
 	}
 
+	@JsonProperty
+	public java.util.List<com.anfelisa.test.models.IMyTestModel> getMyTestList() {
+		return this.myTestList;
+	}
+	public void setMyTestList(java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList) {
+		this.myTestList = myTestList;
+	}
+	public MyTestListData withMyTestList(java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList) {
+		this.myTestList = myTestList;
+		return this;
+	}
+	
 	@JsonProperty
 	public Integer getLessonId() {
 		return this.lessonId;
@@ -212,18 +225,6 @@ public class MyTestListData implements IMyTestListData {
 		return this;
 	}
 	
-	@JsonProperty
-	public java.util.List<com.anfelisa.test.models.IMyTestModel> getMyTestList() {
-		return this.myTestList;
-	}
-	public void setMyTestList(java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList) {
-		this.myTestList = myTestList;
-	}
-	
-	
-	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -257,6 +258,35 @@ public class MyTestListData implements IMyTestListData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new MyTestListPresentationalData(
+			this.myTestList,
+			this.lessonId,
+			this.username,
+			this.lessonName,
+			this.lessonDescription,
+			this.lessonAuthor,
+			this.courseName,
+			this.courseDescription,
+			this.isPublic,
+			this.courseAuthor,
+			this.courseId
+		);
 	}
 
 }

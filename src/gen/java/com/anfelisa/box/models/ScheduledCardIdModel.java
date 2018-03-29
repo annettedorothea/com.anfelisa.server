@@ -10,7 +10,6 @@ public class ScheduledCardIdModel implements IScheduledCardIdModel {
 	private Integer scheduledCardId;
 	
 
-
 	public ScheduledCardIdModel(
 		@JsonProperty("scheduledCardId") Integer scheduledCardId
 	) {
@@ -26,7 +25,6 @@ public class ScheduledCardIdModel implements IScheduledCardIdModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

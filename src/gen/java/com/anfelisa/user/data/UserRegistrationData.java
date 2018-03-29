@@ -22,6 +22,8 @@ public class UserRegistrationData implements IUserRegistrationData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private String username;
 	
@@ -47,8 +49,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 	private String language;
 	
 
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public UserRegistrationData(
@@ -71,6 +71,7 @@ public class UserRegistrationData implements IUserRegistrationData {
 		this.emailConfirmed = emailConfirmed;
 		this.language = language;
 		this.uuid = uuid;
+		
 	}
 
 	public UserRegistrationData( String uuid ) {
@@ -173,8 +174,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 		return this;
 	}
 	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -208,6 +207,32 @@ public class UserRegistrationData implements IUserRegistrationData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new UserRegistrationPresentationalData(
+			this.username,
+			this.password,
+			this.name,
+			this.prename,
+			this.email,
+			this.role,
+			this.emailConfirmed,
+			this.language
+		);
 	}
 
 }

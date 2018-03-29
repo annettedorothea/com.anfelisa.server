@@ -12,7 +12,6 @@ public interface IStatisticsModel {
 	Integer getMaxPoints();
 	Integer getRate();
 
-
 }
 
 /*       S.D.G.       */

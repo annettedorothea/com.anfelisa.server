@@ -21,6 +21,8 @@ public class CardIdData implements ICardIdData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer cardId;
 	
@@ -31,7 +33,6 @@ public class CardIdData implements ICardIdData {
 	private String contentHash;
 	
 
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public CardIdData(
@@ -44,6 +45,7 @@ public class CardIdData implements ICardIdData {
 		this.testId = testId;
 		this.contentHash = contentHash;
 		this.uuid = uuid;
+		
 	}
 
 	public CardIdData( String uuid ) {
@@ -86,7 +88,6 @@ public class CardIdData implements ICardIdData {
 		return this;
 	}
 	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -120,6 +121,27 @@ public class CardIdData implements ICardIdData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new CardIdPresentationalData(
+			this.cardId,
+			this.testId,
+			this.contentHash
+		);
 	}
 
 }

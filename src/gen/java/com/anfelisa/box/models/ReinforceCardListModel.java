@@ -13,16 +13,17 @@ public class ReinforceCardListModel implements IReinforceCardListModel {
 	@NotNull
 	private String boxName;
 	
-
 	private java.util.List<com.anfelisa.box.models.IReinforceCardModel> list;
 	
 
 	public ReinforceCardListModel(
 		@JsonProperty("boxId") Integer boxId,
-		@JsonProperty("boxName") String boxName
+		@JsonProperty("boxName") String boxName,
+		@JsonProperty("list") java.util.List<com.anfelisa.box.models.IReinforceCardModel> list
 	) {
 		this.boxId = boxId;
 		this.boxName = boxName;
+		this.list = list;
 	}
 
 	@JsonProperty
@@ -41,7 +42,6 @@ public class ReinforceCardListModel implements IReinforceCardListModel {
 		this.boxName = boxName;
 	}
 	
-
 	@JsonProperty
 	public java.util.List<com.anfelisa.box.models.IReinforceCardModel> getList() {
 		return this.list;
@@ -50,7 +50,7 @@ public class ReinforceCardListModel implements IReinforceCardListModel {
 		this.list = list;
 	}
 	
-		
+
 }
 
 /*       S.D.G.       */

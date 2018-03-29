@@ -16,7 +16,7 @@ public class CreateUserCommand extends AbstractCreateUserCommand {
 
 	@Override
 	protected void executeCommand() {
-		this.commandData.setOutcome(go);
+		this.commandData.setOutcome(success);
 	}
 
 }

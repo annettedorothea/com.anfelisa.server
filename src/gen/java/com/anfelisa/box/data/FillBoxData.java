@@ -22,28 +22,32 @@ public class FillBoxData implements IFillBoxData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	private Integer boxId;
+	
+	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
 	
 	private String credentialsUsername;
 	
 	private String credentialsRole;
 	
 
-	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public FillBoxData(
 		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("cardsToBeAdded") java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.boxId = boxId;
+		this.cardsToBeAdded = cardsToBeAdded;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
+		
 	}
 
 	public FillBoxData( String uuid ) {
@@ -59,6 +63,18 @@ public class FillBoxData implements IFillBoxData {
 	}
 	public FillBoxData withBoxId(Integer boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	public java.util.List<com.anfelisa.box.models.IScheduledCardModel> getCardsToBeAdded() {
+		return this.cardsToBeAdded;
+	}
+	public void setCardsToBeAdded(java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded) {
+		this.cardsToBeAdded = cardsToBeAdded;
+	}
+	public FillBoxData withCardsToBeAdded(java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded) {
+		this.cardsToBeAdded = cardsToBeAdded;
 		return this;
 	}
 	
@@ -85,15 +101,6 @@ public class FillBoxData implements IFillBoxData {
 		this.credentialsRole = credentialsRole;
 		return this;
 	}
-	
-	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IScheduledCardModel> getCardsToBeAdded() {
-		return this.cardsToBeAdded;
-	}
-	public void setCardsToBeAdded(java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded) {
-		this.cardsToBeAdded = cardsToBeAdded;
-	}
-	
 	
 
 	@JsonProperty
@@ -128,6 +135,28 @@ public class FillBoxData implements IFillBoxData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new FillBoxPresentationalData(
+			this.boxId,
+			this.cardsToBeAdded,
+			this.credentialsUsername,
+			this.credentialsRole
+		);
 	}
 
 }

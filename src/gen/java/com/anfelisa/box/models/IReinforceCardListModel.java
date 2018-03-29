@@ -7,7 +7,6 @@ public interface IReinforceCardListModel {
 
 	Integer getBoxId();
 	String getBoxName();
-
 	java.util.List<com.anfelisa.box.models.IReinforceCardModel> getList();
 
 }

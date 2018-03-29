@@ -22,34 +22,38 @@ public class BoxOfCourseListData implements IBoxOfCourseListData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer boxId;
 	
 	@NotNull
 	private String boxName;
 	
+	private java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> courseToBoxAdditionList;
+	
 	private String credentialsUsername;
 	
 	private String credentialsRole;
 	
 
-	private java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> courseToBoxAdditionList;
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public BoxOfCourseListData(
 		@JsonProperty("boxId") Integer boxId,
 		@JsonProperty("boxName") String boxName,
+		@JsonProperty("courseToBoxAdditionList") java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> courseToBoxAdditionList,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.boxId = boxId;
 		this.boxName = boxName;
+		this.courseToBoxAdditionList = courseToBoxAdditionList;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
+		
 	}
 
 	public BoxOfCourseListData( String uuid ) {
@@ -81,6 +85,18 @@ public class BoxOfCourseListData implements IBoxOfCourseListData {
 	}
 	
 	@JsonProperty
+	public java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> getCourseToBoxAdditionList() {
+		return this.courseToBoxAdditionList;
+	}
+	public void setCourseToBoxAdditionList(java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> courseToBoxAdditionList) {
+		this.courseToBoxAdditionList = courseToBoxAdditionList;
+	}
+	public BoxOfCourseListData withCourseToBoxAdditionList(java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> courseToBoxAdditionList) {
+		this.courseToBoxAdditionList = courseToBoxAdditionList;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getCredentialsUsername() {
 		return this.credentialsUsername;
 	}
@@ -103,15 +119,6 @@ public class BoxOfCourseListData implements IBoxOfCourseListData {
 		this.credentialsRole = credentialsRole;
 		return this;
 	}
-	
-	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> getCourseToBoxAdditionList() {
-		return this.courseToBoxAdditionList;
-	}
-	public void setCourseToBoxAdditionList(java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> courseToBoxAdditionList) {
-		this.courseToBoxAdditionList = courseToBoxAdditionList;
-	}
-	
 	
 
 	@JsonProperty
@@ -146,6 +153,29 @@ public class BoxOfCourseListData implements IBoxOfCourseListData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new BoxOfCourseListPresentationalData(
+			this.boxId,
+			this.boxName,
+			this.courseToBoxAdditionList,
+			this.credentialsUsername,
+			this.credentialsRole
+		);
 	}
 
 }

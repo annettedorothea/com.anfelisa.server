@@ -11,7 +11,6 @@ public interface ICardModel {
 	String getContentHash();
 	Integer getMaxPoints();
 
-
 }
 
 /*       S.D.G.       */

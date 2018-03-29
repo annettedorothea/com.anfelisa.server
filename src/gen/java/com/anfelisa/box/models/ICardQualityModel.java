@@ -7,7 +7,6 @@ public interface ICardQualityModel {
 
 	Integer getSubmittedQuality();
 
-
 }
 
 /*       S.D.G.       */

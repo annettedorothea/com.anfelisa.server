@@ -7,14 +7,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class BoxListModel implements IBoxListModel {
 
-
 	private java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList;
 	
 
 	public BoxListModel(
+		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList
 	) {
+		this.boxList = boxList;
 	}
-
 
 	@JsonProperty
 	public java.util.List<com.anfelisa.box.models.IBoxInfoModel> getBoxList() {
@@ -24,7 +24,7 @@ public class BoxListModel implements IBoxListModel {
 		this.boxList = boxList;
 	}
 	
-		
+
 }
 
 /*       S.D.G.       */

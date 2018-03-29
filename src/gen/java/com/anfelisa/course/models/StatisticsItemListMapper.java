@@ -13,6 +13,7 @@ public class StatisticsItemListMapper implements ResultSetMapper<IStatisticsItem
 	
 	public IStatisticsItemListModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new StatisticsItemListModel(
+			null
 		);
 	}
 }

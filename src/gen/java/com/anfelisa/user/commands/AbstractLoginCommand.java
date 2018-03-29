@@ -23,7 +23,7 @@ public abstract class AbstractLoginCommand extends Command<LoginData> {
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case success:
-			new com.anfelisa.user.events.UserLoggedInEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.user.events.LoginSuccessEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

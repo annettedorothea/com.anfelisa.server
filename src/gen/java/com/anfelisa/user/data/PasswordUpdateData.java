@@ -21,6 +21,8 @@ public class PasswordUpdateData implements IPasswordUpdateData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private String username;
 	
@@ -28,7 +30,6 @@ public class PasswordUpdateData implements IPasswordUpdateData {
 	private String password;
 	
 
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public PasswordUpdateData(
@@ -39,6 +40,7 @@ public class PasswordUpdateData implements IPasswordUpdateData {
 		this.username = username;
 		this.password = password;
 		this.uuid = uuid;
+		
 	}
 
 	public PasswordUpdateData( String uuid ) {
@@ -68,7 +70,6 @@ public class PasswordUpdateData implements IPasswordUpdateData {
 		this.password = password;
 		return this;
 	}
-	
 	
 
 	@JsonProperty
@@ -103,6 +104,26 @@ public class PasswordUpdateData implements IPasswordUpdateData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new PasswordUpdatePresentationalData(
+			this.username,
+			this.password
+		);
 	}
 
 }

@@ -22,6 +22,8 @@ public class PointsData implements IPointsData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private Integer points;
 	
@@ -29,8 +31,6 @@ public class PointsData implements IPointsData {
 	private String username;
 	
 
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public PointsData(
@@ -41,6 +41,7 @@ public class PointsData implements IPointsData {
 		this.points = points;
 		this.username = username;
 		this.uuid = uuid;
+		
 	}
 
 	public PointsData( String uuid ) {
@@ -70,8 +71,6 @@ public class PointsData implements IPointsData {
 		this.username = username;
 		return this;
 	}
-	
-	
 	
 
 	@JsonProperty
@@ -106,6 +105,26 @@ public class PointsData implements IPointsData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new PointsPresentationalData(
+			this.points,
+			this.username
+		);
 	}
 
 }

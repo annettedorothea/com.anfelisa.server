@@ -49,7 +49,7 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 	@Timed
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new BoxListData(user.getUsername(), uuid);
+		this.actionData = new BoxListData(null, user.getUsername(), uuid);
 		return this.apply();
 	}
 
@@ -61,8 +61,7 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 		for (IBoxModel boxModel : boxList) {
 			List<IScheduledCardModel> todaysCards = customScheduledCardDao.selectTodaysCards(this.getHandle(),
 					boxModel.getBoxId(), this.actionData.getSystemTime());
-			BoxInfoModel boxInfoModel = new BoxInfoModel(todaysCards.size(), (todaysCards.size() > 0));
-			boxInfoModel.setBox(boxModel);
+			BoxInfoModel boxInfoModel = new BoxInfoModel(todaysCards.size(), (todaysCards.size() > 0), boxModel);
 			boxInfoList.add(boxInfoModel);
 		}
 		this.actionData.setBoxList(boxInfoList);

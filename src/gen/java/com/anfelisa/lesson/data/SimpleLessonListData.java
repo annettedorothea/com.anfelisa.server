@@ -22,27 +22,43 @@ public class SimpleLessonListData implements ISimpleLessonListData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
+	private java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList;
+	
 	@NotNull
 	private Integer courseId;
 	
 
-	private java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList;
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public SimpleLessonListData(
+		@JsonProperty("lessonList") java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList,
 		@JsonProperty("courseId") Integer courseId
 ,		@JsonProperty("uuid") String uuid
 	) {
+		this.lessonList = lessonList;
 		this.courseId = courseId;
 		this.uuid = uuid;
+		
 	}
 
 	public SimpleLessonListData( String uuid ) {
 		this.uuid = uuid;
 	}
 
+	@JsonProperty
+	public java.util.List<com.anfelisa.lesson.models.ILessonModel> getLessonList() {
+		return this.lessonList;
+	}
+	public void setLessonList(java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList) {
+		this.lessonList = lessonList;
+	}
+	public SimpleLessonListData withLessonList(java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList) {
+		this.lessonList = lessonList;
+		return this;
+	}
+	
 	@JsonProperty
 	public Integer getCourseId() {
 		return this.courseId;
@@ -54,15 +70,6 @@ public class SimpleLessonListData implements ISimpleLessonListData {
 		this.courseId = courseId;
 		return this;
 	}
-	
-	@JsonProperty
-	public java.util.List<com.anfelisa.lesson.models.ILessonModel> getLessonList() {
-		return this.lessonList;
-	}
-	public void setLessonList(java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList) {
-		this.lessonList = lessonList;
-	}
-	
 	
 
 	@JsonProperty
@@ -97,6 +104,26 @@ public class SimpleLessonListData implements ISimpleLessonListData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new SimpleLessonListPresentationalData(
+			this.lessonList,
+			this.courseId
+		);
 	}
 
 }

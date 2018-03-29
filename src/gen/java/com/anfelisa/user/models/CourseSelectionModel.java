@@ -10,7 +10,6 @@ public class CourseSelectionModel implements ICourseSelectionModel {
 	private java.util.List<Integer> courseIdList;
 	
 
-
 	public CourseSelectionModel(
 		@JsonProperty("courseIdList") java.util.List<Integer> courseIdList
 	) {
@@ -26,7 +25,6 @@ public class CourseSelectionModel implements ICourseSelectionModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

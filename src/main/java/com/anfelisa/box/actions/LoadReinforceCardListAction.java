@@ -103,11 +103,9 @@ public class LoadReinforceCardListAction extends AbstractLoadReinforceCardListAc
 				Boolean large = (Boolean) cardContentModel.get("large");
 				String wanted = (String) cardContentModel.get("wanted");
 				String header = (String) cardContentModel.get("header");
-				CardContentModel cardContent = new CardContentModel(complex, given, large, wanted, header);
-				cardContent.setLines(lines);
+				CardContentModel cardContent = new CardContentModel(complex, given, large, wanted, header, lines);
 				ReinforceCardModel reinforceCard = new ReinforceCardModel(scheduledCard.getScheduledCardId(),
-						scheduledCard.getScheduledDate(), scheduledCard.getLastQuality(), scheduledCard.getTimestamp());
-				reinforceCard.setCardContent(cardContent);
+						scheduledCard.getScheduledDate(), scheduledCard.getLastQuality(), scheduledCard.getTimestamp(), cardContent);
 				reinforceCards.add(reinforceCard);
 			} catch (IOException e) {
 				e.printStackTrace();

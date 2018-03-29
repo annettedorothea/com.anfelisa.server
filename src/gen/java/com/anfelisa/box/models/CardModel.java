@@ -23,7 +23,6 @@ public class CardModel implements ICardModel {
 	private Integer maxPoints;
 	
 
-
 	public CardModel(
 		@JsonProperty("cardId") Integer cardId,
 		@JsonProperty("content") String content,
@@ -79,7 +78,6 @@ public class CardModel implements ICardModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

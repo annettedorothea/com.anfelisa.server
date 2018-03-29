@@ -23,7 +23,7 @@ public abstract class AbstractDeleteCourseCommand extends Command<CourseIdData> 
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case deleted:
-			new com.anfelisa.course.events.CourseDeletedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.course.events.DeleteCourseDeletedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

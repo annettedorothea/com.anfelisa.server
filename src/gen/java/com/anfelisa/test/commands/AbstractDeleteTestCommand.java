@@ -23,7 +23,7 @@ public abstract class AbstractDeleteTestCommand extends Command<TestIdData> {
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case deleted:
-			new com.anfelisa.test.events.TestDeletedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.test.events.DeleteTestDeletedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

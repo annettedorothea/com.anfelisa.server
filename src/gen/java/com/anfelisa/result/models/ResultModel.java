@@ -29,7 +29,6 @@ public class ResultModel implements IResultModel {
 	private Integer maxPoints;
 	
 
-
 	public ResultModel(
 		@JsonProperty("resultId") Integer resultId,
 		@JsonProperty("username") String username,
@@ -105,7 +104,6 @@ public class ResultModel implements IResultModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

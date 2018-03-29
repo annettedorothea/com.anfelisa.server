@@ -19,7 +19,6 @@ public class LessonAbstractModel implements ILessonAbstractModel {
 	private Integer lessonId;
 	
 
-
 	public LessonAbstractModel(
 		@JsonProperty("lessonName") String lessonName,
 		@JsonProperty("lessonDescription") String lessonDescription,
@@ -65,7 +64,6 @@ public class LessonAbstractModel implements ILessonAbstractModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

@@ -24,7 +24,7 @@ public abstract class AbstractForgotPasswordCommand extends Command<ForgotPasswo
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.user.events.SendEmailEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.user.events.ForgotPasswordOkEvent(this.commandData, databaseHandle).publish();
 			break;
 		case userNotFound:
 			break;

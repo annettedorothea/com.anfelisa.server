@@ -24,7 +24,6 @@ public class CourseModel implements ICourseModel {
 	private String author;
 	
 
-
 	public CourseModel(
 		@JsonProperty("courseId") Integer courseId,
 		@JsonProperty("name") String name,
@@ -90,7 +89,6 @@ public class CourseModel implements ICourseModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

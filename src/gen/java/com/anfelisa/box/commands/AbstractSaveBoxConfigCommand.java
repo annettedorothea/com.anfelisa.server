@@ -23,7 +23,7 @@ public abstract class AbstractSaveBoxConfigCommand extends Command<BoxConfigData
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case saved:
-			new com.anfelisa.box.events.BoxConfigSavedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.box.events.SaveBoxConfigSavedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

@@ -14,7 +14,6 @@ public interface IMyCourseModel {
 	Integer getOpenTests();
 	Boolean getHasOpenTests();
 
-
 }
 
 /*       S.D.G.       */

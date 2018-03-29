@@ -16,7 +16,8 @@ public class ReinforceCardMapper implements ResultSetMapper<IReinforceCardModel>
 			r.getInt("scheduledCardId"),
 			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")) : null,
 			r.getInt("lastQuality"),
-			r.getTimestamp("timestamp") != null ? new org.joda.time.DateTime(r.getTimestamp("timestamp")) : null
+			r.getTimestamp("timestamp") != null ? new org.joda.time.DateTime(r.getTimestamp("timestamp")) : null,
+			null
 		);
 	}
 }

@@ -7,14 +7,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class StatisticsItemListModel implements IStatisticsItemListModel {
 
-
 	private java.util.List<com.anfelisa.course.models.IStatisticsItemModel> statisticsItemList;
 	
 
 	public StatisticsItemListModel(
+		@JsonProperty("statisticsItemList") java.util.List<com.anfelisa.course.models.IStatisticsItemModel> statisticsItemList
 	) {
+		this.statisticsItemList = statisticsItemList;
 	}
-
 
 	@JsonProperty
 	public java.util.List<com.anfelisa.course.models.IStatisticsItemModel> getStatisticsItemList() {
@@ -24,7 +24,7 @@ public class StatisticsItemListModel implements IStatisticsItemListModel {
 		this.statisticsItemList = statisticsItemList;
 	}
 	
-		
+
 }
 
 /*       S.D.G.       */

@@ -23,7 +23,7 @@ public abstract class AbstractAddCourseToBoxCommand extends Command<BoxToCourseA
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case added:
-			new com.anfelisa.box.events.CourseAddedToBoxEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.box.events.AddCourseToBoxAddedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

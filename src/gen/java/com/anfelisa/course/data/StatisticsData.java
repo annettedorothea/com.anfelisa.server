@@ -22,6 +22,8 @@ public class StatisticsData implements IStatisticsData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private String username;
 	
@@ -40,10 +42,9 @@ public class StatisticsData implements IStatisticsData {
 	@NotNull
 	private Integer rate;
 	
-
-	
 	private java.util.List<com.anfelisa.course.models.IStatisticsItemModel> statisticsItemList;
 	
+
 	private org.joda.time.DateTime systemTime;
 	
 	public StatisticsData(
@@ -52,7 +53,8 @@ public class StatisticsData implements IStatisticsData {
 		@JsonProperty("month") Integer month,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints,
-		@JsonProperty("rate") Integer rate
+		@JsonProperty("rate") Integer rate,
+		@JsonProperty("statisticsItemList") java.util.List<com.anfelisa.course.models.IStatisticsItemModel> statisticsItemList
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
@@ -61,7 +63,9 @@ public class StatisticsData implements IStatisticsData {
 		this.points = points;
 		this.maxPoints = maxPoints;
 		this.rate = rate;
+		this.statisticsItemList = statisticsItemList;
 		this.uuid = uuid;
+		
 	}
 
 	public StatisticsData( String uuid ) {
@@ -140,13 +144,16 @@ public class StatisticsData implements IStatisticsData {
 		return this;
 	}
 	
-	
 	@JsonProperty
 	public java.util.List<com.anfelisa.course.models.IStatisticsItemModel> getStatisticsItemList() {
 		return this.statisticsItemList;
 	}
 	public void setStatisticsItemList(java.util.List<com.anfelisa.course.models.IStatisticsItemModel> statisticsItemList) {
 		this.statisticsItemList = statisticsItemList;
+	}
+	public StatisticsData withStatisticsItemList(java.util.List<com.anfelisa.course.models.IStatisticsItemModel> statisticsItemList) {
+		this.statisticsItemList = statisticsItemList;
+		return this;
 	}
 	
 
@@ -182,6 +189,31 @@ public class StatisticsData implements IStatisticsData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new StatisticsPresentationalData(
+			this.username,
+			this.year,
+			this.month,
+			this.points,
+			this.maxPoints,
+			this.rate,
+			this.statisticsItemList
+		);
 	}
 
 }

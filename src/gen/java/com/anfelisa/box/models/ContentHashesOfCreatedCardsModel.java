@@ -15,7 +15,6 @@ public class ContentHashesOfCreatedCardsModel implements IContentHashesOfCreated
 	private java.util.List<String> contentHashesOfObsoleteCards;
 	
 
-
 	public ContentHashesOfCreatedCardsModel(
 		@JsonProperty("testId") Integer testId,
 		@JsonProperty("contentHashesOfCreatedCards") java.util.List<String> contentHashesOfCreatedCards,
@@ -51,7 +50,6 @@ public class ContentHashesOfCreatedCardsModel implements IContentHashesOfCreated
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

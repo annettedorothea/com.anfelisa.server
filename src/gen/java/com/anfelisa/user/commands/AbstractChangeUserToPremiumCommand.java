@@ -23,7 +23,7 @@ public abstract class AbstractChangeUserToPremiumCommand extends Command<ChangeU
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.user.events.ChangeUserToPremiumEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.user.events.ChangeUserToPremiumOkEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

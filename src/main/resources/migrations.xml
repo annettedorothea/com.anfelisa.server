@@ -551,5 +551,60 @@
 		<dropTable tableName="scenario" />
 	</changeSet>
 
+	<changeSet id="011" author="annette">
+		<sql splitStatements="true" stripComments="true">
+			delete from timeline where name like '%SendRegistrationEmailEvent%';
+		</sql>
+		<sql splitStatements="true" stripComments="true">
+			update timeline set name = 'com.anfelisa.user.events.CreateUserSuccessEvent' where name like '%UserCreated%';
+			update timeline set name = 'com.anfelisa.user.events.LoginSuccessEvent' where name like '%UserLoggedIn%';
+			update timeline set name = 'com.anfelisa.user.events.UpdateUserSuccessEvent' where name like '%UserUpdated%';
+			update timeline set name = 'com.anfelisa.user.events.AddCoursesSuccessEvent' where name like '%CoursesAdded%';
+			update timeline set name = 'com.anfelisa.user.events.RemoveCourseSuccessEvent' where name like '%CourseRemoved%';
+			update timeline set name = 'com.anfelisa.user.events.UpdatePasswordSuccessEvent' where name like '%PasswordUpdated%';
+			update timeline set name = 'com.anfelisa.user.events.ForgotPasswordOkEvent' where name like '%SendEmail%';
+			update timeline set name = 'com.anfelisa.user.events.RegisterUserOkEvent' where name like '%UserRegistered%';
+			update timeline set name = 'com.anfelisa.user.events.ConfirmEmailOkEvent' where name like '%EmailConfirmed%';
+			update timeline set name = 'com.anfelisa.user.events.ChangeUserToPremiumOkEvent' where name like '%ChangeUserToPremium%';
+			update timeline set name = 'com.anfelisa.user.events.ChangeUserToAuthorOkEvent' where name like '%ChangeUserToAuthor%';
+			update timeline set name = 'com.anfelisa.user.events.ChangeUserToAdminOkEvent' where name like '%ChangeUserToAdmin%';
+			
+			update timeline set name = 'com.anfelisa.test.events.CreateTestCreatedEvent' where name like '%TestCreated%';
+			update timeline set name = 'com.anfelisa.test.events.UpdateTestUpdatedEvent' where name like '%TestUpdated%';
+			update timeline set name = 'com.anfelisa.test.events.DeleteTestDeletedEvent' where name like '%TestDeleted%';
+			
+			update timeline set name = 'com.anfelisa.result.events.CreateResultCreatedEvent' where name like '%ResultCreated%';
+			update timeline set name = 'com.anfelisa.result.events.SaveResultSavedEvent' where name like '%ResultSaved%';
+
+			update timeline set name = 'com.anfelisa.lesson.events.CreateLessonCreatedEvent' where name like '%LessonCreated%';
+			update timeline set name = 'com.anfelisa.lesson.events.UpdateLessonUpdatedEvent' where name like '%LessonUpdated%';
+			update timeline set name = 'com.anfelisa.lesson.events.DeleteLessonDeletedEvent' where name like '%LessonDeleted%';
+
+			update timeline set name = 'com.anfelisa.course.events.CreateCourseCreatedEvent' where name like '%CourseCreated%';
+			update timeline set name = 'com.anfelisa.course.events.AddStudentToCourseAddedEvent' where name like '%StudentAddedToCourse%';
+			update timeline set name = 'com.anfelisa.course.events.UpdateCourseUpdatedEvent' where name like '%CourseUpdated%';
+			update timeline set name = 'com.anfelisa.course.events.DeleteCourseDeletedEvent' where name like '%CourseDeleted%';
+
+			update timeline set name = 'com.anfelisa.box.events.CreateBoxCreatedEvent' where name like '%BoxCreated%';
+			update timeline set name = 'com.anfelisa.box.events.CreateCardCreatedEvent' where name like '%CardCreated%';
+			update timeline set name = 'com.anfelisa.box.events.ImportCardImportedEvent' where name like '%CardImported%';
+			update timeline set name = 'com.anfelisa.box.events.CreateScheduledCardCreatedEvent' where name like '%ScheduledCardCreated%';
+			update timeline set name = 'com.anfelisa.box.events.CreateScoredCardCreatedEvent' where name like '%ScoredCardCreated%';
+			update timeline set name = 'com.anfelisa.box.events.AddCourseToBoxAddedEvent' where name like '%CourseAddedToBox%';
+			update timeline set name = 'com.anfelisa.box.events.UpdateBoxUpdatedEvent' where name like '%BoxUpdated%';
+			update timeline set name = 'com.anfelisa.box.events.DeleteBoxDeletedEvent' where name like '%BoxDeleted%';
+			update timeline set name = 'com.anfelisa.box.events.SaveBoxConfigSavedEvent' where name like '%BoxConfigSaved%';
+			update timeline set name = 'com.anfelisa.box.events.ScoreCardScoredEvent' where name like '%CardScored%';
+			update timeline set name = 'com.anfelisa.box.events.FillBoxWithCardsFillBoxWithCardsEvent' where name like '%FillBoxWithCards%';
+			update timeline set name = 'com.anfelisa.box.events.DeleteCardDeletedEvent' where name like '%CardDeleted%';
+			update timeline set name = 'com.anfelisa.box.events.RemoveCardFromBoxDeletedEvent' where name like '%CardRemovedFromBox%';
+			update timeline set name = 'com.anfelisa.box.events.RecalculateScheduledCardsOkEvent' where name like '%RecalculateScheduledCards%';
+		</sql>
+		<addUniqueConstraint columnNames="type, uuid"
+			tableName="timeline" />
+		<addUniqueConstraint columnNames="type, uuid"
+			tableName="errortimeline" />
+	</changeSet>
+
 
 </databaseChangeLog>

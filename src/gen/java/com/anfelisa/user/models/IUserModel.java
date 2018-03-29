@@ -13,7 +13,6 @@ public interface IUserModel {
 	String getRole();
 	Boolean getEmailConfirmed();
 
-
 }
 
 /*       S.D.G.       */

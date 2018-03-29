@@ -7,7 +7,6 @@ public interface IUsernameModel {
 
 	String getUsername();
 
-
 }
 
 /*       S.D.G.       */

@@ -21,12 +21,9 @@ public class CustomTestDao {
 		List<ITestModel> tests = this.selectTests(handle, lessonId);
 		List<IMyTestModel> list = new ArrayList<IMyTestModel>();
 		for (ITestModel test : tests) {
-			MyTestModel myTest = new MyTestModel(test.getTestId(), test.getName(), test.getSequence(), 0, false);
 			List<IResultAbstractModel> results = customResultDao.selectByTestIdAndUsername(handle, test.getTestId(),
 					username);
-			myTest.setResultAbstractList(results);
-			myTest.setHasResults(results.size() > 0);
-			myTest.setResultCount(results.size());
+			MyTestModel myTest = new MyTestModel(test.getTestId(), test.getName(), test.getSequence(), results.size(), results.size() > 0, results);
 			list.add(myTest);
 		}
 		return list;

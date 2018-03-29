@@ -23,7 +23,7 @@ public abstract class AbstractAddStudentToCourseCommand extends Command<StudentT
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case added:
-			new com.anfelisa.course.events.StudentAddedToCourseEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.course.events.AddStudentToCourseAddedEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

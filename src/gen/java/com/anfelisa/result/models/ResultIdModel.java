@@ -11,7 +11,6 @@ public class ResultIdModel implements IResultIdModel {
 	private Integer resultId;
 	
 
-
 	public ResultIdModel(
 		@JsonProperty("resultId") Integer resultId
 	) {
@@ -27,7 +26,6 @@ public class ResultIdModel implements IResultIdModel {
 	}
 	
 
-		
 }
 
 /*       S.D.G.       */

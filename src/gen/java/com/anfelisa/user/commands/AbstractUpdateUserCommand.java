@@ -23,7 +23,7 @@ public abstract class AbstractUpdateUserCommand extends Command<UserUpdateData> 
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case success:
-			new com.anfelisa.user.events.UserUpdatedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.user.events.UpdateUserSuccessEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

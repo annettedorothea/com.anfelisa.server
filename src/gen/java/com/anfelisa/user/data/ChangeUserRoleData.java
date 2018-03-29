@@ -22,6 +22,8 @@ public class ChangeUserRoleData implements IChangeUserRoleData {
 	
 	private String createdId;
 	
+	private String[] notifiedListeners;
+	
 	@NotNull
 	private String username;
 	
@@ -30,8 +32,6 @@ public class ChangeUserRoleData implements IChangeUserRoleData {
 	private String credentialsRole;
 	
 
-	
-	
 	private org.joda.time.DateTime systemTime;
 	
 	public ChangeUserRoleData(
@@ -44,6 +44,7 @@ public class ChangeUserRoleData implements IChangeUserRoleData {
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 		this.uuid = uuid;
+		
 	}
 
 	public ChangeUserRoleData( String uuid ) {
@@ -86,8 +87,6 @@ public class ChangeUserRoleData implements IChangeUserRoleData {
 		return this;
 	}
 	
-	
-	
 
 	@JsonProperty
 	public String getUuid() {
@@ -121,6 +120,27 @@ public class ChangeUserRoleData implements IChangeUserRoleData {
 	@JsonProperty
 	public void setOutcome(String outcome) {
 		this.outcome = outcome;
+	}
+
+	@Override
+	@JsonProperty
+	public String[] getNotifiedListeners() {
+		return notifiedListeners;
+	}
+
+	@Override
+	@JsonProperty
+	public void setNotifiedListeners(String[] listeners) {
+		this.notifiedListeners = listeners;
+	}
+
+	@Override
+	public Object toPresentationalData() {
+		return new ChangeUserRolePresentationalData(
+			this.username,
+			this.credentialsUsername,
+			this.credentialsRole
+		);
 	}
 
 }
