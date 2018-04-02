@@ -20,11 +20,9 @@ public class FillBoxData implements IFillBoxData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
-	private Integer boxId;
+	private String boxId;
 	
 	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
 	
@@ -36,7 +34,7 @@ public class FillBoxData implements IFillBoxData {
 	private org.joda.time.DateTime systemTime;
 	
 	public FillBoxData(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("cardsToBeAdded") java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
@@ -55,13 +53,13 @@ public class FillBoxData implements IFillBoxData {
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public FillBoxData withBoxId(Integer boxId) {
+	public FillBoxData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}
@@ -106,15 +104,6 @@ public class FillBoxData implements IFillBoxData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

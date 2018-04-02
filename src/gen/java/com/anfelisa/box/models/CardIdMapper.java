@@ -13,8 +13,8 @@ public class CardIdMapper implements ResultSetMapper<ICardIdModel> {
 	
 	public ICardIdModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardIdModel(
-			r.getInt("cardId"),
-			r.getInt("testId"),
+			r.getString("cardId"),
+			r.getString("testId"),
 			r.getString("contentHash")
 		);
 	}

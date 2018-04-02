@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ReinforceCardListModel implements IReinforceCardListModel {
 
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	@NotNull
 	private String boxName;
@@ -17,7 +17,7 @@ public class ReinforceCardListModel implements IReinforceCardListModel {
 	
 
 	public ReinforceCardListModel(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("boxName") String boxName,
 		@JsonProperty("list") java.util.List<com.anfelisa.box.models.IReinforceCardModel> list
 	) {
@@ -27,10 +27,10 @@ public class ReinforceCardListModel implements IReinforceCardListModel {
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	

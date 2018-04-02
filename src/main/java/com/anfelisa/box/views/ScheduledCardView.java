@@ -18,8 +18,7 @@ public class ScheduledCardView {
 	private static CustomScheduledCardDao customScheduledCardDao = new CustomScheduledCardDao();
 
 	public static BiConsumer<ScheduledCardData, Handle> createScheduledCard = (dataContainer, handle) -> {
-		Integer id = scheduledCardDao.insert(handle, dataContainer);
-		dataContainer.setCreatedId(id + "");
+		scheduledCardDao.insert(handle, dataContainer);
 	};
 	public static BiConsumer<ScoreCardData, Handle> score = (dataContainer, handle) -> {
 		scheduledCardDao.updateByScheduledCardId(handle, dataContainer);

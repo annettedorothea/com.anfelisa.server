@@ -17,6 +17,9 @@ public class CreateCourseCommand extends AbstractCreateCourseCommand {
 	@Override
 	protected void executeCommand() {
 		this.commandData.setOutcome(created);
+		if (this.commandData.getCourseId() == null) {
+			this.commandData.setCourseId(this.commandData.getUuid());
+		}
 	}
 
 }

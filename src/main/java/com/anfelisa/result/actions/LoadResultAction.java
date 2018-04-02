@@ -56,7 +56,7 @@ public class LoadResultAction extends AbstractLoadResultAction {
 	@Path("/single")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("resultId") Integer resultId) throws JsonProcessingException {
+			@NotNull @QueryParam("resultId") String resultId) throws JsonProcessingException {
 		this.actionData = new MyResultData(uuid).withResultId(resultId).withUsername(user.getUsername());
 		return this.apply();
 	}

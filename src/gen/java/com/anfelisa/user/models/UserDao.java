@@ -15,26 +15,21 @@ import com.anfelisa.ace.encryption.EncryptionService;
 @JsonIgnoreType
 public class UserDao {
 	
-	public String insert(Handle handle, IUserModel userModel) {
-		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.user (username, password, name, prename, email, role, emailconfirmed) VALUES (:username, :password, :name, :prename, :email, :role, :emailconfirmed) RETURNING username");
+	public void insert(Handle handle, IUserModel userModel) {
+		Update statement = handle.createStatement("INSERT INTO public.user (username, password, email, role, emailconfirmed) VALUES (:username, :password, :email, :role, :emailconfirmed)");
 		statement.bind("username",  userModel.getUsername() );
 		statement.bind("password",  userModel.getPassword() );
-		statement.bind("name",  userModel.getName() );
-		statement.bind("prename",  userModel.getPrename() );
 		statement.bind("email",  userModel.getEmail() );
 		statement.bind("role",  userModel.getRole() );
 		statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
-		Map<String, Object> first = statement.first();
-		return (String) first.get("username");
+		statement.execute();
 	}
 	
 	
 	public void updateByUsername(Handle handle, IUserModel userModel) {
-		Update statement = handle.createStatement("UPDATE public.user SET username = :username, password = :password, name = :name, prename = :prename, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE username = :username");
+		Update statement = handle.createStatement("UPDATE public.user SET username = :username, password = :password, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE username = :username");
 		statement.bind("username",  userModel.getUsername() );
 		statement.bind("password",  userModel.getPassword() );
-		statement.bind("name",  userModel.getName() );
-		statement.bind("prename",  userModel.getPrename() );
 		statement.bind("email",  userModel.getEmail() );
 		statement.bind("role",  userModel.getRole() );
 		statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
@@ -49,14 +44,14 @@ public class UserDao {
 	}
 
 	public IUserModel selectByUsername(Handle handle, String username) {
-		return handle.createQuery("SELECT username, password, name, prename, email, role, emailconfirmed FROM public.user WHERE username = :username")
+		return handle.createQuery("SELECT username, password, email, role, emailconfirmed FROM public.user WHERE username = :username")
 			.bind("username", username)
 			.map(new UserMapper())
 			.first();
 	}
 	
 	public List<IUserModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT username, password, name, prename, email, role, emailconfirmed FROM public.user")
+		return handle.createQuery("SELECT username, password, email, role, emailconfirmed FROM public.user")
 			.map(new UserMapper())
 			.list();
 	}

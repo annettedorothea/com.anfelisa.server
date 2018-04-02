@@ -15,19 +15,20 @@ import com.anfelisa.ace.encryption.EncryptionService;
 @JsonIgnoreType
 public class CardDao {
 	
-	public Integer insert(Handle handle, ICardModel cardModel) {
-		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.card (content, testid, contenthash, maxpoints) VALUES (:content, :testid, :contenthash, :maxpoints) RETURNING cardid");
+	public void insert(Handle handle, ICardModel cardModel) {
+		Update statement = handle.createStatement("INSERT INTO public.card (cardid, content, testid, contenthash, maxpoints) VALUES (:cardid, :content, :testid, :contenthash, :maxpoints)");
+		statement.bind("cardid",  cardModel.getCardId() );
 		statement.bind("content",  cardModel.getContent() );
 		statement.bind("testid",  cardModel.getTestId() );
 		statement.bind("contenthash",  cardModel.getContentHash() );
 		statement.bind("maxpoints",  cardModel.getMaxPoints() );
-		Map<String, Object> first = statement.first();
-		return (Integer) first.get("cardid");
+		statement.execute();
 	}
 	
 	
 	public void updateByCardId(Handle handle, ICardModel cardModel) {
-		Update statement = handle.createStatement("UPDATE public.card SET content = :content, testid = :testid, contenthash = :contenthash, maxpoints = :maxpoints WHERE cardid = :cardid");
+		Update statement = handle.createStatement("UPDATE public.card SET cardid = :cardid, content = :content, testid = :testid, contenthash = :contenthash, maxpoints = :maxpoints WHERE cardid = :cardid");
+		statement.bind("cardid",  cardModel.getCardId() );
 		statement.bind("content",  cardModel.getContent() );
 		statement.bind("testid",  cardModel.getTestId() );
 		statement.bind("contenthash",  cardModel.getContentHash() );
@@ -36,13 +37,13 @@ public class CardDao {
 		statement.execute();
 	}
 
-	public void deleteByCardId(Handle handle, Integer cardId) {
+	public void deleteByCardId(Handle handle, String cardId) {
 		Update statement = handle.createStatement("DELETE FROM public.card WHERE cardid = :cardid");
 		statement.bind("cardid", cardId);
 		statement.execute();
 	}
 
-	public ICardModel selectByCardId(Handle handle, Integer cardId) {
+	public ICardModel selectByCardId(Handle handle, String cardId) {
 		return handle.createQuery("SELECT cardid, content, testid, contenthash, maxpoints FROM public.card WHERE cardid = :cardid")
 			.bind("cardid", cardId)
 			.map(new CardMapper())
@@ -57,8 +58,6 @@ public class CardDao {
 
 	public void truncate(Handle handle) {
 		Update statement = handle.createStatement("TRUNCATE public.card CASCADE");
-		statement.execute();
-		statement = handle.createStatement("ALTER SEQUENCE public.card_cardId_seq RESTART");
 		statement.execute();
 	}
 

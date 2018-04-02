@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class MyTestModel implements IMyTestModel {
 
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private String name;
@@ -23,7 +23,7 @@ public class MyTestModel implements IMyTestModel {
 	
 
 	public MyTestModel(
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("name") String name,
 		@JsonProperty("sequence") Integer sequence,
 		@JsonProperty("resultCount") Integer resultCount,
@@ -39,10 +39,10 @@ public class MyTestModel implements IMyTestModel {
 	}
 
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
 	

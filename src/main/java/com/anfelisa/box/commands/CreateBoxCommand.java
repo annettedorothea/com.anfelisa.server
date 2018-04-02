@@ -20,6 +20,7 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 		if (commandData.getCredentialsRole().equals(AuthUser.STUDENT) && !commandData.getUsername().equals(commandData.getCredentialsUsername())) {
 			throwUnauthorized();
 		}
+		this.commandData.setBoxId(this.commandData.getUuid());
 		this.commandData.setOutcome(created);
 	}
 

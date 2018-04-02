@@ -54,22 +54,7 @@ ACE {
 		on ok (ScheduledCard.recalculateScheduledCards)
 	}
 }
-/*
-actions {
-}
 
-commands {
-	RemoveCardFromBox uses RemoveCardFromBox {
-	}
-	RecalculateScheduledCards uses RecalculateScheduledCards {
-	}
-}
-
-events {
-	RecalculateScheduledCards uses RecalculateScheduledCards listenedToBy (ScheduledCard.recalculateScheduledCards)
-}
-
-*/
 views {
 	Box {
 		createBox (BoxCreation)
@@ -100,52 +85,52 @@ views {
 models {
 	schema public
 	persistent Box {
-		Unique PrimaryKey NotNull Serial boxId
+		Unique PrimaryKey NotNull String boxId
 		NotNull String name
 		NotNull String username references com.anfelisa.user.User.username
 	}
 
 	persistent BoxOfCourse {
-		NotNull Integer boxId references Box.boxId
-		NotNull Integer courseId references com.anfelisa.course.Course.courseId
+		NotNull String boxId references Box.boxId
+		NotNull String courseId references com.anfelisa.course.Course.courseId
 		NotNull Boolean autoAdd
 	}
 
 	persistent Card {
-		Unique PrimaryKey NotNull Serial cardId
+		Unique PrimaryKey NotNull String cardId
 		NotEmpty String content
-		NotNull Integer testId references com.anfelisa.test.Test.testId
+		NotNull String testId references com.anfelisa.test.Test.testId
 		NotNull String contentHash
 		NotNull Integer maxPoints
 	}
 
 	persistent ScheduledCard {
-		Unique PrimaryKey NotNull Serial scheduledCardId
-		NotNull Integer cardId references Card.cardId
+		Unique PrimaryKey NotNull String scheduledCardId
+		NotNull String cardId references Card.cardId
 		NotNull Float ef
 		Integer interval
 		NotNull Integer n
 		NotNull Integer count
 		NotNull DateTime scheduledDate
-		NotNull Integer boxId references Box.boxId
+		NotNull String boxId references Box.boxId
 		Integer lastQuality
 		NotNull DateTime timestamp
 		NotNull Boolean removed
 	}
 
 	persistent ScoredCard {
-		Unique PrimaryKey NotNull Serial scoredCardId
-		NotNull Integer cardId references Card.cardId
+		Unique PrimaryKey NotNull String scoredCardId
+		NotNull String cardId references Card.cardId
 		DateTime scheduledDateOfScored
-		NotNull Integer boxId references Box.boxId
+		NotNull String boxId references Box.boxId
 		Integer quality
 		NotNull DateTime timestamp
 		Integer points
-		NotNull Integer scheduledCardId references ScheduledCard.scheduledCardId
+		NotNull String scheduledCardId references ScheduledCard.scheduledCardId
 	}
 
 	ReinforceCard {
-		Unique PrimaryKey NotNull Serial scheduledCardId
+		Unique PrimaryKey NotNull String scheduledCardId
 		NotNull DateTime scheduledDate
 		Integer lastQuality
 		NotNull DateTime timestamp			
@@ -153,7 +138,7 @@ models {
 	}
 	
 	ReinforceCardList {
-		NotNull Integer boxId
+		NotNull String boxId
 		NotNull String boxName
 		List ReinforceCard list
 	}
@@ -173,8 +158,8 @@ models {
 	}
 
 	CardInfo {
-		Integer cardId
-		Integer cardOfBoxId
+		String cardId
+		String cardOfBoxId
 		String content
 		String boxName
 		Integer count
@@ -211,30 +196,30 @@ models {
 	}
 	
 	CourseToBoxAddition {
-		NotNull Integer boxId 
-		NotNull Integer courseId 
+		NotNull String boxId 
+		NotNull String courseId 
 		NotNull Boolean autoAdd
 		NotNull String name
 	}
 	
 	CourseToBoxAdditionList {
-		NotNull Integer boxId 
+		NotNull String boxId 
 		NotNull String boxName 
 		List CourseToBoxAddition courseToBoxAdditionList
 	}
 	
 	BoxId {
-		NotNull Integer boxId 
+		NotNull String boxId 
 	}
 	
 	CardId {
-		NotNull Integer cardId
-		NotNull Integer testId
+		NotNull String cardId
+		NotNull String testId
 		NotNull String contentHash 
 	}
 	
 	BoxConfig {
-		NotNull Integer boxId 
+		NotNull String boxId 
 		List BoxOfCourse boxOfCourseList
 		List BoxOfCourse existingItems
 	}
@@ -247,13 +232,13 @@ models {
 		NotNull String contentHash
 	}
 	ContentHashesOfCreatedCards {
-		NotNull Integer testId
+		NotNull String testId
 		List String contentHashesOfCreatedCards
 		List String contentHashesOfObsoleteCards
 	}
 	
 	FillBox {
-		Integer boxId
+		String boxId
 		List ScheduledCard cardsToBeAdded
 	}
 	
@@ -262,7 +247,7 @@ models {
 	}
 	
 	ScheduledCardId {
-		Integer scheduledCardId
+		String scheduledCardId
 	}
 	DaysBehind {
 		Integer daysBehind

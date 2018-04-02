@@ -8,20 +8,20 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ResultIdModel implements IResultIdModel {
 
 	@NotNull
-	private Integer resultId;
+	private String resultId;
 	
 
 	public ResultIdModel(
-		@JsonProperty("resultId") Integer resultId
+		@JsonProperty("resultId") String resultId
 	) {
 		this.resultId = resultId;
 	}
 
 	@JsonProperty
-	public Integer getResultId() {
+	public String getResultId() {
 		return this.resultId;
 	}
-	public void setResultId(Integer resultId) {
+	public void setResultId(String resultId) {
 		this.resultId = resultId;
 	}
 	

@@ -6,8 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IUserUpdateModel {
 
 	String getUsername();
-	String getName();
-	String getPrename();
 	String getEmail();
 
 }

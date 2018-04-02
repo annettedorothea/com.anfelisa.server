@@ -20,8 +20,6 @@ public class CourseSelectionData implements ICourseSelectionData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
@@ -90,15 +88,6 @@ public class CourseSelectionData implements ICourseSelectionData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

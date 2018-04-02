@@ -17,7 +17,7 @@ import com.anfelisa.user.models.ICredentialsModel;
 public class BoxOfCourseListPresentationalData implements IBoxOfCourseListPresentationalData {
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	@NotNull
 	private String boxName;
@@ -30,7 +30,7 @@ public class BoxOfCourseListPresentationalData implements IBoxOfCourseListPresen
 	
 	
 	public BoxOfCourseListPresentationalData(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("boxName") String boxName,
 		@JsonProperty("courseToBoxAdditionList") java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> courseToBoxAdditionList,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
@@ -45,13 +45,13 @@ public class BoxOfCourseListPresentationalData implements IBoxOfCourseListPresen
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public BoxOfCourseListPresentationalData withBoxId(Integer boxId) {
+	public BoxOfCourseListPresentationalData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}

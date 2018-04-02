@@ -20,8 +20,6 @@ public class MyCourseListData implements IMyCourseListData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	private java.util.List<com.anfelisa.course.models.IMyCourseModel> myCourseList;
@@ -75,15 +73,6 @@ public class MyCourseListData implements IMyCourseListData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

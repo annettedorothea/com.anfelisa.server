@@ -20,8 +20,6 @@ public class BoxListData implements IBoxListData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	private java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList;
@@ -75,15 +73,6 @@ public class BoxListData implements IBoxListData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

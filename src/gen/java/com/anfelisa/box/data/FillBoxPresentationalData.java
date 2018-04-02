@@ -16,7 +16,7 @@ import com.anfelisa.user.models.ICredentialsModel;
 @SuppressWarnings("all")
 public class FillBoxPresentationalData implements IFillBoxPresentationalData {
 	
-	private Integer boxId;
+	private String boxId;
 	
 	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
 	
@@ -26,7 +26,7 @@ public class FillBoxPresentationalData implements IFillBoxPresentationalData {
 	
 	
 	public FillBoxPresentationalData(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("cardsToBeAdded") java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
@@ -39,13 +39,13 @@ public class FillBoxPresentationalData implements IFillBoxPresentationalData {
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public FillBoxPresentationalData withBoxId(Integer boxId) {
+	public FillBoxPresentationalData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}

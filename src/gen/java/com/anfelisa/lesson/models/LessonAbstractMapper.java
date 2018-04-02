@@ -16,7 +16,7 @@ public class LessonAbstractMapper implements ResultSetMapper<ILessonAbstractMode
 			r.getString("lessonName"),
 			r.getString("lessonDescription"),
 			r.getString("lessonAuthor"),
-			r.getInt("lessonId")
+			r.getString("lessonId")
 		);
 	}
 }

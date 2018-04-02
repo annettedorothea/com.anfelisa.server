@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=BoxModel.class)
 public interface IBoxModel {
 
-	Integer getBoxId();
+	String getBoxId();
 	String getName();
 	String getUsername();
 

@@ -1,9 +1,9 @@
 <createTable tableName="scheduledcard">
-	<column name="scheduledcardid" type="serial">
+	<column name="scheduledcardid" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
-	<column name="cardid" type="integer">
-		<constraints  nullable="false" 	references="card(cardid)" deleteCascade="true" />
+	<column name="cardid" type="character varying">
+		<constraints  nullable="false" 	references="card(cardid)" deleteCascade="true" foreignKeyName="fk_scheduledcard_cardid" />
 	</column>
 	<column name="ef" type="numeric">
 		<constraints  nullable="false"  />
@@ -20,8 +20,8 @@
 	<column name="scheduleddate" type="timestamp with time zone">
 		<constraints  nullable="false"  />
 	</column>
-	<column name="boxid" type="integer">
-		<constraints  nullable="false" 	references="box(boxid)" deleteCascade="true" />
+	<column name="boxid" type="character varying">
+		<constraints  nullable="false" 	references="box(boxid)" deleteCascade="true" foreignKeyName="fk_scheduledcard_boxid" />
 	</column>
 	<column name="lastquality" type="integer">
 		<constraints    />

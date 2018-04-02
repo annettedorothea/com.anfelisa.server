@@ -49,7 +49,7 @@ public class LoadPrivateTestAction extends AbstractLoadPrivateTestAction {
 	@Path("/private/single")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("testId") Integer testId) throws JsonProcessingException {
+			@NotNull @QueryParam("testId") String testId) throws JsonProcessingException {
 		this.actionData = new MyTestData(uuid).withTestId(testId).withUsername(user.getUsername());
 		return this.apply();
 	}

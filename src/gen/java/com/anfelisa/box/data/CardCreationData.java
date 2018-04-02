@@ -19,18 +19,16 @@ public class CardCreationData implements ICardCreationData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer cardId;
+	private String cardId;
 	
 	@NotEmpty
 	private String content;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private String contentHash;
@@ -42,9 +40,9 @@ public class CardCreationData implements ICardCreationData {
 	private org.joda.time.DateTime systemTime;
 	
 	public CardCreationData(
-		@JsonProperty("cardId") Integer cardId,
+		@JsonProperty("cardId") String cardId,
 		@JsonProperty("content") String content,
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("contentHash") String contentHash,
 		@JsonProperty("maxPoints") Integer maxPoints
 ,		@JsonProperty("uuid") String uuid
@@ -63,13 +61,13 @@ public class CardCreationData implements ICardCreationData {
 	}
 
 	@JsonProperty
-	public Integer getCardId() {
+	public String getCardId() {
 		return this.cardId;
 	}
-	public void setCardId(Integer cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
-	public CardCreationData withCardId(Integer cardId) {
+	public CardCreationData withCardId(String cardId) {
 		this.cardId = cardId;
 		return this;
 	}
@@ -87,13 +85,13 @@ public class CardCreationData implements ICardCreationData {
 	}
 	
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public CardCreationData withTestId(Integer testId) {
+	public CardCreationData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}
@@ -126,15 +124,6 @@ public class CardCreationData implements ICardCreationData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

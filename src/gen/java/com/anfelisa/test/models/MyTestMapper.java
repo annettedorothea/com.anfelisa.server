@@ -13,7 +13,7 @@ public class MyTestMapper implements ResultSetMapper<IMyTestModel> {
 	
 	public IMyTestModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new MyTestModel(
-			r.getInt("testId"),
+			r.getString("testId"),
 			r.getString("name"),
 			r.getInt("sequence"),
 			r.getInt("resultCount"),

@@ -37,7 +37,7 @@ public class RecalculateScheduledCardsAction extends AbstractRecalculateSchedule
 	@Path("/recalculate")
 	@PermitAll
 	public Response put(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("boxId") Integer boxId, @NotNull @QueryParam("daysBehind") Integer daysBehind)
+			@NotNull @QueryParam("boxId") String boxId, @NotNull @QueryParam("daysBehind") Integer daysBehind)
 			throws JsonProcessingException {
 		this.actionData = new RecalculateScheduledCardsData(uuid).withBoxId(boxId).withDaysBehind(daysBehind)
 				.withUsername(user.getUsername());

@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class CourseToBoxAdditionListModel implements ICourseToBoxAdditionListModel {
 
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	@NotNull
 	private String boxName;
@@ -17,7 +17,7 @@ public class CourseToBoxAdditionListModel implements ICourseToBoxAdditionListMod
 	
 
 	public CourseToBoxAdditionListModel(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("boxName") String boxName,
 		@JsonProperty("courseToBoxAdditionList") java.util.List<com.anfelisa.box.models.ICourseToBoxAdditionModel> courseToBoxAdditionList
 	) {
@@ -27,10 +27,10 @@ public class CourseToBoxAdditionListModel implements ICourseToBoxAdditionListMod
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	

@@ -38,7 +38,7 @@ public class GetCourseAction extends AbstractGetCourseAction {
 	@Timed
 	@Path("/single")
 	@RolesAllowed({ AuthUser.ADMIN, AuthUser.AUTHOR })
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("courseId") Integer courseId)
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("courseId") String courseId)
 			throws JsonProcessingException {
 		this.actionData = new CourseData(uuid).withCourseId(courseId);
 		return this.apply();

@@ -13,7 +13,7 @@ public class ScheduledCardIdMapper implements ResultSetMapper<IScheduledCardIdMo
 	
 	public IScheduledCardIdModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new ScheduledCardIdModel(
-			r.getInt("scheduledCardId")
+			r.getString("scheduledCardId")
 		);
 	}
 }

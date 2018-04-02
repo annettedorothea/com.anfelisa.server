@@ -7,20 +7,20 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class CourseSelectionModel implements ICourseSelectionModel {
 
-	private java.util.List<Integer> courseIdList;
+	private java.util.List<String> courseIdList;
 	
 
 	public CourseSelectionModel(
-		@JsonProperty("courseIdList") java.util.List<Integer> courseIdList
+		@JsonProperty("courseIdList") java.util.List<String> courseIdList
 	) {
 		this.courseIdList = courseIdList;
 	}
 
 	@JsonProperty
-	public java.util.List<Integer> getCourseIdList() {
+	public java.util.List<String> getCourseIdList() {
 		return this.courseIdList;
 	}
-	public void setCourseIdList(java.util.List<Integer> courseIdList) {
+	public void setCourseIdList(java.util.List<String> courseIdList) {
 		this.courseIdList = courseIdList;
 	}
 	

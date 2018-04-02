@@ -10,7 +10,7 @@ public class CustomMyCourseMapper implements ResultSetMapper<IMyCourseModel> {
 	
 	public IMyCourseModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new MyCourseModel(
-			r.getInt("courseId"),
+			r.getString("courseId"),
 			r.getString("name"),
 			r.getString("description"),
 			r.getInt("sequence"),

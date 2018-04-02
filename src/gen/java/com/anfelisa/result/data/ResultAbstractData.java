@@ -19,12 +19,10 @@ public class ResultAbstractData implements IResultAbstractData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer resultId;
+	private String resultId;
 	
 	@NotNull
 	private org.joda.time.DateTime date;
@@ -39,7 +37,7 @@ public class ResultAbstractData implements IResultAbstractData {
 	private org.joda.time.DateTime systemTime;
 	
 	public ResultAbstractData(
-		@JsonProperty("resultId") Integer resultId,
+		@JsonProperty("resultId") String resultId,
 		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints
@@ -58,13 +56,13 @@ public class ResultAbstractData implements IResultAbstractData {
 	}
 
 	@JsonProperty
-	public Integer getResultId() {
+	public String getResultId() {
 		return this.resultId;
 	}
-	public void setResultId(Integer resultId) {
+	public void setResultId(String resultId) {
 		this.resultId = resultId;
 	}
-	public ResultAbstractData withResultId(Integer resultId) {
+	public ResultAbstractData withResultId(String resultId) {
 		this.resultId = resultId;
 		return this;
 	}
@@ -109,15 +107,6 @@ public class ResultAbstractData implements IResultAbstractData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

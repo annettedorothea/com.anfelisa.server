@@ -16,7 +16,7 @@ import com.anfelisa.course.models.ICourseModel;
 public class CoursePresentationalData implements ICoursePresentationalData {
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	@NotNull
 	private String name;
@@ -33,7 +33,7 @@ public class CoursePresentationalData implements ICoursePresentationalData {
 	
 	
 	public CoursePresentationalData(
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("name") String name,
 		@JsonProperty("description") String description,
 		@JsonProperty("sequence") Integer sequence,
@@ -50,13 +50,13 @@ public class CoursePresentationalData implements ICoursePresentationalData {
 	}
 
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public CoursePresentationalData withCourseId(Integer courseId) {
+	public CoursePresentationalData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}

@@ -14,7 +14,6 @@ import com.anfelisa.result.models.ResultDao;
 import com.anfelisa.test.models.TestDao;
 import com.anfelisa.user.models.LoginLogDao;
 import com.anfelisa.user.models.UserDao;
-import com.anfelisa.user.models.UserModel;
 
 public class AppUtils {
 
@@ -44,22 +43,6 @@ public class AppUtils {
 		boxDao.truncate(handle);
 		courseDao.truncate(handle);
 		userDao.truncate(handle);
-
-		userDao.insert(handle, new UserModel("Annette", "ddb4524e162d7d44c09903f7e2943cf1", "Pohl", "Annette",
-				"annette_pohl@web.de", "ADMIN", true));
-		
-		handle.createStatement("SELECT setval('box_boxid_seq', 1, false)").execute();
-		handle.createStatement("SELECT setval('card_cardid_seq', 1, false)").execute();
-		handle.createStatement("SELECT setval('course_courseid_seq', 1, false)").execute();
-		handle.createStatement("SELECT setval('lesson_lessonid_seq', 1, false)").execute();
-		handle.createStatement("SELECT setval('loginlog_loginlogid_seq', 1, false)").execute();
-		handle.createStatement("SELECT setval('result_resultid_seq', 1, false)").execute();
-		handle.createStatement("SELECT setval('scheduledcard_scheduledcardid_seq', 1, false)").execute();
-		handle.createStatement("SELECT setval('scoredcard_scoredcardid_seq', 1, false)").execute();
-		handle.createStatement("SELECT setval('test_testid_seq', 1, false)").execute();
-		handle.createStatement("SELECT setval('timeline_id_seq', 1, false)").execute();
-		handle.createStatement("SELECT setval('errortimeline_id_seq', 1, false)").execute();
-
 	}
 
 }

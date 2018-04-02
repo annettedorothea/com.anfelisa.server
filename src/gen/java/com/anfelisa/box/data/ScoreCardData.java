@@ -23,18 +23,16 @@ public class ScoreCardData implements IScoreCardData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer cardId;
+	private String cardId;
 	
 	@NotEmpty
 	private String content;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private String contentHash;
@@ -43,7 +41,7 @@ public class ScoreCardData implements IScoreCardData {
 	private Integer maxPoints;
 	
 	@NotNull
-	private Integer scheduledCardId;
+	private String scheduledCardId;
 	
 	@NotNull
 	private Float ef;
@@ -60,7 +58,7 @@ public class ScoreCardData implements IScoreCardData {
 	private org.joda.time.DateTime scheduledDate;
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	private Integer lastQuality;
 	
@@ -71,7 +69,7 @@ public class ScoreCardData implements IScoreCardData {
 	private Boolean removed;
 	
 	@NotNull
-	private Integer scoredCardId;
+	private String scoredCardId;
 	
 	private org.joda.time.DateTime scheduledDateOfScored;
 	
@@ -90,22 +88,22 @@ public class ScoreCardData implements IScoreCardData {
 	private org.joda.time.DateTime systemTime;
 	
 	public ScoreCardData(
-		@JsonProperty("cardId") Integer cardId,
+		@JsonProperty("cardId") String cardId,
 		@JsonProperty("content") String content,
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("contentHash") String contentHash,
 		@JsonProperty("maxPoints") Integer maxPoints,
-		@JsonProperty("scheduledCardId") Integer scheduledCardId,
+		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
 		@JsonProperty("n") Integer n,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
 		@JsonProperty("removed") Boolean removed,
-		@JsonProperty("scoredCardId") Integer scoredCardId,
+		@JsonProperty("scoredCardId") String scoredCardId,
 		@JsonProperty("scheduledDateOfScored") org.joda.time.DateTime scheduledDateOfScored,
 		@JsonProperty("quality") Integer quality,
 		@JsonProperty("points") Integer points,
@@ -145,13 +143,13 @@ public class ScoreCardData implements IScoreCardData {
 	}
 
 	@JsonProperty
-	public Integer getCardId() {
+	public String getCardId() {
 		return this.cardId;
 	}
-	public void setCardId(Integer cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
-	public ScoreCardData withCardId(Integer cardId) {
+	public ScoreCardData withCardId(String cardId) {
 		this.cardId = cardId;
 		return this;
 	}
@@ -169,13 +167,13 @@ public class ScoreCardData implements IScoreCardData {
 	}
 	
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public ScoreCardData withTestId(Integer testId) {
+	public ScoreCardData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}
@@ -205,13 +203,13 @@ public class ScoreCardData implements IScoreCardData {
 	}
 	
 	@JsonProperty
-	public Integer getScheduledCardId() {
+	public String getScheduledCardId() {
 		return this.scheduledCardId;
 	}
-	public void setScheduledCardId(Integer scheduledCardId) {
+	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
-	public ScoreCardData withScheduledCardId(Integer scheduledCardId) {
+	public ScoreCardData withScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 		return this;
 	}
@@ -277,13 +275,13 @@ public class ScoreCardData implements IScoreCardData {
 	}
 	
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public ScoreCardData withBoxId(Integer boxId) {
+	public ScoreCardData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}
@@ -325,13 +323,13 @@ public class ScoreCardData implements IScoreCardData {
 	}
 	
 	@JsonProperty
-	public Integer getScoredCardId() {
+	public String getScoredCardId() {
 		return this.scoredCardId;
 	}
-	public void setScoredCardId(Integer scoredCardId) {
+	public void setScoredCardId(String scoredCardId) {
 		this.scoredCardId = scoredCardId;
 	}
-	public ScoreCardData withScoredCardId(Integer scoredCardId) {
+	public ScoreCardData withScoredCardId(String scoredCardId) {
 		this.scoredCardId = scoredCardId;
 		return this;
 	}
@@ -412,15 +410,6 @@ public class ScoreCardData implements IScoreCardData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

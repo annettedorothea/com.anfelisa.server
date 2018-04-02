@@ -13,7 +13,7 @@ public class LessonIdMapper implements ResultSetMapper<ILessonIdModel> {
 	
 	public ILessonIdModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new LessonIdModel(
-			r.getInt("lessonId")
+			r.getString("lessonId")
 		);
 	}
 }

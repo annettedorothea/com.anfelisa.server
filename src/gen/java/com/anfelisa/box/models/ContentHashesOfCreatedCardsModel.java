@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ContentHashesOfCreatedCardsModel implements IContentHashesOfCreatedCardsModel {
 
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	private java.util.List<String> contentHashesOfCreatedCards;
 	
@@ -16,7 +16,7 @@ public class ContentHashesOfCreatedCardsModel implements IContentHashesOfCreated
 	
 
 	public ContentHashesOfCreatedCardsModel(
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("contentHashesOfCreatedCards") java.util.List<String> contentHashesOfCreatedCards,
 		@JsonProperty("contentHashesOfObsoleteCards") java.util.List<String> contentHashesOfObsoleteCards
 	) {
@@ -26,10 +26,10 @@ public class ContentHashesOfCreatedCardsModel implements IContentHashesOfCreated
 	}
 
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
 	

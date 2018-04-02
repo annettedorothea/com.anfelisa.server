@@ -7,8 +7,6 @@ public interface IForgotPasswordModel {
 
 	String getUsername();
 	String getEmail();
-	String getName();
-	String getPrename();
 	String getPassword();
 
 }

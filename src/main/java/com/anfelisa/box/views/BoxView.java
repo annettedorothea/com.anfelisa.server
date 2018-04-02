@@ -22,8 +22,7 @@ public class BoxView {
 	private static ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
 
 	public static BiConsumer<BoxCreationData, Handle> createBox = (dataContainer, handle) -> {
-		Integer id = boxDao.insert(handle, dataContainer);
-		dataContainer.setCreatedId("" + id);
+		boxDao.insert(handle, dataContainer);
 	};
 
 	public static BiConsumer<BoxCreationData, Handle> updateBox = (dataContainer, handle) -> {
@@ -39,7 +38,6 @@ public class BoxView {
 		for (IScheduledCardModel card : cards) {
 			scheduledCardDao.insert(handle, card);
 		}
-		dataContainer.setCreatedId(dataContainer.getCardsToBeAdded().size() + "");
 	};
 
 }

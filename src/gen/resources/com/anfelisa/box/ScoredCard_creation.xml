@@ -1,15 +1,15 @@
 <createTable tableName="scoredcard">
-	<column name="scoredcardid" type="serial">
+	<column name="scoredcardid" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
-	<column name="cardid" type="integer">
-		<constraints  nullable="false" 	references="card(cardid)" deleteCascade="true" />
+	<column name="cardid" type="character varying">
+		<constraints  nullable="false" 	references="card(cardid)" deleteCascade="true" foreignKeyName="fk_scoredcard_cardid" />
 	</column>
 	<column name="scheduleddateofscored" type="timestamp with time zone">
 		<constraints    />
 	</column>
-	<column name="boxid" type="integer">
-		<constraints  nullable="false" 	references="box(boxid)" deleteCascade="true" />
+	<column name="boxid" type="character varying">
+		<constraints  nullable="false" 	references="box(boxid)" deleteCascade="true" foreignKeyName="fk_scoredcard_boxid" />
 	</column>
 	<column name="quality" type="integer">
 		<constraints    />
@@ -20,7 +20,7 @@
 	<column name="points" type="integer">
 		<constraints    />
 	</column>
-	<column name="scheduledcardid" type="integer">
-		<constraints  nullable="false" 	references="scheduledcard(scheduledcardid)" deleteCascade="true" />
+	<column name="scheduledcardid" type="character varying">
+		<constraints  nullable="false" 	references="scheduledcard(scheduledcardid)" deleteCascade="true" foreignKeyName="fk_scoredcard_scheduledcardid" />
 	</column>
 </createTable>

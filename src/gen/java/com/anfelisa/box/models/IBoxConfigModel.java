@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=BoxConfigModel.class)
 public interface IBoxConfigModel {
 
-	Integer getBoxId();
+	String getBoxId();
 	java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> getBoxOfCourseList();
 	java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> getExistingItems();
 

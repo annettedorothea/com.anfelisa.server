@@ -17,6 +17,9 @@ public class CreateTestCommand extends AbstractCreateTestCommand {
 	@Override
 	protected void executeCommand() {
 		this.commandData.setOutcome(created);
+		if (this.commandData.getTestId() == null) {
+			this.commandData.setTestId(this.commandData.getUuid());
+		}
 	}
 
 }

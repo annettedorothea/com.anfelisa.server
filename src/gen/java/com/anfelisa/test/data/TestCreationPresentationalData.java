@@ -16,7 +16,7 @@ import com.anfelisa.test.models.ITestModel;
 public class TestCreationPresentationalData implements ITestCreationPresentationalData {
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private String name;
@@ -24,7 +24,7 @@ public class TestCreationPresentationalData implements ITestCreationPresentation
 	private Integer sequence;
 	
 	@NotNull
-	private Integer lessonId;
+	private String lessonId;
 	
 	@NotNull
 	private String html;
@@ -34,10 +34,10 @@ public class TestCreationPresentationalData implements ITestCreationPresentation
 	
 	
 	public TestCreationPresentationalData(
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("name") String name,
 		@JsonProperty("sequence") Integer sequence,
-		@JsonProperty("lessonId") Integer lessonId,
+		@JsonProperty("lessonId") String lessonId,
 		@JsonProperty("html") String html,
 		@JsonProperty("author") String author
 	) {
@@ -51,13 +51,13 @@ public class TestCreationPresentationalData implements ITestCreationPresentation
 	}
 
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public TestCreationPresentationalData withTestId(Integer testId) {
+	public TestCreationPresentationalData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}
@@ -87,13 +87,13 @@ public class TestCreationPresentationalData implements ITestCreationPresentation
 	}
 	
 	@JsonProperty
-	public Integer getLessonId() {
+	public String getLessonId() {
 		return this.lessonId;
 	}
-	public void setLessonId(Integer lessonId) {
+	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
 	}
-	public TestCreationPresentationalData withLessonId(Integer lessonId) {
+	public TestCreationPresentationalData withLessonId(String lessonId) {
 		this.lessonId = lessonId;
 		return this;
 	}

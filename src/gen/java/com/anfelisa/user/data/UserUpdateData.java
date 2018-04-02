@@ -20,18 +20,10 @@ public class UserUpdateData implements IUserUpdateData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
 	private String username;
-	
-	@NotNull
-	private String name;
-	
-	@NotNull
-	private String prename;
 	
 	@NotNull
 	private String email;
@@ -45,16 +37,12 @@ public class UserUpdateData implements IUserUpdateData {
 	
 	public UserUpdateData(
 		@JsonProperty("username") String username,
-		@JsonProperty("name") String name,
-		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
-		this.name = name;
-		this.prename = prename;
 		this.email = email;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
@@ -75,30 +63,6 @@ public class UserUpdateData implements IUserUpdateData {
 	}
 	public UserUpdateData withUsername(String username) {
 		this.username = username;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getName() {
-		return this.name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public UserUpdateData withName(String name) {
-		this.name = name;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getPrename() {
-		return this.prename;
-	}
-	public void setPrename(String prename) {
-		this.prename = prename;
-	}
-	public UserUpdateData withPrename(String prename) {
-		this.prename = prename;
 		return this;
 	}
 	
@@ -144,15 +108,6 @@ public class UserUpdateData implements IUserUpdateData {
 		return this.uuid;
 	}
 
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
-	}
-
 	@JsonProperty
 	public org.joda.time.DateTime getSystemTime() {
 		return systemTime;
@@ -189,8 +144,6 @@ public class UserUpdateData implements IUserUpdateData {
 	public Object toPresentationalData() {
 		return new UserUpdatePresentationalData(
 			this.username,
-			this.name,
-			this.prename,
 			this.email,
 			this.credentialsUsername,
 			this.credentialsRole

@@ -16,24 +16,24 @@ import com.anfelisa.test.models.ITestIdModel;
 public class TestIdPresentationalData implements ITestIdPresentationalData {
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	
 	public TestIdPresentationalData(
-		@JsonProperty("testId") Integer testId
+		@JsonProperty("testId") String testId
 	) {
 		this.testId = testId;
 		
 	}
 
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public TestIdPresentationalData withTestId(Integer testId) {
+	public TestIdPresentationalData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}

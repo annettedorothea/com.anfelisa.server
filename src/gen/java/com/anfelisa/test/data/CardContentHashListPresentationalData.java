@@ -19,12 +19,12 @@ public class CardContentHashListPresentationalData implements ICardContentHashLi
 	private java.util.List<Integer> contentHashList;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	
 	public CardContentHashListPresentationalData(
 		@JsonProperty("contentHashList") java.util.List<Integer> contentHashList,
-		@JsonProperty("testId") Integer testId
+		@JsonProperty("testId") String testId
 	) {
 		this.contentHashList = contentHashList;
 		this.testId = testId;
@@ -44,13 +44,13 @@ public class CardContentHashListPresentationalData implements ICardContentHashLi
 	}
 	
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public CardContentHashListPresentationalData withTestId(Integer testId) {
+	public CardContentHashListPresentationalData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}

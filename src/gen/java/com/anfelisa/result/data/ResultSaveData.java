@@ -21,18 +21,16 @@ public class ResultSaveData implements IResultSaveData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer resultId;
+	private String resultId;
 	
 	@NotNull
 	private String username;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private org.joda.time.DateTime date;
@@ -46,7 +44,7 @@ public class ResultSaveData implements IResultSaveData {
 	@NotNull
 	private Integer maxPoints;
 	
-	private Integer boxId;
+	private String boxId;
 	
 	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
 	
@@ -58,14 +56,14 @@ public class ResultSaveData implements IResultSaveData {
 	private org.joda.time.DateTime systemTime;
 	
 	public ResultSaveData(
-		@JsonProperty("resultId") Integer resultId,
+		@JsonProperty("resultId") String resultId,
 		@JsonProperty("username") String username,
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints,
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("cardsToBeAdded") java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
@@ -91,13 +89,13 @@ public class ResultSaveData implements IResultSaveData {
 	}
 
 	@JsonProperty
-	public Integer getResultId() {
+	public String getResultId() {
 		return this.resultId;
 	}
-	public void setResultId(Integer resultId) {
+	public void setResultId(String resultId) {
 		this.resultId = resultId;
 	}
-	public ResultSaveData withResultId(Integer resultId) {
+	public ResultSaveData withResultId(String resultId) {
 		this.resultId = resultId;
 		return this;
 	}
@@ -115,13 +113,13 @@ public class ResultSaveData implements IResultSaveData {
 	}
 	
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public ResultSaveData withTestId(Integer testId) {
+	public ResultSaveData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}
@@ -175,13 +173,13 @@ public class ResultSaveData implements IResultSaveData {
 	}
 	
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public ResultSaveData withBoxId(Integer boxId) {
+	public ResultSaveData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}
@@ -226,15 +224,6 @@ public class ResultSaveData implements IResultSaveData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

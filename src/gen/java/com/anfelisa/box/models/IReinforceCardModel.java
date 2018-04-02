@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=ReinforceCardModel.class)
 public interface IReinforceCardModel {
 
-	Integer getScheduledCardId();
+	String getScheduledCardId();
 	org.joda.time.DateTime getScheduledDate();
 	Integer getLastQuality();
 	org.joda.time.DateTime getTimestamp();

@@ -17,7 +17,7 @@ public class CourseAbstractMapper implements ResultSetMapper<ICourseAbstractMode
 			r.getString("courseDescription"),
 			r.getBoolean("isPublic"),
 			r.getString("courseAuthor"),
-			r.getInt("courseId")
+			r.getString("courseId")
 		);
 	}
 }

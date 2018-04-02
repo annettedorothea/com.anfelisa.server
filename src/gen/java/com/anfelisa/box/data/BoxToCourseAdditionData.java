@@ -20,15 +20,13 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	@NotNull
 	private Boolean autoAdd;
@@ -41,8 +39,8 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	private org.joda.time.DateTime systemTime;
 	
 	public BoxToCourseAdditionData(
-		@JsonProperty("boxId") Integer boxId,
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("autoAdd") Boolean autoAdd,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
@@ -62,25 +60,25 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public BoxToCourseAdditionData withBoxId(Integer boxId) {
+	public BoxToCourseAdditionData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public BoxToCourseAdditionData withCourseId(Integer courseId) {
+	public BoxToCourseAdditionData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}
@@ -125,15 +123,6 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

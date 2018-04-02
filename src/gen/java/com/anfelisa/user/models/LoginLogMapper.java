@@ -13,7 +13,7 @@ public class LoginLogMapper implements ResultSetMapper<ILoginLogModel> {
 	
 	public ILoginLogModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new LoginLogModel(
-			r.getInt("loginLogId"),
+			r.getString("loginLogId"),
 			r.getString("username"),
 			r.getTimestamp("date") != null ? new org.joda.time.DateTime(r.getTimestamp("date")) : null
 		);

@@ -20,16 +20,14 @@ public class ResultView {
 	private static ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
 
 	public static BiConsumer<ResultCreationData, Handle> createResult = (dataContainer, handle) -> {
-		Integer resultId = resultDao.insert(handle, dataContainer);
-		dataContainer.setCreatedId("" + resultId);
+		resultDao.insert(handle, dataContainer);
 	};
 
 	public static BiConsumer<ResultSaveData, Handle> saveResult = (dataContainer, handle) -> {
-		IResultModel result = new ResultModel(null, dataContainer.getUsername(), dataContainer.getTestId(),
+		IResultModel result = new ResultModel(dataContainer.getResultId(), dataContainer.getUsername(), dataContainer.getTestId(),
 				dataContainer.getDate(), dataContainer.getJson(), dataContainer.getPoints(),
 				dataContainer.getMaxPoints());
-		Integer resultId = resultDao.insert(handle, result);
-		dataContainer.setCreatedId("" + resultId);
+		resultDao.insert(handle, result);
 	};
 
 	public static BiConsumer<ResultSaveData, Handle> fillBoxWithCards = (dataContainer, handle) -> {

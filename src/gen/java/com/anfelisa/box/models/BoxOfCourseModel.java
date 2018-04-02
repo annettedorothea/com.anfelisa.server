@@ -8,18 +8,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class BoxOfCourseModel implements IBoxOfCourseModel {
 
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	@NotNull
 	private Boolean autoAdd;
 	
 
 	public BoxOfCourseModel(
-		@JsonProperty("boxId") Integer boxId,
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("autoAdd") Boolean autoAdd
 	) {
 		this.boxId = boxId;
@@ -28,18 +28,18 @@ public class BoxOfCourseModel implements IBoxOfCourseModel {
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
 	

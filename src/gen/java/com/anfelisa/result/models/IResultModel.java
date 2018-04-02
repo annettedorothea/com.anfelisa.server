@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=ResultModel.class)
 public interface IResultModel {
 
-	Integer getResultId();
+	String getResultId();
 	String getUsername();
-	Integer getTestId();
+	String getTestId();
 	org.joda.time.DateTime getDate();
 	String getJson();
 	Integer getPoints();

@@ -58,8 +58,6 @@ public class GetUserInfoAction extends AbstractGetUserInfoAction {
 	protected final void loadDataForGetRequest() {
 		IUserModel user = userDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.actionData.getUsername());
 		this.actionData.setEmail(user.getEmail());
-		this.actionData.setName(user.getName());
-		this.actionData.setPrename(user.getPrename());
 
 		List<ICourseModel> courseList = customCourseDao.selectCourses(this.getDatabaseHandle().getHandle(),
 				this.actionData.getUsername());

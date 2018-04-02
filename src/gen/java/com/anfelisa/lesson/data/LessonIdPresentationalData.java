@@ -16,24 +16,24 @@ import com.anfelisa.lesson.models.ILessonIdModel;
 public class LessonIdPresentationalData implements ILessonIdPresentationalData {
 	
 	@NotNull
-	private Integer lessonId;
+	private String lessonId;
 	
 	
 	public LessonIdPresentationalData(
-		@JsonProperty("lessonId") Integer lessonId
+		@JsonProperty("lessonId") String lessonId
 	) {
 		this.lessonId = lessonId;
 		
 	}
 
 	@JsonProperty
-	public Integer getLessonId() {
+	public String getLessonId() {
 		return this.lessonId;
 	}
-	public void setLessonId(Integer lessonId) {
+	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
 	}
-	public LessonIdPresentationalData withLessonId(Integer lessonId) {
+	public LessonIdPresentationalData withLessonId(String lessonId) {
 		this.lessonId = lessonId;
 		return this;
 	}

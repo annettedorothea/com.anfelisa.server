@@ -20,8 +20,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
@@ -29,12 +27,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 	
 	@NotNull
 	private String password;
-	
-	@NotNull
-	private String name;
-	
-	@NotNull
-	private String prename;
 	
 	@NotNull
 	private String email;
@@ -54,8 +46,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 	public UserRegistrationData(
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
-		@JsonProperty("name") String name,
-		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
@@ -64,8 +54,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 	) {
 		this.username = username;
 		this.password = password;
-		this.name = name;
-		this.prename = prename;
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
@@ -99,30 +87,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 	}
 	public UserRegistrationData withPassword(String password) {
 		this.password = password;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getName() {
-		return this.name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public UserRegistrationData withName(String name) {
-		this.name = name;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getPrename() {
-		return this.prename;
-	}
-	public void setPrename(String prename) {
-		this.prename = prename;
-	}
-	public UserRegistrationData withPrename(String prename) {
-		this.prename = prename;
 		return this;
 	}
 	
@@ -180,15 +144,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 		return this.uuid;
 	}
 
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
-	}
-
 	@JsonProperty
 	public org.joda.time.DateTime getSystemTime() {
 		return systemTime;
@@ -226,8 +181,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 		return new UserRegistrationPresentationalData(
 			this.username,
 			this.password,
-			this.name,
-			this.prename,
 			this.email,
 			this.role,
 			this.emailConfirmed,

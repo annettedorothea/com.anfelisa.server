@@ -8,15 +8,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ScoredCardModel implements IScoredCardModel {
 
 	@NotNull
-	private Integer scoredCardId;
+	private String scoredCardId;
 	
 	@NotNull
-	private Integer cardId;
+	private String cardId;
 	
 	private org.joda.time.DateTime scheduledDateOfScored;
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	private Integer quality;
 	
@@ -26,18 +26,18 @@ public class ScoredCardModel implements IScoredCardModel {
 	private Integer points;
 	
 	@NotNull
-	private Integer scheduledCardId;
+	private String scheduledCardId;
 	
 
 	public ScoredCardModel(
-		@JsonProperty("scoredCardId") Integer scoredCardId,
-		@JsonProperty("cardId") Integer cardId,
+		@JsonProperty("scoredCardId") String scoredCardId,
+		@JsonProperty("cardId") String cardId,
 		@JsonProperty("scheduledDateOfScored") org.joda.time.DateTime scheduledDateOfScored,
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("quality") Integer quality,
 		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
 		@JsonProperty("points") Integer points,
-		@JsonProperty("scheduledCardId") Integer scheduledCardId
+		@JsonProperty("scheduledCardId") String scheduledCardId
 	) {
 		this.scoredCardId = scoredCardId;
 		this.cardId = cardId;
@@ -50,18 +50,18 @@ public class ScoredCardModel implements IScoredCardModel {
 	}
 
 	@JsonProperty
-	public Integer getScoredCardId() {
+	public String getScoredCardId() {
 		return this.scoredCardId;
 	}
-	public void setScoredCardId(Integer scoredCardId) {
+	public void setScoredCardId(String scoredCardId) {
 		this.scoredCardId = scoredCardId;
 	}
 	
 	@JsonProperty
-	public Integer getCardId() {
+	public String getCardId() {
 		return this.cardId;
 	}
-	public void setCardId(Integer cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
 	
@@ -74,10 +74,10 @@ public class ScoredCardModel implements IScoredCardModel {
 	}
 	
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	
@@ -106,10 +106,10 @@ public class ScoredCardModel implements IScoredCardModel {
 	}
 	
 	@JsonProperty
-	public Integer getScheduledCardId() {
+	public String getScheduledCardId() {
 		return this.scheduledCardId;
 	}
-	public void setScheduledCardId(Integer scheduledCardId) {
+	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
 	

@@ -19,8 +19,6 @@ public class UserCreationData implements IUserCreationData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
@@ -28,12 +26,6 @@ public class UserCreationData implements IUserCreationData {
 	
 	@NotNull
 	private String password;
-	
-	@NotNull
-	private String name;
-	
-	@NotNull
-	private String prename;
 	
 	@NotNull
 	private String email;
@@ -50,8 +42,6 @@ public class UserCreationData implements IUserCreationData {
 	public UserCreationData(
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
-		@JsonProperty("name") String name,
-		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed
@@ -59,8 +49,6 @@ public class UserCreationData implements IUserCreationData {
 	) {
 		this.username = username;
 		this.password = password;
-		this.name = name;
-		this.prename = prename;
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
@@ -93,30 +81,6 @@ public class UserCreationData implements IUserCreationData {
 	}
 	public UserCreationData withPassword(String password) {
 		this.password = password;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getName() {
-		return this.name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public UserCreationData withName(String name) {
-		this.name = name;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getPrename() {
-		return this.prename;
-	}
-	public void setPrename(String prename) {
-		this.prename = prename;
-	}
-	public UserCreationData withPrename(String prename) {
-		this.prename = prename;
 		return this;
 	}
 	
@@ -162,15 +126,6 @@ public class UserCreationData implements IUserCreationData {
 		return this.uuid;
 	}
 
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
-	}
-
 	@JsonProperty
 	public org.joda.time.DateTime getSystemTime() {
 		return systemTime;
@@ -208,8 +163,6 @@ public class UserCreationData implements IUserCreationData {
 		return new UserCreationPresentationalData(
 			this.username,
 			this.password,
-			this.name,
-			this.prename,
 			this.email,
 			this.role,
 			this.emailConfirmed

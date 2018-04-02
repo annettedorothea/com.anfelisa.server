@@ -7,7 +7,7 @@ import org.skife.jdbi.v2.Update;
 
 public class CustomCardDao {
 
-	public List<ICardModel> selectCardsOfCourseThatAreNotAlreadyInBox(Handle handle, Integer courseId, Integer boxId) {
+	public List<ICardModel> selectCardsOfCourseThatAreNotAlreadyInBox(Handle handle, String courseId, String boxId) {
 		return handle
 				.createQuery("SELECT c.* FROM public.card c INNER JOIN public.test t on c.testId = t.testId "
 						+ "INNER JOIN public.lesson l on t.lessonId = l.lessonId WHERE l.courseId = :courseId "
@@ -16,8 +16,8 @@ public class CustomCardDao {
 				.bind("courseId", courseId).bind("boxId", boxId).map(new CardMapper()).list();
 	}
 
-	public List<ICardModel> selectCardsOfCourseThatAreNotAlreadyInBoxAndHaveResult(Handle handle, Integer courseId,
-			Integer boxId, String username) {
+	public List<ICardModel> selectCardsOfCourseThatAreNotAlreadyInBoxAndHaveResult(Handle handle, String courseId,
+			String boxId, String username) {
 		return handle
 				.createQuery("SELECT c.* FROM public.result r, public.card c "
 						+ "INNER JOIN public.test t on c.testId = t.testId INNER JOIN public.lesson l on t.lessonId = l.lessonId "
@@ -33,17 +33,17 @@ public class CustomCardDao {
 		statement.execute();
 	}
 
-	public List<ICardModel> selectByTestId(Handle handle, Integer testId) {
+	public List<ICardModel> selectByTestId(Handle handle, String testId) {
 		return handle.createQuery("SELECT * FROM public.card WHERE testId = :testId").bind("testId", testId)
 				.map(new CardMapper()).list();
 	}
 
-	public ICardModel selectByTestIdAndContentHash(Handle handle, Integer testId, String contentHash) {
+	public ICardModel selectByTestIdAndContentHash(Handle handle, String testId, String contentHash) {
 		return handle.createQuery("SELECT * FROM public.card WHERE testId = :testId AND contentHash = :contentHash")
 				.bind("testId", testId).bind("contentHash", contentHash).map(new CardMapper()).first();
 	}
 
-	public List<ICardModel> selectCardsToBeAddedAfterEdit(Handle handle, Integer testId, Integer boxId) {
+	public List<ICardModel> selectCardsToBeAddedAfterEdit(Handle handle, String testId, String boxId) {
 		return handle
 				.createQuery("SELECT DISTINCT c.* FROM public.card c "
 						+ "INNER JOIN public.test t on c.testId = t.testId INNER JOIN public.lesson l on t.lessonId = l.lessonId "

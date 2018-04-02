@@ -20,8 +20,6 @@ public class ForgotPasswordData implements IForgotPasswordData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
@@ -29,12 +27,6 @@ public class ForgotPasswordData implements IForgotPasswordData {
 	
 	@NotNull
 	private String email;
-	
-	@NotNull
-	private String name;
-	
-	@NotNull
-	private String prename;
 	
 	@NotNull
 	private String password;
@@ -48,16 +40,12 @@ public class ForgotPasswordData implements IForgotPasswordData {
 	public ForgotPasswordData(
 		@JsonProperty("username") String username,
 		@JsonProperty("email") String email,
-		@JsonProperty("name") String name,
-		@JsonProperty("prename") String prename,
 		@JsonProperty("password") String password,
 		@JsonProperty("language") String language
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
 		this.email = email;
-		this.name = name;
-		this.prename = prename;
 		this.password = password;
 		this.language = language;
 		this.uuid = uuid;
@@ -93,30 +81,6 @@ public class ForgotPasswordData implements IForgotPasswordData {
 	}
 	
 	@JsonProperty
-	public String getName() {
-		return this.name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public ForgotPasswordData withName(String name) {
-		this.name = name;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getPrename() {
-		return this.prename;
-	}
-	public void setPrename(String prename) {
-		this.prename = prename;
-	}
-	public ForgotPasswordData withPrename(String prename) {
-		this.prename = prename;
-		return this;
-	}
-	
-	@JsonProperty
 	public String getPassword() {
 		return this.password;
 	}
@@ -144,15 +108,6 @@ public class ForgotPasswordData implements IForgotPasswordData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty
@@ -192,8 +147,6 @@ public class ForgotPasswordData implements IForgotPasswordData {
 		return new ForgotPasswordPresentationalData(
 			this.username,
 			this.email,
-			this.name,
-			this.prename,
 			this.password,
 			this.language
 		);

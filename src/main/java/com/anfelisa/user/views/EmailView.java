@@ -20,7 +20,7 @@ public class EmailView {
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
 		String link = EmailService.getLocalhost() + "#profile/newPassword/" + dataContainer.getUsername() + "/"
 				+ dataContainer.getPassword();
-		Object[] params = { dataContainer.getPrename(), dataContainer.getName(), link };
+		Object[] params = { dataContainer.getUsername(), link };
 		String message = MessageFormat.format(messages.getString("passwordResetEmailContent"), params);
 		String subject = messages.getString("passwordResetEmailHeader");
 
@@ -32,7 +32,7 @@ public class EmailView {
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
 		String link = EmailService.getLocalhost() + "#profile/confirmEmail/" + dataContainer.getUsername() + "/"
 				+ dataContainer.getPassword();
-		Object[] params = { dataContainer.getPrename(), dataContainer.getName(), link };
+		Object[] params = { dataContainer.getUsername(), link };
 		String message = MessageFormat.format(messages.getString("RegistrationEmailContent"), params);
 		String subject = messages.getString("RegistrationEmailHeader");
 

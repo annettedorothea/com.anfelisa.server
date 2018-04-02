@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class BoxConfigModel implements IBoxConfigModel {
 
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList;
 	
@@ -16,7 +16,7 @@ public class BoxConfigModel implements IBoxConfigModel {
 	
 
 	public BoxConfigModel(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("boxOfCourseList") java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList,
 		@JsonProperty("existingItems") java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems
 	) {
@@ -26,10 +26,10 @@ public class BoxConfigModel implements IBoxConfigModel {
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	

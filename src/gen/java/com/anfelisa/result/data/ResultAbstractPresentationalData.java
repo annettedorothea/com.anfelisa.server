@@ -16,7 +16,7 @@ import com.anfelisa.result.models.IResultAbstractModel;
 public class ResultAbstractPresentationalData implements IResultAbstractPresentationalData {
 	
 	@NotNull
-	private Integer resultId;
+	private String resultId;
 	
 	@NotNull
 	private org.joda.time.DateTime date;
@@ -29,7 +29,7 @@ public class ResultAbstractPresentationalData implements IResultAbstractPresenta
 	
 	
 	public ResultAbstractPresentationalData(
-		@JsonProperty("resultId") Integer resultId,
+		@JsonProperty("resultId") String resultId,
 		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints
@@ -42,13 +42,13 @@ public class ResultAbstractPresentationalData implements IResultAbstractPresenta
 	}
 
 	@JsonProperty
-	public Integer getResultId() {
+	public String getResultId() {
 		return this.resultId;
 	}
-	public void setResultId(Integer resultId) {
+	public void setResultId(String resultId) {
 		this.resultId = resultId;
 	}
-	public ResultAbstractPresentationalData withResultId(Integer resultId) {
+	public ResultAbstractPresentationalData withResultId(String resultId) {
 		this.resultId = resultId;
 		return this;
 	}

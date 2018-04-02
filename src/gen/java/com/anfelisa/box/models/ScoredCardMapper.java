@@ -13,14 +13,14 @@ public class ScoredCardMapper implements ResultSetMapper<IScoredCardModel> {
 	
 	public IScoredCardModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new ScoredCardModel(
-			r.getInt("scoredCardId"),
-			r.getInt("cardId"),
+			r.getString("scoredCardId"),
+			r.getString("cardId"),
 			r.getTimestamp("scheduledDateOfScored") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDateOfScored")) : null,
-			r.getInt("boxId"),
+			r.getString("boxId"),
 			r.getInt("quality"),
 			r.getTimestamp("timestamp") != null ? new org.joda.time.DateTime(r.getTimestamp("timestamp")) : null,
 			r.getInt("points"),
-			r.getInt("scheduledCardId")
+			r.getString("scheduledCardId")
 		);
 	}
 }

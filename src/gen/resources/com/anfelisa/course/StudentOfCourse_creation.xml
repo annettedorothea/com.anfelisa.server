@@ -1,8 +1,8 @@
 <createTable tableName="studentofcourse">
 	<column name="username" type="character varying">
-		<constraints  nullable="false" 	references="user(username)" deleteCascade="true" />
+		<constraints  nullable="false" 	references="user(username)" deleteCascade="true" foreignKeyName="fk_studentofcourse_username" />
 	</column>
-	<column name="courseid" type="integer">
-		<constraints  nullable="false" 	references="course(courseid)" deleteCascade="true" />
+	<column name="courseid" type="character varying">
+		<constraints  nullable="false" 	references="course(courseid)" deleteCascade="true" foreignKeyName="fk_studentofcourse_courseid" />
 	</column>
 </createTable>

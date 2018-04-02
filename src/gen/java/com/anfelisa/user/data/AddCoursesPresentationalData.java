@@ -16,7 +16,7 @@ import com.anfelisa.user.models.ICredentialsModel;
 @SuppressWarnings("all")
 public class AddCoursesPresentationalData implements IAddCoursesPresentationalData {
 	
-	private java.util.List<Integer> courseIdList;
+	private java.util.List<String> courseIdList;
 	
 	private String credentialsUsername;
 	
@@ -24,7 +24,7 @@ public class AddCoursesPresentationalData implements IAddCoursesPresentationalDa
 	
 	
 	public AddCoursesPresentationalData(
-		@JsonProperty("courseIdList") java.util.List<Integer> courseIdList,
+		@JsonProperty("courseIdList") java.util.List<String> courseIdList,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 	) {
@@ -35,13 +35,13 @@ public class AddCoursesPresentationalData implements IAddCoursesPresentationalDa
 	}
 
 	@JsonProperty
-	public java.util.List<Integer> getCourseIdList() {
+	public java.util.List<String> getCourseIdList() {
 		return this.courseIdList;
 	}
-	public void setCourseIdList(java.util.List<Integer> courseIdList) {
+	public void setCourseIdList(java.util.List<String> courseIdList) {
 		this.courseIdList = courseIdList;
 	}
-	public AddCoursesPresentationalData withCourseIdList(java.util.List<Integer> courseIdList) {
+	public AddCoursesPresentationalData withCourseIdList(java.util.List<String> courseIdList) {
 		this.courseIdList = courseIdList;
 		return this;
 	}

@@ -19,18 +19,16 @@ public class ResultCreationData implements IResultCreationData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer resultId;
+	private String resultId;
 	
 	@NotNull
 	private String username;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private org.joda.time.DateTime date;
@@ -48,9 +46,9 @@ public class ResultCreationData implements IResultCreationData {
 	private org.joda.time.DateTime systemTime;
 	
 	public ResultCreationData(
-		@JsonProperty("resultId") Integer resultId,
+		@JsonProperty("resultId") String resultId,
 		@JsonProperty("username") String username,
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
@@ -73,13 +71,13 @@ public class ResultCreationData implements IResultCreationData {
 	}
 
 	@JsonProperty
-	public Integer getResultId() {
+	public String getResultId() {
 		return this.resultId;
 	}
-	public void setResultId(Integer resultId) {
+	public void setResultId(String resultId) {
 		this.resultId = resultId;
 	}
-	public ResultCreationData withResultId(Integer resultId) {
+	public ResultCreationData withResultId(String resultId) {
 		this.resultId = resultId;
 		return this;
 	}
@@ -97,13 +95,13 @@ public class ResultCreationData implements IResultCreationData {
 	}
 	
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public ResultCreationData withTestId(Integer testId) {
+	public ResultCreationData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}
@@ -160,15 +158,6 @@ public class ResultCreationData implements IResultCreationData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

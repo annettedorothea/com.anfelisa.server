@@ -19,18 +19,16 @@ public class TestIdData implements ITestIdData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 
 	private org.joda.time.DateTime systemTime;
 	
 	public TestIdData(
-		@JsonProperty("testId") Integer testId
+		@JsonProperty("testId") String testId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.testId = testId;
@@ -43,13 +41,13 @@ public class TestIdData implements ITestIdData {
 	}
 
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public TestIdData withTestId(Integer testId) {
+	public TestIdData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}
@@ -58,15 +56,6 @@ public class TestIdData implements ITestIdData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

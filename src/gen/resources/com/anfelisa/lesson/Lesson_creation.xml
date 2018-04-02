@@ -1,5 +1,5 @@
 <createTable tableName="lesson">
-	<column name="lessonid" type="serial">
+	<column name="lessonid" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
 	<column name="name" type="character varying">
@@ -11,10 +11,10 @@
 	<column name="sequence" type="integer">
 		<constraints    />
 	</column>
-	<column name="courseid" type="integer">
-		<constraints  nullable="false" 	references="course(courseid)" deleteCascade="true" />
+	<column name="courseid" type="character varying">
+		<constraints  nullable="false" 	references="course(courseid)" deleteCascade="true" foreignKeyName="fk_lesson_courseid" />
 	</column>
 	<column name="author" type="character varying">
-		<constraints  nullable="false" 	references="user(username)" deleteCascade="true" />
+		<constraints  nullable="false" 	references="user(username)" deleteCascade="true" foreignKeyName="fk_lesson_username" />
 	</column>
 </createTable>

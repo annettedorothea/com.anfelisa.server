@@ -17,7 +17,7 @@ import com.anfelisa.box.models.IDaysBehindModel;
 public class RecalculateScheduledCardsPresentationalData implements IRecalculateScheduledCardsPresentationalData {
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	@NotNull
 	private String name;
@@ -29,7 +29,7 @@ public class RecalculateScheduledCardsPresentationalData implements IRecalculate
 	
 	
 	public RecalculateScheduledCardsPresentationalData(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("name") String name,
 		@JsonProperty("username") String username,
 		@JsonProperty("daysBehind") Integer daysBehind
@@ -42,13 +42,13 @@ public class RecalculateScheduledCardsPresentationalData implements IRecalculate
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public RecalculateScheduledCardsPresentationalData withBoxId(Integer boxId) {
+	public RecalculateScheduledCardsPresentationalData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}

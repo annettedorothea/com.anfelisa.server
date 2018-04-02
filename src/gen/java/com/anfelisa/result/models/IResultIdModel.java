@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=ResultIdModel.class)
 public interface IResultIdModel {
 
-	Integer getResultId();
+	String getResultId();
 
 }
 

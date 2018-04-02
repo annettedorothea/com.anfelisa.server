@@ -23,12 +23,6 @@ public class ForgotPasswordPresentationalData implements IForgotPasswordPresenta
 	private String email;
 	
 	@NotNull
-	private String name;
-	
-	@NotNull
-	private String prename;
-	
-	@NotNull
 	private String password;
 	
 	@NotNull
@@ -38,15 +32,11 @@ public class ForgotPasswordPresentationalData implements IForgotPasswordPresenta
 	public ForgotPasswordPresentationalData(
 		@JsonProperty("username") String username,
 		@JsonProperty("email") String email,
-		@JsonProperty("name") String name,
-		@JsonProperty("prename") String prename,
 		@JsonProperty("password") String password,
 		@JsonProperty("language") String language
 	) {
 		this.username = username;
 		this.email = email;
-		this.name = name;
-		this.prename = prename;
 		this.password = password;
 		this.language = language;
 		
@@ -73,30 +63,6 @@ public class ForgotPasswordPresentationalData implements IForgotPasswordPresenta
 	}
 	public ForgotPasswordPresentationalData withEmail(String email) {
 		this.email = email;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getName() {
-		return this.name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public ForgotPasswordPresentationalData withName(String name) {
-		this.name = name;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getPrename() {
-		return this.prename;
-	}
-	public void setPrename(String prename) {
-		this.prename = prename;
-	}
-	public ForgotPasswordPresentationalData withPrename(String prename) {
-		this.prename = prename;
 		return this;
 	}
 	

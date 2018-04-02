@@ -17,10 +17,10 @@ import com.anfelisa.user.models.ICredentialsModel;
 public class BoxToCourseAdditionPresentationalData implements IBoxToCourseAdditionPresentationalData {
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	@NotNull
 	private Boolean autoAdd;
@@ -31,8 +31,8 @@ public class BoxToCourseAdditionPresentationalData implements IBoxToCourseAdditi
 	
 	
 	public BoxToCourseAdditionPresentationalData(
-		@JsonProperty("boxId") Integer boxId,
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("autoAdd") Boolean autoAdd,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
@@ -46,25 +46,25 @@ public class BoxToCourseAdditionPresentationalData implements IBoxToCourseAdditi
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public BoxToCourseAdditionPresentationalData withBoxId(Integer boxId) {
+	public BoxToCourseAdditionPresentationalData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public BoxToCourseAdditionPresentationalData withCourseId(Integer courseId) {
+	public BoxToCourseAdditionPresentationalData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}

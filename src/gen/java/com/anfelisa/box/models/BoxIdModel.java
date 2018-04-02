@@ -8,20 +8,20 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class BoxIdModel implements IBoxIdModel {
 
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 
 	public BoxIdModel(
-		@JsonProperty("boxId") Integer boxId
+		@JsonProperty("boxId") String boxId
 	) {
 		this.boxId = boxId;
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	

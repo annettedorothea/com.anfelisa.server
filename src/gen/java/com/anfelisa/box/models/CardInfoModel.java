@@ -7,9 +7,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class CardInfoModel implements ICardInfoModel {
 
-	private Integer cardId;
+	private String cardId;
 	
-	private Integer cardOfBoxId;
+	private String cardOfBoxId;
 	
 	private String content;
 	
@@ -25,8 +25,8 @@ public class CardInfoModel implements ICardInfoModel {
 	
 
 	public CardInfoModel(
-		@JsonProperty("cardId") Integer cardId,
-		@JsonProperty("cardOfBoxId") Integer cardOfBoxId,
+		@JsonProperty("cardId") String cardId,
+		@JsonProperty("cardOfBoxId") String cardOfBoxId,
 		@JsonProperty("content") String content,
 		@JsonProperty("boxName") String boxName,
 		@JsonProperty("count") Integer count,
@@ -45,18 +45,18 @@ public class CardInfoModel implements ICardInfoModel {
 	}
 
 	@JsonProperty
-	public Integer getCardId() {
+	public String getCardId() {
 		return this.cardId;
 	}
-	public void setCardId(Integer cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
 	
 	@JsonProperty
-	public Integer getCardOfBoxId() {
+	public String getCardOfBoxId() {
 		return this.cardOfBoxId;
 	}
-	public void setCardOfBoxId(Integer cardOfBoxId) {
+	public void setCardOfBoxId(String cardOfBoxId) {
 		this.cardOfBoxId = cardOfBoxId;
 	}
 	

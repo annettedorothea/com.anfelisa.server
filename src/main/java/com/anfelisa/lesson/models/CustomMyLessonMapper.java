@@ -10,7 +10,7 @@ public class CustomMyLessonMapper implements ResultSetMapper<IMyLessonModel> {
 	
 	public IMyLessonModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new MyLessonModel(
-			r.getInt("lessonId"),
+			r.getString("lessonId"),
 			r.getString("name"),
 			r.getString("description"),
 			r.getInt("sequence"),

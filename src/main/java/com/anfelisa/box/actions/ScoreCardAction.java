@@ -37,7 +37,7 @@ public class ScoreCardAction extends AbstractScoreCardAction {
 	@Path("/score")
 	@PermitAll
 	public Response post(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("scheduledCardId") Integer scheduledCardId,
+			@NotNull @QueryParam("scheduledCardId") String scheduledCardId,
 			@NotNull @QueryParam("quality") Integer quality) throws JsonProcessingException {
 		this.actionData = new ScoreCardData(uuid).withScheduledCardId(scheduledCardId).withSubmittedQuality(quality)
 				.withCredentialsRole(user.getRole()).withCredentialsUsername(user.getUsername());

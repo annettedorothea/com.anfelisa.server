@@ -34,7 +34,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 	@Timed
 	@Path("/delete")
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
-	public Response delete(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("lessonId") Integer lessonId) throws JsonProcessingException {
+	public Response delete(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("lessonId") String lessonId) throws JsonProcessingException {
 		this.actionData = new LessonIdData(uuid).withLessonId(lessonId);
 		return this.apply();
 	}

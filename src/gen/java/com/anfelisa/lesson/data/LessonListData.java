@@ -21,14 +21,12 @@ public class LessonListData implements ILessonListData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	private java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	@NotNull
 	private String courseName;
@@ -46,7 +44,7 @@ public class LessonListData implements ILessonListData {
 	
 	public LessonListData(
 		@JsonProperty("lessonList") java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList,
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("courseName") String courseName,
 		@JsonProperty("courseDescription") String courseDescription,
 		@JsonProperty("isPublic") Boolean isPublic,
@@ -80,13 +78,13 @@ public class LessonListData implements ILessonListData {
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public LessonListData withCourseId(Integer courseId) {
+	public LessonListData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}
@@ -143,15 +141,6 @@ public class LessonListData implements ILessonListData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

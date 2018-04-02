@@ -8,13 +8,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ResultModel implements IResultModel {
 
 	@NotNull
-	private Integer resultId;
+	private String resultId;
 	
 	@NotNull
 	private String username;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private org.joda.time.DateTime date;
@@ -30,9 +30,9 @@ public class ResultModel implements IResultModel {
 	
 
 	public ResultModel(
-		@JsonProperty("resultId") Integer resultId,
+		@JsonProperty("resultId") String resultId,
 		@JsonProperty("username") String username,
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
@@ -48,10 +48,10 @@ public class ResultModel implements IResultModel {
 	}
 
 	@JsonProperty
-	public Integer getResultId() {
+	public String getResultId() {
 		return this.resultId;
 	}
-	public void setResultId(Integer resultId) {
+	public void setResultId(String resultId) {
 		this.resultId = resultId;
 	}
 	
@@ -64,10 +64,10 @@ public class ResultModel implements IResultModel {
 	}
 	
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
 	

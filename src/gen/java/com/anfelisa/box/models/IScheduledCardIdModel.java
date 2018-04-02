@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=ScheduledCardIdModel.class)
 public interface IScheduledCardIdModel {
 
-	Integer getScheduledCardId();
+	String getScheduledCardId();
 
 }
 

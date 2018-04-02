@@ -14,8 +14,6 @@ public class UserUpdateMapper implements ResultSetMapper<IUserUpdateModel> {
 	public IUserUpdateModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserUpdateModel(
 			r.getString("username"),
-			r.getString("name"),
-			r.getString("prename"),
 			r.getString("email")
 		);
 	}

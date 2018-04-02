@@ -14,7 +14,7 @@ public class StudentOfCourseMapper implements ResultSetMapper<IStudentOfCourseMo
 	public IStudentOfCourseModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new StudentOfCourseModel(
 			r.getString("username"),
-			r.getInt("courseId")
+			r.getString("courseId")
 		);
 	}
 }

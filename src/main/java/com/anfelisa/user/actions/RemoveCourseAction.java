@@ -36,7 +36,7 @@ public class RemoveCourseAction extends AbstractRemoveCourseAction {
 	@Timed
 	@Path("/course")
 	@PermitAll
-	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("courseId") Integer courseId,
+	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("courseId") String courseId,
 			@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
 		this.actionData = new RemoveCourseData(uuid).withCourseId(courseId).withUsername(user.getUsername());
 		return this.apply();

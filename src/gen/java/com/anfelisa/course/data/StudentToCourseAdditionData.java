@@ -20,15 +20,13 @@ public class StudentToCourseAdditionData implements IStudentToCourseAdditionData
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
 	private String username;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	private String credentialsUsername;
 	
@@ -39,7 +37,7 @@ public class StudentToCourseAdditionData implements IStudentToCourseAdditionData
 	
 	public StudentToCourseAdditionData(
 		@JsonProperty("username") String username,
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
@@ -69,13 +67,13 @@ public class StudentToCourseAdditionData implements IStudentToCourseAdditionData
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public StudentToCourseAdditionData withCourseId(Integer courseId) {
+	public StudentToCourseAdditionData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}
@@ -108,15 +106,6 @@ public class StudentToCourseAdditionData implements IStudentToCourseAdditionData
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

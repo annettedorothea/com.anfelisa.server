@@ -15,8 +15,6 @@ public class UserMapper implements ResultSetMapper<IUserModel> {
 		return new UserModel(
 			r.getString("username"),
 			r.getString("password"),
-			r.getString("name"),
-			r.getString("prename"),
 			r.getString("email"),
 			r.getString("role"),
 			r.getBoolean("emailConfirmed")

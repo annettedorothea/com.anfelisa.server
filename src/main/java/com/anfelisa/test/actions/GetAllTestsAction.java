@@ -37,7 +37,7 @@ public class GetAllTestsAction extends AbstractGetAllTestsAction {
 	@Timed
 	@Path("/all")
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("lessonId") Integer lessonId)
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("lessonId") String lessonId)
 			throws JsonProcessingException {
 		this.actionData = new SimpleTestListData(uuid).withLessonId(lessonId);
 		return this.apply();

@@ -34,7 +34,7 @@ public class DeleteCardAction extends AbstractDeleteCardAction {
 	@Timed
 	@Path("/delete")
 	@RolesAllowed({ AuthUser.ADMIN, AuthUser.AUTHOR })
-	public Response delete(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("testId") Integer testId,
+	public Response delete(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("testId") String testId,
 			@NotNull @QueryParam("contentHash") String contentHash) throws JsonProcessingException {
 		this.actionData = new CardIdData(uuid).withTestId(testId).withContentHash(contentHash);
 		return this.apply();

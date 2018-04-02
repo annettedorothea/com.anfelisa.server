@@ -20,11 +20,9 @@ public class RemoveCardFromBoxData implements IRemoveCardFromBoxData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
-	private Integer scheduledCardId;
+	private String scheduledCardId;
 	
 	private String credentialsUsername;
 	
@@ -34,7 +32,7 @@ public class RemoveCardFromBoxData implements IRemoveCardFromBoxData {
 	private org.joda.time.DateTime systemTime;
 	
 	public RemoveCardFromBoxData(
-		@JsonProperty("scheduledCardId") Integer scheduledCardId,
+		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
@@ -51,13 +49,13 @@ public class RemoveCardFromBoxData implements IRemoveCardFromBoxData {
 	}
 
 	@JsonProperty
-	public Integer getScheduledCardId() {
+	public String getScheduledCardId() {
 		return this.scheduledCardId;
 	}
-	public void setScheduledCardId(Integer scheduledCardId) {
+	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
-	public RemoveCardFromBoxData withScheduledCardId(Integer scheduledCardId) {
+	public RemoveCardFromBoxData withScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 		return this;
 	}
@@ -90,15 +88,6 @@ public class RemoveCardFromBoxData implements IRemoveCardFromBoxData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

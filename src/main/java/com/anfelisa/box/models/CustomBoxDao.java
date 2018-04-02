@@ -12,7 +12,7 @@ public class CustomBoxDao {
 				.bind("username", username).map(new BoxMapper()).list();
 	}
 
-	public IBoxModel selectByScheduledCardId(Handle handle, Integer scheduledCardId) {
+	public IBoxModel selectByScheduledCardId(Handle handle, String scheduledCardId) {
 		return handle
 				.createQuery("SELECT b.* FROM public.scheduledCard sc inner join public.box b ON b.boxId = sc.boxId WHERE sc.scheduledCardId = :scheduledCardId")
 				.bind("scheduledCardId", scheduledCardId).map(new BoxMapper()).first();
@@ -25,8 +25,8 @@ public class CustomBoxDao {
 		statement.execute();
 	}
 
-	public IBoxOfCourseModel selectBoxOfCourse(Handle handle, Integer courseId, String username,
-			Integer boxId) {
+	public IBoxOfCourseModel selectBoxOfCourse(Handle handle, String courseId, String username,
+			String boxId) {
 		return handle
 				.createQuery("SELECT bc.* FROM public.boxofcourse bc INNER JOIN public.box b on bc.boxId = b.boxId WHERE bc.courseId = :courseId AND b.username = :username AND bc.boxId = :boxId")
 				.bind("courseId", courseId).bind("username", username).bind("boxId", boxId).map(new BoxOfCourseMapper())
@@ -34,7 +34,7 @@ public class CustomBoxDao {
 	}
 
 	public List<IBoxModel> selectBoxesWhereCardMightBeAddedAfterEdit(Handle handle,
-			Integer testId, String username) {
+			String testId, String username) {
 		return handle
 				.createQuery("SELECT b.* FROM public.box b INNER JOIN public.boxOfCourse bc on b.boxId = bc.boxId "
 						+ "INNER JOIN public.course c on bc.courseId = c.courseId INNER JOIN public.lesson l on l.courseId = c.courseId INNER JOIN public.test t on t.lessonId = l.lessonId "

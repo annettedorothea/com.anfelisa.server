@@ -23,12 +23,6 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 	private String password;
 	
 	@NotNull
-	private String name;
-	
-	@NotNull
-	private String prename;
-	
-	@NotNull
 	private String email;
 	
 	@NotNull
@@ -44,8 +38,6 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 	public UserRegistrationPresentationalData(
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
-		@JsonProperty("name") String name,
-		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
@@ -53,8 +45,6 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 	) {
 		this.username = username;
 		this.password = password;
-		this.name = name;
-		this.prename = prename;
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
@@ -83,30 +73,6 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 	}
 	public UserRegistrationPresentationalData withPassword(String password) {
 		this.password = password;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getName() {
-		return this.name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public UserRegistrationPresentationalData withName(String name) {
-		this.name = name;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getPrename() {
-		return this.prename;
-	}
-	public void setPrename(String prename) {
-		this.prename = prename;
-	}
-	public UserRegistrationPresentationalData withPrename(String prename) {
-		this.prename = prename;
 		return this;
 	}
 	

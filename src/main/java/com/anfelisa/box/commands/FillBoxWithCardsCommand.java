@@ -56,7 +56,7 @@ public class FillBoxWithCardsCommand extends AbstractFillBoxWithCardsCommand {
 						this.commandData.getCredentialsUsername());
 			}
 			for (ICardModel card : allCards) {
-				IScheduledCardModel scheduledCard = new ScheduledCardModel(null, card.getCardId(), 2.5F, 0, 0, 0,
+				IScheduledCardModel scheduledCard = new ScheduledCardModel(boxOfCourse.getBoxId() + "_" + card.getCardId(), card.getCardId(), 2.5F, 0, 0, 0,
 						this.commandData.getSystemTime(), boxOfCourse.getBoxId(), null, this.commandData.getSystemTime(), false);
 				this.commandData.getCardsToBeAdded().add(scheduledCard);
 			}

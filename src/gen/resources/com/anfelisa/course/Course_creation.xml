@@ -1,5 +1,5 @@
 <createTable tableName="course">
-	<column name="courseid" type="serial">
+	<column name="courseid" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
 	<column name="name" type="character varying">
@@ -15,6 +15,6 @@
 		<constraints  nullable="false"  />
 	</column>
 	<column name="author" type="character varying">
-		<constraints  nullable="false" 	references="user(username)" deleteCascade="true" />
+		<constraints  nullable="false" 	references="user(username)" deleteCascade="true" foreignKeyName="fk_course_username" />
 	</column>
 </createTable>

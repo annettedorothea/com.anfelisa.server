@@ -20,21 +20,19 @@ public class SimpleLessonListData implements ISimpleLessonListData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	private java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 
 	private org.joda.time.DateTime systemTime;
 	
 	public SimpleLessonListData(
 		@JsonProperty("lessonList") java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList,
-		@JsonProperty("courseId") Integer courseId
+		@JsonProperty("courseId") String courseId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.lessonList = lessonList;
@@ -60,13 +58,13 @@ public class SimpleLessonListData implements ISimpleLessonListData {
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public SimpleLessonListData withCourseId(Integer courseId) {
+	public SimpleLessonListData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}
@@ -75,15 +73,6 @@ public class SimpleLessonListData implements ISimpleLessonListData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

@@ -13,7 +13,7 @@ public class CourseToBoxAdditionListMapper implements ResultSetMapper<ICourseToB
 	
 	public ICourseToBoxAdditionListModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new CourseToBoxAdditionListModel(
-			r.getInt("boxId"),
+			r.getString("boxId"),
 			r.getString("boxName"),
 			null
 		);

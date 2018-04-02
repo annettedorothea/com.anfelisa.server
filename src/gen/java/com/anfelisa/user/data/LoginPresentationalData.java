@@ -17,7 +17,7 @@ import com.anfelisa.user.models.IUsernameModel;
 public class LoginPresentationalData implements ILoginPresentationalData {
 	
 	@NotNull
-	private Integer loginLogId;
+	private String loginLogId;
 	
 	@NotNull
 	private String username;
@@ -27,7 +27,7 @@ public class LoginPresentationalData implements ILoginPresentationalData {
 	
 	
 	public LoginPresentationalData(
-		@JsonProperty("loginLogId") Integer loginLogId,
+		@JsonProperty("loginLogId") String loginLogId,
 		@JsonProperty("username") String username,
 		@JsonProperty("date") org.joda.time.DateTime date
 	) {
@@ -38,13 +38,13 @@ public class LoginPresentationalData implements ILoginPresentationalData {
 	}
 
 	@JsonProperty
-	public Integer getLoginLogId() {
+	public String getLoginLogId() {
 		return this.loginLogId;
 	}
-	public void setLoginLogId(Integer loginLogId) {
+	public void setLoginLogId(String loginLogId) {
 		this.loginLogId = loginLogId;
 	}
-	public LoginPresentationalData withLoginLogId(Integer loginLogId) {
+	public LoginPresentationalData withLoginLogId(String loginLogId) {
 		this.loginLogId = loginLogId;
 		return this;
 	}

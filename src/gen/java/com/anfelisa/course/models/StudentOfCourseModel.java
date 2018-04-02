@@ -11,12 +11,12 @@ public class StudentOfCourseModel implements IStudentOfCourseModel {
 	private String username;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 
 	public StudentOfCourseModel(
 		@JsonProperty("username") String username,
-		@JsonProperty("courseId") Integer courseId
+		@JsonProperty("courseId") String courseId
 	) {
 		this.username = username;
 		this.courseId = courseId;
@@ -31,10 +31,10 @@ public class StudentOfCourseModel implements IStudentOfCourseModel {
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
 	

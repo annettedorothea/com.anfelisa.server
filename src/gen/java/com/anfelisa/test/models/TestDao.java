@@ -15,20 +15,21 @@ import com.anfelisa.ace.encryption.EncryptionService;
 @JsonIgnoreType
 public class TestDao {
 	
-	public Integer insert(Handle handle, ITestModel testModel) {
-		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.test (name, sequence, lessonid, html, author) VALUES (:name, :sequence, :lessonid, :html, :author) RETURNING testid");
+	public void insert(Handle handle, ITestModel testModel) {
+		Update statement = handle.createStatement("INSERT INTO public.test (testid, name, sequence, lessonid, html, author) VALUES (:testid, :name, :sequence, :lessonid, :html, :author)");
+		statement.bind("testid",  testModel.getTestId() );
 		statement.bind("name",  testModel.getName() );
 		statement.bind("sequence",  testModel.getSequence() );
 		statement.bind("lessonid",  testModel.getLessonId() );
 		statement.bind("html",  testModel.getHtml() );
 		statement.bind("author",  testModel.getAuthor() );
-		Map<String, Object> first = statement.first();
-		return (Integer) first.get("testid");
+		statement.execute();
 	}
 	
 	
 	public void updateByTestId(Handle handle, ITestModel testModel) {
-		Update statement = handle.createStatement("UPDATE public.test SET name = :name, sequence = :sequence, lessonid = :lessonid, html = :html, author = :author WHERE testid = :testid");
+		Update statement = handle.createStatement("UPDATE public.test SET testid = :testid, name = :name, sequence = :sequence, lessonid = :lessonid, html = :html, author = :author WHERE testid = :testid");
+		statement.bind("testid",  testModel.getTestId() );
 		statement.bind("name",  testModel.getName() );
 		statement.bind("sequence",  testModel.getSequence() );
 		statement.bind("lessonid",  testModel.getLessonId() );
@@ -38,13 +39,13 @@ public class TestDao {
 		statement.execute();
 	}
 
-	public void deleteByTestId(Handle handle, Integer testId) {
+	public void deleteByTestId(Handle handle, String testId) {
 		Update statement = handle.createStatement("DELETE FROM public.test WHERE testid = :testid");
 		statement.bind("testid", testId);
 		statement.execute();
 	}
 
-	public ITestModel selectByTestId(Handle handle, Integer testId) {
+	public ITestModel selectByTestId(Handle handle, String testId) {
 		return handle.createQuery("SELECT testid, name, sequence, lessonid, html, author FROM public.test WHERE testid = :testid")
 			.bind("testid", testId)
 			.map(new TestMapper())
@@ -59,8 +60,6 @@ public class TestDao {
 
 	public void truncate(Handle handle) {
 		Update statement = handle.createStatement("TRUNCATE public.test CASCADE");
-		statement.execute();
-		statement = handle.createStatement("ALTER SEQUENCE public.test_testId_seq RESTART");
 		statement.execute();
 	}
 

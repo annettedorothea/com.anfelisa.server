@@ -8,20 +8,20 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class CourseIdModel implements ICourseIdModel {
 
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 
 	public CourseIdModel(
-		@JsonProperty("courseId") Integer courseId
+		@JsonProperty("courseId") String courseId
 	) {
 		this.courseId = courseId;
 	}
 
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
 	

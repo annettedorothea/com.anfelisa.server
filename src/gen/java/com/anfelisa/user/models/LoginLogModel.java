@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class LoginLogModel implements ILoginLogModel {
 
 	@NotNull
-	private Integer loginLogId;
+	private String loginLogId;
 	
 	@NotNull
 	private String username;
@@ -18,7 +18,7 @@ public class LoginLogModel implements ILoginLogModel {
 	
 
 	public LoginLogModel(
-		@JsonProperty("loginLogId") Integer loginLogId,
+		@JsonProperty("loginLogId") String loginLogId,
 		@JsonProperty("username") String username,
 		@JsonProperty("date") org.joda.time.DateTime date
 	) {
@@ -28,10 +28,10 @@ public class LoginLogModel implements ILoginLogModel {
 	}
 
 	@JsonProperty
-	public Integer getLoginLogId() {
+	public String getLoginLogId() {
 		return this.loginLogId;
 	}
-	public void setLoginLogId(Integer loginLogId) {
+	public void setLoginLogId(String loginLogId) {
 		this.loginLogId = loginLogId;
 	}
 	

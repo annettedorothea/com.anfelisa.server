@@ -20,7 +20,7 @@ import com.anfelisa.test.models.ITestListModel;
 public class TestPresentationalData implements ITestPresentationalData {
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private String name;
@@ -28,7 +28,7 @@ public class TestPresentationalData implements ITestPresentationalData {
 	private Integer sequence;
 	
 	@NotNull
-	private Integer lessonId;
+	private String lessonId;
 	
 	@NotNull
 	private String html;
@@ -56,16 +56,16 @@ public class TestPresentationalData implements ITestPresentationalData {
 	private String courseAuthor;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	private java.util.List<com.anfelisa.test.models.ITestModel> testList;
 	
 	
 	public TestPresentationalData(
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("name") String name,
 		@JsonProperty("sequence") Integer sequence,
-		@JsonProperty("lessonId") Integer lessonId,
+		@JsonProperty("lessonId") String lessonId,
 		@JsonProperty("html") String html,
 		@JsonProperty("author") String author,
 		@JsonProperty("lessonName") String lessonName,
@@ -75,7 +75,7 @@ public class TestPresentationalData implements ITestPresentationalData {
 		@JsonProperty("courseDescription") String courseDescription,
 		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("courseAuthor") String courseAuthor,
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("testList") java.util.List<com.anfelisa.test.models.ITestModel> testList
 	) {
 		this.testId = testId;
@@ -97,13 +97,13 @@ public class TestPresentationalData implements ITestPresentationalData {
 	}
 
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public TestPresentationalData withTestId(Integer testId) {
+	public TestPresentationalData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}
@@ -133,13 +133,13 @@ public class TestPresentationalData implements ITestPresentationalData {
 	}
 	
 	@JsonProperty
-	public Integer getLessonId() {
+	public String getLessonId() {
 		return this.lessonId;
 	}
-	public void setLessonId(Integer lessonId) {
+	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
 	}
-	public TestPresentationalData withLessonId(Integer lessonId) {
+	public TestPresentationalData withLessonId(String lessonId) {
 		this.lessonId = lessonId;
 		return this;
 	}
@@ -253,13 +253,13 @@ public class TestPresentationalData implements ITestPresentationalData {
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public TestPresentationalData withCourseId(Integer courseId) {
+	public TestPresentationalData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}

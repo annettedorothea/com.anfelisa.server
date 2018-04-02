@@ -37,7 +37,7 @@ public class GetAllLessonsAction extends AbstractGetAllLessonsAction {
 	@Timed
 	@Path("/all")
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("courseId") Integer courseId)
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("courseId") String courseId)
 			throws JsonProcessingException {
 		this.actionData = new SimpleLessonListData(uuid).withCourseId(courseId);
 		return this.apply();

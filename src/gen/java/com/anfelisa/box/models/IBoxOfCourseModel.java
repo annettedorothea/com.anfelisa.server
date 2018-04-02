@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=BoxOfCourseModel.class)
 public interface IBoxOfCourseModel {
 
-	Integer getBoxId();
-	Integer getCourseId();
+	String getBoxId();
+	String getCourseId();
 	Boolean getAutoAdd();
 
 }

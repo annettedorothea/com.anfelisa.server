@@ -19,12 +19,10 @@ public class TestCreationData implements ITestCreationData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private String name;
@@ -32,7 +30,7 @@ public class TestCreationData implements ITestCreationData {
 	private Integer sequence;
 	
 	@NotNull
-	private Integer lessonId;
+	private String lessonId;
 	
 	@NotNull
 	private String html;
@@ -44,10 +42,10 @@ public class TestCreationData implements ITestCreationData {
 	private org.joda.time.DateTime systemTime;
 	
 	public TestCreationData(
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("name") String name,
 		@JsonProperty("sequence") Integer sequence,
-		@JsonProperty("lessonId") Integer lessonId,
+		@JsonProperty("lessonId") String lessonId,
 		@JsonProperty("html") String html,
 		@JsonProperty("author") String author
 ,		@JsonProperty("uuid") String uuid
@@ -67,13 +65,13 @@ public class TestCreationData implements ITestCreationData {
 	}
 
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public TestCreationData withTestId(Integer testId) {
+	public TestCreationData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}
@@ -103,13 +101,13 @@ public class TestCreationData implements ITestCreationData {
 	}
 	
 	@JsonProperty
-	public Integer getLessonId() {
+	public String getLessonId() {
 		return this.lessonId;
 	}
-	public void setLessonId(Integer lessonId) {
+	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
 	}
-	public TestCreationData withLessonId(Integer lessonId) {
+	public TestCreationData withLessonId(String lessonId) {
 		this.lessonId = lessonId;
 		return this;
 	}
@@ -142,15 +140,6 @@ public class TestCreationData implements ITestCreationData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

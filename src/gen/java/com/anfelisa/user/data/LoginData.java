@@ -20,12 +20,10 @@ public class LoginData implements ILoginData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer loginLogId;
+	private String loginLogId;
 	
 	@NotNull
 	private String username;
@@ -37,7 +35,7 @@ public class LoginData implements ILoginData {
 	private org.joda.time.DateTime systemTime;
 	
 	public LoginData(
-		@JsonProperty("loginLogId") Integer loginLogId,
+		@JsonProperty("loginLogId") String loginLogId,
 		@JsonProperty("username") String username,
 		@JsonProperty("date") org.joda.time.DateTime date
 ,		@JsonProperty("uuid") String uuid
@@ -54,13 +52,13 @@ public class LoginData implements ILoginData {
 	}
 
 	@JsonProperty
-	public Integer getLoginLogId() {
+	public String getLoginLogId() {
 		return this.loginLogId;
 	}
-	public void setLoginLogId(Integer loginLogId) {
+	public void setLoginLogId(String loginLogId) {
 		this.loginLogId = loginLogId;
 	}
-	public LoginData withLoginLogId(Integer loginLogId) {
+	public LoginData withLoginLogId(String loginLogId) {
 		this.loginLogId = loginLogId;
 		return this;
 	}
@@ -93,15 +91,6 @@ public class LoginData implements ILoginData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

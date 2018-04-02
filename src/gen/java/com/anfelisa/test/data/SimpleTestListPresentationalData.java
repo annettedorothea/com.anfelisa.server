@@ -19,12 +19,12 @@ public class SimpleTestListPresentationalData implements ISimpleTestListPresenta
 	private java.util.List<com.anfelisa.test.models.ITestModel> testList;
 	
 	@NotNull
-	private Integer lessonId;
+	private String lessonId;
 	
 	
 	public SimpleTestListPresentationalData(
 		@JsonProperty("testList") java.util.List<com.anfelisa.test.models.ITestModel> testList,
-		@JsonProperty("lessonId") Integer lessonId
+		@JsonProperty("lessonId") String lessonId
 	) {
 		this.testList = testList;
 		this.lessonId = lessonId;
@@ -44,13 +44,13 @@ public class SimpleTestListPresentationalData implements ISimpleTestListPresenta
 	}
 	
 	@JsonProperty
-	public Integer getLessonId() {
+	public String getLessonId() {
 		return this.lessonId;
 	}
-	public void setLessonId(Integer lessonId) {
+	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
 	}
-	public SimpleTestListPresentationalData withLessonId(Integer lessonId) {
+	public SimpleTestListPresentationalData withLessonId(String lessonId) {
 		this.lessonId = lessonId;
 		return this;
 	}

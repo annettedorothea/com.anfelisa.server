@@ -16,7 +16,7 @@ import com.anfelisa.lesson.models.ILessonModel;
 public class LessonPresentationalData implements ILessonPresentationalData {
 	
 	@NotNull
-	private Integer lessonId;
+	private String lessonId;
 	
 	@NotNull
 	private String name;
@@ -26,18 +26,18 @@ public class LessonPresentationalData implements ILessonPresentationalData {
 	private Integer sequence;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	@NotNull
 	private String author;
 	
 	
 	public LessonPresentationalData(
-		@JsonProperty("lessonId") Integer lessonId,
+		@JsonProperty("lessonId") String lessonId,
 		@JsonProperty("name") String name,
 		@JsonProperty("description") String description,
 		@JsonProperty("sequence") Integer sequence,
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("author") String author
 	) {
 		this.lessonId = lessonId;
@@ -50,13 +50,13 @@ public class LessonPresentationalData implements ILessonPresentationalData {
 	}
 
 	@JsonProperty
-	public Integer getLessonId() {
+	public String getLessonId() {
 		return this.lessonId;
 	}
-	public void setLessonId(Integer lessonId) {
+	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
 	}
-	public LessonPresentationalData withLessonId(Integer lessonId) {
+	public LessonPresentationalData withLessonId(String lessonId) {
 		this.lessonId = lessonId;
 		return this;
 	}
@@ -98,13 +98,13 @@ public class LessonPresentationalData implements ILessonPresentationalData {
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public LessonPresentationalData withCourseId(Integer courseId) {
+	public LessonPresentationalData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}

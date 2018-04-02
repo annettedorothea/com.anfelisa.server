@@ -20,12 +20,10 @@ public class RecalculateScheduledCardsData implements IRecalculateScheduledCards
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	@NotNull
 	private String name;
@@ -39,7 +37,7 @@ public class RecalculateScheduledCardsData implements IRecalculateScheduledCards
 	private org.joda.time.DateTime systemTime;
 	
 	public RecalculateScheduledCardsData(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("name") String name,
 		@JsonProperty("username") String username,
 		@JsonProperty("daysBehind") Integer daysBehind
@@ -58,13 +56,13 @@ public class RecalculateScheduledCardsData implements IRecalculateScheduledCards
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public RecalculateScheduledCardsData withBoxId(Integer boxId) {
+	public RecalculateScheduledCardsData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}
@@ -109,15 +107,6 @@ public class RecalculateScheduledCardsData implements IRecalculateScheduledCards
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

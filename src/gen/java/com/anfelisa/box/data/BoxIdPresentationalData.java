@@ -17,7 +17,7 @@ import com.anfelisa.user.models.ICredentialsModel;
 public class BoxIdPresentationalData implements IBoxIdPresentationalData {
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	@NotNull
 	private String name;
@@ -31,7 +31,7 @@ public class BoxIdPresentationalData implements IBoxIdPresentationalData {
 	
 	
 	public BoxIdPresentationalData(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("name") String name,
 		@JsonProperty("username") String username,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
@@ -46,13 +46,13 @@ public class BoxIdPresentationalData implements IBoxIdPresentationalData {
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public BoxIdPresentationalData withBoxId(Integer boxId) {
+	public BoxIdPresentationalData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}

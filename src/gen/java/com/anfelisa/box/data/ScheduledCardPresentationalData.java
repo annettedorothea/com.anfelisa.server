@@ -16,10 +16,10 @@ import com.anfelisa.box.models.IScheduledCardModel;
 public class ScheduledCardPresentationalData implements IScheduledCardPresentationalData {
 	
 	@NotNull
-	private Integer scheduledCardId;
+	private String scheduledCardId;
 	
 	@NotNull
-	private Integer cardId;
+	private String cardId;
 	
 	@NotNull
 	private Float ef;
@@ -36,7 +36,7 @@ public class ScheduledCardPresentationalData implements IScheduledCardPresentati
 	private org.joda.time.DateTime scheduledDate;
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	private Integer lastQuality;
 	
@@ -48,14 +48,14 @@ public class ScheduledCardPresentationalData implements IScheduledCardPresentati
 	
 	
 	public ScheduledCardPresentationalData(
-		@JsonProperty("scheduledCardId") Integer scheduledCardId,
-		@JsonProperty("cardId") Integer cardId,
+		@JsonProperty("scheduledCardId") String scheduledCardId,
+		@JsonProperty("cardId") String cardId,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
 		@JsonProperty("n") Integer n,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
 		@JsonProperty("removed") Boolean removed
@@ -75,25 +75,25 @@ public class ScheduledCardPresentationalData implements IScheduledCardPresentati
 	}
 
 	@JsonProperty
-	public Integer getScheduledCardId() {
+	public String getScheduledCardId() {
 		return this.scheduledCardId;
 	}
-	public void setScheduledCardId(Integer scheduledCardId) {
+	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
-	public ScheduledCardPresentationalData withScheduledCardId(Integer scheduledCardId) {
+	public ScheduledCardPresentationalData withScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 		return this;
 	}
 	
 	@JsonProperty
-	public Integer getCardId() {
+	public String getCardId() {
 		return this.cardId;
 	}
-	public void setCardId(Integer cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
-	public ScheduledCardPresentationalData withCardId(Integer cardId) {
+	public ScheduledCardPresentationalData withCardId(String cardId) {
 		this.cardId = cardId;
 		return this;
 	}
@@ -159,13 +159,13 @@ public class ScheduledCardPresentationalData implements IScheduledCardPresentati
 	}
 	
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public ScheduledCardPresentationalData withBoxId(Integer boxId) {
+	public ScheduledCardPresentationalData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}

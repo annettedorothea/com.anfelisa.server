@@ -8,7 +8,7 @@ public interface ILessonAbstractModel {
 	String getLessonName();
 	String getLessonDescription();
 	String getLessonAuthor();
-	Integer getLessonId();
+	String getLessonId();
 
 }
 

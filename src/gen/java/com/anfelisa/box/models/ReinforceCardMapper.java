@@ -13,7 +13,7 @@ public class ReinforceCardMapper implements ResultSetMapper<IReinforceCardModel>
 	
 	public IReinforceCardModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new ReinforceCardModel(
-			r.getInt("scheduledCardId"),
+			r.getString("scheduledCardId"),
 			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")) : null,
 			r.getInt("lastQuality"),
 			r.getTimestamp("timestamp") != null ? new org.joda.time.DateTime(r.getTimestamp("timestamp")) : null,

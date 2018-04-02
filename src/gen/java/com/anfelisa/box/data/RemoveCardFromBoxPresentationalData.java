@@ -16,7 +16,7 @@ import com.anfelisa.user.models.ICredentialsModel;
 @SuppressWarnings("all")
 public class RemoveCardFromBoxPresentationalData implements IRemoveCardFromBoxPresentationalData {
 	
-	private Integer scheduledCardId;
+	private String scheduledCardId;
 	
 	private String credentialsUsername;
 	
@@ -24,7 +24,7 @@ public class RemoveCardFromBoxPresentationalData implements IRemoveCardFromBoxPr
 	
 	
 	public RemoveCardFromBoxPresentationalData(
-		@JsonProperty("scheduledCardId") Integer scheduledCardId,
+		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 	) {
@@ -35,13 +35,13 @@ public class RemoveCardFromBoxPresentationalData implements IRemoveCardFromBoxPr
 	}
 
 	@JsonProperty
-	public Integer getScheduledCardId() {
+	public String getScheduledCardId() {
 		return this.scheduledCardId;
 	}
-	public void setScheduledCardId(Integer scheduledCardId) {
+	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
-	public RemoveCardFromBoxPresentationalData withScheduledCardId(Integer scheduledCardId) {
+	public RemoveCardFromBoxPresentationalData withScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 		return this;
 	}

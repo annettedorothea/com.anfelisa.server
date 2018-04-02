@@ -46,7 +46,7 @@ public class LoadPrivateLessonsAction extends AbstractLoadPrivateLessonsAction {
 	@Path("/private")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("courseId") Integer courseId) throws JsonProcessingException {
+			@NotNull @QueryParam("courseId") String courseId) throws JsonProcessingException {
 		this.actionData = new MyLessonListData(uuid).withCourseId(courseId).withUsername(user.getUsername());
 		return this.apply();
 	}

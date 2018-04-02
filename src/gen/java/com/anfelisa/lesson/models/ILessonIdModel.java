@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=LessonIdModel.class)
 public interface ILessonIdModel {
 
-	Integer getLessonId();
+	String getLessonId();
 
 }
 

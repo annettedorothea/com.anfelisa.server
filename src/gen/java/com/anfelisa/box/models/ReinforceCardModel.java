@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ReinforceCardModel implements IReinforceCardModel {
 
 	@NotNull
-	private Integer scheduledCardId;
+	private String scheduledCardId;
 	
 	@NotNull
 	private org.joda.time.DateTime scheduledDate;
@@ -22,7 +22,7 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	
 
 	public ReinforceCardModel(
-		@JsonProperty("scheduledCardId") Integer scheduledCardId,
+		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
@@ -36,10 +36,10 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	}
 
 	@JsonProperty
-	public Integer getScheduledCardId() {
+	public String getScheduledCardId() {
 		return this.scheduledCardId;
 	}
-	public void setScheduledCardId(Integer scheduledCardId) {
+	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
 	

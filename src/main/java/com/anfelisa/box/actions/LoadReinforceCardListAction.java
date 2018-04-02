@@ -61,7 +61,7 @@ public class LoadReinforceCardListAction extends AbstractLoadReinforceCardListAc
 	@Path("/reinforce")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("boxId") Integer boxId) throws JsonProcessingException {
+			@NotNull @QueryParam("boxId") String boxId) throws JsonProcessingException {
 		this.actionData = new ReinforceCardListData(uuid).withBoxId(boxId).withCredentialsRole(user.getRole())
 				.withCredentialsUsername(user.getUsername()).withUsername(user.getUsername());
 		return this.apply();

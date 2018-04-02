@@ -74,16 +74,14 @@ models {
 	persistent User {
 		Unique PrimaryKey NotNull String username
 		NotNull String password
-		NotNull String name
-		NotNull String prename
 		NotNull String email
 		NotNull String role
 		NotNull Boolean emailConfirmed
 	}
 
 	persistent LoginLog {
-		Unique PrimaryKey NotNull Serial loginLogId
-		NotNull String username
+		Unique PrimaryKey NotNull String loginLogId
+		NotNull String username references User.username
 		NotNull DateTime date
 	} 
 
@@ -108,23 +106,19 @@ models {
 	} 
 	UserUpdate {
 		NotNull String username
-		NotNull String name
-		NotNull String prename
 		NotNull String email
 	}
 	CourseSelection {
-		List Integer courseIdList
+		List String courseIdList
 	}
 	
 	CourseId {
-		Integer courseId
+		String courseId
 	}
 	
 	ForgotPassword {
 		NotNull String username
 		NotNull String email
-		NotNull String name
-		NotNull String prename
 		NotNull String password
 	}
 	Language {

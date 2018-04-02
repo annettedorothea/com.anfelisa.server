@@ -17,6 +17,7 @@ public class LoginCommand extends AbstractLoginCommand {
 	@Override
 	protected void executeCommand() {
 		this.commandData.setOutcome(success);
+		this.commandData.setLoginLogId(this.commandData.getUuid());
 	}
 
 }

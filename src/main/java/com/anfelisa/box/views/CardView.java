@@ -14,14 +14,13 @@ public class CardView {
 	private static CardDao cardDao = new CardDao();
 
 	public static BiConsumer<CardCreationData, Handle> createCard = (dataContainer, handle) -> {
-		Integer cardId = dataContainer.getCardId();
+		String cardId = dataContainer.getCardId();
 		ICardModel card = cardDao.selectByCardId(handle, cardId);
 		if (card == null) {
-			cardId = cardDao.insert(handle, dataContainer);
+			cardDao.insert(handle, dataContainer);
 		} else {
 			cardDao.updateByCardId(handle, dataContainer);
 		}
-		dataContainer.setCreatedId("" + cardId);
 	};
 
 	public static BiConsumer<CardIdData, Handle> deleteCard = (dataContainer, handle) -> {

@@ -16,13 +16,13 @@ import com.anfelisa.result.models.IResultModel;
 public class ResultCreationPresentationalData implements IResultCreationPresentationalData {
 	
 	@NotNull
-	private Integer resultId;
+	private String resultId;
 	
 	@NotNull
 	private String username;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private org.joda.time.DateTime date;
@@ -38,9 +38,9 @@ public class ResultCreationPresentationalData implements IResultCreationPresenta
 	
 	
 	public ResultCreationPresentationalData(
-		@JsonProperty("resultId") Integer resultId,
+		@JsonProperty("resultId") String resultId,
 		@JsonProperty("username") String username,
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
@@ -57,13 +57,13 @@ public class ResultCreationPresentationalData implements IResultCreationPresenta
 	}
 
 	@JsonProperty
-	public Integer getResultId() {
+	public String getResultId() {
 		return this.resultId;
 	}
-	public void setResultId(Integer resultId) {
+	public void setResultId(String resultId) {
 		this.resultId = resultId;
 	}
-	public ResultCreationPresentationalData withResultId(Integer resultId) {
+	public ResultCreationPresentationalData withResultId(String resultId) {
 		this.resultId = resultId;
 		return this;
 	}
@@ -81,13 +81,13 @@ public class ResultCreationPresentationalData implements IResultCreationPresenta
 	}
 	
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public ResultCreationPresentationalData withTestId(Integer testId) {
+	public ResultCreationPresentationalData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}

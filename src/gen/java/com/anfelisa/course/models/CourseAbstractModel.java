@@ -19,7 +19,7 @@ public class CourseAbstractModel implements ICourseAbstractModel {
 	private String courseAuthor;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 
 	public CourseAbstractModel(
@@ -27,7 +27,7 @@ public class CourseAbstractModel implements ICourseAbstractModel {
 		@JsonProperty("courseDescription") String courseDescription,
 		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("courseAuthor") String courseAuthor,
-		@JsonProperty("courseId") Integer courseId
+		@JsonProperty("courseId") String courseId
 	) {
 		this.courseName = courseName;
 		this.courseDescription = courseDescription;
@@ -69,10 +69,10 @@ public class CourseAbstractModel implements ICourseAbstractModel {
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
 	

@@ -21,12 +21,10 @@ public class BoxConfigData implements IBoxConfigData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	private java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList;
 	
@@ -43,7 +41,7 @@ public class BoxConfigData implements IBoxConfigData {
 	private org.joda.time.DateTime systemTime;
 	
 	public BoxConfigData(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("boxOfCourseList") java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> boxOfCourseList,
 		@JsonProperty("existingItems") java.util.List<com.anfelisa.box.models.IBoxOfCourseModel> existingItems,
 		@JsonProperty("username") String username,
@@ -66,13 +64,13 @@ public class BoxConfigData implements IBoxConfigData {
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public BoxConfigData withBoxId(Integer boxId) {
+	public BoxConfigData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}
@@ -141,15 +139,6 @@ public class BoxConfigData implements IBoxConfigData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

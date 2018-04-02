@@ -8,10 +8,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ScheduledCardModel implements IScheduledCardModel {
 
 	@NotNull
-	private Integer scheduledCardId;
+	private String scheduledCardId;
 	
 	@NotNull
-	private Integer cardId;
+	private String cardId;
 	
 	@NotNull
 	private Float ef;
@@ -28,7 +28,7 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	private org.joda.time.DateTime scheduledDate;
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	private Integer lastQuality;
 	
@@ -40,14 +40,14 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	
 
 	public ScheduledCardModel(
-		@JsonProperty("scheduledCardId") Integer scheduledCardId,
-		@JsonProperty("cardId") Integer cardId,
+		@JsonProperty("scheduledCardId") String scheduledCardId,
+		@JsonProperty("cardId") String cardId,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
 		@JsonProperty("n") Integer n,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("timestamp") org.joda.time.DateTime timestamp,
 		@JsonProperty("removed") Boolean removed
@@ -66,18 +66,18 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	}
 
 	@JsonProperty
-	public Integer getScheduledCardId() {
+	public String getScheduledCardId() {
 		return this.scheduledCardId;
 	}
-	public void setScheduledCardId(Integer scheduledCardId) {
+	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
 	
 	@JsonProperty
-	public Integer getCardId() {
+	public String getCardId() {
 		return this.cardId;
 	}
-	public void setCardId(Integer cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
 	
@@ -122,10 +122,10 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	}
 	
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	

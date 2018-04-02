@@ -40,7 +40,7 @@ public class LoadPublicLessonsAction extends AbstractLoadPublicLessonsAction {
 	@GET
 	@Timed
 	@Path("/public")
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("courseId") Integer courseId)
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("courseId") String courseId)
 			throws JsonProcessingException {
 		this.actionData = new LessonListData(uuid).withCourseId(courseId);
 		;

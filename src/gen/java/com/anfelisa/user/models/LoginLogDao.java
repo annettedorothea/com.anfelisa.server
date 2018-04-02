@@ -15,30 +15,31 @@ import com.anfelisa.ace.encryption.EncryptionService;
 @JsonIgnoreType
 public class LoginLogDao {
 	
-	public Integer insert(Handle handle, ILoginLogModel loginLogModel) {
-		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.loginlog (username, date) VALUES (:username, :date) RETURNING loginlogid");
+	public void insert(Handle handle, ILoginLogModel loginLogModel) {
+		Update statement = handle.createStatement("INSERT INTO public.loginlog (loginlogid, username, date) VALUES (:loginlogid, :username, :date)");
+		statement.bind("loginlogid",  loginLogModel.getLoginLogId() );
 		statement.bind("username",  loginLogModel.getUsername() );
 		statement.bind("date",  loginLogModel.getDate() );
-		Map<String, Object> first = statement.first();
-		return (Integer) first.get("loginlogid");
+		statement.execute();
 	}
 	
 	
 	public void updateByLoginLogId(Handle handle, ILoginLogModel loginLogModel) {
-		Update statement = handle.createStatement("UPDATE public.loginlog SET username = :username, date = :date WHERE loginlogid = :loginlogid");
+		Update statement = handle.createStatement("UPDATE public.loginlog SET loginlogid = :loginlogid, username = :username, date = :date WHERE loginlogid = :loginlogid");
+		statement.bind("loginlogid",  loginLogModel.getLoginLogId() );
 		statement.bind("username",  loginLogModel.getUsername() );
 		statement.bind("date",  loginLogModel.getDate() );
 		statement.bind("loginlogid",  loginLogModel.getLoginLogId()  );
 		statement.execute();
 	}
 
-	public void deleteByLoginLogId(Handle handle, Integer loginLogId) {
+	public void deleteByLoginLogId(Handle handle, String loginLogId) {
 		Update statement = handle.createStatement("DELETE FROM public.loginlog WHERE loginlogid = :loginlogid");
 		statement.bind("loginlogid", loginLogId);
 		statement.execute();
 	}
 
-	public ILoginLogModel selectByLoginLogId(Handle handle, Integer loginLogId) {
+	public ILoginLogModel selectByLoginLogId(Handle handle, String loginLogId) {
 		return handle.createQuery("SELECT loginlogid, username, date FROM public.loginlog WHERE loginlogid = :loginlogid")
 			.bind("loginlogid", loginLogId)
 			.map(new LoginLogMapper())
@@ -53,8 +54,6 @@ public class LoginLogDao {
 
 	public void truncate(Handle handle) {
 		Update statement = handle.createStatement("TRUNCATE public.loginlog CASCADE");
-		statement.execute();
-		statement = handle.createStatement("ALTER SEQUENCE public.loginlog_loginLogId_seq RESTART");
 		statement.execute();
 	}
 

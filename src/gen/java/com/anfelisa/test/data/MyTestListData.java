@@ -23,14 +23,12 @@ public class MyTestListData implements IMyTestListData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	private java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList;
 	
 	@NotNull
-	private Integer lessonId;
+	private String lessonId;
 	
 	@NotNull
 	private String username;
@@ -55,14 +53,14 @@ public class MyTestListData implements IMyTestListData {
 	private String courseAuthor;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 
 	private org.joda.time.DateTime systemTime;
 	
 	public MyTestListData(
 		@JsonProperty("myTestList") java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList,
-		@JsonProperty("lessonId") Integer lessonId,
+		@JsonProperty("lessonId") String lessonId,
 		@JsonProperty("username") String username,
 		@JsonProperty("lessonName") String lessonName,
 		@JsonProperty("lessonDescription") String lessonDescription,
@@ -71,7 +69,7 @@ public class MyTestListData implements IMyTestListData {
 		@JsonProperty("courseDescription") String courseDescription,
 		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("courseAuthor") String courseAuthor,
-		@JsonProperty("courseId") Integer courseId
+		@JsonProperty("courseId") String courseId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.myTestList = myTestList;
@@ -106,13 +104,13 @@ public class MyTestListData implements IMyTestListData {
 	}
 	
 	@JsonProperty
-	public Integer getLessonId() {
+	public String getLessonId() {
 		return this.lessonId;
 	}
-	public void setLessonId(Integer lessonId) {
+	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
 	}
-	public MyTestListData withLessonId(Integer lessonId) {
+	public MyTestListData withLessonId(String lessonId) {
 		this.lessonId = lessonId;
 		return this;
 	}
@@ -214,13 +212,13 @@ public class MyTestListData implements IMyTestListData {
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public MyTestListData withCourseId(Integer courseId) {
+	public MyTestListData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}
@@ -229,15 +227,6 @@ public class MyTestListData implements IMyTestListData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

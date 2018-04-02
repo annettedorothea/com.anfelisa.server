@@ -13,8 +13,7 @@ public class TestView {
 	private static TestDao testDao = new TestDao();
 
 	public static BiConsumer<TestCreationData, Handle> createTest = (dataContainer, handle) -> {
-		Integer testId = testDao.insert(handle, dataContainer);
-		dataContainer.setCreatedId("" + testId);
+		testDao.insert(handle, dataContainer);
 	};
 
 	public static BiConsumer<TestCreationData, Handle> updateTest = (dataContainer, handle) -> {

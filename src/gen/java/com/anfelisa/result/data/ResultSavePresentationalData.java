@@ -18,13 +18,13 @@ import com.anfelisa.user.models.ICredentialsModel;
 public class ResultSavePresentationalData implements IResultSavePresentationalData {
 	
 	@NotNull
-	private Integer resultId;
+	private String resultId;
 	
 	@NotNull
 	private String username;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private org.joda.time.DateTime date;
@@ -38,7 +38,7 @@ public class ResultSavePresentationalData implements IResultSavePresentationalDa
 	@NotNull
 	private Integer maxPoints;
 	
-	private Integer boxId;
+	private String boxId;
 	
 	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
 	
@@ -48,14 +48,14 @@ public class ResultSavePresentationalData implements IResultSavePresentationalDa
 	
 	
 	public ResultSavePresentationalData(
-		@JsonProperty("resultId") Integer resultId,
+		@JsonProperty("resultId") String resultId,
 		@JsonProperty("username") String username,
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("json") String json,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints,
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("cardsToBeAdded") java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
@@ -75,13 +75,13 @@ public class ResultSavePresentationalData implements IResultSavePresentationalDa
 	}
 
 	@JsonProperty
-	public Integer getResultId() {
+	public String getResultId() {
 		return this.resultId;
 	}
-	public void setResultId(Integer resultId) {
+	public void setResultId(String resultId) {
 		this.resultId = resultId;
 	}
-	public ResultSavePresentationalData withResultId(Integer resultId) {
+	public ResultSavePresentationalData withResultId(String resultId) {
 		this.resultId = resultId;
 		return this;
 	}
@@ -99,13 +99,13 @@ public class ResultSavePresentationalData implements IResultSavePresentationalDa
 	}
 	
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public ResultSavePresentationalData withTestId(Integer testId) {
+	public ResultSavePresentationalData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}
@@ -159,13 +159,13 @@ public class ResultSavePresentationalData implements IResultSavePresentationalDa
 	}
 	
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public ResultSavePresentationalData withBoxId(Integer boxId) {
+	public ResultSavePresentationalData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}

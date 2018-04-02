@@ -1,12 +1,12 @@
 <createTable tableName="card">
-	<column name="cardid" type="serial">
+	<column name="cardid" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
 	<column name="content" type="character varying">
 		<constraints    />
 	</column>
-	<column name="testid" type="integer">
-		<constraints  nullable="false" 	references="test(testid)" deleteCascade="true" />
+	<column name="testid" type="character varying">
+		<constraints  nullable="false" 	references="test(testid)" deleteCascade="true" foreignKeyName="fk_card_testid" />
 	</column>
 	<column name="contenthash" type="character varying">
 		<constraints  nullable="false"  />

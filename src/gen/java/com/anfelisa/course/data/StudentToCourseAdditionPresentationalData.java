@@ -20,7 +20,7 @@ public class StudentToCourseAdditionPresentationalData implements IStudentToCour
 	private String username;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	private String credentialsUsername;
 	
@@ -29,7 +29,7 @@ public class StudentToCourseAdditionPresentationalData implements IStudentToCour
 	
 	public StudentToCourseAdditionPresentationalData(
 		@JsonProperty("username") String username,
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 	) {
@@ -53,13 +53,13 @@ public class StudentToCourseAdditionPresentationalData implements IStudentToCour
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public StudentToCourseAdditionPresentationalData withCourseId(Integer courseId) {
+	public StudentToCourseAdditionPresentationalData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}

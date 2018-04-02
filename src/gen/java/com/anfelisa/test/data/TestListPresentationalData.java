@@ -21,7 +21,7 @@ public class TestListPresentationalData implements ITestListPresentationalData {
 	private java.util.List<com.anfelisa.test.models.ITestModel> testList;
 	
 	@NotNull
-	private Integer lessonId;
+	private String lessonId;
 	
 	@NotNull
 	private String lessonName;
@@ -43,12 +43,12 @@ public class TestListPresentationalData implements ITestListPresentationalData {
 	private String courseAuthor;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	
 	public TestListPresentationalData(
 		@JsonProperty("testList") java.util.List<com.anfelisa.test.models.ITestModel> testList,
-		@JsonProperty("lessonId") Integer lessonId,
+		@JsonProperty("lessonId") String lessonId,
 		@JsonProperty("lessonName") String lessonName,
 		@JsonProperty("lessonDescription") String lessonDescription,
 		@JsonProperty("lessonAuthor") String lessonAuthor,
@@ -56,7 +56,7 @@ public class TestListPresentationalData implements ITestListPresentationalData {
 		@JsonProperty("courseDescription") String courseDescription,
 		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("courseAuthor") String courseAuthor,
-		@JsonProperty("courseId") Integer courseId
+		@JsonProperty("courseId") String courseId
 	) {
 		this.testList = testList;
 		this.lessonId = lessonId;
@@ -84,13 +84,13 @@ public class TestListPresentationalData implements ITestListPresentationalData {
 	}
 	
 	@JsonProperty
-	public Integer getLessonId() {
+	public String getLessonId() {
 		return this.lessonId;
 	}
-	public void setLessonId(Integer lessonId) {
+	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
 	}
-	public TestListPresentationalData withLessonId(Integer lessonId) {
+	public TestListPresentationalData withLessonId(String lessonId) {
 		this.lessonId = lessonId;
 		return this;
 	}
@@ -180,13 +180,13 @@ public class TestListPresentationalData implements ITestListPresentationalData {
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public TestListPresentationalData withCourseId(Integer courseId) {
+	public TestListPresentationalData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}

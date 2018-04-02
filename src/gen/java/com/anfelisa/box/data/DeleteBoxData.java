@@ -20,12 +20,10 @@ public class DeleteBoxData implements IDeleteBoxData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	private String credentialsUsername;
 	
@@ -35,7 +33,7 @@ public class DeleteBoxData implements IDeleteBoxData {
 	private org.joda.time.DateTime systemTime;
 	
 	public DeleteBoxData(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
@@ -52,13 +50,13 @@ public class DeleteBoxData implements IDeleteBoxData {
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public DeleteBoxData withBoxId(Integer boxId) {
+	public DeleteBoxData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}
@@ -91,15 +89,6 @@ public class DeleteBoxData implements IDeleteBoxData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

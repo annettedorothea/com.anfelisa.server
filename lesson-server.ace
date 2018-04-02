@@ -18,24 +18,7 @@ ACE {
 		on deleted (Lesson.deleteLesson)
 	}
 }
-/*
-actions {
-}
 
-commands {
-	UpdateLesson uses Lesson {
-	}
-	DeleteLesson uses LessonId {
-	}
-}
-
-events {
-	LessonCreated uses LessonCreation listenedToBy ( Lesson.createLesson )
-	LessonUpdated uses Lesson listenedToBy (Lesson.updateLesson)
-	LessonDeleted uses LessonId listenedToBy (Lesson.deleteLesson)
-}
-
-*/
 views {
 	Lesson {
 		createLesson (LessonCreation)
@@ -47,11 +30,11 @@ views {
 models {
 	schema public
 	persistent Lesson {
-		Unique PrimaryKey NotNull Serial lessonId
+		Unique PrimaryKey NotNull String lessonId
 		NotNull String name
 		String description
 		Integer sequence
-		NotNull Integer courseId references com.anfelisa.course.Course.courseId
+		NotNull String courseId references com.anfelisa.course.Course.courseId
 		NotNull String author references com.anfelisa.user.User.username
 	}
 
@@ -59,11 +42,11 @@ models {
 		NotNull String lessonName
 		String lessonDescription
 		NotNull String lessonAuthor
-		NotNull Integer lessonId
+		NotNull String lessonId
 	} 
 
 	MyLesson {
-		NotNull Integer lessonId
+		NotNull String lessonId
 		NotNull String name
 		String description
 		Integer sequence
@@ -80,7 +63,7 @@ models {
 	}
 	
 	LessonId {
-		NotNull Integer lessonId
+		NotNull String lessonId
 	}
 	
 }

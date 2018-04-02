@@ -42,7 +42,7 @@ public class LoadPublicTestsAction extends AbstractLoadPublicTestsAction {
 	@GET
 	@Timed
 	@Path("/public")
-	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("lessonId") Integer lessonId)
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("lessonId") String lessonId)
 			throws JsonProcessingException {
 		this.actionData = new TestListData(uuid).withLessonId(lessonId);
 		return this.apply();

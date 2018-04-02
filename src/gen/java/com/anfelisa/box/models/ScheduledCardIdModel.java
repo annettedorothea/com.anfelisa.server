@@ -7,20 +7,20 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class ScheduledCardIdModel implements IScheduledCardIdModel {
 
-	private Integer scheduledCardId;
+	private String scheduledCardId;
 	
 
 	public ScheduledCardIdModel(
-		@JsonProperty("scheduledCardId") Integer scheduledCardId
+		@JsonProperty("scheduledCardId") String scheduledCardId
 	) {
 		this.scheduledCardId = scheduledCardId;
 	}
 
 	@JsonProperty
-	public Integer getScheduledCardId() {
+	public String getScheduledCardId() {
 		return this.scheduledCardId;
 	}
-	public void setScheduledCardId(Integer scheduledCardId) {
+	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
 	

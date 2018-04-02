@@ -17,6 +17,9 @@ public class CreateLessonCommand extends AbstractCreateLessonCommand {
 	@Override
 	protected void executeCommand() {
 		this.commandData.setOutcome(created);
+		if (this.commandData.getLessonId() == null) {
+			this.commandData.setLessonId(this.commandData.getUuid());
+		}
 	}
 
 }

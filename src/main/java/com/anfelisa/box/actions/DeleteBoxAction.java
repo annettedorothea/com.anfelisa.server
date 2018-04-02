@@ -37,7 +37,7 @@ public class DeleteBoxAction extends AbstractDeleteBoxAction {
 	@Path("/delete")
 	@PermitAll
 	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("boxId") Integer boxId) throws JsonProcessingException {
+			@NotNull @QueryParam("boxId") String boxId) throws JsonProcessingException {
 		this.actionData = new DeleteBoxData(uuid).withBoxId(boxId).withCredentialsRole(user.getRole())
 				.withCredentialsUsername(user.getUsername());
 		return this.apply();

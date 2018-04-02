@@ -21,12 +21,10 @@ public class ReinforceCardListData implements IReinforceCardListData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	@NotNull
 	private String boxName;
@@ -47,7 +45,7 @@ public class ReinforceCardListData implements IReinforceCardListData {
 	private org.joda.time.DateTime systemTime;
 	
 	public ReinforceCardListData(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("boxName") String boxName,
 		@JsonProperty("list") java.util.List<com.anfelisa.box.models.IReinforceCardModel> list,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
@@ -72,13 +70,13 @@ public class ReinforceCardListData implements IReinforceCardListData {
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public ReinforceCardListData withBoxId(Integer boxId) {
+	public ReinforceCardListData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}
@@ -159,15 +157,6 @@ public class ReinforceCardListData implements IReinforceCardListData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

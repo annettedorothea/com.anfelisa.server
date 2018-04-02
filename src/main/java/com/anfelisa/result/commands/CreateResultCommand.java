@@ -17,6 +17,7 @@ public class CreateResultCommand extends AbstractCreateResultCommand {
 	@Override
 	protected void executeCommand() {
 		this.commandData.setOutcome(created);
+		this.commandData.setResultId(this.commandData.getUuid());
 	}
 
 }

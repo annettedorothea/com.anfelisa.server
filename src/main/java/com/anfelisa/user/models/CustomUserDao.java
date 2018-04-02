@@ -24,16 +24,14 @@ public class CustomUserDao {
 
 	public void update(Handle handle, UserUpdateData userModel) {
 		Update statement = handle.createStatement(
-				"UPDATE public.user SET name = :name, prename = :prename, email = :email WHERE username = :username");
+				"UPDATE public.user SET email = :email WHERE username = :username");
 		statement.bind("username", userModel.getUsername());
-		statement.bind("name", userModel.getName());
-		statement.bind("prename", userModel.getPrename());
 		statement.bind("email", userModel.getEmail());
 		statement.execute();
 	}
 
 	public void addCoursesToUser(Handle handle, AddCoursesData dataContainer) {
-		for (Integer courseId : dataContainer.getCourseIdList()) {
+		for (String courseId : dataContainer.getCourseIdList()) {
 			Update statement = handle.createStatement(
 					"INSERT INTO public.studentofcourse (username, courseId) VALUES (:username, :courseId)");
 			statement.bind("username", dataContainer.getCredentialsUsername());

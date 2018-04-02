@@ -20,11 +20,9 @@ public class AddCoursesData implements IAddCoursesData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
-	private java.util.List<Integer> courseIdList;
+	private java.util.List<String> courseIdList;
 	
 	private String credentialsUsername;
 	
@@ -34,7 +32,7 @@ public class AddCoursesData implements IAddCoursesData {
 	private org.joda.time.DateTime systemTime;
 	
 	public AddCoursesData(
-		@JsonProperty("courseIdList") java.util.List<Integer> courseIdList,
+		@JsonProperty("courseIdList") java.util.List<String> courseIdList,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
@@ -51,13 +49,13 @@ public class AddCoursesData implements IAddCoursesData {
 	}
 
 	@JsonProperty
-	public java.util.List<Integer> getCourseIdList() {
+	public java.util.List<String> getCourseIdList() {
 		return this.courseIdList;
 	}
-	public void setCourseIdList(java.util.List<Integer> courseIdList) {
+	public void setCourseIdList(java.util.List<String> courseIdList) {
 		this.courseIdList = courseIdList;
 	}
-	public AddCoursesData withCourseIdList(java.util.List<Integer> courseIdList) {
+	public AddCoursesData withCourseIdList(java.util.List<String> courseIdList) {
 		this.courseIdList = courseIdList;
 		return this;
 	}
@@ -90,15 +88,6 @@ public class AddCoursesData implements IAddCoursesData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

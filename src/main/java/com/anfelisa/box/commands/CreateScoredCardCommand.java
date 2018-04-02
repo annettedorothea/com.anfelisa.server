@@ -17,6 +17,7 @@ public class CreateScoredCardCommand extends AbstractCreateScoredCardCommand {
 
 	@Override
 	protected void executeCommand() {
+		this.commandData.setScoredCardId(this.commandData.getUuid());
 		this.commandData.setOutcome(created);
 	}
 

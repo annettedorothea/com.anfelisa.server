@@ -8,13 +8,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class CardModel implements ICardModel {
 
 	@NotNull
-	private Integer cardId;
+	private String cardId;
 	
 	@NotEmpty
 	private String content;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private String contentHash;
@@ -24,9 +24,9 @@ public class CardModel implements ICardModel {
 	
 
 	public CardModel(
-		@JsonProperty("cardId") Integer cardId,
+		@JsonProperty("cardId") String cardId,
 		@JsonProperty("content") String content,
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("contentHash") String contentHash,
 		@JsonProperty("maxPoints") Integer maxPoints
 	) {
@@ -38,10 +38,10 @@ public class CardModel implements ICardModel {
 	}
 
 	@JsonProperty
-	public Integer getCardId() {
+	public String getCardId() {
 		return this.cardId;
 	}
-	public void setCardId(Integer cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
 	
@@ -54,10 +54,10 @@ public class CardModel implements ICardModel {
 	}
 	
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
 	

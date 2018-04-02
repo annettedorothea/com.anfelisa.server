@@ -13,7 +13,7 @@ public class TestIdMapper implements ResultSetMapper<ITestIdModel> {
 	
 	public ITestIdModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new TestIdModel(
-			r.getInt("testId")
+			r.getString("testId")
 		);
 	}
 }

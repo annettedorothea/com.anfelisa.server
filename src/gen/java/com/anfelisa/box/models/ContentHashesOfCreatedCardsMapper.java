@@ -13,7 +13,7 @@ public class ContentHashesOfCreatedCardsMapper implements ResultSetMapper<IConte
 	
 	public IContentHashesOfCreatedCardsModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new ContentHashesOfCreatedCardsModel(
-			r.getInt("testId"),
+			r.getString("testId"),
 			null,
 			null
 		);

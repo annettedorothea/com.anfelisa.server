@@ -7,13 +7,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class FillBoxModel implements IFillBoxModel {
 
-	private Integer boxId;
+	private String boxId;
 	
 	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded;
 	
 
 	public FillBoxModel(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("cardsToBeAdded") java.util.List<com.anfelisa.box.models.IScheduledCardModel> cardsToBeAdded
 	) {
 		this.boxId = boxId;
@@ -21,10 +21,10 @@ public class FillBoxModel implements IFillBoxModel {
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	

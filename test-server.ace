@@ -34,20 +34,20 @@ views {
 models {
 	schema public
 	persistent Test {
-		Unique PrimaryKey NotNull Serial testId
+		Unique PrimaryKey NotNull String testId
 		NotNull String name
 		Integer sequence
-		NotNull Integer lessonId references com.anfelisa.lesson.Lesson.lessonId
+		NotNull String lessonId references com.anfelisa.lesson.Lesson.lessonId
 		NotNull String html
 		NotNull String author references com.anfelisa.user.User.username
 	}
 
 	TestId {
-		NotNull Integer testId
+		NotNull String testId
 	} 
 
 	MyTest {
-		NotNull Serial testId
+		NotNull String testId
 		NotNull String name
 		Integer sequence
 		Integer resultCount

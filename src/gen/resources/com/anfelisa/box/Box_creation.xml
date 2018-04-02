@@ -1,11 +1,11 @@
 <createTable tableName="box">
-	<column name="boxid" type="serial">
+	<column name="boxid" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
 	<column name="name" type="character varying">
 		<constraints  nullable="false"  />
 	</column>
 	<column name="username" type="character varying">
-		<constraints  nullable="false" 	references="user(username)" deleteCascade="true" />
+		<constraints  nullable="false" 	references="user(username)" deleteCascade="true" foreignKeyName="fk_box_username" />
 	</column>
 </createTable>

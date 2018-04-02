@@ -17,7 +17,7 @@ import com.anfelisa.user.models.ICredentialsModel;
 public class BoxCreationPresentationalData implements IBoxCreationPresentationalData {
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	@NotNull
 	private String name;
@@ -31,7 +31,7 @@ public class BoxCreationPresentationalData implements IBoxCreationPresentational
 	
 	
 	public BoxCreationPresentationalData(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("name") String name,
 		@JsonProperty("username") String username,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
@@ -46,13 +46,13 @@ public class BoxCreationPresentationalData implements IBoxCreationPresentational
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public BoxCreationPresentationalData withBoxId(Integer boxId) {
+	public BoxCreationPresentationalData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}

@@ -13,7 +13,7 @@ public class ResultAbstractMapper implements ResultSetMapper<IResultAbstractMode
 	
 	public IResultAbstractModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new ResultAbstractModel(
-			r.getInt("resultId"),
+			r.getString("resultId"),
 			r.getTimestamp("date") != null ? new org.joda.time.DateTime(r.getTimestamp("date")) : null,
 			r.getInt("points"),
 			r.getInt("maxPoints")

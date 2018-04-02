@@ -16,24 +16,24 @@ import com.anfelisa.course.models.ICourseIdModel;
 public class CourseIdPresentationalData implements ICourseIdPresentationalData {
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	
 	public CourseIdPresentationalData(
-		@JsonProperty("courseId") Integer courseId
+		@JsonProperty("courseId") String courseId
 	) {
 		this.courseId = courseId;
 		
 	}
 
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public CourseIdPresentationalData withCourseId(Integer courseId) {
+	public CourseIdPresentationalData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}

@@ -5,12 +5,6 @@
 	<column name="password" type="character varying">
 		<constraints  nullable="false"  />
 	</column>
-	<column name="name" type="character varying">
-		<constraints  nullable="false"  />
-	</column>
-	<column name="prename" type="character varying">
-		<constraints  nullable="false"  />
-	</column>
 	<column name="email" type="character varying">
 		<constraints  nullable="false"  />
 	</column>

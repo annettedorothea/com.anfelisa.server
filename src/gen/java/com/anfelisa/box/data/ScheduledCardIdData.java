@@ -19,17 +19,15 @@ public class ScheduledCardIdData implements IScheduledCardIdData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
-	private Integer scheduledCardId;
+	private String scheduledCardId;
 	
 
 	private org.joda.time.DateTime systemTime;
 	
 	public ScheduledCardIdData(
-		@JsonProperty("scheduledCardId") Integer scheduledCardId
+		@JsonProperty("scheduledCardId") String scheduledCardId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.scheduledCardId = scheduledCardId;
@@ -42,13 +40,13 @@ public class ScheduledCardIdData implements IScheduledCardIdData {
 	}
 
 	@JsonProperty
-	public Integer getScheduledCardId() {
+	public String getScheduledCardId() {
 		return this.scheduledCardId;
 	}
-	public void setScheduledCardId(Integer scheduledCardId) {
+	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
-	public ScheduledCardIdData withScheduledCardId(Integer scheduledCardId) {
+	public ScheduledCardIdData withScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 		return this;
 	}
@@ -57,15 +55,6 @@ public class ScheduledCardIdData implements IScheduledCardIdData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

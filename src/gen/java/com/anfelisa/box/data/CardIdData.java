@@ -19,15 +19,13 @@ public class CardIdData implements ICardIdData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer cardId;
+	private String cardId;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private String contentHash;
@@ -36,8 +34,8 @@ public class CardIdData implements ICardIdData {
 	private org.joda.time.DateTime systemTime;
 	
 	public CardIdData(
-		@JsonProperty("cardId") Integer cardId,
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("cardId") String cardId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("contentHash") String contentHash
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -53,25 +51,25 @@ public class CardIdData implements ICardIdData {
 	}
 
 	@JsonProperty
-	public Integer getCardId() {
+	public String getCardId() {
 		return this.cardId;
 	}
-	public void setCardId(Integer cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
-	public CardIdData withCardId(Integer cardId) {
+	public CardIdData withCardId(String cardId) {
 		this.cardId = cardId;
 		return this;
 	}
 	
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public CardIdData withTestId(Integer testId) {
+	public CardIdData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}
@@ -92,15 +90,6 @@ public class CardIdData implements ICardIdData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

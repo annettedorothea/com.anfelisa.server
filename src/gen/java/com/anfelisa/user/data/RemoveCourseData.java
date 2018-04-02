@@ -20,11 +20,9 @@ public class RemoveCourseData implements IRemoveCourseData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
-	private Integer courseId;
+	private String courseId;
 	
 	@NotNull
 	private String username;
@@ -33,7 +31,7 @@ public class RemoveCourseData implements IRemoveCourseData {
 	private org.joda.time.DateTime systemTime;
 	
 	public RemoveCourseData(
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -48,13 +46,13 @@ public class RemoveCourseData implements IRemoveCourseData {
 	}
 
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public RemoveCourseData withCourseId(Integer courseId) {
+	public RemoveCourseData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}
@@ -75,15 +73,6 @@ public class RemoveCourseData implements IRemoveCourseData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

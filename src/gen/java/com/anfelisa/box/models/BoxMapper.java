@@ -13,7 +13,7 @@ public class BoxMapper implements ResultSetMapper<IBoxModel> {
 	
 	public IBoxModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxModel(
-			r.getInt("boxId"),
+			r.getString("boxId"),
 			r.getString("name"),
 			r.getString("username")
 		);

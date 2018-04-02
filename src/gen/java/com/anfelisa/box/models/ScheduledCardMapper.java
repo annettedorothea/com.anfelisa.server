@@ -13,14 +13,14 @@ public class ScheduledCardMapper implements ResultSetMapper<IScheduledCardModel>
 	
 	public IScheduledCardModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new ScheduledCardModel(
-			r.getInt("scheduledCardId"),
-			r.getInt("cardId"),
+			r.getString("scheduledCardId"),
+			r.getString("cardId"),
 			r.getFloat("ef"),
 			r.getInt("interval"),
 			r.getInt("n"),
 			r.getInt("count"),
 			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")) : null,
-			r.getInt("boxId"),
+			r.getString("boxId"),
 			r.getInt("lastQuality"),
 			r.getTimestamp("timestamp") != null ? new org.joda.time.DateTime(r.getTimestamp("timestamp")) : null,
 			r.getBoolean("removed")

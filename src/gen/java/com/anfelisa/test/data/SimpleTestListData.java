@@ -20,21 +20,19 @@ public class SimpleTestListData implements ISimpleTestListData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	private java.util.List<com.anfelisa.test.models.ITestModel> testList;
 	
 	@NotNull
-	private Integer lessonId;
+	private String lessonId;
 	
 
 	private org.joda.time.DateTime systemTime;
 	
 	public SimpleTestListData(
 		@JsonProperty("testList") java.util.List<com.anfelisa.test.models.ITestModel> testList,
-		@JsonProperty("lessonId") Integer lessonId
+		@JsonProperty("lessonId") String lessonId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.testList = testList;
@@ -60,13 +58,13 @@ public class SimpleTestListData implements ISimpleTestListData {
 	}
 	
 	@JsonProperty
-	public Integer getLessonId() {
+	public String getLessonId() {
 		return this.lessonId;
 	}
-	public void setLessonId(Integer lessonId) {
+	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
 	}
-	public SimpleTestListData withLessonId(Integer lessonId) {
+	public SimpleTestListData withLessonId(String lessonId) {
 		this.lessonId = lessonId;
 		return this;
 	}
@@ -75,15 +73,6 @@ public class SimpleTestListData implements ISimpleTestListData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

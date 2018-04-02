@@ -16,14 +16,14 @@ public class LessonAbstractModel implements ILessonAbstractModel {
 	private String lessonAuthor;
 	
 	@NotNull
-	private Integer lessonId;
+	private String lessonId;
 	
 
 	public LessonAbstractModel(
 		@JsonProperty("lessonName") String lessonName,
 		@JsonProperty("lessonDescription") String lessonDescription,
 		@JsonProperty("lessonAuthor") String lessonAuthor,
-		@JsonProperty("lessonId") Integer lessonId
+		@JsonProperty("lessonId") String lessonId
 	) {
 		this.lessonName = lessonName;
 		this.lessonDescription = lessonDescription;
@@ -56,10 +56,10 @@ public class LessonAbstractModel implements ILessonAbstractModel {
 	}
 	
 	@JsonProperty
-	public Integer getLessonId() {
+	public String getLessonId() {
 		return this.lessonId;
 	}
-	public void setLessonId(Integer lessonId) {
+	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
 	}
 	

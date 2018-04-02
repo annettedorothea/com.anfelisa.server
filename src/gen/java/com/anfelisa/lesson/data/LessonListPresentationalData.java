@@ -20,7 +20,7 @@ public class LessonListPresentationalData implements ILessonListPresentationalDa
 	private java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	@NotNull
 	private String courseName;
@@ -36,7 +36,7 @@ public class LessonListPresentationalData implements ILessonListPresentationalDa
 	
 	public LessonListPresentationalData(
 		@JsonProperty("lessonList") java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList,
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("courseName") String courseName,
 		@JsonProperty("courseDescription") String courseDescription,
 		@JsonProperty("isPublic") Boolean isPublic,
@@ -64,13 +64,13 @@ public class LessonListPresentationalData implements ILessonListPresentationalDa
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public LessonListPresentationalData withCourseId(Integer courseId) {
+	public LessonListPresentationalData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}

@@ -15,8 +15,6 @@ public class ForgotPasswordMapper implements ResultSetMapper<IForgotPasswordMode
 		return new ForgotPasswordModel(
 			r.getString("username"),
 			r.getString("email"),
-			r.getString("name"),
-			r.getString("prename"),
 			r.getString("password")
 		);
 	}

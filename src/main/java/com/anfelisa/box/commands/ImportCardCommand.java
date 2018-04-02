@@ -26,7 +26,7 @@ public class ImportCardCommand extends AbstractImportCardCommand {
 			this.commandData.setCardId(existingCard.getCardId());
 			this.commandData.setOutcome(alreadyExists);
 		} else {
-			this.commandData.setCardId(null);
+			this.commandData.setCardId(this.commandData.getUuid());
 			this.commandData.setOutcome(imported);
 		}
 	}

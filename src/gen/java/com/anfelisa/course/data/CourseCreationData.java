@@ -19,12 +19,10 @@ public class CourseCreationData implements ICourseCreationData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	@NotNull
 	private String name;
@@ -43,7 +41,7 @@ public class CourseCreationData implements ICourseCreationData {
 	private org.joda.time.DateTime systemTime;
 	
 	public CourseCreationData(
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("name") String name,
 		@JsonProperty("description") String description,
 		@JsonProperty("sequence") Integer sequence,
@@ -66,13 +64,13 @@ public class CourseCreationData implements ICourseCreationData {
 	}
 
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public CourseCreationData withCourseId(Integer courseId) {
+	public CourseCreationData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}
@@ -141,15 +139,6 @@ public class CourseCreationData implements ICourseCreationData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

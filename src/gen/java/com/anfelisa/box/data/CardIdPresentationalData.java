@@ -16,18 +16,18 @@ import com.anfelisa.box.models.ICardIdModel;
 public class CardIdPresentationalData implements ICardIdPresentationalData {
 	
 	@NotNull
-	private Integer cardId;
+	private String cardId;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private String contentHash;
 	
 	
 	public CardIdPresentationalData(
-		@JsonProperty("cardId") Integer cardId,
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("cardId") String cardId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("contentHash") String contentHash
 	) {
 		this.cardId = cardId;
@@ -37,25 +37,25 @@ public class CardIdPresentationalData implements ICardIdPresentationalData {
 	}
 
 	@JsonProperty
-	public Integer getCardId() {
+	public String getCardId() {
 		return this.cardId;
 	}
-	public void setCardId(Integer cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
-	public CardIdPresentationalData withCardId(Integer cardId) {
+	public CardIdPresentationalData withCardId(String cardId) {
 		this.cardId = cardId;
 		return this;
 	}
 	
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public CardIdPresentationalData withTestId(Integer testId) {
+	public CardIdPresentationalData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}

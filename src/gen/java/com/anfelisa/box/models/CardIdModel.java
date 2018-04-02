@@ -8,18 +8,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class CardIdModel implements ICardIdModel {
 
 	@NotNull
-	private Integer cardId;
+	private String cardId;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private String contentHash;
 	
 
 	public CardIdModel(
-		@JsonProperty("cardId") Integer cardId,
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("cardId") String cardId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("contentHash") String contentHash
 	) {
 		this.cardId = cardId;
@@ -28,18 +28,18 @@ public class CardIdModel implements ICardIdModel {
 	}
 
 	@JsonProperty
-	public Integer getCardId() {
+	public String getCardId() {
 		return this.cardId;
 	}
-	public void setCardId(Integer cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
 	
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
 	

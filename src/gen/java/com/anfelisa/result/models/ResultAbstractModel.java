@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ResultAbstractModel implements IResultAbstractModel {
 
 	@NotNull
-	private Integer resultId;
+	private String resultId;
 	
 	@NotNull
 	private org.joda.time.DateTime date;
@@ -21,7 +21,7 @@ public class ResultAbstractModel implements IResultAbstractModel {
 	
 
 	public ResultAbstractModel(
-		@JsonProperty("resultId") Integer resultId,
+		@JsonProperty("resultId") String resultId,
 		@JsonProperty("date") org.joda.time.DateTime date,
 		@JsonProperty("points") Integer points,
 		@JsonProperty("maxPoints") Integer maxPoints
@@ -33,10 +33,10 @@ public class ResultAbstractModel implements IResultAbstractModel {
 	}
 
 	@JsonProperty
-	public Integer getResultId() {
+	public String getResultId() {
 		return this.resultId;
 	}
-	public void setResultId(Integer resultId) {
+	public void setResultId(String resultId) {
 		this.resultId = resultId;
 	}
 	

@@ -54,7 +54,7 @@ public class LoadBoxOfCourseListAction extends AbstractLoadBoxOfCourseListAction
 	@Path("/courses")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("boxId") Integer boxId) throws JsonProcessingException {
+			@NotNull @QueryParam("boxId") String boxId) throws JsonProcessingException {
 		this.actionData = new BoxOfCourseListData(uuid).withCredentialsRole(user.getRole())
 				.withCredentialsUsername(user.getUsername()).withBoxId(boxId);
 		return this.apply();

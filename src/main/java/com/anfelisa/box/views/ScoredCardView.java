@@ -13,13 +13,11 @@ public class ScoredCardView {
 	private static ScoredCardDao scoredCardDao = new ScoredCardDao();
 
 	public static BiConsumer<ScoreCardData, Handle> score = (dataContainer, handle) -> {
-		Integer id = scoredCardDao.insert(handle, dataContainer);
-		dataContainer.setCreatedId(id + "");
+		scoredCardDao.insert(handle, dataContainer);
 	};
 
 	public static BiConsumer<ScoredCardData, Handle> createScoredCard = (dataContainer, handle) -> {
-		Integer id = scoredCardDao.insert(handle, dataContainer);
-		dataContainer.setCreatedId(id + "");
+		scoredCardDao.insert(handle, dataContainer);
 	};
 
 }

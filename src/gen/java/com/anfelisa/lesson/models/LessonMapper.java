@@ -13,11 +13,11 @@ public class LessonMapper implements ResultSetMapper<ILessonModel> {
 	
 	public ILessonModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new LessonModel(
-			r.getInt("lessonId"),
+			r.getString("lessonId"),
 			r.getString("name"),
 			r.getString("description"),
 			r.getInt("sequence"),
-			r.getInt("courseId"),
+			r.getString("courseId"),
 			r.getString("author")
 		);
 	}

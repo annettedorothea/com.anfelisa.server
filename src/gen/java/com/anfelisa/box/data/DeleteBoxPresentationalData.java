@@ -17,7 +17,7 @@ import com.anfelisa.user.models.ICredentialsModel;
 public class DeleteBoxPresentationalData implements IDeleteBoxPresentationalData {
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	private String credentialsUsername;
 	
@@ -25,7 +25,7 @@ public class DeleteBoxPresentationalData implements IDeleteBoxPresentationalData
 	
 	
 	public DeleteBoxPresentationalData(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 	) {
@@ -36,13 +36,13 @@ public class DeleteBoxPresentationalData implements IDeleteBoxPresentationalData
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public DeleteBoxPresentationalData withBoxId(Integer boxId) {
+	public DeleteBoxPresentationalData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}

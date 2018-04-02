@@ -19,12 +19,10 @@ public class LessonData implements ILessonData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer lessonId;
+	private String lessonId;
 	
 	@NotNull
 	private String name;
@@ -34,7 +32,7 @@ public class LessonData implements ILessonData {
 	private Integer sequence;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	@NotNull
 	private String author;
@@ -43,11 +41,11 @@ public class LessonData implements ILessonData {
 	private org.joda.time.DateTime systemTime;
 	
 	public LessonData(
-		@JsonProperty("lessonId") Integer lessonId,
+		@JsonProperty("lessonId") String lessonId,
 		@JsonProperty("name") String name,
 		@JsonProperty("description") String description,
 		@JsonProperty("sequence") Integer sequence,
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("author") String author
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -66,13 +64,13 @@ public class LessonData implements ILessonData {
 	}
 
 	@JsonProperty
-	public Integer getLessonId() {
+	public String getLessonId() {
 		return this.lessonId;
 	}
-	public void setLessonId(Integer lessonId) {
+	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
 	}
-	public LessonData withLessonId(Integer lessonId) {
+	public LessonData withLessonId(String lessonId) {
 		this.lessonId = lessonId;
 		return this;
 	}
@@ -114,13 +112,13 @@ public class LessonData implements ILessonData {
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public LessonData withCourseId(Integer courseId) {
+	public LessonData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}
@@ -141,15 +139,6 @@ public class LessonData implements ILessonData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty

@@ -16,14 +16,14 @@ import com.anfelisa.user.models.IUsernameModel;
 @SuppressWarnings("all")
 public class RemoveCoursePresentationalData implements IRemoveCoursePresentationalData {
 	
-	private Integer courseId;
+	private String courseId;
 	
 	@NotNull
 	private String username;
 	
 	
 	public RemoveCoursePresentationalData(
-		@JsonProperty("courseId") Integer courseId,
+		@JsonProperty("courseId") String courseId,
 		@JsonProperty("username") String username
 	) {
 		this.courseId = courseId;
@@ -32,13 +32,13 @@ public class RemoveCoursePresentationalData implements IRemoveCoursePresentation
 	}
 
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public RemoveCoursePresentationalData withCourseId(Integer courseId) {
+	public RemoveCoursePresentationalData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}

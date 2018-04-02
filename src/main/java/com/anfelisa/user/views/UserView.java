@@ -23,13 +23,11 @@ public class UserView {
 	private static CustomUserDao customUserDao = new CustomUserDao();
 
 	public static BiConsumer<UserCreationData, Handle> createUser = (dataContainer, handle) -> {
-		String username = userDao.insert(handle, dataContainer);
-		dataContainer.setCreatedId(username);
+		userDao.insert(handle, dataContainer);
 	};
 
 	public static BiConsumer<UserRegistrationData, Handle> registerUser = (dataContainer, handle) -> {
-		String username = userDao.insert(handle, dataContainer);
-		dataContainer.setCreatedId(username);
+		userDao.insert(handle, dataContainer);
 	};
 
 	public static BiConsumer<UserUpdateData, Handle> updateUser = (dataContainer, handle) -> {

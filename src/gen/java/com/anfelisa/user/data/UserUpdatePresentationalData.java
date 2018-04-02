@@ -20,12 +20,6 @@ public class UserUpdatePresentationalData implements IUserUpdatePresentationalDa
 	private String username;
 	
 	@NotNull
-	private String name;
-	
-	@NotNull
-	private String prename;
-	
-	@NotNull
 	private String email;
 	
 	private String credentialsUsername;
@@ -35,15 +29,11 @@ public class UserUpdatePresentationalData implements IUserUpdatePresentationalDa
 	
 	public UserUpdatePresentationalData(
 		@JsonProperty("username") String username,
-		@JsonProperty("name") String name,
-		@JsonProperty("prename") String prename,
 		@JsonProperty("email") String email,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 	) {
 		this.username = username;
-		this.name = name;
-		this.prename = prename;
 		this.email = email;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
@@ -59,30 +49,6 @@ public class UserUpdatePresentationalData implements IUserUpdatePresentationalDa
 	}
 	public UserUpdatePresentationalData withUsername(String username) {
 		this.username = username;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getName() {
-		return this.name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public UserUpdatePresentationalData withName(String name) {
-		this.name = name;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getPrename() {
-		return this.prename;
-	}
-	public void setPrename(String prename) {
-		this.prename = prename;
-	}
-	public UserUpdatePresentationalData withPrename(String prename) {
-		this.prename = prename;
 		return this;
 	}
 	

@@ -15,8 +15,9 @@ import com.anfelisa.ace.encryption.EncryptionService;
 @JsonIgnoreType
 public class ScheduledCardDao {
 	
-	public Integer insert(Handle handle, IScheduledCardModel scheduledCardModel) {
-		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.scheduledcard (cardid, ef, interval, n, count, scheduleddate, boxid, lastquality, timestamp, removed) VALUES (:cardid, :ef, :interval, :n, :count, :scheduleddate, :boxid, :lastquality, :timestamp, :removed) RETURNING scheduledcardid");
+	public void insert(Handle handle, IScheduledCardModel scheduledCardModel) {
+		Update statement = handle.createStatement("INSERT INTO public.scheduledcard (scheduledcardid, cardid, ef, interval, n, count, scheduleddate, boxid, lastquality, timestamp, removed) VALUES (:scheduledcardid, :cardid, :ef, :interval, :n, :count, :scheduleddate, :boxid, :lastquality, :timestamp, :removed)");
+		statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId() );
 		statement.bind("cardid",  scheduledCardModel.getCardId() );
 		statement.bind("ef",  scheduledCardModel.getEf() );
 		statement.bind("interval",  scheduledCardModel.getInterval() );
@@ -27,13 +28,13 @@ public class ScheduledCardDao {
 		statement.bind("lastquality",  scheduledCardModel.getLastQuality() );
 		statement.bind("timestamp",  scheduledCardModel.getTimestamp() );
 		statement.bind("removed",  scheduledCardModel.getRemoved() );
-		Map<String, Object> first = statement.first();
-		return (Integer) first.get("scheduledcardid");
+		statement.execute();
 	}
 	
 	
 	public void updateByScheduledCardId(Handle handle, IScheduledCardModel scheduledCardModel) {
-		Update statement = handle.createStatement("UPDATE public.scheduledcard SET cardid = :cardid, ef = :ef, interval = :interval, n = :n, count = :count, scheduleddate = :scheduleddate, boxid = :boxid, lastquality = :lastquality, timestamp = :timestamp, removed = :removed WHERE scheduledcardid = :scheduledcardid");
+		Update statement = handle.createStatement("UPDATE public.scheduledcard SET scheduledcardid = :scheduledcardid, cardid = :cardid, ef = :ef, interval = :interval, n = :n, count = :count, scheduleddate = :scheduleddate, boxid = :boxid, lastquality = :lastquality, timestamp = :timestamp, removed = :removed WHERE scheduledcardid = :scheduledcardid");
+		statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId() );
 		statement.bind("cardid",  scheduledCardModel.getCardId() );
 		statement.bind("ef",  scheduledCardModel.getEf() );
 		statement.bind("interval",  scheduledCardModel.getInterval() );
@@ -48,13 +49,13 @@ public class ScheduledCardDao {
 		statement.execute();
 	}
 
-	public void deleteByScheduledCardId(Handle handle, Integer scheduledCardId) {
+	public void deleteByScheduledCardId(Handle handle, String scheduledCardId) {
 		Update statement = handle.createStatement("DELETE FROM public.scheduledcard WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("scheduledcardid", scheduledCardId);
 		statement.execute();
 	}
 
-	public IScheduledCardModel selectByScheduledCardId(Handle handle, Integer scheduledCardId) {
+	public IScheduledCardModel selectByScheduledCardId(Handle handle, String scheduledCardId) {
 		return handle.createQuery("SELECT scheduledcardid, cardid, ef, interval, n, count, scheduleddate, boxid, lastquality, timestamp, removed FROM public.scheduledcard WHERE scheduledcardid = :scheduledcardid")
 			.bind("scheduledcardid", scheduledCardId)
 			.map(new ScheduledCardMapper())
@@ -69,8 +70,6 @@ public class ScheduledCardDao {
 
 	public void truncate(Handle handle) {
 		Update statement = handle.createStatement("TRUNCATE public.scheduledcard CASCADE");
-		statement.execute();
-		statement = handle.createStatement("ALTER SEQUENCE public.scheduledcard_scheduledCardId_seq RESTART");
 		statement.execute();
 	}
 

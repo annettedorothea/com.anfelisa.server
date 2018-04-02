@@ -37,7 +37,7 @@ public class RemoveCardFromBoxAction extends AbstractRemoveCardFromBoxAction {
 	@Path("/removeFromBox")
 	@PermitAll
 	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("scheduledCardId") Integer scheduledCardId) throws JsonProcessingException {
+			@NotNull @QueryParam("scheduledCardId") String scheduledCardId) throws JsonProcessingException {
 		this.actionData = new RemoveCardFromBoxData(uuid).withScheduledCardId(scheduledCardId)
 				.withCredentialsUsername(user.getUsername());
 		return this.apply();

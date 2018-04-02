@@ -15,30 +15,31 @@ import com.anfelisa.ace.encryption.EncryptionService;
 @JsonIgnoreType
 public class BoxDao {
 	
-	public Integer insert(Handle handle, IBoxModel boxModel) {
-		Query<Map<String, Object>> statement = handle.createQuery("INSERT INTO public.box (name, username) VALUES (:name, :username) RETURNING boxid");
+	public void insert(Handle handle, IBoxModel boxModel) {
+		Update statement = handle.createStatement("INSERT INTO public.box (boxid, name, username) VALUES (:boxid, :name, :username)");
+		statement.bind("boxid",  boxModel.getBoxId() );
 		statement.bind("name",  boxModel.getName() );
 		statement.bind("username",  boxModel.getUsername() );
-		Map<String, Object> first = statement.first();
-		return (Integer) first.get("boxid");
+		statement.execute();
 	}
 	
 	
 	public void updateByBoxId(Handle handle, IBoxModel boxModel) {
-		Update statement = handle.createStatement("UPDATE public.box SET name = :name, username = :username WHERE boxid = :boxid");
+		Update statement = handle.createStatement("UPDATE public.box SET boxid = :boxid, name = :name, username = :username WHERE boxid = :boxid");
+		statement.bind("boxid",  boxModel.getBoxId() );
 		statement.bind("name",  boxModel.getName() );
 		statement.bind("username",  boxModel.getUsername() );
 		statement.bind("boxid",  boxModel.getBoxId()  );
 		statement.execute();
 	}
 
-	public void deleteByBoxId(Handle handle, Integer boxId) {
+	public void deleteByBoxId(Handle handle, String boxId) {
 		Update statement = handle.createStatement("DELETE FROM public.box WHERE boxid = :boxid");
 		statement.bind("boxid", boxId);
 		statement.execute();
 	}
 
-	public IBoxModel selectByBoxId(Handle handle, Integer boxId) {
+	public IBoxModel selectByBoxId(Handle handle, String boxId) {
 		return handle.createQuery("SELECT boxid, name, username FROM public.box WHERE boxid = :boxid")
 			.bind("boxid", boxId)
 			.map(new BoxMapper())
@@ -53,8 +54,6 @@ public class BoxDao {
 
 	public void truncate(Handle handle) {
 		Update statement = handle.createStatement("TRUNCATE public.box CASCADE");
-		statement.execute();
-		statement = handle.createStatement("ALTER SEQUENCE public.box_boxId_seq RESTART");
 		statement.execute();
 	}
 

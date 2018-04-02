@@ -15,24 +15,24 @@ import com.anfelisa.box.models.IScheduledCardIdModel;
 @SuppressWarnings("all")
 public class ScheduledCardIdPresentationalData implements IScheduledCardIdPresentationalData {
 	
-	private Integer scheduledCardId;
+	private String scheduledCardId;
 	
 	
 	public ScheduledCardIdPresentationalData(
-		@JsonProperty("scheduledCardId") Integer scheduledCardId
+		@JsonProperty("scheduledCardId") String scheduledCardId
 	) {
 		this.scheduledCardId = scheduledCardId;
 		
 	}
 
 	@JsonProperty
-	public Integer getScheduledCardId() {
+	public String getScheduledCardId() {
 		return this.scheduledCardId;
 	}
-	public void setScheduledCardId(Integer scheduledCardId) {
+	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
-	public ScheduledCardIdPresentationalData withScheduledCardId(Integer scheduledCardId) {
+	public ScheduledCardIdPresentationalData withScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 		return this;
 	}

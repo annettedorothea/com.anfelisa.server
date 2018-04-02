@@ -23,26 +23,6 @@ ACE {
 	}
 }
 
-/*
-actions {
-}
-
-commands {
-	CreateCourse uses CourseCreation {
-	}
-	AddStudentToCourse uses StudentToCourseAddition {
-	}
-	UpdateCourse uses Course {
-	}
-	DeleteCourse uses CourseId {
-	}
-}
-
-events {
-	CourseDeleted uses CourseId listenedToBy (Course.deleteCourse)
-}
-
-*/
 views {
 	Course {
 		createCourse (CourseCreation)
@@ -57,7 +37,7 @@ views {
 models {
 	schema public
 	persistent Course {
-		Unique PrimaryKey NotNull Serial courseId
+		Unique PrimaryKey NotNull String courseId
 		NotNull String name
 		String description
 		Integer sequence
@@ -67,7 +47,7 @@ models {
 
 	persistent StudentOfCourse {
 		NotNull String username references com.anfelisa.user.User.username
-		NotNull Integer courseId references Course.courseId
+		NotNull String courseId references Course.courseId
 	} 
 
 	CourseAbstract {
@@ -75,11 +55,11 @@ models {
 		String courseDescription
 		NotNull Boolean isPublic
 		NotNull String courseAuthor
-		NotNull Integer courseId
+		NotNull String courseId
 	} 
 
 	MyCourse {
-		NotNull Integer courseId
+		NotNull String courseId
 		NotNull String name
 		String description
 		Integer sequence
@@ -110,7 +90,7 @@ models {
 	} 
 		
 	CourseId {
-		NotNull Integer courseId
+		NotNull String courseId
 	}
 
 		

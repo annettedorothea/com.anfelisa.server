@@ -18,7 +18,7 @@ import com.anfelisa.box.models.IBoxModel;
 public class ReinforceCardListPresentationalData implements IReinforceCardListPresentationalData {
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	@NotNull
 	private String boxName;
@@ -37,7 +37,7 @@ public class ReinforceCardListPresentationalData implements IReinforceCardListPr
 	
 	
 	public ReinforceCardListPresentationalData(
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("boxName") String boxName,
 		@JsonProperty("list") java.util.List<com.anfelisa.box.models.IReinforceCardModel> list,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
@@ -56,13 +56,13 @@ public class ReinforceCardListPresentationalData implements IReinforceCardListPr
 	}
 
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public ReinforceCardListPresentationalData withBoxId(Integer boxId) {
+	public ReinforceCardListPresentationalData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}

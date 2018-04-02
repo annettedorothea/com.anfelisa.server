@@ -19,12 +19,12 @@ public class SimpleLessonListPresentationalData implements ISimpleLessonListPres
 	private java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList;
 	
 	@NotNull
-	private Integer courseId;
+	private String courseId;
 	
 	
 	public SimpleLessonListPresentationalData(
 		@JsonProperty("lessonList") java.util.List<com.anfelisa.lesson.models.ILessonModel> lessonList,
-		@JsonProperty("courseId") Integer courseId
+		@JsonProperty("courseId") String courseId
 	) {
 		this.lessonList = lessonList;
 		this.courseId = courseId;
@@ -44,13 +44,13 @@ public class SimpleLessonListPresentationalData implements ISimpleLessonListPres
 	}
 	
 	@JsonProperty
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return this.courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public SimpleLessonListPresentationalData withCourseId(Integer courseId) {
+	public SimpleLessonListPresentationalData withCourseId(String courseId) {
 		this.courseId = courseId;
 		return this;
 	}

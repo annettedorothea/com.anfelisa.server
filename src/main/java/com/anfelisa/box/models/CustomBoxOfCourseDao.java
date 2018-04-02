@@ -7,7 +7,7 @@ import org.skife.jdbi.v2.Update;
 
 public class CustomBoxOfCourseDao {
 
-	public IBoxOfCourseModel select(Handle handle, Integer boxId, Integer courseId) {
+	public IBoxOfCourseModel select(Handle handle, String boxId, String courseId) {
 		return handle
 				.createQuery("SELECT * FROM public.boxofcourse WHERE boxId = :boxId AND courseId = :courseId")
 				.bind("boxId", boxId)
@@ -15,7 +15,7 @@ public class CustomBoxOfCourseDao {
 				.map(new BoxOfCourseMapper())
 				.first();
 	}
-	public List<IBoxOfCourseModel> selectByBoxId(Handle handle, Integer boxId) {
+	public List<IBoxOfCourseModel> selectByBoxId(Handle handle, String boxId) {
 		return handle
 				.createQuery("SELECT * FROM public.boxofcourse WHERE boxId = :boxId")
 				.bind("boxId", boxId)

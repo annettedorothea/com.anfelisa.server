@@ -12,8 +12,7 @@ public class LoginLogView {
 	private static LoginLogDao loginLogDao = new LoginLogDao();
 
 	public static BiConsumer<LoginData, Handle> userLoggedIn = (dataContainer, handle) -> {
-		Integer id = loginLogDao.insert(handle, dataContainer);
-		dataContainer.setCreatedId("" + id);
+		loginLogDao.insert(handle, dataContainer);
 	};
 
 }

@@ -16,6 +16,7 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 
 	@Override
 	protected void executeCommand() {
+		this.commandData.setCardId(this.commandData.getUuid());
 		this.commandData.setOutcome(created);
 	}
 

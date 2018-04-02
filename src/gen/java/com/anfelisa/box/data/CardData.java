@@ -25,18 +25,16 @@ public class CardData implements ICardData {
 	
 	private String outcome;
 	
-	private String createdId;
-	
 	private String[] notifiedListeners;
 	
 	@NotNull
-	private Integer cardId;
+	private String cardId;
 	
 	@NotEmpty
 	private String content;
 	
 	@NotNull
-	private Integer testId;
+	private String testId;
 	
 	@NotNull
 	private String contentHash;
@@ -45,7 +43,7 @@ public class CardData implements ICardData {
 	private Integer maxPoints;
 	
 	@NotNull
-	private Integer boxId;
+	private String boxId;
 	
 	@NotNull
 	private String name;
@@ -75,7 +73,7 @@ public class CardData implements ICardData {
 	
 	private Integer noQuality;
 	
-	private Integer cardOfBoxId;
+	private String cardOfBoxId;
 	
 	private String boxName;
 	
@@ -109,12 +107,12 @@ public class CardData implements ICardData {
 	private org.joda.time.DateTime systemTime;
 	
 	public CardData(
-		@JsonProperty("cardId") Integer cardId,
+		@JsonProperty("cardId") String cardId,
 		@JsonProperty("content") String content,
-		@JsonProperty("testId") Integer testId,
+		@JsonProperty("testId") String testId,
 		@JsonProperty("contentHash") String contentHash,
 		@JsonProperty("maxPoints") Integer maxPoints,
-		@JsonProperty("boxId") Integer boxId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("name") String name,
 		@JsonProperty("username") String username,
 		@JsonProperty("cards") Integer cards,
@@ -128,7 +126,7 @@ public class CardData implements ICardData {
 		@JsonProperty("four") Integer four,
 		@JsonProperty("five") Integer five,
 		@JsonProperty("noQuality") Integer noQuality,
-		@JsonProperty("cardOfBoxId") Integer cardOfBoxId,
+		@JsonProperty("cardOfBoxId") String cardOfBoxId,
 		@JsonProperty("boxName") String boxName,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("last") org.joda.time.DateTime last,
@@ -188,13 +186,13 @@ public class CardData implements ICardData {
 	}
 
 	@JsonProperty
-	public Integer getCardId() {
+	public String getCardId() {
 		return this.cardId;
 	}
-	public void setCardId(Integer cardId) {
+	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
-	public CardData withCardId(Integer cardId) {
+	public CardData withCardId(String cardId) {
 		this.cardId = cardId;
 		return this;
 	}
@@ -212,13 +210,13 @@ public class CardData implements ICardData {
 	}
 	
 	@JsonProperty
-	public Integer getTestId() {
+	public String getTestId() {
 		return this.testId;
 	}
-	public void setTestId(Integer testId) {
+	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-	public CardData withTestId(Integer testId) {
+	public CardData withTestId(String testId) {
 		this.testId = testId;
 		return this;
 	}
@@ -248,13 +246,13 @@ public class CardData implements ICardData {
 	}
 	
 	@JsonProperty
-	public Integer getBoxId() {
+	public String getBoxId() {
 		return this.boxId;
 	}
-	public void setBoxId(Integer boxId) {
+	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public CardData withBoxId(Integer boxId) {
+	public CardData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
 	}
@@ -416,13 +414,13 @@ public class CardData implements ICardData {
 	}
 	
 	@JsonProperty
-	public Integer getCardOfBoxId() {
+	public String getCardOfBoxId() {
 		return this.cardOfBoxId;
 	}
-	public void setCardOfBoxId(Integer cardOfBoxId) {
+	public void setCardOfBoxId(String cardOfBoxId) {
 		this.cardOfBoxId = cardOfBoxId;
 	}
-	public CardData withCardOfBoxId(Integer cardOfBoxId) {
+	public CardData withCardOfBoxId(String cardOfBoxId) {
 		this.cardOfBoxId = cardOfBoxId;
 		return this;
 	}
@@ -599,15 +597,6 @@ public class CardData implements ICardData {
 	@JsonProperty
 	public String getUuid() {
 		return this.uuid;
-	}
-
-	@JsonIgnore
-	public String getCreatedId() {
-		return createdId;
-	}
-
-	public void setCreatedId(String createdId) {
-		this.createdId = createdId;
 	}
 
 	@JsonProperty
