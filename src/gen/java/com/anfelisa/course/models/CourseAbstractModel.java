@@ -13,9 +13,6 @@ public class CourseAbstractModel implements ICourseAbstractModel {
 	private String courseDescription;
 	
 	@NotNull
-	private Boolean isPublic;
-	
-	@NotNull
 	private String courseAuthor;
 	
 	@NotNull
@@ -25,13 +22,11 @@ public class CourseAbstractModel implements ICourseAbstractModel {
 	public CourseAbstractModel(
 		@JsonProperty("courseName") String courseName,
 		@JsonProperty("courseDescription") String courseDescription,
-		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("courseAuthor") String courseAuthor,
 		@JsonProperty("courseId") String courseId
 	) {
 		this.courseName = courseName;
 		this.courseDescription = courseDescription;
-		this.isPublic = isPublic;
 		this.courseAuthor = courseAuthor;
 		this.courseId = courseId;
 	}
@@ -50,14 +45,6 @@ public class CourseAbstractModel implements ICourseAbstractModel {
 	}
 	public void setCourseDescription(String courseDescription) {
 		this.courseDescription = courseDescription;
-	}
-	
-	@JsonProperty
-	public Boolean getIsPublic() {
-		return this.isPublic;
-	}
-	public void setIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
 	}
 	
 	@JsonProperty

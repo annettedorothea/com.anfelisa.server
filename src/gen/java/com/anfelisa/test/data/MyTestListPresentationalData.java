@@ -41,9 +41,6 @@ public class MyTestListPresentationalData implements IMyTestListPresentationalDa
 	private String courseDescription;
 	
 	@NotNull
-	private Boolean isPublic;
-	
-	@NotNull
 	private String courseAuthor;
 	
 	@NotNull
@@ -59,7 +56,6 @@ public class MyTestListPresentationalData implements IMyTestListPresentationalDa
 		@JsonProperty("lessonAuthor") String lessonAuthor,
 		@JsonProperty("courseName") String courseName,
 		@JsonProperty("courseDescription") String courseDescription,
-		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("courseAuthor") String courseAuthor,
 		@JsonProperty("courseId") String courseId
 	) {
@@ -71,7 +67,6 @@ public class MyTestListPresentationalData implements IMyTestListPresentationalDa
 		this.lessonAuthor = lessonAuthor;
 		this.courseName = courseName;
 		this.courseDescription = courseDescription;
-		this.isPublic = isPublic;
 		this.courseAuthor = courseAuthor;
 		this.courseId = courseId;
 		
@@ -170,18 +165,6 @@ public class MyTestListPresentationalData implements IMyTestListPresentationalDa
 	}
 	public MyTestListPresentationalData withCourseDescription(String courseDescription) {
 		this.courseDescription = courseDescription;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getIsPublic() {
-		return this.isPublic;
-	}
-	public void setIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
-	}
-	public MyTestListPresentationalData withIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
 		return this;
 	}
 	

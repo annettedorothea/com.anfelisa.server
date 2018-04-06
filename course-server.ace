@@ -41,7 +41,6 @@ models {
 		NotNull String name
 		String description
 		Integer sequence
-		NotNull Boolean isPublic
 		NotNull String author references com.anfelisa.user.User.username
 	}
 
@@ -53,7 +52,6 @@ models {
 	CourseAbstract {
 		NotNull String courseName
 		String courseDescription
-		NotNull Boolean isPublic
 		NotNull String courseAuthor
 		NotNull String courseId
 	} 
@@ -63,7 +61,6 @@ models {
 		NotNull String name
 		String description
 		Integer sequence
-		NotNull Boolean isPublic
 		NotNull String author
 		NotNull Integer openTests
 		NotNull Boolean hasOpenTests

@@ -18,9 +18,6 @@ public class MyCourseModel implements IMyCourseModel {
 	private Integer sequence;
 	
 	@NotNull
-	private Boolean isPublic;
-	
-	@NotNull
 	private String author;
 	
 	@NotNull
@@ -35,7 +32,6 @@ public class MyCourseModel implements IMyCourseModel {
 		@JsonProperty("name") String name,
 		@JsonProperty("description") String description,
 		@JsonProperty("sequence") Integer sequence,
-		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("author") String author,
 		@JsonProperty("openTests") Integer openTests,
 		@JsonProperty("hasOpenTests") Boolean hasOpenTests
@@ -44,7 +40,6 @@ public class MyCourseModel implements IMyCourseModel {
 		this.name = name;
 		this.description = description;
 		this.sequence = sequence;
-		this.isPublic = isPublic;
 		this.author = author;
 		this.openTests = openTests;
 		this.hasOpenTests = hasOpenTests;
@@ -80,14 +75,6 @@ public class MyCourseModel implements IMyCourseModel {
 	}
 	public void setSequence(Integer sequence) {
 		this.sequence = sequence;
-	}
-	
-	@JsonProperty
-	public Boolean getIsPublic() {
-		return this.isPublic;
-	}
-	public void setIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
 	}
 	
 	@JsonProperty

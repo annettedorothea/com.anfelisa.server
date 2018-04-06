@@ -56,9 +56,6 @@ public class TestData implements ITestData {
 	private String courseDescription;
 	
 	@NotNull
-	private Boolean isPublic;
-	
-	@NotNull
 	private String courseAuthor;
 	
 	@NotNull
@@ -81,7 +78,6 @@ public class TestData implements ITestData {
 		@JsonProperty("lessonAuthor") String lessonAuthor,
 		@JsonProperty("courseName") String courseName,
 		@JsonProperty("courseDescription") String courseDescription,
-		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("courseAuthor") String courseAuthor,
 		@JsonProperty("courseId") String courseId,
 		@JsonProperty("testList") java.util.List<com.anfelisa.test.models.ITestModel> testList
@@ -98,7 +94,6 @@ public class TestData implements ITestData {
 		this.lessonAuthor = lessonAuthor;
 		this.courseName = courseName;
 		this.courseDescription = courseDescription;
-		this.isPublic = isPublic;
 		this.courseAuthor = courseAuthor;
 		this.courseId = courseId;
 		this.testList = testList;
@@ -243,18 +238,6 @@ public class TestData implements ITestData {
 	}
 	
 	@JsonProperty
-	public Boolean getIsPublic() {
-		return this.isPublic;
-	}
-	public void setIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
-	}
-	public TestData withIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
-		return this;
-	}
-	
-	@JsonProperty
 	public String getCourseAuthor() {
 		return this.courseAuthor;
 	}
@@ -342,7 +325,6 @@ public class TestData implements ITestData {
 			this.lessonAuthor,
 			this.courseName,
 			this.courseDescription,
-			this.isPublic,
 			this.courseAuthor,
 			this.courseId,
 			this.testList

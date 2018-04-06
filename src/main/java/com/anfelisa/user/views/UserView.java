@@ -9,7 +9,6 @@ import com.anfelisa.user.data.AddCoursesData;
 import com.anfelisa.user.data.ChangeUserRoleData;
 import com.anfelisa.user.data.PasswordUpdateData;
 import com.anfelisa.user.data.RemoveCourseData;
-import com.anfelisa.user.data.UserCreationData;
 import com.anfelisa.user.data.UserRegistrationData;
 import com.anfelisa.user.data.UserUpdateData;
 import com.anfelisa.user.data.UsernameData;
@@ -21,10 +20,6 @@ public class UserView {
 	private static UserDao userDao = new UserDao();
 
 	private static CustomUserDao customUserDao = new CustomUserDao();
-
-	public static BiConsumer<UserCreationData, Handle> createUser = (dataContainer, handle) -> {
-		userDao.insert(handle, dataContainer);
-	};
 
 	public static BiConsumer<UserRegistrationData, Handle> registerUser = (dataContainer, handle) -> {
 		userDao.insert(handle, dataContainer);
@@ -48,10 +43,6 @@ public class UserView {
 
 	public static BiConsumer<UsernameData, Handle> confirmEmail = (dataContainer, handle) -> {
 		customUserDao.confirmEmail(handle, dataContainer.getUsername());
-	};
-
-	public static BiConsumer<ChangeUserRoleData, Handle> changeUserToPremium = (dataContainer, handle) -> {
-		customUserDao.changeUserRole(handle, dataContainer.getUsername(), AuthUser.PREMIUM);
 	};
 
 	public static BiConsumer<ChangeUserRoleData, Handle> changeUserToAuthor = (dataContainer, handle) -> {

@@ -6,7 +6,6 @@ public class AuthUser implements Principal {
 
 	public final static String ADMIN = "ADMIN";
 	public final static String AUTHOR = "AUTHOR";
-	public final static String PREMIUM = "PREMIUM";
 	public final static String STUDENT = "STUDENT";
 
 	private String username;
@@ -38,10 +37,6 @@ public class AuthUser implements Principal {
 
 	public boolean isAdmin() {
 		return ADMIN.equals(this.role);
-	}
-
-	public boolean isPreium() {
-		return PREMIUM.equals(this.role);
 	}
 
 	public boolean isStudent() {

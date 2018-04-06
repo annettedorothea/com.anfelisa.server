@@ -55,7 +55,6 @@ public class LoadPublicLessonsAction extends AbstractLoadPublicLessonsAction {
 		} else {
 			this.actionData.setCourseDescription(course.getDescription());
 			this.actionData.setCourseAuthor(course.getAuthor());
-			this.actionData.setIsPublic(course.getIsPublic());
 			this.actionData.setCourseName(course.getName());
 			this.actionData.setLessonList(
 					customLessonDao.selectLessons(this.getDatabaseHandle().getHandle(), this.actionData.getCourseId()));

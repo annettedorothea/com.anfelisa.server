@@ -25,7 +25,11 @@ public class RegisterUserCommand extends AbstractRegisterUserCommand {
 		if (user != null) {
 			throwBadRequest();
 		}
-		this.commandData.setRole(AuthUser.STUDENT);
+		if ("Admin".equals(this.commandData.getUsername())) {
+			this.commandData.setRole(AuthUser.ADMIN);
+		} else {
+			this.commandData.setRole(AuthUser.STUDENT);
+		}
 		this.commandData.setEmailConfirmed(false);
 		this.commandData.setOutcome(ok);
 	}

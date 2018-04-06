@@ -1,5 +1,7 @@
 package com.anfelisa.user.models;
 
+import java.util.List;
+
 import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.Update;
 
@@ -69,6 +71,12 @@ public class CustomUserDao {
 		statement.bind("username", username);
 		statement.bind("role", role);
 		statement.execute();
+	}
+	
+	public List<IUserModel> selectAll(Handle handle) {
+		return handle.createQuery("SELECT username, password, email, role, emailconfirmed FROM public.user order by username")
+			.map(new UserMapper())
+			.list();
 	}
 	
 }

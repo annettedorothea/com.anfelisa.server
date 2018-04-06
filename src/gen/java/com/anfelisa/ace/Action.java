@@ -77,6 +77,8 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 			databaseHandle.commitTransaction();
 			if (httpMethod == HttpMethod.GET) {
 				return Response.ok(this.getActionData().toPresentationalData()).build();
+			} else if (httpMethod == HttpMethod.POST) {
+				return Response.ok(this.getActionData().getUuid()).build();
 			} else {
 				return Response.ok().build();
 			}

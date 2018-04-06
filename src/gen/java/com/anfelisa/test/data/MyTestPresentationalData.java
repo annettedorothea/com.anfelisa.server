@@ -54,9 +54,6 @@ public class MyTestPresentationalData implements IMyTestPresentationalData {
 	private String courseDescription;
 	
 	@NotNull
-	private Boolean isPublic;
-	
-	@NotNull
 	private String courseAuthor;
 	
 	@NotNull
@@ -78,7 +75,6 @@ public class MyTestPresentationalData implements IMyTestPresentationalData {
 		@JsonProperty("lessonAuthor") String lessonAuthor,
 		@JsonProperty("courseName") String courseName,
 		@JsonProperty("courseDescription") String courseDescription,
-		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("courseAuthor") String courseAuthor,
 		@JsonProperty("courseId") String courseId,
 		@JsonProperty("myTestList") java.util.List<com.anfelisa.test.models.IMyTestModel> myTestList
@@ -95,7 +91,6 @@ public class MyTestPresentationalData implements IMyTestPresentationalData {
 		this.lessonAuthor = lessonAuthor;
 		this.courseName = courseName;
 		this.courseDescription = courseDescription;
-		this.isPublic = isPublic;
 		this.courseAuthor = courseAuthor;
 		this.courseId = courseId;
 		this.myTestList = myTestList;
@@ -243,18 +238,6 @@ public class MyTestPresentationalData implements IMyTestPresentationalData {
 	}
 	public MyTestPresentationalData withCourseDescription(String courseDescription) {
 		this.courseDescription = courseDescription;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getIsPublic() {
-		return this.isPublic;
-	}
-	public void setIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
-	}
-	public MyTestPresentationalData withIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
 		return this;
 	}
 	

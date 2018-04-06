@@ -32,9 +32,6 @@ public class CourseData implements ICourseData {
 	private Integer sequence;
 	
 	@NotNull
-	private Boolean isPublic;
-	
-	@NotNull
 	private String author;
 	
 
@@ -45,7 +42,6 @@ public class CourseData implements ICourseData {
 		@JsonProperty("name") String name,
 		@JsonProperty("description") String description,
 		@JsonProperty("sequence") Integer sequence,
-		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("author") String author
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -53,7 +49,6 @@ public class CourseData implements ICourseData {
 		this.name = name;
 		this.description = description;
 		this.sequence = sequence;
-		this.isPublic = isPublic;
 		this.author = author;
 		this.uuid = uuid;
 		
@@ -108,18 +103,6 @@ public class CourseData implements ICourseData {
 	}
 	public CourseData withSequence(Integer sequence) {
 		this.sequence = sequence;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getIsPublic() {
-		return this.isPublic;
-	}
-	public void setIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
-	}
-	public CourseData withIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
 		return this;
 	}
 	
@@ -180,7 +163,6 @@ public class CourseData implements ICourseData {
 			this.name,
 			this.description,
 			this.sequence,
-			this.isPublic,
 			this.author
 		);
 	}

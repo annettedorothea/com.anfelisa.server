@@ -7,7 +7,6 @@ public interface ICourseAbstractModel {
 
 	String getCourseName();
 	String getCourseDescription();
-	Boolean getIsPublic();
 	String getCourseAuthor();
 	String getCourseId();
 

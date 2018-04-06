@@ -16,24 +16,22 @@ import com.anfelisa.ace.encryption.EncryptionService;
 public class CourseDao {
 	
 	public void insert(Handle handle, ICourseModel courseModel) {
-		Update statement = handle.createStatement("INSERT INTO public.course (courseid, name, description, sequence, ispublic, author) VALUES (:courseid, :name, :description, :sequence, :ispublic, :author)");
+		Update statement = handle.createStatement("INSERT INTO public.course (courseid, name, description, sequence, author) VALUES (:courseid, :name, :description, :sequence, :author)");
 		statement.bind("courseid",  courseModel.getCourseId() );
 		statement.bind("name",  courseModel.getName() );
 		statement.bind("description",  courseModel.getDescription() );
 		statement.bind("sequence",  courseModel.getSequence() );
-		statement.bind("ispublic",  courseModel.getIsPublic() );
 		statement.bind("author",  courseModel.getAuthor() );
 		statement.execute();
 	}
 	
 	
 	public void updateByCourseId(Handle handle, ICourseModel courseModel) {
-		Update statement = handle.createStatement("UPDATE public.course SET courseid = :courseid, name = :name, description = :description, sequence = :sequence, ispublic = :ispublic, author = :author WHERE courseid = :courseid");
+		Update statement = handle.createStatement("UPDATE public.course SET courseid = :courseid, name = :name, description = :description, sequence = :sequence, author = :author WHERE courseid = :courseid");
 		statement.bind("courseid",  courseModel.getCourseId() );
 		statement.bind("name",  courseModel.getName() );
 		statement.bind("description",  courseModel.getDescription() );
 		statement.bind("sequence",  courseModel.getSequence() );
-		statement.bind("ispublic",  courseModel.getIsPublic() );
 		statement.bind("author",  courseModel.getAuthor() );
 		statement.bind("courseid",  courseModel.getCourseId()  );
 		statement.execute();
@@ -46,14 +44,14 @@ public class CourseDao {
 	}
 
 	public ICourseModel selectByCourseId(Handle handle, String courseId) {
-		return handle.createQuery("SELECT courseid, name, description, sequence, ispublic, author FROM public.course WHERE courseid = :courseid")
+		return handle.createQuery("SELECT courseid, name, description, sequence, author FROM public.course WHERE courseid = :courseid")
 			.bind("courseid", courseId)
 			.map(new CourseMapper())
 			.first();
 	}
 	
 	public List<ICourseModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT courseid, name, description, sequence, ispublic, author FROM public.course")
+		return handle.createQuery("SELECT courseid, name, description, sequence, author FROM public.course")
 			.map(new CourseMapper())
 			.list();
 	}

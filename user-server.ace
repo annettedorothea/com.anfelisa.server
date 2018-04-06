@@ -7,10 +7,9 @@ ACE {
 	GET GetUserInfo uses UserInfo
 	GET GetCourseSelection uses CourseSelection
 	GET UsernameAvailable uses UsernameAvailable
+	GET GetRole uses Role
+	GET GetAllUsers uses UserList
 
-	POST CreateUser uses UserCreation {
-		on success (User.createUser)
-	}
 	POST Login uses Login {
 		on success (LoginLog.userLoggedIn)
 	}
@@ -36,9 +35,6 @@ ACE {
 	PUT ConfirmEmail uses Username {
 		on ok (User.confirmEmail)
 	}
-	PUT ChangeUserToPremium uses ChangeUserRole {
-		on ok (User.changeUserToPremium)
-	} 
 	PUT ChangeUserToAuthor uses ChangeUserRole {
 		on ok (User.changeUserToAuthor)
 	} 
@@ -124,6 +120,9 @@ models {
 	Language {
 		NotNull String language
 	}
+	UserList {
+		List User userList
+	}
 }
 
 data {
@@ -141,5 +140,7 @@ data {
 	UserRegistration : (User Language)
 	Username : (Username)
 	ChangeUserRole : (Username Credentials)
+	Role : (Credentials)
+	UserList : (UserList)
 }
 

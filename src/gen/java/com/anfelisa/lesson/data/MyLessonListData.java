@@ -38,9 +38,6 @@ public class MyLessonListData implements IMyLessonListData {
 	private String courseDescription;
 	
 	@NotNull
-	private Boolean isPublic;
-	
-	@NotNull
 	private String courseAuthor;
 	
 
@@ -52,7 +49,6 @@ public class MyLessonListData implements IMyLessonListData {
 		@JsonProperty("courseId") String courseId,
 		@JsonProperty("courseName") String courseName,
 		@JsonProperty("courseDescription") String courseDescription,
-		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("courseAuthor") String courseAuthor
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -61,7 +57,6 @@ public class MyLessonListData implements IMyLessonListData {
 		this.courseId = courseId;
 		this.courseName = courseName;
 		this.courseDescription = courseDescription;
-		this.isPublic = isPublic;
 		this.courseAuthor = courseAuthor;
 		this.uuid = uuid;
 		
@@ -132,18 +127,6 @@ public class MyLessonListData implements IMyLessonListData {
 	}
 	
 	@JsonProperty
-	public Boolean getIsPublic() {
-		return this.isPublic;
-	}
-	public void setIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
-	}
-	public MyLessonListData withIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
-		return this;
-	}
-	
-	@JsonProperty
 	public String getCourseAuthor() {
 		return this.courseAuthor;
 	}
@@ -201,7 +184,6 @@ public class MyLessonListData implements IMyLessonListData {
 			this.courseId,
 			this.courseName,
 			this.courseDescription,
-			this.isPublic,
 			this.courseAuthor
 		);
 	}

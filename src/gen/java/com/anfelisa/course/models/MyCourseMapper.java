@@ -17,7 +17,6 @@ public class MyCourseMapper implements ResultSetMapper<IMyCourseModel> {
 			r.getString("name"),
 			r.getString("description"),
 			r.getInt("sequence"),
-			r.getBoolean("isPublic"),
 			r.getString("author"),
 			r.getInt("openTests"),
 			r.getBoolean("hasOpenTests")

@@ -59,7 +59,6 @@ public class LoadPrivateLessonsAction extends AbstractLoadPrivateLessonsAction {
 		} else {
 			this.actionData.setCourseDescription(course.getDescription());
 			this.actionData.setCourseAuthor(course.getAuthor());
-			this.actionData.setIsPublic(course.getIsPublic());
 			this.actionData.setCourseName(course.getName());
 			this.actionData.setMyLessonList(customLessonDao.selectMyLessons(this.getDatabaseHandle().getHandle(),
 					this.actionData.getCourseId(), this.actionData.getUsername()));

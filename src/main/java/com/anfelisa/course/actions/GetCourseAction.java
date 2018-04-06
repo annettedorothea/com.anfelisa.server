@@ -51,7 +51,6 @@ public class GetCourseAction extends AbstractGetCourseAction {
 			this.actionData.setAuthor(course.getAuthor());
 			this.actionData.setDescription(course.getDescription());
 			this.actionData.setName(course.getName());
-			this.actionData.setIsPublic(course.getIsPublic());
 			this.actionData.setSequence(course.getSequence());
 		}
 	}

@@ -26,9 +26,6 @@ public class CourseCreationPresentationalData implements ICourseCreationPresenta
 	private Integer sequence;
 	
 	@NotNull
-	private Boolean isPublic;
-	
-	@NotNull
 	private String author;
 	
 	
@@ -37,14 +34,12 @@ public class CourseCreationPresentationalData implements ICourseCreationPresenta
 		@JsonProperty("name") String name,
 		@JsonProperty("description") String description,
 		@JsonProperty("sequence") Integer sequence,
-		@JsonProperty("isPublic") Boolean isPublic,
 		@JsonProperty("author") String author
 	) {
 		this.courseId = courseId;
 		this.name = name;
 		this.description = description;
 		this.sequence = sequence;
-		this.isPublic = isPublic;
 		this.author = author;
 		
 	}
@@ -94,18 +89,6 @@ public class CourseCreationPresentationalData implements ICourseCreationPresenta
 	}
 	public CourseCreationPresentationalData withSequence(Integer sequence) {
 		this.sequence = sequence;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getIsPublic() {
-		return this.isPublic;
-	}
-	public void setIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
-	}
-	public CourseCreationPresentationalData withIsPublic(Boolean isPublic) {
-		this.isPublic = isPublic;
 		return this;
 	}
 	

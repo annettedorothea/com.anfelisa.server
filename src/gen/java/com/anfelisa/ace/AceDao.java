@@ -84,8 +84,8 @@ public class AceDao {
 
 	public List<ITimelineItem> selectTimeline(Handle handle) {
 		return handle
-				.createQuery("SELECT id, type, method, name, time, data, uuid " + "FROM " + timelineTable() + " "
-						+ "order by id asc ")
+				.createQuery("SELECT type, method, name, time, data, uuid " + "FROM " + timelineTable() + " "
+						+ "order by time asc ")
 				.map(new TimelineItemMapper()).list();
 	}
 

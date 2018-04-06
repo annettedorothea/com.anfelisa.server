@@ -9,7 +9,6 @@ public interface ICourseModel {
 	String getName();
 	String getDescription();
 	Integer getSequence();
-	Boolean getIsPublic();
 	String getAuthor();
 
 }

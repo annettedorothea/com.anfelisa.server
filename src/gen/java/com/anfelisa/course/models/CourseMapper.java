@@ -17,7 +17,6 @@ public class CourseMapper implements ResultSetMapper<ICourseModel> {
 			r.getString("name"),
 			r.getString("description"),
 			r.getInt("sequence"),
-			r.getBoolean("isPublic"),
 			r.getString("author")
 		);
 	}

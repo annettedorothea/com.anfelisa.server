@@ -9,7 +9,6 @@ public interface IMyCourseModel {
 	String getName();
 	String getDescription();
 	Integer getSequence();
-	Boolean getIsPublic();
 	String getAuthor();
 	Integer getOpenTests();
 	Boolean getHasOpenTests();
