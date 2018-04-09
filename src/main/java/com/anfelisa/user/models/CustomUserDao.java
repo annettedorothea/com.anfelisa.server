@@ -78,5 +78,12 @@ public class CustomUserDao {
 			.map(new UserMapper())
 			.list();
 	}
+
+	public void deleteUser(Handle handle, String username) {
+		Update statement = handle
+				.createStatement("UPDATE public.user SET deleted = 'true' WHERE username = :username");
+		statement.bind("username", username);
+		statement.execute();
+	}
 	
 }

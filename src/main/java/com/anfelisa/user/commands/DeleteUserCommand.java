@@ -8,14 +8,18 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.user.data.UsernameData;
 import com.anfelisa.user.models.UserDao;
 
-public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
+public class DeleteUserCommand extends AbstractDeleteUserCommand {
 
-	static final Logger LOG = LoggerFactory.getLogger(ConfirmEmailCommand.class);
+	static final Logger LOG = LoggerFactory.getLogger(DeleteUserCommand.class);
 
 	private UserDao userDao = new UserDao();
 	
-	public ConfirmEmailCommand(UsernameData commandParam, DatabaseHandle databaseHandle) {
+	public DeleteUserCommand(UsernameData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
+	}
+
+	public DeleteUserCommand(DatabaseHandle databaseHandle) {
+		super(null, databaseHandle);
 	}
 
 	@Override

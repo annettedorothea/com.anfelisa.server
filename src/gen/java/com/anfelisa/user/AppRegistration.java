@@ -29,8 +29,9 @@ public class AppRegistration {
 		environment.jersey().register(new ForgotPasswordAction(jdbi));
 		environment.jersey().register(new RegisterUserAction(jdbi));
 		environment.jersey().register(new ConfirmEmailAction(jdbi));
-		environment.jersey().register(new ChangeUserToAuthorAction(jdbi));
-		environment.jersey().register(new ChangeUserToAdminAction(jdbi));
+		environment.jersey().register(new ChangeUserRoleAction(jdbi));
+		environment.jersey().register(new ResetPasswordAction(jdbi));
+		environment.jersey().register(new DeleteUserAction(jdbi));
 	}
 
 	public static void registerConsumers() {
@@ -47,8 +48,9 @@ public class AppRegistration {
 			AceController.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", EmailView.sendRegistrationEmail);
 		}
 				AceController.addConsumer("com.anfelisa.user.events.ConfirmEmailOkEvent", UserView.confirmEmail);
-				AceController.addConsumer("com.anfelisa.user.events.ChangeUserToAuthorOkEvent", UserView.changeUserToAuthor);
-				AceController.addConsumer("com.anfelisa.user.events.ChangeUserToAdminOkEvent", UserView.changeUserToAdmin);
+				AceController.addConsumer("com.anfelisa.user.events.ChangeUserRoleOkEvent", UserView.changeUserRole);
+				AceController.addConsumer("com.anfelisa.user.events.ResetPasswordOkEvent", UserView.updatePassword);
+				AceController.addConsumer("com.anfelisa.user.events.DeleteUserOkEvent", UserView.deleteUser);
     }
 }
 

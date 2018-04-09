@@ -11,7 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IUsernameModel;
-import com.anfelisa.user.models.ICredentialsModel;
+import com.anfelisa.user.models.IRoleModel;
 
 @SuppressWarnings("all")
 public class ChangeUserRolePresentationalData implements IChangeUserRolePresentationalData {
@@ -19,19 +19,15 @@ public class ChangeUserRolePresentationalData implements IChangeUserRolePresenta
 	@NotNull
 	private String username;
 	
-	private String credentialsUsername;
-	
-	private String credentialsRole;
+	private String role;
 	
 	
 	public ChangeUserRolePresentationalData(
 		@JsonProperty("username") String username,
-		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole
+		@JsonProperty("role") String role
 	) {
 		this.username = username;
-		this.credentialsUsername = credentialsUsername;
-		this.credentialsRole = credentialsRole;
+		this.role = role;
 		
 	}
 
@@ -48,26 +44,14 @@ public class ChangeUserRolePresentationalData implements IChangeUserRolePresenta
 	}
 	
 	@JsonProperty
-	public String getCredentialsUsername() {
-		return this.credentialsUsername;
+	public String getRole() {
+		return this.role;
 	}
-	public void setCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
+	public void setRole(String role) {
+		this.role = role;
 	}
-	public ChangeUserRolePresentationalData withCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getCredentialsRole() {
-		return this.credentialsRole;
-	}
-	public void setCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
-	}
-	public ChangeUserRolePresentationalData withCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
+	public ChangeUserRolePresentationalData withRole(String role) {
+		this.role = role;
 		return this;
 	}
 	

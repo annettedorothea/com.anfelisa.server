@@ -38,6 +38,9 @@ public class UserRegistrationData implements IUserRegistrationData {
 	private Boolean emailConfirmed;
 	
 	@NotNull
+	private Boolean deleted;
+	
+	@NotNull
 	private String language;
 	
 
@@ -49,6 +52,7 @@ public class UserRegistrationData implements IUserRegistrationData {
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
+		@JsonProperty("deleted") Boolean deleted,
 		@JsonProperty("language") String language
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -57,6 +61,7 @@ public class UserRegistrationData implements IUserRegistrationData {
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
+		this.deleted = deleted;
 		this.language = language;
 		this.uuid = uuid;
 		
@@ -127,6 +132,18 @@ public class UserRegistrationData implements IUserRegistrationData {
 	}
 	
 	@JsonProperty
+	public Boolean getDeleted() {
+		return this.deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+	public UserRegistrationData withDeleted(Boolean deleted) {
+		this.deleted = deleted;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getLanguage() {
 		return this.language;
 	}
@@ -184,6 +201,7 @@ public class UserRegistrationData implements IUserRegistrationData {
 			this.email,
 			this.role,
 			this.emailConfirmed,
+			this.deleted,
 			this.language
 		);
 	}

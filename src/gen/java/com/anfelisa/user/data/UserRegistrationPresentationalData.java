@@ -32,6 +32,9 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 	private Boolean emailConfirmed;
 	
 	@NotNull
+	private Boolean deleted;
+	
+	@NotNull
 	private String language;
 	
 	
@@ -41,6 +44,7 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
+		@JsonProperty("deleted") Boolean deleted,
 		@JsonProperty("language") String language
 	) {
 		this.username = username;
@@ -48,6 +52,7 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
+		this.deleted = deleted;
 		this.language = language;
 		
 	}
@@ -109,6 +114,18 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 	}
 	public UserRegistrationPresentationalData withEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getDeleted() {
+		return this.deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+	public UserRegistrationPresentationalData withDeleted(Boolean deleted) {
+		this.deleted = deleted;
 		return this;
 	}
 	

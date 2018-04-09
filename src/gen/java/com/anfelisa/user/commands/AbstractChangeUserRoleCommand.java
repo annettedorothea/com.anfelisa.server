@@ -7,23 +7,23 @@ import com.anfelisa.ace.DatabaseHandle;
 
 import com.anfelisa.user.data.ChangeUserRoleData;
 
-public abstract class AbstractChangeUserToAdminCommand extends Command<ChangeUserRoleData> {
+public abstract class AbstractChangeUserRoleCommand extends Command<ChangeUserRoleData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractChangeUserToAdminCommand(ChangeUserRoleData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.commands.ChangeUserToAdminCommand", commandParam, databaseHandle);
+	public AbstractChangeUserRoleCommand(ChangeUserRoleData commandParam, DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.commands.ChangeUserRoleCommand", commandParam, databaseHandle);
 	}
 
-	public AbstractChangeUserToAdminCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.commands.ChangeUserToAdminCommand", null, databaseHandle);
+	public AbstractChangeUserRoleCommand(DatabaseHandle databaseHandle) {
+		super("com.anfelisa.user.commands.ChangeUserRoleCommand", null, databaseHandle);
 	}
 
 	@Override
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.user.events.ChangeUserToAdminOkEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.user.events.ChangeUserRoleOkEvent(this.commandData, databaseHandle).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

@@ -5,17 +5,21 @@ import com.anfelisa.ace.DatabaseHandle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.user.data.UsernameData;
+import com.anfelisa.user.data.PasswordUpdateData;
 import com.anfelisa.user.models.UserDao;
 
-public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
+public class ResetPasswordCommand extends AbstractResetPasswordCommand {
 
-	static final Logger LOG = LoggerFactory.getLogger(ConfirmEmailCommand.class);
+	static final Logger LOG = LoggerFactory.getLogger(ResetPasswordCommand.class);
 
 	private UserDao userDao = new UserDao();
-	
-	public ConfirmEmailCommand(UsernameData commandParam, DatabaseHandle databaseHandle) {
+
+	public ResetPasswordCommand(PasswordUpdateData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
+	}
+
+	public ResetPasswordCommand(DatabaseHandle databaseHandle) {
+		super(null, databaseHandle);
 	}
 
 	@Override

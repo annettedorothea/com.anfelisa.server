@@ -22,19 +22,24 @@ public class UserModel implements IUserModel {
 	@NotNull
 	private Boolean emailConfirmed;
 	
+	@NotNull
+	private Boolean deleted;
+	
 
 	public UserModel(
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
+		@JsonProperty("deleted") Boolean deleted
 	) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
+		this.deleted = deleted;
 	}
 
 	@JsonProperty
@@ -75,6 +80,14 @@ public class UserModel implements IUserModel {
 	}
 	public void setEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
+	}
+	
+	@JsonProperty
+	public Boolean getDeleted() {
+		return this.deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 	
 

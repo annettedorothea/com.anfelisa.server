@@ -16,23 +16,25 @@ import com.anfelisa.ace.encryption.EncryptionService;
 public class UserDao {
 	
 	public void insert(Handle handle, IUserModel userModel) {
-		Update statement = handle.createStatement("INSERT INTO public.user (username, password, email, role, emailconfirmed) VALUES (:username, :password, :email, :role, :emailconfirmed)");
+		Update statement = handle.createStatement("INSERT INTO public.user (username, password, email, role, emailconfirmed, deleted) VALUES (:username, :password, :email, :role, :emailconfirmed, :deleted)");
 		statement.bind("username",  userModel.getUsername() );
 		statement.bind("password",  userModel.getPassword() );
 		statement.bind("email",  userModel.getEmail() );
 		statement.bind("role",  userModel.getRole() );
 		statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
+		statement.bind("deleted",  userModel.getDeleted() );
 		statement.execute();
 	}
 	
 	
 	public void updateByUsername(Handle handle, IUserModel userModel) {
-		Update statement = handle.createStatement("UPDATE public.user SET username = :username, password = :password, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE username = :username");
+		Update statement = handle.createStatement("UPDATE public.user SET username = :username, password = :password, email = :email, role = :role, emailconfirmed = :emailconfirmed, deleted = :deleted WHERE username = :username");
 		statement.bind("username",  userModel.getUsername() );
 		statement.bind("password",  userModel.getPassword() );
 		statement.bind("email",  userModel.getEmail() );
 		statement.bind("role",  userModel.getRole() );
 		statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
+		statement.bind("deleted",  userModel.getDeleted() );
 		statement.bind("username",  userModel.getUsername()  );
 		statement.execute();
 	}
@@ -44,14 +46,14 @@ public class UserDao {
 	}
 
 	public IUserModel selectByUsername(Handle handle, String username) {
-		return handle.createQuery("SELECT username, password, email, role, emailconfirmed FROM public.user WHERE username = :username")
+		return handle.createQuery("SELECT username, password, email, role, emailconfirmed, deleted FROM public.user WHERE username = :username")
 			.bind("username", username)
 			.map(new UserMapper())
 			.first();
 	}
 	
 	public List<IUserModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT username, password, email, role, emailconfirmed FROM public.user")
+		return handle.createQuery("SELECT username, password, email, role, emailconfirmed, deleted FROM public.user")
 			.map(new UserMapper())
 			.list();
 	}

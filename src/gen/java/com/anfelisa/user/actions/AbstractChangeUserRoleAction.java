@@ -8,17 +8,17 @@ import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.user.data.ChangeUserRoleData;
 
-import com.anfelisa.user.commands.ChangeUserToAuthorCommand;
+import com.anfelisa.user.commands.ChangeUserRoleCommand;
 
-public abstract class AbstractChangeUserToAuthorAction extends Action<ChangeUserRoleData> {
+public abstract class AbstractChangeUserRoleAction extends Action<ChangeUserRoleData> {
 
-	public AbstractChangeUserToAuthorAction(DBI jdbi) {
-		super("com.anfelisa.user.actions.ChangeUserToAuthorAction", HttpMethod.PUT, jdbi);
+	public AbstractChangeUserRoleAction(DBI jdbi) {
+		super("com.anfelisa.user.actions.ChangeUserRoleAction", HttpMethod.PUT, jdbi);
 	}
 
 	@Override
 	public ICommand getCommand() {
-		return new ChangeUserToAuthorCommand(this.actionData, databaseHandle);
+		return new ChangeUserRoleCommand(this.actionData, databaseHandle);
 	}
 
 	protected final void loadDataForGetRequest() {

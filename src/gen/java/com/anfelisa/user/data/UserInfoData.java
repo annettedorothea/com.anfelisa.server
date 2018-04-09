@@ -39,6 +39,9 @@ public class UserInfoData implements IUserInfoData {
 	@NotNull
 	private Boolean emailConfirmed;
 	
+	@NotNull
+	private Boolean deleted;
+	
 	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
 	
 	private java.util.List<com.anfelisa.box.models.IBoxModel> boxList;
@@ -52,6 +55,7 @@ public class UserInfoData implements IUserInfoData {
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
+		@JsonProperty("deleted") Boolean deleted,
 		@JsonProperty("courseList") java.util.List<com.anfelisa.course.models.ICourseModel> courseList,
 		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxModel> boxList
 ,		@JsonProperty("uuid") String uuid
@@ -61,6 +65,7 @@ public class UserInfoData implements IUserInfoData {
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
+		this.deleted = deleted;
 		this.courseList = courseList;
 		this.boxList = boxList;
 		this.uuid = uuid;
@@ -128,6 +133,18 @@ public class UserInfoData implements IUserInfoData {
 	}
 	public UserInfoData withEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getDeleted() {
+		return this.deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+	public UserInfoData withDeleted(Boolean deleted) {
+		this.deleted = deleted;
 		return this;
 	}
 	
@@ -201,6 +218,7 @@ public class UserInfoData implements IUserInfoData {
 			this.email,
 			this.role,
 			this.emailConfirmed,
+			this.deleted,
 			this.courseList,
 			this.boxList
 		);

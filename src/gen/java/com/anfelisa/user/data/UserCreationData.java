@@ -36,6 +36,9 @@ public class UserCreationData implements IUserCreationData {
 	@NotNull
 	private Boolean emailConfirmed;
 	
+	@NotNull
+	private Boolean deleted;
+	
 
 	private org.joda.time.DateTime systemTime;
 	
@@ -44,7 +47,8 @@ public class UserCreationData implements IUserCreationData {
 		@JsonProperty("password") String password,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
+		@JsonProperty("deleted") Boolean deleted
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
@@ -52,6 +56,7 @@ public class UserCreationData implements IUserCreationData {
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
+		this.deleted = deleted;
 		this.uuid = uuid;
 		
 	}
@@ -120,6 +125,18 @@ public class UserCreationData implements IUserCreationData {
 		return this;
 	}
 	
+	@JsonProperty
+	public Boolean getDeleted() {
+		return this.deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+	public UserCreationData withDeleted(Boolean deleted) {
+		this.deleted = deleted;
+		return this;
+	}
+	
 
 	@JsonProperty
 	public String getUuid() {
@@ -165,7 +182,8 @@ public class UserCreationData implements IUserCreationData {
 			this.password,
 			this.email,
 			this.role,
-			this.emailConfirmed
+			this.emailConfirmed,
+			this.deleted
 		);
 	}
 

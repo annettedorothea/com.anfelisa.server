@@ -14,4 +14,7 @@
 	<column name="emailconfirmed" type="boolean">
 		<constraints  nullable="false"  />
 	</column>
+	<column name="deleted" type="boolean">
+		<constraints  nullable="false"  />
+	</column>
 </createTable>

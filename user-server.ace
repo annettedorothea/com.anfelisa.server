@@ -27,7 +27,6 @@ ACE {
 	}
 	POST ForgotPassword uses ForgotPassword {
 		on ok (Email.sendForgotPasswordEmail)
-		on userNotFound 
 	}
 	POST RegisterUser uses UserRegistration {
 		on ok (User.registerUser Email.sendRegistrationEmail)
@@ -35,12 +34,15 @@ ACE {
 	PUT ConfirmEmail uses Username {
 		on ok (User.confirmEmail)
 	}
-	PUT ChangeUserToAuthor uses ChangeUserRole {
-		on ok (User.changeUserToAuthor)
+	PUT ChangeUserRole uses ChangeUserRole {
+		on ok (User.changeUserRole)
 	} 
-	PUT ChangeUserToAdmin uses ChangeUserRole {
-		on ok (User.changeUserToAdmin)
+	PUT ResetPassword uses PasswordUpdate {
+		on ok (User.updatePassword)
 	} 
+	DELETE DeleteUser uses Username {
+		on ok (User.deleteUser)
+	}
 }
 
 views {
@@ -52,9 +54,8 @@ views {
 		updatePassword(PasswordUpdate)
 		registerUser(UserRegistration)
 		confirmEmail(Username)
-		changeUserToPremium(ChangeUserRole)
-		changeUserToAuthor(ChangeUserRole)
-		changeUserToAdmin(ChangeUserRole)
+		changeUserRole(ChangeUserRole)
+		deleteUser(Username)
 	}
 	LoginLog {
 		userLoggedIn(Login)
@@ -73,6 +74,7 @@ models {
 		NotNull String email
 		NotNull String role
 		NotNull Boolean emailConfirmed
+		NotNull Boolean deleted
 	}
 
 	persistent LoginLog {
@@ -85,6 +87,10 @@ models {
 		String credentialsUsername
 		String credentialsRole
 	} 
+	
+	Role {
+		String role
+	}
 
 	Points {
 		NotNull Integer points
@@ -139,7 +145,7 @@ data {
 	UsernameAvailable : (Username Available)
 	UserRegistration : (User Language)
 	Username : (Username)
-	ChangeUserRole : (Username Credentials)
+	ChangeUserRole : (Username Role)
 	Role : (Credentials)
 	UserList : (UserList)
 }

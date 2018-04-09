@@ -11,7 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IUsernameModel;
-import com.anfelisa.user.models.ICredentialsModel;
+import com.anfelisa.user.models.IRoleModel;
 
 @SuppressWarnings("all")
 public class ChangeUserRoleData implements IChangeUserRoleData {
@@ -25,22 +25,18 @@ public class ChangeUserRoleData implements IChangeUserRoleData {
 	@NotNull
 	private String username;
 	
-	private String credentialsUsername;
-	
-	private String credentialsRole;
+	private String role;
 	
 
 	private org.joda.time.DateTime systemTime;
 	
 	public ChangeUserRoleData(
 		@JsonProperty("username") String username,
-		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole
+		@JsonProperty("role") String role
 ,		@JsonProperty("uuid") String uuid
 	) {
 		this.username = username;
-		this.credentialsUsername = credentialsUsername;
-		this.credentialsRole = credentialsRole;
+		this.role = role;
 		this.uuid = uuid;
 		
 	}
@@ -62,26 +58,14 @@ public class ChangeUserRoleData implements IChangeUserRoleData {
 	}
 	
 	@JsonProperty
-	public String getCredentialsUsername() {
-		return this.credentialsUsername;
+	public String getRole() {
+		return this.role;
 	}
-	public void setCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
+	public void setRole(String role) {
+		this.role = role;
 	}
-	public ChangeUserRoleData withCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getCredentialsRole() {
-		return this.credentialsRole;
-	}
-	public void setCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
-	}
-	public ChangeUserRoleData withCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
+	public ChangeUserRoleData withRole(String role) {
+		this.role = role;
 		return this;
 	}
 	
@@ -127,8 +111,7 @@ public class ChangeUserRoleData implements IChangeUserRoleData {
 	public Object toPresentationalData() {
 		return new ChangeUserRolePresentationalData(
 			this.username,
-			this.credentialsUsername,
-			this.credentialsRole
+			this.role
 		);
 	}
 

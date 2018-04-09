@@ -10,6 +10,7 @@ public interface IUserModel {
 	String getEmail();
 	String getRole();
 	Boolean getEmailConfirmed();
+	Boolean getDeleted();
 
 }
 

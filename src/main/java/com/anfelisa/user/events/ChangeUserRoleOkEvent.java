@@ -7,15 +7,15 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.user.data.ChangeUserRoleData;
 
-public class ChangeUserToAuthorOkEvent extends AbstractChangeUserToAuthorOkEvent {
+public class ChangeUserRoleOkEvent extends AbstractChangeUserRoleOkEvent {
 
-	static final Logger LOG = LoggerFactory.getLogger(ChangeUserToAuthorOkEvent.class);
+	static final Logger LOG = LoggerFactory.getLogger(ChangeUserRoleOkEvent.class);
 
-	public ChangeUserToAuthorOkEvent(ChangeUserRoleData eventParam, DatabaseHandle databaseHandle) {
+	public ChangeUserRoleOkEvent(ChangeUserRoleData eventParam, DatabaseHandle databaseHandle) {
 		super(eventParam, databaseHandle);
 	}
 
-	public ChangeUserToAuthorOkEvent(DatabaseHandle databaseHandle) {
+	public ChangeUserRoleOkEvent(DatabaseHandle databaseHandle) {
 		this(null, databaseHandle);
 	}
 

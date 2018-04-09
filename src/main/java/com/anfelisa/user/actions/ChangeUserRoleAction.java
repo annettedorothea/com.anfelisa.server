@@ -24,22 +24,22 @@ import io.dropwizard.auth.Auth;
 @Path("/user")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-public class ChangeUserToAuthorAction extends AbstractChangeUserToAuthorAction {
+public class ChangeUserRoleAction extends AbstractChangeUserRoleAction {
 
-	static final Logger LOG = LoggerFactory.getLogger(ChangeUserToAuthorAction.class);
+	static final Logger LOG = LoggerFactory.getLogger(ChangeUserRoleAction.class);
 
-	public ChangeUserToAuthorAction(DBI jdbi) {
+	public ChangeUserRoleAction(DBI jdbi) {
 		super(jdbi);
 	}
 
 	@PUT
 	@Timed
-	@Path("/author")
+	@Path("/role")
 	@RolesAllowed({ AuthUser.ADMIN })
 	public Response put(@Auth AuthUser user, @NotNull @QueryParam("username") String username,
-			@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new ChangeUserRoleData(uuid).withUsername(username)
-				.withCredentialsUsername(user.getUsername());
+			@NotNull @QueryParam("role") String role, @NotNull @QueryParam("uuid") String uuid)
+			throws JsonProcessingException {
+		this.actionData = new ChangeUserRoleData(uuid).withRole(role).withUsername(username);
 		return this.apply();
 	}
 

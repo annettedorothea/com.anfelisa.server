@@ -33,6 +33,9 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	@NotNull
 	private Boolean emailConfirmed;
 	
+	@NotNull
+	private Boolean deleted;
+	
 	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
 	
 	private java.util.List<com.anfelisa.box.models.IBoxModel> boxList;
@@ -44,6 +47,7 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
+		@JsonProperty("deleted") Boolean deleted,
 		@JsonProperty("courseList") java.util.List<com.anfelisa.course.models.ICourseModel> courseList,
 		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxModel> boxList
 	) {
@@ -52,6 +56,7 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
+		this.deleted = deleted;
 		this.courseList = courseList;
 		this.boxList = boxList;
 		
@@ -114,6 +119,18 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	}
 	public UserInfoPresentationalData withEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getDeleted() {
+		return this.deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+	public UserInfoPresentationalData withDeleted(Boolean deleted) {
+		this.deleted = deleted;
 		return this;
 	}
 	

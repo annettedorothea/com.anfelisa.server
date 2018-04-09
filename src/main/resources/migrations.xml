@@ -327,5 +327,13 @@
 
 	</changeSet>
 
+	<changeSet id="004" author="annette">
+		<addColumn tableName="user">
+			<column name="deleted" type="boolean" defaultValueBoolean="false">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+	</changeSet>
+
 
 </databaseChangeLog>

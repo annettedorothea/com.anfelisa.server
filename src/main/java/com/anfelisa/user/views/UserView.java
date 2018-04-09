@@ -4,7 +4,6 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
-import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.AddCoursesData;
 import com.anfelisa.user.data.ChangeUserRoleData;
 import com.anfelisa.user.data.PasswordUpdateData;
@@ -45,14 +44,14 @@ public class UserView {
 		customUserDao.confirmEmail(handle, dataContainer.getUsername());
 	};
 
-	public static BiConsumer<ChangeUserRoleData, Handle> changeUserToAuthor = (dataContainer, handle) -> {
-		customUserDao.changeUserRole(handle, dataContainer.getUsername(), AuthUser.AUTHOR);
+	public static BiConsumer<ChangeUserRoleData, Handle> changeUserRole = (dataContainer, handle) -> {
+		customUserDao.changeUserRole(handle, dataContainer.getUsername(), dataContainer.getRole());
 	};
-	
-	public static BiConsumer<ChangeUserRoleData, Handle> changeUserToAdmin = (dataContainer, handle) -> {
-		customUserDao.changeUserRole(handle, dataContainer.getUsername(), AuthUser.ADMIN);
+
+	public static BiConsumer<ChangeUserRoleData, Handle> deleteUser = (dataContainer, handle) -> {
+		customUserDao.deleteUser(handle, dataContainer.getUsername());
 	};
-	
+
 }
 
 /* S.D.G. */

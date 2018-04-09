@@ -30,19 +30,24 @@ public class UserCreationPresentationalData implements IUserCreationPresentation
 	@NotNull
 	private Boolean emailConfirmed;
 	
+	@NotNull
+	private Boolean deleted;
+	
 	
 	public UserCreationPresentationalData(
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
+		@JsonProperty("deleted") Boolean deleted
 	) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
+		this.deleted = deleted;
 		
 	}
 
@@ -103,6 +108,18 @@ public class UserCreationPresentationalData implements IUserCreationPresentation
 	}
 	public UserCreationPresentationalData withEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getDeleted() {
+		return this.deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+	public UserCreationPresentationalData withDeleted(Boolean deleted) {
+		this.deleted = deleted;
 		return this;
 	}
 	

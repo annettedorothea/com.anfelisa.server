@@ -10,7 +10,6 @@ import com.anfelisa.user.data.ForgotPasswordData;
 public abstract class AbstractForgotPasswordCommand extends Command<ForgotPasswordData> {
 
 	protected static final String ok = "ok";
-	protected static final String userNotFound = "userNotFound";
 
 	public AbstractForgotPasswordCommand(ForgotPasswordData commandParam, DatabaseHandle databaseHandle) {
 		super("com.anfelisa.user.commands.ForgotPasswordCommand", commandParam, databaseHandle);
@@ -25,8 +24,6 @@ public abstract class AbstractForgotPasswordCommand extends Command<ForgotPasswo
 		switch (this.commandData.getOutcome()) {
 		case ok:
 			new com.anfelisa.user.events.ForgotPasswordOkEvent(this.commandData, databaseHandle).publish();
-			break;
-		case userNotFound:
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

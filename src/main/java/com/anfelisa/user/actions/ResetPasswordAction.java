@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.user.data.ChangeUserRoleData;
+import com.anfelisa.user.data.PasswordUpdateData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -24,25 +24,26 @@ import io.dropwizard.auth.Auth;
 @Path("/user")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-public class ChangeUserToAdminAction extends AbstractChangeUserToAdminAction {
+	public class ResetPasswordAction extends AbstractResetPasswordAction {
 
-	static final Logger LOG = LoggerFactory.getLogger(ChangeUserToAdminAction.class);
+	static final Logger LOG = LoggerFactory.getLogger(ResetPasswordAction.class);
 
-	public ChangeUserToAdminAction(DBI jdbi) {
+	public ResetPasswordAction(DBI jdbi) {
 		super(jdbi);
 	}
 
 	@PUT
 	@Timed
-	@Path("/admin")
+	@Path("/password")
 	@RolesAllowed({ AuthUser.ADMIN })
 	public Response put(@Auth AuthUser user, @NotNull @QueryParam("username") String username,
-			@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new ChangeUserRoleData(uuid).withUsername(username)
-				.withCredentialsUsername(user.getUsername());
+			@NotNull @QueryParam("password") String password, @NotNull @QueryParam("uuid") String uuid)
+			throws JsonProcessingException {
+		this.actionData = new PasswordUpdateData(uuid).withPassword(password).withUsername(username);
 		return this.apply();
 	}
 
+
 }
 
-/* S.D.G. */
+/*       S.D.G.       */
