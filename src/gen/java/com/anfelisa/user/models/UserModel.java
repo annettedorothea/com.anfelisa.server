@@ -20,10 +20,10 @@ public class UserModel implements IUserModel {
 	private String role;
 	
 	@NotNull
-	private Boolean emailConfirmed;
+	private Boolean emailConfirmed = false;
 	
 	@NotNull
-	private Boolean deleted;
+	private Boolean deleted = false;
 	
 
 	public UserModel(

@@ -1,11 +1,11 @@
 package com.anfelisa.user.commands;
 
-import com.anfelisa.ace.DatabaseHandle;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.user.data.UsernameData;
+import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.auth.AuthUser;
+import com.anfelisa.user.data.DeleteUserData;
 import com.anfelisa.user.models.UserDao;
 
 public class DeleteUserCommand extends AbstractDeleteUserCommand {
@@ -14,7 +14,7 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 
 	private UserDao userDao = new UserDao();
 	
-	public DeleteUserCommand(UsernameData commandParam, DatabaseHandle databaseHandle) {
+	public DeleteUserCommand(DeleteUserData commandParam, DatabaseHandle databaseHandle) {
 		super(commandParam, databaseHandle);
 	}
 
@@ -24,8 +24,11 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 
 	@Override
 	protected void executeCommand() {
-		if (userDao.selectByUsername(getHandle(), commandData.getUsername()) == null) {
-			throwBadRequest(commandData.getUsername() + " does not exist");
+		if (!AuthUser.ADMIN.equals(commandData.getCredentialsRole()) && !commandData.getCredentialsUsername().equals(commandData.getDeletedUsername())) {
+			throwUnauthorized();
+		}
+		if (userDao.selectByUsername(getHandle(), commandData.getDeletedUsername()) == null) {
+			throwBadRequest(commandData.getDeletedUsername() + " does not exist");
 		}
 		this.commandData.setOutcome(ok);
 	}

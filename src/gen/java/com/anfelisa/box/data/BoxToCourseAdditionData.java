@@ -29,7 +29,7 @@ public class BoxToCourseAdditionData implements IBoxToCourseAdditionData {
 	private String courseId;
 	
 	@NotNull
-	private Boolean autoAdd;
+	private Boolean autoAdd = false;
 	
 	private String credentialsUsername;
 	

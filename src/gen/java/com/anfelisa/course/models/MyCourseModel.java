@@ -24,7 +24,7 @@ public class MyCourseModel implements IMyCourseModel {
 	private Integer openTests;
 	
 	@NotNull
-	private Boolean hasOpenTests;
+	private Boolean hasOpenTests = false;
 	
 
 	public MyCourseModel(

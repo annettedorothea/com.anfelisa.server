@@ -19,7 +19,7 @@ public class UsernameAvailablePresentationalData implements IUsernameAvailablePr
 	@NotNull
 	private String username;
 	
-	private Boolean available;
+	private Boolean available = false;
 	
 	
 	public UsernameAvailablePresentationalData(

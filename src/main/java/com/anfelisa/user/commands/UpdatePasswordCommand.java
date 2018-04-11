@@ -1,6 +1,7 @@
 package com.anfelisa.user.commands;
 
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.auth.AuthUser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +21,11 @@ public class UpdatePasswordCommand extends AbstractUpdatePasswordCommand {
 
 	@Override
 	protected void executeCommand() {
-		if (userDao.selectByUsername(getHandle(), commandData.getUsername()) == null) {
-			throwBadRequest(commandData.getUsername() + " does not exist");
+		if (!AuthUser.ADMIN.equals(commandData.getCredentialsRole()) && !commandData.getCredentialsUsername().equals(commandData.getEditedUsername())) {
+			throwUnauthorized();
+		}
+		if (userDao.selectByUsername(getHandle(), commandData.getEditedUsername()) == null) {
+			throwBadRequest(commandData.getEditedUsername() + " does not exist");
 		}
 		this.commandData.setOutcome(success);
 	}

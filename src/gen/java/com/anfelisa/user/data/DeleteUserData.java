@@ -10,11 +10,11 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.user.models.IUserRoleUpdateModel;
 import com.anfelisa.user.models.ICredentialsModel;
+import com.anfelisa.user.models.IDeleteUserModel;
 
 @SuppressWarnings("all")
-public class UserUpdateData implements IUserUpdateData {
+public class DeleteUserData implements IDeleteUserData {
 	
 	private String uuid;
 	
@@ -22,62 +22,33 @@ public class UserUpdateData implements IUserUpdateData {
 	
 	private String[] notifiedListeners;
 	
-	@NotNull
-	private String editedUsername;
-	
-	@NotNull
-	private String role;
-	
 	private String credentialsUsername;
 	
 	private String credentialsRole;
 	
+	@NotNull
+	private String deletedUsername;
+	
 
 	private org.joda.time.DateTime systemTime;
 	
-	public UserUpdateData(
-		@JsonProperty("editedUsername") String editedUsername,
-		@JsonProperty("role") String role,
+	public DeleteUserData(
 		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole
+		@JsonProperty("credentialsRole") String credentialsRole,
+		@JsonProperty("deletedUsername") String deletedUsername
 ,		@JsonProperty("uuid") String uuid
 	) {
-		this.editedUsername = editedUsername;
-		this.role = role;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
+		this.deletedUsername = deletedUsername;
 		this.uuid = uuid;
 		
 	}
 
-	public UserUpdateData( String uuid ) {
+	public DeleteUserData( String uuid ) {
 		this.uuid = uuid;
 	}
 
-	@JsonProperty
-	public String getEditedUsername() {
-		return this.editedUsername;
-	}
-	public void setEditedUsername(String editedUsername) {
-		this.editedUsername = editedUsername;
-	}
-	public UserUpdateData withEditedUsername(String editedUsername) {
-		this.editedUsername = editedUsername;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getRole() {
-		return this.role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
-	public UserUpdateData withRole(String role) {
-		this.role = role;
-		return this;
-	}
-	
 	@JsonProperty
 	public String getCredentialsUsername() {
 		return this.credentialsUsername;
@@ -85,7 +56,7 @@ public class UserUpdateData implements IUserUpdateData {
 	public void setCredentialsUsername(String credentialsUsername) {
 		this.credentialsUsername = credentialsUsername;
 	}
-	public UserUpdateData withCredentialsUsername(String credentialsUsername) {
+	public DeleteUserData withCredentialsUsername(String credentialsUsername) {
 		this.credentialsUsername = credentialsUsername;
 		return this;
 	}
@@ -97,8 +68,20 @@ public class UserUpdateData implements IUserUpdateData {
 	public void setCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
 	}
-	public UserUpdateData withCredentialsRole(String credentialsRole) {
+	public DeleteUserData withCredentialsRole(String credentialsRole) {
 		this.credentialsRole = credentialsRole;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getDeletedUsername() {
+		return this.deletedUsername;
+	}
+	public void setDeletedUsername(String deletedUsername) {
+		this.deletedUsername = deletedUsername;
+	}
+	public DeleteUserData withDeletedUsername(String deletedUsername) {
+		this.deletedUsername = deletedUsername;
 		return this;
 	}
 	
@@ -142,11 +125,10 @@ public class UserUpdateData implements IUserUpdateData {
 
 	@Override
 	public Object toPresentationalData() {
-		return new UserUpdatePresentationalData(
-			this.editedUsername,
-			this.role,
+		return new DeleteUserPresentationalData(
 			this.credentialsUsername,
-			this.credentialsRole
+			this.credentialsRole,
+			this.deletedUsername
 		);
 	}
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.user.models.IUserRegistrationModel;
 import com.anfelisa.user.models.ILanguageModel;
 
 @SuppressWarnings("all")
@@ -35,12 +35,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 	private String role;
 	
 	@NotNull
-	private Boolean emailConfirmed;
-	
-	@NotNull
-	private Boolean deleted;
-	
-	@NotNull
 	private String language;
 	
 
@@ -51,8 +45,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 		@JsonProperty("password") String password,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
-		@JsonProperty("deleted") Boolean deleted,
 		@JsonProperty("language") String language
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -60,8 +52,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 		this.password = password;
 		this.email = email;
 		this.role = role;
-		this.emailConfirmed = emailConfirmed;
-		this.deleted = deleted;
 		this.language = language;
 		this.uuid = uuid;
 		
@@ -116,30 +106,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 	}
 	public UserRegistrationData withRole(String role) {
 		this.role = role;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getEmailConfirmed() {
-		return this.emailConfirmed;
-	}
-	public void setEmailConfirmed(Boolean emailConfirmed) {
-		this.emailConfirmed = emailConfirmed;
-	}
-	public UserRegistrationData withEmailConfirmed(Boolean emailConfirmed) {
-		this.emailConfirmed = emailConfirmed;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getDeleted() {
-		return this.deleted;
-	}
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
-	public UserRegistrationData withDeleted(Boolean deleted) {
-		this.deleted = deleted;
 		return this;
 	}
 	
@@ -200,8 +166,6 @@ public class UserRegistrationData implements IUserRegistrationData {
 			this.password,
 			this.email,
 			this.role,
-			this.emailConfirmed,
-			this.deleted,
 			this.language
 		);
 	}

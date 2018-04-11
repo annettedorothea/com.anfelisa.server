@@ -9,7 +9,7 @@ public class BoxInfoModel implements IBoxInfoModel {
 
 	private Integer todaysCards;
 	
-	private Boolean hasOpenCards;
+	private Boolean hasOpenCards = false;
 	
 	private com.anfelisa.box.models.IBoxModel box;
 	

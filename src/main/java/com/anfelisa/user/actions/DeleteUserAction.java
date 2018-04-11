@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.user.data.UsernameData;
+import com.anfelisa.user.data.DeleteUserData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -36,9 +36,9 @@ public class DeleteUserAction extends AbstractDeleteUserAction {
 	@Timed
 	@Path("/delete")
 	@RolesAllowed({ AuthUser.ADMIN })
-	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("username") String username,
+	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("deletedUsername") String deletedUsername,
 			@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new UsernameData(uuid).withUsername(username);
+		this.actionData = new DeleteUserData(uuid).withCredentialsRole(user.getRole()).withCredentialsUsername(user.getUsername()).withDeletedUsername(deletedUsername);
 		return this.apply();
 	}
 

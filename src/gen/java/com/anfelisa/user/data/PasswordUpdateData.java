@@ -10,7 +10,8 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.user.models.IUsernameAndPasswordModel;
+import com.anfelisa.user.models.ICredentialsModel;
+import com.anfelisa.user.models.IUserPasswordUpdateModel;
 
 @SuppressWarnings("all")
 public class PasswordUpdateData implements IPasswordUpdateData {
@@ -21,22 +22,30 @@ public class PasswordUpdateData implements IPasswordUpdateData {
 	
 	private String[] notifiedListeners;
 	
-	@NotNull
-	private String username;
+	private String credentialsUsername;
+	
+	private String credentialsRole;
 	
 	@NotNull
-	private String password;
+	private String editedUsername;
+	
+	@NotNull
+	private String newPassword;
 	
 
 	private org.joda.time.DateTime systemTime;
 	
 	public PasswordUpdateData(
-		@JsonProperty("username") String username,
-		@JsonProperty("password") String password
+		@JsonProperty("credentialsUsername") String credentialsUsername,
+		@JsonProperty("credentialsRole") String credentialsRole,
+		@JsonProperty("editedUsername") String editedUsername,
+		@JsonProperty("newPassword") String newPassword
 ,		@JsonProperty("uuid") String uuid
 	) {
-		this.username = username;
-		this.password = password;
+		this.credentialsUsername = credentialsUsername;
+		this.credentialsRole = credentialsRole;
+		this.editedUsername = editedUsername;
+		this.newPassword = newPassword;
 		this.uuid = uuid;
 		
 	}
@@ -46,26 +55,50 @@ public class PasswordUpdateData implements IPasswordUpdateData {
 	}
 
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getCredentialsUsername() {
+		return this.credentialsUsername;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
 	}
-	public PasswordUpdateData withUsername(String username) {
-		this.username = username;
+	public PasswordUpdateData withCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getPassword() {
-		return this.password;
+	public String getCredentialsRole() {
+		return this.credentialsRole;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
 	}
-	public PasswordUpdateData withPassword(String password) {
-		this.password = password;
+	public PasswordUpdateData withCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getEditedUsername() {
+		return this.editedUsername;
+	}
+	public void setEditedUsername(String editedUsername) {
+		this.editedUsername = editedUsername;
+	}
+	public PasswordUpdateData withEditedUsername(String editedUsername) {
+		this.editedUsername = editedUsername;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getNewPassword() {
+		return this.newPassword;
+	}
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+	public PasswordUpdateData withNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 		return this;
 	}
 	
@@ -110,8 +143,10 @@ public class PasswordUpdateData implements IPasswordUpdateData {
 	@Override
 	public Object toPresentationalData() {
 		return new PasswordUpdatePresentationalData(
-			this.username,
-			this.password
+			this.credentialsUsername,
+			this.credentialsRole,
+			this.editedUsername,
+			this.newPassword
 		);
 	}
 

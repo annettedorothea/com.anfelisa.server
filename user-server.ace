@@ -37,10 +37,7 @@ ACE {
 	PUT ChangeUserRole uses ChangeUserRole {
 		on ok (User.changeUserRole)
 	} 
-	PUT ResetPassword uses PasswordUpdate {
-		on ok (User.updatePassword)
-	} 
-	DELETE DeleteUser uses Username {
+	DELETE DeleteUser uses DeleteUser {
 		on ok (User.deleteUser)
 	}
 }
@@ -106,9 +103,16 @@ models {
 		NotNull String username
 		NotNull String password
 	} 
-	UserUpdate {
-		NotNull String username
-		NotNull String email
+	UserRoleUpdate {
+		NotNull String editedUsername
+		NotNull String role
+	}
+	UserPasswordUpdate {
+		NotNull String editedUsername
+		NotNull String newPassword
+	}
+	DeleteUser {
+		NotNull String deletedUsername
 	}
 	CourseSelection {
 		List String courseIdList
@@ -129,6 +133,12 @@ models {
 	UserList {
 		List User userList
 	}
+	UserRegistration {
+		NotNull String username
+		NotNull String password
+		NotNull String email
+		NotNull String role
+	}
 }
 
 data {
@@ -136,14 +146,15 @@ data {
 	Login : ( LoginLog Username )
 	Points : ( Points Username )
 	UserInfo : (User com.anfelisa.course.CourseList com.anfelisa.box.MyBoxList Username)
-	UserUpdate : (UserUpdate Credentials)
+	UserUpdate : (UserRoleUpdate Credentials)
 	CourseSelection : (com.anfelisa.course.CourseList Credentials)
 	AddCourses : (CourseSelection Credentials)
 	RemoveCourse : (CourseId Username)
-	PasswordUpdate : (UsernameAndPassword)
+	PasswordUpdate : (Credentials UserPasswordUpdate)
 	ForgotPassword : (ForgotPassword Language)
 	UsernameAvailable : (Username Available)
-	UserRegistration : (User Language)
+	UserRegistration : (UserRegistration Language)
+	DeleteUser : ( Credentials DeleteUser)
 	Username : (Username)
 	ChangeUserRole : (Username Role)
 	Role : (Credentials)

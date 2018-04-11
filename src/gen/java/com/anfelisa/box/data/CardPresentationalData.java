@@ -79,11 +79,11 @@ public class CardPresentationalData implements ICardPresentationalData {
 	
 	private Integer quality;
 	
-	private Boolean complex;
+	private Boolean complex = false;
 	
 	private String given;
 	
-	private Boolean large;
+	private Boolean large = false;
 	
 	private String wanted;
 	

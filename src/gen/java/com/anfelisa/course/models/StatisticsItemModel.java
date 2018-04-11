@@ -11,7 +11,7 @@ public class StatisticsItemModel implements IStatisticsItemModel {
 	private String type;
 	
 	@NotNull
-	private Boolean isBox;
+	private Boolean isBox = false;
 	
 	@NotNull
 	private Integer count;

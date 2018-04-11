@@ -60,7 +60,7 @@ public class ScoreCardPresentationalData implements IScoreCardPresentationalData
 	private org.joda.time.DateTime timestamp;
 	
 	@NotNull
-	private Boolean removed;
+	private Boolean removed = false;
 	
 	@NotNull
 	private String scoredCardId;

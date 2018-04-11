@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.user.models.IUserRegistrationModel;
 import com.anfelisa.user.models.ILanguageModel;
 
 @SuppressWarnings("all")
@@ -29,12 +29,6 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 	private String role;
 	
 	@NotNull
-	private Boolean emailConfirmed;
-	
-	@NotNull
-	private Boolean deleted;
-	
-	@NotNull
 	private String language;
 	
 	
@@ -43,16 +37,12 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 		@JsonProperty("password") String password,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
-		@JsonProperty("deleted") Boolean deleted,
 		@JsonProperty("language") String language
 	) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.role = role;
-		this.emailConfirmed = emailConfirmed;
-		this.deleted = deleted;
 		this.language = language;
 		
 	}
@@ -102,30 +92,6 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 	}
 	public UserRegistrationPresentationalData withRole(String role) {
 		this.role = role;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getEmailConfirmed() {
-		return this.emailConfirmed;
-	}
-	public void setEmailConfirmed(Boolean emailConfirmed) {
-		this.emailConfirmed = emailConfirmed;
-	}
-	public UserRegistrationPresentationalData withEmailConfirmed(Boolean emailConfirmed) {
-		this.emailConfirmed = emailConfirmed;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getDeleted() {
-		return this.deleted;
-	}
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
-	public UserRegistrationPresentationalData withDeleted(Boolean deleted) {
-		this.deleted = deleted;
 		return this;
 	}
 	

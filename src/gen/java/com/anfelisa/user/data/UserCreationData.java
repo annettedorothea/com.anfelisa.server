@@ -34,10 +34,10 @@ public class UserCreationData implements IUserCreationData {
 	private String role;
 	
 	@NotNull
-	private Boolean emailConfirmed;
+	private Boolean emailConfirmed = false;
 	
 	@NotNull
-	private Boolean deleted;
+	private Boolean deleted = false;
 	
 
 	private org.joda.time.DateTime systemTime;

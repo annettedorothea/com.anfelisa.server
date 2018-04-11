@@ -17,7 +17,7 @@ public class MyTestModel implements IMyTestModel {
 	
 	private Integer resultCount;
 	
-	private Boolean hasResults;
+	private Boolean hasResults = false;
 	
 	private java.util.List<com.anfelisa.result.models.IResultAbstractModel> resultAbstractList;
 	

@@ -36,7 +36,7 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	private org.joda.time.DateTime timestamp;
 	
 	@NotNull
-	private Boolean removed;
+	private Boolean removed = false;
 	
 
 	public ScheduledCardModel(

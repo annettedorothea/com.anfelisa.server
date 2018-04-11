@@ -50,7 +50,7 @@ public class ScheduledCardData implements IScheduledCardData {
 	private org.joda.time.DateTime timestamp;
 	
 	@NotNull
-	private Boolean removed;
+	private Boolean removed = false;
 	
 
 	private org.joda.time.DateTime systemTime;

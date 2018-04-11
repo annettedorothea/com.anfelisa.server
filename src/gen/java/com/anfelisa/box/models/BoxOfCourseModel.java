@@ -14,7 +14,7 @@ public class BoxOfCourseModel implements IBoxOfCourseModel {
 	private String courseId;
 	
 	@NotNull
-	private Boolean autoAdd;
+	private Boolean autoAdd = false;
 	
 
 	public BoxOfCourseModel(

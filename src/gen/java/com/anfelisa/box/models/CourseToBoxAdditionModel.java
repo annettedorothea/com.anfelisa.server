@@ -14,7 +14,7 @@ public class CourseToBoxAdditionModel implements ICourseToBoxAdditionModel {
 	private String courseId;
 	
 	@NotNull
-	private Boolean autoAdd;
+	private Boolean autoAdd = false;
 	
 	@NotNull
 	private String name;

@@ -44,7 +44,7 @@ public class ScheduledCardPresentationalData implements IScheduledCardPresentati
 	private org.joda.time.DateTime timestamp;
 	
 	@NotNull
-	private Boolean removed;
+	private Boolean removed = false;
 	
 	
 	public ScheduledCardPresentationalData(

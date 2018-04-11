@@ -5,13 +5,13 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
 
-import com.anfelisa.user.data.UsernameData;
+import com.anfelisa.user.data.DeleteUserData;
 
-public abstract class AbstractDeleteUserCommand extends Command<UsernameData> {
+public abstract class AbstractDeleteUserCommand extends Command<DeleteUserData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractDeleteUserCommand(UsernameData commandParam, DatabaseHandle databaseHandle) {
+	public AbstractDeleteUserCommand(DeleteUserData commandParam, DatabaseHandle databaseHandle) {
 		super("com.anfelisa.user.commands.DeleteUserCommand", commandParam, databaseHandle);
 	}
 
@@ -32,7 +32,7 @@ public abstract class AbstractDeleteUserCommand extends Command<UsernameData> {
 	
 	public void initCommandData(String json) {
 		try {
-			this.commandData = mapper.readValue(json, UsernameData.class);
+			this.commandData = mapper.readValue(json, DeleteUserData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

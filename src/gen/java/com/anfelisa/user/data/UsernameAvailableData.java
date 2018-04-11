@@ -25,7 +25,7 @@ public class UsernameAvailableData implements IUsernameAvailableData {
 	@NotNull
 	private String username;
 	
-	private Boolean available;
+	private Boolean available = false;
 	
 
 	private org.joda.time.DateTime systemTime;

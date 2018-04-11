@@ -5,21 +5,31 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings("all")
-public class UserUpdateModel implements IUserUpdateModel {
+public class UserRegistrationModel implements IUserRegistrationModel {
 
 	@NotNull
 	private String username;
 	
 	@NotNull
+	private String password;
+	
+	@NotNull
 	private String email;
 	
+	@NotNull
+	private String role;
+	
 
-	public UserUpdateModel(
+	public UserRegistrationModel(
 		@JsonProperty("username") String username,
-		@JsonProperty("email") String email
+		@JsonProperty("password") String password,
+		@JsonProperty("email") String email,
+		@JsonProperty("role") String role
 	) {
 		this.username = username;
+		this.password = password;
 		this.email = email;
+		this.role = role;
 	}
 
 	@JsonProperty
@@ -31,11 +41,27 @@ public class UserUpdateModel implements IUserUpdateModel {
 	}
 	
 	@JsonProperty
+	public String getPassword() {
+		return this.password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	@JsonProperty
 	public String getEmail() {
 		return this.email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	@JsonProperty
+	public String getRole() {
+		return this.role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 

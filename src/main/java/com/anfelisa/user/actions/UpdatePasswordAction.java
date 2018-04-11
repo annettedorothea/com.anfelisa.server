@@ -37,8 +37,7 @@ public class UpdatePasswordAction extends AbstractUpdatePasswordAction {
 	@PermitAll
 	public Response put(@Auth AuthUser user, @NotNull PasswordUpdateData passwordUpdateData)
 			throws JsonProcessingException {
-		passwordUpdateData.setUsername(user.getUsername());
-		this.actionData = passwordUpdateData;
+		this.actionData = passwordUpdateData.withCredentialsRole(user.getRole()).withCredentialsUsername(user.getUsername());
 		return this.apply();
 	}
 

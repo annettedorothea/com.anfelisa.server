@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class AvailableModel implements IAvailableModel {
 
-	private Boolean available;
+	private Boolean available = false;
 	
 
 	public AvailableModel(

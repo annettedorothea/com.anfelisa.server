@@ -10,48 +10,81 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.user.models.IUsernameAndPasswordModel;
+import com.anfelisa.user.models.ICredentialsModel;
+import com.anfelisa.user.models.IUserPasswordUpdateModel;
 
 @SuppressWarnings("all")
 public class PasswordUpdatePresentationalData implements IPasswordUpdatePresentationalData {
 	
-	@NotNull
-	private String username;
+	private String credentialsUsername;
+	
+	private String credentialsRole;
 	
 	@NotNull
-	private String password;
+	private String editedUsername;
+	
+	@NotNull
+	private String newPassword;
 	
 	
 	public PasswordUpdatePresentationalData(
-		@JsonProperty("username") String username,
-		@JsonProperty("password") String password
+		@JsonProperty("credentialsUsername") String credentialsUsername,
+		@JsonProperty("credentialsRole") String credentialsRole,
+		@JsonProperty("editedUsername") String editedUsername,
+		@JsonProperty("newPassword") String newPassword
 	) {
-		this.username = username;
-		this.password = password;
+		this.credentialsUsername = credentialsUsername;
+		this.credentialsRole = credentialsRole;
+		this.editedUsername = editedUsername;
+		this.newPassword = newPassword;
 		
 	}
 
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getCredentialsUsername() {
+		return this.credentialsUsername;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
 	}
-	public PasswordUpdatePresentationalData withUsername(String username) {
-		this.username = username;
+	public PasswordUpdatePresentationalData withCredentialsUsername(String credentialsUsername) {
+		this.credentialsUsername = credentialsUsername;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getPassword() {
-		return this.password;
+	public String getCredentialsRole() {
+		return this.credentialsRole;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
 	}
-	public PasswordUpdatePresentationalData withPassword(String password) {
-		this.password = password;
+	public PasswordUpdatePresentationalData withCredentialsRole(String credentialsRole) {
+		this.credentialsRole = credentialsRole;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getEditedUsername() {
+		return this.editedUsername;
+	}
+	public void setEditedUsername(String editedUsername) {
+		this.editedUsername = editedUsername;
+	}
+	public PasswordUpdatePresentationalData withEditedUsername(String editedUsername) {
+		this.editedUsername = editedUsername;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getNewPassword() {
+		return this.newPassword;
+	}
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+	public PasswordUpdatePresentationalData withNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 		return this;
 	}
 	

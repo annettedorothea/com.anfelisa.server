@@ -7,11 +7,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class CardContentModel implements ICardContentModel {
 
-	private Boolean complex;
+	private Boolean complex = false;
 	
 	private String given;
 	
-	private Boolean large;
+	private Boolean large = false;
 	
 	private String wanted;
 	

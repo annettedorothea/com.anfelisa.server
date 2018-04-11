@@ -2,11 +2,10 @@ package com.anfelisa.user.models;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(as=UserUpdateModel.class)
-public interface IUserUpdateModel {
+@JsonDeserialize(as=DeleteUserModel.class)
+public interface IDeleteUserModel {
 
-	String getUsername();
-	String getEmail();
+	String getDeletedUsername();
 
 }
 

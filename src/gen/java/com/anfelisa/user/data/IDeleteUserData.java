@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.user.models.IUserRoleUpdateModel;
 import com.anfelisa.user.models.ICredentialsModel;
+import com.anfelisa.user.models.IDeleteUserModel;
 
-@JsonDeserialize(as=UserUpdateData.class)
-public interface IUserUpdateData extends IUserRoleUpdateModel, ICredentialsModel, IDataContainer {
+@JsonDeserialize(as=DeleteUserData.class)
+public interface IDeleteUserData extends ICredentialsModel, IDeleteUserModel, IDataContainer {
 
 }
 

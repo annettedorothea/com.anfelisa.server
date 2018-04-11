@@ -25,11 +25,14 @@ public class UpdateUserCommand extends AbstractUpdateUserCommand {
 	@Override
 	protected void executeCommand() {
 		if (commandData.getCredentialsRole().equals(AuthUser.STUDENT)
-				&& !commandData.getUsername().equals(commandData.getCredentialsUsername())) {
+				&& !commandData.getEditedUsername().equals(commandData.getCredentialsUsername())) {
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 		}
-		if (userDao.selectByUsername(getHandle(), commandData.getUsername()) == null) {
-			throwBadRequest(commandData.getUsername() + " does not exist");
+		if (userDao.selectByUsername(getHandle(), commandData.getEditedUsername()) == null) {
+			throwBadRequest(commandData.getEditedUsername() + " does not exist");
+		}
+		if ("Admin".equals(commandData.getEditedUsername()) && !AuthUser.ADMIN.equals(commandData.getRole())) {
+			throwBadRequest("do not remove ADMIN role from default Admin");
 		}
 		this.commandData.setOutcome(success);
 	}

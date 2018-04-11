@@ -30,7 +30,6 @@ public class AppRegistration {
 		environment.jersey().register(new RegisterUserAction(jdbi));
 		environment.jersey().register(new ConfirmEmailAction(jdbi));
 		environment.jersey().register(new ChangeUserRoleAction(jdbi));
-		environment.jersey().register(new ResetPasswordAction(jdbi));
 		environment.jersey().register(new DeleteUserAction(jdbi));
 	}
 
@@ -49,7 +48,6 @@ public class AppRegistration {
 		}
 				AceController.addConsumer("com.anfelisa.user.events.ConfirmEmailOkEvent", UserView.confirmEmail);
 				AceController.addConsumer("com.anfelisa.user.events.ChangeUserRoleOkEvent", UserView.changeUserRole);
-				AceController.addConsumer("com.anfelisa.user.events.ResetPasswordOkEvent", UserView.updatePassword);
 				AceController.addConsumer("com.anfelisa.user.events.DeleteUserOkEvent", UserView.deleteUser);
     }
 }

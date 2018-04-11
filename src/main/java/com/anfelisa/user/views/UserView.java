@@ -6,22 +6,20 @@ import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.user.data.AddCoursesData;
 import com.anfelisa.user.data.ChangeUserRoleData;
+import com.anfelisa.user.data.DeleteUserData;
 import com.anfelisa.user.data.PasswordUpdateData;
 import com.anfelisa.user.data.RemoveCourseData;
 import com.anfelisa.user.data.UserRegistrationData;
 import com.anfelisa.user.data.UserUpdateData;
 import com.anfelisa.user.data.UsernameData;
 import com.anfelisa.user.models.CustomUserDao;
-import com.anfelisa.user.models.UserDao;
 
 public class UserView {
-
-	private static UserDao userDao = new UserDao();
 
 	private static CustomUserDao customUserDao = new CustomUserDao();
 
 	public static BiConsumer<UserRegistrationData, Handle> registerUser = (dataContainer, handle) -> {
-		userDao.insert(handle, dataContainer);
+		customUserDao.insert(handle, dataContainer);
 	};
 
 	public static BiConsumer<UserUpdateData, Handle> updateUser = (dataContainer, handle) -> {
@@ -48,8 +46,8 @@ public class UserView {
 		customUserDao.changeUserRole(handle, dataContainer.getUsername(), dataContainer.getRole());
 	};
 
-	public static BiConsumer<ChangeUserRoleData, Handle> deleteUser = (dataContainer, handle) -> {
-		customUserDao.deleteUser(handle, dataContainer.getUsername());
+	public static BiConsumer<DeleteUserData, Handle> deleteUser = (dataContainer, handle) -> {
+		customUserDao.deleteUser(handle, dataContainer.getDeletedUsername());
 	};
 
 }

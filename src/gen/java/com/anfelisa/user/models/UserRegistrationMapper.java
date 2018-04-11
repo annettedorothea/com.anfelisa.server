@@ -9,12 +9,14 @@ import org.skife.jdbi.v2.tweak.ResultSetMapper;
 import com.anfelisa.ace.encryption.EncryptionService;
 
 @SuppressWarnings("all")
-public class UserUpdateMapper implements ResultSetMapper<IUserUpdateModel> {
+public class UserRegistrationMapper implements ResultSetMapper<IUserRegistrationModel> {
 	
-	public IUserUpdateModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
-		return new UserUpdateModel(
+	public IUserRegistrationModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
+		return new UserRegistrationModel(
 			r.getString("username"),
-			r.getString("email")
+			r.getString("password"),
+			r.getString("email"),
+			r.getString("role")
 		);
 	}
 }

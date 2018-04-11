@@ -37,10 +37,10 @@ public class UserInfoData implements IUserInfoData {
 	private String role;
 	
 	@NotNull
-	private Boolean emailConfirmed;
+	private Boolean emailConfirmed = false;
 	
 	@NotNull
-	private Boolean deleted;
+	private Boolean deleted = false;
 	
 	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
 	

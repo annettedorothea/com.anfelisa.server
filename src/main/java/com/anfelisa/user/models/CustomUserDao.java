@@ -6,6 +6,7 @@ import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.Update;
 
 import com.anfelisa.user.data.AddCoursesData;
+import com.anfelisa.user.data.IUserRegistrationData;
 import com.anfelisa.user.data.PasswordUpdateData;
 import com.anfelisa.user.data.RemoveCourseData;
 import com.anfelisa.user.data.UserUpdateData;
@@ -26,9 +27,9 @@ public class CustomUserDao {
 
 	public void update(Handle handle, UserUpdateData userModel) {
 		Update statement = handle.createStatement(
-				"UPDATE public.user SET email = :email WHERE username = :username");
-		statement.bind("username", userModel.getUsername());
-		statement.bind("email", userModel.getEmail());
+				"UPDATE public.user SET role = :role WHERE username = :username");
+		statement.bind("username", userModel.getEditedUsername());
+		statement.bind("role", userModel.getRole());
 		statement.execute();
 	}
 
@@ -53,8 +54,8 @@ public class CustomUserDao {
 	public void updatePassword(Handle handle, PasswordUpdateData userModel) {
 		Update statement = handle
 				.createStatement("UPDATE public.user SET password = :password WHERE username = :username");
-		statement.bind("username", userModel.getUsername());
-		statement.bind("password", userModel.getPassword());
+		statement.bind("username", userModel.getEditedUsername());
+		statement.bind("password", userModel.getNewPassword());
 		statement.execute();
 	}
 
@@ -74,7 +75,7 @@ public class CustomUserDao {
 	}
 	
 	public List<IUserModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT username, password, email, role, emailconfirmed FROM public.user order by username")
+		return handle.createQuery("SELECT username, password, email, role, emailconfirmed, deleted FROM public.user where deleted = false order by username")
 			.map(new UserMapper())
 			.list();
 	}
@@ -85,5 +86,15 @@ public class CustomUserDao {
 		statement.bind("username", username);
 		statement.execute();
 	}
+	
+	public void insert(Handle handle, IUserRegistrationData userModel) {
+		Update statement = handle.createStatement("INSERT INTO public.user (username, password, email, role, emailconfirmed, deleted) VALUES (:username, :password, :email, :role, false, false)");
+		statement.bind("username",  userModel.getUsername() );
+		statement.bind("password",  userModel.getPassword() );
+		statement.bind("email",  userModel.getEmail() );
+		statement.bind("role",  userModel.getRole() );
+		statement.execute();
+	}
+
 	
 }

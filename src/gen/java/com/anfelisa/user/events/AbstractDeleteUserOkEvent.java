@@ -5,11 +5,11 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
 
-import com.anfelisa.user.data.UsernameData;
+import com.anfelisa.user.data.DeleteUserData;
 
-public abstract class AbstractDeleteUserOkEvent extends Event<UsernameData> {
+public abstract class AbstractDeleteUserOkEvent extends Event<DeleteUserData> {
 
-	public AbstractDeleteUserOkEvent(UsernameData eventParam, DatabaseHandle databaseHandle) {
+	public AbstractDeleteUserOkEvent(DeleteUserData eventParam, DatabaseHandle databaseHandle) {
 		super("com.anfelisa.user.events.DeleteUserOkEvent", eventParam, databaseHandle);
 	}
 	
@@ -19,7 +19,7 @@ public abstract class AbstractDeleteUserOkEvent extends Event<UsernameData> {
 	
 	public void initEventData(String json) {
 		try {
-			this.eventData = mapper.readValue(json, UsernameData.class);
+			this.eventData = mapper.readValue(json, DeleteUserData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

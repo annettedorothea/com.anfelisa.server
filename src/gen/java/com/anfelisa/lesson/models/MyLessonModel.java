@@ -21,7 +21,7 @@ public class MyLessonModel implements IMyLessonModel {
 	private Integer openTests;
 	
 	@NotNull
-	private Boolean hasOpenTests;
+	private Boolean hasOpenTests = false;
 	
 
 	public MyLessonModel(
