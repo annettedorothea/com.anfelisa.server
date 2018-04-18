@@ -121,7 +121,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 				this.actionData.setCardId(nextCard.getCardId());
 				this.actionData.setCardOfBoxId(nextCard.getScheduledCardId());
 				ICardModel card = cardDao.selectByCardId(this.getHandle(), nextCard.getCardId());
-				this.actionData.setContent(card.getContent());
+				//this.actionData.setContent(card.getContent());
 				this.actionData.setCount(nextCard.getCount());
 				this.actionData.setNext(nextCard.getScheduledDate());
 				this.actionData.setLast(nextCard.getTimestamp());

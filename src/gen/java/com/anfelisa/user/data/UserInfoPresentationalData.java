@@ -11,12 +11,14 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.course.models.ICourseListModel;
 import com.anfelisa.box.models.IMyBoxListModel;
 import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("all")
 public class UserInfoPresentationalData implements IUserInfoPresentationalData {
+	
+	@NotNull
+	private String userId;
 	
 	@NotNull
 	private String username;
@@ -33,35 +35,40 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	@NotNull
 	private Boolean emailConfirmed = false;
 	
-	@NotNull
-	private Boolean deleted = false;
-	
-	private java.util.List<com.anfelisa.course.models.ICourseModel> courseList;
-	
 	private java.util.List<com.anfelisa.box.models.IBoxModel> boxList;
 	
 	
 	public UserInfoPresentationalData(
+		@JsonProperty("userId") String userId,
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
-		@JsonProperty("deleted") Boolean deleted,
-		@JsonProperty("courseList") java.util.List<com.anfelisa.course.models.ICourseModel> courseList,
 		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxModel> boxList
 	) {
+		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
-		this.deleted = deleted;
-		this.courseList = courseList;
 		this.boxList = boxList;
 		
 	}
 
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public UserInfoPresentationalData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
@@ -119,30 +126,6 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	}
 	public UserInfoPresentationalData withEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getDeleted() {
-		return this.deleted;
-	}
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
-	public UserInfoPresentationalData withDeleted(Boolean deleted) {
-		this.deleted = deleted;
-		return this;
-	}
-	
-	@JsonProperty
-	public java.util.List<com.anfelisa.course.models.ICourseModel> getCourseList() {
-		return this.courseList;
-	}
-	public void setCourseList(java.util.List<com.anfelisa.course.models.ICourseModel> courseList) {
-		this.courseList = courseList;
-	}
-	public UserInfoPresentationalData withCourseList(java.util.List<com.anfelisa.course.models.ICourseModel> courseList) {
-		this.courseList = courseList;
 		return this;
 	}
 	

@@ -25,13 +25,10 @@ public class CardPresentationalData implements ICardPresentationalData {
 	private String cardId;
 	
 	@NotEmpty
-	private String content;
+	private String given;
 	
-	@NotNull
-	private String testId;
-	
-	@NotNull
-	private String contentHash;
+	@NotEmpty
+	private String wanted;
 	
 	@NotNull
 	private Integer maxPoints;
@@ -69,6 +66,8 @@ public class CardPresentationalData implements ICardPresentationalData {
 	
 	private String cardOfBoxId;
 	
+	private String content;
+	
 	private String boxName;
 	
 	private Integer count;
@@ -81,11 +80,7 @@ public class CardPresentationalData implements ICardPresentationalData {
 	
 	private Boolean complex = false;
 	
-	private String given;
-	
 	private Boolean large = false;
-	
-	private String wanted;
 	
 	private String header;
 	
@@ -100,9 +95,8 @@ public class CardPresentationalData implements ICardPresentationalData {
 	
 	public CardPresentationalData(
 		@JsonProperty("cardId") String cardId,
-		@JsonProperty("content") String content,
-		@JsonProperty("testId") String testId,
-		@JsonProperty("contentHash") String contentHash,
+		@JsonProperty("given") String given,
+		@JsonProperty("wanted") String wanted,
 		@JsonProperty("maxPoints") Integer maxPoints,
 		@JsonProperty("boxId") String boxId,
 		@JsonProperty("name") String name,
@@ -119,15 +113,14 @@ public class CardPresentationalData implements ICardPresentationalData {
 		@JsonProperty("five") Integer five,
 		@JsonProperty("noQuality") Integer noQuality,
 		@JsonProperty("cardOfBoxId") String cardOfBoxId,
+		@JsonProperty("content") String content,
 		@JsonProperty("boxName") String boxName,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("last") org.joda.time.DateTime last,
 		@JsonProperty("next") org.joda.time.DateTime next,
 		@JsonProperty("quality") Integer quality,
 		@JsonProperty("complex") Boolean complex,
-		@JsonProperty("given") String given,
 		@JsonProperty("large") Boolean large,
-		@JsonProperty("wanted") String wanted,
 		@JsonProperty("header") String header,
 		@JsonProperty("lines") java.util.List<com.anfelisa.box.models.ILineModel> lines,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
@@ -135,9 +128,8 @@ public class CardPresentationalData implements ICardPresentationalData {
 		@JsonProperty("daysBehind") Integer daysBehind
 	) {
 		this.cardId = cardId;
-		this.content = content;
-		this.testId = testId;
-		this.contentHash = contentHash;
+		this.given = given;
+		this.wanted = wanted;
 		this.maxPoints = maxPoints;
 		this.boxId = boxId;
 		this.name = name;
@@ -154,15 +146,14 @@ public class CardPresentationalData implements ICardPresentationalData {
 		this.five = five;
 		this.noQuality = noQuality;
 		this.cardOfBoxId = cardOfBoxId;
+		this.content = content;
 		this.boxName = boxName;
 		this.count = count;
 		this.last = last;
 		this.next = next;
 		this.quality = quality;
 		this.complex = complex;
-		this.given = given;
 		this.large = large;
-		this.wanted = wanted;
 		this.header = header;
 		this.lines = lines;
 		this.credentialsUsername = credentialsUsername;
@@ -184,38 +175,26 @@ public class CardPresentationalData implements ICardPresentationalData {
 	}
 	
 	@JsonProperty
-	public String getContent() {
-		return this.content;
+	public String getGiven() {
+		return this.given;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setGiven(String given) {
+		this.given = given;
 	}
-	public CardPresentationalData withContent(String content) {
-		this.content = content;
+	public CardPresentationalData withGiven(String given) {
+		this.given = given;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getTestId() {
-		return this.testId;
+	public String getWanted() {
+		return this.wanted;
 	}
-	public void setTestId(String testId) {
-		this.testId = testId;
+	public void setWanted(String wanted) {
+		this.wanted = wanted;
 	}
-	public CardPresentationalData withTestId(String testId) {
-		this.testId = testId;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getContentHash() {
-		return this.contentHash;
-	}
-	public void setContentHash(String contentHash) {
-		this.contentHash = contentHash;
-	}
-	public CardPresentationalData withContentHash(String contentHash) {
-		this.contentHash = contentHash;
+	public CardPresentationalData withWanted(String wanted) {
+		this.wanted = wanted;
 		return this;
 	}
 	
@@ -412,6 +391,18 @@ public class CardPresentationalData implements ICardPresentationalData {
 	}
 	
 	@JsonProperty
+	public String getContent() {
+		return this.content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public CardPresentationalData withContent(String content) {
+		this.content = content;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getBoxName() {
 		return this.boxName;
 	}
@@ -484,18 +475,6 @@ public class CardPresentationalData implements ICardPresentationalData {
 	}
 	
 	@JsonProperty
-	public String getGiven() {
-		return this.given;
-	}
-	public void setGiven(String given) {
-		this.given = given;
-	}
-	public CardPresentationalData withGiven(String given) {
-		this.given = given;
-		return this;
-	}
-	
-	@JsonProperty
 	public Boolean getLarge() {
 		return this.large;
 	}
@@ -504,18 +483,6 @@ public class CardPresentationalData implements ICardPresentationalData {
 	}
 	public CardPresentationalData withLarge(Boolean large) {
 		this.large = large;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getWanted() {
-		return this.wanted;
-	}
-	public void setWanted(String wanted) {
-		this.wanted = wanted;
-	}
-	public CardPresentationalData withWanted(String wanted) {
-		this.wanted = wanted;
 		return this;
 	}
 	

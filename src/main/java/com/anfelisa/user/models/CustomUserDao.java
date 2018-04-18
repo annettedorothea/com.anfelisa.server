@@ -5,10 +5,8 @@ import java.util.List;
 import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.Update;
 
-import com.anfelisa.user.data.AddCoursesData;
 import com.anfelisa.user.data.IUserRegistrationData;
 import com.anfelisa.user.data.PasswordUpdateData;
-import com.anfelisa.user.data.RemoveCourseData;
 import com.anfelisa.user.data.UserUpdateData;
 
 public class CustomUserDao {
@@ -30,24 +28,6 @@ public class CustomUserDao {
 				"UPDATE public.user SET role = :role WHERE username = :username");
 		statement.bind("username", userModel.getEditedUsername());
 		statement.bind("role", userModel.getRole());
-		statement.execute();
-	}
-
-	public void addCoursesToUser(Handle handle, AddCoursesData dataContainer) {
-		for (String courseId : dataContainer.getCourseIdList()) {
-			Update statement = handle.createStatement(
-					"INSERT INTO public.studentofcourse (username, courseId) VALUES (:username, :courseId)");
-			statement.bind("username", dataContainer.getCredentialsUsername());
-			statement.bind("courseId", courseId);
-			statement.execute();
-		}
-	}
-
-	public void removeCourseFromUser(Handle handle, RemoveCourseData dataContainer) {
-		Update statement = handle.createStatement(
-				"DELETE FROM public.studentofcourse WHERE username = :username AND courseId = :courseId");
-		statement.bind("username", dataContainer.getUsername());
-		statement.bind("courseId", dataContainer.getCourseId());
 		statement.execute();
 	}
 

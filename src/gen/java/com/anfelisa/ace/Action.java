@@ -86,13 +86,13 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 			AceController.addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle);
 			databaseHandle.rollbackTransaction();
 			LOG.error(actionName + " failed " + x.getMessage());
-			//x.printStackTrace();
+			x.printStackTrace();
 			return Response.status(x.getResponse().getStatusInfo()).entity(x.getMessage()).build();
 		} catch (Exception x) {
 			AceController.addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle);
 			databaseHandle.rollbackTransaction();
 			LOG.error(actionName + " failed " + x.getMessage());
-			//x.printStackTrace();
+			x.printStackTrace();
 			return Response.status(500).entity(x.getMessage()).build();
 		} finally {
 			databaseHandle.close();

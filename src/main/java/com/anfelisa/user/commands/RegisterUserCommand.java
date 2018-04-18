@@ -30,6 +30,8 @@ public class RegisterUserCommand extends AbstractRegisterUserCommand {
 		} else {
 			this.commandData.setRole(AuthUser.STUDENT);
 		}
+		this.commandData.setUserId(this.commandData.getUuid());
+		this.commandData.setEmailConfirmed(false);
 		this.commandData.setOutcome(ok);
 	}
 

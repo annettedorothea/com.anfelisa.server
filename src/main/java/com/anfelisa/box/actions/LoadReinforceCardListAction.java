@@ -1,7 +1,7 @@
 package com.anfelisa.box.actions;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -81,10 +81,11 @@ public class LoadReinforceCardListAction extends AbstractLoadReinforceCardListAc
 		List<IReinforceCardModel> reinforceCards = new ArrayList<>();
 		for (IScheduledCardModel scheduledCard : scheduledCards) {
 			ICardModel card = cardDao.selectByCardId(this.getHandle(), scheduledCard.getCardId());
-			String content = card.getContent();
+			//String content = card.getContent();
 			ObjectMapper mapper = new ObjectMapper();
 			try {
-				Map<Object, Object> cardContentModel = mapper.readValue(content, Map.class);
+				//Map<Object, Object> cardContentModel = mapper.readValue(content, Map.class);
+				Map<Object, Object> cardContentModel = new HashMap<>();
 				Boolean complex = (Boolean) cardContentModel.get("complex");
 				String given = (String) cardContentModel.get("given");
 				List<Map<Object, Object>> lineList = (List<Map<Object, Object>>) cardContentModel.get("lines");
@@ -107,9 +108,10 @@ public class LoadReinforceCardListAction extends AbstractLoadReinforceCardListAc
 				ReinforceCardModel reinforceCard = new ReinforceCardModel(scheduledCard.getScheduledCardId(),
 						scheduledCard.getScheduledDate(), scheduledCard.getLastQuality(), scheduledCard.getTimestamp(), cardContent);
 				reinforceCards.add(reinforceCard);
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-				throw new WebApplicationException("cannot parse " + content + ".");
+				//throw new WebApplicationException("cannot parse " + content + ".");
+				throw new WebApplicationException("cannot parse card.");
 			}
 
 			this.actionData.setList(reinforceCards);

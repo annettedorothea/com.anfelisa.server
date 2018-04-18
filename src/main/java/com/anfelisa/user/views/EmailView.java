@@ -8,7 +8,6 @@ import java.util.function.BiConsumer;
 import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.ace.EmailService;
-import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.user.data.ForgotPasswordData;
 import com.anfelisa.user.data.UserRegistrationData;
 

@@ -16,25 +16,49 @@ import com.anfelisa.ace.encryption.EncryptionService;
 public class UserDao {
 	
 	public void insert(Handle handle, IUserModel userModel) {
-		Update statement = handle.createStatement("INSERT INTO public.user (username, password, email, role, emailconfirmed, deleted) VALUES (:username, :password, :email, :role, :emailconfirmed, :deleted)");
+		Update statement = handle.createStatement("INSERT INTO public.user (userid, username, password, email, role, emailconfirmed) VALUES (:userid, :username, :password, :email, :role, :emailconfirmed)");
+		statement.bind("userid",  userModel.getUserId() );
 		statement.bind("username",  userModel.getUsername() );
 		statement.bind("password",  userModel.getPassword() );
 		statement.bind("email",  userModel.getEmail() );
 		statement.bind("role",  userModel.getRole() );
 		statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
-		statement.bind("deleted",  userModel.getDeleted() );
 		statement.execute();
 	}
 	
 	
-	public void updateByUsername(Handle handle, IUserModel userModel) {
-		Update statement = handle.createStatement("UPDATE public.user SET username = :username, password = :password, email = :email, role = :role, emailconfirmed = :emailconfirmed, deleted = :deleted WHERE username = :username");
+	public void updateByUserId(Handle handle, IUserModel userModel) {
+		Update statement = handle.createStatement("UPDATE public.user SET userid = :userid, username = :username, password = :password, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE userid = :userid");
+		statement.bind("userid",  userModel.getUserId() );
 		statement.bind("username",  userModel.getUsername() );
 		statement.bind("password",  userModel.getPassword() );
 		statement.bind("email",  userModel.getEmail() );
 		statement.bind("role",  userModel.getRole() );
 		statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
-		statement.bind("deleted",  userModel.getDeleted() );
+		statement.bind("userid",  userModel.getUserId()  );
+		statement.execute();
+	}
+
+	public void deleteByUserId(Handle handle, String userId) {
+		Update statement = handle.createStatement("DELETE FROM public.user WHERE userid = :userid");
+		statement.bind("userid", userId);
+		statement.execute();
+	}
+
+	public IUserModel selectByUserId(Handle handle, String userId) {
+		return handle.createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM public.user WHERE userid = :userid")
+			.bind("userid", userId)
+			.map(new UserMapper())
+			.first();
+	}
+	public void updateByUsername(Handle handle, IUserModel userModel) {
+		Update statement = handle.createStatement("UPDATE public.user SET userid = :userid, username = :username, password = :password, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE username = :username");
+		statement.bind("userid",  userModel.getUserId() );
+		statement.bind("username",  userModel.getUsername() );
+		statement.bind("password",  userModel.getPassword() );
+		statement.bind("email",  userModel.getEmail() );
+		statement.bind("role",  userModel.getRole() );
+		statement.bind("emailconfirmed",  userModel.getEmailConfirmed() );
 		statement.bind("username",  userModel.getUsername()  );
 		statement.execute();
 	}
@@ -46,14 +70,14 @@ public class UserDao {
 	}
 
 	public IUserModel selectByUsername(Handle handle, String username) {
-		return handle.createQuery("SELECT username, password, email, role, emailconfirmed, deleted FROM public.user WHERE username = :username")
+		return handle.createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM public.user WHERE username = :username")
 			.bind("username", username)
 			.map(new UserMapper())
 			.first();
 	}
 	
 	public List<IUserModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT username, password, email, role, emailconfirmed, deleted FROM public.user")
+		return handle.createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM public.user")
 			.map(new UserMapper())
 			.list();
 	}

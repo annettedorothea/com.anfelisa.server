@@ -3,9 +3,7 @@ com.anfelisa.user
 target JAVA
 
 ACE {
-	GET GetPoints uses Points
 	GET GetUserInfo uses UserInfo
-	GET GetCourseSelection uses CourseSelection
 	GET UsernameAvailable uses UsernameAvailable
 	GET GetRole uses Role
 	GET GetAllUsers uses UserList
@@ -15,12 +13,6 @@ ACE {
 	}
 	PUT UpdateUser uses UserUpdate {
 		on success ( User.updateUser )
-	}
-	POST AddCourses uses AddCourses {
-		on success (User.addCourses)
-	}
-	DELETE RemoveCourse uses RemoveCourse {
-		on success (User.removeCourse)
 	}
 	PUT UpdatePassword uses PasswordUpdate {
 		on success (User.updatePassword)
@@ -46,8 +38,6 @@ views {
 	User {
 		createUser(UserCreation)
 		updateUser(UserUpdate)
-		addCourses(AddCourses)
-		removeCourse(RemoveCourse)
 		updatePassword(PasswordUpdate)
 		registerUser(UserRegistration)
 		confirmEmail(Username)
@@ -66,17 +56,17 @@ views {
 models {
 	schema public
 	persistent User {
-		Unique PrimaryKey NotNull String username
+		Unique PrimaryKey NotNull String userId
+		Unique NotNull String username
 		NotNull String password
 		NotNull String email
 		NotNull String role
 		NotNull Boolean emailConfirmed
-		NotNull Boolean deleted
 	}
 
 	persistent LoginLog {
 		Unique PrimaryKey NotNull String loginLogId
-		NotNull String username references User.username
+		NotNull String username
 		NotNull DateTime date
 	} 
 
@@ -133,27 +123,17 @@ models {
 	UserList {
 		List User userList
 	}
-	UserRegistration {
-		NotNull String username
-		NotNull String password
-		NotNull String email
-		NotNull String role
-	}
 }
 
 data {
 	UserCreation : ( User )
 	Login : ( LoginLog Username )
-	Points : ( Points Username )
-	UserInfo : (User com.anfelisa.course.CourseList com.anfelisa.box.MyBoxList Username)
+	UserInfo : (User com.anfelisa.box.MyBoxList Username)
 	UserUpdate : (UserRoleUpdate Credentials)
-	CourseSelection : (com.anfelisa.course.CourseList Credentials)
-	AddCourses : (CourseSelection Credentials)
-	RemoveCourse : (CourseId Username)
 	PasswordUpdate : (Credentials UserPasswordUpdate)
 	ForgotPassword : (ForgotPassword Language)
 	UsernameAvailable : (Username Available)
-	UserRegistration : (UserRegistration Language)
+	UserRegistration : (User Language)
 	DeleteUser : ( Credentials DeleteUser)
 	Username : (Username)
 	ChangeUserRole : (Username Role)

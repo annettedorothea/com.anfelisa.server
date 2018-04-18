@@ -25,14 +25,6 @@ public class CustomBoxDao {
 		statement.execute();
 	}
 
-	public IBoxOfCourseModel selectBoxOfCourse(Handle handle, String courseId, String username,
-			String boxId) {
-		return handle
-				.createQuery("SELECT bc.* FROM public.boxofcourse bc INNER JOIN public.box b on bc.boxId = b.boxId WHERE bc.courseId = :courseId AND b.username = :username AND bc.boxId = :boxId")
-				.bind("courseId", courseId).bind("username", username).bind("boxId", boxId).map(new BoxOfCourseMapper())
-				.first();
-	}
-
 	public List<IBoxModel> selectBoxesWhereCardMightBeAddedAfterEdit(Handle handle,
 			String testId, String username) {
 		return handle

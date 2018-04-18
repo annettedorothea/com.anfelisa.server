@@ -1,10 +1,9 @@
 package com.anfelisa.user.events;
 
-import com.anfelisa.ace.DatabaseHandle;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.user.data.LoginData;
 
 public class LoginSuccessEvent extends AbstractLoginSuccessEvent {

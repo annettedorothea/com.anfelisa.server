@@ -5,12 +5,12 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=UserModel.class)
 public interface IUserModel {
 
+	String getUserId();
 	String getUsername();
 	String getPassword();
 	String getEmail();
 	String getRole();
 	Boolean getEmailConfirmed();
-	Boolean getDeleted();
 
 }
 

@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.CardCreationData;
 import com.anfelisa.box.models.CustomCardDao;
-import com.anfelisa.box.models.ICardModel;
 
 public class ImportCardCommand extends AbstractImportCardCommand {
 
@@ -20,7 +19,7 @@ public class ImportCardCommand extends AbstractImportCardCommand {
 
 	@Override
 	protected void executeCommand() {
-		ICardModel existingCard = customCardDao.selectByTestIdAndContentHash(this.getHandle(),
+		/*ICardModel existingCard = customCardDao.selectByTestIdAndContentHash(this.getHandle(),
 				this.commandData.getTestId(), this.commandData.getContentHash());
 		if (existingCard != null) {
 			this.commandData.setCardId(existingCard.getCardId());
@@ -28,7 +27,7 @@ public class ImportCardCommand extends AbstractImportCardCommand {
 		} else {
 			this.commandData.setCardId(this.commandData.getUuid());
 			this.commandData.setOutcome(imported);
-		}
+		}*/
 	}
 
 }

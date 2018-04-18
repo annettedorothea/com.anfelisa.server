@@ -6,7 +6,6 @@ ACE {
 	GET LoadBoxes uses BoxList
 	GET LoadNextCard uses Card
 	GET LoadBox uses BoxId
-	GET LoadBoxOfCourseList uses BoxOfCourseList
 	GET GetAllBoxes uses AllBoxes
 	GET LoadReinforceCardList uses ReinforceCardList
 	
@@ -26,17 +25,11 @@ ACE {
 	POST CreateScoredCard uses ScoredCard {
 		on created (ScoredCard.createScoredCard)
 	}
-	POST AddCourseToBox uses BoxToCourseAddition {
-		on added ( BoxToCourse.addCourseToBox  )
-	}
 	PUT UpdateBox uses BoxCreation {
 		on updated ( Box.updateBox )
 	}
 	DELETE DeleteBox uses DeleteBox {
 		on deleted (Box.deleteBox)
-	}
-	PUT SaveBoxConfig uses BoxConfig {
-		on saved (BoxToCourse.saveBoxConfig)
 	}
 	POST ScoreCard uses ScoreCard {
 		on scored (ScoredCard.score ScheduledCard.score)
@@ -62,10 +55,6 @@ views {
 		deleteBox (DeleteBox)
 		fillBoxWithCards (FillBox)
 	}
-	BoxToCourse {
-		addCourseToBox (BoxToCourseAddition)
-		saveBoxConfig(BoxConfig)
-	}
 	Card {
 		createCard (CardCreation)
 		deleteCard(CardId)
@@ -87,20 +76,13 @@ models {
 	persistent Box {
 		Unique PrimaryKey NotNull String boxId
 		NotNull String name
-		NotNull String username references com.anfelisa.user.User.username
-	}
-
-	persistent BoxOfCourse {
-		NotNull String boxId references Box.boxId
-		NotNull String courseId references com.anfelisa.course.Course.courseId
-		NotNull Boolean autoAdd
+		NotNull String username references com.anfelisa.user.User.userId
 	}
 
 	persistent Card {
 		Unique PrimaryKey NotNull String cardId
-		NotEmpty String content
-		NotNull String testId references com.anfelisa.test.Test.testId
-		NotNull String contentHash
+		NotEmpty String given
+		NotEmpty String wanted
 		NotNull Integer maxPoints
 	}
 
@@ -202,12 +184,6 @@ models {
 		NotNull String name
 	}
 	
-	CourseToBoxAdditionList {
-		NotNull String boxId 
-		NotNull String boxName 
-		List CourseToBoxAddition courseToBoxAdditionList
-	}
-	
 	BoxId {
 		NotNull String boxId 
 	}
@@ -216,12 +192,6 @@ models {
 		NotNull String cardId
 		NotNull String testId
 		NotNull String contentHash 
-	}
-	
-	BoxConfig {
-		NotNull String boxId 
-		List BoxOfCourse boxOfCourseList
-		List BoxOfCourse existingItems
 	}
 	
 	CardQuality {
@@ -256,16 +226,13 @@ models {
 
 data {
 	BoxCreation : ( Box com.anfelisa.user.Credentials )
-	BoxToCourseAddition : ( BoxOfCourse com.anfelisa.user.Credentials )
 	CardCreation : ( Card )
 	ScheduledCard : ( ScheduledCard )
 	ScoredCard : ( ScoredCard )
 	BoxList : ( BoxList com.anfelisa.user.Username )
 	Card : ( Card Box Score CardInfo CardContent com.anfelisa.user.Credentials DaysBehind )
 	BoxId : ( Box com.anfelisa.user.Credentials )
-	BoxOfCourseList : (CourseToBoxAdditionList com.anfelisa.user.Credentials)
 	DeleteBox : (BoxId com.anfelisa.user.Credentials)
-	BoxConfig : (BoxConfig com.anfelisa.user.Username com.anfelisa.user.Credentials)
 	ScoreCard : (Card ScheduledCard ScoredCard CardQuality com.anfelisa.user.Credentials )
 	FillBox : (FillBox com.anfelisa.user.Credentials)
 	CardId : (CardId)

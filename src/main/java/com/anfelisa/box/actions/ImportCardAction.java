@@ -1,7 +1,6 @@
 package com.anfelisa.box.actions;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.NotNull;
@@ -38,8 +37,8 @@ public class ImportCardAction extends AbstractImportCardAction {
 	@RolesAllowed({ AuthUser.AUTHOR, AuthUser.ADMIN })
 	public Response post(@NotNull CardCreationData actionParam)
 			throws JsonProcessingException, UnsupportedEncodingException {
-		String decodedContent = URLDecoder.decode(actionParam.getContent(), "UTF-8");
-		actionParam.setContent(decodedContent);
+		//String decodedContent = URLDecoder.decode(actionParam.getContent(), "UTF-8");
+		//actionParam.setContent(decodedContent);
 		this.actionData = actionParam;
 		return this.apply();
 	}

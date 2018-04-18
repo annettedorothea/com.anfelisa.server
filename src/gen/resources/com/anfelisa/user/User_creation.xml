@@ -1,6 +1,9 @@
 <createTable tableName="user">
-	<column name="username" type="character varying">
+	<column name="userid" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
+	</column>
+	<column name="username" type="character varying">
+		<constraints  nullable="false"  />
 	</column>
 	<column name="password" type="character varying">
 		<constraints  nullable="false"  />
@@ -12,9 +15,6 @@
 		<constraints  nullable="false"  />
 	</column>
 	<column name="emailconfirmed" type="boolean">
-		<constraints  nullable="false"  />
-	</column>
-	<column name="deleted" type="boolean">
 		<constraints  nullable="false"  />
 	</column>
 </createTable>

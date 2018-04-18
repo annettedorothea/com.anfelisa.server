@@ -16,6 +16,9 @@ import com.anfelisa.user.models.IUserModel;
 public class UserCreationPresentationalData implements IUserCreationPresentationalData {
 	
 	@NotNull
+	private String userId;
+	
+	@NotNull
 	private String username;
 	
 	@NotNull
@@ -30,27 +33,36 @@ public class UserCreationPresentationalData implements IUserCreationPresentation
 	@NotNull
 	private Boolean emailConfirmed = false;
 	
-	@NotNull
-	private Boolean deleted = false;
-	
 	
 	public UserCreationPresentationalData(
+		@JsonProperty("userId") String userId,
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
-		@JsonProperty("deleted") Boolean deleted
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed
 	) {
+		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
-		this.deleted = deleted;
 		
 	}
 
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public UserCreationPresentationalData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
@@ -108,18 +120,6 @@ public class UserCreationPresentationalData implements IUserCreationPresentation
 	}
 	public UserCreationPresentationalData withEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getDeleted() {
-		return this.deleted;
-	}
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
-	public UserCreationPresentationalData withDeleted(Boolean deleted) {
-		this.deleted = deleted;
 		return this;
 	}
 	

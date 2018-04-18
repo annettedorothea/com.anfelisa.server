@@ -8,6 +8,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class UserModel implements IUserModel {
 
 	@NotNull
+	private String userId;
+	
+	@NotNull
 	private String username;
 	
 	@NotNull
@@ -22,26 +25,31 @@ public class UserModel implements IUserModel {
 	@NotNull
 	private Boolean emailConfirmed = false;
 	
-	@NotNull
-	private Boolean deleted = false;
-	
 
 	public UserModel(
+		@JsonProperty("userId") String userId,
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
-		@JsonProperty("deleted") Boolean deleted
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed
 	) {
+		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
-		this.deleted = deleted;
 	}
 
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
@@ -80,14 +88,6 @@ public class UserModel implements IUserModel {
 	}
 	public void setEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
-	}
-	
-	@JsonProperty
-	public Boolean getDeleted() {
-		return this.deleted;
-	}
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
 	}
 	
 

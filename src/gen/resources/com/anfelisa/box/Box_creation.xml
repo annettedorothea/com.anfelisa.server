@@ -6,6 +6,6 @@
 		<constraints  nullable="false"  />
 	</column>
 	<column name="username" type="character varying">
-		<constraints  nullable="false" 	references="user(username)" deleteCascade="true" foreignKeyName="fk_box_username" />
+		<constraints  nullable="false" 	references="user(userid)" deleteCascade="true" foreignKeyName="fk_box_userid" />
 	</column>
 </createTable>

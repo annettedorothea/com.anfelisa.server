@@ -11,13 +11,10 @@ public class CardModel implements ICardModel {
 	private String cardId;
 	
 	@NotEmpty
-	private String content;
+	private String given;
 	
-	@NotNull
-	private String testId;
-	
-	@NotNull
-	private String contentHash;
+	@NotEmpty
+	private String wanted;
 	
 	@NotNull
 	private Integer maxPoints;
@@ -25,15 +22,13 @@ public class CardModel implements ICardModel {
 
 	public CardModel(
 		@JsonProperty("cardId") String cardId,
-		@JsonProperty("content") String content,
-		@JsonProperty("testId") String testId,
-		@JsonProperty("contentHash") String contentHash,
+		@JsonProperty("given") String given,
+		@JsonProperty("wanted") String wanted,
 		@JsonProperty("maxPoints") Integer maxPoints
 	) {
 		this.cardId = cardId;
-		this.content = content;
-		this.testId = testId;
-		this.contentHash = contentHash;
+		this.given = given;
+		this.wanted = wanted;
 		this.maxPoints = maxPoints;
 	}
 
@@ -46,27 +41,19 @@ public class CardModel implements ICardModel {
 	}
 	
 	@JsonProperty
-	public String getContent() {
-		return this.content;
+	public String getGiven() {
+		return this.given;
 	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	
-	@JsonProperty
-	public String getTestId() {
-		return this.testId;
-	}
-	public void setTestId(String testId) {
-		this.testId = testId;
+	public void setGiven(String given) {
+		this.given = given;
 	}
 	
 	@JsonProperty
-	public String getContentHash() {
-		return this.contentHash;
+	public String getWanted() {
+		return this.wanted;
 	}
-	public void setContentHash(String contentHash) {
-		this.contentHash = contentHash;
+	public void setWanted(String wanted) {
+		this.wanted = wanted;
 	}
 	
 	@JsonProperty

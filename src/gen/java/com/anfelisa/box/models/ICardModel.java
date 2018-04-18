@@ -6,9 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface ICardModel {
 
 	String getCardId();
-	String getContent();
-	String getTestId();
-	String getContentHash();
+	String getGiven();
+	String getWanted();
 	Integer getMaxPoints();
 
 }

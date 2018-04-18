@@ -10,11 +10,14 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.user.models.IUserRegistrationModel;
+import com.anfelisa.user.models.IUserModel;
 import com.anfelisa.user.models.ILanguageModel;
 
 @SuppressWarnings("all")
 public class UserRegistrationPresentationalData implements IUserRegistrationPresentationalData {
+	
+	@NotNull
+	private String userId;
 	
 	@NotNull
 	private String username;
@@ -29,24 +32,43 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 	private String role;
 	
 	@NotNull
+	private Boolean emailConfirmed = false;
+	
+	@NotNull
 	private String language;
 	
 	
 	public UserRegistrationPresentationalData(
+		@JsonProperty("userId") String userId,
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
 		@JsonProperty("language") String language
 	) {
+		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.role = role;
+		this.emailConfirmed = emailConfirmed;
 		this.language = language;
 		
 	}
 
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public UserRegistrationPresentationalData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
@@ -92,6 +114,18 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 	}
 	public UserRegistrationPresentationalData withRole(String role) {
 		this.role = role;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getEmailConfirmed() {
+		return this.emailConfirmed;
+	}
+	public void setEmailConfirmed(Boolean emailConfirmed) {
+		this.emailConfirmed = emailConfirmed;
+	}
+	public UserRegistrationPresentationalData withEmailConfirmed(Boolean emailConfirmed) {
+		this.emailConfirmed = emailConfirmed;
 		return this;
 	}
 	

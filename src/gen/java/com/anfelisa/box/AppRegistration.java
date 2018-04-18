@@ -10,7 +10,6 @@ import com.anfelisa.box.views.BoxView;
 import com.anfelisa.box.views.CardView;
 import com.anfelisa.box.views.ScheduledCardView;
 import com.anfelisa.box.views.ScoredCardView;
-import com.anfelisa.box.views.BoxToCourseView;
 import com.anfelisa.box.actions.*;
 
 @SuppressWarnings("all")
@@ -20,7 +19,6 @@ public class AppRegistration {
 		environment.jersey().register(new LoadBoxesAction(jdbi));
 		environment.jersey().register(new LoadNextCardAction(jdbi));
 		environment.jersey().register(new LoadBoxAction(jdbi));
-		environment.jersey().register(new LoadBoxOfCourseListAction(jdbi));
 		environment.jersey().register(new GetAllBoxesAction(jdbi));
 		environment.jersey().register(new LoadReinforceCardListAction(jdbi));
 		environment.jersey().register(new CreateBoxAction(jdbi));
@@ -28,10 +26,8 @@ public class AppRegistration {
 		environment.jersey().register(new ImportCardAction(jdbi));
 		environment.jersey().register(new CreateScheduledCardAction(jdbi));
 		environment.jersey().register(new CreateScoredCardAction(jdbi));
-		environment.jersey().register(new AddCourseToBoxAction(jdbi));
 		environment.jersey().register(new UpdateBoxAction(jdbi));
 		environment.jersey().register(new DeleteBoxAction(jdbi));
-		environment.jersey().register(new SaveBoxConfigAction(jdbi));
 		environment.jersey().register(new ScoreCardAction(jdbi));
 		environment.jersey().register(new FillBoxWithCardsAction(jdbi));
 		environment.jersey().register(new DeleteCardAction(jdbi));
@@ -45,10 +41,8 @@ public class AppRegistration {
 				AceController.addConsumer("com.anfelisa.box.events.ImportCardImportedEvent", CardView.createCard);
 				AceController.addConsumer("com.anfelisa.box.events.CreateScheduledCardCreatedEvent", ScheduledCardView.createScheduledCard);
 				AceController.addConsumer("com.anfelisa.box.events.CreateScoredCardCreatedEvent", ScoredCardView.createScoredCard);
-				AceController.addConsumer("com.anfelisa.box.events.AddCourseToBoxAddedEvent", BoxToCourseView.addCourseToBox);
 				AceController.addConsumer("com.anfelisa.box.events.UpdateBoxUpdatedEvent", BoxView.updateBox);
 				AceController.addConsumer("com.anfelisa.box.events.DeleteBoxDeletedEvent", BoxView.deleteBox);
-				AceController.addConsumer("com.anfelisa.box.events.SaveBoxConfigSavedEvent", BoxToCourseView.saveBoxConfig);
 				AceController.addConsumer("com.anfelisa.box.events.ScoreCardScoredEvent", ScoredCardView.score);
 				AceController.addConsumer("com.anfelisa.box.events.ScoreCardScoredEvent", ScheduledCardView.score);
 				AceController.addConsumer("com.anfelisa.box.events.FillBoxWithCardsFillBoxWithCardsEvent", BoxView.fillBoxWithCards);

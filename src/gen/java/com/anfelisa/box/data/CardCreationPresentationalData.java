@@ -19,13 +19,10 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 	private String cardId;
 	
 	@NotEmpty
-	private String content;
+	private String given;
 	
-	@NotNull
-	private String testId;
-	
-	@NotNull
-	private String contentHash;
+	@NotEmpty
+	private String wanted;
 	
 	@NotNull
 	private Integer maxPoints;
@@ -33,15 +30,13 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 	
 	public CardCreationPresentationalData(
 		@JsonProperty("cardId") String cardId,
-		@JsonProperty("content") String content,
-		@JsonProperty("testId") String testId,
-		@JsonProperty("contentHash") String contentHash,
+		@JsonProperty("given") String given,
+		@JsonProperty("wanted") String wanted,
 		@JsonProperty("maxPoints") Integer maxPoints
 	) {
 		this.cardId = cardId;
-		this.content = content;
-		this.testId = testId;
-		this.contentHash = contentHash;
+		this.given = given;
+		this.wanted = wanted;
 		this.maxPoints = maxPoints;
 		
 	}
@@ -59,38 +54,26 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 	}
 	
 	@JsonProperty
-	public String getContent() {
-		return this.content;
+	public String getGiven() {
+		return this.given;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setGiven(String given) {
+		this.given = given;
 	}
-	public CardCreationPresentationalData withContent(String content) {
-		this.content = content;
+	public CardCreationPresentationalData withGiven(String given) {
+		this.given = given;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getTestId() {
-		return this.testId;
+	public String getWanted() {
+		return this.wanted;
 	}
-	public void setTestId(String testId) {
-		this.testId = testId;
+	public void setWanted(String wanted) {
+		this.wanted = wanted;
 	}
-	public CardCreationPresentationalData withTestId(String testId) {
-		this.testId = testId;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getContentHash() {
-		return this.contentHash;
-	}
-	public void setContentHash(String contentHash) {
-		this.contentHash = contentHash;
-	}
-	public CardCreationPresentationalData withContentHash(String contentHash) {
-		this.contentHash = contentHash;
+	public CardCreationPresentationalData withWanted(String wanted) {
+		this.wanted = wanted;
 		return this;
 	}
 	

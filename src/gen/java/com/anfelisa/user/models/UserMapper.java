@@ -13,12 +13,12 @@ public class UserMapper implements ResultSetMapper<IUserModel> {
 	
 	public IUserModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserModel(
+			r.getString("userId"),
 			r.getString("username"),
 			r.getString("password"),
 			r.getString("email"),
 			r.getString("role"),
-			r.getBoolean("emailConfirmed"),
-			r.getBoolean("deleted")
+			r.getBoolean("emailConfirmed")
 		);
 	}
 }

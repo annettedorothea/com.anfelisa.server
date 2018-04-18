@@ -15,16 +15,12 @@ import com.anfelisa.user.actions.*;
 public class AppRegistration {
 
 	public static void registerResources(Environment environment, DBI jdbi) {
-		environment.jersey().register(new GetPointsAction(jdbi));
 		environment.jersey().register(new GetUserInfoAction(jdbi));
-		environment.jersey().register(new GetCourseSelectionAction(jdbi));
 		environment.jersey().register(new UsernameAvailableAction(jdbi));
 		environment.jersey().register(new GetRoleAction(jdbi));
 		environment.jersey().register(new GetAllUsersAction(jdbi));
 		environment.jersey().register(new LoginAction(jdbi));
 		environment.jersey().register(new UpdateUserAction(jdbi));
-		environment.jersey().register(new AddCoursesAction(jdbi));
-		environment.jersey().register(new RemoveCourseAction(jdbi));
 		environment.jersey().register(new UpdatePasswordAction(jdbi));
 		environment.jersey().register(new ForgotPasswordAction(jdbi));
 		environment.jersey().register(new RegisterUserAction(jdbi));
@@ -36,8 +32,6 @@ public class AppRegistration {
 	public static void registerConsumers() {
 				AceController.addConsumer("com.anfelisa.user.events.LoginSuccessEvent", LoginLogView.userLoggedIn);
 				AceController.addConsumer("com.anfelisa.user.events.UpdateUserSuccessEvent", UserView.updateUser);
-				AceController.addConsumer("com.anfelisa.user.events.AddCoursesSuccessEvent", UserView.addCourses);
-				AceController.addConsumer("com.anfelisa.user.events.RemoveCourseSuccessEvent", UserView.removeCourse);
 				AceController.addConsumer("com.anfelisa.user.events.UpdatePasswordSuccessEvent", UserView.updatePassword);
 		if (AceController.getAceExecutionMode() == AceExecutionMode.LIVE || AceController.getAceExecutionMode() == AceExecutionMode.DEV) {
 			AceController.addConsumer("com.anfelisa.user.events.ForgotPasswordOkEvent", EmailView.sendForgotPasswordEmail);
