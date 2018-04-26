@@ -60,13 +60,6 @@ public class CustomUserDao {
 			.list();
 	}
 
-	public void deleteUser(Handle handle, String username) {
-		Update statement = handle
-				.createStatement("UPDATE public.user SET deleted = 'true' WHERE username = :username");
-		statement.bind("username", username);
-		statement.execute();
-	}
-	
 	public void insert(Handle handle, IUserRegistrationData userModel) {
 		Update statement = handle.createStatement("INSERT INTO public.user (username, password, email, role, emailconfirmed, deleted) VALUES (:username, :password, :email, :role, false, false)");
 		statement.bind("username",  userModel.getUsername() );

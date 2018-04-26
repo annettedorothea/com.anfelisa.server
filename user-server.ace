@@ -8,9 +8,6 @@ ACE {
 	GET GetRole uses Role
 	GET GetAllUsers uses UserList
 
-	POST Login uses Login {
-		on success (LoginLog.userLoggedIn)
-	}
 	PUT UpdateUser uses UserUpdate {
 		on success ( User.updateUser )
 	}
@@ -44,9 +41,6 @@ views {
 		changeUserRole(ChangeUserRole)
 		deleteUser(Username)
 	}
-	LoginLog {
-		userLoggedIn(Login)
-	}
 	external Email {
 		sendForgotPasswordEmail(ForgotPassword)
 		sendRegistrationEmail(UserRegistration)
@@ -63,12 +57,6 @@ models {
 		NotNull String role
 		NotNull Boolean emailConfirmed
 	}
-
-	persistent LoginLog {
-		Unique PrimaryKey NotNull String loginLogId
-		NotNull String username
-		NotNull DateTime date
-	} 
 
 	Credentials {
 		String credentialsUsername
@@ -127,7 +115,6 @@ models {
 
 data {
 	UserCreation : ( User )
-	Login : ( LoginLog Username )
 	UserInfo : (User com.anfelisa.box.MyBoxList Username)
 	UserUpdate : (UserRoleUpdate Credentials)
 	PasswordUpdate : (Credentials UserPasswordUpdate)

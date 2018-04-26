@@ -39,7 +39,7 @@ public class UserView {
 	};
 
 	public static BiConsumer<DeleteUserData, Handle> deleteUser = (dataContainer, handle) -> {
-		customUserDao.deleteUser(handle, dataContainer.getDeletedUsername());
+		userDao.deleteByUsername(handle, dataContainer.getDeletedUsername());
 	};
 
 }

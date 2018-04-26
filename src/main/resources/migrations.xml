@@ -93,4 +93,10 @@
 
 	</changeSet>
 
+	<changeSet id="003" author="annette">
+
+		<dropTable tableName="loginlog"/>
+
+	</changeSet>
+
 </databaseChangeLog>

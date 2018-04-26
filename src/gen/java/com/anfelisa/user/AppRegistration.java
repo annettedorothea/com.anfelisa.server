@@ -6,7 +6,6 @@ import com.anfelisa.ace.AceExecutionMode;
 
 import org.skife.jdbi.v2.DBI;
 
-import com.anfelisa.user.views.LoginLogView;
 import com.anfelisa.user.views.UserView;
 import com.anfelisa.user.views.EmailView;
 import com.anfelisa.user.actions.*;
@@ -19,7 +18,6 @@ public class AppRegistration {
 		environment.jersey().register(new UsernameAvailableAction(jdbi));
 		environment.jersey().register(new GetRoleAction(jdbi));
 		environment.jersey().register(new GetAllUsersAction(jdbi));
-		environment.jersey().register(new LoginAction(jdbi));
 		environment.jersey().register(new UpdateUserAction(jdbi));
 		environment.jersey().register(new UpdatePasswordAction(jdbi));
 		environment.jersey().register(new ForgotPasswordAction(jdbi));
@@ -30,7 +28,6 @@ public class AppRegistration {
 	}
 
 	public static void registerConsumers() {
-				AceController.addConsumer("com.anfelisa.user.events.LoginSuccessEvent", LoginLogView.userLoggedIn);
 				AceController.addConsumer("com.anfelisa.user.events.UpdateUserSuccessEvent", UserView.updateUser);
 				AceController.addConsumer("com.anfelisa.user.events.UpdatePasswordSuccessEvent", UserView.updatePassword);
 		if (AceController.getAceExecutionMode() == AceExecutionMode.LIVE || AceController.getAceExecutionMode() == AceExecutionMode.DEV) {
