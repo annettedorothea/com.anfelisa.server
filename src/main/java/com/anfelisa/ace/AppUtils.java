@@ -19,11 +19,11 @@ public class AppUtils {
 	private static UserDao userDao = new UserDao();
 
 	public static void truncateAllViews(Handle handle) {
-		scoredCardDao.truncate(handle);
-		scheduledCardDao.truncate(handle);
-		cardDao.truncate(handle);
+		//scoredCardDao.truncate(handle);
+		//scheduledCardDao.truncate(handle);
+		//cardDao.truncate(handle);
 		loginLogDao.truncate(handle);
-		boxDao.truncate(handle);
+		//boxDao.truncate(handle);
 		userDao.truncate(handle);
 	}
 
