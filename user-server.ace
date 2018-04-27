@@ -3,7 +3,7 @@ com.anfelisa.user
 target JAVA
 
 ACE {
-	GET GetUserInfo uses UserInfo
+	GET GetUserProfile uses User
 	GET UsernameAvailable uses UsernameAvailable
 	GET GetRole uses Role
 	GET GetAllUsers uses UserList
@@ -115,7 +115,8 @@ models {
 
 data {
 	UserCreation : ( User )
-	UserInfo : (User com.anfelisa.box.MyBoxList Username)
+	UserInfo : (User com.anfelisa.box.MyBoxList)
+	User : ( User )
 	UserUpdate : (UserRoleUpdate Credentials)
 	PasswordUpdate : (Credentials UserPasswordUpdate)
 	ForgotPassword : (ForgotPassword Language)

@@ -1,20 +1,15 @@
 package com.anfelisa.user.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
 
-import com.anfelisa.ace.IDataContainer;
+import com.anfelisa.ace.AbstractData;
 
-import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.box.models.IMyBoxListModel;
-
-@SuppressWarnings("all")
-public class UserInfoPresentationalData implements IUserInfoPresentationalData {
+public class UserData extends AbstractData implements IUserData {
 	
 	@NotNull
 	private String userId;
@@ -34,26 +29,27 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	@NotNull
 	private Boolean emailConfirmed = false;
 	
-	private java.util.List<com.anfelisa.box.models.IBoxModel> boxList;
-	
-	
-	public UserInfoPresentationalData(
+
+	public UserData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
-		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxModel> boxList
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed
+,		@JsonProperty("uuid") String uuid
 	) {
+		super(uuid);
 		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
-		this.boxList = boxList;
-		
+	}
+
+	public UserData( String uuid ) {
+		super(uuid);
 	}
 
 	@JsonProperty
@@ -63,7 +59,7 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public UserInfoPresentationalData withUserId(String userId) {
+	public UserData withUserId(String userId) {
 		this.userId = userId;
 		return this;
 	}
@@ -75,7 +71,7 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public UserInfoPresentationalData withUsername(String username) {
+	public UserData withUsername(String username) {
 		this.username = username;
 		return this;
 	}
@@ -87,7 +83,7 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public UserInfoPresentationalData withPassword(String password) {
+	public UserData withPassword(String password) {
 		this.password = password;
 		return this;
 	}
@@ -99,7 +95,7 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public UserInfoPresentationalData withEmail(String email) {
+	public UserData withEmail(String email) {
 		this.email = email;
 		return this;
 	}
@@ -111,7 +107,7 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public UserInfoPresentationalData withRole(String role) {
+	public UserData withRole(String role) {
 		this.role = role;
 		return this;
 	}
@@ -123,23 +119,24 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	public void setEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
 	}
-	public UserInfoPresentationalData withEmailConfirmed(Boolean emailConfirmed) {
+	public UserData withEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
 		return this;
 	}
 	
-	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxModel> getBoxList() {
-		return this.boxList;
+
+	@Override
+	public Object toPresentationalData() {
+		return new UserPresentationalData(
+			this.userId,
+			this.username,
+			this.password,
+			this.email,
+			this.role,
+			this.emailConfirmed
+		);
 	}
-	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxModel> boxList) {
-		this.boxList = boxList;
-	}
-	public UserInfoPresentationalData withBoxList(java.util.List<com.anfelisa.box.models.IBoxModel> boxList) {
-		this.boxList = boxList;
-		return this;
-	}
-	
+
 }
 
 /*       S.D.G.       */

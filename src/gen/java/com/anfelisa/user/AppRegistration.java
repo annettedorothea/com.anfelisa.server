@@ -14,7 +14,7 @@ import com.anfelisa.user.actions.*;
 public class AppRegistration {
 
 	public static void registerResources(Environment environment, DBI jdbi) {
-		environment.jersey().register(new GetUserInfoAction(jdbi));
+		environment.jersey().register(new GetUserProfileAction(jdbi));
 		environment.jersey().register(new UsernameAvailableAction(jdbi));
 		environment.jersey().register(new GetRoleAction(jdbi));
 		environment.jersey().register(new GetAllUsersAction(jdbi));

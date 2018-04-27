@@ -6,13 +6,13 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
-import com.anfelisa.user.data.UserInfoData;
+import com.anfelisa.user.data.UserData;
 
 
-public abstract class AbstractGetUserInfoAction extends Action<UserInfoData> {
+public abstract class AbstractGetUserProfileAction extends Action<UserData> {
 
-	public AbstractGetUserInfoAction(DBI jdbi) {
-		super("com.anfelisa.user.actions.GetUserInfoAction", HttpMethod.GET, jdbi);
+	public AbstractGetUserProfileAction(DBI jdbi) {
+		super("com.anfelisa.user.actions.GetUserProfileAction", HttpMethod.GET, jdbi);
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public abstract class AbstractGetUserInfoAction extends Action<UserInfoData> {
 
 	public void initActionData(String json) {
 		try {
-			this.actionData = mapper.readValue(json, UserInfoData.class);
+			this.actionData = mapper.readValue(json, UserData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

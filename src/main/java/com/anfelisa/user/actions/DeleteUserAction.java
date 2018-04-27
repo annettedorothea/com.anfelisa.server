@@ -1,6 +1,6 @@
 package com.anfelisa.user.actions;
 
-import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -35,7 +35,7 @@ public class DeleteUserAction extends AbstractDeleteUserAction {
 	@DELETE
 	@Timed
 	@Path("/delete")
-	@RolesAllowed({ AuthUser.ADMIN })
+	@PermitAll
 	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("deletedUsername") String deletedUsername,
 			@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
 		this.actionData = new DeleteUserData(uuid).withCredentialsRole(user.getRole()).withCredentialsUsername(user.getUsername()).withDeletedUsername(deletedUsername);

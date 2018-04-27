@@ -11,10 +11,9 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.box.models.IMyBoxListModel;
 
 @SuppressWarnings("all")
-public class UserInfoPresentationalData implements IUserInfoPresentationalData {
+public class UserPresentationalData implements IUserPresentationalData {
 	
 	@NotNull
 	private String userId;
@@ -34,17 +33,14 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	@NotNull
 	private Boolean emailConfirmed = false;
 	
-	private java.util.List<com.anfelisa.box.models.IBoxModel> boxList;
 	
-	
-	public UserInfoPresentationalData(
+	public UserPresentationalData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
-		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxModel> boxList
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed
 	) {
 		this.userId = userId;
 		this.username = username;
@@ -52,7 +48,6 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
-		this.boxList = boxList;
 		
 	}
 
@@ -63,7 +58,7 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public UserInfoPresentationalData withUserId(String userId) {
+	public UserPresentationalData withUserId(String userId) {
 		this.userId = userId;
 		return this;
 	}
@@ -75,7 +70,7 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public UserInfoPresentationalData withUsername(String username) {
+	public UserPresentationalData withUsername(String username) {
 		this.username = username;
 		return this;
 	}
@@ -87,7 +82,7 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public UserInfoPresentationalData withPassword(String password) {
+	public UserPresentationalData withPassword(String password) {
 		this.password = password;
 		return this;
 	}
@@ -99,7 +94,7 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public UserInfoPresentationalData withEmail(String email) {
+	public UserPresentationalData withEmail(String email) {
 		this.email = email;
 		return this;
 	}
@@ -111,7 +106,7 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public UserInfoPresentationalData withRole(String role) {
+	public UserPresentationalData withRole(String role) {
 		this.role = role;
 		return this;
 	}
@@ -123,20 +118,8 @@ public class UserInfoPresentationalData implements IUserInfoPresentationalData {
 	public void setEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
 	}
-	public UserInfoPresentationalData withEmailConfirmed(Boolean emailConfirmed) {
+	public UserPresentationalData withEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
-		return this;
-	}
-	
-	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxModel> getBoxList() {
-		return this.boxList;
-	}
-	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxModel> boxList) {
-		this.boxList = boxList;
-	}
-	public UserInfoPresentationalData withBoxList(java.util.List<com.anfelisa.box.models.IBoxModel> boxList) {
-		this.boxList = boxList;
 		return this;
 	}
 	
