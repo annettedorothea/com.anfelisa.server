@@ -10,47 +10,78 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.user.models.IForgotPasswordModel;
+import com.anfelisa.user.models.IResetPasswordModel;
 import com.anfelisa.user.models.ILanguageModel;
+import com.anfelisa.user.models.IEmailModel;
+import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("all")
 public class ForgotPasswordPresentationalData implements IForgotPasswordPresentationalData {
 	
 	@NotNull
-	private String username;
+	private String token;
+	
+	@NotNull
+	private String userId;
+	
+	@NotNull
+	private String language;
 	
 	@NotNull
 	private String email;
 	
 	@NotNull
-	private String password;
-	
-	@NotNull
-	private String language;
+	private String username;
 	
 	
 	public ForgotPasswordPresentationalData(
-		@JsonProperty("username") String username,
+		@JsonProperty("token") String token,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("language") String language,
 		@JsonProperty("email") String email,
-		@JsonProperty("password") String password,
-		@JsonProperty("language") String language
+		@JsonProperty("username") String username
 	) {
-		this.username = username;
-		this.email = email;
-		this.password = password;
+		this.token = token;
+		this.userId = userId;
 		this.language = language;
+		this.email = email;
+		this.username = username;
 		
 	}
 
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getToken() {
+		return this.token;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setToken(String token) {
+		this.token = token;
 	}
-	public ForgotPasswordPresentationalData withUsername(String username) {
-		this.username = username;
+	public ForgotPasswordPresentationalData withToken(String token) {
+		this.token = token;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public ForgotPasswordPresentationalData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getLanguage() {
+		return this.language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	public ForgotPasswordPresentationalData withLanguage(String language) {
+		this.language = language;
 		return this;
 	}
 	
@@ -67,26 +98,14 @@ public class ForgotPasswordPresentationalData implements IForgotPasswordPresenta
 	}
 	
 	@JsonProperty
-	public String getPassword() {
-		return this.password;
+	public String getUsername() {
+		return this.username;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public ForgotPasswordPresentationalData withPassword(String password) {
-		this.password = password;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getLanguage() {
-		return this.language;
-	}
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-	public ForgotPasswordPresentationalData withLanguage(String language) {
-		this.language = language;
+	public ForgotPasswordPresentationalData withUsername(String username) {
+		this.username = username;
 		return this;
 	}
 	

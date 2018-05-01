@@ -26,7 +26,7 @@ public abstract class AbstractForgotPasswordOkEvent extends Event<ForgotPassword
 	}
 	
 	protected String[] getNotifiedListeners() {
-		return new String[] { "com.anfelisa.user.views.EmailView.sendForgotPasswordEmail" };
+		return new String[] { "com.anfelisa.user.views.ResetPasswordView.insert", "com.anfelisa.user.views.EmailView.sendForgotPasswordEmail" };
 	}
 	
 	

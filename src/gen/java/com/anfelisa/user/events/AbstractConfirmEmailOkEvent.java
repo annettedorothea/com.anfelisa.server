@@ -5,11 +5,11 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
 
-import com.anfelisa.user.data.UsernameData;
+import com.anfelisa.user.data.EmailConfirmationData;
 
-public abstract class AbstractConfirmEmailOkEvent extends Event<UsernameData> {
+public abstract class AbstractConfirmEmailOkEvent extends Event<EmailConfirmationData> {
 
-	public AbstractConfirmEmailOkEvent(UsernameData eventParam, DatabaseHandle databaseHandle) {
+	public AbstractConfirmEmailOkEvent(EmailConfirmationData eventParam, DatabaseHandle databaseHandle) {
 		super("com.anfelisa.user.events.ConfirmEmailOkEvent", eventParam, databaseHandle);
 	}
 	
@@ -19,14 +19,14 @@ public abstract class AbstractConfirmEmailOkEvent extends Event<UsernameData> {
 	
 	public void initEventData(String json) {
 		try {
-			this.eventData = mapper.readValue(json, UsernameData.class);
+			this.eventData = mapper.readValue(json, EmailConfirmationData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}
 	}
 	
 	protected String[] getNotifiedListeners() {
-		return new String[] { "com.anfelisa.user.views.UserView.confirmEmail" };
+		return new String[] { "com.anfelisa.user.views.UserView.confirmEmail", "com.anfelisa.user.views.EmailConfirmationView.delete" };
 	}
 	
 	

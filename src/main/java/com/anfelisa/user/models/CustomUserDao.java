@@ -6,7 +6,7 @@ import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.Update;
 
 import com.anfelisa.user.data.IUserRegistrationData;
-import com.anfelisa.user.data.PasswordUpdateData;
+import com.anfelisa.user.data.ResetPasswordData;
 import com.anfelisa.user.data.UserUpdateData;
 
 public class CustomUserDao {
@@ -31,18 +31,18 @@ public class CustomUserDao {
 		statement.execute();
 	}
 
-	public void updatePassword(Handle handle, PasswordUpdateData userModel) {
+	public void updatePassword(Handle handle, ResetPasswordData data) {
 		Update statement = handle
-				.createStatement("UPDATE public.user SET password = :password WHERE username = :username");
-		statement.bind("username", userModel.getEditedUsername());
-		statement.bind("password", userModel.getNewPassword());
+				.createStatement("UPDATE public.user SET password = :password WHERE userid = :userid");
+		statement.bind("userid", data.getUserId());
+		statement.bind("password", data.getPassword());
 		statement.execute();
 	}
 
-	public void confirmEmail(Handle handle, String username) {
+	public void confirmEmail(Handle handle, String userId) {
 		Update statement = handle
-				.createStatement("UPDATE public.user SET emailConfirmed = true WHERE username = :username");
-		statement.bind("username", username);
+				.createStatement("UPDATE public.user SET emailConfirmed = true WHERE userid = :userid");
+		statement.bind("userid", userId);
 		statement.execute();
 	}
 

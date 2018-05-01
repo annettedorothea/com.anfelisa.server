@@ -1,5 +1,7 @@
 package com.anfelisa.user.commands;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,11 +25,12 @@ public class ForgotPasswordCommand extends AbstractForgotPasswordCommand {
 		IUserModel user = userDao.selectByUsername(this.getDatabaseHandle().getHandle(),
 				this.commandData.getUsername());
 		if (user != null) {
+			this.commandData.setToken(UUID.randomUUID().toString());
 			this.commandData.setEmail(user.getEmail());
-			this.commandData.setPassword(user.getPassword());
+			this.commandData.setUserId(user.getUserId());
 			this.commandData.setOutcome(ok);
 		} else {
-			throwBadRequest(commandData.getUsername() + " does not exist");
+			this.commandData.setOutcome(doesNotExist);
 		}
 	}
 

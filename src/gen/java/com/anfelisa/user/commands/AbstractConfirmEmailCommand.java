@@ -5,13 +5,13 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
 
-import com.anfelisa.user.data.UsernameData;
+import com.anfelisa.user.data.EmailConfirmationData;
 
-public abstract class AbstractConfirmEmailCommand extends Command<UsernameData> {
+public abstract class AbstractConfirmEmailCommand extends Command<EmailConfirmationData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractConfirmEmailCommand(UsernameData commandParam, DatabaseHandle databaseHandle) {
+	public AbstractConfirmEmailCommand(EmailConfirmationData commandParam, DatabaseHandle databaseHandle) {
 		super("com.anfelisa.user.commands.ConfirmEmailCommand", commandParam, databaseHandle);
 	}
 
@@ -32,7 +32,7 @@ public abstract class AbstractConfirmEmailCommand extends Command<UsernameData> 
 	
 	public void initCommandData(String json) {
 		try {
-			this.commandData = mapper.readValue(json, UsernameData.class);
+			this.commandData = mapper.readValue(json, EmailConfirmationData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

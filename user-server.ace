@@ -11,17 +11,18 @@ ACE {
 	PUT UpdateUser uses UserUpdate {
 		on success ( User.updateUser )
 	}
-	PUT UpdatePassword uses PasswordUpdate {
-		on success (User.updatePassword)
-	}
 	POST ForgotPassword uses ForgotPassword {
-		on ok (Email.sendForgotPasswordEmail)
+		on ok ( ResetPassword.insert Email.sendForgotPasswordEmail)
+		on doesNotExist
+	}
+	PUT ResetPassword uses ResetPassword {
+		on ok (User.resetPassword ResetPassword.delete)
 	}
 	POST RegisterUser uses UserRegistration {
-		on ok (User.registerUser Email.sendRegistrationEmail)
+		on ok (User.registerUser EmailConfirmation.insert Email.sendRegistrationEmail)
 	}
-	PUT ConfirmEmail uses Username {
-		on ok (User.confirmEmail)
+	PUT ConfirmEmail uses EmailConfirmation {
+		on ok (User.confirmEmail EmailConfirmation.delete)
 	}
 	PUT ChangeUserRole uses ChangeUserRole {
 		on ok (User.changeUserRole)
@@ -33,13 +34,20 @@ ACE {
 
 views {
 	User {
-		createUser(UserCreation)
 		updateUser(UserUpdate)
-		updatePassword(PasswordUpdate)
 		registerUser(UserRegistration)
-		confirmEmail(Username)
+		confirmEmail(EmailConfirmation)
 		changeUserRole(ChangeUserRole)
 		deleteUser(Username)
+		resetPassword(ResetPassword)
+	}
+	EmailConfirmation {
+		insert(UserRegistration)
+		delete(EmailConfirmation)
+	}
+	ResetPassword {
+		insert(ForgotPassword)
+		delete(ResetPassword)
 	}
 	external Email {
 		sendForgotPasswordEmail(ForgotPassword)
@@ -49,6 +57,7 @@ views {
 
 models {
 	schema public
+	
 	persistent User {
 		Unique PrimaryKey NotNull String userId
 		Unique NotNull String username
@@ -58,52 +67,38 @@ models {
 		NotNull Boolean emailConfirmed
 	}
 
+	persistent EmailConfirmation {
+		Unique PrimaryKey NotNull String token
+		NotNull String userId
+	}
+
+	persistent ResetPassword {
+		Unique PrimaryKey NotNull String token
+		NotNull String userId
+	}
+
 	Credentials {
 		String credentialsUsername
 		String credentialsRole
 	} 
-	
 	Role {
 		String role
 	}
-
-	Points {
-		NotNull Integer points
-	} 
-
 	Username {
 		NotNull String username
+	} 
+	Email {
+		NotNull String email
 	} 
 	Available {
 		Boolean available
 	}
-	UsernameAndPassword {
-		NotNull String username
-		NotNull String password
-	} 
 	UserRoleUpdate {
 		NotNull String editedUsername
 		NotNull String role
 	}
-	UserPasswordUpdate {
-		NotNull String editedUsername
-		NotNull String newPassword
-	}
 	DeleteUser {
 		NotNull String deletedUsername
-	}
-	CourseSelection {
-		List String courseIdList
-	}
-	
-	CourseId {
-		String courseId
-	}
-	
-	ForgotPassword {
-		NotNull String username
-		NotNull String email
-		NotNull String password
 	}
 	Language {
 		NotNull String language
@@ -111,21 +106,24 @@ models {
 	UserList {
 		List User userList
 	}
+	Password {
+		String password
+	}
 }
 
 data {
-	UserCreation : ( User )
-	UserInfo : (User com.anfelisa.box.MyBoxList)
 	User : ( User )
 	UserUpdate : (UserRoleUpdate Credentials)
-	PasswordUpdate : (Credentials UserPasswordUpdate)
-	ForgotPassword : (ForgotPassword Language)
+	PasswordUpdate : (Credentials)
+	ForgotPassword : (ResetPassword Language Email Username)
 	UsernameAvailable : (Username Available)
-	UserRegistration : (User Language)
+	UserRegistration : (User Language EmailConfirmation)
 	DeleteUser : ( Credentials DeleteUser)
 	Username : (Username)
 	ChangeUserRole : (Username Role)
 	Role : (Credentials)
 	UserList : (UserList)
+	EmailConfirmation: (EmailConfirmation)
+	ResetPassword: (ResetPassword Password)
 }
 

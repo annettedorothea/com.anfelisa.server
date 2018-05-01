@@ -1,7 +1,5 @@
 package com.anfelisa.user.data;
 
-import javax.validation.constraints.NotNull;
-
 import com.anfelisa.ace.AbstractData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,25 +9,15 @@ public class PasswordUpdateData extends AbstractData implements IPasswordUpdateD
 	
 	private String credentialsRole;
 	
-	@NotNull
-	private String editedUsername;
-	
-	@NotNull
-	private String newPassword;
-	
 
 	public PasswordUpdateData(
 		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole,
-		@JsonProperty("editedUsername") String editedUsername,
-		@JsonProperty("newPassword") String newPassword
+		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
-		this.editedUsername = editedUsername;
-		this.newPassword = newPassword;
 	}
 
 	public PasswordUpdateData( String uuid ) {
@@ -60,38 +48,12 @@ public class PasswordUpdateData extends AbstractData implements IPasswordUpdateD
 		return this;
 	}
 	
-	@JsonProperty
-	public String getEditedUsername() {
-		return this.editedUsername;
-	}
-	public void setEditedUsername(String editedUsername) {
-		this.editedUsername = editedUsername;
-	}
-	public PasswordUpdateData withEditedUsername(String editedUsername) {
-		this.editedUsername = editedUsername;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getNewPassword() {
-		return this.newPassword;
-	}
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
-	public PasswordUpdateData withNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-		return this;
-	}
-	
 
 	@Override
 	public Object toPresentationalData() {
 		return new PasswordUpdatePresentationalData(
 			this.credentialsUsername,
-			this.credentialsRole,
-			this.editedUsername,
-			this.newPassword
+			this.credentialsRole
 		);
 	}
 

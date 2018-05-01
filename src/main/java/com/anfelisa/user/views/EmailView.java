@@ -17,8 +17,7 @@ public class EmailView {
 	public static BiConsumer<ForgotPasswordData, Handle> sendForgotPasswordEmail = (dataContainer, handle) -> {
 		Locale currentLocale = new Locale(dataContainer.getLanguage());
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
-		String link = EmailService.getLocalhost() + "#profile/newPassword/" + dataContainer.getUsername() + "/"
-				+ dataContainer.getPassword();
+		String link = EmailService.getLocalhost() + "#resetpassword/" + dataContainer.getToken();
 		Object[] params = { dataContainer.getUsername(), link };
 		String message = MessageFormat.format(messages.getString("passwordResetEmailContent"), params);
 		String subject = messages.getString("passwordResetEmailHeader");
@@ -29,8 +28,7 @@ public class EmailView {
 	public static BiConsumer<UserRegistrationData, Handle> sendRegistrationEmail = (dataContainer, handle) -> {
 		Locale currentLocale = new Locale(dataContainer.getLanguage());
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
-		String link = EmailService.getLocalhost() + "#profile/confirmEmail/" + dataContainer.getUsername() + "/"
-				+ dataContainer.getPassword();
+		String link = EmailService.getLocalhost() + "#confirmemail/" + dataContainer.getToken();
 		Object[] params = { dataContainer.getUsername(), link };
 		String message = MessageFormat.format(messages.getString("RegistrationEmailContent"), params);
 		String subject = messages.getString("RegistrationEmailHeader");

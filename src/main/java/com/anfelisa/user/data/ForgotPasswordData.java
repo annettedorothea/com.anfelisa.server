@@ -8,30 +8,35 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ForgotPasswordData extends AbstractData implements IForgotPasswordData {
 	
 	@NotNull
-	private String username;
+	private String token;
+	
+	@NotNull
+	private String userId;
+	
+	@NotNull
+	private String language;
 	
 	@NotNull
 	private String email;
 	
 	@NotNull
-	private String password;
-	
-	@NotNull
-	private String language;
+	private String username;
 	
 
 	public ForgotPasswordData(
-		@JsonProperty("username") String username,
+		@JsonProperty("token") String token,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("language") String language,
 		@JsonProperty("email") String email,
-		@JsonProperty("password") String password,
-		@JsonProperty("language") String language
+		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
-		this.username = username;
-		this.email = email;
-		this.password = password;
+		this.token = token;
+		this.userId = userId;
 		this.language = language;
+		this.email = email;
+		this.username = username;
 	}
 
 	public ForgotPasswordData( String uuid ) {
@@ -39,14 +44,38 @@ public class ForgotPasswordData extends AbstractData implements IForgotPasswordD
 	}
 
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getToken() {
+		return this.token;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setToken(String token) {
+		this.token = token;
 	}
-	public ForgotPasswordData withUsername(String username) {
-		this.username = username;
+	public ForgotPasswordData withToken(String token) {
+		this.token = token;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public ForgotPasswordData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getLanguage() {
+		return this.language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	public ForgotPasswordData withLanguage(String language) {
+		this.language = language;
 		return this;
 	}
 	
@@ -63,26 +92,14 @@ public class ForgotPasswordData extends AbstractData implements IForgotPasswordD
 	}
 	
 	@JsonProperty
-	public String getPassword() {
-		return this.password;
+	public String getUsername() {
+		return this.username;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public ForgotPasswordData withPassword(String password) {
-		this.password = password;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getLanguage() {
-		return this.language;
-	}
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-	public ForgotPasswordData withLanguage(String language) {
-		this.language = language;
+	public ForgotPasswordData withUsername(String username) {
+		this.username = username;
 		return this;
 	}
 	
@@ -90,10 +107,11 @@ public class ForgotPasswordData extends AbstractData implements IForgotPasswordD
 	@Override
 	public Object toPresentationalData() {
 		return new ForgotPasswordPresentationalData(
-			this.username,
+			this.token,
+			this.userId,
+			this.language,
 			this.email,
-			this.password,
-			this.language
+			this.username
 		);
 	}
 

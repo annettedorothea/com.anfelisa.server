@@ -94,8 +94,28 @@
 	</changeSet>
 
 	<changeSet id="003" author="annette">
+		<dropTable tableName="loginlog" />
+	</changeSet>
 
-		<dropTable tableName="loginlog"/>
+	<changeSet id="004" author="annette">
+
+		<createTable tableName="resetpassword">
+			<column name="token" type="character varying">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="userid" type="character varying">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="emailconfirmation">
+			<column name="token" type="character varying">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="userid" type="character varying">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
 
 	</changeSet>
 

@@ -26,7 +26,7 @@ public abstract class AbstractRegisterUserOkEvent extends Event<UserRegistration
 	}
 	
 	protected String[] getNotifiedListeners() {
-		return new String[] { "com.anfelisa.user.views.UserView.registerUser", "com.anfelisa.user.views.EmailView.sendRegistrationEmail" };
+		return new String[] { "com.anfelisa.user.views.UserView.registerUser", "com.anfelisa.user.views.EmailConfirmationView.insert", "com.anfelisa.user.views.EmailView.sendRegistrationEmail" };
 	}
 	
 	

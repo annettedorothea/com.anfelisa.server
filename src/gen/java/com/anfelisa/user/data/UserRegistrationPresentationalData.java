@@ -12,6 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IUserModel;
 import com.anfelisa.user.models.ILanguageModel;
+import com.anfelisa.user.models.IEmailConfirmationModel;
 
 @SuppressWarnings("all")
 public class UserRegistrationPresentationalData implements IUserRegistrationPresentationalData {
@@ -37,6 +38,9 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 	@NotNull
 	private String language;
 	
+	@NotNull
+	private String token;
+	
 	
 	public UserRegistrationPresentationalData(
 		@JsonProperty("userId") String userId,
@@ -45,7 +49,8 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
-		@JsonProperty("language") String language
+		@JsonProperty("language") String language,
+		@JsonProperty("token") String token
 	) {
 		this.userId = userId;
 		this.username = username;
@@ -54,6 +59,7 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
 		this.language = language;
+		this.token = token;
 		
 	}
 
@@ -138,6 +144,18 @@ public class UserRegistrationPresentationalData implements IUserRegistrationPres
 	}
 	public UserRegistrationPresentationalData withLanguage(String language) {
 		this.language = language;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getToken() {
+		return this.token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public UserRegistrationPresentationalData withToken(String token) {
+		this.token = token;
 		return this;
 	}
 	

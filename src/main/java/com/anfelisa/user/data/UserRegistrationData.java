@@ -28,6 +28,9 @@ public class UserRegistrationData extends AbstractData implements IUserRegistrat
 	@NotNull
 	private String language;
 	
+	@NotNull
+	private String token;
+	
 
 	public UserRegistrationData(
 		@JsonProperty("userId") String userId,
@@ -36,7 +39,8 @@ public class UserRegistrationData extends AbstractData implements IUserRegistrat
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
-		@JsonProperty("language") String language
+		@JsonProperty("language") String language,
+		@JsonProperty("token") String token
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -47,6 +51,7 @@ public class UserRegistrationData extends AbstractData implements IUserRegistrat
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
 		this.language = language;
+		this.token = token;
 	}
 
 	public UserRegistrationData( String uuid ) {
@@ -137,6 +142,18 @@ public class UserRegistrationData extends AbstractData implements IUserRegistrat
 		return this;
 	}
 	
+	@JsonProperty
+	public String getToken() {
+		return this.token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public UserRegistrationData withToken(String token) {
+		this.token = token;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -147,7 +164,8 @@ public class UserRegistrationData extends AbstractData implements IUserRegistrat
 			this.email,
 			this.role,
 			this.emailConfirmed,
-			this.language
+			this.language,
+			this.token
 		);
 	}
 

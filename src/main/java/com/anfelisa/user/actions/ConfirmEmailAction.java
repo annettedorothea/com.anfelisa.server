@@ -1,6 +1,5 @@
 package com.anfelisa.user.actions;
 
-import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
@@ -14,12 +13,9 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.auth.AuthUser;
-import com.anfelisa.user.data.UsernameData;
+import com.anfelisa.user.data.EmailConfirmationData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
-
-import io.dropwizard.auth.Auth;
 
 @Path("/users")
 @Produces(MediaType.TEXT_PLAIN)
@@ -35,9 +31,8 @@ public class ConfirmEmailAction extends AbstractConfirmEmailAction {
 	@PUT
 	@Timed
 	@Path("/confirm")
-	@PermitAll
-	public Response put(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new UsernameData(uuid).withUsername(user.getUsername());
+	public Response put(@NotNull @QueryParam("token") String token, @NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
+		this.actionData = new EmailConfirmationData(uuid).withToken(token);
 		return this.apply();
 	}
 
