@@ -4,7 +4,6 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
-
 import com.anfelisa.user.data.ChangeUserRoleData;
 
 public abstract class AbstractChangeUserRoleOkEvent extends Event<ChangeUserRoleData> {

@@ -119,4 +119,27 @@
 
 	</changeSet>
 
+	<changeSet id="005" author="annette">
+
+		<createTable tableName="category">
+			<column name="categoryid" type="character varying">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="categoryname" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="categoryauthor" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="categoryindex" type="integer">
+				<constraints nullable="false" />
+			</column>
+			<column name="parentcategoryid" type="character varying">
+				<constraints references="category(categoryid)"
+					deleteCascade="true" foreignKeyName="fk_category_categoryid" />
+			</column>
+		</createTable>
+
+	</changeSet>
+
 </databaseChangeLog>

@@ -1,0 +1,80 @@
+com.anfelisa.category
+
+target JAVA
+
+ACE {
+	POST CreateCategory uses CategoryCreation {
+		on ok (Category.insert)
+	}
+	PUT UpdateCategory uses CategoryUpdate {
+		on ok (Category.update)
+	}
+	PUT MoveCategory uses CategoryMove {
+		on ok (Category.move)
+	}
+	DELETE DeleteCategory uses CategoryDelete {
+		on ok (Category.delete)
+	}
+	GET GetAllCategories uses CategoryList
+}
+
+views {
+	Category {
+		insert(CategoryCreation)
+		delete(CategoryDelete)
+		update(CategoryUpdate)
+		move(CategoryMove)
+	}
+}
+
+models {
+	schema public
+	
+	persistent Category {
+		Unique PrimaryKey NotNull String categoryId
+		Unique NotNull String categoryName
+		NotNull String categoryAuthor
+		NotNull Integer categoryIndex
+		String parentCategoryId references categoryId
+	}
+	
+	persistent Card {
+		Unique PrimaryKey NotNull String cardId
+		NotEmpty String given
+		NotEmpty String wanted
+		NotNull Boolean complex
+		NotNull String cardAuthor
+		NotNull Integer cardIndex
+		String categoryId references Category.categoryId
+	}
+	
+	CategoryUpdate {
+		NotNull String categoryId
+		NotNull String categoryName
+		NotNull Integer categoryIndex
+	}
+	
+	CategoryDelete {
+		NotNull String categoryId
+	}
+	
+	CategoryMove {
+		NotNull String categoryId
+		String parentCategoryId
+	}
+	
+	CategoryList {
+		String parentCategoryId
+		String parentCategoryName
+		List Category categoryList
+	}
+}
+
+data {
+	CategoryCreation : ( Category )
+	CategoryUpdate : ( CategoryUpdate )
+	CategoryDelete : ( CategoryDelete )
+	CategoryMove : ( CategoryMove )
+	CategoryList : ( CategoryList )
+}
+

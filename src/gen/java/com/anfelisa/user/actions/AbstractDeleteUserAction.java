@@ -1,14 +1,14 @@
 package com.anfelisa.user.actions;
 
-import org.skife.jdbi.v2.DBI;
 import javax.ws.rs.WebApplicationException;
+
+import org.skife.jdbi.v2.DBI;
 
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
-import com.anfelisa.user.data.DeleteUserData;
-
 import com.anfelisa.user.commands.DeleteUserCommand;
+import com.anfelisa.user.data.DeleteUserData;
 
 public abstract class AbstractDeleteUserAction extends Action<DeleteUserData> {
 

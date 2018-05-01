@@ -99,6 +99,9 @@ public class App extends Application<CustomAppConfiguration> {
 
 		com.anfelisa.box.AppRegistration.registerResources(environment, jdbi);
 		com.anfelisa.box.AppRegistration.registerConsumers();
+		
+		com.anfelisa.category.AppRegistration.registerResources(environment, jdbi);
+		com.anfelisa.category.AppRegistration.registerConsumers();
 
 	}
 

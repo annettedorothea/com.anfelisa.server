@@ -4,7 +4,6 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
-
 import com.anfelisa.box.data.ScoredCardData;
 
 public abstract class AbstractCreateScoredCardCreatedEvent extends Event<ScoredCardData> {
