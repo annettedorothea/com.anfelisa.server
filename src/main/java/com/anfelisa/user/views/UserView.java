@@ -31,7 +31,7 @@ public class UserView {
 	};
 
 	public static BiConsumer<ChangeUserRoleData, Handle> changeUserRole = (dataContainer, handle) -> {
-		customUserDao.changeUserRole(handle, dataContainer.getUsername(), dataContainer.getRole());
+		customUserDao.changeUserRole(handle, dataContainer.getUserId(), dataContainer.getRole());
 	};
 
 	public static BiConsumer<DeleteUserData, Handle> deleteUser = (dataContainer, handle) -> {

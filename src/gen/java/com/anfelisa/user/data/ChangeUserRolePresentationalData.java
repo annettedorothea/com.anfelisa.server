@@ -10,36 +10,36 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.user.models.IUsernameModel;
+import com.anfelisa.user.models.IUserIdModel;
 import com.anfelisa.user.models.IRoleModel;
 
 @SuppressWarnings("all")
 public class ChangeUserRolePresentationalData implements IChangeUserRolePresentationalData {
 	
 	@NotNull
-	private String username;
+	private String userId;
 	
 	private String role;
 	
 	
 	public ChangeUserRolePresentationalData(
-		@JsonProperty("username") String username,
+		@JsonProperty("userId") String userId,
 		@JsonProperty("role") String role
 	) {
-		this.username = username;
+		this.userId = userId;
 		this.role = role;
 		
 	}
 
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getUserId() {
+		return this.userId;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public ChangeUserRolePresentationalData withUsername(String username) {
-		this.username = username;
+	public ChangeUserRolePresentationalData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	

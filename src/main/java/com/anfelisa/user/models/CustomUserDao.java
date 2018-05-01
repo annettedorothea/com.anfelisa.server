@@ -46,16 +46,16 @@ public class CustomUserDao {
 		statement.execute();
 	}
 
-	public void changeUserRole(Handle handle, String username, String role) {
+	public void changeUserRole(Handle handle, String userId, String role) {
 		Update statement = handle
-				.createStatement("UPDATE public.user SET role = ':role' WHERE username = :username");
-		statement.bind("username", username);
+				.createStatement("UPDATE public.user SET role = ':role' WHERE userid = :userid");
+		statement.bind("userid", userId);
 		statement.bind("role", role);
 		statement.execute();
 	}
 	
 	public List<IUserModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT username, password, email, role, emailconfirmed, deleted FROM public.user where deleted = false order by username")
+		return handle.createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM public.user order by username")
 			.map(new UserMapper())
 			.list();
 	}

@@ -18,8 +18,8 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.UserListData;
+import com.anfelisa.user.models.CustomUserDao;
 import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserDao;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -30,7 +30,7 @@ public class GetAllUsersAction extends AbstractGetAllUsersAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetAllUsersAction.class);
 
-	private UserDao userDao = new UserDao();
+	private CustomUserDao userDao = new CustomUserDao();
 
 	public GetAllUsersAction(DBI jdbi) {
 		super(jdbi);

@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+
 import com.anfelisa.box.data.RecalculateScheduledCardsData;
 
 public abstract class AbstractRecalculateScheduledCardsCommand extends Command<RecalculateScheduledCardsData> {

@@ -87,6 +87,9 @@ models {
 	Username {
 		NotNull String username
 	} 
+	UserId {
+		NotNull String userId
+	} 
 	Email {
 		NotNull String email
 	} 
@@ -120,7 +123,7 @@ data {
 	UserRegistration : (User Language EmailConfirmation)
 	DeleteUser : ( Credentials DeleteUser)
 	Username : (Username)
-	ChangeUserRole : (Username Role)
+	ChangeUserRole : (UserId Role)
 	Role : (Credentials)
 	UserList : (UserList)
 	EmailConfirmation: (EmailConfirmation)

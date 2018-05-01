@@ -36,10 +36,10 @@ public class ChangeUserRoleAction extends AbstractChangeUserRoleAction {
 	@Timed
 	@Path("/role")
 	@RolesAllowed({ AuthUser.ADMIN })
-	public Response put(@Auth AuthUser user, @NotNull @QueryParam("username") String username,
+	public Response put(@Auth AuthUser user, @NotNull @QueryParam("userId") String userId,
 			@NotNull @QueryParam("role") String role, @NotNull @QueryParam("uuid") String uuid)
 			throws JsonProcessingException {
-		this.actionData = new ChangeUserRoleData(uuid).withRole(role).withUsername(username);
+		this.actionData = new ChangeUserRoleData(uuid).withRole(role).withUserId(userId);
 		return this.apply();
 	}
 

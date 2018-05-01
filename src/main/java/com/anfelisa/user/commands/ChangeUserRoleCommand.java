@@ -26,8 +26,8 @@ public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 	protected void executeCommand() {
 		if (AuthUser.ADMIN.equals(this.commandData.getRole()) || AuthUser.AUTHOR.equals(this.commandData.getRole())
 				|| AuthUser.STUDENT.equals(this.commandData.getRole())) {
-			if (userDao.selectByUsername(getHandle(), commandData.getUsername()) == null) {
-				throwBadRequest(commandData.getUsername() + " does not exist");
+			if (userDao.selectByUserId(getHandle(), commandData.getUserId()) == null) {
+				throwBadRequest("User does not exist.");
 			}
 			this.commandData.setOutcome(ok);
 		} else {

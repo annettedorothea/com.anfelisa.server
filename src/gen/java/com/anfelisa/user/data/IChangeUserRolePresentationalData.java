@@ -1,9 +1,9 @@
 package com.anfelisa.user.data;
 
-import com.anfelisa.user.models.IUsernameModel;
+import com.anfelisa.user.models.IUserIdModel;
 import com.anfelisa.user.models.IRoleModel;
 
-public interface IChangeUserRolePresentationalData extends IUsernameModel, IRoleModel {
+public interface IChangeUserRolePresentationalData extends IUserIdModel, IRoleModel {
 
 }
 

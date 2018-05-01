@@ -1,25 +1,29 @@
 package com.anfelisa.user.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
 
 import com.anfelisa.ace.AbstractData;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ChangeUserRoleData extends AbstractData implements IChangeUserRoleData {
 	
 	@NotNull
-	private String username;
+	private String userId;
 	
 	private String role;
 	
 
 	public ChangeUserRoleData(
-		@JsonProperty("username") String username,
+		@JsonProperty("userId") String userId,
 		@JsonProperty("role") String role
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
-		this.username = username;
+		this.userId = userId;
 		this.role = role;
 	}
 
@@ -28,14 +32,14 @@ public class ChangeUserRoleData extends AbstractData implements IChangeUserRoleD
 	}
 
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getUserId() {
+		return this.userId;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public ChangeUserRoleData withUsername(String username) {
-		this.username = username;
+	public ChangeUserRoleData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	
@@ -55,7 +59,7 @@ public class ChangeUserRoleData extends AbstractData implements IChangeUserRoleD
 	@Override
 	public Object toPresentationalData() {
 		return new ChangeUserRolePresentationalData(
-			this.username,
+			this.userId,
 			this.role
 		);
 	}

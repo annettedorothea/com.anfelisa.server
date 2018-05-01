@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+
 import com.anfelisa.box.data.CardIdData;
 
 public abstract class AbstractDeleteCardCommand extends Command<CardIdData> {
