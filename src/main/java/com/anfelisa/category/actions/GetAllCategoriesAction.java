@@ -58,6 +58,7 @@ import io.dropwizard.auth.Auth;
 			ICategoryModel parentCategory = categoryDao.selectByCategoryId(getHandle(), actionData.getParentCategoryId());
 			if (parentCategory != null) {
 				this.actionData.setParentCategoryName(parentCategory.getCategoryName());
+				this.actionData.setGrandParentCategoryId(parentCategory.getParentCategoryId());
 			}
 		} else {
 			List<ICategoryModel> categoryList = customCategoryDao.selectAllRoot(getHandle());

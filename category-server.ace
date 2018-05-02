@@ -65,6 +65,7 @@ models {
 	
 	CategoryList {
 		String parentCategoryId
+		String grandParentCategoryId
 		String parentCategoryName
 		List Category categoryList
 	}

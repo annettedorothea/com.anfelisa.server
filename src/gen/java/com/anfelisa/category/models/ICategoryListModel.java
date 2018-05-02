@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface ICategoryListModel {
 
 	String getParentCategoryId();
+	String getGrandParentCategoryId();
 	String getParentCategoryName();
 	java.util.List<com.anfelisa.category.models.ICategoryModel> getCategoryList();
 

@@ -14,6 +14,7 @@ public class CategoryListMapper implements ResultSetMapper<ICategoryListModel> {
 	public ICategoryListModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new CategoryListModel(
 			r.getString("parentCategoryId"),
+			r.getString("grandParentCategoryId"),
 			r.getString("parentCategoryName"),
 			null
 		);

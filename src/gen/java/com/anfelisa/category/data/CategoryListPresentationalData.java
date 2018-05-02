@@ -17,6 +17,8 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 	
 	private String parentCategoryId;
 	
+	private String grandParentCategoryId;
+	
 	private String parentCategoryName;
 	
 	private java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList;
@@ -24,10 +26,12 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 	
 	public CategoryListPresentationalData(
 		@JsonProperty("parentCategoryId") String parentCategoryId,
+		@JsonProperty("grandParentCategoryId") String grandParentCategoryId,
 		@JsonProperty("parentCategoryName") String parentCategoryName,
 		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList
 	) {
 		this.parentCategoryId = parentCategoryId;
+		this.grandParentCategoryId = grandParentCategoryId;
 		this.parentCategoryName = parentCategoryName;
 		this.categoryList = categoryList;
 		
@@ -42,6 +46,18 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 	}
 	public CategoryListPresentationalData withParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getGrandParentCategoryId() {
+		return this.grandParentCategoryId;
+	}
+	public void setGrandParentCategoryId(String grandParentCategoryId) {
+		this.grandParentCategoryId = grandParentCategoryId;
+	}
+	public CategoryListPresentationalData withGrandParentCategoryId(String grandParentCategoryId) {
+		this.grandParentCategoryId = grandParentCategoryId;
 		return this;
 	}
 	
