@@ -9,9 +9,6 @@ ACE {
 	PUT UpdateCategory uses CategoryUpdate {
 		on ok (Category.update)
 	}
-	PUT MoveCategory uses CategoryMove {
-		on ok (Category.move)
-	}
 	DELETE DeleteCategory uses CategoryDelete {
 		on ok (Category.delete)
 	}
@@ -23,7 +20,6 @@ views {
 		insert(CategoryCreation)
 		delete(CategoryDelete)
 		update(CategoryUpdate)
-		move(CategoryMove)
 	}
 }
 
@@ -38,16 +34,6 @@ models {
 		String parentCategoryId references categoryId
 	}
 	
-	persistent Card {
-		Unique PrimaryKey NotNull String cardId
-		NotEmpty String given
-		NotEmpty String wanted
-		NotNull Boolean complex
-		NotNull String cardAuthor
-		NotNull Integer cardIndex
-		String categoryId references Category.categoryId
-	}
-	
 	CategoryUpdate {
 		NotNull String categoryId
 		NotNull String categoryName
@@ -56,11 +42,6 @@ models {
 	
 	CategoryDelete {
 		NotNull String categoryId
-	}
-	
-	CategoryMove {
-		NotNull String categoryId
-		String parentCategoryId
 	}
 	
 	CategoryList {
@@ -75,7 +56,6 @@ data {
 	CategoryCreation : ( Category )
 	CategoryUpdate : ( CategoryUpdate )
 	CategoryDelete : ( CategoryDelete )
-	CategoryMove : ( CategoryMove )
 	CategoryList : ( CategoryList )
 }
 

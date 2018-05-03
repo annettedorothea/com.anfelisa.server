@@ -1,0 +1,62 @@
+com.anfelisa.card
+
+target JAVA
+
+ACE {
+	POST CreateCard uses CardCreation {
+		on ok (Card.insert)
+	}
+	PUT UpdateCard uses CardUpdate {
+		on ok (Card.update)
+	}
+	DELETE DeleteCard uses CardDelete {
+		on ok (Card.delete)
+	}
+	GET GetAllCards uses CardList
+}
+
+views {
+	Card {
+		insert(CardCreation)
+		delete(CardDelete)
+		update(CardUpdate)
+	}
+}
+
+models {
+	schema public
+	
+	persistent Card {
+		Unique PrimaryKey NotNull String cardId
+		NotEmpty String given
+		NotEmpty String wanted
+		NotNull String cardAuthor
+		NotNull Integer cardIndex
+		String categoryId references com.anfelisa.category.Category.categoryId
+	}
+	
+	CardUpdate {
+		NotNull String cardId
+		NotEmpty String given
+		NotEmpty String wanted
+		NotNull Integer cardIndex
+	}
+	
+	CardDelete {
+		NotNull String cardId
+	}
+	
+	CardList {
+		String categoryId
+		String categoryName
+		List Card cardList
+	}
+}
+
+data {
+	CardCreation : ( Card )
+	CardUpdate : ( CardUpdate )
+	CardDelete : ( CardDelete )
+	CardList : ( CardList )
+}
+

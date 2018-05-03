@@ -15,7 +15,6 @@ public class AppRegistration {
 	public static void registerResources(Environment environment, DBI jdbi) {
 		environment.jersey().register(new CreateCategoryAction(jdbi));
 		environment.jersey().register(new UpdateCategoryAction(jdbi));
-		environment.jersey().register(new MoveCategoryAction(jdbi));
 		environment.jersey().register(new DeleteCategoryAction(jdbi));
 		environment.jersey().register(new GetAllCategoriesAction(jdbi));
 	}
@@ -23,7 +22,6 @@ public class AppRegistration {
 	public static void registerConsumers() {
 				AceController.addConsumer("com.anfelisa.category.events.CreateCategoryOkEvent", CategoryView.insert);
 				AceController.addConsumer("com.anfelisa.category.events.UpdateCategoryOkEvent", CategoryView.update);
-				AceController.addConsumer("com.anfelisa.category.events.MoveCategoryOkEvent", CategoryView.move);
 				AceController.addConsumer("com.anfelisa.category.events.DeleteCategoryOkEvent", CategoryView.delete);
     }
 }

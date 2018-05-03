@@ -1,26 +1,16 @@
 package com.anfelisa.user;
 
-import org.skife.jdbi.v2.DBI;
-
+import io.dropwizard.setup.Environment;
 import com.anfelisa.ace.AceController;
 import com.anfelisa.ace.AceExecutionMode;
-import com.anfelisa.user.actions.ChangeUserRoleAction;
-import com.anfelisa.user.actions.ConfirmEmailAction;
-import com.anfelisa.user.actions.DeleteUserAction;
-import com.anfelisa.user.actions.ForgotPasswordAction;
-import com.anfelisa.user.actions.GetAllUsersAction;
-import com.anfelisa.user.actions.GetRoleAction;
-import com.anfelisa.user.actions.GetUserProfileAction;
-import com.anfelisa.user.actions.RegisterUserAction;
-import com.anfelisa.user.actions.ResetPasswordAction;
-import com.anfelisa.user.actions.UpdateUserAction;
-import com.anfelisa.user.actions.UsernameAvailableAction;
-import com.anfelisa.user.views.EmailConfirmationView;
-import com.anfelisa.user.views.EmailView;
-import com.anfelisa.user.views.ResetPasswordView;
-import com.anfelisa.user.views.UserView;
 
-import io.dropwizard.setup.Environment;
+import org.skife.jdbi.v2.DBI;
+
+import com.anfelisa.user.views.UserView;
+import com.anfelisa.user.views.ResetPasswordView;
+import com.anfelisa.user.views.EmailView;
+import com.anfelisa.user.views.EmailConfirmationView;
+import com.anfelisa.user.actions.*;
 
 @SuppressWarnings("all")
 public class AppRegistration {

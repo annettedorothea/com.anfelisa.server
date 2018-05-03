@@ -1,14 +1,14 @@
 package com.anfelisa.user.actions;
 
-import javax.ws.rs.WebApplicationException;
-
 import org.skife.jdbi.v2.DBI;
+import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
-import com.anfelisa.user.commands.RegisterUserCommand;
 import com.anfelisa.user.data.UserRegistrationData;
+
+import com.anfelisa.user.commands.RegisterUserCommand;
 
 public abstract class AbstractRegisterUserAction extends Action<UserRegistrationData> {
 

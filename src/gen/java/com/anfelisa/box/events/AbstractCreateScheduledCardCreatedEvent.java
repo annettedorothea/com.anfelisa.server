@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
+
 import com.anfelisa.box.data.ScheduledCardData;
 
 public abstract class AbstractCreateScheduledCardCreatedEvent extends Event<ScheduledCardData> {

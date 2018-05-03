@@ -6,7 +6,6 @@ import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.category.data.CategoryCreationData;
 import com.anfelisa.category.data.CategoryDeleteData;
-import com.anfelisa.category.data.CategoryMoveData;
 import com.anfelisa.category.data.CategoryUpdateData;
 import com.anfelisa.category.model.CustomCategoryDao;
 import com.anfelisa.category.models.CategoryDao;
@@ -26,9 +25,6 @@ public class CategoryView {
 	};
 	public static BiConsumer<CategoryUpdateData, Handle> update = (dataContainer, handle) -> {
 		customCategoryDao.update(handle, dataContainer);
-	};
-	public static BiConsumer<CategoryMoveData, Handle> move = (dataContainer, handle) -> {
-		customCategoryDao.move(handle, dataContainer);
 	};
 
 }
