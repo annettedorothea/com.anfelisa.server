@@ -6,6 +6,7 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.user.data.RoleData;
@@ -13,8 +14,8 @@ import com.anfelisa.user.data.RoleData;
 
 public abstract class AbstractGetRoleAction extends Action<RoleData> {
 
-	public AbstractGetRoleAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super("com.anfelisa.user.actions.GetRoleAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider);
+	public AbstractGetRoleAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.actions.GetRoleAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override

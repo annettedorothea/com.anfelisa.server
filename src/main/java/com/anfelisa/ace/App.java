@@ -66,12 +66,13 @@ public class App extends Application<CustomAppConfiguration> {
 
 		DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "data-source-name");
 
-		if (ServerConfiguration.REPLAY.equals(configuration.getServerConfiguration().getMode())) {
-			environment.jersey().register(new PrepareE2EResource(jdbi));
+		String mode = configuration.getServerConfiguration().getMode();
+		if (ServerConfiguration.REPLAY.equals(mode)) {
+			environment.jersey().register(new PrepareE2EResource(jdbi, daoProvider));
 			environment.jersey().register(new StartE2ESessionResource(jdbi));
 			environment.jersey().register(new StopE2ESessionResource());
 			environment.jersey().register(new GetServerTimelineResource(jdbi));
-		} else if (ServerConfiguration.DEV.equals(configuration.getServerConfiguration().getMode())) {
+		} else if (ServerConfiguration.DEV.equals(mode)) {
 			environment.jersey().register(new GetServerTimelineResource(jdbi));
 		}
 
@@ -92,17 +93,17 @@ public class App extends Application<CustomAppConfiguration> {
 
 		ViewProvider viewProvider = new ViewProvider(daoProvider, new EmailService(configuration.getEmail()));
 
-		new com.anfelisa.user.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider);
-		new com.anfelisa.user.AppRegistration().registerConsumers(viewProvider);
+		new com.anfelisa.user.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider, viewProvider);
+		new com.anfelisa.user.AppRegistration().registerConsumers(viewProvider, mode);
 
-		new com.anfelisa.box.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider);
-		new com.anfelisa.box.AppRegistration().registerConsumers(viewProvider);
+		new com.anfelisa.box.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider, viewProvider);
+		new com.anfelisa.box.AppRegistration().registerConsumers(viewProvider, mode);
 
-		new com.anfelisa.category.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider);
-		new com.anfelisa.category.AppRegistration().registerConsumers(viewProvider);
+		new com.anfelisa.category.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider, viewProvider);
+		new com.anfelisa.category.AppRegistration().registerConsumers(viewProvider, mode);
 
-		new com.anfelisa.card.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider);
-		new com.anfelisa.card.AppRegistration().registerConsumers(viewProvider);
+		new com.anfelisa.card.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider, viewProvider);
+		new com.anfelisa.card.AppRegistration().registerConsumers(viewProvider, mode);
 
 	}
 

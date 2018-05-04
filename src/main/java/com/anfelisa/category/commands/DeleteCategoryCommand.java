@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.data.CategoryDeleteData;
 import com.anfelisa.category.models.CategoryDao;
 
@@ -14,8 +15,8 @@ public class DeleteCategoryCommand extends AbstractDeleteCategoryCommand {
 
 	private CategoryDao categoryDao = new CategoryDao();
 	
-	public DeleteCategoryCommand(CategoryDeleteData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super(commandParam, databaseHandle, daoProvider);
+	public DeleteCategoryCommand(CategoryDeleteData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

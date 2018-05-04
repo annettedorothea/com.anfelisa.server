@@ -23,8 +23,9 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 	protected JodaObjectMapper mapper;
 	private AppConfiguration appConfiguration;
 	protected DaoProvider daoProvider;
+	protected ViewProvider viewProvider;
 
-	public Action(String actionName, HttpMethod httpMethod, DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+	public Action(String actionName, HttpMethod httpMethod, DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
 		super();
 		this.actionName = actionName;
 		this.httpMethod = httpMethod;
@@ -32,6 +33,7 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
+		this.viewProvider = viewProvider;
 	}
 
 	public String getActionName() {

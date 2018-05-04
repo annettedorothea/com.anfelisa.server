@@ -4,17 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
+import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
 import com.anfelisa.user.data.EmailConfirmationData;
 
 public abstract class AbstractConfirmEmailOkEvent extends Event<EmailConfirmationData> {
 
-	public AbstractConfirmEmailOkEvent(EmailConfirmationData eventParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.events.ConfirmEmailOkEvent", eventParam, databaseHandle);
+	public AbstractConfirmEmailOkEvent(EmailConfirmationData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.events.ConfirmEmailOkEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractConfirmEmailOkEvent(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.events.ConfirmEmailOkEvent", null, databaseHandle);
+	public AbstractConfirmEmailOkEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.events.ConfirmEmailOkEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	
 	public void initEventData(String json) {

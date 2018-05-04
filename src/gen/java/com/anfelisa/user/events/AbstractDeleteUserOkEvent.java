@@ -4,17 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
+import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
 import com.anfelisa.user.data.DeleteUserData;
 
 public abstract class AbstractDeleteUserOkEvent extends Event<DeleteUserData> {
 
-	public AbstractDeleteUserOkEvent(DeleteUserData eventParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.events.DeleteUserOkEvent", eventParam, databaseHandle);
+	public AbstractDeleteUserOkEvent(DeleteUserData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.events.DeleteUserOkEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractDeleteUserOkEvent(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.events.DeleteUserOkEvent", null, databaseHandle);
+	public AbstractDeleteUserOkEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.events.DeleteUserOkEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	
 	public void initEventData(String json) {

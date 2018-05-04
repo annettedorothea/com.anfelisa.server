@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.ReinforceCardListData;
 import com.anfelisa.box.models.BoxDao;
@@ -51,8 +52,8 @@ public class LoadReinforceCardListAction extends AbstractLoadReinforceCardListAc
 
 	//private CardDao cardDao = new CardDao();
 
-	public LoadReinforceCardListAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super(jdbi, appConfiguration, daoProvider);
+	public LoadReinforceCardListAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@GET

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.ResetPasswordData;
 import com.anfelisa.user.models.IResetPasswordModel;
 import com.anfelisa.user.models.ResetPasswordDao;
@@ -15,8 +16,8 @@ public class ResetPasswordCommand extends AbstractResetPasswordCommand {
 
 	private ResetPasswordDao resetPasswordDao = new ResetPasswordDao();
 	
-	public ResetPasswordCommand(ResetPasswordData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super(commandParam, databaseHandle, daoProvider);
+	public ResetPasswordCommand(ResetPasswordData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

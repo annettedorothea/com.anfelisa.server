@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.ChangeUserRoleData;
 import com.anfelisa.user.models.UserDao;
@@ -15,12 +16,12 @@ public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 
 	private UserDao userDao = new UserDao();
 	
-	public ChangeUserRoleCommand(ChangeUserRoleData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super(commandParam, databaseHandle, daoProvider);
+	public ChangeUserRoleCommand(ChangeUserRoleData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public ChangeUserRoleCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super(null, databaseHandle, daoProvider);
+	public ChangeUserRoleCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(null, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

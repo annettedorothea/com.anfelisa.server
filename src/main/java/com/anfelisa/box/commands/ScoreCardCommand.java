@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.ScoreCardData;
 import com.anfelisa.box.models.CardDao;
 import com.anfelisa.box.models.CustomBoxDao;
@@ -24,8 +25,8 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 	private CustomBoxDao customBoxDao = new CustomBoxDao();
 
-	public ScoreCardCommand(ScoreCardData commandData, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super(commandData, databaseHandle, daoProvider);
+	public ScoreCardCommand(ScoreCardData commandData, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(commandData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

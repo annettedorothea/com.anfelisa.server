@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.card.data.CardUpdateData;
 import com.codahale.metrics.annotation.Timed;
@@ -29,8 +30,8 @@ import io.dropwizard.auth.Auth;
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateCardAction.class);
 
-	public UpdateCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super(jdbi, appConfiguration, daoProvider);
+	public UpdateCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@PUT

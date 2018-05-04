@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.UserUpdateData;
 import com.anfelisa.user.models.UserDao;
@@ -18,8 +19,8 @@ public class UpdateUserCommand extends AbstractUpdateUserCommand {
 
 	private UserDao userDao = new UserDao();
 
-	public UpdateUserCommand(UserUpdateData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super(commandParam, databaseHandle, daoProvider);
+	public UpdateUserCommand(UserUpdateData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

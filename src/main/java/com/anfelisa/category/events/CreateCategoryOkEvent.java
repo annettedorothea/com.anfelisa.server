@@ -3,19 +3,21 @@ package com.anfelisa.category.events;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.data.CategoryCreationData;
 
 public class CreateCategoryOkEvent extends AbstractCreateCategoryOkEvent {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateCategoryOkEvent.class);
 
-	public CreateCategoryOkEvent(CategoryCreationData eventParam, DatabaseHandle databaseHandle) {
-		super(eventParam, databaseHandle);
+	public CreateCategoryOkEvent(CategoryCreationData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public CreateCategoryOkEvent(DatabaseHandle databaseHandle) {
-		this(null, databaseHandle);
+	public CreateCategoryOkEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		this(null, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

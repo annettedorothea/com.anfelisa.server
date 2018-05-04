@@ -6,6 +6,7 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.box.data.AllBoxesData;
@@ -13,8 +14,8 @@ import com.anfelisa.box.data.AllBoxesData;
 
 public abstract class AbstractGetAllBoxesAction extends Action<AllBoxesData> {
 
-	public AbstractGetAllBoxesAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super("com.anfelisa.box.actions.GetAllBoxesAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider);
+	public AbstractGetAllBoxesAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.actions.GetAllBoxesAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override

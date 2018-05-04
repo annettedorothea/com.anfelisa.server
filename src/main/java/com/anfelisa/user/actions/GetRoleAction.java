@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.RoleData;
 import com.anfelisa.user.models.IUserModel;
@@ -34,8 +35,8 @@ public class GetRoleAction extends AbstractGetRoleAction {
 
 	private UserDao userDao = new UserDao();
 
-	public GetRoleAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super(jdbi, appConfiguration, daoProvider);
+	public GetRoleAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@GET

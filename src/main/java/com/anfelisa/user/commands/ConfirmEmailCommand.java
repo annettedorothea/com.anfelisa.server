@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.EmailConfirmationData;
 import com.anfelisa.user.models.EmailConfirmationDao;
 import com.anfelisa.user.models.IEmailConfirmationModel;
@@ -18,8 +19,8 @@ public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 	private EmailConfirmationDao emailConfirmationDao = new EmailConfirmationDao();
 	private UserDao userDao = new UserDao();
 
-	public ConfirmEmailCommand(EmailConfirmationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super(commandParam, databaseHandle, daoProvider);
+	public ConfirmEmailCommand(EmailConfirmationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

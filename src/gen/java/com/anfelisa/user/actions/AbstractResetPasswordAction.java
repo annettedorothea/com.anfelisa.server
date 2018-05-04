@@ -6,6 +6,7 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.user.data.ResetPasswordData;
@@ -14,13 +15,13 @@ import com.anfelisa.user.commands.ResetPasswordCommand;
 
 public abstract class AbstractResetPasswordAction extends Action<ResetPasswordData> {
 
-	public AbstractResetPasswordAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super("com.anfelisa.user.actions.ResetPasswordAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider);
+	public AbstractResetPasswordAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.actions.ResetPasswordAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override
 	public ICommand getCommand() {
-		return new ResetPasswordCommand(this.actionData, databaseHandle, daoProvider);
+		return new ResetPasswordCommand(this.actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	protected final void loadDataForGetRequest() {

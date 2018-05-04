@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.DeleteBoxData;
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.IBoxModel;
@@ -15,8 +16,8 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 
 	private BoxDao boxDao = new BoxDao();
 
-	public DeleteBoxCommand(DeleteBoxData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super(commandParam, databaseHandle, daoProvider);
+	public DeleteBoxCommand(DeleteBoxData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

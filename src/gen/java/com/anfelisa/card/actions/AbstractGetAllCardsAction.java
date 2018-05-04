@@ -6,6 +6,7 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.card.data.CardListData;
@@ -13,8 +14,8 @@ import com.anfelisa.card.data.CardListData;
 
 public abstract class AbstractGetAllCardsAction extends Action<CardListData> {
 
-	public AbstractGetAllCardsAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super("com.anfelisa.card.actions.GetAllCardsAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider);
+	public AbstractGetAllCardsAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.card.actions.GetAllCardsAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override

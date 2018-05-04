@@ -5,6 +5,7 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
 import com.anfelisa.box.data.BoxCreationData;
 
@@ -12,19 +13,19 @@ public abstract class AbstractUpdateBoxCommand extends Command<BoxCreationData> 
 
 	protected static final String updated = "updated";
 
-	public AbstractUpdateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super("com.anfelisa.box.commands.UpdateBoxCommand", commandParam, databaseHandle, daoProvider);
+	public AbstractUpdateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.commands.UpdateBoxCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public AbstractUpdateBoxCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super("com.anfelisa.box.commands.UpdateBoxCommand", null, databaseHandle, daoProvider);
+	public AbstractUpdateBoxCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.commands.UpdateBoxCommand", null, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case updated:
-			new com.anfelisa.box.events.UpdateBoxUpdatedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.box.events.UpdateBoxUpdatedEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.CardCreationData;
 import com.codahale.metrics.annotation.Timed;
@@ -27,8 +28,8 @@ public class CreateCardAction extends AbstractCreateCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateCardAction.class);
 
-	public CreateCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super(jdbi, appConfiguration, daoProvider);
+	public CreateCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@POST

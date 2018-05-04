@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.ScoreCardData;
 import com.codahale.metrics.annotation.Timed;
@@ -30,8 +31,8 @@ public class ScoreCardAction extends AbstractScoreCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScoreCardAction.class);
 
-	public ScoreCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super(jdbi, appConfiguration, daoProvider);
+	public ScoreCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@POST

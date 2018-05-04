@@ -6,6 +6,7 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.user.data.ChangeUserRoleData;
@@ -14,13 +15,13 @@ import com.anfelisa.user.commands.ChangeUserRoleCommand;
 
 public abstract class AbstractChangeUserRoleAction extends Action<ChangeUserRoleData> {
 
-	public AbstractChangeUserRoleAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super("com.anfelisa.user.actions.ChangeUserRoleAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider);
+	public AbstractChangeUserRoleAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.actions.ChangeUserRoleAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override
 	public ICommand getCommand() {
-		return new ChangeUserRoleCommand(this.actionData, databaseHandle, daoProvider);
+		return new ChangeUserRoleCommand(this.actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	protected final void loadDataForGetRequest() {

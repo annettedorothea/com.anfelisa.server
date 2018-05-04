@@ -1,5 +1,13 @@
 package com.anfelisa.ace;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
+
+import org.skife.jdbi.v2.Handle;
+
 import com.anfelisa.box.views.BoxView;
 import com.anfelisa.box.views.ScheduledCardView;
 import com.anfelisa.box.views.ScoredCardView;
@@ -21,7 +29,9 @@ public class ViewProvider {
 	public EmailView emailView;
 	public ResetPasswordView resetPasswordView;
 	public ScoredCardView scoredCardView;
-	
+
+	private final Map<String, List<BiConsumer<? extends IDataContainer, Handle>>> consumerMap;
+
 	public ViewProvider(DaoProvider daoProvider, EmailService emailService) {
 		boxView = new BoxView(daoProvider);
 		cardView = new CardView(daoProvider);
@@ -32,5 +42,20 @@ public class ViewProvider {
 		emailView = new EmailView(daoProvider, emailService);
 		resetPasswordView = new ResetPasswordView(daoProvider);
 		scoredCardView = new ScoredCardView(daoProvider);
+		consumerMap = new HashMap<String, List<BiConsumer<? extends IDataContainer, Handle>>>();
 	}
+	
+	public void addConsumer(String eventName, BiConsumer<? extends IDataContainer, Handle> createUserTable) {
+		List<BiConsumer<? extends IDataContainer, Handle>> consumerForEvent = consumerMap.get(eventName);
+		if (consumerForEvent == null) {
+			consumerForEvent = new ArrayList<BiConsumer<? extends IDataContainer, Handle>>();
+			consumerMap.put(eventName, consumerForEvent);
+		}
+		consumerForEvent.add(createUserTable);
+	}
+
+	public List<BiConsumer<? extends IDataContainer, Handle>> getConsumerForEvent(String eventName) {
+		return consumerMap.get(eventName);
+	}
+
 }

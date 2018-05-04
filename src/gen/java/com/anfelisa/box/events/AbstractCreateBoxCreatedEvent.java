@@ -4,17 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
+import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
 import com.anfelisa.box.data.BoxCreationData;
 
 public abstract class AbstractCreateBoxCreatedEvent extends Event<BoxCreationData> {
 
-	public AbstractCreateBoxCreatedEvent(BoxCreationData eventParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.events.CreateBoxCreatedEvent", eventParam, databaseHandle);
+	public AbstractCreateBoxCreatedEvent(BoxCreationData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.events.CreateBoxCreatedEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractCreateBoxCreatedEvent(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.events.CreateBoxCreatedEvent", null, databaseHandle);
+	public AbstractCreateBoxCreatedEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.events.CreateBoxCreatedEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	
 	public void initEventData(String json) {

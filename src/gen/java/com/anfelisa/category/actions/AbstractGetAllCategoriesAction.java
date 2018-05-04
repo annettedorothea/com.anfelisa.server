@@ -6,6 +6,7 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.category.data.CategoryListData;
@@ -13,8 +14,8 @@ import com.anfelisa.category.data.CategoryListData;
 
 public abstract class AbstractGetAllCategoriesAction extends Action<CategoryListData> {
 
-	public AbstractGetAllCategoriesAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super("com.anfelisa.category.actions.GetAllCategoriesAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider);
+	public AbstractGetAllCategoriesAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.actions.GetAllCategoriesAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override

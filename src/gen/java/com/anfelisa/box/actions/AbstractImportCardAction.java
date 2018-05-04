@@ -6,6 +6,7 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.box.data.CardCreationData;
@@ -14,13 +15,13 @@ import com.anfelisa.box.commands.ImportCardCommand;
 
 public abstract class AbstractImportCardAction extends Action<CardCreationData> {
 
-	public AbstractImportCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super("com.anfelisa.box.actions.ImportCardAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider);
+	public AbstractImportCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.actions.ImportCardAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override
 	public ICommand getCommand() {
-		return new ImportCardCommand(this.actionData, databaseHandle, daoProvider);
+		return new ImportCardCommand(this.actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	protected final void loadDataForGetRequest() {

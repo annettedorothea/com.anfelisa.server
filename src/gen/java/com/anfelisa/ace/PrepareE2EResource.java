@@ -27,11 +27,12 @@ public class PrepareE2EResource {
 
 	static final Logger LOG = LoggerFactory.getLogger(PrepareE2EResource.class);
 
-	private AceDao aceDao = new AceDao();
+	private DaoProvider daoProvider;
 
-	public PrepareE2EResource(DBI jdbi) {
+	public PrepareE2EResource(DBI jdbi, DaoProvider daoProvider) {
 		super();
 		this.jdbi = jdbi;
+		this.daoProvider = daoProvider;
 	}
 
 	@PUT
@@ -45,7 +46,7 @@ public class PrepareE2EResource {
 		try {
 			databaseHandle.beginTransaction();
 
-			ITimelineItem lastAction = aceDao.selectLastAction(databaseHandle.getHandle());
+			ITimelineItem lastAction = daoProvider.aceDao.selectLastAction(databaseHandle.getHandle());
 
 			int eventCount = 0;
 			ITimelineItem nextAction = E2E.selectNextAction(lastAction != null ? lastAction.getUuid() : null);
@@ -59,7 +60,7 @@ public class PrepareE2EResource {
 						IEvent event = (IEvent) con.newInstance(databaseHandle);
 						event.initEventData(nextEvent.getData());
 						event.notifyListeners();
-						AceController.addPreparingEventToTimeline(event, nextAction.getUuid());
+						daoProvider.addPreparingEventToTimeline(event, nextAction.getUuid());
 						eventCount++;
 					}
 				}

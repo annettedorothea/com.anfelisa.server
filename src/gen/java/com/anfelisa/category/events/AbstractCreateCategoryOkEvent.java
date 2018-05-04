@@ -4,17 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
+import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
 import com.anfelisa.category.data.CategoryCreationData;
 
 public abstract class AbstractCreateCategoryOkEvent extends Event<CategoryCreationData> {
 
-	public AbstractCreateCategoryOkEvent(CategoryCreationData eventParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.category.events.CreateCategoryOkEvent", eventParam, databaseHandle);
+	public AbstractCreateCategoryOkEvent(CategoryCreationData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.events.CreateCategoryOkEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractCreateCategoryOkEvent(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.category.events.CreateCategoryOkEvent", null, databaseHandle);
+	public AbstractCreateCategoryOkEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.events.CreateCategoryOkEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	
 	public void initEventData(String json) {

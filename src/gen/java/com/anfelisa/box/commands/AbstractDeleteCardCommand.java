@@ -5,18 +5,19 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
 import com.anfelisa.box.data.CardIdData;
 
 public abstract class AbstractDeleteCardCommand extends Command<CardIdData> {
 
 
-	public AbstractDeleteCardCommand(CardIdData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super("com.anfelisa.box.commands.DeleteCardCommand", commandParam, databaseHandle, daoProvider);
+	public AbstractDeleteCardCommand(CardIdData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.commands.DeleteCardCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public AbstractDeleteCardCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super("com.anfelisa.box.commands.DeleteCardCommand", null, databaseHandle, daoProvider);
+	public AbstractDeleteCardCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.commands.DeleteCardCommand", null, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

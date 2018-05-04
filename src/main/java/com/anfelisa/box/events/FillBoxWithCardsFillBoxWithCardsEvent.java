@@ -3,19 +3,21 @@ package com.anfelisa.box.events;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.FillBoxData;
 
 public class FillBoxWithCardsFillBoxWithCardsEvent extends AbstractFillBoxWithCardsFillBoxWithCardsEvent {
 
 	static final Logger LOG = LoggerFactory.getLogger(FillBoxWithCardsFillBoxWithCardsEvent.class);
 
-	public FillBoxWithCardsFillBoxWithCardsEvent(FillBoxData eventParam, DatabaseHandle databaseHandle) {
-		super(eventParam, databaseHandle);
+	public FillBoxWithCardsFillBoxWithCardsEvent(FillBoxData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public FillBoxWithCardsFillBoxWithCardsEvent(DatabaseHandle databaseHandle) {
-		this(null, databaseHandle);
+	public FillBoxWithCardsFillBoxWithCardsEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		this(null, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

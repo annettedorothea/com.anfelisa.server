@@ -3,19 +3,21 @@ package com.anfelisa.user.events;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.EmailConfirmationData;
 
 public class ConfirmEmailOkEvent extends AbstractConfirmEmailOkEvent {
 
 	static final Logger LOG = LoggerFactory.getLogger(ConfirmEmailOkEvent.class);
 
-	public ConfirmEmailOkEvent(EmailConfirmationData eventParam, DatabaseHandle databaseHandle) {
-		super(eventParam, databaseHandle);
+	public ConfirmEmailOkEvent(EmailConfirmationData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public ConfirmEmailOkEvent(DatabaseHandle databaseHandle) {
-		this(null, databaseHandle);
+	public ConfirmEmailOkEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		this(null, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

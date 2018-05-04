@@ -4,17 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
+import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
 import com.anfelisa.box.data.ScoredCardData;
 
 public abstract class AbstractCreateScoredCardCreatedEvent extends Event<ScoredCardData> {
 
-	public AbstractCreateScoredCardCreatedEvent(ScoredCardData eventParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.events.CreateScoredCardCreatedEvent", eventParam, databaseHandle);
+	public AbstractCreateScoredCardCreatedEvent(ScoredCardData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.events.CreateScoredCardCreatedEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractCreateScoredCardCreatedEvent(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.events.CreateScoredCardCreatedEvent", null, databaseHandle);
+	public AbstractCreateScoredCardCreatedEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.events.CreateScoredCardCreatedEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	
 	public void initEventData(String json) {

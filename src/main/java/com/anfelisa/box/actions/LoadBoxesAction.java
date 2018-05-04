@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.BoxListData;
 import com.anfelisa.box.models.BoxInfoModel;
@@ -43,8 +44,8 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 
 	private CustomBoxDao customBoxDao = new CustomBoxDao();
 
-	public LoadBoxesAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super(jdbi, appConfiguration, daoProvider);
+	public LoadBoxesAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@GET

@@ -4,17 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
+import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
 import com.anfelisa.user.data.ResetPasswordData;
 
 public abstract class AbstractResetPasswordOkEvent extends Event<ResetPasswordData> {
 
-	public AbstractResetPasswordOkEvent(ResetPasswordData eventParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.events.ResetPasswordOkEvent", eventParam, databaseHandle);
+	public AbstractResetPasswordOkEvent(ResetPasswordData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.events.ResetPasswordOkEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractResetPasswordOkEvent(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.events.ResetPasswordOkEvent", null, databaseHandle);
+	public AbstractResetPasswordOkEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.events.ResetPasswordOkEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	
 	public void initEventData(String json) {

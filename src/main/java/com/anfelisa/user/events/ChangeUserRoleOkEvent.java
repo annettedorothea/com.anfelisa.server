@@ -3,19 +3,21 @@ package com.anfelisa.user.events;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.ChangeUserRoleData;
 
 public class ChangeUserRoleOkEvent extends AbstractChangeUserRoleOkEvent {
 
 	static final Logger LOG = LoggerFactory.getLogger(ChangeUserRoleOkEvent.class);
 
-	public ChangeUserRoleOkEvent(ChangeUserRoleData eventParam, DatabaseHandle databaseHandle) {
-		super(eventParam, databaseHandle);
+	public ChangeUserRoleOkEvent(ChangeUserRoleData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public ChangeUserRoleOkEvent(DatabaseHandle databaseHandle) {
-		this(null, databaseHandle);
+	public ChangeUserRoleOkEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		this(null, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

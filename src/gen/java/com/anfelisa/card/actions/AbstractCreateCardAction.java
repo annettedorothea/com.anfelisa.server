@@ -6,6 +6,7 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.card.data.CardCreationData;
@@ -14,13 +15,13 @@ import com.anfelisa.card.commands.CreateCardCommand;
 
 public abstract class AbstractCreateCardAction extends Action<CardCreationData> {
 
-	public AbstractCreateCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super("com.anfelisa.card.actions.CreateCardAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider);
+	public AbstractCreateCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.card.actions.CreateCardAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override
 	public ICommand getCommand() {
-		return new CreateCardCommand(this.actionData, databaseHandle, daoProvider);
+		return new CreateCardCommand(this.actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	protected final void loadDataForGetRequest() {

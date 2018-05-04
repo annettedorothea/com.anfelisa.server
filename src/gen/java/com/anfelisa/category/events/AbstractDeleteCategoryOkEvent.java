@@ -4,17 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
+import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
 import com.anfelisa.category.data.CategoryDeleteData;
 
 public abstract class AbstractDeleteCategoryOkEvent extends Event<CategoryDeleteData> {
 
-	public AbstractDeleteCategoryOkEvent(CategoryDeleteData eventParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.category.events.DeleteCategoryOkEvent", eventParam, databaseHandle);
+	public AbstractDeleteCategoryOkEvent(CategoryDeleteData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.events.DeleteCategoryOkEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractDeleteCategoryOkEvent(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.category.events.DeleteCategoryOkEvent", null, databaseHandle);
+	public AbstractDeleteCategoryOkEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.events.DeleteCategoryOkEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	
 	public void initEventData(String json) {

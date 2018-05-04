@@ -4,17 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
+import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
 import com.anfelisa.card.data.CardCreationData;
 
 public abstract class AbstractCreateCardOkEvent extends Event<CardCreationData> {
 
-	public AbstractCreateCardOkEvent(CardCreationData eventParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.card.events.CreateCardOkEvent", eventParam, databaseHandle);
+	public AbstractCreateCardOkEvent(CardCreationData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.card.events.CreateCardOkEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractCreateCardOkEvent(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.card.events.CreateCardOkEvent", null, databaseHandle);
+	public AbstractCreateCardOkEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.card.events.CreateCardOkEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	
 	public void initEventData(String json) {

@@ -5,6 +5,7 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
 import com.anfelisa.box.data.ScoredCardData;
 
@@ -12,19 +13,19 @@ public abstract class AbstractCreateScoredCardCommand extends Command<ScoredCard
 
 	protected static final String created = "created";
 
-	public AbstractCreateScoredCardCommand(ScoredCardData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super("com.anfelisa.box.commands.CreateScoredCardCommand", commandParam, databaseHandle, daoProvider);
+	public AbstractCreateScoredCardCommand(ScoredCardData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.commands.CreateScoredCardCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public AbstractCreateScoredCardCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super("com.anfelisa.box.commands.CreateScoredCardCommand", null, databaseHandle, daoProvider);
+	public AbstractCreateScoredCardCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.commands.CreateScoredCardCommand", null, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
 		case created:
-			new com.anfelisa.box.events.CreateScoredCardCreatedEvent(this.commandData, databaseHandle).publish();
+			new com.anfelisa.box.events.CreateScoredCardCreatedEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

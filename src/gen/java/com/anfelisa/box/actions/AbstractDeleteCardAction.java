@@ -6,6 +6,7 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.box.data.CardIdData;
@@ -13,8 +14,8 @@ import com.anfelisa.box.data.CardIdData;
 
 public abstract class AbstractDeleteCardAction extends Action<CardIdData> {
 
-	public AbstractDeleteCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
-		super("com.anfelisa.box.actions.DeleteCardAction", HttpMethod.DELETE, jdbi, appConfiguration, daoProvider);
+	public AbstractDeleteCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.actions.DeleteCardAction", HttpMethod.DELETE, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override

@@ -4,17 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
+import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
 import com.anfelisa.box.data.FillBoxData;
 
 public abstract class AbstractFillBoxWithCardsFillBoxWithCardsEvent extends Event<FillBoxData> {
 
-	public AbstractFillBoxWithCardsFillBoxWithCardsEvent(FillBoxData eventParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.events.FillBoxWithCardsFillBoxWithCardsEvent", eventParam, databaseHandle);
+	public AbstractFillBoxWithCardsFillBoxWithCardsEvent(FillBoxData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.events.FillBoxWithCardsFillBoxWithCardsEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractFillBoxWithCardsFillBoxWithCardsEvent(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.events.FillBoxWithCardsFillBoxWithCardsEvent", null, databaseHandle);
+	public AbstractFillBoxWithCardsFillBoxWithCardsEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.events.FillBoxWithCardsFillBoxWithCardsEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	
 	public void initEventData(String json) {

@@ -5,14 +5,15 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.FillBoxData;
 
 public class FillBoxWithCardsCommand extends AbstractFillBoxWithCardsCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(FillBoxWithCardsCommand.class);
 
-	public FillBoxWithCardsCommand(FillBoxData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
-		super(commandParam, databaseHandle, daoProvider);
+	public FillBoxWithCardsCommand(FillBoxData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override
