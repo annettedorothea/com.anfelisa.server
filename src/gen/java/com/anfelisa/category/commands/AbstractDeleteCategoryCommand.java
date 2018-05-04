@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.category.data.CategoryDeleteData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractDeleteCategoryCommand extends Command<CategoryDele
 
 	protected static final String ok = "ok";
 
-	public AbstractDeleteCategoryCommand(CategoryDeleteData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.category.commands.DeleteCategoryCommand", commandParam, databaseHandle);
+	public AbstractDeleteCategoryCommand(CategoryDeleteData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.category.commands.DeleteCategoryCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractDeleteCategoryCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.category.commands.DeleteCategoryCommand", null, databaseHandle);
+	public AbstractDeleteCategoryCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.category.commands.DeleteCategoryCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

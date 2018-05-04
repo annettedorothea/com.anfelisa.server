@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.card.data.CardDeleteData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractDeleteCardCommand extends Command<CardDeleteData> 
 
 	protected static final String ok = "ok";
 
-	public AbstractDeleteCardCommand(CardDeleteData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.card.commands.DeleteCardCommand", commandParam, databaseHandle);
+	public AbstractDeleteCardCommand(CardDeleteData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.card.commands.DeleteCardCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractDeleteCardCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.card.commands.DeleteCardCommand", null, databaseHandle);
+	public AbstractDeleteCardCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.card.commands.DeleteCardCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

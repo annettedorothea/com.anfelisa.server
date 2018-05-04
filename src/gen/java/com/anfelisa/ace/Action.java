@@ -21,13 +21,17 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 	protected DatabaseHandle databaseHandle;
 	private DBI jdbi;
 	protected JodaObjectMapper mapper;
+	private AppConfiguration appConfiguration;
+	protected DaoProvider daoProvider;
 
-	public Action(String actionName, HttpMethod httpMethod, DBI jdbi) {
+	public Action(String actionName, HttpMethod httpMethod, DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
 		super();
 		this.actionName = actionName;
 		this.httpMethod = httpMethod;
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
+		this.appConfiguration = appConfiguration;
+		this.daoProvider = daoProvider;
 	}
 
 	public String getActionName() {
@@ -49,7 +53,7 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 		Handle timelineHandle = null;
 		databaseHandle.beginTransaction();
 		try {
-			if (AceController.getAceExecutionMode() != AceExecutionMode.REPLAY) {
+			if (!ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				this.actionData.setSystemTime(new DateTime());
 			} else {
 				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
@@ -63,7 +67,7 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 					this.actionData.setSystemTime(new DateTime());
 				}
 			}
-			AceController.addActionToTimeline(this);
+			daoProvider.addActionToTimeline(this);
 			if (httpMethod != HttpMethod.GET) {
 				ICommand command = this.getCommand();
 				if (command != null) {
@@ -83,13 +87,13 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 				return Response.ok().build();
 			}
 		} catch (WebApplicationException x) {
-			AceController.addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle);
+			daoProvider.addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle);
 			databaseHandle.rollbackTransaction();
 			LOG.error(actionName + " failed " + x.getMessage());
 			//x.printStackTrace();
 			return Response.status(x.getResponse().getStatusInfo()).entity(x.getMessage()).build();
 		} catch (Exception x) {
-			AceController.addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle);
+			daoProvider.addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle);
 			databaseHandle.rollbackTransaction();
 			LOG.error(actionName + " failed " + x.getMessage());
 			//x.printStackTrace();

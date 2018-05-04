@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.user.data.UserRegistrationData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractRegisterUserCommand extends Command<UserRegistrati
 
 	protected static final String ok = "ok";
 
-	public AbstractRegisterUserCommand(UserRegistrationData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.commands.RegisterUserCommand", commandParam, databaseHandle);
+	public AbstractRegisterUserCommand(UserRegistrationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.user.commands.RegisterUserCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractRegisterUserCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.commands.RegisterUserCommand", null, databaseHandle);
+	public AbstractRegisterUserCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.user.commands.RegisterUserCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

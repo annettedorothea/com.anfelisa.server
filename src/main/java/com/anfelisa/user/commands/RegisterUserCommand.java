@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.UserRegistrationData;
@@ -17,8 +18,8 @@ public class RegisterUserCommand extends AbstractRegisterUserCommand {
 
 	private UserDao userDao = new UserDao();
 
-	public RegisterUserCommand(UserRegistrationData commandParam, DatabaseHandle databaseHandle) {
-		super(commandParam, databaseHandle);
+	public RegisterUserCommand(UserRegistrationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super(commandParam, databaseHandle, daoProvider);
 	}
 
 	@Override

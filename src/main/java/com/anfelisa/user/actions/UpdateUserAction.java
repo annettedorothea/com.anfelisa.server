@@ -13,6 +13,8 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.UserUpdateData;
 import com.codahale.metrics.annotation.Timed;
@@ -27,8 +29,8 @@ public class UpdateUserAction extends AbstractUpdateUserAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateUserAction.class);
 
-	public UpdateUserAction(DBI jdbi) {
-		super(jdbi);
+	public UpdateUserAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@PUT

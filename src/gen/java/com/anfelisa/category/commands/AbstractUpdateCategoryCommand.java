@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.category.data.CategoryUpdateData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractUpdateCategoryCommand extends Command<CategoryUpda
 
 	protected static final String ok = "ok";
 
-	public AbstractUpdateCategoryCommand(CategoryUpdateData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.category.commands.UpdateCategoryCommand", commandParam, databaseHandle);
+	public AbstractUpdateCategoryCommand(CategoryUpdateData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.category.commands.UpdateCategoryCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractUpdateCategoryCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.category.commands.UpdateCategoryCommand", null, databaseHandle);
+	public AbstractUpdateCategoryCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.category.commands.UpdateCategoryCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

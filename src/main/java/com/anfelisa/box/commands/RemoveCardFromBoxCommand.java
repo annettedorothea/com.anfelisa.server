@@ -3,6 +3,7 @@ package com.anfelisa.box.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.RemoveCardFromBoxData;
 import com.anfelisa.box.models.BoxDao;
@@ -18,8 +19,8 @@ public class RemoveCardFromBoxCommand extends AbstractRemoveCardFromBoxCommand {
 	
 	private ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
 
-	public RemoveCardFromBoxCommand(RemoveCardFromBoxData commandParam, DatabaseHandle databaseHandle) {
-		super(commandParam, databaseHandle);
+	public RemoveCardFromBoxCommand(RemoveCardFromBoxData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super(commandParam, databaseHandle, daoProvider);
 	}
 
 	@Override

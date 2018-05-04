@@ -13,10 +13,10 @@ ACE {
 		on created ( Box.createBox )
 	}
 	POST CreateCard uses CardCreation {
-		on created (Card.createCard)
+		//on created (Card.createCard)
 	}
 	POST ImportCard uses CardCreation {
-		on imported (Card.createCard)
+		//on imported (Card.createCard)
 		on alreadyExists
 	}
 	POST CreateScheduledCard uses ScheduledCard {
@@ -38,7 +38,7 @@ ACE {
 		on fillBoxWithCards (Box.fillBoxWithCards )
 	}
 	DELETE DeleteCard uses CardId {
-		on deleted (Card.deleteCard)
+		//on deleted (Card.deleteCard)
 	}
 	DELETE RemoveCardFromBox uses RemoveCardFromBox {
 		on deleted (ScheduledCard.removeFromBox)
@@ -56,8 +56,8 @@ views {
 		fillBoxWithCards (FillBox)
 	}
 	Card {
-		createCard (CardCreation)
-		deleteCard(CardId)
+		//createCard (CardCreation)
+		//deleteCard(CardId)
 	}
 	ScheduledCard {
 		createScheduledCard (ScheduledCard)

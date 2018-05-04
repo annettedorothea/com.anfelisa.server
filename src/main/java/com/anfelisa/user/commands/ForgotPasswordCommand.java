@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.user.data.ForgotPasswordData;
 import com.anfelisa.user.models.IUserModel;
@@ -16,8 +17,8 @@ public class ForgotPasswordCommand extends AbstractForgotPasswordCommand {
 
 	private UserDao userDao = new UserDao();
 
-	public ForgotPasswordCommand(ForgotPasswordData commandParam, DatabaseHandle databaseHandle) {
-		super(commandParam, databaseHandle);
+	public ForgotPasswordCommand(ForgotPasswordData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super(commandParam, databaseHandle, daoProvider);
 	}
 
 	@Override

@@ -13,6 +13,8 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.user.data.ForgotPasswordData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,8 +26,8 @@ public class ForgotPasswordAction extends AbstractForgotPasswordAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ForgotPasswordAction.class);
 
-	public ForgotPasswordAction(DBI jdbi) {
-		super(jdbi);
+	public ForgotPasswordAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@POST

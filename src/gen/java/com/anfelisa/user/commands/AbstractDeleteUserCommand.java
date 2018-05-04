@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.user.data.DeleteUserData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractDeleteUserCommand extends Command<DeleteUserData> 
 
 	protected static final String ok = "ok";
 
-	public AbstractDeleteUserCommand(DeleteUserData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.commands.DeleteUserCommand", commandParam, databaseHandle);
+	public AbstractDeleteUserCommand(DeleteUserData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.user.commands.DeleteUserCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractDeleteUserCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.commands.DeleteUserCommand", null, databaseHandle);
+	public AbstractDeleteUserCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.user.commands.DeleteUserCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

@@ -4,27 +4,31 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.box.data.CardCreationData;
 import com.anfelisa.box.data.CardIdData;
-import com.anfelisa.box.models.CardDao;
-import com.anfelisa.box.models.ICardModel;
 
 public class CardView {
 
-	private static CardDao cardDao = new CardDao();
+	//private DaoProvider daoProvider;
+	
+	public CardView(DaoProvider daoProvider) {
+		super();
+		//this.daoProvider = daoProvider;
+	}
 
-	public static BiConsumer<CardCreationData, Handle> createCard = (dataContainer, handle) -> {
-		String cardId = dataContainer.getCardId();
-		ICardModel card = cardDao.selectByCardId(handle, cardId);
+	public BiConsumer<CardCreationData, Handle> createCard = (dataContainer, handle) -> {
+		/*String cardId = dataContainer.getCardId();
+		ICardModel card = daoProvider.cardDao.selectByCardId(handle, cardId);
 		if (card == null) {
-			cardDao.insert(handle, dataContainer);
+			daoProvider.cardDao.insert(handle, dataContainer);
 		} else {
 			cardDao.updateByCardId(handle, dataContainer);
-		}
+		}*/
 	};
 
-	public static BiConsumer<CardIdData, Handle> deleteCard = (dataContainer, handle) -> {
-		cardDao.deleteByCardId(handle, dataContainer.getCardId());
+	public BiConsumer<CardIdData, Handle> deleteCard = (dataContainer, handle) -> {
+		//daoProvider.cardDao.deleteByCardId(handle, dataContainer.getCardId());
 	};
 
 }

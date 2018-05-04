@@ -4,20 +4,25 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.box.data.ScoreCardData;
 import com.anfelisa.box.data.ScoredCardData;
-import com.anfelisa.box.models.ScoredCardDao;
 
 public class ScoredCardView {
 
-	private static ScoredCardDao scoredCardDao = new ScoredCardDao();
+	private DaoProvider daoProvider;
 
-	public static BiConsumer<ScoreCardData, Handle> score = (dataContainer, handle) -> {
-		scoredCardDao.insert(handle, dataContainer);
+	public ScoredCardView(DaoProvider daoProvider) {
+		super();
+		this.daoProvider = daoProvider;
+	}
+
+	public BiConsumer<ScoreCardData, Handle> score = (dataContainer, handle) -> {
+		daoProvider.scoredCardDao.insert(handle, dataContainer);
 	};
 
-	public static BiConsumer<ScoredCardData, Handle> createScoredCard = (dataContainer, handle) -> {
-		scoredCardDao.insert(handle, dataContainer);
+	public BiConsumer<ScoredCardData, Handle> createScoredCard = (dataContainer, handle) -> {
+		daoProvider.scoredCardDao.insert(handle, dataContainer);
 	};
 
 }

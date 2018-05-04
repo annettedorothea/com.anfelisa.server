@@ -4,6 +4,8 @@ import org.skife.jdbi.v2.DBI;
 import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.card.data.CardDeleteData;
@@ -12,13 +14,13 @@ import com.anfelisa.card.commands.DeleteCardCommand;
 
 public abstract class AbstractDeleteCardAction extends Action<CardDeleteData> {
 
-	public AbstractDeleteCardAction(DBI jdbi) {
-		super("com.anfelisa.card.actions.DeleteCardAction", HttpMethod.DELETE, jdbi);
+	public AbstractDeleteCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super("com.anfelisa.card.actions.DeleteCardAction", HttpMethod.DELETE, jdbi, appConfiguration, daoProvider);
 	}
 
 	@Override
 	public ICommand getCommand() {
-		return new DeleteCardCommand(this.actionData, databaseHandle);
+		return new DeleteCardCommand(this.actionData, databaseHandle, daoProvider);
 	}
 
 	protected final void loadDataForGetRequest() {

@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.box.data.RemoveCardFromBoxData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractRemoveCardFromBoxCommand extends Command<RemoveCar
 
 	protected static final String deleted = "deleted";
 
-	public AbstractRemoveCardFromBoxCommand(RemoveCardFromBoxData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.RemoveCardFromBoxCommand", commandParam, databaseHandle);
+	public AbstractRemoveCardFromBoxCommand(RemoveCardFromBoxData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.RemoveCardFromBoxCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractRemoveCardFromBoxCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.RemoveCardFromBoxCommand", null, databaseHandle);
+	public AbstractRemoveCardFromBoxCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.RemoveCardFromBoxCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

@@ -9,13 +9,13 @@ import org.apache.commons.mail.SimpleEmail;
 
 public class EmailService {
 
-	private static EmailConfiguration emailConfiguration;
+	private EmailConfiguration emailConfiguration;
 
-	public static void setEmailConfiguration(EmailConfiguration emailConfiguration) {
-		EmailService.emailConfiguration = emailConfiguration;
+	public EmailService(EmailConfiguration emailConfiguration) {
+		this.emailConfiguration = emailConfiguration;
 	}
 
-	public static void sendEmail(String from, String to, String subject, String message) {
+	public void sendEmail(String from, String to, String subject, String message) {
 		try {
 			Email email = new SimpleEmail();
 			email.setHostName(emailConfiguration.getHost());
@@ -33,7 +33,7 @@ public class EmailService {
 		}
 	}
 	
-	public static String getLocalhost() {
+	public String getLocalhost() {
 		return emailConfiguration.getLocalhost();
 	}
 }

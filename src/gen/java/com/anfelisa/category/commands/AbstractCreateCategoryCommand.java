@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.category.data.CategoryCreationData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractCreateCategoryCommand extends Command<CategoryCrea
 
 	protected static final String ok = "ok";
 
-	public AbstractCreateCategoryCommand(CategoryCreationData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.category.commands.CreateCategoryCommand", commandParam, databaseHandle);
+	public AbstractCreateCategoryCommand(CategoryCreationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.category.commands.CreateCategoryCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractCreateCategoryCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.category.commands.CreateCategoryCommand", null, databaseHandle);
+	public AbstractCreateCategoryCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.category.commands.CreateCategoryCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

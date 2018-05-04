@@ -12,6 +12,8 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.user.data.UserRegistrationData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,8 +25,8 @@ public class RegisterUserAction extends AbstractRegisterUserAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(RegisterUserAction.class);
 
-	public RegisterUserAction(DBI jdbi) {
-		super(jdbi);
+	public RegisterUserAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@POST

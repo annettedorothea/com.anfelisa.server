@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.box.data.DeleteBoxData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractDeleteBoxCommand extends Command<DeleteBoxData> {
 
 	protected static final String deleted = "deleted";
 
-	public AbstractDeleteBoxCommand(DeleteBoxData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.DeleteBoxCommand", commandParam, databaseHandle);
+	public AbstractDeleteBoxCommand(DeleteBoxData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.DeleteBoxCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractDeleteBoxCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.DeleteBoxCommand", null, databaseHandle);
+	public AbstractDeleteBoxCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.DeleteBoxCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

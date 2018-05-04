@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.ScoreCardData;
 import com.anfelisa.box.models.CardDao;
@@ -23,8 +24,8 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 	private CustomBoxDao customBoxDao = new CustomBoxDao();
 
-	public ScoreCardCommand(ScoreCardData commandData, DatabaseHandle databaseHandle) {
-		super(commandData, databaseHandle);
+	public ScoreCardCommand(ScoreCardData commandData, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super(commandData, databaseHandle, daoProvider);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package com.anfelisa.box.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.BoxCreationData;
@@ -11,8 +12,8 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateBoxCommand.class);
 
-	public CreateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle) {
-		super(commandParam, databaseHandle);
+	public CreateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super(commandParam, databaseHandle, daoProvider);
 	}
 
 	@Override

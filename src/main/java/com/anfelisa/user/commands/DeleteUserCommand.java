@@ -3,6 +3,7 @@ package com.anfelisa.user.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.DeleteUserData;
@@ -14,12 +15,8 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 
 	private UserDao userDao = new UserDao();
 	
-	public DeleteUserCommand(DeleteUserData commandParam, DatabaseHandle databaseHandle) {
-		super(commandParam, databaseHandle);
-	}
-
-	public DeleteUserCommand(DatabaseHandle databaseHandle) {
-		super(null, databaseHandle);
+	public DeleteUserCommand(DeleteUserData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super(commandParam, databaseHandle, daoProvider);
 	}
 
 	@Override

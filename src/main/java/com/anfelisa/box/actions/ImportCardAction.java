@@ -15,6 +15,8 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.CardCreationData;
 import com.codahale.metrics.annotation.Timed;
@@ -27,8 +29,8 @@ public class ImportCardAction extends AbstractImportCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ImportCardAction.class);
 
-	public ImportCardAction(DBI jdbi) {
-		super(jdbi);
+	public ImportCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@POST

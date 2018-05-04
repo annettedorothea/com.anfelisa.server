@@ -3,6 +3,7 @@ package com.anfelisa.category.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.category.data.CategoryDeleteData;
 import com.anfelisa.category.models.CategoryDao;
@@ -13,12 +14,8 @@ public class DeleteCategoryCommand extends AbstractDeleteCategoryCommand {
 
 	private CategoryDao categoryDao = new CategoryDao();
 	
-	public DeleteCategoryCommand(CategoryDeleteData commandParam, DatabaseHandle databaseHandle) {
-		super(commandParam, databaseHandle);
-	}
-
-	public DeleteCategoryCommand(DatabaseHandle databaseHandle) {
-		super(null, databaseHandle);
+	public DeleteCategoryCommand(CategoryDeleteData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super(commandParam, databaseHandle, daoProvider);
 	}
 
 	@Override

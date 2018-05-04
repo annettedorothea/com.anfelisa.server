@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.box.data.RecalculateScheduledCardsData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractRecalculateScheduledCardsCommand extends Command<R
 
 	protected static final String ok = "ok";
 
-	public AbstractRecalculateScheduledCardsCommand(RecalculateScheduledCardsData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.RecalculateScheduledCardsCommand", commandParam, databaseHandle);
+	public AbstractRecalculateScheduledCardsCommand(RecalculateScheduledCardsData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.RecalculateScheduledCardsCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractRecalculateScheduledCardsCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.RecalculateScheduledCardsCommand", null, databaseHandle);
+	public AbstractRecalculateScheduledCardsCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.RecalculateScheduledCardsCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

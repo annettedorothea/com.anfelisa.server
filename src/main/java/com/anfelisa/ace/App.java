@@ -51,32 +51,28 @@ public class App extends Application<CustomAppConfiguration> {
 			}
 		});
 
-		bootstrap.addCommand(new EventReplayCommand(this));
+		bootstrap.addCommand(new EventReplayCommand(this, new DaoProvider()));
 	}
 
 	@Override
 	public void run(CustomAppConfiguration configuration, Environment environment) throws ClassNotFoundException {
 		LOG.info("running version {}", getVersion());
 
+		DaoProvider daoProvider = new DaoProvider();
+
 		AceDao.setSchemaName(null);
-		
-		EmailService.setEmailConfiguration(configuration.getEmail());
 
 		final DBIFactory factory = new DBIFactory();
 
 		DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "data-source-name");
 
 		if (ServerConfiguration.REPLAY.equals(configuration.getServerConfiguration().getMode())) {
-			AceController.setAceExecutionMode(AceExecutionMode.REPLAY);
 			environment.jersey().register(new PrepareE2EResource(jdbi));
 			environment.jersey().register(new StartE2ESessionResource(jdbi));
 			environment.jersey().register(new StopE2ESessionResource());
 			environment.jersey().register(new GetServerTimelineResource(jdbi));
 		} else if (ServerConfiguration.DEV.equals(configuration.getServerConfiguration().getMode())) {
-			AceController.setAceExecutionMode(AceExecutionMode.DEV);
 			environment.jersey().register(new GetServerTimelineResource(jdbi));
-		} else {
-			AceController.setAceExecutionMode(AceExecutionMode.LIVE);
 		}
 
 		environment.jersey().register(new GetServerInfoResource());
@@ -85,23 +81,28 @@ public class App extends Application<CustomAppConfiguration> {
 		environment.jersey().register(dbiExceptionsBundle);
 
 		environment.jersey()
-				.register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<AuthUser>()
-						.setAuthenticator(new AceAuthenticator(jdbi)).setPrefix("anfelisaBasic")
-						.setRealm("anfelisaBasic private realm").buildAuthFilter()));
+				.register(new AuthDynamicFeature(
+						new BasicCredentialAuthFilter.Builder<AuthUser>().setAuthenticator(new AceAuthenticator(jdbi))
+								.setPrefix("anfelisaBasic").setRealm("anfelisaBasic private realm").buildAuthFilter()));
 		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
 
 		environment.jersey().register(RolesAllowedDynamicFeature.class);
 
 		configureCors(environment);
 
-		com.anfelisa.user.AppRegistration.registerResources(environment, jdbi);
-		com.anfelisa.user.AppRegistration.registerConsumers();
+		ViewProvider viewProvider = new ViewProvider(daoProvider, new EmailService(configuration.getEmail()));
 
-		com.anfelisa.box.AppRegistration.registerResources(environment, jdbi);
-		com.anfelisa.box.AppRegistration.registerConsumers();
-		
-		com.anfelisa.category.AppRegistration.registerResources(environment, jdbi);
-		com.anfelisa.category.AppRegistration.registerConsumers();
+		new com.anfelisa.user.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider);
+		new com.anfelisa.user.AppRegistration().registerConsumers(viewProvider);
+
+		new com.anfelisa.box.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider);
+		new com.anfelisa.box.AppRegistration().registerConsumers(viewProvider);
+
+		new com.anfelisa.category.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider);
+		new com.anfelisa.category.AppRegistration().registerConsumers(viewProvider);
+
+		new com.anfelisa.card.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider);
+		new com.anfelisa.card.AppRegistration().registerConsumers(viewProvider);
 
 	}
 

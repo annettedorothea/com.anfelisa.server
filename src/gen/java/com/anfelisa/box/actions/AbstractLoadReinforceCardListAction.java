@@ -4,6 +4,8 @@ import org.skife.jdbi.v2.DBI;
 import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.box.data.ReinforceCardListData;
@@ -11,8 +13,8 @@ import com.anfelisa.box.data.ReinforceCardListData;
 
 public abstract class AbstractLoadReinforceCardListAction extends Action<ReinforceCardListData> {
 
-	public AbstractLoadReinforceCardListAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.LoadReinforceCardListAction", HttpMethod.GET, jdbi);
+	public AbstractLoadReinforceCardListAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super("com.anfelisa.box.actions.LoadReinforceCardListAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider);
 	}
 
 	@Override

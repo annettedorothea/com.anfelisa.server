@@ -4,28 +4,25 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.box.data.CardCreationData;
 
 public abstract class AbstractImportCardCommand extends Command<CardCreationData> {
 
-	protected static final String imported = "imported";
 	protected static final String alreadyExists = "alreadyExists";
 
-	public AbstractImportCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.ImportCardCommand", commandParam, databaseHandle);
+	public AbstractImportCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.ImportCardCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractImportCardCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.ImportCardCommand", null, databaseHandle);
+	public AbstractImportCardCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.ImportCardCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
-		case imported:
-			new com.anfelisa.box.events.ImportCardImportedEvent(this.commandData, databaseHandle).publish();
-			break;
 		case alreadyExists:
 			break;
 		default:

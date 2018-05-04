@@ -20,14 +20,14 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.ReinforceCardListData;
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.CardContentModel;
-import com.anfelisa.box.models.CardDao;
 import com.anfelisa.box.models.CustomScheduledCardDao;
 import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.ICardModel;
 import com.anfelisa.box.models.ILineModel;
 import com.anfelisa.box.models.IReinforceCardModel;
 import com.anfelisa.box.models.IScheduledCardModel;
@@ -35,7 +35,6 @@ import com.anfelisa.box.models.LineModel;
 import com.anfelisa.box.models.ReinforceCardModel;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.dropwizard.auth.Auth;
 
@@ -50,10 +49,10 @@ public class LoadReinforceCardListAction extends AbstractLoadReinforceCardListAc
 
 	private CustomScheduledCardDao scheduledCardDao = new CustomScheduledCardDao();
 
-	private CardDao cardDao = new CardDao();
+	//private CardDao cardDao = new CardDao();
 
-	public LoadReinforceCardListAction(DBI jdbi) {
-		super(jdbi);
+	public LoadReinforceCardListAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@GET
@@ -80,9 +79,9 @@ public class LoadReinforceCardListAction extends AbstractLoadReinforceCardListAc
 				.selectReinforceCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId(), this.actionData.getSystemTime());
 		List<IReinforceCardModel> reinforceCards = new ArrayList<>();
 		for (IScheduledCardModel scheduledCard : scheduledCards) {
-			ICardModel card = cardDao.selectByCardId(this.getHandle(), scheduledCard.getCardId());
+			//ICardModel card = cardDao.selectByCardId(this.getHandle(), scheduledCard.getCardId());
 			//String content = card.getContent();
-			ObjectMapper mapper = new ObjectMapper();
+			//ObjectMapper mapper = new ObjectMapper();
 			try {
 				//Map<Object, Object> cardContentModel = mapper.readValue(content, Map.class);
 				Map<Object, Object> cardContentModel = new HashMap<>();

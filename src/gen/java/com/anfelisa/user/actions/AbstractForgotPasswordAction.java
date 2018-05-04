@@ -4,6 +4,8 @@ import org.skife.jdbi.v2.DBI;
 import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.user.data.ForgotPasswordData;
@@ -12,13 +14,13 @@ import com.anfelisa.user.commands.ForgotPasswordCommand;
 
 public abstract class AbstractForgotPasswordAction extends Action<ForgotPasswordData> {
 
-	public AbstractForgotPasswordAction(DBI jdbi) {
-		super("com.anfelisa.user.actions.ForgotPasswordAction", HttpMethod.POST, jdbi);
+	public AbstractForgotPasswordAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super("com.anfelisa.user.actions.ForgotPasswordAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider);
 	}
 
 	@Override
 	public ICommand getCommand() {
-		return new ForgotPasswordCommand(this.actionData, databaseHandle);
+		return new ForgotPasswordCommand(this.actionData, databaseHandle, daoProvider);
 	}
 
 	protected final void loadDataForGetRequest() {

@@ -13,6 +13,8 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.BoxCreationData;
 import com.codahale.metrics.annotation.Timed;
@@ -27,8 +29,8 @@ public class CreateBoxAction extends AbstractCreateBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateBoxAction.class);
 
-	public CreateBoxAction(DBI jdbi) {
-		super(jdbi);
+	public CreateBoxAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@POST

@@ -3,6 +3,7 @@ package com.anfelisa.card.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.card.data.CardCreationData;
 import com.anfelisa.category.models.CategoryDao;
@@ -13,12 +14,8 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 
 	private CategoryDao categoryDao = new CategoryDao();
 	
-	public CreateCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle) {
-		super(commandParam, databaseHandle);
-	}
-
-	public CreateCardCommand(DatabaseHandle databaseHandle) {
-		super(null, databaseHandle);
+	public CreateCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super(commandParam, databaseHandle, daoProvider);
 	}
 
 	@Override

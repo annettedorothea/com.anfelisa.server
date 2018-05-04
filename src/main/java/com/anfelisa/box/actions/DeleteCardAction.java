@@ -14,6 +14,8 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.CardIdData;
 import com.codahale.metrics.annotation.Timed;
@@ -26,8 +28,8 @@ public class DeleteCardAction extends AbstractDeleteCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteCardAction.class);
 
-	public DeleteCardAction(DBI jdbi) {
-		super(jdbi);
+	public DeleteCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@DELETE

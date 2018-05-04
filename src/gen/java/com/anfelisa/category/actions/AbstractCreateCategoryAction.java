@@ -4,6 +4,8 @@ import org.skife.jdbi.v2.DBI;
 import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.category.data.CategoryCreationData;
@@ -12,13 +14,13 @@ import com.anfelisa.category.commands.CreateCategoryCommand;
 
 public abstract class AbstractCreateCategoryAction extends Action<CategoryCreationData> {
 
-	public AbstractCreateCategoryAction(DBI jdbi) {
-		super("com.anfelisa.category.actions.CreateCategoryAction", HttpMethod.POST, jdbi);
+	public AbstractCreateCategoryAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super("com.anfelisa.category.actions.CreateCategoryAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider);
 	}
 
 	@Override
 	public ICommand getCommand() {
-		return new CreateCategoryCommand(this.actionData, databaseHandle);
+		return new CreateCategoryCommand(this.actionData, databaseHandle, daoProvider);
 	}
 
 	protected final void loadDataForGetRequest() {

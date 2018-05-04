@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.card.data.CardUpdateData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractUpdateCardCommand extends Command<CardUpdateData> 
 
 	protected static final String ok = "ok";
 
-	public AbstractUpdateCardCommand(CardUpdateData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.card.commands.UpdateCardCommand", commandParam, databaseHandle);
+	public AbstractUpdateCardCommand(CardUpdateData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.card.commands.UpdateCardCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractUpdateCardCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.card.commands.UpdateCardCommand", null, databaseHandle);
+	public AbstractUpdateCardCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.card.commands.UpdateCardCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

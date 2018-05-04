@@ -4,27 +4,24 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.box.data.CardIdData;
 
 public abstract class AbstractDeleteCardCommand extends Command<CardIdData> {
 
-	protected static final String deleted = "deleted";
 
-	public AbstractDeleteCardCommand(CardIdData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.DeleteCardCommand", commandParam, databaseHandle);
+	public AbstractDeleteCardCommand(CardIdData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.DeleteCardCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractDeleteCardCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.DeleteCardCommand", null, databaseHandle);
+	public AbstractDeleteCardCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.DeleteCardCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
-		case deleted:
-			new com.anfelisa.box.events.DeleteCardDeletedEvent(this.commandData, databaseHandle).publish();
-			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
 		}

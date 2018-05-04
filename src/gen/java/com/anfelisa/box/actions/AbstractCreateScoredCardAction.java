@@ -4,6 +4,8 @@ import org.skife.jdbi.v2.DBI;
 import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.box.data.ScoredCardData;
@@ -12,13 +14,13 @@ import com.anfelisa.box.commands.CreateScoredCardCommand;
 
 public abstract class AbstractCreateScoredCardAction extends Action<ScoredCardData> {
 
-	public AbstractCreateScoredCardAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.CreateScoredCardAction", HttpMethod.POST, jdbi);
+	public AbstractCreateScoredCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super("com.anfelisa.box.actions.CreateScoredCardAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider);
 	}
 
 	@Override
 	public ICommand getCommand() {
-		return new CreateScoredCardCommand(this.actionData, databaseHandle);
+		return new CreateScoredCardCommand(this.actionData, databaseHandle, daoProvider);
 	}
 
 	protected final void loadDataForGetRequest() {

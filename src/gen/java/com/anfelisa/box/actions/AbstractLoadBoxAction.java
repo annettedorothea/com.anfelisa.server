@@ -4,6 +4,8 @@ import org.skife.jdbi.v2.DBI;
 import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.box.data.BoxIdData;
@@ -11,8 +13,8 @@ import com.anfelisa.box.data.BoxIdData;
 
 public abstract class AbstractLoadBoxAction extends Action<BoxIdData> {
 
-	public AbstractLoadBoxAction(DBI jdbi) {
-		super("com.anfelisa.box.actions.LoadBoxAction", HttpMethod.GET, jdbi);
+	public AbstractLoadBoxAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super("com.anfelisa.box.actions.LoadBoxAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package com.anfelisa.card.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.card.data.CardUpdateData;
 import com.anfelisa.card.models.CardDao;
@@ -13,12 +14,8 @@ public class UpdateCardCommand extends AbstractUpdateCardCommand {
 
 	private CardDao cardDao = new CardDao();
 	
-	public UpdateCardCommand(CardUpdateData commandParam, DatabaseHandle databaseHandle) {
-		super(commandParam, databaseHandle);
-	}
-
-	public UpdateCardCommand(DatabaseHandle databaseHandle) {
-		super(null, databaseHandle);
+	public UpdateCardCommand(CardUpdateData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super(commandParam, databaseHandle, daoProvider);
 	}
 
 	@Override

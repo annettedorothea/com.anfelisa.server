@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.box.data.ScheduledCardData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractCreateScheduledCardCommand extends Command<Schedul
 
 	protected static final String created = "created";
 
-	public AbstractCreateScheduledCardCommand(ScheduledCardData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.CreateScheduledCardCommand", commandParam, databaseHandle);
+	public AbstractCreateScheduledCardCommand(ScheduledCardData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.CreateScheduledCardCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractCreateScheduledCardCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.CreateScheduledCardCommand", null, databaseHandle);
+	public AbstractCreateScheduledCardCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.CreateScheduledCardCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

@@ -16,6 +16,8 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.card.data.CardListData;
 import com.anfelisa.card.model.CustomCardDao;
@@ -38,8 +40,8 @@ public class GetAllCardsAction extends AbstractGetAllCardsAction {
 
 	private CategoryDao categoryDao = new CategoryDao();
 
-	public GetAllCardsAction(DBI jdbi) {
-		super(jdbi);
+	public GetAllCardsAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@GET

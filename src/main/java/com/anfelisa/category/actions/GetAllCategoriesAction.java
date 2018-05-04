@@ -16,6 +16,8 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.category.data.CategoryListData;
 import com.anfelisa.category.model.CustomCategoryDao;
@@ -37,8 +39,8 @@ import io.dropwizard.auth.Auth;
 	
 	private CategoryDao categoryDao = new CategoryDao();
 	
-	public GetAllCategoriesAction(DBI jdbi) {
-		super(jdbi);
+	public GetAllCategoriesAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@GET

@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.user.data.UserUpdateData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractUpdateUserCommand extends Command<UserUpdateData> 
 
 	protected static final String success = "success";
 
-	public AbstractUpdateUserCommand(UserUpdateData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.commands.UpdateUserCommand", commandParam, databaseHandle);
+	public AbstractUpdateUserCommand(UserUpdateData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.user.commands.UpdateUserCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractUpdateUserCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.commands.UpdateUserCommand", null, databaseHandle);
+	public AbstractUpdateUserCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.user.commands.UpdateUserCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.box.data.ScoredCardData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractCreateScoredCardCommand extends Command<ScoredCard
 
 	protected static final String created = "created";
 
-	public AbstractCreateScoredCardCommand(ScoredCardData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.CreateScoredCardCommand", commandParam, databaseHandle);
+	public AbstractCreateScoredCardCommand(ScoredCardData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.CreateScoredCardCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractCreateScoredCardCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.CreateScoredCardCommand", null, databaseHandle);
+	public AbstractCreateScoredCardCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.CreateScoredCardCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

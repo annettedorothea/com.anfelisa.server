@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.user.data.ChangeUserRoleData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractChangeUserRoleCommand extends Command<ChangeUserRo
 
 	protected static final String ok = "ok";
 
-	public AbstractChangeUserRoleCommand(ChangeUserRoleData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.commands.ChangeUserRoleCommand", commandParam, databaseHandle);
+	public AbstractChangeUserRoleCommand(ChangeUserRoleData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.user.commands.ChangeUserRoleCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractChangeUserRoleCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.commands.ChangeUserRoleCommand", null, databaseHandle);
+	public AbstractChangeUserRoleCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.user.commands.ChangeUserRoleCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

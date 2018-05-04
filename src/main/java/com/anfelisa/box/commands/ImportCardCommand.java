@@ -3,18 +3,18 @@ package com.anfelisa.box.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.box.data.CardCreationData;
-import com.anfelisa.box.models.CustomCardDao;
 
 public class ImportCardCommand extends AbstractImportCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ImportCardCommand.class);
 
-	private CustomCardDao customCardDao = new CustomCardDao();
+	//private CustomCardDao customCardDao = new CustomCardDao();
 
-	public ImportCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle) {
-		super(commandParam, databaseHandle);
+	public ImportCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super(commandParam, databaseHandle, daoProvider);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.box.data.BoxCreationData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractCreateBoxCommand extends Command<BoxCreationData> 
 
 	protected static final String created = "created";
 
-	public AbstractCreateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.CreateBoxCommand", commandParam, databaseHandle);
+	public AbstractCreateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.CreateBoxCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractCreateBoxCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.CreateBoxCommand", null, databaseHandle);
+	public AbstractCreateBoxCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.CreateBoxCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

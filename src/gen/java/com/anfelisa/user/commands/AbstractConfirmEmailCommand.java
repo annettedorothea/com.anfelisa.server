@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.user.data.EmailConfirmationData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractConfirmEmailCommand extends Command<EmailConfirmat
 
 	protected static final String ok = "ok";
 
-	public AbstractConfirmEmailCommand(EmailConfirmationData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.commands.ConfirmEmailCommand", commandParam, databaseHandle);
+	public AbstractConfirmEmailCommand(EmailConfirmationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.user.commands.ConfirmEmailCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractConfirmEmailCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.user.commands.ConfirmEmailCommand", null, databaseHandle);
+	public AbstractConfirmEmailCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.user.commands.ConfirmEmailCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

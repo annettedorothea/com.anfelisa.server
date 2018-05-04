@@ -3,6 +3,7 @@ package com.anfelisa.user.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.user.data.EmailConfirmationData;
 import com.anfelisa.user.models.EmailConfirmationDao;
@@ -17,8 +18,8 @@ public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 	private EmailConfirmationDao emailConfirmationDao = new EmailConfirmationDao();
 	private UserDao userDao = new UserDao();
 
-	public ConfirmEmailCommand(EmailConfirmationData commandParam, DatabaseHandle databaseHandle) {
-		super(commandParam, databaseHandle);
+	public ConfirmEmailCommand(EmailConfirmationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super(commandParam, databaseHandle, daoProvider);
 	}
 
 	@Override

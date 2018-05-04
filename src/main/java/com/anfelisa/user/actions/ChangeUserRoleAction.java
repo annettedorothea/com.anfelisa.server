@@ -14,6 +14,8 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.ChangeUserRoleData;
 import com.codahale.metrics.annotation.Timed;
@@ -28,8 +30,8 @@ public class ChangeUserRoleAction extends AbstractChangeUserRoleAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ChangeUserRoleAction.class);
 
-	public ChangeUserRoleAction(DBI jdbi) {
-		super(jdbi);
+	public ChangeUserRoleAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@PUT

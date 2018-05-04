@@ -13,6 +13,8 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.user.data.UsernameAvailableData;
 import com.anfelisa.user.models.UserDao;
 import com.codahale.metrics.annotation.Timed;
@@ -27,8 +29,8 @@ public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 
 	private UserDao userDao = new UserDao();
 
-	public UsernameAvailableAction(DBI jdbi) {
-		super(jdbi);
+	public UsernameAvailableAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@GET

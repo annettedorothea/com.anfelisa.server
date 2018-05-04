@@ -23,13 +23,13 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.CardData;
 import com.anfelisa.box.models.BoxDao;
-import com.anfelisa.box.models.CardDao;
 import com.anfelisa.box.models.CustomScheduledCardDao;
 import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.ICardModel;
 import com.anfelisa.box.models.ILineModel;
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.LineModel;
@@ -50,10 +50,10 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 
 	private CustomScheduledCardDao scheduledCardDao = new CustomScheduledCardDao();
 
-	private CardDao cardDao = new CardDao();
+	//private CardDao cardDao = new CardDao();
 
-	public LoadNextCardAction(DBI jdbi) {
-		super(jdbi);
+	public LoadNextCardAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@GET
@@ -120,7 +120,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 				this.actionData.setBoxName(box.getName());
 				this.actionData.setCardId(nextCard.getCardId());
 				this.actionData.setCardOfBoxId(nextCard.getScheduledCardId());
-				ICardModel card = cardDao.selectByCardId(this.getHandle(), nextCard.getCardId());
+				//ICardModel card = cardDao.selectByCardId(this.getHandle(), nextCard.getCardId());
 				//this.actionData.setContent(card.getContent());
 				this.actionData.setCount(nextCard.getCount());
 				this.actionData.setNext(nextCard.getScheduledDate());

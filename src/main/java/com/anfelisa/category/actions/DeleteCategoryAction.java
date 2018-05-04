@@ -14,6 +14,8 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.category.data.CategoryDeleteData;
 import com.codahale.metrics.annotation.Timed;
@@ -28,8 +30,8 @@ import io.dropwizard.auth.Auth;
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteCategoryAction.class);
 
-	public DeleteCategoryAction(DBI jdbi) {
-		super(jdbi);
+	public DeleteCategoryAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@DELETE

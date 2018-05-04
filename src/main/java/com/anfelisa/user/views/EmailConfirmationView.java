@@ -4,21 +4,26 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.user.data.EmailConfirmationData;
 import com.anfelisa.user.data.UserRegistrationData;
-import com.anfelisa.user.models.EmailConfirmationDao;
 
 @SuppressWarnings("all")
 public class EmailConfirmationView {
 
-	private static EmailConfirmationDao emailConfirmationDao = new EmailConfirmationDao();
+	private DaoProvider daoProvider;
 	
-	public static BiConsumer<UserRegistrationData, Handle> insert = (dataContainer, handle) -> {
-		emailConfirmationDao.insert(handle, dataContainer);
+	public EmailConfirmationView(DaoProvider daoProvider) {
+		super();
+		this.daoProvider = daoProvider;
+	}
+
+	public BiConsumer<UserRegistrationData, Handle> insert = (dataContainer, handle) -> {
+		daoProvider.emailConfirmationDao.insert(handle, dataContainer);
 	};
 
-	public static BiConsumer<EmailConfirmationData, Handle> delete = (dataContainer, handle) -> {
-		emailConfirmationDao.deleteByToken(handle, dataContainer.getToken());
+	public BiConsumer<EmailConfirmationData, Handle> delete = (dataContainer, handle) -> {
+		daoProvider.emailConfirmationDao.deleteByToken(handle, dataContainer.getToken());
 	};
 	
 }

@@ -18,23 +18,22 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 
 	static final Logger LOG = LoggerFactory.getLogger(EventReplayCommand.class);
 
-	private AceDao aceDao = new AceDao();
+	private DaoProvider daoProvider;
 
-	protected EventReplayCommand(Application<CustomAppConfiguration> application) {
+	protected EventReplayCommand(Application<CustomAppConfiguration> application, DaoProvider daoProvider) {
 		super(application, "replay", "truncates views and replays events");
+		this.daoProvider = daoProvider;
 	}
 
 	@Override
 	protected void run(Environment environment, Namespace namespace, CustomAppConfiguration configuration) throws Exception {
-		if (AceController.getAceExecutionMode() == AceExecutionMode.LIVE) {	
+		if (ServerConfiguration.LIVE.equals(configuration.getServerConfiguration().getMode())) {	
 			throw new RuntimeException("we won't truncate all views and replay events in a live environment");
 		}
-		if (AceController.getAceExecutionMode() == AceExecutionMode.REPLAY) {	
+		if (ServerConfiguration.REPLAY.equals(configuration.getServerConfiguration().getMode())) {	
 			throw new RuntimeException("replay events in a replay environment doesn't make sense");
 		}
 		
-		AceDao.setSchemaName(null);
-
 		final DBIFactory factory = new DBIFactory();
 
 		DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "data-source-name");
@@ -46,7 +45,7 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 			Handle handle = databaseHandle.getHandle();
 			AppUtils.truncateAllViews(handle);
 
-			List<ITimelineItem> timeline = aceDao.selectTimeline(handle);
+			List<ITimelineItem> timeline = daoProvider.aceDao.selectTimeline(handle);
 			E2E.timeline = timeline;
 
 			int eventCount = 0;

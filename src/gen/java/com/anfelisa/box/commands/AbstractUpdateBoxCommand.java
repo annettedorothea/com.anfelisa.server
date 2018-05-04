@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.DaoProvider;
 
 import com.anfelisa.box.data.BoxCreationData;
 
@@ -11,12 +12,12 @@ public abstract class AbstractUpdateBoxCommand extends Command<BoxCreationData> 
 
 	protected static final String updated = "updated";
 
-	public AbstractUpdateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.UpdateBoxCommand", commandParam, databaseHandle);
+	public AbstractUpdateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.UpdateBoxCommand", commandParam, databaseHandle, daoProvider);
 	}
 
-	public AbstractUpdateBoxCommand(DatabaseHandle databaseHandle) {
-		super("com.anfelisa.box.commands.UpdateBoxCommand", null, databaseHandle);
+	public AbstractUpdateBoxCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider) {
+		super("com.anfelisa.box.commands.UpdateBoxCommand", null, databaseHandle, daoProvider);
 	}
 
 	@Override

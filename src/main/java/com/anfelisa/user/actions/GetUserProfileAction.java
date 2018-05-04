@@ -14,6 +14,8 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.UserData;
 import com.anfelisa.user.models.IUserModel;
@@ -32,8 +34,8 @@ import io.dropwizard.auth.Auth;
 
 	private UserDao userDao = new UserDao();
 	
-	public GetUserProfileAction(DBI jdbi) {
-		super(jdbi);
+	public GetUserProfileAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider) {
+		super(jdbi, appConfiguration, daoProvider);
 	}
 
 	@GET
