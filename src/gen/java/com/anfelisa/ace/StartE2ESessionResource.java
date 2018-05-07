@@ -30,11 +30,12 @@ public class StartE2ESessionResource {
 
 	private DBI jdbi;
 
-	private AceDao aceDao = new AceDao();
+	private DaoProvider daoProvider = new DaoProvider();
 
-	public StartE2ESessionResource(DBI jdbi) {
+	public StartE2ESessionResource(DBI jdbi, DaoProvider daoProvider) {
 		super();
 		this.jdbi = jdbi;
+		this.daoProvider = daoProvider;
 	}
 
 	@PUT
@@ -52,10 +53,10 @@ public class StartE2ESessionResource {
 		try {
 			handle.getConnection().setAutoCommit(false);
 			
-			aceDao.truncateErrorTimelineTable(handle);
-			aceDao.truncateTimelineTable(handle);
+			daoProvider.aceDao.truncateErrorTimelineTable(handle);
+			daoProvider.aceDao.truncateTimelineTable(handle);
 
-			AppUtils.truncateAllViews(handle);
+			daoProvider.truncateAllViews(handle);
 
 			handle.commit();
 

@@ -7,21 +7,19 @@ import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.card.data.CardUpdateData;
-import com.anfelisa.card.models.CardDao;
 
 public class UpdateCardCommand extends AbstractUpdateCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateCardCommand.class);
 
-	private CardDao cardDao = new CardDao();
-	
-	public UpdateCardCommand(CardUpdateData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public UpdateCardCommand(CardUpdateData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider,
+			ViewProvider viewProvider) {
 		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override
 	protected void executeCommand() {
-		if (cardDao.selectByCardId(getHandle(), commandData.getCardId()) == null) {
+		if (daoProvider.cardDao.selectByCardId(getHandle(), commandData.getCardId()) == null) {
 			throwBadRequest("card does not exist");
 		}
 		if (commandData.getCardIndex() == null) {
@@ -32,4 +30,4 @@ public class UpdateCardCommand extends AbstractUpdateCardCommand {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

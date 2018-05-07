@@ -7,30 +7,26 @@ import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.EmailConfirmationData;
-import com.anfelisa.user.models.EmailConfirmationDao;
 import com.anfelisa.user.models.IEmailConfirmationModel;
 import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserDao;
 
 public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ConfirmEmailCommand.class);
 
-	private EmailConfirmationDao emailConfirmationDao = new EmailConfirmationDao();
-	private UserDao userDao = new UserDao();
-
-	public ConfirmEmailCommand(EmailConfirmationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public ConfirmEmailCommand(EmailConfirmationData commandParam, DatabaseHandle databaseHandle,
+			DaoProvider daoProvider, ViewProvider viewProvider) {
 		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override
 	protected void executeCommand() {
-		IEmailConfirmationModel emailConfirmation = emailConfirmationDao.selectByToken(getHandle(),
+		IEmailConfirmationModel emailConfirmation = daoProvider.emailConfirmationDao.selectByToken(getHandle(),
 				commandData.getToken());
 		if (emailConfirmation == null) {
 			throwBadRequest("Token not found.");
 		}
-		IUserModel user = userDao.selectByUserId(getHandle(), emailConfirmation.getUserId());
+		IUserModel user = daoProvider.userDao.selectByUserId(getHandle(), emailConfirmation.getUserId());
 		if (user == null) {
 			throwBadRequest("User does not exist.");
 		}

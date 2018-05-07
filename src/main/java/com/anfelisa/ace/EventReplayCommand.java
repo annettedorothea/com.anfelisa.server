@@ -26,14 +26,15 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 	}
 
 	@Override
-	protected void run(Environment environment, Namespace namespace, CustomAppConfiguration configuration) throws Exception {
-		if (ServerConfiguration.LIVE.equals(configuration.getServerConfiguration().getMode())) {	
+	protected void run(Environment environment, Namespace namespace, CustomAppConfiguration configuration)
+			throws Exception {
+		if (ServerConfiguration.LIVE.equals(configuration.getServerConfiguration().getMode())) {
 			throw new RuntimeException("we won't truncate all views and replay events in a live environment");
 		}
-		if (ServerConfiguration.REPLAY.equals(configuration.getServerConfiguration().getMode())) {	
+		if (ServerConfiguration.REPLAY.equals(configuration.getServerConfiguration().getMode())) {
 			throw new RuntimeException("replay events in a replay environment doesn't make sense");
 		}
-		
+
 		final DBIFactory factory = new DBIFactory();
 
 		DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "data-source-name");
@@ -43,7 +44,7 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 		try {
 			databaseHandle.beginTransaction();
 			Handle handle = databaseHandle.getHandle();
-			AppUtils.truncateAllViews(handle);
+			daoProvider.truncateAllViews(handle);
 
 			List<ITimelineItem> timeline = daoProvider.aceDao.selectTimeline(handle);
 			E2E.timeline = timeline;
@@ -74,7 +75,7 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 			databaseHandle.commitTransaction();
 
 			LOG.info("EVENT REPLAY FINISHED: successfully replayed " + eventCount + " events");
-			
+
 		} catch (Exception e) {
 			databaseHandle.rollbackTransaction();
 			LOG.info("EVENT REPLAY ABORTED " + e.getMessage());
@@ -86,4 +87,3 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 	}
 
 }
-

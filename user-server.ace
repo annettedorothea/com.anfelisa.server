@@ -76,7 +76,7 @@ models {
 		Unique PrimaryKey NotNull String token
 		NotNull String userId
 	}
-
+	
 	Credentials {
 		String credentialsUsername
 		String credentialsRole

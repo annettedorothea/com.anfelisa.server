@@ -21,8 +21,6 @@ import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.category.data.CategoryListData;
-import com.anfelisa.category.model.CustomCategoryDao;
-import com.anfelisa.category.models.CategoryDao;
 import com.anfelisa.category.models.ICategoryModel;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -36,10 +34,6 @@ import io.dropwizard.auth.Auth;
 
 	static final Logger LOG = LoggerFactory.getLogger(GetAllCategoriesAction.class);
 
-	private CustomCategoryDao customCategoryDao = new CustomCategoryDao();
-	
-	private CategoryDao categoryDao = new CategoryDao();
-	
 	public GetAllCategoriesAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
@@ -56,15 +50,15 @@ import io.dropwizard.auth.Auth;
 
 	protected final void loadDataForGetRequest() {
 		if (actionData.getParentCategoryId() != null) {
-			List<ICategoryModel> categoryList = customCategoryDao.selectAllChildren(getHandle(), actionData.getParentCategoryId());
+			List<ICategoryModel> categoryList = daoProvider.customCategoryDao.selectAllChildren(getHandle(), actionData.getParentCategoryId());
 			actionData.setCategoryList(categoryList);
-			ICategoryModel parentCategory = categoryDao.selectByCategoryId(getHandle(), actionData.getParentCategoryId());
+			ICategoryModel parentCategory = daoProvider.categoryDao.selectByCategoryId(getHandle(), actionData.getParentCategoryId());
 			if (parentCategory != null) {
 				this.actionData.setParentCategoryName(parentCategory.getCategoryName());
 				this.actionData.setGrandParentCategoryId(parentCategory.getParentCategoryId());
 			}
 		} else {
-			List<ICategoryModel> categoryList = customCategoryDao.selectAllRoot(getHandle());
+			List<ICategoryModel> categoryList = daoProvider.customCategoryDao.selectAllRoot(getHandle());
 			actionData.setCategoryList(categoryList);
 		}
 	}

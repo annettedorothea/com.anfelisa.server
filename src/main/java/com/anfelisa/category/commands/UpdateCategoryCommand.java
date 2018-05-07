@@ -7,13 +7,10 @@ import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.data.CategoryUpdateData;
-import com.anfelisa.category.models.CategoryDao;
 
 public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateCategoryCommand.class);
-
-	private CategoryDao categoryDao = new CategoryDao();
 
 	public UpdateCategoryCommand(CategoryUpdateData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
 		super(commandParam, databaseHandle, daoProvider, viewProvider);
@@ -21,7 +18,7 @@ public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 
 	@Override
 	protected void executeCommand() {
-		if (categoryDao.selectByCategoryId(getHandle(), commandData.getCategoryId()) == null) {
+		if (daoProvider.categoryDao.selectByCategoryId(getHandle(), commandData.getCategoryId()) == null) {
 			throwBadRequest("Category does not exist");
 		}
 		if (commandData.getCategoryIndex() == null) {

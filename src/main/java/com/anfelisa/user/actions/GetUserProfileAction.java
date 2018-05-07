@@ -20,7 +20,6 @@ import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.UserData;
 import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserDao;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -33,8 +32,6 @@ import io.dropwizard.auth.Auth;
 
 	static final Logger LOG = LoggerFactory.getLogger(GetUserProfileAction.class);
 
-	private UserDao userDao = new UserDao();
-	
 	public GetUserProfileAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
@@ -49,7 +46,7 @@ import io.dropwizard.auth.Auth;
 	}
 
 	protected final void loadDataForGetRequest() {
-		IUserModel user = userDao.selectByUsername(getHandle(), actionData.getUsername());
+		IUserModel user = daoProvider.userDao.selectByUsername(getHandle(), actionData.getUsername());
 		actionData.setEmail(user.getEmail());
 		actionData.setEmailConfirmed(user.getEmailConfirmed());
 		actionData.setRole(user.getRole());

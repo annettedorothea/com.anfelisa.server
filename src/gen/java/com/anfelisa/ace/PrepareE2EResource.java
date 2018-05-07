@@ -28,11 +28,13 @@ public class PrepareE2EResource {
 	static final Logger LOG = LoggerFactory.getLogger(PrepareE2EResource.class);
 
 	private DaoProvider daoProvider;
+	private ViewProvider viewProvider;
 
-	public PrepareE2EResource(DBI jdbi, DaoProvider daoProvider) {
+	public PrepareE2EResource(DBI jdbi, DaoProvider daoProvider, ViewProvider viewProvider) {
 		super();
 		this.jdbi = jdbi;
 		this.daoProvider = daoProvider;
+		this.viewProvider = viewProvider;
 	}
 
 	@PUT
@@ -56,8 +58,8 @@ public class PrepareE2EResource {
 					if (nextEvent != null) {
 						LOG.info("PUBLISH EVENT " + nextEvent);
 						Class<?> cl = Class.forName(nextEvent.getName());
-						Constructor<?> con = cl.getConstructor(DatabaseHandle.class);
-						IEvent event = (IEvent) con.newInstance(databaseHandle);
+						Constructor<?> con = cl.getConstructor(DatabaseHandle.class, DaoProvider.class, ViewProvider.class);
+						IEvent event = (IEvent) con.newInstance(databaseHandle, daoProvider, viewProvider);
 						event.initEventData(nextEvent.getData());
 						event.notifyListeners();
 						daoProvider.addPreparingEventToTimeline(event, nextAction.getUuid());

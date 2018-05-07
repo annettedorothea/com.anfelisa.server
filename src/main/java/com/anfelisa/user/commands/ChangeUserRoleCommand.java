@@ -8,15 +8,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.ChangeUserRoleData;
-import com.anfelisa.user.models.UserDao;
 
 public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ChangeUserRoleCommand.class);
 
-	private UserDao userDao = new UserDao();
-	
-	public ChangeUserRoleCommand(ChangeUserRoleData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public ChangeUserRoleCommand(ChangeUserRoleData commandParam, DatabaseHandle databaseHandle,
+			DaoProvider daoProvider, ViewProvider viewProvider) {
 		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
@@ -28,7 +26,7 @@ public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 	protected void executeCommand() {
 		if (AuthUser.ADMIN.equals(this.commandData.getRole()) || AuthUser.AUTHOR.equals(this.commandData.getRole())
 				|| AuthUser.STUDENT.equals(this.commandData.getRole())) {
-			if (userDao.selectByUserId(getHandle(), commandData.getUserId()) == null) {
+			if (daoProvider.userDao.selectByUserId(getHandle(), commandData.getUserId()) == null) {
 				throwBadRequest("User does not exist.");
 			}
 			this.commandData.setOutcome(ok);

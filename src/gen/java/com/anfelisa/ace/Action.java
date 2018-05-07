@@ -61,8 +61,8 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
 				if (timelineItem != null) {
 					Class<?> cl = Class.forName(timelineItem.getName());
-					Constructor<?> con = cl.getConstructor(DBI.class);
-					IAction action = (IAction) con.newInstance(jdbi);
+					Constructor<?> con = cl.getConstructor(DBI.class, AppConfiguration.class, DaoProvider.class, ViewProvider.class);
+					IAction action = (IAction) con.newInstance(jdbi, appConfiguration, daoProvider, viewProvider);
 					action.initActionData(timelineItem.getData());
 					this.actionData.setSystemTime(action.getActionData().getSystemTime());
 				} else {
@@ -92,13 +92,13 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 			daoProvider.addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle);
 			databaseHandle.rollbackTransaction();
 			LOG.error(actionName + " failed " + x.getMessage());
-			//x.printStackTrace();
+			x.printStackTrace();
 			return Response.status(x.getResponse().getStatusInfo()).entity(x.getMessage()).build();
 		} catch (Exception x) {
 			daoProvider.addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle);
 			databaseHandle.rollbackTransaction();
 			LOG.error(actionName + " failed " + x.getMessage());
-			//x.printStackTrace();
+			x.printStackTrace();
 			return Response.status(500).entity(x.getMessage()).build();
 		} finally {
 			databaseHandle.close();

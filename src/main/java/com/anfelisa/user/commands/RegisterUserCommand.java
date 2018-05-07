@@ -11,21 +11,19 @@ import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.UserRegistrationData;
 import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserDao;
 
 public class RegisterUserCommand extends AbstractRegisterUserCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(RegisterUserCommand.class);
 
-	private UserDao userDao = new UserDao();
-
-	public RegisterUserCommand(UserRegistrationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public RegisterUserCommand(UserRegistrationData commandParam, DatabaseHandle databaseHandle,
+			DaoProvider daoProvider, ViewProvider viewProvider) {
 		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override
 	protected void executeCommand() {
-		IUserModel user = userDao.selectByUsername(this.getHandle(), commandData.getUsername());
+		IUserModel user = daoProvider.userDao.selectByUsername(this.getHandle(), commandData.getUsername());
 		if (user != null) {
 			throwBadRequest();
 		}

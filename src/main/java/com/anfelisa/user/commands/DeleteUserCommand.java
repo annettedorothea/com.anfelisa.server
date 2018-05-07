@@ -8,24 +8,23 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.DeleteUserData;
-import com.anfelisa.user.models.UserDao;
 
 public class DeleteUserCommand extends AbstractDeleteUserCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteUserCommand.class);
 
-	private UserDao userDao = new UserDao();
-	
-	public DeleteUserCommand(DeleteUserData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public DeleteUserCommand(DeleteUserData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider,
+			ViewProvider viewProvider) {
 		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override
 	protected void executeCommand() {
-		if (!AuthUser.ADMIN.equals(commandData.getCredentialsRole()) && !commandData.getCredentialsUsername().equals(commandData.getDeletedUsername())) {
+		if (!AuthUser.ADMIN.equals(commandData.getCredentialsRole())
+				&& !commandData.getCredentialsUsername().equals(commandData.getDeletedUsername())) {
 			throwUnauthorized();
 		}
-		if (userDao.selectByUsername(getHandle(), commandData.getDeletedUsername()) == null) {
+		if (daoProvider.userDao.selectByUsername(getHandle(), commandData.getDeletedUsername()) == null) {
 			throwBadRequest(commandData.getDeletedUsername() + " does not exist");
 		}
 		this.commandData.setOutcome(ok);
@@ -33,4 +32,4 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

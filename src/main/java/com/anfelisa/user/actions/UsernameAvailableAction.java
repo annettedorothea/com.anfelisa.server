@@ -17,7 +17,6 @@ import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.UsernameAvailableData;
-import com.anfelisa.user.models.UserDao;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -28,9 +27,8 @@ public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UsernameAvailableAction.class);
 
-	private UserDao userDao = new UserDao();
-
-	public UsernameAvailableAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public UsernameAvailableAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider,
+			ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
@@ -44,7 +42,8 @@ public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		if (userDao.selectByUsername(this.getDatabaseHandle().getHandle(), this.actionData.getUsername()) == null) {
+		if (daoProvider.userDao.selectByUsername(this.getDatabaseHandle().getHandle(),
+				this.actionData.getUsername()) == null) {
 			this.actionData.setAvailable(true);
 		} else {
 			this.actionData.setAvailable(false);

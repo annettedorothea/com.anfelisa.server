@@ -21,9 +21,7 @@ import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.card.data.CardListData;
-import com.anfelisa.card.model.CustomCardDao;
 import com.anfelisa.card.models.ICardModel;
-import com.anfelisa.category.models.CategoryDao;
 import com.anfelisa.category.models.ICategoryModel;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -36,10 +34,6 @@ import io.dropwizard.auth.Auth;
 public class GetAllCardsAction extends AbstractGetAllCardsAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetAllCardsAction.class);
-
-	private CustomCardDao customCardDao = new CustomCardDao();
-
-	private CategoryDao categoryDao = new CategoryDao();
 
 	public GetAllCardsAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
@@ -56,12 +50,12 @@ public class GetAllCardsAction extends AbstractGetAllCardsAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		ICategoryModel category = categoryDao.selectByCategoryId(getHandle(), actionData.getCategoryId());
+		ICategoryModel category = daoProvider.categoryDao.selectByCategoryId(getHandle(), actionData.getCategoryId());
 		if (category == null) {
 			this.throwBadRequest("category does not exist");
 		}
 		this.actionData.setCategoryName(category.getCategoryName());
-		List<ICardModel> cards = customCardDao.selectAllOfCategory(getHandle(), actionData.getCategoryId());
+		List<ICardModel> cards = daoProvider.customCardDao.selectAllOfCategory(getHandle(), actionData.getCategoryId());
 		this.actionData.setCardList(cards);
 	}
 

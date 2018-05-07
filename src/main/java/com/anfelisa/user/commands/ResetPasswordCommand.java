@@ -8,22 +8,20 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.ResetPasswordData;
 import com.anfelisa.user.models.IResetPasswordModel;
-import com.anfelisa.user.models.ResetPasswordDao;
 
 public class ResetPasswordCommand extends AbstractResetPasswordCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ResetPasswordCommand.class);
 
-	private ResetPasswordDao resetPasswordDao = new ResetPasswordDao();
-	
-	public ResetPasswordCommand(ResetPasswordData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public ResetPasswordCommand(ResetPasswordData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider,
+			ViewProvider viewProvider) {
 		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override
 	protected void executeCommand() {
-		IResetPasswordModel model = resetPasswordDao.selectByToken(getHandle(), commandData.getToken());
-		if (model == null)  {
+		IResetPasswordModel model = daoProvider.resetPasswordDao.selectByToken(getHandle(), commandData.getToken());
+		if (model == null) {
 			throwBadRequest("Token not found.");
 		}
 		this.commandData.setUserId(model.getUserId());
@@ -32,4 +30,4 @@ public class ResetPasswordCommand extends AbstractResetPasswordCommand {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

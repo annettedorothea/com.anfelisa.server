@@ -59,6 +59,7 @@ public class App extends Application<CustomAppConfiguration> {
 		LOG.info("running version {}", getVersion());
 
 		DaoProvider daoProvider = new DaoProvider();
+		ViewProvider viewProvider = new ViewProvider(daoProvider, new EmailService(configuration.getEmail()));
 
 		AceDao.setSchemaName(null);
 
@@ -68,8 +69,8 @@ public class App extends Application<CustomAppConfiguration> {
 
 		String mode = configuration.getServerConfiguration().getMode();
 		if (ServerConfiguration.REPLAY.equals(mode)) {
-			environment.jersey().register(new PrepareE2EResource(jdbi, daoProvider));
-			environment.jersey().register(new StartE2ESessionResource(jdbi));
+			environment.jersey().register(new PrepareE2EResource(jdbi, daoProvider, viewProvider));
+			environment.jersey().register(new StartE2ESessionResource(jdbi, daoProvider));
 			environment.jersey().register(new StopE2ESessionResource());
 			environment.jersey().register(new GetServerTimelineResource(jdbi));
 		} else if (ServerConfiguration.DEV.equals(mode)) {
@@ -90,8 +91,6 @@ public class App extends Application<CustomAppConfiguration> {
 		environment.jersey().register(RolesAllowedDynamicFeature.class);
 
 		configureCors(environment);
-
-		ViewProvider viewProvider = new ViewProvider(daoProvider, new EmailService(configuration.getEmail()));
 
 		new com.anfelisa.user.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider, viewProvider);
 		new com.anfelisa.user.AppRegistration().registerConsumers(viewProvider, mode);

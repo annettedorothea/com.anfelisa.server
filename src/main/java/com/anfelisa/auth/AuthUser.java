@@ -46,5 +46,5 @@ public class AuthUser implements Principal {
 	public String getName() {
 		return "AuthUser";
 	}
-
+	
 }
