@@ -19,7 +19,6 @@ public class AppRegistration {
 		environment.jersey().register(new CreateCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new UpdateCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new DeleteCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new GetAllCardsAction(jdbi, appConfiguration, daoProvider, viewProvider));
 	}
 
 	public void registerConsumers(ViewProvider viewProvider, String mode) {

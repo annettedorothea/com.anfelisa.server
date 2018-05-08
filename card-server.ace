@@ -12,7 +12,6 @@ ACE {
 	DELETE DeleteCard uses CardDelete {
 		on ok (Card.delete)
 	}
-	GET GetAllCards uses CardList
 }
 
 views {
@@ -46,17 +45,11 @@ models {
 		NotNull String cardId
 	}
 	
-	CardList {
-		String categoryId
-		String categoryName
-		List Card cardList
-	}
 }
 
 data {
 	CardCreation : ( Card )
 	CardUpdate : ( CardUpdate )
 	CardDelete : ( CardDelete )
-	CardList : ( CardList )
 }
 

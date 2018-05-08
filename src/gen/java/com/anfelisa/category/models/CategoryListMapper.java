@@ -16,6 +16,7 @@ public class CategoryListMapper implements ResultSetMapper<ICategoryListModel> {
 			r.getString("parentCategoryId"),
 			r.getString("grandParentCategoryId"),
 			r.getString("parentCategoryName"),
+			null,
 			null
 		);
 	}

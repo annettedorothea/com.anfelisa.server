@@ -1,7 +1,13 @@
 package com.anfelisa.category.data;
 
-import com.anfelisa.ace.AbstractData;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.AbstractData;
 
 public class CategoryListData extends AbstractData implements ICategoryListData {
 	
@@ -13,12 +19,15 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 	
 	private java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList;
 	
+	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
+	
 
 	public CategoryListData(
 		@JsonProperty("parentCategoryId") String parentCategoryId,
 		@JsonProperty("grandParentCategoryId") String grandParentCategoryId,
 		@JsonProperty("parentCategoryName") String parentCategoryName,
-		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList
+		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList,
+		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -26,6 +35,7 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 		this.grandParentCategoryId = grandParentCategoryId;
 		this.parentCategoryName = parentCategoryName;
 		this.categoryList = categoryList;
+		this.cardList = cardList;
 	}
 
 	public CategoryListData( String uuid ) {
@@ -80,6 +90,18 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 		return this;
 	}
 	
+	@JsonProperty
+	public java.util.List<com.anfelisa.card.models.ICardModel> getCardList() {
+		return this.cardList;
+	}
+	public void setCardList(java.util.List<com.anfelisa.card.models.ICardModel> cardList) {
+		this.cardList = cardList;
+	}
+	public CategoryListData withCardList(java.util.List<com.anfelisa.card.models.ICardModel> cardList) {
+		this.cardList = cardList;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -87,7 +109,8 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 			this.parentCategoryId,
 			this.grandParentCategoryId,
 			this.parentCategoryName,
-			this.categoryList
+			this.categoryList,
+			this.cardList
 		);
 	}
 

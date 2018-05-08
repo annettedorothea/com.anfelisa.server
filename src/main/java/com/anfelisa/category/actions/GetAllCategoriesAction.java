@@ -20,6 +20,7 @@ import com.anfelisa.ace.AppConfiguration;
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
+import com.anfelisa.card.models.ICardModel;
 import com.anfelisa.category.data.CategoryListData;
 import com.anfelisa.category.models.ICategoryModel;
 import com.codahale.metrics.annotation.Timed;
@@ -53,6 +54,8 @@ import io.dropwizard.auth.Auth;
 			List<ICategoryModel> categoryList = daoProvider.customCategoryDao.selectAllChildren(getHandle(), actionData.getParentCategoryId());
 			actionData.setCategoryList(categoryList);
 			ICategoryModel parentCategory = daoProvider.categoryDao.selectByCategoryId(getHandle(), actionData.getParentCategoryId());
+			List<ICardModel> cards = daoProvider.customCardDao.selectAllOfCategory(getHandle(), actionData.getParentCategoryId());
+			this.actionData.setCardList(cards);
 			if (parentCategory != null) {
 				this.actionData.setParentCategoryName(parentCategory.getCategoryName());
 				this.actionData.setGrandParentCategoryId(parentCategory.getParentCategoryId());

@@ -9,6 +9,7 @@ public interface ICategoryListModel {
 	String getGrandParentCategoryId();
 	String getParentCategoryName();
 	java.util.List<com.anfelisa.category.models.ICategoryModel> getCategoryList();
+	java.util.List<com.anfelisa.card.models.ICardModel> getCardList();
 
 }
 

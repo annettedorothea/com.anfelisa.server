@@ -49,6 +49,7 @@ models {
 		String grandParentCategoryId
 		String parentCategoryName
 		List Category categoryList
+		List com.anfelisa.card.Card cardList
 	}
 }
 
