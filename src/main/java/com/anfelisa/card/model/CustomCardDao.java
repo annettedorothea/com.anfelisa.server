@@ -14,7 +14,7 @@ public class CustomCardDao {
 
 	public List<ICardModel> selectAllOfCategory(Handle handle, String categoryId) {
 		return handle.createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid FROM public.card "
-				+ "WHERE categoryid = :categoryid ORDER BY cardindex")
+				+ "WHERE categoryid = :categoryid ORDER BY cardindex, given")
 				.bind("categoryid", categoryId)
 				.map(new CardMapper())
 				.list();
