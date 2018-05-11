@@ -14,4 +14,7 @@
 	<column name="parentcategoryid" type="character varying">
 		<constraints   	references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_category_categoryid" />
 	</column>
+	<column name="rootcategoryid" type="character varying">
+		<constraints   	references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_category_categoryid" />
+	</column>
 </createTable>

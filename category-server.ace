@@ -32,6 +32,7 @@ models {
 		NotNull String categoryAuthor
 		NotNull Integer categoryIndex
 		String parentCategoryId references categoryId
+		String rootCategoryId references categoryId
 	}
 	
 	CategoryUpdate {

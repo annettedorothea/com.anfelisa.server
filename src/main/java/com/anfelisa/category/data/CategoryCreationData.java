@@ -21,13 +21,16 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 	
 	private String parentCategoryId;
 	
+	private String rootCategoryId;
+	
 
 	public CategoryCreationData(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryAuthor") String categoryAuthor,
 		@JsonProperty("categoryIndex") Integer categoryIndex,
-		@JsonProperty("parentCategoryId") String parentCategoryId
+		@JsonProperty("parentCategoryId") String parentCategoryId,
+		@JsonProperty("rootCategoryId") String rootCategoryId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -36,6 +39,7 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		this.categoryAuthor = categoryAuthor;
 		this.categoryIndex = categoryIndex;
 		this.parentCategoryId = parentCategoryId;
+		this.rootCategoryId = rootCategoryId;
 	}
 
 	public CategoryCreationData( String uuid ) {
@@ -102,6 +106,18 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		return this;
 	}
 	
+	@JsonProperty
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+	}
+	public CategoryCreationData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -110,7 +126,8 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 			this.categoryName,
 			this.categoryAuthor,
 			this.categoryIndex,
-			this.parentCategoryId
+			this.parentCategoryId,
+			this.rootCategoryId
 		);
 	}
 

@@ -7,6 +7,7 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.card.data.CardCreationData;
+import com.anfelisa.category.models.ICategoryModel;
 
 public class CreateCardCommand extends AbstractCreateCardCommand {
 
@@ -27,6 +28,15 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 				max = 0;
 			}
 			commandData.setCardIndex(max+1);
+		}
+		if (commandData.getCategoryId() != null) {
+			ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(), commandData.getCategoryId());
+			if (parentCategory.getParentCategoryId() == null) {
+				commandData.setRootCategoryId(parentCategory.getCategoryId());
+			} else {
+				ICategoryModel rootCategory = this.daoProvider.getCustomCategoryDao().findRootCategory(getHandle(), commandData.getCategoryId());
+				commandData.setRootCategoryId(rootCategory.getCategoryId());
+			}
 		}
 		this.commandData.setCardId(commandData.getUuid());
 		this.commandData.setOutcome(ok);

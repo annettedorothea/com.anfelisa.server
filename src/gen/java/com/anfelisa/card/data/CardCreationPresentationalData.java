@@ -26,6 +26,8 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 	
 	private String categoryId;
 	
+	private String rootCategoryId;
+	
 	
 	public CardCreationPresentationalData(
 		@JsonProperty("cardId") String cardId,
@@ -33,7 +35,8 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
-		@JsonProperty("categoryId") String categoryId
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("rootCategoryId") String rootCategoryId
 	) {
 		this.cardId = cardId;
 		this.given = given;
@@ -41,6 +44,7 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 		this.cardAuthor = cardAuthor;
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
+		this.rootCategoryId = rootCategoryId;
 		
 	}
 
@@ -113,6 +117,18 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 	}
 	public CardCreationPresentationalData withCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+	}
+	public CardCreationPresentationalData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
 		return this;
 	}
 	

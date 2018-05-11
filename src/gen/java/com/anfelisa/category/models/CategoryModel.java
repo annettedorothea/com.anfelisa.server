@@ -21,19 +21,23 @@ public class CategoryModel implements ICategoryModel {
 	
 	private String parentCategoryId;
 	
+	private String rootCategoryId;
+	
 
 	public CategoryModel(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryAuthor") String categoryAuthor,
 		@JsonProperty("categoryIndex") Integer categoryIndex,
-		@JsonProperty("parentCategoryId") String parentCategoryId
+		@JsonProperty("parentCategoryId") String parentCategoryId,
+		@JsonProperty("rootCategoryId") String rootCategoryId
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryAuthor = categoryAuthor;
 		this.categoryIndex = categoryIndex;
 		this.parentCategoryId = parentCategoryId;
+		this.rootCategoryId = rootCategoryId;
 	}
 
 	@JsonProperty
@@ -74,6 +78,14 @@ public class CategoryModel implements ICategoryModel {
 	}
 	public void setParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
+	}
+	
+	@JsonProperty
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
 	}
 	
 

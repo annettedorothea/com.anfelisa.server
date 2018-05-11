@@ -10,6 +10,7 @@ public interface ICategoryModel {
 	String getCategoryAuthor();
 	Integer getCategoryIndex();
 	String getParentCategoryId();
+	String getRootCategoryId();
 
 }
 

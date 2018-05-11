@@ -26,6 +26,8 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 	
 	private String categoryId;
 	
+	private String rootCategoryId;
+	
 
 	public CardCreationData(
 		@JsonProperty("cardId") String cardId,
@@ -33,7 +35,8 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
-		@JsonProperty("categoryId") String categoryId
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("rootCategoryId") String rootCategoryId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -43,6 +46,7 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 		this.cardAuthor = cardAuthor;
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
+		this.rootCategoryId = rootCategoryId;
 	}
 
 	public CardCreationData( String uuid ) {
@@ -121,6 +125,18 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 		return this;
 	}
 	
+	@JsonProperty
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+	}
+	public CardCreationData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -130,7 +146,8 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 			this.wanted,
 			this.cardAuthor,
 			this.cardIndex,
-			this.categoryId
+			this.categoryId,
+			this.rootCategoryId
 		);
 	}
 

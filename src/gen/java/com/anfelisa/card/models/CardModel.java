@@ -26,6 +26,8 @@ public class CardModel implements ICardModel {
 	
 	private String categoryId;
 	
+	private String rootCategoryId;
+	
 
 	public CardModel(
 		@JsonProperty("cardId") String cardId,
@@ -33,7 +35,8 @@ public class CardModel implements ICardModel {
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
-		@JsonProperty("categoryId") String categoryId
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("rootCategoryId") String rootCategoryId
 	) {
 		this.cardId = cardId;
 		this.given = given;
@@ -41,6 +44,7 @@ public class CardModel implements ICardModel {
 		this.cardAuthor = cardAuthor;
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
+		this.rootCategoryId = rootCategoryId;
 	}
 
 	@JsonProperty
@@ -89,6 +93,14 @@ public class CardModel implements ICardModel {
 	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+	}
+	
+	@JsonProperty
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
 	}
 	
 

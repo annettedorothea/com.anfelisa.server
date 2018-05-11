@@ -12,6 +12,7 @@ ACE {
 	DELETE DeleteCard uses CardDelete {
 		on ok (Card.delete)
 	}
+	GET GetDuplicates uses CardSearch
 }
 
 views {
@@ -32,6 +33,7 @@ models {
 		NotNull String cardAuthor
 		NotNull Integer cardIndex
 		String categoryId references com.anfelisa.category.Category.categoryId
+		String rootCategoryId references com.anfelisa.category.Category.categoryId
 	}
 	
 	CardUpdate {
@@ -44,6 +46,11 @@ models {
 	CardDelete {
 		NotNull String cardId
 	}
+	CardSearch {
+		NotNull String searchString
+		String categoryId
+		List com.anfelisa.card.Card cardList
+	}
 	
 }
 
@@ -51,5 +58,6 @@ data {
 	CardCreation : ( Card )
 	CardUpdate : ( CardUpdate )
 	CardDelete : ( CardDelete )
+	CardSearch : (CardSearch )
 }
 

@@ -21,19 +21,23 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 	
 	private String parentCategoryId;
 	
+	private String rootCategoryId;
+	
 	
 	public CategoryCreationPresentationalData(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryAuthor") String categoryAuthor,
 		@JsonProperty("categoryIndex") Integer categoryIndex,
-		@JsonProperty("parentCategoryId") String parentCategoryId
+		@JsonProperty("parentCategoryId") String parentCategoryId,
+		@JsonProperty("rootCategoryId") String rootCategoryId
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryAuthor = categoryAuthor;
 		this.categoryIndex = categoryIndex;
 		this.parentCategoryId = parentCategoryId;
+		this.rootCategoryId = rootCategoryId;
 		
 	}
 
@@ -94,6 +98,18 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 	}
 	public CategoryCreationPresentationalData withParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+	}
+	public CategoryCreationPresentationalData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
 		return this;
 	}
 	

@@ -12,8 +12,8 @@ import com.anfelisa.card.models.ICardModel;
 public class CustomCardDao {
 
 	public List<ICardModel> selectAllOfCategory(Handle handle, String categoryId) {
-		return handle
-				.createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid FROM public.card "
+		return handle.createQuery(
+				"SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid FROM public.card "
 						+ "WHERE categoryid = :categoryid ORDER BY cardindex, given")
 				.bind("categoryid", categoryId).map(new CardMapper()).list();
 	}
@@ -31,6 +31,14 @@ public class CustomCardDao {
 		statement.bind("wanted", cardModel.getWanted());
 		statement.bind("cardindex", cardModel.getCardIndex());
 		statement.execute();
+	}
+
+	public List<ICardModel> search(Handle handle, String categoryId, String searchString) {
+		searchString = "%" + searchString + "%";
+		return handle.createQuery(
+				"SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid FROM public.card "
+						+ "where rootcategoryid = (select rootcategoryid from category where category.categoryid = :categoryid) and given like :searchstring order by given limit 25")
+				.bind("categoryid", categoryId).bind("searchstring", searchString).map(new CardMapper()).list();
 	}
 
 }

@@ -12,25 +12,27 @@ import com.fasterxml.jackson.annotation.JsonIgnoreType;
 public class CardDao {
 	
 	public void insert(Handle handle, ICardModel cardModel) {
-		Update statement = handle.createStatement("INSERT INTO public.card (cardid, given, wanted, cardauthor, cardindex, categoryid) VALUES (:cardid, :given, :wanted, :cardauthor, :cardindex, :categoryid)");
+		Update statement = handle.createStatement("INSERT INTO public.card (cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid) VALUES (:cardid, :given, :wanted, :cardauthor, :cardindex, :categoryid, :rootcategoryid)");
 		statement.bind("cardid",  cardModel.getCardId() );
 		statement.bind("given",  cardModel.getGiven() );
 		statement.bind("wanted",  cardModel.getWanted() );
 		statement.bind("cardauthor",  cardModel.getCardAuthor() );
 		statement.bind("cardindex",  cardModel.getCardIndex() );
 		statement.bind("categoryid",  cardModel.getCategoryId() );
+		statement.bind("rootcategoryid",  cardModel.getRootCategoryId() );
 		statement.execute();
 	}
 	
 	
 	public void updateByCardId(Handle handle, ICardModel cardModel) {
-		Update statement = handle.createStatement("UPDATE public.card SET cardid = :cardid, given = :given, wanted = :wanted, cardauthor = :cardauthor, cardindex = :cardindex, categoryid = :categoryid WHERE cardid = :cardid");
+		Update statement = handle.createStatement("UPDATE public.card SET cardid = :cardid, given = :given, wanted = :wanted, cardauthor = :cardauthor, cardindex = :cardindex, categoryid = :categoryid, rootcategoryid = :rootcategoryid WHERE cardid = :cardid");
 		statement.bind("cardid",  cardModel.getCardId() );
 		statement.bind("given",  cardModel.getGiven() );
 		statement.bind("wanted",  cardModel.getWanted() );
 		statement.bind("cardauthor",  cardModel.getCardAuthor() );
 		statement.bind("cardindex",  cardModel.getCardIndex() );
 		statement.bind("categoryid",  cardModel.getCategoryId() );
+		statement.bind("rootcategoryid",  cardModel.getRootCategoryId() );
 		statement.bind("cardid",  cardModel.getCardId()  );
 		statement.execute();
 	}
@@ -42,14 +44,14 @@ public class CardDao {
 	}
 
 	public ICardModel selectByCardId(Handle handle, String cardId) {
-		return handle.createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid FROM public.card WHERE cardid = :cardid")
+		return handle.createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid FROM public.card WHERE cardid = :cardid")
 			.bind("cardid", cardId)
 			.map(new CardMapper())
 			.first();
 	}
 	
 	public List<ICardModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid FROM public.card")
+		return handle.createQuery("SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid FROM public.card")
 			.map(new CardMapper())
 			.list();
 	}

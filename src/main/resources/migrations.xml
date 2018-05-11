@@ -168,4 +168,21 @@
 
 	</changeSet>
 
+	<changeSet id="007" author="annette">
+
+		<addColumn tableName="card">
+			<column name="rootcategoryid" type="character varying">
+				<constraints references="category(categoryid)"
+					deleteCascade="true" foreignKeyName="fk_card_rootcategoryid" />
+			</column>
+		</addColumn>
+		<addColumn tableName="category">
+			<column name="rootcategoryid" type="character varying">
+				<constraints references="category(categoryid)"
+					deleteCascade="true" foreignKeyName="fk_category_rootcategoryid" />
+			</column>
+		</addColumn>
+
+	</changeSet>
+
 </databaseChangeLog>

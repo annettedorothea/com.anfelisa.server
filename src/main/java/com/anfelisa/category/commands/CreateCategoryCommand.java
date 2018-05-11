@@ -7,6 +7,7 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.data.CategoryCreationData;
+import com.anfelisa.category.models.ICategoryModel;
 
 public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 
@@ -35,6 +36,17 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 			commandData.setCategoryIndex(max+1);
 		}
 		this.commandData.setCategoryId(commandData.getUuid());
+ 		if (commandData.getParentCategoryId() != null) {
+			ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(), commandData.getParentCategoryId());
+			if (parentCategory.getParentCategoryId() == null) {
+				commandData.setRootCategoryId(parentCategory.getCategoryId());
+			} else {
+				ICategoryModel rootCategory = this.daoProvider.getCustomCategoryDao().findRootCategory(getHandle(), commandData.getParentCategoryId());
+				commandData.setRootCategoryId(rootCategory.getCategoryId());
+			}
+		} else {
+			commandData.setRootCategoryId(commandData.getCategoryId());
+		}
 		this.commandData.setOutcome(ok);
 	}
 

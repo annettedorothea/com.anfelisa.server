@@ -12,23 +12,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreType;
 public class CategoryDao {
 	
 	public void insert(Handle handle, ICategoryModel categoryModel) {
-		Update statement = handle.createStatement("INSERT INTO public.category (categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid) VALUES (:categoryid, :categoryname, :categoryauthor, :categoryindex, :parentcategoryid)");
+		Update statement = handle.createStatement("INSERT INTO public.category (categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid) VALUES (:categoryid, :categoryname, :categoryauthor, :categoryindex, :parentcategoryid, :rootcategoryid)");
 		statement.bind("categoryid",  categoryModel.getCategoryId() );
 		statement.bind("categoryname",  categoryModel.getCategoryName() );
 		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
 		statement.bind("categoryindex",  categoryModel.getCategoryIndex() );
 		statement.bind("parentcategoryid",  categoryModel.getParentCategoryId() );
+		statement.bind("rootcategoryid",  categoryModel.getRootCategoryId() );
 		statement.execute();
 	}
 	
 	
 	public void updateByCategoryId(Handle handle, ICategoryModel categoryModel) {
-		Update statement = handle.createStatement("UPDATE public.category SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid WHERE categoryid = :categoryid");
+		Update statement = handle.createStatement("UPDATE public.category SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid WHERE categoryid = :categoryid");
 		statement.bind("categoryid",  categoryModel.getCategoryId() );
 		statement.bind("categoryname",  categoryModel.getCategoryName() );
 		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
 		statement.bind("categoryindex",  categoryModel.getCategoryIndex() );
 		statement.bind("parentcategoryid",  categoryModel.getParentCategoryId() );
+		statement.bind("rootcategoryid",  categoryModel.getRootCategoryId() );
 		statement.bind("categoryid",  categoryModel.getCategoryId()  );
 		statement.execute();
 	}
@@ -40,18 +42,19 @@ public class CategoryDao {
 	}
 
 	public ICategoryModel selectByCategoryId(Handle handle, String categoryId) {
-		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid FROM public.category WHERE categoryid = :categoryid")
+		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid FROM public.category WHERE categoryid = :categoryid")
 			.bind("categoryid", categoryId)
 			.map(new CategoryMapper())
 			.first();
 	}
 	public void updateByCategoryName(Handle handle, ICategoryModel categoryModel) {
-		Update statement = handle.createStatement("UPDATE public.category SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid WHERE categoryname = :categoryname");
+		Update statement = handle.createStatement("UPDATE public.category SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid WHERE categoryname = :categoryname");
 		statement.bind("categoryid",  categoryModel.getCategoryId() );
 		statement.bind("categoryname",  categoryModel.getCategoryName() );
 		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
 		statement.bind("categoryindex",  categoryModel.getCategoryIndex() );
 		statement.bind("parentcategoryid",  categoryModel.getParentCategoryId() );
+		statement.bind("rootcategoryid",  categoryModel.getRootCategoryId() );
 		statement.bind("categoryname",  categoryModel.getCategoryName()  );
 		statement.execute();
 	}
@@ -63,14 +66,14 @@ public class CategoryDao {
 	}
 
 	public ICategoryModel selectByCategoryName(Handle handle, String categoryName) {
-		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid FROM public.category WHERE categoryname = :categoryname")
+		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid FROM public.category WHERE categoryname = :categoryname")
 			.bind("categoryname", categoryName)
 			.map(new CategoryMapper())
 			.first();
 	}
 	
 	public List<ICategoryModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid FROM public.category")
+		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid FROM public.category")
 			.map(new CategoryMapper())
 			.list();
 	}
