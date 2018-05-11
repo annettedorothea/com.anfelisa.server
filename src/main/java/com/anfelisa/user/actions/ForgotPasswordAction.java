@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AppConfiguration;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.ForgotPasswordData;
 import com.codahale.metrics.annotation.Timed;
@@ -27,7 +27,7 @@ public class ForgotPasswordAction extends AbstractForgotPasswordAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ForgotPasswordAction.class);
 
-	public ForgotPasswordAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public ForgotPasswordAction(DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 

@@ -27,10 +27,10 @@ public class PrepareE2EResource {
 
 	static final Logger LOG = LoggerFactory.getLogger(PrepareE2EResource.class);
 
-	private DaoProvider daoProvider;
+	private IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 
-	public PrepareE2EResource(DBI jdbi, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public PrepareE2EResource(DBI jdbi, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super();
 		this.jdbi = jdbi;
 		this.daoProvider = daoProvider;
@@ -48,7 +48,7 @@ public class PrepareE2EResource {
 		try {
 			databaseHandle.beginTransaction();
 
-			ITimelineItem lastAction = daoProvider.aceDao.selectLastAction(databaseHandle.getHandle());
+			ITimelineItem lastAction = daoProvider.getAceDao().selectLastAction(databaseHandle.getHandle());
 
 			int eventCount = 0;
 			ITimelineItem nextAction = E2E.selectNextAction(lastAction != null ? lastAction.getUuid() : null);
@@ -58,7 +58,7 @@ public class PrepareE2EResource {
 					if (nextEvent != null) {
 						LOG.info("PUBLISH EVENT " + nextEvent);
 						Class<?> cl = Class.forName(nextEvent.getName());
-						Constructor<?> con = cl.getConstructor(DatabaseHandle.class, DaoProvider.class, ViewProvider.class);
+						Constructor<?> con = cl.getConstructor(DatabaseHandle.class, IDaoProvider.class, ViewProvider.class);
 						IEvent event = (IEvent) con.newInstance(databaseHandle, daoProvider, viewProvider);
 						event.initEventData(nextEvent.getData());
 						event.notifyListeners();

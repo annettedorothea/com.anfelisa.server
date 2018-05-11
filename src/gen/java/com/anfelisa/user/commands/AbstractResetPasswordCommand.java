@@ -4,20 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-
 import com.anfelisa.user.data.ResetPasswordData;
 
 public abstract class AbstractResetPasswordCommand extends Command<ResetPasswordData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractResetPasswordCommand(ResetPasswordData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractResetPasswordCommand(ResetPasswordData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.ResetPasswordCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public AbstractResetPasswordCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractResetPasswordCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.ResetPasswordCommand", null, databaseHandle, daoProvider, viewProvider);
 	}
 

@@ -3,8 +3,8 @@ package com.anfelisa.user.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.DeleteUserData;
@@ -13,7 +13,7 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteUserCommand.class);
 
-	public DeleteUserCommand(DeleteUserData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider,
+	public DeleteUserCommand(DeleteUserData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
 		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
@@ -24,7 +24,7 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 				&& !commandData.getCredentialsUsername().equals(commandData.getDeletedUsername())) {
 			throwUnauthorized();
 		}
-		if (daoProvider.userDao.selectByUsername(getHandle(), commandData.getDeletedUsername()) == null) {
+		if (daoProvider.getUserDao().selectByUsername(getHandle(), commandData.getDeletedUsername()) == null) {
 			throwBadRequest(commandData.getDeletedUsername() + " does not exist");
 		}
 		this.commandData.setOutcome(ok);

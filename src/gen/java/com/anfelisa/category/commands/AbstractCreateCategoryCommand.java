@@ -4,20 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-
 import com.anfelisa.category.data.CategoryCreationData;
 
 public abstract class AbstractCreateCategoryCommand extends Command<CategoryCreationData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractCreateCategoryCommand(CategoryCreationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractCreateCategoryCommand(CategoryCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.commands.CreateCategoryCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public AbstractCreateCategoryCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractCreateCategoryCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.commands.CreateCategoryCommand", null, databaseHandle, daoProvider, viewProvider);
 	}
 

@@ -19,11 +19,11 @@ public class ResetPasswordView {
 	}
 
 	public BiConsumer<ForgotPasswordData, Handle> insert = (dataContainer, handle) -> {
-		daoProvider.resetPasswordDao.insert(handle, dataContainer);
+		daoProvider.getResetPasswordDao().insert(handle, dataContainer);
 	};
 
 	public BiConsumer<ResetPasswordData, Handle> delete = (dataContainer, handle) -> {
-		daoProvider.resetPasswordDao.deleteByToken(handle, dataContainer.getToken());
+		daoProvider.getResetPasswordDao().deleteByToken(handle, dataContainer.getToken());
 	};
 
 }

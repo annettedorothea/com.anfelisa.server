@@ -4,20 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-
 import com.anfelisa.card.data.CardCreationData;
 
 public abstract class AbstractCreateCardCommand extends Command<CardCreationData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractCreateCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractCreateCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.commands.CreateCardCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public AbstractCreateCardCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractCreateCardCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.commands.CreateCardCommand", null, databaseHandle, daoProvider, viewProvider);
 	}
 

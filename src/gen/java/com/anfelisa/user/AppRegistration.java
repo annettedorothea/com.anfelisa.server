@@ -1,24 +1,29 @@
 package com.anfelisa.user;
 
-import io.dropwizard.setup.Environment;
-import com.anfelisa.ace.AppConfiguration;
-import com.anfelisa.ace.AceExecutionMode;
-import com.anfelisa.ace.DaoProvider;
-import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.ace.ServerConfiguration;
-
 import org.skife.jdbi.v2.DBI;
 
-import com.anfelisa.user.views.UserView;
-import com.anfelisa.user.views.ResetPasswordView;
-import com.anfelisa.user.views.EmailView;
-import com.anfelisa.user.views.EmailConfirmationView;
-import com.anfelisa.user.actions.*;
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ServerConfiguration;
+import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.user.actions.ChangeUserRoleAction;
+import com.anfelisa.user.actions.ConfirmEmailAction;
+import com.anfelisa.user.actions.DeleteUserAction;
+import com.anfelisa.user.actions.ForgotPasswordAction;
+import com.anfelisa.user.actions.GetAllUsersAction;
+import com.anfelisa.user.actions.GetRoleAction;
+import com.anfelisa.user.actions.GetUserProfileAction;
+import com.anfelisa.user.actions.RegisterUserAction;
+import com.anfelisa.user.actions.ResetPasswordAction;
+import com.anfelisa.user.actions.UpdateUserAction;
+import com.anfelisa.user.actions.UsernameAvailableAction;
+
+import io.dropwizard.setup.Environment;
 
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public void registerResources(Environment environment, DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public void registerResources(Environment environment, DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		environment.jersey().register(new GetUserProfileAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new UsernameAvailableAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetRoleAction(jdbi, appConfiguration, daoProvider, viewProvider));

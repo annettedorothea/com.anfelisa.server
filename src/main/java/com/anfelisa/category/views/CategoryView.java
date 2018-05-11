@@ -11,21 +11,22 @@ import com.anfelisa.category.data.CategoryUpdateData;
 
 @SuppressWarnings("all")
 public class CategoryView {
-	
+
 	private DaoProvider daoProvider;
-	
+
 	public CategoryView(DaoProvider daoProvider) {
 		super();
 		this.daoProvider = daoProvider;
 	}
+
 	public BiConsumer<CategoryCreationData, Handle> insert = (dataContainer, handle) -> {
-		daoProvider.categoryDao.insert(handle, dataContainer);
+		daoProvider.getCategoryDao().insert(handle, dataContainer);
 	};
 	public BiConsumer<CategoryDeleteData, Handle> delete = (dataContainer, handle) -> {
-		daoProvider.categoryDao.deleteByCategoryId(handle, dataContainer.getCategoryId());
+		daoProvider.getCategoryDao().deleteByCategoryId(handle, dataContainer.getCategoryId());
 	};
 	public BiConsumer<CategoryUpdateData, Handle> update = (dataContainer, handle) -> {
-		daoProvider.customCategoryDao.update(handle, dataContainer);
+		daoProvider.getCustomCategoryDao().update(handle, dataContainer);
 	};
 
 }

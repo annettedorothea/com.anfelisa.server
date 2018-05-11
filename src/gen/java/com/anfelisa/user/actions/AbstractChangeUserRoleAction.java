@@ -1,21 +1,21 @@
 package com.anfelisa.user.actions;
 
-import org.skife.jdbi.v2.DBI;
 import javax.ws.rs.WebApplicationException;
+
+import org.skife.jdbi.v2.DBI;
 
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.AppConfiguration;
-import com.anfelisa.ace.DaoProvider;
-import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
-import com.anfelisa.user.data.ChangeUserRoleData;
-
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.commands.ChangeUserRoleCommand;
+import com.anfelisa.user.data.ChangeUserRoleData;
 
 public abstract class AbstractChangeUserRoleAction extends Action<ChangeUserRoleData> {
 
-	public AbstractChangeUserRoleAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractChangeUserRoleAction(DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.ChangeUserRoleAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 

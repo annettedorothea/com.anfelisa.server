@@ -19,13 +19,13 @@ public class CardView {
 		this.daoProvider = daoProvider;
 	}
 	public BiConsumer<CardCreationData, Handle> insert = (dataContainer, handle) -> {
-		daoProvider.cardDao.insert(handle, dataContainer);
+		daoProvider.getCardDao().insert(handle, dataContainer);
 	};
 	public BiConsumer<CardDeleteData, Handle> delete = (dataContainer, handle) -> {
-		daoProvider.cardDao.deleteByCardId(handle, dataContainer.getCardId());
+		daoProvider.getCardDao().deleteByCardId(handle, dataContainer.getCardId());
 	};
 	public BiConsumer<CardUpdateData, Handle> update = (dataContainer, handle) -> {
-		daoProvider.customCardDao.update(handle, dataContainer);
+		daoProvider.getCustomCardDao().update(handle, dataContainer);
 	};
 
 }

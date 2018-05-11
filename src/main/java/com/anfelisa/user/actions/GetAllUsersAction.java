@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AppConfiguration;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.UserListData;
@@ -35,7 +35,7 @@ public class GetAllUsersAction extends AbstractGetAllUsersAction {
 
 	private CustomUserDao userDao = new CustomUserDao();
 
-	public GetAllUsersAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public GetAllUsersAction(DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 

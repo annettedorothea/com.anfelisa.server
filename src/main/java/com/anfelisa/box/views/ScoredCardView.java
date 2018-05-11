@@ -10,19 +10,19 @@ import com.anfelisa.box.data.ScoredCardData;
 
 public class ScoredCardView {
 
-	private DaoProvider daoProvider;
+	//private DaoProvider daoProvider;
 
 	public ScoredCardView(DaoProvider daoProvider) {
 		super();
-		this.daoProvider = daoProvider;
+		//this.daoProvider = daoProvider;
 	}
 
 	public BiConsumer<ScoreCardData, Handle> score = (dataContainer, handle) -> {
-		daoProvider.scoredCardDao.insert(handle, dataContainer);
+		//daoProvider.scoredCardDao.insert(handle, dataContainer);
 	};
 
 	public BiConsumer<ScoredCardData, Handle> createScoredCard = (dataContainer, handle) -> {
-		daoProvider.scoredCardDao.insert(handle, dataContainer);
+		//daoProvider.scoredCardDao.insert(handle, dataContainer);
 	};
 
 }

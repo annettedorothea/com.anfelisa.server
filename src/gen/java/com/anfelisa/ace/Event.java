@@ -19,10 +19,10 @@ public abstract class Event<T extends IDataContainer> implements IEvent {
 	@JsonIgnore
 	protected DatabaseHandle databaseHandle;
 	protected JodaObjectMapper mapper;
-	protected DaoProvider daoProvider;
+	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 
-	public Event(String eventName, T eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public Event(String eventName, T eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super();
 		this.eventParam = eventParam;
 		this.eventName = eventName;

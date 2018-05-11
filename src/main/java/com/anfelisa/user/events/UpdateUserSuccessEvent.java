@@ -3,8 +3,8 @@ package com.anfelisa.user.events;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.UserUpdateData;
 
@@ -12,11 +12,11 @@ public class UpdateUserSuccessEvent extends AbstractUpdateUserSuccessEvent {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateUserSuccessEvent.class);
 
-	public UpdateUserSuccessEvent(UserUpdateData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public UpdateUserSuccessEvent(UserUpdateData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public UpdateUserSuccessEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public UpdateUserSuccessEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		this(null, databaseHandle, daoProvider, viewProvider);
 	}
 

@@ -5,12 +5,18 @@ import javax.ws.rs.WebApplicationException;
 import com.anfelisa.ace.encryption.EncryptionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-public abstract class AbstractDaoProvider {
+public abstract class AbstractDaoProvider implements IDaoProvider {
 
 	protected final AceDao aceDao = new AceDao();
 
 	protected final JodaObjectMapper mapper = new JodaObjectMapper();
 
+	@Override
+	public AceDao getAceDao() {
+		return this.aceDao;
+	}
+	
+	@Override
 	public void addActionToTimeline(IAction action) {
 		try {
 			String json = mapper.writeValueAsString(action.getActionData());
@@ -21,6 +27,7 @@ public abstract class AbstractDaoProvider {
 		}
 	}
 
+	@Override
 	public void addCommandToTimeline(ICommand command) {
 		try {
 			addItemToTimeline("command", null, command.getCommandName(),
@@ -31,6 +38,7 @@ public abstract class AbstractDaoProvider {
 		}
 	}
 
+	@Override
 	public void addEventToTimeline(IEvent event) {
 		try {
 			addItemToTimeline("event", null, event.getEventName(), mapper.writeValueAsString(event.getEventData()),
@@ -40,6 +48,7 @@ public abstract class AbstractDaoProvider {
 		}
 	}
 
+	@Override
 	public void addPreparingEventToTimeline(IEvent event, String uuid) {
 		try {
 			addItemToTimeline("preparing event", null, event.getEventName(),
@@ -49,6 +58,7 @@ public abstract class AbstractDaoProvider {
 		}
 	}
 
+	@Override
 	public void addExceptionToTimeline(String uuid, Throwable x, DatabaseHandle databaseHandle) {
 		aceDao.insertIntoErrorTimeline(databaseHandle.getErrorHandle(), "exception", null, x.getClass().getName(),
 				x.getMessage(), uuid);

@@ -3,8 +3,8 @@ package com.anfelisa.box.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.BoxCreationData;
 import com.anfelisa.box.models.BoxDao;
@@ -16,7 +16,7 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 
 	private BoxDao boxDao = new BoxDao();
 
-	public UpdateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public UpdateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

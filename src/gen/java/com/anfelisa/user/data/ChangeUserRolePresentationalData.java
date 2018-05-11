@@ -1,17 +1,8 @@
 package com.anfelisa.user.data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
-import java.util.List;
 
-import com.anfelisa.ace.IDataContainer;
-
-import com.anfelisa.user.models.IUserIdModel;
-import com.anfelisa.user.models.IRoleModel;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @SuppressWarnings("all")
 public class ChangeUserRolePresentationalData implements IChangeUserRolePresentationalData {

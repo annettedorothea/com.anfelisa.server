@@ -18,9 +18,9 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 
 	static final Logger LOG = LoggerFactory.getLogger(EventReplayCommand.class);
 
-	private DaoProvider daoProvider;
+	private IDaoProvider daoProvider;
 
-	protected EventReplayCommand(Application<CustomAppConfiguration> application, DaoProvider daoProvider) {
+	protected EventReplayCommand(Application<CustomAppConfiguration> application, IDaoProvider daoProvider) {
 		super(application, "replay", "truncates views and replays events");
 		this.daoProvider = daoProvider;
 	}
@@ -46,7 +46,7 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 			Handle handle = databaseHandle.getHandle();
 			daoProvider.truncateAllViews(handle);
 
-			List<ITimelineItem> timeline = daoProvider.aceDao.selectTimeline(handle);
+			List<ITimelineItem> timeline = daoProvider.getAceDao().selectTimeline(handle);
 			E2E.timeline = timeline;
 
 			int eventCount = 0;

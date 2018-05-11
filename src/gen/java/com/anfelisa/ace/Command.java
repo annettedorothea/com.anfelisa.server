@@ -14,10 +14,10 @@ public abstract class Command<T extends IDataContainer> implements ICommand {
 	@JsonIgnore
 	protected DatabaseHandle databaseHandle;
 	protected JodaObjectMapper mapper;
-	protected DaoProvider daoProvider;
+	protected IDaoProvider daoProvider;
 	protected ViewProvider viewProvider;
 
-	public Command(String commandName, T commandData, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public Command(String commandName, T commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super();
 		this.commandData = commandData;
 		this.commandName = commandName;

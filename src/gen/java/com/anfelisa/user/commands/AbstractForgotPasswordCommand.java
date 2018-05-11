@@ -4,9 +4,8 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-
 import com.anfelisa.user.data.ForgotPasswordData;
 
 public abstract class AbstractForgotPasswordCommand extends Command<ForgotPasswordData> {
@@ -14,11 +13,11 @@ public abstract class AbstractForgotPasswordCommand extends Command<ForgotPasswo
 	protected static final String ok = "ok";
 	protected static final String doesNotExist = "doesNotExist";
 
-	public AbstractForgotPasswordCommand(ForgotPasswordData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractForgotPasswordCommand(ForgotPasswordData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.ForgotPasswordCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public AbstractForgotPasswordCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractForgotPasswordCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.ForgotPasswordCommand", null, databaseHandle, daoProvider, viewProvider);
 	}
 

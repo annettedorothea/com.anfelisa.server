@@ -4,18 +4,17 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-
 import com.anfelisa.box.data.RemoveCardFromBoxData;
 
 public abstract class AbstractRemoveCardFromBoxDeletedEvent extends Event<RemoveCardFromBoxData> {
 
-	public AbstractRemoveCardFromBoxDeletedEvent(RemoveCardFromBoxData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractRemoveCardFromBoxDeletedEvent(RemoveCardFromBoxData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.events.RemoveCardFromBoxDeletedEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractRemoveCardFromBoxDeletedEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractRemoveCardFromBoxDeletedEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.events.RemoveCardFromBoxDeletedEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	

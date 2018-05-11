@@ -4,18 +4,17 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-
 import com.anfelisa.user.data.UserUpdateData;
 
 public abstract class AbstractUpdateUserSuccessEvent extends Event<UserUpdateData> {
 
-	public AbstractUpdateUserSuccessEvent(UserUpdateData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractUpdateUserSuccessEvent(UserUpdateData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.events.UpdateUserSuccessEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractUpdateUserSuccessEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractUpdateUserSuccessEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.events.UpdateUserSuccessEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	

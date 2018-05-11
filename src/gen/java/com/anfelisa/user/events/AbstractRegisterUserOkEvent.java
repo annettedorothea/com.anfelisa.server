@@ -4,18 +4,17 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-
 import com.anfelisa.user.data.UserRegistrationData;
 
 public abstract class AbstractRegisterUserOkEvent extends Event<UserRegistrationData> {
 
-	public AbstractRegisterUserOkEvent(UserRegistrationData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractRegisterUserOkEvent(UserRegistrationData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.events.RegisterUserOkEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractRegisterUserOkEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractRegisterUserOkEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.events.RegisterUserOkEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	

@@ -1,23 +1,34 @@
 package com.anfelisa.box;
 
-import io.dropwizard.setup.Environment;
-import com.anfelisa.ace.AppConfiguration;
-import com.anfelisa.ace.AceExecutionMode;
-import com.anfelisa.ace.DaoProvider;
-import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.ace.ServerConfiguration;
-
 import org.skife.jdbi.v2.DBI;
 
-import com.anfelisa.box.views.BoxView;
-import com.anfelisa.box.views.ScheduledCardView;
-import com.anfelisa.box.views.ScoredCardView;
-import com.anfelisa.box.actions.*;
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.box.actions.CreateBoxAction;
+import com.anfelisa.box.actions.CreateCardAction;
+import com.anfelisa.box.actions.CreateScheduledCardAction;
+import com.anfelisa.box.actions.CreateScoredCardAction;
+import com.anfelisa.box.actions.DeleteBoxAction;
+import com.anfelisa.box.actions.DeleteCardAction;
+import com.anfelisa.box.actions.FillBoxWithCardsAction;
+import com.anfelisa.box.actions.GetAllBoxesAction;
+import com.anfelisa.box.actions.ImportCardAction;
+import com.anfelisa.box.actions.LoadBoxAction;
+import com.anfelisa.box.actions.LoadBoxesAction;
+import com.anfelisa.box.actions.LoadNextCardAction;
+import com.anfelisa.box.actions.LoadReinforceCardListAction;
+import com.anfelisa.box.actions.RecalculateScheduledCardsAction;
+import com.anfelisa.box.actions.RemoveCardFromBoxAction;
+import com.anfelisa.box.actions.ScoreCardAction;
+import com.anfelisa.box.actions.UpdateBoxAction;
+
+import io.dropwizard.setup.Environment;
 
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public void registerResources(Environment environment, DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public void registerResources(Environment environment, DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		environment.jersey().register(new LoadBoxesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new LoadNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new LoadBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));

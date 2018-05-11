@@ -4,20 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-
 import com.anfelisa.box.data.CardCreationData;
 
 public abstract class AbstractImportCardCommand extends Command<CardCreationData> {
 
 	protected static final String alreadyExists = "alreadyExists";
 
-	public AbstractImportCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractImportCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.ImportCardCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public AbstractImportCardCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractImportCardCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.ImportCardCommand", null, databaseHandle, daoProvider, viewProvider);
 	}
 

@@ -14,21 +14,32 @@ public class CustomCategoryDao {
 	public List<ICategoryModel> selectAllChildren(Handle handle, String parentCategoryId) {
 		return handle.createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid FROM public.category WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
-				.bind("parentcategoryid", parentCategoryId)
-				.map(new CategoryMapper()).list();
+				.bind("parentcategoryid", parentCategoryId).map(new CategoryMapper()).list();
 	}
-	
+
 	public List<ICategoryModel> selectAllRoot(Handle handle) {
 		return handle.createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid FROM public.category WHERE parentcategoryid is null order by categoryindex, categoryname")
 				.map(new CategoryMapper()).list();
 	}
-	
+
+	public Integer selectMaxIndexInCategory(Handle handle, String parentCategoryId) {
+		return handle
+				.createQuery("SELECT max(categoryindex) FROM public.category WHERE parentcategoryid = :parentcategoryid")
+				.bind("parentcategoryid", parentCategoryId).mapTo((Integer.class)).first();
+	}
+
+	public Integer selectMaxIndexInRootCategory(Handle handle) {
+		return handle.createQuery("SELECT max(categoryindex) FROM public.category WHERE parentcategoryid is null")
+				.mapTo((Integer.class)).first();
+	}
+
 	public void update(Handle handle, CategoryUpdateData categoryModel) {
-		Update statement = handle.createStatement("UPDATE public.category SET categoryname = :categoryname, categoryindex = :categoryindex WHERE categoryid = :categoryid");
-		statement.bind("categoryname",  categoryModel.getCategoryName() );
-		statement.bind("categoryindex",  categoryModel.getCategoryIndex() );
-		statement.bind("categoryid",  categoryModel.getCategoryId()  );
+		Update statement = handle.createStatement(
+				"UPDATE public.category SET categoryname = :categoryname, categoryindex = :categoryindex WHERE categoryid = :categoryid");
+		statement.bind("categoryname", categoryModel.getCategoryName());
+		statement.bind("categoryindex", categoryModel.getCategoryIndex());
+		statement.bind("categoryid", categoryModel.getCategoryId());
 		statement.execute();
 	}
 

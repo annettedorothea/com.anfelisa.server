@@ -19,11 +19,11 @@ public class EmailConfirmationView {
 	}
 
 	public BiConsumer<UserRegistrationData, Handle> insert = (dataContainer, handle) -> {
-		daoProvider.emailConfirmationDao.insert(handle, dataContainer);
+		daoProvider.getEmailConfirmationDao().insert(handle, dataContainer);
 	};
 
 	public BiConsumer<EmailConfirmationData, Handle> delete = (dataContainer, handle) -> {
-		daoProvider.emailConfirmationDao.deleteByToken(handle, dataContainer.getToken());
+		daoProvider.getEmailConfirmationDao().deleteByToken(handle, dataContainer.getToken());
 	};
 	
 }

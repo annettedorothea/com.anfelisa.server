@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AppConfiguration;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.card.models.ICardModel;
@@ -35,7 +35,7 @@ import io.dropwizard.auth.Auth;
 
 	static final Logger LOG = LoggerFactory.getLogger(GetAllCategoriesAction.class);
 
-	public GetAllCategoriesAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public GetAllCategoriesAction(DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
@@ -51,17 +51,17 @@ import io.dropwizard.auth.Auth;
 
 	protected final void loadDataForGetRequest() {
 		if (actionData.getParentCategoryId() != null) {
-			List<ICategoryModel> categoryList = daoProvider.customCategoryDao.selectAllChildren(getHandle(), actionData.getParentCategoryId());
+			List<ICategoryModel> categoryList = daoProvider.getCustomCategoryDao().selectAllChildren(getHandle(), actionData.getParentCategoryId());
 			actionData.setCategoryList(categoryList);
-			ICategoryModel parentCategory = daoProvider.categoryDao.selectByCategoryId(getHandle(), actionData.getParentCategoryId());
-			List<ICardModel> cards = daoProvider.customCardDao.selectAllOfCategory(getHandle(), actionData.getParentCategoryId());
+			ICategoryModel parentCategory = daoProvider.getCategoryDao().selectByCategoryId(getHandle(), actionData.getParentCategoryId());
+			List<ICardModel> cards = daoProvider.getCustomCardDao().selectAllOfCategory(getHandle(), actionData.getParentCategoryId());
 			this.actionData.setCardList(cards);
 			if (parentCategory != null) {
 				this.actionData.setParentCategoryName(parentCategory.getCategoryName());
 				this.actionData.setGrandParentCategoryId(parentCategory.getParentCategoryId());
 			}
 		} else {
-			List<ICategoryModel> categoryList = daoProvider.customCategoryDao.selectAllRoot(getHandle());
+			List<ICategoryModel> categoryList = daoProvider.getCustomCategoryDao().selectAllRoot(getHandle());
 			actionData.setCategoryList(categoryList);
 		}
 	}

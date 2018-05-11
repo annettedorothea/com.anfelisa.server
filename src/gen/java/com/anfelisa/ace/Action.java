@@ -22,10 +22,10 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 	private DBI jdbi;
 	protected JodaObjectMapper mapper;
 	private AppConfiguration appConfiguration;
-	protected DaoProvider daoProvider;
+	protected IDaoProvider daoProvider;
 	protected ViewProvider viewProvider;
 
-	public Action(String actionName, HttpMethod httpMethod, DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public Action(String actionName, HttpMethod httpMethod, DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super();
 		this.actionName = actionName;
 		this.httpMethod = httpMethod;
@@ -61,7 +61,7 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
 				if (timelineItem != null) {
 					Class<?> cl = Class.forName(timelineItem.getName());
-					Constructor<?> con = cl.getConstructor(DBI.class, AppConfiguration.class, DaoProvider.class, ViewProvider.class);
+					Constructor<?> con = cl.getConstructor(DBI.class, AppConfiguration.class, IDaoProvider.class, ViewProvider.class);
 					IAction action = (IAction) con.newInstance(jdbi, appConfiguration, daoProvider, viewProvider);
 					action.initActionData(timelineItem.getData());
 					this.actionData.setSystemTime(action.getActionData().getSystemTime());

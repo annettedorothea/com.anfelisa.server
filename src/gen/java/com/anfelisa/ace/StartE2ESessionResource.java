@@ -11,10 +11,9 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.joda.time.DateTime;
 import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
-
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,9 +29,9 @@ public class StartE2ESessionResource {
 
 	private DBI jdbi;
 
-	private DaoProvider daoProvider = new DaoProvider();
+	private IDaoProvider daoProvider = new DaoProvider();
 
-	public StartE2ESessionResource(DBI jdbi, DaoProvider daoProvider) {
+	public StartE2ESessionResource(DBI jdbi, IDaoProvider daoProvider) {
 		super();
 		this.jdbi = jdbi;
 		this.daoProvider = daoProvider;
@@ -53,8 +52,8 @@ public class StartE2ESessionResource {
 		try {
 			handle.getConnection().setAutoCommit(false);
 			
-			daoProvider.aceDao.truncateErrorTimelineTable(handle);
-			daoProvider.aceDao.truncateTimelineTable(handle);
+			daoProvider.getAceDao().truncateErrorTimelineTable(handle);
+			daoProvider.getAceDao().truncateTimelineTable(handle);
 
 			daoProvider.truncateAllViews(handle);
 

@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AppConfiguration;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.BoxCreationData;
@@ -30,7 +30,7 @@ public class CreateBoxAction extends AbstractCreateBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateBoxAction.class);
 
-	public CreateBoxAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public CreateBoxAction(DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 

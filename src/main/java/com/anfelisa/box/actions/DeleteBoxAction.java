@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AppConfiguration;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.DeleteBoxData;
@@ -31,7 +31,7 @@ public class DeleteBoxAction extends AbstractDeleteBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteBoxAction.class);
 
-	public DeleteBoxAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public DeleteBoxAction(DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 

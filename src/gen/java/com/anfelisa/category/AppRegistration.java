@@ -1,21 +1,21 @@
 package com.anfelisa.category;
 
-import io.dropwizard.setup.Environment;
-import com.anfelisa.ace.AppConfiguration;
-import com.anfelisa.ace.AceExecutionMode;
-import com.anfelisa.ace.DaoProvider;
-import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.ace.ServerConfiguration;
-
 import org.skife.jdbi.v2.DBI;
 
-import com.anfelisa.category.views.CategoryView;
-import com.anfelisa.category.actions.*;
+import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.category.actions.CreateCategoryAction;
+import com.anfelisa.category.actions.DeleteCategoryAction;
+import com.anfelisa.category.actions.GetAllCategoriesAction;
+import com.anfelisa.category.actions.UpdateCategoryAction;
+
+import io.dropwizard.setup.Environment;
 
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public void registerResources(Environment environment, DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public void registerResources(Environment environment, DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		environment.jersey().register(new CreateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new UpdateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new DeleteCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));

@@ -5,8 +5,8 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.ForgotPasswordData;
 import com.anfelisa.user.models.IUserModel;
@@ -16,13 +16,13 @@ public class ForgotPasswordCommand extends AbstractForgotPasswordCommand {
 	static final Logger LOG = LoggerFactory.getLogger(ForgotPasswordCommand.class);
 
 	public ForgotPasswordCommand(ForgotPasswordData commandParam, DatabaseHandle databaseHandle,
-			DaoProvider daoProvider, ViewProvider viewProvider) {
+			IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override
 	protected void executeCommand() {
-		IUserModel user = daoProvider.userDao.selectByUsername(this.getDatabaseHandle().getHandle(),
+		IUserModel user = daoProvider.getUserDao().selectByUsername(this.getDatabaseHandle().getHandle(),
 				this.commandData.getUsername());
 		if (user != null) {
 			this.commandData.setToken(UUID.randomUUID().toString());

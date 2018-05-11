@@ -12,23 +12,23 @@ import com.anfelisa.box.data.ScoreCardData;
 
 public class ScheduledCardView {
 
-	private DaoProvider daoProvider;
+	//private DaoProvider daoProvider;
 	
 	public ScheduledCardView(DaoProvider daoProvider) {
 		super();
-		this.daoProvider = daoProvider;
+		//this.daoProvider = daoProvider;
 	}
 	public BiConsumer<ScheduledCardData, Handle> createScheduledCard = (dataContainer, handle) -> {
-		daoProvider.scheduledCardDao.insert(handle, dataContainer);
+		//daoProvider.scheduledCardDao.insert(handle, dataContainer);
 	};
 	public BiConsumer<ScoreCardData, Handle> score = (dataContainer, handle) -> {
-		daoProvider.scheduledCardDao.updateByScheduledCardId(handle, dataContainer);
+		//daoProvider.scheduledCardDao.updateByScheduledCardId(handle, dataContainer);
 	};
 	public  BiConsumer<RemoveCardFromBoxData, Handle> removeFromBox = (dataContainer, handle) -> {
-		daoProvider.customScheduledCardDao.removeScheduledCardFromBox(handle, dataContainer);
+		//daoProvider.customScheduledCardDao.removeScheduledCardFromBox(handle, dataContainer);
 	};
 	public  BiConsumer<RecalculateScheduledCardsData, Handle> recalculateScheduledCards = (dataContainer, handle) -> {
-		daoProvider.customScheduledCardDao.recalculateScheduledCards(handle, dataContainer.getBoxId(), dataContainer.getDaysBehind());
+		//daoProvider.customScheduledCardDao.recalculateScheduledCards(handle, dataContainer.getBoxId(), dataContainer.getDaysBehind());
 	};
 
 }

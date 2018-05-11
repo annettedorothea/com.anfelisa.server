@@ -4,20 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-
 import com.anfelisa.box.data.RecalculateScheduledCardsData;
 
 public abstract class AbstractRecalculateScheduledCardsCommand extends Command<RecalculateScheduledCardsData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractRecalculateScheduledCardsCommand(RecalculateScheduledCardsData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractRecalculateScheduledCardsCommand(RecalculateScheduledCardsData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.RecalculateScheduledCardsCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public AbstractRecalculateScheduledCardsCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractRecalculateScheduledCardsCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.RecalculateScheduledCardsCommand", null, databaseHandle, daoProvider, viewProvider);
 	}
 

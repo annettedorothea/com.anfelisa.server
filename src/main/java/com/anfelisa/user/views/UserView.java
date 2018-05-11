@@ -22,27 +22,27 @@ public class UserView {
 	}
 
 	public BiConsumer<UserRegistrationData, Handle> registerUser = (dataContainer, handle) -> {
-		daoProvider.userDao.insert(handle, dataContainer);
+		daoProvider.getUserDao().insert(handle, dataContainer);
 	};
 
 	public BiConsumer<UserUpdateData, Handle> updateUser = (dataContainer, handle) -> {
-		daoProvider.customUserDao.update(handle, dataContainer);
+		daoProvider.getCustomUserDao().update(handle, dataContainer);
 	};
 
 	public BiConsumer<EmailConfirmationData, Handle> confirmEmail = (dataContainer, handle) -> {
-		daoProvider.customUserDao.confirmEmail(handle, dataContainer.getUserId());
+		daoProvider.getCustomUserDao().confirmEmail(handle, dataContainer.getUserId());
 	};
 
 	public BiConsumer<ChangeUserRoleData, Handle> changeUserRole = (dataContainer, handle) -> {
-		daoProvider.customUserDao.changeUserRole(handle, dataContainer.getUserId(), dataContainer.getRole());
+		daoProvider.getCustomUserDao().changeUserRole(handle, dataContainer.getUserId(), dataContainer.getRole());
 	};
 
 	public BiConsumer<DeleteUserData, Handle> deleteUser = (dataContainer, handle) -> {
-		daoProvider.userDao.deleteByUsername(handle, dataContainer.getDeletedUsername());
+		daoProvider.getUserDao().deleteByUsername(handle, dataContainer.getDeletedUsername());
 	};
 
 	public BiConsumer<ResetPasswordData, Handle> resetPassword = (dataContainer, handle) -> {
-		daoProvider.customUserDao.updatePassword(handle, dataContainer);
+		daoProvider.getCustomUserDao().updatePassword(handle, dataContainer);
 	};
 
 }

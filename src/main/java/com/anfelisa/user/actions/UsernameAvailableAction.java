@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AppConfiguration;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.UsernameAvailableData;
 import com.codahale.metrics.annotation.Timed;
@@ -27,7 +27,7 @@ public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UsernameAvailableAction.class);
 
-	public UsernameAvailableAction(DBI jdbi, AppConfiguration appConfiguration, DaoProvider daoProvider,
+	public UsernameAvailableAction(DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
@@ -42,7 +42,7 @@ public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 	}
 
 	protected final void loadDataForGetRequest() {
-		if (daoProvider.userDao.selectByUsername(this.getDatabaseHandle().getHandle(),
+		if (daoProvider.getUserDao().selectByUsername(this.getDatabaseHandle().getHandle(),
 				this.actionData.getUsername()) == null) {
 			this.actionData.setAvailable(true);
 		} else {

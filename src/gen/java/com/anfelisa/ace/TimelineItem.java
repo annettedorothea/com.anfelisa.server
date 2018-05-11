@@ -1,6 +1,7 @@
 package com.anfelisa.ace;
 
 import org.joda.time.DateTime;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TimelineItem implements ITimelineItem {

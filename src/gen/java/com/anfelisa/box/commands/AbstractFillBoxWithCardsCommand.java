@@ -4,20 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-
 import com.anfelisa.box.data.FillBoxData;
 
 public abstract class AbstractFillBoxWithCardsCommand extends Command<FillBoxData> {
 
 	protected static final String fillBoxWithCards = "fillBoxWithCards";
 
-	public AbstractFillBoxWithCardsCommand(FillBoxData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractFillBoxWithCardsCommand(FillBoxData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.FillBoxWithCardsCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public AbstractFillBoxWithCardsCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractFillBoxWithCardsCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.FillBoxWithCardsCommand", null, databaseHandle, daoProvider, viewProvider);
 	}
 

@@ -4,20 +4,19 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-
 import com.anfelisa.user.data.UserUpdateData;
 
 public abstract class AbstractUpdateUserCommand extends Command<UserUpdateData> {
 
 	protected static final String success = "success";
 
-	public AbstractUpdateUserCommand(UserUpdateData commandParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractUpdateUserCommand(UserUpdateData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.UpdateUserCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public AbstractUpdateUserCommand(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractUpdateUserCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.UpdateUserCommand", null, databaseHandle, daoProvider, viewProvider);
 	}
 

@@ -4,18 +4,17 @@ import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-
 import com.anfelisa.user.data.ChangeUserRoleData;
 
 public abstract class AbstractChangeUserRoleOkEvent extends Event<ChangeUserRoleData> {
 
-	public AbstractChangeUserRoleOkEvent(ChangeUserRoleData eventParam, DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractChangeUserRoleOkEvent(ChangeUserRoleData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.events.ChangeUserRoleOkEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractChangeUserRoleOkEvent(DatabaseHandle databaseHandle, DaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractChangeUserRoleOkEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.events.ChangeUserRoleOkEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	
