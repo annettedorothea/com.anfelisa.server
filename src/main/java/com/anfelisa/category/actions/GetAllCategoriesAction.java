@@ -59,6 +59,9 @@ import io.dropwizard.auth.Auth;
 			if (parentCategory != null) {
 				this.actionData.setParentCategoryName(parentCategory.getCategoryName());
 				this.actionData.setGrandParentCategoryId(parentCategory.getParentCategoryId());
+				this.actionData.setParentDictionaryLookup(parentCategory.getDictionaryLookup());
+				this.actionData.setParentGivenLanguage(parentCategory.getGivenLanguage());
+				this.actionData.setParentWantedLanguage(parentCategory.getWantedLanguage());
 			}
 		} else {
 			List<ICategoryModel> categoryList = daoProvider.getCustomCategoryDao().selectAllRoot(getHandle());

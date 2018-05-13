@@ -23,6 +23,12 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 	
 	private String rootCategoryId;
 	
+	private Boolean dictionaryLookup = false;
+	
+	private String givenLanguage;
+	
+	private String wantedLanguage;
+	
 	
 	public CategoryCreationPresentationalData(
 		@JsonProperty("categoryId") String categoryId,
@@ -30,7 +36,10 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 		@JsonProperty("categoryAuthor") String categoryAuthor,
 		@JsonProperty("categoryIndex") Integer categoryIndex,
 		@JsonProperty("parentCategoryId") String parentCategoryId,
-		@JsonProperty("rootCategoryId") String rootCategoryId
+		@JsonProperty("rootCategoryId") String rootCategoryId,
+		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
+		@JsonProperty("givenLanguage") String givenLanguage,
+		@JsonProperty("wantedLanguage") String wantedLanguage
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -38,6 +47,9 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 		this.categoryIndex = categoryIndex;
 		this.parentCategoryId = parentCategoryId;
 		this.rootCategoryId = rootCategoryId;
+		this.dictionaryLookup = dictionaryLookup;
+		this.givenLanguage = givenLanguage;
+		this.wantedLanguage = wantedLanguage;
 		
 	}
 
@@ -110,6 +122,42 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 	}
 	public CategoryCreationPresentationalData withRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getDictionaryLookup() {
+		return this.dictionaryLookup;
+	}
+	public void setDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+	}
+	public CategoryCreationPresentationalData withDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getGivenLanguage() {
+		return this.givenLanguage;
+	}
+	public void setGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+	}
+	public CategoryCreationPresentationalData withGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getWantedLanguage() {
+		return this.wantedLanguage;
+	}
+	public void setWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
+	}
+	public CategoryCreationPresentationalData withWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
 		return this;
 	}
 	

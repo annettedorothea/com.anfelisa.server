@@ -11,6 +11,12 @@ public class CategoryListModel implements ICategoryListModel {
 	
 	private String parentCategoryName;
 	
+	private Boolean parentDictionaryLookup = false;
+	
+	private String parentGivenLanguage;
+	
+	private String parentWantedLanguage;
+	
 	private java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList;
 	
 	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
@@ -20,12 +26,18 @@ public class CategoryListModel implements ICategoryListModel {
 		@JsonProperty("parentCategoryId") String parentCategoryId,
 		@JsonProperty("grandParentCategoryId") String grandParentCategoryId,
 		@JsonProperty("parentCategoryName") String parentCategoryName,
+		@JsonProperty("parentDictionaryLookup") Boolean parentDictionaryLookup,
+		@JsonProperty("parentGivenLanguage") String parentGivenLanguage,
+		@JsonProperty("parentWantedLanguage") String parentWantedLanguage,
 		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList
 	) {
 		this.parentCategoryId = parentCategoryId;
 		this.grandParentCategoryId = grandParentCategoryId;
 		this.parentCategoryName = parentCategoryName;
+		this.parentDictionaryLookup = parentDictionaryLookup;
+		this.parentGivenLanguage = parentGivenLanguage;
+		this.parentWantedLanguage = parentWantedLanguage;
 		this.categoryList = categoryList;
 		this.cardList = cardList;
 	}
@@ -52,6 +64,30 @@ public class CategoryListModel implements ICategoryListModel {
 	}
 	public void setParentCategoryName(String parentCategoryName) {
 		this.parentCategoryName = parentCategoryName;
+	}
+	
+	@JsonProperty
+	public Boolean getParentDictionaryLookup() {
+		return this.parentDictionaryLookup;
+	}
+	public void setParentDictionaryLookup(Boolean parentDictionaryLookup) {
+		this.parentDictionaryLookup = parentDictionaryLookup;
+	}
+	
+	@JsonProperty
+	public String getParentGivenLanguage() {
+		return this.parentGivenLanguage;
+	}
+	public void setParentGivenLanguage(String parentGivenLanguage) {
+		this.parentGivenLanguage = parentGivenLanguage;
+	}
+	
+	@JsonProperty
+	public String getParentWantedLanguage() {
+		return this.parentWantedLanguage;
+	}
+	public void setParentWantedLanguage(String parentWantedLanguage) {
+		this.parentWantedLanguage = parentWantedLanguage;
 	}
 	
 	@JsonProperty

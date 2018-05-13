@@ -13,7 +13,8 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateCardCommand.class);
 
-	public CreateCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public CreateCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
+			ViewProvider viewProvider) {
 		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
@@ -23,20 +24,17 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 			throwBadRequest("category does not exist");
 		}
 		if (commandData.getCardIndex() == null) {
-			Integer max = this.daoProvider.getCustomCardDao().selectMaxIndexInCategory(getHandle(), commandData.getCategoryId());
+			Integer max = this.daoProvider.getCustomCardDao().selectMaxIndexInCategory(getHandle(),
+					commandData.getCategoryId());
 			if (max == null) {
 				max = 0;
 			}
-			commandData.setCardIndex(max+1);
+			commandData.setCardIndex(max + 1);
 		}
 		if (commandData.getCategoryId() != null) {
-			ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(), commandData.getCategoryId());
-			if (parentCategory.getParentCategoryId() == null) {
-				commandData.setRootCategoryId(parentCategory.getCategoryId());
-			} else {
-				ICategoryModel rootCategory = this.daoProvider.getCustomCategoryDao().findRootCategory(getHandle(), commandData.getCategoryId());
-				commandData.setRootCategoryId(rootCategory.getCategoryId());
-			}
+			ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
+					commandData.getCategoryId());
+			commandData.setRootCategoryId(category.getRootCategoryId());
 		}
 		this.commandData.setCardId(commandData.getUuid());
 		this.commandData.setOutcome(ok);
@@ -44,4 +42,4 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

@@ -11,6 +11,12 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 	
 	private String parentCategoryName;
 	
+	private Boolean parentDictionaryLookup = false;
+	
+	private String parentGivenLanguage;
+	
+	private String parentWantedLanguage;
+	
 	private java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList;
 	
 	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
@@ -20,12 +26,18 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 		@JsonProperty("parentCategoryId") String parentCategoryId,
 		@JsonProperty("grandParentCategoryId") String grandParentCategoryId,
 		@JsonProperty("parentCategoryName") String parentCategoryName,
+		@JsonProperty("parentDictionaryLookup") Boolean parentDictionaryLookup,
+		@JsonProperty("parentGivenLanguage") String parentGivenLanguage,
+		@JsonProperty("parentWantedLanguage") String parentWantedLanguage,
 		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList
 	) {
 		this.parentCategoryId = parentCategoryId;
 		this.grandParentCategoryId = grandParentCategoryId;
 		this.parentCategoryName = parentCategoryName;
+		this.parentDictionaryLookup = parentDictionaryLookup;
+		this.parentGivenLanguage = parentGivenLanguage;
+		this.parentWantedLanguage = parentWantedLanguage;
 		this.categoryList = categoryList;
 		this.cardList = cardList;
 		
@@ -64,6 +76,42 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 	}
 	public CategoryListPresentationalData withParentCategoryName(String parentCategoryName) {
 		this.parentCategoryName = parentCategoryName;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getParentDictionaryLookup() {
+		return this.parentDictionaryLookup;
+	}
+	public void setParentDictionaryLookup(Boolean parentDictionaryLookup) {
+		this.parentDictionaryLookup = parentDictionaryLookup;
+	}
+	public CategoryListPresentationalData withParentDictionaryLookup(Boolean parentDictionaryLookup) {
+		this.parentDictionaryLookup = parentDictionaryLookup;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getParentGivenLanguage() {
+		return this.parentGivenLanguage;
+	}
+	public void setParentGivenLanguage(String parentGivenLanguage) {
+		this.parentGivenLanguage = parentGivenLanguage;
+	}
+	public CategoryListPresentationalData withParentGivenLanguage(String parentGivenLanguage) {
+		this.parentGivenLanguage = parentGivenLanguage;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getParentWantedLanguage() {
+		return this.parentWantedLanguage;
+	}
+	public void setParentWantedLanguage(String parentWantedLanguage) {
+		this.parentWantedLanguage = parentWantedLanguage;
+	}
+	public CategoryListPresentationalData withParentWantedLanguage(String parentWantedLanguage) {
+		this.parentWantedLanguage = parentWantedLanguage;
 		return this;
 	}
 	

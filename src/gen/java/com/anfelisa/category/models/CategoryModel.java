@@ -23,6 +23,12 @@ public class CategoryModel implements ICategoryModel {
 	
 	private String rootCategoryId;
 	
+	private Boolean dictionaryLookup = false;
+	
+	private String givenLanguage;
+	
+	private String wantedLanguage;
+	
 
 	public CategoryModel(
 		@JsonProperty("categoryId") String categoryId,
@@ -30,7 +36,10 @@ public class CategoryModel implements ICategoryModel {
 		@JsonProperty("categoryAuthor") String categoryAuthor,
 		@JsonProperty("categoryIndex") Integer categoryIndex,
 		@JsonProperty("parentCategoryId") String parentCategoryId,
-		@JsonProperty("rootCategoryId") String rootCategoryId
+		@JsonProperty("rootCategoryId") String rootCategoryId,
+		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
+		@JsonProperty("givenLanguage") String givenLanguage,
+		@JsonProperty("wantedLanguage") String wantedLanguage
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -38,6 +47,9 @@ public class CategoryModel implements ICategoryModel {
 		this.categoryIndex = categoryIndex;
 		this.parentCategoryId = parentCategoryId;
 		this.rootCategoryId = rootCategoryId;
+		this.dictionaryLookup = dictionaryLookup;
+		this.givenLanguage = givenLanguage;
+		this.wantedLanguage = wantedLanguage;
 	}
 
 	@JsonProperty
@@ -86,6 +98,30 @@ public class CategoryModel implements ICategoryModel {
 	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
+	}
+	
+	@JsonProperty
+	public Boolean getDictionaryLookup() {
+		return this.dictionaryLookup;
+	}
+	public void setDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+	}
+	
+	@JsonProperty
+	public String getGivenLanguage() {
+		return this.givenLanguage;
+	}
+	public void setGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+	}
+	
+	@JsonProperty
+	public String getWantedLanguage() {
+		return this.wantedLanguage;
+	}
+	public void setWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
 	}
 	
 

@@ -33,12 +33,18 @@ models {
 		NotNull Integer categoryIndex
 		String parentCategoryId references categoryId
 		String rootCategoryId references categoryId
+		Boolean dictionaryLookup
+		String givenLanguage
+		String wantedLanguage
 	}
 	
 	CategoryUpdate {
 		NotNull String categoryId
 		NotNull String categoryName
 		NotNull Integer categoryIndex
+		Boolean dictionaryLookup
+		String givenLanguage
+		String wantedLanguage
 	}
 	
 	CategoryDelete {
@@ -49,6 +55,9 @@ models {
 		String parentCategoryId
 		String grandParentCategoryId
 		String parentCategoryName
+		Boolean parentDictionaryLookup
+		String parentGivenLanguage
+		String parentWantedLanguage
 		List Category categoryList
 		List com.anfelisa.card.Card cardList
 	}

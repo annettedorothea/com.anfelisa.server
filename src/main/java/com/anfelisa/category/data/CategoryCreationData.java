@@ -23,6 +23,12 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 	
 	private String rootCategoryId;
 	
+	private Boolean dictionaryLookup = false;
+	
+	private String givenLanguage;
+	
+	private String wantedLanguage;
+	
 
 	public CategoryCreationData(
 		@JsonProperty("categoryId") String categoryId,
@@ -30,7 +36,10 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		@JsonProperty("categoryAuthor") String categoryAuthor,
 		@JsonProperty("categoryIndex") Integer categoryIndex,
 		@JsonProperty("parentCategoryId") String parentCategoryId,
-		@JsonProperty("rootCategoryId") String rootCategoryId
+		@JsonProperty("rootCategoryId") String rootCategoryId,
+		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
+		@JsonProperty("givenLanguage") String givenLanguage,
+		@JsonProperty("wantedLanguage") String wantedLanguage
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -40,6 +49,9 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		this.categoryIndex = categoryIndex;
 		this.parentCategoryId = parentCategoryId;
 		this.rootCategoryId = rootCategoryId;
+		this.dictionaryLookup = dictionaryLookup;
+		this.givenLanguage = givenLanguage;
+		this.wantedLanguage = wantedLanguage;
 	}
 
 	public CategoryCreationData( String uuid ) {
@@ -118,6 +130,42 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		return this;
 	}
 	
+	@JsonProperty
+	public Boolean getDictionaryLookup() {
+		return this.dictionaryLookup;
+	}
+	public void setDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+	}
+	public CategoryCreationData withDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getGivenLanguage() {
+		return this.givenLanguage;
+	}
+	public void setGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+	}
+	public CategoryCreationData withGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getWantedLanguage() {
+		return this.wantedLanguage;
+	}
+	public void setWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
+	}
+	public CategoryCreationData withWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -127,7 +175,10 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 			this.categoryAuthor,
 			this.categoryIndex,
 			this.parentCategoryId,
-			this.rootCategoryId
+			this.rootCategoryId,
+			this.dictionaryLookup,
+			this.givenLanguage,
+			this.wantedLanguage
 		);
 	}
 

@@ -12,25 +12,31 @@ import com.fasterxml.jackson.annotation.JsonIgnoreType;
 public class CategoryDao {
 	
 	public void insert(Handle handle, ICategoryModel categoryModel) {
-		Update statement = handle.createStatement("INSERT INTO public.category (categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid) VALUES (:categoryid, :categoryname, :categoryauthor, :categoryindex, :parentcategoryid, :rootcategoryid)");
+		Update statement = handle.createStatement("INSERT INTO public.category (categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage) VALUES (:categoryid, :categoryname, :categoryauthor, :categoryindex, :parentcategoryid, :rootcategoryid, :dictionarylookup, :givenlanguage, :wantedlanguage)");
 		statement.bind("categoryid",  categoryModel.getCategoryId() );
 		statement.bind("categoryname",  categoryModel.getCategoryName() );
 		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
 		statement.bind("categoryindex",  categoryModel.getCategoryIndex() );
 		statement.bind("parentcategoryid",  categoryModel.getParentCategoryId() );
 		statement.bind("rootcategoryid",  categoryModel.getRootCategoryId() );
+		statement.bind("dictionarylookup",  categoryModel.getDictionaryLookup() );
+		statement.bind("givenlanguage",  categoryModel.getGivenLanguage() );
+		statement.bind("wantedlanguage",  categoryModel.getWantedLanguage() );
 		statement.execute();
 	}
 	
 	
 	public void updateByCategoryId(Handle handle, ICategoryModel categoryModel) {
-		Update statement = handle.createStatement("UPDATE public.category SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid WHERE categoryid = :categoryid");
+		Update statement = handle.createStatement("UPDATE public.category SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryid = :categoryid");
 		statement.bind("categoryid",  categoryModel.getCategoryId() );
 		statement.bind("categoryname",  categoryModel.getCategoryName() );
 		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
 		statement.bind("categoryindex",  categoryModel.getCategoryIndex() );
 		statement.bind("parentcategoryid",  categoryModel.getParentCategoryId() );
 		statement.bind("rootcategoryid",  categoryModel.getRootCategoryId() );
+		statement.bind("dictionarylookup",  categoryModel.getDictionaryLookup() );
+		statement.bind("givenlanguage",  categoryModel.getGivenLanguage() );
+		statement.bind("wantedlanguage",  categoryModel.getWantedLanguage() );
 		statement.bind("categoryid",  categoryModel.getCategoryId()  );
 		statement.execute();
 	}
@@ -42,19 +48,22 @@ public class CategoryDao {
 	}
 
 	public ICategoryModel selectByCategoryId(Handle handle, String categoryId) {
-		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid FROM public.category WHERE categoryid = :categoryid")
+		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category WHERE categoryid = :categoryid")
 			.bind("categoryid", categoryId)
 			.map(new CategoryMapper())
 			.first();
 	}
 	public void updateByCategoryName(Handle handle, ICategoryModel categoryModel) {
-		Update statement = handle.createStatement("UPDATE public.category SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid WHERE categoryname = :categoryname");
+		Update statement = handle.createStatement("UPDATE public.category SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryname = :categoryname");
 		statement.bind("categoryid",  categoryModel.getCategoryId() );
 		statement.bind("categoryname",  categoryModel.getCategoryName() );
 		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
 		statement.bind("categoryindex",  categoryModel.getCategoryIndex() );
 		statement.bind("parentcategoryid",  categoryModel.getParentCategoryId() );
 		statement.bind("rootcategoryid",  categoryModel.getRootCategoryId() );
+		statement.bind("dictionarylookup",  categoryModel.getDictionaryLookup() );
+		statement.bind("givenlanguage",  categoryModel.getGivenLanguage() );
+		statement.bind("wantedlanguage",  categoryModel.getWantedLanguage() );
 		statement.bind("categoryname",  categoryModel.getCategoryName()  );
 		statement.execute();
 	}
@@ -66,14 +75,14 @@ public class CategoryDao {
 	}
 
 	public ICategoryModel selectByCategoryName(Handle handle, String categoryName) {
-		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid FROM public.category WHERE categoryname = :categoryname")
+		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category WHERE categoryname = :categoryname")
 			.bind("categoryname", categoryName)
 			.map(new CategoryMapper())
 			.first();
 	}
 	
 	public List<ICategoryModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid FROM public.category")
+		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category")
 			.map(new CategoryMapper())
 			.list();
 	}

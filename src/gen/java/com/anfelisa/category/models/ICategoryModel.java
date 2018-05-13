@@ -11,6 +11,9 @@ public interface ICategoryModel {
 	Integer getCategoryIndex();
 	String getParentCategoryId();
 	String getRootCategoryId();
+	Boolean getDictionaryLookup();
+	String getGivenLanguage();
+	String getWantedLanguage();
 
 }
 

@@ -16,15 +16,27 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	@NotNull
 	private Integer categoryIndex;
 	
+	private Boolean dictionaryLookup = false;
+	
+	private String givenLanguage;
+	
+	private String wantedLanguage;
+	
 
 	public CategoryUpdateModel(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("categoryIndex") Integer categoryIndex
+		@JsonProperty("categoryIndex") Integer categoryIndex,
+		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
+		@JsonProperty("givenLanguage") String givenLanguage,
+		@JsonProperty("wantedLanguage") String wantedLanguage
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryIndex = categoryIndex;
+		this.dictionaryLookup = dictionaryLookup;
+		this.givenLanguage = givenLanguage;
+		this.wantedLanguage = wantedLanguage;
 	}
 
 	@JsonProperty
@@ -49,6 +61,30 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	}
 	public void setCategoryIndex(Integer categoryIndex) {
 		this.categoryIndex = categoryIndex;
+	}
+	
+	@JsonProperty
+	public Boolean getDictionaryLookup() {
+		return this.dictionaryLookup;
+	}
+	public void setDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+	}
+	
+	@JsonProperty
+	public String getGivenLanguage() {
+		return this.givenLanguage;
+	}
+	public void setGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+	}
+	
+	@JsonProperty
+	public String getWantedLanguage() {
+		return this.wantedLanguage;
+	}
+	public void setWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
 	}
 	
 

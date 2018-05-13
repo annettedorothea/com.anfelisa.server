@@ -11,6 +11,12 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 	
 	private String parentCategoryName;
 	
+	private Boolean parentDictionaryLookup = false;
+	
+	private String parentGivenLanguage;
+	
+	private String parentWantedLanguage;
+	
 	private java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList;
 	
 	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
@@ -20,6 +26,9 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 		@JsonProperty("parentCategoryId") String parentCategoryId,
 		@JsonProperty("grandParentCategoryId") String grandParentCategoryId,
 		@JsonProperty("parentCategoryName") String parentCategoryName,
+		@JsonProperty("parentDictionaryLookup") Boolean parentDictionaryLookup,
+		@JsonProperty("parentGivenLanguage") String parentGivenLanguage,
+		@JsonProperty("parentWantedLanguage") String parentWantedLanguage,
 		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList
 ,		@JsonProperty("uuid") String uuid
@@ -28,6 +37,9 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 		this.parentCategoryId = parentCategoryId;
 		this.grandParentCategoryId = grandParentCategoryId;
 		this.parentCategoryName = parentCategoryName;
+		this.parentDictionaryLookup = parentDictionaryLookup;
+		this.parentGivenLanguage = parentGivenLanguage;
+		this.parentWantedLanguage = parentWantedLanguage;
 		this.categoryList = categoryList;
 		this.cardList = cardList;
 	}
@@ -73,6 +85,42 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 	}
 	
 	@JsonProperty
+	public Boolean getParentDictionaryLookup() {
+		return this.parentDictionaryLookup;
+	}
+	public void setParentDictionaryLookup(Boolean parentDictionaryLookup) {
+		this.parentDictionaryLookup = parentDictionaryLookup;
+	}
+	public CategoryListData withParentDictionaryLookup(Boolean parentDictionaryLookup) {
+		this.parentDictionaryLookup = parentDictionaryLookup;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getParentGivenLanguage() {
+		return this.parentGivenLanguage;
+	}
+	public void setParentGivenLanguage(String parentGivenLanguage) {
+		this.parentGivenLanguage = parentGivenLanguage;
+	}
+	public CategoryListData withParentGivenLanguage(String parentGivenLanguage) {
+		this.parentGivenLanguage = parentGivenLanguage;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getParentWantedLanguage() {
+		return this.parentWantedLanguage;
+	}
+	public void setParentWantedLanguage(String parentWantedLanguage) {
+		this.parentWantedLanguage = parentWantedLanguage;
+	}
+	public CategoryListData withParentWantedLanguage(String parentWantedLanguage) {
+		this.parentWantedLanguage = parentWantedLanguage;
+		return this;
+	}
+	
+	@JsonProperty
 	public java.util.List<com.anfelisa.category.models.ICategoryModel> getCategoryList() {
 		return this.categoryList;
 	}
@@ -103,6 +151,9 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 			this.parentCategoryId,
 			this.grandParentCategoryId,
 			this.parentCategoryName,
+			this.parentDictionaryLookup,
+			this.parentGivenLanguage,
+			this.parentWantedLanguage,
 			this.categoryList,
 			this.cardList
 		);

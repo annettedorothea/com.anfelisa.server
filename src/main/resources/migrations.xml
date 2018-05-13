@@ -185,4 +185,64 @@
 
 	</changeSet>
 
+	<changeSet id="008" author="annette">
+
+		<addColumn tableName="category">
+			<column name="dictionarylookup" type="boolean">
+				<constraints />
+			</column>
+			<column name="sourcelangauge" type="character varying">
+				<constraints />
+			</column>
+			<column name="targetlanguage" type="integer">
+				<constraints />
+			</column>
+		</addColumn>
+
+	</changeSet>
+
+	<changeSet id="009" author="annette">
+
+		<dropColumn tableName="category"
+			columnName="targetlanguage" />
+
+		<addColumn tableName="category">
+			<column name="targetlanguage" type="character varying">
+				<constraints />
+			</column>
+		</addColumn>
+
+	</changeSet>
+
+	<changeSet id="010" author="annette">
+
+		<dropColumn tableName="category"
+			columnName="sourcelangauge" />
+
+		<addColumn tableName="category">
+			<column name="sourcelanguage" type="character varying">
+				<constraints />
+			</column>
+		</addColumn>
+
+	</changeSet>
+
+	<changeSet id="011" author="annette">
+
+		<dropColumn tableName="category"
+			columnName="sourcelanguage" />
+		<dropColumn tableName="category"
+			columnName="targetlanguage" />
+
+		<addColumn tableName="category">
+			<column name="givenlanguage" type="character varying">
+				<constraints />
+			</column>
+			<column name="wantedlanguage" type="character varying">
+				<constraints />
+			</column>
+		</addColumn>
+
+	</changeSet>
+
 </databaseChangeLog>

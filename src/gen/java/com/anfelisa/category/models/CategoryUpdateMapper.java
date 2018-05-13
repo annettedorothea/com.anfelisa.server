@@ -13,7 +13,10 @@ public class CategoryUpdateMapper implements ResultSetMapper<ICategoryUpdateMode
 		return new CategoryUpdateModel(
 			r.getString("categoryId"),
 			r.getString("categoryName"),
-			r.getInt("categoryIndex")
+			r.getInt("categoryIndex"),
+			r.getBoolean("dictionaryLookup"),
+			r.getString("givenLanguage"),
+			r.getString("wantedLanguage")
 		);
 	}
 }

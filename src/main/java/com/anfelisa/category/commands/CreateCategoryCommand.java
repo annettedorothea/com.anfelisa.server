@@ -1,5 +1,7 @@
 package com.anfelisa.category.commands;
 
+import java.util.Arrays;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +15,10 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateCategoryCommand.class);
 
-	public CreateCategoryCommand(CategoryCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	private final String[] languages = new String[] { "de", "fr", "en" };
+
+	public CreateCategoryCommand(CategoryCreationData commandParam, DatabaseHandle databaseHandle,
+			IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
@@ -23,31 +28,43 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 				&& daoProvider.getCategoryDao().selectByCategoryId(getHandle(), commandData.getCategoryId()) == null) {
 			throwBadRequest("category does not exist");
 		}
+		validateLanguage(commandData.getGivenLanguage());
+		validateLanguage(commandData.getWantedLanguage());
+		if (commandData.getDictionaryLookup() == null || !commandData.getDictionaryLookup()) {
+			commandData.setGivenLanguage(null);
+			commandData.setWantedLanguage(null);
+		}
 		if (commandData.getCategoryIndex() == null) {
 			Integer max = null;
 			if (commandData.getParentCategoryId() == null) {
 				max = this.daoProvider.getCustomCategoryDao().selectMaxIndexInRootCategory(getHandle());
 			} else {
-				max = this.daoProvider.getCustomCategoryDao().selectMaxIndexInCategory(getHandle(), commandData.getParentCategoryId());
+				max = this.daoProvider.getCustomCategoryDao().selectMaxIndexInCategory(getHandle(),
+						commandData.getParentCategoryId());
 			}
 			if (max == null) {
 				max = 0;
 			}
-			commandData.setCategoryIndex(max+1);
+			commandData.setCategoryIndex(max + 1);
 		}
 		this.commandData.setCategoryId(commandData.getUuid());
- 		if (commandData.getParentCategoryId() != null) {
-			ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(), commandData.getParentCategoryId());
-			if (parentCategory.getParentCategoryId() == null) {
-				commandData.setRootCategoryId(parentCategory.getCategoryId());
-			} else {
-				ICategoryModel rootCategory = this.daoProvider.getCustomCategoryDao().findRootCategory(getHandle(), commandData.getParentCategoryId());
-				commandData.setRootCategoryId(rootCategory.getCategoryId());
-			}
+		if (commandData.getParentCategoryId() != null) {
+			ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
+					commandData.getParentCategoryId());
+			commandData.setRootCategoryId(parentCategory.getRootCategoryId());
 		} else {
 			commandData.setRootCategoryId(commandData.getCategoryId());
 		}
 		this.commandData.setOutcome(ok);
+	}
+	
+	private void validateLanguage(String language) {
+		if (commandData.getDictionaryLookup() != null && commandData.getDictionaryLookup() == true
+				&& language != null
+				&& !Arrays.asList(languages).contains(language)) {
+			throwBadRequest("invalid language");
+		}
+
 	}
 
 }

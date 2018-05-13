@@ -16,15 +16,27 @@ public class CategoryUpdatePresentationalData implements ICategoryUpdatePresenta
 	@NotNull
 	private Integer categoryIndex;
 	
+	private Boolean dictionaryLookup = false;
+	
+	private String givenLanguage;
+	
+	private String wantedLanguage;
+	
 	
 	public CategoryUpdatePresentationalData(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("categoryIndex") Integer categoryIndex
+		@JsonProperty("categoryIndex") Integer categoryIndex,
+		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
+		@JsonProperty("givenLanguage") String givenLanguage,
+		@JsonProperty("wantedLanguage") String wantedLanguage
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryIndex = categoryIndex;
+		this.dictionaryLookup = dictionaryLookup;
+		this.givenLanguage = givenLanguage;
+		this.wantedLanguage = wantedLanguage;
 		
 	}
 
@@ -61,6 +73,42 @@ public class CategoryUpdatePresentationalData implements ICategoryUpdatePresenta
 	}
 	public CategoryUpdatePresentationalData withCategoryIndex(Integer categoryIndex) {
 		this.categoryIndex = categoryIndex;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getDictionaryLookup() {
+		return this.dictionaryLookup;
+	}
+	public void setDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+	}
+	public CategoryUpdatePresentationalData withDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getGivenLanguage() {
+		return this.givenLanguage;
+	}
+	public void setGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+	}
+	public CategoryUpdatePresentationalData withGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getWantedLanguage() {
+		return this.wantedLanguage;
+	}
+	public void setWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
+	}
+	public CategoryUpdatePresentationalData withWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
 		return this;
 	}
 	
