@@ -1,11 +1,13 @@
 package com.anfelisa.card.data;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
 
 import com.anfelisa.ace.AbstractData;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CardCreationData extends AbstractData implements ICardCreationData {
 	
@@ -28,6 +30,8 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 	
 	private String rootCategoryId;
 	
+	private String path;
+	
 
 	public CardCreationData(
 		@JsonProperty("cardId") String cardId,
@@ -36,7 +40,8 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("rootCategoryId") String rootCategoryId
+		@JsonProperty("rootCategoryId") String rootCategoryId,
+		@JsonProperty("path") String path
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -47,6 +52,7 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
+		this.path = path;
 	}
 
 	public CardCreationData( String uuid ) {
@@ -137,6 +143,18 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 		return this;
 	}
 	
+	@JsonProperty
+	public String getPath() {
+		return this.path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public CardCreationData withPath(String path) {
+		this.path = path;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -147,7 +165,8 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 			this.cardAuthor,
 			this.cardIndex,
 			this.categoryId,
-			this.rootCategoryId
+			this.rootCategoryId,
+			this.path
 		);
 	}
 

@@ -1,9 +1,13 @@
 package com.anfelisa.category.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
 
 import com.anfelisa.ace.AbstractData;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CategoryCreationData extends AbstractData implements ICategoryCreationData {
 	
@@ -29,6 +33,9 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 	
 	private String wantedLanguage;
 	
+	@NotNull
+	private String path;
+	
 
 	public CategoryCreationData(
 		@JsonProperty("categoryId") String categoryId,
@@ -39,7 +46,8 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
-		@JsonProperty("wantedLanguage") String wantedLanguage
+		@JsonProperty("wantedLanguage") String wantedLanguage,
+		@JsonProperty("path") String path
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -52,6 +60,7 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
+		this.path = path;
 	}
 
 	public CategoryCreationData( String uuid ) {
@@ -166,6 +175,18 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		return this;
 	}
 	
+	@JsonProperty
+	public String getPath() {
+		return this.path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public CategoryCreationData withPath(String path) {
+		this.path = path;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -178,7 +199,8 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 			this.rootCategoryId,
 			this.dictionaryLookup,
 			this.givenLanguage,
-			this.wantedLanguage
+			this.wantedLanguage,
+			this.path
 		);
 	}
 

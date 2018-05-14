@@ -13,6 +13,7 @@ ACE {
 		on ok (Card.delete)
 	}
 	GET GetDuplicates uses CardSearch
+	GET GetTranslation uses CardTranslation
 }
 
 views {
@@ -32,8 +33,9 @@ models {
 		NotEmpty String wanted
 		NotNull String cardAuthor
 		NotNull Integer cardIndex
-		String categoryId references com.anfelisa.category.Category.categoryId
-		String rootCategoryId references com.anfelisa.category.Category.categoryId
+		NotNull String categoryId references com.anfelisa.category.Category.categoryId
+		NotNull String rootCategoryId references com.anfelisa.category.Category.categoryId
+		NotNull String path
 	}
 	
 	CardUpdate {
@@ -51,6 +53,12 @@ models {
 		String categoryId
 		List com.anfelisa.card.Card cardList
 	}
+	CardTranslation {
+		NotEmpty String sourceValue
+		NotEmpty String targetValue
+		NotEmpty String sourceLanguage
+		NotEmpty String targetLanguage
+	}
 	
 }
 
@@ -59,5 +67,6 @@ data {
 	CardUpdate : ( CardUpdate )
 	CardDelete : ( CardDelete )
 	CardSearch : (CardSearch )
+	CardTranslation : (CardTranslation)
 }
 

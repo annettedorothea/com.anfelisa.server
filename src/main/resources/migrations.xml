@@ -245,4 +245,22 @@
 
 	</changeSet>
 
+	<changeSet id="012" author="annette">
+
+		<addColumn tableName="card">
+			<column name="path" type="character varying">
+				<constraints />
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="013" author="annette">
+
+		<addColumn tableName="category">
+			<column name="path" type="character varying">
+				<constraints />
+			</column>
+		</addColumn>
+	</changeSet>
+
 </databaseChangeLog>

@@ -1,16 +1,16 @@
 package com.anfelisa.category;
 
-import org.skife.jdbi.v2.DBI;
-
+import io.dropwizard.setup.Environment;
 import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.AceExecutionMode;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.category.actions.CreateCategoryAction;
-import com.anfelisa.category.actions.DeleteCategoryAction;
-import com.anfelisa.category.actions.GetAllCategoriesAction;
-import com.anfelisa.category.actions.UpdateCategoryAction;
+import com.anfelisa.ace.ServerConfiguration;
 
-import io.dropwizard.setup.Environment;
+import org.skife.jdbi.v2.DBI;
+
+import com.anfelisa.category.views.CategoryView;
+import com.anfelisa.category.actions.*;
 
 @SuppressWarnings("all")
 public class AppRegistration {

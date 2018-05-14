@@ -14,6 +14,7 @@ public interface ICategoryModel {
 	Boolean getDictionaryLookup();
 	String getGivenLanguage();
 	String getWantedLanguage();
+	String getPath();
 
 }
 

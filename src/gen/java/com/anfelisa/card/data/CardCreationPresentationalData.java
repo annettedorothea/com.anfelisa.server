@@ -1,10 +1,16 @@
 package com.anfelisa.card.data;
 
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.IDataContainer;
+
+import com.anfelisa.card.models.ICardModel;
 
 @SuppressWarnings("all")
 public class CardCreationPresentationalData implements ICardCreationPresentationalData {
@@ -24,9 +30,14 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 	@NotNull
 	private Integer cardIndex;
 	
+	@NotNull
 	private String categoryId;
 	
+	@NotNull
 	private String rootCategoryId;
+	
+	@NotNull
+	private String path;
 	
 	
 	public CardCreationPresentationalData(
@@ -36,7 +47,8 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("rootCategoryId") String rootCategoryId
+		@JsonProperty("rootCategoryId") String rootCategoryId,
+		@JsonProperty("path") String path
 	) {
 		this.cardId = cardId;
 		this.given = given;
@@ -45,6 +57,7 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
+		this.path = path;
 		
 	}
 
@@ -129,6 +142,18 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 	}
 	public CardCreationPresentationalData withRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getPath() {
+		return this.path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public CardCreationPresentationalData withPath(String path) {
+		this.path = path;
 		return this;
 	}
 	

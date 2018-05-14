@@ -1,8 +1,16 @@
 package com.anfelisa.category.data;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.IDataContainer;
+
+import com.anfelisa.category.models.ICategoryModel;
 
 @SuppressWarnings("all")
 public class CategoryCreationPresentationalData implements ICategoryCreationPresentationalData {
@@ -29,6 +37,9 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 	
 	private String wantedLanguage;
 	
+	@NotNull
+	private String path;
+	
 	
 	public CategoryCreationPresentationalData(
 		@JsonProperty("categoryId") String categoryId,
@@ -39,7 +50,8 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
-		@JsonProperty("wantedLanguage") String wantedLanguage
+		@JsonProperty("wantedLanguage") String wantedLanguage,
+		@JsonProperty("path") String path
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -50,6 +62,7 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
+		this.path = path;
 		
 	}
 
@@ -158,6 +171,18 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 	}
 	public CategoryCreationPresentationalData withWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getPath() {
+		return this.path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public CategoryCreationPresentationalData withPath(String path) {
+		this.path = path;
 		return this;
 	}
 	

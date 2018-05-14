@@ -52,8 +52,10 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 			ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
 					commandData.getParentCategoryId());
 			commandData.setRootCategoryId(parentCategory.getRootCategoryId());
+			commandData.setPath(parentCategory.getPath() + " -> " + commandData.getCategoryName());
 		} else {
 			commandData.setRootCategoryId(commandData.getCategoryId());
+			commandData.setPath(commandData.getCategoryName());
 		}
 		this.commandData.setOutcome(ok);
 	}

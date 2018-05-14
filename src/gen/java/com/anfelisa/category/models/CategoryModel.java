@@ -1,8 +1,8 @@
 package com.anfelisa.category.models;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings("all")
 public class CategoryModel implements ICategoryModel {
@@ -29,6 +29,9 @@ public class CategoryModel implements ICategoryModel {
 	
 	private String wantedLanguage;
 	
+	@NotNull
+	private String path;
+	
 
 	public CategoryModel(
 		@JsonProperty("categoryId") String categoryId,
@@ -39,7 +42,8 @@ public class CategoryModel implements ICategoryModel {
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
-		@JsonProperty("wantedLanguage") String wantedLanguage
+		@JsonProperty("wantedLanguage") String wantedLanguage,
+		@JsonProperty("path") String path
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -50,6 +54,7 @@ public class CategoryModel implements ICategoryModel {
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
+		this.path = path;
 	}
 
 	@JsonProperty
@@ -122,6 +127,14 @@ public class CategoryModel implements ICategoryModel {
 	}
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
+	}
+	
+	@JsonProperty
+	public String getPath() {
+		return this.path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 

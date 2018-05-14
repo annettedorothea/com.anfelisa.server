@@ -9,13 +9,13 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
-import com.anfelisa.card.data.CardSearchData;
+import com.anfelisa.card.data.CardTranslationData;
 
 
-public abstract class AbstractGetDuplicatesAction extends Action<CardSearchData> {
+public abstract class AbstractGetTranslationAction extends Action<CardTranslationData> {
 
-	public AbstractGetDuplicatesAction(DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.card.actions.GetDuplicatesAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
+	public AbstractGetTranslationAction(DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.card.actions.GetTranslationAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public abstract class AbstractGetDuplicatesAction extends Action<CardSearchData>
 
 	public void initActionData(String json) {
 		try {
-			this.actionData = mapper.readValue(json, CardSearchData.class);
+			this.actionData = mapper.readValue(json, CardTranslationData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

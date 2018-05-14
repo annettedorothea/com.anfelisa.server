@@ -26,4 +26,7 @@
 	<column name="wantedlanguage" type="character varying">
 		<constraints    />
 	</column>
+	<column name="path" type="character varying">
+		<constraints  nullable="false"  />
+	</column>
 </createTable>

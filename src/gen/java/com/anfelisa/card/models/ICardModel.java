@@ -12,6 +12,7 @@ public interface ICardModel {
 	Integer getCardIndex();
 	String getCategoryId();
 	String getRootCategoryId();
+	String getPath();
 
 }
 

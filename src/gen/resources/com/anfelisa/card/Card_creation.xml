@@ -15,9 +15,12 @@
 		<constraints  nullable="false"  />
 	</column>
 	<column name="categoryid" type="character varying">
-		<constraints   	references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_card_categoryid" />
+		<constraints  nullable="false" 	references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_card_categoryid" />
 	</column>
 	<column name="rootcategoryid" type="character varying">
-		<constraints   	references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_card_categoryid" />
+		<constraints  nullable="false" 	references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_card_categoryid" />
+	</column>
+	<column name="path" type="character varying">
+		<constraints  nullable="false"  />
 	</column>
 </createTable>

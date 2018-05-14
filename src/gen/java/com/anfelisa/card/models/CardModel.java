@@ -1,10 +1,8 @@
 package com.anfelisa.card.models;
 
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings("all")
 public class CardModel implements ICardModel {
@@ -24,9 +22,14 @@ public class CardModel implements ICardModel {
 	@NotNull
 	private Integer cardIndex;
 	
+	@NotNull
 	private String categoryId;
 	
+	@NotNull
 	private String rootCategoryId;
+	
+	@NotNull
+	private String path;
 	
 
 	public CardModel(
@@ -36,7 +39,8 @@ public class CardModel implements ICardModel {
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("rootCategoryId") String rootCategoryId
+		@JsonProperty("rootCategoryId") String rootCategoryId,
+		@JsonProperty("path") String path
 	) {
 		this.cardId = cardId;
 		this.given = given;
@@ -45,6 +49,7 @@ public class CardModel implements ICardModel {
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
+		this.path = path;
 	}
 
 	@JsonProperty
@@ -101,6 +106,14 @@ public class CardModel implements ICardModel {
 	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
+	}
+	
+	@JsonProperty
+	public String getPath() {
+		return this.path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 

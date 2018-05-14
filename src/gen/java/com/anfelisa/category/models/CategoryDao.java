@@ -1,18 +1,22 @@
 package com.anfelisa.category.models;
 
-import java.util.List;
-
 import org.skife.jdbi.v2.Handle;
+import org.skife.jdbi.v2.Query;
 import org.skife.jdbi.v2.Update;
 
+import java.util.List;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
+import com.anfelisa.ace.encryption.EncryptionService;
 
 @SuppressWarnings("all")
 @JsonIgnoreType
 public class CategoryDao {
 	
 	public void insert(Handle handle, ICategoryModel categoryModel) {
-		Update statement = handle.createStatement("INSERT INTO public.category (categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage) VALUES (:categoryid, :categoryname, :categoryauthor, :categoryindex, :parentcategoryid, :rootcategoryid, :dictionarylookup, :givenlanguage, :wantedlanguage)");
+		Update statement = handle.createStatement("INSERT INTO public.category (categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path) VALUES (:categoryid, :categoryname, :categoryauthor, :categoryindex, :parentcategoryid, :rootcategoryid, :dictionarylookup, :givenlanguage, :wantedlanguage, :path)");
 		statement.bind("categoryid",  categoryModel.getCategoryId() );
 		statement.bind("categoryname",  categoryModel.getCategoryName() );
 		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
@@ -22,12 +26,13 @@ public class CategoryDao {
 		statement.bind("dictionarylookup",  categoryModel.getDictionaryLookup() );
 		statement.bind("givenlanguage",  categoryModel.getGivenLanguage() );
 		statement.bind("wantedlanguage",  categoryModel.getWantedLanguage() );
+		statement.bind("path",  categoryModel.getPath() );
 		statement.execute();
 	}
 	
 	
 	public void updateByCategoryId(Handle handle, ICategoryModel categoryModel) {
-		Update statement = handle.createStatement("UPDATE public.category SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryid = :categoryid");
+		Update statement = handle.createStatement("UPDATE public.category SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage, path = :path WHERE categoryid = :categoryid");
 		statement.bind("categoryid",  categoryModel.getCategoryId() );
 		statement.bind("categoryname",  categoryModel.getCategoryName() );
 		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
@@ -37,6 +42,7 @@ public class CategoryDao {
 		statement.bind("dictionarylookup",  categoryModel.getDictionaryLookup() );
 		statement.bind("givenlanguage",  categoryModel.getGivenLanguage() );
 		statement.bind("wantedlanguage",  categoryModel.getWantedLanguage() );
+		statement.bind("path",  categoryModel.getPath() );
 		statement.bind("categoryid",  categoryModel.getCategoryId()  );
 		statement.execute();
 	}
@@ -48,13 +54,13 @@ public class CategoryDao {
 	}
 
 	public ICategoryModel selectByCategoryId(Handle handle, String categoryId) {
-		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category WHERE categoryid = :categoryid")
+		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path FROM public.category WHERE categoryid = :categoryid")
 			.bind("categoryid", categoryId)
 			.map(new CategoryMapper())
 			.first();
 	}
 	public void updateByCategoryName(Handle handle, ICategoryModel categoryModel) {
-		Update statement = handle.createStatement("UPDATE public.category SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryname = :categoryname");
+		Update statement = handle.createStatement("UPDATE public.category SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage, path = :path WHERE categoryname = :categoryname");
 		statement.bind("categoryid",  categoryModel.getCategoryId() );
 		statement.bind("categoryname",  categoryModel.getCategoryName() );
 		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
@@ -64,6 +70,7 @@ public class CategoryDao {
 		statement.bind("dictionarylookup",  categoryModel.getDictionaryLookup() );
 		statement.bind("givenlanguage",  categoryModel.getGivenLanguage() );
 		statement.bind("wantedlanguage",  categoryModel.getWantedLanguage() );
+		statement.bind("path",  categoryModel.getPath() );
 		statement.bind("categoryname",  categoryModel.getCategoryName()  );
 		statement.execute();
 	}
@@ -75,14 +82,14 @@ public class CategoryDao {
 	}
 
 	public ICategoryModel selectByCategoryName(Handle handle, String categoryName) {
-		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category WHERE categoryname = :categoryname")
+		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path FROM public.category WHERE categoryname = :categoryname")
 			.bind("categoryname", categoryName)
 			.map(new CategoryMapper())
 			.first();
 	}
 	
 	public List<ICategoryModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category")
+		return handle.createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path FROM public.category")
 			.map(new CategoryMapper())
 			.list();
 	}

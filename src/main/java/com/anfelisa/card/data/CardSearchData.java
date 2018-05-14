@@ -1,9 +1,13 @@
 package com.anfelisa.card.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
 
 import com.anfelisa.ace.AbstractData;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CardSearchData extends AbstractData implements ICardSearchData {
 	

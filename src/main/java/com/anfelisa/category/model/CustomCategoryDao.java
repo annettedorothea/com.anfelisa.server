@@ -13,13 +13,13 @@ public class CustomCategoryDao {
 
 	public List<ICategoryModel> selectAllChildren(Handle handle, String parentCategoryId) {
 		return handle.createQuery(
-				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path FROM public.category WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
 				.bind("parentcategoryid", parentCategoryId).map(new CategoryMapper()).list();
 	}
 
 	public List<ICategoryModel> selectAllRoot(Handle handle) {
 		return handle.createQuery(
-				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category WHERE parentcategoryid is null order by categoryindex, categoryname")
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path FROM public.category WHERE parentcategoryid is null order by categoryindex, categoryname")
 				.map(new CategoryMapper()).list();
 	}
 
