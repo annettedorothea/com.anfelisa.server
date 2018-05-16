@@ -5,7 +5,7 @@ import javax.ws.rs.WebApplicationException;
 import org.skife.jdbi.v2.DBI;
 
 import com.anfelisa.ace.Action;
-import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.ace.IDaoProvider;
@@ -15,7 +15,7 @@ import com.anfelisa.box.data.RemoveCardFromBoxData;
 
 public abstract class AbstractRemoveCardFromBoxAction extends Action<RemoveCardFromBoxData> {
 
-	public AbstractRemoveCardFromBoxAction(DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractRemoveCardFromBoxAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.RemoveCardFromBoxAction", HttpMethod.DELETE, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 

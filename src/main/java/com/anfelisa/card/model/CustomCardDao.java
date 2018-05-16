@@ -33,11 +33,13 @@ public class CustomCardDao {
 		statement.execute();
 	}
 
-	public List<ICardModel> search(Handle handle, String categoryId, String searchString) {
+	public List<ICardModel> search(Handle handle, String categoryId, String searchString, Boolean naturalInputOrder) {
 		searchString = "%" + searchString + "%";
+		String orderBy = naturalInputOrder ? "given" : "wanted";
 		return handle.createQuery(
 				"SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, path FROM public.card "
-						+ "where rootcategoryid = (select rootcategoryid from category where category.categoryid = :categoryid) and given like :searchstring order by given limit 25")
+						+ "where rootcategoryid = (select rootcategoryid from category where category.categoryid = :categoryid) and given like :searchstring order by upper("
+						+ orderBy + ") limit 25")
 				.bind("categoryid", categoryId).bind("searchstring", searchString).map(new CardMapper()).list();
 	}
 

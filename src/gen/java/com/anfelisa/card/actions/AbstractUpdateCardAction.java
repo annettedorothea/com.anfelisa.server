@@ -4,7 +4,7 @@ import org.skife.jdbi.v2.DBI;
 import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
-import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
@@ -15,7 +15,7 @@ import com.anfelisa.card.commands.UpdateCardCommand;
 
 public abstract class AbstractUpdateCardAction extends Action<CardUpdateData> {
 
-	public AbstractUpdateCardAction(DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractUpdateCardAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.actions.UpdateCardAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 

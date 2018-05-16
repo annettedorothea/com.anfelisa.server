@@ -35,6 +35,7 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 			ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
 					commandData.getCategoryId());
 			commandData.setRootCategoryId(category.getRootCategoryId());
+			commandData.setPath(category.getPath());
 		}
 		this.commandData.setCardId(commandData.getUuid());
 		this.commandData.setOutcome(ok);

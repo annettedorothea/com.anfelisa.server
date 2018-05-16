@@ -14,15 +14,19 @@ public class CardSearchModel implements ICardSearchModel {
 	
 	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
 	
+	private Boolean naturalInputOrder = false;
+	
 
 	public CardSearchModel(
 		@JsonProperty("searchString") String searchString,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList
+		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
+		@JsonProperty("naturalInputOrder") Boolean naturalInputOrder
 	) {
 		this.searchString = searchString;
 		this.categoryId = categoryId;
 		this.cardList = cardList;
+		this.naturalInputOrder = naturalInputOrder;
 	}
 
 	@JsonProperty
@@ -47,6 +51,14 @@ public class CardSearchModel implements ICardSearchModel {
 	}
 	public void setCardList(java.util.List<com.anfelisa.card.models.ICardModel> cardList) {
 		this.cardList = cardList;
+	}
+	
+	@JsonProperty
+	public Boolean getNaturalInputOrder() {
+		return this.naturalInputOrder;
+	}
+	public void setNaturalInputOrder(Boolean naturalInputOrder) {
+		this.naturalInputOrder = naturalInputOrder;
 	}
 	
 

@@ -16,7 +16,7 @@ import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
@@ -34,7 +34,7 @@ public class GetDuplicatesAction extends AbstractGetDuplicatesAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetDuplicatesAction.class);
 
-	public GetDuplicatesAction(DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider,
+	public GetDuplicatesAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
@@ -44,15 +44,15 @@ public class GetDuplicatesAction extends AbstractGetDuplicatesAction {
 	@Path("/search")
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("searchString") String searchString,
-			@NotNull @QueryParam("categoryId") String categoryId, @NotNull @QueryParam("uuid") String uuid)
+			@NotNull @QueryParam("categoryId") String categoryId, @NotNull @QueryParam("naturalInputOrder") Boolean naturalInputOrder, @NotNull @QueryParam("uuid") String uuid)
 			throws JsonProcessingException {
-		this.actionData = new CardSearchData(uuid).withCategoryId(categoryId).withSearchString(searchString);
+		this.actionData = new CardSearchData(uuid).withCategoryId(categoryId).withSearchString(searchString).withNaturalInputOrder(naturalInputOrder);
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
 		List<ICardModel> cardList = this.daoProvider.getCustomCardDao().search(getHandle(), actionData.getCategoryId(),
-				actionData.getSearchString());
+				actionData.getSearchString(), actionData.getNaturalInputOrder());
 		this.actionData.setCardList(cardList);
 	}
 

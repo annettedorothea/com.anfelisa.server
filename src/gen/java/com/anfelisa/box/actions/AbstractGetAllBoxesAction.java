@@ -5,7 +5,7 @@ import javax.ws.rs.WebApplicationException;
 import org.skife.jdbi.v2.DBI;
 
 import com.anfelisa.ace.Action;
-import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
 import com.anfelisa.ace.IDaoProvider;
@@ -15,7 +15,7 @@ import com.anfelisa.box.data.AllBoxesData;
 
 public abstract class AbstractGetAllBoxesAction extends Action<AllBoxesData> {
 
-	public AbstractGetAllBoxesAction(DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractGetAllBoxesAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.GetAllBoxesAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 

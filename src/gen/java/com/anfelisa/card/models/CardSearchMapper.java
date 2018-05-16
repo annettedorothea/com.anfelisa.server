@@ -15,7 +15,8 @@ public class CardSearchMapper implements ResultSetMapper<ICardSearchModel> {
 		return new CardSearchModel(
 			r.getString("searchString"),
 			r.getString("categoryId"),
-			null
+			null,
+			r.getBoolean("naturalInputOrder")
 		);
 	}
 }

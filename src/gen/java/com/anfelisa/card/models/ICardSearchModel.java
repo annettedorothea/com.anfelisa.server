@@ -8,6 +8,7 @@ public interface ICardSearchModel {
 	String getSearchString();
 	String getCategoryId();
 	java.util.List<com.anfelisa.card.models.ICardModel> getCardList();
+	Boolean getNaturalInputOrder();
 
 }
 

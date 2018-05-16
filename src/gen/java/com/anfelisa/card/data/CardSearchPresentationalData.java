@@ -22,15 +22,19 @@ public class CardSearchPresentationalData implements ICardSearchPresentationalDa
 	
 	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
 	
+	private Boolean naturalInputOrder = false;
+	
 	
 	public CardSearchPresentationalData(
 		@JsonProperty("searchString") String searchString,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList
+		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
+		@JsonProperty("naturalInputOrder") Boolean naturalInputOrder
 	) {
 		this.searchString = searchString;
 		this.categoryId = categoryId;
 		this.cardList = cardList;
+		this.naturalInputOrder = naturalInputOrder;
 		
 	}
 
@@ -67,6 +71,18 @@ public class CardSearchPresentationalData implements ICardSearchPresentationalDa
 	}
 	public CardSearchPresentationalData withCardList(java.util.List<com.anfelisa.card.models.ICardModel> cardList) {
 		this.cardList = cardList;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getNaturalInputOrder() {
+		return this.naturalInputOrder;
+	}
+	public void setNaturalInputOrder(Boolean naturalInputOrder) {
+		this.naturalInputOrder = naturalInputOrder;
+	}
+	public CardSearchPresentationalData withNaturalInputOrder(Boolean naturalInputOrder) {
+		this.naturalInputOrder = naturalInputOrder;
 		return this;
 	}
 	

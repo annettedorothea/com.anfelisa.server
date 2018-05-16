@@ -18,17 +18,21 @@ public class CardSearchData extends AbstractData implements ICardSearchData {
 	
 	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
 	
+	private Boolean naturalInputOrder = false;
+	
 
 	public CardSearchData(
 		@JsonProperty("searchString") String searchString,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList
+		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
+		@JsonProperty("naturalInputOrder") Boolean naturalInputOrder
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.searchString = searchString;
 		this.categoryId = categoryId;
 		this.cardList = cardList;
+		this.naturalInputOrder = naturalInputOrder;
 	}
 
 	public CardSearchData( String uuid ) {
@@ -71,13 +75,26 @@ public class CardSearchData extends AbstractData implements ICardSearchData {
 		return this;
 	}
 	
+	@JsonProperty
+	public Boolean getNaturalInputOrder() {
+		return this.naturalInputOrder;
+	}
+	public void setNaturalInputOrder(Boolean naturalInputOrder) {
+		this.naturalInputOrder = naturalInputOrder;
+	}
+	public CardSearchData withNaturalInputOrder(Boolean naturalInputOrder) {
+		this.naturalInputOrder = naturalInputOrder;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
 		return new CardSearchPresentationalData(
 			this.searchString,
 			this.categoryId,
-			this.cardList
+			this.cardList,
+			this.naturalInputOrder
 		);
 	}
 

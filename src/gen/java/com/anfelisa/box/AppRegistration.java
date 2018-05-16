@@ -2,7 +2,7 @@ package com.anfelisa.box;
 
 import org.skife.jdbi.v2.DBI;
 
-import com.anfelisa.ace.AppConfiguration;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.actions.CreateBoxAction;
@@ -28,7 +28,7 @@ import io.dropwizard.setup.Environment;
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public void registerResources(Environment environment, DBI jdbi, AppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public void registerResources(Environment environment, DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		environment.jersey().register(new LoadBoxesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new LoadNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new LoadBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
