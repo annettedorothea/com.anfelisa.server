@@ -8,7 +8,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class CardSearchModel implements ICardSearchModel {
 
 	@NotNull
-	private String searchString;
+	private String given;
+	
+	@NotNull
+	private String wanted;
 	
 	private String categoryId;
 	
@@ -18,23 +21,33 @@ public class CardSearchModel implements ICardSearchModel {
 	
 
 	public CardSearchModel(
-		@JsonProperty("searchString") String searchString,
+		@JsonProperty("given") String given,
+		@JsonProperty("wanted") String wanted,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
 		@JsonProperty("naturalInputOrder") Boolean naturalInputOrder
 	) {
-		this.searchString = searchString;
+		this.given = given;
+		this.wanted = wanted;
 		this.categoryId = categoryId;
 		this.cardList = cardList;
 		this.naturalInputOrder = naturalInputOrder;
 	}
 
 	@JsonProperty
-	public String getSearchString() {
-		return this.searchString;
+	public String getGiven() {
+		return this.given;
 	}
-	public void setSearchString(String searchString) {
-		this.searchString = searchString;
+	public void setGiven(String given) {
+		this.given = given;
+	}
+	
+	@JsonProperty
+	public String getWanted() {
+		return this.wanted;
+	}
+	public void setWanted(String wanted) {
+		this.wanted = wanted;
 	}
 	
 	@JsonProperty

@@ -12,7 +12,10 @@ import com.anfelisa.ace.AbstractData;
 public class CardSearchData extends AbstractData implements ICardSearchData {
 	
 	@NotNull
-	private String searchString;
+	private String given;
+	
+	@NotNull
+	private String wanted;
 	
 	private String categoryId;
 	
@@ -22,14 +25,16 @@ public class CardSearchData extends AbstractData implements ICardSearchData {
 	
 
 	public CardSearchData(
-		@JsonProperty("searchString") String searchString,
+		@JsonProperty("given") String given,
+		@JsonProperty("wanted") String wanted,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
 		@JsonProperty("naturalInputOrder") Boolean naturalInputOrder
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
-		this.searchString = searchString;
+		this.given = given;
+		this.wanted = wanted;
 		this.categoryId = categoryId;
 		this.cardList = cardList;
 		this.naturalInputOrder = naturalInputOrder;
@@ -40,14 +45,26 @@ public class CardSearchData extends AbstractData implements ICardSearchData {
 	}
 
 	@JsonProperty
-	public String getSearchString() {
-		return this.searchString;
+	public String getGiven() {
+		return this.given;
 	}
-	public void setSearchString(String searchString) {
-		this.searchString = searchString;
+	public void setGiven(String given) {
+		this.given = given;
 	}
-	public CardSearchData withSearchString(String searchString) {
-		this.searchString = searchString;
+	public CardSearchData withGiven(String given) {
+		this.given = given;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getWanted() {
+		return this.wanted;
+	}
+	public void setWanted(String wanted) {
+		this.wanted = wanted;
+	}
+	public CardSearchData withWanted(String wanted) {
+		this.wanted = wanted;
 		return this;
 	}
 	
@@ -91,7 +108,8 @@ public class CardSearchData extends AbstractData implements ICardSearchData {
 	@Override
 	public Object toPresentationalData() {
 		return new CardSearchPresentationalData(
-			this.searchString,
+			this.given,
+			this.wanted,
 			this.categoryId,
 			this.cardList,
 			this.naturalInputOrder

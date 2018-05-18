@@ -59,8 +59,22 @@ models {
 		Boolean parentDictionaryLookup
 		String parentGivenLanguage
 		String parentWantedLanguage
-		List Category categoryList
+		List CategoryItem categoryList
 		List com.anfelisa.card.Card cardList
+	}
+	
+	CategoryItem {
+		NotNull String categoryId
+		NotNull String categoryName
+		NotNull String categoryAuthor
+		NotNull Integer categoryIndex
+		String parentCategoryId
+		String rootCategoryId
+		Boolean dictionaryLookup
+		String givenLanguage
+		String wantedLanguage
+		NotNull String path
+		Boolean empty
 	}
 }
 

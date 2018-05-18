@@ -13,7 +13,8 @@ public class CardSearchMapper implements ResultSetMapper<ICardSearchModel> {
 	
 	public ICardSearchModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardSearchModel(
-			r.getString("searchString"),
+			r.getString("given"),
+			r.getString("wanted"),
 			r.getString("categoryId"),
 			null,
 			r.getBoolean("naturalInputOrder")

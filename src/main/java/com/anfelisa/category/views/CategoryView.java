@@ -23,6 +23,7 @@ public class CategoryView {
 		daoProvider.getCategoryDao().insert(handle, dataContainer);
 	};
 	public BiConsumer<CategoryDeleteData, Handle> delete = (dataContainer, handle) -> {
+		daoProvider.getCustomCardDao().deleteByCategoryId(handle, dataContainer.getCategoryId());
 		daoProvider.getCategoryDao().deleteByCategoryId(handle, dataContainer.getCategoryId());
 	};
 	public BiConsumer<CategoryUpdateData, Handle> update = (dataContainer, handle) -> {

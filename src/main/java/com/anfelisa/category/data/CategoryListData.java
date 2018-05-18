@@ -1,7 +1,13 @@
 package com.anfelisa.category.data;
 
-import com.anfelisa.ace.AbstractData;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.AbstractData;
 
 public class CategoryListData extends AbstractData implements ICategoryListData {
 	
@@ -17,7 +23,7 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 	
 	private String parentWantedLanguage;
 	
-	private java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList;
+	private java.util.List<com.anfelisa.category.models.ICategoryItemModel> categoryList;
 	
 	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
 	
@@ -29,7 +35,7 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 		@JsonProperty("parentDictionaryLookup") Boolean parentDictionaryLookup,
 		@JsonProperty("parentGivenLanguage") String parentGivenLanguage,
 		@JsonProperty("parentWantedLanguage") String parentWantedLanguage,
-		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList,
+		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryItemModel> categoryList,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -121,13 +127,13 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.category.models.ICategoryModel> getCategoryList() {
+	public java.util.List<com.anfelisa.category.models.ICategoryItemModel> getCategoryList() {
 		return this.categoryList;
 	}
-	public void setCategoryList(java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList) {
+	public void setCategoryList(java.util.List<com.anfelisa.category.models.ICategoryItemModel> categoryList) {
 		this.categoryList = categoryList;
 	}
-	public CategoryListData withCategoryList(java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList) {
+	public CategoryListData withCategoryList(java.util.List<com.anfelisa.category.models.ICategoryItemModel> categoryList) {
 		this.categoryList = categoryList;
 		return this;
 	}

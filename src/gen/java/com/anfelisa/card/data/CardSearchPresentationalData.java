@@ -16,7 +16,10 @@ import com.anfelisa.card.models.ICardSearchModel;
 public class CardSearchPresentationalData implements ICardSearchPresentationalData {
 	
 	@NotNull
-	private String searchString;
+	private String given;
+	
+	@NotNull
+	private String wanted;
 	
 	private String categoryId;
 	
@@ -26,12 +29,14 @@ public class CardSearchPresentationalData implements ICardSearchPresentationalDa
 	
 	
 	public CardSearchPresentationalData(
-		@JsonProperty("searchString") String searchString,
+		@JsonProperty("given") String given,
+		@JsonProperty("wanted") String wanted,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
 		@JsonProperty("naturalInputOrder") Boolean naturalInputOrder
 	) {
-		this.searchString = searchString;
+		this.given = given;
+		this.wanted = wanted;
 		this.categoryId = categoryId;
 		this.cardList = cardList;
 		this.naturalInputOrder = naturalInputOrder;
@@ -39,14 +44,26 @@ public class CardSearchPresentationalData implements ICardSearchPresentationalDa
 	}
 
 	@JsonProperty
-	public String getSearchString() {
-		return this.searchString;
+	public String getGiven() {
+		return this.given;
 	}
-	public void setSearchString(String searchString) {
-		this.searchString = searchString;
+	public void setGiven(String given) {
+		this.given = given;
 	}
-	public CardSearchPresentationalData withSearchString(String searchString) {
-		this.searchString = searchString;
+	public CardSearchPresentationalData withGiven(String given) {
+		this.given = given;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getWanted() {
+		return this.wanted;
+	}
+	public void setWanted(String wanted) {
+		this.wanted = wanted;
+	}
+	public CardSearchPresentationalData withWanted(String wanted) {
+		this.wanted = wanted;
 		return this;
 	}
 	

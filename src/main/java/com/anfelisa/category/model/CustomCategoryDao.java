@@ -6,21 +6,21 @@ import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.Update;
 
 import com.anfelisa.category.data.CategoryUpdateData;
-import com.anfelisa.category.models.CategoryMapper;
-import com.anfelisa.category.models.ICategoryModel;
+import com.anfelisa.category.models.CategoryItemMapper;
+import com.anfelisa.category.models.ICategoryItemModel;
 
 public class CustomCategoryDao {
 
-	public List<ICategoryModel> selectAllChildren(Handle handle, String parentCategoryId) {
+	public List<ICategoryItemModel> selectAllChildren(Handle handle, String parentCategoryId) {
 		return handle.createQuery(
-				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path FROM public.category WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
-				.bind("parentcategoryid", parentCategoryId).map(new CategoryMapper()).list();
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, (select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
+				.bind("parentcategoryid", parentCategoryId).map(new CategoryItemMapper()).list();
 	}
 
-	public List<ICategoryModel> selectAllRoot(Handle handle) {
+	public List<ICategoryItemModel> selectAllRoot(Handle handle) {
 		return handle.createQuery(
-				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path FROM public.category WHERE parentcategoryid is null order by categoryindex, categoryname")
-				.map(new CategoryMapper()).list();
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, (select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty FROM public.category c WHERE parentcategoryid is null order by categoryindex, categoryname")
+				.map(new CategoryItemMapper()).list();
 	}
 
 	public Integer selectMaxIndexInCategory(Handle handle, String parentCategoryId) {

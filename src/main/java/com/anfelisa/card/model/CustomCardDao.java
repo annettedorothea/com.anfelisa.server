@@ -33,14 +33,31 @@ public class CustomCardDao {
 		statement.execute();
 	}
 
-	public List<ICardModel> search(Handle handle, String categoryId, String searchString, Boolean naturalInputOrder) {
-		searchString = "%" + searchString + "%";
+	public List<ICardModel> search(Handle handle, String categoryId, Boolean naturalInputOrder, String given,
+			String wanted) {
+		String givenSearchString = "%" + given + "%";
+		String wantedSearchString = "%" + wanted + "%";
 		String orderBy = naturalInputOrder ? "given" : "wanted";
 		return handle.createQuery(
 				"SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, path FROM public.card "
-						+ "where rootcategoryid = (select rootcategoryid from category where category.categoryid = :categoryid) and given like :searchstring order by upper("
+						+ "where rootcategoryid = (select rootcategoryid from category where category.categoryid = :categoryid) and "
+						+ "( length(:given) > 0 and given like :givenSearchString or "
+						+ " length(:wanted) > 0 and wanted like :wantedSearchString) " + "order by upper("
 						+ orderBy + ") limit 25")
-				.bind("categoryid", categoryId).bind("searchstring", searchString).map(new CardMapper()).list();
+				.bind("categoryid", categoryId)
+				.bind("givenSearchString", givenSearchString)
+				.bind("wantedSearchString", wantedSearchString)
+				.bind("given", given)
+				.bind("wanted", wanted)
+				.map(new CardMapper()).list();
 	}
+	
+	public void deleteByCategoryId(Handle handle, String categoryId) {
+		Update statement = handle.createStatement("DELETE FROM public.card WHERE categoryid = :categoryid");
+		statement.bind("categoryid", categoryId);
+		statement.execute();
+	}
+
+
 
 }

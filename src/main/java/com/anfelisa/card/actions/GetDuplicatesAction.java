@@ -43,16 +43,19 @@ public class GetDuplicatesAction extends AbstractGetDuplicatesAction {
 	@Timed
 	@Path("/search")
 	@PermitAll
-	public Response get(@Auth AuthUser user, @NotNull @QueryParam("searchString") String searchString,
-			@NotNull @QueryParam("categoryId") String categoryId, @NotNull @QueryParam("naturalInputOrder") Boolean naturalInputOrder, @NotNull @QueryParam("uuid") String uuid)
+	public Response get(@Auth AuthUser user, @NotNull @QueryParam("given") String given,
+			@NotNull @QueryParam("wanted") String wanted,
+			@NotNull @QueryParam("naturalInputOrder") Boolean naturalInputOrder,
+			@NotNull @QueryParam("categoryId") String categoryId, @NotNull @QueryParam("uuid") String uuid)
 			throws JsonProcessingException {
-		this.actionData = new CardSearchData(uuid).withCategoryId(categoryId).withSearchString(searchString).withNaturalInputOrder(naturalInputOrder);
+		this.actionData = new CardSearchData(uuid).withCategoryId(categoryId).withGiven(given).withWanted(wanted)
+				.withNaturalInputOrder(naturalInputOrder);
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
 		List<ICardModel> cardList = this.daoProvider.getCustomCardDao().search(getHandle(), actionData.getCategoryId(),
-				actionData.getSearchString(), actionData.getNaturalInputOrder());
+				actionData.getNaturalInputOrder(), actionData.getGiven(), actionData.getWanted());
 		this.actionData.setCardList(cardList);
 	}
 

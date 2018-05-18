@@ -27,7 +27,7 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 	
 	private String parentWantedLanguage;
 	
-	private java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList;
+	private java.util.List<com.anfelisa.category.models.ICategoryItemModel> categoryList;
 	
 	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
 	
@@ -39,7 +39,7 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 		@JsonProperty("parentDictionaryLookup") Boolean parentDictionaryLookup,
 		@JsonProperty("parentGivenLanguage") String parentGivenLanguage,
 		@JsonProperty("parentWantedLanguage") String parentWantedLanguage,
-		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList,
+		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryItemModel> categoryList,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList
 	) {
 		this.parentCategoryId = parentCategoryId;
@@ -126,13 +126,13 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.category.models.ICategoryModel> getCategoryList() {
+	public java.util.List<com.anfelisa.category.models.ICategoryItemModel> getCategoryList() {
 		return this.categoryList;
 	}
-	public void setCategoryList(java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList) {
+	public void setCategoryList(java.util.List<com.anfelisa.category.models.ICategoryItemModel> categoryList) {
 		this.categoryList = categoryList;
 	}
-	public CategoryListPresentationalData withCategoryList(java.util.List<com.anfelisa.category.models.ICategoryModel> categoryList) {
+	public CategoryListPresentationalData withCategoryList(java.util.List<com.anfelisa.category.models.ICategoryItemModel> categoryList) {
 		this.categoryList = categoryList;
 		return this;
 	}

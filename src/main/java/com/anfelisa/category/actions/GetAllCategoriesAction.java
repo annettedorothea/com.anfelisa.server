@@ -22,6 +22,7 @@ import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.card.models.ICardModel;
 import com.anfelisa.category.data.CategoryListData;
+import com.anfelisa.category.models.ICategoryItemModel;
 import com.anfelisa.category.models.ICategoryModel;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -51,7 +52,7 @@ import io.dropwizard.auth.Auth;
 
 	protected final void loadDataForGetRequest() {
 		if (actionData.getParentCategoryId() != null) {
-			List<ICategoryModel> categoryList = daoProvider.getCustomCategoryDao().selectAllChildren(getHandle(), actionData.getParentCategoryId());
+			List<ICategoryItemModel> categoryList = daoProvider.getCustomCategoryDao().selectAllChildren(getHandle(), actionData.getParentCategoryId());
 			actionData.setCategoryList(categoryList);
 			ICategoryModel parentCategory = daoProvider.getCategoryDao().selectByCategoryId(getHandle(), actionData.getParentCategoryId());
 			List<ICardModel> cards = daoProvider.getCustomCardDao().selectAllOfCategory(getHandle(), actionData.getParentCategoryId());
@@ -64,7 +65,7 @@ import io.dropwizard.auth.Auth;
 				this.actionData.setParentWantedLanguage(parentCategory.getWantedLanguage());
 			}
 		} else {
-			List<ICategoryModel> categoryList = daoProvider.getCustomCategoryDao().selectAllRoot(getHandle());
+			List<ICategoryItemModel> categoryList = daoProvider.getCustomCategoryDao().selectAllRoot(getHandle());
 			actionData.setCategoryList(categoryList);
 		}
 	}
