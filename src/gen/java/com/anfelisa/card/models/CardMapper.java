@@ -16,6 +16,7 @@ public class CardMapper implements ResultSetMapper<ICardModel> {
 			r.getString("cardId"),
 			r.getString("given"),
 			r.getString("wanted"),
+			r.getString("image"),
 			r.getString("cardAuthor"),
 			r.getInt("cardIndex"),
 			r.getString("categoryId"),

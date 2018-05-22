@@ -10,11 +10,11 @@ public class CardModel implements ICardModel {
 	@NotNull
 	private String cardId;
 	
-	@NotEmpty
 	private String given;
 	
-	@NotEmpty
 	private String wanted;
+	
+	private String image;
 	
 	@NotNull
 	private String cardAuthor;
@@ -36,6 +36,7 @@ public class CardModel implements ICardModel {
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
+		@JsonProperty("image") String image,
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
@@ -45,6 +46,7 @@ public class CardModel implements ICardModel {
 		this.cardId = cardId;
 		this.given = given;
 		this.wanted = wanted;
+		this.image = image;
 		this.cardAuthor = cardAuthor;
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
@@ -74,6 +76,14 @@ public class CardModel implements ICardModel {
 	}
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
+	}
+	
+	@JsonProperty
+	public String getImage() {
+		return this.image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	@JsonProperty

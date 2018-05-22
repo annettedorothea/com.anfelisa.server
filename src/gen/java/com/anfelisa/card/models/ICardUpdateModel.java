@@ -8,6 +8,7 @@ public interface ICardUpdateModel {
 	String getCardId();
 	String getGiven();
 	String getWanted();
+	String getImage();
 	Integer getCardIndex();
 
 }

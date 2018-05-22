@@ -13,7 +13,7 @@ public class CustomCardDao {
 
 	public List<ICardModel> selectAllOfCategory(Handle handle, String categoryId) {
 		return handle.createQuery(
-				"SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, path FROM public.card "
+				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, path FROM public.card "
 						+ "WHERE categoryid = :categoryid ORDER BY cardindex, given")
 				.bind("categoryid", categoryId).map(new CardMapper()).list();
 	}
@@ -39,7 +39,7 @@ public class CustomCardDao {
 		String wantedSearchString = "%" + wanted + "%";
 		String orderBy = naturalInputOrder ? "given" : "wanted";
 		return handle.createQuery(
-				"SELECT cardid, given, wanted, cardauthor, cardindex, categoryid, rootcategoryid, path FROM public.card "
+				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, path FROM public.card "
 						+ "where rootcategoryid = (select rootcategoryid from category where category.categoryid = :categoryid) and "
 						+ "( length(:given) > 0 and given like :givenSearchString or "
 						+ " length(:wanted) > 0 and wanted like :wantedSearchString) " + "order by upper("

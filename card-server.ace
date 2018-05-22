@@ -29,8 +29,9 @@ models {
 	
 	persistent Card {
 		Unique PrimaryKey NotNull String cardId
-		NotEmpty String given
-		NotEmpty String wanted
+		String given
+		String wanted
+		String image
 		NotNull String cardAuthor
 		NotNull Integer cardIndex
 		NotNull String categoryId references com.anfelisa.category.Category.categoryId
@@ -42,6 +43,7 @@ models {
 		NotNull String cardId
 		NotEmpty String given
 		NotEmpty String wanted
+		String image
 		NotNull Integer cardIndex
 	}
 	

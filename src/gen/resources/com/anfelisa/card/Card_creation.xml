@@ -8,6 +8,9 @@
 	<column name="wanted" type="character varying">
 		<constraints    />
 	</column>
+	<column name="image" type="character varying">
+		<constraints    />
+	</column>
 	<column name="cardauthor" type="character varying">
 		<constraints  nullable="false"  />
 	</column>

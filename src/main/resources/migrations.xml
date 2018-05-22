@@ -263,4 +263,31 @@
 		</addColumn>
 	</changeSet>
 
+	<changeSet id="014" author="annette">
+
+		<addColumn tableName="card">
+			<column name="givenimage" type="bytea">
+				<constraints />
+			</column>
+			<column name="wantedimage" type="bytea">
+				<constraints />
+			</column>
+		</addColumn>
+
+	</changeSet>
+
+	<changeSet id="015" author="annette">
+
+		<dropColumn tableName="card" columnName="givenimage" />
+		<dropColumn tableName="card" columnName="wantedimage" />
+
+		<addColumn tableName="card">
+			<column name="image" type="character varying">
+				<constraints />
+			</column>
+		</addColumn>
+
+	</changeSet>
+
+
 </databaseChangeLog>

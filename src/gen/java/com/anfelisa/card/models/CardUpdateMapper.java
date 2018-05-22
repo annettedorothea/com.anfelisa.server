@@ -16,6 +16,7 @@ public class CardUpdateMapper implements ResultSetMapper<ICardUpdateModel> {
 			r.getString("cardId"),
 			r.getString("given"),
 			r.getString("wanted"),
+			r.getString("image"),
 			r.getInt("cardIndex")
 		);
 	}

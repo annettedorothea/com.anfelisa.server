@@ -1,29 +1,18 @@
 package com.anfelisa.box;
 
-import org.skife.jdbi.v2.DBI;
-
+import io.dropwizard.setup.Environment;
 import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.AceExecutionMode;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.box.actions.CreateBoxAction;
-import com.anfelisa.box.actions.CreateCardAction;
-import com.anfelisa.box.actions.CreateScheduledCardAction;
-import com.anfelisa.box.actions.CreateScoredCardAction;
-import com.anfelisa.box.actions.DeleteBoxAction;
-import com.anfelisa.box.actions.DeleteCardAction;
-import com.anfelisa.box.actions.FillBoxWithCardsAction;
-import com.anfelisa.box.actions.GetAllBoxesAction;
-import com.anfelisa.box.actions.ImportCardAction;
-import com.anfelisa.box.actions.LoadBoxAction;
-import com.anfelisa.box.actions.LoadBoxesAction;
-import com.anfelisa.box.actions.LoadNextCardAction;
-import com.anfelisa.box.actions.LoadReinforceCardListAction;
-import com.anfelisa.box.actions.RecalculateScheduledCardsAction;
-import com.anfelisa.box.actions.RemoveCardFromBoxAction;
-import com.anfelisa.box.actions.ScoreCardAction;
-import com.anfelisa.box.actions.UpdateBoxAction;
+import com.anfelisa.ace.ServerConfiguration;
 
-import io.dropwizard.setup.Environment;
+import org.skife.jdbi.v2.DBI;
+
+import com.anfelisa.box.views.BoxView;
+import com.anfelisa.box.views.ScheduledCardView;
+import com.anfelisa.box.views.ScoredCardView;
+import com.anfelisa.box.actions.*;
 
 @SuppressWarnings("all")
 public class AppRegistration {

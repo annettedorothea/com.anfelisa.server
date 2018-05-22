@@ -2,8 +2,6 @@ package com.anfelisa.card.data;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.anfelisa.ace.AbstractData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,11 +10,11 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 	@NotNull
 	private String cardId;
 	
-	@NotEmpty
 	private String given;
 	
-	@NotEmpty
 	private String wanted;
+	
+	private String image;
 	
 	@NotNull
 	private String cardAuthor;
@@ -24,10 +22,13 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 	@NotNull
 	private Integer cardIndex;
 	
+	@NotNull
 	private String categoryId;
 	
+	@NotNull
 	private String rootCategoryId;
 	
+	@NotNull
 	private String path;
 	
 
@@ -35,6 +36,7 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
+		@JsonProperty("image") String image,
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
@@ -46,6 +48,7 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 		this.cardId = cardId;
 		this.given = given;
 		this.wanted = wanted;
+		this.image = image;
 		this.cardAuthor = cardAuthor;
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
@@ -90,6 +93,18 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 	}
 	public CardCreationData withWanted(String wanted) {
 		this.wanted = wanted;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getImage() {
+		return this.image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public CardCreationData withImage(String image) {
+		this.image = image;
 		return this;
 	}
 	
@@ -160,6 +175,7 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 			this.cardId,
 			this.given,
 			this.wanted,
+			this.image,
 			this.cardAuthor,
 			this.cardIndex,
 			this.categoryId,
