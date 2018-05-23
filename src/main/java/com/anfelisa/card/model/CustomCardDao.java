@@ -25,11 +25,12 @@ public class CustomCardDao {
 
 	public void update(Handle handle, CardUpdateData cardModel) {
 		Update statement = handle.createStatement(
-				"UPDATE public.card SET given = :given, wanted = :wanted, cardindex = :cardindex WHERE cardid = :cardid");
+				"UPDATE public.card SET given = :given, wanted = :wanted, image = :image, cardindex = :cardindex WHERE cardid = :cardid");
 		statement.bind("cardid", cardModel.getCardId());
 		statement.bind("given", cardModel.getGiven());
 		statement.bind("wanted", cardModel.getWanted());
 		statement.bind("cardindex", cardModel.getCardIndex());
+		statement.bind("image", cardModel.getImage());
 		statement.execute();
 	}
 
