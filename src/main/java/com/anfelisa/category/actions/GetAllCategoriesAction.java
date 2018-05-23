@@ -63,10 +63,13 @@ import io.dropwizard.auth.Auth;
 				this.actionData.setParentDictionaryLookup(parentCategory.getDictionaryLookup());
 				this.actionData.setParentGivenLanguage(parentCategory.getGivenLanguage());
 				this.actionData.setParentWantedLanguage(parentCategory.getWantedLanguage());
+				ICategoryModel rootCategory = daoProvider.getCategoryDao().selectByCategoryId(getHandle(), parentCategory.getRootCategoryId());
+				this.actionData.setRootDictionaryLookup(rootCategory.getDictionaryLookup());
 			}
 		} else {
 			List<ICategoryItemModel> categoryList = daoProvider.getCustomCategoryDao().selectAllRoot(getHandle());
 			actionData.setCategoryList(categoryList);
+			this.actionData.setRootDictionaryLookup(true);
 		}
 	}
 

@@ -1,7 +1,13 @@
 package com.anfelisa.category.data;
 
-import com.anfelisa.ace.AbstractData;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.AbstractData;
 
 public class CategoryListData extends AbstractData implements ICategoryListData {
 	
@@ -12,6 +18,8 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 	private String parentCategoryName;
 	
 	private Boolean parentDictionaryLookup = false;
+	
+	private Boolean rootDictionaryLookup = false;
 	
 	private String parentGivenLanguage;
 	
@@ -27,6 +35,7 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 		@JsonProperty("grandParentCategoryId") String grandParentCategoryId,
 		@JsonProperty("parentCategoryName") String parentCategoryName,
 		@JsonProperty("parentDictionaryLookup") Boolean parentDictionaryLookup,
+		@JsonProperty("rootDictionaryLookup") Boolean rootDictionaryLookup,
 		@JsonProperty("parentGivenLanguage") String parentGivenLanguage,
 		@JsonProperty("parentWantedLanguage") String parentWantedLanguage,
 		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryItemModel> categoryList,
@@ -38,6 +47,7 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 		this.grandParentCategoryId = grandParentCategoryId;
 		this.parentCategoryName = parentCategoryName;
 		this.parentDictionaryLookup = parentDictionaryLookup;
+		this.rootDictionaryLookup = rootDictionaryLookup;
 		this.parentGivenLanguage = parentGivenLanguage;
 		this.parentWantedLanguage = parentWantedLanguage;
 		this.categoryList = categoryList;
@@ -97,6 +107,18 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 	}
 	
 	@JsonProperty
+	public Boolean getRootDictionaryLookup() {
+		return this.rootDictionaryLookup;
+	}
+	public void setRootDictionaryLookup(Boolean rootDictionaryLookup) {
+		this.rootDictionaryLookup = rootDictionaryLookup;
+	}
+	public CategoryListData withRootDictionaryLookup(Boolean rootDictionaryLookup) {
+		this.rootDictionaryLookup = rootDictionaryLookup;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getParentGivenLanguage() {
 		return this.parentGivenLanguage;
 	}
@@ -152,6 +174,7 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 			this.grandParentCategoryId,
 			this.parentCategoryName,
 			this.parentDictionaryLookup,
+			this.rootDictionaryLookup,
 			this.parentGivenLanguage,
 			this.parentWantedLanguage,
 			this.categoryList,

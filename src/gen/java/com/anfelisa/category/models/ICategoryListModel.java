@@ -9,6 +9,7 @@ public interface ICategoryListModel {
 	String getGrandParentCategoryId();
 	String getParentCategoryName();
 	Boolean getParentDictionaryLookup();
+	Boolean getRootDictionaryLookup();
 	String getParentGivenLanguage();
 	String getParentWantedLanguage();
 	java.util.List<com.anfelisa.category.models.ICategoryItemModel> getCategoryList();

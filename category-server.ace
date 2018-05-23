@@ -58,6 +58,7 @@ models {
 		String grandParentCategoryId
 		String parentCategoryName
 		Boolean parentDictionaryLookup
+		Boolean rootDictionaryLookup
 		String parentGivenLanguage
 		String parentWantedLanguage
 		List CategoryItem categoryList

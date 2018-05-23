@@ -1,6 +1,8 @@
 package com.anfelisa.category.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings("all")
 public class CategoryListModel implements ICategoryListModel {
@@ -12,6 +14,8 @@ public class CategoryListModel implements ICategoryListModel {
 	private String parentCategoryName;
 	
 	private Boolean parentDictionaryLookup = false;
+	
+	private Boolean rootDictionaryLookup = false;
 	
 	private String parentGivenLanguage;
 	
@@ -27,6 +31,7 @@ public class CategoryListModel implements ICategoryListModel {
 		@JsonProperty("grandParentCategoryId") String grandParentCategoryId,
 		@JsonProperty("parentCategoryName") String parentCategoryName,
 		@JsonProperty("parentDictionaryLookup") Boolean parentDictionaryLookup,
+		@JsonProperty("rootDictionaryLookup") Boolean rootDictionaryLookup,
 		@JsonProperty("parentGivenLanguage") String parentGivenLanguage,
 		@JsonProperty("parentWantedLanguage") String parentWantedLanguage,
 		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryItemModel> categoryList,
@@ -36,6 +41,7 @@ public class CategoryListModel implements ICategoryListModel {
 		this.grandParentCategoryId = grandParentCategoryId;
 		this.parentCategoryName = parentCategoryName;
 		this.parentDictionaryLookup = parentDictionaryLookup;
+		this.rootDictionaryLookup = rootDictionaryLookup;
 		this.parentGivenLanguage = parentGivenLanguage;
 		this.parentWantedLanguage = parentWantedLanguage;
 		this.categoryList = categoryList;
@@ -72,6 +78,14 @@ public class CategoryListModel implements ICategoryListModel {
 	}
 	public void setParentDictionaryLookup(Boolean parentDictionaryLookup) {
 		this.parentDictionaryLookup = parentDictionaryLookup;
+	}
+	
+	@JsonProperty
+	public Boolean getRootDictionaryLookup() {
+		return this.rootDictionaryLookup;
+	}
+	public void setRootDictionaryLookup(Boolean rootDictionaryLookup) {
+		this.rootDictionaryLookup = rootDictionaryLookup;
 	}
 	
 	@JsonProperty
