@@ -1,8 +1,8 @@
 package com.anfelisa.category.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @SuppressWarnings("all")
 public class CategoryUpdateModel implements ICategoryUpdateModel {
@@ -12,9 +12,6 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	
 	@NotNull
 	private String categoryName;
-	
-	@NotNull
-	private Integer categoryIndex;
 	
 	private Boolean dictionaryLookup = false;
 	
@@ -26,14 +23,12 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	public CategoryUpdateModel(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("categoryIndex") Integer categoryIndex,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
-		this.categoryIndex = categoryIndex;
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
@@ -53,14 +48,6 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-	}
-	
-	@JsonProperty
-	public Integer getCategoryIndex() {
-		return this.categoryIndex;
-	}
-	public void setCategoryIndex(Integer categoryIndex) {
-		this.categoryIndex = categoryIndex;
 	}
 	
 	@JsonProperty

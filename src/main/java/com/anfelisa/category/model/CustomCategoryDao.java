@@ -25,7 +25,8 @@ public class CustomCategoryDao {
 
 	public Integer selectMaxIndexInCategory(Handle handle, String parentCategoryId) {
 		return handle
-				.createQuery("SELECT max(categoryindex) FROM public.category WHERE parentcategoryid = :parentcategoryid")
+				.createQuery(
+						"SELECT max(categoryindex) FROM public.category WHERE parentcategoryid = :parentcategoryid")
 				.bind("parentcategoryid", parentCategoryId).mapTo((Integer.class)).first();
 	}
 
@@ -36,14 +37,21 @@ public class CustomCategoryDao {
 
 	public void update(Handle handle, CategoryUpdateData categoryModel) {
 		Update statement = handle.createStatement(
-				"UPDATE public.category SET categoryname = :categoryname, categoryindex = :categoryindex, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryid = :categoryid");
+				"UPDATE public.category SET categoryname = :categoryname, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryid = :categoryid");
 		statement.bind("categoryname", categoryModel.getCategoryName());
-		statement.bind("categoryindex", categoryModel.getCategoryIndex());
 		statement.bind("categoryid", categoryModel.getCategoryId());
-		statement.bind("dictionarylookup",  categoryModel.getDictionaryLookup() );
-		statement.bind("givenlanguage",  categoryModel.getGivenLanguage() );
-		statement.bind("wantedlanguage",  categoryModel.getWantedLanguage() );
+		statement.bind("dictionarylookup", categoryModel.getDictionaryLookup());
+		statement.bind("givenlanguage", categoryModel.getGivenLanguage());
+		statement.bind("wantedlanguage", categoryModel.getWantedLanguage());
 		statement.execute();
 	}
-	
+
+	public void shiftCategories(Handle handle, Integer categoryIndex, String parentCategoryId) {
+		Update statement = handle.createStatement(
+				"UPDATE public.category SET categoryindex = categoryindex-1 WHERE parentcategoryid = :parentcategoryid and categoryindex > :categoryindex");
+		statement.bind("parentcategoryid", parentCategoryId);
+		statement.bind("categoryindex", categoryIndex);
+		statement.execute();
+	}
+
 }

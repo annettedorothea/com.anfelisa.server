@@ -24,14 +24,6 @@ public class UpdateCardCommand extends AbstractUpdateCardCommand {
 		if (card == null) {
 			throwBadRequest("card does not exist");
 		}
-		if (commandData.getCardIndex() == null) {
-			Integer max = this.daoProvider.getCustomCardDao().selectMaxIndexInCategory(getHandle(),
-					card.getCategoryId());
-			if (max == null) {
-				max = 0;
-			}
-			commandData.setCardIndex(max + 1);
-		}
 		this.commandData.setOutcome(ok);
 	}
 

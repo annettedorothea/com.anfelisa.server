@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface ICardDeleteModel {
 
 	String getCardId();
+	Integer getCardIndex();
+	String getCategoryId();
 
 }
 

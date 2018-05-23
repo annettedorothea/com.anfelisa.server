@@ -7,6 +7,7 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.card.data.CardDeleteData;
+import com.anfelisa.card.models.ICardModel;
 
 public class DeleteCardCommand extends AbstractDeleteCardCommand {
 
@@ -18,9 +19,12 @@ public class DeleteCardCommand extends AbstractDeleteCardCommand {
 
 	@Override
 	protected void executeCommand() {
-		if (daoProvider.getCardDao().selectByCardId(getHandle(), commandData.getCardId()) == null) {
+		ICardModel card = daoProvider.getCardDao().selectByCardId(getHandle(), commandData.getCardId());
+		if (card == null) {
 			throwBadRequest("card does not exist");
 		}
+		this.commandData.setCardIndex(card.getCardIndex());
+		this.commandData.setCategoryId(card.getCategoryId());
 		this.commandData.setOutcome(ok);
 	}
 

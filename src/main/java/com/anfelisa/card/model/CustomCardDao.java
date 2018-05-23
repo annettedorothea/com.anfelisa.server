@@ -25,11 +25,10 @@ public class CustomCardDao {
 
 	public void update(Handle handle, CardUpdateData cardModel) {
 		Update statement = handle.createStatement(
-				"UPDATE public.card SET given = :given, wanted = :wanted, image = :image, cardindex = :cardindex WHERE cardid = :cardid");
+				"UPDATE public.card SET given = :given, wanted = :wanted, image = :image WHERE cardid = :cardid");
 		statement.bind("cardid", cardModel.getCardId());
 		statement.bind("given", cardModel.getGiven());
 		statement.bind("wanted", cardModel.getWanted());
-		statement.bind("cardindex", cardModel.getCardIndex());
 		statement.bind("image", cardModel.getImage());
 		statement.execute();
 	}
@@ -56,6 +55,14 @@ public class CustomCardDao {
 	public void deleteByCategoryId(Handle handle, String categoryId) {
 		Update statement = handle.createStatement("DELETE FROM public.card WHERE categoryid = :categoryid");
 		statement.bind("categoryid", categoryId);
+		statement.execute();
+	}
+
+	public void shiftCards(Handle handle, Integer cardIndex, String categoryId) {
+		Update statement = handle.createStatement(
+				"UPDATE public.card SET cardindex = cardindex-1 WHERE categoryid = :categoryid and cardindex > :cardindex");
+		statement.bind("categoryid", categoryId);
+		statement.bind("cardindex", cardIndex);
 		statement.execute();
 	}
 

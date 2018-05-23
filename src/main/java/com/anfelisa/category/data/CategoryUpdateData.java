@@ -13,9 +13,6 @@ public class CategoryUpdateData extends AbstractData implements ICategoryUpdateD
 	@NotNull
 	private String categoryName;
 	
-	@NotNull
-	private Integer categoryIndex;
-	
 	private Boolean dictionaryLookup = false;
 	
 	private String givenLanguage;
@@ -26,7 +23,6 @@ public class CategoryUpdateData extends AbstractData implements ICategoryUpdateD
 	public CategoryUpdateData(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("categoryIndex") Integer categoryIndex,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage
@@ -35,7 +31,6 @@ public class CategoryUpdateData extends AbstractData implements ICategoryUpdateD
 		super(uuid);
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
-		this.categoryIndex = categoryIndex;
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
@@ -66,18 +61,6 @@ public class CategoryUpdateData extends AbstractData implements ICategoryUpdateD
 	}
 	public CategoryUpdateData withCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getCategoryIndex() {
-		return this.categoryIndex;
-	}
-	public void setCategoryIndex(Integer categoryIndex) {
-		this.categoryIndex = categoryIndex;
-	}
-	public CategoryUpdateData withCategoryIndex(Integer categoryIndex) {
-		this.categoryIndex = categoryIndex;
 		return this;
 	}
 	
@@ -123,7 +106,6 @@ public class CategoryUpdateData extends AbstractData implements ICategoryUpdateD
 		return new CategoryUpdatePresentationalData(
 			this.categoryId,
 			this.categoryName,
-			this.categoryIndex,
 			this.dictionaryLookup,
 			this.givenLanguage,
 			this.wantedLanguage

@@ -42,7 +42,6 @@ models {
 	CategoryUpdate {
 		NotNull String categoryId
 		NotNull String categoryName
-		NotNull Integer categoryIndex
 		Boolean dictionaryLookup
 		String givenLanguage
 		String wantedLanguage
@@ -50,6 +49,8 @@ models {
 	
 	CategoryDelete {
 		NotNull String categoryId
+		NotNull Integer categoryIndex
+		NotNull String parentCategoryId
 	}
 	
 	CategoryList {

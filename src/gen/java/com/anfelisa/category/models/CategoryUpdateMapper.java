@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
-import com.anfelisa.ace.encryption.EncryptionService;
-
 @SuppressWarnings("all")
 public class CategoryUpdateMapper implements ResultSetMapper<ICategoryUpdateModel> {
 	
@@ -15,7 +13,6 @@ public class CategoryUpdateMapper implements ResultSetMapper<ICategoryUpdateMode
 		return new CategoryUpdateModel(
 			r.getString("categoryId"),
 			r.getString("categoryName"),
-			r.getInt("categoryIndex"),
 			r.getBoolean("dictionaryLookup"),
 			r.getString("givenLanguage"),
 			r.getString("wantedLanguage")

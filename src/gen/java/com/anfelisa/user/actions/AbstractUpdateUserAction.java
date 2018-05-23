@@ -1,17 +1,17 @@
 package com.anfelisa.user.actions;
 
-import org.skife.jdbi.v2.DBI;
 import javax.ws.rs.WebApplicationException;
+
+import org.skife.jdbi.v2.DBI;
 
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
-import com.anfelisa.user.data.UserUpdateData;
-
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.commands.UpdateUserCommand;
+import com.anfelisa.user.data.UserUpdateData;
 
 public abstract class AbstractUpdateUserAction extends Action<UserUpdateData> {
 

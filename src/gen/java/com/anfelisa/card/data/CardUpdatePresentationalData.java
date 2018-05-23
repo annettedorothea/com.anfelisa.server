@@ -1,16 +1,10 @@
 package com.anfelisa.card.data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
-import java.util.List;
 
-import com.anfelisa.ace.IDataContainer;
-
-import com.anfelisa.card.models.ICardUpdateModel;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @SuppressWarnings("all")
 public class CardUpdatePresentationalData implements ICardUpdatePresentationalData {
@@ -26,22 +20,17 @@ public class CardUpdatePresentationalData implements ICardUpdatePresentationalDa
 	
 	private String image;
 	
-	@NotNull
-	private Integer cardIndex;
-	
 	
 	public CardUpdatePresentationalData(
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
-		@JsonProperty("image") String image,
-		@JsonProperty("cardIndex") Integer cardIndex
+		@JsonProperty("image") String image
 	) {
 		this.cardId = cardId;
 		this.given = given;
 		this.wanted = wanted;
 		this.image = image;
-		this.cardIndex = cardIndex;
 		
 	}
 
@@ -90,18 +79,6 @@ public class CardUpdatePresentationalData implements ICardUpdatePresentationalDa
 	}
 	public CardUpdatePresentationalData withImage(String image) {
 		this.image = image;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getCardIndex() {
-		return this.cardIndex;
-	}
-	public void setCardIndex(Integer cardIndex) {
-		this.cardIndex = cardIndex;
-	}
-	public CardUpdatePresentationalData withCardIndex(Integer cardIndex) {
-		this.cardIndex = cardIndex;
 		return this;
 	}
 	

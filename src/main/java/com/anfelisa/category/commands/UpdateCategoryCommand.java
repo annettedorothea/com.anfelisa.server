@@ -35,19 +35,6 @@ public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 			commandData.setGivenLanguage(null);
 			commandData.setWantedLanguage(null);
 		}
-		if (commandData.getCategoryIndex() == null) {
-			Integer max = null;
-			if (category.getParentCategoryId() == null) {
-				max = this.daoProvider.getCustomCategoryDao().selectMaxIndexInRootCategory(getHandle());
-			} else {
-				max = this.daoProvider.getCustomCategoryDao().selectMaxIndexInCategory(getHandle(),
-						category.getParentCategoryId());
-			}
-			if (max == null) {
-				max = 0;
-			}
-			commandData.setCategoryIndex(max + 1);
-		}
 		this.commandData.setOutcome(ok);
 	}
 

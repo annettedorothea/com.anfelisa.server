@@ -1,8 +1,10 @@
 package com.anfelisa.card.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @SuppressWarnings("all")
 public class CardUpdateModel implements ICardUpdateModel {
@@ -18,22 +20,17 @@ public class CardUpdateModel implements ICardUpdateModel {
 	
 	private String image;
 	
-	@NotNull
-	private Integer cardIndex;
-	
 
 	public CardUpdateModel(
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
-		@JsonProperty("image") String image,
-		@JsonProperty("cardIndex") Integer cardIndex
+		@JsonProperty("image") String image
 	) {
 		this.cardId = cardId;
 		this.given = given;
 		this.wanted = wanted;
 		this.image = image;
-		this.cardIndex = cardIndex;
 	}
 
 	@JsonProperty
@@ -66,14 +63,6 @@ public class CardUpdateModel implements ICardUpdateModel {
 	}
 	public void setImage(String image) {
 		this.image = image;
-	}
-	
-	@JsonProperty
-	public Integer getCardIndex() {
-		return this.cardIndex;
-	}
-	public void setCardIndex(Integer cardIndex) {
-		this.cardIndex = cardIndex;
 	}
 	
 

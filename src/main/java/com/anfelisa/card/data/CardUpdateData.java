@@ -20,16 +20,12 @@ public class CardUpdateData extends AbstractData implements ICardUpdateData {
 	
 	private String image;
 	
-	@NotNull
-	private Integer cardIndex;
-	
 
 	public CardUpdateData(
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
-		@JsonProperty("image") String image,
-		@JsonProperty("cardIndex") Integer cardIndex
+		@JsonProperty("image") String image
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -37,7 +33,6 @@ public class CardUpdateData extends AbstractData implements ICardUpdateData {
 		this.given = given;
 		this.wanted = wanted;
 		this.image = image;
-		this.cardIndex = cardIndex;
 	}
 
 	public CardUpdateData( String uuid ) {
@@ -92,18 +87,6 @@ public class CardUpdateData extends AbstractData implements ICardUpdateData {
 		return this;
 	}
 	
-	@JsonProperty
-	public Integer getCardIndex() {
-		return this.cardIndex;
-	}
-	public void setCardIndex(Integer cardIndex) {
-		this.cardIndex = cardIndex;
-	}
-	public CardUpdateData withCardIndex(Integer cardIndex) {
-		this.cardIndex = cardIndex;
-		return this;
-	}
-	
 
 	@Override
 	public Object toPresentationalData() {
@@ -111,8 +94,7 @@ public class CardUpdateData extends AbstractData implements ICardUpdateData {
 			this.cardId,
 			this.given,
 			this.wanted,
-			this.image,
-			this.cardIndex
+			this.image
 		);
 	}
 

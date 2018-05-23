@@ -7,7 +7,6 @@ public interface ICategoryUpdateModel {
 
 	String getCategoryId();
 	String getCategoryName();
-	Integer getCategoryIndex();
 	Boolean getDictionaryLookup();
 	String getGivenLanguage();
 	String getWantedLanguage();

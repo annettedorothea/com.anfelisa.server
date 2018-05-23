@@ -10,13 +10,23 @@ public class CategoryDeleteData extends AbstractData implements ICategoryDeleteD
 	@NotNull
 	private String categoryId;
 	
+	@NotNull
+	private Integer categoryIndex;
+	
+	@NotNull
+	private String parentCategoryId;
+	
 
 	public CategoryDeleteData(
-		@JsonProperty("categoryId") String categoryId
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("categoryIndex") Integer categoryIndex,
+		@JsonProperty("parentCategoryId") String parentCategoryId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.categoryId = categoryId;
+		this.categoryIndex = categoryIndex;
+		this.parentCategoryId = parentCategoryId;
 	}
 
 	public CategoryDeleteData( String uuid ) {
@@ -35,11 +45,37 @@ public class CategoryDeleteData extends AbstractData implements ICategoryDeleteD
 		return this;
 	}
 	
+	@JsonProperty
+	public Integer getCategoryIndex() {
+		return this.categoryIndex;
+	}
+	public void setCategoryIndex(Integer categoryIndex) {
+		this.categoryIndex = categoryIndex;
+	}
+	public CategoryDeleteData withCategoryIndex(Integer categoryIndex) {
+		this.categoryIndex = categoryIndex;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getParentCategoryId() {
+		return this.parentCategoryId;
+	}
+	public void setParentCategoryId(String parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
+	}
+	public CategoryDeleteData withParentCategoryId(String parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
 		return new CategoryDeletePresentationalData(
-			this.categoryId
+			this.categoryId,
+			this.categoryIndex,
+			this.parentCategoryId
 		);
 	}
 

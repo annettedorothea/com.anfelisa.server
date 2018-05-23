@@ -10,13 +10,23 @@ public class CardDeleteData extends AbstractData implements ICardDeleteData {
 	@NotNull
 	private String cardId;
 	
+	@NotNull
+	private Integer cardIndex;
+	
+	@NotNull
+	private String categoryId;
+	
 
 	public CardDeleteData(
-		@JsonProperty("cardId") String cardId
+		@JsonProperty("cardId") String cardId,
+		@JsonProperty("cardIndex") Integer cardIndex,
+		@JsonProperty("categoryId") String categoryId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.cardId = cardId;
+		this.cardIndex = cardIndex;
+		this.categoryId = categoryId;
 	}
 
 	public CardDeleteData( String uuid ) {
@@ -35,11 +45,37 @@ public class CardDeleteData extends AbstractData implements ICardDeleteData {
 		return this;
 	}
 	
+	@JsonProperty
+	public Integer getCardIndex() {
+		return this.cardIndex;
+	}
+	public void setCardIndex(Integer cardIndex) {
+		this.cardIndex = cardIndex;
+	}
+	public CardDeleteData withCardIndex(Integer cardIndex) {
+		this.cardIndex = cardIndex;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCategoryId() {
+		return this.categoryId;
+	}
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	public CardDeleteData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
 		return new CardDeletePresentationalData(
-			this.cardId
+			this.cardId,
+			this.cardIndex,
+			this.categoryId
 		);
 	}
 

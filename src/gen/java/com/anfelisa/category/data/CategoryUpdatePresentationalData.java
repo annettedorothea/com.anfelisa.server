@@ -1,16 +1,8 @@
 package com.anfelisa.category.data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
-import java.util.List;
 
-import com.anfelisa.ace.IDataContainer;
-
-import com.anfelisa.category.models.ICategoryUpdateModel;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @SuppressWarnings("all")
 public class CategoryUpdatePresentationalData implements ICategoryUpdatePresentationalData {
@@ -20,9 +12,6 @@ public class CategoryUpdatePresentationalData implements ICategoryUpdatePresenta
 	
 	@NotNull
 	private String categoryName;
-	
-	@NotNull
-	private Integer categoryIndex;
 	
 	private Boolean dictionaryLookup = false;
 	
@@ -34,14 +23,12 @@ public class CategoryUpdatePresentationalData implements ICategoryUpdatePresenta
 	public CategoryUpdatePresentationalData(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("categoryIndex") Integer categoryIndex,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
-		this.categoryIndex = categoryIndex;
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
@@ -69,18 +56,6 @@ public class CategoryUpdatePresentationalData implements ICategoryUpdatePresenta
 	}
 	public CategoryUpdatePresentationalData withCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getCategoryIndex() {
-		return this.categoryIndex;
-	}
-	public void setCategoryIndex(Integer categoryIndex) {
-		this.categoryIndex = categoryIndex;
-	}
-	public CategoryUpdatePresentationalData withCategoryIndex(Integer categoryIndex) {
-		this.categoryIndex = categoryIndex;
 		return this;
 	}
 	

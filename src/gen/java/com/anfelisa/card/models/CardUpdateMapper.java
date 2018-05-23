@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
-import com.anfelisa.ace.encryption.EncryptionService;
-
 @SuppressWarnings("all")
 public class CardUpdateMapper implements ResultSetMapper<ICardUpdateModel> {
 	
@@ -16,8 +14,7 @@ public class CardUpdateMapper implements ResultSetMapper<ICardUpdateModel> {
 			r.getString("cardId"),
 			r.getString("given"),
 			r.getString("wanted"),
-			r.getString("image"),
-			r.getInt("cardIndex")
+			r.getString("image")
 		);
 	}
 }
