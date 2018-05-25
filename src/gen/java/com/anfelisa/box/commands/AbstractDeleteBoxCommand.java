@@ -10,7 +10,7 @@ import com.anfelisa.box.data.DeleteBoxData;
 
 public abstract class AbstractDeleteBoxCommand extends Command<DeleteBoxData> {
 
-	protected static final String deleted = "deleted";
+	protected static final String ok = "ok";
 
 	public AbstractDeleteBoxCommand(DeleteBoxData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.DeleteBoxCommand", commandParam, databaseHandle, daoProvider, viewProvider);
@@ -23,8 +23,8 @@ public abstract class AbstractDeleteBoxCommand extends Command<DeleteBoxData> {
 	@Override
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
-		case deleted:
-			new com.anfelisa.box.events.DeleteBoxDeletedEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+		case ok:
+			new com.anfelisa.box.events.DeleteBoxOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

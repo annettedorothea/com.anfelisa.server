@@ -11,9 +11,9 @@ import com.anfelisa.ace.ICommand;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.commands.UpdateBoxCommand;
-import com.anfelisa.box.data.BoxCreationData;
+import com.anfelisa.box.data.BoxUpdateData;
 
-public abstract class AbstractUpdateBoxAction extends Action<BoxCreationData> {
+public abstract class AbstractUpdateBoxAction extends Action<BoxUpdateData> {
 
 	public AbstractUpdateBoxAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.UpdateBoxAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -29,7 +29,7 @@ public abstract class AbstractUpdateBoxAction extends Action<BoxCreationData> {
 
 	public void initActionData(String json) {
 		try {
-			this.actionData = mapper.readValue(json, BoxCreationData.class);
+			this.actionData = mapper.readValue(json, BoxUpdateData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

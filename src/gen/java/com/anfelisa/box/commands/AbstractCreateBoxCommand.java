@@ -10,7 +10,7 @@ import com.anfelisa.box.data.BoxCreationData;
 
 public abstract class AbstractCreateBoxCommand extends Command<BoxCreationData> {
 
-	protected static final String created = "created";
+	protected static final String ok = "ok";
 
 	public AbstractCreateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.CreateBoxCommand", commandParam, databaseHandle, daoProvider, viewProvider);
@@ -23,8 +23,8 @@ public abstract class AbstractCreateBoxCommand extends Command<BoxCreationData> 
 	@Override
 	public void publishEvents() {
 		switch (this.commandData.getOutcome()) {
-		case created:
-			new com.anfelisa.box.events.CreateBoxCreatedEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+		case ok:
+			new com.anfelisa.box.events.CreateBoxOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

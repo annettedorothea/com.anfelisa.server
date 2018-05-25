@@ -25,10 +25,12 @@ public class CardPresentationalData implements ICardPresentationalData {
 	private String boxId;
 	
 	@NotNull
-	private String name;
+	private String userId;
 	
 	@NotNull
-	private String username;
+	private String categoryId;
+	
+	private Integer maxInterval;
 	
 	private Integer cards;
 	
@@ -87,8 +89,9 @@ public class CardPresentationalData implements ICardPresentationalData {
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("maxPoints") Integer maxPoints,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("name") String name,
-		@JsonProperty("username") String username,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("maxInterval") Integer maxInterval,
 		@JsonProperty("cards") Integer cards,
 		@JsonProperty("cardsForToday") Integer cardsForToday,
 		@JsonProperty("cardsForTomorrow") Integer cardsForTomorrow,
@@ -120,8 +123,9 @@ public class CardPresentationalData implements ICardPresentationalData {
 		this.wanted = wanted;
 		this.maxPoints = maxPoints;
 		this.boxId = boxId;
-		this.name = name;
-		this.username = username;
+		this.userId = userId;
+		this.categoryId = categoryId;
+		this.maxInterval = maxInterval;
 		this.cards = cards;
 		this.cardsForToday = cardsForToday;
 		this.cardsForTomorrow = cardsForTomorrow;
@@ -211,26 +215,38 @@ public class CardPresentationalData implements ICardPresentationalData {
 	}
 	
 	@JsonProperty
-	public String getName() {
-		return this.name;
+	public String getUserId() {
+		return this.userId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public CardPresentationalData withName(String name) {
-		this.name = name;
+	public CardPresentationalData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getCategoryId() {
+		return this.categoryId;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
-	public CardPresentationalData withUsername(String username) {
-		this.username = username;
+	public CardPresentationalData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxInterval() {
+		return this.maxInterval;
+	}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+	}
+	public CardPresentationalData withMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
 		return this;
 	}
 	

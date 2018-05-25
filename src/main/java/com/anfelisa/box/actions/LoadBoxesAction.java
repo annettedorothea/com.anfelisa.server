@@ -23,11 +23,8 @@ import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.BoxListData;
 import com.anfelisa.box.models.BoxInfoModel;
-import com.anfelisa.box.models.CustomBoxDao;
-import com.anfelisa.box.models.CustomScheduledCardDao;
 import com.anfelisa.box.models.IBoxInfoModel;
 import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.IScheduledCardModel;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -40,10 +37,6 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadBoxesAction.class);
 
-	private CustomScheduledCardDao customScheduledCardDao = new CustomScheduledCardDao();
-
-	private CustomBoxDao customBoxDao = new CustomBoxDao();
-
 	public LoadBoxesAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
@@ -51,6 +44,7 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 	@GET
 	@Timed
 	@PermitAll
+	@Path("/all")
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
 		this.actionData = new BoxListData(null, user.getUsername(), uuid);
 		return this.apply();
@@ -58,13 +52,13 @@ public class LoadBoxesAction extends AbstractLoadBoxesAction {
 
 	@Override
 	protected void loadDataForGetRequest() {
-		List<IBoxModel> boxList = customBoxDao.selectByUsername(this.getDatabaseHandle().getHandle(),
+		List<IBoxModel> boxList = this.daoProvider.getCustomBoxDao().selectByUsername(this.getDatabaseHandle().getHandle(),
 				this.actionData.getUsername());
 		List<IBoxInfoModel> boxInfoList = new ArrayList<IBoxInfoModel>();
 		for (IBoxModel boxModel : boxList) {
-			List<IScheduledCardModel> todaysCards = customScheduledCardDao.selectTodaysCards(this.getHandle(),
-					boxModel.getBoxId(), this.actionData.getSystemTime());
-			BoxInfoModel boxInfoModel = new BoxInfoModel(todaysCards.size(), (todaysCards.size() > 0), boxModel);
+			//List<IScheduledCardModel> todaysCards = customScheduledCardDao.selectTodaysCards(this.getHandle(),
+			//		boxModel.getBoxId(), this.actionData.getSystemTime());
+			BoxInfoModel boxInfoModel = new BoxInfoModel(0, boxModel);
 			boxInfoList.add(boxInfoModel);
 		}
 		this.actionData.setBoxList(boxInfoList);

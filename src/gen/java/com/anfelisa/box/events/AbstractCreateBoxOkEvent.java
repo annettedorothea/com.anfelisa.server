@@ -8,14 +8,14 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.BoxCreationData;
 
-public abstract class AbstractCreateBoxCreatedEvent extends Event<BoxCreationData> {
+public abstract class AbstractCreateBoxOkEvent extends Event<BoxCreationData> {
 
-	public AbstractCreateBoxCreatedEvent(BoxCreationData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.events.CreateBoxCreatedEvent", eventParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractCreateBoxOkEvent(BoxCreationData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.events.CreateBoxOkEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractCreateBoxCreatedEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.events.CreateBoxCreatedEvent", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractCreateBoxOkEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.events.CreateBoxOkEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	
 	public void initEventData(String json) {

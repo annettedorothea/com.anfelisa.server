@@ -17,7 +17,7 @@ import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.box.data.BoxCreationData;
+import com.anfelisa.box.data.BoxUpdateData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -38,7 +38,7 @@ public class UpdateBoxAction extends AbstractUpdateBoxAction {
 	@Timed
 	@Path("/update")
 	@PermitAll
-	public Response put(@NotNull BoxCreationData actionParam, @Auth AuthUser user) throws JsonProcessingException {
+	public Response put(@NotNull BoxUpdateData actionParam, @Auth AuthUser user) throws JsonProcessingException {
 		this.actionData = actionParam.withCredentialsUsername(user.getUsername()).withCredentialsRole(user.getRole());
 		return this.apply();
 	}

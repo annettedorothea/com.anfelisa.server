@@ -33,9 +33,9 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 	protected void executeCommand() {
 		try {
 			IBoxModel box = customBoxDao.selectByScheduledCardId(getHandle(), commandData.getScheduledCardId());
-			if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
+			/*if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
 				throwUnauthorized();
-			}
+			}*/
 
 			IScheduledCardModel scheduledCard = scheduledCardDao.selectByScheduledCardId(
 					this.getDatabaseHandle().getHandle(), this.commandData.getScheduledCardId());

@@ -11,20 +11,24 @@ public class BoxModel implements IBoxModel {
 	private String boxId;
 	
 	@NotNull
-	private String name;
+	private String userId;
 	
 	@NotNull
-	private String username;
+	private String categoryId;
+	
+	private Integer maxInterval;
 	
 
 	public BoxModel(
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("name") String name,
-		@JsonProperty("username") String username
+		@JsonProperty("userId") String userId,
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("maxInterval") Integer maxInterval
 	) {
 		this.boxId = boxId;
-		this.name = name;
-		this.username = username;
+		this.userId = userId;
+		this.categoryId = categoryId;
+		this.maxInterval = maxInterval;
 	}
 
 	@JsonProperty
@@ -36,19 +40,27 @@ public class BoxModel implements IBoxModel {
 	}
 	
 	@JsonProperty
-	public String getName() {
-		return this.name;
+	public String getUserId() {
+		return this.userId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getCategoryId() {
+		return this.categoryId;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	
+	@JsonProperty
+	public Integer getMaxInterval() {
+		return this.maxInterval;
+	}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
 	}
 	
 

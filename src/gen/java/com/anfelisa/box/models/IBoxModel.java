@@ -6,8 +6,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IBoxModel {
 
 	String getBoxId();
-	String getName();
-	String getUsername();
+	String getUserId();
+	String getCategoryId();
+	Integer getMaxInterval();
 
 }
 

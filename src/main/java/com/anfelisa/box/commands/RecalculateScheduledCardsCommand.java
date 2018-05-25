@@ -23,9 +23,9 @@ public class RecalculateScheduledCardsCommand extends AbstractRecalculateSchedul
 	@Override
 	protected void executeCommand() {
 		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), this.commandData.getBoxId());
-		if (!box.getUsername().equals(commandData.getUsername())) {
+		/*if (!box.getUsername().equals(commandData.getUsername())) {
 			this.throwUnauthorized();
-		}
+		}*/
 		this.commandData.setOutcome(ok);
 	}
 

@@ -11,23 +11,27 @@ public class RecalculateScheduledCardsPresentationalData implements IRecalculate
 	private String boxId;
 	
 	@NotNull
-	private String name;
+	private String userId;
 	
 	@NotNull
-	private String username;
+	private String categoryId;
+	
+	private Integer maxInterval;
 	
 	private Integer daysBehind;
 	
 	
 	public RecalculateScheduledCardsPresentationalData(
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("name") String name,
-		@JsonProperty("username") String username,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("maxInterval") Integer maxInterval,
 		@JsonProperty("daysBehind") Integer daysBehind
 	) {
 		this.boxId = boxId;
-		this.name = name;
-		this.username = username;
+		this.userId = userId;
+		this.categoryId = categoryId;
+		this.maxInterval = maxInterval;
 		this.daysBehind = daysBehind;
 		
 	}
@@ -45,26 +49,38 @@ public class RecalculateScheduledCardsPresentationalData implements IRecalculate
 	}
 	
 	@JsonProperty
-	public String getName() {
-		return this.name;
+	public String getUserId() {
+		return this.userId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public RecalculateScheduledCardsPresentationalData withName(String name) {
-		this.name = name;
+	public RecalculateScheduledCardsPresentationalData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getCategoryId() {
+		return this.categoryId;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
-	public RecalculateScheduledCardsPresentationalData withUsername(String username) {
-		this.username = username;
+	public RecalculateScheduledCardsPresentationalData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxInterval() {
+		return this.maxInterval;
+	}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+	}
+	public RecalculateScheduledCardsPresentationalData withMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
 		return this;
 	}
 	

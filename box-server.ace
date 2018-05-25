@@ -4,14 +4,29 @@ target JAVA
 
 ACE {
 	GET LoadBoxes uses BoxList
+	GET GetRootCategories uses CategoryList
+	POST CreateBox uses BoxCreation {
+		on ok ( Box.createBox )
+	}
+	
+	
+	
+	
+	
+	
+	
 	GET LoadNextCard uses Card
 	GET LoadBox uses BoxId
 	GET GetAllBoxes uses AllBoxes
 	GET LoadReinforceCardList uses ReinforceCardList
 	
-	POST CreateBox uses BoxCreation {
-		on created ( Box.createBox )
+	PUT UpdateBox uses BoxUpdate {
+		on ok ( Box.updateBox )
 	}
+	DELETE DeleteBox uses DeleteBox {
+		on ok (Box.deleteBox)
+	}
+
 	POST CreateCard uses CardCreation {
 		//on created (Card.createCard)
 	}
@@ -24,12 +39,6 @@ ACE {
 	}
 	POST CreateScoredCard uses ScoredCard {
 		on created (ScoredCard.createScoredCard)
-	}
-	PUT UpdateBox uses BoxCreation {
-		on updated ( Box.updateBox )
-	}
-	DELETE DeleteBox uses DeleteBox {
-		on deleted (Box.deleteBox)
 	}
 	POST ScoreCard uses ScoreCard {
 		on scored (ScoredCard.score ScheduledCard.score)
@@ -75,8 +84,29 @@ models {
 	schema public
 	persistent Box {
 		Unique PrimaryKey NotNull String boxId
+		NotNull String userId references com.anfelisa.user.User.userId
+		NotNull String categoryId references com.anfelisa.category.Category.categoryId
+		Integer maxInterval
+	}
+
+	CategorySelectionList {
+		List CategorySelectionItem categoryList
+	}
+	
+	CategorySelectionItem {
+		NotNull String categoryId
+		NotNull String categoryName
+		NotNull Integer categoryIndex
+	}
+
+
+	
+	
+
+	BoxUpdate {
+		NotNull String boxId
 		NotNull String name
-		NotNull String username references com.anfelisa.user.User.userId
+		Integer maxInterval
 	}
 
 	persistent Card {
@@ -152,7 +182,6 @@ models {
 	
 	BoxInfo {
 		Integer todaysCards
-		Boolean hasOpenCards
 		Box box
 	}
 		
@@ -225,7 +254,13 @@ models {
 }
 
 data {
-	BoxCreation : ( Box com.anfelisa.user.Credentials )
+	CategoryList: (CategorySelectionList)
+	
+	
+	
+	
+	BoxCreation : ( Box )
+	BoxUpdate : ( BoxUpdate com.anfelisa.user.Credentials )
 	CardCreation : ( Card )
 	ScheduledCard : ( ScheduledCard )
 	ScoredCard : ( ScoredCard )

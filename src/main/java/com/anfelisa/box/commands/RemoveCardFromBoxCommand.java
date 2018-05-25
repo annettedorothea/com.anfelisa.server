@@ -31,9 +31,9 @@ public class RemoveCardFromBoxCommand extends AbstractRemoveCardFromBoxCommand {
 			this.throwBadRequest();
 		}
 		IBoxModel box = boxDao.selectByBoxId(getHandle(), scheduledCard.getBoxId());
-		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
+		/*if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
 			throwUnauthorized();
-		}
+		}*/
 		this.commandData.setOutcome(deleted);
 	}
 

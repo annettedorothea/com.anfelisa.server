@@ -11,10 +11,12 @@ public class BoxIdData extends AbstractData implements IBoxIdData {
 	private String boxId;
 	
 	@NotNull
-	private String name;
+	private String userId;
 	
 	@NotNull
-	private String username;
+	private String categoryId;
+	
+	private Integer maxInterval;
 	
 	private String credentialsUsername;
 	
@@ -23,16 +25,18 @@ public class BoxIdData extends AbstractData implements IBoxIdData {
 
 	public BoxIdData(
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("name") String name,
-		@JsonProperty("username") String username,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("maxInterval") Integer maxInterval,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.boxId = boxId;
-		this.name = name;
-		this.username = username;
+		this.userId = userId;
+		this.categoryId = categoryId;
+		this.maxInterval = maxInterval;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
 	}
@@ -54,26 +58,38 @@ public class BoxIdData extends AbstractData implements IBoxIdData {
 	}
 	
 	@JsonProperty
-	public String getName() {
-		return this.name;
+	public String getUserId() {
+		return this.userId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public BoxIdData withName(String name) {
-		this.name = name;
+	public BoxIdData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getCategoryId() {
+		return this.categoryId;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
-	public BoxIdData withUsername(String username) {
-		this.username = username;
+	public BoxIdData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxInterval() {
+		return this.maxInterval;
+	}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+	}
+	public BoxIdData withMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
 		return this;
 	}
 	
@@ -106,8 +122,9 @@ public class BoxIdData extends AbstractData implements IBoxIdData {
 	public Object toPresentationalData() {
 		return new BoxIdPresentationalData(
 			this.boxId,
-			this.name,
-			this.username,
+			this.userId,
+			this.categoryId,
+			this.maxInterval,
 			this.credentialsUsername,
 			this.credentialsRole
 		);

@@ -5,6 +5,8 @@ import java.util.List;
 import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.Update;
 
+import com.anfelisa.box.data.BoxUpdateData;
+
 public class CustomBoxDao {
 
 	public List<IBoxModel> selectByUsername(Handle handle, String username) {
@@ -18,10 +20,11 @@ public class CustomBoxDao {
 				.bind("scheduledCardId", scheduledCardId).map(new BoxMapper()).first();
 	}
 
-	public void updateBox(Handle handle, IBoxModel boxModel) {
-		Update statement = handle.createStatement("UPDATE public.box SET name = :name WHERE boxId = :boxId");
+	public void updateBox(Handle handle, BoxUpdateData boxModel) {
+		Update statement = handle.createStatement("UPDATE public.box SET name = :name, maxinterval = :maxinterval WHERE boxId = :boxId");
 		statement.bind("boxId", boxModel.getBoxId());
 		statement.bind("name", boxModel.getName());
+		statement.bind("maxinterval",  boxModel.getMaxInterval() );
 		statement.execute();
 	}
 

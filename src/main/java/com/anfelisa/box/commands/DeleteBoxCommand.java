@@ -23,10 +23,11 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 	@Override
 	protected void executeCommand() {
 		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), this.commandData.getBoxId());
-		if (!box.getUsername().equals(commandData.getCredentialsUsername())) {
-			this.throwUnauthorized();
-		}
-		this.commandData.setOutcome(deleted);
+		/*if (!AuthUser.ADMIN.equals(commandData.getCredentialsRole())
+				&& !box.getUserId().equals(commandData.getCredentialsUsername())) {
+			throwUnauthorized();
+		}*/
+		this.commandData.setOutcome(ok);
 	}
 
 }

@@ -23,7 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.dropwizard.auth.Auth;
 
-@Path("/boxes")
+@Path("/box")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CreateBoxAction extends AbstractCreateBoxAction {
@@ -40,8 +40,7 @@ public class CreateBoxAction extends AbstractCreateBoxAction {
 	@PermitAll
 	public Response post(@NotNull BoxCreationData data, @Auth AuthUser user) throws JsonProcessingException {
 		this.actionData = data;
-		this.actionData.setCredentialsRole(user.getRole());
-		this.actionData.setCredentialsUsername(user.getUsername());
+		this.actionData.setUserId(user.getUserId());
 		return this.apply();
 	}
 

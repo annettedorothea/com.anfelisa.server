@@ -20,10 +20,12 @@ public class ReinforceCardListPresentationalData implements IReinforceCardListPr
 	private String credentialsRole;
 	
 	@NotNull
-	private String name;
+	private String userId;
 	
 	@NotNull
-	private String username;
+	private String categoryId;
+	
+	private Integer maxInterval;
 	
 	
 	public ReinforceCardListPresentationalData(
@@ -32,16 +34,18 @@ public class ReinforceCardListPresentationalData implements IReinforceCardListPr
 		@JsonProperty("list") java.util.List<com.anfelisa.box.models.IReinforceCardModel> list,
 		@JsonProperty("credentialsUsername") String credentialsUsername,
 		@JsonProperty("credentialsRole") String credentialsRole,
-		@JsonProperty("name") String name,
-		@JsonProperty("username") String username
+		@JsonProperty("userId") String userId,
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("maxInterval") Integer maxInterval
 	) {
 		this.boxId = boxId;
 		this.boxName = boxName;
 		this.list = list;
 		this.credentialsUsername = credentialsUsername;
 		this.credentialsRole = credentialsRole;
-		this.name = name;
-		this.username = username;
+		this.userId = userId;
+		this.categoryId = categoryId;
+		this.maxInterval = maxInterval;
 		
 	}
 
@@ -106,26 +110,38 @@ public class ReinforceCardListPresentationalData implements IReinforceCardListPr
 	}
 	
 	@JsonProperty
-	public String getName() {
-		return this.name;
+	public String getUserId() {
+		return this.userId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public ReinforceCardListPresentationalData withName(String name) {
-		this.name = name;
+	public ReinforceCardListPresentationalData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getCategoryId() {
+		return this.categoryId;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
-	public ReinforceCardListPresentationalData withUsername(String username) {
-		this.username = username;
+	public ReinforceCardListPresentationalData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxInterval() {
+		return this.maxInterval;
+	}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+	}
+	public ReinforceCardListPresentationalData withMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
 		return this;
 	}
 	

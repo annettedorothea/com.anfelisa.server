@@ -25,10 +25,12 @@ public class CardData extends AbstractData implements ICardData {
 	private String boxId;
 	
 	@NotNull
-	private String name;
+	private String userId;
 	
 	@NotNull
-	private String username;
+	private String categoryId;
+	
+	private Integer maxInterval;
 	
 	private Integer cards;
 	
@@ -87,8 +89,9 @@ public class CardData extends AbstractData implements ICardData {
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("maxPoints") Integer maxPoints,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("name") String name,
-		@JsonProperty("username") String username,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("maxInterval") Integer maxInterval,
 		@JsonProperty("cards") Integer cards,
 		@JsonProperty("cardsForToday") Integer cardsForToday,
 		@JsonProperty("cardsForTomorrow") Integer cardsForTomorrow,
@@ -122,8 +125,9 @@ public class CardData extends AbstractData implements ICardData {
 		this.wanted = wanted;
 		this.maxPoints = maxPoints;
 		this.boxId = boxId;
-		this.name = name;
-		this.username = username;
+		this.userId = userId;
+		this.categoryId = categoryId;
+		this.maxInterval = maxInterval;
 		this.cards = cards;
 		this.cardsForToday = cardsForToday;
 		this.cardsForTomorrow = cardsForTomorrow;
@@ -216,26 +220,38 @@ public class CardData extends AbstractData implements ICardData {
 	}
 	
 	@JsonProperty
-	public String getName() {
-		return this.name;
+	public String getUserId() {
+		return this.userId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public CardData withName(String name) {
-		this.name = name;
+	public CardData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getCategoryId() {
+		return this.categoryId;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
-	public CardData withUsername(String username) {
-		this.username = username;
+	public CardData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxInterval() {
+		return this.maxInterval;
+	}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+	}
+	public CardData withMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
 		return this;
 	}
 	
@@ -548,8 +564,9 @@ public class CardData extends AbstractData implements ICardData {
 			this.wanted,
 			this.maxPoints,
 			this.boxId,
-			this.name,
-			this.username,
+			this.userId,
+			this.categoryId,
+			this.maxInterval,
 			this.cards,
 			this.cardsForToday,
 			this.cardsForTomorrow,

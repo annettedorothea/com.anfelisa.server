@@ -11,28 +11,24 @@ public class BoxCreationPresentationalData implements IBoxCreationPresentational
 	private String boxId;
 	
 	@NotNull
-	private String name;
+	private String userId;
 	
 	@NotNull
-	private String username;
+	private String categoryId;
 	
-	private String credentialsUsername;
-	
-	private String credentialsRole;
+	private Integer maxInterval;
 	
 	
 	public BoxCreationPresentationalData(
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("name") String name,
-		@JsonProperty("username") String username,
-		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole
+		@JsonProperty("userId") String userId,
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("maxInterval") Integer maxInterval
 	) {
 		this.boxId = boxId;
-		this.name = name;
-		this.username = username;
-		this.credentialsUsername = credentialsUsername;
-		this.credentialsRole = credentialsRole;
+		this.userId = userId;
+		this.categoryId = categoryId;
+		this.maxInterval = maxInterval;
 		
 	}
 
@@ -49,50 +45,38 @@ public class BoxCreationPresentationalData implements IBoxCreationPresentational
 	}
 	
 	@JsonProperty
-	public String getName() {
-		return this.name;
+	public String getUserId() {
+		return this.userId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public BoxCreationPresentationalData withName(String name) {
-		this.name = name;
+	public BoxCreationPresentationalData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getCategoryId() {
+		return this.categoryId;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
-	public BoxCreationPresentationalData withUsername(String username) {
-		this.username = username;
+	public BoxCreationPresentationalData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getCredentialsUsername() {
-		return this.credentialsUsername;
+	public Integer getMaxInterval() {
+		return this.maxInterval;
 	}
-	public void setCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
 	}
-	public BoxCreationPresentationalData withCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getCredentialsRole() {
-		return this.credentialsRole;
-	}
-	public void setCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
-	}
-	public BoxCreationPresentationalData withCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
+	public BoxCreationPresentationalData withMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
 		return this;
 	}
 	

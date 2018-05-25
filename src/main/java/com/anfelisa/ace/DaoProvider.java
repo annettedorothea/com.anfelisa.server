@@ -2,6 +2,8 @@ package com.anfelisa.ace;
 
 import org.skife.jdbi.v2.Handle;
 
+import com.anfelisa.box.models.BoxDao;
+import com.anfelisa.box.models.CustomBoxDao;
 import com.anfelisa.card.model.CustomCardDao;
 import com.anfelisa.card.models.CardDao;
 import com.anfelisa.category.model.CustomCategoryDao;
@@ -17,9 +19,9 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 
 	private final CustomCardDao customCardDao = new CustomCardDao();
 
-	// private final BoxDao boxDao = new BoxDao();
+	private final BoxDao boxDao = new BoxDao();
 
-	// private final CustomBoxDao customBoxDao = new CustomBoxDao();
+	private final CustomBoxDao customBoxDao = new CustomBoxDao();
 
 	// private final ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
 
@@ -81,11 +83,21 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 	}
 
 	@Override
+	public BoxDao getBoxDao() {
+		return boxDao;
+	}
+
+	@Override
+	public CustomBoxDao getCustomBoxDao() {
+		return customBoxDao;
+	}
+
+	@Override
 	public void truncateAllViews(Handle handle) {
 		// scheduledCardDao.truncate(handle);
 		// scoredCardDao.truncate(handle);
 		cardDao.truncate(handle);
-		// boxDao.truncate(handle);
+		boxDao.truncate(handle);
 		categoryDao.truncate(handle);
 		resetPasswordDao.truncate(handle);
 		emailConfirmationDao.truncate(handle);

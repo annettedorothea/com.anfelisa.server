@@ -11,25 +11,29 @@ public class RecalculateScheduledCardsData extends AbstractData implements IReca
 	private String boxId;
 	
 	@NotNull
-	private String name;
+	private String userId;
 	
 	@NotNull
-	private String username;
+	private String categoryId;
+	
+	private Integer maxInterval;
 	
 	private Integer daysBehind;
 	
 
 	public RecalculateScheduledCardsData(
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("name") String name,
-		@JsonProperty("username") String username,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("maxInterval") Integer maxInterval,
 		@JsonProperty("daysBehind") Integer daysBehind
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.boxId = boxId;
-		this.name = name;
-		this.username = username;
+		this.userId = userId;
+		this.categoryId = categoryId;
+		this.maxInterval = maxInterval;
 		this.daysBehind = daysBehind;
 	}
 
@@ -50,26 +54,38 @@ public class RecalculateScheduledCardsData extends AbstractData implements IReca
 	}
 	
 	@JsonProperty
-	public String getName() {
-		return this.name;
+	public String getUserId() {
+		return this.userId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public RecalculateScheduledCardsData withName(String name) {
-		this.name = name;
+	public RecalculateScheduledCardsData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getCategoryId() {
+		return this.categoryId;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
-	public RecalculateScheduledCardsData withUsername(String username) {
-		this.username = username;
+	public RecalculateScheduledCardsData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxInterval() {
+		return this.maxInterval;
+	}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+	}
+	public RecalculateScheduledCardsData withMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
 		return this;
 	}
 	
@@ -90,8 +106,9 @@ public class RecalculateScheduledCardsData extends AbstractData implements IReca
 	public Object toPresentationalData() {
 		return new RecalculateScheduledCardsPresentationalData(
 			this.boxId,
-			this.name,
-			this.username,
+			this.userId,
+			this.categoryId,
+			this.maxInterval,
 			this.daysBehind
 		);
 	}

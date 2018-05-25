@@ -74,9 +74,9 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		try {
 
 			IBoxModel box = boxDao.selectByBoxId(this.getHandle(), this.actionData.getBoxId());
-			if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
+			/*if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
 				throwUnauthorized();
-			}
+			}*/
 			List<IScheduledCardModel> allCards = scheduledCardDao.selectAllCards(this.getDatabaseHandle().getHandle(),
 					this.actionData.getBoxId());
 			int quality0Count = 0;
@@ -118,7 +118,6 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 					.selectTodaysCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId(), this.actionData.getSystemTime());
 			if (todaysCards.size() > 0) {
 				IScheduledCardModel nextCard = todaysCards.get(0);
-				this.actionData.setBoxName(box.getName());
 				this.actionData.setCardId(nextCard.getCardId());
 				this.actionData.setCardOfBoxId(nextCard.getScheduledCardId());
 				//ICardModel card = cardDao.selectByCardId(this.getHandle(), nextCard.getCardId());
@@ -155,7 +154,6 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 					throw new WebApplicationException("cannot parse " + this.actionData.getContent() + ".");
 				}
 			} else {
-				this.actionData.setBoxName(box.getName());
 			}
 
 			this.actionData.setCards(allCards.size());

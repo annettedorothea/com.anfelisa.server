@@ -6,17 +6,17 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.box.data.DeleteBoxData;
+import com.anfelisa.box.data.BoxCreationData;
 
-public class DeleteBoxDeletedEvent extends AbstractDeleteBoxDeletedEvent {
+public class CreateBoxOkEvent extends AbstractCreateBoxOkEvent {
 
-	static final Logger LOG = LoggerFactory.getLogger(DeleteBoxDeletedEvent.class);
+	static final Logger LOG = LoggerFactory.getLogger(CreateBoxOkEvent.class);
 
-	public DeleteBoxDeletedEvent(DeleteBoxData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public CreateBoxOkEvent(BoxCreationData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public DeleteBoxDeletedEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public CreateBoxOkEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		this(null, databaseHandle, daoProvider, viewProvider);
 	}
 

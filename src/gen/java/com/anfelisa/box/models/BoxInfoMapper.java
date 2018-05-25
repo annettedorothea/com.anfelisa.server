@@ -12,7 +12,6 @@ public class BoxInfoMapper implements ResultSetMapper<IBoxInfoModel> {
 	public IBoxInfoModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxInfoModel(
 			r.getInt("todaysCards"),
-			r.getBoolean("hasOpenCards"),
 			null
 		);
 	}

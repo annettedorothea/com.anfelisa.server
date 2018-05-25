@@ -6,28 +6,29 @@ import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.box.data.BoxCreationData;
+import com.anfelisa.box.data.BoxUpdateData;
 import com.anfelisa.box.data.DeleteBoxData;
 import com.anfelisa.box.data.FillBoxData;
 
 public class BoxView {
 
-	// private DaoProvider daoProvider;
+	private DaoProvider daoProvider;
 
 	public BoxView(DaoProvider daoProvider) {
 		super();
-		// this.daoProvider = daoProvider;
+		this.daoProvider = daoProvider;
 	}
 
 	public BiConsumer<BoxCreationData, Handle> createBox = (dataContainer, handle) -> {
-		// daoProvider.boxDao.insert(handle, dataContainer);
+		daoProvider.getBoxDao().insert(handle, dataContainer);
 	};
 
-	public BiConsumer<BoxCreationData, Handle> updateBox = (dataContainer, handle) -> {
-		// daoProvider.customBoxDao.updateBox(handle, dataContainer);
+	public BiConsumer<BoxUpdateData, Handle> updateBox = (dataContainer, handle) -> {
+		daoProvider.getCustomBoxDao().updateBox(handle, dataContainer);
 	};
 
 	public BiConsumer<DeleteBoxData, Handle> deleteBox = (dataContainer, handle) -> {
-		// daoProvider.boxDao.deleteByBoxId(handle, dataContainer.getBoxId());
+		daoProvider.getBoxDao().deleteByBoxId(handle, dataContainer.getBoxId());
 	};
 
 	public BiConsumer<FillBoxData, Handle> fillBoxWithCards = (dataContainer, handle) -> {

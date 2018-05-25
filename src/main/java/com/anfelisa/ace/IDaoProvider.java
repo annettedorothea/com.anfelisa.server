@@ -2,6 +2,8 @@ package com.anfelisa.ace;
 
 import org.skife.jdbi.v2.Handle;
 
+import com.anfelisa.box.models.BoxDao;
+import com.anfelisa.box.models.CustomBoxDao;
 import com.anfelisa.card.model.CustomCardDao;
 import com.anfelisa.card.models.CardDao;
 import com.anfelisa.category.model.CustomCategoryDao;
@@ -42,5 +44,9 @@ public interface IDaoProvider {
 	public void addCommandToTimeline(ICommand command);
 	
 	void addActionToTimeline(IAction action);
+
+	BoxDao getBoxDao();
+
+	CustomBoxDao getCustomBoxDao();
 
 }

@@ -53,11 +53,10 @@ public class LoadBoxAction extends AbstractLoadBoxAction {
 	@Override
 	protected void loadDataForGetRequest() {
 		IBoxModel box = boxDao.selectByBoxId(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId());
-		if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
+		/*if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
 			throwUnauthorized();
-		}
-		this.actionData.setName(box.getName());
-		this.actionData.setUsername(box.getUsername());
+		}*/
+		//this.actionData.setUsername(box.getUsername());
 	}
 
 }

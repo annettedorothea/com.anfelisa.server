@@ -18,7 +18,6 @@ import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.box.data.RecalculateScheduledCardsData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -42,8 +41,8 @@ public class RecalculateScheduledCardsAction extends AbstractRecalculateSchedule
 	public Response put(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
 			@NotNull @QueryParam("boxId") String boxId, @NotNull @QueryParam("daysBehind") Integer daysBehind)
 			throws JsonProcessingException {
-		this.actionData = new RecalculateScheduledCardsData(uuid).withBoxId(boxId).withDaysBehind(daysBehind)
-				.withUsername(user.getUsername());
+		//this.actionData = new RecalculateScheduledCardsData(uuid).withBoxId(boxId).withDaysBehind(daysBehind)
+		//		.withUsername(user.getUsername());
 		return this.apply();
 	}
 

@@ -8,12 +8,14 @@ public class AuthUser implements Principal {
 	public final static String AUTHOR = "AUTHOR";
 	public final static String STUDENT = "STUDENT";
 
+	private String userId;
 	private String username;
 	private String password;
 	private String role;
 
-	public AuthUser(String username, String password, String role) {
+	public AuthUser(String userId, String username, String password, String role) {
 		super();
+		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.role = role;
@@ -45,6 +47,10 @@ public class AuthUser implements Principal {
 	
 	public String getName() {
 		return "AuthUser";
+	}
+
+	public String getUserId() {
+		return userId;
 	}
 	
 }

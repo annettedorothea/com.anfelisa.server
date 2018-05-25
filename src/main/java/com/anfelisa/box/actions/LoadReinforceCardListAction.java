@@ -24,7 +24,6 @@ import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.box.data.ReinforceCardListData;
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.CardContentModel;
 import com.anfelisa.box.models.CustomScheduledCardDao;
@@ -62,19 +61,17 @@ public class LoadReinforceCardListAction extends AbstractLoadReinforceCardListAc
 	@PermitAll
 	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
 			@NotNull @QueryParam("boxId") String boxId) throws JsonProcessingException {
-		this.actionData = new ReinforceCardListData(uuid).withBoxId(boxId).withCredentialsRole(user.getRole())
-				.withCredentialsUsername(user.getUsername()).withUsername(user.getUsername());
+		/*this.actionData = new ReinforceCardListData(uuid).withBoxId(boxId).withCredentialsRole(user.getRole())
+				.withCredentialsUsername(user.getUsername()).withUsername(user.getUsername());*/
 		return this.apply();
 	}
 
 	@SuppressWarnings("unchecked")
 	protected final void loadDataForGetRequest() {
 		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), this.actionData.getBoxId());
-		if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
+		/*if (!box.getUsername().equals(actionData.getCredentialsUsername())) {
 			throwUnauthorized();
-		}
-
-		this.actionData.setBoxName(box.getName());
+		}*/
 
 		List<IScheduledCardModel> scheduledCards = scheduledCardDao
 				.selectReinforceCards(this.getDatabaseHandle().getHandle(), this.actionData.getBoxId(), this.actionData.getSystemTime());

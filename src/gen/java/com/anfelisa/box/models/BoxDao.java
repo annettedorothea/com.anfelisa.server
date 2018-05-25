@@ -12,19 +12,21 @@ import com.fasterxml.jackson.annotation.JsonIgnoreType;
 public class BoxDao {
 	
 	public void insert(Handle handle, IBoxModel boxModel) {
-		Update statement = handle.createStatement("INSERT INTO public.box (boxid, name, username) VALUES (:boxid, :name, :username)");
+		Update statement = handle.createStatement("INSERT INTO public.box (boxid, userid, categoryid, maxinterval) VALUES (:boxid, :userid, :categoryid, :maxinterval)");
 		statement.bind("boxid",  boxModel.getBoxId() );
-		statement.bind("name",  boxModel.getName() );
-		statement.bind("username",  boxModel.getUsername() );
+		statement.bind("userid",  boxModel.getUserId() );
+		statement.bind("categoryid",  boxModel.getCategoryId() );
+		statement.bind("maxinterval",  boxModel.getMaxInterval() );
 		statement.execute();
 	}
 	
 	
 	public void updateByBoxId(Handle handle, IBoxModel boxModel) {
-		Update statement = handle.createStatement("UPDATE public.box SET boxid = :boxid, name = :name, username = :username WHERE boxid = :boxid");
+		Update statement = handle.createStatement("UPDATE public.box SET boxid = :boxid, userid = :userid, categoryid = :categoryid, maxinterval = :maxinterval WHERE boxid = :boxid");
 		statement.bind("boxid",  boxModel.getBoxId() );
-		statement.bind("name",  boxModel.getName() );
-		statement.bind("username",  boxModel.getUsername() );
+		statement.bind("userid",  boxModel.getUserId() );
+		statement.bind("categoryid",  boxModel.getCategoryId() );
+		statement.bind("maxinterval",  boxModel.getMaxInterval() );
 		statement.bind("boxid",  boxModel.getBoxId()  );
 		statement.execute();
 	}
@@ -36,14 +38,14 @@ public class BoxDao {
 	}
 
 	public IBoxModel selectByBoxId(Handle handle, String boxId) {
-		return handle.createQuery("SELECT boxid, name, username FROM public.box WHERE boxid = :boxid")
+		return handle.createQuery("SELECT boxid, userid, categoryid, maxinterval FROM public.box WHERE boxid = :boxid")
 			.bind("boxid", boxId)
 			.map(new BoxMapper())
 			.first();
 	}
 	
 	public List<IBoxModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT boxid, name, username FROM public.box")
+		return handle.createQuery("SELECT boxid, userid, categoryid, maxinterval FROM public.box")
 			.map(new BoxMapper())
 			.list();
 	}
