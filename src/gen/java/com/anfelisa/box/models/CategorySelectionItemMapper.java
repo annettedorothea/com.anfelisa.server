@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
+import com.anfelisa.ace.encryption.EncryptionService;
+
 @SuppressWarnings("all")
 public class CategorySelectionItemMapper implements ResultSetMapper<ICategorySelectionItemModel> {
 	
@@ -13,7 +15,7 @@ public class CategorySelectionItemMapper implements ResultSetMapper<ICategorySel
 		return new CategorySelectionItemModel(
 			r.getString("categoryId"),
 			r.getString("categoryName"),
-			r.getInt("categoryIndex")
+			r.getObject("categoryIndex") != null ? r.getInt("categoryIndex") : null
 		);
 	}
 }

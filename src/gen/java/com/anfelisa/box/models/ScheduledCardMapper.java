@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
+import com.anfelisa.ace.encryption.EncryptionService;
+
 @SuppressWarnings("all")
 public class ScheduledCardMapper implements ResultSetMapper<IScheduledCardModel> {
 	
@@ -14,12 +16,12 @@ public class ScheduledCardMapper implements ResultSetMapper<IScheduledCardModel>
 			r.getString("scheduledCardId"),
 			r.getString("cardId"),
 			r.getFloat("ef"),
-			r.getInt("interval"),
-			r.getInt("n"),
-			r.getInt("count"),
+			r.getObject("interval") != null ? r.getInt("interval") : null,
+			r.getObject("n") != null ? r.getInt("n") : null,
+			r.getObject("count") != null ? r.getInt("count") : null,
 			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")) : null,
 			r.getString("boxId"),
-			r.getInt("lastQuality"),
+			r.getObject("lastQuality") != null ? r.getInt("lastQuality") : null,
 			r.getTimestamp("timestamp") != null ? new org.joda.time.DateTime(r.getTimestamp("timestamp")) : null,
 			r.getBoolean("removed")
 		);

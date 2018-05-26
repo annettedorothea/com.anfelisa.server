@@ -1,17 +1,17 @@
 package com.anfelisa.card.actions;
 
-import javax.ws.rs.WebApplicationException;
-
 import org.skife.jdbi.v2.DBI;
+import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
 import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.HttpMethod;
-import com.anfelisa.ace.ICommand;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.card.commands.CreateCardCommand;
+import com.anfelisa.ace.HttpMethod;
+import com.anfelisa.ace.ICommand;
 import com.anfelisa.card.data.CardCreationData;
+
+import com.anfelisa.card.commands.CreateCardCommand;
 
 public abstract class AbstractCreateCardAction extends Action<CardCreationData> {
 

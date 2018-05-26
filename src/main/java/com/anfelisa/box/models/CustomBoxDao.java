@@ -14,6 +14,13 @@ public class CustomBoxDao {
 				.bind("username", username).map(new BoxMapper()).list();
 	}
 
+	public List<IBoxInfoModel> selectByUserId(Handle handle, String userId) {
+		return handle.createQuery("SELECT 0 as todayscards, (select count(cardid) from card where rootcategoryid = b.categoryid) as totalcards, 0 as mycards, 0 as daysbehindschedule, b.boxid, b.categoryid, c.categoryname, c.categoryindex, b.maxinterval "
+				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid where userid = :userid order by c.categoryindex")
+				.bind("userid", userId)
+				.map(new BoxInfoMapper()).list();
+	}
+	
 	public IBoxModel selectByScheduledCardId(Handle handle, String scheduledCardId) {
 		return handle
 				.createQuery("SELECT b.* FROM public.scheduledCard sc inner join public.box b ON b.boxId = sc.boxId WHERE sc.scheduledCardId = :scheduledCardId")

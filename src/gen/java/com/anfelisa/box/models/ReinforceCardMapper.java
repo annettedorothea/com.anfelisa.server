@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
+import com.anfelisa.ace.encryption.EncryptionService;
+
 @SuppressWarnings("all")
 public class ReinforceCardMapper implements ResultSetMapper<IReinforceCardModel> {
 	
@@ -13,7 +15,7 @@ public class ReinforceCardMapper implements ResultSetMapper<IReinforceCardModel>
 		return new ReinforceCardModel(
 			r.getString("scheduledCardId"),
 			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")) : null,
-			r.getInt("lastQuality"),
+			r.getObject("lastQuality") != null ? r.getInt("lastQuality") : null,
 			r.getTimestamp("timestamp") != null ? new org.joda.time.DateTime(r.getTimestamp("timestamp")) : null,
 			null
 		);

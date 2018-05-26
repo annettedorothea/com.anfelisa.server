@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
+import com.anfelisa.ace.encryption.EncryptionService;
+
 @SuppressWarnings("all")
 public class CardInfoMapper implements ResultSetMapper<ICardInfoModel> {
 	
@@ -15,10 +17,10 @@ public class CardInfoMapper implements ResultSetMapper<ICardInfoModel> {
 			r.getString("cardOfBoxId"),
 			r.getString("content"),
 			r.getString("boxName"),
-			r.getInt("count"),
+			r.getObject("count") != null ? r.getInt("count") : null,
 			r.getTimestamp("last") != null ? new org.joda.time.DateTime(r.getTimestamp("last")) : null,
 			r.getTimestamp("next") != null ? new org.joda.time.DateTime(r.getTimestamp("next")) : null,
-			r.getInt("quality")
+			r.getObject("quality") != null ? r.getInt("quality") : null
 		);
 	}
 }

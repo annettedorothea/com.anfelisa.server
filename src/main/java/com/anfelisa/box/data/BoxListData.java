@@ -10,17 +10,17 @@ public class BoxListData extends AbstractData implements IBoxListData {
 	private java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList;
 	
 	@NotNull
-	private String username;
+	private String userId;
 	
 
 	public BoxListData(
 		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList,
-		@JsonProperty("username") String username
+		@JsonProperty("userId") String userId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.boxList = boxList;
-		this.username = username;
+		this.userId = userId;
 	}
 
 	public BoxListData( String uuid ) {
@@ -40,14 +40,14 @@ public class BoxListData extends AbstractData implements IBoxListData {
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getUserId() {
+		return this.userId;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public BoxListData withUsername(String username) {
-		this.username = username;
+	public BoxListData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	
@@ -56,7 +56,7 @@ public class BoxListData extends AbstractData implements IBoxListData {
 	public Object toPresentationalData() {
 		return new BoxListPresentationalData(
 			this.boxList,
-			this.username
+			this.userId
 		);
 	}
 

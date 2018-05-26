@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
+import com.anfelisa.ace.encryption.EncryptionService;
+
 @SuppressWarnings("all")
 public class ScoredCardMapper implements ResultSetMapper<IScoredCardModel> {
 	
@@ -15,9 +17,9 @@ public class ScoredCardMapper implements ResultSetMapper<IScoredCardModel> {
 			r.getString("cardId"),
 			r.getTimestamp("scheduledDateOfScored") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDateOfScored")) : null,
 			r.getString("boxId"),
-			r.getInt("quality"),
+			r.getObject("quality") != null ? r.getInt("quality") : null,
 			r.getTimestamp("timestamp") != null ? new org.joda.time.DateTime(r.getTimestamp("timestamp")) : null,
-			r.getInt("points"),
+			r.getObject("points") != null ? r.getInt("points") : null,
 			r.getString("scheduledCardId")
 		);
 	}

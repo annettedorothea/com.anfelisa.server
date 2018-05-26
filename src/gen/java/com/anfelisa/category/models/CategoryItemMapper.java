@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
+import com.anfelisa.ace.encryption.EncryptionService;
+
 @SuppressWarnings("all")
 public class CategoryItemMapper implements ResultSetMapper<ICategoryItemModel> {
 	
@@ -14,7 +16,7 @@ public class CategoryItemMapper implements ResultSetMapper<ICategoryItemModel> {
 			r.getString("categoryId"),
 			r.getString("categoryName"),
 			r.getString("categoryAuthor"),
-			r.getInt("categoryIndex"),
+			r.getObject("categoryIndex") != null ? r.getInt("categoryIndex") : null,
 			r.getString("parentCategoryId"),
 			r.getString("rootCategoryId"),
 			r.getBoolean("dictionaryLookup"),

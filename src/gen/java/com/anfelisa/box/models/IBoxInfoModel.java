@@ -6,7 +6,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IBoxInfoModel {
 
 	Integer getTodaysCards();
-	com.anfelisa.box.models.IBoxModel getBox();
+	Integer getTotalCards();
+	Integer getMyCards();
+	Integer getDaysBehindSchedule();
+	String getBoxId();
+	String getCategoryId();
+	String getCategoryName();
+	Integer getCategoryIndex();
+	Integer getMaxInterval();
 
 }
 

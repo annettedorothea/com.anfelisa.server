@@ -1,8 +1,16 @@
 package com.anfelisa.box.data;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.IDataContainer;
+
+import com.anfelisa.box.models.IBoxListModel;
 
 @SuppressWarnings("all")
 public class BoxListPresentationalData implements IBoxListPresentationalData {
@@ -10,15 +18,15 @@ public class BoxListPresentationalData implements IBoxListPresentationalData {
 	private java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList;
 	
 	@NotNull
-	private String username;
+	private String userId;
 	
 	
 	public BoxListPresentationalData(
 		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList,
-		@JsonProperty("username") String username
+		@JsonProperty("userId") String userId
 	) {
 		this.boxList = boxList;
-		this.username = username;
+		this.userId = userId;
 		
 	}
 
@@ -35,14 +43,14 @@ public class BoxListPresentationalData implements IBoxListPresentationalData {
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getUserId() {
+		return this.userId;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public BoxListPresentationalData withUsername(String username) {
-		this.username = username;
+	public BoxListPresentationalData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	
