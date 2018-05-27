@@ -24,7 +24,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.dropwizard.auth.Auth;
 
-@Path("/boxes")
+@Path("/box")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
 public class DeleteBoxAction extends AbstractDeleteBoxAction {
@@ -41,8 +41,7 @@ public class DeleteBoxAction extends AbstractDeleteBoxAction {
 	@PermitAll
 	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
 			@NotNull @QueryParam("boxId") String boxId) throws JsonProcessingException {
-		this.actionData = new DeleteBoxData(uuid).withBoxId(boxId).withCredentialsRole(user.getRole())
-				.withCredentialsUsername(user.getUsername());
+		this.actionData = new DeleteBoxData(uuid).withBoxId(boxId).withUserId(user.getUserId());
 		return this.apply();
 	}
 

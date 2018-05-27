@@ -8,38 +8,42 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class BoxUpdateData extends AbstractData implements IBoxUpdateData {
 	
 	@NotNull
-	private String boxId;
+	private String userId;
 	
 	@NotNull
-	private String name;
+	private String boxId;
 	
 	private Integer maxInterval;
 	
-	private String credentialsUsername;
-	
-	private String credentialsRole;
-	
 
 	public BoxUpdateData(
+		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("name") String name,
-		@JsonProperty("maxInterval") Integer maxInterval,
-		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole
+		@JsonProperty("maxInterval") Integer maxInterval
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
+		this.userId = userId;
 		this.boxId = boxId;
-		this.name = name;
 		this.maxInterval = maxInterval;
-		this.credentialsUsername = credentialsUsername;
-		this.credentialsRole = credentialsRole;
 	}
 
 	public BoxUpdateData( String uuid ) {
 		super(uuid);
 	}
 
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public BoxUpdateData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
 	@JsonProperty
 	public String getBoxId() {
 		return this.boxId;
@@ -49,18 +53,6 @@ public class BoxUpdateData extends AbstractData implements IBoxUpdateData {
 	}
 	public BoxUpdateData withBoxId(String boxId) {
 		this.boxId = boxId;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getName() {
-		return this.name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public BoxUpdateData withName(String name) {
-		this.name = name;
 		return this;
 	}
 	
@@ -76,39 +68,13 @@ public class BoxUpdateData extends AbstractData implements IBoxUpdateData {
 		return this;
 	}
 	
-	@JsonProperty
-	public String getCredentialsUsername() {
-		return this.credentialsUsername;
-	}
-	public void setCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
-	}
-	public BoxUpdateData withCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getCredentialsRole() {
-		return this.credentialsRole;
-	}
-	public void setCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
-	}
-	public BoxUpdateData withCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
-		return this;
-	}
-	
 
 	@Override
 	public Object toPresentationalData() {
 		return new BoxUpdatePresentationalData(
+			this.userId,
 			this.boxId,
-			this.name,
-			this.maxInterval,
-			this.credentialsUsername,
-			this.credentialsRole
+			this.maxInterval
 		);
 	}
 

@@ -7,30 +7,24 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.BoxUpdateData;
-import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.IBoxModel;
 
 public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateBoxCommand.class);
 
-	private BoxDao boxDao = new BoxDao();
-
-	public UpdateBoxCommand(BoxUpdateData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
-			ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+	public UpdateBoxCommand(BoxUpdateData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(null, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override
 	protected void executeCommand() {
-		IBoxModel box = boxDao.selectByBoxId(this.getHandle(), commandData.getBoxId());
-		/*if (!AuthUser.ADMIN.equals(commandData.getCredentialsRole())
-				&& !box.getUsername().equals(commandData.getCredentialsUsername())) {
+		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(this.getHandle(), this.commandData.getBoxId());
+		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();
-		}*/
-		this.commandData.setOutcome(ok);
+		}
 	}
 
 }
 
-/* S.D.G. */
+/*       S.D.G.       */

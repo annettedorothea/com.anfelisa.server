@@ -6,7 +6,6 @@ import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-
 import com.anfelisa.user.data.ForgotPasswordData;
 
 public abstract class AbstractForgotPasswordCommand extends Command<ForgotPasswordData> {

@@ -23,26 +23,28 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.dropwizard.auth.Auth;
 
-@Path("/boxes")
+@Path("/box")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-public class UpdateBoxAction extends AbstractUpdateBoxAction {
+	public class UpdateBoxAction extends AbstractUpdateBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateBoxAction.class);
 
 	public UpdateBoxAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(jdbi, appConfiguration, daoProvider, viewProvider);
+		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
 	@PUT
 	@Timed
 	@Path("/update")
 	@PermitAll
-	public Response put(@NotNull BoxUpdateData actionParam, @Auth AuthUser user) throws JsonProcessingException {
-		this.actionData = actionParam.withCredentialsUsername(user.getUsername()).withCredentialsRole(user.getRole());
+	public Response put(@NotNull BoxUpdateData data, @Auth AuthUser user) throws JsonProcessingException {
+		this.actionData = data;
+		this.actionData.setUserId(user.getUserId());
 		return this.apply();
 	}
 
+
 }
 
-/* S.D.G. */
+/*       S.D.G.       */

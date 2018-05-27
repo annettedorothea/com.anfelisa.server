@@ -30,6 +30,12 @@ public class BoxView {
 	public BiConsumer<DeleteBoxData, Handle> deleteBox = (dataContainer, handle) -> {
 		daoProvider.getBoxDao().deleteByBoxId(handle, dataContainer.getBoxId());
 	};
+	
+	
+	public BiConsumer<DeleteBoxData, Handle> postponeCards = (dataContainer, handle) -> {
+	};
+	
+	
 
 	public BiConsumer<FillBoxData, Handle> fillBoxWithCards = (dataContainer, handle) -> {
 		// List<IScheduledCardModel> cards = dataContainer.getCardsToBeAdded();

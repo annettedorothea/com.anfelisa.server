@@ -28,9 +28,8 @@ public class CustomBoxDao {
 	}
 
 	public void updateBox(Handle handle, BoxUpdateData boxModel) {
-		Update statement = handle.createStatement("UPDATE public.box SET name = :name, maxinterval = :maxinterval WHERE boxId = :boxId");
+		Update statement = handle.createStatement("UPDATE public.box SET maxinterval = :maxinterval WHERE boxId = :boxId");
 		statement.bind("boxId", boxModel.getBoxId());
-		statement.bind("name", boxModel.getName());
 		statement.bind("maxinterval",  boxModel.getMaxInterval() );
 		statement.execute();
 	}

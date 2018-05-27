@@ -8,6 +8,15 @@ ACE {
 	POST CreateBox uses BoxCreation {
 		on ok ( Box.createBox )
 	}
+	PUT UpdateBox uses BoxUpdate {
+		on ok ( Box.updateBox )
+	}
+	PUT PostponeCards uses PostponeCards {
+		on ok ( Box.postponeCards )
+	}
+	DELETE DeleteBox uses DeleteBox {
+		on ok (Box.deleteBox)
+	}
 	
 	
 	
@@ -20,12 +29,6 @@ ACE {
 	GET GetAllBoxes uses AllBoxes
 	GET LoadReinforceCardList uses ReinforceCardList
 	
-	PUT UpdateBox uses BoxUpdate {
-		on ok ( Box.updateBox )
-	}
-	DELETE DeleteBox uses DeleteBox {
-		on ok (Box.deleteBox)
-	}
 
 	POST CreateCard uses CardCreation {
 		//on created (Card.createCard)
@@ -57,12 +60,14 @@ ACE {
 	}
 }
 
+
 views {
 	Box {
 		createBox (BoxCreation)
 		updateBox (BoxCreation)
 		deleteBox (DeleteBox)
 		fillBoxWithCards (FillBox)
+		postponeCards(PostponeCards)
 	}
 	Card {
 		//createCard (CardCreation)
@@ -113,17 +118,28 @@ models {
 		List BoxInfo boxList
 		NotNull String userId
 	}
-
-
-	
-	
-	
+	PostponeCards {
+		NotNull String boxId
+		NotNull String userId
+	}
 
 	BoxUpdate {
+		NotNull String userId
 		NotNull String boxId
-		NotNull String name
 		Integer maxInterval
 	}
+
+	DeleteBox {
+		NotNull String userId
+		NotNull String boxId
+	}
+
+
+	
+	
+	
+	
+
 
 	persistent Card {
 		Unique PrimaryKey NotNull String cardId
@@ -265,18 +281,19 @@ models {
 data {
 	CategoryList: (CategorySelectionList)
 	BoxList : ( BoxList )
+	PostponeCards : (PostponeCards)
+	DeleteBox : (DeleteBox)
+	BoxUpdate : ( BoxUpdate )
 	
 	
 	
 	
 	BoxCreation : ( Box )
-	BoxUpdate : ( BoxUpdate com.anfelisa.user.Credentials )
 	CardCreation : ( Card )
 	ScheduledCard : ( ScheduledCard )
 	ScoredCard : ( ScoredCard )
 	Card : ( Card Box Score CardInfo CardContent com.anfelisa.user.Credentials DaysBehind )
 	BoxId : ( Box com.anfelisa.user.Credentials )
-	DeleteBox : (BoxId com.anfelisa.user.Credentials)
 	ScoreCard : (Card ScheduledCard ScoredCard CardQuality com.anfelisa.user.Credentials )
 	FillBox : (FillBox com.anfelisa.user.Credentials)
 	CardId : (CardId)

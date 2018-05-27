@@ -1,19 +1,8 @@
 package com.anfelisa.user.data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
-import java.util.List;
 
-import com.anfelisa.ace.IDataContainer;
-
-import com.anfelisa.user.models.IResetPasswordModel;
-import com.anfelisa.user.models.ILanguageModel;
-import com.anfelisa.user.models.IEmailModel;
-import com.anfelisa.user.models.IUsernameModel;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @SuppressWarnings("all")
 public class ForgotPasswordPresentationalData implements IForgotPasswordPresentationalData {

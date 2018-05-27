@@ -1,18 +1,31 @@
 package com.anfelisa.box;
 
-import io.dropwizard.setup.Environment;
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.AceExecutionMode;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.ace.ServerConfiguration;
-
 import org.skife.jdbi.v2.DBI;
 
-import com.anfelisa.box.views.BoxView;
-import com.anfelisa.box.views.ScheduledCardView;
-import com.anfelisa.box.views.ScoredCardView;
-import com.anfelisa.box.actions.*;
+import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.box.actions.CreateBoxAction;
+import com.anfelisa.box.actions.CreateCardAction;
+import com.anfelisa.box.actions.CreateScheduledCardAction;
+import com.anfelisa.box.actions.CreateScoredCardAction;
+import com.anfelisa.box.actions.DeleteBoxAction;
+import com.anfelisa.box.actions.DeleteCardAction;
+import com.anfelisa.box.actions.FillBoxWithCardsAction;
+import com.anfelisa.box.actions.GetAllBoxesAction;
+import com.anfelisa.box.actions.GetBoxesAction;
+import com.anfelisa.box.actions.GetRootCategoriesAction;
+import com.anfelisa.box.actions.ImportCardAction;
+import com.anfelisa.box.actions.LoadBoxAction;
+import com.anfelisa.box.actions.LoadNextCardAction;
+import com.anfelisa.box.actions.LoadReinforceCardListAction;
+import com.anfelisa.box.actions.PostponeCardsAction;
+import com.anfelisa.box.actions.RecalculateScheduledCardsAction;
+import com.anfelisa.box.actions.RemoveCardFromBoxAction;
+import com.anfelisa.box.actions.ScoreCardAction;
+import com.anfelisa.box.actions.UpdateBoxAction;
+
+import io.dropwizard.setup.Environment;
 
 @SuppressWarnings("all")
 public class AppRegistration {
@@ -21,12 +34,13 @@ public class AppRegistration {
 		environment.jersey().register(new GetBoxesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetRootCategoriesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new CreateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new UpdateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new PostponeCardsAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new DeleteBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new LoadNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new LoadBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetAllBoxesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new LoadReinforceCardListAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new UpdateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new DeleteBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new CreateCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ImportCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new CreateScheduledCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
@@ -41,6 +55,7 @@ public class AppRegistration {
 	public void registerConsumers(ViewProvider viewProvider, String mode) {
 				viewProvider.addConsumer("com.anfelisa.box.events.CreateBoxOkEvent", viewProvider.boxView.createBox);
 				viewProvider.addConsumer("com.anfelisa.box.events.UpdateBoxOkEvent", viewProvider.boxView.updateBox);
+				viewProvider.addConsumer("com.anfelisa.box.events.PostponeCardsOkEvent", viewProvider.boxView.postponeCards);
 				viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxOkEvent", viewProvider.boxView.deleteBox);
 				viewProvider.addConsumer("com.anfelisa.box.events.CreateScheduledCardCreatedEvent", viewProvider.scheduledCardView.createScheduledCard);
 				viewProvider.addConsumer("com.anfelisa.box.events.CreateScoredCardCreatedEvent", viewProvider.scoredCardView.createScoredCard);
