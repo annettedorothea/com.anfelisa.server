@@ -12,8 +12,8 @@ public class DeleteCardCommand extends AbstractDeleteCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteCardCommand.class);
 
-	public DeleteCardCommand(CardIdData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+	public DeleteCardCommand(CardIdData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(commandData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

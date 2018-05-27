@@ -6,6 +6,7 @@ import com.anfelisa.ace.Command;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
+
 import com.anfelisa.box.data.RemoveCardFromBoxData;
 
 public abstract class AbstractRemoveCardFromBoxCommand extends Command<RemoveCardFromBoxData> {

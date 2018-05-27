@@ -13,8 +13,8 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateBoxCommand.class);
 
-	public UpdateBoxCommand(BoxUpdateData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(null, databaseHandle, daoProvider, viewProvider);
+	public UpdateBoxCommand(BoxUpdateData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(commandData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override
@@ -23,6 +23,7 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();
 		}
+		this.commandData.setOutcome(this.ok); 
 	}
 
 }

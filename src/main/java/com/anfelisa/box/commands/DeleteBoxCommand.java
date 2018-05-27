@@ -13,8 +13,8 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteBoxCommand.class);
 
-	public DeleteBoxCommand(DeleteBoxData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+	public DeleteBoxCommand(DeleteBoxData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(commandData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

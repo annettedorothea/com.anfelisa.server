@@ -9,6 +9,7 @@ import com.anfelisa.box.data.BoxCreationData;
 import com.anfelisa.box.data.BoxUpdateData;
 import com.anfelisa.box.data.DeleteBoxData;
 import com.anfelisa.box.data.FillBoxData;
+import com.anfelisa.box.data.PostponeCardsData;
 
 public class BoxView {
 
@@ -32,7 +33,7 @@ public class BoxView {
 	};
 	
 	
-	public BiConsumer<DeleteBoxData, Handle> postponeCards = (dataContainer, handle) -> {
+	public BiConsumer<PostponeCardsData, Handle> postponeCards = (dataContainer, handle) -> {
 	};
 	
 	

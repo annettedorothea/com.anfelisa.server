@@ -13,8 +13,8 @@ public class PostponeCardsCommand extends AbstractPostponeCardsCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(PostponeCardsCommand.class);
 
-	public PostponeCardsCommand(PostponeCardsData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(null, databaseHandle, daoProvider, viewProvider);
+	public PostponeCardsCommand(PostponeCardsData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(commandData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

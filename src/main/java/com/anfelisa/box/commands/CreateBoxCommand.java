@@ -12,8 +12,8 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateBoxCommand.class);
 
-	public CreateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+	public CreateBoxCommand(BoxCreationData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(commandData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override
