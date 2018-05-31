@@ -54,4 +54,11 @@ public class CustomCategoryDao {
 		statement.execute();
 	}
 
+	public void shiftRootCategories(Handle handle, Integer categoryIndex) {
+		Update statement = handle.createStatement(
+				"UPDATE public.category SET categoryindex = categoryindex-1 WHERE parentcategoryid is null and categoryindex > :categoryindex");
+		statement.bind("categoryindex", categoryIndex);
+		statement.execute();
+	}
+	
 }

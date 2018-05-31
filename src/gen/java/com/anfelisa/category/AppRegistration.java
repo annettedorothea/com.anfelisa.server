@@ -25,7 +25,8 @@ public class AppRegistration {
 	public void registerConsumers(ViewProvider viewProvider, String mode) {
 				viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryOkEvent", viewProvider.categoryView.insert);
 				viewProvider.addConsumer("com.anfelisa.category.events.UpdateCategoryOkEvent", viewProvider.categoryView.update);
-				viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryOkEvent", viewProvider.categoryView.delete);
+				viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryNoRootEvent", viewProvider.categoryView.delete);
+				viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryRootEvent", viewProvider.categoryView.deleteRoot);
     }
 }
 

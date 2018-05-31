@@ -10,7 +10,8 @@ ACE {
 		on ok (Category.update)
 	}
 	DELETE DeleteCategory uses CategoryDelete {
-		on ok (Category.delete)
+		on noRoot (Category.delete)
+		on root (Category.deleteRoot)
 	}
 	GET GetAllCategories uses CategoryList
 }
@@ -19,6 +20,7 @@ views {
 	Category {
 		insert(CategoryCreation)
 		delete(CategoryDelete)
+		deleteRoot(CategoryDelete)
 		update(CategoryUpdate)
 	}
 }

@@ -9,14 +9,14 @@ import com.anfelisa.ace.ViewProvider;
 
 import com.anfelisa.category.data.CategoryDeleteData;
 
-public abstract class AbstractDeleteCategoryOkEvent extends Event<CategoryDeleteData> {
+public abstract class AbstractDeleteCategoryNoRootEvent extends Event<CategoryDeleteData> {
 
-	public AbstractDeleteCategoryOkEvent(CategoryDeleteData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.events.DeleteCategoryOkEvent", eventParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractDeleteCategoryNoRootEvent(CategoryDeleteData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.events.DeleteCategoryNoRootEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractDeleteCategoryOkEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.events.DeleteCategoryOkEvent", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractDeleteCategoryNoRootEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.events.DeleteCategoryNoRootEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	
 	public void initEventData(String json) {

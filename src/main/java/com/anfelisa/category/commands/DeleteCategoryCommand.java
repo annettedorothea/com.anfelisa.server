@@ -23,9 +23,13 @@ public class DeleteCategoryCommand extends AbstractDeleteCategoryCommand {
 		if (category == null) {
 			throwBadRequest("Category does not exist");
 		}
-		this.commandData.setParentCategoryId(category.getParentCategoryId());
 		this.commandData.setCategoryIndex(category.getCategoryIndex());
-		this.commandData.setOutcome(ok);
+		if (category.getParentCategoryId() == null) {
+			this.commandData.setOutcome(root);
+		} else {
+			this.commandData.setParentCategoryId(category.getParentCategoryId());
+			this.commandData.setOutcome(noRoot);
+		}
 	}
 
 }
