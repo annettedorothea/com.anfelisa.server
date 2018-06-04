@@ -20,7 +20,7 @@ public class CustomCardDao {
 
 	public Integer selectMaxIndexInCategory(Handle handle, String categoryId) {
 		return handle.createQuery("SELECT max(cardindex) FROM public.card WHERE categoryid = :categoryid")
-				.bind("categoryid", categoryId).mapTo((Integer.class)).first();
+				.bind("categoryid", categoryId).mapTo(Integer.class).first();
 	}
 
 	public void update(Handle handle, CardUpdateData cardModel) {

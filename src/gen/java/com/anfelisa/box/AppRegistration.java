@@ -10,8 +10,8 @@ import com.anfelisa.ace.ServerConfiguration;
 import org.skife.jdbi.v2.DBI;
 
 import com.anfelisa.box.views.BoxView;
-import com.anfelisa.box.views.ScheduledCardView;
 import com.anfelisa.box.views.ScoredCardView;
+import com.anfelisa.box.views.ScheduledCardView;
 import com.anfelisa.box.actions.*;
 
 @SuppressWarnings("all")
@@ -19,24 +19,19 @@ public class AppRegistration {
 
 	public void registerResources(Environment environment, DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		environment.jersey().register(new GetBoxesAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new GetBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetRootCategoriesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new CreateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new UpdateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new PostponeCardsAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new DeleteBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new LoadNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new LoadBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new GetAllBoxesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new LoadReinforceCardListAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new CreateCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new ImportCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new CreateScheduledCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new CreateScoredCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new ScheduleNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new ScheduleCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new ScheduleCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ScoreCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new FillBoxWithCardsAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new DeleteCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new RemoveCardFromBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new RecalculateScheduledCardsAction(jdbi, appConfiguration, daoProvider, viewProvider));
 	}
 
 	public void registerConsumers(ViewProvider viewProvider, String mode) {
@@ -44,13 +39,12 @@ public class AppRegistration {
 				viewProvider.addConsumer("com.anfelisa.box.events.UpdateBoxOkEvent", viewProvider.boxView.updateBox);
 				viewProvider.addConsumer("com.anfelisa.box.events.PostponeCardsOkEvent", viewProvider.boxView.postponeCards);
 				viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxOkEvent", viewProvider.boxView.deleteBox);
-				viewProvider.addConsumer("com.anfelisa.box.events.CreateScheduledCardCreatedEvent", viewProvider.scheduledCardView.createScheduledCard);
-				viewProvider.addConsumer("com.anfelisa.box.events.CreateScoredCardCreatedEvent", viewProvider.scoredCardView.createScoredCard);
+				viewProvider.addConsumer("com.anfelisa.box.events.ScheduleNextCardOkEvent", viewProvider.boxView.scheduleCard);
+				viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCardOkEvent", viewProvider.boxView.scheduleCard);
+				viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCategoryOkEvent", viewProvider.boxView.scheduleCategory);
 				viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoredEvent", viewProvider.scoredCardView.score);
 				viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoredEvent", viewProvider.scheduledCardView.score);
-				viewProvider.addConsumer("com.anfelisa.box.events.FillBoxWithCardsFillBoxWithCardsEvent", viewProvider.boxView.fillBoxWithCards);
 				viewProvider.addConsumer("com.anfelisa.box.events.RemoveCardFromBoxDeletedEvent", viewProvider.scheduledCardView.removeFromBox);
-				viewProvider.addConsumer("com.anfelisa.box.events.RecalculateScheduledCardsOkEvent", viewProvider.scheduledCardView.recalculateScheduledCards);
     }
 }
 

@@ -13,15 +13,20 @@ public class PostponeCardsData extends AbstractData implements IPostponeCardsDat
 	@NotNull
 	private String userId;
 	
+	@NotNull
+	private org.joda.time.DateTime today;
+	
 
 	public PostponeCardsData(
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("userId") String userId
+		@JsonProperty("userId") String userId,
+		@JsonProperty("today") org.joda.time.DateTime today
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.boxId = boxId;
 		this.userId = userId;
+		this.today = today;
 	}
 
 	public PostponeCardsData( String uuid ) {
@@ -52,12 +57,25 @@ public class PostponeCardsData extends AbstractData implements IPostponeCardsDat
 		return this;
 	}
 	
+	@JsonProperty
+	public org.joda.time.DateTime getToday() {
+		return this.today;
+	}
+	public void setToday(org.joda.time.DateTime today) {
+		this.today = today;
+	}
+	public PostponeCardsData withToday(org.joda.time.DateTime today) {
+		this.today = today;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
 		return new PostponeCardsPresentationalData(
 			this.boxId,
-			this.userId
+			this.userId,
+			this.today
 		);
 	}
 

@@ -14,7 +14,8 @@ public class BoxListMapper implements ResultSetMapper<IBoxListModel> {
 	public IBoxListModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxListModel(
 			null,
-			r.getString("userId")
+			r.getString("userId"),
+			r.getTimestamp("today") != null ? new org.joda.time.DateTime(r.getTimestamp("today")) : null
 		);
 	}
 }

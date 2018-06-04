@@ -12,48 +12,24 @@ import com.fasterxml.jackson.annotation.JsonIgnoreType;
 @JsonIgnoreType
 public class CustomScheduledCardDao {
 
-	public List<IScheduledCardModel> selectTodaysCards(Handle handle, String boxId, DateTime now) {
-		String nowAsString = now.toString();
+	public INextCardModel selectFirstScheduledCard(Handle handle, String boxId, DateTime today) {
 		return handle.createQuery(
-				"SELECT * FROM public.scheduledcard WHERE boxid = :boxId AND removed = false AND date_trunc('day', scheduledDate) <= date_trunc('day', TIMESTAMP ':now') ORDER BY timestamp DESC")
-				.bind("boxId", boxId).bind("now", nowAsString).map(new ScheduledCardMapper()).list();
-	}
-
-	public IScheduledCardModel selectFirstScheduledCard(Handle handle, String boxId) {
-		return handle.createQuery(
-				"SELECT * FROM public.scheduledcard WHERE boxid = :boxId AND removed = false order by scheduleddate limit 1")
-				.bind("boxId", boxId).map(new ScheduledCardMapper()).first();
-	}
-
-	public List<IScheduledCardModel> selectTomorrowsCards(Handle handle, String boxId, DateTime now) {
-		DateTime tomorrow = now.plusDays(1);
-		return handle.createQuery(
-				"SELECT * FROM public.scheduledcard WHERE boxid = :boxId AND removed = false AND date_trunc('day', scheduledDate) <= date_trunc('day', TIMESTAMP ':tomorrow') AND date_trunc('day', scheduledDate) > date_trunc('day', TIMESTAMP ':now')")
+				"SELECT sc.scheduledcardid, c.cardid, sc.scheduleddate, sc.boxid, sc.lastquality, c.given, c.wanted, c.image, c.categoryid FROM public.scheduledcard sc "
+						+ "inner join public.card c on c.cardid = sc.cardid "
+						+ "inner join public.category ct on c.categoryid = ct.categoryid "
+						+ "WHERE sc.boxid = :boxId AND sc.removed = false and sc.scheduleddate < :today order by sc.scheduleddate, ct.categoryindex, c.cardindex limit 1")
 				.bind("boxId", boxId)
-				.bind("now", now.toString())
-				.bind("tomorrow", tomorrow.toString())
-				.map(new ScheduledCardMapper()).list();
-	}
-
-	public List<IScheduledCardModel> selectAllCards(Handle handle, String boxId) {
-		return handle.createQuery("SELECT * FROM public.scheduledcard WHERE boxid = :boxId and removed = false").bind("boxId", boxId)
-				.map(new ScheduledCardMapper()).list();
-	}
-
-	public void removeScheduledCardFromBox(Handle handle, IScheduledCardIdModel scheduledCardIdModel) {
-		Update statement = handle.createStatement(
-				"UPDATE public.scheduledcard SET removed = true WHERE scheduledCardId = :scheduledCardId");
-		statement.bind("scheduledCardId", scheduledCardIdModel.getScheduledCardId());
-		statement.execute();
+				.bind("today", today)
+				.map(new NextCardMapper()).first();
 	}
 
 	public List<IScheduledCardModel> selectReinforceCards(Handle handle, String boxId, DateTime now) {
 		return handle.createQuery(
-				"SELECT * FROM public.scheduledcard WHERE boxid = :boxId AND removed = false AND lastquality < 4 AND date_trunc('day', timestamp) >= date_trunc('day', TIMESTAMP ':now') ORDER BY timestamp ASC")
+				"SELECT scheduledcardid, cardid, ef, interval, n, count, scheduleddate, boxid, lastquality, timestamp, removed FROM public.scheduledcard WHERE boxid = :boxId AND removed = false AND lastquality < 4 AND date_trunc('day', timestamp) >= date_trunc('day', TIMESTAMP ':now') ORDER BY timestamp ASC")
 				.bind("boxId", boxId).bind("now", now.toString()).map(new ScheduledCardMapper()).list();
 	}
 
-	public void recalculateScheduledCards(Handle handle, String boxId, Integer daysBehind) {
+	public void postponeScheduledCards(Handle handle, String boxId, Integer daysBehind) {
 		Update statement = handle
 				.createStatement("UPDATE public.scheduledcard SET scheduleddate = scheduleddate + INTERVAL '"
 						+ daysBehind + " days' WHERE boxid = :boxId");
@@ -61,4 +37,10 @@ public class CustomScheduledCardDao {
 		statement.execute();
 	}
 
+	public String selectNextCardId(Handle handle, String categoryId, String boxId) {
+		return handle.createQuery(
+				"select cardid from (SELECT cardid, cardindex from public.card where categoryid = :categoryid "
+				+ "except select c.cardid, c.cardindex FROM public.scheduledcard sc inner join card c on c.cardid = sc.cardid where sc.boxid = :boxid order by cardindex) as cards limit 1")
+				.bind("categoryid", categoryId).bind("boxid", boxId).mapTo(String.class).first();
+	}
 }

@@ -9,10 +9,10 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
-import com.anfelisa.box.data.CardData;
+import com.anfelisa.box.data.NextCardData;
 
 
-public abstract class AbstractLoadNextCardAction extends Action<CardData> {
+public abstract class AbstractLoadNextCardAction extends Action<NextCardData> {
 
 	public AbstractLoadNextCardAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.LoadNextCardAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -26,7 +26,7 @@ public abstract class AbstractLoadNextCardAction extends Action<CardData> {
 
 	public void initActionData(String json) {
 		try {
-			this.actionData = mapper.readValue(json, CardData.class);
+			this.actionData = mapper.readValue(json, NextCardData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

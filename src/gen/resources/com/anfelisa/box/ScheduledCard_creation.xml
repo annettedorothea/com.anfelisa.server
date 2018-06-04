@@ -5,6 +5,12 @@
 	<column name="cardid" type="character varying">
 		<constraints  nullable="false" 	references="card(cardid)" deleteCascade="true" foreignKeyName="fk_scheduledcard_cardid" />
 	</column>
+	<column name="boxid" type="character varying">
+		<constraints  nullable="false" 	references="box(boxid)" deleteCascade="true" foreignKeyName="fk_scheduledcard_boxid" />
+	</column>
+	<column name="createddate" type="timestamp with time zone">
+		<constraints  nullable="false"  />
+	</column>
 	<column name="ef" type="numeric">
 		<constraints  nullable="false"  />
 	</column>
@@ -20,14 +26,14 @@
 	<column name="scheduleddate" type="timestamp with time zone">
 		<constraints  nullable="false"  />
 	</column>
-	<column name="boxid" type="character varying">
-		<constraints  nullable="false" 	references="box(boxid)" deleteCascade="true" foreignKeyName="fk_scheduledcard_boxid" />
-	</column>
 	<column name="lastquality" type="integer">
 		<constraints    />
 	</column>
-	<column name="timestamp" type="timestamp with time zone">
-		<constraints  nullable="false"  />
+	<column name="quality" type="integer">
+		<constraints    />
+	</column>
+	<column name="scoreddate" type="timestamp with time zone">
+		<constraints    />
 	</column>
 	<column name="removed" type="boolean">
 		<constraints  nullable="false"  />

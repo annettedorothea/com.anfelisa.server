@@ -4,6 +4,8 @@ import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.CustomBoxDao;
+import com.anfelisa.box.models.CustomScheduledCardDao;
+import com.anfelisa.box.models.ScheduledCardDao;
 import com.anfelisa.card.model.CustomCardDao;
 import com.anfelisa.card.models.CardDao;
 import com.anfelisa.category.model.CustomCategoryDao;
@@ -23,7 +25,7 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 
 	private final CustomBoxDao customBoxDao = new CustomBoxDao();
 
-	// private final ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
+	private final ScheduledCardDao scheduledCardDao = new ScheduledCardDao();
 
 	private final CategoryDao categoryDao = new CategoryDao();
 
@@ -35,10 +37,7 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 
 	private final ResetPasswordDao resetPasswordDao = new ResetPasswordDao();
 
-	// private final CustomScheduledCardDao customScheduledCardDao = new
-	// CustomScheduledCardDao();
-
-	// private final ScoredCardDao scoredCardDao = new ScoredCardDao();
+	private final CustomScheduledCardDao customScheduledCardDao = new CustomScheduledCardDao();
 
 	private final EmailConfirmationDao emailConfirmationDao = new EmailConfirmationDao();
 
@@ -93,9 +92,18 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 	}
 
 	@Override
+	public ScheduledCardDao getScheduledCardDao() {
+		return scheduledCardDao;
+	}
+
+	@Override
+	public CustomScheduledCardDao getCustomScheduledCardDao() {
+		return customScheduledCardDao;
+	}
+
+	@Override
 	public void truncateAllViews(Handle handle) {
-		// scheduledCardDao.truncate(handle);
-		// scoredCardDao.truncate(handle);
+		scheduledCardDao.truncate(handle);
 		cardDao.truncate(handle);
 		boxDao.truncate(handle);
 		categoryDao.truncate(handle);

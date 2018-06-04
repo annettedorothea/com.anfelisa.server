@@ -12,15 +12,20 @@ public class BoxListData extends AbstractData implements IBoxListData {
 	@NotNull
 	private String userId;
 	
+	@NotNull
+	private org.joda.time.DateTime today;
+	
 
 	public BoxListData(
 		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList,
-		@JsonProperty("userId") String userId
+		@JsonProperty("userId") String userId,
+		@JsonProperty("today") org.joda.time.DateTime today
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.boxList = boxList;
 		this.userId = userId;
+		this.today = today;
 	}
 
 	public BoxListData( String uuid ) {
@@ -51,12 +56,25 @@ public class BoxListData extends AbstractData implements IBoxListData {
 		return this;
 	}
 	
+	@JsonProperty
+	public org.joda.time.DateTime getToday() {
+		return this.today;
+	}
+	public void setToday(org.joda.time.DateTime today) {
+		this.today = today;
+	}
+	public BoxListData withToday(org.joda.time.DateTime today) {
+		this.today = today;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
 		return new BoxListPresentationalData(
 			this.boxList,
-			this.userId
+			this.userId,
+			this.today
 		);
 	}
 

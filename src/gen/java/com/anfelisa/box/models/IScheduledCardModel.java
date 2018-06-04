@@ -7,14 +7,16 @@ public interface IScheduledCardModel {
 
 	String getScheduledCardId();
 	String getCardId();
+	String getBoxId();
+	org.joda.time.DateTime getCreatedDate();
 	Float getEf();
 	Integer getInterval();
 	Integer getN();
 	Integer getCount();
 	org.joda.time.DateTime getScheduledDate();
-	String getBoxId();
 	Integer getLastQuality();
-	org.joda.time.DateTime getTimestamp();
+	Integer getQuality();
+	org.joda.time.DateTime getScoredDate();
 	Boolean getRemoved();
 
 }

@@ -4,6 +4,7 @@ target JAVA
 
 ACE {
 	GET GetBoxes uses BoxList
+	GET GetBox uses BoxInfo
 	GET GetRootCategories uses CategoryList
 	POST CreateBox uses BoxCreation {
 		on ok ( Box.createBox )
@@ -18,45 +19,28 @@ ACE {
 		on ok (Box.deleteBox)
 	}
 	
-	
-	
-	
-	
-	
-	
-	GET LoadNextCard uses Card
-	GET LoadBox uses BoxId
-	GET GetAllBoxes uses AllBoxes
-	GET LoadReinforceCardList uses ReinforceCardList
-	
+	GET LoadNextCard uses NextCard
 
-	POST CreateCard uses CardCreation {
-		//on created (Card.createCard)
+	GET LoadReinforceCardList uses ReinforceCardList
+
+	POST ScheduleNextCard uses ScheduleCard {
+		on ok (Box.scheduleCard)
+		on noCard
 	}
-	POST ImportCard uses CardCreation {
-		//on imported (Card.createCard)
-		on alreadyExists
+	
+	POST ScheduleCard uses ScheduleCard {
+		on ok (Box.scheduleCard)
 	}
-	POST CreateScheduledCard uses ScheduledCard {
-		on created (ScheduledCard.createScheduledCard)
+	
+	POST ScheduleCategory uses ScheduleCategory {
+		on ok (Box.scheduleCategory)
 	}
-	POST CreateScoredCard uses ScoredCard {
-		on created (ScoredCard.createScoredCard)
-	}
+
 	POST ScoreCard uses ScoreCard {
 		on scored (ScoredCard.score ScheduledCard.score)
 	}
-	POST FillBoxWithCards uses FillBox {
-		on fillBoxWithCards (Box.fillBoxWithCards )
-	}
-	DELETE DeleteCard uses CardId {
-		//on deleted (Card.deleteCard)
-	}
 	DELETE RemoveCardFromBox uses RemoveCardFromBox {
 		on deleted (ScheduledCard.removeFromBox)
-	}
-	PUT RecalculateScheduledCards uses RecalculateScheduledCards {
-		on ok (ScheduledCard.recalculateScheduledCards)
 	}
 }
 
@@ -66,22 +50,16 @@ views {
 		createBox (BoxCreation)
 		updateBox (BoxCreation)
 		deleteBox (DeleteBox)
-		fillBoxWithCards (FillBox)
 		postponeCards(PostponeCards)
-	}
-	Card {
-		//createCard (CardCreation)
-		//deleteCard(CardId)
+		scheduleCard(ScheduleCard)
+		scheduleCategory(ScheduleCategory)
 	}
 	ScheduledCard {
-		createScheduledCard (ScheduledCard)
 		score(ScoreCard)
 		removeFromBox(RemoveCardFromBox)
-		recalculateScheduledCards(RecalculateScheduledCards)
 	}
 	ScoredCard {
 		score(ScoreCard)
-		createScoredCard(ScoredCard)
 	}
 }
 
@@ -92,6 +70,22 @@ models {
 		NotNull String userId references com.anfelisa.user.User.userId
 		NotNull String categoryId references com.anfelisa.category.Category.categoryId
 		Integer maxInterval
+	}
+
+	persistent ScheduledCard {
+		Unique PrimaryKey NotNull String scheduledCardId
+		NotNull String cardId references com.anfelisa.card.Card.cardId
+		NotNull String boxId references Box.boxId
+		NotNull DateTime createdDate
+		NotNull Float ef
+		Integer interval
+		NotNull Integer n
+		NotNull Integer count
+		NotNull DateTime scheduledDate
+		Integer lastQuality
+		Integer quality
+		DateTime scoredDate
+		NotNull Boolean removed
 	}
 
 	CategorySelectionList {
@@ -117,6 +111,10 @@ models {
 	BoxList {
 		List BoxInfo boxList
 		NotNull String userId
+		NotNull DateTime today
+	}
+	Today {
+		NotNull DateTime today
 	}
 	PostponeCards {
 		NotNull String boxId
@@ -134,172 +132,46 @@ models {
 		NotNull String boxId
 	}
 
-
-	
-	
-	
-	
-
-
-	persistent Card {
-		Unique PrimaryKey NotNull String cardId
-		NotEmpty String given
-		NotEmpty String wanted
-		NotNull Integer maxPoints
-	}
-
-	persistent ScheduledCard {
-		Unique PrimaryKey NotNull String scheduledCardId
-		NotNull String cardId references Card.cardId
-		NotNull Float ef
-		Integer interval
-		NotNull Integer n
-		NotNull Integer count
-		NotNull DateTime scheduledDate
-		NotNull String boxId references Box.boxId
-		Integer lastQuality
-		NotNull DateTime timestamp
-		NotNull Boolean removed
-	}
-
-	persistent ScoredCard {
-		Unique PrimaryKey NotNull String scoredCardId
-		NotNull String cardId references Card.cardId
-		DateTime scheduledDateOfScored
-		NotNull String boxId references Box.boxId
-		Integer quality
-		NotNull DateTime timestamp
-		Integer points
-		NotNull String scheduledCardId references ScheduledCard.scheduledCardId
-	}
-
-	ReinforceCard {
-		Unique PrimaryKey NotNull String scheduledCardId
-		NotNull DateTime scheduledDate
-		Integer lastQuality
-		NotNull DateTime timestamp			
-		CardContent cardContent
-	}
-	
-	ReinforceCardList {
+	NextCard {
+		NotNull String scheduledCardId
+		NotNull String cardId
 		NotNull String boxId
-		NotNull String boxName
-		List ReinforceCard list
-	}
-
-	Score {
-		Integer cards
-		Integer cardsForToday
-		Integer cardsForTomorrow
-		Integer cardsToBeReinforced
-		Integer zero
-		Integer one
-		Integer two
-		Integer three
-		Integer four
-		Integer five
-		Integer noQuality
-	}
-
-	CardInfo {
-		String cardId
-		String cardOfBoxId
-		String content
-		String boxName
-		Integer count
-		DateTime last
-		DateTime next
-		Integer quality
-	}
-	
-		
-		
-	MyBoxList {
-		List Box boxList
-	}
-		
-	CardContent {
-		Boolean complex
+		NotNull DateTime scheduledDate
+		Integer lastQuality
 		String given
-		Boolean large
 		String wanted
-		String header
-		List Line lines
+		String image
+		String categoryId
 	}
 	
-	Line {
-		List String words
-	}
-	
-	CourseToBoxAddition {
-		NotNull String boxId 
-		NotNull String courseId 
-		NotNull Boolean autoAdd
-		NotNull String name
+	UserId {
+		NotNull String userId
 	}
 	
 	BoxId {
-		NotNull String boxId 
+		NotNull String boxId
 	}
 	
-	CardId {
-		NotNull String cardId
-		NotNull String testId
-		NotNull String contentHash 
-	}
-	
-	CardQuality {
-		NotNull Integer submittedQuality
-	}
-	
-	ContentHash {
-		NotNull String contentHash
-	}
-	ContentHashesOfCreatedCards {
-		NotNull String testId
-		List String contentHashesOfCreatedCards
-		List String contentHashesOfObsoleteCards
-	}
-	
-	FillBox {
-		String boxId
-		List ScheduledCard cardsToBeAdded
-	}
-	
-	AllBoxes {
-		List Box boxList
-	}
-	
-	ScheduledCardId {
-		String scheduledCardId
-	}
-	DaysBehind {
-		Integer daysBehind
+	ScheduleCategory {
+		NotNull String userId
+		NotNull String boxId
+		NotNull String categoryId
+		List ScheduledCard scheduledCards
 	}
 }
 
 data {
 	CategoryList: (CategorySelectionList)
 	BoxList : ( BoxList )
-	PostponeCards : (PostponeCards)
+	BoxInfo : ( BoxInfo Today UserId )
+	PostponeCards : (PostponeCards Today)
 	DeleteBox : (DeleteBox)
 	BoxUpdate : ( BoxUpdate )
-	
-	
-	
-	
 	BoxCreation : ( Box )
-	CardCreation : ( Card )
-	ScheduledCard : ( ScheduledCard )
-	ScoredCard : ( ScoredCard )
-	Card : ( Card Box Score CardInfo CardContent com.anfelisa.user.Credentials DaysBehind )
-	BoxId : ( Box com.anfelisa.user.Credentials )
-	ScoreCard : (Card ScheduledCard ScoredCard CardQuality com.anfelisa.user.Credentials )
-	FillBox : (FillBox com.anfelisa.user.Credentials)
-	CardId : (CardId)
-	AllBoxes : (AllBoxes)
-	ScheduledCardId : (ScheduledCardId)
-	ReinforceCardList : (ReinforceCardList com.anfelisa.user.Credentials Box)
-	RecalculateScheduledCards : (Box DaysBehind)
-	RemoveCardFromBox : (ScheduledCardId com.anfelisa.user.Credentials)
+	NextCard : ( NextCard Today UserId)
+	ReinforceCardList : ()
+	ScoreCard : ()
+	RemoveCardFromBox : ()
+	ScheduleCard : (ScheduledCard Today UserId BoxId )
+	ScheduleCategory : ( ScheduleCategory Today )
 }

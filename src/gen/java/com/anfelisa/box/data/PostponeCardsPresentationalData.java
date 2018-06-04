@@ -11,6 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IPostponeCardsModel;
+import com.anfelisa.box.models.ITodayModel;
 
 @SuppressWarnings("all")
 public class PostponeCardsPresentationalData implements IPostponeCardsPresentationalData {
@@ -21,13 +22,18 @@ public class PostponeCardsPresentationalData implements IPostponeCardsPresentati
 	@NotNull
 	private String userId;
 	
+	@NotNull
+	private org.joda.time.DateTime today;
+	
 	
 	public PostponeCardsPresentationalData(
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("userId") String userId
+		@JsonProperty("userId") String userId,
+		@JsonProperty("today") org.joda.time.DateTime today
 	) {
 		this.boxId = boxId;
 		this.userId = userId;
+		this.today = today;
 		
 	}
 
@@ -52,6 +58,18 @@ public class PostponeCardsPresentationalData implements IPostponeCardsPresentati
 	}
 	public PostponeCardsPresentationalData withUserId(String userId) {
 		this.userId = userId;
+		return this;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getToday() {
+		return this.today;
+	}
+	public void setToday(org.joda.time.DateTime today) {
+		this.today = today;
+	}
+	public PostponeCardsPresentationalData withToday(org.joda.time.DateTime today) {
+		this.today = today;
 		return this;
 	}
 	

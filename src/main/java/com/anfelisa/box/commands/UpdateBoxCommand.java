@@ -23,7 +23,7 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();
 		}
-		this.commandData.setOutcome(this.ok); 
+		this.commandData.setOutcome(AbstractUpdateBoxCommand.ok); 
 	}
 
 }
