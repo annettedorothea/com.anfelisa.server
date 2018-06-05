@@ -172,6 +172,6 @@ data {
 	ReinforceCardList : ()
 	ScoreCard : ()
 	RemoveCardFromBox : ()
-	ScheduleCard : (ScheduledCard Today UserId BoxId )
+	ScheduleCard : (ScheduledCard UserId BoxId )
 	ScheduleCategory : ( ScheduleCategory Today )
 }

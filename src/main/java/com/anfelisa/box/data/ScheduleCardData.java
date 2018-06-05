@@ -1,9 +1,13 @@
 package com.anfelisa.box.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
 
 import com.anfelisa.ace.AbstractData;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ScheduleCardData extends AbstractData implements IScheduleCardData {
 	
@@ -37,14 +41,10 @@ public class ScheduleCardData extends AbstractData implements IScheduleCardData 
 	
 	private Integer quality;
 	
-	@NotNull
 	private org.joda.time.DateTime scoredDate;
 	
 	@NotNull
 	private Boolean removed = false;
-	
-	@NotNull
-	private org.joda.time.DateTime today;
 	
 	@NotNull
 	private String userId;
@@ -64,7 +64,6 @@ public class ScheduleCardData extends AbstractData implements IScheduleCardData 
 		@JsonProperty("quality") Integer quality,
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
 		@JsonProperty("removed") Boolean removed,
-		@JsonProperty("today") org.joda.time.DateTime today,
 		@JsonProperty("userId") String userId
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -82,7 +81,6 @@ public class ScheduleCardData extends AbstractData implements IScheduleCardData 
 		this.quality = quality;
 		this.scoredDate = scoredDate;
 		this.removed = removed;
-		this.today = today;
 		this.userId = userId;
 	}
 
@@ -247,18 +245,6 @@ public class ScheduleCardData extends AbstractData implements IScheduleCardData 
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getToday() {
-		return this.today;
-	}
-	public void setToday(org.joda.time.DateTime today) {
-		this.today = today;
-	}
-	public ScheduleCardData withToday(org.joda.time.DateTime today) {
-		this.today = today;
-		return this;
-	}
-	
-	@JsonProperty
 	public String getUserId() {
 		return this.userId;
 	}
@@ -287,7 +273,6 @@ public class ScheduleCardData extends AbstractData implements IScheduleCardData 
 			this.quality,
 			this.scoredDate,
 			this.removed,
-			this.today,
 			this.userId
 		);
 	}

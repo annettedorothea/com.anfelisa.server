@@ -43,11 +43,9 @@ public class ScheduleNextCardAction extends AbstractScheduleNextCardAction {
 	@Path("/schedule-next")
 	@PermitAll
 	public Response post(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("boxId") String boxId,  @NotNull @QueryParam("today") String today)
+			@NotNull @QueryParam("boxId") String boxId)
 			throws JsonProcessingException {
-		DateTime todayDate = new DateTime(today);
-		todayDate = todayDate.withZone(DateTimeZone.UTC);
-		this.actionData = new ScheduleCardData(uuid).withBoxId(boxId).withUserId(user.getUserId()).withToday(todayDate);
+		this.actionData = new ScheduleCardData(uuid).withBoxId(boxId).withUserId(user.getUserId());
 		return this.apply();
 	}
 

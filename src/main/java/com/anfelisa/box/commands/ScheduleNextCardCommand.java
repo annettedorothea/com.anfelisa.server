@@ -41,7 +41,7 @@ public class ScheduleNextCardCommand extends AbstractScheduleNextCardCommand {
 			commandData.setInterval(1);
 			commandData.setLastQuality(null);
 			commandData.setN(1);
-			commandData.setScheduledDate(commandData.getToday());
+			commandData.setScheduledDate(commandData.getSystemTime());
 			commandData.setScheduledCardId(commandData.getUuid());
 			commandData.setOutcome(ok);
 		}

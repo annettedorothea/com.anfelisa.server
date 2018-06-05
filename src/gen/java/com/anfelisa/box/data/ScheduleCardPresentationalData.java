@@ -11,7 +11,6 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IScheduledCardModel;
-import com.anfelisa.box.models.ITodayModel;
 import com.anfelisa.box.models.IUserIdModel;
 import com.anfelisa.box.models.IBoxIdModel;
 
@@ -54,9 +53,6 @@ public class ScheduleCardPresentationalData implements IScheduleCardPresentation
 	private Boolean removed = false;
 	
 	@NotNull
-	private org.joda.time.DateTime today;
-	
-	@NotNull
 	private String userId;
 	
 	
@@ -74,7 +70,6 @@ public class ScheduleCardPresentationalData implements IScheduleCardPresentation
 		@JsonProperty("quality") Integer quality,
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
 		@JsonProperty("removed") Boolean removed,
-		@JsonProperty("today") org.joda.time.DateTime today,
 		@JsonProperty("userId") String userId
 	) {
 		this.scheduledCardId = scheduledCardId;
@@ -90,7 +85,6 @@ public class ScheduleCardPresentationalData implements IScheduleCardPresentation
 		this.quality = quality;
 		this.scoredDate = scoredDate;
 		this.removed = removed;
-		this.today = today;
 		this.userId = userId;
 		
 	}
@@ -248,18 +242,6 @@ public class ScheduleCardPresentationalData implements IScheduleCardPresentation
 	}
 	public ScheduleCardPresentationalData withRemoved(Boolean removed) {
 		this.removed = removed;
-		return this;
-	}
-	
-	@JsonProperty
-	public org.joda.time.DateTime getToday() {
-		return this.today;
-	}
-	public void setToday(org.joda.time.DateTime today) {
-		this.today = today;
-	}
-	public ScheduleCardPresentationalData withToday(org.joda.time.DateTime today) {
-		this.today = today;
 		return this;
 	}
 	
