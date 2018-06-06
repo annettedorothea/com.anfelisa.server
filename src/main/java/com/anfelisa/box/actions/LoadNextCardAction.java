@@ -73,6 +73,8 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			this.actionData.setWanted(nextCard.getWanted());
 			this.actionData.setScheduledCardId(nextCard.getScheduledCardId());
 			this.actionData.setCardId(nextCard.getCardId());
+			this.actionData.setCount(nextCard.getCount());
+			this.actionData.setScoredDate(nextCard.getScoredDate());
 		}
 	}
 

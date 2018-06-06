@@ -40,6 +40,11 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 	private String categoryId;
 	
 	@NotNull
+	private Integer count;
+	
+	private org.joda.time.DateTime scoredDate;
+	
+	@NotNull
 	private org.joda.time.DateTime today;
 	
 	@NotNull
@@ -56,6 +61,8 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("image") String image,
 		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("count") Integer count,
+		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
 		@JsonProperty("today") org.joda.time.DateTime today,
 		@JsonProperty("userId") String userId
 	) {
@@ -68,6 +75,8 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 		this.wanted = wanted;
 		this.image = image;
 		this.categoryId = categoryId;
+		this.count = count;
+		this.scoredDate = scoredDate;
 		this.today = today;
 		this.userId = userId;
 		
@@ -178,6 +187,30 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 	}
 	public NextCardPresentationalData withCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getCount() {
+		return this.count;
+	}
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+	public NextCardPresentationalData withCount(Integer count) {
+		this.count = count;
+		return this;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getScoredDate() {
+		return this.scoredDate;
+	}
+	public void setScoredDate(org.joda.time.DateTime scoredDate) {
+		this.scoredDate = scoredDate;
+	}
+	public NextCardPresentationalData withScoredDate(org.joda.time.DateTime scoredDate) {
+		this.scoredDate = scoredDate;
 		return this;
 	}
 	

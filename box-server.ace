@@ -142,6 +142,8 @@ models {
 		String wanted
 		String image
 		String categoryId
+		NotNull Integer count
+		DateTime scoredDate
 	}
 	
 	UserId {
@@ -158,6 +160,20 @@ models {
 		NotNull String categoryId
 		List ScheduledCard scheduledCards
 	}
+	
+	ScoreCard {
+		NotNull String scheduledCardId
+		NotNull DateTime createdDate
+		NotNull Float ef
+		Integer interval
+		NotNull Integer n
+		NotNull Integer count
+		NotNull DateTime scheduledDate
+		Integer lastQuality
+		Integer quality
+		DateTime scoredDate
+		NotNull Boolean removed
+	}
 }
 
 data {
@@ -170,7 +186,7 @@ data {
 	BoxCreation : ( Box )
 	NextCard : ( NextCard Today UserId)
 	ReinforceCardList : ()
-	ScoreCard : ()
+	ScoreCard : (UserId)
 	RemoveCardFromBox : ()
 	ScheduleCard : (ScheduledCard UserId BoxId )
 	ScheduleCategory : ( ScheduleCategory Today )

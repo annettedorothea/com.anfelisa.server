@@ -10,16 +10,34 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
+import com.anfelisa.box.models.IUserIdModel;
 
 @SuppressWarnings("all")
 public class ScoreCardPresentationalData implements IScoreCardPresentationalData {
 	
+	@NotNull
+	private String userId;
+	
 	
 	public ScoreCardPresentationalData(
+		@JsonProperty("userId") String userId
 	) {
+		this.userId = userId;
 		
 	}
 
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public ScoreCardPresentationalData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
 }
 
 /*       S.D.G.       */

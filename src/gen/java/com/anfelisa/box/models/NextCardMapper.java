@@ -21,7 +21,9 @@ public class NextCardMapper implements ResultSetMapper<INextCardModel> {
 			r.getString("given"),
 			r.getString("wanted"),
 			r.getString("image"),
-			r.getString("categoryId")
+			r.getString("categoryId"),
+			r.getObject("count") != null ? r.getInt("count") : null,
+			r.getTimestamp("scoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredDate")) : null
 		);
 	}
 }

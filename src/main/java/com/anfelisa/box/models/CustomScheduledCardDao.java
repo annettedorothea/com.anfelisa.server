@@ -14,7 +14,7 @@ public class CustomScheduledCardDao {
 
 	public INextCardModel selectFirstScheduledCard(Handle handle, String boxId, DateTime today) {
 		return handle.createQuery(
-				"SELECT sc.scheduledcardid, c.cardid, sc.scheduleddate, sc.boxid, sc.lastquality, c.given, c.wanted, c.image, c.categoryid FROM public.scheduledcard sc "
+				"SELECT sc.scheduledcardid, c.cardid, sc.scheduleddate, sc.boxid, sc.lastquality, c.given, c.wanted, c.image, c.categoryid, sc.count, sc.scoreddate FROM public.scheduledcard sc "
 						+ "inner join public.card c on c.cardid = sc.cardid "
 						+ "inner join public.category ct on c.categoryid = ct.categoryid "
 						+ "WHERE sc.boxid = :boxId AND sc.removed = false and sc.scheduleddate < :today order by sc.scheduleddate, ct.categoryindex, c.cardindex limit 1")

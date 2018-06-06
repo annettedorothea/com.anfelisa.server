@@ -29,6 +29,11 @@ public class NextCardModel implements INextCardModel {
 	
 	private String categoryId;
 	
+	@NotNull
+	private Integer count;
+	
+	private org.joda.time.DateTime scoredDate;
+	
 
 	public NextCardModel(
 		@JsonProperty("scheduledCardId") String scheduledCardId,
@@ -39,7 +44,9 @@ public class NextCardModel implements INextCardModel {
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("image") String image,
-		@JsonProperty("categoryId") String categoryId
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("count") Integer count,
+		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate
 	) {
 		this.scheduledCardId = scheduledCardId;
 		this.cardId = cardId;
@@ -50,6 +57,8 @@ public class NextCardModel implements INextCardModel {
 		this.wanted = wanted;
 		this.image = image;
 		this.categoryId = categoryId;
+		this.count = count;
+		this.scoredDate = scoredDate;
 	}
 
 	@JsonProperty
@@ -122,6 +131,22 @@ public class NextCardModel implements INextCardModel {
 	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+	}
+	
+	@JsonProperty
+	public Integer getCount() {
+		return this.count;
+	}
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getScoredDate() {
+		return this.scoredDate;
+	}
+	public void setScoredDate(org.joda.time.DateTime scoredDate) {
+		this.scoredDate = scoredDate;
 	}
 	
 
