@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.Update;
 
+import com.anfelisa.box.data.ScoreCardData;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 
 @SuppressWarnings("all")
@@ -17,7 +18,7 @@ public class CustomScheduledCardDao {
 				"SELECT sc.scheduledcardid, c.cardid, sc.scheduleddate, sc.boxid, sc.lastquality, c.given, c.wanted, c.image, c.categoryid, sc.count, sc.scoreddate FROM public.scheduledcard sc "
 						+ "inner join public.card c on c.cardid = sc.cardid "
 						+ "inner join public.category ct on c.categoryid = ct.categoryid "
-						+ "WHERE sc.boxid = :boxId AND sc.removed = false and sc.scheduleddate < :today order by sc.scheduleddate, ct.categoryindex, c.cardindex limit 1")
+						+ "WHERE sc.boxid = :boxId AND sc.removed = false and sc.scheduleddate < :today and quality is null order by sc.scheduleddate, ct.categoryindex, c.cardindex limit 1")
 				.bind("boxId", boxId)
 				.bind("today", today)
 				.map(new NextCardMapper()).first();
@@ -42,5 +43,29 @@ public class CustomScheduledCardDao {
 				"select cardid from (SELECT cardid, cardindex from public.card where categoryid = :categoryid "
 				+ "except select c.cardid, c.cardindex FROM public.scheduledcard sc inner join card c on c.cardid = sc.cardid where sc.boxid = :boxid order by cardindex) as cards limit 1")
 				.bind("categoryid", categoryId).bind("boxid", boxId).mapTo(String.class).first();
+	}
+
+	public void score(Handle handle, ScoreCardData scoreCardData) {
+		Update statement = handle.createStatement("UPDATE public.scheduledcard SET quality = :quality, scoreddate = :scoreddate WHERE scheduledcardid = :scheduledcardid");
+		statement.bind("scheduledcardid",  scoreCardData.getScoredCardScheduledCardId() );
+		statement.bind("quality",  scoreCardData.getScoredCardQuality() );
+		statement.bind("scoreddate",  scoreCardData.getScoredCardScoredDate() );
+		statement.execute();
+	}
+
+	public void scheduleNext(Handle handle, ScoreCardData scoreCardData) {
+		Update statement = handle.createStatement("INSERT INTO public.scheduledcard (scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, removed) VALUES (:scheduledcardid, :cardid, :boxid, :createddate, :ef, :interval, :n, :count, :scheduleddate, :lastquality, :removed)");
+		statement.bind("scheduledcardid",  scoreCardData.getNextScheduledCardScheduledCardId() );
+		statement.bind("cardid",  scoreCardData.getCardId() );
+		statement.bind("boxid",  scoreCardData.getBoxId() );
+		statement.bind("createddate",  scoreCardData.getNextScheduledCardCreatedDate() );
+		statement.bind("ef",  scoreCardData.getNextScheduledCardEf() );
+		statement.bind("interval",  scoreCardData.getNextScheduledCardInterval() );
+		statement.bind("n",  scoreCardData.getNextScheduledCardN() );
+		statement.bind("count",  scoreCardData.getNextScheduledCardCount() );
+		statement.bind("scheduleddate",  scoreCardData.getNextScheduledCardScheduledDate() );
+		statement.bind("lastquality",  scoreCardData.getNextScheduledCardLastQuality() );
+		statement.bind("removed",  false);
+		statement.execute();
 	}
 }

@@ -13,17 +13,19 @@ public class ScoreCardMapper implements ResultSetMapper<IScoreCardModel> {
 	
 	public IScoreCardModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new ScoreCardModel(
-			r.getString("scheduledCardId"),
-			r.getTimestamp("createdDate") != null ? new org.joda.time.DateTime(r.getTimestamp("createdDate")) : null,
-			r.getFloat("ef"),
-			r.getObject("interval") != null ? r.getInt("interval") : null,
-			r.getObject("n") != null ? r.getInt("n") : null,
-			r.getObject("count") != null ? r.getInt("count") : null,
-			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")) : null,
-			r.getObject("lastQuality") != null ? r.getInt("lastQuality") : null,
-			r.getObject("quality") != null ? r.getInt("quality") : null,
-			r.getTimestamp("scoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredDate")) : null,
-			r.getBoolean("removed")
+			r.getString("cardId"),
+			r.getString("boxId"),
+			r.getString("nextScheduledCardScheduledCardId"),
+			r.getTimestamp("nextScheduledCardCreatedDate") != null ? new org.joda.time.DateTime(r.getTimestamp("nextScheduledCardCreatedDate")) : null,
+			r.getFloat("nextScheduledCardEf"),
+			r.getObject("nextScheduledCardInterval") != null ? r.getInt("nextScheduledCardInterval") : null,
+			r.getObject("nextScheduledCardN") != null ? r.getInt("nextScheduledCardN") : null,
+			r.getObject("nextScheduledCardCount") != null ? r.getInt("nextScheduledCardCount") : null,
+			r.getTimestamp("nextScheduledCardScheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("nextScheduledCardScheduledDate")) : null,
+			r.getObject("nextScheduledCardLastQuality") != null ? r.getInt("nextScheduledCardLastQuality") : null,
+			r.getString("scoredCardScheduledCardId"),
+			r.getObject("scoredCardQuality") != null ? r.getInt("scoredCardQuality") : null,
+			r.getTimestamp("scoredCardScoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredCardScoredDate")) : null
 		);
 	}
 }

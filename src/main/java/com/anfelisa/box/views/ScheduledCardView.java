@@ -10,12 +10,17 @@ import com.anfelisa.box.data.ScoreCardData;
 
 public class ScheduledCardView {
 
+	private DaoProvider daoProvider;
+
 	public ScheduledCardView(DaoProvider daoProvider) {
 		super();
-		//this.daoProvider = daoProvider;
+		this.daoProvider = daoProvider;
 	}
 	public BiConsumer<ScoreCardData, Handle> score = (dataContainer, handle) -> {
-		//daoProvider.scheduledCardDao.updateByScheduledCardId(handle, dataContainer);
+		daoProvider.getCustomScheduledCardDao().score(handle, dataContainer);
+	};
+	public BiConsumer<ScoreCardData, Handle> scheduleNext = (dataContainer, handle) -> {
+		daoProvider.getCustomScheduledCardDao().scheduleNext(handle, dataContainer);
 	};
 	public  BiConsumer<RemoveCardFromBoxData, Handle> removeFromBox = (dataContainer, handle) -> {
 		//daoProvider.customScheduledCardDao.removeScheduledCardFromBox(handle, dataContainer);

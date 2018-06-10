@@ -1,8 +1,9 @@
 package com.anfelisa.box.data;
 
 import com.anfelisa.box.models.IUserIdModel;
+import com.anfelisa.box.models.IScoreCardModel;
 
-public interface IScoreCardPresentationalData extends IUserIdModel {
+public interface IScoreCardPresentationalData extends IUserIdModel, IScoreCardModel {
 
 }
 

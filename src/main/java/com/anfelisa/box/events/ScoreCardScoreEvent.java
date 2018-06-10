@@ -8,15 +8,15 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.ScoreCardData;
 
-public class ScoreCardScoredEvent extends AbstractScoreCardScoredEvent {
+public class ScoreCardScoreEvent extends AbstractScoreCardScoreEvent {
 
-	static final Logger LOG = LoggerFactory.getLogger(ScoreCardScoredEvent.class);
+	static final Logger LOG = LoggerFactory.getLogger(ScoreCardScoreEvent.class);
 
-	public ScoreCardScoredEvent(ScoreCardData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public ScoreCardScoreEvent(ScoreCardData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super(eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 
-	public ScoreCardScoredEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public ScoreCardScoreEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		this(null, databaseHandle, daoProvider, viewProvider);
 	}
 

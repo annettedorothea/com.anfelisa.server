@@ -10,8 +10,8 @@ import com.anfelisa.ace.ServerConfiguration;
 import org.skife.jdbi.v2.DBI;
 
 import com.anfelisa.box.views.BoxView;
-import com.anfelisa.box.views.ScoredCardView;
 import com.anfelisa.box.views.ScheduledCardView;
+import com.anfelisa.box.views.ReinforceCardView;
 import com.anfelisa.box.actions.*;
 
 @SuppressWarnings("all")
@@ -42,8 +42,11 @@ public class AppRegistration {
 				viewProvider.addConsumer("com.anfelisa.box.events.ScheduleNextCardOkEvent", viewProvider.boxView.scheduleCard);
 				viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCardOkEvent", viewProvider.boxView.scheduleCard);
 				viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCategoryOkEvent", viewProvider.boxView.scheduleCategory);
-				viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoredEvent", viewProvider.scoredCardView.score);
-				viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoredEvent", viewProvider.scheduledCardView.score);
+				viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreEvent", viewProvider.scheduledCardView.score);
+				viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreEvent", viewProvider.scheduledCardView.scheduleNext);
+				viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent", viewProvider.scheduledCardView.score);
+				viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent", viewProvider.scheduledCardView.scheduleNext);
+				viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent", viewProvider.reinforceCardView.add);
 				viewProvider.addConsumer("com.anfelisa.box.events.RemoveCardFromBoxDeletedEvent", viewProvider.scheduledCardView.removeFromBox);
     }
 }

@@ -1,10 +1,12 @@
 package com.anfelisa.box.actions;
 
 import javax.annotation.security.PermitAll;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -15,30 +17,37 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.auth.AuthUser;
+import com.anfelisa.box.data.ScoreCardData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-@Path("/ScoreCard")
+import io.dropwizard.auth.Auth;
+
+@Path("/card")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class ScoreCardAction extends AbstractScoreCardAction {
+public class ScoreCardAction extends AbstractScoreCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScoreCardAction.class);
 
-	public ScoreCardAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(jdbi,appConfiguration, daoProvider, viewProvider);
+	public ScoreCardAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
+			ViewProvider viewProvider) {
+		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@POST
 	@Timed
-	@Path("/post")
+	@Path("/score")
 	@PermitAll
-	public Response post() throws JsonProcessingException {
-		this.actionData = null;
+	public Response post(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
+			@NotNull @QueryParam("scoredCardScheduledCardId") String scoredCardScheduledCardId,
+			@NotNull @QueryParam("quality") int quality) throws JsonProcessingException {
+		this.actionData = new ScoreCardData(uuid).withScoredCardScheduledCardId(scoredCardScheduledCardId)
+				.withUserId(user.getUserId()).withScoredCardQuality(quality);
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

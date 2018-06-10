@@ -37,7 +37,8 @@ ACE {
 	}
 
 	POST ScoreCard uses ScoreCard {
-		on scored (ScoredCard.score ScheduledCard.score)
+		on score (ScheduledCard.score ScheduledCard.scheduleNext)
+		on scoreAndReinforce (ScheduledCard.score ScheduledCard.scheduleNext ReinforceCard.add)
 	}
 	DELETE RemoveCardFromBox uses RemoveCardFromBox {
 		on deleted (ScheduledCard.removeFromBox)
@@ -56,10 +57,11 @@ views {
 	}
 	ScheduledCard {
 		score(ScoreCard)
+		scheduleNext(ScoreCard)
 		removeFromBox(RemoveCardFromBox)
 	}
-	ScoredCard {
-		score(ScoreCard)
+	ReinforceCard {
+		add(ScoreCard)
 	}
 }
 
@@ -162,17 +164,21 @@ models {
 	}
 	
 	ScoreCard {
-		NotNull String scheduledCardId
-		NotNull DateTime createdDate
-		NotNull Float ef
-		Integer interval
-		NotNull Integer n
-		NotNull Integer count
-		NotNull DateTime scheduledDate
-		Integer lastQuality
-		Integer quality
-		DateTime scoredDate
-		NotNull Boolean removed
+		NotNull String cardId
+		NotNull String boxId
+		
+		NotNull String nextScheduledCardScheduledCardId
+		NotNull DateTime nextScheduledCardCreatedDate
+		NotNull Float nextScheduledCardEf
+		Integer nextScheduledCardInterval
+		NotNull Integer nextScheduledCardN
+		NotNull Integer nextScheduledCardCount
+		NotNull DateTime nextScheduledCardScheduledDate
+		Integer nextScheduledCardLastQuality
+		
+		NotNull String scoredCardScheduledCardId
+		Integer scoredCardQuality
+		DateTime scoredCardScoredDate
 	}
 }
 
@@ -186,7 +192,7 @@ data {
 	BoxCreation : ( Box )
 	NextCard : ( NextCard Today UserId)
 	ReinforceCardList : ()
-	ScoreCard : (UserId)
+	ScoreCard : (UserId ScoreCard)
 	RemoveCardFromBox : ()
 	ScheduleCard : (ScheduledCard UserId BoxId )
 	ScheduleCategory : ( ScheduleCategory Today )
