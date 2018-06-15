@@ -42,7 +42,6 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 		if (quality < 3) {
 			n = 1;
-			this.commandData.setOutcome(scoreAndReinforce);
 		} else {
 			Float qFactor = (float) (5 - quality);
 			newFactor = (ef + (0.1F - qFactor * (0.08F + qFactor * 0.02F)));
@@ -51,11 +50,19 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 			}
 			this.commandData.setOutcome(score);
 		}
+		if (quality <= 3) {
+			this.commandData.setOutcome(scoreAndReinforce);
+		} else {
+			this.commandData.setOutcome(score);
+		}
 		Integer newInterval = 1;
 		if (n == 2) {
 			newInterval = 6;
 		} else if (n > 2) {
 			newInterval = Math.round(interval * newFactor);
+		}
+		if (box.getMaxInterval() != null && newInterval > box.getMaxInterval()) {
+			newInterval = box.getMaxInterval();
 		}
 		DateTime next = this.commandData.getSystemTime().plusDays(newInterval);
 
@@ -72,6 +79,9 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		this.commandData.setBoxId(scheduledCard.getBoxId());
 		
 		this.commandData.setScoredCardScoredDate(this.commandData.getSystemTime());
+
+		this.commandData.setReinforceCardId(this.commandData.getUuid());
+		this.commandData.setReinforceCardCreatedDate(this.commandData.getSystemTime());
 
 	}
 

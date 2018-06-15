@@ -1,13 +1,9 @@
 package com.anfelisa.box.data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
-import java.util.List;
 
 import com.anfelisa.ace.AbstractData;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ScoreCardData extends AbstractData implements IScoreCardData {
 	
@@ -49,6 +45,12 @@ public class ScoreCardData extends AbstractData implements IScoreCardData {
 	
 	private org.joda.time.DateTime scoredCardScoredDate;
 	
+	@NotNull
+	private String reinforceCardId;
+	
+	@NotNull
+	private org.joda.time.DateTime reinforceCardCreatedDate;
+	
 
 	public ScoreCardData(
 		@JsonProperty("userId") String userId,
@@ -64,7 +66,9 @@ public class ScoreCardData extends AbstractData implements IScoreCardData {
 		@JsonProperty("nextScheduledCardLastQuality") Integer nextScheduledCardLastQuality,
 		@JsonProperty("scoredCardScheduledCardId") String scoredCardScheduledCardId,
 		@JsonProperty("scoredCardQuality") Integer scoredCardQuality,
-		@JsonProperty("scoredCardScoredDate") org.joda.time.DateTime scoredCardScoredDate
+		@JsonProperty("scoredCardScoredDate") org.joda.time.DateTime scoredCardScoredDate,
+		@JsonProperty("reinforceCardId") String reinforceCardId,
+		@JsonProperty("reinforceCardCreatedDate") org.joda.time.DateTime reinforceCardCreatedDate
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -82,6 +86,8 @@ public class ScoreCardData extends AbstractData implements IScoreCardData {
 		this.scoredCardScheduledCardId = scoredCardScheduledCardId;
 		this.scoredCardQuality = scoredCardQuality;
 		this.scoredCardScoredDate = scoredCardScoredDate;
+		this.reinforceCardId = reinforceCardId;
+		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
 	}
 
 	public ScoreCardData( String uuid ) {
@@ -256,6 +262,30 @@ public class ScoreCardData extends AbstractData implements IScoreCardData {
 		return this;
 	}
 	
+	@JsonProperty
+	public String getReinforceCardId() {
+		return this.reinforceCardId;
+	}
+	public void setReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
+	}
+	public ScoreCardData withReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
+		return this;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getReinforceCardCreatedDate() {
+		return this.reinforceCardCreatedDate;
+	}
+	public void setReinforceCardCreatedDate(org.joda.time.DateTime reinforceCardCreatedDate) {
+		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
+	}
+	public ScoreCardData withReinforceCardCreatedDate(org.joda.time.DateTime reinforceCardCreatedDate) {
+		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -273,7 +303,9 @@ public class ScoreCardData extends AbstractData implements IScoreCardData {
 			this.nextScheduledCardLastQuality,
 			this.scoredCardScheduledCardId,
 			this.scoredCardQuality,
-			this.scoredCardScoredDate
+			this.scoredCardScoredDate,
+			this.reinforceCardId,
+			this.reinforceCardCreatedDate
 		);
 	}
 

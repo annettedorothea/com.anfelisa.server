@@ -35,7 +35,4 @@
 	<column name="scoreddate" type="timestamp with time zone">
 		<constraints    />
 	</column>
-	<column name="removed" type="boolean">
-		<constraints  nullable="false"  />
-	</column>
 </createTable>

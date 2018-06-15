@@ -1,5 +1,6 @@
 package com.anfelisa.box.commands;
 
+import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,6 +9,7 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.PostponeCardsData;
 import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.INextCardModel;
 
 public class PostponeCardsCommand extends AbstractPostponeCardsCommand {
 
@@ -23,7 +25,19 @@ public class PostponeCardsCommand extends AbstractPostponeCardsCommand {
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();
 		}
-		this.commandData.setOutcome(ok);
+		INextCardModel nextCard = daoProvider.getCustomScheduledCardDao().selectFirstScheduledCard(getHandle(),
+				commandData.getBoxId(), commandData.getToday());
+		if (nextCard != null) {
+			int days = Days.daysBetween(nextCard.getScheduledDate(), commandData.getToday()).getDays();
+			if (days > 0) {
+				this.commandData.setDays(days);
+				this.commandData.setOutcome(ok);
+			} else {
+				this.commandData.setOutcome(noDelay);
+			}
+		} else {
+			this.commandData.setOutcome(noDelay);
+		}
 	}
 
 }

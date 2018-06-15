@@ -4,7 +4,9 @@ import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.CustomBoxDao;
+import com.anfelisa.box.models.CustomReinforceCardDao;
 import com.anfelisa.box.models.CustomScheduledCardDao;
+import com.anfelisa.box.models.ReinforceCardDao;
 import com.anfelisa.box.models.ScheduledCardDao;
 import com.anfelisa.card.model.CustomCardDao;
 import com.anfelisa.card.models.CardDao;
@@ -40,6 +42,10 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 	private final CustomScheduledCardDao customScheduledCardDao = new CustomScheduledCardDao();
 
 	private final EmailConfirmationDao emailConfirmationDao = new EmailConfirmationDao();
+	
+	private final ReinforceCardDao reinforceCardDao = new ReinforceCardDao();
+
+	private final CustomReinforceCardDao customReinforceCardDao = new CustomReinforceCardDao();
 
 	@Override
 	public CardDao getCardDao() {
@@ -102,6 +108,16 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 	}
 
 	@Override
+	public ReinforceCardDao getReinforceCardDao() {
+		return reinforceCardDao;
+	}
+
+	@Override
+	public CustomReinforceCardDao getCustomReinforceCardDao() {
+		return customReinforceCardDao;
+	}
+
+	@Override
 	public void truncateAllViews(Handle handle) {
 		scheduledCardDao.truncate(handle);
 		cardDao.truncate(handle);
@@ -110,6 +126,7 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 		resetPasswordDao.truncate(handle);
 		emailConfirmationDao.truncate(handle);
 		userDao.truncate(handle);
+		reinforceCardDao.truncate(handle);
 	}
 
 }

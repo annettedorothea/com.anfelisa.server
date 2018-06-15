@@ -440,6 +440,69 @@
 			</column>
 		</createTable>
 
+	</changeSet>
+
+	<changeSet id="021" author="annette">
+
+		<createTable tableName="reinforcecard">
+			<column name="reinforcecardid" type="character varying">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="cardid" type="character varying">
+				<constraints nullable="false" references="card(cardid)"
+					deleteCascade="true" foreignKeyName="fk_reinforcecard_cardid" />
+			</column>
+			<column name="boxid" type="character varying">
+				<constraints nullable="false" references="box(boxid)"
+					deleteCascade="true" foreignKeyName="fk_reinforcecard_boxid" />
+			</column>
+			<column name="createddate" type="timestamp with time zone">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+	</changeSet>
+
+
+	<changeSet id="022" author="annette">
+
+		<dropColumn tableName="scheduledcard" columnName="removed" />
+
+	</changeSet>
+
+	<changeSet id="023" author="annette">
+
+		<dropTable tableName="reinforcecard" />
+
+		<createTable tableName="reinforcecard">
+			<column name="reinforcecardid" type="character varying">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="scheduledcardid" type="character varying">
+				<constraints primaryKey="true" nullable="false"
+					references="scheduledcard(scheduledcardid)" deleteCascade="true"
+					foreignKeyName="fk_reinforcecard_scheduledcardid" />
+			</column>
+			<column name="boxid" type="character varying">
+				<constraints nullable="false" references="box(boxid)"
+					deleteCascade="true" foreignKeyName="fk_reinforcecard_boxid" />
+			</column>
+			<column name="createddate" type="timestamp with time zone">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+	</changeSet>
+
+	<changeSet id="024" author="annette">
+
+		<renameColumn tableName="reinforcecard" oldColumnName="createddate" newColumnName="changeDate"/>
+
+	</changeSet>
+
+	<changeSet id="025" author="annette">
+
+		<renameColumn tableName="reinforcecard" oldColumnName="changeDate" newColumnName="changedate"/>
 
 	</changeSet>
 

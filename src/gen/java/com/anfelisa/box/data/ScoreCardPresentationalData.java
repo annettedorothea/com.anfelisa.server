@@ -54,6 +54,12 @@ public class ScoreCardPresentationalData implements IScoreCardPresentationalData
 	
 	private org.joda.time.DateTime scoredCardScoredDate;
 	
+	@NotNull
+	private String reinforceCardId;
+	
+	@NotNull
+	private org.joda.time.DateTime reinforceCardCreatedDate;
+	
 	
 	public ScoreCardPresentationalData(
 		@JsonProperty("userId") String userId,
@@ -69,7 +75,9 @@ public class ScoreCardPresentationalData implements IScoreCardPresentationalData
 		@JsonProperty("nextScheduledCardLastQuality") Integer nextScheduledCardLastQuality,
 		@JsonProperty("scoredCardScheduledCardId") String scoredCardScheduledCardId,
 		@JsonProperty("scoredCardQuality") Integer scoredCardQuality,
-		@JsonProperty("scoredCardScoredDate") org.joda.time.DateTime scoredCardScoredDate
+		@JsonProperty("scoredCardScoredDate") org.joda.time.DateTime scoredCardScoredDate,
+		@JsonProperty("reinforceCardId") String reinforceCardId,
+		@JsonProperty("reinforceCardCreatedDate") org.joda.time.DateTime reinforceCardCreatedDate
 	) {
 		this.userId = userId;
 		this.cardId = cardId;
@@ -85,6 +93,8 @@ public class ScoreCardPresentationalData implements IScoreCardPresentationalData
 		this.scoredCardScheduledCardId = scoredCardScheduledCardId;
 		this.scoredCardQuality = scoredCardQuality;
 		this.scoredCardScoredDate = scoredCardScoredDate;
+		this.reinforceCardId = reinforceCardId;
+		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
 		
 	}
 
@@ -253,6 +263,30 @@ public class ScoreCardPresentationalData implements IScoreCardPresentationalData
 	}
 	public ScoreCardPresentationalData withScoredCardScoredDate(org.joda.time.DateTime scoredCardScoredDate) {
 		this.scoredCardScoredDate = scoredCardScoredDate;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getReinforceCardId() {
+		return this.reinforceCardId;
+	}
+	public void setReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
+	}
+	public ScoreCardPresentationalData withReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
+		return this;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getReinforceCardCreatedDate() {
+		return this.reinforceCardCreatedDate;
+	}
+	public void setReinforceCardCreatedDate(org.joda.time.DateTime reinforceCardCreatedDate) {
+		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
+	}
+	public ScoreCardPresentationalData withReinforceCardCreatedDate(org.joda.time.DateTime reinforceCardCreatedDate) {
+		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
 		return this;
 	}
 	

@@ -9,13 +9,13 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
-import com.anfelisa.box.data.ReinforceCardListData;
+import com.anfelisa.box.data.NextReinforceCardData;
 
 
-public abstract class AbstractLoadReinforceCardListAction extends Action<ReinforceCardListData> {
+public abstract class AbstractLoadNextReinforceCardAction extends Action<NextReinforceCardData> {
 
-	public AbstractLoadReinforceCardListAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.actions.LoadReinforceCardListAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
+	public AbstractLoadNextReinforceCardAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.actions.LoadNextReinforceCardAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public abstract class AbstractLoadReinforceCardListAction extends Action<Reinfor
 
 	public void initActionData(String json) {
 		try {
-			this.actionData = mapper.readValue(json, ReinforceCardListData.class);
+			this.actionData = mapper.readValue(json, NextReinforceCardData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

@@ -40,9 +40,6 @@ public class ScheduleCardData extends AbstractData implements IScheduleCardData 
 	private org.joda.time.DateTime scoredDate;
 	
 	@NotNull
-	private Boolean removed = false;
-	
-	@NotNull
 	private String userId;
 	
 
@@ -59,7 +56,6 @@ public class ScheduleCardData extends AbstractData implements IScheduleCardData 
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("quality") Integer quality,
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
-		@JsonProperty("removed") Boolean removed,
 		@JsonProperty("userId") String userId
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -76,7 +72,6 @@ public class ScheduleCardData extends AbstractData implements IScheduleCardData 
 		this.lastQuality = lastQuality;
 		this.quality = quality;
 		this.scoredDate = scoredDate;
-		this.removed = removed;
 		this.userId = userId;
 	}
 
@@ -229,18 +224,6 @@ public class ScheduleCardData extends AbstractData implements IScheduleCardData 
 	}
 	
 	@JsonProperty
-	public Boolean getRemoved() {
-		return this.removed;
-	}
-	public void setRemoved(Boolean removed) {
-		this.removed = removed;
-	}
-	public ScheduleCardData withRemoved(Boolean removed) {
-		this.removed = removed;
-		return this;
-	}
-	
-	@JsonProperty
 	public String getUserId() {
 		return this.userId;
 	}
@@ -268,7 +251,6 @@ public class ScheduleCardData extends AbstractData implements IScheduleCardData 
 			this.lastQuality,
 			this.quality,
 			this.scoredDate,
-			this.removed,
 			this.userId
 		);
 	}

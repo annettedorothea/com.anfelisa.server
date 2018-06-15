@@ -42,6 +42,12 @@ public class ScoreCardModel implements IScoreCardModel {
 	
 	private org.joda.time.DateTime scoredCardScoredDate;
 	
+	@NotNull
+	private String reinforceCardId;
+	
+	@NotNull
+	private org.joda.time.DateTime reinforceCardCreatedDate;
+	
 
 	public ScoreCardModel(
 		@JsonProperty("cardId") String cardId,
@@ -56,7 +62,9 @@ public class ScoreCardModel implements IScoreCardModel {
 		@JsonProperty("nextScheduledCardLastQuality") Integer nextScheduledCardLastQuality,
 		@JsonProperty("scoredCardScheduledCardId") String scoredCardScheduledCardId,
 		@JsonProperty("scoredCardQuality") Integer scoredCardQuality,
-		@JsonProperty("scoredCardScoredDate") org.joda.time.DateTime scoredCardScoredDate
+		@JsonProperty("scoredCardScoredDate") org.joda.time.DateTime scoredCardScoredDate,
+		@JsonProperty("reinforceCardId") String reinforceCardId,
+		@JsonProperty("reinforceCardCreatedDate") org.joda.time.DateTime reinforceCardCreatedDate
 	) {
 		this.cardId = cardId;
 		this.boxId = boxId;
@@ -71,6 +79,8 @@ public class ScoreCardModel implements IScoreCardModel {
 		this.scoredCardScheduledCardId = scoredCardScheduledCardId;
 		this.scoredCardQuality = scoredCardQuality;
 		this.scoredCardScoredDate = scoredCardScoredDate;
+		this.reinforceCardId = reinforceCardId;
+		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
 	}
 
 	@JsonProperty
@@ -175,6 +185,22 @@ public class ScoreCardModel implements IScoreCardModel {
 	}
 	public void setScoredCardScoredDate(org.joda.time.DateTime scoredCardScoredDate) {
 		this.scoredCardScoredDate = scoredCardScoredDate;
+	}
+	
+	@JsonProperty
+	public String getReinforceCardId() {
+		return this.reinforceCardId;
+	}
+	public void setReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getReinforceCardCreatedDate() {
+		return this.reinforceCardCreatedDate;
+	}
+	public void setReinforceCardCreatedDate(org.joda.time.DateTime reinforceCardCreatedDate) {
+		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
 	}
 	
 

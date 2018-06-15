@@ -50,9 +50,6 @@ public class ScheduleCardPresentationalData implements IScheduleCardPresentation
 	private org.joda.time.DateTime scoredDate;
 	
 	@NotNull
-	private Boolean removed = false;
-	
-	@NotNull
 	private String userId;
 	
 	
@@ -69,7 +66,6 @@ public class ScheduleCardPresentationalData implements IScheduleCardPresentation
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("quality") Integer quality,
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
-		@JsonProperty("removed") Boolean removed,
 		@JsonProperty("userId") String userId
 	) {
 		this.scheduledCardId = scheduledCardId;
@@ -84,7 +80,6 @@ public class ScheduleCardPresentationalData implements IScheduleCardPresentation
 		this.lastQuality = lastQuality;
 		this.quality = quality;
 		this.scoredDate = scoredDate;
-		this.removed = removed;
 		this.userId = userId;
 		
 	}
@@ -230,18 +225,6 @@ public class ScheduleCardPresentationalData implements IScheduleCardPresentation
 	}
 	public ScheduleCardPresentationalData withScoredDate(org.joda.time.DateTime scoredDate) {
 		this.scoredDate = scoredDate;
-		return this;
-	}
-	
-	@JsonProperty
-	public Boolean getRemoved() {
-		return this.removed;
-	}
-	public void setRemoved(Boolean removed) {
-		this.removed = removed;
-	}
-	public ScheduleCardPresentationalData withRemoved(Boolean removed) {
-		this.removed = removed;
 		return this;
 	}
 	

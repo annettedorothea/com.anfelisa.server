@@ -25,7 +25,9 @@ public class ScoreCardMapper implements ResultSetMapper<IScoreCardModel> {
 			r.getObject("nextScheduledCardLastQuality") != null ? r.getInt("nextScheduledCardLastQuality") : null,
 			r.getString("scoredCardScheduledCardId"),
 			r.getObject("scoredCardQuality") != null ? r.getInt("scoredCardQuality") : null,
-			r.getTimestamp("scoredCardScoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredCardScoredDate")) : null
+			r.getTimestamp("scoredCardScoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredCardScoredDate")) : null,
+			r.getString("reinforceCardId"),
+			r.getTimestamp("reinforceCardCreatedDate") != null ? new org.joda.time.DateTime(r.getTimestamp("reinforceCardCreatedDate")) : null
 		);
 	}
 }

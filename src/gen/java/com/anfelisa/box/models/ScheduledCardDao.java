@@ -16,7 +16,7 @@ import com.anfelisa.ace.encryption.EncryptionService;
 public class ScheduledCardDao {
 	
 	public void insert(Handle handle, IScheduledCardModel scheduledCardModel) {
-		Update statement = handle.createStatement("INSERT INTO public.scheduledcard (scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate, removed) VALUES (:scheduledcardid, :cardid, :boxid, :createddate, :ef, :interval, :n, :count, :scheduleddate, :lastquality, :quality, :scoreddate, :removed)");
+		Update statement = handle.createStatement("INSERT INTO public.scheduledcard (scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate) VALUES (:scheduledcardid, :cardid, :boxid, :createddate, :ef, :interval, :n, :count, :scheduleddate, :lastquality, :quality, :scoreddate)");
 		statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId() );
 		statement.bind("cardid",  scheduledCardModel.getCardId() );
 		statement.bind("boxid",  scheduledCardModel.getBoxId() );
@@ -29,13 +29,12 @@ public class ScheduledCardDao {
 		statement.bind("lastquality",  scheduledCardModel.getLastQuality() );
 		statement.bind("quality",  scheduledCardModel.getQuality() );
 		statement.bind("scoreddate",  scheduledCardModel.getScoredDate() );
-		statement.bind("removed",  scheduledCardModel.getRemoved() );
 		statement.execute();
 	}
 	
 	
 	public void updateByScheduledCardId(Handle handle, IScheduledCardModel scheduledCardModel) {
-		Update statement = handle.createStatement("UPDATE public.scheduledcard SET scheduledcardid = :scheduledcardid, cardid = :cardid, boxid = :boxid, createddate = :createddate, ef = :ef, interval = :interval, n = :n, count = :count, scheduleddate = :scheduleddate, lastquality = :lastquality, quality = :quality, scoreddate = :scoreddate, removed = :removed WHERE scheduledcardid = :scheduledcardid");
+		Update statement = handle.createStatement("UPDATE public.scheduledcard SET scheduledcardid = :scheduledcardid, cardid = :cardid, boxid = :boxid, createddate = :createddate, ef = :ef, interval = :interval, n = :n, count = :count, scheduleddate = :scheduleddate, lastquality = :lastquality, quality = :quality, scoreddate = :scoreddate WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId() );
 		statement.bind("cardid",  scheduledCardModel.getCardId() );
 		statement.bind("boxid",  scheduledCardModel.getBoxId() );
@@ -48,7 +47,6 @@ public class ScheduledCardDao {
 		statement.bind("lastquality",  scheduledCardModel.getLastQuality() );
 		statement.bind("quality",  scheduledCardModel.getQuality() );
 		statement.bind("scoreddate",  scheduledCardModel.getScoredDate() );
-		statement.bind("removed",  scheduledCardModel.getRemoved() );
 		statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId()  );
 		statement.execute();
 	}
@@ -60,14 +58,14 @@ public class ScheduledCardDao {
 	}
 
 	public IScheduledCardModel selectByScheduledCardId(Handle handle, String scheduledCardId) {
-		return handle.createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate, removed FROM public.scheduledcard WHERE scheduledcardid = :scheduledcardid")
+		return handle.createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM public.scheduledcard WHERE scheduledcardid = :scheduledcardid")
 			.bind("scheduledcardid", scheduledCardId)
 			.map(new ScheduledCardMapper())
 			.first();
 	}
 	
 	public List<IScheduledCardModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate, removed FROM public.scheduledcard")
+		return handle.createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM public.scheduledcard")
 			.map(new ScheduledCardMapper())
 			.list();
 	}

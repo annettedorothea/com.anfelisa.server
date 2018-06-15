@@ -28,7 +28,7 @@ public abstract class AbstractPostponeCardsOkEvent extends Event<PostponeCardsDa
 	}
 	
 	protected String[] getNotifiedListeners() {
-		return new String[] { "com.anfelisa.box.views.BoxView.postponeCards" };
+		return new String[] { "com.anfelisa.box.views.ScheduledCardView.postponeCards" };
 	}
 	
 	

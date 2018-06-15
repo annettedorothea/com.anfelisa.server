@@ -11,7 +11,6 @@ import org.skife.jdbi.v2.Handle;
 import com.anfelisa.box.views.BoxView;
 import com.anfelisa.box.views.ReinforceCardView;
 import com.anfelisa.box.views.ScheduledCardView;
-import com.anfelisa.box.views.ScoredCardView;
 import com.anfelisa.card.views.CardView;
 import com.anfelisa.category.views.CategoryView;
 import com.anfelisa.user.views.EmailConfirmationView;
@@ -29,7 +28,6 @@ public class ViewProvider {
 	public UserView userView;
 	public EmailView emailView;
 	public ResetPasswordView resetPasswordView;
-	public ScoredCardView scoredCardView;
 	public ReinforceCardView reinforceCardView;
 
 	private final Map<String, List<BiConsumer<? extends IDataContainer, Handle>>> consumerMap;
@@ -43,7 +41,6 @@ public class ViewProvider {
 		userView = new UserView(daoProvider);
 		emailView = new EmailView(daoProvider, emailService);
 		resetPasswordView = new ResetPasswordView(daoProvider);
-		scoredCardView = new ScoredCardView(daoProvider);
 		reinforceCardView = new ReinforceCardView(daoProvider);
 		consumerMap = new HashMap<String, List<BiConsumer<? extends IDataContainer, Handle>>>();
 	}

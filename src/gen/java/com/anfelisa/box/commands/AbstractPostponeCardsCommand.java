@@ -12,6 +12,7 @@ import com.anfelisa.box.data.PostponeCardsData;
 public abstract class AbstractPostponeCardsCommand extends Command<PostponeCardsData> {
 
 	protected static final String ok = "ok";
+	protected static final String noDelay = "noDelay";
 
 	public AbstractPostponeCardsCommand(PostponeCardsData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.PostponeCardsCommand", commandParam, databaseHandle, daoProvider, viewProvider);
@@ -26,6 +27,8 @@ public abstract class AbstractPostponeCardsCommand extends Command<PostponeCards
 		switch (this.commandData.getOutcome()) {
 		case ok:
 			new com.anfelisa.box.events.PostponeCardsOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			break;
+		case noDelay:
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

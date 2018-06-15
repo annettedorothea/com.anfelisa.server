@@ -5,7 +5,7 @@ import java.util.function.BiConsumer;
 import org.skife.jdbi.v2.Handle;
 
 import com.anfelisa.ace.DaoProvider;
-import com.anfelisa.box.data.RemoveCardFromBoxData;
+import com.anfelisa.box.data.PostponeCardsData;
 import com.anfelisa.box.data.ScoreCardData;
 
 public class ScheduledCardView {
@@ -22,8 +22,8 @@ public class ScheduledCardView {
 	public BiConsumer<ScoreCardData, Handle> scheduleNext = (dataContainer, handle) -> {
 		daoProvider.getCustomScheduledCardDao().scheduleNext(handle, dataContainer);
 	};
-	public  BiConsumer<RemoveCardFromBoxData, Handle> removeFromBox = (dataContainer, handle) -> {
-		//daoProvider.customScheduledCardDao.removeScheduledCardFromBox(handle, dataContainer);
+	public  BiConsumer<PostponeCardsData, Handle> postponeCards = (dataContainer, handle) -> {
+		daoProvider.getCustomScheduledCardDao().postponeScheduledCards(handle, dataContainer);
 	};
 
 }

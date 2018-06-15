@@ -11,9 +11,9 @@ import com.anfelisa.box.data.BoxUpdateData;
 public class CustomBoxDao {
 
 	public List<IBoxInfoModel> selectByUserId(Handle handle, String userId, DateTime today) {
-		return handle.createQuery("SELECT (SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = b.boxid AND removed = false AND scoreddate is null AND scheduledDate <= :today) as todayscards, "
+		return handle.createQuery("SELECT (SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = b.boxid AND scoreddate is null AND scheduledDate <= :today) as todayscards, "
 				+ "(select count(cardid) from card where rootcategoryid = b.categoryid) as totalcards, "
-				+ "(select count(distinct(cardid)) from public.scheduledcard where boxid = b.boxid AND removed = false ) as mycards, "
+				+ "(select count(distinct(cardid)) from public.scheduledcard where boxid = b.boxid ) as mycards, "
 				+ "0 as daysbehindschedule, b.boxid, b.categoryid, c.categoryname, c.categoryindex, b.maxinterval "
 				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid where userid = :userid order by c.categoryindex")
 				.bind("userid", userId)
@@ -22,9 +22,9 @@ public class CustomBoxDao {
 	}
 	
 	public IBoxInfoModel selectByBoxId(Handle handle, String boxId, DateTime today) {
-		return handle.createQuery("SELECT (SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = b.boxid AND removed = false AND scheduledDate <= :today) as todayscards, "
+		return handle.createQuery("SELECT (SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = b.boxid AND scheduledDate <= :today) as todayscards, "
 				+ "(select count(cardid) from card where rootcategoryid = b.categoryid) as totalcards, "
-				+ "(select distinct(cardid) from public.scheduledcard where boxid = :boxid AND removed = false ) as mycards, "
+				+ "(select distinct(cardid) from public.scheduledcard where boxid = :boxid ) as mycards, "
 				+ "0 as daysbehindschedule, b.boxid, b.categoryid, c.categoryname, c.categoryindex, b.maxinterval "
 				+ "FROM public.box b where boxid = :boxid")
 				.bind("boxid", boxId)

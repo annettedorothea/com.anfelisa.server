@@ -23,16 +23,21 @@ public class PostponeCardsPresentationalData implements IPostponeCardsPresentati
 	private String userId;
 	
 	@NotNull
+	private Integer days;
+	
+	@NotNull
 	private org.joda.time.DateTime today;
 	
 	
 	public PostponeCardsPresentationalData(
 		@JsonProperty("boxId") String boxId,
 		@JsonProperty("userId") String userId,
+		@JsonProperty("days") Integer days,
 		@JsonProperty("today") org.joda.time.DateTime today
 	) {
 		this.boxId = boxId;
 		this.userId = userId;
+		this.days = days;
 		this.today = today;
 		
 	}
@@ -58,6 +63,18 @@ public class PostponeCardsPresentationalData implements IPostponeCardsPresentati
 	}
 	public PostponeCardsPresentationalData withUserId(String userId) {
 		this.userId = userId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getDays() {
+		return this.days;
+	}
+	public void setDays(Integer days) {
+		this.days = days;
+	}
+	public PostponeCardsPresentationalData withDays(Integer days) {
+		this.days = days;
 		return this;
 	}
 	

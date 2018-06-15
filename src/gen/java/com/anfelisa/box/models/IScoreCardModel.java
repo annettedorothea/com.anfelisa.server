@@ -18,6 +18,8 @@ public interface IScoreCardModel {
 	String getScoredCardScheduledCardId();
 	Integer getScoredCardQuality();
 	org.joda.time.DateTime getScoredCardScoredDate();
+	String getReinforceCardId();
+	org.joda.time.DateTime getReinforceCardCreatedDate();
 
 }
 

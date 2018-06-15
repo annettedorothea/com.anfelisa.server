@@ -13,15 +13,16 @@ ACE {
 		on ok ( Box.updateBox )
 	}
 	PUT PostponeCards uses PostponeCards {
-		on ok ( Box.postponeCards )
+		on ok ( ScheduledCard.postponeCards )
+		on noDelay
 	}
 	DELETE DeleteBox uses DeleteBox {
 		on ok (Box.deleteBox)
 	}
 	
 	GET LoadNextCard uses NextCard
-
-	GET LoadReinforceCardList uses ReinforceCardList
+	
+	GET LoadNextReinforceCard uses NextReinforceCard
 
 	POST ScheduleNextCard uses ScheduleCard {
 		on ok (Box.scheduleCard)
@@ -40,9 +41,11 @@ ACE {
 		on score (ScheduledCard.score ScheduledCard.scheduleNext)
 		on scoreAndReinforce (ScheduledCard.score ScheduledCard.scheduleNext ReinforceCard.add)
 	}
-	DELETE RemoveCardFromBox uses RemoveCardFromBox {
-		on deleted (ScheduledCard.removeFromBox)
+	POST ScoreReinforceCard uses ScoreReinforceCard {
+		on remove (ReinforceCard.remove)
+		on keep (ReinforceCard.update)
 	}
+	
 }
 
 
@@ -51,17 +54,18 @@ views {
 		createBox (BoxCreation)
 		updateBox (BoxCreation)
 		deleteBox (DeleteBox)
-		postponeCards(PostponeCards)
 		scheduleCard(ScheduleCard)
 		scheduleCategory(ScheduleCategory)
 	}
 	ScheduledCard {
 		score(ScoreCard)
 		scheduleNext(ScoreCard)
-		removeFromBox(RemoveCardFromBox)
+		postponeCards(PostponeCards)
 	}
 	ReinforceCard {
 		add(ScoreCard)
+		remove(ScoreReinforceCard)
+		update(ScoreReinforceCard)
 	}
 }
 
@@ -87,7 +91,13 @@ models {
 		Integer lastQuality
 		Integer quality
 		DateTime scoredDate
-		NotNull Boolean removed
+	}
+
+	persistent ReinforceCard {
+		Unique PrimaryKey NotNull String reinforceCardId
+		Unique PrimaryKey NotNull String scheduledCardId references ScheduledCard.scheduledCardId
+		NotNull String boxId references Box.boxId
+		NotNull DateTime changeDate
 	}
 
 	CategorySelectionList {
@@ -121,6 +131,7 @@ models {
 	PostponeCards {
 		NotNull String boxId
 		NotNull String userId
+		NotNull Integer days
 	}
 
 	BoxUpdate {
@@ -179,6 +190,23 @@ models {
 		NotNull String scoredCardScheduledCardId
 		Integer scoredCardQuality
 		DateTime scoredCardScoredDate
+
+		NotNull String reinforceCardId
+		NotNull DateTime reinforceCardCreatedDate
+	}
+	
+	NextReinforceCard {
+		NotNull String reinforceCardId
+		NotNull DateTime changeDate
+		Integer lastQuality
+		String given
+		String wanted
+		String image
+	}
+	ScoreReinforceCard {
+		NotNull String reinforceCardId
+		NotNull Integer quality
+		NotNull DateTime changeDate
 	}
 }
 
@@ -191,9 +219,9 @@ data {
 	BoxUpdate : ( BoxUpdate )
 	BoxCreation : ( Box )
 	NextCard : ( NextCard Today UserId)
-	ReinforceCardList : ()
 	ScoreCard : (UserId ScoreCard)
-	RemoveCardFromBox : ()
+	ScoreReinforceCard : (UserId ScoreReinforceCard)
+	NextReinforceCard : (UserId NextReinforceCard BoxId)
 	ScheduleCard : (ScheduledCard UserId BoxId )
 	ScheduleCategory : ( ScheduleCategory Today )
 }

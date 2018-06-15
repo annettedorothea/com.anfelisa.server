@@ -39,9 +39,6 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	
 	private org.joda.time.DateTime scoredDate;
 	
-	@NotNull
-	private Boolean removed = false;
-	
 
 	public ScheduledCardModel(
 		@JsonProperty("scheduledCardId") String scheduledCardId,
@@ -55,8 +52,7 @@ public class ScheduledCardModel implements IScheduledCardModel {
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("quality") Integer quality,
-		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
-		@JsonProperty("removed") Boolean removed
+		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate
 	) {
 		this.scheduledCardId = scheduledCardId;
 		this.cardId = cardId;
@@ -70,7 +66,6 @@ public class ScheduledCardModel implements IScheduledCardModel {
 		this.lastQuality = lastQuality;
 		this.quality = quality;
 		this.scoredDate = scoredDate;
-		this.removed = removed;
 	}
 
 	@JsonProperty
@@ -167,14 +162,6 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	}
 	public void setScoredDate(org.joda.time.DateTime scoredDate) {
 		this.scoredDate = scoredDate;
-	}
-	
-	@JsonProperty
-	public Boolean getRemoved() {
-		return this.removed;
-	}
-	public void setRemoved(Boolean removed) {
-		this.removed = removed;
 	}
 	
 
