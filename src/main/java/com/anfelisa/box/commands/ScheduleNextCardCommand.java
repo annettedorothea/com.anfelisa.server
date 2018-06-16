@@ -32,7 +32,7 @@ public class ScheduleNextCardCommand extends AbstractScheduleNextCardCommand {
 		}
 		String nextCardId = searchNextCard(box.getCategoryId());
 		if (nextCardId == null) {
-			commandData.setOutcome(noCard);
+			throwBadRequest("no cards left");
 		} else {
 			commandData.setCardId(nextCardId);
 			commandData.setCount(0);

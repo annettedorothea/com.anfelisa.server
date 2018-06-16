@@ -20,12 +20,15 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.CategoryListData;
 import com.anfelisa.box.models.CategorySelectionItemModel;
 import com.anfelisa.box.models.ICategorySelectionItemModel;
 import com.anfelisa.category.models.ICategoryItemModel;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import io.dropwizard.auth.Auth;
 
 @Path("/categories")
 @Produces(MediaType.APPLICATION_JSON)
@@ -43,14 +46,14 @@ public class GetRootCategoriesAction extends AbstractGetRootCategoriesAction {
 	@Timed
 	@Path("/root")
 	@PermitAll
-	public Response get(@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new CategoryListData(uuid);
+	public Response get(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
+		this.actionData = new CategoryListData(uuid).withUserId(user.getUserId());
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
 		List<ICategoryItemModel> rootCategories = this.daoProvider.getCustomCategoryDao()
-				.selectAllRoot(this.getHandle());
+				.selectAllRootWithoutMyBoxes(this.getHandle(), actionData.getUserId());
 		List<ICategorySelectionItemModel> categoryList = new ArrayList<ICategorySelectionItemModel>();
 		for (ICategoryItemModel categoryItemModel : rootCategories) {
 			categoryList.add(new CategorySelectionItemModel(categoryItemModel.getCategoryId(),

@@ -12,7 +12,6 @@ import com.anfelisa.box.data.ScheduleCardData;
 public abstract class AbstractScheduleNextCardCommand extends Command<ScheduleCardData> {
 
 	protected static final String ok = "ok";
-	protected static final String noCard = "noCard";
 
 	public AbstractScheduleNextCardCommand(ScheduleCardData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.ScheduleNextCardCommand", commandParam, databaseHandle, daoProvider, viewProvider);
@@ -27,8 +26,6 @@ public abstract class AbstractScheduleNextCardCommand extends Command<ScheduleCa
 		switch (this.commandData.getOutcome()) {
 		case ok:
 			new com.anfelisa.box.events.ScheduleNextCardOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
-			break;
-		case noCard:
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

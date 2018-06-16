@@ -23,6 +23,16 @@ public class CustomCategoryDao {
 				.map(new CategoryItemMapper()).list();
 	}
 
+	public List<ICategoryItemModel> selectAllRootWithoutMyBoxes(Handle handle, String userId) {
+		return handle.createQuery(
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, "
+						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty "
+						+ "FROM public.category c where categoryid in "
+						+ "(SELECT categoryid FROM public.category c WHERE parentcategoryid is null except select categoryid from box where userid = :userid) "
+						+ "order by categoryindex, categoryname")
+				.bind("userid", userId).map(new CategoryItemMapper()).list();
+	}
+
 	public Integer selectMaxIndexInCategory(Handle handle, String parentCategoryId) {
 		return handle
 				.createQuery(
@@ -60,5 +70,5 @@ public class CustomCategoryDao {
 		statement.bind("categoryindex", categoryIndex);
 		statement.execute();
 	}
-	
+
 }

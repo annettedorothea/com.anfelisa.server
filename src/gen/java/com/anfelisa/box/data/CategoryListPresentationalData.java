@@ -11,17 +11,23 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.ICategorySelectionListModel;
+import com.anfelisa.box.models.IUserIdModel;
 
 @SuppressWarnings("all")
 public class CategoryListPresentationalData implements ICategoryListPresentationalData {
 	
 	private java.util.List<com.anfelisa.box.models.ICategorySelectionItemModel> categoryList;
 	
+	@NotNull
+	private String userId;
+	
 	
 	public CategoryListPresentationalData(
-		@JsonProperty("categoryList") java.util.List<com.anfelisa.box.models.ICategorySelectionItemModel> categoryList
+		@JsonProperty("categoryList") java.util.List<com.anfelisa.box.models.ICategorySelectionItemModel> categoryList,
+		@JsonProperty("userId") String userId
 	) {
 		this.categoryList = categoryList;
+		this.userId = userId;
 		
 	}
 
@@ -34,6 +40,18 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 	}
 	public CategoryListPresentationalData withCategoryList(java.util.List<com.anfelisa.box.models.ICategorySelectionItemModel> categoryList) {
 		this.categoryList = categoryList;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public CategoryListPresentationalData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	

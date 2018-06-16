@@ -1,12 +1,11 @@
 package com.anfelisa.box.events;
 
-import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.ScoreReinforceCardData;
 
 public class ScoreReinforceCardKeepEvent extends AbstractScoreReinforceCardKeepEvent {
