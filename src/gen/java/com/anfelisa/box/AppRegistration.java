@@ -1,18 +1,26 @@
 package com.anfelisa.box;
 
-import io.dropwizard.setup.Environment;
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.AceExecutionMode;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.ace.ServerConfiguration;
-
 import org.skife.jdbi.v2.DBI;
 
-import com.anfelisa.box.views.BoxView;
-import com.anfelisa.box.views.ScheduledCardView;
-import com.anfelisa.box.views.ReinforceCardView;
-import com.anfelisa.box.actions.*;
+import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.box.actions.CreateBoxAction;
+import com.anfelisa.box.actions.DeleteBoxAction;
+import com.anfelisa.box.actions.GetBoxAction;
+import com.anfelisa.box.actions.GetBoxesAction;
+import com.anfelisa.box.actions.GetRootCategoriesAction;
+import com.anfelisa.box.actions.LoadNextCardAction;
+import com.anfelisa.box.actions.LoadNextReinforceCardAction;
+import com.anfelisa.box.actions.PostponeCardsAction;
+import com.anfelisa.box.actions.ScheduleCardAction;
+import com.anfelisa.box.actions.ScheduleCategoryAction;
+import com.anfelisa.box.actions.ScheduleNextCardAction;
+import com.anfelisa.box.actions.ScoreCardAction;
+import com.anfelisa.box.actions.ScoreReinforceCardAction;
+import com.anfelisa.box.actions.UpdateBoxAction;
+
+import io.dropwizard.setup.Environment;
 
 @SuppressWarnings("all")
 public class AppRegistration {
