@@ -33,7 +33,7 @@ public class CustomScheduledCardDao {
 		Update statement = handle
 				.createStatement("UPDATE public.scheduledcard SET scheduleddate = scheduleddate + INTERVAL '"
 						+ postponeCardsData.getDays() + " days' WHERE boxid = :boxId and quality is null");
-		statement.bind("boxId", postponeCardsData.getDays()).bind("today", postponeCardsData.getToday());
+		statement.bind("boxId", postponeCardsData.getBoxId());
 		statement.execute();
 	}
 

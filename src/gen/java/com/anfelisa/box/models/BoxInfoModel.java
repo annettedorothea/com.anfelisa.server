@@ -11,6 +11,8 @@ public class BoxInfoModel implements IBoxInfoModel {
 	
 	private Integer totalCards;
 	
+	private Integer reinforceCards;
+	
 	private Integer myCards;
 	
 	private Integer daysBehindSchedule;
@@ -33,6 +35,7 @@ public class BoxInfoModel implements IBoxInfoModel {
 	public BoxInfoModel(
 		@JsonProperty("todaysCards") Integer todaysCards,
 		@JsonProperty("totalCards") Integer totalCards,
+		@JsonProperty("reinforceCards") Integer reinforceCards,
 		@JsonProperty("myCards") Integer myCards,
 		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
 		@JsonProperty("boxId") String boxId,
@@ -43,6 +46,7 @@ public class BoxInfoModel implements IBoxInfoModel {
 	) {
 		this.todaysCards = todaysCards;
 		this.totalCards = totalCards;
+		this.reinforceCards = reinforceCards;
 		this.myCards = myCards;
 		this.daysBehindSchedule = daysBehindSchedule;
 		this.boxId = boxId;
@@ -66,6 +70,14 @@ public class BoxInfoModel implements IBoxInfoModel {
 	}
 	public void setTotalCards(Integer totalCards) {
 		this.totalCards = totalCards;
+	}
+	
+	@JsonProperty
+	public Integer getReinforceCards() {
+		return this.reinforceCards;
+	}
+	public void setReinforceCards(Integer reinforceCards) {
+		this.reinforceCards = reinforceCards;
 	}
 	
 	@JsonProperty

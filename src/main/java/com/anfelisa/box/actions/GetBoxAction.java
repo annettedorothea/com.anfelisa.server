@@ -71,6 +71,7 @@ public class GetBoxAction extends AbstractGetBoxAction {
 		this.actionData.setMyCards(boxInfo.getMyCards());
 		this.actionData.setTodaysCards(boxInfo.getTodaysCards());
 		this.actionData.setTotalCards(boxInfo.getTotalCards());
+		this.actionData.setReinforceCards(boxInfo.getReinforceCards());
 	}
 
 }

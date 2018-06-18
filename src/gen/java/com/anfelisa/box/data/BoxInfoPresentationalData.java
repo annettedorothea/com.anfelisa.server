@@ -21,6 +21,8 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 	
 	private Integer totalCards;
 	
+	private Integer reinforceCards;
+	
 	private Integer myCards;
 	
 	private Integer daysBehindSchedule;
@@ -49,6 +51,7 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 	public BoxInfoPresentationalData(
 		@JsonProperty("todaysCards") Integer todaysCards,
 		@JsonProperty("totalCards") Integer totalCards,
+		@JsonProperty("reinforceCards") Integer reinforceCards,
 		@JsonProperty("myCards") Integer myCards,
 		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
 		@JsonProperty("boxId") String boxId,
@@ -61,6 +64,7 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 	) {
 		this.todaysCards = todaysCards;
 		this.totalCards = totalCards;
+		this.reinforceCards = reinforceCards;
 		this.myCards = myCards;
 		this.daysBehindSchedule = daysBehindSchedule;
 		this.boxId = boxId;
@@ -94,6 +98,18 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 	}
 	public BoxInfoPresentationalData withTotalCards(Integer totalCards) {
 		this.totalCards = totalCards;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getReinforceCards() {
+		return this.reinforceCards;
+	}
+	public void setReinforceCards(Integer reinforceCards) {
+		this.reinforceCards = reinforceCards;
+	}
+	public BoxInfoPresentationalData withReinforceCards(Integer reinforceCards) {
+		this.reinforceCards = reinforceCards;
 		return this;
 	}
 	

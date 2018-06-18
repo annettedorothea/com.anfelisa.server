@@ -21,7 +21,7 @@ ACE {
 	}
 	
 	GET LoadNextCard uses NextCard
-	
+
 	GET LoadNextReinforceCard uses NextReinforceCard
 
 	POST ScheduleNextCard uses ScheduleCard {
@@ -111,6 +111,7 @@ models {
 	BoxInfo {
 		Integer todaysCards
 		Integer totalCards
+		Integer reinforceCards
 		Integer myCards
 		Integer daysBehindSchedule
 		NotNull String boxId

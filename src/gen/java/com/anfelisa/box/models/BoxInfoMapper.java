@@ -15,6 +15,7 @@ public class BoxInfoMapper implements ResultSetMapper<IBoxInfoModel> {
 		return new BoxInfoModel(
 			r.getObject("todaysCards") != null ? r.getInt("todaysCards") : null,
 			r.getObject("totalCards") != null ? r.getInt("totalCards") : null,
+			r.getObject("reinforceCards") != null ? r.getInt("reinforceCards") : null,
 			r.getObject("myCards") != null ? r.getInt("myCards") : null,
 			r.getObject("daysBehindSchedule") != null ? r.getInt("daysBehindSchedule") : null,
 			r.getString("boxId"),

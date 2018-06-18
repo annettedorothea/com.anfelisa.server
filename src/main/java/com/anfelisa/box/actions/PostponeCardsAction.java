@@ -10,6 +10,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.skife.jdbi.v2.DBI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,24 +29,28 @@ import io.dropwizard.auth.Auth;
 @Path("/cards")
 @Produces(MediaType.TEXT_PLAIN)
 @Consumes(MediaType.APPLICATION_JSON)
-	public class PostponeCardsAction extends AbstractPostponeCardsAction {
+public class PostponeCardsAction extends AbstractPostponeCardsAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(PostponeCardsAction.class);
 
-	public PostponeCardsAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(jdbi,appConfiguration, daoProvider, viewProvider);
+	public PostponeCardsAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
+			ViewProvider viewProvider) {
+		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@PUT
 	@Timed
 	@Path("/postpone")
 	@PermitAll
-	public Response put(@NotNull @QueryParam("boxId") String boxId, @Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new PostponeCardsData(uuid).withBoxId(boxId).withUserId(user.getUserId());
+	public Response put(@NotNull @QueryParam("boxId") String boxId, @Auth AuthUser user,
+			@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("today") String today)
+			throws JsonProcessingException {
+		DateTime todayDate = new DateTime(today);
+		todayDate = todayDate.withZone(DateTimeZone.UTC);
+		this.actionData = new PostponeCardsData(uuid).withBoxId(boxId).withUserId(user.getUserId()).withToday(todayDate);
 		return this.apply();
 	}
 
-
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

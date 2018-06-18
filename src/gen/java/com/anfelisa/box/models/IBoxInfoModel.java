@@ -7,6 +7,7 @@ public interface IBoxInfoModel {
 
 	Integer getTodaysCards();
 	Integer getTotalCards();
+	Integer getReinforceCards();
 	Integer getMyCards();
 	Integer getDaysBehindSchedule();
 	String getBoxId();

@@ -1,15 +1,21 @@
 package com.anfelisa.box.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
 
 import com.anfelisa.ace.AbstractData;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BoxInfoData extends AbstractData implements IBoxInfoData {
 	
 	private Integer todaysCards;
 	
 	private Integer totalCards;
+	
+	private Integer reinforceCards;
 	
 	private Integer myCards;
 	
@@ -39,6 +45,7 @@ public class BoxInfoData extends AbstractData implements IBoxInfoData {
 	public BoxInfoData(
 		@JsonProperty("todaysCards") Integer todaysCards,
 		@JsonProperty("totalCards") Integer totalCards,
+		@JsonProperty("reinforceCards") Integer reinforceCards,
 		@JsonProperty("myCards") Integer myCards,
 		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
 		@JsonProperty("boxId") String boxId,
@@ -53,6 +60,7 @@ public class BoxInfoData extends AbstractData implements IBoxInfoData {
 		super(uuid);
 		this.todaysCards = todaysCards;
 		this.totalCards = totalCards;
+		this.reinforceCards = reinforceCards;
 		this.myCards = myCards;
 		this.daysBehindSchedule = daysBehindSchedule;
 		this.boxId = boxId;
@@ -89,6 +97,18 @@ public class BoxInfoData extends AbstractData implements IBoxInfoData {
 	}
 	public BoxInfoData withTotalCards(Integer totalCards) {
 		this.totalCards = totalCards;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getReinforceCards() {
+		return this.reinforceCards;
+	}
+	public void setReinforceCards(Integer reinforceCards) {
+		this.reinforceCards = reinforceCards;
+	}
+	public BoxInfoData withReinforceCards(Integer reinforceCards) {
+		this.reinforceCards = reinforceCards;
 		return this;
 	}
 	
@@ -206,6 +226,7 @@ public class BoxInfoData extends AbstractData implements IBoxInfoData {
 		return new BoxInfoPresentationalData(
 			this.todaysCards,
 			this.totalCards,
+			this.reinforceCards,
 			this.myCards,
 			this.daysBehindSchedule,
 			this.boxId,
