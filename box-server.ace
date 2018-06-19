@@ -28,14 +28,11 @@ ACE {
 		on ok (Box.scheduleCard)
 	}
 	
-	POST ScheduleCard uses ScheduleCard {
-		on ok (Box.scheduleCard)
+	POST ScheduleCards uses ScheduleCards {
+		on ok (Box.scheduleCards)
+		on nullOrEmpty
 	}
 	
-	POST ScheduleCategory uses ScheduleCategory {
-		on ok (Box.scheduleCategory)
-	}
-
 	POST ScoreCard uses ScoreCard {
 		on score (ScheduledCard.score ScheduledCard.scheduleNext)
 		on scoreAndReinforce (ScheduledCard.score ScheduledCard.scheduleNext ReinforceCard.add)
@@ -47,14 +44,13 @@ ACE {
 	
 }
 
-
 views {
 	Box {
 		createBox (BoxCreation)
 		updateBox (BoxCreation)
 		deleteBox (DeleteBox)
 		scheduleCard(ScheduleCard)
-		scheduleCategory(ScheduleCategory)
+		scheduleCards(ScheduleCards)
 	}
 	ScheduledCard {
 		score(ScoreCard)
@@ -208,6 +204,13 @@ models {
 		NotNull Integer quality
 		NotNull DateTime changeDate
 	}
+	
+	ScheduledCards {
+		List ScheduledCard newScheduledCards
+		List String existingScheduledCardIds
+		List String cardIds
+		DateTime scheduledDate
+	}
 }
 
 data {
@@ -223,5 +226,5 @@ data {
 	ScoreReinforceCard : (UserId ScoreReinforceCard)
 	NextReinforceCard : (UserId NextReinforceCard BoxId)
 	ScheduleCard : (ScheduledCard UserId BoxId )
-	ScheduleCategory : ( ScheduleCategory Today )
+	ScheduleCards : (ScheduledCards UserId BoxId )
 }

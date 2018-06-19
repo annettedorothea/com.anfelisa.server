@@ -36,6 +36,14 @@ public class CustomBoxDao {
 				.map(new BoxInfoMapper()).first();
 	}
 	
+	public IBoxModel selectByCategoryIdAndUserId(Handle handle, String categoryId, String userId) {
+		return handle.createQuery("SELECT boxid, userid, categoryid, maxinterval FROM public.box WHERE categoryid = :categoryid and userid = :userid")
+			.bind("categoryid", categoryId)
+			.bind("userid", userId)
+			.map(new BoxMapper())
+			.first();
+	}
+
 	public void updateBox(Handle handle, BoxUpdateData boxModel) {
 		Update statement = handle.createStatement("UPDATE public.box SET maxinterval = :maxinterval WHERE boxId = :boxId");
 		statement.bind("boxId", boxModel.getBoxId());

@@ -1,5 +1,6 @@
 package com.anfelisa.box.views;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
@@ -9,7 +10,8 @@ import com.anfelisa.box.data.BoxCreationData;
 import com.anfelisa.box.data.BoxUpdateData;
 import com.anfelisa.box.data.DeleteBoxData;
 import com.anfelisa.box.data.ScheduleCardData;
-import com.anfelisa.box.data.ScheduleCategoryData;
+import com.anfelisa.box.data.ScheduleCardsData;
+import com.anfelisa.box.models.IScheduledCardModel;
 
 public class BoxView {
 
@@ -36,7 +38,15 @@ public class BoxView {
 		daoProvider.getScheduledCardDao().insert(handle, dataContainer);
 	};
 	
-	public BiConsumer<ScheduleCategoryData, Handle> scheduleCategory = (dataContainer, handle) -> {
+	public BiConsumer<ScheduleCardsData, Handle> scheduleCards = (dataContainer, handle) -> {
+		List<IScheduledCardModel> newScheduledCards = dataContainer.getNewScheduledCards();
+		for (IScheduledCardModel scheduledCardModel : newScheduledCards) {
+			daoProvider.getScheduledCardDao().insert(handle, scheduledCardModel);
+		}
+		List<String> existingScheduledCardIds = dataContainer.getExistingScheduledCardIds();
+		for (String scheduledCardId : existingScheduledCardIds) {
+			daoProvider.getCustomScheduledCardDao().scheduleScheduledCard(handle, scheduledCardId, dataContainer.getScheduledDate());
+		}
 	};
 	
 }

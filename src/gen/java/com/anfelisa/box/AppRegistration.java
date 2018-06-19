@@ -28,8 +28,7 @@ public class AppRegistration {
 		environment.jersey().register(new LoadNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new LoadNextReinforceCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ScheduleNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new ScheduleCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new ScheduleCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new ScheduleCardsAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ScoreCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new ScoreReinforceCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
 	}
@@ -40,8 +39,7 @@ public class AppRegistration {
 				viewProvider.addConsumer("com.anfelisa.box.events.PostponeCardsOkEvent", viewProvider.scheduledCardView.postponeCards);
 				viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxOkEvent", viewProvider.boxView.deleteBox);
 				viewProvider.addConsumer("com.anfelisa.box.events.ScheduleNextCardOkEvent", viewProvider.boxView.scheduleCard);
-				viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCardOkEvent", viewProvider.boxView.scheduleCard);
-				viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCategoryOkEvent", viewProvider.boxView.scheduleCategory);
+				viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCardsOkEvent", viewProvider.boxView.scheduleCards);
 				viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreEvent", viewProvider.scheduledCardView.score);
 				viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreEvent", viewProvider.scheduledCardView.scheduleNext);
 				viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent", viewProvider.scheduledCardView.score);

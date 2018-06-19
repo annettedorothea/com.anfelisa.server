@@ -37,6 +37,14 @@ public class CustomScheduledCardDao {
 		statement.execute();
 	}
 
+	public void scheduleScheduledCard(Handle handle, String scheduledCardId, DateTime scheduleddDate) {
+		Update statement = handle.createStatement(
+				"UPDATE public.scheduledcard SET scheduleddate = :scheduleddate WHERE scheduledcardid = :scheduledcardid");
+		statement.bind("scheduleddate", scheduleddDate);
+		statement.bind("scheduledcardid", scheduledCardId);
+		statement.execute();
+	}
+
 	public String selectNextCardId(Handle handle, String categoryId, String boxId) {
 		return handle.createQuery(
 				"select cardid from (SELECT cardid, cardindex from public.card where categoryid = :categoryid "
@@ -68,4 +76,12 @@ public class CustomScheduledCardDao {
 		statement.bind("lastquality", scoreCardData.getNextScheduledCardLastQuality());
 		statement.execute();
 	}
+
+	public List<IScheduledCardModel> selectAllCardsOfBox(Handle handle, String boxId) {
+		return handle.createQuery(
+				"SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM public.scheduledcard "
+						+ "where boxid = :boxid and quality is null")
+				.bind("boxid", boxId).map(new ScheduledCardMapper()).list();
+	}
+
 }
