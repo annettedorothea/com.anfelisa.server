@@ -1,8 +1,8 @@
 package com.anfelisa.category.models;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings("all")
 public class CategoryItemModel implements ICategoryItemModel {
@@ -34,6 +34,12 @@ public class CategoryItemModel implements ICategoryItemModel {
 	
 	private Boolean empty = false;
 	
+	private Boolean editable = false;
+	
+	private Boolean hasBox = false;
+	
+	private Boolean isRoot = false;
+	
 
 	public CategoryItemModel(
 		@JsonProperty("categoryId") String categoryId,
@@ -46,7 +52,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("path") String path,
-		@JsonProperty("empty") Boolean empty
+		@JsonProperty("empty") Boolean empty,
+		@JsonProperty("editable") Boolean editable,
+		@JsonProperty("hasBox") Boolean hasBox,
+		@JsonProperty("isRoot") Boolean isRoot
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -59,6 +68,9 @@ public class CategoryItemModel implements ICategoryItemModel {
 		this.wantedLanguage = wantedLanguage;
 		this.path = path;
 		this.empty = empty;
+		this.editable = editable;
+		this.hasBox = hasBox;
+		this.isRoot = isRoot;
 	}
 
 	@JsonProperty
@@ -147,6 +159,30 @@ public class CategoryItemModel implements ICategoryItemModel {
 	}
 	public void setEmpty(Boolean empty) {
 		this.empty = empty;
+	}
+	
+	@JsonProperty
+	public Boolean getEditable() {
+		return this.editable;
+	}
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
+	}
+	
+	@JsonProperty
+	public Boolean getHasBox() {
+		return this.hasBox;
+	}
+	public void setHasBox(Boolean hasBox) {
+		this.hasBox = hasBox;
+	}
+	
+	@JsonProperty
+	public Boolean getIsRoot() {
+		return this.isRoot;
+	}
+	public void setIsRoot(Boolean isRoot) {
+		this.isRoot = isRoot;
 	}
 	
 

@@ -19,13 +19,17 @@ public class CategoryUpdateData extends AbstractData implements ICategoryUpdateD
 	
 	private String wantedLanguage;
 	
+	@NotNull
+	private String userId;
+	
 
 	public CategoryUpdateData(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
-		@JsonProperty("wantedLanguage") String wantedLanguage
+		@JsonProperty("wantedLanguage") String wantedLanguage,
+		@JsonProperty("userId") String userId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -34,6 +38,7 @@ public class CategoryUpdateData extends AbstractData implements ICategoryUpdateD
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
+		this.userId = userId;
 	}
 
 	public CategoryUpdateData( String uuid ) {
@@ -100,6 +105,18 @@ public class CategoryUpdateData extends AbstractData implements ICategoryUpdateD
 		return this;
 	}
 	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public CategoryUpdateData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -108,7 +125,8 @@ public class CategoryUpdateData extends AbstractData implements ICategoryUpdateD
 			this.categoryName,
 			this.dictionaryLookup,
 			this.givenLanguage,
-			this.wantedLanguage
+			this.wantedLanguage,
+			this.userId
 		);
 	}
 

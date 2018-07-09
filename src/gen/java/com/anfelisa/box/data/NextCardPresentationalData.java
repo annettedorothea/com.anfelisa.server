@@ -12,7 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.INextCardModel;
 import com.anfelisa.box.models.ITodayModel;
-import com.anfelisa.box.models.IUserIdModel;
+import com.anfelisa.user.models.IUserIdModel;
 
 @SuppressWarnings("all")
 public class NextCardPresentationalData implements INextCardPresentationalData {
@@ -39,6 +39,8 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 	
 	private String categoryId;
 	
+	private String rootCategoryId;
+	
 	@NotNull
 	private Integer count;
 	
@@ -61,6 +63,7 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("image") String image,
 		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
 		@JsonProperty("today") org.joda.time.DateTime today,
@@ -75,6 +78,7 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 		this.wanted = wanted;
 		this.image = image;
 		this.categoryId = categoryId;
+		this.rootCategoryId = rootCategoryId;
 		this.count = count;
 		this.scoredDate = scoredDate;
 		this.today = today;
@@ -187,6 +191,18 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 	}
 	public NextCardPresentationalData withCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+	}
+	public NextCardPresentationalData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
 		return this;
 	}
 	

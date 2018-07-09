@@ -32,6 +32,9 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 	@NotNull
 	private String path;
 	
+	@NotNull
+	private String userId;
+	
 
 	public CategoryCreationData(
 		@JsonProperty("categoryId") String categoryId,
@@ -43,7 +46,8 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
-		@JsonProperty("path") String path
+		@JsonProperty("path") String path,
+		@JsonProperty("userId") String userId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -57,6 +61,7 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
 		this.path = path;
+		this.userId = userId;
 	}
 
 	public CategoryCreationData( String uuid ) {
@@ -183,6 +188,18 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		return this;
 	}
 	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public CategoryCreationData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -196,7 +213,8 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 			this.dictionaryLookup,
 			this.givenLanguage,
 			this.wantedLanguage,
-			this.path
+			this.path,
+			this.userId
 		);
 	}
 

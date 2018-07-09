@@ -11,7 +11,9 @@ import com.anfelisa.box.models.ScheduledCardDao;
 import com.anfelisa.card.model.CustomCardDao;
 import com.anfelisa.card.models.CardDao;
 import com.anfelisa.category.model.CustomCategoryDao;
+import com.anfelisa.category.model.CustomUserAccessToCategoryDao;
 import com.anfelisa.category.models.CategoryDao;
+import com.anfelisa.category.models.UserAccessToCategoryDao;
 import com.anfelisa.user.models.CustomUserDao;
 import com.anfelisa.user.models.EmailConfirmationDao;
 import com.anfelisa.user.models.ResetPasswordDao;
@@ -60,5 +62,9 @@ public interface IDaoProvider {
 	ReinforceCardDao getReinforceCardDao();
 	
 	CustomReinforceCardDao getCustomReinforceCardDao();
+	
+	UserAccessToCategoryDao getUserAccessToCategoryDao();
+
+	CustomUserAccessToCategoryDao getCustomUserAccessToCategoryDao();
 
 }

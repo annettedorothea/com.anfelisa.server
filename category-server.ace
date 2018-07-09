@@ -4,7 +4,8 @@ target JAVA
 
 ACE {
 	POST CreateCategory uses CategoryCreation {
-		on ok (Category.insert)
+		on sub (Category.insert)
+		on root (Category.insert UserAccessToCategory.grantAccess)
 	}
 	PUT UpdateCategory uses CategoryUpdate {
 		on ok (Category.update)
@@ -14,6 +15,10 @@ ACE {
 		on root (Category.deleteRoot)
 	}
 	GET GetAllCategories uses CategoryList
+	POST InviteUser uses InviteUser {
+		on ok (UserAccessToCategory.grantAccessInvitation)
+		on hasAccess
+	}
 }
 
 views {
@@ -22,6 +27,10 @@ views {
 		delete(CategoryDelete)
 		deleteRoot(CategoryDelete)
 		update(CategoryUpdate)
+	}
+	UserAccessToCategory {
+		grantAccess(CategoryCreation)
+		grantAccessInvitation(InviteUser)
 	}
 }
 
@@ -39,6 +48,11 @@ models {
 		String givenLanguage
 		String wantedLanguage
 		NotNull String path
+	}
+	
+	persistent UserAccessToCategory {
+		PrimaryKey NotNull String categoryId references Category.categoryId
+		PrimaryKey NotNull String userId references com.anfelisa.user.User.userId
 	}
 	
 	CategoryUpdate {
@@ -65,6 +79,9 @@ models {
 		String parentWantedLanguage
 		List CategoryItem categoryList
 		List com.anfelisa.card.Card cardList
+		Boolean hasBox
+		String userId
+		Boolean parentEditable
 	}
 	
 	CategoryItem {
@@ -79,13 +96,23 @@ models {
 		String wantedLanguage
 		NotNull String path
 		Boolean empty
+		Boolean editable
+		Boolean hasBox
+		Boolean isRoot
+	}
+	
+	InviteUser {
+		NotNull String categoryId
+		NotNull String invitedUserId
+		NotNull String username
 	}
 }
 
 data {
-	CategoryCreation : ( Category )
-	CategoryUpdate : ( CategoryUpdate )
-	CategoryDelete : ( CategoryDelete )
+	CategoryCreation : ( Category UserAccessToCategory )
+	CategoryUpdate : ( CategoryUpdate  com.anfelisa.user.UserId )
+	CategoryDelete : ( CategoryDelete com.anfelisa.user.UserId)
 	CategoryList : ( CategoryList )
+	InviteUser : ( InviteUser com.anfelisa.user.UserId)
 }
 

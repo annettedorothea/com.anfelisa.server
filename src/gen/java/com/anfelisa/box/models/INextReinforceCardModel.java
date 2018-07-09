@@ -11,6 +11,7 @@ public interface INextReinforceCardModel {
 	String getGiven();
 	String getWanted();
 	String getImage();
+	String getCategoryId();
 
 }
 

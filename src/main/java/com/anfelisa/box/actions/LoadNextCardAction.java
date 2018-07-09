@@ -65,7 +65,8 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		INextCardModel nextCard = daoProvider.getCustomScheduledCardDao().selectFirstScheduledCard(getHandle(),
 				actionData.getBoxId(), actionData.getToday());
 		if (nextCard != null) {
-			this.actionData.setCategoryId(box.getCategoryId());
+			this.actionData.setRootCategoryId(box.getCategoryId());
+			this.actionData.setCategoryId(nextCard.getCategoryId());
 			this.actionData.setGiven(nextCard.getGiven());
 			this.actionData.setImage(nextCard.getImage());
 			this.actionData.setLastQuality(nextCard.getLastQuality());

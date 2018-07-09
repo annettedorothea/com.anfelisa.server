@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.box.models.IUserIdModel;
+import com.anfelisa.user.models.IUserIdModel;
 import com.anfelisa.box.models.INextReinforceCardModel;
 import com.anfelisa.box.models.IBoxIdModel;
 
@@ -34,6 +34,8 @@ public class NextReinforceCardPresentationalData implements INextReinforceCardPr
 	
 	private String image;
 	
+	private String categoryId;
+	
 	@NotNull
 	private String boxId;
 	
@@ -46,6 +48,7 @@ public class NextReinforceCardPresentationalData implements INextReinforceCardPr
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("image") String image,
+		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId
 	) {
 		this.userId = userId;
@@ -55,6 +58,7 @@ public class NextReinforceCardPresentationalData implements INextReinforceCardPr
 		this.given = given;
 		this.wanted = wanted;
 		this.image = image;
+		this.categoryId = categoryId;
 		this.boxId = boxId;
 		
 	}
@@ -140,6 +144,18 @@ public class NextReinforceCardPresentationalData implements INextReinforceCardPr
 	}
 	public NextReinforceCardPresentationalData withImage(String image) {
 		this.image = image;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCategoryId() {
+		return this.categoryId;
+	}
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	public NextReinforceCardPresentationalData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 		return this;
 	}
 	

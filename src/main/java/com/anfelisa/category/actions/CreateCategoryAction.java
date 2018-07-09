@@ -1,6 +1,6 @@
 package com.anfelisa.category.actions;
 
-import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -37,10 +37,10 @@ public class CreateCategoryAction extends AbstractCreateCategoryAction {
 	@POST
 	@Timed
 	@Path("/create")
-	@RolesAllowed({ AuthUser.AUTHOR })
+	@PermitAll
 	public Response post(@Auth AuthUser user, @NotNull CategoryCreationData categoryCreationData)
 			throws JsonProcessingException {
-		this.actionData = categoryCreationData.withCategoryAuthor(user.getUsername());
+		this.actionData = categoryCreationData.withCategoryAuthor(user.getUsername()).withUserId(user.getUserId());
 		return this.apply();
 	}
 

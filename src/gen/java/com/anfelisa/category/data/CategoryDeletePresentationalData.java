@@ -1,8 +1,17 @@
 package com.anfelisa.category.data;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.IDataContainer;
+
+import com.anfelisa.category.models.ICategoryDeleteModel;
+import com.anfelisa.user.models.IUserIdModel;
 
 @SuppressWarnings("all")
 public class CategoryDeletePresentationalData implements ICategoryDeletePresentationalData {
@@ -16,15 +25,20 @@ public class CategoryDeletePresentationalData implements ICategoryDeletePresenta
 	@NotNull
 	private String parentCategoryId;
 	
+	@NotNull
+	private String userId;
+	
 	
 	public CategoryDeletePresentationalData(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryIndex") Integer categoryIndex,
-		@JsonProperty("parentCategoryId") String parentCategoryId
+		@JsonProperty("parentCategoryId") String parentCategoryId,
+		@JsonProperty("userId") String userId
 	) {
 		this.categoryId = categoryId;
 		this.categoryIndex = categoryIndex;
 		this.parentCategoryId = parentCategoryId;
+		this.userId = userId;
 		
 	}
 
@@ -61,6 +75,18 @@ public class CategoryDeletePresentationalData implements ICategoryDeletePresenta
 	}
 	public CategoryDeletePresentationalData withParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public CategoryDeletePresentationalData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	

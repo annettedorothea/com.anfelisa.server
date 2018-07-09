@@ -496,17 +496,33 @@
 
 	<changeSet id="024" author="annette">
 
-		<renameColumn tableName="reinforcecard" oldColumnName="createddate" newColumnName="changeDate"/>
+		<renameColumn tableName="reinforcecard"
+			oldColumnName="createddate" newColumnName="changeDate" />
 
 	</changeSet>
 
 	<changeSet id="025" author="annette">
 
-		<renameColumn tableName="reinforcecard" oldColumnName="changeDate" newColumnName="changedate"/>
+		<renameColumn tableName="reinforcecard"
+			oldColumnName="changeDate" newColumnName="changedate" />
 
 	</changeSet>
 
+	<changeSet id="026" author="annette">
 
+		<createTable tableName="useraccesstocategory">
+			<column name="categoryid" type="character varying">
+				<constraints primaryKey="true" nullable="false"
+					references="category(categoryid)" deleteCascade="true"
+					foreignKeyName="fk_useraccesstocategory_categoryid" />
+			</column>
+			<column name="userid" type="character varying">
+				<constraints primaryKey="true" nullable="false"
+					references="user(userid)" deleteCascade="true"
+					foreignKeyName="fk_useraccesstocategory_userid" />
+			</column>
+		</createTable>
 
+	</changeSet>
 
 </databaseChangeLog>

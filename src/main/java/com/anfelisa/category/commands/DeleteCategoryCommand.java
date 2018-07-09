@@ -8,6 +8,7 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.data.CategoryDeleteData;
 import com.anfelisa.category.models.ICategoryModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 public class DeleteCategoryCommand extends AbstractDeleteCategoryCommand {
 
@@ -22,6 +23,10 @@ public class DeleteCategoryCommand extends AbstractDeleteCategoryCommand {
 		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(getHandle(), commandData.getCategoryId());
 		if (category == null) {
 			throwBadRequest("Category does not exist");
+		}
+		IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), commandData.getUserId());
+		if (access == null) {
+			throwUnauthorized();
 		}
 		this.commandData.setCategoryIndex(category.getCategoryIndex());
 		if (category.getParentCategoryId() == null) {

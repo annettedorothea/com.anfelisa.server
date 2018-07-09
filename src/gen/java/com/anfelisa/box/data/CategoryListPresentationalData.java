@@ -11,7 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.ICategorySelectionListModel;
-import com.anfelisa.box.models.IUserIdModel;
+import com.anfelisa.user.models.IUserIdModel;
 
 @SuppressWarnings("all")
 public class CategoryListPresentationalData implements ICategoryListPresentationalData {

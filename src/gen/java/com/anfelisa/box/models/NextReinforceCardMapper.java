@@ -18,7 +18,8 @@ public class NextReinforceCardMapper implements ResultSetMapper<INextReinforceCa
 			r.getObject("lastQuality") != null ? r.getInt("lastQuality") : null,
 			r.getString("given"),
 			r.getString("wanted"),
-			r.getString("image")
+			r.getString("image"),
+			r.getString("categoryId")
 		);
 	}
 }

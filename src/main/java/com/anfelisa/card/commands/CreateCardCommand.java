@@ -8,6 +8,7 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.card.data.CardCreationData;
 import com.anfelisa.category.models.ICategoryModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 public class CreateCardCommand extends AbstractCreateCardCommand {
 
@@ -23,6 +24,19 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 		if (daoProvider.getCategoryDao().selectByCategoryId(getHandle(), commandData.getCategoryId()) == null) {
 			throwBadRequest("category does not exist");
 		}
+		if (commandData.getCategoryId() != null) {
+			ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
+					commandData.getCategoryId());
+			IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), commandData.getUserId());
+			if (access == null) {
+				throwUnauthorized();
+			}
+			commandData.setRootCategoryId(category.getRootCategoryId());
+			commandData.setPath(category.getPath());
+		} else {
+			throwBadRequest("cannot create card without category");
+		}
+		this.commandData.setCardId(commandData.getUuid());
 		if (commandData.getCardIndex() == null) {
 			Integer max = this.daoProvider.getCustomCardDao().selectMaxIndexInCategory(getHandle(),
 					commandData.getCategoryId());
@@ -31,13 +45,6 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 			}
 			commandData.setCardIndex(max + 1);
 		}
-		if (commandData.getCategoryId() != null) {
-			ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
-					commandData.getCategoryId());
-			commandData.setRootCategoryId(category.getRootCategoryId());
-			commandData.setPath(category.getPath());
-		}
-		this.commandData.setCardId(commandData.getUuid());
 		this.commandData.setOutcome(ok);
 	}
 

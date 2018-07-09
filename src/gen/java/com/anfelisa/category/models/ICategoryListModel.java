@@ -14,6 +14,9 @@ public interface ICategoryListModel {
 	String getParentWantedLanguage();
 	java.util.List<com.anfelisa.category.models.ICategoryItemModel> getCategoryList();
 	java.util.List<com.anfelisa.card.models.ICardModel> getCardList();
+	Boolean getHasBox();
+	String getUserId();
+	Boolean getParentEditable();
 
 }
 

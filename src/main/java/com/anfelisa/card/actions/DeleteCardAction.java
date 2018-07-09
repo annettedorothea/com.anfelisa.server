@@ -1,6 +1,6 @@
 package com.anfelisa.card.actions;
 
-import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -38,10 +38,10 @@ public class DeleteCardAction extends AbstractDeleteCardAction {
 	@DELETE
 	@Timed
 	@Path("/delete")
-	@RolesAllowed({ AuthUser.ADMIN })
+	@PermitAll
 	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("cardId") String cardId,
 			@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new CardDeleteData(uuid).withCardId(cardId);
+		this.actionData = new CardDeleteData(uuid).withCardId(cardId).withUserId(user.getUserId());
 		return this.apply();
 	}
 

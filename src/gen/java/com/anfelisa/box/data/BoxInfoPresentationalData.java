@@ -12,7 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IBoxInfoModel;
 import com.anfelisa.box.models.ITodayModel;
-import com.anfelisa.box.models.IUserIdModel;
+import com.anfelisa.user.models.IUserIdModel;
 
 @SuppressWarnings("all")
 public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {

@@ -29,6 +29,8 @@ public class NextCardModel implements INextCardModel {
 	
 	private String categoryId;
 	
+	private String rootCategoryId;
+	
 	@NotNull
 	private Integer count;
 	
@@ -45,6 +47,7 @@ public class NextCardModel implements INextCardModel {
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("image") String image,
 		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate
 	) {
@@ -57,6 +60,7 @@ public class NextCardModel implements INextCardModel {
 		this.wanted = wanted;
 		this.image = image;
 		this.categoryId = categoryId;
+		this.rootCategoryId = rootCategoryId;
 		this.count = count;
 		this.scoredDate = scoredDate;
 	}
@@ -131,6 +135,14 @@ public class NextCardModel implements INextCardModel {
 	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+	}
+	
+	@JsonProperty
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
 	}
 	
 	@JsonProperty

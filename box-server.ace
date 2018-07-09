@@ -5,7 +5,6 @@ target JAVA
 ACE {
 	GET GetBoxes uses BoxList
 	GET GetBox uses BoxInfo
-	GET GetRootCategories uses CategoryList
 	POST CreateBox uses BoxCreation {
 		on ok ( Box.createBox )
 	}
@@ -151,12 +150,9 @@ models {
 		String wanted
 		String image
 		String categoryId
+		String rootCategoryId
 		NotNull Integer count
 		DateTime scoredDate
-	}
-	
-	UserId {
-		NotNull String userId
 	}
 	
 	BoxId {
@@ -198,6 +194,7 @@ models {
 		String given
 		String wanted
 		String image
+		String categoryId
 	}
 	ScoreReinforceCard {
 		NotNull String reinforceCardId
@@ -214,17 +211,17 @@ models {
 }
 
 data {
-	CategoryList: (CategorySelectionList UserId)
+	CategoryList: (CategorySelectionList com.anfelisa.user.UserId)
 	BoxList : ( BoxList )
-	BoxInfo : ( BoxInfo Today UserId )
+	BoxInfo : ( BoxInfo Today com.anfelisa.user.UserId )
 	PostponeCards : (PostponeCards Today)
 	DeleteBox : (DeleteBox)
 	BoxUpdate : ( BoxUpdate )
 	BoxCreation : ( Box )
-	NextCard : ( NextCard Today UserId)
-	ScoreCard : (UserId ScoreCard)
-	ScoreReinforceCard : (UserId ScoreReinforceCard)
-	NextReinforceCard : (UserId NextReinforceCard BoxId)
-	ScheduleCard : (ScheduledCard UserId BoxId )
-	ScheduleCards : (ScheduledCards UserId BoxId )
+	NextCard : ( NextCard Today com.anfelisa.user.UserId)
+	ScoreCard : (com.anfelisa.user.UserId ScoreCard)
+	ScoreReinforceCard : (com.anfelisa.user.UserId ScoreReinforceCard)
+	NextReinforceCard : (com.anfelisa.user.UserId NextReinforceCard BoxId)
+	ScheduleCard : (ScheduledCard com.anfelisa.user.UserId BoxId )
+	ScheduleCards : (ScheduledCards com.anfelisa.user.UserId BoxId )
 }

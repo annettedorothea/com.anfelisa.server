@@ -1,16 +1,17 @@
 package com.anfelisa.category;
 
-import org.skife.jdbi.v2.DBI;
-
+import io.dropwizard.setup.Environment;
 import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.AceExecutionMode;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.category.actions.CreateCategoryAction;
-import com.anfelisa.category.actions.DeleteCategoryAction;
-import com.anfelisa.category.actions.GetAllCategoriesAction;
-import com.anfelisa.category.actions.UpdateCategoryAction;
+import com.anfelisa.ace.ServerConfiguration;
 
-import io.dropwizard.setup.Environment;
+import org.skife.jdbi.v2.DBI;
+
+import com.anfelisa.category.views.CategoryView;
+import com.anfelisa.category.views.UserAccessToCategoryView;
+import com.anfelisa.category.actions.*;
 
 @SuppressWarnings("all")
 public class AppRegistration {
@@ -20,13 +21,17 @@ public class AppRegistration {
 		environment.jersey().register(new UpdateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new DeleteCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetAllCategoriesAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new InviteUserAction(jdbi, appConfiguration, daoProvider, viewProvider));
 	}
 
 	public void registerConsumers(ViewProvider viewProvider, String mode) {
-				viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryOkEvent", viewProvider.categoryView.insert);
+				viewProvider.addConsumer("com.anfelisa.category.events.CreateCategorySubEvent", viewProvider.categoryView.insert);
+				viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryRootEvent", viewProvider.categoryView.insert);
+				viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryRootEvent", viewProvider.userAccessToCategoryView.grantAccess);
 				viewProvider.addConsumer("com.anfelisa.category.events.UpdateCategoryOkEvent", viewProvider.categoryView.update);
 				viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryNoRootEvent", viewProvider.categoryView.delete);
 				viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryRootEvent", viewProvider.categoryView.deleteRoot);
+				viewProvider.addConsumer("com.anfelisa.category.events.InviteUserOkEvent", viewProvider.userAccessToCategoryView.grantAccessInvitation);
     }
 }
 

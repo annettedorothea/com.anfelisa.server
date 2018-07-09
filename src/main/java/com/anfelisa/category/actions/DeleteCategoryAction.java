@@ -1,6 +1,6 @@
 package com.anfelisa.category.actions;
 
-import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -38,10 +38,10 @@ import io.dropwizard.auth.Auth;
 	@DELETE
 	@Timed
 	@Path("/delete")
-	@RolesAllowed({ AuthUser.ADMIN })
+	@PermitAll
 	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("categoryId") String categoryId,
 			@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new CategoryDeleteData(uuid).withCategoryId(categoryId);
+		this.actionData = new CategoryDeleteData(uuid).withCategoryId(categoryId).withUserId(user.getUserId());
 		return this.apply();
 	}
 

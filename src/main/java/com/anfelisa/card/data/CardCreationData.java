@@ -31,6 +31,9 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 	@NotNull
 	private String path;
 	
+	@NotNull
+	private String userId;
+	
 
 	public CardCreationData(
 		@JsonProperty("cardId") String cardId,
@@ -41,7 +44,8 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
-		@JsonProperty("path") String path
+		@JsonProperty("path") String path,
+		@JsonProperty("userId") String userId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -54,6 +58,7 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
 		this.path = path;
+		this.userId = userId;
 	}
 
 	public CardCreationData( String uuid ) {
@@ -168,6 +173,18 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 		return this;
 	}
 	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public CardCreationData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -180,7 +197,8 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 			this.cardIndex,
 			this.categoryId,
 			this.rootCategoryId,
-			this.path
+			this.path,
+			this.userId
 		);
 	}
 

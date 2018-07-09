@@ -10,6 +10,7 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.data.CategoryUpdateData;
 import com.anfelisa.category.models.ICategoryModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 
@@ -28,6 +29,10 @@ public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 				commandData.getCategoryId());
 		if (category == null) {
 			throwBadRequest("Category does not exist");
+		}
+		IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), commandData.getUserId());
+		if (access == null) {
+			throwUnauthorized();
 		}
 		validateLanguage(commandData.getGivenLanguage());
 		validateLanguage(commandData.getWantedLanguage());

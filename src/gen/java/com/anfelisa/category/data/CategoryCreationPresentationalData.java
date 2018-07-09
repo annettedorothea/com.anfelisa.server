@@ -1,8 +1,17 @@
 package com.anfelisa.category.data;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.IDataContainer;
+
+import com.anfelisa.category.models.ICategoryModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 @SuppressWarnings("all")
 public class CategoryCreationPresentationalData implements ICategoryCreationPresentationalData {
@@ -32,6 +41,9 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 	@NotNull
 	private String path;
 	
+	@NotNull
+	private String userId;
+	
 	
 	public CategoryCreationPresentationalData(
 		@JsonProperty("categoryId") String categoryId,
@@ -43,7 +55,8 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
-		@JsonProperty("path") String path
+		@JsonProperty("path") String path,
+		@JsonProperty("userId") String userId
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -55,6 +68,7 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
 		this.path = path;
+		this.userId = userId;
 		
 	}
 
@@ -175,6 +189,18 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 	}
 	public CategoryCreationPresentationalData withPath(String path) {
 		this.path = path;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public CategoryCreationPresentationalData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	

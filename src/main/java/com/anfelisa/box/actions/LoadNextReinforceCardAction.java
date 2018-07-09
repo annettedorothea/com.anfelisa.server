@@ -66,6 +66,7 @@ public class LoadNextReinforceCardAction extends AbstractLoadNextReinforceCardAc
 			this.actionData.setWanted(nextCard.getWanted());
 			this.actionData.setChangeDate(nextCard.getChangeDate());
 			this.actionData.setReinforceCardId(nextCard.getReinforceCardId());
+			this.actionData.setCategoryId(nextCard.getCategoryId());
 		}
 	}
 

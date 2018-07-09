@@ -11,7 +11,9 @@ import com.anfelisa.box.models.ScheduledCardDao;
 import com.anfelisa.card.model.CustomCardDao;
 import com.anfelisa.card.models.CardDao;
 import com.anfelisa.category.model.CustomCategoryDao;
+import com.anfelisa.category.model.CustomUserAccessToCategoryDao;
 import com.anfelisa.category.models.CategoryDao;
+import com.anfelisa.category.models.UserAccessToCategoryDao;
 import com.anfelisa.user.models.CustomUserDao;
 import com.anfelisa.user.models.EmailConfirmationDao;
 import com.anfelisa.user.models.ResetPasswordDao;
@@ -46,6 +48,10 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 	private final ReinforceCardDao reinforceCardDao = new ReinforceCardDao();
 
 	private final CustomReinforceCardDao customReinforceCardDao = new CustomReinforceCardDao();
+	
+	private final UserAccessToCategoryDao userAccessToCategoryDao = new UserAccessToCategoryDao();
+
+	private final CustomUserAccessToCategoryDao customUserAccessToCategoryDao = new CustomUserAccessToCategoryDao();
 
 	@Override
 	public CardDao getCardDao() {
@@ -118,6 +124,16 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 	}
 
 	@Override
+	public UserAccessToCategoryDao getUserAccessToCategoryDao() {
+		return userAccessToCategoryDao;
+	}
+
+	@Override
+	public CustomUserAccessToCategoryDao getCustomUserAccessToCategoryDao() {
+		return customUserAccessToCategoryDao;
+	}
+	
+	@Override
 	public void truncateAllViews(Handle handle) {
 		scheduledCardDao.truncate(handle);
 		cardDao.truncate(handle);
@@ -127,6 +143,7 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 		emailConfirmationDao.truncate(handle);
 		userDao.truncate(handle);
 		reinforceCardDao.truncate(handle);
+		userAccessToCategoryDao.truncate(handle);
 	}
 
 }

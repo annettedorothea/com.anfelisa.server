@@ -1,6 +1,6 @@
 package com.anfelisa.card.actions;
 
-import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -37,10 +37,10 @@ public class CreateCardAction extends AbstractCreateCardAction {
 	@POST
 	@Timed
 	@Path("/create")
-	@RolesAllowed({ AuthUser.AUTHOR })
+	@PermitAll
 	public Response post(@Auth AuthUser user, @NotNull CardCreationData cardCreationData)
 			throws JsonProcessingException {
-		this.actionData = cardCreationData.withCardAuthor(user.getUsername());
+		this.actionData = cardCreationData.withCardAuthor(user.getUsername()).withUserId(user.getUserId());
 		return this.apply();
 	}
 

@@ -1,7 +1,7 @@
 package com.anfelisa.box.data;
 
 import com.anfelisa.box.models.ICategorySelectionListModel;
-import com.anfelisa.box.models.IUserIdModel;
+import com.anfelisa.user.models.IUserIdModel;
 
 public interface ICategoryListPresentationalData extends ICategorySelectionListModel, IUserIdModel {
 

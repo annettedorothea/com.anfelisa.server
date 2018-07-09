@@ -1,10 +1,17 @@
 package com.anfelisa.card.data;
 
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.IDataContainer;
+
+import com.anfelisa.card.models.ICardUpdateModel;
+import com.anfelisa.user.models.IUserIdModel;
 
 @SuppressWarnings("all")
 public class CardUpdatePresentationalData implements ICardUpdatePresentationalData {
@@ -20,17 +27,22 @@ public class CardUpdatePresentationalData implements ICardUpdatePresentationalDa
 	
 	private String image;
 	
+	@NotNull
+	private String userId;
+	
 	
 	public CardUpdatePresentationalData(
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
-		@JsonProperty("image") String image
+		@JsonProperty("image") String image,
+		@JsonProperty("userId") String userId
 	) {
 		this.cardId = cardId;
 		this.given = given;
 		this.wanted = wanted;
 		this.image = image;
+		this.userId = userId;
 		
 	}
 
@@ -79,6 +91,18 @@ public class CardUpdatePresentationalData implements ICardUpdatePresentationalDa
 	}
 	public CardUpdatePresentationalData withImage(String image) {
 		this.image = image;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public CardUpdatePresentationalData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	

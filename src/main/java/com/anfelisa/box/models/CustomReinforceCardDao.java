@@ -20,7 +20,7 @@ public class CustomReinforceCardDao {
 
 	public INextReinforceCardModel selectFirstScheduledCard(Handle handle, String boxId) {
 		return handle.createQuery(
-				"SELECT r.reinforcecardid, r.changedate, sc.quality as lastQuality, c.given, c.wanted, c.image FROM public.reinforcecard r "
+				"SELECT r.reinforcecardid, r.changedate, sc.quality as lastQuality, c.given, c.wanted, c.image, c.categoryid FROM public.reinforcecard r "
 						+ "inner join public.scheduledcard sc on r.scheduledcardid = sc.scheduledcardid "
 						+ "inner join public.card c on sc.cardid = c.cardid where sc.boxid = :boxid order by r.changedate")
 				.bind("boxid", boxId).map(new NextReinforceCardMapper()).first();
@@ -32,6 +32,13 @@ public class CustomReinforceCardDao {
 		statement.bind("reinforcecardid", reinforceCardId);
 		statement.bind("changedate", changeDate);
 		statement.execute();
+	}
+
+	public IReinforceCardModel selectByCardId(Handle handle, String cardId) {
+		return handle.createQuery("SELECT rc.reinforcecardid, rc.scheduledcardid, rc.boxid, rc.changedate FROM public.reinforcecard rc left outer join scheduledcard sc on rc.scheduledcardid = sc.scheduledcardid WHERE cardid = :cardid")
+			.bind("cardid", cardId)
+			.map(new ReinforceCardMapper())
+			.first();
 	}
 
 }

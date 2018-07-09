@@ -1,6 +1,6 @@
 package com.anfelisa.category.actions;
 
-import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
@@ -37,9 +37,9 @@ import io.dropwizard.auth.Auth;
 	@PUT
 	@Timed
 	@Path("/update")
-	@RolesAllowed({ AuthUser.AUTHOR })
+	@PermitAll
 	public Response put(@Auth AuthUser user, @NotNull CategoryUpdateData categoryUpdateData) throws JsonProcessingException {
-		this.actionData = categoryUpdateData;
+		this.actionData = categoryUpdateData.withUserId(user.getUserId());
 		return this.apply();
 	}
 

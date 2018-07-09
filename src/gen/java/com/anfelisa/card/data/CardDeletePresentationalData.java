@@ -1,8 +1,17 @@
 package com.anfelisa.card.data;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.IDataContainer;
+
+import com.anfelisa.card.models.ICardDeleteModel;
+import com.anfelisa.user.models.IUserIdModel;
 
 @SuppressWarnings("all")
 public class CardDeletePresentationalData implements ICardDeletePresentationalData {
@@ -16,15 +25,20 @@ public class CardDeletePresentationalData implements ICardDeletePresentationalDa
 	@NotNull
 	private String categoryId;
 	
+	@NotNull
+	private String userId;
+	
 	
 	public CardDeletePresentationalData(
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("cardIndex") Integer cardIndex,
-		@JsonProperty("categoryId") String categoryId
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("userId") String userId
 	) {
 		this.cardId = cardId;
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
+		this.userId = userId;
 		
 	}
 
@@ -61,6 +75,18 @@ public class CardDeletePresentationalData implements ICardDeletePresentationalDa
 	}
 	public CardDeletePresentationalData withCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public CardDeletePresentationalData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	

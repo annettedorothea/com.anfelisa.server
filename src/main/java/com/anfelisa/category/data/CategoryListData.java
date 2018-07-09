@@ -23,6 +23,12 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 	
 	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
 	
+	private Boolean hasBox = false;
+	
+	private String userId;
+	
+	private Boolean parentEditable = false;
+	
 
 	public CategoryListData(
 		@JsonProperty("parentCategoryId") String parentCategoryId,
@@ -33,7 +39,10 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 		@JsonProperty("parentGivenLanguage") String parentGivenLanguage,
 		@JsonProperty("parentWantedLanguage") String parentWantedLanguage,
 		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryItemModel> categoryList,
-		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList
+		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
+		@JsonProperty("hasBox") Boolean hasBox,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("parentEditable") Boolean parentEditable
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -46,6 +55,9 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 		this.parentWantedLanguage = parentWantedLanguage;
 		this.categoryList = categoryList;
 		this.cardList = cardList;
+		this.hasBox = hasBox;
+		this.userId = userId;
+		this.parentEditable = parentEditable;
 	}
 
 	public CategoryListData( String uuid ) {
@@ -160,6 +172,42 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 		return this;
 	}
 	
+	@JsonProperty
+	public Boolean getHasBox() {
+		return this.hasBox;
+	}
+	public void setHasBox(Boolean hasBox) {
+		this.hasBox = hasBox;
+	}
+	public CategoryListData withHasBox(Boolean hasBox) {
+		this.hasBox = hasBox;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public CategoryListData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getParentEditable() {
+		return this.parentEditable;
+	}
+	public void setParentEditable(Boolean parentEditable) {
+		this.parentEditable = parentEditable;
+	}
+	public CategoryListData withParentEditable(Boolean parentEditable) {
+		this.parentEditable = parentEditable;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -172,7 +220,10 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 			this.parentGivenLanguage,
 			this.parentWantedLanguage,
 			this.categoryList,
-			this.cardList
+			this.cardList,
+			this.hasBox,
+			this.userId,
+			this.parentEditable
 		);
 	}
 

@@ -1,6 +1,8 @@
 package com.anfelisa.category.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings("all")
 public class CategoryListModel implements ICategoryListModel {
@@ -23,6 +25,12 @@ public class CategoryListModel implements ICategoryListModel {
 	
 	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
 	
+	private Boolean hasBox = false;
+	
+	private String userId;
+	
+	private Boolean parentEditable = false;
+	
 
 	public CategoryListModel(
 		@JsonProperty("parentCategoryId") String parentCategoryId,
@@ -33,7 +41,10 @@ public class CategoryListModel implements ICategoryListModel {
 		@JsonProperty("parentGivenLanguage") String parentGivenLanguage,
 		@JsonProperty("parentWantedLanguage") String parentWantedLanguage,
 		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryItemModel> categoryList,
-		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList
+		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
+		@JsonProperty("hasBox") Boolean hasBox,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("parentEditable") Boolean parentEditable
 	) {
 		this.parentCategoryId = parentCategoryId;
 		this.grandParentCategoryId = grandParentCategoryId;
@@ -44,6 +55,9 @@ public class CategoryListModel implements ICategoryListModel {
 		this.parentWantedLanguage = parentWantedLanguage;
 		this.categoryList = categoryList;
 		this.cardList = cardList;
+		this.hasBox = hasBox;
+		this.userId = userId;
+		this.parentEditable = parentEditable;
 	}
 
 	@JsonProperty
@@ -116,6 +130,30 @@ public class CategoryListModel implements ICategoryListModel {
 	}
 	public void setCardList(java.util.List<com.anfelisa.card.models.ICardModel> cardList) {
 		this.cardList = cardList;
+	}
+	
+	@JsonProperty
+	public Boolean getHasBox() {
+		return this.hasBox;
+	}
+	public void setHasBox(Boolean hasBox) {
+		this.hasBox = hasBox;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@JsonProperty
+	public Boolean getParentEditable() {
+		return this.parentEditable;
+	}
+	public void setParentEditable(Boolean parentEditable) {
+		this.parentEditable = parentEditable;
 	}
 	
 

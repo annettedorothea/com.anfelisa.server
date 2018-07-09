@@ -8,6 +8,7 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.card.data.CardUpdateData;
 import com.anfelisa.card.models.ICardModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 public class UpdateCardCommand extends AbstractUpdateCardCommand {
 
@@ -23,6 +24,10 @@ public class UpdateCardCommand extends AbstractUpdateCardCommand {
 		ICardModel card = daoProvider.getCardDao().selectByCardId(getHandle(), commandData.getCardId());
 		if (card == null) {
 			throwBadRequest("card does not exist");
+		}
+		IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), card.getRootCategoryId(), commandData.getUserId());
+		if (access == null) {
+			throwUnauthorized();
 		}
 		this.commandData.setOutcome(ok);
 	}

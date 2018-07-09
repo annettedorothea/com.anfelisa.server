@@ -20,7 +20,6 @@ public class AppRegistration {
 	public void registerResources(Environment environment, DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		environment.jersey().register(new GetBoxesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new GetRootCategoriesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new CreateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new UpdateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new PostponeCardsAction(jdbi, appConfiguration, daoProvider, viewProvider));

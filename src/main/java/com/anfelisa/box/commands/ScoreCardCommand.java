@@ -9,6 +9,7 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.ScoreCardData;
 import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.IReinforceCardModel;
 import com.anfelisa.box.models.IScheduledCardModel;
 
 public class ScoreCardCommand extends AbstractScoreCardCommand {
@@ -50,7 +51,9 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 			}
 			this.commandData.setOutcome(score);
 		}
-		if (quality <= 3) {
+		
+		IReinforceCardModel reinforceCard = daoProvider.getCustomReinforceCardDao().selectByCardId(getHandle(), scheduledCard.getCardId());
+		if (quality <= 3 && reinforceCard == null) {
 			this.commandData.setOutcome(scoreAndReinforce);
 		} else {
 			this.commandData.setOutcome(score);

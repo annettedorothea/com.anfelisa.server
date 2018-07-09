@@ -10,7 +10,7 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.ScheduleCardData;
 import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.category.models.ICategoryItemModel;
+import com.anfelisa.category.models.ICategoryModel;
 
 public class ScheduleNextCardCommand extends AbstractScheduleNextCardCommand {
 
@@ -53,9 +53,9 @@ public class ScheduleNextCardCommand extends AbstractScheduleNextCardCommand {
 		if (nextCardId != null) {
 			return nextCardId;
 		}
-		List<ICategoryItemModel> categories = daoProvider.getCustomCategoryDao().selectAllChildren(getHandle(),
+		List<ICategoryModel> categories = daoProvider.getCustomCategoryDao().selectAllChildren(getHandle(),
 				categoryId);
-		for (ICategoryItemModel category : categories) {
+		for (ICategoryModel category : categories) {
 			return searchNextCard(category.getCategoryId());
 		}
 		return null;

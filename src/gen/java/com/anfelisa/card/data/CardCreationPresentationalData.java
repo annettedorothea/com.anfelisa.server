@@ -1,8 +1,17 @@
 package com.anfelisa.card.data;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.IDataContainer;
+
+import com.anfelisa.card.models.ICardModel;
+import com.anfelisa.user.models.IUserIdModel;
 
 @SuppressWarnings("all")
 public class CardCreationPresentationalData implements ICardCreationPresentationalData {
@@ -31,6 +40,9 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 	@NotNull
 	private String path;
 	
+	@NotNull
+	private String userId;
+	
 	
 	public CardCreationPresentationalData(
 		@JsonProperty("cardId") String cardId,
@@ -41,7 +53,8 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
-		@JsonProperty("path") String path
+		@JsonProperty("path") String path,
+		@JsonProperty("userId") String userId
 	) {
 		this.cardId = cardId;
 		this.given = given;
@@ -52,6 +65,7 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
 		this.path = path;
+		this.userId = userId;
 		
 	}
 
@@ -160,6 +174,18 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 	}
 	public CardCreationPresentationalData withPath(String path) {
 		this.path = path;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public CardCreationPresentationalData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	

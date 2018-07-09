@@ -24,6 +24,8 @@ public class NextReinforceCardData extends AbstractData implements INextReinforc
 	
 	private String image;
 	
+	private String categoryId;
+	
 	@NotNull
 	private String boxId;
 	
@@ -36,6 +38,7 @@ public class NextReinforceCardData extends AbstractData implements INextReinforc
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("image") String image,
+		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("boxId") String boxId
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -47,6 +50,7 @@ public class NextReinforceCardData extends AbstractData implements INextReinforc
 		this.given = given;
 		this.wanted = wanted;
 		this.image = image;
+		this.categoryId = categoryId;
 		this.boxId = boxId;
 	}
 
@@ -139,6 +143,18 @@ public class NextReinforceCardData extends AbstractData implements INextReinforc
 	}
 	
 	@JsonProperty
+	public String getCategoryId() {
+		return this.categoryId;
+	}
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	public NextReinforceCardData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getBoxId() {
 		return this.boxId;
 	}
@@ -161,6 +177,7 @@ public class NextReinforceCardData extends AbstractData implements INextReinforc
 			this.given,
 			this.wanted,
 			this.image,
+			this.categoryId,
 			this.boxId
 		);
 	}

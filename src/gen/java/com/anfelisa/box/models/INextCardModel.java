@@ -14,6 +14,7 @@ public interface INextCardModel {
 	String getWanted();
 	String getImage();
 	String getCategoryId();
+	String getRootCategoryId();
 	Integer getCount();
 	org.joda.time.DateTime getScoredDate();
 

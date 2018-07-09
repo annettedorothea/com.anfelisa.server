@@ -5,7 +5,6 @@ import java.security.Principal;
 public class AuthUser implements Principal {
 
 	public final static String ADMIN = "ADMIN";
-	public final static String AUTHOR = "AUTHOR";
 	public final static String STUDENT = "STUDENT";
 
 	private String userId;
@@ -31,10 +30,6 @@ public class AuthUser implements Principal {
 
 	public String getUsername() {
 		return username;
-	}
-
-	public boolean isAuthor() {
-		return AUTHOR.equals(this.role);
 	}
 
 	public boolean isAdmin() {

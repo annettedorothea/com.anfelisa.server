@@ -29,6 +29,8 @@ public class NextCardData extends AbstractData implements INextCardData {
 	
 	private String categoryId;
 	
+	private String rootCategoryId;
+	
 	@NotNull
 	private Integer count;
 	
@@ -51,6 +53,7 @@ public class NextCardData extends AbstractData implements INextCardData {
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("image") String image,
 		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
 		@JsonProperty("today") org.joda.time.DateTime today,
@@ -67,6 +70,7 @@ public class NextCardData extends AbstractData implements INextCardData {
 		this.wanted = wanted;
 		this.image = image;
 		this.categoryId = categoryId;
+		this.rootCategoryId = rootCategoryId;
 		this.count = count;
 		this.scoredDate = scoredDate;
 		this.today = today;
@@ -186,6 +190,18 @@ public class NextCardData extends AbstractData implements INextCardData {
 	}
 	
 	@JsonProperty
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+	}
+	public NextCardData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+		return this;
+	}
+	
+	@JsonProperty
 	public Integer getCount() {
 		return this.count;
 	}
@@ -246,6 +262,7 @@ public class NextCardData extends AbstractData implements INextCardData {
 			this.wanted,
 			this.image,
 			this.categoryId,
+			this.rootCategoryId,
 			this.count,
 			this.scoredDate,
 			this.today,

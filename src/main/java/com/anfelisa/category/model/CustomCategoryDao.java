@@ -7,29 +7,31 @@ import org.skife.jdbi.v2.Update;
 
 import com.anfelisa.category.data.CategoryUpdateData;
 import com.anfelisa.category.models.CategoryItemMapper;
+import com.anfelisa.category.models.CategoryMapper;
 import com.anfelisa.category.models.ICategoryItemModel;
+import com.anfelisa.category.models.ICategoryModel;
 
 public class CustomCategoryDao {
 
-	public List<ICategoryItemModel> selectAllChildren(Handle handle, String parentCategoryId) {
-		return handle.createQuery(
-				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, (select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
-				.bind("parentcategoryid", parentCategoryId).map(new CategoryItemMapper()).list();
-	}
-
-	public List<ICategoryItemModel> selectAllRoot(Handle handle) {
-		return handle.createQuery(
-				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, (select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty FROM public.category c WHERE parentcategoryid is null order by categoryindex, categoryname")
-				.map(new CategoryItemMapper()).list();
-	}
-
-	public List<ICategoryItemModel> selectAllRootWithoutMyBoxes(Handle handle, String userId) {
+	public List<ICategoryItemModel> selectAllChildren(Handle handle, String parentCategoryId, String userId) {
 		return handle.createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, "
-						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty "
-						+ "FROM public.category c where categoryid in "
-						+ "(SELECT categoryid FROM public.category c WHERE parentcategoryid is null except select categoryid from box where userid = :userid) "
-						+ "order by categoryindex, categoryname")
+				+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
+				+ "(select a.categoryid from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid) is not null as editable, "
+				+ "false as isRoot, "
+				+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
+				+ "FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
+				.bind("userid", userId).bind("parentcategoryid", parentCategoryId).map(new CategoryItemMapper()).list();
+	}
+
+	public List<ICategoryItemModel> selectAllRoot(Handle handle, String userId) {
+		return handle.createQuery(
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, "
+				+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
+				+ "(select a.categoryid from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid) is not null as editable, "
+				+ "true as isRoot, "
+				+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
+				+ "FROM public.category c WHERE parentcategoryid is null order by categoryindex, categoryname")
 				.bind("userid", userId).map(new CategoryItemMapper()).list();
 	}
 
@@ -69,6 +71,12 @@ public class CustomCategoryDao {
 				"UPDATE public.category SET categoryindex = categoryindex-1 WHERE parentcategoryid is null and categoryindex > :categoryindex");
 		statement.bind("categoryindex", categoryIndex);
 		statement.execute();
+	}
+
+	public List<ICategoryModel> selectAllChildren(Handle handle, String parentCategoryId) {
+		return handle.createQuery(
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
+				.bind("parentcategoryid", parentCategoryId).map(new CategoryMapper()).list();
 	}
 
 }

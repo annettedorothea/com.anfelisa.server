@@ -67,9 +67,9 @@ models {
 }
 
 data {
-	CardCreation : ( Card )
-	CardUpdate : ( CardUpdate )
-	CardDelete : ( CardDelete )
+	CardCreation : ( Card com.anfelisa.user.UserId )
+	CardUpdate : ( CardUpdate com.anfelisa.user.UserId )
+	CardDelete : ( CardDelete com.anfelisa.user.UserId )
 	CardSearch : (CardSearch )
 	CardTranslation : (CardTranslation)
 }

@@ -16,6 +16,9 @@ public interface ICategoryItemModel {
 	String getWantedLanguage();
 	String getPath();
 	Boolean getEmpty();
+	Boolean getEditable();
+	Boolean getHasBox();
+	Boolean getIsRoot();
 
 }
 
