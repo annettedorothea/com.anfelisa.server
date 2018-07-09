@@ -6,16 +6,17 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
+
 import com.anfelisa.category.data.CategoryCreationData;
 
-public abstract class AbstractCreateCategoryOkEvent extends Event<CategoryCreationData> {
+public abstract class AbstractCreateCategorySubEvent extends Event<CategoryCreationData> {
 
-	public AbstractCreateCategoryOkEvent(CategoryCreationData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.events.CreateCategoryOkEvent", eventParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractCreateCategorySubEvent(CategoryCreationData eventParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.events.CreateCategorySubEvent", eventParam, databaseHandle, daoProvider, viewProvider);
 	}
 	
-	public AbstractCreateCategoryOkEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.events.CreateCategoryOkEvent", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractCreateCategorySubEvent(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.events.CreateCategorySubEvent", null, databaseHandle, daoProvider, viewProvider);
 	}
 	
 	public void initEventData(String json) {
