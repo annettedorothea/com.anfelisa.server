@@ -22,7 +22,13 @@ public class BoxInfoMapper implements ResultSetMapper<IBoxInfoModel> {
 			r.getString("categoryId"),
 			r.getString("categoryName"),
 			r.getObject("categoryIndex") != null ? r.getInt("categoryIndex") : null,
-			r.getObject("maxInterval") != null ? r.getInt("maxInterval") : null
+			r.getObject("maxInterval") != null ? r.getInt("maxInterval") : null,
+			r.getObject("quality0Count") != null ? r.getInt("quality0Count") : null,
+			r.getObject("quality1Count") != null ? r.getInt("quality1Count") : null,
+			r.getObject("quality2Count") != null ? r.getInt("quality2Count") : null,
+			r.getObject("quality3Count") != null ? r.getInt("quality3Count") : null,
+			r.getObject("quality4Count") != null ? r.getInt("quality4Count") : null,
+			r.getObject("quality5Count") != null ? r.getInt("quality5Count") : null
 		);
 	}
 }

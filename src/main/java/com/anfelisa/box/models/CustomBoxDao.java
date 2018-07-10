@@ -16,7 +16,13 @@ public class CustomBoxDao {
 				+ "(select count(distinct(cardid)) from public.scheduledcard where boxid = b.boxid ) as mycards, "
 				+ "(select count(reinforcecardid) from public.reinforcecard where boxid = b.boxid ) as reinforcecards, "
 				+ "(select date_part('day', age(:today::timestamp, (select min(scheduleddate) from scheduledcard where boxid = b.boxid and quality is null)::timestamp) )) as daysbehindschedule, "
-				+ "b.boxid, b.categoryid, c.categoryname, c.categoryindex, b.maxinterval "
+				+ "b.boxid, b.categoryid, c.categoryname, c.categoryindex, b.maxinterval, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 0) as quality0Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 1) as quality1Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 2) as quality2Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 3) as quality3Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 4) as quality4Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 5) as quality5Count "
 				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid where userid = :userid order by c.categoryindex")
 				.bind("userid", userId)
 				.bind("today", today)
@@ -29,7 +35,13 @@ public class CustomBoxDao {
 				+ "(select count(distinct(cardid)) from public.scheduledcard where boxid = :boxid ) as mycards, "
 				+ "(select count(reinforcecardid) from public.reinforcecard where boxid = :boxid ) as reinforcecards, "
 				+ "(select date_part('day', age(:today::timestamp, (select min(scheduleddate) from scheduledcard where boxid = :boxid and quality is null)::timestamp) )) as daysbehindschedule, "
-				+ "b.boxid, b.categoryid, c.categoryname, c.categoryindex, b.maxinterval "
+				+ "b.boxid, b.categoryid, c.categoryname, c.categoryindex, b.maxinterval, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 0) as quality0Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 1) as quality1Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 2) as quality2Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 3) as quality3Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 4) as quality4Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 5) as quality5Count "
 				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid where boxid = :boxid ")
 				.bind("boxid", boxId)
 				.bind("today", today)

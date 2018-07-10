@@ -15,6 +15,12 @@ public interface IBoxInfoModel {
 	String getCategoryName();
 	Integer getCategoryIndex();
 	Integer getMaxInterval();
+	Integer getQuality0Count();
+	Integer getQuality1Count();
+	Integer getQuality2Count();
+	Integer getQuality3Count();
+	Integer getQuality4Count();
+	Integer getQuality5Count();
 
 }
 

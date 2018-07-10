@@ -41,6 +41,18 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 	
 	private Integer maxInterval;
 	
+	private Integer quality0Count;
+	
+	private Integer quality1Count;
+	
+	private Integer quality2Count;
+	
+	private Integer quality3Count;
+	
+	private Integer quality4Count;
+	
+	private Integer quality5Count;
+	
 	@NotNull
 	private org.joda.time.DateTime today;
 	
@@ -59,6 +71,12 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryIndex") Integer categoryIndex,
 		@JsonProperty("maxInterval") Integer maxInterval,
+		@JsonProperty("quality0Count") Integer quality0Count,
+		@JsonProperty("quality1Count") Integer quality1Count,
+		@JsonProperty("quality2Count") Integer quality2Count,
+		@JsonProperty("quality3Count") Integer quality3Count,
+		@JsonProperty("quality4Count") Integer quality4Count,
+		@JsonProperty("quality5Count") Integer quality5Count,
 		@JsonProperty("today") org.joda.time.DateTime today,
 		@JsonProperty("userId") String userId
 	) {
@@ -72,6 +90,12 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 		this.categoryName = categoryName;
 		this.categoryIndex = categoryIndex;
 		this.maxInterval = maxInterval;
+		this.quality0Count = quality0Count;
+		this.quality1Count = quality1Count;
+		this.quality2Count = quality2Count;
+		this.quality3Count = quality3Count;
+		this.quality4Count = quality4Count;
+		this.quality5Count = quality5Count;
 		this.today = today;
 		this.userId = userId;
 		
@@ -194,6 +218,78 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 	}
 	public BoxInfoPresentationalData withMaxInterval(Integer maxInterval) {
 		this.maxInterval = maxInterval;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getQuality0Count() {
+		return this.quality0Count;
+	}
+	public void setQuality0Count(Integer quality0Count) {
+		this.quality0Count = quality0Count;
+	}
+	public BoxInfoPresentationalData withQuality0Count(Integer quality0Count) {
+		this.quality0Count = quality0Count;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getQuality1Count() {
+		return this.quality1Count;
+	}
+	public void setQuality1Count(Integer quality1Count) {
+		this.quality1Count = quality1Count;
+	}
+	public BoxInfoPresentationalData withQuality1Count(Integer quality1Count) {
+		this.quality1Count = quality1Count;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getQuality2Count() {
+		return this.quality2Count;
+	}
+	public void setQuality2Count(Integer quality2Count) {
+		this.quality2Count = quality2Count;
+	}
+	public BoxInfoPresentationalData withQuality2Count(Integer quality2Count) {
+		this.quality2Count = quality2Count;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getQuality3Count() {
+		return this.quality3Count;
+	}
+	public void setQuality3Count(Integer quality3Count) {
+		this.quality3Count = quality3Count;
+	}
+	public BoxInfoPresentationalData withQuality3Count(Integer quality3Count) {
+		this.quality3Count = quality3Count;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getQuality4Count() {
+		return this.quality4Count;
+	}
+	public void setQuality4Count(Integer quality4Count) {
+		this.quality4Count = quality4Count;
+	}
+	public BoxInfoPresentationalData withQuality4Count(Integer quality4Count) {
+		this.quality4Count = quality4Count;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getQuality5Count() {
+		return this.quality5Count;
+	}
+	public void setQuality5Count(Integer quality5Count) {
+		this.quality5Count = quality5Count;
+	}
+	public BoxInfoPresentationalData withQuality5Count(Integer quality5Count) {
+		this.quality5Count = quality5Count;
 		return this;
 	}
 	

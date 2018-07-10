@@ -114,6 +114,12 @@ models {
 		NotNull String categoryName
 		NotNull Integer categoryIndex
 		Integer maxInterval
+		Integer quality0Count
+		Integer quality1Count
+		Integer quality2Count
+		Integer quality3Count
+		Integer quality4Count
+		Integer quality5Count
 	}
 	BoxList {
 		List BoxInfo boxList
