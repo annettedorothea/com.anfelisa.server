@@ -34,7 +34,7 @@ public class ViewProvider {
 
 	private final Map<String, List<BiConsumer<? extends IDataContainer, Handle>>> consumerMap;
 
-	public ViewProvider(DaoProvider daoProvider, EmailService emailService) {
+	public ViewProvider(IDaoProvider daoProvider, EmailService emailService) {
 		boxView = new BoxView(daoProvider);
 		cardView = new CardView(daoProvider);
 		scheduledCardView = new ScheduledCardView(daoProvider);

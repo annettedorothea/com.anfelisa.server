@@ -7,19 +7,19 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
-import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.EmailService;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.user.data.ForgotPasswordData;
 import com.anfelisa.user.data.UserRegistrationData;
 
 @SuppressWarnings("all")
 public class EmailView {
 
-	private DaoProvider daoProvider;
+	private IDaoProvider daoProvider;
 
 	private EmailService emailService;
 
-	public EmailView(DaoProvider daoProvider, EmailService emailService) {
+	public EmailView(IDaoProvider daoProvider, EmailService emailService) {
 		super();
 		this.daoProvider = daoProvider;
 		this.emailService = emailService;

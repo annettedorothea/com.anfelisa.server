@@ -5,7 +5,7 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.box.data.BoxCreationData;
 import com.anfelisa.box.data.BoxUpdateData;
 import com.anfelisa.box.data.DeleteBoxData;
@@ -15,9 +15,9 @@ import com.anfelisa.box.models.IScheduledCardModel;
 
 public class BoxView {
 
-	private DaoProvider daoProvider;
+	private IDaoProvider daoProvider;
 
-	public BoxView(DaoProvider daoProvider) {
+	public BoxView(IDaoProvider daoProvider) {
 		super();
 		this.daoProvider = daoProvider;
 	}

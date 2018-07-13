@@ -4,16 +4,16 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.user.data.ForgotPasswordData;
 import com.anfelisa.user.data.ResetPasswordData;
 
 @SuppressWarnings("all")
 public class ResetPasswordView {
 
-	private DaoProvider daoProvider;
+	private IDaoProvider daoProvider;
 
-	public ResetPasswordView(DaoProvider daoProvider) {
+	public ResetPasswordView(IDaoProvider daoProvider) {
 		super();
 		this.daoProvider = daoProvider;
 	}

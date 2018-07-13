@@ -4,15 +4,15 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.box.data.PostponeCardsData;
 import com.anfelisa.box.data.ScoreCardData;
 
 public class ScheduledCardView {
 
-	private DaoProvider daoProvider;
+	private IDaoProvider daoProvider;
 
-	public ScheduledCardView(DaoProvider daoProvider) {
+	public ScheduledCardView(IDaoProvider daoProvider) {
 		super();
 		this.daoProvider = daoProvider;
 	}

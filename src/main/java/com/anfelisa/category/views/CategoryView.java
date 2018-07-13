@@ -4,7 +4,7 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.category.data.CategoryCreationData;
 import com.anfelisa.category.data.CategoryDeleteData;
 import com.anfelisa.category.data.CategoryUpdateData;
@@ -12,9 +12,9 @@ import com.anfelisa.category.data.CategoryUpdateData;
 @SuppressWarnings("all")
 public class CategoryView {
 
-	private DaoProvider daoProvider;
+	private IDaoProvider daoProvider;
 
-	public CategoryView(DaoProvider daoProvider) {
+	public CategoryView(IDaoProvider daoProvider) {
 		super();
 		this.daoProvider = daoProvider;
 	}

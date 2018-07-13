@@ -4,7 +4,7 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.user.data.ChangeUserRoleData;
 import com.anfelisa.user.data.DeleteUserData;
 import com.anfelisa.user.data.EmailConfirmationData;
@@ -14,9 +14,9 @@ import com.anfelisa.user.data.UserUpdateData;
 
 public class UserView {
 
-	private DaoProvider daoProvider;
+	private IDaoProvider daoProvider;
 
-	public UserView(DaoProvider daoProvider) {
+	public UserView(IDaoProvider daoProvider) {
 		super();
 		this.daoProvider = daoProvider;
 	}

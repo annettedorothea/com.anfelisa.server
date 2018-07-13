@@ -4,7 +4,7 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.card.data.CardCreationData;
 import com.anfelisa.card.data.CardDeleteData;
 import com.anfelisa.card.data.CardUpdateData;
@@ -12,9 +12,9 @@ import com.anfelisa.card.data.CardUpdateData;
 @SuppressWarnings("all")
 public class CardView {
 
-	private DaoProvider daoProvider;
+	private IDaoProvider daoProvider;
 	
-	public CardView(DaoProvider daoProvider) {
+	public CardView(IDaoProvider daoProvider) {
 		super();
 		this.daoProvider = daoProvider;
 	}

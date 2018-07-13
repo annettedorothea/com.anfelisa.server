@@ -19,27 +19,35 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 	static final Logger LOG = LoggerFactory.getLogger(EventReplayCommand.class);
 
 	private IDaoProvider daoProvider;
-
+	
 	protected EventReplayCommand(Application<CustomAppConfiguration> application, IDaoProvider daoProvider) {
 		super(application, "replay", "truncates views and replays events");
 		this.daoProvider = daoProvider;
 	}
 
 	@Override
-	protected void run(Environment environment, Namespace namespace, CustomAppConfiguration configuration)
-			throws Exception {
-		if (ServerConfiguration.LIVE.equals(configuration.getServerConfiguration().getMode())) {
+	protected void run(Environment environment, Namespace namespace, CustomAppConfiguration configuration) throws Exception {
+		if (ServerConfiguration.LIVE.equals(configuration.getServerConfiguration().getMode())) {	
 			throw new RuntimeException("we won't truncate all views and replay events in a live environment");
 		}
-		if (ServerConfiguration.REPLAY.equals(configuration.getServerConfiguration().getMode())) {
+		if (ServerConfiguration.REPLAY.equals(configuration.getServerConfiguration().getMode())) {	
 			throw new RuntimeException("replay events in a replay environment doesn't make sense");
 		}
-
+		
 		final DBIFactory factory = new DBIFactory();
 
 		DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "data-source-name");
 
 		DatabaseHandle databaseHandle = new DatabaseHandle(jdbi.open(), null);
+		
+		ViewProvider viewProvider = new ViewProvider(daoProvider, new EmailService(configuration.getEmail()));
+		
+		String mode = configuration.getServerConfiguration().getMode();
+		new com.anfelisa.user.AppRegistration().registerConsumers(viewProvider, mode);
+		new com.anfelisa.box.AppRegistration().registerConsumers(viewProvider, mode);
+		new com.anfelisa.category.AppRegistration().registerConsumers(viewProvider, mode);
+		new com.anfelisa.card.AppRegistration().registerConsumers(viewProvider, mode);
+
 		LOG.info("START EVENT REPLAY");
 		try {
 			databaseHandle.beginTransaction();
@@ -57,8 +65,8 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 					if (nextEvent != null) {
 						try {
 							Class<?> cl = Class.forName(nextEvent.getName());
-							Constructor<?> con = cl.getConstructor(DatabaseHandle.class);
-							IEvent event = (IEvent) con.newInstance(databaseHandle);
+							Constructor<?> con = cl.getConstructor(DatabaseHandle.class, IDaoProvider.class, ViewProvider.class);
+							IEvent event = (IEvent) con.newInstance(databaseHandle, daoProvider, viewProvider);
 							event.initEventData(nextEvent.getData());
 							event.notifyListeners();
 							eventCount++;
@@ -75,7 +83,7 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 			databaseHandle.commitTransaction();
 
 			LOG.info("EVENT REPLAY FINISHED: successfully replayed " + eventCount + " events");
-
+			
 		} catch (Exception e) {
 			databaseHandle.rollbackTransaction();
 			LOG.info("EVENT REPLAY ABORTED " + e.getMessage());
@@ -87,3 +95,4 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 	}
 
 }
+

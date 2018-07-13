@@ -4,16 +4,16 @@ import java.util.function.BiConsumer;
 
 import org.skife.jdbi.v2.Handle;
 
-import com.anfelisa.ace.DaoProvider;
+import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.user.data.EmailConfirmationData;
 import com.anfelisa.user.data.UserRegistrationData;
 
 @SuppressWarnings("all")
 public class EmailConfirmationView {
 
-	private DaoProvider daoProvider;
+	private IDaoProvider daoProvider;
 	
-	public EmailConfirmationView(DaoProvider daoProvider) {
+	public EmailConfirmationView(IDaoProvider daoProvider) {
 		super();
 		this.daoProvider = daoProvider;
 	}
