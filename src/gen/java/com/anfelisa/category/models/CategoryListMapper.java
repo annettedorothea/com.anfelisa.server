@@ -24,7 +24,8 @@ public class CategoryListMapper implements ResultSetMapper<ICategoryListModel> {
 			null,
 			r.getBoolean("hasBox"),
 			r.getString("userId"),
-			r.getBoolean("parentEditable")
+			r.getBoolean("parentEditable"),
+			null
 		);
 	}
 }

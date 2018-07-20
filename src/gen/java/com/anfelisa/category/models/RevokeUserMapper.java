@@ -9,14 +9,13 @@ import org.skife.jdbi.v2.tweak.ResultSetMapper;
 import com.anfelisa.ace.encryption.EncryptionService;
 
 @SuppressWarnings("all")
-public class InviteUserMapper implements ResultSetMapper<IInviteUserModel> {
+public class RevokeUserMapper implements ResultSetMapper<IRevokeUserModel> {
 	
-	public IInviteUserModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
-		return new InviteUserModel(
+	public IRevokeUserModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
+		return new RevokeUserModel(
 			r.getString("categoryId"),
 			r.getString("rootCategoryId"),
-			r.getString("invitedUserId"),
-			r.getString("username")
+			r.getString("revokedUserId")
 		);
 	}
 }

@@ -7,6 +7,7 @@ import org.skife.jdbi.v2.Handle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.category.data.CategoryCreationData;
 import com.anfelisa.category.data.InviteUserData;
+import com.anfelisa.category.data.RevokeUserData;
 import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 @SuppressWarnings("all")
@@ -25,9 +26,13 @@ public class UserAccessToCategoryView {
 
 	public BiConsumer<InviteUserData, Handle> grantAccessInvitation = (dataContainer, handle) -> {
 		daoProvider.getUserAccessToCategoryDao().insert(handle,
-				new UserAccessToCategoryModel(dataContainer.getCategoryId(), dataContainer.getInvitedUserId()));
+				new UserAccessToCategoryModel(dataContainer.getRootCategoryId(), dataContainer.getInvitedUserId()));
 	};
 
+	public BiConsumer<RevokeUserData, Handle> revokeAccess = (dataContainer, handle) -> {
+		daoProvider.getCustomUserAccessToCategoryDao().deleteByCategoryIdAndUserId(handle, dataContainer.getRootCategoryId(), dataContainer.getRevokedUserId());
+	};
+	
 }
 
 /* S.D.G. */

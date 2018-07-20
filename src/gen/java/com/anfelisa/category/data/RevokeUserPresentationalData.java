@@ -10,11 +10,11 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.category.models.IInviteUserModel;
+import com.anfelisa.category.models.IRevokeUserModel;
 import com.anfelisa.user.models.IUserIdModel;
 
 @SuppressWarnings("all")
-public class InviteUserPresentationalData implements IInviteUserPresentationalData {
+public class RevokeUserPresentationalData implements IRevokeUserPresentationalData {
 	
 	@NotNull
 	private String categoryId;
@@ -23,26 +23,21 @@ public class InviteUserPresentationalData implements IInviteUserPresentationalDa
 	private String rootCategoryId;
 	
 	@NotNull
-	private String invitedUserId;
-	
-	@NotNull
-	private String username;
+	private String revokedUserId;
 	
 	@NotNull
 	private String userId;
 	
 	
-	public InviteUserPresentationalData(
+	public RevokeUserPresentationalData(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
-		@JsonProperty("invitedUserId") String invitedUserId,
-		@JsonProperty("username") String username,
+		@JsonProperty("revokedUserId") String revokedUserId,
 		@JsonProperty("userId") String userId
 	) {
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
-		this.invitedUserId = invitedUserId;
-		this.username = username;
+		this.revokedUserId = revokedUserId;
 		this.userId = userId;
 		
 	}
@@ -54,7 +49,7 @@ public class InviteUserPresentationalData implements IInviteUserPresentationalDa
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
-	public InviteUserPresentationalData withCategoryId(String categoryId) {
+	public RevokeUserPresentationalData withCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 		return this;
 	}
@@ -66,32 +61,20 @@ public class InviteUserPresentationalData implements IInviteUserPresentationalDa
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}
-	public InviteUserPresentationalData withRootCategoryId(String rootCategoryId) {
+	public RevokeUserPresentationalData withRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getInvitedUserId() {
-		return this.invitedUserId;
+	public String getRevokedUserId() {
+		return this.revokedUserId;
 	}
-	public void setInvitedUserId(String invitedUserId) {
-		this.invitedUserId = invitedUserId;
+	public void setRevokedUserId(String revokedUserId) {
+		this.revokedUserId = revokedUserId;
 	}
-	public InviteUserPresentationalData withInvitedUserId(String invitedUserId) {
-		this.invitedUserId = invitedUserId;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getUsername() {
-		return this.username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public InviteUserPresentationalData withUsername(String username) {
-		this.username = username;
+	public RevokeUserPresentationalData withRevokedUserId(String revokedUserId) {
+		this.revokedUserId = revokedUserId;
 		return this;
 	}
 	
@@ -102,7 +85,7 @@ public class InviteUserPresentationalData implements IInviteUserPresentationalDa
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public InviteUserPresentationalData withUserId(String userId) {
+	public RevokeUserPresentationalData withUserId(String userId) {
 		this.userId = userId;
 		return this;
 	}

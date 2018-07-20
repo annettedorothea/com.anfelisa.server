@@ -39,6 +39,8 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 	
 	private Boolean parentEditable = false;
 	
+	private java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList;
+	
 	
 	public CategoryListPresentationalData(
 		@JsonProperty("parentCategoryId") String parentCategoryId,
@@ -52,7 +54,8 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
 		@JsonProperty("hasBox") Boolean hasBox,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("parentEditable") Boolean parentEditable
+		@JsonProperty("parentEditable") Boolean parentEditable,
+		@JsonProperty("userList") java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList
 	) {
 		this.parentCategoryId = parentCategoryId;
 		this.grandParentCategoryId = grandParentCategoryId;
@@ -66,6 +69,7 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 		this.hasBox = hasBox;
 		this.userId = userId;
 		this.parentEditable = parentEditable;
+		this.userList = userList;
 		
 	}
 
@@ -210,6 +214,18 @@ public class CategoryListPresentationalData implements ICategoryListPresentation
 	}
 	public CategoryListPresentationalData withParentEditable(Boolean parentEditable) {
 		this.parentEditable = parentEditable;
+		return this;
+	}
+	
+	@JsonProperty
+	public java.util.List<com.anfelisa.category.models.IUserWithAccessModel> getUserList() {
+		return this.userList;
+	}
+	public void setUserList(java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList) {
+		this.userList = userList;
+	}
+	public CategoryListPresentationalData withUserList(java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList) {
+		this.userList = userList;
 		return this;
 	}
 	

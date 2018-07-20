@@ -29,6 +29,8 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 	
 	private Boolean parentEditable = false;
 	
+	private java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList;
+	
 
 	public CategoryListData(
 		@JsonProperty("parentCategoryId") String parentCategoryId,
@@ -42,7 +44,8 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
 		@JsonProperty("hasBox") Boolean hasBox,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("parentEditable") Boolean parentEditable
+		@JsonProperty("parentEditable") Boolean parentEditable,
+		@JsonProperty("userList") java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -58,6 +61,7 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 		this.hasBox = hasBox;
 		this.userId = userId;
 		this.parentEditable = parentEditable;
+		this.userList = userList;
 	}
 
 	public CategoryListData( String uuid ) {
@@ -208,6 +212,18 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 		return this;
 	}
 	
+	@JsonProperty
+	public java.util.List<com.anfelisa.category.models.IUserWithAccessModel> getUserList() {
+		return this.userList;
+	}
+	public void setUserList(java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList) {
+		this.userList = userList;
+	}
+	public CategoryListData withUserList(java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList) {
+		this.userList = userList;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -223,7 +239,8 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 			this.cardList,
 			this.hasBox,
 			this.userId,
-			this.parentEditable
+			this.parentEditable,
+			this.userList
 		);
 	}
 

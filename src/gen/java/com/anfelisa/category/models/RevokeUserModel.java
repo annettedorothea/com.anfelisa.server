@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings("all")
-public class InviteUserModel implements IInviteUserModel {
+public class RevokeUserModel implements IRevokeUserModel {
 
 	@NotNull
 	private String categoryId;
@@ -14,22 +14,17 @@ public class InviteUserModel implements IInviteUserModel {
 	private String rootCategoryId;
 	
 	@NotNull
-	private String invitedUserId;
-	
-	@NotNull
-	private String username;
+	private String revokedUserId;
 	
 
-	public InviteUserModel(
+	public RevokeUserModel(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
-		@JsonProperty("invitedUserId") String invitedUserId,
-		@JsonProperty("username") String username
+		@JsonProperty("revokedUserId") String revokedUserId
 	) {
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
-		this.invitedUserId = invitedUserId;
-		this.username = username;
+		this.revokedUserId = revokedUserId;
 	}
 
 	@JsonProperty
@@ -49,19 +44,11 @@ public class InviteUserModel implements IInviteUserModel {
 	}
 	
 	@JsonProperty
-	public String getInvitedUserId() {
-		return this.invitedUserId;
+	public String getRevokedUserId() {
+		return this.revokedUserId;
 	}
-	public void setInvitedUserId(String invitedUserId) {
-		this.invitedUserId = invitedUserId;
-	}
-	
-	@JsonProperty
-	public String getUsername() {
-		return this.username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setRevokedUserId(String revokedUserId) {
+		this.revokedUserId = revokedUserId;
 	}
 	
 

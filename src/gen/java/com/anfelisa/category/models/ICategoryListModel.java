@@ -17,6 +17,7 @@ public interface ICategoryListModel {
 	Boolean getHasBox();
 	String getUserId();
 	Boolean getParentEditable();
+	java.util.List<com.anfelisa.category.models.IUserWithAccessModel> getUserList();
 
 }
 

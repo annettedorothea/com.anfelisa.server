@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.anfelisa.ace.AbstractData;
 
-public class InviteUserData extends AbstractData implements IInviteUserData {
+public class RevokeUserData extends AbstractData implements IRevokeUserData {
 	
 	@NotNull
 	private String categoryId;
@@ -18,32 +18,27 @@ public class InviteUserData extends AbstractData implements IInviteUserData {
 	private String rootCategoryId;
 	
 	@NotNull
-	private String invitedUserId;
-	
-	@NotNull
-	private String username;
+	private String revokedUserId;
 	
 	@NotNull
 	private String userId;
 	
 
-	public InviteUserData(
+	public RevokeUserData(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
-		@JsonProperty("invitedUserId") String invitedUserId,
-		@JsonProperty("username") String username,
+		@JsonProperty("revokedUserId") String revokedUserId,
 		@JsonProperty("userId") String userId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
-		this.invitedUserId = invitedUserId;
-		this.username = username;
+		this.revokedUserId = revokedUserId;
 		this.userId = userId;
 	}
 
-	public InviteUserData( String uuid ) {
+	public RevokeUserData( String uuid ) {
 		super(uuid);
 	}
 
@@ -54,7 +49,7 @@ public class InviteUserData extends AbstractData implements IInviteUserData {
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
-	public InviteUserData withCategoryId(String categoryId) {
+	public RevokeUserData withCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 		return this;
 	}
@@ -66,32 +61,20 @@ public class InviteUserData extends AbstractData implements IInviteUserData {
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}
-	public InviteUserData withRootCategoryId(String rootCategoryId) {
+	public RevokeUserData withRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getInvitedUserId() {
-		return this.invitedUserId;
+	public String getRevokedUserId() {
+		return this.revokedUserId;
 	}
-	public void setInvitedUserId(String invitedUserId) {
-		this.invitedUserId = invitedUserId;
+	public void setRevokedUserId(String revokedUserId) {
+		this.revokedUserId = revokedUserId;
 	}
-	public InviteUserData withInvitedUserId(String invitedUserId) {
-		this.invitedUserId = invitedUserId;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getUsername() {
-		return this.username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public InviteUserData withUsername(String username) {
-		this.username = username;
+	public RevokeUserData withRevokedUserId(String revokedUserId) {
+		this.revokedUserId = revokedUserId;
 		return this;
 	}
 	
@@ -102,7 +85,7 @@ public class InviteUserData extends AbstractData implements IInviteUserData {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public InviteUserData withUserId(String userId) {
+	public RevokeUserData withUserId(String userId) {
 		this.userId = userId;
 		return this;
 	}
@@ -110,11 +93,10 @@ public class InviteUserData extends AbstractData implements IInviteUserData {
 
 	@Override
 	public Object toPresentationalData() {
-		return new InviteUserPresentationalData(
+		return new RevokeUserPresentationalData(
 			this.categoryId,
 			this.rootCategoryId,
-			this.invitedUserId,
-			this.username,
+			this.revokedUserId,
 			this.userId
 		);
 	}

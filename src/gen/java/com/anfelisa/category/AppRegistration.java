@@ -22,6 +22,7 @@ public class AppRegistration {
 		environment.jersey().register(new DeleteCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetAllCategoriesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new InviteUserAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new RevokeUserAccessAction(jdbi, appConfiguration, daoProvider, viewProvider));
 	}
 
 	public void registerConsumers(ViewProvider viewProvider, String mode) {
@@ -32,6 +33,7 @@ public class AppRegistration {
 				viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryNoRootEvent", viewProvider.categoryView.delete);
 				viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryRootEvent", viewProvider.categoryView.deleteRoot);
 				viewProvider.addConsumer("com.anfelisa.category.events.InviteUserOkEvent", viewProvider.userAccessToCategoryView.grantAccessInvitation);
+				viewProvider.addConsumer("com.anfelisa.category.events.RevokeUserAccessOkEvent", viewProvider.userAccessToCategoryView.revokeAccess);
     }
 }
 

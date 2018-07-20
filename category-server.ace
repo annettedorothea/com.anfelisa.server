@@ -19,6 +19,10 @@ ACE {
 		on ok (UserAccessToCategory.grantAccessInvitation)
 		on hasAccess
 	}
+	DELETE RevokeUserAccess uses RevokeUser {
+		on ok (UserAccessToCategory.revokeAccess)
+		on hasNoAccess
+	}
 }
 
 views {
@@ -31,6 +35,7 @@ views {
 	UserAccessToCategory {
 		grantAccess(CategoryCreation)
 		grantAccessInvitation(InviteUser)
+		revokeAccess(RevokeUser)
 	}
 }
 
@@ -82,6 +87,7 @@ models {
 		Boolean hasBox
 		String userId
 		Boolean parentEditable
+		List UserWithAccess userList
 	}
 	
 	CategoryItem {
@@ -101,10 +107,22 @@ models {
 		Boolean isRoot
 	}
 	
+	UserWithAccess {
+		NotNull String userId
+		NotNull String username
+	}
+	
 	InviteUser {
 		NotNull String categoryId
+		NotNull String rootCategoryId
 		NotNull String invitedUserId
 		NotNull String username
+	}
+	
+	RevokeUser {
+		NotNull String categoryId
+		NotNull String rootCategoryId
+		NotNull String revokedUserId
 	}
 }
 
@@ -114,5 +132,6 @@ data {
 	CategoryDelete : ( CategoryDelete com.anfelisa.user.UserId)
 	CategoryList : ( CategoryList )
 	InviteUser : ( InviteUser com.anfelisa.user.UserId)
+	RevokeUser : ( RevokeUser com.anfelisa.user.UserId)
 }
 

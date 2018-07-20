@@ -25,7 +25,7 @@ import com.anfelisa.card.models.ICardModel;
 import com.anfelisa.category.data.CategoryListData;
 import com.anfelisa.category.models.ICategoryItemModel;
 import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.category.models.IUserWithAccessModel;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -76,21 +76,33 @@ public class GetAllCategoriesAction extends AbstractGetAllCategoriesAction {
 				IBoxModel box = daoProvider.getCustomBoxDao().selectByCategoryIdAndUserId(getHandle(),
 						parentCategory.getRootCategoryId(), actionData.getUserId());
 				this.actionData.setHasBox(box != null);
-				IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), parentCategory.getRootCategoryId(), actionData.getUserId());
-				if (access == null) {
-					this.actionData.setParentEditable(false);
-				} else {
+				List<IUserWithAccessModel> userAccessList = this.daoProvider.getCustomUserAccessToCategoryDao()
+						.selectByCategoryId(getHandle(), parentCategory.getRootCategoryId());
+				if (containsUser(userAccessList, actionData.getUserId())) {
 					this.actionData.setParentEditable(true);
+				} else {
+					this.actionData.setParentEditable(false);
 				}
+				this.actionData.setUserList(userAccessList);
 			} else {
 				throwBadRequest("category not found");
 			}
 		} else {
-			List<ICategoryItemModel> categoryList = daoProvider.getCustomCategoryDao().selectAllRoot(getHandle(), actionData.getUserId());
+			List<ICategoryItemModel> categoryList = daoProvider.getCustomCategoryDao().selectAllRoot(getHandle(),
+					actionData.getUserId());
 			actionData.setCategoryList(categoryList);
 			this.actionData.setRootDictionaryLookup(true);
-			this.actionData.setParentEditable(true);
+			this.actionData.setParentEditable(false);
 		}
+	}
+
+	private boolean containsUser(List<IUserWithAccessModel> userAccessList, String userId) {
+		for (IUserWithAccessModel userAccess : userAccessList) {
+			if (userAccess.getUserId().equals(userId)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

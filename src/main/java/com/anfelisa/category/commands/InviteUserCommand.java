@@ -36,6 +36,7 @@ public class InviteUserCommand extends AbstractInviteUserCommand {
 			throwBadRequest("User does not exist");
 		}
 		this.commandData.setInvitedUserId(invitedUser.getUserId());
+		this.commandData.setRootCategoryId(category.getRootCategoryId());
 		IUserAccessToCategoryModel hasAccess = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), invitedUser.getUserId());
 		if (hasAccess == null) {
 			this.commandData.setOutcome(ok);

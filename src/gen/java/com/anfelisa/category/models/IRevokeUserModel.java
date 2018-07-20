@@ -2,13 +2,12 @@ package com.anfelisa.category.models;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(as=InviteUserModel.class)
-public interface IInviteUserModel {
+@JsonDeserialize(as=RevokeUserModel.class)
+public interface IRevokeUserModel {
 
 	String getCategoryId();
 	String getRootCategoryId();
-	String getInvitedUserId();
-	String getUsername();
+	String getRevokedUserId();
 
 }
 
