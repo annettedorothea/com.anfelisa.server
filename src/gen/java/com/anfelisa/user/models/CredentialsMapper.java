@@ -13,8 +13,8 @@ public class CredentialsMapper implements ResultSetMapper<ICredentialsModel> {
 	
 	public ICredentialsModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new CredentialsModel(
-			r.getString("credentialsUsername"),
-			r.getString("credentialsRole")
+			r.getString("username"),
+			r.getString("role")
 		);
 	}
 }

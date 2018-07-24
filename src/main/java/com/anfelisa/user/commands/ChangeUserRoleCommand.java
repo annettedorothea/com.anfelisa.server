@@ -24,14 +24,17 @@ public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 
 	@Override
 	protected void executeCommand() {
-		if (AuthUser.ADMIN.equals(this.commandData.getRole()) || AuthUser.STUDENT.equals(this.commandData.getRole())) {
-			if (daoProvider.getUserDao().selectByUserId(getHandle(), commandData.getUserId()) == null) {
-				throwBadRequest("User does not exist.");
-			}
-			this.commandData.setOutcome(ok);
-		} else {
+		if (!AuthUser.ADMIN.equals(this.commandData.getRole())
+				&& !AuthUser.STUDENT.equals(this.commandData.getRole())) {
 			throwBadRequest(commandData.getRole() + " is not valid role");
 		}
+		if (!AuthUser.ADMIN.equals(this.commandData.getAuthRole())) {
+			throwUnauthorized();
+		}
+		if (daoProvider.getUserDao().selectByUserId(getHandle(), commandData.getUserId()) == null) {
+			throwBadRequest("User does not exist.");
+		}
+		this.commandData.setOutcome(ok);
 	}
 
 }

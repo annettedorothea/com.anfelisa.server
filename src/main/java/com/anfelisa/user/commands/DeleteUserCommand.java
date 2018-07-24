@@ -8,6 +8,7 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.DeleteUserData;
+import com.anfelisa.user.models.IUserModel;
 
 public class DeleteUserCommand extends AbstractDeleteUserCommand {
 
@@ -20,12 +21,18 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 
 	@Override
 	protected void executeCommand() {
-		if (!AuthUser.ADMIN.equals(commandData.getCredentialsRole())
-				&& !commandData.getCredentialsUsername().equals(commandData.getDeletedUsername())) {
+		if (!AuthUser.ADMIN.equals(commandData.getAuthRole())
+				&& !commandData.getAuthUsername().equals(commandData.getDeletedUsername())) {
 			throwUnauthorized();
 		}
-		if (daoProvider.getUserDao().selectByUsername(getHandle(), commandData.getDeletedUsername()) == null) {
+		IUserModel userToBeDeleted = daoProvider.getUserDao().selectByUsername(getHandle(), commandData.getDeletedUsername());
+		if (userToBeDeleted == null) {
 			throwBadRequest(commandData.getDeletedUsername() + " does not exist");
+		}
+		if (AuthUser.ADMIN.equals(userToBeDeleted.getRole())) {
+			if (daoProvider.getCustomUserDao().selectAdminCount(getHandle()) == 1) {
+				throwBadRequest("last admin must not be deleted");
+			}
 		}
 		this.commandData.setOutcome(ok);
 	}

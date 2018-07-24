@@ -1,11 +1,12 @@
 package com.anfelisa.user.events;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.anfelisa.user.data.ChangeUserRoleData;
 
 public class ChangeUserRoleOkEvent extends AbstractChangeUserRoleOkEvent {

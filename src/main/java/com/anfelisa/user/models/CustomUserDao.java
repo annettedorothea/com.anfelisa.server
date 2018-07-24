@@ -5,9 +5,9 @@ import java.util.List;
 import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.Update;
 
+import com.anfelisa.auth.AuthUser;
 import com.anfelisa.user.data.IUserRegistrationData;
 import com.anfelisa.user.data.ResetPasswordData;
-import com.anfelisa.user.data.UserUpdateData;
 
 public class CustomUserDao {
 
@@ -21,14 +21,6 @@ public class CustomUserDao {
 				.createQuery(
 						"SELECT sum(points) as sum FROM public.scoredcard c, public.box b where c.boxid = b.boxid AND b.username = :username")
 				.bind("username", username).mapTo(Integer.class).first();
-	}
-
-	public void update(Handle handle, UserUpdateData userModel) {
-		Update statement = handle.createStatement(
-				"UPDATE public.user SET role = :role WHERE username = :username");
-		statement.bind("username", userModel.getEditedUsername());
-		statement.bind("role", userModel.getRole());
-		statement.execute();
 	}
 
 	public void updatePassword(Handle handle, ResetPasswordData data) {
@@ -48,7 +40,7 @@ public class CustomUserDao {
 
 	public void changeUserRole(Handle handle, String userId, String role) {
 		Update statement = handle
-				.createStatement("UPDATE public.user SET role = ':role' WHERE userid = :userid");
+				.createStatement("UPDATE public.user SET role = :role WHERE userid = :userid");
 		statement.bind("userid", userId);
 		statement.bind("role", role);
 		statement.execute();
@@ -60,6 +52,11 @@ public class CustomUserDao {
 			.list();
 	}
 
+	public Integer selectAdminCount(Handle handle) {
+		return handle.createQuery("SELECT count(userid) FROM public.user where role = :admin")
+				.bind("admin", AuthUser.ADMIN).mapTo(Integer.class).first();
+	}
+	
 	public void insert(Handle handle, IUserRegistrationData userModel) {
 		Update statement = handle.createStatement("INSERT INTO public.user (username, password, email, role, emailconfirmed, deleted) VALUES (:username, :password, :email, :role, false, false)");
 		statement.bind("username",  userModel.getUsername() );

@@ -41,7 +41,7 @@ public class DeleteUserAction extends AbstractDeleteUserAction {
 	@PermitAll
 	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("deletedUsername") String deletedUsername,
 			@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new DeleteUserData(uuid).withCredentialsRole(user.getRole()).withCredentialsUsername(user.getUsername()).withDeletedUsername(deletedUsername);
+		this.actionData = new DeleteUserData(uuid).withAuthRole(user.getRole()).withAuthUsername(user.getUsername()).withDeletedUsername(deletedUsername);
 		return this.apply();
 	}
 

@@ -5,19 +5,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RoleData extends AbstractData implements IRoleData {
 	
-	private String credentialsUsername;
+	private String username;
 	
-	private String credentialsRole;
+	private String role;
 	
 
 	public RoleData(
-		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole
+		@JsonProperty("username") String username,
+		@JsonProperty("role") String role
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
-		this.credentialsUsername = credentialsUsername;
-		this.credentialsRole = credentialsRole;
+		this.username = username;
+		this.role = role;
 	}
 
 	public RoleData( String uuid ) {
@@ -25,26 +25,26 @@ public class RoleData extends AbstractData implements IRoleData {
 	}
 
 	@JsonProperty
-	public String getCredentialsUsername() {
-		return this.credentialsUsername;
+	public String getUsername() {
+		return this.username;
 	}
-	public void setCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public RoleData withCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
+	public RoleData withUsername(String username) {
+		this.username = username;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getCredentialsRole() {
-		return this.credentialsRole;
+	public String getRole() {
+		return this.role;
 	}
-	public void setCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
+	public void setRole(String role) {
+		this.role = role;
 	}
-	public RoleData withCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
+	public RoleData withRole(String role) {
+		this.role = role;
 		return this;
 	}
 	
@@ -52,8 +52,8 @@ public class RoleData extends AbstractData implements IRoleData {
 	@Override
 	public Object toPresentationalData() {
 		return new RolePresentationalData(
-			this.credentialsUsername,
-			this.credentialsRole
+			this.username,
+			this.role
 		);
 	}
 

@@ -42,16 +42,16 @@ public class GetRoleAction extends AbstractGetRoleAction {
 	@PermitAll
 	public Response get(@Auth AuthUser principal, @NotNull @QueryParam("uuid") String uuid)
 			throws JsonProcessingException {
-		this.actionData = new RoleData(uuid).withCredentialsUsername(principal.getUsername());
+		this.actionData = new RoleData(uuid).withUsername(principal.getUsername());
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
-		IUserModel user = daoProvider.getUserDao().selectByUsername(getHandle(), actionData.getCredentialsUsername());
+		IUserModel user = daoProvider.getUserDao().selectByUsername(getHandle(), actionData.getUsername());
 		if (user == null) {
-			throwBadRequest("user " + actionData.getCredentialsUsername() + " not found");
+			throwBadRequest("user " + actionData.getUsername() + " not found");
 		}
-		actionData.setCredentialsRole(user.getRole());
+		actionData.setRole(user.getRole());
 	}
 
 }

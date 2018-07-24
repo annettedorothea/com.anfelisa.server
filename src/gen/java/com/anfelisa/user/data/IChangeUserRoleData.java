@@ -4,11 +4,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.user.models.IUserIdModel;
-import com.anfelisa.user.models.IRoleModel;
+import com.anfelisa.user.models.IChangeUserRoleModel;
 
 @JsonDeserialize(as=ChangeUserRoleData.class)
-public interface IChangeUserRoleData extends IUserIdModel, IRoleModel, IDataContainer {
+public interface IChangeUserRoleData extends IChangeUserRoleModel, IDataContainer {
 
 }
 

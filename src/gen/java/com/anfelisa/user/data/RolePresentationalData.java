@@ -15,41 +15,41 @@ import com.anfelisa.user.models.ICredentialsModel;
 @SuppressWarnings("all")
 public class RolePresentationalData implements IRolePresentationalData {
 	
-	private String credentialsUsername;
+	private String username;
 	
-	private String credentialsRole;
+	private String role;
 	
 	
 	public RolePresentationalData(
-		@JsonProperty("credentialsUsername") String credentialsUsername,
-		@JsonProperty("credentialsRole") String credentialsRole
+		@JsonProperty("username") String username,
+		@JsonProperty("role") String role
 	) {
-		this.credentialsUsername = credentialsUsername;
-		this.credentialsRole = credentialsRole;
+		this.username = username;
+		this.role = role;
 		
 	}
 
 	@JsonProperty
-	public String getCredentialsUsername() {
-		return this.credentialsUsername;
+	public String getUsername() {
+		return this.username;
 	}
-	public void setCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public RolePresentationalData withCredentialsUsername(String credentialsUsername) {
-		this.credentialsUsername = credentialsUsername;
+	public RolePresentationalData withUsername(String username) {
+		this.username = username;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getCredentialsRole() {
-		return this.credentialsRole;
+	public String getRole() {
+		return this.role;
 	}
-	public void setCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
+	public void setRole(String role) {
+		this.role = role;
 	}
-	public RolePresentationalData withCredentialsRole(String credentialsRole) {
-		this.credentialsRole = credentialsRole;
+	public RolePresentationalData withRole(String role) {
+		this.role = role;
 		return this;
 	}
 	

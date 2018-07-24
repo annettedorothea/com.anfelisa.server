@@ -10,17 +10,28 @@ public class ChangeUserRoleData extends AbstractData implements IChangeUserRoleD
 	@NotNull
 	private String userId;
 	
+	@NotNull
 	private String role;
+	
+	@NotNull
+	private String authUserId;
+	
+	@NotNull
+	private String authRole;
 	
 
 	public ChangeUserRoleData(
 		@JsonProperty("userId") String userId,
-		@JsonProperty("role") String role
+		@JsonProperty("role") String role,
+		@JsonProperty("authUserId") String authUserId,
+		@JsonProperty("authRole") String authRole
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.userId = userId;
 		this.role = role;
+		this.authUserId = authUserId;
+		this.authRole = authRole;
 	}
 
 	public ChangeUserRoleData( String uuid ) {
@@ -51,12 +62,38 @@ public class ChangeUserRoleData extends AbstractData implements IChangeUserRoleD
 		return this;
 	}
 	
+	@JsonProperty
+	public String getAuthUserId() {
+		return this.authUserId;
+	}
+	public void setAuthUserId(String authUserId) {
+		this.authUserId = authUserId;
+	}
+	public ChangeUserRoleData withAuthUserId(String authUserId) {
+		this.authUserId = authUserId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getAuthRole() {
+		return this.authRole;
+	}
+	public void setAuthRole(String authRole) {
+		this.authRole = authRole;
+	}
+	public ChangeUserRoleData withAuthRole(String authRole) {
+		this.authRole = authRole;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
 		return new ChangeUserRolePresentationalData(
 			this.userId,
-			this.role
+			this.role,
+			this.authUserId,
+			this.authRole
 		);
 	}
 

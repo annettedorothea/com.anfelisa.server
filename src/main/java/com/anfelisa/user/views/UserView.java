@@ -10,7 +10,6 @@ import com.anfelisa.user.data.DeleteUserData;
 import com.anfelisa.user.data.EmailConfirmationData;
 import com.anfelisa.user.data.ResetPasswordData;
 import com.anfelisa.user.data.UserRegistrationData;
-import com.anfelisa.user.data.UserUpdateData;
 
 public class UserView {
 
@@ -23,10 +22,6 @@ public class UserView {
 
 	public BiConsumer<UserRegistrationData, Handle> registerUser = (dataContainer, handle) -> {
 		daoProvider.getUserDao().insert(handle, dataContainer);
-	};
-
-	public BiConsumer<UserUpdateData, Handle> updateUser = (dataContainer, handle) -> {
-		daoProvider.getCustomUserDao().update(handle, dataContainer);
 	};
 
 	public BiConsumer<EmailConfirmationData, Handle> confirmEmail = (dataContainer, handle) -> {

@@ -8,9 +8,6 @@ ACE {
 	GET GetRole uses Role
 	GET GetAllUsers uses UserList
 
-	PUT UpdateUser uses UserUpdate {
-		on success ( User.updateUser )
-	}
 	POST ForgotPassword uses ForgotPassword {
 		on ok ( ResetPassword.insert Email.sendForgotPasswordEmail)
 		on doesNotExist
@@ -34,7 +31,6 @@ ACE {
 
 views {
 	User {
-		updateUser(UserUpdate)
 		registerUser(UserRegistration)
 		confirmEmail(EmailConfirmation)
 		changeUserRole(ChangeUserRole)
@@ -78,8 +74,8 @@ models {
 	}
 	
 	Credentials {
-		String credentialsUsername
-		String credentialsRole
+		String username
+		String role
 	} 
 	Role {
 		String role
@@ -96,12 +92,10 @@ models {
 	Available {
 		Boolean available
 	}
-	UserRoleUpdate {
-		NotNull String editedUsername
-		NotNull String role
-	}
 	DeleteUser {
 		NotNull String deletedUsername
+		NotNull String authUsername
+		NotNull String authRole
 	}
 	Language {
 		NotNull String language
@@ -112,18 +106,22 @@ models {
 	Password {
 		String password
 	}
+	ChangeUserRole {
+		NotNull String userId
+		NotNull String role
+		NotNull String authUserId
+		NotNull String authRole
+	}
 }
 
 data {
 	User : ( User )
-	UserUpdate : (UserRoleUpdate Credentials)
-	PasswordUpdate : (Credentials)
 	ForgotPassword : (ResetPassword Language Email Username)
 	UsernameAvailable : (Username Available)
 	UserRegistration : (User Language EmailConfirmation)
-	DeleteUser : ( Credentials DeleteUser)
+	DeleteUser : ( DeleteUser )
 	Username : (Username)
-	ChangeUserRole : (UserId Role)
+	ChangeUserRole : (ChangeUserRole)
 	Role : (Credentials)
 	UserList : (UserList)
 	EmailConfirmation: (EmailConfirmation)

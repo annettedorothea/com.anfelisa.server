@@ -2,11 +2,12 @@ package com.anfelisa.user.models;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(as=DeleteUserModel.class)
-public interface IDeleteUserModel {
+@JsonDeserialize(as=ChangeUserRoleModel.class)
+public interface IChangeUserRoleModel {
 
-	String getDeletedUsername();
-	String getAuthUsername();
+	String getUserId();
+	String getRole();
+	String getAuthUserId();
 	String getAuthRole();
 
 }
