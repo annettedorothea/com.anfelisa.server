@@ -69,7 +69,7 @@ public abstract class AbstractDaoProvider implements IDaoProvider {
 		if (databaseHandle == null) {
 			throw new WebApplicationException("no database handle");
 		}
-		aceDao.insertIntoTimeline(databaseHandle.getHandle(), type, method, name, EncryptionService.encrypt(json),
+		aceDao.insertIntoTimeline(databaseHandle.getTimelineHandle(), type, method, name, EncryptionService.encrypt(json),
 				uuid);
 		aceDao.insertIntoErrorTimeline(databaseHandle.getErrorHandle(), type, method, name,
 				EncryptionService.encrypt(json), uuid);

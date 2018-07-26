@@ -1,6 +1,7 @@
 package com.anfelisa.ace;
 
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
@@ -29,7 +30,7 @@ public class EmailService {
 			email.addTo(to);
 			email.send();
 		} catch (EmailException e) {
-			throw new WebApplicationException(e);
+			throw new WebApplicationException("failedToSendEmail", Response.Status.BAD_REQUEST);
 		}
 	}
 	
