@@ -32,7 +32,7 @@ public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 			throwUnauthorized();
 		}
 		if (daoProvider.getUserDao().selectByUserId(getHandle(), commandData.getUserId()) == null) {
-			throwBadRequest("User does not exist.");
+			throwBadRequest("userDoesNotExist");
 		}
 		this.commandData.setOutcome(ok);
 	}

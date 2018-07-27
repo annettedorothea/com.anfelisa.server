@@ -6,7 +6,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -39,10 +38,9 @@ public class ChangeUserRoleAction extends AbstractChangeUserRoleAction {
 	@Timed
 	@Path("/role")
 	@RolesAllowed({ AuthUser.ADMIN })
-	public Response put(@Auth AuthUser user, @NotNull @QueryParam("userId") String userId,
-			@NotNull @QueryParam("role") String role, @NotNull @QueryParam("uuid") String uuid)
+	public Response put(@Auth AuthUser user, @NotNull ChangeUserRoleData changeUserRoleData)
 			throws JsonProcessingException {
-		this.actionData = new ChangeUserRoleData(uuid).withRole(role).withUserId(userId).withAuthRole(user.getRole()).withAuthUserId(user.getUserId());
+		this.actionData = changeUserRoleData.withAuthRole(user.getRole()).withAuthUserId(user.getUserId());
 		return this.apply();
 	}
 

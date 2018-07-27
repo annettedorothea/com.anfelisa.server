@@ -33,7 +33,7 @@ public class UserView {
 	};
 
 	public BiConsumer<DeleteUserData, Handle> deleteUser = (dataContainer, handle) -> {
-		daoProvider.getUserDao().deleteByUsername(handle, dataContainer.getDeletedUsername());
+		daoProvider.getUserDao().deleteByUsername(handle, dataContainer.getUsernameToBeDeleted());
 	};
 
 	public BiConsumer<ResetPasswordData, Handle> resetPassword = (dataContainer, handle) -> {

@@ -13,9 +13,9 @@ public class DeleteUserMapper implements ResultSetMapper<IDeleteUserModel> {
 	
 	public IDeleteUserModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 		return new DeleteUserModel(
-			r.getString("deletedUsername"),
-			r.getString("authUsername"),
-			r.getString("authRole")
+			r.getString("usernameToBeDeleted"),
+			r.getString("username"),
+			r.getString("role")
 		);
 	}
 }

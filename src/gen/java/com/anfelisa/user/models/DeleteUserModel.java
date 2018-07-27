@@ -8,47 +8,47 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class DeleteUserModel implements IDeleteUserModel {
 
 	@NotNull
-	private String deletedUsername;
+	private String usernameToBeDeleted;
 	
 	@NotNull
-	private String authUsername;
+	private String username;
 	
 	@NotNull
-	private String authRole;
+	private String role;
 	
 
 	public DeleteUserModel(
-		@JsonProperty("deletedUsername") String deletedUsername,
-		@JsonProperty("authUsername") String authUsername,
-		@JsonProperty("authRole") String authRole
+		@JsonProperty("usernameToBeDeleted") String usernameToBeDeleted,
+		@JsonProperty("username") String username,
+		@JsonProperty("role") String role
 	) {
-		this.deletedUsername = deletedUsername;
-		this.authUsername = authUsername;
-		this.authRole = authRole;
+		this.usernameToBeDeleted = usernameToBeDeleted;
+		this.username = username;
+		this.role = role;
 	}
 
 	@JsonProperty
-	public String getDeletedUsername() {
-		return this.deletedUsername;
+	public String getUsernameToBeDeleted() {
+		return this.usernameToBeDeleted;
 	}
-	public void setDeletedUsername(String deletedUsername) {
-		this.deletedUsername = deletedUsername;
-	}
-	
-	@JsonProperty
-	public String getAuthUsername() {
-		return this.authUsername;
-	}
-	public void setAuthUsername(String authUsername) {
-		this.authUsername = authUsername;
+	public void setUsernameToBeDeleted(String usernameToBeDeleted) {
+		this.usernameToBeDeleted = usernameToBeDeleted;
 	}
 	
 	@JsonProperty
-	public String getAuthRole() {
-		return this.authRole;
+	public String getUsername() {
+		return this.username;
 	}
-	public void setAuthRole(String authRole) {
-		this.authRole = authRole;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	@JsonProperty
+	public String getRole() {
+		return this.role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 

@@ -21,17 +21,17 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 
 	@Override
 	protected void executeCommand() {
-		if (!AuthUser.ADMIN.equals(commandData.getAuthRole())
-				&& !commandData.getAuthUsername().equals(commandData.getDeletedUsername())) {
+		if (!AuthUser.ADMIN.equals(commandData.getRole())
+				&& !commandData.getUsername().equals(commandData.getUsernameToBeDeleted())) {
 			throwUnauthorized();
 		}
-		IUserModel userToBeDeleted = daoProvider.getUserDao().selectByUsername(getHandle(), commandData.getDeletedUsername());
+		IUserModel userToBeDeleted = daoProvider.getUserDao().selectByUsername(getHandle(), commandData.getUsernameToBeDeleted());
 		if (userToBeDeleted == null) {
-			throwBadRequest(commandData.getDeletedUsername() + " does not exist");
+			throwBadRequest("userDoesNotExist");
 		}
 		if (AuthUser.ADMIN.equals(userToBeDeleted.getRole())) {
 			if (daoProvider.getCustomUserDao().selectAdminCount(getHandle()) == 1) {
-				throwBadRequest("last admin must not be deleted");
+				throwBadRequest("lastAdminMustNotBeDeleted");
 			}
 		}
 		this.commandData.setOutcome(ok);

@@ -94,9 +94,9 @@ models {
 		Boolean available
 	}
 	DeleteUser {
-		NotNull String deletedUsername
-		NotNull String authUsername
-		NotNull String authRole
+		NotNull String usernameToBeDeleted
+		NotNull String username
+		NotNull String role
 	}
 	Language {
 		NotNull String language

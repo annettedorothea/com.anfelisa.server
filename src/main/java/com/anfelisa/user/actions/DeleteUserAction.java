@@ -6,7 +6,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -39,9 +38,8 @@ public class DeleteUserAction extends AbstractDeleteUserAction {
 	@Timed
 	@Path("/delete")
 	@PermitAll
-	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("deletedUsername") String deletedUsername,
-			@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new DeleteUserData(uuid).withAuthRole(user.getRole()).withAuthUsername(user.getUsername()).withDeletedUsername(deletedUsername);
+	public Response delete(@Auth AuthUser user, @NotNull DeleteUserData deleteUserData) throws JsonProcessingException {
+		this.actionData = deleteUserData.withRole(user.getRole()).withUsername(user.getUsername());
 		return this.apply();
 	}
 

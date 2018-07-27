@@ -8,25 +8,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class DeleteUserData extends AbstractData implements IDeleteUserData {
 	
 	@NotNull
-	private String deletedUsername;
+	private String usernameToBeDeleted;
 	
 	@NotNull
-	private String authUsername;
+	private String username;
 	
 	@NotNull
-	private String authRole;
+	private String role;
 	
 
 	public DeleteUserData(
-		@JsonProperty("deletedUsername") String deletedUsername,
-		@JsonProperty("authUsername") String authUsername,
-		@JsonProperty("authRole") String authRole
+		@JsonProperty("usernameToBeDeleted") String usernameToBeDeleted,
+		@JsonProperty("username") String username,
+		@JsonProperty("role") String role
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
-		this.deletedUsername = deletedUsername;
-		this.authUsername = authUsername;
-		this.authRole = authRole;
+		this.usernameToBeDeleted = usernameToBeDeleted;
+		this.username = username;
+		this.role = role;
 	}
 
 	public DeleteUserData( String uuid ) {
@@ -34,38 +34,38 @@ public class DeleteUserData extends AbstractData implements IDeleteUserData {
 	}
 
 	@JsonProperty
-	public String getDeletedUsername() {
-		return this.deletedUsername;
+	public String getUsernameToBeDeleted() {
+		return this.usernameToBeDeleted;
 	}
-	public void setDeletedUsername(String deletedUsername) {
-		this.deletedUsername = deletedUsername;
+	public void setUsernameToBeDeleted(String usernameToBeDeleted) {
+		this.usernameToBeDeleted = usernameToBeDeleted;
 	}
-	public DeleteUserData withDeletedUsername(String deletedUsername) {
-		this.deletedUsername = deletedUsername;
+	public DeleteUserData withUsernameToBeDeleted(String usernameToBeDeleted) {
+		this.usernameToBeDeleted = usernameToBeDeleted;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getAuthUsername() {
-		return this.authUsername;
+	public String getUsername() {
+		return this.username;
 	}
-	public void setAuthUsername(String authUsername) {
-		this.authUsername = authUsername;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public DeleteUserData withAuthUsername(String authUsername) {
-		this.authUsername = authUsername;
+	public DeleteUserData withUsername(String username) {
+		this.username = username;
 		return this;
 	}
 	
 	@JsonProperty
-	public String getAuthRole() {
-		return this.authRole;
+	public String getRole() {
+		return this.role;
 	}
-	public void setAuthRole(String authRole) {
-		this.authRole = authRole;
+	public void setRole(String role) {
+		this.role = role;
 	}
-	public DeleteUserData withAuthRole(String authRole) {
-		this.authRole = authRole;
+	public DeleteUserData withRole(String role) {
+		this.role = role;
 		return this;
 	}
 	
@@ -73,9 +73,9 @@ public class DeleteUserData extends AbstractData implements IDeleteUserData {
 	@Override
 	public Object toPresentationalData() {
 		return new DeleteUserPresentationalData(
-			this.deletedUsername,
-			this.authUsername,
-			this.authRole
+			this.usernameToBeDeleted,
+			this.username,
+			this.role
 		);
 	}
 
