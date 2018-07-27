@@ -42,7 +42,7 @@ public abstract class AbstractDaoProvider implements IDaoProvider {
 	public void addEventToTimeline(IEvent event) {
 		try {
 			addItemToTimeline("event", null, event.getEventName(), mapper.writeValueAsString(event.getEventData()),
-					event.getEventParam().getUuid(), event.getDatabaseHandle());
+					event.getEventData().getUuid(), event.getDatabaseHandle());
 		} catch (JsonProcessingException e) {
 			throw new WebApplicationException(e);
 		}

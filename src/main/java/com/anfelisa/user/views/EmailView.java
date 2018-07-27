@@ -39,7 +39,8 @@ public class EmailView {
 	public BiConsumer<UserRegistrationData, Handle> sendRegistrationEmail = (dataContainer, handle) -> {
 		Locale currentLocale = new Locale(dataContainer.getLanguage());
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
-		String link = emailService.getLocalhost() + "#confirmemail/" + dataContainer.getToken();
+		String link = emailService.getLocalhost() + "#confirmemail/" + dataContainer.getUsername() + "/"
+				+ dataContainer.getToken();
 		Object[] params = { dataContainer.getUsername(), link };
 		String message = MessageFormat.format(messages.getString("RegistrationEmailContent"), params);
 		String subject = messages.getString("RegistrationEmailHeader");

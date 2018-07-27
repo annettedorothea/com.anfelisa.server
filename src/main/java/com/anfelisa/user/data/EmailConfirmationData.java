@@ -13,15 +13,20 @@ public class EmailConfirmationData extends AbstractData implements IEmailConfirm
 	@NotNull
 	private String userId;
 	
+	@NotNull
+	private String username;
+	
 
 	public EmailConfirmationData(
 		@JsonProperty("token") String token,
-		@JsonProperty("userId") String userId
+		@JsonProperty("userId") String userId,
+		@JsonProperty("username") String username
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.token = token;
 		this.userId = userId;
+		this.username = username;
 	}
 
 	public EmailConfirmationData( String uuid ) {
@@ -52,12 +57,25 @@ public class EmailConfirmationData extends AbstractData implements IEmailConfirm
 		return this;
 	}
 	
+	@JsonProperty
+	public String getUsername() {
+		return this.username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public EmailConfirmationData withUsername(String username) {
+		this.username = username;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
 		return new EmailConfirmationPresentationalData(
 			this.token,
-			this.userId
+			this.userId,
+			this.username
 		);
 	}
 

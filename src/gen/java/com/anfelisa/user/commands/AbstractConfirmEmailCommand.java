@@ -12,6 +12,7 @@ import com.anfelisa.user.data.EmailConfirmationData;
 public abstract class AbstractConfirmEmailCommand extends Command<EmailConfirmationData> {
 
 	protected static final String ok = "ok";
+	protected static final String alreadyConfirmed = "alreadyConfirmed";
 
 	public AbstractConfirmEmailCommand(EmailConfirmationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.ConfirmEmailCommand", commandParam, databaseHandle, daoProvider, viewProvider);
@@ -26,6 +27,8 @@ public abstract class AbstractConfirmEmailCommand extends Command<EmailConfirmat
 		switch (this.commandData.getOutcome()) {
 		case ok:
 			new com.anfelisa.user.events.ConfirmEmailOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			break;
+		case alreadyConfirmed:
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

@@ -20,6 +20,7 @@ ACE {
 	}
 	PUT ConfirmEmail uses EmailConfirmation {
 		on ok (User.confirmEmail EmailConfirmation.delete)
+		on alreadyConfirmed
 	}
 	PUT ChangeUserRole uses ChangeUserRole {
 		on ok (User.changeUserRole)
@@ -124,7 +125,7 @@ data {
 	ChangeUserRole : (ChangeUserRole)
 	Role : (Credentials)
 	UserList : (UserList)
-	EmailConfirmation: (EmailConfirmation)
+	EmailConfirmation: (EmailConfirmation Username)
 	ResetPassword: (ResetPassword Password)
 }
 

@@ -21,17 +21,24 @@ public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 
 	@Override
 	protected void executeCommand() {
-		IEmailConfirmationModel emailConfirmation = daoProvider.getEmailConfirmationDao().selectByToken(getHandle(),
-				commandData.getToken());
-		if (emailConfirmation == null) {
-			throwBadRequest("Token not found.");
-		}
-		IUserModel user = daoProvider.getUserDao().selectByUserId(getHandle(), emailConfirmation.getUserId());
+		IUserModel user = daoProvider.getUserDao().selectByUsername(getHandle(), commandData.getUsername());
 		if (user == null) {
-			throwBadRequest("User does not exist.");
+			throwBadRequest("userDoesNotExist");
 		}
-		this.commandData.setUserId(user.getUserId());
-		this.commandData.setOutcome(ok);
+		if (user.getEmailConfirmed()) {
+			this.commandData.setOutcome(alreadyConfirmed);
+		} else {
+			IEmailConfirmationModel emailConfirmation = daoProvider.getEmailConfirmationDao().selectByToken(getHandle(),
+					commandData.getToken());
+			if (emailConfirmation == null) {
+				throwBadRequest("confirmationTokenDoesNotExist");
+			}
+			if (!user.getUserId().equals(emailConfirmation.getUserId())) {
+				throwBadRequest("tokenDoesNotMatch");
+			}
+			this.commandData.setUserId(user.getUserId());
+			this.commandData.setOutcome(ok);
+		}
 	}
 
 }

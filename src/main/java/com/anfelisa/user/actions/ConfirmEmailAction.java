@@ -5,7 +5,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -34,8 +33,8 @@ public class ConfirmEmailAction extends AbstractConfirmEmailAction {
 	@PUT
 	@Timed
 	@Path("/confirm")
-	public Response put(@NotNull @QueryParam("token") String token, @NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new EmailConfirmationData(uuid).withToken(token);
+	public Response put(@NotNull EmailConfirmationData emailConfirmationData) throws JsonProcessingException {
+		this.actionData = emailConfirmationData;
 		return this.apply();
 	}
 

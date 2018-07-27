@@ -5,7 +5,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -34,8 +33,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 	@PUT
 	@Timed
 	@Path("/resetpassword")
-	public Response put(@NotNull @QueryParam("token") String token, @NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("password") String password) throws JsonProcessingException {
-		this.actionData = new ResetPasswordData(uuid).withToken(token).withPassword(password);
+	public Response put(@NotNull ResetPasswordData resetPasswordData) throws JsonProcessingException {
+		this.actionData = resetPasswordData;
 		return this.apply();
 	}
 

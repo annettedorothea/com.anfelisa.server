@@ -11,6 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IEmailConfirmationModel;
+import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("all")
 public class EmailConfirmationPresentationalData implements IEmailConfirmationPresentationalData {
@@ -21,13 +22,18 @@ public class EmailConfirmationPresentationalData implements IEmailConfirmationPr
 	@NotNull
 	private String userId;
 	
+	@NotNull
+	private String username;
+	
 	
 	public EmailConfirmationPresentationalData(
 		@JsonProperty("token") String token,
-		@JsonProperty("userId") String userId
+		@JsonProperty("userId") String userId,
+		@JsonProperty("username") String username
 	) {
 		this.token = token;
 		this.userId = userId;
+		this.username = username;
 		
 	}
 
@@ -52,6 +58,18 @@ public class EmailConfirmationPresentationalData implements IEmailConfirmationPr
 	}
 	public EmailConfirmationPresentationalData withUserId(String userId) {
 		this.userId = userId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUsername() {
+		return this.username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public EmailConfirmationPresentationalData withUsername(String username) {
+		this.username = username;
 		return this;
 	}
 	

@@ -5,7 +5,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -34,9 +33,8 @@ public class ForgotPasswordAction extends AbstractForgotPasswordAction {
 	@POST
 	@Timed
 	@Path("/forgot-password")
-	public Response post(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("username") String username,
-			@NotNull @QueryParam("language") String language) throws JsonProcessingException {
-		this.actionData = new ForgotPasswordData(uuid).withUsername(username).withLanguage(language);
+	public Response post(@NotNull ForgotPasswordData forgotPasswordData) throws JsonProcessingException {
+		this.actionData = forgotPasswordData;
 		return this.apply();
 	}
 
