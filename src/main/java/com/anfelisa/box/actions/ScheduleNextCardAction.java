@@ -6,7 +6,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -40,10 +39,9 @@ public class ScheduleNextCardAction extends AbstractScheduleNextCardAction {
 	@Timed
 	@Path("/schedule-next")
 	@PermitAll
-	public Response post(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("boxId") String boxId)
+	public Response post(@Auth AuthUser user, @NotNull ScheduleCardData scheduleCardData)
 			throws JsonProcessingException {
-		this.actionData = new ScheduleCardData(uuid).withBoxId(boxId).withUserId(user.getUserId());
+		this.actionData = scheduleCardData.withUserId(user.getUserId());
 		return this.apply();
 	}
 

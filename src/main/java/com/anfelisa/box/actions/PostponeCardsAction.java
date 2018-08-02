@@ -6,7 +6,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -42,12 +41,11 @@ public class PostponeCardsAction extends AbstractPostponeCardsAction {
 	@Timed
 	@Path("/postpone")
 	@PermitAll
-	public Response put(@NotNull @QueryParam("boxId") String boxId, @Auth AuthUser user,
-			@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("today") String today)
+	public Response put(@NotNull PostponeCardsData postponeCardsData, @Auth AuthUser user)
 			throws JsonProcessingException {
-		DateTime todayDate = new DateTime(today);
+		DateTime todayDate = new DateTime(postponeCardsData.getToday());
 		todayDate = todayDate.withZone(DateTimeZone.UTC);
-		this.actionData = new PostponeCardsData(uuid).withBoxId(boxId).withUserId(user.getUserId()).withToday(todayDate);
+		this.actionData = postponeCardsData.withUserId(user.getUserId()).withToday(todayDate);
 		return this.apply();
 	}
 

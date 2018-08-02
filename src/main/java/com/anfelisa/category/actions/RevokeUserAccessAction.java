@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -38,8 +39,9 @@ import io.dropwizard.auth.Auth;
 	@Timed
 	@Path("/revoke")
 	@PermitAll
-	public Response delete(@Auth AuthUser user, @NotNull RevokeUserData revokeUserData) throws JsonProcessingException {
-		this.actionData = revokeUserData.withUserId(user.getUserId());
+	public Response delete(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
+			@NotNull @QueryParam("revokedUserId") String revokedUserId, @NotNull @QueryParam("categoryId") String categoryId) throws JsonProcessingException {
+		this.actionData = new RevokeUserData(uuid).withRevokedUserId(revokedUserId).withCategoryId(categoryId).withUserId(user.getUserId());
 		return this.apply();
 	}
 

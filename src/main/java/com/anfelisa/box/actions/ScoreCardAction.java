@@ -6,7 +6,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -40,11 +39,8 @@ public class ScoreCardAction extends AbstractScoreCardAction {
 	@Timed
 	@Path("/score")
 	@PermitAll
-	public Response post(@Auth AuthUser user, @NotNull @QueryParam("uuid") String uuid,
-			@NotNull @QueryParam("scoredCardScheduledCardId") String scoredCardScheduledCardId,
-			@NotNull @QueryParam("quality") int quality) throws JsonProcessingException {
-		this.actionData = new ScoreCardData(uuid).withScoredCardScheduledCardId(scoredCardScheduledCardId)
-				.withUserId(user.getUserId()).withScoredCardQuality(quality);
+	public Response post(@Auth AuthUser user, @NotNull ScoreCardData scoreCardData) throws JsonProcessingException {
+		this.actionData = scoreCardData.withUserId(user.getUserId());
 		return this.apply();
 	}
 
