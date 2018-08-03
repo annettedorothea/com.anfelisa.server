@@ -21,21 +21,18 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 
 	@Override
 	protected void executeCommand() {
-		if (daoProvider.getCategoryDao().selectByCategoryId(getHandle(), commandData.getCategoryId()) == null) {
-			throwBadRequest("category does not exist");
+		ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
+				commandData.getCategoryId());
+		if (category == null) {
+			throwBadRequest("categoryDoesNotExist");
 		}
-		if (commandData.getCategoryId() != null) {
-			ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
-					commandData.getCategoryId());
-			IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), commandData.getUserId());
-			if (access == null) {
-				throwUnauthorized();
-			}
-			commandData.setRootCategoryId(category.getRootCategoryId());
-			commandData.setPath(category.getPath());
-		} else {
-			throwBadRequest("cannot create card without category");
+		IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao()
+				.selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), commandData.getUserId());
+		if (access == null) {
+			throwUnauthorized();
 		}
+		commandData.setRootCategoryId(category.getRootCategoryId());
+		commandData.setPath(category.getPath());
 		this.commandData.setCardId(commandData.getUuid());
 		if (commandData.getCardIndex() == null) {
 			Integer max = this.daoProvider.getCustomCardDao().selectMaxIndexInCategory(getHandle(),

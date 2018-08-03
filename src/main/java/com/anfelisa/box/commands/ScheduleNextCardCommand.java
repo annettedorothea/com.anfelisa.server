@@ -25,14 +25,18 @@ public class ScheduleNextCardCommand extends AbstractScheduleNextCardCommand {
 	protected void executeCommand() {
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(getHandle(), commandData.getBoxId());
 		if (box == null) {
-			throwBadRequest("box does not exist");
+			throwBadRequest("boxDoesNotExist");
 		}
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();
 		}
-		String nextCardId = searchNextCard(box.getCategoryId());
+		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(getHandle(), box.getCategoryId());
+		if (category == null) {
+			throwBadRequest("categoryDoesNotExist");
+		}
+		String nextCardId = searchNextCard(category);
 		if (nextCardId == null) {
-			throwBadRequest("no cards left");
+			throwBadRequest("noCardsLeft");
 		} else {
 			commandData.setCardId(nextCardId);
 			commandData.setCount(0);
@@ -47,16 +51,20 @@ public class ScheduleNextCardCommand extends AbstractScheduleNextCardCommand {
 		}
 	}
 
-	private String searchNextCard(String categoryId) {
-		String nextCardId = daoProvider.getCustomScheduledCardDao().selectNextCardId(getHandle(), categoryId,
+	private String searchNextCard(ICategoryModel category) {
+		System.out.println("visit category " + category.getCategoryName());
+		String nextCardId = daoProvider.getCustomScheduledCardDao().selectNextCardId(getHandle(), category.getCategoryId(),
 				commandData.getBoxId());
 		if (nextCardId != null) {
 			return nextCardId;
 		}
 		List<ICategoryModel> categories = daoProvider.getCustomCategoryDao().selectAllChildren(getHandle(),
-				categoryId);
-		for (ICategoryModel category : categories) {
-			return searchNextCard(category.getCategoryId());
+				category.getCategoryId());
+		for (ICategoryModel subCategory : categories) {
+			nextCardId = searchNextCard(subCategory);
+			if (nextCardId != null) {
+				return nextCardId;
+			}
 		}
 		return null;
 	}

@@ -27,7 +27,7 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 	protected void executeCommand() {
 		if (commandData.getCategoryId() != null
 				&& daoProvider.getCategoryDao().selectByCategoryId(getHandle(), commandData.getCategoryId()) == null) {
-			throwBadRequest("category does not exist");
+			throwBadRequest("categoryDoesNotExist");
 		}
 		
 		this.commandData.setCategoryId(commandData.getUuid());
@@ -73,7 +73,7 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 		if (commandData.getDictionaryLookup() != null && commandData.getDictionaryLookup() == true
 				&& language != null
 				&& !Arrays.asList(languages).contains(language)) {
-			throwBadRequest("invalid language");
+			throwBadRequest("invalidLanguage");
 		}
 
 	}

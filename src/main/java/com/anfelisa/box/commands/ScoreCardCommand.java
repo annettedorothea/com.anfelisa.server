@@ -24,11 +24,11 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 	protected void executeCommand() {
 		IScheduledCardModel scheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(getHandle(), commandData.getScoredCardScheduledCardId());
 		if (scheduledCard == null) {
-			throwBadRequest("scheduled card not found");
+			throwBadRequest("cardDoesNotExist");
 		}
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(getHandle(), scheduledCard.getBoxId());
 		if (box == null) {
-			throwBadRequest("Something went wrong.....");
+			throwBadRequest("boxDoesNotExist");
 		}
 		if (!commandData.getUserId().equals(box.getUserId())) {
 			throwUnauthorized();

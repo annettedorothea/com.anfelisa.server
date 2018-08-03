@@ -22,7 +22,7 @@ public class ScoreReinforceCardCommand extends AbstractScoreReinforceCardCommand
 	protected void executeCommand() {
 		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByReinforceCardId(getHandle(), commandData.getReinforceCardId());
 		if (reinforceCard == null) {
-			throwBadRequest("card does not exist");
+			throwBadRequest("cardDoesNotExist");
 		}
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(this.getHandle(), reinforceCard.getBoxId());
 		if (!box.getUserId().equals(commandData.getUserId())) {

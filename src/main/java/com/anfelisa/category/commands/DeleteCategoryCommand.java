@@ -22,7 +22,7 @@ public class DeleteCategoryCommand extends AbstractDeleteCategoryCommand {
 	protected void executeCommand() {
 		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(getHandle(), commandData.getCategoryId());
 		if (category == null) {
-			throwBadRequest("Category does not exist");
+			throwBadRequest("categoryDoesNotExist");
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), commandData.getUserId());
 		if (access == null) {

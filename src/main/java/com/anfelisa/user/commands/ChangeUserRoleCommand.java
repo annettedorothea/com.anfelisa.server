@@ -26,7 +26,7 @@ public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 	protected void executeCommand() {
 		if (!AuthUser.ADMIN.equals(this.commandData.getRole())
 				&& !AuthUser.STUDENT.equals(this.commandData.getRole())) {
-			throwBadRequest(commandData.getRole() + " is not valid role");
+			throwBadRequest("invalidRole");
 		}
 		if (!AuthUser.ADMIN.equals(this.commandData.getAuthRole())) {
 			throwUnauthorized();

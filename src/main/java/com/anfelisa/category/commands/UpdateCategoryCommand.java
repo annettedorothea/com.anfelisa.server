@@ -28,7 +28,7 @@ public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
 				commandData.getCategoryId());
 		if (category == null) {
-			throwBadRequest("Category does not exist");
+			throwBadRequest("categoryDoesNotExist");
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), commandData.getUserId());
 		if (access == null) {
@@ -47,7 +47,7 @@ public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 		if (commandData.getDictionaryLookup() != null && commandData.getDictionaryLookup() == true
 				&& language != null
 				&& !Arrays.asList(languages).contains(language)) {
-			throwBadRequest("invalid language");
+			throwBadRequest("invalidLanguage");
 		}
 
 	}

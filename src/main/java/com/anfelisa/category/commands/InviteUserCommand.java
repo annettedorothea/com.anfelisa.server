@@ -25,7 +25,7 @@ public class InviteUserCommand extends AbstractInviteUserCommand {
 		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
 				commandData.getCategoryId());
 		if (category == null) {
-			throwBadRequest("Category does not exist");
+			throwBadRequest("categoryDoesNotExist");
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), commandData.getUserId());
 		if (access == null) {
@@ -33,7 +33,7 @@ public class InviteUserCommand extends AbstractInviteUserCommand {
 		}
 		IUserModel invitedUser = this.daoProvider.getUserDao().selectByUsername(getHandle(),  commandData.getUsername());
 		if (invitedUser == null) {
-			throwBadRequest("User does not exist");
+			throwBadRequest("userDoesNotExist");
 		}
 		this.commandData.setInvitedUserId(invitedUser.getUserId());
 		this.commandData.setRootCategoryId(category.getRootCategoryId());
