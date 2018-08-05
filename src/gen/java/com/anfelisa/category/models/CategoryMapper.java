@@ -22,7 +22,8 @@ public class CategoryMapper implements ResultSetMapper<ICategoryModel> {
 			r.getBoolean("dictionaryLookup"),
 			r.getString("givenLanguage"),
 			r.getString("wantedLanguage"),
-			r.getString("path")
+			r.getString("path"),
+			r.getBoolean("publicRootCategory")
 		);
 	}
 }

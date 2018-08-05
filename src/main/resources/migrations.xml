@@ -79,26 +79,6 @@
 			</column>
 		</createTable>
 
-		<createTable tableName="loginlog">
-			<column name="loginlogid" type="character varying">
-				<constraints primaryKey="true" nullable="false" />
-			</column>
-			<column name="username" type="character varying">
-				<constraints nullable="false" />
-			</column>
-			<column name="date" type="timestamp with time zone">
-				<constraints nullable="false" />
-			</column>
-		</createTable>
-
-	</changeSet>
-
-	<changeSet id="003" author="annette">
-		<dropTable tableName="loginlog" />
-	</changeSet>
-
-	<changeSet id="004" author="annette">
-
 		<createTable tableName="resetpassword">
 			<column name="token" type="character varying">
 				<constraints primaryKey="true" nullable="false" />
@@ -117,10 +97,6 @@
 			</column>
 		</createTable>
 
-	</changeSet>
-
-	<changeSet id="005" author="annette">
-
 		<createTable tableName="category">
 			<column name="categoryid" type="character varying">
 				<constraints primaryKey="true" nullable="false" />
@@ -136,13 +112,41 @@
 			</column>
 			<column name="parentcategoryid" type="character varying">
 				<constraints references="category(categoryid)"
+					deleteCascade="true" foreignKeyName="fk_category_parentcategoryid" />
+			</column>
+			<column name="rootcategoryid" type="character varying">
+				<constraints references="category(categoryid)"
 					deleteCascade="true" foreignKeyName="fk_category_categoryid" />
+			</column>
+			<column name="dictionarylookup" type="boolean">
+				<constraints />
+			</column>
+			<column name="givenlanguage" type="character varying">
+				<constraints />
+			</column>
+			<column name="wantedlanguage" type="character varying">
+				<constraints />
+			</column>
+			<column name="path" type="character varying">
+				<constraints nullable="false" />
+			</column>
+			<column name="publicrootcategory" type="boolean">
+				<constraints />
 			</column>
 		</createTable>
 
-	</changeSet>
-
-	<changeSet id="006" author="annette">
+		<createTable tableName="useraccesstocategory">
+			<column name="categoryid" type="character varying">
+				<constraints primaryKey="true" nullable="false"
+					references="category(categoryid)" deleteCascade="true"
+					foreignKeyName="fk_useraccesstocategory_categoryid" />
+			</column>
+			<column name="userid" type="character varying">
+				<constraints primaryKey="true" nullable="false"
+					references="user(userid)" deleteCascade="true"
+					foreignKeyName="fk_useraccesstocategory_userid" />
+			</column>
+		</createTable>
 
 		<createTable tableName="card">
 			<column name="cardid" type="character varying">
@@ -154,6 +158,9 @@
 			<column name="wanted" type="character varying">
 				<constraints />
 			</column>
+			<column name="image" type="character varying">
+				<constraints />
+			</column>
 			<column name="cardauthor" type="character varying">
 				<constraints nullable="false" />
 			</column>
@@ -161,168 +168,19 @@
 				<constraints nullable="false" />
 			</column>
 			<column name="categoryid" type="character varying">
-				<constraints references="category(categoryid)"
-					deleteCascade="true" foreignKeyName="fk_card_categoryid" />
-			</column>
-		</createTable>
-
-	</changeSet>
-
-	<changeSet id="007" author="annette">
-
-		<addColumn tableName="card">
-			<column name="rootcategoryid" type="character varying">
-				<constraints references="category(categoryid)"
-					deleteCascade="true" foreignKeyName="fk_card_rootcategoryid" />
-			</column>
-		</addColumn>
-		<addColumn tableName="category">
-			<column name="rootcategoryid" type="character varying">
-				<constraints references="category(categoryid)"
-					deleteCascade="true" foreignKeyName="fk_category_rootcategoryid" />
-			</column>
-		</addColumn>
-
-	</changeSet>
-
-	<changeSet id="008" author="annette">
-
-		<addColumn tableName="category">
-			<column name="dictionarylookup" type="boolean">
-				<constraints />
-			</column>
-			<column name="sourcelangauge" type="character varying">
-				<constraints />
-			</column>
-			<column name="targetlanguage" type="integer">
-				<constraints />
-			</column>
-		</addColumn>
-
-	</changeSet>
-
-	<changeSet id="009" author="annette">
-
-		<dropColumn tableName="category"
-			columnName="targetlanguage" />
-
-		<addColumn tableName="category">
-			<column name="targetlanguage" type="character varying">
-				<constraints />
-			</column>
-		</addColumn>
-
-	</changeSet>
-
-	<changeSet id="010" author="annette">
-
-		<dropColumn tableName="category"
-			columnName="sourcelangauge" />
-
-		<addColumn tableName="category">
-			<column name="sourcelanguage" type="character varying">
-				<constraints />
-			</column>
-		</addColumn>
-
-	</changeSet>
-
-	<changeSet id="011" author="annette">
-
-		<dropColumn tableName="category"
-			columnName="sourcelanguage" />
-		<dropColumn tableName="category"
-			columnName="targetlanguage" />
-
-		<addColumn tableName="category">
-			<column name="givenlanguage" type="character varying">
-				<constraints />
-			</column>
-			<column name="wantedlanguage" type="character varying">
-				<constraints />
-			</column>
-		</addColumn>
-
-	</changeSet>
-
-	<changeSet id="012" author="annette">
-
-		<addColumn tableName="card">
-			<column name="path" type="character varying">
-				<constraints />
-			</column>
-		</addColumn>
-	</changeSet>
-
-	<changeSet id="013" author="annette">
-
-		<addColumn tableName="category">
-			<column name="path" type="character varying">
-				<constraints />
-			</column>
-		</addColumn>
-	</changeSet>
-
-	<changeSet id="014" author="annette">
-
-		<addColumn tableName="card">
-			<column name="givenimage" type="bytea">
-				<constraints />
-			</column>
-			<column name="wantedimage" type="bytea">
-				<constraints />
-			</column>
-		</addColumn>
-
-	</changeSet>
-
-	<changeSet id="015" author="annette">
-
-		<dropColumn tableName="card" columnName="givenimage" />
-		<dropColumn tableName="card" columnName="wantedimage" />
-
-		<addColumn tableName="card">
-			<column name="image" type="character varying">
-				<constraints />
-			</column>
-		</addColumn>
-
-	</changeSet>
-
-	<changeSet id="016" author="annette">
-
-		<createTable tableName="box">
-			<column name="boxid" type="character varying">
-				<constraints primaryKey="true" nullable="false" />
-			</column>
-			<column name="name" type="character varying">
-				<constraints nullable="false" />
-			</column>
-			<column name="username" type="character varying">
-				<constraints nullable="false" references="user(userid)"
-					deleteCascade="true" foreignKeyName="fk_box_userid" />
-			</column>
-			<column name="categoryid" type="character varying">
 				<constraints nullable="false"
 					references="category(categoryid)" deleteCascade="true"
-					foreignKeyName="fk_box_categoryid" />
+					foreignKeyName="fk_card_categoryid" />
 			</column>
-			<column name="maxinterval" type="integer">
-				<constraints />
+			<column name="rootcategoryid" type="character varying">
+				<constraints nullable="false"
+					references="category(categoryid)" deleteCascade="true"
+					foreignKeyName="fk_card_rootcategoryid" />
+			</column>
+			<column name="path" type="character varying">
+				<constraints nullable="false" />
 			</column>
 		</createTable>
-
-	</changeSet>
-
-	<changeSet id="017" author="annette">
-
-		<dropColumn tableName="box" columnName="name" />
-
-	</changeSet>
-
-	<changeSet id="018" author="annette">
-
-		<dropTable tableName="box" />
 
 		<createTable tableName="box">
 			<column name="boxid" type="character varying">
@@ -342,60 +200,6 @@
 			</column>
 		</createTable>
 
-	</changeSet>
-
-	<changeSet id="019" author="annette">
-
-		<createTable tableName="scheduledcard">
-			<column name="scheduledcardid" type="character varying">
-				<constraints primaryKey="true" nullable="false" />
-			</column>
-			<column name="cardid" type="character varying">
-				<constraints nullable="false" references="card(cardid)"
-					deleteCascade="true" foreignKeyName="fk_scheduledcard_cardid" />
-			</column>
-			<column name="boxid" type="character varying">
-				<constraints nullable="false" references="box(boxid)"
-					deleteCascade="true" foreignKeyName="fk_scheduledcard_boxid" />
-			</column>
-			<column name="createddate" type="timestamp with time zone">
-				<constraints nullable="false" />
-			</column>
-			<column name="ef" type="numeric">
-				<constraints nullable="false" />
-			</column>
-			<column name="interval" type="integer">
-				<constraints />
-			</column>
-			<column name="n" type="integer">
-				<constraints nullable="false" />
-			</column>
-			<column name="count" type="integer">
-				<constraints nullable="false" />
-			</column>
-			<column name="scheduleddate" type="timestamp with time zone">
-				<constraints nullable="false" />
-			</column>
-			<column name="lastquality" type="integer">
-				<constraints />
-			</column>
-			<column name="quality" type="integer">
-				<constraints />
-			</column>
-			<column name="scoreddate" type="timestamp with time zone">
-				<constraints nullable="false" />
-			</column>
-			<column name="removed" type="boolean">
-				<constraints nullable="false" />
-			</column>
-		</createTable>
-
-	</changeSet>
-
-	<changeSet id="020" author="annette">
-
-		<dropTable tableName="scheduledcard" />
-
 		<createTable tableName="scheduledcard">
 			<column name="scheduledcardid" type="character varying">
 				<constraints primaryKey="true" nullable="false" />
@@ -435,44 +239,7 @@
 			<column name="scoreddate" type="timestamp with time zone">
 				<constraints />
 			</column>
-			<column name="removed" type="boolean">
-				<constraints nullable="false" />
-			</column>
 		</createTable>
-
-	</changeSet>
-
-	<changeSet id="021" author="annette">
-
-		<createTable tableName="reinforcecard">
-			<column name="reinforcecardid" type="character varying">
-				<constraints primaryKey="true" nullable="false" />
-			</column>
-			<column name="cardid" type="character varying">
-				<constraints nullable="false" references="card(cardid)"
-					deleteCascade="true" foreignKeyName="fk_reinforcecard_cardid" />
-			</column>
-			<column name="boxid" type="character varying">
-				<constraints nullable="false" references="box(boxid)"
-					deleteCascade="true" foreignKeyName="fk_reinforcecard_boxid" />
-			</column>
-			<column name="createddate" type="timestamp with time zone">
-				<constraints nullable="false" />
-			</column>
-		</createTable>
-
-	</changeSet>
-
-
-	<changeSet id="022" author="annette">
-
-		<dropColumn tableName="scheduledcard" columnName="removed" />
-
-	</changeSet>
-
-	<changeSet id="023" author="annette">
-
-		<dropTable tableName="reinforcecard" />
 
 		<createTable tableName="reinforcecard">
 			<column name="reinforcecardid" type="character varying">
@@ -487,39 +254,8 @@
 				<constraints nullable="false" references="box(boxid)"
 					deleteCascade="true" foreignKeyName="fk_reinforcecard_boxid" />
 			</column>
-			<column name="createddate" type="timestamp with time zone">
+			<column name="changedate" type="timestamp with time zone">
 				<constraints nullable="false" />
-			</column>
-		</createTable>
-
-	</changeSet>
-
-	<changeSet id="024" author="annette">
-
-		<renameColumn tableName="reinforcecard"
-			oldColumnName="createddate" newColumnName="changeDate" />
-
-	</changeSet>
-
-	<changeSet id="025" author="annette">
-
-		<renameColumn tableName="reinforcecard"
-			oldColumnName="changeDate" newColumnName="changedate" />
-
-	</changeSet>
-
-	<changeSet id="026" author="annette">
-
-		<createTable tableName="useraccesstocategory">
-			<column name="categoryid" type="character varying">
-				<constraints primaryKey="true" nullable="false"
-					references="category(categoryid)" deleteCascade="true"
-					foreignKeyName="fk_useraccesstocategory_categoryid" />
-			</column>
-			<column name="userid" type="character varying">
-				<constraints primaryKey="true" nullable="false"
-					references="user(userid)" deleteCascade="true"
-					foreignKeyName="fk_useraccesstocategory_userid" />
 			</column>
 		</createTable>
 

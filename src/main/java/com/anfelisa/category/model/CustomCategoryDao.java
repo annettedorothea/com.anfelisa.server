@@ -15,7 +15,7 @@ public class CustomCategoryDao {
 
 	public List<ICategoryItemModel> selectAllChildren(Handle handle, String parentCategoryId, String userId) {
 		return handle.createQuery(
-				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, "
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, publicrootcategory, "
 				+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
 				+ "(select a.categoryid from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid) is not null as editable, "
 				+ "false as isRoot, "
@@ -26,12 +26,13 @@ public class CustomCategoryDao {
 
 	public List<ICategoryItemModel> selectAllRoot(Handle handle, String userId) {
 		return handle.createQuery(
-				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, "
+				"SELECT * FROM "
+				+ "( SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, publicrootcategory, "
 				+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
 				+ "(select a.categoryid from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid) is not null as editable, "
 				+ "true as isRoot, "
 				+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
-				+ "FROM public.category c WHERE parentcategoryid is null order by categoryindex, categoryname")
+				+ "FROM public.category c) as categoryitem WHERE parentcategoryid is null and (publicrootcategory = true or editable = true) order by categoryindex, categoryname")
 				.bind("userid", userId).map(new CategoryItemMapper()).list();
 	}
 
@@ -75,7 +76,7 @@ public class CustomCategoryDao {
 
 	public List<ICategoryModel> selectAllChildren(Handle handle, String parentCategoryId) {
 		return handle.createQuery(
-				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, publicrootcategory FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
 				.bind("parentcategoryid", parentCategoryId).map(new CategoryMapper()).list();
 	}
 

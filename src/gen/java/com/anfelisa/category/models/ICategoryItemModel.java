@@ -19,6 +19,7 @@ public interface ICategoryItemModel {
 	Boolean getEditable();
 	Boolean getHasBox();
 	Boolean getIsRoot();
+	Boolean getPublicRootCategory();
 
 }
 

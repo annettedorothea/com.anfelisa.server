@@ -1,12 +1,15 @@
 package com.anfelisa.card.actions;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotNull;
@@ -29,6 +32,7 @@ import com.anfelisa.auth.AuthUser;
 import com.anfelisa.card.data.CardTranslationData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import io.dropwizard.auth.Auth;
 
@@ -60,38 +64,39 @@ public class GetTranslationAction extends AbstractGetTranslationAction {
 		return this.apply();
 	}
 
-	@SuppressWarnings("unchecked")
 	protected final void loadDataForGetRequest() {
-		HttpURLConnection connection = null;
 		try {
-			URL url = new URL("https://translate.yandex.net/api/v1.5/tr.json/translate?key=" + translationApiKey
-					+ "&text=" + this.actionData.getSourceValue() + "&lang=" + this.actionData.getSourceLanguage() + "-"
-					+ this.actionData.getTargetLanguage() + "&format=plain");
-			connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod("GET");
-			InputStream is = connection.getInputStream();
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+			String urlStr = "https://translation.googleapis.com/language/translate/v2?key=" + translationApiKey + "&q="
+					+ URLEncoder.encode(this.actionData.getSourceValue(), "UTF-8") + "&target="
+					+ this.actionData.getTargetLanguage() + "&source=" + this.actionData.getSourceLanguage()
+					+ "&format=text";
+			URL url = new URL(urlStr);
 			StringBuilder response = new StringBuilder();
-			String line;
-			while ((line = rd.readLine()) != null) {
-				response.append(line);
-				response.append('\r');
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestProperty("User-Agent", "Mozilla/5.0");
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String inputLine;
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
 			}
-			rd.close();
-			String json = response.toString();
-			Map<Object, Object> model = mapper.readValue(json, Map.class);
-			Object value = model.get("text");
-			if (value != null) {
-				this.actionData.setTargetValue(((List<String>)value).get(0));
-			} else {
-				this.actionData.setTargetValue("");
-			}
-		} catch (Exception e) {
+			in.close();
+			TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {
+			};
+			HashMap<String, Object> o = mapper.readValue(response.toString(), typeRef);
+			HashMap<String, Object> data = (HashMap<String, Object>)o.get("data");
+			ArrayList<Object> translations = (ArrayList<Object>)data.get("translations");
+			HashMap<String, Object> translation = (HashMap<String, Object>)translations.get(0);
+			Object translatedText = translation.get("translatedText");
+			this.actionData.setTargetValue(translatedText.toString());
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 			this.actionData.setTargetValue("");
-		} finally {
-			if (connection != null) {
-				connection.disconnect();
-			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			this.actionData.setTargetValue("");
+		} catch (IOException e) {
+			e.printStackTrace();
+			this.actionData.setTargetValue("");
 		}
 	}
 

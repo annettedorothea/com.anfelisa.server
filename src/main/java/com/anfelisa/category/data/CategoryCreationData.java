@@ -32,6 +32,8 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 	@NotNull
 	private String path;
 	
+	private Boolean publicRootCategory = false;
+	
 	@NotNull
 	private String userId;
 	
@@ -47,6 +49,7 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("path") String path,
+		@JsonProperty("publicRootCategory") Boolean publicRootCategory,
 		@JsonProperty("userId") String userId
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -61,6 +64,7 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
 		this.path = path;
+		this.publicRootCategory = publicRootCategory;
 		this.userId = userId;
 	}
 
@@ -189,6 +193,18 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 	}
 	
 	@JsonProperty
+	public Boolean getPublicRootCategory() {
+		return this.publicRootCategory;
+	}
+	public void setPublicRootCategory(Boolean publicRootCategory) {
+		this.publicRootCategory = publicRootCategory;
+	}
+	public CategoryCreationData withPublicRootCategory(Boolean publicRootCategory) {
+		this.publicRootCategory = publicRootCategory;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getUserId() {
 		return this.userId;
 	}
@@ -214,6 +230,7 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 			this.givenLanguage,
 			this.wantedLanguage,
 			this.path,
+			this.publicRootCategory,
 			this.userId
 		);
 	}

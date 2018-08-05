@@ -40,6 +40,8 @@ public class CategoryItemModel implements ICategoryItemModel {
 	
 	private Boolean isRoot = false;
 	
+	private Boolean publicRootCategory = false;
+	
 
 	public CategoryItemModel(
 		@JsonProperty("categoryId") String categoryId,
@@ -55,7 +57,8 @@ public class CategoryItemModel implements ICategoryItemModel {
 		@JsonProperty("empty") Boolean empty,
 		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("hasBox") Boolean hasBox,
-		@JsonProperty("isRoot") Boolean isRoot
+		@JsonProperty("isRoot") Boolean isRoot,
+		@JsonProperty("publicRootCategory") Boolean publicRootCategory
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -71,6 +74,7 @@ public class CategoryItemModel implements ICategoryItemModel {
 		this.editable = editable;
 		this.hasBox = hasBox;
 		this.isRoot = isRoot;
+		this.publicRootCategory = publicRootCategory;
 	}
 
 	@JsonProperty
@@ -183,6 +187,14 @@ public class CategoryItemModel implements ICategoryItemModel {
 	}
 	public void setIsRoot(Boolean isRoot) {
 		this.isRoot = isRoot;
+	}
+	
+	@JsonProperty
+	public Boolean getPublicRootCategory() {
+		return this.publicRootCategory;
+	}
+	public void setPublicRootCategory(Boolean publicRootCategory) {
+		this.publicRootCategory = publicRootCategory;
 	}
 	
 

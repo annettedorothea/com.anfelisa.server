@@ -41,6 +41,8 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 	@NotNull
 	private String path;
 	
+	private Boolean publicRootCategory = false;
+	
 	@NotNull
 	private String userId;
 	
@@ -56,6 +58,7 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("path") String path,
+		@JsonProperty("publicRootCategory") Boolean publicRootCategory,
 		@JsonProperty("userId") String userId
 	) {
 		this.categoryId = categoryId;
@@ -68,6 +71,7 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
 		this.path = path;
+		this.publicRootCategory = publicRootCategory;
 		this.userId = userId;
 		
 	}
@@ -189,6 +193,18 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 	}
 	public CategoryCreationPresentationalData withPath(String path) {
 		this.path = path;
+		return this;
+	}
+	
+	@JsonProperty
+	public Boolean getPublicRootCategory() {
+		return this.publicRootCategory;
+	}
+	public void setPublicRootCategory(Boolean publicRootCategory) {
+		this.publicRootCategory = publicRootCategory;
+	}
+	public CategoryCreationPresentationalData withPublicRootCategory(Boolean publicRootCategory) {
+		this.publicRootCategory = publicRootCategory;
 		return this;
 	}
 	

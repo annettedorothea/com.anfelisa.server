@@ -26,7 +26,8 @@ public class CategoryItemMapper implements ResultSetMapper<ICategoryItemModel> {
 			r.getBoolean("empty"),
 			r.getBoolean("editable"),
 			r.getBoolean("hasBox"),
-			r.getBoolean("isRoot")
+			r.getBoolean("isRoot"),
+			r.getBoolean("publicRootCategory")
 		);
 	}
 }

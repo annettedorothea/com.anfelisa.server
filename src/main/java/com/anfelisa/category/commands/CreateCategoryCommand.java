@@ -25,11 +25,6 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 
 	@Override
 	protected void executeCommand() {
-		if (commandData.getCategoryId() != null
-				&& daoProvider.getCategoryDao().selectByCategoryId(getHandle(), commandData.getCategoryId()) == null) {
-			throwBadRequest("categoryDoesNotExist");
-		}
-		
 		this.commandData.setCategoryId(commandData.getUuid());
 		if (commandData.getParentCategoryId() != null) {
 			ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
@@ -44,6 +39,7 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 		} else {
 			commandData.setRootCategoryId(commandData.getCategoryId());
 			commandData.setPath(commandData.getCategoryName());
+			commandData.setPublicRootCategory(false);
 			this.commandData.setOutcome(root);
 		}
 		

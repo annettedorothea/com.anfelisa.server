@@ -15,6 +15,7 @@ public interface ICategoryModel {
 	String getGivenLanguage();
 	String getWantedLanguage();
 	String getPath();
+	Boolean getPublicRootCategory();
 
 }
 
