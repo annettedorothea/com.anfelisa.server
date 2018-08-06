@@ -64,6 +64,7 @@ public class GetTranslationAction extends AbstractGetTranslationAction {
 		return this.apply();
 	}
 
+	@SuppressWarnings("unchecked")
 	protected final void loadDataForGetRequest() {
 		try {
 			String urlStr = "https://translation.googleapis.com/language/translate/v2?key=" + translationApiKey + "&q="
@@ -85,9 +86,13 @@ public class GetTranslationAction extends AbstractGetTranslationAction {
 			HashMap<String, Object> o = mapper.readValue(response.toString(), typeRef);
 			HashMap<String, Object> data = (HashMap<String, Object>)o.get("data");
 			ArrayList<Object> translations = (ArrayList<Object>)data.get("translations");
-			HashMap<String, Object> translation = (HashMap<String, Object>)translations.get(0);
-			Object translatedText = translation.get("translatedText");
-			this.actionData.setTargetValue(translatedText.toString());
+			if (translations.size() > 0) {
+				HashMap<String, Object> translation = (HashMap<String, Object>)translations.get(0);
+				Object translatedText = translation.get("translatedText");
+				this.actionData.setTargetValue(translatedText.toString());
+			} else {
+				this.actionData.setTargetValue("");
+			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			this.actionData.setTargetValue("");
