@@ -31,13 +31,7 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 	private String boxId;
 	
 	@NotNull
-	private String categoryId;
-	
-	@NotNull
 	private String categoryName;
-	
-	@NotNull
-	private Integer categoryIndex;
 	
 	private Integer maxInterval;
 	
@@ -67,9 +61,7 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 		@JsonProperty("myCards") Integer myCards,
 		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("categoryIndex") Integer categoryIndex,
 		@JsonProperty("maxInterval") Integer maxInterval,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
@@ -86,9 +78,7 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 		this.myCards = myCards;
 		this.daysBehindSchedule = daysBehindSchedule;
 		this.boxId = boxId;
-		this.categoryId = categoryId;
 		this.categoryName = categoryName;
-		this.categoryIndex = categoryIndex;
 		this.maxInterval = maxInterval;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
@@ -174,18 +164,6 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 	}
 	
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-	}
-	public BoxInfoPresentationalData withCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-		return this;
-	}
-	
-	@JsonProperty
 	public String getCategoryName() {
 		return this.categoryName;
 	}
@@ -194,18 +172,6 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 	}
 	public BoxInfoPresentationalData withCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getCategoryIndex() {
-		return this.categoryIndex;
-	}
-	public void setCategoryIndex(Integer categoryIndex) {
-		this.categoryIndex = categoryIndex;
-	}
-	public BoxInfoPresentationalData withCategoryIndex(Integer categoryIndex) {
-		this.categoryIndex = categoryIndex;
 		return this;
 	}
 	

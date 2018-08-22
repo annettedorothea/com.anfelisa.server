@@ -53,7 +53,6 @@ public class StartE2ESessionResource {
 		try {
 			handle.getConnection().setAutoCommit(false);
 			
-			daoProvider.getAceDao().truncateErrorTimelineTable(handle);
 			daoProvider.getAceDao().truncateTimelineTable(handle);
 
 			daoProvider.truncateAllViews(handle);

@@ -21,13 +21,7 @@ public class BoxInfoModel implements IBoxInfoModel {
 	private String boxId;
 	
 	@NotNull
-	private String categoryId;
-	
-	@NotNull
 	private String categoryName;
-	
-	@NotNull
-	private Integer categoryIndex;
 	
 	private Integer maxInterval;
 	
@@ -51,9 +45,7 @@ public class BoxInfoModel implements IBoxInfoModel {
 		@JsonProperty("myCards") Integer myCards,
 		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("categoryIndex") Integer categoryIndex,
 		@JsonProperty("maxInterval") Integer maxInterval,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
@@ -68,9 +60,7 @@ public class BoxInfoModel implements IBoxInfoModel {
 		this.myCards = myCards;
 		this.daysBehindSchedule = daysBehindSchedule;
 		this.boxId = boxId;
-		this.categoryId = categoryId;
 		this.categoryName = categoryName;
-		this.categoryIndex = categoryIndex;
 		this.maxInterval = maxInterval;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
@@ -129,27 +119,11 @@ public class BoxInfoModel implements IBoxInfoModel {
 	}
 	
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-	}
-	
-	@JsonProperty
 	public String getCategoryName() {
 		return this.categoryName;
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-	}
-	
-	@JsonProperty
-	public Integer getCategoryIndex() {
-		return this.categoryIndex;
-	}
-	public void setCategoryIndex(Integer categoryIndex) {
-		this.categoryIndex = categoryIndex;
 	}
 	
 	@JsonProperty

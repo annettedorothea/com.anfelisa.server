@@ -11,9 +11,7 @@ public interface IBoxInfoModel {
 	Integer getMyCards();
 	Integer getDaysBehindSchedule();
 	String getBoxId();
-	String getCategoryId();
 	String getCategoryName();
-	Integer getCategoryIndex();
 	Integer getMaxInterval();
 	Integer getQuality0Count();
 	Integer getQuality1Count();

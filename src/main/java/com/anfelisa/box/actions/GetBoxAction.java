@@ -63,8 +63,6 @@ public class GetBoxAction extends AbstractGetBoxAction {
 		}
 		IBoxInfoModel boxInfo = daoProvider.getCustomBoxDao().selectByBoxId(getHandle(), actionData.getBoxId(),
 				actionData.getToday());
-		this.actionData.setCategoryId(boxInfo.getCategoryId());
-		this.actionData.setCategoryIndex(boxInfo.getCategoryIndex());
 		this.actionData.setCategoryName(boxInfo.getCategoryName());
 		this.actionData.setDaysBehindSchedule(boxInfo.getDaysBehindSchedule());
 		this.actionData.setMaxInterval(boxInfo.getMaxInterval());

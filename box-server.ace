@@ -110,9 +110,7 @@ models {
 		Integer myCards
 		Integer daysBehindSchedule
 		NotNull String boxId
-		NotNull String categoryId
 		NotNull String categoryName
-		NotNull Integer categoryIndex
 		Integer maxInterval
 		Integer quality0Count
 		Integer quality1Count

@@ -21,7 +21,7 @@ public class CustomUserAccessToCategoryDao {
 	public List<IUserWithAccessModel> selectByCategoryId(Handle handle, String categoryId) {
 		return handle
 				.createQuery(
-						"SELECT a.userid, u.username FROM public.useraccesstocategory a inner join public.user u on a.userid = u.userid where categoryid = :categoryid")
+						"SELECT a.userid, u.username FROM public.useraccesstocategory a inner join public.user u on a.userid = u.userid where categoryid = :categoryid order by u.username")
 				.bind("categoryid", categoryId).map(new UserWithAccessMapper()).list();
 	}
 
