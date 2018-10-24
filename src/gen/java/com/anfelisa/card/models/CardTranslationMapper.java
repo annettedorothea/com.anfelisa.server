@@ -3,15 +3,13 @@ package com.anfelisa.card.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.skife.jdbi.v2.StatementContext;
-import org.skife.jdbi.v2.tweak.ResultSetMapper;
-
-import com.anfelisa.ace.encryption.EncryptionService;
+import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 
 @SuppressWarnings("all")
-public class CardTranslationMapper implements ResultSetMapper<ICardTranslationModel> {
+public class CardTranslationMapper implements RowMapper<ICardTranslationModel> {
 	
-	public ICardTranslationModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
+	public ICardTranslationModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardTranslationModel(
 			r.getString("sourceValue"),
 			r.getString("targetValue"),

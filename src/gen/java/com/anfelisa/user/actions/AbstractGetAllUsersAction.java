@@ -1,6 +1,7 @@
 package com.anfelisa.user.actions;
 
-import org.skife.jdbi.v2.DBI;
+import org.jdbi.v3.core.Jdbi;
+
 import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
@@ -14,7 +15,7 @@ import com.anfelisa.user.data.UserListData;
 
 public abstract class AbstractGetAllUsersAction extends Action<UserListData> {
 
-	public AbstractGetAllUsersAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractGetAllUsersAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.GetAllUsersAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 

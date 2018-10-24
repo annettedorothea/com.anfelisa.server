@@ -1,10 +1,11 @@
 package com.anfelisa.box.models;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.statement.Update;
 import org.joda.time.DateTime;
-import org.skife.jdbi.v2.Handle;
-import org.skife.jdbi.v2.Update;
 
 import com.anfelisa.box.data.BoxUpdateData;
 
@@ -30,7 +31,7 @@ public class CustomBoxDao {
 	}
 	
 	public IBoxInfoModel selectByBoxId(Handle handle, String boxId, DateTime today) {
-		return handle.createQuery("SELECT (SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate <= :today) as todayscards, "
+		Optional<IBoxInfoModel> optional =  handle.createQuery("SELECT (SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate <= :today) as todayscards, "
 				+ "(select count(cardid) from card where rootcategoryid = b.categoryid) as totalcards, "
 				+ "(select count(distinct(cardid)) from public.scheduledcard where boxid = :boxid ) as mycards, "
 				+ "(select count(reinforcecardid) from public.reinforcecard where boxid = :boxid ) as reinforcecards, "
@@ -45,19 +46,21 @@ public class CustomBoxDao {
 				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid where boxid = :boxid ")
 				.bind("boxid", boxId)
 				.bind("today", today)
-				.map(new BoxInfoMapper()).first();
+				.map(new BoxInfoMapper()).findFirst();
+		return optional.isPresent() ? optional.get() : null;
 	}
 	
 	public IBoxModel selectByCategoryIdAndUserId(Handle handle, String categoryId, String userId) {
-		return handle.createQuery("SELECT boxid, userid, categoryid, maxinterval FROM public.box WHERE categoryid = :categoryid and userid = :userid")
+		Optional<IBoxModel> optional = handle.createQuery("SELECT boxid, userid, categoryid, maxinterval FROM public.box WHERE categoryid = :categoryid and userid = :userid")
 			.bind("categoryid", categoryId)
 			.bind("userid", userId)
 			.map(new BoxMapper())
-			.first();
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
 	}
 
 	public void updateBox(Handle handle, BoxUpdateData boxModel) {
-		Update statement = handle.createStatement("UPDATE public.box SET maxinterval = :maxinterval WHERE boxId = :boxId");
+		Update statement = handle.createUpdate("UPDATE public.box SET maxinterval = :maxinterval WHERE boxId = :boxId");
 		statement.bind("boxId", boxModel.getBoxId());
 		statement.bind("maxinterval",  boxModel.getMaxInterval() );
 		statement.execute();

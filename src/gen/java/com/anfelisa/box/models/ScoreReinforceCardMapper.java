@@ -3,15 +3,13 @@ package com.anfelisa.box.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.skife.jdbi.v2.StatementContext;
-import org.skife.jdbi.v2.tweak.ResultSetMapper;
-
-import com.anfelisa.ace.encryption.EncryptionService;
+import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 
 @SuppressWarnings("all")
-public class ScoreReinforceCardMapper implements ResultSetMapper<IScoreReinforceCardModel> {
+public class ScoreReinforceCardMapper implements RowMapper<IScoreReinforceCardModel> {
 	
-	public IScoreReinforceCardModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
+	public IScoreReinforceCardModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ScoreReinforceCardModel(
 			r.getString("reinforceCardId"),
 			r.getObject("quality") != null ? r.getInt("quality") : null,

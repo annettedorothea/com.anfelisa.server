@@ -12,7 +12,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.skife.jdbi.v2.DBI;
+import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +38,7 @@ public class GetAllCategoriesAction extends AbstractGetAllCategoriesAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetAllCategoriesAction.class);
 
-	public GetAllCategoriesAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
+	public GetAllCategoriesAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}

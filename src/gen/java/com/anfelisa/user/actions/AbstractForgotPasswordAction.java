@@ -1,6 +1,7 @@
 package com.anfelisa.user.actions;
 
-import org.skife.jdbi.v2.DBI;
+import org.jdbi.v3.core.Jdbi;
+
 import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
@@ -15,7 +16,7 @@ import com.anfelisa.user.commands.ForgotPasswordCommand;
 
 public abstract class AbstractForgotPasswordAction extends Action<ForgotPasswordData> {
 
-	public AbstractForgotPasswordAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractForgotPasswordAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.ForgotPasswordAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 

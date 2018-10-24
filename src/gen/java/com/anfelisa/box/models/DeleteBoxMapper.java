@@ -3,15 +3,13 @@ package com.anfelisa.box.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.skife.jdbi.v2.StatementContext;
-import org.skife.jdbi.v2.tweak.ResultSetMapper;
-
-import com.anfelisa.ace.encryption.EncryptionService;
+import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 
 @SuppressWarnings("all")
-public class DeleteBoxMapper implements ResultSetMapper<IDeleteBoxModel> {
+public class DeleteBoxMapper implements RowMapper<IDeleteBoxModel> {
 	
-	public IDeleteBoxModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
+	public IDeleteBoxModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new DeleteBoxModel(
 			r.getString("userId"),
 			r.getString("boxId")

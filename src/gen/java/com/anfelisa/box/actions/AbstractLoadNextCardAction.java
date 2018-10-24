@@ -1,6 +1,7 @@
 package com.anfelisa.box.actions;
 
-import org.skife.jdbi.v2.DBI;
+import org.jdbi.v3.core.Jdbi;
+
 import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
@@ -14,7 +15,7 @@ import com.anfelisa.box.data.NextCardData;
 
 public abstract class AbstractLoadNextCardAction extends Action<NextCardData> {
 
-	public AbstractLoadNextCardAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractLoadNextCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.LoadNextCardAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 

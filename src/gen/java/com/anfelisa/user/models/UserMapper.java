@@ -3,15 +3,13 @@ package com.anfelisa.user.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.skife.jdbi.v2.StatementContext;
-import org.skife.jdbi.v2.tweak.ResultSetMapper;
-
-import com.anfelisa.ace.encryption.EncryptionService;
+import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 
 @SuppressWarnings("all")
-public class UserMapper implements ResultSetMapper<IUserModel> {
+public class UserMapper implements RowMapper<IUserModel> {
 	
-	public IUserModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
+	public IUserModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserModel(
 			r.getString("userId"),
 			r.getString("username"),

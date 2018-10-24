@@ -3,15 +3,13 @@ package com.anfelisa.user.models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.skife.jdbi.v2.StatementContext;
-import org.skife.jdbi.v2.tweak.ResultSetMapper;
-
-import com.anfelisa.ace.encryption.EncryptionService;
+import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 
 @SuppressWarnings("all")
-public class ChangeUserRoleMapper implements ResultSetMapper<IChangeUserRoleModel> {
+public class ChangeUserRoleMapper implements RowMapper<IChangeUserRoleModel> {
 	
-	public IChangeUserRoleModel map(int index, ResultSet r, StatementContext ctx) throws SQLException {
+	public IChangeUserRoleModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ChangeUserRoleModel(
 			r.getString("userId"),
 			r.getString("role"),

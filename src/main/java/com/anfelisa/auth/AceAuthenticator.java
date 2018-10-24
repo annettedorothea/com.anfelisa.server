@@ -2,8 +2,8 @@ package com.anfelisa.auth;
 
 import java.util.Optional;
 
-import org.skife.jdbi.v2.DBI;
-import org.skife.jdbi.v2.Handle;
+import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.user.models.IUserModel;
 import com.anfelisa.user.models.UserDao;
@@ -14,11 +14,11 @@ import io.dropwizard.auth.basic.BasicCredentials;
 
 public class AceAuthenticator implements Authenticator<BasicCredentials, AuthUser> {
 
-	private DBI jdbi;
+	private Jdbi jdbi;
 
 	private UserDao userDao = new UserDao();
 
-	public AceAuthenticator(DBI jdbi) {
+	public AceAuthenticator(Jdbi jdbi) {
 		super();
 		this.jdbi = jdbi;
 	}

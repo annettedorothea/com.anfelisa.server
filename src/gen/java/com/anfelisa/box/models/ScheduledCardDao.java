@@ -1,22 +1,20 @@
 package com.anfelisa.box.models;
 
-import org.skife.jdbi.v2.Handle;
-import org.skife.jdbi.v2.Query;
-import org.skife.jdbi.v2.Update;
+import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
-
-import com.anfelisa.ace.encryption.EncryptionService;
 
 @SuppressWarnings("all")
 @JsonIgnoreType
 public class ScheduledCardDao {
 	
 	public void insert(Handle handle, IScheduledCardModel scheduledCardModel) {
-		Update statement = handle.createStatement("INSERT INTO public.scheduledcard (scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate) VALUES (:scheduledcardid, :cardid, :boxid, :createddate, :ef, :interval, :n, :count, :scheduleddate, :lastquality, :quality, :scoreddate)");
+		Update statement = handle.createUpdate("INSERT INTO public.scheduledcard (scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate) VALUES (:scheduledcardid, :cardid, :boxid, :createddate, :ef, :interval, :n, :count, :scheduleddate, :lastquality, :quality, :scoreddate)");
 		statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId() );
 		statement.bind("cardid",  scheduledCardModel.getCardId() );
 		statement.bind("boxid",  scheduledCardModel.getBoxId() );
@@ -34,7 +32,7 @@ public class ScheduledCardDao {
 	
 	
 	public void updateByScheduledCardId(Handle handle, IScheduledCardModel scheduledCardModel) {
-		Update statement = handle.createStatement("UPDATE public.scheduledcard SET scheduledcardid = :scheduledcardid, cardid = :cardid, boxid = :boxid, createddate = :createddate, ef = :ef, interval = :interval, n = :n, count = :count, scheduleddate = :scheduleddate, lastquality = :lastquality, quality = :quality, scoreddate = :scoreddate WHERE scheduledcardid = :scheduledcardid");
+		Update statement = handle.createUpdate("UPDATE public.scheduledcard SET scheduledcardid = :scheduledcardid, cardid = :cardid, boxid = :boxid, createddate = :createddate, ef = :ef, interval = :interval, n = :n, count = :count, scheduleddate = :scheduleddate, lastquality = :lastquality, quality = :quality, scoreddate = :scoreddate WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId() );
 		statement.bind("cardid",  scheduledCardModel.getCardId() );
 		statement.bind("boxid",  scheduledCardModel.getBoxId() );
@@ -52,16 +50,17 @@ public class ScheduledCardDao {
 	}
 
 	public void deleteByScheduledCardId(Handle handle, String scheduledCardId) {
-		Update statement = handle.createStatement("DELETE FROM public.scheduledcard WHERE scheduledcardid = :scheduledcardid");
+		Update statement = handle.createUpdate("DELETE FROM public.scheduledcard WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("scheduledcardid", scheduledCardId);
 		statement.execute();
 	}
 
 	public IScheduledCardModel selectByScheduledCardId(Handle handle, String scheduledCardId) {
-		return handle.createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM public.scheduledcard WHERE scheduledcardid = :scheduledcardid")
+		Optional<IScheduledCardModel> optional = handle.createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM public.scheduledcard WHERE scheduledcardid = :scheduledcardid")
 			.bind("scheduledcardid", scheduledCardId)
 			.map(new ScheduledCardMapper())
-			.first();
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
 	}
 	
 	public List<IScheduledCardModel> selectAll(Handle handle) {
@@ -71,7 +70,7 @@ public class ScheduledCardDao {
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE public.scheduledcard CASCADE");
+		Update statement = handle.createUpdate("TRUNCATE public.scheduledcard CASCADE");
 		statement.execute();
 	}
 

@@ -1,6 +1,7 @@
 package com.anfelisa.box.actions;
 
-import org.skife.jdbi.v2.DBI;
+import org.jdbi.v3.core.Jdbi;
+
 import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
@@ -15,7 +16,7 @@ import com.anfelisa.box.commands.ScoreCardCommand;
 
 public abstract class AbstractScoreCardAction extends Action<ScoreCardData> {
 
-	public AbstractScoreCardAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractScoreCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.ScoreCardAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 

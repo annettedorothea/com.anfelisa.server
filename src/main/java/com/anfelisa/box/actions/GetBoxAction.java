@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.skife.jdbi.v2.DBI;
+import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +35,7 @@ public class GetBoxAction extends AbstractGetBoxAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetBoxAction.class);
 
-	public GetBoxAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
+	public GetBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}

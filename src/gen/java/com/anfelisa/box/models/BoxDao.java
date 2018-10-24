@@ -1,22 +1,20 @@
 package com.anfelisa.box.models;
 
-import org.skife.jdbi.v2.Handle;
-import org.skife.jdbi.v2.Query;
-import org.skife.jdbi.v2.Update;
+import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
-
-import com.anfelisa.ace.encryption.EncryptionService;
 
 @SuppressWarnings("all")
 @JsonIgnoreType
 public class BoxDao {
 	
 	public void insert(Handle handle, IBoxModel boxModel) {
-		Update statement = handle.createStatement("INSERT INTO public.box (boxid, userid, categoryid, maxinterval) VALUES (:boxid, :userid, :categoryid, :maxinterval)");
+		Update statement = handle.createUpdate("INSERT INTO public.box (boxid, userid, categoryid, maxinterval) VALUES (:boxid, :userid, :categoryid, :maxinterval)");
 		statement.bind("boxid",  boxModel.getBoxId() );
 		statement.bind("userid",  boxModel.getUserId() );
 		statement.bind("categoryid",  boxModel.getCategoryId() );
@@ -26,7 +24,7 @@ public class BoxDao {
 	
 	
 	public void updateByBoxId(Handle handle, IBoxModel boxModel) {
-		Update statement = handle.createStatement("UPDATE public.box SET boxid = :boxid, userid = :userid, categoryid = :categoryid, maxinterval = :maxinterval WHERE boxid = :boxid");
+		Update statement = handle.createUpdate("UPDATE public.box SET boxid = :boxid, userid = :userid, categoryid = :categoryid, maxinterval = :maxinterval WHERE boxid = :boxid");
 		statement.bind("boxid",  boxModel.getBoxId() );
 		statement.bind("userid",  boxModel.getUserId() );
 		statement.bind("categoryid",  boxModel.getCategoryId() );
@@ -36,16 +34,17 @@ public class BoxDao {
 	}
 
 	public void deleteByBoxId(Handle handle, String boxId) {
-		Update statement = handle.createStatement("DELETE FROM public.box WHERE boxid = :boxid");
+		Update statement = handle.createUpdate("DELETE FROM public.box WHERE boxid = :boxid");
 		statement.bind("boxid", boxId);
 		statement.execute();
 	}
 
 	public IBoxModel selectByBoxId(Handle handle, String boxId) {
-		return handle.createQuery("SELECT boxid, userid, categoryid, maxinterval FROM public.box WHERE boxid = :boxid")
+		Optional<IBoxModel> optional = handle.createQuery("SELECT boxid, userid, categoryid, maxinterval FROM public.box WHERE boxid = :boxid")
 			.bind("boxid", boxId)
 			.map(new BoxMapper())
-			.first();
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
 	}
 	
 	public List<IBoxModel> selectAll(Handle handle) {
@@ -55,7 +54,7 @@ public class BoxDao {
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createStatement("TRUNCATE public.box CASCADE");
+		Update statement = handle.createUpdate("TRUNCATE public.box CASCADE");
 		statement.execute();
 	}
 

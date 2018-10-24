@@ -52,7 +52,6 @@ public class ScheduleNextCardCommand extends AbstractScheduleNextCardCommand {
 	}
 
 	private String searchNextCard(ICategoryModel category) {
-		System.out.println("visit category " + category.getCategoryName());
 		String nextCardId = daoProvider.getCustomScheduledCardDao().selectNextCardId(getHandle(), category.getCategoryId(),
 				commandData.getBoxId());
 		if (nextCardId != null) {

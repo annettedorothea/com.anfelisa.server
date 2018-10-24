@@ -1,15 +1,17 @@
 package com.anfelisa.box.models;
 
+import java.util.Optional;
+
+import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.statement.Update;
 import org.joda.time.DateTime;
-import org.skife.jdbi.v2.Handle;
-import org.skife.jdbi.v2.Update;
 
 import com.anfelisa.box.data.ScoreCardData;
 
 public class CustomReinforceCardDao {
 
 	public void insert(Handle handle, ScoreCardData scoreCardData) {
-		Update statement = handle.createStatement(
+		Update statement = handle.createUpdate(
 				"INSERT INTO public.reinforcecard (reinforcecardid, scheduledcardid, boxid, changedate) VALUES (:reinforcecardid, :scheduledcardid, :boxid, :changedate)");
 		statement.bind("reinforcecardid", scoreCardData.getReinforceCardId());
 		statement.bind("scheduledcardid", scoreCardData.getScoredCardScheduledCardId());
@@ -19,15 +21,16 @@ public class CustomReinforceCardDao {
 	}
 
 	public INextReinforceCardModel selectFirstScheduledCard(Handle handle, String boxId) {
-		return handle.createQuery(
+		Optional<INextReinforceCardModel> optional = handle.createQuery(
 				"SELECT r.reinforcecardid, r.changedate, sc.quality as lastQuality, c.given, c.wanted, c.image, c.categoryid FROM public.reinforcecard r "
 						+ "inner join public.scheduledcard sc on r.scheduledcardid = sc.scheduledcardid "
 						+ "inner join public.card c on sc.cardid = c.cardid where sc.boxid = :boxid order by r.changedate")
-				.bind("boxid", boxId).map(new NextReinforceCardMapper()).first();
+				.bind("boxid", boxId).map(new NextReinforceCardMapper()).findFirst();
+		return optional.isPresent() ? optional.get() : null;
 	}
 
 	public void updateChangeDate(Handle handle, String reinforceCardId, DateTime changeDate) {
-		Update statement = handle.createStatement(
+		Update statement = handle.createUpdate(
 				"UPDATE public.reinforcecard SET changedate = :changedate WHERE reinforcecardid = :reinforcecardid");
 		statement.bind("reinforcecardid", reinforceCardId);
 		statement.bind("changedate", changeDate);
@@ -35,10 +38,11 @@ public class CustomReinforceCardDao {
 	}
 
 	public IReinforceCardModel selectByCardId(Handle handle, String cardId) {
-		return handle.createQuery("SELECT rc.reinforcecardid, rc.scheduledcardid, rc.boxid, rc.changedate FROM public.reinforcecard rc left outer join scheduledcard sc on rc.scheduledcardid = sc.scheduledcardid WHERE cardid = :cardid")
+		Optional<IReinforceCardModel> optional = handle.createQuery("SELECT rc.reinforcecardid, rc.scheduledcardid, rc.boxid, rc.changedate FROM public.reinforcecard rc left outer join scheduledcard sc on rc.scheduledcardid = sc.scheduledcardid WHERE cardid = :cardid")
 			.bind("cardid", cardId)
 			.map(new ReinforceCardMapper())
-			.first();
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
 	}
 
 }

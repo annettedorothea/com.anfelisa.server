@@ -1,6 +1,7 @@
 package com.anfelisa.user.actions;
 
-import org.skife.jdbi.v2.DBI;
+import org.jdbi.v3.core.Jdbi;
+
 import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
@@ -14,7 +15,7 @@ import com.anfelisa.user.data.UsernameAvailableData;
 
 public abstract class AbstractUsernameAvailableAction extends Action<UsernameAvailableData> {
 
-	public AbstractUsernameAvailableAction(DBI jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractUsernameAvailableAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.UsernameAvailableAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 

@@ -1,9 +1,10 @@
 package com.anfelisa.category.model;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.skife.jdbi.v2.Handle;
-import org.skife.jdbi.v2.Update;
+import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.statement.Update;
 
 import com.anfelisa.category.data.CategoryUpdateData;
 import com.anfelisa.category.models.CategoryItemMapper;
@@ -16,17 +17,16 @@ public class CustomCategoryDao {
 	public List<ICategoryItemModel> selectAllChildren(Handle handle, String parentCategoryId, String userId) {
 		return handle.createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, publicrootcategory, "
-				+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
-				+ "(select a.categoryid from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid) is not null as editable, "
-				+ "false as isRoot, "
-				+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
-				+ "FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
+						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
+						+ "(select a.categoryid from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid) is not null as editable, "
+						+ "false as isRoot, "
+						+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
+						+ "FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
 				.bind("userid", userId).bind("parentcategoryid", parentCategoryId).map(new CategoryItemMapper()).list();
 	}
 
 	public List<ICategoryItemModel> selectAllRoot(Handle handle, String userId) {
-		return handle.createQuery(
-				"SELECT * FROM "
+		return handle.createQuery("SELECT * FROM "
 				+ "( SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, publicrootcategory, "
 				+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
 				+ "(select a.categoryid from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid) is not null as editable, "
@@ -37,19 +37,22 @@ public class CustomCategoryDao {
 	}
 
 	public Integer selectMaxIndexInCategory(Handle handle, String parentCategoryId) {
-		return handle
+		Optional<Integer> optional = handle
 				.createQuery(
 						"SELECT max(categoryindex) FROM public.category WHERE parentcategoryid = :parentcategoryid")
-				.bind("parentcategoryid", parentCategoryId).mapTo((Integer.class)).first();
+				.bind("parentcategoryid", parentCategoryId).mapTo((Integer.class)).findFirst();
+		return optional.isPresent() ? optional.get() : null;
 	}
 
 	public Integer selectMaxIndexInRootCategory(Handle handle) {
-		return handle.createQuery("SELECT max(categoryindex) FROM public.category WHERE parentcategoryid is null")
-				.mapTo((Integer.class)).first();
+		Optional<Integer> optional = handle
+				.createQuery("SELECT max(categoryindex) FROM public.category WHERE parentcategoryid is null")
+				.mapTo((Integer.class)).findFirst();
+		return optional.isPresent() ? optional.get() : null;
 	}
 
 	public void update(Handle handle, CategoryUpdateData categoryModel) {
-		Update statement = handle.createStatement(
+		Update statement = handle.createUpdate(
 				"UPDATE public.category SET categoryname = :categoryname, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryid = :categoryid");
 		statement.bind("categoryname", categoryModel.getCategoryName());
 		statement.bind("categoryid", categoryModel.getCategoryId());
@@ -60,7 +63,7 @@ public class CustomCategoryDao {
 	}
 
 	public void shiftCategories(Handle handle, Integer categoryIndex, String parentCategoryId) {
-		Update statement = handle.createStatement(
+		Update statement = handle.createUpdate(
 				"UPDATE public.category SET categoryindex = categoryindex-1 WHERE parentcategoryid = :parentcategoryid and categoryindex > :categoryindex");
 		statement.bind("parentcategoryid", parentCategoryId);
 		statement.bind("categoryindex", categoryIndex);
@@ -68,7 +71,7 @@ public class CustomCategoryDao {
 	}
 
 	public void shiftRootCategories(Handle handle, Integer categoryIndex) {
-		Update statement = handle.createStatement(
+		Update statement = handle.createUpdate(
 				"UPDATE public.category SET categoryindex = categoryindex-1 WHERE parentcategoryid is null and categoryindex > :categoryindex");
 		statement.bind("categoryindex", categoryIndex);
 		statement.execute();

@@ -5,7 +5,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
 
-import org.skife.jdbi.v2.Handle;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.EmailService;
 import com.anfelisa.ace.IDaoProvider;

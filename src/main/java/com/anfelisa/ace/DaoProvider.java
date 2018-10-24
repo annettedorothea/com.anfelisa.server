@@ -1,6 +1,6 @@
 package com.anfelisa.ace;
 
-import org.skife.jdbi.v2.Handle;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.CustomBoxDao;
