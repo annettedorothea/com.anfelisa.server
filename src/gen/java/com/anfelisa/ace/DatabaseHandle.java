@@ -16,11 +16,9 @@ public class DatabaseHandle {
 		try {
 			if (handle != null) {
 				this.handle = handle;
-				this.handle.getConnection().setAutoCommit(false);
 			}
 			if (timelineHandle != null) {
 				this.timelineHandle = timelineHandle;
-				this.timelineHandle.getConnection().setAutoCommit(false);
 			}
 		} catch (Exception e) {
 			LOG.error("failed to set auto commit off", e);

@@ -16,15 +16,15 @@ public class EmailService {
 		this.emailConfiguration = emailConfiguration;
 	}
 
-	public void sendEmail(String from, String to, String subject, String message) {
+	public void sendEmail(String to, String subject, String message) {
 		try {
 			Email email = new SimpleEmail();
 			email.setHostName(emailConfiguration.getHost());
 			email.setSmtpPort(emailConfiguration.getPort());
 			email.setAuthenticator(
 					new DefaultAuthenticator(emailConfiguration.getUser(), emailConfiguration.getPassword()));
-			//email.setStartTLSEnabled(true);
-			email.setFrom(from);
+			email.setStartTLSEnabled(true);
+			email.setFrom(emailConfiguration.getUser());
 			email.setSubject(subject);
 			email.setMsg(message);
 			email.addTo(to);

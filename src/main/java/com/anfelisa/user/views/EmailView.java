@@ -33,7 +33,7 @@ public class EmailView {
 		String message = MessageFormat.format(messages.getString("passwordResetEmailContent"), params);
 		String subject = messages.getString("passwordResetEmailHeader");
 
-		emailService.sendEmail("annette@anfelisa.de", dataContainer.getEmail(), subject, message);
+		emailService.sendEmail(dataContainer.getEmail(), subject, message);
 	};
 
 	public BiConsumer<UserRegistrationData, Handle> sendRegistrationEmail = (dataContainer, handle) -> {
@@ -45,7 +45,7 @@ public class EmailView {
 		String message = MessageFormat.format(messages.getString("RegistrationEmailContent"), params);
 		String subject = messages.getString("RegistrationEmailHeader");
 
-		emailService.sendEmail("annette@anfelisa.de", dataContainer.getEmail(), subject, message);
+		emailService.sendEmail(dataContainer.getEmail(), subject, message);
 	};
 
 }

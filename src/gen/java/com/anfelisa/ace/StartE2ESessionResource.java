@@ -52,7 +52,7 @@ public class StartE2ESessionResource {
 		
 		Handle handle = jdbi.open();
 		try {
-			handle.getConnection().setAutoCommit(false);
+			handle.begin();
 			
 			daoProvider.getAceDao().truncateTimelineTable(handle);
 
