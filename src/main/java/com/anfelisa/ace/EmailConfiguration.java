@@ -25,6 +25,9 @@ public class EmailConfiguration {
 	@JsonProperty
 	private String localhost;
 	
+	@JsonProperty
+	private boolean tls;
+	
 	public String getHost() {
 		return host;
 	}
@@ -43,6 +46,10 @@ public class EmailConfiguration {
 
 	public String getLocalhost() {
 		return localhost;
+	}
+
+	public boolean isTls() {
+		return tls;
 	}
 	
 }

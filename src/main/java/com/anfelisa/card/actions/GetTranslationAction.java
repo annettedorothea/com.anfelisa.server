@@ -1,11 +1,8 @@
 package com.anfelisa.card.actions;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -25,6 +22,7 @@ import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.App;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
@@ -93,15 +91,10 @@ public class GetTranslationAction extends AbstractGetTranslationAction {
 			} else {
 				this.actionData.setTargetValue("");
 			}
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			LOG.error(e.getMessage(), e);
 			this.actionData.setTargetValue("");
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			this.actionData.setTargetValue("");
-		} catch (IOException e) {
-			e.printStackTrace();
-			this.actionData.setTargetValue("");
+			App.reportException(e);
 		}
 	}
 

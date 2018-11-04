@@ -28,6 +28,8 @@ import io.dropwizard.setup.Environment;
 public class App extends Application<CustomAppConfiguration> {
 
 	static final Logger LOG = LoggerFactory.getLogger(App.class);
+	
+	static EmailService EMAIL_SERVICE;
 
 	public static void main(String[] args) throws Exception {
 		new App().run(args);
@@ -39,7 +41,17 @@ public class App extends Application<CustomAppConfiguration> {
 	}
 
 	public static String getVersion() {
-		return "3.0.4";
+		return "4.0.0";
+	}
+	
+	public static void reportException(Exception x) {
+		if (EMAIL_SERVICE != null) {
+			try {
+				EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", x.getMessage());
+			} catch (Exception e) {
+				LOG.error("failed to notify about exception", x.getMessage());
+			}
+		}
 	}
 
 	@Override
@@ -57,6 +69,8 @@ public class App extends Application<CustomAppConfiguration> {
 	@Override
 	public void run(CustomAppConfiguration configuration, Environment environment) throws ClassNotFoundException {
 		LOG.info("running version {}", getVersion());
+		
+		EMAIL_SERVICE = new EmailService(configuration.getEmail());
 
 		DaoProvider daoProvider = new DaoProvider();
 		ViewProvider viewProvider = new ViewProvider(daoProvider, new EmailService(configuration.getEmail()));
