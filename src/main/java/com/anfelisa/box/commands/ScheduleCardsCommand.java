@@ -3,6 +3,7 @@ package com.anfelisa.box.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,8 +42,9 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 			}
 			List<IScheduledCardModel> allCards = daoProvider.getCustomScheduledCardDao().selectAllCardsOfBox(getHandle(), box.getBoxId());
 			this.commandData.setExistingScheduledCardIds(new ArrayList<String>()); 
-			this.commandData.setNewScheduledCards(new ArrayList<IScheduledCardModel>()); 
-			this.commandData.setScheduledDate(commandData.getSystemTime());
+			this.commandData.setNewScheduledCards(new ArrayList<IScheduledCardModel>());
+			DateTime scheduledDateTime = firstCardByDateTime(allCards);
+			this.commandData.setScheduledDate(scheduledDateTime);
 			for (String cardId : this.commandData.getCardIds()) {
 				IScheduledCardModel scheduledCardModel = findByCardId(allCards, cardId);
 				if (scheduledCardModel != null) {
@@ -51,7 +53,7 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 					String uuid = commandData.getUuid();
 					String shorterUuid = uuid.substring(0, uuid.length() - 8);
 					uuid = shorterUuid + cardId.substring(0, 8); 
-					ScheduledCardModel newScheduledCard = new ScheduledCardModel(uuid, cardId, box.getBoxId(), commandData.getSystemTime(), 2.5F, 1, 1, 0, commandData.getSystemTime(), null, null, null);
+					ScheduledCardModel newScheduledCard = new ScheduledCardModel(uuid, cardId, box.getBoxId(), commandData.getSystemTime(), 2.5F, 1, 1, 0, scheduledDateTime, null, null, null);
 					this.commandData.getNewScheduledCards().add(newScheduledCard);
 				}
 			}
@@ -66,6 +68,16 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 			}
 		}
 		return null;
+	}
+	
+	private DateTime firstCardByDateTime(List<IScheduledCardModel> allCards) {
+		DateTime dateTime = commandData.getSystemTime();
+		for (IScheduledCardModel scheduledCardModel : allCards) {
+			if (scheduledCardModel.getScheduledDate().isBefore(dateTime)) {
+				dateTime = scheduledCardModel.getScheduledDate();
+			}
+		}
+		return dateTime.minusMinutes(1);
 	}
 
 }
