@@ -23,6 +23,8 @@ ACE {
 		on ok (UserAccessToCategory.revokeAccess)
 		on hasNoAccess
 	}
+	GET GetCategoryTree uses CategoryTree
+	GET GetCategoryTreeItem uses CategoryTreeItem
 }
 
 views {
@@ -92,10 +94,10 @@ models {
 	}
 	
 	CategoryItem {
-		NotNull String categoryId
-		NotNull String categoryName
-		NotNull String categoryAuthor
-		NotNull Integer categoryIndex
+		String categoryId
+		String categoryName
+		String categoryAuthor
+		Integer categoryIndex
 		String parentCategoryId
 		String rootCategoryId
 		Boolean dictionaryLookup
@@ -107,6 +109,30 @@ models {
 		Boolean hasBox
 		Boolean isRoot
 		Boolean publicRootCategory
+	}
+	
+	CategoryTree {
+		List CategoryTreeRootItem categoryList
+		
+	}
+	
+	CategoryTreeItem {
+		String categoryId
+		String categoryName
+		Integer categoryIndex
+		Boolean empty
+		Boolean editable
+		List CategoryTreeItem childCategories
+	}
+	
+	CategoryTreeRootItem {
+		String categoryId
+		String categoryName
+		Integer categoryIndex
+		Boolean empty
+		Boolean editable
+		Boolean hasBox
+		List CategoryTreeItem childCategories
 	}
 	
 	UserWithAccess {
@@ -135,5 +161,7 @@ data {
 	CategoryList : ( CategoryList )
 	InviteUser : ( InviteUser com.anfelisa.user.UserId)
 	RevokeUser : ( RevokeUser com.anfelisa.user.UserId)
+	CategoryTree : ( CategoryTree com.anfelisa.user.UserId)
+	CategoryTreeItem : ( CategoryItem com.anfelisa.user.UserId)
 }
 

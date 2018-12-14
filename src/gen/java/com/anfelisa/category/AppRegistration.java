@@ -24,6 +24,8 @@ public class AppRegistration {
 		environment.jersey().register(new GetAllCategoriesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new InviteUserAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new RevokeUserAccessAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new GetCategoryTreeAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new GetCategoryTreeItemAction(jdbi, appConfiguration, daoProvider, viewProvider));
 	}
 
 	public void registerConsumers(ViewProvider viewProvider, String mode) {

@@ -1,12 +1,21 @@
-package com.anfelisa.category.models;
+package com.anfelisa.category.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.IDataContainer;
+
+import com.anfelisa.category.models.ICategoryItemModel;
+import com.anfelisa.user.models.IUserIdModel;
 
 @SuppressWarnings("all")
-public class CategoryItemModel implements ICategoryItemModel {
-
+public class CategoryTreeItemPresentationalData implements ICategoryTreeItemPresentationalData {
+	
 	private String categoryId;
 	
 	private String categoryName;
@@ -38,8 +47,11 @@ public class CategoryItemModel implements ICategoryItemModel {
 	
 	private Boolean publicRootCategory = false;
 	
-
-	public CategoryItemModel(
+	@NotNull
+	private String userId;
+	
+	
+	public CategoryTreeItemPresentationalData(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryAuthor") String categoryAuthor,
@@ -54,7 +66,8 @@ public class CategoryItemModel implements ICategoryItemModel {
 		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("hasBox") Boolean hasBox,
 		@JsonProperty("isRoot") Boolean isRoot,
-		@JsonProperty("publicRootCategory") Boolean publicRootCategory
+		@JsonProperty("publicRootCategory") Boolean publicRootCategory,
+		@JsonProperty("userId") String userId
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -71,6 +84,8 @@ public class CategoryItemModel implements ICategoryItemModel {
 		this.hasBox = hasBox;
 		this.isRoot = isRoot;
 		this.publicRootCategory = publicRootCategory;
+		this.userId = userId;
+		
 	}
 
 	@JsonProperty
@@ -80,6 +95,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public CategoryTreeItemPresentationalData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCategoryName() {
@@ -87,6 +106,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	public CategoryTreeItemPresentationalData withCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+		return this;
 	}
 	
 	@JsonProperty
@@ -96,6 +119,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	public void setCategoryAuthor(String categoryAuthor) {
 		this.categoryAuthor = categoryAuthor;
 	}
+	public CategoryTreeItemPresentationalData withCategoryAuthor(String categoryAuthor) {
+		this.categoryAuthor = categoryAuthor;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getCategoryIndex() {
@@ -103,6 +130,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	}
 	public void setCategoryIndex(Integer categoryIndex) {
 		this.categoryIndex = categoryIndex;
+	}
+	public CategoryTreeItemPresentationalData withCategoryIndex(Integer categoryIndex) {
+		this.categoryIndex = categoryIndex;
+		return this;
 	}
 	
 	@JsonProperty
@@ -112,6 +143,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	public void setParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
 	}
+	public CategoryTreeItemPresentationalData withParentCategoryId(String parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRootCategoryId() {
@@ -119,6 +154,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
+	}
+	public CategoryTreeItemPresentationalData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -128,6 +167,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
 		this.dictionaryLookup = dictionaryLookup;
 	}
+	public CategoryTreeItemPresentationalData withDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getGivenLanguage() {
@@ -135,6 +178,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	}
 	public void setGivenLanguage(String givenLanguage) {
 		this.givenLanguage = givenLanguage;
+	}
+	public CategoryTreeItemPresentationalData withGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+		return this;
 	}
 	
 	@JsonProperty
@@ -144,6 +191,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
 	}
+	public CategoryTreeItemPresentationalData withWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getPath() {
@@ -151,6 +202,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	}
 	public void setPath(String path) {
 		this.path = path;
+	}
+	public CategoryTreeItemPresentationalData withPath(String path) {
+		this.path = path;
+		return this;
 	}
 	
 	@JsonProperty
@@ -160,6 +215,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	public void setEmpty(Boolean empty) {
 		this.empty = empty;
 	}
+	public CategoryTreeItemPresentationalData withEmpty(Boolean empty) {
+		this.empty = empty;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getEditable() {
@@ -167,6 +226,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	}
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
+	}
+	public CategoryTreeItemPresentationalData withEditable(Boolean editable) {
+		this.editable = editable;
+		return this;
 	}
 	
 	@JsonProperty
@@ -176,6 +239,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	public void setHasBox(Boolean hasBox) {
 		this.hasBox = hasBox;
 	}
+	public CategoryTreeItemPresentationalData withHasBox(Boolean hasBox) {
+		this.hasBox = hasBox;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getIsRoot() {
@@ -183,6 +250,10 @@ public class CategoryItemModel implements ICategoryItemModel {
 	}
 	public void setIsRoot(Boolean isRoot) {
 		this.isRoot = isRoot;
+	}
+	public CategoryTreeItemPresentationalData withIsRoot(Boolean isRoot) {
+		this.isRoot = isRoot;
+		return this;
 	}
 	
 	@JsonProperty
@@ -192,8 +263,23 @@ public class CategoryItemModel implements ICategoryItemModel {
 	public void setPublicRootCategory(Boolean publicRootCategory) {
 		this.publicRootCategory = publicRootCategory;
 	}
+	public CategoryTreeItemPresentationalData withPublicRootCategory(Boolean publicRootCategory) {
+		this.publicRootCategory = publicRootCategory;
+		return this;
+	}
 	
-
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public CategoryTreeItemPresentationalData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
 }
 
 /*       S.D.G.       */
