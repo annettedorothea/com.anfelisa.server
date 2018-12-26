@@ -7,7 +7,6 @@ public interface INextCardModel {
 
 	String getScheduledCardId();
 	String getCardId();
-	String getBoxId();
 	org.joda.time.DateTime getScheduledDate();
 	Integer getLastQuality();
 	String getGiven();

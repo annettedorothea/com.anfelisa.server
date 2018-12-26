@@ -26,6 +26,7 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 	@Override
 	protected void executeCommand() {
 		this.commandData.setCategoryId(commandData.getUuid());
+		this.commandData.setCategoryAuthor(commandData.getUsername());
 		if (commandData.getParentCategoryId() != null) {
 			ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
 					commandData.getParentCategoryId());

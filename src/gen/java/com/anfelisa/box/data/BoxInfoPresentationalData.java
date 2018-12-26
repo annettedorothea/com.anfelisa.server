@@ -11,6 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IBoxInfoModel;
+import com.anfelisa.box.models.IBoxIdModel;
 import com.anfelisa.box.models.ITodayModel;
 import com.anfelisa.user.models.IUserIdModel;
 
@@ -26,9 +27,6 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 	private Integer myCards;
 	
 	private Integer daysBehindSchedule;
-	
-	@NotNull
-	private String boxId;
 	
 	@NotNull
 	private String categoryName;
@@ -48,6 +46,9 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 	private Integer quality5Count;
 	
 	@NotNull
+	private String boxId;
+	
+	@NotNull
 	private org.joda.time.DateTime today;
 	
 	@NotNull
@@ -60,7 +61,6 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 		@JsonProperty("reinforceCards") Integer reinforceCards,
 		@JsonProperty("myCards") Integer myCards,
 		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
-		@JsonProperty("boxId") String boxId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("maxInterval") Integer maxInterval,
 		@JsonProperty("quality0Count") Integer quality0Count,
@@ -69,6 +69,7 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 		@JsonProperty("quality3Count") Integer quality3Count,
 		@JsonProperty("quality4Count") Integer quality4Count,
 		@JsonProperty("quality5Count") Integer quality5Count,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("today") org.joda.time.DateTime today,
 		@JsonProperty("userId") String userId
 	) {
@@ -77,7 +78,6 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 		this.reinforceCards = reinforceCards;
 		this.myCards = myCards;
 		this.daysBehindSchedule = daysBehindSchedule;
-		this.boxId = boxId;
 		this.categoryName = categoryName;
 		this.maxInterval = maxInterval;
 		this.quality0Count = quality0Count;
@@ -86,6 +86,7 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 		this.quality3Count = quality3Count;
 		this.quality4Count = quality4Count;
 		this.quality5Count = quality5Count;
+		this.boxId = boxId;
 		this.today = today;
 		this.userId = userId;
 		
@@ -148,18 +149,6 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 	}
 	public BoxInfoPresentationalData withDaysBehindSchedule(Integer daysBehindSchedule) {
 		this.daysBehindSchedule = daysBehindSchedule;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
-	}
-	public void setBoxId(String boxId) {
-		this.boxId = boxId;
-	}
-	public BoxInfoPresentationalData withBoxId(String boxId) {
-		this.boxId = boxId;
 		return this;
 	}
 	
@@ -256,6 +245,18 @@ public class BoxInfoPresentationalData implements IBoxInfoPresentationalData {
 	}
 	public BoxInfoPresentationalData withQuality5Count(Integer quality5Count) {
 		this.quality5Count = quality5Count;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getBoxId() {
+		return this.boxId;
+	}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
+	}
+	public BoxInfoPresentationalData withBoxId(String boxId) {
+		this.boxId = boxId;
 		return this;
 	}
 	

@@ -10,6 +10,8 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
+import com.anfelisa.box.models.IBoxIdModel;
+import com.anfelisa.user.models.IUserIdModel;
 import com.anfelisa.box.models.IPostponeCardsModel;
 import com.anfelisa.box.models.ITodayModel;
 

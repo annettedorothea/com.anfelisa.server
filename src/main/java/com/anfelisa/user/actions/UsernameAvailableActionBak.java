@@ -1,8 +1,5 @@
 package com.anfelisa.user.actions;
 
-import java.util.List;
-
-import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,38 +16,38 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.auth.Roles;
-import com.anfelisa.user.data.UserListData;
-import com.anfelisa.user.models.CustomUserDao;
-import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.user.data.UsernameAvailableData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class GetAllUsersAction extends AbstractGetAllUsersAction {
+public class UsernameAvailableActionBak extends AbstractUsernameAvailableAction {
 
-	static final Logger LOG = LoggerFactory.getLogger(GetAllUsersAction.class);
+	static final Logger LOG = LoggerFactory.getLogger(UsernameAvailableActionBak.class);
 
-	private CustomUserDao userDao = new CustomUserDao();
-
-	public GetAllUsersAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public UsernameAvailableActionBak(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
+			ViewProvider viewProvider) {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@GET
 	@Timed
-	@Path("/all")
-	@RolesAllowed({ Roles.ADMIN })
-	public Response get(@NotNull @QueryParam("uuid") String uuid) throws JsonProcessingException {
-		this.actionData = new UserListData(uuid);
+	@Path("/username")
+	public Response get(@NotNull @QueryParam("uuid") String uuid, @NotNull @QueryParam("username") String username)
+			throws JsonProcessingException {
+		this.actionData = new UsernameAvailableData(uuid).withUsername(username);
 		return this.apply();
 	}
 
 	protected final void loadDataForGetRequest() {
-		List<IUserModel> users = userDao.selectAll(getHandle());
-		this.actionData.setUserList(users);
+		if (daoProvider.getUserDao().selectByUsername(this.getDatabaseHandle().getHandle(),
+				this.actionData.getUsername()) == null) {
+			this.actionData.setAvailable(true);
+		} else {
+			this.actionData.setAvailable(false);
+		}
 	}
 
 }

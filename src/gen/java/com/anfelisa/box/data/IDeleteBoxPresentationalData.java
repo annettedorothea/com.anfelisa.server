@@ -1,8 +1,9 @@
 package com.anfelisa.box.data;
 
-import com.anfelisa.box.models.IDeleteBoxModel;
+import com.anfelisa.user.models.IUserIdModel;
+import com.anfelisa.box.models.IBoxIdModel;
 
-public interface IDeleteBoxPresentationalData extends IDeleteBoxModel {
+public interface IDeleteBoxPresentationalData extends IUserIdModel, IBoxIdModel {
 
 }
 

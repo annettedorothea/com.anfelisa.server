@@ -12,7 +12,6 @@ public class ScoreCardMapper implements RowMapper<IScoreCardModel> {
 	public IScoreCardModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ScoreCardModel(
 			r.getString("cardId"),
-			r.getString("boxId"),
 			r.getString("nextScheduledCardScheduledCardId"),
 			r.getTimestamp("nextScheduledCardCreatedDate") != null ? new org.joda.time.DateTime(r.getTimestamp("nextScheduledCardCreatedDate")) : null,
 			r.getFloat("nextScheduledCardEf"),

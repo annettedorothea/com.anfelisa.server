@@ -1,58 +1,97 @@
+JAVA 
+
 com.anfelisa.user
 
-target JAVA
-
-ACE {
-	GET GetUserProfile uses User
-	GET UsernameAvailable uses UsernameAvailable
-	GET GetRole uses Role
-	GET GetAllUsers uses UserList
-
-	POST ForgotPassword uses ForgotPassword {
-		on ok ( ResetPassword.insert Email.sendForgotPasswordEmail)
-		on doesNotExist
-	}
-	PUT ResetPassword uses ResetPassword {
-		on ok (User.resetPassword ResetPassword.delete)
-	}
-	POST RegisterUser uses UserRegistration {
-		on ok (User.registerUser EmailConfirmation.insert Email.sendRegistrationEmail)
-	}
-	PUT ConfirmEmail uses EmailConfirmation {
-		on ok (User.confirmEmail EmailConfirmation.delete)
-		on alreadyConfirmed
-	}
-	PUT ChangeUserRole uses ChangeUserRole {
-		on ok (User.changeUserRole)
-	} 
-	DELETE DeleteUser uses DeleteUser {
-		on ok (User.deleteUser)
-	}
+Authorization AuthUser {
+	String userId
+	String username
+	String password
+	String role
 }
 
-views {
+ACE 
+	GetUserProfile 
+		GET "user/get" 
+		authorize 
+		uses User
+	
+	UsernameAvailable 
+		GET "/users/username" 
+		queryParams Username.username
+		uses UsernameAvailable
+	
+	GetRole 
+		GET "7"  
+		uses Role
+		
+	GetAllUsers 
+		GET "8"  
+		uses UserList
+
+	ForgotPassword 
+		POST "9"  
+		uses ForgotPassword 
+		on ok ( ResetPassword.insert Email.sendForgotPasswordEmail)
+		on doesNotExist
+	
+	ResetPassword
+		PUT "10"  
+		uses ResetPassword 
+		on ok (User.resetPassword ResetPassword.delete)
+	
+	RegisterUser
+		POST "11"  
+		uses UserRegistration 
+		on ok (User.registerUser EmailConfirmation.insert Email.sendRegistrationEmail)
+	
+	ConfirmEmail
+		PUT "12" 
+		 uses EmailConfirmation 
+		on ok (User.confirmEmail EmailConfirmation.delete)
+		on alreadyConfirmed
+	
+	ChangeUserRole
+		PUT "13" 
+		authorize  
+		uses ChangeUserRole 
+		on ok (User.changeUserRole)
+	
+	DeleteUser 
+		DELETE "14"  
+		uses DeleteUser 
+		on ok (User.deleteUser)
+	
+
+views 
 	User {
 		registerUser(UserRegistration)
 		confirmEmail(EmailConfirmation)
 		changeUserRole(ChangeUserRole)
 		deleteUser(Username)
 		resetPassword(ResetPassword)
-	}
-	EmailConfirmation {
+		
+		}
+	
+	EmailConfirmation { 
 		insert(UserRegistration)
 		delete(EmailConfirmation)
-	}
-	ResetPassword {
+		
+		}
+	
+	ResetPassword { 
 		insert(ForgotPassword)
 		delete(ResetPassword)
-	}
-	external Email {
+		
+		}
+	
+	external Email { 
 		sendForgotPasswordEmail(ForgotPassword)
 		sendRegistrationEmail(UserRegistration)
-	}
-}
+		
+		}
+	
 
-models {
+models 
 	schema public
 	
 	persistent User {
@@ -113,9 +152,8 @@ models {
 		NotNull String authUserId
 		NotNull String authRole
 	}
-}
 
-data {
+data 
 	User : ( User )
 	ForgotPassword : (ResetPassword Language Email Username)
 	UsernameAvailable : (Username Available)
@@ -127,5 +165,4 @@ data {
 	UserList : (UserList)
 	EmailConfirmation: (EmailConfirmation Username)
 	ResetPassword: (ResetPassword Password)
-}
 

@@ -17,6 +17,9 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 	private String categoryAuthor;
 	
 	@NotNull
+	private String username;
+	
+	@NotNull
 	private Integer categoryIndex;
 	
 	private String parentCategoryId;
@@ -57,6 +60,7 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryAuthor = categoryAuthor;
+		this.username = categoryAuthor;
 		this.categoryIndex = categoryIndex;
 		this.parentCategoryId = parentCategoryId;
 		this.rootCategoryId = rootCategoryId;
@@ -68,6 +72,38 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		this.userId = userId;
 	}
 
+	public CategoryCreationData(
+			@JsonProperty("categoryId") String categoryId,
+			@JsonProperty("categoryName") String categoryName,
+			@JsonProperty("categoryAuthor") String categoryAuthor,
+			@JsonProperty("categoryIndex") Integer categoryIndex,
+			@JsonProperty("parentCategoryId") String parentCategoryId,
+			@JsonProperty("rootCategoryId") String rootCategoryId,
+			@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
+			@JsonProperty("givenLanguage") String givenLanguage,
+			@JsonProperty("wantedLanguage") String wantedLanguage,
+			@JsonProperty("path") String path,
+			@JsonProperty("publicRootCategory") Boolean publicRootCategory,
+			@JsonProperty("userId") String userId,
+			@JsonProperty("username") String username
+			,		@JsonProperty("uuid") String uuid
+			) {
+		super(uuid);
+		this.categoryId = categoryId;
+		this.categoryName = categoryName;
+		this.categoryAuthor = categoryAuthor;
+		this.username = username;
+		this.categoryIndex = categoryIndex;
+		this.parentCategoryId = parentCategoryId;
+		this.rootCategoryId = rootCategoryId;
+		this.dictionaryLookup = dictionaryLookup;
+		this.givenLanguage = givenLanguage;
+		this.wantedLanguage = wantedLanguage;
+		this.path = path;
+		this.publicRootCategory = publicRootCategory;
+		this.userId = userId;
+	}
+	
 	public CategoryCreationData( String uuid ) {
 		super(uuid);
 	}
@@ -216,6 +252,18 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 		return this;
 	}
 	
+	@JsonProperty
+	public String getUsername() {
+		return this.username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public CategoryCreationData withUsername(String username) {
+		this.username = username;
+		return this;
+	}
+	
 
 	@Override
 	public Object toPresentationalData() {
@@ -231,7 +279,8 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 			this.wantedLanguage,
 			this.path,
 			this.publicRootCategory,
-			this.userId
+			this.userId,
+			this.username
 		);
 	}
 

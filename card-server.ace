@@ -1,30 +1,61 @@
+JAVA
+
 com.anfelisa.card
 
-target JAVA
+import com.anfelisa.user.AuthUser
 
-ACE {
-	POST CreateCard uses CardCreation {
+ACE 
+	CreateCard
+		POST "/card/create" 
+		authorize 
+		payload 
+			Card.given 
+			Card.wanted 
+			Card.cardIndex 
+			Card.categoryId 
+			Card.image
+		uses CardCreation
 		on ok (Card.insert)
-	}
-	PUT UpdateCard uses CardUpdate {
+	
+	UpdateCard
+		PUT "/card/update" 
+		authorize 
+		payload 
+			CardUpdate.cardId
+			CardUpdate.given
+			CardUpdate.image
+			CardUpdate.wanted
+		uses CardUpdate 
 		on ok (Card.update)
-	}
-	DELETE DeleteCard uses CardDelete {
+	
+	DeleteCard
+		DELETE "/card/delete"
+		authorize 
+		queryParams CardDelete.cardId
+		uses CardDelete 
 		on ok (Card.delete)
-	}
-	GET GetDuplicates uses CardSearch
-	GET GetTranslation uses CardTranslation
-}
+	
+	GetDuplicates
+		GET "/cards/search"  
+		authorize
+		queryParams CardSearch.given CardSearch.wanted CardSearch.naturalInputOrder CardSearch.categoryId
+		uses CardSearch
+		
+	GetTranslation
+		GET "/card/translation" 
+		authorize 
+		queryParams CardTranslation.sourceValue CardTranslation.sourceLanguage CardTranslation.targetLanguage
+		uses CardTranslation
 
-views {
+views 
 	Card {
 		insert(CardCreation)
 		delete(CardDelete)
 		update(CardUpdate)
-	}
-}
+		
+		}
 
-models {
+models 
 	schema public
 	
 	persistent Card {
@@ -64,13 +95,12 @@ models {
 		NotEmpty String sourceLanguage
 		NotEmpty String targetLanguage
 	}
-}
 
-data {
-	CardCreation : ( Card com.anfelisa.user.UserId )
+data 
+	CardCreation : ( Card com.anfelisa.user.UserId com.anfelisa.user.Username )
 	CardUpdate : ( CardUpdate com.anfelisa.user.UserId )
 	CardDelete : ( CardDelete com.anfelisa.user.UserId )
 	CardSearch : (CardSearch )
 	CardTranslation : (CardTranslation)
-}
+
 

@@ -10,7 +10,8 @@ import java.util.List;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.box.models.IDeleteBoxModel;
+import com.anfelisa.user.models.IUserIdModel;
+import com.anfelisa.box.models.IBoxIdModel;
 
 @SuppressWarnings("all")
 public class DeleteBoxPresentationalData implements IDeleteBoxPresentationalData {

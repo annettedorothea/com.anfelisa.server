@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.auth.AuthUser;
+import com.anfelisa.auth.Roles;
 import com.anfelisa.user.data.DeleteUserData;
 import com.anfelisa.user.models.IUserModel;
 
@@ -21,7 +21,7 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 
 	@Override
 	protected void executeCommand() {
-		if (!AuthUser.ADMIN.equals(commandData.getRole())
+		if (!Roles.ADMIN.equals(commandData.getRole())
 				&& !commandData.getUsername().equals(commandData.getUsernameToBeDeleted())) {
 			throwUnauthorized();
 		}
@@ -29,7 +29,7 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 		if (userToBeDeleted == null) {
 			throwBadRequest("userDoesNotExist");
 		}
-		if (AuthUser.ADMIN.equals(userToBeDeleted.getRole())) {
+		if (Roles.ADMIN.equals(userToBeDeleted.getRole())) {
 			if (daoProvider.getCustomUserDao().selectAdminCount(getHandle()) == 1) {
 				throwBadRequest("lastAdminMustNotBeDeleted");
 			}

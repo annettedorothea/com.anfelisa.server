@@ -12,6 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.card.models.ICardModel;
 import com.anfelisa.user.models.IUserIdModel;
+import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("all")
 public class CardCreationPresentationalData implements ICardCreationPresentationalData {
@@ -43,6 +44,9 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 	@NotNull
 	private String userId;
 	
+	@NotNull
+	private String username;
+	
 	
 	public CardCreationPresentationalData(
 		@JsonProperty("cardId") String cardId,
@@ -54,7 +58,8 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("path") String path,
-		@JsonProperty("userId") String userId
+		@JsonProperty("userId") String userId,
+		@JsonProperty("username") String username
 	) {
 		this.cardId = cardId;
 		this.given = given;
@@ -66,6 +71,7 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 		this.rootCategoryId = rootCategoryId;
 		this.path = path;
 		this.userId = userId;
+		this.username = username;
 		
 	}
 
@@ -186,6 +192,18 @@ public class CardCreationPresentationalData implements ICardCreationPresentation
 	}
 	public CardCreationPresentationalData withUserId(String userId) {
 		this.userId = userId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUsername() {
+		return this.username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public CardCreationPresentationalData withUsername(String username) {
+		this.username = username;
 		return this;
 	}
 	

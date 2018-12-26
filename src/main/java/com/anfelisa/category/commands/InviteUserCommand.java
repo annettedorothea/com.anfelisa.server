@@ -1,12 +1,11 @@
 package com.anfelisa.category.commands;
 
-import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.ace.IDaoProvider;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.DatabaseHandle;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.data.InviteUserData;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;

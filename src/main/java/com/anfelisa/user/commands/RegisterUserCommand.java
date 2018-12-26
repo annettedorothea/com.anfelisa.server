@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.auth.AuthUser;
+import com.anfelisa.auth.Roles;
 import com.anfelisa.user.data.UserRegistrationData;
 import com.anfelisa.user.models.IUserModel;
 
@@ -26,9 +26,9 @@ public class RegisterUserCommand extends AbstractRegisterUserCommand {
 			throwBadRequest("usernameAlreadyTaken");
 		}
 		if ("Admin".equals(this.commandData.getUsername())) {
-			this.commandData.setRole(AuthUser.ADMIN);
+			this.commandData.setRole(Roles.ADMIN);
 		} else {
-			this.commandData.setRole(AuthUser.STUDENT);
+			this.commandData.setRole(Roles.STUDENT);
 		}
 		this.commandData.setUserId(this.commandData.getUuid());
 		this.commandData.setEmailConfirmed(false);

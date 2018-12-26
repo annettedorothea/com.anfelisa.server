@@ -11,8 +11,6 @@ public class PostponeCardsMapper implements RowMapper<IPostponeCardsModel> {
 	
 	public IPostponeCardsModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new PostponeCardsModel(
-			r.getString("boxId"),
-			r.getString("userId"),
 			r.getObject("days") != null ? r.getInt("days") : null
 		);
 	}

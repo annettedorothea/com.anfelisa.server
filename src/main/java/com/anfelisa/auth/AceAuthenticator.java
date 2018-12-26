@@ -2,8 +2,8 @@ package com.anfelisa.auth;
 
 import java.util.Optional;
 
-import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.Jdbi;
 
 import com.anfelisa.user.models.IUserModel;
 import com.anfelisa.user.models.UserDao;

@@ -6,9 +6,10 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.user.models.IUsernameModel;
 
 @JsonDeserialize(as=CategoryCreationData.class)
-public interface ICategoryCreationData extends ICategoryModel, IUserAccessToCategoryModel, IDataContainer {
+public interface ICategoryCreationData extends ICategoryModel, IUserAccessToCategoryModel, IUsernameModel, IDataContainer {
 
 }
 

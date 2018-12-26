@@ -11,6 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.user.models.IUserIdModel;
+import com.anfelisa.box.models.IBoxIdModel;
 import com.anfelisa.box.models.IScoreCardModel;
 
 @SuppressWarnings("all")
@@ -20,10 +21,10 @@ public class ScoreCardPresentationalData implements IScoreCardPresentationalData
 	private String userId;
 	
 	@NotNull
-	private String cardId;
+	private String boxId;
 	
 	@NotNull
-	private String boxId;
+	private String cardId;
 	
 	@NotNull
 	private String nextScheduledCardScheduledCardId;
@@ -63,8 +64,8 @@ public class ScoreCardPresentationalData implements IScoreCardPresentationalData
 	
 	public ScoreCardPresentationalData(
 		@JsonProperty("userId") String userId,
-		@JsonProperty("cardId") String cardId,
 		@JsonProperty("boxId") String boxId,
+		@JsonProperty("cardId") String cardId,
 		@JsonProperty("nextScheduledCardScheduledCardId") String nextScheduledCardScheduledCardId,
 		@JsonProperty("nextScheduledCardCreatedDate") org.joda.time.DateTime nextScheduledCardCreatedDate,
 		@JsonProperty("nextScheduledCardEf") Float nextScheduledCardEf,
@@ -80,8 +81,8 @@ public class ScoreCardPresentationalData implements IScoreCardPresentationalData
 		@JsonProperty("reinforceCardCreatedDate") org.joda.time.DateTime reinforceCardCreatedDate
 	) {
 		this.userId = userId;
-		this.cardId = cardId;
 		this.boxId = boxId;
+		this.cardId = cardId;
 		this.nextScheduledCardScheduledCardId = nextScheduledCardScheduledCardId;
 		this.nextScheduledCardCreatedDate = nextScheduledCardCreatedDate;
 		this.nextScheduledCardEf = nextScheduledCardEf;
@@ -111,18 +112,6 @@ public class ScoreCardPresentationalData implements IScoreCardPresentationalData
 	}
 	
 	@JsonProperty
-	public String getCardId() {
-		return this.cardId;
-	}
-	public void setCardId(String cardId) {
-		this.cardId = cardId;
-	}
-	public ScoreCardPresentationalData withCardId(String cardId) {
-		this.cardId = cardId;
-		return this;
-	}
-	
-	@JsonProperty
 	public String getBoxId() {
 		return this.boxId;
 	}
@@ -131,6 +120,18 @@ public class ScoreCardPresentationalData implements IScoreCardPresentationalData
 	}
 	public ScoreCardPresentationalData withBoxId(String boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getCardId() {
+		return this.cardId;
+	}
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+	public ScoreCardPresentationalData withCardId(String cardId) {
+		this.cardId = cardId;
 		return this;
 	}
 	

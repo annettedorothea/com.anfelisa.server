@@ -25,7 +25,6 @@ import com.anfelisa.category.data.CategoryTreeData;
 import com.anfelisa.category.models.CategoryTreeItemModel;
 import com.anfelisa.category.models.CategoryTreeRootItemModel;
 import com.anfelisa.category.models.ICategoryItemModel;
-import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.ICategoryTreeItemModel;
 import com.anfelisa.category.models.ICategoryTreeRootItemModel;
 import com.codahale.metrics.annotation.Timed;

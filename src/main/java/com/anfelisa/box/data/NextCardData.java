@@ -255,7 +255,6 @@ public class NextCardData extends AbstractData implements INextCardData {
 		return new NextCardPresentationalData(
 			this.scheduledCardId,
 			this.cardId,
-			this.boxId,
 			this.scheduledDate,
 			this.lastQuality,
 			this.given,
@@ -265,6 +264,7 @@ public class NextCardData extends AbstractData implements INextCardData {
 			this.rootCategoryId,
 			this.count,
 			this.scoredDate,
+			this.boxId,
 			this.today,
 			this.userId
 		);

@@ -13,7 +13,6 @@ public class NextCardMapper implements RowMapper<INextCardModel> {
 		return new NextCardModel(
 			r.getString("scheduledCardId"),
 			r.getString("cardId"),
-			r.getString("boxId"),
 			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")) : null,
 			r.getObject("lastQuality") != null ? r.getInt("lastQuality") : null,
 			r.getString("given"),

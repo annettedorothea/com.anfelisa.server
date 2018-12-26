@@ -17,6 +17,7 @@ import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.AuthUser;
+import com.anfelisa.auth.Roles;
 import com.anfelisa.user.data.ChangeUserRoleData;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -37,7 +38,7 @@ public class ChangeUserRoleAction extends AbstractChangeUserRoleAction {
 	@PUT
 	@Timed
 	@Path("/role")
-	@RolesAllowed({ AuthUser.ADMIN })
+	@RolesAllowed({ Roles.ADMIN })
 	public Response put(@Auth AuthUser user, @NotNull ChangeUserRoleData changeUserRoleData)
 			throws JsonProcessingException {
 		this.actionData = changeUserRoleData.withAuthRole(user.getRole()).withAuthUserId(user.getUserId());

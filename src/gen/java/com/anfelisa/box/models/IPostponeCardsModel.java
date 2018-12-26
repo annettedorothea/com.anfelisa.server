@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=PostponeCardsModel.class)
 public interface IPostponeCardsModel {
 
-	String getBoxId();
-	String getUserId();
 	Integer getDays();
 
 }

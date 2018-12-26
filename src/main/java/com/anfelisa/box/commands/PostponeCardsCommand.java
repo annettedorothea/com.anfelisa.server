@@ -1,5 +1,7 @@
 package com.anfelisa.box.commands;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +27,12 @@ public class PostponeCardsCommand extends AbstractPostponeCardsCommand {
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();
 		}
+		DateTime todayDate = new DateTime(commandData.getToday());
+		todayDate = todayDate.withZone(DateTimeZone.UTC);
 		INextCardModel nextCard = daoProvider.getCustomScheduledCardDao().selectFirstScheduledCard(getHandle(),
-				commandData.getBoxId(), commandData.getToday());
+				commandData.getBoxId(), todayDate);
 		if (nextCard != null) {
-			int days = Days.daysBetween(nextCard.getScheduledDate(), commandData.getToday()).getDays();
+			int days = Days.daysBetween(nextCard.getScheduledDate(), todayDate).getDays();
 			if (days > 0) {
 				this.commandData.setDays(days);
 				this.commandData.setOutcome(ok);

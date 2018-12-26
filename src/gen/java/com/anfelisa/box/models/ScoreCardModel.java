@@ -11,9 +11,6 @@ public class ScoreCardModel implements IScoreCardModel {
 	private String cardId;
 	
 	@NotNull
-	private String boxId;
-	
-	@NotNull
 	private String nextScheduledCardScheduledCardId;
 	
 	@NotNull
@@ -51,7 +48,6 @@ public class ScoreCardModel implements IScoreCardModel {
 
 	public ScoreCardModel(
 		@JsonProperty("cardId") String cardId,
-		@JsonProperty("boxId") String boxId,
 		@JsonProperty("nextScheduledCardScheduledCardId") String nextScheduledCardScheduledCardId,
 		@JsonProperty("nextScheduledCardCreatedDate") org.joda.time.DateTime nextScheduledCardCreatedDate,
 		@JsonProperty("nextScheduledCardEf") Float nextScheduledCardEf,
@@ -67,7 +63,6 @@ public class ScoreCardModel implements IScoreCardModel {
 		@JsonProperty("reinforceCardCreatedDate") org.joda.time.DateTime reinforceCardCreatedDate
 	) {
 		this.cardId = cardId;
-		this.boxId = boxId;
 		this.nextScheduledCardScheduledCardId = nextScheduledCardScheduledCardId;
 		this.nextScheduledCardCreatedDate = nextScheduledCardCreatedDate;
 		this.nextScheduledCardEf = nextScheduledCardEf;
@@ -89,14 +84,6 @@ public class ScoreCardModel implements IScoreCardModel {
 	}
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
-	}
-	
-	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
-	}
-	public void setBoxId(String boxId) {
-		this.boxId = boxId;
 	}
 	
 	@JsonProperty

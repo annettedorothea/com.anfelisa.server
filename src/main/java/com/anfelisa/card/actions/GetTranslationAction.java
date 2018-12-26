@@ -8,16 +8,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.annotation.security.PermitAll;
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,45 +16,21 @@ import com.anfelisa.ace.App;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.auth.AuthUser;
-import com.anfelisa.card.data.CardTranslationData;
-import com.codahale.metrics.annotation.Timed;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import io.dropwizard.auth.Auth;
-
-@Path("/card")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class GetTranslationAction extends AbstractGetTranslationAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetTranslationAction.class);
 
-	private String translationApiKey;
-
-	public GetTranslationAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
-			ViewProvider viewProvider) {
-		super(jdbi, appConfiguration, daoProvider, viewProvider);
-		this.translationApiKey = appConfiguration.getTranslationApiKey();
+	public GetTranslationAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
-	@GET
-	@Timed
-	@Path("/translation")
-	@PermitAll
-	public Response get(@Auth AuthUser user, @NotNull @QueryParam("sourceValue") String sourceValue,
-			@NotNull @QueryParam("sourceLanguage") String sourceLanguage,
-			@NotNull @QueryParam("targetLanguage") String targetLanguage, @NotNull @QueryParam("uuid") String uuid)
-			throws JsonProcessingException {
-		this.actionData = new CardTranslationData(uuid).withSourceLanguage(sourceLanguage).withSourceValue(sourceValue)
-				.withTargetLanguage(targetLanguage);
-		return this.apply();
-	}
 
 	@SuppressWarnings("unchecked")
 	protected final void loadDataForGetRequest() {
 		try {
+			String translationApiKey = appConfiguration.getTranslationApiKey();
 			String urlStr = "https://translation.googleapis.com/language/translate/v2?key=" + translationApiKey + "&q="
 					+ URLEncoder.encode(this.actionData.getSourceValue(), "UTF-8") + "&target="
 					+ this.actionData.getTargetLanguage() + "&source=" + this.actionData.getSourceLanguage()
@@ -100,4 +66,4 @@ public class GetTranslationAction extends AbstractGetTranslationAction {
 
 }
 
-/* S.D.G. */
+/*       S.D.G.       */

@@ -10,7 +10,6 @@ public interface IBoxInfoModel {
 	Integer getReinforceCards();
 	Integer getMyCards();
 	Integer getDaysBehindSchedule();
-	String getBoxId();
 	String getCategoryName();
 	Integer getMaxInterval();
 	Integer getQuality0Count();

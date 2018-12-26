@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 
-import com.anfelisa.auth.AuthUser;
+import com.anfelisa.auth.Roles;
 import com.anfelisa.user.data.IUserRegistrationData;
 import com.anfelisa.user.data.ResetPasswordData;
 
@@ -54,7 +54,7 @@ public class CustomUserDao {
 
 	public Integer selectAdminCount(Handle handle) {
 		Optional<Integer> optional = handle.createQuery("SELECT count(userid) FROM public.user where role = :admin")
-				.bind("admin", AuthUser.ADMIN).mapTo(Integer.class).findFirst();
+				.bind("admin", Roles.ADMIN).mapTo(Integer.class).findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 

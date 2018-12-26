@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IScoreCardModel {
 
 	String getCardId();
-	String getBoxId();
 	String getNextScheduledCardScheduledCardId();
 	org.joda.time.DateTime getNextScheduledCardCreatedDate();
 	Float getNextScheduledCardEf();

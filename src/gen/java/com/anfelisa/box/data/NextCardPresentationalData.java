@@ -11,6 +11,7 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.INextCardModel;
+import com.anfelisa.box.models.IBoxIdModel;
 import com.anfelisa.box.models.ITodayModel;
 import com.anfelisa.user.models.IUserIdModel;
 
@@ -22,9 +23,6 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 	
 	@NotNull
 	private String cardId;
-	
-	@NotNull
-	private String boxId;
 	
 	@NotNull
 	private org.joda.time.DateTime scheduledDate;
@@ -47,6 +45,9 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 	private org.joda.time.DateTime scoredDate;
 	
 	@NotNull
+	private String boxId;
+	
+	@NotNull
 	private org.joda.time.DateTime today;
 	
 	@NotNull
@@ -56,7 +57,6 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 	public NextCardPresentationalData(
 		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("cardId") String cardId,
-		@JsonProperty("boxId") String boxId,
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("given") String given,
@@ -66,12 +66,12 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("today") org.joda.time.DateTime today,
 		@JsonProperty("userId") String userId
 	) {
 		this.scheduledCardId = scheduledCardId;
 		this.cardId = cardId;
-		this.boxId = boxId;
 		this.scheduledDate = scheduledDate;
 		this.lastQuality = lastQuality;
 		this.given = given;
@@ -81,6 +81,7 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 		this.rootCategoryId = rootCategoryId;
 		this.count = count;
 		this.scoredDate = scoredDate;
+		this.boxId = boxId;
 		this.today = today;
 		this.userId = userId;
 		
@@ -107,18 +108,6 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 	}
 	public NextCardPresentationalData withCardId(String cardId) {
 		this.cardId = cardId;
-		return this;
-	}
-	
-	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
-	}
-	public void setBoxId(String boxId) {
-		this.boxId = boxId;
-	}
-	public NextCardPresentationalData withBoxId(String boxId) {
-		this.boxId = boxId;
 		return this;
 	}
 	
@@ -227,6 +216,18 @@ public class NextCardPresentationalData implements INextCardPresentationalData {
 	}
 	public NextCardPresentationalData withScoredDate(org.joda.time.DateTime scoredDate) {
 		this.scoredDate = scoredDate;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getBoxId() {
+		return this.boxId;
+	}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
+	}
+	public NextCardPresentationalData withBoxId(String boxId) {
+		this.boxId = boxId;
 		return this;
 	}
 	

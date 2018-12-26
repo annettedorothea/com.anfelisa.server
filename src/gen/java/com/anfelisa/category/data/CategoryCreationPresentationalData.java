@@ -12,6 +12,7 @@ import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.user.models.IUsernameModel;
 
 @SuppressWarnings("all")
 public class CategoryCreationPresentationalData implements ICategoryCreationPresentationalData {
@@ -46,6 +47,9 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 	@NotNull
 	private String userId;
 	
+	@NotNull
+	private String username;
+	
 	
 	public CategoryCreationPresentationalData(
 		@JsonProperty("categoryId") String categoryId,
@@ -59,7 +63,8 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("path") String path,
 		@JsonProperty("publicRootCategory") Boolean publicRootCategory,
-		@JsonProperty("userId") String userId
+		@JsonProperty("userId") String userId,
+		@JsonProperty("username") String username
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -73,6 +78,7 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 		this.path = path;
 		this.publicRootCategory = publicRootCategory;
 		this.userId = userId;
+		this.username = username;
 		
 	}
 
@@ -217,6 +223,18 @@ public class CategoryCreationPresentationalData implements ICategoryCreationPres
 	}
 	public CategoryCreationPresentationalData withUserId(String userId) {
 		this.userId = userId;
+		return this;
+	}
+	
+	@JsonProperty
+	public String getUsername() {
+		return this.username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public CategoryCreationPresentationalData withUsername(String username) {
+		this.username = username;
 		return this;
 	}
 	

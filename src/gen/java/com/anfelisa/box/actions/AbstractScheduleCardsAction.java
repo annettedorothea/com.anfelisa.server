@@ -1,19 +1,48 @@
 package com.anfelisa.box.actions;
 
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.PathParam;
+import io.dropwizard.auth.Auth;
+
+import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.DatabaseHandle;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.Jdbi;
 
 import javax.ws.rs.WebApplicationException;
 
 import com.anfelisa.ace.Action;
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.HttpMethod;
 import com.anfelisa.ace.ICommand;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
+import com.anfelisa.auth.AuthUser;
+
 import com.anfelisa.box.data.ScheduleCardsData;
 
 import com.anfelisa.box.commands.ScheduleCardsCommand;
 
+@SuppressWarnings("unused")
+@Path("/cards/schedule")
 public abstract class AbstractScheduleCardsAction extends Action<ScheduleCardsData> {
 
 	public AbstractScheduleCardsAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
@@ -36,6 +65,19 @@ public abstract class AbstractScheduleCardsAction extends Action<ScheduleCardsDa
 		}
 	}
 
+	@POST
+	@Timed
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response scheduleCardsResource(
+			@Auth AuthUser authUser, 
+			@NotNull ScheduleCardsData payload)
+			throws JsonProcessingException {
+		this.actionData = new ScheduleCardsData(payload.getUuid());
+		this.actionData.setCardIds(payload.getCardIds());
+		this.actionData.setUserId(authUser.getUserId());
+		return this.apply();
+	}
 }
 
 /*       S.D.G.       */

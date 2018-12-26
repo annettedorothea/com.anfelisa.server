@@ -18,9 +18,6 @@ public class BoxInfoModel implements IBoxInfoModel {
 	private Integer daysBehindSchedule;
 	
 	@NotNull
-	private String boxId;
-	
-	@NotNull
 	private String categoryName;
 	
 	private Integer maxInterval;
@@ -44,7 +41,6 @@ public class BoxInfoModel implements IBoxInfoModel {
 		@JsonProperty("reinforceCards") Integer reinforceCards,
 		@JsonProperty("myCards") Integer myCards,
 		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
-		@JsonProperty("boxId") String boxId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("maxInterval") Integer maxInterval,
 		@JsonProperty("quality0Count") Integer quality0Count,
@@ -59,7 +55,6 @@ public class BoxInfoModel implements IBoxInfoModel {
 		this.reinforceCards = reinforceCards;
 		this.myCards = myCards;
 		this.daysBehindSchedule = daysBehindSchedule;
-		this.boxId = boxId;
 		this.categoryName = categoryName;
 		this.maxInterval = maxInterval;
 		this.quality0Count = quality0Count;
@@ -108,14 +103,6 @@ public class BoxInfoModel implements IBoxInfoModel {
 	}
 	public void setDaysBehindSchedule(Integer daysBehindSchedule) {
 		this.daysBehindSchedule = daysBehindSchedule;
-	}
-	
-	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
-	}
-	public void setBoxId(String boxId) {
-		this.boxId = boxId;
 	}
 	
 	@JsonProperty

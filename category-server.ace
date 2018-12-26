@@ -1,47 +1,75 @@
+JAVA
+
 com.anfelisa.category
 
-target JAVA
+import com.anfelisa.user.AuthUser
 
-ACE {
-	POST CreateCategory uses CategoryCreation {
+ACE 
+	CreateCategory
+		POST "/category/create"  
+		authorize
+		payload 
+			Category.categoryName
+			Category.categoryIndex
+			Category.parentCategoryId
+			Category.dictionaryLookup
+			Category.givenLanguage
+			Category.wantedLanguage
+		uses CategoryCreation 
 		on sub (Category.insert)
 		on root (Category.insert UserAccessToCategory.grantAccess)
-	}
-	PUT UpdateCategory uses CategoryUpdate {
+	
+	UpdateCategory
+		PUT "/UpdateCategory" 
+		uses CategoryUpdate 
 		on ok (Category.update)
-	}
-	DELETE DeleteCategory uses CategoryDelete {
+	
+	DeleteCategory
+		DELETE "/DeleteCategory"  
+		uses CategoryDelete 
 		on noRoot (Category.delete)
 		on root (Category.deleteRoot)
-	}
-	GET GetAllCategories uses CategoryList
-	POST InviteUser uses InviteUser {
+	
+	GetAllCategories
+		GET "/GetAllCategories"  
+		uses CategoryList
+		
+	InviteUser
+		POST "/InviteUser"  
+		uses InviteUser 
 		on ok (UserAccessToCategory.grantAccessInvitation)
 		on hasAccess
-	}
-	DELETE RevokeUserAccess uses RevokeUser {
+	
+	RevokeUserAccess
+		DELETE "/RevokeUserAccess"  
+		uses RevokeUser 
 		on ok (UserAccessToCategory.revokeAccess)
 		on hasNoAccess
-	}
-	GET GetCategoryTree uses CategoryTree
-	GET GetCategoryTreeItem uses CategoryTreeItem
-}
+	
+	GetCategoryTree
+		GET "/GetCategoryTree"  
+		uses CategoryTree
+		
+	GetCategoryTreeItem 
+		GET "/GetCategoryTreeItem"  uses CategoryTreeItem
 
-views {
+
+views 
 	Category {
 		insert(CategoryCreation)
 		delete(CategoryDelete)
 		deleteRoot(CategoryDelete)
 		update(CategoryUpdate)
 	}
-	UserAccessToCategory {
+	
+	UserAccessToCategory { 
 		grantAccess(CategoryCreation)
 		grantAccessInvitation(InviteUser)
 		revokeAccess(RevokeUser)
 	}
-}
+	
 
-models {
+models 
 	schema public
 	
 	persistent Category {
@@ -113,7 +141,6 @@ models {
 	
 	CategoryTree {
 		List CategoryTreeRootItem categoryList
-		
 	}
 	
 	CategoryTreeItem {
@@ -152,10 +179,9 @@ models {
 		NotNull String rootCategoryId
 		NotNull String revokedUserId
 	}
-}
 
-data {
-	CategoryCreation : ( Category UserAccessToCategory )
+data 
+	CategoryCreation : ( Category UserAccessToCategory com.anfelisa.user.Username)
 	CategoryUpdate : ( CategoryUpdate  com.anfelisa.user.UserId )
 	CategoryDelete : ( CategoryDelete com.anfelisa.user.UserId)
 	CategoryList : ( CategoryList )
@@ -163,5 +189,4 @@ data {
 	RevokeUser : ( RevokeUser com.anfelisa.user.UserId)
 	CategoryTree : ( CategoryTree com.anfelisa.user.UserId)
 	CategoryTreeItem : ( CategoryItem com.anfelisa.user.UserId)
-}
 

@@ -14,9 +14,6 @@ public class NextCardModel implements INextCardModel {
 	private String cardId;
 	
 	@NotNull
-	private String boxId;
-	
-	@NotNull
 	private org.joda.time.DateTime scheduledDate;
 	
 	private Integer lastQuality;
@@ -40,7 +37,6 @@ public class NextCardModel implements INextCardModel {
 	public NextCardModel(
 		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("cardId") String cardId,
-		@JsonProperty("boxId") String boxId,
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("given") String given,
@@ -53,7 +49,6 @@ public class NextCardModel implements INextCardModel {
 	) {
 		this.scheduledCardId = scheduledCardId;
 		this.cardId = cardId;
-		this.boxId = boxId;
 		this.scheduledDate = scheduledDate;
 		this.lastQuality = lastQuality;
 		this.given = given;
@@ -79,14 +74,6 @@ public class NextCardModel implements INextCardModel {
 	}
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
-	}
-	
-	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
-	}
-	public void setBoxId(String boxId) {
-		this.boxId = boxId;
 	}
 	
 	@JsonProperty

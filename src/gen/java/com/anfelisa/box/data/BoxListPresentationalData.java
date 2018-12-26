@@ -11,6 +11,8 @@ import java.util.List;
 import com.anfelisa.ace.IDataContainer;
 
 import com.anfelisa.box.models.IBoxListModel;
+import com.anfelisa.user.models.IUserIdModel;
+import com.anfelisa.box.models.ITodayModel;
 
 @SuppressWarnings("all")
 public class BoxListPresentationalData implements IBoxListPresentationalData {
