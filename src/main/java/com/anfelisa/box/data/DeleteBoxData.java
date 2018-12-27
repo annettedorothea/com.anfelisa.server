@@ -53,14 +53,6 @@ public class DeleteBoxData extends AbstractData implements IDeleteBoxData {
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new DeleteBoxPresentationalData(
-			this.userId,
-			this.boxId
-		);
-	}
-
 }
 
 /*       S.D.G.       */

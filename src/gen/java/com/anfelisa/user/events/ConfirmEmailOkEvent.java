@@ -7,11 +7,11 @@ import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.user.data.EmailConfirmationData;
+import com.anfelisa.user.data.ConfirmEmailData;
 
-public class ConfirmEmailOkEvent extends Event<EmailConfirmationData> {
+public class ConfirmEmailOkEvent extends Event<ConfirmEmailData> {
 
-	public ConfirmEmailOkEvent(EmailConfirmationData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public ConfirmEmailOkEvent(ConfirmEmailData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.events.ConfirmEmailOkEvent", eventData, databaseHandle, daoProvider, viewProvider);
 	}
 	
@@ -21,7 +21,7 @@ public class ConfirmEmailOkEvent extends Event<EmailConfirmationData> {
 	
 	public void initEventData(String json) {
 		try {
-			this.eventData = mapper.readValue(json, EmailConfirmationData.class);
+			this.eventData = mapper.readValue(json, ConfirmEmailData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

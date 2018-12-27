@@ -36,13 +36,13 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 
-import com.anfelisa.user.data.EmailConfirmationData;
+import com.anfelisa.user.data.ConfirmEmailData;
 
 import com.anfelisa.user.commands.ConfirmEmailCommand;
 
 @SuppressWarnings("unused")
-@Path("12")
-public abstract class AbstractConfirmEmailAction extends Action<EmailConfirmationData> {
+@Path("/users/confirm")
+public abstract class AbstractConfirmEmailAction extends Action<ConfirmEmailData> {
 
 	public AbstractConfirmEmailAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.ConfirmEmailAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -58,7 +58,7 @@ public abstract class AbstractConfirmEmailAction extends Action<EmailConfirmatio
 
 	public void initActionData(String json) {
 		try {
-			this.actionData = mapper.readValue(json, EmailConfirmationData.class);
+			this.actionData = mapper.readValue(json, ConfirmEmailData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}
@@ -69,11 +69,14 @@ public abstract class AbstractConfirmEmailAction extends Action<EmailConfirmatio
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response confirmEmailResource(
-			@NotNull EmailConfirmationData payload)
+			@NotNull ConfirmEmailData payload)
 			throws JsonProcessingException {
-		this.actionData = new EmailConfirmationData(payload.getUuid());
+		this.actionData = new ConfirmEmailData(payload.getUuid());
+		this.actionData.setToken(payload.getToken());
+		this.actionData.setUsername(payload.getUsername());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

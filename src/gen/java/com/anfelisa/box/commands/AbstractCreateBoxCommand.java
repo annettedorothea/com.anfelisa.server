@@ -7,13 +7,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.box.data.BoxCreationData;
+import com.anfelisa.box.data.BoxData;
 
-public abstract class AbstractCreateBoxCommand extends Command<BoxCreationData> {
+public abstract class AbstractCreateBoxCommand extends Command<BoxData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractCreateBoxCommand(BoxCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractCreateBoxCommand(BoxData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.CreateBoxCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
@@ -34,7 +34,7 @@ public abstract class AbstractCreateBoxCommand extends Command<BoxCreationData> 
 	
 	public void initCommandData(String json) {
 		try {
-			this.commandData = mapper.readValue(json, BoxCreationData.class);
+			this.commandData = mapper.readValue(json, BoxData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

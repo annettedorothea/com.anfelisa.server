@@ -24,7 +24,9 @@ public class ScoreCardMapper implements RowMapper<IScoreCardModel> {
 			r.getObject("scoredCardQuality") != null ? r.getInt("scoredCardQuality") : null,
 			r.getTimestamp("scoredCardScoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredCardScoredDate")) : null,
 			r.getString("reinforceCardId"),
-			r.getTimestamp("reinforceCardCreatedDate") != null ? new org.joda.time.DateTime(r.getTimestamp("reinforceCardCreatedDate")) : null
+			r.getTimestamp("reinforceCardCreatedDate") != null ? new org.joda.time.DateTime(r.getTimestamp("reinforceCardCreatedDate")) : null,
+			r.getString("userId"),
+			r.getString("boxId")
 		);
 	}
 }

@@ -33,6 +33,14 @@ public class NextCardModel implements INextCardModel {
 	
 	private org.joda.time.DateTime scoredDate;
 	
+	@NotNull
+	private String boxId;
+	
+	private String userId;
+	
+	@NotNull
+	private org.joda.time.DateTime today;
+	
 
 	public NextCardModel(
 		@JsonProperty("scheduledCardId") String scheduledCardId,
@@ -45,7 +53,10 @@ public class NextCardModel implements INextCardModel {
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
-		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate
+		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("today") org.joda.time.DateTime today
 	) {
 		this.scheduledCardId = scheduledCardId;
 		this.cardId = cardId;
@@ -58,6 +69,9 @@ public class NextCardModel implements INextCardModel {
 		this.rootCategoryId = rootCategoryId;
 		this.count = count;
 		this.scoredDate = scoredDate;
+		this.boxId = boxId;
+		this.userId = userId;
+		this.today = today;
 	}
 
 	@JsonProperty
@@ -146,6 +160,30 @@ public class NextCardModel implements INextCardModel {
 	}
 	public void setScoredDate(org.joda.time.DateTime scoredDate) {
 		this.scoredDate = scoredDate;
+	}
+	
+	@JsonProperty
+	public String getBoxId() {
+		return this.boxId;
+	}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getToday() {
+		return this.today;
+	}
+	public void setToday(org.joda.time.DateTime today) {
+		this.today = today;
 	}
 	
 

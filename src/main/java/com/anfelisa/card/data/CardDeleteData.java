@@ -87,16 +87,6 @@ public class CardDeleteData extends AbstractData implements ICardDeleteData {
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new CardDeletePresentationalData(
-			this.cardId,
-			this.cardIndex,
-			this.categoryId,
-			this.userId
-		);
-	}
-
 }
 
 /*       S.D.G.       */

@@ -7,11 +7,11 @@ import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.box.data.ScheduleCardsData;
+import com.anfelisa.box.data.ScheduledCardsData;
 
-public class ScheduleCardsOkEvent extends Event<ScheduleCardsData> {
+public class ScheduleCardsOkEvent extends Event<ScheduledCardsData> {
 
-	public ScheduleCardsOkEvent(ScheduleCardsData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public ScheduleCardsOkEvent(ScheduledCardsData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.events.ScheduleCardsOkEvent", eventData, databaseHandle, daoProvider, viewProvider);
 	}
 	
@@ -21,7 +21,7 @@ public class ScheduleCardsOkEvent extends Event<ScheduleCardsData> {
 	
 	public void initEventData(String json) {
 		try {
-			this.eventData = mapper.readValue(json, ScheduleCardsData.class);
+			this.eventData = mapper.readValue(json, ScheduledCardsData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

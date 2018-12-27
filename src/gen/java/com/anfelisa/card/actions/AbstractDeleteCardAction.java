@@ -72,13 +72,14 @@ public abstract class AbstractDeleteCardAction extends Action<CardDeleteData> {
 	public Response deleteCardResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("cardId") String cardId, 
-			@NotNull CardDeleteData payload)
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new CardDeleteData(payload.getUuid());
+		this.actionData = new CardDeleteData(uuid);
 		this.actionData.setCardId(cardId);
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

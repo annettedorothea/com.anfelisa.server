@@ -87,16 +87,6 @@ public class RevokeUserData extends AbstractData implements IRevokeUserData {
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new RevokeUserPresentationalData(
-			this.categoryId,
-			this.rootCategoryId,
-			this.revokedUserId,
-			this.userId
-		);
-	}
-
 }
 
 /*       S.D.G.       */

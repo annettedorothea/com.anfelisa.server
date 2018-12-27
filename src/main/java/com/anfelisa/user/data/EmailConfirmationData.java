@@ -68,16 +68,6 @@ public class EmailConfirmationData extends AbstractData implements IEmailConfirm
 		this.username = username;
 		return this;
 	}
-	
-
-	@Override
-	public Object toPresentationalData() {
-		return new EmailConfirmationPresentationalData(
-			this.token,
-			this.userId,
-			this.username
-		);
-	}
 
 }
 

@@ -7,13 +7,17 @@ public class UserListData extends AbstractData implements IUserListData {
 	
 	private java.util.List<com.anfelisa.user.models.IUserModel> userList;
 	
+	private String role;
+	
 
 	public UserListData(
-		@JsonProperty("userList") java.util.List<com.anfelisa.user.models.IUserModel> userList
+		@JsonProperty("userList") java.util.List<com.anfelisa.user.models.IUserModel> userList,
+		@JsonProperty("role") String role
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.userList = userList;
+		this.role = role;
 	}
 
 	public UserListData( String uuid ) {
@@ -27,19 +31,15 @@ public class UserListData extends AbstractData implements IUserListData {
 	public void setUserList(java.util.List<com.anfelisa.user.models.IUserModel> userList) {
 		this.userList = userList;
 	}
-	public UserListData withUserList(java.util.List<com.anfelisa.user.models.IUserModel> userList) {
-		this.userList = userList;
-		return this;
+	
+	@JsonProperty
+	public String getRole() {
+		return this.role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
-
-	@Override
-	public Object toPresentationalData() {
-		return new UserListPresentationalData(
-			this.userList
-		);
-	}
-
 }
 
 /*       S.D.G.       */

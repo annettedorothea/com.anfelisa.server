@@ -225,25 +225,6 @@ public class CategoryListData extends AbstractData implements ICategoryListData 
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new CategoryListPresentationalData(
-			this.parentCategoryId,
-			this.grandParentCategoryId,
-			this.parentCategoryName,
-			this.parentDictionaryLookup,
-			this.rootDictionaryLookup,
-			this.parentGivenLanguage,
-			this.parentWantedLanguage,
-			this.categoryList,
-			this.cardList,
-			this.hasBox,
-			this.userId,
-			this.parentEditable,
-			this.userList
-		);
-	}
-
 }
 
 /*       S.D.G.       */

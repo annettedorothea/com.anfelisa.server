@@ -37,13 +37,13 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
-import com.anfelisa.box.data.ScheduleCardsData;
+import com.anfelisa.box.data.ScheduledCardsData;
 
 import com.anfelisa.box.commands.ScheduleCardsCommand;
 
 @SuppressWarnings("unused")
 @Path("/cards/schedule")
-public abstract class AbstractScheduleCardsAction extends Action<ScheduleCardsData> {
+public abstract class AbstractScheduleCardsAction extends Action<ScheduledCardsData> {
 
 	public AbstractScheduleCardsAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.ScheduleCardsAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -59,7 +59,7 @@ public abstract class AbstractScheduleCardsAction extends Action<ScheduleCardsDa
 
 	public void initActionData(String json) {
 		try {
-			this.actionData = mapper.readValue(json, ScheduleCardsData.class);
+			this.actionData = mapper.readValue(json, ScheduledCardsData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}
@@ -71,13 +71,14 @@ public abstract class AbstractScheduleCardsAction extends Action<ScheduleCardsDa
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scheduleCardsResource(
 			@Auth AuthUser authUser, 
-			@NotNull ScheduleCardsData payload)
+			@NotNull ScheduledCardsData payload)
 			throws JsonProcessingException {
-		this.actionData = new ScheduleCardsData(payload.getUuid());
+		this.actionData = new ScheduledCardsData(payload.getUuid());
 		this.actionData.setCardIds(payload.getCardIds());
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

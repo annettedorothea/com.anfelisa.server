@@ -69,12 +69,16 @@ public abstract class AbstractLoadNextReinforceCardAction extends Action<NextRei
 	public Response loadNextReinforceCardResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("boxId") String boxId, 
-			@NotNull NextReinforceCardData payload)
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new NextReinforceCardData(payload.getUuid());
+		this.actionData = new NextReinforceCardData(uuid);
 		this.actionData.setBoxId(boxId);
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
+	}
+
+	protected Object createReponse() {
+		return new com.anfelisa.box.data.LoadNextReinforceCardResponse(this.actionData);
 	}
 }
 

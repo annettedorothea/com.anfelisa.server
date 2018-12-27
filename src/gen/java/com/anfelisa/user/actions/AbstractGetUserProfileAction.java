@@ -68,14 +68,18 @@ public abstract class AbstractGetUserProfileAction extends Action<UserData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getUserProfileResource(
 			@Auth AuthUser authUser, 
-			@NotNull UserData payload)
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new UserData(payload.getUuid());
+		this.actionData = new UserData(uuid);
 		this.actionData.setUserId(authUser.getUserId());
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setPassword(authUser.getPassword());
 		this.actionData.setRole(authUser.getRole());
 		return this.apply();
+	}
+
+	protected Object createReponse() {
+		return new com.anfelisa.user.data.GetUserProfileResponse(this.actionData);
 	}
 }
 

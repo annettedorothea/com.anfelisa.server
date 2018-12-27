@@ -287,28 +287,6 @@ public class ScoreCardData extends AbstractData implements IScoreCardData {
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new ScoreCardPresentationalData(
-			this.userId,
-			this.cardId,
-			this.boxId,
-			this.nextScheduledCardScheduledCardId,
-			this.nextScheduledCardCreatedDate,
-			this.nextScheduledCardEf,
-			this.nextScheduledCardInterval,
-			this.nextScheduledCardN,
-			this.nextScheduledCardCount,
-			this.nextScheduledCardScheduledDate,
-			this.nextScheduledCardLastQuality,
-			this.scoredCardScheduledCardId,
-			this.scoredCardQuality,
-			this.scoredCardScoredDate,
-			this.reinforceCardId,
-			this.reinforceCardCreatedDate
-		);
-	}
-
 }
 
 /*       S.D.G.       */

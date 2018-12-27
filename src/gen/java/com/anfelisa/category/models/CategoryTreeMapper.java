@@ -11,7 +11,8 @@ public class CategoryTreeMapper implements RowMapper<ICategoryTreeModel> {
 	
 	public ICategoryTreeModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CategoryTreeModel(
-			null
+			null,
+			r.getString("userId")
 		);
 	}
 }

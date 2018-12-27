@@ -72,14 +72,18 @@ public abstract class AbstractGetDuplicatesAction extends Action<CardSearchData>
 			@QueryParam("wanted") String wanted, 
 			@QueryParam("naturalInputOrder") Boolean naturalInputOrder, 
 			@QueryParam("categoryId") String categoryId, 
-			@NotNull CardSearchData payload)
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new CardSearchData(payload.getUuid());
+		this.actionData = new CardSearchData(uuid);
 		this.actionData.setGiven(given);
 		this.actionData.setWanted(wanted);
 		this.actionData.setNaturalInputOrder(naturalInputOrder);
 		this.actionData.setCategoryId(categoryId);
 		return this.apply();
+	}
+
+	protected Object createReponse() {
+		return new com.anfelisa.card.data.GetDuplicatesResponse(this.actionData);
 	}
 }
 

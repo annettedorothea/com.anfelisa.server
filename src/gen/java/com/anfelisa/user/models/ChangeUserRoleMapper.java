@@ -11,10 +11,10 @@ public class ChangeUserRoleMapper implements RowMapper<IChangeUserRoleModel> {
 	
 	public IChangeUserRoleModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ChangeUserRoleModel(
+			r.getString("editedUserId"),
+			r.getString("newRole"),
 			r.getString("userId"),
-			r.getString("role"),
-			r.getString("authUserId"),
-			r.getString("authRole")
+			r.getString("role")
 		);
 	}
 }

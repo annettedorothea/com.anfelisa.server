@@ -17,19 +17,23 @@ public class InviteUserModel implements IInviteUserModel {
 	private String invitedUserId;
 	
 	@NotNull
-	private String username;
+	private String invitedUsername;
+	
+	private String userId;
 	
 
 	public InviteUserModel(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("invitedUserId") String invitedUserId,
-		@JsonProperty("username") String username
+		@JsonProperty("invitedUsername") String invitedUsername,
+		@JsonProperty("userId") String userId
 	) {
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
 		this.invitedUserId = invitedUserId;
-		this.username = username;
+		this.invitedUsername = invitedUsername;
+		this.userId = userId;
 	}
 
 	@JsonProperty
@@ -57,11 +61,19 @@ public class InviteUserModel implements IInviteUserModel {
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getInvitedUsername() {
+		return this.invitedUsername;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setInvitedUsername(String invitedUsername) {
+		this.invitedUsername = invitedUsername;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 

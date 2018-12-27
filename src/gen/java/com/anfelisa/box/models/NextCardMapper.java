@@ -21,7 +21,10 @@ public class NextCardMapper implements RowMapper<INextCardModel> {
 			r.getString("categoryId"),
 			r.getString("rootCategoryId"),
 			r.getObject("count") != null ? r.getInt("count") : null,
-			r.getTimestamp("scoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredDate")) : null
+			r.getTimestamp("scoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredDate")) : null,
+			r.getString("boxId"),
+			r.getString("userId"),
+			r.getTimestamp("today") != null ? new org.joda.time.DateTime(r.getTimestamp("today")) : null
 		);
 	}
 }

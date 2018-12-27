@@ -37,13 +37,13 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
-import com.anfelisa.box.data.BoxCreationData;
+import com.anfelisa.box.data.BoxData;
 
 import com.anfelisa.box.commands.CreateBoxCommand;
 
 @SuppressWarnings("unused")
 @Path("/box/create")
-public abstract class AbstractCreateBoxAction extends Action<BoxCreationData> {
+public abstract class AbstractCreateBoxAction extends Action<BoxData> {
 
 	public AbstractCreateBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.CreateBoxAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -59,7 +59,7 @@ public abstract class AbstractCreateBoxAction extends Action<BoxCreationData> {
 
 	public void initActionData(String json) {
 		try {
-			this.actionData = mapper.readValue(json, BoxCreationData.class);
+			this.actionData = mapper.readValue(json, BoxData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}
@@ -71,14 +71,15 @@ public abstract class AbstractCreateBoxAction extends Action<BoxCreationData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createBoxResource(
 			@Auth AuthUser authUser, 
-			@NotNull BoxCreationData payload)
+			@NotNull BoxData payload)
 			throws JsonProcessingException {
-		this.actionData = new BoxCreationData(payload.getUuid());
+		this.actionData = new BoxData(payload.getUuid());
 		this.actionData.setCategoryId(payload.getCategoryId());
 		this.actionData.setMaxInterval(payload.getMaxInterval());
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

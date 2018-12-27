@@ -16,15 +16,19 @@ public class RevokeUserModel implements IRevokeUserModel {
 	@NotNull
 	private String revokedUserId;
 	
+	private String userId;
+	
 
 	public RevokeUserModel(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
-		@JsonProperty("revokedUserId") String revokedUserId
+		@JsonProperty("revokedUserId") String revokedUserId,
+		@JsonProperty("userId") String userId
 	) {
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
 		this.revokedUserId = revokedUserId;
+		this.userId = userId;
 	}
 
 	@JsonProperty
@@ -49,6 +53,14 @@ public class RevokeUserModel implements IRevokeUserModel {
 	}
 	public void setRevokedUserId(String revokedUserId) {
 		this.revokedUserId = revokedUserId;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 

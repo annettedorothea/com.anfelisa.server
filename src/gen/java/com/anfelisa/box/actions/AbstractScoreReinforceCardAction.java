@@ -79,6 +79,7 @@ public abstract class AbstractScoreReinforceCardAction extends Action<ScoreReinf
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

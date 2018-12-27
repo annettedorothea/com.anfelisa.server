@@ -69,12 +69,16 @@ public abstract class AbstractGetBoxesAction extends Action<BoxListData> {
 	public Response getBoxesResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("today") String today, 
-			@NotNull BoxListData payload)
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new BoxListData(payload.getUuid());
+		this.actionData = new BoxListData(uuid);
 		this.actionData.setToday(new DateTime(today).withZone(DateTimeZone.UTC));
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
+	}
+
+	protected Object createReponse() {
+		return new com.anfelisa.box.data.GetBoxesResponse(this.actionData);
 	}
 }
 

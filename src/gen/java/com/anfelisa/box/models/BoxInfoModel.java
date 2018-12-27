@@ -34,6 +34,14 @@ public class BoxInfoModel implements IBoxInfoModel {
 	
 	private Integer quality5Count;
 	
+	@NotNull
+	private String boxId;
+	
+	private String userId;
+	
+	@NotNull
+	private org.joda.time.DateTime today;
+	
 
 	public BoxInfoModel(
 		@JsonProperty("todaysCards") Integer todaysCards,
@@ -48,7 +56,10 @@ public class BoxInfoModel implements IBoxInfoModel {
 		@JsonProperty("quality2Count") Integer quality2Count,
 		@JsonProperty("quality3Count") Integer quality3Count,
 		@JsonProperty("quality4Count") Integer quality4Count,
-		@JsonProperty("quality5Count") Integer quality5Count
+		@JsonProperty("quality5Count") Integer quality5Count,
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("today") org.joda.time.DateTime today
 	) {
 		this.todaysCards = todaysCards;
 		this.totalCards = totalCards;
@@ -63,6 +74,9 @@ public class BoxInfoModel implements IBoxInfoModel {
 		this.quality3Count = quality3Count;
 		this.quality4Count = quality4Count;
 		this.quality5Count = quality5Count;
+		this.boxId = boxId;
+		this.userId = userId;
+		this.today = today;
 	}
 
 	@JsonProperty
@@ -167,6 +181,30 @@ public class BoxInfoModel implements IBoxInfoModel {
 	}
 	public void setQuality5Count(Integer quality5Count) {
 		this.quality5Count = quality5Count;
+	}
+	
+	@JsonProperty
+	public String getBoxId() {
+		return this.boxId;
+	}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getToday() {
+		return this.today;
+	}
+	public void setToday(org.joda.time.DateTime today) {
+		this.today = today;
 	}
 	
 

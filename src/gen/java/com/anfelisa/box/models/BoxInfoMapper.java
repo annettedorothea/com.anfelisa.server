@@ -23,7 +23,10 @@ public class BoxInfoMapper implements RowMapper<IBoxInfoModel> {
 			r.getObject("quality2Count") != null ? r.getInt("quality2Count") : null,
 			r.getObject("quality3Count") != null ? r.getInt("quality3Count") : null,
 			r.getObject("quality4Count") != null ? r.getInt("quality4Count") : null,
-			r.getObject("quality5Count") != null ? r.getInt("quality5Count") : null
+			r.getObject("quality5Count") != null ? r.getInt("quality5Count") : null,
+			r.getString("boxId"),
+			r.getString("userId"),
+			r.getTimestamp("today") != null ? new org.joda.time.DateTime(r.getTimestamp("today")) : null
 		);
 	}
 }

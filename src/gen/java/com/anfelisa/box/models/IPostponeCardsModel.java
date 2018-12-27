@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IPostponeCardsModel {
 
 	Integer getDays();
+	String getBoxId();
+	String getUserId();
+	org.joda.time.DateTime getToday();
 
 }
 

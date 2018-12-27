@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IUserListModel {
 
 	java.util.List<com.anfelisa.user.models.IUserModel> getUserList();
+	String getRole();
 
 }
 

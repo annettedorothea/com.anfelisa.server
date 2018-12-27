@@ -18,6 +18,9 @@ public interface IBoxInfoModel {
 	Integer getQuality3Count();
 	Integer getQuality4Count();
 	Integer getQuality5Count();
+	String getBoxId();
+	String getUserId();
+	org.joda.time.DateTime getToday();
 
 }
 

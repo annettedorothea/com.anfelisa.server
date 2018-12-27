@@ -48,15 +48,6 @@ public class RoleData extends AbstractData implements IRoleData {
 		return this;
 	}
 	
-
-	@Override
-	public Object toPresentationalData() {
-		return new RolePresentationalData(
-			this.username,
-			this.role
-		);
-	}
-
 }
 
 /*       S.D.G.       */

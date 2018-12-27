@@ -69,15 +69,6 @@ public class ResetPasswordData extends AbstractData implements IResetPasswordDat
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new ResetPasswordPresentationalData(
-			this.token,
-			this.userId,
-			this.password
-		);
-	}
-
 }
 
 /*       S.D.G.       */

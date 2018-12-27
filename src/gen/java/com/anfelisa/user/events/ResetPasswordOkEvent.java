@@ -7,11 +7,11 @@ import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.user.data.ResetPasswordData;
+import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
 
-public class ResetPasswordOkEvent extends Event<ResetPasswordData> {
+public class ResetPasswordOkEvent extends Event<ResetPasswordWithNewPasswordData> {
 
-	public ResetPasswordOkEvent(ResetPasswordData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public ResetPasswordOkEvent(ResetPasswordWithNewPasswordData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.events.ResetPasswordOkEvent", eventData, databaseHandle, daoProvider, viewProvider);
 	}
 	
@@ -21,7 +21,7 @@ public class ResetPasswordOkEvent extends Event<ResetPasswordData> {
 	
 	public void initEventData(String json) {
 		try {
-			this.eventData = mapper.readValue(json, ResetPasswordData.class);
+			this.eventData = mapper.readValue(json, ResetPasswordWithNewPasswordData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

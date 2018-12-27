@@ -15,17 +15,26 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	
 	private org.joda.time.DateTime scheduledDate;
 	
+	private String userId;
+	
+	@NotNull
+	private String boxId;
+	
 
 	public ScheduledCardsModel(
 		@JsonProperty("newScheduledCards") java.util.List<com.anfelisa.box.models.IScheduledCardModel> newScheduledCards,
 		@JsonProperty("existingScheduledCardIds") java.util.List<String> existingScheduledCardIds,
 		@JsonProperty("cardIds") java.util.List<String> cardIds,
-		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate
+		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("boxId") String boxId
 	) {
 		this.newScheduledCards = newScheduledCards;
 		this.existingScheduledCardIds = existingScheduledCardIds;
 		this.cardIds = cardIds;
 		this.scheduledDate = scheduledDate;
+		this.userId = userId;
+		this.boxId = boxId;
 	}
 
 	@JsonProperty
@@ -58,6 +67,22 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	}
 	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@JsonProperty
+	public String getBoxId() {
+		return this.boxId;
+	}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
 	}
 	
 

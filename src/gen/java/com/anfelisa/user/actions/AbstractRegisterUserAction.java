@@ -41,7 +41,7 @@ import com.anfelisa.user.data.UserRegistrationData;
 import com.anfelisa.user.commands.RegisterUserCommand;
 
 @SuppressWarnings("unused")
-@Path("11")
+@Path("/users/register")
 public abstract class AbstractRegisterUserAction extends Action<UserRegistrationData> {
 
 	public AbstractRegisterUserAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
@@ -72,8 +72,14 @@ public abstract class AbstractRegisterUserAction extends Action<UserRegistration
 			@NotNull UserRegistrationData payload)
 			throws JsonProcessingException {
 		this.actionData = new UserRegistrationData(payload.getUuid());
+		this.actionData.setPassword(payload.getPassword());
+		this.actionData.setUsername(payload.getUsername());
+		this.actionData.setEmail(payload.getEmail());
+		this.actionData.setLanguage(payload.getLanguage());
+		this.actionData.setToken(payload.getToken());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

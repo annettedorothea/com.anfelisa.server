@@ -250,26 +250,6 @@ public class NextCardData extends AbstractData implements INextCardData {
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new NextCardPresentationalData(
-			this.scheduledCardId,
-			this.cardId,
-			this.scheduledDate,
-			this.lastQuality,
-			this.given,
-			this.wanted,
-			this.image,
-			this.categoryId,
-			this.rootCategoryId,
-			this.count,
-			this.scoredDate,
-			this.boxId,
-			this.today,
-			this.userId
-		);
-	}
-
 }
 
 /*       S.D.G.       */

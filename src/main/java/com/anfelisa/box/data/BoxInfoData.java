@@ -279,27 +279,6 @@ public class BoxInfoData extends AbstractData implements IBoxInfoData {
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new BoxInfoPresentationalData(
-			this.todaysCards,
-			this.totalCards,
-			this.reinforceCards,
-			this.myCards,
-			this.daysBehindSchedule,
-			this.categoryName,
-			this.maxInterval,
-			this.quality0Count,
-			this.quality1Count,
-			this.quality2Count,
-			this.quality3Count,
-			this.quality4Count,
-			this.quality5Count,
-			this.boxId,
-			this.today,
-			this.userId
-		);
-	}
 
 }
 

@@ -8,7 +8,8 @@ public interface IInviteUserModel {
 	String getCategoryId();
 	String getRootCategoryId();
 	String getInvitedUserId();
-	String getUsername();
+	String getInvitedUsername();
+	String getUserId();
 
 }
 

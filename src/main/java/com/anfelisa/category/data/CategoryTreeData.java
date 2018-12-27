@@ -1,7 +1,5 @@
 package com.anfelisa.category.data;
 
-import javax.validation.constraints.NotNull;
-
 import com.anfelisa.ace.AbstractData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,7 +7,6 @@ public class CategoryTreeData extends AbstractData implements ICategoryTreeData 
 	
 	private java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList;
 	
-	@NotNull
 	private String userId;
 	
 
@@ -34,10 +31,6 @@ public class CategoryTreeData extends AbstractData implements ICategoryTreeData 
 	public void setCategoryList(java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList) {
 		this.categoryList = categoryList;
 	}
-	public CategoryTreeData withCategoryList(java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList) {
-		this.categoryList = categoryList;
-		return this;
-	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -46,20 +39,7 @@ public class CategoryTreeData extends AbstractData implements ICategoryTreeData 
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public CategoryTreeData withUserId(String userId) {
-		this.userId = userId;
-		return this;
-	}
 	
-
-	@Override
-	public Object toPresentationalData() {
-		return new CategoryTreePresentationalData(
-			this.categoryList,
-			this.userId
-		);
-	}
-
 }
 
 /*       S.D.G.       */

@@ -5,7 +5,8 @@ import javax.validation.constraints.NotNull;
 import com.anfelisa.ace.AbstractData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ScheduleCardData extends AbstractData implements IScheduleCardData {
+//legacy
+public class ScheduleCardData extends AbstractData implements IScheduledCardData {
 	
 	@NotNull
 	private String scheduledCardId;
@@ -235,26 +236,6 @@ public class ScheduleCardData extends AbstractData implements IScheduleCardData 
 		return this;
 	}
 	
-
-	@Override
-	public Object toPresentationalData() {
-		return new ScheduleCardPresentationalData(
-			this.scheduledCardId,
-			this.cardId,
-			this.boxId,
-			this.createdDate,
-			this.ef,
-			this.interval,
-			this.n,
-			this.count,
-			this.scheduledDate,
-			this.lastQuality,
-			this.quality,
-			this.scoredDate,
-			this.userId
-		);
-	}
-
 }
 
 /*       S.D.G.       */

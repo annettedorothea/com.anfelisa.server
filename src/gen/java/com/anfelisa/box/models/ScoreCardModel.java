@@ -45,6 +45,11 @@ public class ScoreCardModel implements IScoreCardModel {
 	@NotNull
 	private org.joda.time.DateTime reinforceCardCreatedDate;
 	
+	private String userId;
+	
+	@NotNull
+	private String boxId;
+	
 
 	public ScoreCardModel(
 		@JsonProperty("cardId") String cardId,
@@ -60,7 +65,9 @@ public class ScoreCardModel implements IScoreCardModel {
 		@JsonProperty("scoredCardQuality") Integer scoredCardQuality,
 		@JsonProperty("scoredCardScoredDate") org.joda.time.DateTime scoredCardScoredDate,
 		@JsonProperty("reinforceCardId") String reinforceCardId,
-		@JsonProperty("reinforceCardCreatedDate") org.joda.time.DateTime reinforceCardCreatedDate
+		@JsonProperty("reinforceCardCreatedDate") org.joda.time.DateTime reinforceCardCreatedDate,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("boxId") String boxId
 	) {
 		this.cardId = cardId;
 		this.nextScheduledCardScheduledCardId = nextScheduledCardScheduledCardId;
@@ -76,6 +83,8 @@ public class ScoreCardModel implements IScoreCardModel {
 		this.scoredCardScoredDate = scoredCardScoredDate;
 		this.reinforceCardId = reinforceCardId;
 		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
+		this.userId = userId;
+		this.boxId = boxId;
 	}
 
 	@JsonProperty
@@ -188,6 +197,22 @@ public class ScoreCardModel implements IScoreCardModel {
 	}
 	public void setReinforceCardCreatedDate(org.joda.time.DateTime reinforceCardCreatedDate) {
 		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@JsonProperty
+	public String getBoxId() {
+		return this.boxId;
+	}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
 	}
 	
 

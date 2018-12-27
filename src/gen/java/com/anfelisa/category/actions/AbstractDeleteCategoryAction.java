@@ -35,13 +35,14 @@ import com.anfelisa.ace.ICommand;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import com.anfelisa.auth.AuthUser;
 
 import com.anfelisa.category.data.CategoryDeleteData;
 
 import com.anfelisa.category.commands.DeleteCategoryCommand;
 
 @SuppressWarnings("unused")
-@Path("/DeleteCategory")
+@Path("/category/delete")
 public abstract class AbstractDeleteCategoryAction extends Action<CategoryDeleteData> {
 
 	public AbstractDeleteCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
@@ -69,11 +70,16 @@ public abstract class AbstractDeleteCategoryAction extends Action<CategoryDelete
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteCategoryResource(
-			@NotNull CategoryDeleteData payload)
+			@Auth AuthUser authUser, 
+			@QueryParam("categoryId") String categoryId, 
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new CategoryDeleteData(payload.getUuid());
+		this.actionData = new CategoryDeleteData(uuid);
+		this.actionData.setCategoryId(categoryId);
+		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

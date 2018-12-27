@@ -11,7 +11,8 @@ public class UserListMapper implements RowMapper<IUserListModel> {
 	
 	public IUserListModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserListModel(
-			null
+			null,
+			r.getString("role")
 		);
 	}
 }

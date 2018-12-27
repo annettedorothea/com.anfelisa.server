@@ -5,54 +5,64 @@ com.anfelisa.category
 import com.anfelisa.user.AuthUser
 
 ACE 
-	CreateCategory
+	CreateCategory<CategoryCreation>
 		POST "/category/create"  
 		authorize
 		payload 
-			Category.categoryName
-			Category.categoryIndex
-			Category.parentCategoryId
-			Category.dictionaryLookup
-			Category.givenLanguage
-			Category.wantedLanguage
-		uses CategoryCreation 
+			categoryName
+			categoryIndex
+			parentCategoryId
+			dictionaryLookup
+			givenLanguage
+			wantedLanguage
 		on sub (Category.insert)
 		on root (Category.insert UserAccessToCategory.grantAccess)
 	
-	UpdateCategory
-		PUT "/UpdateCategory" 
-		uses CategoryUpdate 
+	UpdateCategory<CategoryUpdate>
+		PUT "/category/update" 
+		authorize
+		payload 
+			categoryId
+			categoryName
+			dictionaryLookup
+			givenLanguage
+			wantedLanguage
 		on ok (Category.update)
 	
-	DeleteCategory
-		DELETE "/DeleteCategory"  
-		uses CategoryDelete 
+	DeleteCategory<CategoryDelete>
+		DELETE "/category/delete"  
+		authorize
+		queryParams categoryId
 		on noRoot (Category.delete)
 		on root (Category.deleteRoot)
 	
-	GetAllCategories
-		GET "/GetAllCategories"  
-		uses CategoryList
+	GetAllCategories<CategoryList>
+		GET "/category/all"  
+		authorize
+		queryParams parentCategoryId
+		response categoryList
 		
-	InviteUser
-		POST "/InviteUser"  
-		uses InviteUser 
+	InviteUser<InviteUser>
+		POST "/category/invite" 
+		authorize 
+		payload 
+			categoryId
+			invitedUsername
 		on ok (UserAccessToCategory.grantAccessInvitation)
 		on hasAccess
 	
-	RevokeUserAccess
-		DELETE "/RevokeUserAccess"  
-		uses RevokeUser 
+	RevokeUserAccess<RevokeUser>
+		DELETE "/category/revoke" 
+		authorize
+		queryParams 
+			revokedUserId 
+			categoryId 
 		on ok (UserAccessToCategory.revokeAccess)
 		on hasNoAccess
 	
-	GetCategoryTree
-		GET "/GetCategoryTree"  
-		uses CategoryTree
-		
-	GetCategoryTreeItem 
-		GET "/GetCategoryTreeItem"  uses CategoryTreeItem
-
+	GetCategoryTree<CategoryTree>
+		GET "/category/tree" 
+		authorize 
 
 views 
 	Category {
@@ -97,12 +107,14 @@ models
 		Boolean dictionaryLookup
 		String givenLanguage
 		String wantedLanguage
+		String userId
 	}
 	
 	CategoryDelete {
 		NotNull String categoryId
 		NotNull Integer categoryIndex
 		NotNull String parentCategoryId
+		String userId
 	}
 	
 	CategoryList {
@@ -141,6 +153,7 @@ models
 	
 	CategoryTree {
 		List CategoryTreeRootItem categoryList
+		String userId
 	}
 	
 	CategoryTreeItem {
@@ -171,22 +184,18 @@ models
 		NotNull String categoryId
 		NotNull String rootCategoryId
 		NotNull String invitedUserId
-		NotNull String username
+		NotNull String invitedUsername
+		String userId
 	}
 	
 	RevokeUser {
 		NotNull String categoryId
 		NotNull String rootCategoryId
 		NotNull String revokedUserId
+		String userId
 	}
-
-data 
-	CategoryCreation : ( Category UserAccessToCategory com.anfelisa.user.Username)
-	CategoryUpdate : ( CategoryUpdate  com.anfelisa.user.UserId )
-	CategoryDelete : ( CategoryDelete com.anfelisa.user.UserId)
-	CategoryList : ( CategoryList )
-	InviteUser : ( InviteUser com.anfelisa.user.UserId)
-	RevokeUser : ( RevokeUser com.anfelisa.user.UserId)
-	CategoryTree : ( CategoryTree com.anfelisa.user.UserId)
-	CategoryTreeItem : ( CategoryItem com.anfelisa.user.UserId)
+	
+	CategoryCreation extends Category, UserAccessToCategory {
+		String username
+	}
 

@@ -80,10 +80,11 @@ public abstract class AbstractCreateCategoryAction extends Action<CategoryCreati
 		this.actionData.setDictionaryLookup(payload.getDictionaryLookup());
 		this.actionData.setGivenLanguage(payload.getGivenLanguage());
 		this.actionData.setWantedLanguage(payload.getWantedLanguage());
-		this.actionData.setUserId(authUser.getUserId());
 		this.actionData.setUsername(authUser.getUsername());
+		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

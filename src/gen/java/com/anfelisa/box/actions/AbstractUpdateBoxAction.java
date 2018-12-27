@@ -79,6 +79,7 @@ public abstract class AbstractUpdateBoxAction extends Action<BoxUpdateData> {
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

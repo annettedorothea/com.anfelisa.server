@@ -14,7 +14,8 @@ public class InviteUserMapper implements RowMapper<IInviteUserModel> {
 			r.getString("categoryId"),
 			r.getString("rootCategoryId"),
 			r.getString("invitedUserId"),
-			r.getString("username")
+			r.getString("invitedUsername"),
+			r.getString("userId")
 		);
 	}
 }

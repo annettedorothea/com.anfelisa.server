@@ -79,6 +79,7 @@ public abstract class AbstractScoreCardAction extends Action<ScoreCardData> {
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

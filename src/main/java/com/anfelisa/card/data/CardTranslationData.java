@@ -87,16 +87,6 @@ public class CardTranslationData extends AbstractData implements ICardTranslatio
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new CardTranslationPresentationalData(
-			this.sourceValue,
-			this.targetValue,
-			this.sourceLanguage,
-			this.targetLanguage
-		);
-	}
-
 }
 
 /*       S.D.G.       */

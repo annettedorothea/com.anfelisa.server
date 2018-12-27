@@ -11,7 +11,10 @@ public class PostponeCardsMapper implements RowMapper<IPostponeCardsModel> {
 	
 	public IPostponeCardsModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new PostponeCardsModel(
-			r.getObject("days") != null ? r.getInt("days") : null
+			r.getObject("days") != null ? r.getInt("days") : null,
+			r.getString("boxId"),
+			r.getString("userId"),
+			r.getTimestamp("today") != null ? new org.joda.time.DateTime(r.getTimestamp("today")) : null
 		);
 	}
 }

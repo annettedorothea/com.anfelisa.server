@@ -23,6 +23,11 @@ public class NextReinforceCardModel implements INextReinforceCardModel {
 	
 	private String categoryId;
 	
+	private String userId;
+	
+	@NotNull
+	private String boxId;
+	
 
 	public NextReinforceCardModel(
 		@JsonProperty("reinforceCardId") String reinforceCardId,
@@ -31,7 +36,9 @@ public class NextReinforceCardModel implements INextReinforceCardModel {
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("image") String image,
-		@JsonProperty("categoryId") String categoryId
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("boxId") String boxId
 	) {
 		this.reinforceCardId = reinforceCardId;
 		this.changeDate = changeDate;
@@ -40,6 +47,8 @@ public class NextReinforceCardModel implements INextReinforceCardModel {
 		this.wanted = wanted;
 		this.image = image;
 		this.categoryId = categoryId;
+		this.userId = userId;
+		this.boxId = boxId;
 	}
 
 	@JsonProperty
@@ -96,6 +105,22 @@ public class NextReinforceCardModel implements INextReinforceCardModel {
 	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@JsonProperty
+	public String getBoxId() {
+		return this.boxId;
+	}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
 	}
 	
 

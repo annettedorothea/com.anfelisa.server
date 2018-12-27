@@ -9,11 +9,15 @@ public class UserListModel implements IUserListModel {
 
 	private java.util.List<com.anfelisa.user.models.IUserModel> userList;
 	
+	private String role;
+	
 
 	public UserListModel(
-		@JsonProperty("userList") java.util.List<com.anfelisa.user.models.IUserModel> userList
+		@JsonProperty("userList") java.util.List<com.anfelisa.user.models.IUserModel> userList,
+		@JsonProperty("role") String role
 	) {
 		this.userList = userList;
+		this.role = role;
 	}
 
 	@JsonProperty
@@ -22,6 +26,14 @@ public class UserListModel implements IUserListModel {
 	}
 	public void setUserList(java.util.List<com.anfelisa.user.models.IUserModel> userList) {
 		this.userList = userList;
+	}
+	
+	@JsonProperty
+	public String getRole() {
+		return this.role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 

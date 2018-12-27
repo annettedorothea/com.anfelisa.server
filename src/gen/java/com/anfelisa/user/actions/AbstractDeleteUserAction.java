@@ -35,13 +35,14 @@ import com.anfelisa.ace.ICommand;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import com.anfelisa.auth.AuthUser;
 
 import com.anfelisa.user.data.DeleteUserData;
 
 import com.anfelisa.user.commands.DeleteUserCommand;
 
 @SuppressWarnings("unused")
-@Path("14")
+@Path("/user/delete")
 public abstract class AbstractDeleteUserAction extends Action<DeleteUserData> {
 
 	public AbstractDeleteUserAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
@@ -69,11 +70,17 @@ public abstract class AbstractDeleteUserAction extends Action<DeleteUserData> {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteUserResource(
-			@NotNull DeleteUserData payload)
+			@Auth AuthUser authUser, 
+			@QueryParam("usernameToBeDeleted") String usernameToBeDeleted, 
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new DeleteUserData(payload.getUuid());
+		this.actionData = new DeleteUserData(uuid);
+		this.actionData.setUsernameToBeDeleted(usernameToBeDeleted);
+		this.actionData.setUsername(authUser.getUsername());
+		this.actionData.setRole(authUser.getRole());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

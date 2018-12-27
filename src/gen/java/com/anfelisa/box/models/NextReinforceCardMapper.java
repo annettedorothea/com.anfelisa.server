@@ -17,7 +17,9 @@ public class NextReinforceCardMapper implements RowMapper<INextReinforceCardMode
 			r.getString("given"),
 			r.getString("wanted"),
 			r.getString("image"),
-			r.getString("categoryId")
+			r.getString("categoryId"),
+			r.getString("userId"),
+			r.getString("boxId")
 		);
 	}
 }

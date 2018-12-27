@@ -13,7 +13,8 @@ public class RevokeUserMapper implements RowMapper<IRevokeUserModel> {
 		return new RevokeUserModel(
 			r.getString("categoryId"),
 			r.getString("rootCategoryId"),
-			r.getString("revokedUserId")
+			r.getString("revokedUserId"),
+			r.getString("userId")
 		);
 	}
 }

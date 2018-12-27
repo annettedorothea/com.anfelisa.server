@@ -8,6 +8,7 @@ public interface ICategoryDeleteModel {
 	String getCategoryId();
 	Integer getCategoryIndex();
 	String getParentCategoryId();
+	String getUserId();
 
 }
 

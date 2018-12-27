@@ -8,6 +8,7 @@ public interface ICardDeleteModel {
 	String getCardId();
 	Integer getCardIndex();
 	String getCategoryId();
+	String getUserId();
 
 }
 

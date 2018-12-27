@@ -69,16 +69,6 @@ public class DeleteUserData extends AbstractData implements IDeleteUserData {
 		return this;
 	}
 	
-
-	@Override
-	public Object toPresentationalData() {
-		return new DeleteUserPresentationalData(
-			this.usernameToBeDeleted,
-			this.username,
-			this.role
-		);
-	}
-
 }
 
 /*       S.D.G.       */

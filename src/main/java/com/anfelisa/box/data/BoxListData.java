@@ -69,15 +69,6 @@ public class BoxListData extends AbstractData implements IBoxListData {
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new BoxListPresentationalData(
-			this.boxList,
-			this.userId,
-			this.today
-		);
-	}
-
 }
 
 /*       S.D.G.       */

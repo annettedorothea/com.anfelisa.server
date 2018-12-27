@@ -41,7 +41,7 @@ import com.anfelisa.user.data.ForgotPasswordData;
 import com.anfelisa.user.commands.ForgotPasswordCommand;
 
 @SuppressWarnings("unused")
-@Path("9")
+@Path("/users/forgot-password")
 public abstract class AbstractForgotPasswordAction extends Action<ForgotPasswordData> {
 
 	public AbstractForgotPasswordAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
@@ -72,8 +72,11 @@ public abstract class AbstractForgotPasswordAction extends Action<ForgotPassword
 			@NotNull ForgotPasswordData payload)
 			throws JsonProcessingException {
 		this.actionData = new ForgotPasswordData(payload.getUuid());
+		this.actionData.setUsername(payload.getUsername());
+		this.actionData.setLanguage(payload.getLanguage());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

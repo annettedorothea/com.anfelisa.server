@@ -36,13 +36,13 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 
-import com.anfelisa.user.data.ResetPasswordData;
+import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
 
 import com.anfelisa.user.commands.ResetPasswordCommand;
 
 @SuppressWarnings("unused")
-@Path("10")
-public abstract class AbstractResetPasswordAction extends Action<ResetPasswordData> {
+@Path("/users/resetpassword")
+public abstract class AbstractResetPasswordAction extends Action<ResetPasswordWithNewPasswordData> {
 
 	public AbstractResetPasswordAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.ResetPasswordAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -58,7 +58,7 @@ public abstract class AbstractResetPasswordAction extends Action<ResetPasswordDa
 
 	public void initActionData(String json) {
 		try {
-			this.actionData = mapper.readValue(json, ResetPasswordData.class);
+			this.actionData = mapper.readValue(json, ResetPasswordWithNewPasswordData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}
@@ -69,11 +69,14 @@ public abstract class AbstractResetPasswordAction extends Action<ResetPasswordDa
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response resetPasswordResource(
-			@NotNull ResetPasswordData payload)
+			@NotNull ResetPasswordWithNewPasswordData payload)
 			throws JsonProcessingException {
-		this.actionData = new ResetPasswordData(payload.getUuid());
+		this.actionData = new ResetPasswordWithNewPasswordData(payload.getUuid());
+		this.actionData.setPassword(payload.getPassword());
+		this.actionData.setToken(payload.getToken());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

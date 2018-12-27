@@ -11,6 +11,7 @@ public class RoleMapper implements RowMapper<IRoleModel> {
 	
 	public IRoleModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new RoleModel(
+			r.getString("username"),
 			r.getString("role")
 		);
 	}

@@ -103,18 +103,6 @@ public class ForgotPasswordData extends AbstractData implements IForgotPasswordD
 		return this;
 	}
 	
-
-	@Override
-	public Object toPresentationalData() {
-		return new ForgotPasswordPresentationalData(
-			this.token,
-			this.userId,
-			this.language,
-			this.email,
-			this.username
-		);
-	}
-
 }
 
 /*       S.D.G.       */

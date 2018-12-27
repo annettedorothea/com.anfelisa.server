@@ -14,7 +14,8 @@ public class CardUpdateMapper implements RowMapper<ICardUpdateModel> {
 			r.getString("cardId"),
 			r.getString("given"),
 			r.getString("wanted"),
-			r.getString("image")
+			r.getString("image"),
+			r.getString("userId")
 		);
 	}
 }

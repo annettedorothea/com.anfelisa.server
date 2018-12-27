@@ -87,16 +87,6 @@ public class CategoryDeleteData extends AbstractData implements ICategoryDeleteD
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new CategoryDeletePresentationalData(
-			this.categoryId,
-			this.categoryIndex,
-			this.parentCategoryId,
-			this.userId
-		);
-	}
-
 }
 
 /*       S.D.G.       */

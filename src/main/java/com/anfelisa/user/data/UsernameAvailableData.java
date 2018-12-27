@@ -52,14 +52,6 @@ public class UsernameAvailableData extends AbstractData implements IUsernameAvai
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new UsernameAvailablePresentationalData(
-			this.username,
-			this.available
-		);
-	}
-
 }
 
 /*       S.D.G.       */

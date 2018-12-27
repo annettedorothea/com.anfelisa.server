@@ -18,6 +18,12 @@ public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 
 
 	protected final void loadDataForGetRequest() {
+		if (daoProvider.getUserDao().selectByUsername(this.getDatabaseHandle().getHandle(),
+				this.actionData.getUsername()) == null) {
+			this.actionData.setAvailable(true);
+		} else {
+			this.actionData.setAvailable(false);
+		}
 	}
 
 }

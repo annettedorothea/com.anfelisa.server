@@ -8,30 +8,46 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ChangeUserRoleModel implements IChangeUserRoleModel {
 
 	@NotNull
+	private String editedUserId;
+	
+	@NotNull
+	private String newRole;
+	
+	@NotNull
 	private String userId;
 	
 	@NotNull
 	private String role;
 	
-	@NotNull
-	private String authUserId;
-	
-	@NotNull
-	private String authRole;
-	
 
 	public ChangeUserRoleModel(
+		@JsonProperty("editedUserId") String editedUserId,
+		@JsonProperty("newRole") String newRole,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("role") String role,
-		@JsonProperty("authUserId") String authUserId,
-		@JsonProperty("authRole") String authRole
+		@JsonProperty("role") String role
 	) {
+		this.editedUserId = editedUserId;
+		this.newRole = newRole;
 		this.userId = userId;
 		this.role = role;
-		this.authUserId = authUserId;
-		this.authRole = authRole;
 	}
 
+	@JsonProperty
+	public String getEditedUserId() {
+		return this.editedUserId;
+	}
+	public void setEditedUserId(String editedUserId) {
+		this.editedUserId = editedUserId;
+	}
+	
+	@JsonProperty
+	public String getNewRole() {
+		return this.newRole;
+	}
+	public void setNewRole(String newRole) {
+		this.newRole = newRole;
+	}
+	
 	@JsonProperty
 	public String getUserId() {
 		return this.userId;
@@ -46,22 +62,6 @@ public class ChangeUserRoleModel implements IChangeUserRoleModel {
 	}
 	public void setRole(String role) {
 		this.role = role;
-	}
-	
-	@JsonProperty
-	public String getAuthUserId() {
-		return this.authUserId;
-	}
-	public void setAuthUserId(String authUserId) {
-		this.authUserId = authUserId;
-	}
-	
-	@JsonProperty
-	public String getAuthRole() {
-		return this.authRole;
-	}
-	public void setAuthRole(String authRole) {
-		this.authRole = authRole;
 	}
 	
 

@@ -35,12 +35,13 @@ import com.anfelisa.ace.ICommand;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import com.anfelisa.auth.AuthUser;
 
 import com.anfelisa.category.data.CategoryTreeData;
 
 
 @SuppressWarnings("unused")
-@Path("/GetCategoryTree")
+@Path("/category/tree")
 public abstract class AbstractGetCategoryTreeAction extends Action<CategoryTreeData> {
 
 	public AbstractGetCategoryTreeAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
@@ -66,10 +67,16 @@ public abstract class AbstractGetCategoryTreeAction extends Action<CategoryTreeD
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getCategoryTreeResource(
-			@NotNull CategoryTreeData payload)
+			@Auth AuthUser authUser, 
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new CategoryTreeData(payload.getUuid());
+		this.actionData = new CategoryTreeData(uuid);
+		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
+	}
+
+	protected Object createReponse() {
+		return new com.anfelisa.category.data.GetCategoryTreeResponse(this.actionData);
 	}
 }
 

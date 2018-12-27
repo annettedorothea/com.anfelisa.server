@@ -118,18 +118,6 @@ public class CategoryUpdateData extends AbstractData implements ICategoryUpdateD
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new CategoryUpdatePresentationalData(
-			this.categoryId,
-			this.categoryName,
-			this.dictionaryLookup,
-			this.givenLanguage,
-			this.wantedLanguage,
-			this.userId
-		);
-	}
-
 }
 
 /*       S.D.G.       */

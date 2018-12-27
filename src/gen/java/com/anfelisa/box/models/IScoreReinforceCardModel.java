@@ -8,6 +8,7 @@ public interface IScoreReinforceCardModel {
 	String getReinforceCardId();
 	Integer getQuality();
 	org.joda.time.DateTime getChangeDate();
+	String getUserId();
 
 }
 

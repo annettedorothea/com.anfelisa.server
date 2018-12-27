@@ -71,13 +71,17 @@ public abstract class AbstractGetTranslationAction extends Action<CardTranslatio
 			@QueryParam("sourceValue") String sourceValue, 
 			@QueryParam("sourceLanguage") String sourceLanguage, 
 			@QueryParam("targetLanguage") String targetLanguage, 
-			@NotNull CardTranslationData payload)
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new CardTranslationData(payload.getUuid());
+		this.actionData = new CardTranslationData(uuid);
 		this.actionData.setSourceValue(sourceValue);
 		this.actionData.setSourceLanguage(sourceLanguage);
 		this.actionData.setTargetLanguage(targetLanguage);
 		return this.apply();
+	}
+
+	protected Object createReponse() {
+		return new com.anfelisa.card.data.GetTranslationResponse(this.actionData);
 	}
 }
 

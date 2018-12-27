@@ -87,16 +87,6 @@ public class PostponeCardsData extends AbstractData implements IPostponeCardsDat
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new PostponeCardsPresentationalData(
-			this.boxId,
-			this.userId,
-			this.days,
-			this.today
-		);
-	}
-
 }
 
 /*       S.D.G.       */

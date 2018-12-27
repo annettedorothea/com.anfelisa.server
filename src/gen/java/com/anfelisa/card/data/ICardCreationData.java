@@ -4,12 +4,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.card.models.ICardModel;
-import com.anfelisa.user.models.IUserIdModel;
-import com.anfelisa.user.models.IUsernameModel;
+import com.anfelisa.card.models.ICardCreationModel;
 
 @JsonDeserialize(as=CardCreationData.class)
-public interface ICardCreationData extends ICardModel, IUserIdModel, IUsernameModel, IDataContainer {
+public interface ICardCreationData extends ICardCreationModel, IDataContainer {
 
 }
 

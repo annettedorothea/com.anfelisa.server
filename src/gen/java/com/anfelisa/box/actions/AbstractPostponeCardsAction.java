@@ -78,6 +78,7 @@ public abstract class AbstractPostponeCardsAction extends Action<PostponeCardsDa
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

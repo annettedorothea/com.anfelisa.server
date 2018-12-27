@@ -19,19 +19,23 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	
 	private String wantedLanguage;
 	
+	private String userId;
+	
 
 	public CategoryUpdateModel(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
-		@JsonProperty("wantedLanguage") String wantedLanguage
+		@JsonProperty("wantedLanguage") String wantedLanguage,
+		@JsonProperty("userId") String userId
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
+		this.userId = userId;
 	}
 
 	@JsonProperty
@@ -72,6 +76,14 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	}
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 

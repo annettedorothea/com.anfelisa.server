@@ -87,16 +87,6 @@ public class ScoreReinforceCardData extends AbstractData implements IScoreReinfo
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new ScoreReinforceCardPresentationalData(
-			this.userId,
-			this.reinforceCardId,
-			this.quality,
-			this.changeDate
-		);
-	}
-
 }
 
 /*       S.D.G.       */

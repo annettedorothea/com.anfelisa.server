@@ -70,13 +70,17 @@ public abstract class AbstractLoadNextCardAction extends Action<NextCardData> {
 			@Auth AuthUser authUser, 
 			@QueryParam("boxId") String boxId, 
 			@QueryParam("today") String today, 
-			@NotNull NextCardData payload)
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new NextCardData(payload.getUuid());
+		this.actionData = new NextCardData(uuid);
 		this.actionData.setBoxId(boxId);
 		this.actionData.setToday(new DateTime(today).withZone(DateTimeZone.UTC));
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
+	}
+
+	protected Object createReponse() {
+		return new com.anfelisa.box.data.LoadNextCardResponse(this.actionData);
 	}
 }
 

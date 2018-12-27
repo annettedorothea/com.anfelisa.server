@@ -7,11 +7,11 @@ import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.box.data.BoxCreationData;
+import com.anfelisa.box.data.BoxData;
 
-public class CreateBoxOkEvent extends Event<BoxCreationData> {
+public class CreateBoxOkEvent extends Event<BoxData> {
 
-	public CreateBoxOkEvent(BoxCreationData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public CreateBoxOkEvent(BoxData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.events.CreateBoxOkEvent", eventData, databaseHandle, daoProvider, viewProvider);
 	}
 	
@@ -21,7 +21,7 @@ public class CreateBoxOkEvent extends Event<BoxCreationData> {
 	
 	public void initEventData(String json) {
 		try {
-			this.eventData = mapper.readValue(json, BoxCreationData.class);
+			this.eventData = mapper.readValue(json, BoxData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

@@ -16,15 +16,19 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 	@NotNull
 	private org.joda.time.DateTime changeDate;
 	
+	private String userId;
+	
 
 	public ScoreReinforceCardModel(
 		@JsonProperty("reinforceCardId") String reinforceCardId,
 		@JsonProperty("quality") Integer quality,
-		@JsonProperty("changeDate") org.joda.time.DateTime changeDate
+		@JsonProperty("changeDate") org.joda.time.DateTime changeDate,
+		@JsonProperty("userId") String userId
 	) {
 		this.reinforceCardId = reinforceCardId;
 		this.quality = quality;
 		this.changeDate = changeDate;
+		this.userId = userId;
 	}
 
 	@JsonProperty
@@ -49,6 +53,14 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 	}
 	public void setChangeDate(org.joda.time.DateTime changeDate) {
 		this.changeDate = changeDate;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 

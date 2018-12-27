@@ -5,47 +5,49 @@ com.anfelisa.card
 import com.anfelisa.user.AuthUser
 
 ACE 
-	CreateCard
+	CreateCard<CardCreation>
 		POST "/card/create" 
 		authorize 
 		payload 
-			Card.given 
-			Card.wanted 
-			Card.cardIndex 
-			Card.categoryId 
-			Card.image
-		uses CardCreation
+			wanted
+			given
+			image
+			cardIndex
+			categoryId
 		on ok (Card.insert)
 	
-	UpdateCard
+	UpdateCard<CardUpdate>
 		PUT "/card/update" 
 		authorize 
 		payload 
-			CardUpdate.cardId
-			CardUpdate.given
-			CardUpdate.image
-			CardUpdate.wanted
-		uses CardUpdate 
+			cardId
+			given
+			image
+			wanted
 		on ok (Card.update)
 	
-	DeleteCard
+	DeleteCard<CardDelete>
 		DELETE "/card/delete"
 		authorize 
-		queryParams CardDelete.cardId
-		uses CardDelete 
+		queryParams cardId
 		on ok (Card.delete)
 	
-	GetDuplicates
+	GetDuplicates<CardSearch>
 		GET "/cards/search"  
 		authorize
-		queryParams CardSearch.given CardSearch.wanted CardSearch.naturalInputOrder CardSearch.categoryId
-		uses CardSearch
+		queryParams 
+			given 
+			wanted 
+			naturalInputOrder 
+			categoryId
 		
-	GetTranslation
+	GetTranslation<CardTranslation>
 		GET "/card/translation" 
 		authorize 
-		queryParams CardTranslation.sourceValue CardTranslation.sourceLanguage CardTranslation.targetLanguage
-		uses CardTranslation
+		queryParams 
+			sourceValue 
+			sourceLanguage 
+			targetLanguage
 
 views 
 	Card {
@@ -75,12 +77,14 @@ models
 		NotEmpty String given
 		NotEmpty String wanted
 		String image
+		String userId
 	}
 	
 	CardDelete {
 		NotNull String cardId
 		NotNull Integer cardIndex
 		NotNull String categoryId
+		String userId
 	}
 	CardSearch {
 		NotNull String given
@@ -95,12 +99,10 @@ models
 		NotEmpty String sourceLanguage
 		NotEmpty String targetLanguage
 	}
-
-data 
-	CardCreation : ( Card com.anfelisa.user.UserId com.anfelisa.user.Username )
-	CardUpdate : ( CardUpdate com.anfelisa.user.UserId )
-	CardDelete : ( CardDelete com.anfelisa.user.UserId )
-	CardSearch : (CardSearch )
-	CardTranslation : (CardTranslation)
+	
+	CardCreation extends Card {
+		String userId
+		String username
+	}
 
 

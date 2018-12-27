@@ -7,13 +7,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.user.data.ResetPasswordData;
+import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
 
-public abstract class AbstractResetPasswordCommand extends Command<ResetPasswordData> {
+public abstract class AbstractResetPasswordCommand extends Command<ResetPasswordWithNewPasswordData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractResetPasswordCommand(ResetPasswordData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractResetPasswordCommand(ResetPasswordWithNewPasswordData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.ResetPasswordCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
@@ -34,7 +34,7 @@ public abstract class AbstractResetPasswordCommand extends Command<ResetPassword
 	
 	public void initCommandData(String json) {
 		try {
-			this.commandData = mapper.readValue(json, ResetPasswordData.class);
+			this.commandData = mapper.readValue(json, ResetPasswordWithNewPasswordData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

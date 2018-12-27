@@ -155,20 +155,6 @@ public class UserRegistrationData extends AbstractData implements IUserRegistrat
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new UserRegistrationPresentationalData(
-			this.userId,
-			this.username,
-			this.password,
-			this.email,
-			this.role,
-			this.emailConfirmed,
-			this.language,
-			this.token
-		);
-	}
-
 }
 
 /*       S.D.G.       */

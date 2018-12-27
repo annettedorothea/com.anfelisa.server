@@ -69,15 +69,6 @@ public class BoxUpdateData extends AbstractData implements IBoxUpdateData {
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new BoxUpdatePresentationalData(
-			this.userId,
-			this.boxId,
-			this.maxInterval
-		);
-	}
-
 }
 
 /*       S.D.G.       */

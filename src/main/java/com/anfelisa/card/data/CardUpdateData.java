@@ -104,18 +104,6 @@ public class CardUpdateData extends AbstractData implements ICardUpdateData {
 		return this;
 	}
 	
-
-	@Override
-	public Object toPresentationalData() {
-		return new CardUpdatePresentationalData(
-			this.cardId,
-			this.given,
-			this.wanted,
-			this.image,
-			this.userId
-		);
-	}
-
 }
 
 /*       S.D.G.       */

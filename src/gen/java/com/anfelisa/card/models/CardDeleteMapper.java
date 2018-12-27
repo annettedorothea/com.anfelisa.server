@@ -13,7 +13,8 @@ public class CardDeleteMapper implements RowMapper<ICardDeleteModel> {
 		return new CardDeleteModel(
 			r.getString("cardId"),
 			r.getObject("cardIndex") != null ? r.getInt("cardIndex") : null,
-			r.getString("categoryId")
+			r.getString("categoryId"),
+			r.getString("userId")
 		);
 	}
 }

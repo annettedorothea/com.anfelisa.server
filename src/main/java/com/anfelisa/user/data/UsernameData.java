@@ -36,13 +36,6 @@ public class UsernameData extends AbstractData implements IUsernameData {
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new UsernamePresentationalData(
-			this.username
-		);
-	}
-
 }
 
 /*       S.D.G.       */

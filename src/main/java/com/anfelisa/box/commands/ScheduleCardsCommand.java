@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.box.data.ScheduleCardsData;
+import com.anfelisa.box.data.ScheduledCardsData;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.ScheduledCardModel;
@@ -20,7 +20,7 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScheduleCardsCommand.class);
 
-	public ScheduleCardsCommand(ScheduleCardsData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
+	public ScheduleCardsCommand(ScheduledCardsData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
 		super(commandData, databaseHandle, daoProvider, viewProvider);
 	}

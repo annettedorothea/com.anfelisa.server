@@ -234,13 +234,6 @@ public class CardCreationData extends AbstractData implements ICardCreationData 
 		this.username = username;
 		return this;
 	}
-	
-	@Override
-	public Object toPresentationalData() {
-		return new CardCreationPresentationalData(this.cardId, this.given, this.wanted, this.image, this.cardAuthor,
-				this.cardIndex, this.categoryId, this.rootCategoryId, this.path, this.userId, this.username);
-	}
-
 }
 
 /* S.D.G. */

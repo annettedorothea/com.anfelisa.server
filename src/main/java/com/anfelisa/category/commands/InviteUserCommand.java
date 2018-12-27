@@ -30,7 +30,7 @@ public class InviteUserCommand extends AbstractInviteUserCommand {
 		if (access == null) {
 			throwUnauthorized();
 		}
-		IUserModel invitedUser = this.daoProvider.getUserDao().selectByUsername(getHandle(),  commandData.getUsername());
+		IUserModel invitedUser = this.daoProvider.getUserDao().selectByUsername(getHandle(), commandData.getInvitedUsername());
 		if (invitedUser == null) {
 			throwBadRequest("userDoesNotExist");
 		}

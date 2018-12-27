@@ -265,25 +265,6 @@ public class CategoryCreationData extends AbstractData implements ICategoryCreat
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new CategoryCreationPresentationalData(
-			this.categoryId,
-			this.categoryName,
-			this.categoryAuthor,
-			this.categoryIndex,
-			this.parentCategoryId,
-			this.rootCategoryId,
-			this.dictionaryLookup,
-			this.givenLanguage,
-			this.wantedLanguage,
-			this.path,
-			this.publicRootCategory,
-			this.userId,
-			this.username
-		);
-	}
-
 }
 
 /*       S.D.G.       */

@@ -8,6 +8,7 @@ public interface IRevokeUserModel {
 	String getCategoryId();
 	String getRootCategoryId();
 	String getRevokedUserId();
+	String getUserId();
 
 }
 

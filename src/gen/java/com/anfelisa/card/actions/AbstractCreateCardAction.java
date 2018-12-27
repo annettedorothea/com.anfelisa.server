@@ -74,15 +74,16 @@ public abstract class AbstractCreateCardAction extends Action<CardCreationData> 
 			@NotNull CardCreationData payload)
 			throws JsonProcessingException {
 		this.actionData = new CardCreationData(payload.getUuid());
-		this.actionData.setGiven(payload.getGiven());
 		this.actionData.setWanted(payload.getWanted());
+		this.actionData.setGiven(payload.getGiven());
+		this.actionData.setImage(payload.getImage());
 		this.actionData.setCardIndex(payload.getCardIndex());
 		this.actionData.setCategoryId(payload.getCategoryId());
-		this.actionData.setImage(payload.getImage());
 		this.actionData.setUserId(authUser.getUserId());
 		this.actionData.setUsername(authUser.getUsername());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

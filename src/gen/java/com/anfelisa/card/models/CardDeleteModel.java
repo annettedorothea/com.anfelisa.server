@@ -16,15 +16,19 @@ public class CardDeleteModel implements ICardDeleteModel {
 	@NotNull
 	private String categoryId;
 	
+	private String userId;
+	
 
 	public CardDeleteModel(
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("cardIndex") Integer cardIndex,
-		@JsonProperty("categoryId") String categoryId
+		@JsonProperty("categoryId") String categoryId,
+		@JsonProperty("userId") String userId
 	) {
 		this.cardId = cardId;
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
+		this.userId = userId;
 	}
 
 	@JsonProperty
@@ -49,6 +53,14 @@ public class CardDeleteModel implements ICardDeleteModel {
 	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 

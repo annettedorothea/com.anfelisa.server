@@ -7,15 +7,27 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class RoleModel implements IRoleModel {
 
+	private String username;
+	
 	private String role;
 	
 
 	public RoleModel(
+		@JsonProperty("username") String username,
 		@JsonProperty("role") String role
 	) {
+		this.username = username;
 		this.role = role;
 	}
 
+	@JsonProperty
+	public String getUsername() {
+		return this.username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
 	@JsonProperty
 	public String getRole() {
 		return this.role;

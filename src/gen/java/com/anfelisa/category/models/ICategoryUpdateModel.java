@@ -10,6 +10,7 @@ public interface ICategoryUpdateModel {
 	Boolean getDictionaryLookup();
 	String getGivenLanguage();
 	String getWantedLanguage();
+	String getUserId();
 
 }
 

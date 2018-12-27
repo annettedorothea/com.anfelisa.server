@@ -13,7 +13,8 @@ public class CategoryDeleteMapper implements RowMapper<ICategoryDeleteModel> {
 		return new CategoryDeleteModel(
 			r.getString("categoryId"),
 			r.getObject("categoryIndex") != null ? r.getInt("categoryIndex") : null,
-			r.getString("parentCategoryId")
+			r.getString("parentCategoryId"),
+			r.getString("userId")
 		);
 	}
 }

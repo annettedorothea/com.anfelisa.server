@@ -7,14 +7,14 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.user.data.EmailConfirmationData;
+import com.anfelisa.user.data.ConfirmEmailData;
 
-public abstract class AbstractConfirmEmailCommand extends Command<EmailConfirmationData> {
+public abstract class AbstractConfirmEmailCommand extends Command<ConfirmEmailData> {
 
 	protected static final String ok = "ok";
 	protected static final String alreadyConfirmed = "alreadyConfirmed";
 
-	public AbstractConfirmEmailCommand(EmailConfirmationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractConfirmEmailCommand(ConfirmEmailData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.ConfirmEmailCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
@@ -37,7 +37,7 @@ public abstract class AbstractConfirmEmailCommand extends Command<EmailConfirmat
 	
 	public void initCommandData(String json) {
 		try {
-			this.commandData = mapper.readValue(json, EmailConfirmationData.class);
+			this.commandData = mapper.readValue(json, ConfirmEmailData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

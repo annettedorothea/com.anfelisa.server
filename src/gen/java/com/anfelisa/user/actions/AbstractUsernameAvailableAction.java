@@ -67,11 +67,15 @@ public abstract class AbstractUsernameAvailableAction extends Action<UsernameAva
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response usernameAvailableResource(
 			@QueryParam("username") String username, 
-			@NotNull UsernameAvailableData payload)
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new UsernameAvailableData(payload.getUuid());
+		this.actionData = new UsernameAvailableData(uuid);
 		this.actionData.setUsername(username);
 		return this.apply();
+	}
+
+	protected Object createReponse() {
+		return new com.anfelisa.user.data.UsernameAvailableResponse(this.actionData);
 	}
 }
 

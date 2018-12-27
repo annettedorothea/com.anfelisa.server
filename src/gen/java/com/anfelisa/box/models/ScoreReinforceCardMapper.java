@@ -13,7 +13,8 @@ public class ScoreReinforceCardMapper implements RowMapper<IScoreReinforceCardMo
 		return new ScoreReinforceCardModel(
 			r.getString("reinforceCardId"),
 			r.getObject("quality") != null ? r.getInt("quality") : null,
-			r.getTimestamp("changeDate") != null ? new org.joda.time.DateTime(r.getTimestamp("changeDate")) : null
+			r.getTimestamp("changeDate") != null ? new org.joda.time.DateTime(r.getTimestamp("changeDate")) : null,
+			r.getString("userId")
 		);
 	}
 }

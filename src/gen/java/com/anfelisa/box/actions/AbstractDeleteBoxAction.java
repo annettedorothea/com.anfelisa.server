@@ -72,13 +72,14 @@ public abstract class AbstractDeleteBoxAction extends Action<DeleteBoxData> {
 	public Response deleteBoxResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("boxId") String boxId, 
-			@NotNull DeleteBoxData payload)
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new DeleteBoxData(payload.getUuid());
+		this.actionData = new DeleteBoxData(uuid);
 		this.actionData.setBoxId(boxId);
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

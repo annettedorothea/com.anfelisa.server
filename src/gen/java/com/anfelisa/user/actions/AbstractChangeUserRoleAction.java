@@ -42,7 +42,7 @@ import com.anfelisa.user.data.ChangeUserRoleData;
 import com.anfelisa.user.commands.ChangeUserRoleCommand;
 
 @SuppressWarnings("unused")
-@Path("13")
+@Path("/user/role")
 public abstract class AbstractChangeUserRoleAction extends Action<ChangeUserRoleData> {
 
 	public AbstractChangeUserRoleAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
@@ -74,10 +74,13 @@ public abstract class AbstractChangeUserRoleAction extends Action<ChangeUserRole
 			@NotNull ChangeUserRoleData payload)
 			throws JsonProcessingException {
 		this.actionData = new ChangeUserRoleData(payload.getUuid());
+		this.actionData.setNewRole(payload.getNewRole());
+		this.actionData.setEditedUserId(payload.getEditedUserId());
 		this.actionData.setUserId(authUser.getUserId());
 		this.actionData.setRole(authUser.getRole());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

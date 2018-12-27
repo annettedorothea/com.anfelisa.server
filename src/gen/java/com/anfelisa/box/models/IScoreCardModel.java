@@ -19,6 +19,8 @@ public interface IScoreCardModel {
 	org.joda.time.DateTime getScoredCardScoredDate();
 	String getReinforceCardId();
 	org.joda.time.DateTime getReinforceCardCreatedDate();
+	String getUserId();
+	String getBoxId();
 
 }
 

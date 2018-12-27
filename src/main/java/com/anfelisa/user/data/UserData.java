@@ -121,17 +121,6 @@ public class UserData extends AbstractData implements IUserData {
 	}
 	
 
-	@Override
-	public Object toPresentationalData() {
-		return new UserPresentationalData(
-			this.userId,
-			this.username,
-			this.password,
-			this.email,
-			this.role,
-			this.emailConfirmed
-		);
-	}
 
 }
 

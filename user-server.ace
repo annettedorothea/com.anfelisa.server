@@ -10,85 +10,93 @@ Authorization AuthUser {
 }
 
 ACE 
-	GetUserProfile 
+	GetUserProfile<User>
 		GET "user/get" 
 		authorize 
-		uses User
 	
-	UsernameAvailable 
+	UsernameAvailable<UsernameAvailable>
 		GET "/users/username" 
-		queryParams Username.username
-		uses UsernameAvailable
+		queryParams username
+		response available
 	
-	GetRole 
-		GET "7"  
-		uses Role
+	GetRole <Role>
+		GET "/user/role"
+		authorize 
+		response role 
 		
-	GetAllUsers 
-		GET "8"  
-		uses UserList
+	GetAllUsers<UserList>
+		GET "/users/all" 
+		authorize
+		response userList
 
-	ForgotPassword 
-		POST "9"  
-		uses ForgotPassword 
+	ForgotPassword<ForgotPassword>
+		POST "/users/forgot-password" 
+		payload  username language
 		on ok ( ResetPassword.insert Email.sendForgotPasswordEmail)
 		on doesNotExist
 	
-	ResetPassword
-		PUT "10"  
-		uses ResetPassword 
+	ResetPassword<ResetPasswordWithNewPassword>
+		PUT "/users/resetpassword"
+		payload 
+			password
+			token 
 		on ok (User.resetPassword ResetPassword.delete)
 	
-	RegisterUser
-		POST "11"  
-		uses UserRegistration 
+	RegisterUser<UserRegistration>
+		POST "/users/register"
+		payload 
+			password
+			username
+			email
+			language
+			token
 		on ok (User.registerUser EmailConfirmation.insert Email.sendRegistrationEmail)
 	
-	ConfirmEmail
-		PUT "12" 
-		 uses EmailConfirmation 
+	ConfirmEmail<ConfirmEmail>
+		PUT "/users/confirm" 
+		payload 
+			token
+			username
 		on ok (User.confirmEmail EmailConfirmation.delete)
 		on alreadyConfirmed
 	
-	ChangeUserRole
-		PUT "13" 
-		authorize  
-		uses ChangeUserRole 
+	ChangeUserRole<ChangeUserRole>
+		PUT "/user/role" 
+		authorize
+			payload 
+				newRole
+				editedUserId
 		on ok (User.changeUserRole)
 	
-	DeleteUser 
-		DELETE "14"  
-		uses DeleteUser 
+	DeleteUser <DeleteUser>
+		DELETE "/user/delete"  
+		authorize
+		queryParams usernameToBeDeleted
 		on ok (User.deleteUser)
 	
-
 views 
 	User {
 		registerUser(UserRegistration)
 		confirmEmail(EmailConfirmation)
 		changeUserRole(ChangeUserRole)
 		deleteUser(Username)
-		resetPassword(ResetPassword)
-		
-		}
+		resetPassword(ResetPasswordWithNewPassword)
+	}
 	
 	EmailConfirmation { 
 		insert(UserRegistration)
 		delete(EmailConfirmation)
-		
-		}
+	}
 	
 	ResetPassword { 
 		insert(ForgotPassword)
-		delete(ResetPassword)
-		
-		}
+		delete(ResetPasswordWithNewPassword)
+	}
 	
 	external Email { 
 		sendForgotPasswordEmail(ForgotPassword)
 		sendRegistrationEmail(UserRegistration)
-		
-		}
+	}
 	
 
 models 
@@ -113,13 +121,10 @@ models
 		NotNull String userId
 	}
 	
-	Credentials {
+	Role {
 		String username
 		String role
 	} 
-	Role {
-		String role
-	}
 	Username {
 		NotNull String username
 	} 
@@ -142,27 +147,41 @@ models
 	}
 	UserList {
 		List User userList
+		String role
 	}
 	Password {
 		String password
 	}
 	ChangeUserRole {
+		NotNull String editedUserId
+		NotNull String newRole
 		NotNull String userId
 		NotNull String role
-		NotNull String authUserId
-		NotNull String authRole
+	} 
+	
+	UsernameAvailable {
+		NotNull String username
+		Boolean available
+	}
+	
+	ForgotPassword extends ResetPassword {
+		NotNull String language
+		NotNull String email
+		NotNull String username
 	}
 
-data 
-	User : ( User )
-	ForgotPassword : (ResetPassword Language Email Username)
-	UsernameAvailable : (Username Available)
-	UserRegistration : (User Language EmailConfirmation)
-	DeleteUser : ( DeleteUser )
-	Username : (Username)
-	ChangeUserRole : (ChangeUserRole)
-	Role : (Credentials)
-	UserList : (UserList)
-	EmailConfirmation: (EmailConfirmation Username)
-	ResetPassword: (ResetPassword Password)
+	ResetPasswordWithNewPassword extends ResetPassword {
+		NotNull String password
+	}
+	
+	UserRegistration extends User, EmailConfirmation {
+		NotNull String language
+		NotNull String token
+	}
+	
+	ConfirmEmail extends EmailConfirmation {
+		String username
+	}
+
+
 

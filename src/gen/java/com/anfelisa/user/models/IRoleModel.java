@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=RoleModel.class)
 public interface IRoleModel {
 
+	String getUsername();
 	String getRole();
 
 }

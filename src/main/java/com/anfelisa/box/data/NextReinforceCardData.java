@@ -165,22 +165,7 @@ public class NextReinforceCardData extends AbstractData implements INextReinforc
 		this.boxId = boxId;
 		return this;
 	}
-	
 
-	@Override
-	public Object toPresentationalData() {
-		return new NextReinforceCardPresentationalData(
-			this.userId,
-			this.reinforceCardId,
-			this.changeDate,
-			this.lastQuality,
-			this.given,
-			this.wanted,
-			this.image,
-			this.categoryId,
-			this.boxId
-		);
-	}
 
 }
 

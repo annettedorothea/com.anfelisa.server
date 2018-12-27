@@ -9,6 +9,7 @@ public interface ICardUpdateModel {
 	String getGiven();
 	String getWanted();
 	String getImage();
+	String getUserId();
 
 }
 

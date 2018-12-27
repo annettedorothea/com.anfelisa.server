@@ -9,11 +9,15 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 
 	private java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList;
 	
+	private String userId;
+	
 
 	public CategoryTreeModel(
-		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList
+		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList,
+		@JsonProperty("userId") String userId
 	) {
 		this.categoryList = categoryList;
+		this.userId = userId;
 	}
 
 	@JsonProperty
@@ -22,6 +26,14 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	}
 	public void setCategoryList(java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList) {
 		this.categoryList = categoryList;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 

@@ -6,7 +6,7 @@ import java.util.function.BiConsumer;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.box.data.BoxCreationData;
+import com.anfelisa.box.data.BoxData;
 import com.anfelisa.box.data.BoxUpdateData;
 import com.anfelisa.box.data.DeleteBoxData;
 import com.anfelisa.box.data.ScheduleCardData;
@@ -22,7 +22,7 @@ public class BoxView {
 		this.daoProvider = daoProvider;
 	}
 
-	public BiConsumer<BoxCreationData, Handle> createBox = (dataContainer, handle) -> {
+	public BiConsumer<BoxData, Handle> createBox = (dataContainer, handle) -> {
 		daoProvider.getBoxDao().insert(handle, dataContainer);
 	};
 

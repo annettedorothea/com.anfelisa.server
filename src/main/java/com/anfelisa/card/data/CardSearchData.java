@@ -99,18 +99,6 @@ public class CardSearchData extends AbstractData implements ICardSearchData {
 		this.naturalInputOrder = naturalInputOrder;
 		return this;
 	}
-	
-
-	@Override
-	public Object toPresentationalData() {
-		return new CardSearchPresentationalData(
-			this.given,
-			this.wanted,
-			this.categoryId,
-			this.cardList,
-			this.naturalInputOrder
-		);
-	}
 
 }
 

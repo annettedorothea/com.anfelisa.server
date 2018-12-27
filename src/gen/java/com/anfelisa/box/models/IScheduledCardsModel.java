@@ -9,6 +9,8 @@ public interface IScheduledCardsModel {
 	java.util.List<String> getExistingScheduledCardIds();
 	java.util.List<String> getCardIds();
 	org.joda.time.DateTime getScheduledDate();
+	String getUserId();
+	String getBoxId();
 
 }
 

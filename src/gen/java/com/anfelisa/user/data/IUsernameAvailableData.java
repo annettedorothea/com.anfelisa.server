@@ -4,11 +4,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.user.models.IUsernameModel;
-import com.anfelisa.user.models.IAvailableModel;
+import com.anfelisa.user.models.IUsernameAvailableModel;
 
 @JsonDeserialize(as=UsernameAvailableData.class)
-public interface IUsernameAvailableData extends IUsernameModel, IAvailableModel, IDataContainer {
+public interface IUsernameAvailableData extends IUsernameAvailableModel, IDataContainer {
 
 }
 

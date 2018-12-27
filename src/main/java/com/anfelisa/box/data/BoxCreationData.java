@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import com.anfelisa.ace.AbstractData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class BoxCreationData extends AbstractData implements IBoxCreationData {
+public class BoxCreationData extends AbstractData implements IBoxData {
 	
 	@NotNull
 	private String boxId;
@@ -17,7 +17,6 @@ public class BoxCreationData extends AbstractData implements IBoxCreationData {
 	private String categoryId;
 	
 	private Integer maxInterval;
-	
 
 	public BoxCreationData(
 		@JsonProperty("boxId") String boxId,
@@ -85,17 +84,6 @@ public class BoxCreationData extends AbstractData implements IBoxCreationData {
 		return this;
 	}
 	
-
-	@Override
-	public Object toPresentationalData() {
-		return new BoxCreationPresentationalData(
-			this.boxId,
-			this.userId,
-			this.categoryId,
-			this.maxInterval
-		);
-	}
-
 }
 
 /*       S.D.G.       */

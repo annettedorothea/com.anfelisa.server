@@ -16,8 +16,11 @@ public class InviteUserData extends AbstractData implements IInviteUserData {
 	@NotNull
 	private String invitedUserId;
 	
+	//@NotNull
+	//private String username;
+	
 	@NotNull
-	private String username;
+	private String invitedUsername;
 	
 	@NotNull
 	private String userId;
@@ -27,7 +30,7 @@ public class InviteUserData extends AbstractData implements IInviteUserData {
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("invitedUserId") String invitedUserId,
-		@JsonProperty("username") String username,
+		@JsonProperty("invitedUsername") String invitedUsername,
 		@JsonProperty("userId") String userId
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -35,7 +38,7 @@ public class InviteUserData extends AbstractData implements IInviteUserData {
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
 		this.invitedUserId = invitedUserId;
-		this.username = username;
+		this.invitedUsername = invitedUsername;
 		this.userId = userId;
 	}
 
@@ -80,15 +83,11 @@ public class InviteUserData extends AbstractData implements IInviteUserData {
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
+	public String getInvitedUsername() {
+		return this.invitedUsername;
 	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public InviteUserData withUsername(String username) {
-		this.username = username;
-		return this;
+	public void setInvitedUsername(String invitedUsername) {
+		this.invitedUsername = invitedUsername;
 	}
 	
 	@JsonProperty
@@ -103,17 +102,6 @@ public class InviteUserData extends AbstractData implements IInviteUserData {
 		return this;
 	}
 	
-
-	@Override
-	public Object toPresentationalData() {
-		return new InviteUserPresentationalData(
-			this.categoryId,
-			this.rootCategoryId,
-			this.invitedUserId,
-			this.username,
-			this.userId
-		);
-	}
 
 }
 

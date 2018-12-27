@@ -7,13 +7,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.box.data.ScheduleCardData;
+import com.anfelisa.box.data.ScheduleNextCardData;
 
-public abstract class AbstractScheduleNextCardCommand extends Command<ScheduleCardData> {
+public abstract class AbstractScheduleNextCardCommand extends Command<ScheduleNextCardData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractScheduleNextCardCommand(ScheduleCardData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractScheduleNextCardCommand(ScheduleNextCardData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.ScheduleNextCardCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 
@@ -34,7 +34,7 @@ public abstract class AbstractScheduleNextCardCommand extends Command<ScheduleCa
 	
 	public void initCommandData(String json) {
 		try {
-			this.commandData = mapper.readValue(json, ScheduleCardData.class);
+			this.commandData = mapper.readValue(json, ScheduleNextCardData.class);
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		}

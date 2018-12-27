@@ -16,15 +16,19 @@ public class CategoryDeleteModel implements ICategoryDeleteModel {
 	@NotNull
 	private String parentCategoryId;
 	
+	private String userId;
+	
 
 	public CategoryDeleteModel(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryIndex") Integer categoryIndex,
-		@JsonProperty("parentCategoryId") String parentCategoryId
+		@JsonProperty("parentCategoryId") String parentCategoryId,
+		@JsonProperty("userId") String userId
 	) {
 		this.categoryId = categoryId;
 		this.categoryIndex = categoryIndex;
 		this.parentCategoryId = parentCategoryId;
+		this.userId = userId;
 	}
 
 	@JsonProperty
@@ -49,6 +53,14 @@ public class CategoryDeleteModel implements ICategoryDeleteModel {
 	}
 	public void setParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 

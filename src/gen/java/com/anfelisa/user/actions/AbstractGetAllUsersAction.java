@@ -35,12 +35,13 @@ import com.anfelisa.ace.ICommand;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import com.anfelisa.auth.AuthUser;
 
 import com.anfelisa.user.data.UserListData;
 
 
 @SuppressWarnings("unused")
-@Path("8")
+@Path("/users/all")
 public abstract class AbstractGetAllUsersAction extends Action<UserListData> {
 
 	public AbstractGetAllUsersAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
@@ -66,10 +67,16 @@ public abstract class AbstractGetAllUsersAction extends Action<UserListData> {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getAllUsersResource(
-			@NotNull UserListData payload)
+			@Auth AuthUser authUser, 
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new UserListData(payload.getUuid());
+		this.actionData = new UserListData(uuid);
+		this.actionData.setRole(authUser.getRole());
 		return this.apply();
+	}
+
+	protected Object createReponse() {
+		return new com.anfelisa.user.data.GetAllUsersResponse(this.actionData);
 	}
 }
 

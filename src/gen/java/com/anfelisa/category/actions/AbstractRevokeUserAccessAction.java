@@ -35,13 +35,14 @@ import com.anfelisa.ace.ICommand;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import com.anfelisa.auth.AuthUser;
 
 import com.anfelisa.category.data.RevokeUserData;
 
 import com.anfelisa.category.commands.RevokeUserAccessCommand;
 
 @SuppressWarnings("unused")
-@Path("/RevokeUserAccess")
+@Path("/category/revoke")
 public abstract class AbstractRevokeUserAccessAction extends Action<RevokeUserData> {
 
 	public AbstractRevokeUserAccessAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
@@ -69,11 +70,18 @@ public abstract class AbstractRevokeUserAccessAction extends Action<RevokeUserDa
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response revokeUserAccessResource(
-			@NotNull RevokeUserData payload)
+			@Auth AuthUser authUser, 
+			@QueryParam("revokedUserId") String revokedUserId, 
+			@QueryParam("categoryId") String categoryId, 
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new RevokeUserData(payload.getUuid());
+		this.actionData = new RevokeUserData(uuid);
+		this.actionData.setRevokedUserId(revokedUserId);
+		this.actionData.setCategoryId(categoryId);
+		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

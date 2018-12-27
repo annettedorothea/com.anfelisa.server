@@ -81,6 +81,7 @@ public abstract class AbstractUpdateCardAction extends Action<CardUpdateData> {
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
+
 }
 
 /*       S.D.G.       */

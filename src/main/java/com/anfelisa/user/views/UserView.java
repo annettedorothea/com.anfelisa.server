@@ -5,7 +5,7 @@ import java.util.function.BiConsumer;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.user.data.ChangeUserRoleData;
+import com.anfelisa.user.data.ChangeUserRoleDataLegacy;
 import com.anfelisa.user.data.DeleteUserData;
 import com.anfelisa.user.data.EmailConfirmationData;
 import com.anfelisa.user.data.ResetPasswordData;
@@ -28,7 +28,7 @@ public class UserView {
 		daoProvider.getCustomUserDao().confirmEmail(handle, dataContainer.getUserId());
 	};
 
-	public BiConsumer<ChangeUserRoleData, Handle> changeUserRole = (dataContainer, handle) -> {
+	public BiConsumer<ChangeUserRoleDataLegacy, Handle> changeUserRole = (dataContainer, handle) -> {
 		daoProvider.getCustomUserDao().changeUserRole(handle, dataContainer.getUserId(), dataContainer.getRole());
 	};
 

@@ -35,12 +35,13 @@ import com.anfelisa.ace.ICommand;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import com.anfelisa.auth.AuthUser;
 
 import com.anfelisa.category.data.CategoryListData;
 
 
 @SuppressWarnings("unused")
-@Path("/GetAllCategories")
+@Path("/category/all")
 public abstract class AbstractGetAllCategoriesAction extends Action<CategoryListData> {
 
 	public AbstractGetAllCategoriesAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
@@ -66,10 +67,18 @@ public abstract class AbstractGetAllCategoriesAction extends Action<CategoryList
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getAllCategoriesResource(
-			@NotNull CategoryListData payload)
+			@Auth AuthUser authUser, 
+			@QueryParam("parentCategoryId") String parentCategoryId, 
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new CategoryListData(payload.getUuid());
+		this.actionData = new CategoryListData(uuid);
+		this.actionData.setParentCategoryId(parentCategoryId);
+		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
+	}
+
+	protected Object createReponse() {
+		return new com.anfelisa.category.data.GetAllCategoriesResponse(this.actionData);
 	}
 }
 

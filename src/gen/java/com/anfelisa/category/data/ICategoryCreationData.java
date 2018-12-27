@@ -4,12 +4,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
-import com.anfelisa.user.models.IUsernameModel;
+import com.anfelisa.category.models.ICategoryCreationModel;
 
 @JsonDeserialize(as=CategoryCreationData.class)
-public interface ICategoryCreationData extends ICategoryModel, IUserAccessToCategoryModel, IUsernameModel, IDataContainer {
+public interface ICategoryCreationData extends ICategoryCreationModel, IDataContainer {
 
 }
 
