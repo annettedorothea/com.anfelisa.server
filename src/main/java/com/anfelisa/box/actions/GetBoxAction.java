@@ -27,7 +27,7 @@ public class GetBoxAction extends AbstractGetBoxAction {
 		if (!box.getUserId().equals(actionData.getUserId())) {
 			throwUnauthorized();
 		}
-		IBoxInfoModel boxInfo = daoProvider.getCustomBoxDao().selectByBoxId(getHandle(), actionData.getBoxId(),
+		IBoxInfoModel boxInfo = daoProvider.getBoxDao().selectByBoxId(getHandle(), actionData.getBoxId(),
 				actionData.getToday());
 		this.actionData.setCategoryName(boxInfo.getCategoryName());
 		this.actionData.setDaysBehindSchedule(boxInfo.getDaysBehindSchedule());

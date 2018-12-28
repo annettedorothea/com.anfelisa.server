@@ -30,7 +30,7 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 			throwBadRequest("userDoesNotExist");
 		}
 		if (Roles.ADMIN.equals(userToBeDeleted.getRole())) {
-			if (daoProvider.getCustomUserDao().selectAdminCount(getHandle()) == 1) {
+			if (daoProvider.getUserDao().selectAdminCount(getHandle()) == 1) {
 				throwBadRequest("lastAdminMustNotBeDeleted");
 			}
 		}

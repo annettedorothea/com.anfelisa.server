@@ -25,11 +25,11 @@ public class UserView {
 	};
 
 	public BiConsumer<EmailConfirmationData, Handle> confirmEmail = (dataContainer, handle) -> {
-		daoProvider.getCustomUserDao().confirmEmail(handle, dataContainer.getUserId());
+		daoProvider.getUserDao().confirmEmail(handle, dataContainer.getUserId());
 	};
 
 	public BiConsumer<ChangeUserRoleDataLegacy, Handle> changeUserRole = (dataContainer, handle) -> {
-		daoProvider.getCustomUserDao().changeUserRole(handle, dataContainer.getUserId(), dataContainer.getRole());
+		daoProvider.getUserDao().changeUserRole(handle, dataContainer.getUserId(), dataContainer.getRole());
 	};
 
 	public BiConsumer<DeleteUserData, Handle> deleteUser = (dataContainer, handle) -> {
@@ -37,7 +37,7 @@ public class UserView {
 	};
 
 	public BiConsumer<ResetPasswordData, Handle> resetPassword = (dataContainer, handle) -> {
-		daoProvider.getCustomUserDao().updatePassword(handle, dataContainer);
+		daoProvider.getUserDao().updatePassword(handle, dataContainer);
 	};
 
 }

@@ -1,4 +1,4 @@
-package com.anfelisa.card.model;
+package com.anfelisa.card.models;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,11 +7,8 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 
 import com.anfelisa.card.data.CardUpdateData;
-import com.anfelisa.card.models.CardMapper;
-import com.anfelisa.card.models.ICardModel;
 
-public class CustomCardDao {
-
+public class CardDao extends AbstractCardDao {
 	public List<ICardModel> selectAllOfCategory(Handle handle, String categoryId) {
 		return handle.createQuery(
 				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, path FROM public.card "
@@ -71,3 +68,6 @@ public class CustomCardDao {
 
 
 }
+
+
+/*       S.D.G.       */

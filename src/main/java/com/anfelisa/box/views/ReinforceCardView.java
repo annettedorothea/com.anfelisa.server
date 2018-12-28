@@ -19,7 +19,7 @@ public class ReinforceCardView {
 	}
 
 	public BiConsumer<ScoreCardData, Handle> add = (dataContainer, handle) -> {
-		daoProvider.getCustomReinforceCardDao().insert(handle, dataContainer);
+		daoProvider.getReinforceCardDao().insert(handle, dataContainer);
 	};
 
 	public BiConsumer<ScoreReinforceCardData, Handle> remove = (dataContainer, handle) -> {
@@ -27,7 +27,7 @@ public class ReinforceCardView {
 	};
 	
 	public BiConsumer<ScoreReinforceCardData, Handle> update = (dataContainer, handle) -> {
-		daoProvider.getCustomReinforceCardDao().updateChangeDate(handle, dataContainer.getReinforceCardId(), dataContainer.getChangeDate());
+		daoProvider.getReinforceCardDao().updateChangeDate(handle, dataContainer.getReinforceCardId(), dataContainer.getChangeDate());
 	};
 	
 }

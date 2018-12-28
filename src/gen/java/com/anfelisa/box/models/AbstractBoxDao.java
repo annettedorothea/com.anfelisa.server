@@ -7,11 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-
 @SuppressWarnings("all")
-@JsonIgnoreType
-public class BoxDao {
+public class AbstractBoxDao {
 	
 	public void insert(Handle handle, IBoxModel boxModel) {
 		Update statement = handle.createUpdate("INSERT INTO public.box (boxid, userid, categoryid, maxinterval) VALUES (:boxid, :userid, :categoryid, :maxinterval)");

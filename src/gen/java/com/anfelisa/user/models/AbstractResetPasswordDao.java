@@ -7,11 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-
 @SuppressWarnings("all")
-@JsonIgnoreType
-public class ResetPasswordDao {
+public class AbstractResetPasswordDao {
 	
 	public void insert(Handle handle, IResetPasswordModel resetPasswordModel) {
 		Update statement = handle.createUpdate("INSERT INTO public.resetpassword (token, userid) VALUES (:token, :userid)");

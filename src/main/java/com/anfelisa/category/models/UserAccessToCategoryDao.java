@@ -1,4 +1,4 @@
-package com.anfelisa.category.model;
+package com.anfelisa.category.models;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,13 +6,7 @@ import java.util.Optional;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
-import com.anfelisa.category.models.IUserWithAccessModel;
-import com.anfelisa.category.models.UserAccessToCategoryMapper;
-import com.anfelisa.category.models.UserWithAccessMapper;
-
-public class CustomUserAccessToCategoryDao {
-
+public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 	public IUserAccessToCategoryModel selectByCategoryIdAndUserId(Handle handle, String categoryId, String userId) {
 		Optional<IUserAccessToCategoryModel> optional = handle.createQuery(
 				"SELECT categoryid, userid FROM public.useraccesstocategory where categoryid = :categoryid and userid = :userid")
@@ -35,3 +29,6 @@ public class CustomUserAccessToCategoryDao {
 	}
 
 }
+
+
+/*       S.D.G.       */

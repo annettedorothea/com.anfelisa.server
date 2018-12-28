@@ -7,11 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-
 @SuppressWarnings("all")
-@JsonIgnoreType
-public class UserDao {
+public class AbstractUserDao {
 	
 	public void insert(Handle handle, IUserModel userModel) {
 		Update statement = handle.createUpdate("INSERT INTO public.user (userid, username, password, email, role, emailconfirmed) VALUES (:userid, :username, :password, :email, :role, :emailconfirmed)");

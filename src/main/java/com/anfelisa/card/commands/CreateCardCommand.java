@@ -26,7 +26,7 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 		if (category == null) {
 			throwBadRequest("categoryDoesNotExist");
 		}
-		IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao()
+		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), commandData.getUserId());
 		if (access == null) {
 			throwUnauthorized();
@@ -35,7 +35,7 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 		commandData.setPath(category.getPath());
 		this.commandData.setCardId(commandData.getUuid());
 		if (commandData.getCardIndex() == null) {
-			Integer max = this.daoProvider.getCustomCardDao().selectMaxIndexInCategory(getHandle(),
+			Integer max = this.daoProvider.getCardDao().selectMaxIndexInCategory(getHandle(),
 					commandData.getCategoryId());
 			if (max == null) {
 				max = 0;

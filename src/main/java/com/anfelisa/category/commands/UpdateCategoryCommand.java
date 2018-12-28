@@ -30,7 +30,7 @@ public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 		if (category == null) {
 			throwBadRequest("categoryDoesNotExist");
 		}
-		IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), commandData.getUserId());
+		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), commandData.getUserId());
 		if (access == null) {
 			throwUnauthorized();
 		}

@@ -7,11 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-
 @SuppressWarnings("all")
-@JsonIgnoreType
-public class CategoryDao {
+public class AbstractCategoryDao {
 	
 	public void insert(Handle handle, ICategoryModel categoryModel) {
 		Update statement = handle.createUpdate("INSERT INTO public.category (categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, publicrootcategory) VALUES (:categoryid, :categoryname, :categoryauthor, :categoryindex, :parentcategoryid, :rootcategoryid, :dictionarylookup, :givenlanguage, :wantedlanguage, :path, :publicrootcategory)");

@@ -21,7 +21,7 @@ public class GetDuplicatesAction extends AbstractGetDuplicatesAction {
 
 
 	protected final void loadDataForGetRequest() {
-		List<ICardModel> cardList = this.daoProvider.getCustomCardDao().search(getHandle(), actionData.getCategoryId(),
+		List<ICardModel> cardList = this.daoProvider.getCardDao().search(getHandle(), actionData.getCategoryId(),
 				actionData.getNaturalInputOrder(), actionData.getGiven(), actionData.getWanted());
 		this.actionData.setCardList(cardList);
 	}

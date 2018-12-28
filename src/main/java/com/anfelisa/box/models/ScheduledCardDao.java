@@ -9,12 +9,8 @@ import org.joda.time.DateTime;
 
 import com.anfelisa.box.data.PostponeCardsData;
 import com.anfelisa.box.data.ScoreCardData;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
 
-@SuppressWarnings("all")
-@JsonIgnoreType
-public class CustomScheduledCardDao {
-
+public class ScheduledCardDao extends AbstractScheduledCardDao {
 	public INextCardModel selectFirstScheduledCard(Handle handle, String boxId, DateTime today) {
 		Optional<INextCardModel> optional = handle.createQuery(
 				"SELECT sc.scheduledcardid, c.cardid, sc.scheduleddate, sc.boxid, sc.lastquality, c.given, c.wanted, c.image, c.categoryid, c.rootCategoryid as rootCategoryId, sc.count, sc.scoreddate FROM public.scheduledcard sc "
@@ -88,3 +84,6 @@ public class CustomScheduledCardDao {
 	}
 
 }
+
+
+/*       S.D.G.       */

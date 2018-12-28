@@ -30,7 +30,7 @@ public class UserAccessToCategoryView {
 	};
 
 	public BiConsumer<RevokeUserData, Handle> revokeAccess = (dataContainer, handle) -> {
-		daoProvider.getCustomUserAccessToCategoryDao().deleteByCategoryIdAndUserId(handle, dataContainer.getRootCategoryId(), dataContainer.getRevokedUserId());
+		daoProvider.getUserAccessToCategoryDao().deleteByCategoryIdAndUserId(handle, dataContainer.getRootCategoryId(), dataContainer.getRevokedUserId());
 	};
 	
 }

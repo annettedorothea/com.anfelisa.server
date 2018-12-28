@@ -52,12 +52,12 @@ public class ScheduleNextCardCommand extends AbstractScheduleNextCardCommand {
 	}
 
 	private String searchNextCard(ICategoryModel category) {
-		String nextCardId = daoProvider.getCustomScheduledCardDao().selectNextCardId(getHandle(), category.getCategoryId(),
+		String nextCardId = daoProvider.getScheduledCardDao().selectNextCardId(getHandle(), category.getCategoryId(),
 				commandData.getBoxId());
 		if (nextCardId != null) {
 			return nextCardId;
 		}
-		List<ICategoryModel> categories = daoProvider.getCustomCategoryDao().selectAllChildren(getHandle(),
+		List<ICategoryModel> categories = daoProvider.getCategoryDao().selectAllChildren(getHandle(),
 				category.getCategoryId());
 		for (ICategoryModel subCategory : categories) {
 			nextCardId = searchNextCard(subCategory);

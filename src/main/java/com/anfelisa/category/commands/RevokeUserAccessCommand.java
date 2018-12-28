@@ -28,7 +28,7 @@ public class RevokeUserAccessCommand extends AbstractRevokeUserAccessCommand {
 		if (category == null) {
 			throwBadRequest("categoryDoesNotExist");
 		}
-		List<IUserWithAccessModel> accessList = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryId(getHandle(), category.getRootCategoryId());
+		List<IUserWithAccessModel> accessList = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryId(getHandle(), category.getRootCategoryId());
 		if (!containsUser(accessList, commandData.getUserId())) {
 			throwUnauthorized();
 		}

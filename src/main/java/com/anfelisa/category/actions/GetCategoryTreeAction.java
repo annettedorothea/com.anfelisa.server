@@ -26,7 +26,7 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 
 
 	protected final void loadDataForGetRequest() {
-		List<ICategoryItemModel> rootCategories = daoProvider.getCustomCategoryDao().selectAllRoot(getHandle(),
+		List<ICategoryItemModel> rootCategories = daoProvider.getCategoryDao().selectAllRoot(getHandle(),
 				actionData.getUserId());
 		List<ICategoryTreeRootItemModel> categoryList = new ArrayList<ICategoryTreeRootItemModel>();
 		actionData.setCategoryList(categoryList);
@@ -41,7 +41,7 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 
 	private List<ICategoryTreeItemModel> loadChildren(String categoryId) {
 		List<ICategoryTreeItemModel> categoryChildren = new ArrayList<ICategoryTreeItemModel>();
-		List<ICategoryItemModel> children = daoProvider.getCustomCategoryDao().selectAllChildren(getHandle(),
+		List<ICategoryItemModel> children = daoProvider.getCategoryDao().selectAllChildren(getHandle(),
 				categoryId, actionData.getUserId());
 		for (ICategoryItemModel child : children) {
 			categoryChildren.add(

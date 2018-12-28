@@ -30,7 +30,7 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 		if (commandData.getParentCategoryId() != null) {
 			ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
 					commandData.getParentCategoryId());
-			IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), parentCategory.getRootCategoryId(), commandData.getUserId());
+			IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), parentCategory.getRootCategoryId(), commandData.getUserId());
 			if (access == null) {
 				throwUnauthorized();
 			}
@@ -54,9 +54,9 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 		if (commandData.getCategoryIndex() == null) {
 			Integer max = null;
 			if (commandData.getParentCategoryId() == null) {
-				max = this.daoProvider.getCustomCategoryDao().selectMaxIndexInRootCategory(getHandle());
+				max = this.daoProvider.getCategoryDao().selectMaxIndexInRootCategory(getHandle());
 			} else {
-				max = this.daoProvider.getCustomCategoryDao().selectMaxIndexInCategory(getHandle(),
+				max = this.daoProvider.getCategoryDao().selectMaxIndexInCategory(getHandle(),
 						commandData.getParentCategoryId());
 			}
 			if (max == null) {

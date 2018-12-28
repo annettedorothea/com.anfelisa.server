@@ -17,13 +17,13 @@ public class ScheduledCardView {
 		this.daoProvider = daoProvider;
 	}
 	public BiConsumer<ScoreCardData, Handle> score = (dataContainer, handle) -> {
-		daoProvider.getCustomScheduledCardDao().score(handle, dataContainer);
+		daoProvider.getScheduledCardDao().score(handle, dataContainer);
 	};
 	public BiConsumer<ScoreCardData, Handle> scheduleNext = (dataContainer, handle) -> {
-		daoProvider.getCustomScheduledCardDao().scheduleNext(handle, dataContainer);
+		daoProvider.getScheduledCardDao().scheduleNext(handle, dataContainer);
 	};
 	public  BiConsumer<PostponeCardsData, Handle> postponeCards = (dataContainer, handle) -> {
-		daoProvider.getCustomScheduledCardDao().postponeScheduledCards(handle, dataContainer);
+		daoProvider.getScheduledCardDao().postponeScheduledCards(handle, dataContainer);
 	};
 
 }

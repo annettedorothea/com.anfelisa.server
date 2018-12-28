@@ -28,7 +28,7 @@ public class LoadNextReinforceCardAction extends AbstractLoadNextReinforceCardAc
 			throwUnauthorized();
 		}
 
-		INextReinforceCardModel nextCard = daoProvider.getCustomReinforceCardDao().selectFirstScheduledCard(getHandle(),
+		INextReinforceCardModel nextCard = daoProvider.getReinforceCardDao().selectFirstScheduledCard(getHandle(),
 				actionData.getBoxId());
 		if (nextCard != null) {
 			this.actionData.setGiven(nextCard.getGiven());

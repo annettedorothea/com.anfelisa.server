@@ -23,17 +23,17 @@ public class CategoryView {
 		daoProvider.getCategoryDao().insert(handle, dataContainer);
 	};
 	public BiConsumer<CategoryDeleteData, Handle> delete = (dataContainer, handle) -> {
-		daoProvider.getCustomCardDao().deleteByCategoryId(handle, dataContainer.getCategoryId());
+		daoProvider.getCardDao().deleteByCategoryId(handle, dataContainer.getCategoryId());
 		daoProvider.getCategoryDao().deleteByCategoryId(handle, dataContainer.getCategoryId());
-		daoProvider.getCustomCategoryDao().shiftCategories(handle, dataContainer.getCategoryIndex(), dataContainer.getParentCategoryId());
+		daoProvider.getCategoryDao().shiftCategories(handle, dataContainer.getCategoryIndex(), dataContainer.getParentCategoryId());
 	};
 	public BiConsumer<CategoryDeleteData, Handle> deleteRoot = (dataContainer, handle) -> {
-		daoProvider.getCustomCardDao().deleteByCategoryId(handle, dataContainer.getCategoryId());
+		daoProvider.getCardDao().deleteByCategoryId(handle, dataContainer.getCategoryId());
 		daoProvider.getCategoryDao().deleteByCategoryId(handle, dataContainer.getCategoryId());
-		daoProvider.getCustomCategoryDao().shiftRootCategories(handle, dataContainer.getCategoryIndex());
+		daoProvider.getCategoryDao().shiftRootCategories(handle, dataContainer.getCategoryIndex());
 	};
 	public BiConsumer<CategoryUpdateData, Handle> update = (dataContainer, handle) -> {
-		daoProvider.getCustomCategoryDao().update(handle, dataContainer);
+		daoProvider.getCategoryDao().update(handle, dataContainer);
 	};
 
 }

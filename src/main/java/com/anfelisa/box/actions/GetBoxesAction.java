@@ -21,7 +21,7 @@ public class GetBoxesAction extends AbstractGetBoxesAction {
 
 
 	protected final void loadDataForGetRequest() {
-		List<IBoxInfoModel> boxList = this.daoProvider.getCustomBoxDao().selectByUserId(
+		List<IBoxInfoModel> boxList = this.daoProvider.getBoxDao().selectByUserId(
 				this.getDatabaseHandle().getHandle(), this.actionData.getUserId(), actionData.getToday());
 		this.actionData.setBoxList(boxList);
 	}

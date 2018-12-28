@@ -26,12 +26,12 @@ public class GetAllCategoriesAction extends AbstractGetAllCategoriesAction {
 
 	protected final void loadDataForGetRequest() {
 		if (actionData.getParentCategoryId() != null) {
-			List<ICategoryItemModel> categoryList = daoProvider.getCustomCategoryDao().selectAllChildren(getHandle(),
+			List<ICategoryItemModel> categoryList = daoProvider.getCategoryDao().selectAllChildren(getHandle(),
 					actionData.getParentCategoryId(), actionData.getUserId());
 			actionData.setCategoryList(categoryList);
 			ICategoryModel parentCategory = daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
 					actionData.getParentCategoryId());
-			List<ICardModel> cards = daoProvider.getCustomCardDao().selectAllOfCategory(getHandle(),
+			List<ICardModel> cards = daoProvider.getCardDao().selectAllOfCategory(getHandle(),
 					actionData.getParentCategoryId());
 			this.actionData.setCardList(cards);
 			if (parentCategory != null) {
@@ -43,10 +43,10 @@ public class GetAllCategoriesAction extends AbstractGetAllCategoriesAction {
 				ICategoryModel rootCategory = daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
 						parentCategory.getRootCategoryId());
 				this.actionData.setRootDictionaryLookup(rootCategory.getDictionaryLookup());
-				IBoxModel box = daoProvider.getCustomBoxDao().selectByCategoryIdAndUserId(getHandle(),
+				IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(getHandle(),
 						parentCategory.getRootCategoryId(), actionData.getUserId());
 				this.actionData.setHasBox(box != null);
-				List<IUserWithAccessModel> userAccessList = this.daoProvider.getCustomUserAccessToCategoryDao()
+				List<IUserWithAccessModel> userAccessList = this.daoProvider.getUserAccessToCategoryDao()
 						.selectByCategoryId(getHandle(), parentCategory.getRootCategoryId());
 				if (containsUser(userAccessList, actionData.getUserId())) {
 					this.actionData.setParentEditable(true);
@@ -58,7 +58,7 @@ public class GetAllCategoriesAction extends AbstractGetAllCategoriesAction {
 				throwBadRequest("category not found");
 			}
 		} else {
-			List<ICategoryItemModel> categoryList = daoProvider.getCustomCategoryDao().selectAllRoot(getHandle(),
+			List<ICategoryItemModel> categoryList = daoProvider.getCategoryDao().selectAllRoot(getHandle(),
 					actionData.getUserId());
 			actionData.setCategoryList(categoryList);
 			this.actionData.setRootDictionaryLookup(true);

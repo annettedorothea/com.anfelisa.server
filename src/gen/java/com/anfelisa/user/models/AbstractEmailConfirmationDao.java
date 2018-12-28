@@ -7,11 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-
 @SuppressWarnings("all")
-@JsonIgnoreType
-public class EmailConfirmationDao {
+public class AbstractEmailConfirmationDao {
 	
 	public void insert(Handle handle, IEmailConfirmationModel emailConfirmationModel) {
 		Update statement = handle.createUpdate("INSERT INTO public.emailconfirmation (token, userid) VALUES (:token, :userid)");

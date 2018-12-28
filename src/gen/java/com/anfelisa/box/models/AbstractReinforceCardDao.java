@@ -7,11 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-
 @SuppressWarnings("all")
-@JsonIgnoreType
-public class ReinforceCardDao {
+public class AbstractReinforceCardDao {
 	
 	public void insert(Handle handle, IReinforceCardModel reinforceCardModel) {
 		Update statement = handle.createUpdate("INSERT INTO public.reinforcecard (reinforcecardid, scheduledcardid, boxid, changedate) VALUES (:reinforcecardid, :scheduledcardid, :boxid, :changedate)");

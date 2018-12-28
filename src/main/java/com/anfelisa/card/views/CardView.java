@@ -23,10 +23,10 @@ public class CardView {
 	};
 	public BiConsumer<CardDeleteData, Handle> delete = (dataContainer, handle) -> {
 		daoProvider.getCardDao().deleteByCardId(handle, dataContainer.getCardId());
-		daoProvider.getCustomCardDao().shiftCards(handle, dataContainer.getCardIndex(), dataContainer.getCategoryId());
+		daoProvider.getCardDao().shiftCards(handle, dataContainer.getCardIndex(), dataContainer.getCategoryId());
 	};
 	public BiConsumer<CardUpdateData, Handle> update = (dataContainer, handle) -> {
-		daoProvider.getCustomCardDao().update(handle, dataContainer);
+		daoProvider.getCardDao().update(handle, dataContainer);
 	};
 
 }

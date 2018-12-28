@@ -8,8 +8,7 @@ import org.joda.time.DateTime;
 
 import com.anfelisa.box.data.ScoreCardData;
 
-public class CustomReinforceCardDao {
-
+public class ReinforceCardDao extends AbstractReinforceCardDao {
 	public void insert(Handle handle, ScoreCardData scoreCardData) {
 		Update statement = handle.createUpdate(
 				"INSERT INTO public.reinforcecard (reinforcecardid, scheduledcardid, boxid, changedate) VALUES (:reinforcecardid, :scheduledcardid, :boxid, :changedate)");
@@ -46,3 +45,6 @@ public class CustomReinforceCardDao {
 	}
 
 }
+
+
+/*       S.D.G.       */

@@ -24,7 +24,7 @@ public class DeleteCardCommand extends AbstractDeleteCardCommand {
 		if (card == null) {
 			throwBadRequest("cardDoesNotExist");
 		}
-		IUserAccessToCategoryModel access = this.daoProvider.getCustomUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), card.getRootCategoryId(), commandData.getUserId());
+		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), card.getRootCategoryId(), commandData.getUserId());
 		if (access == null) {
 			throwUnauthorized();
 		}

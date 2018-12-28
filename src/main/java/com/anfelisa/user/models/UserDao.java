@@ -10,8 +10,7 @@ import com.anfelisa.auth.Roles;
 import com.anfelisa.user.data.IUserRegistrationData;
 import com.anfelisa.user.data.ResetPasswordData;
 
-public class CustomUserDao {
-
+public class UserDao extends AbstractUserDao {
 	public int selectTestPoints(Handle handle, String username) {
 		Optional<Integer> optional = handle
 				.createQuery("select sum(points) as sum from public.result WHERE username = :username")
@@ -69,3 +68,5 @@ public class CustomUserDao {
 	}
 
 }
+
+/*       S.D.G.       */

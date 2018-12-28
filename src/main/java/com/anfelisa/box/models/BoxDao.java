@@ -9,8 +9,7 @@ import org.joda.time.DateTime;
 
 import com.anfelisa.box.data.BoxUpdateData;
 
-public class CustomBoxDao {
-
+public class BoxDao extends AbstractBoxDao {
 	public List<IBoxInfoModel> selectByUserId(Handle handle, String userId, DateTime today) {
 		return handle.createQuery("SELECT (SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = b.boxid AND quality is null AND scheduledDate <= :today) as todayscards, "
 				+ "(select count(cardid) from card where rootcategoryid = b.categoryid) as totalcards, "

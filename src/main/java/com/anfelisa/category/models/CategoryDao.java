@@ -1,4 +1,4 @@
-package com.anfelisa.category.model;
+package com.anfelisa.category.models;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,13 +7,8 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 
 import com.anfelisa.category.data.CategoryUpdateData;
-import com.anfelisa.category.models.CategoryItemMapper;
-import com.anfelisa.category.models.CategoryMapper;
-import com.anfelisa.category.models.ICategoryItemModel;
-import com.anfelisa.category.models.ICategoryModel;
 
-public class CustomCategoryDao {
-
+public class CategoryDao extends AbstractCategoryDao {
 	public List<ICategoryItemModel> selectAllChildren(Handle handle, String parentCategoryId, String userId) {
 		return handle.createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, publicrootcategory, "
@@ -84,3 +79,5 @@ public class CustomCategoryDao {
 	}
 
 }
+
+/*       S.D.G.       */

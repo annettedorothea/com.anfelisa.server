@@ -35,12 +35,12 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 			if (firstCard == null) {
 				throwBadRequest("cardDoesNotExist");
 			}
-			IBoxModel box = daoProvider.getCustomBoxDao().selectByCategoryIdAndUserId(getHandle(),
+			IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(getHandle(),
 					firstCard.getRootCategoryId(), commandData.getUserId());
 			if (box == null) {
 				throwBadRequest("boxDoesNotExist");
 			}
-			List<IScheduledCardModel> allCards = daoProvider.getCustomScheduledCardDao().selectAllCardsOfBox(getHandle(), box.getBoxId());
+			List<IScheduledCardModel> allCards = daoProvider.getScheduledCardDao().selectAllCardsOfBox(getHandle(), box.getBoxId());
 			this.commandData.setExistingScheduledCardIds(new ArrayList<String>()); 
 			this.commandData.setNewScheduledCards(new ArrayList<IScheduledCardModel>());
 			DateTime scheduledDateTime = firstCardByDateTime(allCards);

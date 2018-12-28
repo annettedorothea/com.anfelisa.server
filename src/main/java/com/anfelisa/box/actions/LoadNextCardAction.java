@@ -28,7 +28,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			throwUnauthorized();
 		}
 
-		INextCardModel nextCard = daoProvider.getCustomScheduledCardDao().selectFirstScheduledCard(getHandle(),
+		INextCardModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(getHandle(),
 				actionData.getBoxId(), actionData.getToday());
 		if (nextCard != null) {
 			this.actionData.setRootCategoryId(box.getCategoryId());

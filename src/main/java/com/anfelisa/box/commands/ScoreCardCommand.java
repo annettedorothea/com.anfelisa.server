@@ -52,7 +52,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 			this.commandData.setOutcome(score);
 		}
 		
-		IReinforceCardModel reinforceCard = daoProvider.getCustomReinforceCardDao().selectByCardId(getHandle(), scheduledCard.getCardId());
+		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByCardId(getHandle(), scheduledCard.getCardId());
 		if (quality <= 3 && reinforceCard == null) {
 			this.commandData.setOutcome(scoreAndReinforce);
 		} else {

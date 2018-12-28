@@ -29,7 +29,7 @@ public class PostponeCardsCommand extends AbstractPostponeCardsCommand {
 		}
 		DateTime todayDate = new DateTime(commandData.getToday());
 		todayDate = todayDate.withZone(DateTimeZone.UTC);
-		INextCardModel nextCard = daoProvider.getCustomScheduledCardDao().selectFirstScheduledCard(getHandle(),
+		INextCardModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(getHandle(),
 				commandData.getBoxId(), todayDate);
 		if (nextCard != null) {
 			int days = Days.daysBetween(nextCard.getScheduledDate(), todayDate).getDays();

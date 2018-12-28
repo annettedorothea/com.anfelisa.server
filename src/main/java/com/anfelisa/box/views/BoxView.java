@@ -27,7 +27,7 @@ public class BoxView {
 	};
 
 	public BiConsumer<BoxUpdateData, Handle> updateBox = (dataContainer, handle) -> {
-		daoProvider.getCustomBoxDao().updateBox(handle, dataContainer);
+		daoProvider.getBoxDao().updateBox(handle, dataContainer);
 	};
 
 	public BiConsumer<DeleteBoxData, Handle> deleteBox = (dataContainer, handle) -> {
@@ -45,7 +45,7 @@ public class BoxView {
 		}
 		List<String> existingScheduledCardIds = dataContainer.getExistingScheduledCardIds();
 		for (String scheduledCardId : existingScheduledCardIds) {
-			daoProvider.getCustomScheduledCardDao().scheduleScheduledCard(handle, scheduledCardId, dataContainer.getScheduledDate());
+			daoProvider.getScheduledCardDao().scheduleScheduledCard(handle, scheduledCardId, dataContainer.getScheduledDate());
 		}
 	};
 	

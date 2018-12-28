@@ -7,11 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-
 @SuppressWarnings("all")
-@JsonIgnoreType
-public class CardDao {
+public class AbstractCardDao {
 	
 	public void insert(Handle handle, ICardModel cardModel) {
 		Update statement = handle.createUpdate("INSERT INTO public.card (cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, path) VALUES (:cardid, :given, :wanted, :image, :cardauthor, :cardindex, :categoryid, :rootcategoryid, :path)");
