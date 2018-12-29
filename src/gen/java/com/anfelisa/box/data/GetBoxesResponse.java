@@ -13,7 +13,15 @@ import com.anfelisa.ace.IDataContainer;
 @SuppressWarnings("all")
 public class GetBoxesResponse implements IGetBoxesResponse {
 	
+	private java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList;
+	
 	public GetBoxesResponse(com.anfelisa.box.models.IBoxListModel data) {
+		boxList = data.getBoxList();
+	}
+	
+	@JsonProperty
+	public java.util.List<com.anfelisa.box.models.IBoxInfoModel> getBoxList() {
+		return this.boxList;
 	}
 	
 }

@@ -9,8 +9,8 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.box.data.BoxData;
 import com.anfelisa.box.data.BoxUpdateData;
 import com.anfelisa.box.data.DeleteBoxData;
-import com.anfelisa.box.data.ScheduleCardData;
-import com.anfelisa.box.data.ScheduleCardsData;
+import com.anfelisa.box.data.ScheduleNextCardData;
+import com.anfelisa.box.data.ScheduledCardsData;
 import com.anfelisa.box.models.IScheduledCardModel;
 
 public class BoxView {
@@ -34,11 +34,11 @@ public class BoxView {
 		daoProvider.getBoxDao().deleteByBoxId(handle, dataContainer.getBoxId());
 	};
 
-	public BiConsumer<ScheduleCardData, Handle> scheduleCard = (dataContainer, handle) -> {
+	public BiConsumer<ScheduleNextCardData, Handle> scheduleCard = (dataContainer, handle) -> {
 		daoProvider.getScheduledCardDao().insert(handle, dataContainer);
 	};
 	
-	public BiConsumer<ScheduleCardsData, Handle> scheduleCards = (dataContainer, handle) -> {
+	public BiConsumer<ScheduledCardsData, Handle> scheduleCards = (dataContainer, handle) -> {
 		List<IScheduledCardModel> newScheduledCards = dataContainer.getNewScheduledCards();
 		for (IScheduledCardModel scheduledCardModel : newScheduledCards) {
 			daoProvider.getScheduledCardDao().insert(handle, scheduledCardModel);

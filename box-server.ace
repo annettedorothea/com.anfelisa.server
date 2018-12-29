@@ -8,7 +8,9 @@ ACE
 	GetBoxes<BoxList>
 	GET "/boxes/my/" 
 		authorize 
-		queryParams today 
+		queryParams today
+		response 
+			boxList
 		
 	GetBox<BoxInfo>
 		GET "/box/get" 
@@ -16,6 +18,21 @@ ACE
 		queryParams 
 			boxId 
 			today
+		response 
+			boxId
+			categoryName
+			daysBehindSchedule
+			maxInterval
+			myCards
+			quality0Count
+			quality1Count
+			quality2Count
+			quality3Count
+			quality4Count
+			quality5Count
+			reinforceCards
+			todaysCards
+			totalCards
 		
 	CreateBox<Box>
 		POST "/box/create" 
@@ -49,12 +66,35 @@ ACE
 	LoadNextCard<NextCard>
 		GET "/box/next-card"
 		authorize  
-		queryParams boxId today
+		queryParams 
+			boxId 
+			today
+		response
+			cardId
+			categoryId
+			count
+			given
+			image
+			lastQuality
+			rootCategoryId
+			scheduledCardId
+			scheduledDate
+			scoredDate
+			wanted
 
 	LoadNextReinforceCard<NextReinforceCard>
 		GET "/box/next-reinforce-card" 
 		authorize
 		queryParams boxId
+		response
+			categoryId
+			boxId
+			changeDate
+			given
+			image
+			lastQuality
+			reinforceCardId
+			wanted			
 
 	ScheduleNextCard<ScheduleNextCard>
 		POST "/card/schedule-next" 

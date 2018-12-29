@@ -1,105 +1,39 @@
 package com.anfelisa.category.data;
 
-import com.anfelisa.ace.AbstractData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CategoryTreeRootItemData extends AbstractData implements ICategoryTreeRootItemData {
+public class CategoryTreeRootItemData extends AbstractCategoryTreeRootItemData implements ICategoryTreeRootItemData {
 	
-	private String categoryId;
-	
-	private String categoryName;
-	
-	private Integer categoryIndex;
-	
-	private Boolean empty = false;
-	
-	private Boolean editable = false;
-	
-	private Boolean hasBox = false;
-	
-	private java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories;
-	
-
 	public CategoryTreeRootItemData(
-		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("categoryIndex") Integer categoryIndex,
-		@JsonProperty("empty") Boolean empty,
-		@JsonProperty("editable") Boolean editable,
-		@JsonProperty("hasBox") Boolean hasBox,
-		@JsonProperty("childCategories") java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories
-,		@JsonProperty("uuid") String uuid
+		@JsonProperty("categoryId") String categoryId, 
+		@JsonProperty("categoryName") String categoryName, 
+		@JsonProperty("categoryIndex") Integer categoryIndex, 
+		@JsonProperty("empty") Boolean empty, 
+		@JsonProperty("editable") Boolean editable, 
+		@JsonProperty("hasBox") Boolean hasBox, 
+		@JsonProperty("childCategories") java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories, 
+		@JsonProperty("uuid") String uuid
 	) {
-		super(uuid);
-		this.categoryId = categoryId;
-		this.categoryName = categoryName;
-		this.categoryIndex = categoryIndex;
-		this.empty = empty;
-		this.editable = editable;
-		this.hasBox = hasBox;
-		this.childCategories = childCategories;
+		super(
+			categoryId,
+			categoryName,
+			categoryIndex,
+			empty,
+			editable,
+			hasBox,
+			childCategories,
+			uuid
+		);
 	}
 
 	public CategoryTreeRootItemData( String uuid ) {
 		super(uuid);
 	}
 
-	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-	}
 	
-	@JsonProperty
-	public String getCategoryName() {
-		return this.categoryName;
+	public void migrateLegacyData(String json) {
 	}
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-	
-	@JsonProperty
-	public Integer getCategoryIndex() {
-		return this.categoryIndex;
-	}
-	public void setCategoryIndex(Integer categoryIndex) {
-		this.categoryIndex = categoryIndex;
-	}
-	
-	@JsonProperty
-	public Boolean getEmpty() {
-		return this.empty;
-	}
-	public void setEmpty(Boolean empty) {
-		this.empty = empty;
-	}
-	
-	@JsonProperty
-	public Boolean getEditable() {
-		return this.editable;
-	}
-	public void setEditable(Boolean editable) {
-		this.editable = editable;
-	}
-	
-	@JsonProperty
-	public Boolean getHasBox() {
-		return this.hasBox;
-	}
-	public void setHasBox(Boolean hasBox) {
-		this.hasBox = hasBox;
-	}
-	
-	@JsonProperty
-	public java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> getChildCategories() {
-		return this.childCategories;
-	}
-	public void setChildCategories(java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories) {
-		this.childCategories = childCategories;
-	}
-	
+
 }
 
 /*       S.D.G.       */

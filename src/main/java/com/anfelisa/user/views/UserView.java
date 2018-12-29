@@ -5,10 +5,10 @@ import java.util.function.BiConsumer;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.user.data.ChangeUserRoleDataLegacy;
+import com.anfelisa.user.data.ChangeUserRoleData;
+import com.anfelisa.user.data.ConfirmEmailData;
 import com.anfelisa.user.data.DeleteUserData;
-import com.anfelisa.user.data.EmailConfirmationData;
-import com.anfelisa.user.data.ResetPasswordData;
+import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
 import com.anfelisa.user.data.UserRegistrationData;
 
 public class UserView {
@@ -24,11 +24,11 @@ public class UserView {
 		daoProvider.getUserDao().insert(handle, dataContainer);
 	};
 
-	public BiConsumer<EmailConfirmationData, Handle> confirmEmail = (dataContainer, handle) -> {
+	public BiConsumer<ConfirmEmailData, Handle> confirmEmail = (dataContainer, handle) -> {
 		daoProvider.getUserDao().confirmEmail(handle, dataContainer.getUserId());
 	};
 
-	public BiConsumer<ChangeUserRoleDataLegacy, Handle> changeUserRole = (dataContainer, handle) -> {
+	public BiConsumer<ChangeUserRoleData, Handle> changeUserRole = (dataContainer, handle) -> {
 		daoProvider.getUserDao().changeUserRole(handle, dataContainer.getUserId(), dataContainer.getRole());
 	};
 
@@ -36,7 +36,7 @@ public class UserView {
 		daoProvider.getUserDao().deleteByUsername(handle, dataContainer.getUsernameToBeDeleted());
 	};
 
-	public BiConsumer<ResetPasswordData, Handle> resetPassword = (dataContainer, handle) -> {
+	public BiConsumer<ResetPasswordWithNewPasswordData, Handle> resetPassword = (dataContainer, handle) -> {
 		daoProvider.getUserDao().updatePassword(handle, dataContainer);
 	};
 

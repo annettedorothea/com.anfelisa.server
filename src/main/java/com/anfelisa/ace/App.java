@@ -106,18 +106,9 @@ public class App extends Application<CustomAppConfiguration> {
 
 		configureCors(environment);
 
-		new com.anfelisa.user.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider, viewProvider);
-		new com.anfelisa.user.AppRegistration().registerConsumers(viewProvider, mode);
-
-		new com.anfelisa.box.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider, viewProvider);
-		new com.anfelisa.box.AppRegistration().registerConsumers(viewProvider, mode);
-
-		new com.anfelisa.category.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider, viewProvider);
-		new com.anfelisa.category.AppRegistration().registerConsumers(viewProvider, mode);
-
-		new com.anfelisa.card.AppRegistration().registerResources(environment, jdbi, configuration, daoProvider, viewProvider);
-		new com.anfelisa.card.AppRegistration().registerConsumers(viewProvider, mode);
-
+		
+		AppRegistration.registerResources(environment, jdbi, configuration, daoProvider, viewProvider);
+		AppRegistration.registerConsumers(viewProvider, mode);
 	}
 
 	private void configureCors(Environment environment) {

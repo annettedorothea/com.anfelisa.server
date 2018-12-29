@@ -6,7 +6,7 @@ import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.user.data.ForgotPasswordData;
-import com.anfelisa.user.data.ResetPasswordData;
+import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
 
 @SuppressWarnings("all")
 public class ResetPasswordView {
@@ -22,7 +22,7 @@ public class ResetPasswordView {
 		daoProvider.getResetPasswordDao().insert(handle, dataContainer);
 	};
 
-	public BiConsumer<ResetPasswordData, Handle> delete = (dataContainer, handle) -> {
+	public BiConsumer<ResetPasswordWithNewPasswordData, Handle> delete = (dataContainer, handle) -> {
 		daoProvider.getResetPasswordDao().deleteByToken(handle, dataContainer.getToken());
 	};
 

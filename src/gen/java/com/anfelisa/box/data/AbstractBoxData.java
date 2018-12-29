@@ -1,11 +1,16 @@
 package com.anfelisa.box.data;
 
-import javax.validation.constraints.NotNull;
-
-import com.anfelisa.ace.AbstractData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class BoxCreationData extends AbstractData implements IBoxData {
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.AbstractData;
+
+@SuppressWarnings("unused")
+public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 	
 	@NotNull
 	private String boxId;
@@ -17,8 +22,9 @@ public class BoxCreationData extends AbstractData implements IBoxData {
 	private String categoryId;
 	
 	private Integer maxInterval;
+	
 
-	public BoxCreationData(
+	public AbstractBoxData(
 		@JsonProperty("boxId") String boxId,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("categoryId") String categoryId,
@@ -32,7 +38,7 @@ public class BoxCreationData extends AbstractData implements IBoxData {
 		this.maxInterval = maxInterval;
 	}
 
-	public BoxCreationData( String uuid ) {
+	public AbstractBoxData( String uuid ) {
 		super(uuid);
 	}
 
@@ -43,10 +49,6 @@ public class BoxCreationData extends AbstractData implements IBoxData {
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
-	public BoxCreationData withBoxId(String boxId) {
-		this.boxId = boxId;
-		return this;
-	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -54,10 +56,6 @@ public class BoxCreationData extends AbstractData implements IBoxData {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	public BoxCreationData withUserId(String userId) {
-		this.userId = userId;
-		return this;
 	}
 	
 	@JsonProperty
@@ -67,10 +65,6 @@ public class BoxCreationData extends AbstractData implements IBoxData {
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
-	public BoxCreationData withCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-		return this;
-	}
 	
 	@JsonProperty
 	public Integer getMaxInterval() {
@@ -78,10 +72,6 @@ public class BoxCreationData extends AbstractData implements IBoxData {
 	}
 	public void setMaxInterval(Integer maxInterval) {
 		this.maxInterval = maxInterval;
-	}
-	public BoxCreationData withMaxInterval(Integer maxInterval) {
-		this.maxInterval = maxInterval;
-		return this;
 	}
 	
 }

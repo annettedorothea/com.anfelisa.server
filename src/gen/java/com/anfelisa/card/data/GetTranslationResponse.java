@@ -13,7 +13,16 @@ import com.anfelisa.ace.IDataContainer;
 @SuppressWarnings("all")
 public class GetTranslationResponse implements IGetTranslationResponse {
 	
+	@NotEmpty
+	private String targetValue;
+	
 	public GetTranslationResponse(com.anfelisa.card.models.ICardTranslationModel data) {
+		targetValue = data.getTargetValue();
+	}
+	
+	@JsonProperty
+	public String getTargetValue() {
+		return this.targetValue;
 	}
 	
 }

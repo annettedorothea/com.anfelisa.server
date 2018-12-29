@@ -1,7 +1,5 @@
 package com.anfelisa.ace;
 
-import java.lang.reflect.Constructor;
-
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
@@ -64,13 +62,8 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 			} else {
 				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
 				if (timelineItem != null) {
-					Class<?> cl = Class.forName(timelineItem.getName());
-					Constructor<?> con = cl.getConstructor(Jdbi.class, CustomAppConfiguration.class, IDaoProvider.class, ViewProvider.class);
-					IAction action = (IAction) con.newInstance(jdbi, appConfiguration, daoProvider, viewProvider);
-					action.initActionData(timelineItem.getData());
-					this.actionData.setSystemTime(action.getActionData().getSystemTime());
-				} else {
-					this.actionData.setSystemTime(new DateTime());
+					IDataContainer data = mapper.readValue(timelineItem.getData(), IDataContainer.class);
+					this.actionData.setSystemTime(data.getSystemTime());
 				}
 			}
 			daoProvider.addActionToTimeline(this);
@@ -84,14 +77,9 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 			} else {
 				this.loadDataForGetRequest();
 			}
+			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
-			if (httpMethod == HttpMethod.GET) {
-				return Response.ok(this.createReponse()).build();
-			} else if (httpMethod == HttpMethod.POST) {
-				return Response.ok(this.getActionData().getUuid()).build();
-			} else {
-				return Response.ok().build();
-			}
+			return response;
 		} catch (WebApplicationException x) {
 			daoProvider.addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle);
 			databaseHandle.rollbackTransaction();
@@ -163,7 +151,7 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 	}
 
 	protected Object createReponse() {
-		return null;
+		return this.actionData.getUuid();
 	}
 
 }

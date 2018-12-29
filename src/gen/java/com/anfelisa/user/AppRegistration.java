@@ -10,16 +10,12 @@ import com.anfelisa.ace.ServerConfiguration;
 import org.jdbi.v3.core.Jdbi;
 
 
-import com.anfelisa.user.views.ResetPasswordView;
-import com.anfelisa.user.views.EmailView;
-import com.anfelisa.user.views.UserView;
-import com.anfelisa.user.views.EmailConfirmationView;
 import com.anfelisa.user.actions.*;
 
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public static void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		environment.jersey().register(new GetUserProfileAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new UsernameAvailableAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetRoleAction(jdbi, appConfiguration, daoProvider, viewProvider));
@@ -32,17 +28,17 @@ public class AppRegistration {
 		environment.jersey().register(new DeleteUserAction(jdbi, appConfiguration, daoProvider, viewProvider));
 	}
 
-	public void registerConsumers(ViewProvider viewProvider, String mode) {
+	public static void registerConsumers(ViewProvider viewProvider, String mode) {
 				viewProvider.addConsumer("com.anfelisa.user.events.ForgotPasswordOkEvent", viewProvider.resetPasswordView.insert);
 		if (ServerConfiguration.LIVE.equals(mode) || ServerConfiguration.DEV.equals(mode)) {
-			viewProvider.addConsumer("com.anfelisa.user.events.ForgotPasswordOkEvent", viewProvider.emailView.sendForgotPasswordEmail);
+		viewProvider.addConsumer("com.anfelisa.user.events.ForgotPasswordOkEvent", viewProvider.emailView.sendForgotPasswordEmail);
 		}
 				viewProvider.addConsumer("com.anfelisa.user.events.ResetPasswordOkEvent", viewProvider.userView.resetPassword);
 				viewProvider.addConsumer("com.anfelisa.user.events.ResetPasswordOkEvent", viewProvider.resetPasswordView.delete);
 				viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", viewProvider.userView.registerUser);
 				viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", viewProvider.emailConfirmationView.insert);
 		if (ServerConfiguration.LIVE.equals(mode) || ServerConfiguration.DEV.equals(mode)) {
-			viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", viewProvider.emailView.sendRegistrationEmail);
+		viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", viewProvider.emailView.sendRegistrationEmail);
 		}
 				viewProvider.addConsumer("com.anfelisa.user.events.ConfirmEmailOkEvent", viewProvider.userView.confirmEmail);
 				viewProvider.addConsumer("com.anfelisa.user.events.ConfirmEmailOkEvent", viewProvider.emailConfirmationView.delete);

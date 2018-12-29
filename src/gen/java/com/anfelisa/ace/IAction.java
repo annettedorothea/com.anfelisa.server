@@ -17,8 +17,6 @@ public interface IAction {
     void setDatabaseHandle(DatabaseHandle databaseHandle);
 
     Response apply();
-	
-	void initActionData(String json);
-	
+
 }
 

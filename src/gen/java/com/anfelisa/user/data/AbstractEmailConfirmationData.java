@@ -1,11 +1,16 @@
 package com.anfelisa.user.data;
 
-import javax.validation.constraints.NotNull;
-
-import com.anfelisa.ace.AbstractData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ResetPasswordDataData extends AbstractData implements IResetPasswordWithNewPasswordData {
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.AbstractData;
+
+@SuppressWarnings("unused")
+public abstract class AbstractEmailConfirmationData extends AbstractData implements IEmailConfirmationData {
 	
 	@NotNull
 	private String token;
@@ -13,23 +18,18 @@ public class ResetPasswordDataData extends AbstractData implements IResetPasswor
 	@NotNull
 	private String userId;
 	
-	@NotNull
-	private String password;
-	
 
-	public ResetPasswordDataData(
+	public AbstractEmailConfirmationData(
 		@JsonProperty("token") String token,
-		@JsonProperty("userId") String userId,
-		@JsonProperty("password") String password
+		@JsonProperty("userId") String userId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.token = token;
 		this.userId = userId;
-		this.password = password;
 	}
 
-	public ResetPasswordDataData( String uuid ) {
+	public AbstractEmailConfirmationData( String uuid ) {
 		super(uuid);
 	}
 
@@ -47,14 +47,6 @@ public class ResetPasswordDataData extends AbstractData implements IResetPasswor
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	
-	@JsonProperty
-	public String getPassword() {
-		return this.password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	
 }

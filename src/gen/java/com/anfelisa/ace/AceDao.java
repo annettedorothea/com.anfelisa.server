@@ -67,5 +67,13 @@ public class AceDao {
 						+ "order by time asc ")
 				.map(new TimelineItemMapper()).list();
 	}
+	
+	public List<ITimelineItem> selectReplayTimeline(Handle handle) {
+		return handle
+				.createQuery("SELECT type, method, name, time, data, uuid " + "FROM " + timelineTable() + " "
+						+ "where type = 'event' order by time asc ")
+				.map(new TimelineItemMapper()).list();
+	}
+	
 
 }

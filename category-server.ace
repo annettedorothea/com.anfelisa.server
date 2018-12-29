@@ -63,6 +63,8 @@ ACE
 	GetCategoryTree<CategoryTree>
 		GET "/category/tree" 
 		authorize 
+		response
+			categoryList
 
 views 
 	Category {

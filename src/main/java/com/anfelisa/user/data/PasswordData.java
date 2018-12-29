@@ -1,33 +1,27 @@
 package com.anfelisa.user.data;
 
-import com.anfelisa.ace.AbstractData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PasswordData extends AbstractData implements IPasswordData {
+public class PasswordData extends AbstractPasswordData implements IPasswordData {
 	
-	private String password;
-	
-
 	public PasswordData(
-		@JsonProperty("password") String password
-,		@JsonProperty("uuid") String uuid
+		@JsonProperty("password") String password, 
+		@JsonProperty("uuid") String uuid
 	) {
-		super(uuid);
-		this.password = password;
+		super(
+			password,
+			uuid
+		);
 	}
 
 	public PasswordData( String uuid ) {
 		super(uuid);
 	}
 
-	@JsonProperty
-	public String getPassword() {
-		return this.password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	
+	public void migrateLegacyData(String json) {
+	}
+
 }
 
 /*       S.D.G.       */

@@ -7,8 +7,7 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 
 import com.anfelisa.auth.Roles;
-import com.anfelisa.user.data.IUserRegistrationData;
-import com.anfelisa.user.data.ResetPasswordData;
+import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
 
 public class UserDao extends AbstractUserDao {
 	public int selectTestPoints(Handle handle, String username) {
@@ -25,7 +24,7 @@ public class UserDao extends AbstractUserDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public void updatePassword(Handle handle, ResetPasswordData data) {
+	public void updatePassword(Handle handle, ResetPasswordWithNewPasswordData data) {
 		Update statement = handle.createUpdate("UPDATE public.user SET password = :password WHERE userid = :userid");
 		statement.bind("userid", data.getUserId());
 		statement.bind("password", data.getPassword());
@@ -55,16 +54,6 @@ public class UserDao extends AbstractUserDao {
 		Optional<Integer> optional = handle.createQuery("SELECT count(userid) FROM public.user where role = :admin")
 				.bind("admin", Roles.ADMIN).mapTo(Integer.class).findFirst();
 		return optional.isPresent() ? optional.get() : null;
-	}
-
-	public void insert(Handle handle, IUserRegistrationData userModel) {
-		Update statement = handle.createUpdate(
-				"INSERT INTO public.user (username, password, email, role, emailconfirmed, deleted) VALUES (:username, :password, :email, :role, false, false)");
-		statement.bind("username", userModel.getUsername());
-		statement.bind("password", userModel.getPassword());
-		statement.bind("email", userModel.getEmail());
-		statement.bind("role", userModel.getRole());
-		statement.execute();
 	}
 
 }

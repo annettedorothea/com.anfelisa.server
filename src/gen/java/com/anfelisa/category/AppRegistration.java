@@ -10,14 +10,12 @@ import com.anfelisa.ace.ServerConfiguration;
 import org.jdbi.v3.core.Jdbi;
 
 
-import com.anfelisa.category.views.CategoryView;
-import com.anfelisa.category.views.UserAccessToCategoryView;
 import com.anfelisa.category.actions.*;
 
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public static void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		environment.jersey().register(new CreateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new UpdateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new DeleteCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
@@ -27,7 +25,7 @@ public class AppRegistration {
 		environment.jersey().register(new GetCategoryTreeAction(jdbi, appConfiguration, daoProvider, viewProvider));
 	}
 
-	public void registerConsumers(ViewProvider viewProvider, String mode) {
+	public static void registerConsumers(ViewProvider viewProvider, String mode) {
 				viewProvider.addConsumer("com.anfelisa.category.events.CreateCategorySubEvent", viewProvider.categoryView.insert);
 				viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryRootEvent", viewProvider.categoryView.insert);
 				viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryRootEvent", viewProvider.userAccessToCategoryView.grantAccess);

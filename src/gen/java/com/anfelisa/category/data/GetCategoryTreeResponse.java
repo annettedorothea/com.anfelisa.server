@@ -13,7 +13,15 @@ import com.anfelisa.ace.IDataContainer;
 @SuppressWarnings("all")
 public class GetCategoryTreeResponse implements IGetCategoryTreeResponse {
 	
+	private java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList;
+	
 	public GetCategoryTreeResponse(com.anfelisa.category.models.ICategoryTreeModel data) {
+		categoryList = data.getCategoryList();
+	}
+	
+	@JsonProperty
+	public java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> getCategoryList() {
+		return this.categoryList;
 	}
 	
 }

@@ -13,6 +13,10 @@ ACE
 	GetUserProfile<User>
 		GET "user/get" 
 		authorize 
+		response
+			email
+			username
+			userId
 	
 	UsernameAvailable<UsernameAvailable>
 		GET "/users/username" 
@@ -66,7 +70,7 @@ ACE
 			payload 
 				newRole
 				editedUserId
-		on ok (User.changeUserRole)
+		on ok ( User.changeUserRole )
 	
 	DeleteUser <DeleteUser>
 		DELETE "/user/delete"  
@@ -77,15 +81,15 @@ ACE
 views 
 	User {
 		registerUser(UserRegistration)
-		confirmEmail(EmailConfirmation)
+		confirmEmail(ConfirmEmail)
 		changeUserRole(ChangeUserRole)
-		deleteUser(Username)
+		deleteUser(DeleteUser)
 		resetPassword(ResetPasswordWithNewPassword)
 	}
 	
 	EmailConfirmation { 
 		insert(UserRegistration)
-		delete(EmailConfirmation)
+		delete(ConfirmEmail)
 	}
 	
 	ResetPassword { 

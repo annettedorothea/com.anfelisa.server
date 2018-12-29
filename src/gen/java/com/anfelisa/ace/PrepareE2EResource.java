@@ -1,7 +1,5 @@
 package com.anfelisa.ace;
 
-import java.lang.reflect.Constructor;
-
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
@@ -13,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jdbi.v3.core.Jdbi;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,14 +57,13 @@ public class PrepareE2EResource {
 				if (!nextAction.getMethod().equalsIgnoreCase("GET")) {
 					ITimelineItem nextEvent = E2E.selectEvent(nextAction.getUuid());
 					if (nextEvent != null) {
-						LOG.info("PUBLISH EVENT " + nextEvent);
-						Class<?> cl = Class.forName(nextEvent.getName());
-						Constructor<?> con = cl.getConstructor(DatabaseHandle.class, IDaoProvider.class, ViewProvider.class);
-						IEvent event = (IEvent) con.newInstance(databaseHandle, daoProvider, viewProvider);
-						event.initEventData(nextEvent.getData());
+						LOG.info("PUBLISH EVENT " + nextEvent.getName());
+						IEvent event = EventFactory.createEvent(nextEvent.getName(), nextEvent.getData(), databaseHandle,
+								daoProvider, viewProvider);
 						event.notifyListeners();
 						daoProvider.addPreparingEventToTimeline(event, nextAction.getUuid());
 						eventCount++;
+						LOG.info("published " + nextEvent.getUuid() + " - " + nextEvent.getName());
 					}
 				}
 				nextAction = E2E.selectNextAction(nextAction.getUuid());
@@ -77,6 +73,7 @@ public class PrepareE2EResource {
 			return Response.ok("prepared action " + uuid + " by publishing " + eventCount + " events").build();
 		} catch (Exception e) {
 			databaseHandle.rollbackTransaction();
+			LOG.info("exception during prepare action " + uuid, e);
 			throw new WebApplicationException(e);
 		} finally {
 			databaseHandle.close();
@@ -84,4 +81,5 @@ public class PrepareE2EResource {
 	}
 
 }
+
 

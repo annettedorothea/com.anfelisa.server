@@ -7,17 +7,13 @@ import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public abstract class Event<T extends IDataContainer> implements IEvent {
 
 	static final Logger LOG = LoggerFactory.getLogger(Event.class);
 
 	protected T eventData;
 	private String eventName;
-	@JsonIgnore
 	protected DatabaseHandle databaseHandle;
-	protected JodaObjectMapper mapper;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 
@@ -27,7 +23,6 @@ public abstract class Event<T extends IDataContainer> implements IEvent {
 		this.eventName = eventName;
 		this.databaseHandle = databaseHandle;
 		this.daoProvider = daoProvider;
-		mapper = new JodaObjectMapper();
 		this.viewProvider = viewProvider;
 	}
 
@@ -49,7 +44,6 @@ public abstract class Event<T extends IDataContainer> implements IEvent {
 		return eventName;
 	}
 
-	@JsonIgnore
 	public DatabaseHandle getDatabaseHandle() {
 		return databaseHandle;
 	}

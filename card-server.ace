@@ -40,6 +40,8 @@ ACE
 			wanted 
 			naturalInputOrder 
 			categoryId
+		response
+			cardList
 		
 	GetTranslation<CardTranslation>
 		GET "/card/translation" 
@@ -48,14 +50,15 @@ ACE
 			sourceValue 
 			sourceLanguage 
 			targetLanguage
+		response
+			targetValue
 
 views 
 	Card {
 		insert(CardCreation)
 		delete(CardDelete)
 		update(CardUpdate)
-		
-		}
+	}
 
 models 
 	schema public
