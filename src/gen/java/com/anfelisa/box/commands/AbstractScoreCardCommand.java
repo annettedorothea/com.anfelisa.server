@@ -36,14 +36,6 @@ public abstract class AbstractScoreCardCommand extends Command<ScoreCardData> {
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, ScoreCardData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

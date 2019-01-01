@@ -32,14 +32,6 @@ public abstract class AbstractCreateCardCommand extends Command<CardCreationData
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, CardCreationData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

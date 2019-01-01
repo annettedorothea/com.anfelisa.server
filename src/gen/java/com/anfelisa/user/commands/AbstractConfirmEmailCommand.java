@@ -35,14 +35,6 @@ public abstract class AbstractConfirmEmailCommand extends Command<ConfirmEmailDa
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, ConfirmEmailData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

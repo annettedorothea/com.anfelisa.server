@@ -36,14 +36,6 @@ public abstract class AbstractScoreReinforceCardCommand extends Command<ScoreRei
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, ScoreReinforceCardData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

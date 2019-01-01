@@ -36,14 +36,6 @@ public abstract class AbstractCreateCategoryCommand extends Command<CategoryCrea
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, CategoryCreationData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

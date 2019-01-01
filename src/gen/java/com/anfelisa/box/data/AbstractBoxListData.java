@@ -6,11 +6,16 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AbstractData;
+import com.anfelisa.ace.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractBoxListData extends AbstractData implements IBoxListData {
+	
+	static final Logger LOG = LoggerFactory.getLogger(AbstractBoxListData.class);
 	
 	private java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList;
 	
@@ -60,6 +65,10 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 		this.today = today;
 	}
 	
+	
+	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+	}
+
 }
 
 /*       S.D.G.       */

@@ -11,9 +11,6 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	private String language;
 	
 	@NotNull
-	private String token;
-	
-	@NotNull
 	private String userId;
 	
 	@NotNull
@@ -31,25 +28,28 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	@NotNull
 	private Boolean emailConfirmed = false;
 	
+	@NotNull
+	private String token;
+	
 
 	public UserRegistrationModel(
 		@JsonProperty("language") String language,
-		@JsonProperty("token") String token,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
+		@JsonProperty("token") String token
 	) {
 		this.language = language;
-		this.token = token;
 		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
+		this.token = token;
 	}
 
 	@JsonProperty
@@ -58,14 +58,6 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	}
 	public void setLanguage(String language) {
 		this.language = language;
-	}
-	
-	@JsonProperty
-	public String getToken() {
-		return this.token;
-	}
-	public void setToken(String token) {
-		this.token = token;
 	}
 	
 	@JsonProperty
@@ -114,6 +106,14 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	}
 	public void setEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
+	}
+	
+	@JsonProperty
+	public String getToken() {
+		return this.token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 

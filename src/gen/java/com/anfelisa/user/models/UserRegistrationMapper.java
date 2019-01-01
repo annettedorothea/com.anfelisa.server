@@ -11,13 +11,13 @@ public class UserRegistrationMapper implements RowMapper<IUserRegistrationModel>
 	public IUserRegistrationModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserRegistrationModel(
 			r.getString("language"),
-			r.getString("token"),
 			r.getString("userId"),
 			r.getString("username"),
 			r.getString("password"),
 			r.getString("email"),
 			r.getString("role"),
-			r.getBoolean("emailConfirmed")
+			r.getBoolean("emailConfirmed"),
+			r.getString("token")
 		);
 	}
 }

@@ -32,14 +32,6 @@ public abstract class AbstractDeleteBoxCommand extends Command<DeleteBoxData> {
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, DeleteBoxData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

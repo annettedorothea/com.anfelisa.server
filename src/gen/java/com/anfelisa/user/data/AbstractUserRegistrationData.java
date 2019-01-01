@@ -6,17 +6,19 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AbstractData;
+import com.anfelisa.ace.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractUserRegistrationData extends AbstractData implements IUserRegistrationData {
 	
-	@NotNull
-	private String language;
+	static final Logger LOG = LoggerFactory.getLogger(AbstractUserRegistrationData.class);
 	
 	@NotNull
-	private String token;
+	private String language;
 	
 	@NotNull
 	private String userId;
@@ -36,27 +38,30 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	@NotNull
 	private Boolean emailConfirmed = false;
 	
+	@NotNull
+	private String token;
+	
 
 	public AbstractUserRegistrationData(
 		@JsonProperty("language") String language,
-		@JsonProperty("token") String token,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("username") String username,
 		@JsonProperty("password") String password,
 		@JsonProperty("email") String email,
 		@JsonProperty("role") String role,
-		@JsonProperty("emailConfirmed") Boolean emailConfirmed
+		@JsonProperty("emailConfirmed") Boolean emailConfirmed,
+		@JsonProperty("token") String token
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.language = language;
-		this.token = token;
 		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.role = role;
 		this.emailConfirmed = emailConfirmed;
+		this.token = token;
 	}
 
 	public AbstractUserRegistrationData( String uuid ) {
@@ -69,14 +74,6 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 	public void setLanguage(String language) {
 		this.language = language;
-	}
-	
-	@JsonProperty
-	public String getToken() {
-		return this.token;
-	}
-	public void setToken(String token) {
-		this.token = token;
 	}
 	
 	@JsonProperty
@@ -127,6 +124,26 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 		this.emailConfirmed = emailConfirmed;
 	}
 	
+	@JsonProperty
+	public String getToken() {
+		return this.token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	
+	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+		if (dataContainer != null) {
+			try {
+				IUserRegistrationData original = (IUserRegistrationData)dataContainer;
+				token = original.getToken();
+			} catch (ClassCastException x) {
+				LOG.error("cannot cast data to IUserRegistrationData for overwriting not replayable attributes", x);
+			}
+		}
+	}
+
 }
 
 /*       S.D.G.       */

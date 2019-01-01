@@ -36,14 +36,6 @@ public abstract class AbstractDeleteCategoryCommand extends Command<CategoryDele
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, CategoryDeleteData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

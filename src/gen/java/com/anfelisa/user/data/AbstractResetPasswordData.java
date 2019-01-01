@@ -6,11 +6,16 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AbstractData;
+import com.anfelisa.ace.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractResetPasswordData extends AbstractData implements IResetPasswordData {
+	
+	static final Logger LOG = LoggerFactory.getLogger(AbstractResetPasswordData.class);
 	
 	@NotNull
 	private String token;
@@ -49,6 +54,18 @@ public abstract class AbstractResetPasswordData extends AbstractData implements 
 		this.userId = userId;
 	}
 	
+	
+	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+		if (dataContainer != null) {
+			try {
+				IResetPasswordData original = (IResetPasswordData)dataContainer;
+				token = original.getToken();
+			} catch (ClassCastException x) {
+				LOG.error("cannot cast data to IResetPasswordData for overwriting not replayable attributes", x);
+			}
+		}
+	}
+
 }
 
 /*       S.D.G.       */

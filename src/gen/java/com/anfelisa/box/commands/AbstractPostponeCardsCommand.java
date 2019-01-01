@@ -35,14 +35,6 @@ public abstract class AbstractPostponeCardsCommand extends Command<PostponeCards
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, PostponeCardsData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

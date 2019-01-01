@@ -35,14 +35,6 @@ public abstract class AbstractInviteUserCommand extends Command<InviteUserData> 
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, InviteUserData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

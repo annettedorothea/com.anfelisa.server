@@ -32,14 +32,6 @@ public abstract class AbstractChangeUserRoleCommand extends Command<ChangeUserRo
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, ChangeUserRoleData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

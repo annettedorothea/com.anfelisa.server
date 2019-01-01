@@ -32,14 +32,6 @@ public abstract class AbstractCreateBoxCommand extends Command<BoxData> {
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, BoxData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

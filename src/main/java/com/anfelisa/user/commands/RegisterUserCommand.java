@@ -1,5 +1,7 @@
 package com.anfelisa.user.commands;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +34,7 @@ public class RegisterUserCommand extends AbstractRegisterUserCommand {
 		}
 		this.commandData.setUserId(this.commandData.getUuid());
 		this.commandData.setEmailConfirmed(false);
+		this.commandData.setToken(UUID.randomUUID().toString());
 		this.commandData.setOutcome(ok);
 	}
 

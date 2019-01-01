@@ -35,14 +35,6 @@ public abstract class AbstractForgotPasswordCommand extends Command<ForgotPasswo
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, ForgotPasswordData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

@@ -61,7 +61,6 @@ public abstract class AbstractRegisterUserAction extends Action<UserRegistration
 		this.actionData.setUsername(payload.getUsername());
 		this.actionData.setEmail(payload.getEmail());
 		this.actionData.setLanguage(payload.getLanguage());
-		this.actionData.setToken(payload.getToken());
 		return this.apply();
 	}
 

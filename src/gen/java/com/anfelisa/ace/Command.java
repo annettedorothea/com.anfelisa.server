@@ -30,7 +30,6 @@ public abstract class Command<T extends IDataContainer> implements ICommand {
 	public void execute() {
 		this.executeCommand();
 		daoProvider.addCommandToTimeline(this);
-		this.publishEvents();
 	}
 
 	public IDataContainer getCommandData() {

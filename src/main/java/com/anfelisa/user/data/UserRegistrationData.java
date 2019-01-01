@@ -6,24 +6,24 @@ public class UserRegistrationData extends AbstractUserRegistrationData implement
 	
 	public UserRegistrationData(
 		@JsonProperty("language") String language, 
-		@JsonProperty("token") String token, 
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("username") String username, 
 		@JsonProperty("password") String password, 
 		@JsonProperty("email") String email, 
 		@JsonProperty("role") String role, 
 		@JsonProperty("emailConfirmed") Boolean emailConfirmed, 
+		@JsonProperty("token") String token, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			language,
-			token,
 			userId,
 			username,
 			password,
 			email,
 			role,
 			emailConfirmed,
+			token,
 			uuid
 		);
 	}
@@ -32,7 +32,7 @@ public class UserRegistrationData extends AbstractUserRegistrationData implement
 		super(uuid);
 	}
 
-	
+
 	public void migrateLegacyData(String json) {
 	}
 

@@ -35,14 +35,6 @@ public abstract class AbstractRevokeUserAccessCommand extends Command<RevokeUser
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, RevokeUserData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

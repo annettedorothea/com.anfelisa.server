@@ -8,8 +8,6 @@ public interface ICommand {
 
 	DatabaseHandle getDatabaseHandle();
 
-	void initCommandData(String json);
-
 	void execute();
 
 	void publishEvents();

@@ -32,14 +32,6 @@ public abstract class AbstractUpdateCategoryCommand extends Command<CategoryUpda
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, CategoryUpdateData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

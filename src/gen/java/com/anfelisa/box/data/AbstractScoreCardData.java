@@ -6,11 +6,16 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AbstractData;
+import com.anfelisa.ace.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractScoreCardData extends AbstractData implements IScoreCardData {
+	
+	static final Logger LOG = LoggerFactory.getLogger(AbstractScoreCardData.class);
 	
 	@NotNull
 	private String cardId;
@@ -226,6 +231,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 		this.boxId = boxId;
 	}
 	
+	
+	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+	}
+
 }
 
 /*       S.D.G.       */

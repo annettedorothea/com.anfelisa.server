@@ -32,14 +32,6 @@ public abstract class AbstractScheduleNextCardCommand extends Command<ScheduleNe
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, ScheduleNextCardData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

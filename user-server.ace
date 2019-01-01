@@ -53,7 +53,6 @@ ACE
 			username
 			email
 			language
-			token
 		on ok (User.registerUser EmailConfirmation.insert Email.sendRegistrationEmail)
 	
 	ConfirmEmail<ConfirmEmail>
@@ -116,12 +115,12 @@ models
 	}
 
 	persistent EmailConfirmation {
-		Unique PrimaryKey NotNull String token
+		Unique PrimaryKey NotNull String token notReplayable
 		NotNull String userId
 	}
 
 	persistent ResetPassword {
-		Unique PrimaryKey NotNull String token
+		Unique PrimaryKey NotNull String token notReplayable
 		NotNull String userId
 	}
 	
@@ -129,32 +128,14 @@ models
 		String username
 		String role
 	} 
-	Username {
-		NotNull String username
-	} 
-	UserId {
-		NotNull String userId
-	} 
-	Email {
-		NotNull String email
-	} 
-	Available {
-		Boolean available
-	}
 	DeleteUser {
 		NotNull String usernameToBeDeleted
 		NotNull String username
 		NotNull String role
 	}
-	Language {
-		NotNull String language
-	}
 	UserList {
 		List User userList
 		String role
-	}
-	Password {
-		String password
 	}
 	ChangeUserRole {
 		NotNull String editedUserId
@@ -180,7 +161,6 @@ models
 	
 	UserRegistration extends User, EmailConfirmation {
 		NotNull String language
-		NotNull String token
 	}
 	
 	ConfirmEmail extends EmailConfirmation {

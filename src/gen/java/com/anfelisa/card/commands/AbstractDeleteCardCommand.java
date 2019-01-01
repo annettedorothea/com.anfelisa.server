@@ -32,14 +32,6 @@ public abstract class AbstractDeleteCardCommand extends Command<CardDeleteData> 
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, CardDeleteData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */

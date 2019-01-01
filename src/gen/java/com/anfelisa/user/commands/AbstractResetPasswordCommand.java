@@ -32,14 +32,6 @@ public abstract class AbstractResetPasswordCommand extends Command<ResetPassword
 		}
 	}
 	
-	public void initCommandData(String json) {
-		try {
-			this.commandData = mapper.readValue(json, ResetPasswordWithNewPasswordData.class);
-		} catch (Exception e) {
-			throw new WebApplicationException(e);
-		}
-	}
-
 }
 
 /*       S.D.G.       */
