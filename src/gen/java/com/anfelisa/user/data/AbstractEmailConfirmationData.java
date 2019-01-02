@@ -55,17 +55,6 @@ public abstract class AbstractEmailConfirmationData extends AbstractData impleme
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-		if (dataContainer != null) {
-			try {
-				IEmailConfirmationData original = (IEmailConfirmationData)dataContainer;
-				token = original.getToken();
-			} catch (ClassCastException x) {
-				LOG.error("cannot cast data to IEmailConfirmationData for overwriting not replayable attributes", x);
-			}
-		}
-	}
-
 }
 
 /*       S.D.G.       */

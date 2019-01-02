@@ -1,5 +1,6 @@
 package com.anfelisa.box.data;
 
+import com.anfelisa.ace.IDataContainer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BoxUpdateData extends AbstractBoxUpdateData implements IBoxUpdateData {
@@ -22,8 +23,19 @@ public class BoxUpdateData extends AbstractBoxUpdateData implements IBoxUpdateDa
 		super(uuid);
 	}
 
-	
+
 	public void migrateLegacyData(String json) {
+	}
+
+	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+		/*if (dataContainer != null) {
+			try {
+				IBoxUpdateData original = (IBoxUpdateData)dataContainer;
+				//overwrite values
+			} catch (ClassCastException x) {
+				LOG.error("cannot cast data to IBoxUpdateData for overwriting not replayable attributes", x);
+			}
+		}*/
 	}
 
 }

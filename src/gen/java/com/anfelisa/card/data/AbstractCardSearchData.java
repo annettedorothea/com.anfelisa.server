@@ -91,9 +91,6 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

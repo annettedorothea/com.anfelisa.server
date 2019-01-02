@@ -68,9 +68,6 @@ public abstract class AbstractDeleteUserData extends AbstractData implements IDe
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

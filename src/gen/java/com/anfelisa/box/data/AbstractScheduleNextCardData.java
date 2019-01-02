@@ -193,9 +193,20 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+	public void mapFrom(com.anfelisa.box.models.IScheduledCardModel model) {
+		this.scheduledCardId = model.getScheduledCardId();
+		this.cardId = model.getCardId();
+		this.boxId = model.getBoxId();
+		this.createdDate = model.getCreatedDate();
+		this.ef = model.getEf();
+		this.interval = model.getInterval();
+		this.n = model.getN();
+		this.count = model.getCount();
+		this.scheduledDate = model.getScheduledDate();
+		this.lastQuality = model.getLastQuality();
+		this.quality = model.getQuality();
+		this.scoredDate = model.getScoredDate();
 	}
-
 }
 
 /*       S.D.G.       */

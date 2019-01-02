@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.box.models.IBoxInfoModel;
 import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.IBoxViewModel;
 
 public class GetBoxAction extends AbstractGetBoxAction {
 
@@ -27,21 +27,9 @@ public class GetBoxAction extends AbstractGetBoxAction {
 		if (!box.getUserId().equals(actionData.getUserId())) {
 			throwUnauthorized();
 		}
-		IBoxInfoModel boxInfo = daoProvider.getBoxDao().selectByBoxId(getHandle(), actionData.getBoxId(),
+		IBoxViewModel boxInfo = daoProvider.getBoxDao().selectByBoxId(getHandle(), actionData.getBoxId(),
 				actionData.getToday());
-		this.actionData.setCategoryName(boxInfo.getCategoryName());
-		this.actionData.setDaysBehindSchedule(boxInfo.getDaysBehindSchedule());
-		this.actionData.setMaxInterval(boxInfo.getMaxInterval());
-		this.actionData.setMyCards(boxInfo.getMyCards());
-		this.actionData.setTodaysCards(boxInfo.getTodaysCards());
-		this.actionData.setTotalCards(boxInfo.getTotalCards());
-		this.actionData.setReinforceCards(boxInfo.getReinforceCards());
-		this.actionData.setQuality0Count(boxInfo.getQuality0Count());
-		this.actionData.setQuality1Count(boxInfo.getQuality1Count());
-		this.actionData.setQuality2Count(boxInfo.getQuality2Count());
-		this.actionData.setQuality3Count(boxInfo.getQuality3Count());
-		this.actionData.setQuality4Count(boxInfo.getQuality4Count());
-		this.actionData.setQuality5Count(boxInfo.getQuality5Count());
+		this.actionData.mapFrom(boxInfo);
 	}
 
 }

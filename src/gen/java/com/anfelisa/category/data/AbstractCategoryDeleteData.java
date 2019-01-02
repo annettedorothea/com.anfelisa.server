@@ -80,9 +80,6 @@ public abstract class AbstractCategoryDeleteData extends AbstractData implements
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

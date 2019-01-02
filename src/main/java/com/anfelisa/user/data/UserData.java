@@ -1,5 +1,6 @@
 package com.anfelisa.user.data;
 
+import com.anfelisa.ace.IDataContainer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserData extends AbstractUserData implements IUserData {
@@ -28,8 +29,19 @@ public class UserData extends AbstractUserData implements IUserData {
 		super(uuid);
 	}
 
-	
+
 	public void migrateLegacyData(String json) {
+	}
+
+	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+		/*if (dataContainer != null) {
+			try {
+				IUserData original = (IUserData)dataContainer;
+				//overwrite values
+			} catch (ClassCastException x) {
+				LOG.error("cannot cast data to IUserData for overwriting not replayable attributes", x);
+			}
+		}*/
 	}
 
 }

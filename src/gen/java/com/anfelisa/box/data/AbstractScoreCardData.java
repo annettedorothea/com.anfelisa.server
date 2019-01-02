@@ -232,9 +232,6 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

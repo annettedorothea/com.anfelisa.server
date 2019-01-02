@@ -8,7 +8,6 @@ import com.anfelisa.box.models.IReinforceCardModel;
 
 @JsonDeserialize(as=ReinforceCardData.class)
 public interface IReinforceCardData extends IReinforceCardModel, IDataContainer {
-
 }
 
 /*       S.D.G.       */

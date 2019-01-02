@@ -143,9 +143,6 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

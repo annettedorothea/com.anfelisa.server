@@ -80,9 +80,6 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

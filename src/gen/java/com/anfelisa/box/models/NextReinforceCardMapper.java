@@ -10,15 +10,15 @@ public class NextReinforceCardMapper implements RowMapper<INextReinforceCardMode
 	
 	public INextReinforceCardModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new NextReinforceCardModel(
+			r.getString("boxId"),
+			r.getString("userId"),
 			r.getString("reinforceCardId"),
 			r.getTimestamp("changeDate") != null ? new org.joda.time.DateTime(r.getTimestamp("changeDate")) : null,
 			r.getObject("lastQuality") != null ? r.getInt("lastQuality") : null,
 			r.getString("given"),
 			r.getString("wanted"),
 			r.getString("image"),
-			r.getString("categoryId"),
-			r.getString("userId"),
-			r.getString("boxId")
+			r.getString("categoryId")
 		);
 	}
 }

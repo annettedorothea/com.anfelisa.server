@@ -1,5 +1,6 @@
 package com.anfelisa.box.data;
 
+import com.anfelisa.ace.IDataContainer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ScoreReinforceCardData extends AbstractScoreReinforceCardData implements IScoreReinforceCardData {
@@ -24,8 +25,19 @@ public class ScoreReinforceCardData extends AbstractScoreReinforceCardData imple
 		super(uuid);
 	}
 
-	
+
 	public void migrateLegacyData(String json) {
+	}
+
+	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+		/*if (dataContainer != null) {
+			try {
+				IScoreReinforceCardData original = (IScoreReinforceCardData)dataContainer;
+				//overwrite values
+			} catch (ClassCastException x) {
+				LOG.error("cannot cast data to IScoreReinforceCardData for overwriting not replayable attributes", x);
+			}
+		}*/
 	}
 
 }

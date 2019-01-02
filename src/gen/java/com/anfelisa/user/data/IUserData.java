@@ -8,7 +8,6 @@ import com.anfelisa.user.models.IUserModel;
 
 @JsonDeserialize(as=UserData.class)
 public interface IUserData extends IUserModel, IDataContainer {
-
 }
 
 /*       S.D.G.       */

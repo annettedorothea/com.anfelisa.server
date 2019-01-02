@@ -17,6 +17,11 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractNextCardData.class);
 	
+	private String userId;
+	
+	@NotNull
+	private org.joda.time.DateTime today;
+	
 	@NotNull
 	private String scheduledCardId;
 	
@@ -46,13 +51,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	@NotNull
 	private String boxId;
 	
-	private String userId;
-	
-	@NotNull
-	private org.joda.time.DateTime today;
-	
 
 	public AbstractNextCardData(
+		@JsonProperty("userId") String userId,
+		@JsonProperty("today") org.joda.time.DateTime today,
 		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
@@ -64,12 +66,12 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
-		@JsonProperty("boxId") String boxId,
-		@JsonProperty("userId") String userId,
-		@JsonProperty("today") org.joda.time.DateTime today
+		@JsonProperty("boxId") String boxId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
+		this.userId = userId;
+		this.today = today;
 		this.scheduledCardId = scheduledCardId;
 		this.cardId = cardId;
 		this.scheduledDate = scheduledDate;
@@ -82,14 +84,28 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		this.count = count;
 		this.scoredDate = scoredDate;
 		this.boxId = boxId;
-		this.userId = userId;
-		this.today = today;
 	}
 
 	public AbstractNextCardData( String uuid ) {
 		super(uuid);
 	}
 
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getToday() {
+		return this.today;
+	}
+	public void setToday(org.joda.time.DateTime today) {
+		this.today = today;
+	}
+	
 	@JsonProperty
 	public String getScheduledCardId() {
 		return this.scheduledCardId;
@@ -186,26 +202,21 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		this.boxId = boxId;
 	}
 	
-	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 	
-	@JsonProperty
-	public org.joda.time.DateTime getToday() {
-		return this.today;
+	public void mapFrom(com.anfelisa.box.models.INextCardViewModel model) {
+		this.scheduledCardId = model.getScheduledCardId();
+		this.cardId = model.getCardId();
+		this.scheduledDate = model.getScheduledDate();
+		this.lastQuality = model.getLastQuality();
+		this.given = model.getGiven();
+		this.wanted = model.getWanted();
+		this.image = model.getImage();
+		this.categoryId = model.getCategoryId();
+		this.rootCategoryId = model.getRootCategoryId();
+		this.count = model.getCount();
+		this.scoredDate = model.getScoredDate();
+		this.boxId = model.getBoxId();
 	}
-	public void setToday(org.joda.time.DateTime today) {
-		this.today = today;
-	}
-	
-	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

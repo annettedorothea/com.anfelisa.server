@@ -11,7 +11,7 @@ Authorization AuthUser {
 
 ACE 
 	GetUserProfile<User>
-		GET "user/get" 
+		GET "/user/get" 
 		authorize 
 		response
 			email
@@ -115,12 +115,12 @@ models
 	}
 
 	persistent EmailConfirmation {
-		Unique PrimaryKey NotNull String token notReplayable
+		Unique PrimaryKey NotNull String token
 		NotNull String userId
 	}
 
 	persistent ResetPassword {
-		Unique PrimaryKey NotNull String token notReplayable
+		Unique PrimaryKey NotNull String token
 		NotNull String userId
 	}
 	

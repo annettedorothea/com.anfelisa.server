@@ -1,5 +1,6 @@
 package com.anfelisa.card.data;
 
+import com.anfelisa.ace.IDataContainer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CardData extends AbstractCardData implements ICardData {
@@ -34,8 +35,19 @@ public class CardData extends AbstractCardData implements ICardData {
 		super(uuid);
 	}
 
-	
+
 	public void migrateLegacyData(String json) {
+	}
+
+	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+		/*if (dataContainer != null) {
+			try {
+				ICardData original = (ICardData)dataContainer;
+				//overwrite values
+			} catch (ClassCastException x) {
+				LOG.error("cannot cast data to ICardData for overwriting not replayable attributes", x);
+			}
+		}*/
 	}
 
 }

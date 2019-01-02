@@ -8,7 +8,6 @@ import com.anfelisa.box.models.IBoxUpdateModel;
 
 @JsonDeserialize(as=BoxUpdateData.class)
 public interface IBoxUpdateData extends IBoxUpdateModel, IDataContainer {
-
 }
 
 /*       S.D.G.       */

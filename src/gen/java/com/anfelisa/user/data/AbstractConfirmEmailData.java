@@ -67,17 +67,10 @@ public abstract class AbstractConfirmEmailData extends AbstractData implements I
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-		if (dataContainer != null) {
-			try {
-				IConfirmEmailData original = (IConfirmEmailData)dataContainer;
-				token = original.getToken();
-			} catch (ClassCastException x) {
-				LOG.error("cannot cast data to IConfirmEmailData for overwriting not replayable attributes", x);
-			}
-		}
+	public void mapFrom(com.anfelisa.user.models.IEmailConfirmationModel model) {
+		this.token = model.getToken();
+		this.userId = model.getUserId();
 	}
-
 }
 
 /*       S.D.G.       */

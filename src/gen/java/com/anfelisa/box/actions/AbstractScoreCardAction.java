@@ -61,6 +61,7 @@ public abstract class AbstractScoreCardAction extends Action<ScoreCardData> {
 		this.actionData = new ScoreCardData(payload.getUuid());
 		this.actionData.setScoredCardScheduledCardId(payload.getScoredCardScheduledCardId());
 		this.actionData.setBoxId(payload.getBoxId());
+		this.actionData.setScoredCardQuality(payload.getScoredCardQuality());
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}

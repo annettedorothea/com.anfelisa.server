@@ -54,9 +54,6 @@ public abstract class AbstractDeleteBoxData extends AbstractData implements IDel
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

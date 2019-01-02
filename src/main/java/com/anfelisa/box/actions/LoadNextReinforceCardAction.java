@@ -8,7 +8,7 @@ import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.INextReinforceCardModel;
+import com.anfelisa.box.models.INextReinforceCardViewModel;
 
 public class LoadNextReinforceCardAction extends AbstractLoadNextReinforceCardAction {
 
@@ -28,16 +28,10 @@ public class LoadNextReinforceCardAction extends AbstractLoadNextReinforceCardAc
 			throwUnauthorized();
 		}
 
-		INextReinforceCardModel nextCard = daoProvider.getReinforceCardDao().selectFirstScheduledCard(getHandle(),
+		INextReinforceCardViewModel nextCard = daoProvider.getReinforceCardDao().selectFirstScheduledCard(getHandle(),
 				actionData.getBoxId());
 		if (nextCard != null) {
-			this.actionData.setGiven(nextCard.getGiven());
-			this.actionData.setImage(nextCard.getImage());
-			this.actionData.setLastQuality(nextCard.getLastQuality());
-			this.actionData.setWanted(nextCard.getWanted());
-			this.actionData.setChangeDate(nextCard.getChangeDate());
-			this.actionData.setReinforceCardId(nextCard.getReinforceCardId());
-			this.actionData.setCategoryId(nextCard.getCategoryId());
+			this.actionData.mapFrom(nextCard);
 		}
 	}
 

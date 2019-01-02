@@ -8,7 +8,6 @@ import com.anfelisa.card.models.ICardTranslationModel;
 
 @JsonDeserialize(as=CardTranslationData.class)
 public interface ICardTranslationData extends ICardTranslationModel, IDataContainer {
-
 }
 
 /*       S.D.G.       */

@@ -17,6 +17,11 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractBoxInfoData.class);
 	
+	private String userId;
+	
+	@NotNull
+	private org.joda.time.DateTime today;
+	
 	private Integer todaysCards;
 	
 	private Integer totalCards;
@@ -47,13 +52,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	@NotNull
 	private String boxId;
 	
-	private String userId;
-	
-	@NotNull
-	private org.joda.time.DateTime today;
-	
 
 	public AbstractBoxInfoData(
+		@JsonProperty("userId") String userId,
+		@JsonProperty("today") org.joda.time.DateTime today,
 		@JsonProperty("todaysCards") Integer todaysCards,
 		@JsonProperty("totalCards") Integer totalCards,
 		@JsonProperty("reinforceCards") Integer reinforceCards,
@@ -67,12 +69,12 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 		@JsonProperty("quality3Count") Integer quality3Count,
 		@JsonProperty("quality4Count") Integer quality4Count,
 		@JsonProperty("quality5Count") Integer quality5Count,
-		@JsonProperty("boxId") String boxId,
-		@JsonProperty("userId") String userId,
-		@JsonProperty("today") org.joda.time.DateTime today
+		@JsonProperty("boxId") String boxId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
+		this.userId = userId;
+		this.today = today;
 		this.todaysCards = todaysCards;
 		this.totalCards = totalCards;
 		this.reinforceCards = reinforceCards;
@@ -87,14 +89,28 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 		this.quality4Count = quality4Count;
 		this.quality5Count = quality5Count;
 		this.boxId = boxId;
-		this.userId = userId;
-		this.today = today;
 	}
 
 	public AbstractBoxInfoData( String uuid ) {
 		super(uuid);
 	}
 
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getToday() {
+		return this.today;
+	}
+	public void setToday(org.joda.time.DateTime today) {
+		this.today = today;
+	}
+	
 	@JsonProperty
 	public Integer getTodaysCards() {
 		return this.todaysCards;
@@ -207,26 +223,23 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 		this.boxId = boxId;
 	}
 	
-	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 	
-	@JsonProperty
-	public org.joda.time.DateTime getToday() {
-		return this.today;
+	public void mapFrom(com.anfelisa.box.models.IBoxViewModel model) {
+		this.todaysCards = model.getTodaysCards();
+		this.totalCards = model.getTotalCards();
+		this.reinforceCards = model.getReinforceCards();
+		this.myCards = model.getMyCards();
+		this.daysBehindSchedule = model.getDaysBehindSchedule();
+		this.categoryName = model.getCategoryName();
+		this.maxInterval = model.getMaxInterval();
+		this.quality0Count = model.getQuality0Count();
+		this.quality1Count = model.getQuality1Count();
+		this.quality2Count = model.getQuality2Count();
+		this.quality3Count = model.getQuality3Count();
+		this.quality4Count = model.getQuality4Count();
+		this.quality5Count = model.getQuality5Count();
+		this.boxId = model.getBoxId();
 	}
-	public void setToday(org.joda.time.DateTime today) {
-		this.today = today;
-	}
-	
-	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

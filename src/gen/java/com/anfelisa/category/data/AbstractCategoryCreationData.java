@@ -191,9 +191,23 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+	public void mapFrom(com.anfelisa.category.models.ICategoryModel model) {
+		this.categoryId = model.getCategoryId();
+		this.categoryName = model.getCategoryName();
+		this.categoryAuthor = model.getCategoryAuthor();
+		this.categoryIndex = model.getCategoryIndex();
+		this.parentCategoryId = model.getParentCategoryId();
+		this.rootCategoryId = model.getRootCategoryId();
+		this.dictionaryLookup = model.getDictionaryLookup();
+		this.givenLanguage = model.getGivenLanguage();
+		this.wantedLanguage = model.getWantedLanguage();
+		this.path = model.getPath();
+		this.publicRootCategory = model.getPublicRootCategory();
 	}
-
+	public void mapFrom(com.anfelisa.category.models.IUserAccessToCategoryModel model) {
+		this.categoryId = model.getCategoryId();
+		this.userId = model.getUserId();
+	}
 }
 
 /*       S.D.G.       */

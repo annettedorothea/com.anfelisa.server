@@ -167,9 +167,17 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+	public void mapFrom(com.anfelisa.card.models.ICardModel model) {
+		this.cardId = model.getCardId();
+		this.given = model.getGiven();
+		this.wanted = model.getWanted();
+		this.image = model.getImage();
+		this.cardAuthor = model.getCardAuthor();
+		this.cardIndex = model.getCardIndex();
+		this.categoryId = model.getCategoryId();
+		this.rootCategoryId = model.getRootCategoryId();
+		this.path = model.getPath();
 	}
-
 }
 
 /*       S.D.G.       */

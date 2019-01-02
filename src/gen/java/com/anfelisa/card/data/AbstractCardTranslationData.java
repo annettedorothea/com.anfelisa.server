@@ -81,9 +81,6 @@ public abstract class AbstractCardTranslationData extends AbstractData implement
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

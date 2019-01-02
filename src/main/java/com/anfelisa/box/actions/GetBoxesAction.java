@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.box.models.IBoxInfoModel;
+import com.anfelisa.box.models.IBoxViewModel;
 
 public class GetBoxesAction extends AbstractGetBoxesAction {
 
@@ -21,7 +21,7 @@ public class GetBoxesAction extends AbstractGetBoxesAction {
 
 
 	protected final void loadDataForGetRequest() {
-		List<IBoxInfoModel> boxList = this.daoProvider.getBoxDao().selectByUserId(
+		List<IBoxViewModel> boxList = this.daoProvider.getBoxDao().selectByUserId(
 				this.getDatabaseHandle().getHandle(), this.actionData.getUserId(), actionData.getToday());
 		this.actionData.setBoxList(boxList);
 	}

@@ -7,6 +7,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class NextCardModel implements INextCardModel {
 
+	private String userId;
+	
+	@NotNull
+	private org.joda.time.DateTime today;
+	
 	@NotNull
 	private String scheduledCardId;
 	
@@ -36,13 +41,10 @@ public class NextCardModel implements INextCardModel {
 	@NotNull
 	private String boxId;
 	
-	private String userId;
-	
-	@NotNull
-	private org.joda.time.DateTime today;
-	
 
 	public NextCardModel(
+		@JsonProperty("userId") String userId,
+		@JsonProperty("today") org.joda.time.DateTime today,
 		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
@@ -54,10 +56,10 @@ public class NextCardModel implements INextCardModel {
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
-		@JsonProperty("boxId") String boxId,
-		@JsonProperty("userId") String userId,
-		@JsonProperty("today") org.joda.time.DateTime today
+		@JsonProperty("boxId") String boxId
 	) {
+		this.userId = userId;
+		this.today = today;
 		this.scheduledCardId = scheduledCardId;
 		this.cardId = cardId;
 		this.scheduledDate = scheduledDate;
@@ -70,10 +72,24 @@ public class NextCardModel implements INextCardModel {
 		this.count = count;
 		this.scoredDate = scoredDate;
 		this.boxId = boxId;
-		this.userId = userId;
-		this.today = today;
 	}
 
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getToday() {
+		return this.today;
+	}
+	public void setToday(org.joda.time.DateTime today) {
+		this.today = today;
+	}
+	
 	@JsonProperty
 	public String getScheduledCardId() {
 		return this.scheduledCardId;
@@ -168,22 +184,6 @@ public class NextCardModel implements INextCardModel {
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
-	}
-	
-	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	
-	@JsonProperty
-	public org.joda.time.DateTime getToday() {
-		return this.today;
-	}
-	public void setToday(org.joda.time.DateTime today) {
-		this.today = today;
 	}
 	
 

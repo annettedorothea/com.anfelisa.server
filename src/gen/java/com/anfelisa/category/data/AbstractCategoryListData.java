@@ -185,9 +185,6 @@ public abstract class AbstractCategoryListData extends AbstractData implements I
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

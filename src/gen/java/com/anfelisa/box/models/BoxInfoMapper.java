@@ -10,6 +10,8 @@ public class BoxInfoMapper implements RowMapper<IBoxInfoModel> {
 	
 	public IBoxInfoModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxInfoModel(
+			r.getString("userId"),
+			r.getTimestamp("today") != null ? new org.joda.time.DateTime(r.getTimestamp("today")) : null,
 			r.getObject("todaysCards") != null ? r.getInt("todaysCards") : null,
 			r.getObject("totalCards") != null ? r.getInt("totalCards") : null,
 			r.getObject("reinforceCards") != null ? r.getInt("reinforceCards") : null,
@@ -23,9 +25,7 @@ public class BoxInfoMapper implements RowMapper<IBoxInfoModel> {
 			r.getObject("quality3Count") != null ? r.getInt("quality3Count") : null,
 			r.getObject("quality4Count") != null ? r.getInt("quality4Count") : null,
 			r.getObject("quality5Count") != null ? r.getInt("quality5Count") : null,
-			r.getString("boxId"),
-			r.getString("userId"),
-			r.getTimestamp("today") != null ? new org.joda.time.DateTime(r.getTimestamp("today")) : null
+			r.getString("boxId")
 		);
 	}
 }

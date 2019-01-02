@@ -1,13 +1,5 @@
 package com.anfelisa.ace;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.BiConsumer;
-
-import org.jdbi.v3.core.Handle;
-
 import com.anfelisa.box.views.BoxView;
 import com.anfelisa.box.views.ReinforceCardView;
 import com.anfelisa.box.views.ScheduledCardView;
@@ -19,8 +11,8 @@ import com.anfelisa.user.views.EmailView;
 import com.anfelisa.user.views.ResetPasswordView;
 import com.anfelisa.user.views.UserView;
 
-public class ViewProvider {
-	
+public class ViewProvider extends AbstractViewProvider {
+
 	public final BoxView boxView;
 	public final CardView cardView;
 	public final ScheduledCardView scheduledCardView;
@@ -32,8 +24,6 @@ public class ViewProvider {
 	public ResetPasswordView resetPasswordView;
 	public ReinforceCardView reinforceCardView;
 
-	private final Map<String, List<BiConsumer<? extends IDataContainer, Handle>>> consumerMap;
-
 	public ViewProvider(IDaoProvider daoProvider, EmailService emailService) {
 		boxView = new BoxView(daoProvider);
 		cardView = new CardView(daoProvider);
@@ -42,23 +32,10 @@ public class ViewProvider {
 		userAccessToCategoryView = new UserAccessToCategoryView(daoProvider);
 		emailConfirmationView = new EmailConfirmationView(daoProvider);
 		userView = new UserView(daoProvider);
-		emailView = new EmailView(daoProvider, emailService);
+		emailView = new EmailView(emailService);
 		resetPasswordView = new ResetPasswordView(daoProvider);
 		reinforceCardView = new ReinforceCardView(daoProvider);
-		consumerMap = new HashMap<String, List<BiConsumer<? extends IDataContainer, Handle>>>();
 	}
 	
-	public void addConsumer(String eventName, BiConsumer<? extends IDataContainer, Handle> createUserTable) {
-		List<BiConsumer<? extends IDataContainer, Handle>> consumerForEvent = consumerMap.get(eventName);
-		if (consumerForEvent == null) {
-			consumerForEvent = new ArrayList<BiConsumer<? extends IDataContainer, Handle>>();
-			consumerMap.put(eventName, consumerForEvent);
-		}
-		consumerForEvent.add(createUserTable);
-	}
-
-	public List<BiConsumer<? extends IDataContainer, Handle>> getConsumerForEvent(String eventName) {
-		return consumerMap.get(eventName);
-	}
-
 }
+

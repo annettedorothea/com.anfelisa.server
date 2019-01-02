@@ -94,17 +94,10 @@ public abstract class AbstractForgotPasswordData extends AbstractData implements
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-		if (dataContainer != null) {
-			try {
-				IForgotPasswordData original = (IForgotPasswordData)dataContainer;
-				token = original.getToken();
-			} catch (ClassCastException x) {
-				LOG.error("cannot cast data to IForgotPasswordData for overwriting not replayable attributes", x);
-			}
-		}
+	public void mapFrom(com.anfelisa.user.models.IResetPasswordModel model) {
+		this.token = model.getToken();
+		this.userId = model.getUserId();
 	}
-
 }
 
 /*       S.D.G.       */

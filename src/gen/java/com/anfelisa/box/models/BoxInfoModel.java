@@ -7,6 +7,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class BoxInfoModel implements IBoxInfoModel {
 
+	private String userId;
+	
+	@NotNull
+	private org.joda.time.DateTime today;
+	
 	private Integer todaysCards;
 	
 	private Integer totalCards;
@@ -37,13 +42,10 @@ public class BoxInfoModel implements IBoxInfoModel {
 	@NotNull
 	private String boxId;
 	
-	private String userId;
-	
-	@NotNull
-	private org.joda.time.DateTime today;
-	
 
 	public BoxInfoModel(
+		@JsonProperty("userId") String userId,
+		@JsonProperty("today") org.joda.time.DateTime today,
 		@JsonProperty("todaysCards") Integer todaysCards,
 		@JsonProperty("totalCards") Integer totalCards,
 		@JsonProperty("reinforceCards") Integer reinforceCards,
@@ -57,10 +59,10 @@ public class BoxInfoModel implements IBoxInfoModel {
 		@JsonProperty("quality3Count") Integer quality3Count,
 		@JsonProperty("quality4Count") Integer quality4Count,
 		@JsonProperty("quality5Count") Integer quality5Count,
-		@JsonProperty("boxId") String boxId,
-		@JsonProperty("userId") String userId,
-		@JsonProperty("today") org.joda.time.DateTime today
+		@JsonProperty("boxId") String boxId
 	) {
+		this.userId = userId;
+		this.today = today;
 		this.todaysCards = todaysCards;
 		this.totalCards = totalCards;
 		this.reinforceCards = reinforceCards;
@@ -75,10 +77,24 @@ public class BoxInfoModel implements IBoxInfoModel {
 		this.quality4Count = quality4Count;
 		this.quality5Count = quality5Count;
 		this.boxId = boxId;
-		this.userId = userId;
-		this.today = today;
 	}
 
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@JsonProperty
+	public org.joda.time.DateTime getToday() {
+		return this.today;
+	}
+	public void setToday(org.joda.time.DateTime today) {
+		this.today = today;
+	}
+	
 	@JsonProperty
 	public Integer getTodaysCards() {
 		return this.todaysCards;
@@ -189,22 +205,6 @@ public class BoxInfoModel implements IBoxInfoModel {
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
-	}
-	
-	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	
-	@JsonProperty
-	public org.joda.time.DateTime getToday() {
-		return this.today;
-	}
-	public void setToday(org.joda.time.DateTime today) {
-		this.today = today;
 	}
 	
 

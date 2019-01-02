@@ -1,10 +1,13 @@
 package com.anfelisa.box.data;
 
+import com.anfelisa.ace.IDataContainer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BoxInfoData extends AbstractBoxInfoData implements IBoxInfoData {
 	
 	public BoxInfoData(
+		@JsonProperty("userId") String userId, 
+		@JsonProperty("today") org.joda.time.DateTime today, 
 		@JsonProperty("todaysCards") Integer todaysCards, 
 		@JsonProperty("totalCards") Integer totalCards, 
 		@JsonProperty("reinforceCards") Integer reinforceCards, 
@@ -19,11 +22,11 @@ public class BoxInfoData extends AbstractBoxInfoData implements IBoxInfoData {
 		@JsonProperty("quality4Count") Integer quality4Count, 
 		@JsonProperty("quality5Count") Integer quality5Count, 
 		@JsonProperty("boxId") String boxId, 
-		@JsonProperty("userId") String userId, 
-		@JsonProperty("today") org.joda.time.DateTime today, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
+			userId,
+			today,
 			todaysCards,
 			totalCards,
 			reinforceCards,
@@ -38,8 +41,6 @@ public class BoxInfoData extends AbstractBoxInfoData implements IBoxInfoData {
 			quality4Count,
 			quality5Count,
 			boxId,
-			userId,
-			today,
 			uuid
 		);
 	}
@@ -48,8 +49,19 @@ public class BoxInfoData extends AbstractBoxInfoData implements IBoxInfoData {
 		super(uuid);
 	}
 
-	
+
 	public void migrateLegacyData(String json) {
+	}
+
+	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+		/*if (dataContainer != null) {
+			try {
+				IBoxInfoData original = (IBoxInfoData)dataContainer;
+				//overwrite values
+			} catch (ClassCastException x) {
+				LOG.error("cannot cast data to IBoxInfoData for overwriting not replayable attributes", x);
+			}
+		}*/
 	}
 
 }

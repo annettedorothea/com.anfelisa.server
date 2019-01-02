@@ -26,14 +26,38 @@ public class AppRegistration {
 	}
 
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {
-				viewProvider.addConsumer("com.anfelisa.category.events.CreateCategorySubEvent", viewProvider.categoryView.insert);
-				viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryRootEvent", viewProvider.categoryView.insert);
-				viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryRootEvent", viewProvider.userAccessToCategoryView.grantAccess);
-				viewProvider.addConsumer("com.anfelisa.category.events.UpdateCategoryOkEvent", viewProvider.categoryView.update);
-				viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryNoRootEvent", viewProvider.categoryView.delete);
-				viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryRootEvent", viewProvider.categoryView.deleteRoot);
-				viewProvider.addConsumer("com.anfelisa.category.events.InviteUserOkEvent", viewProvider.userAccessToCategoryView.grantAccessInvitation);
-				viewProvider.addConsumer("com.anfelisa.category.events.RevokeUserAccessOkEvent", viewProvider.userAccessToCategoryView.revokeAccess);
+		viewProvider.addConsumer("com.anfelisa.category.events.CreateCategorySubEvent", (dataContainer, handle) -> {
+			viewProvider.categoryView.insert((com.anfelisa.category.data.CategoryCreationData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryRootEvent", (dataContainer, handle) -> {
+			viewProvider.categoryView.insert((com.anfelisa.category.data.CategoryCreationData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryRootEvent", (dataContainer, handle) -> {
+			viewProvider.userAccessToCategoryView.grantAccess((com.anfelisa.category.data.CategoryCreationData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.category.events.UpdateCategoryOkEvent", (dataContainer, handle) -> {
+			viewProvider.categoryView.update((com.anfelisa.category.data.CategoryUpdateData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryNoRootEvent", (dataContainer, handle) -> {
+			viewProvider.categoryView.delete((com.anfelisa.category.data.CategoryDeleteData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryRootEvent", (dataContainer, handle) -> {
+			viewProvider.categoryView.deleteRoot((com.anfelisa.category.data.CategoryDeleteData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserOkEvent", (dataContainer, handle) -> {
+			viewProvider.userAccessToCategoryView.grantAccessInvitation((com.anfelisa.category.data.InviteUserData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.category.events.RevokeUserAccessOkEvent", (dataContainer, handle) -> {
+			viewProvider.userAccessToCategoryView.revokeAccess((com.anfelisa.category.data.RevokeUserData) dataContainer, handle);
+		});
+		
     }
 }
 

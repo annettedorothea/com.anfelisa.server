@@ -1,7 +1,5 @@
 package com.anfelisa.category.views;
 
-import java.util.function.BiConsumer;
-
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
@@ -9,8 +7,7 @@ import com.anfelisa.category.data.CategoryCreationData;
 import com.anfelisa.category.data.CategoryDeleteData;
 import com.anfelisa.category.data.CategoryUpdateData;
 
-@SuppressWarnings("all")
-public class CategoryView {
+public class CategoryView implements ICategoryView {
 
 	private IDaoProvider daoProvider;
 
@@ -19,22 +16,25 @@ public class CategoryView {
 		this.daoProvider = daoProvider;
 	}
 
-	public BiConsumer<CategoryCreationData, Handle> insert = (dataContainer, handle) -> {
-		daoProvider.getCategoryDao().insert(handle, dataContainer);
-	};
-	public BiConsumer<CategoryDeleteData, Handle> delete = (dataContainer, handle) -> {
-		daoProvider.getCardDao().deleteByCategoryId(handle, dataContainer.getCategoryId());
-		daoProvider.getCategoryDao().deleteByCategoryId(handle, dataContainer.getCategoryId());
-		daoProvider.getCategoryDao().shiftCategories(handle, dataContainer.getCategoryIndex(), dataContainer.getParentCategoryId());
-	};
-	public BiConsumer<CategoryDeleteData, Handle> deleteRoot = (dataContainer, handle) -> {
-		daoProvider.getCardDao().deleteByCategoryId(handle, dataContainer.getCategoryId());
-		daoProvider.getCategoryDao().deleteByCategoryId(handle, dataContainer.getCategoryId());
-		daoProvider.getCategoryDao().shiftRootCategories(handle, dataContainer.getCategoryIndex());
-	};
-	public BiConsumer<CategoryUpdateData, Handle> update = (dataContainer, handle) -> {
-		daoProvider.getCategoryDao().update(handle, dataContainer);
-	};
+	public void insert(CategoryCreationData data, Handle handle) {
+		daoProvider.getCategoryDao().insert(handle, data);
+	}
+
+	public void delete(CategoryDeleteData data, Handle handle) {
+		daoProvider.getCardDao().deleteByCategoryId(handle, data.getCategoryId());
+		daoProvider.getCategoryDao().deleteByCategoryId(handle, data.getCategoryId());
+		daoProvider.getCategoryDao().shiftCategories(handle, data.getCategoryIndex(), data.getParentCategoryId());
+	}
+
+	public void deleteRoot(CategoryDeleteData data, Handle handle) {
+		daoProvider.getCardDao().deleteByCategoryId(handle, data.getCategoryId());
+		daoProvider.getCategoryDao().deleteByCategoryId(handle, data.getCategoryId());
+		daoProvider.getCategoryDao().shiftRootCategories(handle, data.getCategoryIndex());
+	}
+
+	public void update(CategoryUpdateData data, Handle handle) {
+		daoProvider.getCategoryDao().update(handle, data);
+	}
 
 }
 

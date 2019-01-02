@@ -11,7 +11,7 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.PostponeCardsData;
 import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.INextCardModel;
+import com.anfelisa.box.models.INextCardViewModel;
 
 public class PostponeCardsCommand extends AbstractPostponeCardsCommand {
 
@@ -29,7 +29,7 @@ public class PostponeCardsCommand extends AbstractPostponeCardsCommand {
 		}
 		DateTime todayDate = new DateTime(commandData.getToday());
 		todayDate = todayDate.withZone(DateTimeZone.UTC);
-		INextCardModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(getHandle(),
+		INextCardViewModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(getHandle(),
 				commandData.getBoxId(), todayDate);
 		if (nextCard != null) {
 			int days = Days.daysBetween(nextCard.getScheduledDate(), todayDate).getDays();

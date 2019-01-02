@@ -8,7 +8,6 @@ import com.anfelisa.box.models.IDeleteBoxModel;
 
 @JsonDeserialize(as=DeleteBoxData.class)
 public interface IDeleteBoxData extends IDeleteBoxModel, IDataContainer {
-
 }
 
 /*       S.D.G.       */

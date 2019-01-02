@@ -8,7 +8,6 @@ import com.anfelisa.user.models.IResetPasswordModel;
 
 @JsonDeserialize(as=ResetPasswordData.class)
 public interface IResetPasswordData extends IResetPasswordModel, IDataContainer {
-
 }
 
 /*       S.D.G.       */

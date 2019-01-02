@@ -166,9 +166,6 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

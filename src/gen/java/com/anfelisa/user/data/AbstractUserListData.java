@@ -53,9 +53,6 @@ public abstract class AbstractUserListData extends AbstractData implements IUser
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

@@ -80,9 +80,6 @@ public abstract class AbstractRevokeUserData extends AbstractData implements IRe
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

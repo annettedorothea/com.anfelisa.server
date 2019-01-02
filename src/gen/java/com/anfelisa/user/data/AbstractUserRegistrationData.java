@@ -133,17 +133,18 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-		if (dataContainer != null) {
-			try {
-				IUserRegistrationData original = (IUserRegistrationData)dataContainer;
-				token = original.getToken();
-			} catch (ClassCastException x) {
-				LOG.error("cannot cast data to IUserRegistrationData for overwriting not replayable attributes", x);
-			}
-		}
+	public void mapFrom(com.anfelisa.user.models.IUserModel model) {
+		this.userId = model.getUserId();
+		this.username = model.getUsername();
+		this.password = model.getPassword();
+		this.email = model.getEmail();
+		this.role = model.getRole();
+		this.emailConfirmed = model.getEmailConfirmed();
 	}
-
+	public void mapFrom(com.anfelisa.user.models.IEmailConfirmationModel model) {
+		this.token = model.getToken();
+		this.userId = model.getUserId();
+	}
 }
 
 /*       S.D.G.       */

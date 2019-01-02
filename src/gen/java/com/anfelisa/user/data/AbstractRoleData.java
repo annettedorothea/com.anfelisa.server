@@ -53,9 +53,6 @@ public abstract class AbstractRoleData extends AbstractData implements IRoleData
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

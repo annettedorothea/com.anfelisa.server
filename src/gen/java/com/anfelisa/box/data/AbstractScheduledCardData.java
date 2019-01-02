@@ -181,9 +181,6 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

@@ -8,7 +8,6 @@ import com.anfelisa.category.models.IInviteUserModel;
 
 @JsonDeserialize(as=InviteUserData.class)
 public interface IInviteUserData extends IInviteUserModel, IDataContainer {
-
 }
 
 /*       S.D.G.       */

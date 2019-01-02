@@ -2,9 +2,17 @@ package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.AbstractData;
+import com.anfelisa.ace.IDataContainer;
+
 public class NextReinforceCardData extends AbstractNextReinforceCardData implements INextReinforceCardData {
 	
 	public NextReinforceCardData(
+		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("userId") String userId, 
 		@JsonProperty("reinforceCardId") String reinforceCardId, 
 		@JsonProperty("changeDate") org.joda.time.DateTime changeDate, 
 		@JsonProperty("lastQuality") Integer lastQuality, 
@@ -12,11 +20,11 @@ public class NextReinforceCardData extends AbstractNextReinforceCardData impleme
 		@JsonProperty("wanted") String wanted, 
 		@JsonProperty("image") String image, 
 		@JsonProperty("categoryId") String categoryId, 
-		@JsonProperty("userId") String userId, 
-		@JsonProperty("boxId") String boxId, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
+			boxId,
+			userId,
 			reinforceCardId,
 			changeDate,
 			lastQuality,
@@ -24,8 +32,6 @@ public class NextReinforceCardData extends AbstractNextReinforceCardData impleme
 			wanted,
 			image,
 			categoryId,
-			userId,
-			boxId,
 			uuid
 		);
 	}
@@ -34,8 +40,19 @@ public class NextReinforceCardData extends AbstractNextReinforceCardData impleme
 		super(uuid);
 	}
 
-	
+
 	public void migrateLegacyData(String json) {
+	}
+
+	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+		/*if (dataContainer != null) {
+			try {
+				INextReinforceCardData original = (INextReinforceCardData)dataContainer;
+				//overwrite values
+			} catch (ClassCastException x) {
+				LOG.error("cannot cast data to INextReinforceCardData for overwriting not replayable attributes", x);
+			}
+		}*/
 	}
 
 }

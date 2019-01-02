@@ -93,9 +93,6 @@ public abstract class AbstractInviteUserData extends AbstractData implements IIn
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

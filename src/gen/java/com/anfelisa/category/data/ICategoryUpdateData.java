@@ -8,7 +8,6 @@ import com.anfelisa.category.models.ICategoryUpdateModel;
 
 @JsonDeserialize(as=CategoryUpdateData.class)
 public interface ICategoryUpdateData extends ICategoryUpdateModel, IDataContainer {
-
 }
 
 /*       S.D.G.       */

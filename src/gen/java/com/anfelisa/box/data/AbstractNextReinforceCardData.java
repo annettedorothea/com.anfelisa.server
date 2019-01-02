@@ -18,6 +18,11 @@ public abstract class AbstractNextReinforceCardData extends AbstractData impleme
 	static final Logger LOG = LoggerFactory.getLogger(AbstractNextReinforceCardData.class);
 	
 	@NotNull
+	private String boxId;
+	
+	private String userId;
+	
+	@NotNull
 	private String reinforceCardId;
 	
 	@NotNull
@@ -33,25 +38,22 @@ public abstract class AbstractNextReinforceCardData extends AbstractData impleme
 	
 	private String categoryId;
 	
-	private String userId;
-	
-	@NotNull
-	private String boxId;
-	
 
 	public AbstractNextReinforceCardData(
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("userId") String userId,
 		@JsonProperty("reinforceCardId") String reinforceCardId,
 		@JsonProperty("changeDate") org.joda.time.DateTime changeDate,
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("image") String image,
-		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("userId") String userId,
-		@JsonProperty("boxId") String boxId
+		@JsonProperty("categoryId") String categoryId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
+		this.boxId = boxId;
+		this.userId = userId;
 		this.reinforceCardId = reinforceCardId;
 		this.changeDate = changeDate;
 		this.lastQuality = lastQuality;
@@ -59,14 +61,28 @@ public abstract class AbstractNextReinforceCardData extends AbstractData impleme
 		this.wanted = wanted;
 		this.image = image;
 		this.categoryId = categoryId;
-		this.userId = userId;
-		this.boxId = boxId;
 	}
 
 	public AbstractNextReinforceCardData( String uuid ) {
 		super(uuid);
 	}
 
+	@JsonProperty
+	public String getBoxId() {
+		return this.boxId;
+	}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
+	}
+	
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	@JsonProperty
 	public String getReinforceCardId() {
 		return this.reinforceCardId;
@@ -123,26 +139,16 @@ public abstract class AbstractNextReinforceCardData extends AbstractData impleme
 		this.categoryId = categoryId;
 	}
 	
-	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 	
-	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
+	public void mapFrom(com.anfelisa.box.models.INextReinforceCardViewModel model) {
+		this.reinforceCardId = model.getReinforceCardId();
+		this.changeDate = model.getChangeDate();
+		this.lastQuality = model.getLastQuality();
+		this.given = model.getGiven();
+		this.wanted = model.getWanted();
+		this.image = model.getImage();
+		this.categoryId = model.getCategoryId();
 	}
-	public void setBoxId(String boxId) {
-		this.boxId = boxId;
-	}
-	
-	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

@@ -17,7 +17,7 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractBoxListData.class);
 	
-	private java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList;
+	private java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList;
 	
 	private String userId;
 	
@@ -26,7 +26,7 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 	
 
 	public AbstractBoxListData(
-		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList,
+		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("today") org.joda.time.DateTime today
 ,		@JsonProperty("uuid") String uuid
@@ -42,10 +42,10 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 	}
 
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxInfoModel> getBoxList() {
+	public java.util.List<com.anfelisa.box.models.IBoxViewModel> getBoxList() {
 		return this.boxList;
 	}
-	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList) {
+	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList) {
 		this.boxList = boxList;
 	}
 	
@@ -66,9 +66,6 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

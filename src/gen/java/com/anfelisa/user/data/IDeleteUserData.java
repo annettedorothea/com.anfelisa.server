@@ -8,7 +8,6 @@ import com.anfelisa.user.models.IDeleteUserModel;
 
 @JsonDeserialize(as=DeleteUserData.class)
 public interface IDeleteUserData extends IDeleteUserModel, IDataContainer {
-
 }
 
 /*       S.D.G.       */

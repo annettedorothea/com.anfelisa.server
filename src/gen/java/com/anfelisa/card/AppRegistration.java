@@ -24,9 +24,18 @@ public class AppRegistration {
 	}
 
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {
-				viewProvider.addConsumer("com.anfelisa.card.events.CreateCardOkEvent", viewProvider.cardView.insert);
-				viewProvider.addConsumer("com.anfelisa.card.events.UpdateCardOkEvent", viewProvider.cardView.update);
-				viewProvider.addConsumer("com.anfelisa.card.events.DeleteCardOkEvent", viewProvider.cardView.delete);
+		viewProvider.addConsumer("com.anfelisa.card.events.CreateCardOkEvent", (dataContainer, handle) -> {
+			viewProvider.cardView.insert((com.anfelisa.card.data.CardCreationData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.card.events.UpdateCardOkEvent", (dataContainer, handle) -> {
+			viewProvider.cardView.update((com.anfelisa.card.data.CardUpdateData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.card.events.DeleteCardOkEvent", (dataContainer, handle) -> {
+			viewProvider.cardView.delete((com.anfelisa.card.data.CardDeleteData) dataContainer, handle);
+		});
+		
     }
 }
 

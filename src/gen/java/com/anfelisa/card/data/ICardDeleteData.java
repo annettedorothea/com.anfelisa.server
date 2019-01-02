@@ -8,7 +8,6 @@ import com.anfelisa.card.models.ICardDeleteModel;
 
 @JsonDeserialize(as=CardDeleteData.class)
 public interface ICardDeleteData extends ICardDeleteModel, IDataContainer {
-
 }
 
 /*       S.D.G.       */

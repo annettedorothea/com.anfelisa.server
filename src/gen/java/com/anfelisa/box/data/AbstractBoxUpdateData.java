@@ -67,9 +67,6 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

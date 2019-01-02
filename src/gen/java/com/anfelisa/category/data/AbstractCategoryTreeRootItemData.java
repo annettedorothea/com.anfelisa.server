@@ -113,9 +113,6 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

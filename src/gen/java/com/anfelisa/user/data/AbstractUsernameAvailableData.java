@@ -54,9 +54,6 @@ public abstract class AbstractUsernameAvailableData extends AbstractData impleme
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

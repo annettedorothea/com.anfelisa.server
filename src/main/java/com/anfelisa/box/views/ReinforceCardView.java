@@ -1,35 +1,32 @@
 package com.anfelisa.box.views;
 
-import java.util.function.BiConsumer;
-
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.box.data.ScoreCardData;
 import com.anfelisa.box.data.ScoreReinforceCardData;
 
-@SuppressWarnings("all")
-public class ReinforceCardView {
+public class ReinforceCardView implements IReinforceCardView {
 
 	private IDaoProvider daoProvider;
-	
+
 	public ReinforceCardView(IDaoProvider daoProvider) {
 		super();
 		this.daoProvider = daoProvider;
 	}
 
-	public BiConsumer<ScoreCardData, Handle> add = (dataContainer, handle) -> {
-		daoProvider.getReinforceCardDao().insert(handle, dataContainer);
-	};
+	public void add(ScoreCardData data, Handle handle) {
+		daoProvider.getReinforceCardDao().insert(handle, data);
+	}
 
-	public BiConsumer<ScoreReinforceCardData, Handle> remove = (dataContainer, handle) -> {
-		daoProvider.getReinforceCardDao().deleteByReinforceCardId(handle, dataContainer.getReinforceCardId());
-	};
-	
-	public BiConsumer<ScoreReinforceCardData, Handle> update = (dataContainer, handle) -> {
-		daoProvider.getReinforceCardDao().updateChangeDate(handle, dataContainer.getReinforceCardId(), dataContainer.getChangeDate());
-	};
-	
+	public void remove(ScoreReinforceCardData data, Handle handle) {
+		daoProvider.getReinforceCardDao().deleteByReinforceCardId(handle, data.getReinforceCardId());
+	}
+
+	public void update(ScoreReinforceCardData data, Handle handle) {
+		daoProvider.getReinforceCardDao().updateChangeDate(handle, data.getReinforceCardId(), data.getChangeDate());
+	}
+
 }
 
-/*                    S.D.G.                    */
+/* S.D.G. */

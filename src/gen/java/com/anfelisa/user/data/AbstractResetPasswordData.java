@@ -55,17 +55,6 @@ public abstract class AbstractResetPasswordData extends AbstractData implements 
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-		if (dataContainer != null) {
-			try {
-				IResetPasswordData original = (IResetPasswordData)dataContainer;
-				token = original.getToken();
-			} catch (ClassCastException x) {
-				LOG.error("cannot cast data to IResetPasswordData for overwriting not replayable attributes", x);
-			}
-		}
-	}
-
 }
 
 /*       S.D.G.       */

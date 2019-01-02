@@ -1,5 +1,6 @@
 package com.anfelisa.box.data;
 
+import com.anfelisa.ace.IDataContainer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ScheduledCardData extends AbstractScheduledCardData implements IScheduledCardData {
@@ -40,8 +41,19 @@ public class ScheduledCardData extends AbstractScheduledCardData implements ISch
 		super(uuid);
 	}
 
-	
+
 	public void migrateLegacyData(String json) {
+	}
+
+	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+		/*if (dataContainer != null) {
+			try {
+				IScheduledCardData original = (IScheduledCardData)dataContainer;
+				//overwrite values
+			} catch (ClassCastException x) {
+				LOG.error("cannot cast data to IScheduledCardData for overwriting not replayable attributes", x);
+			}
+		}*/
 	}
 
 }

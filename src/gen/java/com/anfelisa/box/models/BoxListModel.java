@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class BoxListModel implements IBoxListModel {
 
-	private java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList;
+	private java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList;
 	
 	private String userId;
 	
@@ -16,7 +16,7 @@ public class BoxListModel implements IBoxListModel {
 	
 
 	public BoxListModel(
-		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList,
+		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("today") org.joda.time.DateTime today
 	) {
@@ -26,10 +26,10 @@ public class BoxListModel implements IBoxListModel {
 	}
 
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxInfoModel> getBoxList() {
+	public java.util.List<com.anfelisa.box.models.IBoxViewModel> getBoxList() {
 		return this.boxList;
 	}
-	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxInfoModel> boxList) {
+	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList) {
 		this.boxList = boxList;
 	}
 	

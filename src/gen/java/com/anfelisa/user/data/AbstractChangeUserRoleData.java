@@ -81,9 +81,6 @@ public abstract class AbstractChangeUserRoleData extends AbstractData implements
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

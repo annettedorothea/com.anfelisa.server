@@ -8,7 +8,6 @@ import com.anfelisa.category.models.IRevokeUserModel;
 
 @JsonDeserialize(as=RevokeUserData.class)
 public interface IRevokeUserData extends IRevokeUserModel, IDataContainer {
-
 }
 
 /*       S.D.G.       */

@@ -1,7 +1,5 @@
 package com.anfelisa.category.views;
 
-import java.util.function.BiConsumer;
-
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
@@ -10,8 +8,7 @@ import com.anfelisa.category.data.InviteUserData;
 import com.anfelisa.category.data.RevokeUserData;
 import com.anfelisa.category.models.UserAccessToCategoryModel;
 
-@SuppressWarnings("all")
-public class UserAccessToCategoryView {
+public class UserAccessToCategoryView implements IUserAccessToCategoryView {
 
 	private IDaoProvider daoProvider;
 
@@ -20,19 +17,20 @@ public class UserAccessToCategoryView {
 		this.daoProvider = daoProvider;
 	}
 
-	public BiConsumer<CategoryCreationData, Handle> grantAccess = (dataContainer, handle) -> {
-		daoProvider.getUserAccessToCategoryDao().insert(handle, dataContainer);
-	};
+	public void grantAccess(CategoryCreationData data, Handle handle) {
+		daoProvider.getUserAccessToCategoryDao().insert(handle, data);
+	}
 
-	public BiConsumer<InviteUserData, Handle> grantAccessInvitation = (dataContainer, handle) -> {
+	public void grantAccessInvitation(InviteUserData data, Handle handle) {
 		daoProvider.getUserAccessToCategoryDao().insert(handle,
-				new UserAccessToCategoryModel(dataContainer.getRootCategoryId(), dataContainer.getInvitedUserId()));
-	};
+				new UserAccessToCategoryModel(data.getRootCategoryId(), data.getInvitedUserId()));
+	}
 
-	public BiConsumer<RevokeUserData, Handle> revokeAccess = (dataContainer, handle) -> {
-		daoProvider.getUserAccessToCategoryDao().deleteByCategoryIdAndUserId(handle, dataContainer.getRootCategoryId(), dataContainer.getRevokedUserId());
-	};
-	
+	public void revokeAccess(RevokeUserData data, Handle handle) {
+		daoProvider.getUserAccessToCategoryDao().deleteByCategoryIdAndUserId(handle, data.getRootCategoryId(),
+				data.getRevokedUserId());
+	}
+
 }
 
 /* S.D.G. */

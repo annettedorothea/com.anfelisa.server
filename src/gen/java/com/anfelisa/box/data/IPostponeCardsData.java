@@ -8,7 +8,6 @@ import com.anfelisa.box.models.IPostponeCardsModel;
 
 @JsonDeserialize(as=PostponeCardsData.class)
 public interface IPostponeCardsData extends IPostponeCardsModel, IDataContainer {
-
 }
 
 /*       S.D.G.       */

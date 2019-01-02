@@ -10,6 +10,8 @@ public class NextCardMapper implements RowMapper<INextCardModel> {
 	
 	public INextCardModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new NextCardModel(
+			r.getString("userId"),
+			r.getTimestamp("today") != null ? new org.joda.time.DateTime(r.getTimestamp("today")) : null,
 			r.getString("scheduledCardId"),
 			r.getString("cardId"),
 			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")) : null,
@@ -21,9 +23,7 @@ public class NextCardMapper implements RowMapper<INextCardModel> {
 			r.getString("rootCategoryId"),
 			r.getObject("count") != null ? r.getInt("count") : null,
 			r.getTimestamp("scoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredDate")) : null,
-			r.getString("boxId"),
-			r.getString("userId"),
-			r.getTimestamp("today") != null ? new org.joda.time.DateTime(r.getTimestamp("today")) : null
+			r.getString("boxId")
 		);
 	}
 }

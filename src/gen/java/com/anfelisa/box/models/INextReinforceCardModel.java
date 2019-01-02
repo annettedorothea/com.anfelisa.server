@@ -3,17 +3,10 @@ package com.anfelisa.box.models;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(as=NextReinforceCardModel.class)
-public interface INextReinforceCardModel {
+public interface INextReinforceCardModel extends com.anfelisa.box.models.INextReinforceCardViewModel{
 
-	String getReinforceCardId();
-	org.joda.time.DateTime getChangeDate();
-	Integer getLastQuality();
-	String getGiven();
-	String getWanted();
-	String getImage();
-	String getCategoryId();
-	String getUserId();
 	String getBoxId();
+	String getUserId();
 
 }
 

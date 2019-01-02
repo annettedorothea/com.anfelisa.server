@@ -210,9 +210,6 @@ public abstract class AbstractCategoryItemData extends AbstractData implements I
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

@@ -55,9 +55,6 @@ public abstract class AbstractUserAccessToCategoryData extends AbstractData impl
 	}
 	
 	
-	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-	}
-
 }
 
 /*       S.D.G.       */

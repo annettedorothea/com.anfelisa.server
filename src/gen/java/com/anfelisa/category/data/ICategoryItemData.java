@@ -8,7 +8,6 @@ import com.anfelisa.category.models.ICategoryItemModel;
 
 @JsonDeserialize(as=CategoryItemData.class)
 public interface ICategoryItemData extends ICategoryItemModel, IDataContainer {
-
 }
 
 /*       S.D.G.       */

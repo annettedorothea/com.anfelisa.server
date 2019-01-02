@@ -1,5 +1,6 @@
 package com.anfelisa.category.data;
 
+import com.anfelisa.ace.IDataContainer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CategoryTreeData extends AbstractCategoryTreeData implements ICategoryTreeData {
@@ -20,8 +21,19 @@ public class CategoryTreeData extends AbstractCategoryTreeData implements ICateg
 		super(uuid);
 	}
 
-	
+
 	public void migrateLegacyData(String json) {
+	}
+
+	public void overwriteNotReplayableData(IDataContainer dataContainer) {
+		/*if (dataContainer != null) {
+			try {
+				ICategoryTreeData original = (ICategoryTreeData)dataContainer;
+				//overwrite values
+			} catch (ClassCastException x) {
+				LOG.error("cannot cast data to ICategoryTreeData for overwriting not replayable attributes", x);
+			}
+		}*/
 	}
 
 }

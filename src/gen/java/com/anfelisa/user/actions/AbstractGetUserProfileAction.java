@@ -34,7 +34,7 @@ import com.anfelisa.user.data.UserData;
 
 
 @SuppressWarnings("unused")
-@Path("user/get")
+@Path("/user/get")
 public abstract class AbstractGetUserProfileAction extends Action<UserData> {
 
 	public AbstractGetUserProfileAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {

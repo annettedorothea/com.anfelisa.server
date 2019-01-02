@@ -60,6 +60,7 @@ public abstract class AbstractPostponeCardsAction extends Action<PostponeCardsDa
 			throws JsonProcessingException {
 		this.actionData = new PostponeCardsData(payload.getUuid());
 		this.actionData.setBoxId(payload.getBoxId());
+		this.actionData.setToday(payload.getToday());
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}

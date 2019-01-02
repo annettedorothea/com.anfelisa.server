@@ -8,7 +8,7 @@ import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.INextCardModel;
+import com.anfelisa.box.models.INextCardViewModel;
 
 public class LoadNextCardAction extends AbstractLoadNextCardAction {
 
@@ -28,20 +28,10 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			throwUnauthorized();
 		}
 
-		INextCardModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(getHandle(),
+		INextCardViewModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(getHandle(),
 				actionData.getBoxId(), actionData.getToday());
 		if (nextCard != null) {
-			this.actionData.setRootCategoryId(box.getCategoryId());
-			this.actionData.setCategoryId(nextCard.getCategoryId());
-			this.actionData.setGiven(nextCard.getGiven());
-			this.actionData.setImage(nextCard.getImage());
-			this.actionData.setLastQuality(nextCard.getLastQuality());
-			this.actionData.setScheduledDate(nextCard.getScheduledDate());
-			this.actionData.setWanted(nextCard.getWanted());
-			this.actionData.setScheduledCardId(nextCard.getScheduledCardId());
-			this.actionData.setCardId(nextCard.getCardId());
-			this.actionData.setCount(nextCard.getCount());
-			this.actionData.setScoredDate(nextCard.getScoredDate());
+			this.actionData.mapFrom(nextCard);
 		}
 	}
 

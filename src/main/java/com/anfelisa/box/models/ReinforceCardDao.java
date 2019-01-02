@@ -19,12 +19,12 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 		statement.execute();
 	}
 
-	public INextReinforceCardModel selectFirstScheduledCard(Handle handle, String boxId) {
-		Optional<INextReinforceCardModel> optional = handle.createQuery(
+	public INextReinforceCardViewModel selectFirstScheduledCard(Handle handle, String boxId) {
+		Optional<INextReinforceCardViewModel> optional = handle.createQuery(
 				"SELECT r.reinforcecardid, r.changedate, sc.quality as lastQuality, c.given, c.wanted, c.image, c.categoryid FROM public.reinforcecard r "
 						+ "inner join public.scheduledcard sc on r.scheduledcardid = sc.scheduledcardid "
 						+ "inner join public.card c on sc.cardid = c.cardid where sc.boxid = :boxid order by r.changedate")
-				.bind("boxid", boxId).map(new NextReinforceCardMapper()).findFirst();
+				.bind("boxid", boxId).map(new NextReinforceCardViewMapper()).findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 

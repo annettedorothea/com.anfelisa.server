@@ -53,7 +53,9 @@ ACE
 	PostponeCards<PostponeCards>
 		PUT "/cards/postpone" 
 		authorize
-		payload boxId
+		payload 
+			boxId
+			today
 		on ok ( ScheduledCard.postponeCards )
 		on noDelay
 	
@@ -112,7 +114,10 @@ ACE
 	ScoreCard<ScoreCard>
 		POST "/card/score"  
 		authorize
-		payload scoredCardScheduledCardId boxId
+		payload 
+			scoredCardScheduledCardId 
+			boxId
+			scoredCardQuality
 		on score (ScheduledCard.score ScheduledCard.scheduleNext)
 		on scoreAndReinforce (ScheduledCard.score ScheduledCard.scheduleNext ReinforceCard.add)
 	
@@ -176,7 +181,7 @@ models
 		NotNull DateTime changeDate
 	}
 
-	BoxInfo {
+	BoxView {
 		Integer todaysCards
 		Integer totalCards
 		Integer reinforceCards
@@ -191,11 +196,14 @@ models
 		Integer quality4Count
 		Integer quality5Count
 		NotNull String boxId
+	}
+
+	BoxInfo extends BoxView {
 		String userId
 		NotNull DateTime today
 	}
 	BoxList {
-		List BoxInfo boxList
+		List BoxView boxList
 		String userId
 		NotNull DateTime today
 	}
@@ -212,7 +220,7 @@ models
 		Integer maxInterval
 	}
 
-	NextCard {
+	NextCardView {
 		NotNull String scheduledCardId
 		NotNull String cardId
 		NotNull DateTime scheduledDate
@@ -225,6 +233,9 @@ models
 		NotNull Integer count
 		DateTime scoredDate
 		NotNull String boxId
+	}
+	
+	NextCard extends NextCardView {
 		String userId
 		NotNull DateTime today
 	}
@@ -252,7 +263,7 @@ models
 		NotNull String boxId
 	}
 	
-	NextReinforceCard {
+	NextReinforceCardView  {
 		NotNull String reinforceCardId
 		NotNull DateTime changeDate
 		Integer lastQuality
@@ -260,9 +271,13 @@ models
 		String wanted
 		String image
 		String categoryId
-		String userId
-		NotNull String boxId
 	}
+	
+	NextReinforceCard extends NextReinforceCardView {
+		NotNull String boxId
+		String userId
+	}
+	
 	ScoreReinforceCard {
 		NotNull String reinforceCardId
 		NotNull Integer quality

@@ -1,7 +1,5 @@
 package com.anfelisa.card.views;
 
-import java.util.function.BiConsumer;
-
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
@@ -9,26 +7,28 @@ import com.anfelisa.card.data.CardCreationData;
 import com.anfelisa.card.data.CardDeleteData;
 import com.anfelisa.card.data.CardUpdateData;
 
-@SuppressWarnings("all")
-public class CardView {
+public class CardView implements ICardView {
 
 	private IDaoProvider daoProvider;
-	
+
 	public CardView(IDaoProvider daoProvider) {
 		super();
 		this.daoProvider = daoProvider;
 	}
-	public BiConsumer<CardCreationData, Handle> insert = (dataContainer, handle) -> {
-		daoProvider.getCardDao().insert(handle, dataContainer);
-	};
-	public BiConsumer<CardDeleteData, Handle> delete = (dataContainer, handle) -> {
-		daoProvider.getCardDao().deleteByCardId(handle, dataContainer.getCardId());
-		daoProvider.getCardDao().shiftCards(handle, dataContainer.getCardIndex(), dataContainer.getCategoryId());
-	};
-	public BiConsumer<CardUpdateData, Handle> update = (dataContainer, handle) -> {
-		daoProvider.getCardDao().update(handle, dataContainer);
-	};
+
+	public void insert(CardCreationData data, Handle handle) {
+		daoProvider.getCardDao().insert(handle, data);
+	}
+
+	public void delete(CardDeleteData data, Handle handle) {
+		daoProvider.getCardDao().deleteByCardId(handle, data.getCardId());
+		daoProvider.getCardDao().shiftCards(handle, data.getCardIndex(), data.getCategoryId());
+	}
+
+	public void update(CardUpdateData data, Handle handle) {
+		daoProvider.getCardDao().update(handle, data);
+	}
 
 }
 
-/*                    S.D.G.                    */
+/* S.D.G. */
