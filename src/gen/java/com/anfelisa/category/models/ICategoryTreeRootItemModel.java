@@ -11,6 +11,9 @@ public interface ICategoryTreeRootItemModel {
 	Boolean getEmpty();
 	Boolean getEditable();
 	Boolean getHasBox();
+	Boolean getDictionaryLookup();
+	String getGivenLanguage();
+	String getWantedLanguage();
 	java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> getChildCategories();
 
 }

@@ -27,6 +27,14 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	
 	private Boolean editable = false;
 	
+	private String parentCategoryId;
+	
+	private Boolean dictionaryLookup = false;
+	
+	private String givenLanguage;
+	
+	private String wantedLanguage;
+	
 	private java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories;
 	
 
@@ -36,6 +44,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 		@JsonProperty("categoryIndex") Integer categoryIndex,
 		@JsonProperty("empty") Boolean empty,
 		@JsonProperty("editable") Boolean editable,
+		@JsonProperty("parentCategoryId") String parentCategoryId,
+		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
+		@JsonProperty("givenLanguage") String givenLanguage,
+		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("childCategories") java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -45,6 +57,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 		this.categoryIndex = categoryIndex;
 		this.empty = empty;
 		this.editable = editable;
+		this.parentCategoryId = parentCategoryId;
+		this.dictionaryLookup = dictionaryLookup;
+		this.givenLanguage = givenLanguage;
+		this.wantedLanguage = wantedLanguage;
 		this.childCategories = childCategories;
 	}
 
@@ -90,6 +106,38 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	}
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
+	}
+	
+	@JsonProperty
+	public String getParentCategoryId() {
+		return this.parentCategoryId;
+	}
+	public void setParentCategoryId(String parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
+	}
+	
+	@JsonProperty
+	public Boolean getDictionaryLookup() {
+		return this.dictionaryLookup;
+	}
+	public void setDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+	}
+	
+	@JsonProperty
+	public String getGivenLanguage() {
+		return this.givenLanguage;
+	}
+	public void setGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+	}
+	
+	@JsonProperty
+	public String getWantedLanguage() {
+		return this.wantedLanguage;
+	}
+	public void setWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
 	}
 	
 	@JsonProperty

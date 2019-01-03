@@ -19,6 +19,12 @@ public class CategoryTreeRootItemModel implements ICategoryTreeRootItemModel {
 	
 	private Boolean hasBox = false;
 	
+	private Boolean dictionaryLookup = false;
+	
+	private String givenLanguage;
+	
+	private String wantedLanguage;
+	
 	private java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories;
 	
 
@@ -29,6 +35,9 @@ public class CategoryTreeRootItemModel implements ICategoryTreeRootItemModel {
 		@JsonProperty("empty") Boolean empty,
 		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("hasBox") Boolean hasBox,
+		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
+		@JsonProperty("givenLanguage") String givenLanguage,
+		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("childCategories") java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories
 	) {
 		this.categoryId = categoryId;
@@ -37,6 +46,9 @@ public class CategoryTreeRootItemModel implements ICategoryTreeRootItemModel {
 		this.empty = empty;
 		this.editable = editable;
 		this.hasBox = hasBox;
+		this.dictionaryLookup = dictionaryLookup;
+		this.givenLanguage = givenLanguage;
+		this.wantedLanguage = wantedLanguage;
 		this.childCategories = childCategories;
 	}
 
@@ -86,6 +98,30 @@ public class CategoryTreeRootItemModel implements ICategoryTreeRootItemModel {
 	}
 	public void setHasBox(Boolean hasBox) {
 		this.hasBox = hasBox;
+	}
+	
+	@JsonProperty
+	public Boolean getDictionaryLookup() {
+		return this.dictionaryLookup;
+	}
+	public void setDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+	}
+	
+	@JsonProperty
+	public String getGivenLanguage() {
+		return this.givenLanguage;
+	}
+	public void setGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+	}
+	
+	@JsonProperty
+	public String getWantedLanguage() {
+		return this.wantedLanguage;
+	}
+	public void setWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
 	}
 	
 	@JsonProperty

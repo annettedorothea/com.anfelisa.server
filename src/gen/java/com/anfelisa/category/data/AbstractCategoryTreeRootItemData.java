@@ -29,6 +29,12 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	
 	private Boolean hasBox = false;
 	
+	private Boolean dictionaryLookup = false;
+	
+	private String givenLanguage;
+	
+	private String wantedLanguage;
+	
 	private java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories;
 	
 
@@ -39,6 +45,9 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 		@JsonProperty("empty") Boolean empty,
 		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("hasBox") Boolean hasBox,
+		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
+		@JsonProperty("givenLanguage") String givenLanguage,
+		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("childCategories") java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -49,6 +58,9 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 		this.empty = empty;
 		this.editable = editable;
 		this.hasBox = hasBox;
+		this.dictionaryLookup = dictionaryLookup;
+		this.givenLanguage = givenLanguage;
+		this.wantedLanguage = wantedLanguage;
 		this.childCategories = childCategories;
 	}
 
@@ -102,6 +114,30 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	}
 	public void setHasBox(Boolean hasBox) {
 		this.hasBox = hasBox;
+	}
+	
+	@JsonProperty
+	public Boolean getDictionaryLookup() {
+		return this.dictionaryLookup;
+	}
+	public void setDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+	}
+	
+	@JsonProperty
+	public String getGivenLanguage() {
+		return this.givenLanguage;
+	}
+	public void setGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+	}
+	
+	@JsonProperty
+	public String getWantedLanguage() {
+		return this.wantedLanguage;
+	}
+	public void setWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
 	}
 	
 	@JsonProperty

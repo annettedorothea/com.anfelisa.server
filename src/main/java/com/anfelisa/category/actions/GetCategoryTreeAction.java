@@ -20,10 +20,10 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetCategoryTreeAction.class);
 
-	public GetCategoryTreeAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(jdbi,appConfiguration, daoProvider, viewProvider);
+	public GetCategoryTreeAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
+			ViewProvider viewProvider) {
+		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
-
 
 	protected final void loadDataForGetRequest() {
 		List<ICategoryItemModel> rootCategories = daoProvider.getCategoryDao().selectAllRoot(getHandle(),
@@ -34,23 +34,26 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 			ICategoryTreeRootItemModel rootItem = new CategoryTreeRootItemModel(categoryItemModel.getCategoryId(),
 					categoryItemModel.getCategoryName(), categoryItemModel.getCategoryIndex(),
 					categoryItemModel.getEmpty(), categoryItemModel.getEditable(), categoryItemModel.getHasBox(),
-					loadChildren(categoryItemModel.getCategoryId()));
+					categoryItemModel.getDictionaryLookup(), categoryItemModel.getGivenLanguage(),
+					categoryItemModel.getWantedLanguage(), loadChildren(categoryItemModel.getCategoryId()));
 			categoryList.add(rootItem);
 		}
 	}
 
 	private List<ICategoryTreeItemModel> loadChildren(String categoryId) {
 		List<ICategoryTreeItemModel> categoryChildren = new ArrayList<ICategoryTreeItemModel>();
-		List<ICategoryItemModel> children = daoProvider.getCategoryDao().selectAllChildren(getHandle(),
-				categoryId, actionData.getUserId());
+		List<ICategoryItemModel> children = daoProvider.getCategoryDao().selectAllChildren(getHandle(), categoryId,
+				actionData.getUserId());
 		for (ICategoryItemModel child : children) {
-			categoryChildren.add(
-					new CategoryTreeItemModel(child.getCategoryId(), child.getCategoryName(), child.getCategoryIndex(),
-							child.getEmpty(), child.getEditable(), loadChildren(child.getCategoryId())));
+			categoryChildren.add(new CategoryTreeItemModel(child.getCategoryId(), child.getCategoryName(),
+					child.getCategoryIndex(), child.getEmpty(), child.getEditable(), child.getParentCategoryId(),
+					child.getDictionaryLookup(), child.getGivenLanguage(),
+					child.getWantedLanguage(),
+					loadChildren(child.getCategoryId())));
 		}
 		return categoryChildren;
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

@@ -16,6 +16,9 @@ public class CategoryTreeRootItemMapper implements RowMapper<ICategoryTreeRootIt
 			r.getBoolean("empty"),
 			r.getBoolean("editable"),
 			r.getBoolean("hasBox"),
+			r.getBoolean("dictionaryLookup"),
+			r.getString("givenLanguage"),
+			r.getString("wantedLanguage"),
 			null
 		);
 	}

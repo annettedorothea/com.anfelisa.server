@@ -164,6 +164,10 @@ models
 		Integer categoryIndex
 		Boolean empty
 		Boolean editable
+		String parentCategoryId
+		Boolean dictionaryLookup
+		String givenLanguage
+		String wantedLanguage
 		List CategoryTreeItem childCategories
 	}
 	
@@ -174,6 +178,9 @@ models
 		Boolean empty
 		Boolean editable
 		Boolean hasBox
+		Boolean dictionaryLookup
+		String givenLanguage
+		String wantedLanguage
 		List CategoryTreeItem childCategories
 	}
 	
