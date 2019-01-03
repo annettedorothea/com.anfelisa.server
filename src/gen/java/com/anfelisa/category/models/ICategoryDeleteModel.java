@@ -6,9 +6,17 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface ICategoryDeleteModel {
 
 	String getCategoryId();
+	void setCategoryId(String categoryId);
+	
 	Integer getCategoryIndex();
+	void setCategoryIndex(Integer categoryIndex);
+	
 	String getParentCategoryId();
+	void setParentCategoryId(String parentCategoryId);
+	
 	String getUserId();
+	void setUserId(String userId);
+	
 
 }
 

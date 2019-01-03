@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IResetPasswordWithNewPasswordModel extends com.anfelisa.user.models.IResetPasswordModel{
 
 	String getPassword();
+	void setPassword(String password);
+	
 
 }
 

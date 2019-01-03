@@ -52,6 +52,14 @@ ACE
 			targetLanguage
 		response
 			targetValue
+			
+	GetCards<CategoryList>
+		GET "/cards" 
+		authorize 
+		queryParams 
+			categoryId 
+		response
+			cardList
 
 views 
 	Card {
@@ -106,6 +114,11 @@ models
 	CardCreation extends Card {
 		String userId
 		String username
+	}
+	
+	CategoryList {
+		List Card cardList
+		String categoryId	
 	}
 
 

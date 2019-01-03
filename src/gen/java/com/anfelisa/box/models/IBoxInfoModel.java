@@ -6,7 +6,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IBoxInfoModel extends com.anfelisa.box.models.IBoxViewModel{
 
 	String getUserId();
+	void setUserId(String userId);
+	
 	org.joda.time.DateTime getToday();
+	void setToday(org.joda.time.DateTime today);
+	
 
 }
 

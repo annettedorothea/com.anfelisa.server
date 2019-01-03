@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface ICategoryCreationModel extends com.anfelisa.category.models.ICategoryModel,com.anfelisa.category.models.IUserAccessToCategoryModel{
 
 	String getUsername();
+	void setUsername(String username);
+	
 
 }
 

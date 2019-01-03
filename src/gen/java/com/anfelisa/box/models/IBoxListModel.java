@@ -6,8 +6,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IBoxListModel {
 
 	java.util.List<com.anfelisa.box.models.IBoxViewModel> getBoxList();
+	void setBoxList(java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList);
+	
 	String getUserId();
+	void setUserId(String userId);
+	
 	org.joda.time.DateTime getToday();
+	void setToday(org.joda.time.DateTime today);
+	
 
 }
 

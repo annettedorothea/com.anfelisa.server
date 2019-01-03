@@ -1,0 +1,31 @@
+package com.anfelisa.card.actions;
+
+import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.card.models.ICardModel;
+import com.anfelisa.ace.IDaoProvider;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+
+import org.jdbi.v3.core.Jdbi;
+
+public class GetCardsAction extends AbstractGetCardsAction {
+
+	static final Logger LOG = LoggerFactory.getLogger(GetCardsAction.class);
+
+	public GetCardsAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(jdbi,appConfiguration, daoProvider, viewProvider);
+	}
+
+
+	protected final void loadDataForGetRequest() {
+		List<ICardModel> cardList = daoProvider.getCardDao().selectAllOfCategory(getHandle(), actionData.getCategoryId());
+		this.actionData.setCardList(cardList);
+	}
+
+}
+
+/*       S.D.G.       */

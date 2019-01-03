@@ -6,7 +6,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IUserWithAccessModel {
 
 	String getUserId();
+	void setUserId(String userId);
+	
 	String getUsername();
+	void setUsername(String username);
+	
 
 }
 

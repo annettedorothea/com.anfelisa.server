@@ -6,8 +6,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IBoxUpdateModel {
 
 	String getUserId();
+	void setUserId(String userId);
+	
 	String getBoxId();
+	void setBoxId(String boxId);
+	
 	Integer getMaxInterval();
+	void setMaxInterval(Integer maxInterval);
+	
 
 }
 

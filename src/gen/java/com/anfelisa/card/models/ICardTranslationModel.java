@@ -6,9 +6,17 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface ICardTranslationModel {
 
 	String getSourceValue();
+	void setSourceValue(String sourceValue);
+	
 	String getTargetValue();
+	void setTargetValue(String targetValue);
+	
 	String getSourceLanguage();
+	void setSourceLanguage(String sourceLanguage);
+	
 	String getTargetLanguage();
+	void setTargetLanguage(String targetLanguage);
+	
 
 }
 

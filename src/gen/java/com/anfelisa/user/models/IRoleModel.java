@@ -6,7 +6,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IRoleModel {
 
 	String getUsername();
+	void setUsername(String username);
+	
 	String getRole();
+	void setRole(String role);
+	
 
 }
 

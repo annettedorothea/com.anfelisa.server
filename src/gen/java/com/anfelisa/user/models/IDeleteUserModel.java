@@ -6,8 +6,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IDeleteUserModel {
 
 	String getUsernameToBeDeleted();
+	void setUsernameToBeDeleted(String usernameToBeDeleted);
+	
 	String getUsername();
+	void setUsername(String username);
+	
 	String getRole();
+	void setRole(String role);
+	
 
 }
 

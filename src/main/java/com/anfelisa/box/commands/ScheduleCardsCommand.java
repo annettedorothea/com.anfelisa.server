@@ -2,6 +2,7 @@ package com.anfelisa.box.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -50,9 +51,7 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 				if (scheduledCardModel != null) {
 					this.commandData.getExistingScheduledCardIds().add(scheduledCardModel.getScheduledCardId());
 				} else {
-					String uuid = commandData.getUuid();
-					String shorterUuid = uuid.substring(0, uuid.length() - 8);
-					uuid = shorterUuid + cardId.substring(0, 8); 
+					String uuid = UUID.randomUUID().toString();
 					ScheduledCardModel newScheduledCard = new ScheduledCardModel(uuid, cardId, box.getBoxId(), commandData.getSystemTime(), 2.5F, 1, 1, 0, scheduledDateTime, null, null, null);
 					this.commandData.getNewScheduledCards().add(newScheduledCard);
 				}

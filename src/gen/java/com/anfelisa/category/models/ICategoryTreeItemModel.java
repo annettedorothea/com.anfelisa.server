@@ -6,15 +6,35 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface ICategoryTreeItemModel {
 
 	String getCategoryId();
+	void setCategoryId(String categoryId);
+	
 	String getCategoryName();
+	void setCategoryName(String categoryName);
+	
 	Integer getCategoryIndex();
+	void setCategoryIndex(Integer categoryIndex);
+	
 	Boolean getEmpty();
+	void setEmpty(Boolean empty);
+	
 	Boolean getEditable();
+	void setEditable(Boolean editable);
+	
 	String getParentCategoryId();
+	void setParentCategoryId(String parentCategoryId);
+	
 	Boolean getDictionaryLookup();
+	void setDictionaryLookup(Boolean dictionaryLookup);
+	
 	String getGivenLanguage();
+	void setGivenLanguage(String givenLanguage);
+	
 	String getWantedLanguage();
+	void setWantedLanguage(String wantedLanguage);
+	
 	java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> getChildCategories();
+	void setChildCategories(java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories);
+	
 
 }
 

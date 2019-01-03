@@ -6,7 +6,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface ICategoryTreeModel {
 
 	java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> getCategoryList();
+	void setCategoryList(java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList);
+	
 	String getUserId();
+	void setUserId(String userId);
+	
 
 }
 

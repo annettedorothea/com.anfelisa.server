@@ -6,9 +6,17 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IReinforceCardModel {
 
 	String getReinforceCardId();
+	void setReinforceCardId(String reinforceCardId);
+	
 	String getScheduledCardId();
+	void setScheduledCardId(String scheduledCardId);
+	
 	String getBoxId();
+	void setBoxId(String boxId);
+	
 	org.joda.time.DateTime getChangeDate();
+	void setChangeDate(org.joda.time.DateTime changeDate);
+	
 
 }
 

@@ -1,4 +1,4 @@
-package com.anfelisa.box.actions;
+package com.anfelisa.card.actions;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
@@ -30,40 +30,40 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
-import com.anfelisa.box.data.BoxData;
+import com.anfelisa.card.data.CategoryListData;
 
-import com.anfelisa.box.commands.CreateBoxCommand;
 
 @SuppressWarnings("unused")
-@Path("/box/create")
-public abstract class AbstractCreateBoxAction extends Action<BoxData> {
+@Path("/cards")
+public abstract class AbstractGetCardsAction extends Action<CategoryListData> {
 
-	public AbstractCreateBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.actions.CreateBoxAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
+	public AbstractGetCardsAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.card.actions.GetCardsAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@Override
 	public ICommand getCommand() {
-		return new CreateBoxCommand(this.actionData, databaseHandle, daoProvider, viewProvider);
+		return null;
 	}
 
-	protected final void loadDataForGetRequest() {
-	}
 
-	@POST
+	@GET
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createBoxResource(
+	public Response getCardsResource(
 			@Auth AuthUser authUser, 
-			@NotNull BoxData payload)
+			@QueryParam("categoryId") String categoryId, 
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new BoxData(payload.getUuid());
-		this.actionData.setCategoryId(payload.getCategoryId());
-		this.actionData.setUserId(authUser.getUserId());
+		this.actionData = new CategoryListData(uuid);
+		this.actionData.setCategoryId(categoryId);
 		return this.apply();
 	}
 
+	protected Object createReponse() {
+		return new com.anfelisa.card.data.GetCardsResponse(this.actionData);
+	}
 }
 
 /*       S.D.G.       */

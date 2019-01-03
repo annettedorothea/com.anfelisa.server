@@ -32,14 +32,14 @@ public class ForgotPasswordData extends AbstractForgotPasswordData implements IF
 	}
 
 	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-		/*if (dataContainer != null) {
+		if (dataContainer != null) {
 			try {
 				IForgotPasswordData original = (IForgotPasswordData)dataContainer;
-				//overwrite values
+				this.setToken(original.getToken());
 			} catch (ClassCastException x) {
 				LOG.error("cannot cast data to IForgotPasswordData for overwriting not replayable attributes", x);
 			}
-		}*/
+		}
 	}
 
 }

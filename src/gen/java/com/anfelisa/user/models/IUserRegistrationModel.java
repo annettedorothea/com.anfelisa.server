@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IUserRegistrationModel extends com.anfelisa.user.models.IUserModel,com.anfelisa.user.models.IEmailConfirmationModel{
 
 	String getLanguage();
+	void setLanguage(String language);
+	
 
 }
 

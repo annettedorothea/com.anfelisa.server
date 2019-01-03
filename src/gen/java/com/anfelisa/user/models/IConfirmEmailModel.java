@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IConfirmEmailModel extends com.anfelisa.user.models.IEmailConfirmationModel{
 
 	String getUsername();
+	void setUsername(String username);
+	
 
 }
 

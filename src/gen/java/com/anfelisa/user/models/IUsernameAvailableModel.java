@@ -6,7 +6,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IUsernameAvailableModel {
 
 	String getUsername();
+	void setUsername(String username);
+	
 	Boolean getAvailable();
+	void setAvailable(Boolean available);
+	
 
 }
 

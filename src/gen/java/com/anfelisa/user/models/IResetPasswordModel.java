@@ -6,7 +6,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IResetPasswordModel {
 
 	String getToken();
+	void setToken(String token);
+	
 	String getUserId();
+	void setUserId(String userId);
+	
 
 }
 

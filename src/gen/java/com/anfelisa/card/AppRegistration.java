@@ -21,6 +21,7 @@ public class AppRegistration {
 		environment.jersey().register(new DeleteCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetDuplicatesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetTranslationAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new GetCardsAction(jdbi, appConfiguration, daoProvider, viewProvider));
 	}
 
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {

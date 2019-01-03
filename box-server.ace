@@ -39,7 +39,6 @@ ACE
 		authorize 
 		payload 
 			categoryId 
-			maxInterval 
 		on ok ( Box.createBox )
 	
 	UpdateBox<BoxUpdate> 

@@ -6,7 +6,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface INextReinforceCardModel extends com.anfelisa.box.models.INextReinforceCardViewModel{
 
 	String getBoxId();
+	void setBoxId(String boxId);
+	
 	String getUserId();
+	void setUserId(String userId);
+	
 
 }
 

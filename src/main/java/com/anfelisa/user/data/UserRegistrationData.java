@@ -38,14 +38,14 @@ public class UserRegistrationData extends AbstractUserRegistrationData implement
 	}
 
 	public void overwriteNotReplayableData(IDataContainer dataContainer) {
-		/*if (dataContainer != null) {
+		if (dataContainer != null) {
 			try {
 				IUserRegistrationData original = (IUserRegistrationData)dataContainer;
-				//overwrite values
+				this.setToken(original.getToken());
 			} catch (ClassCastException x) {
 				LOG.error("cannot cast data to IUserRegistrationData for overwriting not replayable attributes", x);
 			}
-		}*/
+		}
 	}
 
 }

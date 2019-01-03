@@ -6,8 +6,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public interface IForgotPasswordModel extends com.anfelisa.user.models.IResetPasswordModel{
 
 	String getLanguage();
+	void setLanguage(String language);
+	
 	String getEmail();
+	void setEmail(String email);
+	
 	String getUsername();
+	void setUsername(String username);
+	
 
 }
 
