@@ -17,6 +17,8 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	
 	private Boolean editable = false;
 	
+	private Boolean hasBox = false;
+	
 	private String parentCategoryId;
 	
 	private Boolean dictionaryLookup = false;
@@ -34,6 +36,7 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 		@JsonProperty("categoryIndex") Integer categoryIndex,
 		@JsonProperty("empty") Boolean empty,
 		@JsonProperty("editable") Boolean editable,
+		@JsonProperty("hasBox") Boolean hasBox,
 		@JsonProperty("parentCategoryId") String parentCategoryId,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
@@ -45,6 +48,7 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 		this.categoryIndex = categoryIndex;
 		this.empty = empty;
 		this.editable = editable;
+		this.hasBox = hasBox;
 		this.parentCategoryId = parentCategoryId;
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
@@ -90,6 +94,14 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	}
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
+	}
+	
+	@JsonProperty
+	public Boolean getHasBox() {
+		return this.hasBox;
+	}
+	public void setHasBox(Boolean hasBox) {
+		this.hasBox = hasBox;
 	}
 	
 	@JsonProperty

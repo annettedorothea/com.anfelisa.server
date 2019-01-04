@@ -17,17 +17,21 @@ public abstract class AbstractCategoryListData extends AbstractData implements I
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractCategoryListData.class);
 	
+	private String userId;
+	
 	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
 	
 	private String categoryId;
 	
 
 	public AbstractCategoryListData(
+		@JsonProperty("userId") String userId,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
 		@JsonProperty("categoryId") String categoryId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
+		this.userId = userId;
 		this.cardList = cardList;
 		this.categoryId = categoryId;
 	}
@@ -36,6 +40,14 @@ public abstract class AbstractCategoryListData extends AbstractData implements I
 		super(uuid);
 	}
 
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	@JsonProperty
 	public java.util.List<com.anfelisa.card.models.ICardModel> getCardList() {
 		return this.cardList;

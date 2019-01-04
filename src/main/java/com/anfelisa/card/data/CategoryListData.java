@@ -1,21 +1,18 @@
 package com.anfelisa.card.data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.joda.time.DateTime;
-import java.util.List;
-
-import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CategoryListData extends AbstractCategoryListData implements ICategoryListData {
 	
 	public CategoryListData(
+		@JsonProperty("userId") String userId, 
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList, 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
+			userId,
 			cardList,
 			categoryId,
 			uuid

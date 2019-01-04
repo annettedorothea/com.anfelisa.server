@@ -28,7 +28,7 @@ import io.dropwizard.setup.Environment;
 public class App extends Application<CustomAppConfiguration> {
 
 	static final Logger LOG = LoggerFactory.getLogger(App.class);
-	
+
 	static EmailService EMAIL_SERVICE;
 
 	public static void main(String[] args) throws Exception {
@@ -43,7 +43,7 @@ public class App extends Application<CustomAppConfiguration> {
 	public static String getVersion() {
 		return "4.0.1";
 	}
-	
+
 	public static void reportException(Exception x) {
 		if (EMAIL_SERVICE != null) {
 			try {
@@ -69,7 +69,7 @@ public class App extends Application<CustomAppConfiguration> {
 	@Override
 	public void run(CustomAppConfiguration configuration, Environment environment) throws ClassNotFoundException {
 		LOG.info("running version {}", getVersion());
-		
+
 		EMAIL_SERVICE = new EmailService(configuration.getEmail());
 
 		DaoProvider daoProvider = new DaoProvider();
@@ -106,7 +106,6 @@ public class App extends Application<CustomAppConfiguration> {
 
 		configureCors(environment);
 
-		
 		AppRegistration.registerResources(environment, jdbi, configuration, daoProvider, viewProvider);
 		AppRegistration.registerConsumers(viewProvider, mode);
 	}

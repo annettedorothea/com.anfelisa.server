@@ -1,12 +1,7 @@
 package com.anfelisa.category.data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.joda.time.DateTime;
-import java.util.List;
-
-import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CategoryTreeItemData extends AbstractCategoryTreeItemData implements ICategoryTreeItemData {
 	
@@ -16,6 +11,7 @@ public class CategoryTreeItemData extends AbstractCategoryTreeItemData implement
 		@JsonProperty("categoryIndex") Integer categoryIndex, 
 		@JsonProperty("empty") Boolean empty, 
 		@JsonProperty("editable") Boolean editable, 
+		@JsonProperty("hasBox") Boolean hasBox, 
 		@JsonProperty("parentCategoryId") String parentCategoryId, 
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup, 
 		@JsonProperty("givenLanguage") String givenLanguage, 
@@ -29,6 +25,7 @@ public class CategoryTreeItemData extends AbstractCategoryTreeItemData implement
 			categoryIndex,
 			empty,
 			editable,
+			hasBox,
 			parentCategoryId,
 			dictionaryLookup,
 			givenLanguage,

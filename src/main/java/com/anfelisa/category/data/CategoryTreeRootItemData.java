@@ -1,12 +1,7 @@
 package com.anfelisa.category.data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.joda.time.DateTime;
-import java.util.List;
-
-import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CategoryTreeRootItemData extends AbstractCategoryTreeRootItemData implements ICategoryTreeRootItemData {
 	

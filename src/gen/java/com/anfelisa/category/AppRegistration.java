@@ -19,7 +19,6 @@ public class AppRegistration {
 		environment.jersey().register(new CreateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new UpdateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new DeleteCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new GetAllCategoriesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new InviteUserAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new RevokeUserAccessAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetCategoryTreeAction(jdbi, appConfiguration, daoProvider, viewProvider));

@@ -36,12 +36,6 @@ ACE
 		on noRoot (Category.delete)
 		on root (Category.deleteRoot)
 	
-	GetAllCategories<CategoryList>
-		GET "/category/all"  
-		authorize
-		queryParams parentCategoryId
-		response categoryList
-		
 	InviteUser<InviteUser>
 		POST "/category/invite" 
 		authorize 
@@ -164,6 +158,7 @@ models
 		Integer categoryIndex
 		Boolean empty
 		Boolean editable
+		Boolean hasBox
 		String parentCategoryId
 		Boolean dictionaryLookup
 		String givenLanguage

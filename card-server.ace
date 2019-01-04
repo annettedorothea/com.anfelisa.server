@@ -61,6 +61,7 @@ ACE
 		response
 			cardList
 
+
 views 
 	Card {
 		insert(CardCreation)
@@ -117,6 +118,7 @@ models
 	}
 	
 	CategoryList {
+		String userId
 		List Card cardList
 		String categoryId	
 	}

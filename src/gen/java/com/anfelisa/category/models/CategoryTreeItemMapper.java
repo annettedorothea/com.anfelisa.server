@@ -15,6 +15,7 @@ public class CategoryTreeItemMapper implements RowMapper<ICategoryTreeItemModel>
 			r.getObject("categoryIndex") != null ? r.getInt("categoryIndex") : null,
 			r.getBoolean("empty"),
 			r.getBoolean("editable"),
+			r.getBoolean("hasBox"),
 			r.getString("parentCategoryId"),
 			r.getBoolean("dictionaryLookup"),
 			r.getString("givenLanguage"),

@@ -58,6 +58,7 @@ public abstract class AbstractGetCardsAction extends Action<CategoryListData> {
 			throws JsonProcessingException {
 		this.actionData = new CategoryListData(uuid);
 		this.actionData.setCategoryId(categoryId);
+		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
 

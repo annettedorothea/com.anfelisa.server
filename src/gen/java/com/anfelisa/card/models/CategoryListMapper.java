@@ -10,6 +10,7 @@ public class CategoryListMapper implements RowMapper<ICategoryListModel> {
 	
 	public ICategoryListModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CategoryListModel(
+			r.getString("userId"),
 			null,
 			r.getString("categoryId")
 		);

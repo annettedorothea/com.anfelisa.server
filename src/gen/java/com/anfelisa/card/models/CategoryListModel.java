@@ -7,19 +7,31 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings("all")
 public class CategoryListModel implements ICategoryListModel {
 
+	private String userId;
+	
 	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
 	
 	private String categoryId;
 	
 
 	public CategoryListModel(
+		@JsonProperty("userId") String userId,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
 		@JsonProperty("categoryId") String categoryId
 	) {
+		this.userId = userId;
 		this.cardList = cardList;
 		this.categoryId = categoryId;
 	}
 
+	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	@JsonProperty
 	public java.util.List<com.anfelisa.card.models.ICardModel> getCardList() {
 		return this.cardList;

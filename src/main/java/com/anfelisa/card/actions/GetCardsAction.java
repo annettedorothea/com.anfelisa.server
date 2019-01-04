@@ -3,6 +3,7 @@ package com.anfelisa.card.actions;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.card.models.ICardModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 import com.anfelisa.ace.IDaoProvider;
 
 import org.slf4j.Logger;
@@ -22,6 +23,10 @@ public class GetCardsAction extends AbstractGetCardsAction {
 
 
 	protected final void loadDataForGetRequest() {
+		IUserAccessToCategoryModel userAccessToCategoryModel = daoProvider.getUserAccessToCategoryDao().hasUserAccessTo(getHandle(), actionData.getCategoryId(), actionData.getUserId());
+		if (userAccessToCategoryModel == null) {
+			throwBadRequest();
+		}
 		List<ICardModel> cardList = daoProvider.getCardDao().selectAllOfCategory(getHandle(), actionData.getCategoryId());
 		this.actionData.setCardList(cardList);
 	}

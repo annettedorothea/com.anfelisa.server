@@ -9,7 +9,7 @@ import org.jdbi.v3.core.statement.Update;
 import com.anfelisa.category.data.CategoryUpdateData;
 
 public class CategoryDao extends AbstractCategoryDao {
-	public List<ICategoryItemModel> selectAllChildren(Handle handle, String parentCategoryId, String userId) {
+	public List<ICategoryTreeItemModel> selectAllChildren(Handle handle, String parentCategoryId, String userId) {
 		return handle.createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, publicrootcategory, "
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
@@ -17,10 +17,10 @@ public class CategoryDao extends AbstractCategoryDao {
 						+ "false as isRoot, "
 						+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
 						+ "FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
-				.bind("userid", userId).bind("parentcategoryid", parentCategoryId).map(new CategoryItemMapper()).list();
+				.bind("userid", userId).bind("parentcategoryid", parentCategoryId).map(new CategoryTreeItemMapper()).list();
 	}
 
-	public List<ICategoryItemModel> selectAllRoot(Handle handle, String userId) {
+	public List<ICategoryTreeRootItemModel> selectAllRoot(Handle handle, String userId) {
 		return handle.createQuery("SELECT * FROM "
 				+ "( SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, publicrootcategory, "
 				+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
@@ -28,7 +28,7 @@ public class CategoryDao extends AbstractCategoryDao {
 				+ "true as isRoot, "
 				+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
 				+ "FROM public.category c) as categoryitem WHERE parentcategoryid is null and (publicrootcategory = true or editable = true) order by categoryindex, categoryname")
-				.bind("userid", userId).map(new CategoryItemMapper()).list();
+				.bind("userid", userId).map(new CategoryTreeRootItemMapper()).list();
 	}
 
 	public Integer selectMaxIndexInCategory(Handle handle, String parentCategoryId) {

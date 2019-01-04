@@ -2,7 +2,6 @@ package com.anfelisa.box.commands;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -41,8 +40,9 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 			if (box == null) {
 				throwBadRequest("boxDoesNotExist");
 			}
-			List<IScheduledCardModel> allCards = daoProvider.getScheduledCardDao().selectAllCardsOfBox(getHandle(), box.getBoxId());
-			this.commandData.setExistingScheduledCardIds(new ArrayList<String>()); 
+			List<IScheduledCardModel> allCards = daoProvider.getScheduledCardDao().selectAllCardsOfBox(getHandle(),
+					box.getBoxId());
+			this.commandData.setExistingScheduledCardIds(new ArrayList<String>());
 			this.commandData.setNewScheduledCards(new ArrayList<IScheduledCardModel>());
 			DateTime scheduledDateTime = firstCardByDateTime(allCards);
 			this.commandData.setScheduledDate(scheduledDateTime);
@@ -51,15 +51,16 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 				if (scheduledCardModel != null) {
 					this.commandData.getExistingScheduledCardIds().add(scheduledCardModel.getScheduledCardId());
 				} else {
-					String uuid = UUID.randomUUID().toString();
-					ScheduledCardModel newScheduledCard = new ScheduledCardModel(uuid, cardId, box.getBoxId(), commandData.getSystemTime(), 2.5F, 1, 1, 0, scheduledDateTime, null, null, null);
+					String uuid = combineUuids(cardId, commandData.getUuid());
+					ScheduledCardModel newScheduledCard = new ScheduledCardModel(uuid, cardId, box.getBoxId(),
+							commandData.getSystemTime(), 2.5F, 1, 1, 0, scheduledDateTime, null, null, null);
 					this.commandData.getNewScheduledCards().add(newScheduledCard);
 				}
 			}
 			this.commandData.setOutcome(ok);
 		}
 	}
-	
+
 	private IScheduledCardModel findByCardId(List<IScheduledCardModel> allCards, String cardId) {
 		for (IScheduledCardModel scheduledCardModel : allCards) {
 			if (scheduledCardModel.getCardId().equals(cardId)) {
@@ -68,7 +69,7 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 		}
 		return null;
 	}
-	
+
 	private DateTime firstCardByDateTime(List<IScheduledCardModel> allCards) {
 		DateTime dateTime = commandData.getSystemTime();
 		for (IScheduledCardModel scheduledCardModel : allCards) {
@@ -77,6 +78,11 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 			}
 		}
 		return dateTime.minusMinutes(1);
+	}
+
+	private String combineUuids(String uuid1, String uuid2) {
+		return (uuid1.length() >= 23 ? uuid1.substring(0, 23) : uuid1) + "-"
+				+ (uuid2.length() >= 8 ? uuid2.substring(0, 8) : uuid2);
 	}
 
 }
