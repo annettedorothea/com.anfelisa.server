@@ -10,7 +10,6 @@ ACE
 		authorize
 		payload 
 			categoryName
-			categoryIndex
 			parentCategoryId
 			dictionaryLookup
 			givenLanguage

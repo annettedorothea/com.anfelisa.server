@@ -51,19 +51,17 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 			commandData.setWantedLanguage(null);
 		}
 		
-		if (commandData.getCategoryIndex() == null) {
-			Integer max = null;
-			if (commandData.getParentCategoryId() == null) {
-				max = this.daoProvider.getCategoryDao().selectMaxIndexInRootCategory(getHandle());
-			} else {
-				max = this.daoProvider.getCategoryDao().selectMaxIndexInCategory(getHandle(),
-						commandData.getParentCategoryId());
-			}
-			if (max == null) {
-				max = 0;
-			}
-			commandData.setCategoryIndex(max + 1);
+		Integer max = null;
+		if (commandData.getParentCategoryId() == null) {
+			max = this.daoProvider.getCategoryDao().selectMaxIndexInRootCategory(getHandle());
+		} else {
+			max = this.daoProvider.getCategoryDao().selectMaxIndexInCategory(getHandle(),
+					commandData.getParentCategoryId());
 		}
+		if (max == null) {
+			max = 0;
+		}
+		commandData.setCategoryIndex(max + 1);
 	}
 	
 	private void validateLanguage(String language) {

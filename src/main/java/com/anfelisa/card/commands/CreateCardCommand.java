@@ -34,14 +34,12 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 		commandData.setRootCategoryId(category.getRootCategoryId());
 		commandData.setPath(category.getPath());
 		this.commandData.setCardId(commandData.getUuid());
-		if (commandData.getCardIndex() == null) {
-			Integer max = this.daoProvider.getCardDao().selectMaxIndexInCategory(getHandle(),
-					commandData.getCategoryId());
-			if (max == null) {
-				max = 0;
-			}
-			commandData.setCardIndex(max + 1);
+		Integer max = this.daoProvider.getCardDao().selectMaxIndexInCategory(getHandle(),
+				commandData.getCategoryId());
+		if (max == null) {
+			max = 0;
 		}
+		commandData.setCardIndex(max + 1);
 		this.commandData.setCardAuthor(commandData.getUsername());
 		this.commandData.setOutcome(ok);
 	}

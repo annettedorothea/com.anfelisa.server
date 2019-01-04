@@ -12,7 +12,6 @@ ACE
 			wanted
 			given
 			image
-			cardIndex
 			categoryId
 		on ok (Card.insert)
 	
