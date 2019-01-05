@@ -20,6 +20,7 @@ public class CategoryTreeItemMapper implements RowMapper<ICategoryTreeItemModel>
 			r.getBoolean("dictionaryLookup"),
 			r.getString("givenLanguage"),
 			r.getString("wantedLanguage"),
+			r.getString("rootCategoryId"),
 			null
 		);
 	}

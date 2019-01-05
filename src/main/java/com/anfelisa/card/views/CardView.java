@@ -5,7 +5,9 @@ import org.jdbi.v3.core.Handle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.card.data.CardCreationData;
 import com.anfelisa.card.data.CardDeleteData;
+import com.anfelisa.card.data.CardIdListData;
 import com.anfelisa.card.data.CardUpdateData;
+import com.anfelisa.card.models.ICardModel;
 
 public class CardView implements ICardView {
 
@@ -27,6 +29,13 @@ public class CardView implements ICardView {
 
 	public void update(CardUpdateData data, Handle handle) {
 		daoProvider.getCardDao().update(handle, data);
+	}
+
+	@Override
+	public void moveCards(CardIdListData data, Handle handle) {
+		for (ICardModel movedCard : data.getMovedCards()) {
+			daoProvider.getCardDao().updateByCardId(handle, movedCard);
+		}
 	}
 
 }

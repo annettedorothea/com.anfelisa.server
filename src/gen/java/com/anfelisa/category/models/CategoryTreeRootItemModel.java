@@ -25,6 +25,8 @@ public class CategoryTreeRootItemModel implements ICategoryTreeRootItemModel {
 	
 	private String wantedLanguage;
 	
+	private String rootCategoryId;
+	
 	private java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories;
 	
 
@@ -38,6 +40,7 @@ public class CategoryTreeRootItemModel implements ICategoryTreeRootItemModel {
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
+		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("childCategories") java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories
 	) {
 		this.categoryId = categoryId;
@@ -49,6 +52,7 @@ public class CategoryTreeRootItemModel implements ICategoryTreeRootItemModel {
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
+		this.rootCategoryId = rootCategoryId;
 		this.childCategories = childCategories;
 	}
 
@@ -122,6 +126,14 @@ public class CategoryTreeRootItemModel implements ICategoryTreeRootItemModel {
 	}
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
+	}
+	
+	@JsonProperty
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
 	}
 	
 	@JsonProperty

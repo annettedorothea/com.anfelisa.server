@@ -59,12 +59,21 @@ ACE
 		response
 			categoryList
 
+	MoveCategory<CategoryMove>
+		PUT "/category/move"
+		authorize
+		payload
+			movedCategory
+			targetCategoryId
+		on ok (Category.moveCategory)
+
 views 
 	Category {
 		insert(CategoryCreation)
 		delete(CategoryDelete)
 		deleteRoot(CategoryDelete)
 		update(CategoryUpdate)
+		moveCategory(CategoryMove)
 	}
 	
 	UserAccessToCategory { 
@@ -112,40 +121,6 @@ models
 		String userId
 	}
 	
-	CategoryList {
-		String parentCategoryId
-		String grandParentCategoryId
-		String parentCategoryName
-		Boolean parentDictionaryLookup
-		Boolean rootDictionaryLookup
-		String parentGivenLanguage
-		String parentWantedLanguage
-		List CategoryItem categoryList
-		List com.anfelisa.card.Card cardList
-		Boolean hasBox
-		String userId
-		Boolean parentEditable
-		List UserWithAccess userList
-	}
-	
-	CategoryItem {
-		String categoryId
-		String categoryName
-		String categoryAuthor
-		Integer categoryIndex
-		String parentCategoryId
-		String rootCategoryId
-		Boolean dictionaryLookup
-		String givenLanguage
-		String wantedLanguage
-		NotNull String path
-		Boolean empty
-		Boolean editable
-		Boolean hasBox
-		Boolean isRoot
-		Boolean publicRootCategory
-	}
-	
 	CategoryTree {
 		List CategoryTreeRootItem categoryList
 		String userId
@@ -162,6 +137,7 @@ models
 		Boolean dictionaryLookup
 		String givenLanguage
 		String wantedLanguage
+		String rootCategoryId references categoryId
 		List CategoryTreeItem childCategories
 	}
 	
@@ -175,6 +151,7 @@ models
 		Boolean dictionaryLookup
 		String givenLanguage
 		String wantedLanguage
+		String rootCategoryId references categoryId
 		List CategoryTreeItem childCategories
 	}
 	
@@ -200,5 +177,12 @@ models
 	
 	CategoryCreation extends Category, UserAccessToCategory {
 		String username
+	}
+	
+	CategoryMove {
+		String movedCategoryId
+		String targetCategoryId
+		Category movedCategory
+		String userId
 	}
 

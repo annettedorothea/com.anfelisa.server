@@ -43,6 +43,12 @@ public class EventFactory {
 				DeleteCardOkEvent event = new DeleteCardOkEvent(data, databaseHandle, daoProvider, viewProvider);
 				return event;
 			}
+			if (eventClass.equals("com.anfelisa.card.events.MoveCardsOkEvent")) {
+				CardIdListData data = mapper.readValue(json, CardIdListData.class);
+				data.migrateLegacyData(json);
+				MoveCardsOkEvent event = new MoveCardsOkEvent(data, databaseHandle, daoProvider, viewProvider);
+				return event;
+			}
 		} catch (IOException e) {
 			LOG.error("failed to create event {} with data {}", eventClass, json, e);
 		}

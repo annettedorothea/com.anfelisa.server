@@ -35,6 +35,8 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	
 	private String wantedLanguage;
 	
+	private String rootCategoryId;
+	
 	private java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories;
 	
 
@@ -48,6 +50,7 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
+		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("childCategories") java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -61,6 +64,7 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
+		this.rootCategoryId = rootCategoryId;
 		this.childCategories = childCategories;
 	}
 
@@ -138,6 +142,14 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	}
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
+	}
+	
+	@JsonProperty
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
 	}
 	
 	@JsonProperty

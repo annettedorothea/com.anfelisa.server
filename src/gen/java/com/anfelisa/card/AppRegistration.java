@@ -22,6 +22,7 @@ public class AppRegistration {
 		environment.jersey().register(new GetDuplicatesAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetTranslationAction(jdbi, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetCardsAction(jdbi, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new MoveCardsAction(jdbi, appConfiguration, daoProvider, viewProvider));
 	}
 
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {
@@ -35,6 +36,10 @@ public class AppRegistration {
 		
 		viewProvider.addConsumer("com.anfelisa.card.events.DeleteCardOkEvent", (dataContainer, handle) -> {
 			viewProvider.cardView.delete((com.anfelisa.card.data.CardDeleteData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.card.events.MoveCardsOkEvent", (dataContainer, handle) -> {
+			viewProvider.cardView.moveCards((com.anfelisa.card.data.CardIdListData) dataContainer, handle);
 		});
 		
     }

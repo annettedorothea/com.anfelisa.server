@@ -59,13 +59,21 @@ ACE
 			categoryId 
 		response
 			cardList
-
+			
+	MoveCards<CardIdList>
+		PUT "/cards/move"
+		authorize
+		payload
+			cardIdList
+			categoryId
+		on ok (Card.moveCards)
 
 views 
 	Card {
 		insert(CardCreation)
 		delete(CardDelete)
 		update(CardUpdate)
+		moveCards(CardIdList)
 	}
 
 models 
@@ -120,6 +128,13 @@ models
 		String userId
 		List Card cardList
 		String categoryId	
+	}
+	
+	CardIdList {
+		List String cardIdList
+		String categoryId	
+		String userId
+		List Card movedCards
 	}
 
 

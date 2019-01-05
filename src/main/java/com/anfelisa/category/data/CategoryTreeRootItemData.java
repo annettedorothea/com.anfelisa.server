@@ -15,6 +15,7 @@ public class CategoryTreeRootItemData extends AbstractCategoryTreeRootItemData i
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup, 
 		@JsonProperty("givenLanguage") String givenLanguage, 
 		@JsonProperty("wantedLanguage") String wantedLanguage, 
+		@JsonProperty("rootCategoryId") String rootCategoryId, 
 		@JsonProperty("childCategories") java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories, 
 		@JsonProperty("uuid") String uuid
 	) {
@@ -28,6 +29,7 @@ public class CategoryTreeRootItemData extends AbstractCategoryTreeRootItemData i
 			dictionaryLookup,
 			givenLanguage,
 			wantedLanguage,
+			rootCategoryId,
 			childCategories,
 			uuid
 		);

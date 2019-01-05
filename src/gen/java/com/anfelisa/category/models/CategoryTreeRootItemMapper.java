@@ -19,6 +19,7 @@ public class CategoryTreeRootItemMapper implements RowMapper<ICategoryTreeRootIt
 			r.getBoolean("dictionaryLookup"),
 			r.getString("givenLanguage"),
 			r.getString("wantedLanguage"),
+			r.getString("rootCategoryId"),
 			null
 		);
 	}

@@ -32,6 +32,9 @@ public interface ICategoryTreeRootItemModel {
 	String getWantedLanguage();
 	void setWantedLanguage(String wantedLanguage);
 	
+	String getRootCategoryId();
+	void setRootCategoryId(String rootCategoryId);
+	
 	java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> getChildCategories();
 	void setChildCategories(java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories);
 	

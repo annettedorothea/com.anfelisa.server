@@ -67,6 +67,12 @@ public class EventFactory {
 				RevokeUserAccessOkEvent event = new RevokeUserAccessOkEvent(data, databaseHandle, daoProvider, viewProvider);
 				return event;
 			}
+			if (eventClass.equals("com.anfelisa.category.events.MoveCategoryOkEvent")) {
+				CategoryMoveData data = mapper.readValue(json, CategoryMoveData.class);
+				data.migrateLegacyData(json);
+				MoveCategoryOkEvent event = new MoveCategoryOkEvent(data, databaseHandle, daoProvider, viewProvider);
+				return event;
+			}
 		} catch (IOException e) {
 			LOG.error("failed to create event {} with data {}", eventClass, json, e);
 		}
