@@ -14,7 +14,6 @@ public class CardData extends AbstractCardData implements ICardData {
 		@JsonProperty("cardIndex") Integer cardIndex, 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("rootCategoryId") String rootCategoryId, 
-		@JsonProperty("path") String path, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -26,7 +25,6 @@ public class CardData extends AbstractCardData implements ICardData {
 			cardIndex,
 			categoryId,
 			rootCategoryId,
-			path,
 			uuid
 		);
 	}

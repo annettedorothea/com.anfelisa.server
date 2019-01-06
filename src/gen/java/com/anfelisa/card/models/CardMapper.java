@@ -17,8 +17,7 @@ public class CardMapper implements RowMapper<ICardModel> {
 			r.getString("cardAuthor"),
 			r.getObject("cardIndex") != null ? r.getInt("cardIndex") : null,
 			r.getString("categoryId"),
-			r.getString("rootCategoryId"),
-			r.getString("path")
+			r.getString("rootCategoryId")
 		);
 	}
 }

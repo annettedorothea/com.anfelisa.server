@@ -11,7 +11,7 @@ import com.anfelisa.card.data.CardUpdateData;
 public class CardDao extends AbstractCardDao {
 	public List<ICardModel> selectAllOfCategory(Handle handle, String categoryId) {
 		return handle.createQuery(
-				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, path FROM public.card "
+				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid FROM public.card "
 						+ "WHERE categoryid = :categoryid ORDER BY cardindex, given")
 				.bind("categoryid", categoryId).map(new CardMapper()).list();
 	}
@@ -32,13 +32,14 @@ public class CardDao extends AbstractCardDao {
 		statement.execute();
 	}
 
-	public List<ICardModel> search(Handle handle, String categoryId, Boolean naturalInputOrder, String given,
+	public List<ICardWithCategoryNameModel> search(Handle handle, String categoryId, Boolean naturalInputOrder, String given,
 			String wanted) {
 		String givenSearchString = "%" + given + "%";
 		String wantedSearchString = "%" + wanted + "%";
 		String orderBy = naturalInputOrder ? "given" : "wanted";
 		return handle.createQuery(
-				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, path FROM public.card "
+				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, "
+				+ "(select categoryname from category where category.categoryid = :categoryid) as categoryname FROM public.card "
 						+ "where rootcategoryid = (select rootcategoryid from category where category.categoryid = :categoryid) and "
 						+ "( length(:given) > 0 and given like :givenSearchString or "
 						+ " length(:wanted) > 0 and wanted like :wantedSearchString) " + "order by upper("
@@ -48,7 +49,7 @@ public class CardDao extends AbstractCardDao {
 				.bind("wantedSearchString", wantedSearchString)
 				.bind("given", given)
 				.bind("wanted", wanted)
-				.map(new CardMapper()).list();
+				.map(new CardWithCategoryNameMapper()).list();
 	}
 	
 	public void deleteByCategoryId(Handle handle, String categoryId) {

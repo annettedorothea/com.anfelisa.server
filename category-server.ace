@@ -53,6 +53,12 @@ ACE
 		on ok (UserAccessToCategory.revokeAccess)
 		on hasNoAccess
 	
+	GetUsersWithAccess<UserWithAccessList>
+		GET "/category/users"
+		authorize
+		queryParams categoryId
+		response userList
+	
 	GetCategoryTree<CategoryTree>
 		GET "/category/tree" 
 		authorize 
@@ -63,9 +69,10 @@ ACE
 		PUT "/category/move"
 		authorize
 		payload
-			movedCategory
+			movedCategoryId
 			targetCategoryId
 		on ok (Category.moveCategory)
+		on noMove
 
 views 
 	Category {
@@ -82,7 +89,6 @@ views
 		revokeAccess(RevokeUser)
 	}
 	
-
 models 
 	schema public
 	
@@ -96,7 +102,6 @@ models
 		Boolean dictionaryLookup
 		String givenLanguage
 		String wantedLanguage
-		NotNull String path
 		Boolean publicRootCategory
 	}
 	
@@ -155,6 +160,11 @@ models
 		List CategoryTreeItem childCategories
 	}
 	
+	UserWithAccessList {
+		String categoryId
+		List UserWithAccess userList
+	}
+	
 	UserWithAccess {
 		NotNull String userId
 		NotNull String username
@@ -183,6 +193,10 @@ models
 		String movedCategoryId
 		String targetCategoryId
 		Category movedCategory
+		NotNull Integer categoryIndexWhereRemoved
+		NotNull String parentCategoryIdWhereRemoved
 		String userId
 	}
+	
+	
 

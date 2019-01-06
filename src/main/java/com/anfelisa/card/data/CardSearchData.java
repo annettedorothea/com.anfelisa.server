@@ -9,7 +9,7 @@ public class CardSearchData extends AbstractCardSearchData implements ICardSearc
 		@JsonProperty("given") String given, 
 		@JsonProperty("wanted") String wanted, 
 		@JsonProperty("categoryId") String categoryId, 
-		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList, 
+		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList, 
 		@JsonProperty("naturalInputOrder") Boolean naturalInputOrder, 
 		@JsonProperty("uuid") String uuid
 	) {

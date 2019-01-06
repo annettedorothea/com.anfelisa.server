@@ -15,7 +15,6 @@ public class CategoryData extends AbstractCategoryData implements ICategoryData 
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup, 
 		@JsonProperty("givenLanguage") String givenLanguage, 
 		@JsonProperty("wantedLanguage") String wantedLanguage, 
-		@JsonProperty("path") String path, 
 		@JsonProperty("publicRootCategory") Boolean publicRootCategory, 
 		@JsonProperty("uuid") String uuid
 	) {
@@ -29,7 +28,6 @@ public class CategoryData extends AbstractCategoryData implements ICategoryData 
 			dictionaryLookup,
 			givenLanguage,
 			wantedLanguage,
-			path,
 			publicRootCategory,
 			uuid
 		);

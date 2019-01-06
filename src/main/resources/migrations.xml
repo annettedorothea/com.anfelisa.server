@@ -267,4 +267,46 @@
 
 	</changeSet>
 
+	<changeSet id="004" author="annette">
+
+		<dropColumn columnName="path" tableName="category" />
+
+	</changeSet>
+
+	<changeSet id="005" author="annette">
+
+		<dropColumn columnName="path" tableName="card" />
+
+	</changeSet>
+
+	<changeSet id="006" author="annette">
+
+		<modifyDataType columnName="data" newDataType="Text"
+			tableName="timeline" />
+
+	</changeSet>
+
+	<changeSet id="007" author="annette">
+
+		<sql >
+			delete from timeline where uuid = 'ee476040-a0da-41b7-b1cc-a1393fc991b9';
+			delete from timeline where uuid = '02877628-11ce-41e7-8bc1-8d38eff6335e';
+			delete from timeline where data like '%ee476040-a0da-41b7-b1cc-a1393fc991b9%';
+			delete from timeline where data like '%02877628-11ce-41e7-8bc1-8d38eff6335e%';
+		</sql>
+	</changeSet>
+
+	<changeSet id="008" author="annette">
+
+		<sql >
+			delete from timeline where uuid = '042fa229-5a60-49ac-aa86-349a4ec17db2';
+			delete from timeline where uuid = 'f37991af-d3fe-4010-ae9c-76060a07efd5';
+			delete from timeline where uuid = 'b7fe9515-7cad-4431-af84-74dbd7a6a27b';
+			delete from timeline where uuid = 'af20a517-365f-4ffd-b05d-35f2fc7dfe65';
+			delete from timeline where uuid = '916fa482-cf9a-4a7a-849d-ca1d982e23fa';
+			delete from timeline where uuid = '8a8b1807-5fc2-4204-a143-ce5e771c4353';
+			delete from timeline where uuid = 'e0409518-31e8-43f9-b4cc-0990568863d4';
+		</sql>
+	</changeSet>
+
 </databaseChangeLog>

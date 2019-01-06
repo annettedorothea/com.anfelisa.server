@@ -1,12 +1,7 @@
 package com.anfelisa.category.data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.joda.time.DateTime;
-import java.util.List;
-
-import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CategoryMoveData extends AbstractCategoryMoveData implements ICategoryMoveData {
 	
@@ -14,6 +9,8 @@ public class CategoryMoveData extends AbstractCategoryMoveData implements ICateg
 		@JsonProperty("movedCategoryId") String movedCategoryId, 
 		@JsonProperty("targetCategoryId") String targetCategoryId, 
 		@JsonProperty("movedCategory") com.anfelisa.category.models.ICategoryModel movedCategory, 
+		@JsonProperty("categoryIndexWhereRemoved") Integer categoryIndexWhereRemoved, 
+		@JsonProperty("parentCategoryIdWhereRemoved") String parentCategoryIdWhereRemoved, 
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("uuid") String uuid
 	) {
@@ -21,6 +18,8 @@ public class CategoryMoveData extends AbstractCategoryMoveData implements ICateg
 			movedCategoryId,
 			targetCategoryId,
 			movedCategory,
+			categoryIndexWhereRemoved,
+			parentCategoryIdWhereRemoved,
 			userId,
 			uuid
 		);

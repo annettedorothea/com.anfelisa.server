@@ -11,7 +11,7 @@ import com.anfelisa.category.data.CategoryUpdateData;
 public class CategoryDao extends AbstractCategoryDao {
 	public List<ICategoryTreeItemModel> selectAllChildren(Handle handle, String parentCategoryId, String userId) {
 		return handle.createQuery(
-				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, publicrootcategory, "
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, publicrootcategory, "
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
 						+ "(select a.categoryid from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid) is not null as editable, "
 						+ "false as isRoot, "
@@ -22,7 +22,7 @@ public class CategoryDao extends AbstractCategoryDao {
 
 	public List<ICategoryTreeRootItemModel> selectAllRoot(Handle handle, String userId) {
 		return handle.createQuery("SELECT * FROM "
-				+ "( SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, publicrootcategory, "
+				+ "( SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, publicrootcategory, "
 				+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
 				+ "(select a.categoryid from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid) is not null as editable, "
 				+ "true as isRoot, "
@@ -74,7 +74,7 @@ public class CategoryDao extends AbstractCategoryDao {
 
 	public List<ICategoryModel> selectAllChildren(Handle handle, String parentCategoryId) {
 		return handle.createQuery(
-				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, path, publicrootcategory FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, publicrootcategory FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
 				.bind("parentcategoryid", parentCategoryId).map(new CategoryMapper()).list();
 	}
 

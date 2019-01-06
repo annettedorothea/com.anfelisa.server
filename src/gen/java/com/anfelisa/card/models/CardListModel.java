@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @SuppressWarnings("all")
-public class CategoryListModel implements ICategoryListModel {
+public class CardListModel implements ICardListModel {
 
 	private String userId;
 	
@@ -14,7 +14,7 @@ public class CategoryListModel implements ICategoryListModel {
 	private String categoryId;
 	
 
-	public CategoryListModel(
+	public CardListModel(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
 		@JsonProperty("categoryId") String categoryId

@@ -41,9 +41,6 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	
 	private String wantedLanguage;
 	
-	@NotNull
-	private String path;
-	
 	private Boolean publicRootCategory = false;
 	
 	@NotNull
@@ -61,7 +58,6 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
-		@JsonProperty("path") String path,
 		@JsonProperty("publicRootCategory") Boolean publicRootCategory,
 		@JsonProperty("userId") String userId
 ,		@JsonProperty("uuid") String uuid
@@ -77,7 +73,6 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
-		this.path = path;
 		this.publicRootCategory = publicRootCategory;
 		this.userId = userId;
 	}
@@ -167,14 +162,6 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-	public String getPath() {
-		return this.path;
-	}
-	public void setPath(String path) {
-		this.path = path;
-	}
-	
-	@JsonProperty
 	public Boolean getPublicRootCategory() {
 		return this.publicRootCategory;
 	}
@@ -201,7 +188,6 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		this.dictionaryLookup = model.getDictionaryLookup();
 		this.givenLanguage = model.getGivenLanguage();
 		this.wantedLanguage = model.getWantedLanguage();
-		this.path = model.getPath();
 		this.publicRootCategory = model.getPublicRootCategory();
 	}
 	public void mapFrom(com.anfelisa.category.models.IUserAccessToCategoryModel model) {

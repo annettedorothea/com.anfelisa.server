@@ -59,7 +59,7 @@ public abstract class AbstractMoveCategoryAction extends Action<CategoryMoveData
 			@NotNull CategoryMoveData payload)
 			throws JsonProcessingException {
 		this.actionData = new CategoryMoveData(payload.getUuid());
-		this.actionData.setMovedCategory(payload.getMovedCategory());
+		this.actionData.setMovedCategoryId(payload.getMovedCategoryId());
 		this.actionData.setTargetCategoryId(payload.getTargetCategoryId());
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();

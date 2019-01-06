@@ -13,9 +13,9 @@ import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
 
 @SuppressWarnings("unused")
-public abstract class AbstractCategoryListData extends AbstractData implements ICategoryListData {
+public abstract class AbstractCardListData extends AbstractData implements ICardListData {
 	
-	static final Logger LOG = LoggerFactory.getLogger(AbstractCategoryListData.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractCardListData.class);
 	
 	private String userId;
 	
@@ -24,7 +24,7 @@ public abstract class AbstractCategoryListData extends AbstractData implements I
 	private String categoryId;
 	
 
-	public AbstractCategoryListData(
+	public AbstractCardListData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
 		@JsonProperty("categoryId") String categoryId
@@ -36,7 +36,7 @@ public abstract class AbstractCategoryListData extends AbstractData implements I
 		this.categoryId = categoryId;
 	}
 
-	public AbstractCategoryListData( String uuid ) {
+	public AbstractCardListData( String uuid ) {
 		super(uuid);
 	}
 

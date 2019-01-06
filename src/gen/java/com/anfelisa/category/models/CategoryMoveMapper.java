@@ -13,6 +13,8 @@ public class CategoryMoveMapper implements RowMapper<ICategoryMoveModel> {
 			r.getString("movedCategoryId"),
 			r.getString("targetCategoryId"),
 			null,
+			r.getObject("categoryIndexWhereRemoved") != null ? r.getInt("categoryIndexWhereRemoved") : null,
+			r.getString("parentCategoryIdWhereRemoved"),
 			r.getString("userId")
 		);
 	}

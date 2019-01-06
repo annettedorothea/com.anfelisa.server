@@ -42,9 +42,6 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	@NotNull
 	private String rootCategoryId;
 	
-	@NotNull
-	private String path;
-	
 
 	public AbstractCardCreationData(
 		@JsonProperty("userId") String userId,
@@ -56,8 +53,7 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("rootCategoryId") String rootCategoryId,
-		@JsonProperty("path") String path
+		@JsonProperty("rootCategoryId") String rootCategoryId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -71,7 +67,6 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
-		this.path = path;
 	}
 
 	public AbstractCardCreationData( String uuid ) {
@@ -158,14 +153,6 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 		this.rootCategoryId = rootCategoryId;
 	}
 	
-	@JsonProperty
-	public String getPath() {
-		return this.path;
-	}
-	public void setPath(String path) {
-		this.path = path;
-	}
-	
 	
 	public void mapFrom(com.anfelisa.card.models.ICardModel model) {
 		this.cardId = model.getCardId();
@@ -176,7 +163,6 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 		this.cardIndex = model.getCardIndex();
 		this.categoryId = model.getCategoryId();
 		this.rootCategoryId = model.getRootCategoryId();
-		this.path = model.getPath();
 	}
 }
 

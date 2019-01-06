@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.card.models.ICardModel;
+import com.anfelisa.card.models.ICardWithCategoryNameModel;
 
 public class GetDuplicatesAction extends AbstractGetDuplicatesAction {
 
@@ -21,7 +21,7 @@ public class GetDuplicatesAction extends AbstractGetDuplicatesAction {
 
 
 	protected final void loadDataForGetRequest() {
-		List<ICardModel> cardList = this.daoProvider.getCardDao().search(getHandle(), actionData.getCategoryId(),
+		List<ICardWithCategoryNameModel> cardList = this.daoProvider.getCardDao().search(getHandle(), actionData.getCategoryId(),
 				actionData.getNaturalInputOrder(), actionData.getGiven(), actionData.getWanted());
 		this.actionData.setCardList(cardList);
 	}

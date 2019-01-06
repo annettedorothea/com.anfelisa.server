@@ -19,7 +19,6 @@ public class CategoryMapper implements RowMapper<ICategoryModel> {
 			r.getBoolean("dictionaryLookup"),
 			r.getString("givenLanguage"),
 			r.getString("wantedLanguage"),
-			r.getString("path"),
 			r.getBoolean("publicRootCategory")
 		);
 	}

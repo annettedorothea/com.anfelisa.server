@@ -29,9 +29,6 @@ public class CategoryModel implements ICategoryModel {
 	
 	private String wantedLanguage;
 	
-	@NotNull
-	private String path;
-	
 	private Boolean publicRootCategory = false;
 	
 
@@ -45,7 +42,6 @@ public class CategoryModel implements ICategoryModel {
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
-		@JsonProperty("path") String path,
 		@JsonProperty("publicRootCategory") Boolean publicRootCategory
 	) {
 		this.categoryId = categoryId;
@@ -57,7 +53,6 @@ public class CategoryModel implements ICategoryModel {
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
-		this.path = path;
 		this.publicRootCategory = publicRootCategory;
 	}
 
@@ -131,14 +126,6 @@ public class CategoryModel implements ICategoryModel {
 	}
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
-	}
-	
-	@JsonProperty
-	public String getPath() {
-		return this.path;
-	}
-	public void setPath(String path) {
-		this.path = path;
 	}
 	
 	@JsonProperty

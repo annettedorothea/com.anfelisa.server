@@ -14,8 +14,8 @@ public interface ICardSearchModel {
 	String getCategoryId();
 	void setCategoryId(String categoryId);
 	
-	java.util.List<com.anfelisa.card.models.ICardModel> getCardList();
-	void setCardList(java.util.List<com.anfelisa.card.models.ICardModel> cardList);
+	java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> getCardList();
+	void setCardList(java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList);
 	
 	Boolean getNaturalInputOrder();
 	void setNaturalInputOrder(Boolean naturalInputOrder);

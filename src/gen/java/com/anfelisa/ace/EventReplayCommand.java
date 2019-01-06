@@ -52,16 +52,22 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 
 			List<ITimelineItem> timeline = daoProvider.getAceDao().selectReplayTimeline(handle);
 
+			int i = 0;
 			for (ITimelineItem nextEvent : timeline) {
 				try {
 					IEvent event = EventFactory.createEvent(nextEvent.getName(), nextEvent.getData(), databaseHandle,
 							daoProvider, viewProvider);
 					event.notifyListeners();
-					LOG.info("published " + nextEvent.getUuid() + " - " + nextEvent.getName());
+					i++;
+					if (i%1000 == 0) {
+						LOG.info("published " + i + " events");
+					}
+					//LOG.info("published " + nextEvent.getUuid() + " - " + nextEvent.getName());
 				} catch (Exception e) {
 					LOG.error("failed to replay event " + nextEvent.getUuid() + " - " + nextEvent.getName());
+					LOG.error("  --- " + nextEvent.getData());
 					LOG.error(e.getMessage());
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 

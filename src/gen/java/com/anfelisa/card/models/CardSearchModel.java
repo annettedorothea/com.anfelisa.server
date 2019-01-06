@@ -15,7 +15,7 @@ public class CardSearchModel implements ICardSearchModel {
 	
 	private String categoryId;
 	
-	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
+	private java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList;
 	
 	private Boolean naturalInputOrder = false;
 	
@@ -24,7 +24,7 @@ public class CardSearchModel implements ICardSearchModel {
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
+		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList,
 		@JsonProperty("naturalInputOrder") Boolean naturalInputOrder
 	) {
 		this.given = given;
@@ -59,10 +59,10 @@ public class CardSearchModel implements ICardSearchModel {
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.card.models.ICardModel> getCardList() {
+	public java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> getCardList() {
 		return this.cardList;
 	}
-	public void setCardList(java.util.List<com.anfelisa.card.models.ICardModel> cardList) {
+	public void setCardList(java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList) {
 		this.cardList = cardList;
 	}
 	

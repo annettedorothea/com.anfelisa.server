@@ -25,7 +25,7 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	
 	private String categoryId;
 	
-	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
+	private java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList;
 	
 	private Boolean naturalInputOrder = false;
 	
@@ -34,7 +34,7 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
+		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList,
 		@JsonProperty("naturalInputOrder") Boolean naturalInputOrder
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -75,10 +75,10 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.card.models.ICardModel> getCardList() {
+	public java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> getCardList() {
 		return this.cardList;
 	}
-	public void setCardList(java.util.List<com.anfelisa.card.models.ICardModel> cardList) {
+	public void setCardList(java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList) {
 		this.cardList = cardList;
 	}
 	

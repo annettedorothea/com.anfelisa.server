@@ -3,9 +3,9 @@ package com.anfelisa.card.data;
 import com.anfelisa.ace.IDataContainer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CategoryListData extends AbstractCategoryListData implements ICategoryListData {
+public class CardListData extends AbstractCardListData implements ICardListData {
 	
-	public CategoryListData(
+	public CardListData(
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList, 
 		@JsonProperty("categoryId") String categoryId, 
@@ -19,7 +19,7 @@ public class CategoryListData extends AbstractCategoryListData implements ICateg
 		);
 	}
 
-	public CategoryListData( String uuid ) {
+	public CardListData( String uuid ) {
 		super(uuid);
 	}
 
@@ -30,10 +30,10 @@ public class CategoryListData extends AbstractCategoryListData implements ICateg
 	public void overwriteNotReplayableData(IDataContainer dataContainer) {
 		/*if (dataContainer != null) {
 			try {
-				ICategoryListData original = (ICategoryListData)dataContainer;
+				ICardListData original = (ICardListData)dataContainer;
 				//overwrite values
 			} catch (ClassCastException x) {
-				LOG.error("cannot cast data to ICategoryListData for overwriting not replayable attributes", x);
+				LOG.error("cannot cast data to ICardListData for overwriting not replayable attributes", x);
 			}
 		}*/
 	}

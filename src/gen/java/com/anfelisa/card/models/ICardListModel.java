@@ -2,8 +2,8 @@ package com.anfelisa.card.models;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(as=CategoryListModel.class)
-public interface ICategoryListModel {
+@JsonDeserialize(as=CardListModel.class)
+public interface ICardListModel {
 
 	String getUserId();
 	void setUserId(String userId);

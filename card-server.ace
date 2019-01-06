@@ -52,7 +52,7 @@ ACE
 		response
 			targetValue
 			
-	GetCards<CategoryList>
+	GetCards<CardList>
 		GET "/cards" 
 		authorize 
 		queryParams 
@@ -88,7 +88,6 @@ models
 		NotNull Integer cardIndex
 		NotNull String categoryId references com.anfelisa.category.Category.categoryId
 		NotNull String rootCategoryId references com.anfelisa.category.Category.categoryId
-		NotNull String path
 	}
 
 	CardUpdate {
@@ -109,9 +108,14 @@ models
 		NotNull String given
 		NotNull String wanted
 		String categoryId
-		List com.anfelisa.card.Card cardList
+		List CardWithCategoryName cardList
 		Boolean naturalInputOrder
 	}
+	
+	CardWithCategoryName extends Card {
+		String categoryName
+	}
+	
 	CardTranslation {
 		NotEmpty String sourceValue
 		NotEmpty String targetValue
@@ -124,7 +128,7 @@ models
 		String username
 	}
 	
-	CategoryList {
+	CardList {
 		String userId
 		List Card cardList
 		String categoryId	

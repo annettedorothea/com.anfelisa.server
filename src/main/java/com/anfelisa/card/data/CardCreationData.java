@@ -16,7 +16,6 @@ public class CardCreationData extends AbstractCardCreationData implements ICardC
 		@JsonProperty("cardIndex") Integer cardIndex, 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("rootCategoryId") String rootCategoryId, 
-		@JsonProperty("path") String path, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -30,7 +29,6 @@ public class CardCreationData extends AbstractCardCreationData implements ICardC
 			cardIndex,
 			categoryId,
 			rootCategoryId,
-			path,
 			uuid
 		);
 	}

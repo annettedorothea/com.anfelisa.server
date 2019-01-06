@@ -29,9 +29,6 @@ public interface ICardModel {
 	String getRootCategoryId();
 	void setRootCategoryId(String rootCategoryId);
 	
-	String getPath();
-	void setPath(String path);
-	
 
 }
 

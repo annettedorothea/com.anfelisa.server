@@ -38,9 +38,6 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 	@NotNull
 	private String rootCategoryId;
 	
-	@NotNull
-	private String path;
-	
 
 	public AbstractCardData(
 		@JsonProperty("cardId") String cardId,
@@ -50,8 +47,7 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("rootCategoryId") String rootCategoryId,
-		@JsonProperty("path") String path
+		@JsonProperty("rootCategoryId") String rootCategoryId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -63,7 +59,6 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
-		this.path = path;
 	}
 
 	public AbstractCardData( String uuid ) {
@@ -132,14 +127,6 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
-	}
-	
-	@JsonProperty
-	public String getPath() {
-		return this.path;
-	}
-	public void setPath(String path) {
-		this.path = path;
 	}
 	
 	

@@ -39,9 +39,6 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	
 	private String wantedLanguage;
 	
-	@NotNull
-	private String path;
-	
 	private Boolean publicRootCategory = false;
 	
 
@@ -55,7 +52,6 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
-		@JsonProperty("path") String path,
 		@JsonProperty("publicRootCategory") Boolean publicRootCategory
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -69,7 +65,6 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
-		this.path = path;
 		this.publicRootCategory = publicRootCategory;
 	}
 
@@ -147,14 +142,6 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
-	}
-	
-	@JsonProperty
-	public String getPath() {
-		return this.path;
-	}
-	public void setPath(String path) {
-		this.path = path;
 	}
 	
 	@JsonProperty

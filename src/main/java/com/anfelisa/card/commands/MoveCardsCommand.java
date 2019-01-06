@@ -29,11 +29,12 @@ public class MoveCardsCommand extends AbstractMoveCardsCommand {
 		if (accessToCategory == null) {
 			throwUnauthorized();
 		}
-		this.daoProvider.getCategoryDao().selectByCategoryId(getHandle(), commandData.getCategoryId());
 		Integer cardIndex = this.daoProvider.getCardDao().selectMaxIndexInCategory(getHandle(),
 				commandData.getCategoryId());
 		if (cardIndex == null) {
 			cardIndex = 0;
+		} else {
+			cardIndex++;
 		}
 		List<ICardModel> movedCards = new ArrayList<>();
 		for (String cardId : commandData.getCardIdList()) {

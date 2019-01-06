@@ -32,9 +32,6 @@ public class CardCreationModel implements ICardCreationModel {
 	@NotNull
 	private String rootCategoryId;
 	
-	@NotNull
-	private String path;
-	
 
 	public CardCreationModel(
 		@JsonProperty("userId") String userId,
@@ -46,8 +43,7 @@ public class CardCreationModel implements ICardCreationModel {
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("rootCategoryId") String rootCategoryId,
-		@JsonProperty("path") String path
+		@JsonProperty("rootCategoryId") String rootCategoryId
 	) {
 		this.userId = userId;
 		this.username = username;
@@ -59,7 +55,6 @@ public class CardCreationModel implements ICardCreationModel {
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
-		this.path = path;
 	}
 
 	@JsonProperty
@@ -140,14 +135,6 @@ public class CardCreationModel implements ICardCreationModel {
 	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
-	}
-	
-	@JsonProperty
-	public String getPath() {
-		return this.path;
-	}
-	public void setPath(String path) {
-		this.path = path;
 	}
 	
 

@@ -14,6 +14,12 @@ public interface ICategoryMoveModel {
 	com.anfelisa.category.models.ICategoryModel getMovedCategory();
 	void setMovedCategory(com.anfelisa.category.models.ICategoryModel movedCategory);
 	
+	Integer getCategoryIndexWhereRemoved();
+	void setCategoryIndexWhereRemoved(Integer categoryIndexWhereRemoved);
+	
+	String getParentCategoryIdWhereRemoved();
+	void setParentCategoryIdWhereRemoved(String parentCategoryIdWhereRemoved);
+	
 	String getUserId();
 	void setUserId(String userId);
 	

@@ -48,7 +48,7 @@ public class E2E {
 				if (returnNextAction && timelineItem.getType().equals("action")) {
 					return timelineItem;
 				}
-				if (timelineItem.getUuid().equals(uuid) && timelineItem.getType().equals("action")) {
+				if (timelineItem.getUuid().equals(uuid)) {
 					returnNextAction = true;
 				}
 			}

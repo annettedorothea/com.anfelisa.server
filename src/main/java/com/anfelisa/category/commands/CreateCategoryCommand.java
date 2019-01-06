@@ -35,11 +35,9 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 				throwUnauthorized();
 			}
 			commandData.setRootCategoryId(parentCategory.getRootCategoryId());
-			commandData.setPath(parentCategory.getPath() + " -> " + commandData.getCategoryName());
 			this.commandData.setOutcome(sub);
 		} else {
 			commandData.setRootCategoryId(commandData.getCategoryId());
-			commandData.setPath(commandData.getCategoryName());
 			commandData.setPublicRootCategory(false);
 			this.commandData.setOutcome(root);
 		}

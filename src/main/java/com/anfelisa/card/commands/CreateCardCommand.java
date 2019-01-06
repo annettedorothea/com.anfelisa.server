@@ -32,7 +32,6 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 			throwUnauthorized();
 		}
 		commandData.setRootCategoryId(category.getRootCategoryId());
-		commandData.setPath(category.getPath());
 		this.commandData.setCardId(commandData.getUuid());
 		Integer max = this.daoProvider.getCardDao().selectMaxIndexInCategory(getHandle(),
 				commandData.getCategoryId());

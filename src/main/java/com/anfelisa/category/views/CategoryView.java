@@ -5,6 +5,7 @@ import org.jdbi.v3.core.Handle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.category.data.CategoryCreationData;
 import com.anfelisa.category.data.CategoryDeleteData;
+import com.anfelisa.category.data.CategoryMoveData;
 import com.anfelisa.category.data.CategoryUpdateData;
 
 public class CategoryView implements ICategoryView {
@@ -34,6 +35,12 @@ public class CategoryView implements ICategoryView {
 
 	public void update(CategoryUpdateData data, Handle handle) {
 		daoProvider.getCategoryDao().update(handle, data);
+	}
+
+	@Override
+	public void moveCategory(CategoryMoveData data, Handle handle) {
+		daoProvider.getCategoryDao().updateByCategoryId(handle, data.getMovedCategory());
+		daoProvider.getCategoryDao().shiftCategories(handle, data.getCategoryIndexWhereRemoved(), data.getParentCategoryIdWhereRemoved());
 	}
 
 }

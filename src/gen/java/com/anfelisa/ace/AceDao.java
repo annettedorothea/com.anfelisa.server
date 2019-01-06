@@ -55,7 +55,7 @@ public class AceDao {
 	public ITimelineItem selectLastAction(Handle handle) {
 		Optional<ITimelineItem> optional = handle
 				.createQuery("SELECT type, method, name, time, data, uuid " + "FROM " + timelineTable() + " "
-						+ "where type = 'action' " + "order by time desc " + "limit 1")
+						+ "order by time desc " + "limit 1")
 				.map(new TimelineItemMapper())
 				.findFirst();
 		return optional.isPresent() ? optional.get() : null;

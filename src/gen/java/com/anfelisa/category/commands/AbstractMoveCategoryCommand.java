@@ -12,6 +12,7 @@ import com.anfelisa.category.data.CategoryMoveData;
 public abstract class AbstractMoveCategoryCommand extends Command<CategoryMoveData> {
 
 	protected static final String ok = "ok";
+	protected static final String noMove = "noMove";
 
 	public AbstractMoveCategoryCommand(CategoryMoveData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.commands.MoveCategoryCommand", commandParam, databaseHandle, daoProvider, viewProvider);
@@ -26,6 +27,8 @@ public abstract class AbstractMoveCategoryCommand extends Command<CategoryMoveDa
 		switch (this.commandData.getOutcome()) {
 		case ok:
 			new com.anfelisa.category.events.MoveCategoryOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			break;
+		case noMove:
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

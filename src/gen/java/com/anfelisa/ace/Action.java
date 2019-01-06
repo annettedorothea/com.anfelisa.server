@@ -63,9 +63,12 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 			} else {
 				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
 				if (timelineItem != null) {
-					originalData = mapper.readValue(timelineItem.getData(), IDataContainer.class);
-					this.actionData.setSystemTime(originalData.getSystemTime());
-					this.actionData.overwriteNotReplayableData(originalData);
+					IAction action = ActionFactory.createAction(timelineItem.getName(), timelineItem.getData(), jdbi, appConfiguration, daoProvider, viewProvider);
+					if (action != null) {
+						originalData = action.getActionData();
+						this.actionData.setSystemTime(originalData.getSystemTime());
+						this.actionData.overwriteNotReplayableData(originalData);
+					}
 				}
 			}
 			daoProvider.addActionToTimeline(this);
