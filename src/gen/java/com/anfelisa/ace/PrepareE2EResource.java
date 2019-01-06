@@ -39,41 +39,38 @@ public class PrepareE2EResource {
 	@Timed
 	@Path("/prepare")
 	public Response put(@NotNull @QueryParam("uuid") String uuid) {
-		ITimelineItem actionToBePrepared = E2E.selectAction(uuid);
-		if (actionToBePrepared == null) {
-			return Response.ok("prepared action " + uuid + " by doing nothing - action was not found").build();
-		}
-
 		DatabaseHandle databaseHandle = new DatabaseHandle(jdbi.open(), jdbi.open());
-		LOG.info("PREPARE ACTION " + actionToBePrepared);
+		LOG.info("PREPARE ACTION " + uuid);
 		try {
 			databaseHandle.beginTransaction();
 
-			ITimelineItem lastAction = daoProvider.getAceDao().selectLastAction(databaseHandle.getHandle());
-
 			int eventCount = 0;
-			ITimelineItem nextAction = E2E.selectNextAction(lastAction != null ? lastAction.getUuid() : null);
+			ITimelineItem nextAction = E2E.selectNextAction();
 			while (nextAction != null && !nextAction.getUuid().equals(uuid)) {
 				if (!nextAction.getMethod().equalsIgnoreCase("GET")) {
 					ITimelineItem nextEvent = E2E.selectEvent(nextAction.getUuid());
 					if (nextEvent != null) {
-						LOG.info("PUBLISH EVENT " + nextEvent.getName());
+						LOG.info("PUBLISH EVENT " + nextEvent.getUuid() + " - " + nextEvent.getName());
 						IEvent event = EventFactory.createEvent(nextEvent.getName(), nextEvent.getData(), databaseHandle,
 								daoProvider, viewProvider);
-						event.notifyListeners();
-						daoProvider.addPreparingEventToTimeline(event, nextAction.getUuid());
-						eventCount++;
-						LOG.info("published " + nextEvent.getUuid() + " - " + nextEvent.getName());
+						if (event != null) {
+							event.notifyListeners();
+							daoProvider.addPreparingEventToTimeline(event, nextAction.getUuid());
+							eventCount++;
+						} else {
+							LOG.error("failed to create " + nextEvent.getName());
+						}
 					}
 				}
-				nextAction = E2E.selectNextAction(nextAction.getUuid());
+				nextAction = E2E.selectNextAction();
 			}
 
 			databaseHandle.commitTransaction();
 			return Response.ok("prepared action " + uuid + " by publishing " + eventCount + " events").build();
 		} catch (Exception e) {
 			databaseHandle.rollbackTransaction();
-			LOG.info("exception during prepare action " + uuid, e);
+			LOG.error("exception during prepare action " + uuid);
+			LOG.error(e.getMessage());
 			throw new WebApplicationException(e);
 		} finally {
 			databaseHandle.close();
@@ -81,5 +78,4 @@ public class PrepareE2EResource {
 	}
 
 }
-
 
