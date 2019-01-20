@@ -90,18 +90,24 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			daoProvider.addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle);
-			databaseHandle.rollbackTransaction();
 			LOG.error(actionName + " failed " + x.getMessage());
-			x.printStackTrace();
-			App.reportException(x);
+			try {
+				databaseHandle.rollbackTransaction();
+				daoProvider.addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle);
+				App.reportException(x);
+			} catch (Exception ex) {
+				LOG.error("failed to rollback or to save or report exception " + ex.getMessage());
+			}
 			return Response.status(x.getResponse().getStatusInfo()).entity(x.getMessage()).build();
 		} catch (Exception x) {
-			daoProvider.addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle);
-			databaseHandle.rollbackTransaction();
 			LOG.error(actionName + " failed " + x.getMessage());
-			x.printStackTrace();
-			App.reportException(x);
+			try {
+				databaseHandle.rollbackTransaction();
+				daoProvider.addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle);
+				App.reportException(x);
+			} catch (Exception ex) {
+				LOG.error("failed to rollback or to save or report exception " + ex.getMessage());
+			}
 			return Response.status(500).entity(x.getMessage()).build();
 		} finally {
 			databaseHandle.close();

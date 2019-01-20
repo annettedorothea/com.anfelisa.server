@@ -29,36 +29,42 @@ public class ActionFactory {
 				ForgotPasswordData data = mapper.readValue(json, ForgotPasswordData.class);
 				data.migrateLegacyData(json);
 				ForgotPasswordAction action = new ForgotPasswordAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.user.actions.ResetPasswordAction")) {
 				ResetPasswordWithNewPasswordData data = mapper.readValue(json, ResetPasswordWithNewPasswordData.class);
 				data.migrateLegacyData(json);
 				ResetPasswordAction action = new ResetPasswordAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.user.actions.RegisterUserAction")) {
 				UserRegistrationData data = mapper.readValue(json, UserRegistrationData.class);
 				data.migrateLegacyData(json);
 				RegisterUserAction action = new RegisterUserAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.user.actions.ConfirmEmailAction")) {
 				ConfirmEmailData data = mapper.readValue(json, ConfirmEmailData.class);
 				data.migrateLegacyData(json);
 				ConfirmEmailAction action = new ConfirmEmailAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.user.actions.ChangeUserRoleAction")) {
 				ChangeUserRoleData data = mapper.readValue(json, ChangeUserRoleData.class);
 				data.migrateLegacyData(json);
 				ChangeUserRoleAction action = new ChangeUserRoleAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.user.actions.DeleteUserAction")) {
 				DeleteUserData data = mapper.readValue(json, DeleteUserData.class);
 				data.migrateLegacyData(json);
 				DeleteUserAction action = new DeleteUserAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 		} catch (IOException e) {

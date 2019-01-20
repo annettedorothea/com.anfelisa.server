@@ -10,6 +10,8 @@ public interface IAction {
 	
 	IDataContainer getActionData();
 	
+	void setActionData(IDataContainer data);
+	
 	ICommand getCommand();
 	
     DatabaseHandle getDatabaseHandle();

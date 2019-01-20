@@ -10,20 +10,6 @@ import com.anfelisa.auth.Roles;
 import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
 
 public class UserDao extends AbstractUserDao {
-	public int selectTestPoints(Handle handle, String username) {
-		Optional<Integer> optional = handle
-				.createQuery("select sum(points) as sum from public.result WHERE username = :username")
-				.bind("username", username).mapTo(Integer.class).findFirst();
-		return optional.isPresent() ? optional.get() : null;
-	}
-
-	public int selectBoxPoints(Handle handle, String username) {
-		Optional<Integer> optional = handle.createQuery(
-				"SELECT sum(points) as sum FROM public.scoredcard c, public.box b where c.boxid = b.boxid AND b.username = :username")
-				.bind("username", username).mapTo(Integer.class).findFirst();
-		return optional.isPresent() ? optional.get() : null;
-	}
-
 	public void updatePassword(Handle handle, ResetPasswordWithNewPasswordData data) {
 		Update statement = handle.createUpdate("UPDATE public.user SET password = :password WHERE userid = :userid");
 		statement.bind("userid", data.getUserId());

@@ -29,60 +29,70 @@ public class ActionFactory {
 				BoxData data = mapper.readValue(json, BoxData.class);
 				data.migrateLegacyData(json);
 				CreateBoxAction action = new CreateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.box.actions.UpdateBoxAction")) {
 				BoxUpdateData data = mapper.readValue(json, BoxUpdateData.class);
 				data.migrateLegacyData(json);
 				UpdateBoxAction action = new UpdateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.box.actions.PostponeCardsAction")) {
 				PostponeCardsData data = mapper.readValue(json, PostponeCardsData.class);
 				data.migrateLegacyData(json);
 				PostponeCardsAction action = new PostponeCardsAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.box.actions.DeleteBoxAction")) {
 				DeleteBoxData data = mapper.readValue(json, DeleteBoxData.class);
 				data.migrateLegacyData(json);
 				DeleteBoxAction action = new DeleteBoxAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.box.actions.ScheduleNextCardAction")) {
 				ScheduleNextCardData data = mapper.readValue(json, ScheduleNextCardData.class);
 				data.migrateLegacyData(json);
 				ScheduleNextCardAction action = new ScheduleNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.box.actions.ScheduleCardsAction")) {
 				ScheduledCardsData data = mapper.readValue(json, ScheduledCardsData.class);
 				data.migrateLegacyData(json);
 				ScheduleCardsAction action = new ScheduleCardsAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.box.actions.ScoreCardAction")) {
 				ScoreCardData data = mapper.readValue(json, ScoreCardData.class);
 				data.migrateLegacyData(json);
 				ScoreCardAction action = new ScoreCardAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.box.actions.ScoreCardAction")) {
 				ScoreCardData data = mapper.readValue(json, ScoreCardData.class);
 				data.migrateLegacyData(json);
 				ScoreCardAction action = new ScoreCardAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.box.actions.ScoreReinforceCardAction")) {
 				ScoreReinforceCardData data = mapper.readValue(json, ScoreReinforceCardData.class);
 				data.migrateLegacyData(json);
 				ScoreReinforceCardAction action = new ScoreReinforceCardAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.box.actions.ScoreReinforceCardAction")) {
 				ScoreReinforceCardData data = mapper.readValue(json, ScoreReinforceCardData.class);
 				data.migrateLegacyData(json);
 				ScoreReinforceCardAction action = new ScoreReinforceCardAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 		} catch (IOException e) {

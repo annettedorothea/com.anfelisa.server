@@ -7,6 +7,7 @@ import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.*;
 import com.anfelisa.ace.JodaObjectMapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.anfelisa.ace.IDataContainer;
 
 import java.io.IOException;
 
@@ -63,6 +64,30 @@ public class EventFactory {
 			}
 		} catch (IOException e) {
 			LOG.error("failed to create event {} with data {}", eventClass, json, e);
+		}
+
+		return null;
+	}
+
+	public static IEvent createEvent(String eventClass, IDataContainer data, DatabaseHandle databaseHandle,
+		IDaoProvider daoProvider, ViewProvider viewProvider) {
+		if (eventClass.equals("com.anfelisa.user.events.ForgotPasswordOkEvent")) {
+			return new ForgotPasswordOkEvent((ForgotPasswordData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.user.events.ResetPasswordOkEvent")) {
+			return new ResetPasswordOkEvent((ResetPasswordWithNewPasswordData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.user.events.RegisterUserOkEvent")) {
+			return new RegisterUserOkEvent((UserRegistrationData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.user.events.ConfirmEmailOkEvent")) {
+			return new ConfirmEmailOkEvent((ConfirmEmailData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.user.events.ChangeUserRoleOkEvent")) {
+			return new ChangeUserRoleOkEvent((ChangeUserRoleData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.user.events.DeleteUserOkEvent")) {
+			return new DeleteUserOkEvent((DeleteUserData)data, databaseHandle, daoProvider, viewProvider);
 		}
 
 		return null;

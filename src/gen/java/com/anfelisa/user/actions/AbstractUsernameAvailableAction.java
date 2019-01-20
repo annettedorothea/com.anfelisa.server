@@ -17,6 +17,7 @@ import io.dropwizard.auth.Auth;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.IDataContainer;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -43,6 +44,10 @@ public abstract class AbstractUsernameAvailableAction extends Action<UsernameAva
 	@Override
 	public ICommand getCommand() {
 		return null;
+	}
+	
+	public void setActionData(IDataContainer data) {
+		this.actionData = (UsernameAvailableData)data;
 	}
 
 

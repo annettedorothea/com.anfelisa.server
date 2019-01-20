@@ -13,9 +13,9 @@ import com.anfelisa.user.views.UserView;
 
 public class ViewProvider extends AbstractViewProvider {
 
-	public final BoxView boxView;
-	public final CardView cardView;
-	public final ScheduledCardView scheduledCardView;
+	public BoxView boxView;
+	public CardView cardView;
+	public ScheduledCardView scheduledCardView;
 	public CategoryView categoryView;
 	public UserAccessToCategoryView userAccessToCategoryView;
 	public EmailConfirmationView emailConfirmationView;

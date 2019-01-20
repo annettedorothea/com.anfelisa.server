@@ -29,48 +29,56 @@ public class ActionFactory {
 				CategoryCreationData data = mapper.readValue(json, CategoryCreationData.class);
 				data.migrateLegacyData(json);
 				CreateCategoryAction action = new CreateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.category.actions.CreateCategoryAction")) {
 				CategoryCreationData data = mapper.readValue(json, CategoryCreationData.class);
 				data.migrateLegacyData(json);
 				CreateCategoryAction action = new CreateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.category.actions.UpdateCategoryAction")) {
 				CategoryUpdateData data = mapper.readValue(json, CategoryUpdateData.class);
 				data.migrateLegacyData(json);
 				UpdateCategoryAction action = new UpdateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.category.actions.DeleteCategoryAction")) {
 				CategoryDeleteData data = mapper.readValue(json, CategoryDeleteData.class);
 				data.migrateLegacyData(json);
 				DeleteCategoryAction action = new DeleteCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.category.actions.DeleteCategoryAction")) {
 				CategoryDeleteData data = mapper.readValue(json, CategoryDeleteData.class);
 				data.migrateLegacyData(json);
 				DeleteCategoryAction action = new DeleteCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.category.actions.InviteUserAction")) {
 				InviteUserData data = mapper.readValue(json, InviteUserData.class);
 				data.migrateLegacyData(json);
 				InviteUserAction action = new InviteUserAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.category.actions.RevokeUserAccessAction")) {
 				RevokeUserData data = mapper.readValue(json, RevokeUserData.class);
 				data.migrateLegacyData(json);
 				RevokeUserAccessAction action = new RevokeUserAccessAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.category.actions.MoveCategoryAction")) {
 				CategoryMoveData data = mapper.readValue(json, CategoryMoveData.class);
 				data.migrateLegacyData(json);
 				MoveCategoryAction action = new MoveCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 		} catch (IOException e) {

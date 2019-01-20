@@ -29,24 +29,28 @@ public class ActionFactory {
 				CardCreationData data = mapper.readValue(json, CardCreationData.class);
 				data.migrateLegacyData(json);
 				CreateCardAction action = new CreateCardAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.card.actions.UpdateCardAction")) {
 				CardUpdateData data = mapper.readValue(json, CardUpdateData.class);
 				data.migrateLegacyData(json);
 				UpdateCardAction action = new UpdateCardAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.card.actions.DeleteCardAction")) {
 				CardDeleteData data = mapper.readValue(json, CardDeleteData.class);
 				data.migrateLegacyData(json);
 				DeleteCardAction action = new DeleteCardAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 			if (actionClass.equals("com.anfelisa.card.actions.MoveCardsAction")) {
 				CardIdListData data = mapper.readValue(json, CardIdListData.class);
 				data.migrateLegacyData(json);
 				MoveCardsAction action = new MoveCardsAction(jdbi, appConfiguration, daoProvider, viewProvider);
+				action.setActionData(data);
 				return action;
 			}
 		} catch (IOException e) {

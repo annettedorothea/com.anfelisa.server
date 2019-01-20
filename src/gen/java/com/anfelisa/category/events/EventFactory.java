@@ -7,6 +7,7 @@ import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.data.*;
 import com.anfelisa.ace.JodaObjectMapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.anfelisa.ace.IDataContainer;
 
 import java.io.IOException;
 
@@ -75,6 +76,36 @@ public class EventFactory {
 			}
 		} catch (IOException e) {
 			LOG.error("failed to create event {} with data {}", eventClass, json, e);
+		}
+
+		return null;
+	}
+
+	public static IEvent createEvent(String eventClass, IDataContainer data, DatabaseHandle databaseHandle,
+		IDaoProvider daoProvider, ViewProvider viewProvider) {
+		if (eventClass.equals("com.anfelisa.category.events.CreateCategorySubEvent")) {
+			return new CreateCategorySubEvent((CategoryCreationData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.category.events.CreateCategoryRootEvent")) {
+			return new CreateCategoryRootEvent((CategoryCreationData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.category.events.UpdateCategoryOkEvent")) {
+			return new UpdateCategoryOkEvent((CategoryUpdateData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryNoRootEvent")) {
+			return new DeleteCategoryNoRootEvent((CategoryDeleteData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryRootEvent")) {
+			return new DeleteCategoryRootEvent((CategoryDeleteData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.category.events.InviteUserOkEvent")) {
+			return new InviteUserOkEvent((InviteUserData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.category.events.RevokeUserAccessOkEvent")) {
+			return new RevokeUserAccessOkEvent((RevokeUserData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.category.events.MoveCategoryOkEvent")) {
+			return new MoveCategoryOkEvent((CategoryMoveData)data, databaseHandle, daoProvider, viewProvider);
 		}
 
 		return null;

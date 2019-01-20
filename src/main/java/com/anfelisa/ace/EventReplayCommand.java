@@ -54,7 +54,7 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 
 			int i = 0;
 			for (ITimelineItem nextEvent : timeline) {
-				try {
+				//try {
 					IEvent event = EventFactory.createEvent(nextEvent.getName(), nextEvent.getData(), databaseHandle,
 							daoProvider, viewProvider);
 					event.notifyListeners();
@@ -63,17 +63,17 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 						LOG.info("published " + i + " events");
 					}
 					//LOG.info("published " + nextEvent.getUuid() + " - " + nextEvent.getName());
-				} catch (Exception e) {
-					LOG.error("failed to replay event " + nextEvent.getUuid() + " - " + nextEvent.getName());
-					LOG.error("  --- " + nextEvent.getData());
-					LOG.error(e.getMessage());
+				//} catch (Exception e) {
+					//LOG.error("failed to replay event " + nextEvent.getUuid() + " - " + nextEvent.getName());
+					//LOG.error("  --- " + nextEvent.getData());
+					//LOG.error(e.getMessage());
 					//e.printStackTrace();
-				}
+				//}
 			}
 
 			databaseHandle.commitTransaction();
 
-			LOG.info("EVENT REPLAY FINISHED: successfully replayed " + timeline.size() + " events");
+			LOG.info("EVENT REPLAY FINISHED: successfully replayed " + i + " events");
 
 		} catch (Exception e) {
 			databaseHandle.rollbackTransaction();

@@ -7,6 +7,7 @@ import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.*;
 import com.anfelisa.ace.JodaObjectMapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.anfelisa.ace.IDataContainer;
 
 import java.io.IOException;
 
@@ -87,6 +88,42 @@ public class EventFactory {
 			}
 		} catch (IOException e) {
 			LOG.error("failed to create event {} with data {}", eventClass, json, e);
+		}
+
+		return null;
+	}
+
+	public static IEvent createEvent(String eventClass, IDataContainer data, DatabaseHandle databaseHandle,
+		IDaoProvider daoProvider, ViewProvider viewProvider) {
+		if (eventClass.equals("com.anfelisa.box.events.CreateBoxOkEvent")) {
+			return new CreateBoxOkEvent((BoxData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.box.events.UpdateBoxOkEvent")) {
+			return new UpdateBoxOkEvent((BoxUpdateData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.box.events.PostponeCardsOkEvent")) {
+			return new PostponeCardsOkEvent((PostponeCardsData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.box.events.DeleteBoxOkEvent")) {
+			return new DeleteBoxOkEvent((DeleteBoxData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.box.events.ScheduleNextCardOkEvent")) {
+			return new ScheduleNextCardOkEvent((ScheduleNextCardData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.box.events.ScheduleCardsOkEvent")) {
+			return new ScheduleCardsOkEvent((ScheduledCardsData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.box.events.ScoreCardScoreEvent")) {
+			return new ScoreCardScoreEvent((ScoreCardData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent")) {
+			return new ScoreCardScoreAndReinforceEvent((ScoreCardData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent")) {
+			return new ScoreReinforceCardRemoveEvent((ScoreReinforceCardData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.box.events.ScoreReinforceCardKeepEvent")) {
+			return new ScoreReinforceCardKeepEvent((ScoreReinforceCardData)data, databaseHandle, daoProvider, viewProvider);
 		}
 
 		return null;

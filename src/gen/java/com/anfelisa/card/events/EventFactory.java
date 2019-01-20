@@ -7,6 +7,7 @@ import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.card.data.*;
 import com.anfelisa.ace.JodaObjectMapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.anfelisa.ace.IDataContainer;
 
 import java.io.IOException;
 
@@ -51,6 +52,24 @@ public class EventFactory {
 			}
 		} catch (IOException e) {
 			LOG.error("failed to create event {} with data {}", eventClass, json, e);
+		}
+
+		return null;
+	}
+
+	public static IEvent createEvent(String eventClass, IDataContainer data, DatabaseHandle databaseHandle,
+		IDaoProvider daoProvider, ViewProvider viewProvider) {
+		if (eventClass.equals("com.anfelisa.card.events.CreateCardOkEvent")) {
+			return new CreateCardOkEvent((CardCreationData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.card.events.UpdateCardOkEvent")) {
+			return new UpdateCardOkEvent((CardUpdateData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.card.events.DeleteCardOkEvent")) {
+			return new DeleteCardOkEvent((CardDeleteData)data, databaseHandle, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.card.events.MoveCardsOkEvent")) {
+			return new MoveCardsOkEvent((CardIdListData)data, databaseHandle, daoProvider, viewProvider);
 		}
 
 		return null;
