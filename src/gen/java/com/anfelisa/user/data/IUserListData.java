@@ -8,6 +8,12 @@ import com.anfelisa.user.models.IUserListModel;
 
 @JsonDeserialize(as=UserListData.class)
 public interface IUserListData extends IUserListModel, IDataContainer {
+	
+	IUserListData withUserList(java.util.List<com.anfelisa.user.models.IUserModel> userList);
+	
+	IUserListData withRole(String role);
+	
+	
 }
 
 /*       S.D.G.       */

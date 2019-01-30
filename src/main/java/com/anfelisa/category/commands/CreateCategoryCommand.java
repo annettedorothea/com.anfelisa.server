@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.category.data.CategoryCreationData;
+import com.anfelisa.category.data.ICategoryCreationData;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
@@ -18,9 +18,9 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 
 	private final String[] languages = new String[] { "de", "fr", "en" };
 
-	public CreateCategoryCommand(CategoryCreationData commandParam, DatabaseHandle databaseHandle,
+	public CreateCategoryCommand(ICategoryCreationData actionData, DatabaseHandle databaseHandle,
 			IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

@@ -7,13 +7,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.card.data.CardIdListData;
+import com.anfelisa.card.data.ICardIdListData;
 
-public abstract class AbstractMoveCardsCommand extends Command<CardIdListData> {
+public abstract class AbstractMoveCardsCommand extends Command<ICardIdListData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractMoveCardsCommand(CardIdListData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractMoveCardsCommand(ICardIdListData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.commands.MoveCardsCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

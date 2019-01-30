@@ -7,13 +7,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.box.data.BoxUpdateData;
+import com.anfelisa.box.data.IBoxUpdateData;
 
-public abstract class AbstractUpdateBoxCommand extends Command<BoxUpdateData> {
+public abstract class AbstractUpdateBoxCommand extends Command<IBoxUpdateData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractUpdateBoxCommand(BoxUpdateData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractUpdateBoxCommand(IBoxUpdateData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.UpdateBoxCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

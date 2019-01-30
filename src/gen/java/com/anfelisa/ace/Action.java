@@ -54,37 +54,44 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 		databaseHandle.beginTransaction();
 		try {
 			IDataContainer originalData = null;
-			if (!ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
+			if (ServerConfiguration.DEV.equals(appConfiguration.getServerConfiguration().getMode())
+					|| ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (daoProvider.getAceDao().contains(databaseHandle.getHandle(), this.actionData.getUuid())) {
 					databaseHandle.commitTransaction();
-					return Response.status(500).entity("uuid already exists - please choose another one").build();
+					throwBadRequest("uuid already exists - please choose another one");
 				}
 				this.actionData.setSystemTime(new DateTime());
-			} else {
+			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
 				if (timelineItem != null) {
-					IAction action = ActionFactory.createAction(timelineItem.getName(), timelineItem.getData(), jdbi, appConfiguration, daoProvider, viewProvider);
+					IAction action = ActionFactory.createAction(timelineItem.getName(), timelineItem.getData(), jdbi,
+							appConfiguration, daoProvider, viewProvider);
 					if (action != null) {
 						originalData = action.getActionData();
 						this.actionData.setSystemTime(originalData.getSystemTime());
 						this.actionData.overwriteNotReplayableData(originalData);
 					}
+				} else {
+					throw new WebApplicationException(
+							"action for " + this.actionData.getUuid() + " not found in timeline");
+				}
+			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
+				if (SetSystemTimeResource.systemTime != null) {
+					this.actionData.setSystemTime(SetSystemTimeResource.systemTime);
+				} else {
+					this.actionData.setSystemTime(new DateTime());
 				}
 			}
 			daoProvider.addActionToTimeline(this);
-			if (httpMethod != HttpMethod.GET) {
-				ICommand command = this.getCommand();
-				if (command != null) {
-					command.execute();
-					if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
-						command.getCommandData().overwriteNotReplayableData(originalData);
-					}
-					command.publishEvents();
-				} else {
-					throw new WebApplicationException(actionName + " returns no command");
-				}
-			} else {
+			if (httpMethod == HttpMethod.GET) {
 				this.loadDataForGetRequest();
+			} else {
+				ICommand command = this.getCommand();
+				command.execute();
+				if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
+					command.getCommandData().overwriteNotReplayableData(originalData);
+				}
+				command.publishEvents();
 			}
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
@@ -151,18 +158,18 @@ public abstract class Action<T extends IDataContainer> implements IAction {
 	}
 
 	protected void throwInternalServerError(Exception x) {
-	String message = x.getMessage();
-	StackTraceElement[] stackTrace = x.getStackTrace();
-	int i = 1;
-	for (StackTraceElement stackTraceElement : stackTrace) {
-		message += "\n" + stackTraceElement.toString();
-		if (i > 3) {
-			message += "\n" + (stackTrace.length - 4) + " more...";
-			break;
+		String message = x.getMessage();
+		StackTraceElement[] stackTrace = x.getStackTrace();
+		int i = 1;
+		for (StackTraceElement stackTraceElement : stackTrace) {
+			message += "\n" + stackTraceElement.toString();
+			if (i > 3) {
+				message += "\n" + (stackTrace.length - 4) + " more...";
+				break;
+			}
+			i++;
 		}
-		i++;
-	}
-	throw new WebApplicationException(message, Response.Status.INTERNAL_SERVER_ERROR);
+		throw new WebApplicationException(message, Response.Status.INTERNAL_SERVER_ERROR);
 	}
 
 	protected Object createReponse() {

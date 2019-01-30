@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.category.data.RevokeUserData;
+import com.anfelisa.category.data.IRevokeUserData;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserWithAccessModel;
 import com.anfelisa.user.models.IUserModel;
@@ -17,8 +17,8 @@ public class RevokeUserAccessCommand extends AbstractRevokeUserAccessCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(RevokeUserAccessCommand.class);
 
-	public RevokeUserAccessCommand(RevokeUserData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandData, databaseHandle, daoProvider, viewProvider);
+	public RevokeUserAccessCommand(IRevokeUserData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

@@ -7,8 +7,8 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 import org.joda.time.DateTime;
 
-import com.anfelisa.box.data.PostponeCardsData;
-import com.anfelisa.box.data.ScoreCardData;
+import com.anfelisa.box.data.IPostponeCardsData;
+import com.anfelisa.box.data.IScoreCardData;
 
 public class ScheduledCardDao extends AbstractScheduledCardDao {
 	public INextCardViewModel selectFirstScheduledCard(Handle handle, String boxId, DateTime today) {
@@ -27,7 +27,7 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 				.bind("boxId", boxId).bind("now", now.toString()).map(new ScheduledCardMapper()).list();
 	}
 
-	public void postponeScheduledCards(Handle handle, PostponeCardsData postponeCardsData) {
+	public void postponeScheduledCards(Handle handle, IPostponeCardsData postponeCardsData) {
 		Update statement = handle
 				.createUpdate("UPDATE public.scheduledcard SET scheduleddate = scheduleddate + INTERVAL '"
 						+ postponeCardsData.getDays() + " days' WHERE boxid = :boxId and quality is null");
@@ -51,7 +51,7 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public void score(Handle handle, ScoreCardData scoreCardData) {
+	public void score(Handle handle, IScoreCardData scoreCardData) {
 		Update statement = handle.createUpdate(
 				"UPDATE public.scheduledcard SET quality = :quality, scoreddate = :scoreddate WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("scheduledcardid", scoreCardData.getScoredCardScheduledCardId());
@@ -60,7 +60,7 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 		statement.execute();
 	}
 
-	public void scheduleNext(Handle handle, ScoreCardData scoreCardData) {
+	public void scheduleNext(Handle handle, IScoreCardData scoreCardData) {
 		Update statement = handle.createUpdate(
 				"INSERT INTO public.scheduledcard (scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality) VALUES (:scheduledcardid, :cardid, :boxid, :createddate, :ef, :interval, :n, :count, :scheduleddate, :lastquality)");
 		statement.bind("scheduledcardid", scoreCardData.getNextScheduledCardScheduledCardId());

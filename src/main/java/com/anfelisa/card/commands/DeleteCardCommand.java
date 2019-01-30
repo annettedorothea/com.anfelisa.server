@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.card.data.CardDeleteData;
+import com.anfelisa.card.data.ICardDeleteData;
 import com.anfelisa.card.models.ICardModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
@@ -14,8 +14,8 @@ public class DeleteCardCommand extends AbstractDeleteCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteCardCommand.class);
 
-	public DeleteCardCommand(CardDeleteData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+	public DeleteCardCommand(ICardDeleteData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

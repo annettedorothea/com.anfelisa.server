@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.card.data.CardCreationData;
+import com.anfelisa.card.data.ICardCreationData;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
@@ -14,9 +14,9 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateCardCommand.class);
 
-	public CreateCardCommand(CardCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
+	public CreateCardCommand(ICardCreationData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

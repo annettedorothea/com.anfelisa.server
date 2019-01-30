@@ -60,6 +60,10 @@ public abstract class AbstractForgotPasswordData extends AbstractData implements
 	public void setLanguage(String language) {
 		this.language = language;
 	}
+	public IForgotPasswordData withLanguage(String language) {
+		this.language = language;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getEmail() {
@@ -67,6 +71,10 @@ public abstract class AbstractForgotPasswordData extends AbstractData implements
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public IForgotPasswordData withEmail(String email) {
+		this.email = email;
+		return this;
 	}
 	
 	@JsonProperty
@@ -76,6 +84,10 @@ public abstract class AbstractForgotPasswordData extends AbstractData implements
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public IForgotPasswordData withUsername(String username) {
+		this.username = username;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getToken() {
@@ -84,6 +96,10 @@ public abstract class AbstractForgotPasswordData extends AbstractData implements
 	public void setToken(String token) {
 		this.token = token;
 	}
+	public IForgotPasswordData withToken(String token) {
+		this.token = token;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -91,6 +107,10 @@ public abstract class AbstractForgotPasswordData extends AbstractData implements
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public IForgotPasswordData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

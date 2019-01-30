@@ -51,6 +51,10 @@ public abstract class AbstractCardIdListData extends AbstractData implements ICa
 	public void setCardIdList(java.util.List<String> cardIdList) {
 		this.cardIdList = cardIdList;
 	}
+	public ICardIdListData withCardIdList(java.util.List<String> cardIdList) {
+		this.cardIdList = cardIdList;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCategoryId() {
@@ -58,6 +62,10 @@ public abstract class AbstractCardIdListData extends AbstractData implements ICa
 	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+	}
+	public ICardIdListData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -67,6 +75,10 @@ public abstract class AbstractCardIdListData extends AbstractData implements ICa
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public ICardIdListData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
 	
 	@JsonProperty
 	public java.util.List<com.anfelisa.card.models.ICardModel> getMovedCards() {
@@ -74,6 +86,10 @@ public abstract class AbstractCardIdListData extends AbstractData implements ICa
 	}
 	public void setMovedCards(java.util.List<com.anfelisa.card.models.ICardModel> movedCards) {
 		this.movedCards = movedCards;
+	}
+	public ICardIdListData withMovedCards(java.util.List<com.anfelisa.card.models.ICardModel> movedCards) {
+		this.movedCards = movedCards;
+		return this;
 	}
 	
 	

@@ -59,6 +59,10 @@ public abstract class AbstractInviteUserData extends AbstractData implements IIn
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public IInviteUserData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRootCategoryId() {
@@ -66,6 +70,10 @@ public abstract class AbstractInviteUserData extends AbstractData implements IIn
 	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
+	}
+	public IInviteUserData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -75,6 +83,10 @@ public abstract class AbstractInviteUserData extends AbstractData implements IIn
 	public void setInvitedUserId(String invitedUserId) {
 		this.invitedUserId = invitedUserId;
 	}
+	public IInviteUserData withInvitedUserId(String invitedUserId) {
+		this.invitedUserId = invitedUserId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getInvitedUsername() {
@@ -83,6 +95,10 @@ public abstract class AbstractInviteUserData extends AbstractData implements IIn
 	public void setInvitedUsername(String invitedUsername) {
 		this.invitedUsername = invitedUsername;
 	}
+	public IInviteUserData withInvitedUsername(String invitedUsername) {
+		this.invitedUsername = invitedUsername;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -90,6 +106,10 @@ public abstract class AbstractInviteUserData extends AbstractData implements IIn
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public IInviteUserData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

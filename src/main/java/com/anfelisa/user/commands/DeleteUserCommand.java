@@ -7,16 +7,16 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.Roles;
-import com.anfelisa.user.data.DeleteUserData;
+import com.anfelisa.user.data.IDeleteUserData;
 import com.anfelisa.user.models.IUserModel;
 
 public class DeleteUserCommand extends AbstractDeleteUserCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteUserCommand.class);
 
-	public DeleteUserCommand(DeleteUserData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
+	public DeleteUserCommand(IDeleteUserData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

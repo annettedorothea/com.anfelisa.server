@@ -8,6 +8,12 @@ import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 @JsonDeserialize(as=UserAccessToCategoryData.class)
 public interface IUserAccessToCategoryData extends IUserAccessToCategoryModel, IDataContainer {
+	
+	IUserAccessToCategoryData withCategoryId(String categoryId);
+	
+	IUserAccessToCategoryData withUserId(String userId);
+	
+	
 }
 
 /*       S.D.G.       */

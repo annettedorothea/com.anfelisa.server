@@ -75,6 +75,10 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	public void setLanguage(String language) {
 		this.language = language;
 	}
+	public IUserRegistrationData withLanguage(String language) {
+		this.language = language;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -82,6 +86,10 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public IUserRegistrationData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -91,6 +99,10 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public IUserRegistrationData withUsername(String username) {
+		this.username = username;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getPassword() {
@@ -98,6 +110,10 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public IUserRegistrationData withPassword(String password) {
+		this.password = password;
+		return this;
 	}
 	
 	@JsonProperty
@@ -107,6 +123,10 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public IUserRegistrationData withEmail(String email) {
+		this.email = email;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRole() {
@@ -114,6 +134,10 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public IUserRegistrationData withRole(String role) {
+		this.role = role;
+		return this;
 	}
 	
 	@JsonProperty
@@ -123,6 +147,10 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	public void setEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
 	}
+	public IUserRegistrationData withEmailConfirmed(Boolean emailConfirmed) {
+		this.emailConfirmed = emailConfirmed;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getToken() {
@@ -130,6 +158,10 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	public IUserRegistrationData withToken(String token) {
+		this.token = token;
+		return this;
 	}
 	
 	

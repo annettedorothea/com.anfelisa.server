@@ -31,12 +31,13 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.card.data.ICardTranslationData;
 import com.anfelisa.card.data.CardTranslationData;
 
 
 @SuppressWarnings("unused")
 @Path("/card/translation")
-public abstract class AbstractGetTranslationAction extends Action<CardTranslationData> {
+public abstract class AbstractGetTranslationAction extends Action<ICardTranslationData> {
 
 	public AbstractGetTranslationAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.actions.GetTranslationAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -48,7 +49,7 @@ public abstract class AbstractGetTranslationAction extends Action<CardTranslatio
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (CardTranslationData)data;
+		this.actionData = (ICardTranslationData)data;
 	}
 
 

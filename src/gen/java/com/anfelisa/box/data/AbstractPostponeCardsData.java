@@ -54,6 +54,10 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 	public void setDays(Integer days) {
 		this.days = days;
 	}
+	public IPostponeCardsData withDays(Integer days) {
+		this.days = days;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getBoxId() {
@@ -61,6 +65,10 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	public IPostponeCardsData withBoxId(String boxId) {
+		this.boxId = boxId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -70,6 +78,10 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public IPostponeCardsData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getToday() {
@@ -77,6 +89,10 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 	}
 	public void setToday(org.joda.time.DateTime today) {
 		this.today = today;
+	}
+	public IPostponeCardsData withToday(org.joda.time.DateTime today) {
+		this.today = today;
+		return this;
 	}
 	
 	

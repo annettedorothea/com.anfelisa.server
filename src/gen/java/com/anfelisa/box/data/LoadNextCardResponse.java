@@ -39,6 +39,9 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	
 	private String wanted;
 	
+	public LoadNextCardResponse() {
+	}
+	
 	public LoadNextCardResponse(com.anfelisa.box.models.INextCardModel data) {
 		cardId = data.getCardId();
 		categoryId = data.getCategoryId();

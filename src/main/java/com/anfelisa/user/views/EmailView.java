@@ -7,8 +7,8 @@ import java.util.ResourceBundle;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.EmailService;
-import com.anfelisa.user.data.ForgotPasswordData;
-import com.anfelisa.user.data.UserRegistrationData;
+import com.anfelisa.user.data.IForgotPasswordData;
+import com.anfelisa.user.data.IUserRegistrationData;
 
 public class EmailView implements IEmailView {
 
@@ -19,7 +19,7 @@ public class EmailView implements IEmailView {
 		this.emailService = emailService;
 	}
 
-	public void sendForgotPasswordEmail(ForgotPasswordData data, Handle handle) {
+	public void sendForgotPasswordEmail(IForgotPasswordData data, Handle handle) {
 		Locale currentLocale = new Locale(data.getLanguage());
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
 		String link = emailService.getLocalhost() + "#resetpassword/" + data.getToken();
@@ -30,7 +30,7 @@ public class EmailView implements IEmailView {
 		emailService.sendEmail(data.getEmail(), subject, message);
 	}
 
-	public void sendRegistrationEmail(UserRegistrationData data, Handle handle) {
+	public void sendRegistrationEmail(IUserRegistrationData data, Handle handle) {
 		Locale currentLocale = new Locale(data.getLanguage());
 		ResourceBundle messages = ResourceBundle.getBundle("EmailsBundle", currentLocale);
 		String link = emailService.getLocalhost() + "#confirmemail/" + data.getUsername() + "/" + data.getToken();

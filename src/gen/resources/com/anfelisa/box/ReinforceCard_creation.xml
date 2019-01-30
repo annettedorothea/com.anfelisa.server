@@ -1,12 +1,12 @@
-<createTable tableName="reinforcecard">
+<createTable tableName="\"reinforcecard\"">
 	<column name="reinforcecardid" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
 	<column name="scheduledcardid" type="character varying">
-		<constraints primaryKey="true" nullable="false" 	references="scheduledcard(scheduledcardid)" deleteCascade="true" foreignKeyName="fk_reinforcecard_scheduledcardid" />
+		<constraints primaryKey="true" nullable="false" 	references="\"scheduledcard\"(scheduledcardid)" deleteCascade="true" foreignKeyName="fk_\"reinforcecard\"_scheduledcardid" />
 	</column>
 	<column name="boxid" type="character varying">
-		<constraints  nullable="false" 	references="box(boxid)" deleteCascade="true" foreignKeyName="fk_reinforcecard_boxid" />
+		<constraints  nullable="false" 	references="\"box\"(boxid)" deleteCascade="true" foreignKeyName="fk_\"reinforcecard\"_boxid" />
 	</column>
 	<column name="changedate" type="timestamp with time zone">
 		<constraints  nullable="false"  />

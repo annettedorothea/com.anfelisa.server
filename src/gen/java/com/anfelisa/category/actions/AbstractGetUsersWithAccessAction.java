@@ -31,12 +31,13 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.category.data.IUserWithAccessListData;
 import com.anfelisa.category.data.UserWithAccessListData;
 
 
 @SuppressWarnings("unused")
 @Path("/category/users")
-public abstract class AbstractGetUsersWithAccessAction extends Action<UserWithAccessListData> {
+public abstract class AbstractGetUsersWithAccessAction extends Action<IUserWithAccessListData> {
 
 	public AbstractGetUsersWithAccessAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.actions.GetUsersWithAccessAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -48,7 +49,7 @@ public abstract class AbstractGetUsersWithAccessAction extends Action<UserWithAc
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (UserWithAccessListData)data;
+		this.actionData = (IUserWithAccessListData)data;
 	}
 
 

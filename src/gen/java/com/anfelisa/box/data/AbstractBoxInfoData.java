@@ -102,6 +102,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public IBoxInfoData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getToday() {
@@ -109,6 +113,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	}
 	public void setToday(org.joda.time.DateTime today) {
 		this.today = today;
+	}
+	public IBoxInfoData withToday(org.joda.time.DateTime today) {
+		this.today = today;
+		return this;
 	}
 	
 	@JsonProperty
@@ -118,6 +126,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	public void setTodaysCards(Integer todaysCards) {
 		this.todaysCards = todaysCards;
 	}
+	public IBoxInfoData withTodaysCards(Integer todaysCards) {
+		this.todaysCards = todaysCards;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getTotalCards() {
@@ -125,6 +137,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	}
 	public void setTotalCards(Integer totalCards) {
 		this.totalCards = totalCards;
+	}
+	public IBoxInfoData withTotalCards(Integer totalCards) {
+		this.totalCards = totalCards;
+		return this;
 	}
 	
 	@JsonProperty
@@ -134,6 +150,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	public void setReinforceCards(Integer reinforceCards) {
 		this.reinforceCards = reinforceCards;
 	}
+	public IBoxInfoData withReinforceCards(Integer reinforceCards) {
+		this.reinforceCards = reinforceCards;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getMyCards() {
@@ -141,6 +161,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	}
 	public void setMyCards(Integer myCards) {
 		this.myCards = myCards;
+	}
+	public IBoxInfoData withMyCards(Integer myCards) {
+		this.myCards = myCards;
+		return this;
 	}
 	
 	@JsonProperty
@@ -150,6 +174,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	public void setDaysBehindSchedule(Integer daysBehindSchedule) {
 		this.daysBehindSchedule = daysBehindSchedule;
 	}
+	public IBoxInfoData withDaysBehindSchedule(Integer daysBehindSchedule) {
+		this.daysBehindSchedule = daysBehindSchedule;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCategoryName() {
@@ -157,6 +185,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	public IBoxInfoData withCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+		return this;
 	}
 	
 	@JsonProperty
@@ -166,6 +198,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	public void setMaxInterval(Integer maxInterval) {
 		this.maxInterval = maxInterval;
 	}
+	public IBoxInfoData withMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getQuality0Count() {
@@ -173,6 +209,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	}
 	public void setQuality0Count(Integer quality0Count) {
 		this.quality0Count = quality0Count;
+	}
+	public IBoxInfoData withQuality0Count(Integer quality0Count) {
+		this.quality0Count = quality0Count;
+		return this;
 	}
 	
 	@JsonProperty
@@ -182,6 +222,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	public void setQuality1Count(Integer quality1Count) {
 		this.quality1Count = quality1Count;
 	}
+	public IBoxInfoData withQuality1Count(Integer quality1Count) {
+		this.quality1Count = quality1Count;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getQuality2Count() {
@@ -189,6 +233,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	}
 	public void setQuality2Count(Integer quality2Count) {
 		this.quality2Count = quality2Count;
+	}
+	public IBoxInfoData withQuality2Count(Integer quality2Count) {
+		this.quality2Count = quality2Count;
+		return this;
 	}
 	
 	@JsonProperty
@@ -198,6 +246,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	public void setQuality3Count(Integer quality3Count) {
 		this.quality3Count = quality3Count;
 	}
+	public IBoxInfoData withQuality3Count(Integer quality3Count) {
+		this.quality3Count = quality3Count;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getQuality4Count() {
@@ -205,6 +257,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	}
 	public void setQuality4Count(Integer quality4Count) {
 		this.quality4Count = quality4Count;
+	}
+	public IBoxInfoData withQuality4Count(Integer quality4Count) {
+		this.quality4Count = quality4Count;
+		return this;
 	}
 	
 	@JsonProperty
@@ -214,6 +270,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	public void setQuality5Count(Integer quality5Count) {
 		this.quality5Count = quality5Count;
 	}
+	public IBoxInfoData withQuality5Count(Integer quality5Count) {
+		this.quality5Count = quality5Count;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getBoxId() {
@@ -221,6 +281,10 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	public IBoxInfoData withBoxId(String boxId) {
+		this.boxId = boxId;
+		return this;
 	}
 	
 	

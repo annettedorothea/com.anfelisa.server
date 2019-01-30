@@ -8,6 +8,12 @@ import com.anfelisa.user.models.IEmailConfirmationModel;
 
 @JsonDeserialize(as=EmailConfirmationData.class)
 public interface IEmailConfirmationData extends IEmailConfirmationModel, IDataContainer {
+	
+	IEmailConfirmationData withToken(String token);
+	
+	IEmailConfirmationData withUserId(String userId);
+	
+	
 }
 
 /*       S.D.G.       */

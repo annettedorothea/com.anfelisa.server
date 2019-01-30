@@ -8,16 +8,16 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.user.data.ForgotPasswordData;
+import com.anfelisa.user.data.IForgotPasswordData;
 import com.anfelisa.user.models.IUserModel;
 
 public class ForgotPasswordCommand extends AbstractForgotPasswordCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ForgotPasswordCommand.class);
 
-	public ForgotPasswordCommand(ForgotPasswordData commandParam, DatabaseHandle databaseHandle,
+	public ForgotPasswordCommand(IForgotPasswordData actionData, DatabaseHandle databaseHandle,
 			IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

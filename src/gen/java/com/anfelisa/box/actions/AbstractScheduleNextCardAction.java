@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.box.data.IScheduleNextCardData;
 import com.anfelisa.box.data.ScheduleNextCardData;
 
 import com.anfelisa.box.commands.ScheduleNextCardCommand;
 
 @SuppressWarnings("unused")
 @Path("/card/schedule-next")
-public abstract class AbstractScheduleNextCardAction extends Action<ScheduleNextCardData> {
+public abstract class AbstractScheduleNextCardAction extends Action<IScheduleNextCardData> {
 
 	public AbstractScheduleNextCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.ScheduleNextCardAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractScheduleNextCardAction extends Action<ScheduleNext
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (ScheduleNextCardData)data;
+		this.actionData = (IScheduleNextCardData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -61,7 +62,7 @@ public abstract class AbstractScheduleNextCardAction extends Action<ScheduleNext
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scheduleNextCardResource(
 			@Auth AuthUser authUser, 
-			@NotNull ScheduleNextCardData payload)
+			@NotNull IScheduleNextCardData payload)
 			throws JsonProcessingException {
 		this.actionData = new ScheduleNextCardData(payload.getUuid());
 		this.actionData.setBoxId(payload.getBoxId());

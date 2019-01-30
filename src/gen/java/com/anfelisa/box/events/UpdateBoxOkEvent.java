@@ -5,11 +5,11 @@ import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.box.data.BoxUpdateData;
+import com.anfelisa.box.data.IBoxUpdateData;
 
-public class UpdateBoxOkEvent extends Event<BoxUpdateData> {
+public class UpdateBoxOkEvent extends Event<IBoxUpdateData> {
 
-	public UpdateBoxOkEvent(BoxUpdateData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public UpdateBoxOkEvent(IBoxUpdateData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.events.UpdateBoxOkEvent", eventData, databaseHandle, daoProvider, viewProvider);
 	}
 

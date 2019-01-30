@@ -77,8 +77,6 @@ views
 	}
 
 models 
-	schema public
-	
 	persistent Card {
 		Unique PrimaryKey NotNull String cardId
 		String given

@@ -45,6 +45,10 @@ public abstract class AbstractUserWithAccessData extends AbstractData implements
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public IUserWithAccessData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUsername() {
@@ -52,6 +56,10 @@ public abstract class AbstractUserWithAccessData extends AbstractData implements
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public IUserWithAccessData withUsername(String username) {
+		this.username = username;
+		return this;
 	}
 	
 	

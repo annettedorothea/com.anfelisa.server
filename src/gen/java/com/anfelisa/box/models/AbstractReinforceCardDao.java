@@ -10,7 +10,7 @@ import java.util.Optional;
 public class AbstractReinforceCardDao {
 	
 	public void insert(Handle handle, IReinforceCardModel reinforceCardModel) {
-		Update statement = handle.createUpdate("INSERT INTO public.reinforcecard (reinforcecardid, scheduledcardid, boxid, changedate) VALUES (:reinforcecardid, :scheduledcardid, :boxid, :changedate)");
+		Update statement = handle.createUpdate("INSERT INTO \"reinforcecard\" (reinforcecardid, scheduledcardid, boxid, changedate) VALUES (:reinforcecardid, :scheduledcardid, :boxid, :changedate)");
 		statement.bind("reinforcecardid",  reinforceCardModel.getReinforceCardId() );
 		statement.bind("scheduledcardid",  reinforceCardModel.getScheduledCardId() );
 		statement.bind("boxid",  reinforceCardModel.getBoxId() );
@@ -20,7 +20,7 @@ public class AbstractReinforceCardDao {
 	
 	
 	public void updateByReinforceCardId(Handle handle, IReinforceCardModel reinforceCardModel) {
-		Update statement = handle.createUpdate("UPDATE public.reinforcecard SET reinforcecardid = :reinforcecardid, scheduledcardid = :scheduledcardid, boxid = :boxid, changedate = :changedate WHERE reinforcecardid = :reinforcecardid");
+		Update statement = handle.createUpdate("UPDATE \"reinforcecard\" SET reinforcecardid = :reinforcecardid, scheduledcardid = :scheduledcardid, boxid = :boxid, changedate = :changedate WHERE reinforcecardid = :reinforcecardid");
 		statement.bind("reinforcecardid",  reinforceCardModel.getReinforceCardId() );
 		statement.bind("scheduledcardid",  reinforceCardModel.getScheduledCardId() );
 		statement.bind("boxid",  reinforceCardModel.getBoxId() );
@@ -30,20 +30,20 @@ public class AbstractReinforceCardDao {
 	}
 
 	public void deleteByReinforceCardId(Handle handle, String reinforceCardId) {
-		Update statement = handle.createUpdate("DELETE FROM public.reinforcecard WHERE reinforcecardid = :reinforcecardid");
+		Update statement = handle.createUpdate("DELETE FROM \"reinforcecard\" WHERE reinforcecardid = :reinforcecardid");
 		statement.bind("reinforcecardid", reinforceCardId);
 		statement.execute();
 	}
 
 	public IReinforceCardModel selectByReinforceCardId(Handle handle, String reinforceCardId) {
-		Optional<IReinforceCardModel> optional = handle.createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM public.reinforcecard WHERE reinforcecardid = :reinforcecardid")
+		Optional<IReinforceCardModel> optional = handle.createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM \"reinforcecard\" WHERE reinforcecardid = :reinforcecardid")
 			.bind("reinforcecardid", reinforceCardId)
 			.map(new ReinforceCardMapper())
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 	public void updateByScheduledCardId(Handle handle, IReinforceCardModel reinforceCardModel) {
-		Update statement = handle.createUpdate("UPDATE public.reinforcecard SET reinforcecardid = :reinforcecardid, scheduledcardid = :scheduledcardid, boxid = :boxid, changedate = :changedate WHERE scheduledcardid = :scheduledcardid");
+		Update statement = handle.createUpdate("UPDATE \"reinforcecard\" SET reinforcecardid = :reinforcecardid, scheduledcardid = :scheduledcardid, boxid = :boxid, changedate = :changedate WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("reinforcecardid",  reinforceCardModel.getReinforceCardId() );
 		statement.bind("scheduledcardid",  reinforceCardModel.getScheduledCardId() );
 		statement.bind("boxid",  reinforceCardModel.getBoxId() );
@@ -53,13 +53,13 @@ public class AbstractReinforceCardDao {
 	}
 
 	public void deleteByScheduledCardId(Handle handle, String scheduledCardId) {
-		Update statement = handle.createUpdate("DELETE FROM public.reinforcecard WHERE scheduledcardid = :scheduledcardid");
+		Update statement = handle.createUpdate("DELETE FROM \"reinforcecard\" WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("scheduledcardid", scheduledCardId);
 		statement.execute();
 	}
 
 	public IReinforceCardModel selectByScheduledCardId(Handle handle, String scheduledCardId) {
-		Optional<IReinforceCardModel> optional = handle.createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM public.reinforcecard WHERE scheduledcardid = :scheduledcardid")
+		Optional<IReinforceCardModel> optional = handle.createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM \"reinforcecard\" WHERE scheduledcardid = :scheduledcardid")
 			.bind("scheduledcardid", scheduledCardId)
 			.map(new ReinforceCardMapper())
 			.findFirst();
@@ -67,13 +67,13 @@ public class AbstractReinforceCardDao {
 	}
 	
 	public List<IReinforceCardModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM public.reinforcecard")
+		return handle.createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM \"reinforcecard\"")
 			.map(new ReinforceCardMapper())
 			.list();
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createUpdate("TRUNCATE public.reinforcecard CASCADE");
+		Update statement = handle.createUpdate("TRUNCATE TABLE \"reinforcecard\" CASCADE");
 		statement.execute();
 	}
 

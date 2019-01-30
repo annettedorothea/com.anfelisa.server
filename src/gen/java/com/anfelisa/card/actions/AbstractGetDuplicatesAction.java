@@ -31,12 +31,13 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.card.data.ICardSearchData;
 import com.anfelisa.card.data.CardSearchData;
 
 
 @SuppressWarnings("unused")
 @Path("/cards/search")
-public abstract class AbstractGetDuplicatesAction extends Action<CardSearchData> {
+public abstract class AbstractGetDuplicatesAction extends Action<ICardSearchData> {
 
 	public AbstractGetDuplicatesAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.actions.GetDuplicatesAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -48,7 +49,7 @@ public abstract class AbstractGetDuplicatesAction extends Action<CardSearchData>
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (CardSearchData)data;
+		this.actionData = (ICardSearchData)data;
 	}
 
 

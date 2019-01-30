@@ -55,6 +55,10 @@ public abstract class AbstractCardTranslationData extends AbstractData implement
 	public void setSourceValue(String sourceValue) {
 		this.sourceValue = sourceValue;
 	}
+	public ICardTranslationData withSourceValue(String sourceValue) {
+		this.sourceValue = sourceValue;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getTargetValue() {
@@ -62,6 +66,10 @@ public abstract class AbstractCardTranslationData extends AbstractData implement
 	}
 	public void setTargetValue(String targetValue) {
 		this.targetValue = targetValue;
+	}
+	public ICardTranslationData withTargetValue(String targetValue) {
+		this.targetValue = targetValue;
+		return this;
 	}
 	
 	@JsonProperty
@@ -71,6 +79,10 @@ public abstract class AbstractCardTranslationData extends AbstractData implement
 	public void setSourceLanguage(String sourceLanguage) {
 		this.sourceLanguage = sourceLanguage;
 	}
+	public ICardTranslationData withSourceLanguage(String sourceLanguage) {
+		this.sourceLanguage = sourceLanguage;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getTargetLanguage() {
@@ -78,6 +90,10 @@ public abstract class AbstractCardTranslationData extends AbstractData implement
 	}
 	public void setTargetLanguage(String targetLanguage) {
 		this.targetLanguage = targetLanguage;
+	}
+	public ICardTranslationData withTargetLanguage(String targetLanguage) {
+		this.targetLanguage = targetLanguage;
+		return this;
 	}
 	
 	

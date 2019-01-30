@@ -54,6 +54,10 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
+	public IBoxData withBoxId(String boxId) {
+		this.boxId = boxId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -61,6 +65,10 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public IBoxData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -70,6 +78,10 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public IBoxData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getMaxInterval() {
@@ -77,6 +89,10 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 	}
 	public void setMaxInterval(Integer maxInterval) {
 		this.maxInterval = maxInterval;
+	}
+	public IBoxData withMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+		return this;
 	}
 	
 	

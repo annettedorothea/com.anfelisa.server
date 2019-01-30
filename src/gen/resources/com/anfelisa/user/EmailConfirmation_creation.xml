@@ -1,4 +1,4 @@
-<createTable tableName="emailconfirmation">
+<createTable tableName="\"emailconfirmation\"">
 	<column name="token" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>

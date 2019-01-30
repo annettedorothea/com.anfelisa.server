@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.category.data.CategoryDeleteData;
+import com.anfelisa.category.data.ICategoryDeleteData;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
@@ -14,8 +14,8 @@ public class DeleteCategoryCommand extends AbstractDeleteCategoryCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteCategoryCommand.class);
 
-	public DeleteCategoryCommand(CategoryDeleteData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+	public DeleteCategoryCommand(ICategoryDeleteData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

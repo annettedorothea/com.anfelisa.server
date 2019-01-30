@@ -50,6 +50,10 @@ public abstract class AbstractResetPasswordWithNewPasswordData extends AbstractD
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public IResetPasswordWithNewPasswordData withPassword(String password) {
+		this.password = password;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getToken() {
@@ -58,6 +62,10 @@ public abstract class AbstractResetPasswordWithNewPasswordData extends AbstractD
 	public void setToken(String token) {
 		this.token = token;
 	}
+	public IResetPasswordWithNewPasswordData withToken(String token) {
+		this.token = token;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -65,6 +73,10 @@ public abstract class AbstractResetPasswordWithNewPasswordData extends AbstractD
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public IResetPasswordWithNewPasswordData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

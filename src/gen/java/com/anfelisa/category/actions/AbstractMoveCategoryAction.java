@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.category.data.ICategoryMoveData;
 import com.anfelisa.category.data.CategoryMoveData;
 
 import com.anfelisa.category.commands.MoveCategoryCommand;
 
 @SuppressWarnings("unused")
 @Path("/category/move")
-public abstract class AbstractMoveCategoryAction extends Action<CategoryMoveData> {
+public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveData> {
 
 	public AbstractMoveCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.actions.MoveCategoryAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractMoveCategoryAction extends Action<CategoryMoveData
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (CategoryMoveData)data;
+		this.actionData = (ICategoryMoveData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -61,7 +62,7 @@ public abstract class AbstractMoveCategoryAction extends Action<CategoryMoveData
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response moveCategoryResource(
 			@Auth AuthUser authUser, 
-			@NotNull CategoryMoveData payload)
+			@NotNull ICategoryMoveData payload)
 			throws JsonProcessingException {
 		this.actionData = new CategoryMoveData(payload.getUuid());
 		this.actionData.setMovedCategoryId(payload.getMovedCategoryId());

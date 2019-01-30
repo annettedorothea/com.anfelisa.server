@@ -15,6 +15,9 @@ public class GetBoxesResponse implements IGetBoxesResponse {
 	
 	private java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList;
 	
+	public GetBoxesResponse() {
+	}
+	
 	public GetBoxesResponse(com.anfelisa.box.models.IBoxListModel data) {
 		boxList = data.getBoxList();
 	}

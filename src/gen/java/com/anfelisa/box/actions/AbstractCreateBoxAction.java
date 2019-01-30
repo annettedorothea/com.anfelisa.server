@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.box.data.IBoxData;
 import com.anfelisa.box.data.BoxData;
 
 import com.anfelisa.box.commands.CreateBoxCommand;
 
 @SuppressWarnings("unused")
 @Path("/box/create")
-public abstract class AbstractCreateBoxAction extends Action<BoxData> {
+public abstract class AbstractCreateBoxAction extends Action<IBoxData> {
 
 	public AbstractCreateBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.CreateBoxAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractCreateBoxAction extends Action<BoxData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (BoxData)data;
+		this.actionData = (IBoxData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -61,7 +62,7 @@ public abstract class AbstractCreateBoxAction extends Action<BoxData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createBoxResource(
 			@Auth AuthUser authUser, 
-			@NotNull BoxData payload)
+			@NotNull IBoxData payload)
 			throws JsonProcessingException {
 		this.actionData = new BoxData(payload.getUuid());
 		this.actionData.setCategoryId(payload.getCategoryId());

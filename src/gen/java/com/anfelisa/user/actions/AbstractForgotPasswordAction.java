@@ -30,13 +30,14 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 
+import com.anfelisa.user.data.IForgotPasswordData;
 import com.anfelisa.user.data.ForgotPasswordData;
 
 import com.anfelisa.user.commands.ForgotPasswordCommand;
 
 @SuppressWarnings("unused")
 @Path("/users/forgot-password")
-public abstract class AbstractForgotPasswordAction extends Action<ForgotPasswordData> {
+public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswordData> {
 
 	public AbstractForgotPasswordAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.ForgotPasswordAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -48,7 +49,7 @@ public abstract class AbstractForgotPasswordAction extends Action<ForgotPassword
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (ForgotPasswordData)data;
+		this.actionData = (IForgotPasswordData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -59,7 +60,7 @@ public abstract class AbstractForgotPasswordAction extends Action<ForgotPassword
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response forgotPasswordResource(
-			@NotNull ForgotPasswordData payload)
+			@NotNull IForgotPasswordData payload)
 			throws JsonProcessingException {
 		this.actionData = new ForgotPasswordData(payload.getUuid());
 		this.actionData.setUsername(payload.getUsername());

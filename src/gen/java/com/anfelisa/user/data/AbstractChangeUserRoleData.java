@@ -55,6 +55,10 @@ public abstract class AbstractChangeUserRoleData extends AbstractData implements
 	public void setEditedUserId(String editedUserId) {
 		this.editedUserId = editedUserId;
 	}
+	public IChangeUserRoleData withEditedUserId(String editedUserId) {
+		this.editedUserId = editedUserId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getNewRole() {
@@ -62,6 +66,10 @@ public abstract class AbstractChangeUserRoleData extends AbstractData implements
 	}
 	public void setNewRole(String newRole) {
 		this.newRole = newRole;
+	}
+	public IChangeUserRoleData withNewRole(String newRole) {
+		this.newRole = newRole;
+		return this;
 	}
 	
 	@JsonProperty
@@ -71,6 +79,10 @@ public abstract class AbstractChangeUserRoleData extends AbstractData implements
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public IChangeUserRoleData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRole() {
@@ -78,6 +90,10 @@ public abstract class AbstractChangeUserRoleData extends AbstractData implements
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public IChangeUserRoleData withRole(String role) {
+		this.role = role;
+		return this;
 	}
 	
 	

@@ -30,12 +30,13 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 
+import com.anfelisa.user.data.IUsernameAvailableData;
 import com.anfelisa.user.data.UsernameAvailableData;
 
 
 @SuppressWarnings("unused")
 @Path("/users/username")
-public abstract class AbstractUsernameAvailableAction extends Action<UsernameAvailableData> {
+public abstract class AbstractUsernameAvailableAction extends Action<IUsernameAvailableData> {
 
 	public AbstractUsernameAvailableAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.UsernameAvailableAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -47,7 +48,7 @@ public abstract class AbstractUsernameAvailableAction extends Action<UsernameAva
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (UsernameAvailableData)data;
+		this.actionData = (IUsernameAvailableData)data;
 	}
 
 

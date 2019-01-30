@@ -3,8 +3,8 @@ package com.anfelisa.user.views;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.user.data.ForgotPasswordData;
-import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
+import com.anfelisa.user.data.IForgotPasswordData;
+import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
 
 public class ResetPasswordView implements IResetPasswordView {
 
@@ -14,10 +14,10 @@ public class ResetPasswordView implements IResetPasswordView {
 		super();
 		this.daoProvider = daoProvider;
 	}
-	public void insert(ForgotPasswordData data, Handle handle) {
+	public void insert(IForgotPasswordData data, Handle handle) {
 		daoProvider.getResetPasswordDao().insert(handle, data);
 	}
-	public void delete(ResetPasswordWithNewPasswordData data, Handle handle) {
+	public void delete(IResetPasswordWithNewPasswordData data, Handle handle) {
 		daoProvider.getResetPasswordDao().deleteByToken(handle, data.getToken());
 	}
 

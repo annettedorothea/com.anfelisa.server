@@ -31,6 +31,10 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 	private final ReinforceCardDao reinforceCardDao = new ReinforceCardDao();
 
 	private final UserAccessToCategoryDao userAccessToCategoryDao = new UserAccessToCategoryDao();
+	
+	public static IDaoProvider create() {
+		return new DaoProvider();
+	}
 
 	@Override
 	public CardDao getCardDao() {
@@ -79,15 +83,15 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 
 	@Override
 	public void truncateAllViews(Handle handle) {
+		resetPasswordDao.truncate(handle);
+		emailConfirmationDao.truncate(handle);
+		reinforceCardDao.truncate(handle);
 		scheduledCardDao.truncate(handle);
 		cardDao.truncate(handle);
 		boxDao.truncate(handle);
 		categoryDao.truncate(handle);
-		resetPasswordDao.truncate(handle);
-		emailConfirmationDao.truncate(handle);
-		userDao.truncate(handle);
-		reinforceCardDao.truncate(handle);
 		userAccessToCategoryDao.truncate(handle);
+		userDao.truncate(handle);
 	}
 
 }

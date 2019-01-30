@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.box.data.IScoreCardData;
 import com.anfelisa.box.data.ScoreCardData;
 
 import com.anfelisa.box.commands.ScoreCardCommand;
 
 @SuppressWarnings("unused")
 @Path("/card/score")
-public abstract class AbstractScoreCardAction extends Action<ScoreCardData> {
+public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 
 	public AbstractScoreCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.ScoreCardAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractScoreCardAction extends Action<ScoreCardData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (ScoreCardData)data;
+		this.actionData = (IScoreCardData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -61,7 +62,7 @@ public abstract class AbstractScoreCardAction extends Action<ScoreCardData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scoreCardResource(
 			@Auth AuthUser authUser, 
-			@NotNull ScoreCardData payload)
+			@NotNull IScoreCardData payload)
 			throws JsonProcessingException {
 		this.actionData = new ScoreCardData(payload.getUuid());
 		this.actionData.setScoredCardScheduledCardId(payload.getScoredCardScheduledCardId());

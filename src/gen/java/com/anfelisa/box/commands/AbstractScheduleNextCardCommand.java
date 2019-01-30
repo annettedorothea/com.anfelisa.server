@@ -7,13 +7,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.box.data.ScheduleNextCardData;
+import com.anfelisa.box.data.IScheduleNextCardData;
 
-public abstract class AbstractScheduleNextCardCommand extends Command<ScheduleNextCardData> {
+public abstract class AbstractScheduleNextCardCommand extends Command<IScheduleNextCardData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractScheduleNextCardCommand(ScheduleNextCardData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractScheduleNextCardCommand(IScheduleNextCardData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.ScheduleNextCardCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

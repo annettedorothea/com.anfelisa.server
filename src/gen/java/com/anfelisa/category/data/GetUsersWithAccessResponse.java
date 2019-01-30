@@ -15,6 +15,9 @@ public class GetUsersWithAccessResponse implements IGetUsersWithAccessResponse {
 	
 	private java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList;
 	
+	public GetUsersWithAccessResponse() {
+	}
+	
 	public GetUsersWithAccessResponse(com.anfelisa.category.models.IUserWithAccessListModel data) {
 		userList = data.getUserList();
 	}

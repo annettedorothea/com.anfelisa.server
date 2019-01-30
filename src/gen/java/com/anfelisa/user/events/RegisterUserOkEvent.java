@@ -5,11 +5,11 @@ import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.user.data.UserRegistrationData;
+import com.anfelisa.user.data.IUserRegistrationData;
 
-public class RegisterUserOkEvent extends Event<UserRegistrationData> {
+public class RegisterUserOkEvent extends Event<IUserRegistrationData> {
 
-	public RegisterUserOkEvent(UserRegistrationData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public RegisterUserOkEvent(IUserRegistrationData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.events.RegisterUserOkEvent", eventData, databaseHandle, daoProvider, viewProvider);
 	}
 

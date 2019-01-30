@@ -5,11 +5,11 @@ import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.box.data.ScoreReinforceCardData;
+import com.anfelisa.box.data.IScoreReinforceCardData;
 
-public class ScoreReinforceCardRemoveEvent extends Event<ScoreReinforceCardData> {
+public class ScoreReinforceCardRemoveEvent extends Event<IScoreReinforceCardData> {
 
-	public ScoreReinforceCardRemoveEvent(ScoreReinforceCardData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public ScoreReinforceCardRemoveEvent(IScoreReinforceCardData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent", eventData, databaseHandle, daoProvider, viewProvider);
 	}
 

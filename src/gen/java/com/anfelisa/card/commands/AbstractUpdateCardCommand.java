@@ -7,13 +7,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.card.data.CardUpdateData;
+import com.anfelisa.card.data.ICardUpdateData;
 
-public abstract class AbstractUpdateCardCommand extends Command<CardUpdateData> {
+public abstract class AbstractUpdateCardCommand extends Command<ICardUpdateData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractUpdateCardCommand(CardUpdateData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractUpdateCardCommand(ICardUpdateData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.commands.UpdateCardCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

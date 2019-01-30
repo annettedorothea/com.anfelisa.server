@@ -44,6 +44,10 @@ public abstract class AbstractUsernameAvailableData extends AbstractData impleme
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public IUsernameAvailableData withUsername(String username) {
+		this.username = username;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getAvailable() {
@@ -51,6 +55,10 @@ public abstract class AbstractUsernameAvailableData extends AbstractData impleme
 	}
 	public void setAvailable(Boolean available) {
 		this.available = available;
+	}
+	public IUsernameAvailableData withAvailable(Boolean available) {
+		this.available = available;
+		return this;
 	}
 	
 	

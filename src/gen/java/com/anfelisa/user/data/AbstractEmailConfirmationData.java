@@ -45,6 +45,10 @@ public abstract class AbstractEmailConfirmationData extends AbstractData impleme
 	public void setToken(String token) {
 		this.token = token;
 	}
+	public IEmailConfirmationData withToken(String token) {
+		this.token = token;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -52,6 +56,10 @@ public abstract class AbstractEmailConfirmationData extends AbstractData impleme
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public IEmailConfirmationData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

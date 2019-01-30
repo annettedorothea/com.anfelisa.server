@@ -1,8 +1,8 @@
-<createTable tableName="useraccesstocategory">
+<createTable tableName="\"useraccesstocategory\"">
 	<column name="categoryid" type="character varying">
-		<constraints primaryKey="true" nullable="false" 	references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_useraccesstocategory_categoryid" />
+		<constraints primaryKey="true" nullable="false" 	references="\"category\"(categoryid)" deleteCascade="true" foreignKeyName="fk_\"useraccesstocategory\"_categoryid" />
 	</column>
 	<column name="userid" type="character varying">
-		<constraints primaryKey="true" nullable="false" 	references="user(userid)" deleteCascade="true" foreignKeyName="fk_useraccesstocategory_userid" />
+		<constraints primaryKey="true" nullable="false" 	references="\"user\"(userid)" deleteCascade="true" foreignKeyName="fk_\"useraccesstocategory\"_userid" />
 	</column>
 </createTable>

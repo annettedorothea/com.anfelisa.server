@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.box.data.IScoreReinforceCardData;
 import com.anfelisa.box.data.ScoreReinforceCardData;
 
 import com.anfelisa.box.commands.ScoreReinforceCardCommand;
 
 @SuppressWarnings("unused")
 @Path("/reinforce-card/score")
-public abstract class AbstractScoreReinforceCardAction extends Action<ScoreReinforceCardData> {
+public abstract class AbstractScoreReinforceCardAction extends Action<IScoreReinforceCardData> {
 
 	public AbstractScoreReinforceCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.ScoreReinforceCardAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractScoreReinforceCardAction extends Action<ScoreReinf
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (ScoreReinforceCardData)data;
+		this.actionData = (IScoreReinforceCardData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -61,7 +62,7 @@ public abstract class AbstractScoreReinforceCardAction extends Action<ScoreReinf
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scoreReinforceCardResource(
 			@Auth AuthUser authUser, 
-			@NotNull ScoreReinforceCardData payload)
+			@NotNull IScoreReinforceCardData payload)
 			throws JsonProcessingException {
 		this.actionData = new ScoreReinforceCardData(payload.getUuid());
 		this.actionData.setReinforceCardId(payload.getReinforceCardId());

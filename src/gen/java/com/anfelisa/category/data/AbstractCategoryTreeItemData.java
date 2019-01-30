@@ -83,6 +83,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public ICategoryTreeItemData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCategoryName() {
@@ -90,6 +94,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	public ICategoryTreeItemData withCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+		return this;
 	}
 	
 	@JsonProperty
@@ -99,6 +107,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	public void setCategoryIndex(Integer categoryIndex) {
 		this.categoryIndex = categoryIndex;
 	}
+	public ICategoryTreeItemData withCategoryIndex(Integer categoryIndex) {
+		this.categoryIndex = categoryIndex;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getEmpty() {
@@ -106,6 +118,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	}
 	public void setEmpty(Boolean empty) {
 		this.empty = empty;
+	}
+	public ICategoryTreeItemData withEmpty(Boolean empty) {
+		this.empty = empty;
+		return this;
 	}
 	
 	@JsonProperty
@@ -115,6 +131,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
 	}
+	public ICategoryTreeItemData withEditable(Boolean editable) {
+		this.editable = editable;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getHasBox() {
@@ -122,6 +142,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	}
 	public void setHasBox(Boolean hasBox) {
 		this.hasBox = hasBox;
+	}
+	public ICategoryTreeItemData withHasBox(Boolean hasBox) {
+		this.hasBox = hasBox;
+		return this;
 	}
 	
 	@JsonProperty
@@ -131,6 +155,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	public void setParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
 	}
+	public ICategoryTreeItemData withParentCategoryId(String parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getDictionaryLookup() {
@@ -138,6 +166,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	}
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
 		this.dictionaryLookup = dictionaryLookup;
+	}
+	public ICategoryTreeItemData withDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+		return this;
 	}
 	
 	@JsonProperty
@@ -147,6 +179,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	public void setGivenLanguage(String givenLanguage) {
 		this.givenLanguage = givenLanguage;
 	}
+	public ICategoryTreeItemData withGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getWantedLanguage() {
@@ -154,6 +190,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	}
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
+	}
+	public ICategoryTreeItemData withWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
+		return this;
 	}
 	
 	@JsonProperty
@@ -163,6 +203,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}
+	public ICategoryTreeItemData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> getChildCategories() {
@@ -170,6 +214,10 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	}
 	public void setChildCategories(java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories) {
 		this.childCategories = childCategories;
+	}
+	public ICategoryTreeItemData withChildCategories(java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories) {
+		this.childCategories = childCategories;
+		return this;
 	}
 	
 	

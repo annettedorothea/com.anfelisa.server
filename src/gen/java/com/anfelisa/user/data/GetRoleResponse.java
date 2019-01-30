@@ -15,6 +15,9 @@ public class GetRoleResponse implements IGetRoleResponse {
 	
 	private String role;
 	
+	public GetRoleResponse() {
+	}
+	
 	public GetRoleResponse(com.anfelisa.user.models.IRoleModel data) {
 		role = data.getRole();
 	}

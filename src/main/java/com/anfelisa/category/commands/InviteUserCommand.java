@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.category.data.InviteUserData;
+import com.anfelisa.category.data.IInviteUserData;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 import com.anfelisa.user.models.IUserModel;
@@ -15,8 +15,8 @@ public class InviteUserCommand extends AbstractInviteUserCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(InviteUserCommand.class);
 
-	public InviteUserCommand(InviteUserData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandData, databaseHandle, daoProvider, viewProvider);
+	public InviteUserCommand(IInviteUserData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

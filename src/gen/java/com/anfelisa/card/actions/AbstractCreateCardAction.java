@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.card.data.ICardCreationData;
 import com.anfelisa.card.data.CardCreationData;
 
 import com.anfelisa.card.commands.CreateCardCommand;
 
 @SuppressWarnings("unused")
 @Path("/card/create")
-public abstract class AbstractCreateCardAction extends Action<CardCreationData> {
+public abstract class AbstractCreateCardAction extends Action<ICardCreationData> {
 
 	public AbstractCreateCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.actions.CreateCardAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractCreateCardAction extends Action<CardCreationData> 
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (CardCreationData)data;
+		this.actionData = (ICardCreationData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -61,7 +62,7 @@ public abstract class AbstractCreateCardAction extends Action<CardCreationData> 
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createCardResource(
 			@Auth AuthUser authUser, 
-			@NotNull CardCreationData payload)
+			@NotNull ICardCreationData payload)
 			throws JsonProcessingException {
 		this.actionData = new CardCreationData(payload.getUuid());
 		this.actionData.setWanted(payload.getWanted());

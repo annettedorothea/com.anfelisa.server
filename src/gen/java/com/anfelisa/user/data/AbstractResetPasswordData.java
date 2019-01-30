@@ -45,6 +45,10 @@ public abstract class AbstractResetPasswordData extends AbstractData implements 
 	public void setToken(String token) {
 		this.token = token;
 	}
+	public IResetPasswordData withToken(String token) {
+		this.token = token;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -52,6 +56,10 @@ public abstract class AbstractResetPasswordData extends AbstractData implements 
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public IResetPasswordData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

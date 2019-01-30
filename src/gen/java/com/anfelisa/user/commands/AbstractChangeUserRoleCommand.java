@@ -7,13 +7,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.user.data.ChangeUserRoleData;
+import com.anfelisa.user.data.IChangeUserRoleData;
 
-public abstract class AbstractChangeUserRoleCommand extends Command<ChangeUserRoleData> {
+public abstract class AbstractChangeUserRoleCommand extends Command<IChangeUserRoleData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractChangeUserRoleCommand(ChangeUserRoleData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractChangeUserRoleCommand(IChangeUserRoleData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.ChangeUserRoleCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

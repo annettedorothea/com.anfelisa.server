@@ -7,13 +7,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.card.data.CardDeleteData;
+import com.anfelisa.card.data.ICardDeleteData;
 
-public abstract class AbstractDeleteCardCommand extends Command<CardDeleteData> {
+public abstract class AbstractDeleteCardCommand extends Command<ICardDeleteData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractDeleteCardCommand(CardDeleteData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractDeleteCardCommand(ICardDeleteData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.commands.DeleteCardCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

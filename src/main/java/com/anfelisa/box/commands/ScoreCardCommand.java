@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.box.data.ScoreCardData;
+import com.anfelisa.box.data.IScoreCardData;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.IReinforceCardModel;
 import com.anfelisa.box.models.IScheduledCardModel;
@@ -16,8 +16,8 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScoreCardCommand.class);
 
-	public ScoreCardCommand(ScoreCardData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandData, databaseHandle, daoProvider, viewProvider);
+	public ScoreCardCommand(IScoreCardData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

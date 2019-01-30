@@ -31,12 +31,13 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.box.data.IBoxListData;
 import com.anfelisa.box.data.BoxListData;
 
 
 @SuppressWarnings("unused")
 @Path("/boxes/my/")
-public abstract class AbstractGetBoxesAction extends Action<BoxListData> {
+public abstract class AbstractGetBoxesAction extends Action<IBoxListData> {
 
 	public AbstractGetBoxesAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.GetBoxesAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -48,7 +49,7 @@ public abstract class AbstractGetBoxesAction extends Action<BoxListData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (BoxListData)data;
+		this.actionData = (IBoxListData)data;
 	}
 
 

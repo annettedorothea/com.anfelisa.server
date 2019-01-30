@@ -7,13 +7,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
+import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
 
-public abstract class AbstractResetPasswordCommand extends Command<ResetPasswordWithNewPasswordData> {
+public abstract class AbstractResetPasswordCommand extends Command<IResetPasswordWithNewPasswordData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractResetPasswordCommand(ResetPasswordWithNewPasswordData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractResetPasswordCommand(IResetPasswordWithNewPasswordData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.ResetPasswordCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

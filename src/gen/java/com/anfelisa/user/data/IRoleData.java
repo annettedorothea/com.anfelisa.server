@@ -8,6 +8,12 @@ import com.anfelisa.user.models.IRoleModel;
 
 @JsonDeserialize(as=RoleData.class)
 public interface IRoleData extends IRoleModel, IDataContainer {
+	
+	IRoleData withUsername(String username);
+	
+	IRoleData withRole(String role);
+	
+	
 }
 
 /*       S.D.G.       */

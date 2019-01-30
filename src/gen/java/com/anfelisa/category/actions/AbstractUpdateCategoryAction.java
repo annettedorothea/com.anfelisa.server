@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.category.data.ICategoryUpdateData;
 import com.anfelisa.category.data.CategoryUpdateData;
 
 import com.anfelisa.category.commands.UpdateCategoryCommand;
 
 @SuppressWarnings("unused")
 @Path("/category/update")
-public abstract class AbstractUpdateCategoryAction extends Action<CategoryUpdateData> {
+public abstract class AbstractUpdateCategoryAction extends Action<ICategoryUpdateData> {
 
 	public AbstractUpdateCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.actions.UpdateCategoryAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractUpdateCategoryAction extends Action<CategoryUpdate
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (CategoryUpdateData)data;
+		this.actionData = (ICategoryUpdateData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -61,7 +62,7 @@ public abstract class AbstractUpdateCategoryAction extends Action<CategoryUpdate
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateCategoryResource(
 			@Auth AuthUser authUser, 
-			@NotNull CategoryUpdateData payload)
+			@NotNull ICategoryUpdateData payload)
 			throws JsonProcessingException {
 		this.actionData = new CategoryUpdateData(payload.getUuid());
 		this.actionData.setCategoryId(payload.getCategoryId());

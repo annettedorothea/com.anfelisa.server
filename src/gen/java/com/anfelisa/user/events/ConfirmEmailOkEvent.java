@@ -5,11 +5,11 @@ import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.user.data.ConfirmEmailData;
+import com.anfelisa.user.data.IConfirmEmailData;
 
-public class ConfirmEmailOkEvent extends Event<ConfirmEmailData> {
+public class ConfirmEmailOkEvent extends Event<IConfirmEmailData> {
 
-	public ConfirmEmailOkEvent(ConfirmEmailData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public ConfirmEmailOkEvent(IConfirmEmailData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.events.ConfirmEmailOkEvent", eventData, databaseHandle, daoProvider, viewProvider);
 	}
 

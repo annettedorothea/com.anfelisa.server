@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.category.data.IRevokeUserData;
 import com.anfelisa.category.data.RevokeUserData;
 
 import com.anfelisa.category.commands.RevokeUserAccessCommand;
 
 @SuppressWarnings("unused")
 @Path("/category/revoke")
-public abstract class AbstractRevokeUserAccessAction extends Action<RevokeUserData> {
+public abstract class AbstractRevokeUserAccessAction extends Action<IRevokeUserData> {
 
 	public AbstractRevokeUserAccessAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.actions.RevokeUserAccessAction", HttpMethod.DELETE, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractRevokeUserAccessAction extends Action<RevokeUserDa
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (RevokeUserData)data;
+		this.actionData = (IRevokeUserData)data;
 	}
 
 	protected final void loadDataForGetRequest() {

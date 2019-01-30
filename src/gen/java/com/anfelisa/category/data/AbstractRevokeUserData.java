@@ -54,6 +54,10 @@ public abstract class AbstractRevokeUserData extends AbstractData implements IRe
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public IRevokeUserData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRootCategoryId() {
@@ -61,6 +65,10 @@ public abstract class AbstractRevokeUserData extends AbstractData implements IRe
 	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
+	}
+	public IRevokeUserData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -70,6 +78,10 @@ public abstract class AbstractRevokeUserData extends AbstractData implements IRe
 	public void setRevokedUserId(String revokedUserId) {
 		this.revokedUserId = revokedUserId;
 	}
+	public IRevokeUserData withRevokedUserId(String revokedUserId) {
+		this.revokedUserId = revokedUserId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -77,6 +89,10 @@ public abstract class AbstractRevokeUserData extends AbstractData implements IRe
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public IRevokeUserData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

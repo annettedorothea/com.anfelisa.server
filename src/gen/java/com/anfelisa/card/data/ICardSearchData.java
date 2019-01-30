@@ -8,6 +8,18 @@ import com.anfelisa.card.models.ICardSearchModel;
 
 @JsonDeserialize(as=CardSearchData.class)
 public interface ICardSearchData extends ICardSearchModel, IDataContainer {
+	
+	ICardSearchData withGiven(String given);
+	
+	ICardSearchData withWanted(String wanted);
+	
+	ICardSearchData withCategoryId(String categoryId);
+	
+	ICardSearchData withCardList(java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList);
+	
+	ICardSearchData withNaturalInputOrder(Boolean naturalInputOrder);
+	
+	
 }
 
 /*       S.D.G.       */

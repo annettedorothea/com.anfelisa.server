@@ -3,20 +3,20 @@ package com.anfelisa.user.views;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.user.data.UserRegistrationData;
-import com.anfelisa.user.data.ConfirmEmailData;
-import com.anfelisa.user.data.ChangeUserRoleData;
-import com.anfelisa.user.data.DeleteUserData;
-import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
+import com.anfelisa.user.data.IUserRegistrationData;
+import com.anfelisa.user.data.IConfirmEmailData;
+import com.anfelisa.user.data.IChangeUserRoleData;
+import com.anfelisa.user.data.IDeleteUserData;
+import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
 
 @SuppressWarnings("all")
 public interface IUserView {
 
-	void registerUser(UserRegistrationData data, Handle handle);
-	void confirmEmail(ConfirmEmailData data, Handle handle);
-	void changeUserRole(ChangeUserRoleData data, Handle handle);
-	void deleteUser(DeleteUserData data, Handle handle);
-	void resetPassword(ResetPasswordWithNewPasswordData data, Handle handle);
+	void registerUser(IUserRegistrationData data, Handle handle);
+	void confirmEmail(IConfirmEmailData data, Handle handle);
+	void changeUserRole(IChangeUserRoleData data, Handle handle);
+	void deleteUser(IDeleteUserData data, Handle handle);
+	void resetPassword(IResetPasswordWithNewPasswordData data, Handle handle);
 
 }
 

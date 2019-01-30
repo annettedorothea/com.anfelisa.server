@@ -22,6 +22,9 @@ public class GetUserProfileResponse implements IGetUserProfileResponse {
 	@NotNull
 	private String userId;
 	
+	public GetUserProfileResponse() {
+	}
+	
 	public GetUserProfileResponse(com.anfelisa.user.models.IUserModel data) {
 		email = data.getEmail();
 		username = data.getUsername();

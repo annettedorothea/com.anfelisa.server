@@ -5,11 +5,11 @@ import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.category.data.CategoryCreationData;
+import com.anfelisa.category.data.ICategoryCreationData;
 
-public class CreateCategorySubEvent extends Event<CategoryCreationData> {
+public class CreateCategorySubEvent extends Event<ICategoryCreationData> {
 
-	public CreateCategorySubEvent(CategoryCreationData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public CreateCategorySubEvent(ICategoryCreationData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.events.CreateCategorySubEvent", eventData, databaseHandle, daoProvider, viewProvider);
 	}
 

@@ -60,6 +60,10 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 	public void setNewScheduledCards(java.util.List<com.anfelisa.box.models.IScheduledCardModel> newScheduledCards) {
 		this.newScheduledCards = newScheduledCards;
 	}
+	public IScheduledCardsData withNewScheduledCards(java.util.List<com.anfelisa.box.models.IScheduledCardModel> newScheduledCards) {
+		this.newScheduledCards = newScheduledCards;
+		return this;
+	}
 	
 	@JsonProperty
 	public java.util.List<String> getExistingScheduledCardIds() {
@@ -67,6 +71,10 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 	}
 	public void setExistingScheduledCardIds(java.util.List<String> existingScheduledCardIds) {
 		this.existingScheduledCardIds = existingScheduledCardIds;
+	}
+	public IScheduledCardsData withExistingScheduledCardIds(java.util.List<String> existingScheduledCardIds) {
+		this.existingScheduledCardIds = existingScheduledCardIds;
+		return this;
 	}
 	
 	@JsonProperty
@@ -76,6 +84,10 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 	public void setCardIds(java.util.List<String> cardIds) {
 		this.cardIds = cardIds;
 	}
+	public IScheduledCardsData withCardIds(java.util.List<String> cardIds) {
+		this.cardIds = cardIds;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getScheduledDate() {
@@ -83,6 +95,10 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 	}
 	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
+	}
+	public IScheduledCardsData withScheduledDate(org.joda.time.DateTime scheduledDate) {
+		this.scheduledDate = scheduledDate;
+		return this;
 	}
 	
 	@JsonProperty
@@ -92,6 +108,10 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public IScheduledCardsData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getBoxId() {
@@ -99,6 +119,10 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	public IScheduledCardsData withBoxId(String boxId) {
+		this.boxId = boxId;
+		return this;
 	}
 	
 	

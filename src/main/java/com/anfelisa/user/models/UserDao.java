@@ -7,10 +7,10 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 
 import com.anfelisa.auth.Roles;
-import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
+import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
 
 public class UserDao extends AbstractUserDao {
-	public void updatePassword(Handle handle, ResetPasswordWithNewPasswordData data) {
+	public void updatePassword(Handle handle, IResetPasswordWithNewPasswordData data) {
 		Update statement = handle.createUpdate("UPDATE public.user SET password = :password WHERE userid = :userid");
 		statement.bind("userid", data.getUserId());
 		statement.bind("password", data.getPassword());

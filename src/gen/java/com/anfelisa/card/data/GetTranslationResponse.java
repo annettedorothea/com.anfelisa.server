@@ -16,6 +16,9 @@ public class GetTranslationResponse implements IGetTranslationResponse {
 	@NotEmpty
 	private String targetValue;
 	
+	public GetTranslationResponse() {
+	}
+	
 	public GetTranslationResponse(com.anfelisa.card.models.ICardTranslationModel data) {
 		targetValue = data.getTargetValue();
 	}

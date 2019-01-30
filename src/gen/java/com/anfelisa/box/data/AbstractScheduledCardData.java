@@ -91,6 +91,10 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
+	public IScheduledCardData withScheduledCardId(String scheduledCardId) {
+		this.scheduledCardId = scheduledCardId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCardId() {
@@ -98,6 +102,10 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	}
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
+	}
+	public IScheduledCardData withCardId(String cardId) {
+		this.cardId = cardId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -107,6 +115,10 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
+	public IScheduledCardData withBoxId(String boxId) {
+		this.boxId = boxId;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getCreatedDate() {
@@ -114,6 +126,10 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	}
 	public void setCreatedDate(org.joda.time.DateTime createdDate) {
 		this.createdDate = createdDate;
+	}
+	public IScheduledCardData withCreatedDate(org.joda.time.DateTime createdDate) {
+		this.createdDate = createdDate;
+		return this;
 	}
 	
 	@JsonProperty
@@ -123,6 +139,10 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	public void setEf(Float ef) {
 		this.ef = ef;
 	}
+	public IScheduledCardData withEf(Float ef) {
+		this.ef = ef;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getInterval() {
@@ -130,6 +150,10 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	}
 	public void setInterval(Integer interval) {
 		this.interval = interval;
+	}
+	public IScheduledCardData withInterval(Integer interval) {
+		this.interval = interval;
+		return this;
 	}
 	
 	@JsonProperty
@@ -139,6 +163,10 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	public void setN(Integer n) {
 		this.n = n;
 	}
+	public IScheduledCardData withN(Integer n) {
+		this.n = n;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getCount() {
@@ -146,6 +174,10 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	}
 	public void setCount(Integer count) {
 		this.count = count;
+	}
+	public IScheduledCardData withCount(Integer count) {
+		this.count = count;
+		return this;
 	}
 	
 	@JsonProperty
@@ -155,6 +187,10 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
+	public IScheduledCardData withScheduledDate(org.joda.time.DateTime scheduledDate) {
+		this.scheduledDate = scheduledDate;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getLastQuality() {
@@ -162,6 +198,10 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	}
 	public void setLastQuality(Integer lastQuality) {
 		this.lastQuality = lastQuality;
+	}
+	public IScheduledCardData withLastQuality(Integer lastQuality) {
+		this.lastQuality = lastQuality;
+		return this;
 	}
 	
 	@JsonProperty
@@ -171,6 +211,10 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	public void setQuality(Integer quality) {
 		this.quality = quality;
 	}
+	public IScheduledCardData withQuality(Integer quality) {
+		this.quality = quality;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getScoredDate() {
@@ -178,6 +222,10 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	}
 	public void setScoredDate(org.joda.time.DateTime scoredDate) {
 		this.scoredDate = scoredDate;
+	}
+	public IScheduledCardData withScoredDate(org.joda.time.DateTime scoredDate) {
+		this.scoredDate = scoredDate;
+		return this;
 	}
 	
 	

@@ -54,6 +54,10 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	public void setReinforceCardId(String reinforceCardId) {
 		this.reinforceCardId = reinforceCardId;
 	}
+	public IScoreReinforceCardData withReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getQuality() {
@@ -61,6 +65,10 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	}
 	public void setQuality(Integer quality) {
 		this.quality = quality;
+	}
+	public IScoreReinforceCardData withQuality(Integer quality) {
+		this.quality = quality;
+		return this;
 	}
 	
 	@JsonProperty
@@ -70,6 +78,10 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	public void setChangeDate(org.joda.time.DateTime changeDate) {
 		this.changeDate = changeDate;
 	}
+	public IScoreReinforceCardData withChangeDate(org.joda.time.DateTime changeDate) {
+		this.changeDate = changeDate;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -77,6 +89,10 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public IScoreReinforceCardData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

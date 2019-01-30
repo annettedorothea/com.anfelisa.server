@@ -54,6 +54,10 @@ public abstract class AbstractCardDeleteData extends AbstractData implements ICa
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
+	public ICardDeleteData withCardId(String cardId) {
+		this.cardId = cardId;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getCardIndex() {
@@ -61,6 +65,10 @@ public abstract class AbstractCardDeleteData extends AbstractData implements ICa
 	}
 	public void setCardIndex(Integer cardIndex) {
 		this.cardIndex = cardIndex;
+	}
+	public ICardDeleteData withCardIndex(Integer cardIndex) {
+		this.cardIndex = cardIndex;
+		return this;
 	}
 	
 	@JsonProperty
@@ -70,6 +78,10 @@ public abstract class AbstractCardDeleteData extends AbstractData implements ICa
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public ICardDeleteData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -77,6 +89,10 @@ public abstract class AbstractCardDeleteData extends AbstractData implements ICa
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public ICardDeleteData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

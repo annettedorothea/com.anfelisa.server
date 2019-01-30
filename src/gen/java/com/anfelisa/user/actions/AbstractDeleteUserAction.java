@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.user.data.IDeleteUserData;
 import com.anfelisa.user.data.DeleteUserData;
 
 import com.anfelisa.user.commands.DeleteUserCommand;
 
 @SuppressWarnings("unused")
 @Path("/user/delete")
-public abstract class AbstractDeleteUserAction extends Action<DeleteUserData> {
+public abstract class AbstractDeleteUserAction extends Action<IDeleteUserData> {
 
 	public AbstractDeleteUserAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.DeleteUserAction", HttpMethod.DELETE, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractDeleteUserAction extends Action<DeleteUserData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (DeleteUserData)data;
+		this.actionData = (IDeleteUserData)data;
 	}
 
 	protected final void loadDataForGetRequest() {

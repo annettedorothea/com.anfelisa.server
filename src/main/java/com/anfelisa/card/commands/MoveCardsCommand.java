@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.card.data.CardIdListData;
+import com.anfelisa.card.data.ICardIdListData;
 import com.anfelisa.card.models.ICardModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
@@ -17,9 +17,9 @@ public class MoveCardsCommand extends AbstractMoveCardsCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(MoveCardsCommand.class);
 
-	public MoveCardsCommand(CardIdListData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
+	public MoveCardsCommand(ICardIdListData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
-		super(commandData, databaseHandle, daoProvider, viewProvider);
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

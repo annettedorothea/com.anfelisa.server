@@ -1,4 +1,4 @@
-<createTable tableName="card">
+<createTable tableName="\"card\"">
 	<column name="cardid" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
@@ -18,9 +18,9 @@
 		<constraints  nullable="false"  />
 	</column>
 	<column name="categoryid" type="character varying">
-		<constraints  nullable="false" 	references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_card_categoryid" />
+		<constraints  nullable="false" 	references="\"category\"(categoryid)" deleteCascade="true" foreignKeyName="fk_\"card\"_categoryid" />
 	</column>
 	<column name="rootcategoryid" type="character varying">
-		<constraints  nullable="false" 	references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_card_categoryid" />
+		<constraints  nullable="false" 	references="\"category\"(categoryid)" deleteCascade="true" foreignKeyName="fk_\"card\"_categoryid" />
 	</column>
 </createTable>

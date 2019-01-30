@@ -8,6 +8,16 @@ import com.anfelisa.category.models.IRevokeUserModel;
 
 @JsonDeserialize(as=RevokeUserData.class)
 public interface IRevokeUserData extends IRevokeUserModel, IDataContainer {
+	
+	IRevokeUserData withCategoryId(String categoryId);
+	
+	IRevokeUserData withRootCategoryId(String rootCategoryId);
+	
+	IRevokeUserData withRevokedUserId(String revokedUserId);
+	
+	IRevokeUserData withUserId(String userId);
+	
+	
 }
 
 /*       S.D.G.       */

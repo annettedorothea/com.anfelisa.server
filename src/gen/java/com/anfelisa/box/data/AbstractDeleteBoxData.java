@@ -44,6 +44,10 @@ public abstract class AbstractDeleteBoxData extends AbstractData implements IDel
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public IDeleteBoxData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getBoxId() {
@@ -51,6 +55,10 @@ public abstract class AbstractDeleteBoxData extends AbstractData implements IDel
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	public IDeleteBoxData withBoxId(String boxId) {
+		this.boxId = boxId;
+		return this;
 	}
 	
 	

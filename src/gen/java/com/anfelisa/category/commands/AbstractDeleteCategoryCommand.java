@@ -7,14 +7,14 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.category.data.CategoryDeleteData;
+import com.anfelisa.category.data.ICategoryDeleteData;
 
-public abstract class AbstractDeleteCategoryCommand extends Command<CategoryDeleteData> {
+public abstract class AbstractDeleteCategoryCommand extends Command<ICategoryDeleteData> {
 
 	protected static final String noRoot = "noRoot";
 	protected static final String root = "root";
 
-	public AbstractDeleteCategoryCommand(CategoryDeleteData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractDeleteCategoryCommand(ICategoryDeleteData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.commands.DeleteCategoryCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

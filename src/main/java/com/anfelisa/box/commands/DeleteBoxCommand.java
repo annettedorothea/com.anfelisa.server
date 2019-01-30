@@ -6,15 +6,15 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.box.data.DeleteBoxData;
+import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.models.IBoxModel;
 
 public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteBoxCommand.class);
 
-	public DeleteBoxCommand(DeleteBoxData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandData, databaseHandle, daoProvider, viewProvider);
+	public DeleteBoxCommand(IDeleteBoxData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

@@ -24,6 +24,10 @@ public class ViewProvider extends AbstractViewProvider {
 	public ResetPasswordView resetPasswordView;
 	public ReinforceCardView reinforceCardView;
 
+	public static ViewProvider create(IDaoProvider daoProvider, CustomAppConfiguration customAppConfiguration) {
+		return new ViewProvider(daoProvider, new EmailService(customAppConfiguration.getEmail()));
+	}
+
 	public ViewProvider(IDaoProvider daoProvider, EmailService emailService) {
 		boxView = new BoxView(daoProvider);
 		cardView = new CardView(daoProvider);
@@ -36,6 +40,5 @@ public class ViewProvider extends AbstractViewProvider {
 		resetPasswordView = new ResetPasswordView(daoProvider);
 		reinforceCardView = new ReinforceCardView(daoProvider);
 	}
-	
-}
 
+}

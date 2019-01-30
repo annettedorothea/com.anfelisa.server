@@ -80,6 +80,10 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public ICardCreationData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUsername() {
@@ -87,6 +91,10 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public ICardCreationData withUsername(String username) {
+		this.username = username;
+		return this;
 	}
 	
 	@JsonProperty
@@ -96,6 +104,10 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
+	public ICardCreationData withCardId(String cardId) {
+		this.cardId = cardId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getGiven() {
@@ -103,6 +115,10 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	}
 	public void setGiven(String given) {
 		this.given = given;
+	}
+	public ICardCreationData withGiven(String given) {
+		this.given = given;
+		return this;
 	}
 	
 	@JsonProperty
@@ -112,6 +128,10 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
 	}
+	public ICardCreationData withWanted(String wanted) {
+		this.wanted = wanted;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getImage() {
@@ -119,6 +139,10 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	public ICardCreationData withImage(String image) {
+		this.image = image;
+		return this;
 	}
 	
 	@JsonProperty
@@ -128,6 +152,10 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	public void setCardAuthor(String cardAuthor) {
 		this.cardAuthor = cardAuthor;
 	}
+	public ICardCreationData withCardAuthor(String cardAuthor) {
+		this.cardAuthor = cardAuthor;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getCardIndex() {
@@ -135,6 +163,10 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	}
 	public void setCardIndex(Integer cardIndex) {
 		this.cardIndex = cardIndex;
+	}
+	public ICardCreationData withCardIndex(Integer cardIndex) {
+		this.cardIndex = cardIndex;
+		return this;
 	}
 	
 	@JsonProperty
@@ -144,6 +176,10 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public ICardCreationData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRootCategoryId() {
@@ -151,6 +187,10 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
+	}
+	public ICardCreationData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+		return this;
 	}
 	
 	

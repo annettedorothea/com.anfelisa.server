@@ -30,13 +30,14 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 
+import com.anfelisa.user.data.IConfirmEmailData;
 import com.anfelisa.user.data.ConfirmEmailData;
 
 import com.anfelisa.user.commands.ConfirmEmailCommand;
 
 @SuppressWarnings("unused")
 @Path("/users/confirm")
-public abstract class AbstractConfirmEmailAction extends Action<ConfirmEmailData> {
+public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailData> {
 
 	public AbstractConfirmEmailAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.ConfirmEmailAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -48,7 +49,7 @@ public abstract class AbstractConfirmEmailAction extends Action<ConfirmEmailData
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (ConfirmEmailData)data;
+		this.actionData = (IConfirmEmailData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -59,7 +60,7 @@ public abstract class AbstractConfirmEmailAction extends Action<ConfirmEmailData
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response confirmEmailResource(
-			@NotNull ConfirmEmailData payload)
+			@NotNull IConfirmEmailData payload)
 			throws JsonProcessingException {
 		this.actionData = new ConfirmEmailData(payload.getUuid());
 		this.actionData.setToken(payload.getToken());

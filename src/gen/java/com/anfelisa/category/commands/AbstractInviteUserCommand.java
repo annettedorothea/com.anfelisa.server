@@ -7,14 +7,14 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.category.data.InviteUserData;
+import com.anfelisa.category.data.IInviteUserData;
 
-public abstract class AbstractInviteUserCommand extends Command<InviteUserData> {
+public abstract class AbstractInviteUserCommand extends Command<IInviteUserData> {
 
 	protected static final String ok = "ok";
 	protected static final String hasAccess = "hasAccess";
 
-	public AbstractInviteUserCommand(InviteUserData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractInviteUserCommand(IInviteUserData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.commands.InviteUserCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

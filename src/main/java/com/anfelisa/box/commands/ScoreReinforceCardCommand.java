@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.box.data.ScoreReinforceCardData;
+import com.anfelisa.box.data.IScoreReinforceCardData;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.IReinforceCardModel;
 
@@ -14,8 +14,8 @@ public class ScoreReinforceCardCommand extends AbstractScoreReinforceCardCommand
 
 	static final Logger LOG = LoggerFactory.getLogger(ScoreReinforceCardCommand.class);
 
-	public ScoreReinforceCardCommand(ScoreReinforceCardData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandData, databaseHandle, daoProvider, viewProvider);
+	public ScoreReinforceCardCommand(IScoreReinforceCardData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

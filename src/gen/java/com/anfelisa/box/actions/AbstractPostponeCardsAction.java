@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.box.data.IPostponeCardsData;
 import com.anfelisa.box.data.PostponeCardsData;
 
 import com.anfelisa.box.commands.PostponeCardsCommand;
 
 @SuppressWarnings("unused")
 @Path("/cards/postpone")
-public abstract class AbstractPostponeCardsAction extends Action<PostponeCardsData> {
+public abstract class AbstractPostponeCardsAction extends Action<IPostponeCardsData> {
 
 	public AbstractPostponeCardsAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.PostponeCardsAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractPostponeCardsAction extends Action<PostponeCardsDa
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (PostponeCardsData)data;
+		this.actionData = (IPostponeCardsData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -61,7 +62,7 @@ public abstract class AbstractPostponeCardsAction extends Action<PostponeCardsDa
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response postponeCardsResource(
 			@Auth AuthUser authUser, 
-			@NotNull PostponeCardsData payload)
+			@NotNull IPostponeCardsData payload)
 			throws JsonProcessingException {
 		this.actionData = new PostponeCardsData(payload.getUuid());
 		this.actionData.setBoxId(payload.getBoxId());

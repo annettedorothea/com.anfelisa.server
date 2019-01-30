@@ -7,14 +7,14 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.box.data.PostponeCardsData;
+import com.anfelisa.box.data.IPostponeCardsData;
 
-public abstract class AbstractPostponeCardsCommand extends Command<PostponeCardsData> {
+public abstract class AbstractPostponeCardsCommand extends Command<IPostponeCardsData> {
 
 	protected static final String ok = "ok";
 	protected static final String noDelay = "noDelay";
 
-	public AbstractPostponeCardsCommand(PostponeCardsData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractPostponeCardsCommand(IPostponeCardsData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.PostponeCardsCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

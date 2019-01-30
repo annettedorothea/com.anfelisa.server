@@ -7,14 +7,14 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.category.data.CategoryCreationData;
+import com.anfelisa.category.data.ICategoryCreationData;
 
-public abstract class AbstractCreateCategoryCommand extends Command<CategoryCreationData> {
+public abstract class AbstractCreateCategoryCommand extends Command<ICategoryCreationData> {
 
 	protected static final String sub = "sub";
 	protected static final String root = "root";
 
-	public AbstractCreateCategoryCommand(CategoryCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractCreateCategoryCommand(ICategoryCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.commands.CreateCategoryCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

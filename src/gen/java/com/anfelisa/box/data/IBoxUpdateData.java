@@ -8,6 +8,14 @@ import com.anfelisa.box.models.IBoxUpdateModel;
 
 @JsonDeserialize(as=BoxUpdateData.class)
 public interface IBoxUpdateData extends IBoxUpdateModel, IDataContainer {
+	
+	IBoxUpdateData withUserId(String userId);
+	
+	IBoxUpdateData withBoxId(String boxId);
+	
+	IBoxUpdateData withMaxInterval(Integer maxInterval);
+	
+	
 }
 
 /*       S.D.G.       */

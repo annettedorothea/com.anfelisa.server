@@ -43,6 +43,9 @@ public class GetBoxResponse implements IGetBoxResponse {
 	
 	private Integer totalCards;
 	
+	public GetBoxResponse() {
+	}
+	
 	public GetBoxResponse(com.anfelisa.box.models.IBoxInfoModel data) {
 		boxId = data.getBoxId();
 		categoryName = data.getCategoryName();

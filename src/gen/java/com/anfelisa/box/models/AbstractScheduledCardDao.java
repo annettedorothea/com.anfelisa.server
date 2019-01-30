@@ -10,7 +10,7 @@ import java.util.Optional;
 public class AbstractScheduledCardDao {
 	
 	public void insert(Handle handle, IScheduledCardModel scheduledCardModel) {
-		Update statement = handle.createUpdate("INSERT INTO public.scheduledcard (scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate) VALUES (:scheduledcardid, :cardid, :boxid, :createddate, :ef, :interval, :n, :count, :scheduleddate, :lastquality, :quality, :scoreddate)");
+		Update statement = handle.createUpdate("INSERT INTO \"scheduledcard\" (scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate) VALUES (:scheduledcardid, :cardid, :boxid, :createddate, :ef, :interval, :n, :count, :scheduleddate, :lastquality, :quality, :scoreddate)");
 		statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId() );
 		statement.bind("cardid",  scheduledCardModel.getCardId() );
 		statement.bind("boxid",  scheduledCardModel.getBoxId() );
@@ -28,7 +28,7 @@ public class AbstractScheduledCardDao {
 	
 	
 	public void updateByScheduledCardId(Handle handle, IScheduledCardModel scheduledCardModel) {
-		Update statement = handle.createUpdate("UPDATE public.scheduledcard SET scheduledcardid = :scheduledcardid, cardid = :cardid, boxid = :boxid, createddate = :createddate, ef = :ef, interval = :interval, n = :n, count = :count, scheduleddate = :scheduleddate, lastquality = :lastquality, quality = :quality, scoreddate = :scoreddate WHERE scheduledcardid = :scheduledcardid");
+		Update statement = handle.createUpdate("UPDATE \"scheduledcard\" SET scheduledcardid = :scheduledcardid, cardid = :cardid, boxid = :boxid, createddate = :createddate, ef = :ef, interval = :interval, n = :n, count = :count, scheduleddate = :scheduleddate, lastquality = :lastquality, quality = :quality, scoreddate = :scoreddate WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId() );
 		statement.bind("cardid",  scheduledCardModel.getCardId() );
 		statement.bind("boxid",  scheduledCardModel.getBoxId() );
@@ -46,13 +46,13 @@ public class AbstractScheduledCardDao {
 	}
 
 	public void deleteByScheduledCardId(Handle handle, String scheduledCardId) {
-		Update statement = handle.createUpdate("DELETE FROM public.scheduledcard WHERE scheduledcardid = :scheduledcardid");
+		Update statement = handle.createUpdate("DELETE FROM \"scheduledcard\" WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("scheduledcardid", scheduledCardId);
 		statement.execute();
 	}
 
 	public IScheduledCardModel selectByScheduledCardId(Handle handle, String scheduledCardId) {
-		Optional<IScheduledCardModel> optional = handle.createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM public.scheduledcard WHERE scheduledcardid = :scheduledcardid")
+		Optional<IScheduledCardModel> optional = handle.createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM \"scheduledcard\" WHERE scheduledcardid = :scheduledcardid")
 			.bind("scheduledcardid", scheduledCardId)
 			.map(new ScheduledCardMapper())
 			.findFirst();
@@ -60,13 +60,13 @@ public class AbstractScheduledCardDao {
 	}
 	
 	public List<IScheduledCardModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM public.scheduledcard")
+		return handle.createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM \"scheduledcard\"")
 			.map(new ScheduledCardMapper())
 			.list();
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createUpdate("TRUNCATE public.scheduledcard CASCADE");
+		Update statement = handle.createUpdate("TRUNCATE TABLE \"scheduledcard\" CASCADE");
 		statement.execute();
 	}
 

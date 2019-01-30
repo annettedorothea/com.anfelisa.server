@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.card.data.ICardUpdateData;
 import com.anfelisa.card.data.CardUpdateData;
 
 import com.anfelisa.card.commands.UpdateCardCommand;
 
 @SuppressWarnings("unused")
 @Path("/card/update")
-public abstract class AbstractUpdateCardAction extends Action<CardUpdateData> {
+public abstract class AbstractUpdateCardAction extends Action<ICardUpdateData> {
 
 	public AbstractUpdateCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.actions.UpdateCardAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractUpdateCardAction extends Action<CardUpdateData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (CardUpdateData)data;
+		this.actionData = (ICardUpdateData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -61,7 +62,7 @@ public abstract class AbstractUpdateCardAction extends Action<CardUpdateData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateCardResource(
 			@Auth AuthUser authUser, 
-			@NotNull CardUpdateData payload)
+			@NotNull ICardUpdateData payload)
 			throws JsonProcessingException {
 		this.actionData = new CardUpdateData(payload.getUuid());
 		this.actionData.setCardId(payload.getCardId());

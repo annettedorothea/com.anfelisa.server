@@ -7,13 +7,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.category.data.CategoryUpdateData;
+import com.anfelisa.category.data.ICategoryUpdateData;
 
-public abstract class AbstractUpdateCategoryCommand extends Command<CategoryUpdateData> {
+public abstract class AbstractUpdateCategoryCommand extends Command<ICategoryUpdateData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractUpdateCategoryCommand(CategoryUpdateData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractUpdateCategoryCommand(ICategoryUpdateData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.commands.UpdateCategoryCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

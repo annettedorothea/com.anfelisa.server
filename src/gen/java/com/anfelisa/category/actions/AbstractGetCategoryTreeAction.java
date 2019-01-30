@@ -31,12 +31,13 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.category.data.ICategoryTreeData;
 import com.anfelisa.category.data.CategoryTreeData;
 
 
 @SuppressWarnings("unused")
 @Path("/category/tree")
-public abstract class AbstractGetCategoryTreeAction extends Action<CategoryTreeData> {
+public abstract class AbstractGetCategoryTreeAction extends Action<ICategoryTreeData> {
 
 	public AbstractGetCategoryTreeAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.actions.GetCategoryTreeAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -48,7 +49,7 @@ public abstract class AbstractGetCategoryTreeAction extends Action<CategoryTreeD
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (CategoryTreeData)data;
+		this.actionData = (ICategoryTreeData)data;
 	}
 
 

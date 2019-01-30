@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 
-import com.anfelisa.category.data.CategoryUpdateData;
+import com.anfelisa.category.data.ICategoryUpdateData;
 
 public class CategoryDao extends AbstractCategoryDao {
 	public List<ICategoryTreeItemModel> selectAllChildren(Handle handle, String parentCategoryId, String userId) {
@@ -46,7 +46,7 @@ public class CategoryDao extends AbstractCategoryDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public void update(Handle handle, CategoryUpdateData categoryModel) {
+	public void update(Handle handle, ICategoryUpdateData categoryModel) {
 		Update statement = handle.createUpdate(
 				"UPDATE public.category SET categoryname = :categoryname, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryid = :categoryid");
 		statement.bind("categoryname", categoryModel.getCategoryName());

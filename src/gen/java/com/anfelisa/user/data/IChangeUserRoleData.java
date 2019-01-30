@@ -8,6 +8,16 @@ import com.anfelisa.user.models.IChangeUserRoleModel;
 
 @JsonDeserialize(as=ChangeUserRoleData.class)
 public interface IChangeUserRoleData extends IChangeUserRoleModel, IDataContainer {
+	
+	IChangeUserRoleData withEditedUserId(String editedUserId);
+	
+	IChangeUserRoleData withNewRole(String newRole);
+	
+	IChangeUserRoleData withUserId(String userId);
+	
+	IChangeUserRoleData withRole(String role);
+	
+	
 }
 
 /*       S.D.G.       */

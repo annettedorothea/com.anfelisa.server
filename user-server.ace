@@ -96,15 +96,14 @@ views
 		delete(ResetPasswordWithNewPassword)
 	}
 	
-	external Email { 
+	Email { 
 		sendForgotPasswordEmail(ForgotPassword)
 		sendRegistrationEmail(UserRegistration)
 	}
 	
 
 models 
-	schema public
-	
+
 	persistent User {
 		Unique PrimaryKey NotNull String userId
 		Unique NotNull String username

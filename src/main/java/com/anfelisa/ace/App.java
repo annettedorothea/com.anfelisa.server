@@ -63,19 +63,18 @@ public class App extends Application<CustomAppConfiguration> {
 			}
 		});
 
-		bootstrap.addCommand(new EventReplayCommand(this, new DaoProvider()));
+		bootstrap.addCommand(new EventReplayCommand(this));
 	}
 
 	@Override
 	public void run(CustomAppConfiguration configuration, Environment environment) throws ClassNotFoundException {
 		LOG.info("running version {}", getVersion());
 
+
 		EMAIL_SERVICE = new EmailService(configuration.getEmail());
 
 		DaoProvider daoProvider = new DaoProvider();
 		ViewProvider viewProvider = new ViewProvider(daoProvider, new EmailService(configuration.getEmail()));
-
-		AceDao.setSchemaName(null);
 
 		final JdbiFactory factory = new JdbiFactory();
 
@@ -89,6 +88,9 @@ public class App extends Application<CustomAppConfiguration> {
 			environment.jersey().register(new GetServerTimelineResource(jdbi));
 		} else if (ServerConfiguration.DEV.equals(mode)) {
 			environment.jersey().register(new GetServerTimelineResource(jdbi));
+		} else if (ServerConfiguration.TEST.equals(mode)) {
+			environment.jersey().register(new ReplayEventsResource(jdbi, daoProvider, viewProvider));
+			environment.jersey().register(new SetSystemTimeResource());
 		}
 
 		environment.jersey().register(new GetServerInfoResource());

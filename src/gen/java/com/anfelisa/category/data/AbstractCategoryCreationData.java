@@ -88,6 +88,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public ICategoryCreationData withUsername(String username) {
+		this.username = username;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCategoryId() {
@@ -95,6 +99,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+	}
+	public ICategoryCreationData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -104,6 +112,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+	public ICategoryCreationData withCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCategoryAuthor() {
@@ -111,6 +123,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	public void setCategoryAuthor(String categoryAuthor) {
 		this.categoryAuthor = categoryAuthor;
+	}
+	public ICategoryCreationData withCategoryAuthor(String categoryAuthor) {
+		this.categoryAuthor = categoryAuthor;
+		return this;
 	}
 	
 	@JsonProperty
@@ -120,6 +136,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setCategoryIndex(Integer categoryIndex) {
 		this.categoryIndex = categoryIndex;
 	}
+	public ICategoryCreationData withCategoryIndex(Integer categoryIndex) {
+		this.categoryIndex = categoryIndex;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getParentCategoryId() {
@@ -127,6 +147,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	public void setParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
+	}
+	public ICategoryCreationData withParentCategoryId(String parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -136,6 +160,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}
+	public ICategoryCreationData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getDictionaryLookup() {
@@ -143,6 +171,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
 		this.dictionaryLookup = dictionaryLookup;
+	}
+	public ICategoryCreationData withDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+		return this;
 	}
 	
 	@JsonProperty
@@ -152,6 +184,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setGivenLanguage(String givenLanguage) {
 		this.givenLanguage = givenLanguage;
 	}
+	public ICategoryCreationData withGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getWantedLanguage() {
@@ -159,6 +195,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
+	}
+	public ICategoryCreationData withWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
+		return this;
 	}
 	
 	@JsonProperty
@@ -168,6 +208,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setPublicRootCategory(Boolean publicRootCategory) {
 		this.publicRootCategory = publicRootCategory;
 	}
+	public ICategoryCreationData withPublicRootCategory(Boolean publicRootCategory) {
+		this.publicRootCategory = publicRootCategory;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -175,6 +219,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public ICategoryCreationData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

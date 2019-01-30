@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.category.data.CategoryUpdateData;
+import com.anfelisa.category.data.ICategoryUpdateData;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
@@ -18,9 +18,9 @@ public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 
 	private final String[] languages = new String[] { "de", "fr", "en" };
 
-	public UpdateCategoryCommand(CategoryUpdateData commandParam, DatabaseHandle databaseHandle,
+	public UpdateCategoryCommand(ICategoryUpdateData actionData, DatabaseHandle databaseHandle,
 			IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

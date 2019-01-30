@@ -7,14 +7,14 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.category.data.RevokeUserData;
+import com.anfelisa.category.data.IRevokeUserData;
 
-public abstract class AbstractRevokeUserAccessCommand extends Command<RevokeUserData> {
+public abstract class AbstractRevokeUserAccessCommand extends Command<IRevokeUserData> {
 
 	protected static final String ok = "ok";
 	protected static final String hasNoAccess = "hasNoAccess";
 
-	public AbstractRevokeUserAccessCommand(RevokeUserData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractRevokeUserAccessCommand(IRevokeUserData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.commands.RevokeUserAccessCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

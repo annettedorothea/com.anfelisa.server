@@ -48,6 +48,10 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList) {
 		this.boxList = boxList;
 	}
+	public IBoxListData withBoxList(java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList) {
+		this.boxList = boxList;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -56,6 +60,10 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public IBoxListData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getToday() {
@@ -63,6 +71,10 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 	}
 	public void setToday(org.joda.time.DateTime today) {
 		this.today = today;
+	}
+	public IBoxListData withToday(org.joda.time.DateTime today) {
+		this.today = today;
+		return this;
 	}
 	
 	

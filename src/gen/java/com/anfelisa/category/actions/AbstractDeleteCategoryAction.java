@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.category.data.ICategoryDeleteData;
 import com.anfelisa.category.data.CategoryDeleteData;
 
 import com.anfelisa.category.commands.DeleteCategoryCommand;
 
 @SuppressWarnings("unused")
 @Path("/category/delete")
-public abstract class AbstractDeleteCategoryAction extends Action<CategoryDeleteData> {
+public abstract class AbstractDeleteCategoryAction extends Action<ICategoryDeleteData> {
 
 	public AbstractDeleteCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.actions.DeleteCategoryAction", HttpMethod.DELETE, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractDeleteCategoryAction extends Action<CategoryDelete
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (CategoryDeleteData)data;
+		this.actionData = (ICategoryDeleteData)data;
 	}
 
 	protected final void loadDataForGetRequest() {

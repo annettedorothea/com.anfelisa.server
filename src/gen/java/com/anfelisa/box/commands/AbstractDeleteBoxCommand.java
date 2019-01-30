@@ -7,13 +7,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.box.data.DeleteBoxData;
+import com.anfelisa.box.data.IDeleteBoxData;
 
-public abstract class AbstractDeleteBoxCommand extends Command<DeleteBoxData> {
+public abstract class AbstractDeleteBoxCommand extends Command<IDeleteBoxData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractDeleteBoxCommand(DeleteBoxData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractDeleteBoxCommand(IDeleteBoxData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.DeleteBoxCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

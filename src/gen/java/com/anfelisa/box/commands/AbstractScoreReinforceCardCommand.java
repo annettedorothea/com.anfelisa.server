@@ -7,14 +7,14 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.box.data.ScoreReinforceCardData;
+import com.anfelisa.box.data.IScoreReinforceCardData;
 
-public abstract class AbstractScoreReinforceCardCommand extends Command<ScoreReinforceCardData> {
+public abstract class AbstractScoreReinforceCardCommand extends Command<IScoreReinforceCardData> {
 
 	protected static final String remove = "remove";
 	protected static final String keep = "keep";
 
-	public AbstractScoreReinforceCardCommand(ScoreReinforceCardData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractScoreReinforceCardCommand(IScoreReinforceCardData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.commands.ScoreReinforceCardCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

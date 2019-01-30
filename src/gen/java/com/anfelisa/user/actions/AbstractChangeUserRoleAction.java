@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.user.data.IChangeUserRoleData;
 import com.anfelisa.user.data.ChangeUserRoleData;
 
 import com.anfelisa.user.commands.ChangeUserRoleCommand;
 
 @SuppressWarnings("unused")
 @Path("/user/role")
-public abstract class AbstractChangeUserRoleAction extends Action<ChangeUserRoleData> {
+public abstract class AbstractChangeUserRoleAction extends Action<IChangeUserRoleData> {
 
 	public AbstractChangeUserRoleAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.ChangeUserRoleAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractChangeUserRoleAction extends Action<ChangeUserRole
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (ChangeUserRoleData)data;
+		this.actionData = (IChangeUserRoleData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -61,7 +62,7 @@ public abstract class AbstractChangeUserRoleAction extends Action<ChangeUserRole
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response changeUserRoleResource(
 			@Auth AuthUser authUser, 
-			@NotNull ChangeUserRoleData payload)
+			@NotNull IChangeUserRoleData payload)
 			throws JsonProcessingException {
 		this.actionData = new ChangeUserRoleData(payload.getUuid());
 		this.actionData.setNewRole(payload.getNewRole());

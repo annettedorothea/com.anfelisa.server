@@ -10,7 +10,7 @@ import java.util.Optional;
 public class AbstractUserAccessToCategoryDao {
 	
 	public void insert(Handle handle, IUserAccessToCategoryModel userAccessToCategoryModel) {
-		Update statement = handle.createUpdate("INSERT INTO public.useraccesstocategory (categoryid, userid) VALUES (:categoryid, :userid)");
+		Update statement = handle.createUpdate("INSERT INTO \"useraccesstocategory\" (categoryid, userid) VALUES (:categoryid, :userid)");
 		statement.bind("categoryid",  userAccessToCategoryModel.getCategoryId() );
 		statement.bind("userid",  userAccessToCategoryModel.getUserId() );
 		statement.execute();
@@ -19,13 +19,13 @@ public class AbstractUserAccessToCategoryDao {
 	
 	
 	public List<IUserAccessToCategoryModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT categoryid, userid FROM public.useraccesstocategory")
+		return handle.createQuery("SELECT categoryid, userid FROM \"useraccesstocategory\"")
 			.map(new UserAccessToCategoryMapper())
 			.list();
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createUpdate("TRUNCATE public.useraccesstocategory CASCADE");
+		Update statement = handle.createUpdate("TRUNCATE TABLE \"useraccesstocategory\" CASCADE");
 		statement.execute();
 	}
 

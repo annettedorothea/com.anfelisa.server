@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.box.data.PostponeCardsData;
+import com.anfelisa.box.data.IPostponeCardsData;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.INextCardViewModel;
 
@@ -17,8 +17,8 @@ public class PostponeCardsCommand extends AbstractPostponeCardsCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(PostponeCardsCommand.class);
 
-	public PostponeCardsCommand(PostponeCardsData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandData, databaseHandle, daoProvider, viewProvider);
+	public PostponeCardsCommand(IPostponeCardsData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

@@ -15,6 +15,9 @@ public class UsernameAvailableResponse implements IUsernameAvailableResponse {
 	
 	private Boolean available = false;
 	
+	public UsernameAvailableResponse() {
+	}
+	
 	public UsernameAvailableResponse(com.anfelisa.user.models.IUsernameAvailableModel data) {
 		available = data.getAvailable();
 	}

@@ -65,6 +65,10 @@ public abstract class AbstractNextReinforceCardViewData extends AbstractData imp
 	public void setReinforceCardId(String reinforceCardId) {
 		this.reinforceCardId = reinforceCardId;
 	}
+	public INextReinforceCardViewData withReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getChangeDate() {
@@ -72,6 +76,10 @@ public abstract class AbstractNextReinforceCardViewData extends AbstractData imp
 	}
 	public void setChangeDate(org.joda.time.DateTime changeDate) {
 		this.changeDate = changeDate;
+	}
+	public INextReinforceCardViewData withChangeDate(org.joda.time.DateTime changeDate) {
+		this.changeDate = changeDate;
+		return this;
 	}
 	
 	@JsonProperty
@@ -81,6 +89,10 @@ public abstract class AbstractNextReinforceCardViewData extends AbstractData imp
 	public void setLastQuality(Integer lastQuality) {
 		this.lastQuality = lastQuality;
 	}
+	public INextReinforceCardViewData withLastQuality(Integer lastQuality) {
+		this.lastQuality = lastQuality;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getGiven() {
@@ -88,6 +100,10 @@ public abstract class AbstractNextReinforceCardViewData extends AbstractData imp
 	}
 	public void setGiven(String given) {
 		this.given = given;
+	}
+	public INextReinforceCardViewData withGiven(String given) {
+		this.given = given;
+		return this;
 	}
 	
 	@JsonProperty
@@ -97,6 +113,10 @@ public abstract class AbstractNextReinforceCardViewData extends AbstractData imp
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
 	}
+	public INextReinforceCardViewData withWanted(String wanted) {
+		this.wanted = wanted;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getImage() {
@@ -105,6 +125,10 @@ public abstract class AbstractNextReinforceCardViewData extends AbstractData imp
 	public void setImage(String image) {
 		this.image = image;
 	}
+	public INextReinforceCardViewData withImage(String image) {
+		this.image = image;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCategoryId() {
@@ -112,6 +136,10 @@ public abstract class AbstractNextReinforceCardViewData extends AbstractData imp
 	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+	}
+	public INextReinforceCardViewData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
 	}
 	
 	

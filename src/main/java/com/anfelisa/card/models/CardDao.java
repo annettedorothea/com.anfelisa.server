@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 
-import com.anfelisa.card.data.CardUpdateData;
+import com.anfelisa.card.data.ICardUpdateData;
 
 public class CardDao extends AbstractCardDao {
 	public List<ICardModel> selectAllOfCategory(Handle handle, String categoryId) {
@@ -22,7 +22,7 @@ public class CardDao extends AbstractCardDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public void update(Handle handle, CardUpdateData cardModel) {
+	public void update(Handle handle, ICardUpdateData cardModel) {
 		Update statement = handle.createUpdate(
 				"UPDATE public.card SET given = :given, wanted = :wanted, image = :image WHERE cardid = :cardid");
 		statement.bind("cardid", cardModel.getCardId());

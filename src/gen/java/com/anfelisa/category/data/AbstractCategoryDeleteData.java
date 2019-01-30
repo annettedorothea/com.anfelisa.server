@@ -54,6 +54,10 @@ public abstract class AbstractCategoryDeleteData extends AbstractData implements
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public ICategoryDeleteData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getCategoryIndex() {
@@ -61,6 +65,10 @@ public abstract class AbstractCategoryDeleteData extends AbstractData implements
 	}
 	public void setCategoryIndex(Integer categoryIndex) {
 		this.categoryIndex = categoryIndex;
+	}
+	public ICategoryDeleteData withCategoryIndex(Integer categoryIndex) {
+		this.categoryIndex = categoryIndex;
+		return this;
 	}
 	
 	@JsonProperty
@@ -70,6 +78,10 @@ public abstract class AbstractCategoryDeleteData extends AbstractData implements
 	public void setParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
 	}
+	public ICategoryDeleteData withParentCategoryId(String parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -77,6 +89,10 @@ public abstract class AbstractCategoryDeleteData extends AbstractData implements
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public ICategoryDeleteData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

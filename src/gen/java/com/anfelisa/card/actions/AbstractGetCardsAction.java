@@ -31,12 +31,13 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.card.data.ICardListData;
 import com.anfelisa.card.data.CardListData;
 
 
 @SuppressWarnings("unused")
 @Path("/cards")
-public abstract class AbstractGetCardsAction extends Action<CardListData> {
+public abstract class AbstractGetCardsAction extends Action<ICardListData> {
 
 	public AbstractGetCardsAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.actions.GetCardsAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -48,7 +49,7 @@ public abstract class AbstractGetCardsAction extends Action<CardListData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (CardListData)data;
+		this.actionData = (ICardListData)data;
 	}
 
 

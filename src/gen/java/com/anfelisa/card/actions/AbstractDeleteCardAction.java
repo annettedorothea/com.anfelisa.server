@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.card.data.ICardDeleteData;
 import com.anfelisa.card.data.CardDeleteData;
 
 import com.anfelisa.card.commands.DeleteCardCommand;
 
 @SuppressWarnings("unused")
 @Path("/card/delete")
-public abstract class AbstractDeleteCardAction extends Action<CardDeleteData> {
+public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 
 	public AbstractDeleteCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.actions.DeleteCardAction", HttpMethod.DELETE, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractDeleteCardAction extends Action<CardDeleteData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (CardDeleteData)data;
+		this.actionData = (ICardDeleteData)data;
 	}
 
 	protected final void loadDataForGetRequest() {

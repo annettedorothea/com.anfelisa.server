@@ -32,6 +32,9 @@ public class LoadNextReinforceCardResponse implements ILoadNextReinforceCardResp
 	
 	private String wanted;
 	
+	public LoadNextReinforceCardResponse() {
+	}
+	
 	public LoadNextReinforceCardResponse(com.anfelisa.box.models.INextReinforceCardModel data) {
 		categoryId = data.getCategoryId();
 		boxId = data.getBoxId();

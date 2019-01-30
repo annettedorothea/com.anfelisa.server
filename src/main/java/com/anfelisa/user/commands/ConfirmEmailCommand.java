@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.user.data.ConfirmEmailData;
+import com.anfelisa.user.data.IConfirmEmailData;
 import com.anfelisa.user.models.IEmailConfirmationModel;
 import com.anfelisa.user.models.IUserModel;
 
@@ -14,9 +14,9 @@ public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ConfirmEmailCommand.class);
 
-	public ConfirmEmailCommand(ConfirmEmailData commandParam, DatabaseHandle databaseHandle,
+	public ConfirmEmailCommand(IConfirmEmailData actionData, DatabaseHandle databaseHandle,
 			IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

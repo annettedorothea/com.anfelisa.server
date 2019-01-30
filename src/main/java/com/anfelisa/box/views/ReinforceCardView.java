@@ -3,8 +3,8 @@ package com.anfelisa.box.views;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.box.data.ScoreCardData;
-import com.anfelisa.box.data.ScoreReinforceCardData;
+import com.anfelisa.box.data.IScoreCardData;
+import com.anfelisa.box.data.IScoreReinforceCardData;
 
 public class ReinforceCardView implements IReinforceCardView {
 
@@ -15,15 +15,15 @@ public class ReinforceCardView implements IReinforceCardView {
 		this.daoProvider = daoProvider;
 	}
 
-	public void add(ScoreCardData data, Handle handle) {
+	public void add(IScoreCardData data, Handle handle) {
 		daoProvider.getReinforceCardDao().insert(handle, data);
 	}
 
-	public void remove(ScoreReinforceCardData data, Handle handle) {
+	public void remove(IScoreReinforceCardData data, Handle handle) {
 		daoProvider.getReinforceCardDao().deleteByReinforceCardId(handle, data.getReinforceCardId());
 	}
 
-	public void update(ScoreReinforceCardData data, Handle handle) {
+	public void update(IScoreReinforceCardData data, Handle handle) {
 		daoProvider.getReinforceCardDao().updateChangeDate(handle, data.getReinforceCardId(), data.getChangeDate());
 	}
 

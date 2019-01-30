@@ -15,6 +15,9 @@ public class GetAllUsersResponse implements IGetAllUsersResponse {
 	
 	private java.util.List<com.anfelisa.user.models.IUserModel> userList;
 	
+	public GetAllUsersResponse() {
+	}
+	
 	public GetAllUsersResponse(com.anfelisa.user.models.IUserListModel data) {
 		userList = data.getUserList();
 	}

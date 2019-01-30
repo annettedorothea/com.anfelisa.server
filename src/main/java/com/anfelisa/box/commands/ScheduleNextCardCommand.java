@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.box.data.ScheduleNextCardData;
+import com.anfelisa.box.data.IScheduleNextCardData;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.category.models.ICategoryModel;
 
@@ -16,9 +16,9 @@ public class ScheduleNextCardCommand extends AbstractScheduleNextCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScheduleNextCardCommand.class);
 
-	public ScheduleNextCardCommand(ScheduleNextCardData commandData, DatabaseHandle databaseHandle,
+	public ScheduleNextCardCommand(IScheduleNextCardData actionData, DatabaseHandle databaseHandle,
 			IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandData, databaseHandle, daoProvider, viewProvider);
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

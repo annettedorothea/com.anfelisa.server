@@ -6,14 +6,14 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.box.data.BoxData;
+import com.anfelisa.box.data.IBoxData;
 
 public class CreateBoxCommand extends AbstractCreateBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateBoxCommand.class);
 
-	public CreateBoxCommand(BoxData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandData, databaseHandle, daoProvider, viewProvider);
+	public CreateBoxCommand(IBoxData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.data.DeleteBoxData;
 
 import com.anfelisa.box.commands.DeleteBoxCommand;
 
 @SuppressWarnings("unused")
 @Path("/box/delete")
-public abstract class AbstractDeleteBoxAction extends Action<DeleteBoxData> {
+public abstract class AbstractDeleteBoxAction extends Action<IDeleteBoxData> {
 
 	public AbstractDeleteBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.DeleteBoxAction", HttpMethod.DELETE, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractDeleteBoxAction extends Action<DeleteBoxData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (DeleteBoxData)data;
+		this.actionData = (IDeleteBoxData)data;
 	}
 
 	protected final void loadDataForGetRequest() {

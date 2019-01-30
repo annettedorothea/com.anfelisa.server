@@ -10,7 +10,7 @@ import java.util.Optional;
 public class AbstractResetPasswordDao {
 	
 	public void insert(Handle handle, IResetPasswordModel resetPasswordModel) {
-		Update statement = handle.createUpdate("INSERT INTO public.resetpassword (token, userid) VALUES (:token, :userid)");
+		Update statement = handle.createUpdate("INSERT INTO \"resetpassword\" (token, userid) VALUES (:token, :userid)");
 		statement.bind("token",  resetPasswordModel.getToken() );
 		statement.bind("userid",  resetPasswordModel.getUserId() );
 		statement.execute();
@@ -18,7 +18,7 @@ public class AbstractResetPasswordDao {
 	
 	
 	public void updateByToken(Handle handle, IResetPasswordModel resetPasswordModel) {
-		Update statement = handle.createUpdate("UPDATE public.resetpassword SET token = :token, userid = :userid WHERE token = :token");
+		Update statement = handle.createUpdate("UPDATE \"resetpassword\" SET token = :token, userid = :userid WHERE token = :token");
 		statement.bind("token",  resetPasswordModel.getToken() );
 		statement.bind("userid",  resetPasswordModel.getUserId() );
 		statement.bind("token",  resetPasswordModel.getToken()  );
@@ -26,13 +26,13 @@ public class AbstractResetPasswordDao {
 	}
 
 	public void deleteByToken(Handle handle, String token) {
-		Update statement = handle.createUpdate("DELETE FROM public.resetpassword WHERE token = :token");
+		Update statement = handle.createUpdate("DELETE FROM \"resetpassword\" WHERE token = :token");
 		statement.bind("token", token);
 		statement.execute();
 	}
 
 	public IResetPasswordModel selectByToken(Handle handle, String token) {
-		Optional<IResetPasswordModel> optional = handle.createQuery("SELECT token, userid FROM public.resetpassword WHERE token = :token")
+		Optional<IResetPasswordModel> optional = handle.createQuery("SELECT token, userid FROM \"resetpassword\" WHERE token = :token")
 			.bind("token", token)
 			.map(new ResetPasswordMapper())
 			.findFirst();
@@ -40,13 +40,13 @@ public class AbstractResetPasswordDao {
 	}
 	
 	public List<IResetPasswordModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT token, userid FROM public.resetpassword")
+		return handle.createQuery("SELECT token, userid FROM \"resetpassword\"")
 			.map(new ResetPasswordMapper())
 			.list();
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createUpdate("TRUNCATE public.resetpassword CASCADE");
+		Update statement = handle.createUpdate("TRUNCATE TABLE \"resetpassword\" CASCADE");
 		statement.execute();
 	}
 

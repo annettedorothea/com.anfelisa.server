@@ -150,7 +150,6 @@ views
 	}
 
 models 
-	schema public
 	persistent Box {
 		Unique PrimaryKey NotNull String boxId
 		NotNull String userId references com.anfelisa.user.User.userId

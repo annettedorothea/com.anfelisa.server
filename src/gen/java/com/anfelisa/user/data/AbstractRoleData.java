@@ -43,6 +43,10 @@ public abstract class AbstractRoleData extends AbstractData implements IRoleData
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public IRoleData withUsername(String username) {
+		this.username = username;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRole() {
@@ -50,6 +54,10 @@ public abstract class AbstractRoleData extends AbstractData implements IRoleData
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public IRoleData withRole(String role) {
+		this.role = role;
+		return this;
 	}
 	
 	

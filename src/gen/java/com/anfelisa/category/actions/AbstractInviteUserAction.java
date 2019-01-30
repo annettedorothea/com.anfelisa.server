@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.category.data.IInviteUserData;
 import com.anfelisa.category.data.InviteUserData;
 
 import com.anfelisa.category.commands.InviteUserCommand;
 
 @SuppressWarnings("unused")
 @Path("/category/invite")
-public abstract class AbstractInviteUserAction extends Action<InviteUserData> {
+public abstract class AbstractInviteUserAction extends Action<IInviteUserData> {
 
 	public AbstractInviteUserAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.actions.InviteUserAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractInviteUserAction extends Action<InviteUserData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (InviteUserData)data;
+		this.actionData = (IInviteUserData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -61,7 +62,7 @@ public abstract class AbstractInviteUserAction extends Action<InviteUserData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response inviteUserResource(
 			@Auth AuthUser authUser, 
-			@NotNull InviteUserData payload)
+			@NotNull IInviteUserData payload)
 			throws JsonProcessingException {
 		this.actionData = new InviteUserData(payload.getUuid());
 		this.actionData.setCategoryId(payload.getCategoryId());

@@ -9,16 +9,16 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.Roles;
-import com.anfelisa.user.data.UserRegistrationData;
+import com.anfelisa.user.data.IUserRegistrationData;
 import com.anfelisa.user.models.IUserModel;
 
 public class RegisterUserCommand extends AbstractRegisterUserCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(RegisterUserCommand.class);
 
-	public RegisterUserCommand(UserRegistrationData commandParam, DatabaseHandle databaseHandle,
+	public RegisterUserCommand(IUserRegistrationData actionData, DatabaseHandle databaseHandle,
 			IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

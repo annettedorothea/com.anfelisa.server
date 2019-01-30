@@ -8,6 +8,12 @@ import com.anfelisa.user.models.IUsernameAvailableModel;
 
 @JsonDeserialize(as=UsernameAvailableData.class)
 public interface IUsernameAvailableData extends IUsernameAvailableModel, IDataContainer {
+	
+	IUsernameAvailableData withUsername(String username);
+	
+	IUsernameAvailableData withAvailable(Boolean available);
+	
+	
 }
 
 /*       S.D.G.       */

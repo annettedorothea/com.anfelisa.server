@@ -43,6 +43,10 @@ public abstract class AbstractUserListData extends AbstractData implements IUser
 	public void setUserList(java.util.List<com.anfelisa.user.models.IUserModel> userList) {
 		this.userList = userList;
 	}
+	public IUserListData withUserList(java.util.List<com.anfelisa.user.models.IUserModel> userList) {
+		this.userList = userList;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRole() {
@@ -50,6 +54,10 @@ public abstract class AbstractUserListData extends AbstractData implements IUser
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public IUserListData withRole(String role) {
+		this.role = role;
+		return this;
 	}
 	
 	

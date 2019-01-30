@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.category.data.ICategoryCreationData;
 import com.anfelisa.category.data.CategoryCreationData;
 
 import com.anfelisa.category.commands.CreateCategoryCommand;
 
 @SuppressWarnings("unused")
 @Path("/category/create")
-public abstract class AbstractCreateCategoryAction extends Action<CategoryCreationData> {
+public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreationData> {
 
 	public AbstractCreateCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.actions.CreateCategoryAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractCreateCategoryAction extends Action<CategoryCreati
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (CategoryCreationData)data;
+		this.actionData = (ICategoryCreationData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -61,7 +62,7 @@ public abstract class AbstractCreateCategoryAction extends Action<CategoryCreati
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createCategoryResource(
 			@Auth AuthUser authUser, 
-			@NotNull CategoryCreationData payload)
+			@NotNull ICategoryCreationData payload)
 			throws JsonProcessingException {
 		this.actionData = new CategoryCreationData(payload.getUuid());
 		this.actionData.setCategoryName(payload.getCategoryName());

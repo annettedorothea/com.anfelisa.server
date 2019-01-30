@@ -15,6 +15,9 @@ public class GetCardsResponse implements IGetCardsResponse {
 	
 	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
 	
+	public GetCardsResponse() {
+	}
+	
 	public GetCardsResponse(com.anfelisa.card.models.ICardListModel data) {
 		cardList = data.getCardList();
 	}

@@ -110,6 +110,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
+	public IScoreCardData withCardId(String cardId) {
+		this.cardId = cardId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getNextScheduledCardScheduledCardId() {
@@ -117,6 +121,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	}
 	public void setNextScheduledCardScheduledCardId(String nextScheduledCardScheduledCardId) {
 		this.nextScheduledCardScheduledCardId = nextScheduledCardScheduledCardId;
+	}
+	public IScoreCardData withNextScheduledCardScheduledCardId(String nextScheduledCardScheduledCardId) {
+		this.nextScheduledCardScheduledCardId = nextScheduledCardScheduledCardId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -126,6 +134,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	public void setNextScheduledCardCreatedDate(org.joda.time.DateTime nextScheduledCardCreatedDate) {
 		this.nextScheduledCardCreatedDate = nextScheduledCardCreatedDate;
 	}
+	public IScoreCardData withNextScheduledCardCreatedDate(org.joda.time.DateTime nextScheduledCardCreatedDate) {
+		this.nextScheduledCardCreatedDate = nextScheduledCardCreatedDate;
+		return this;
+	}
 	
 	@JsonProperty
 	public Float getNextScheduledCardEf() {
@@ -133,6 +145,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	}
 	public void setNextScheduledCardEf(Float nextScheduledCardEf) {
 		this.nextScheduledCardEf = nextScheduledCardEf;
+	}
+	public IScoreCardData withNextScheduledCardEf(Float nextScheduledCardEf) {
+		this.nextScheduledCardEf = nextScheduledCardEf;
+		return this;
 	}
 	
 	@JsonProperty
@@ -142,6 +158,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	public void setNextScheduledCardInterval(Integer nextScheduledCardInterval) {
 		this.nextScheduledCardInterval = nextScheduledCardInterval;
 	}
+	public IScoreCardData withNextScheduledCardInterval(Integer nextScheduledCardInterval) {
+		this.nextScheduledCardInterval = nextScheduledCardInterval;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getNextScheduledCardN() {
@@ -149,6 +169,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	}
 	public void setNextScheduledCardN(Integer nextScheduledCardN) {
 		this.nextScheduledCardN = nextScheduledCardN;
+	}
+	public IScoreCardData withNextScheduledCardN(Integer nextScheduledCardN) {
+		this.nextScheduledCardN = nextScheduledCardN;
+		return this;
 	}
 	
 	@JsonProperty
@@ -158,6 +182,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	public void setNextScheduledCardCount(Integer nextScheduledCardCount) {
 		this.nextScheduledCardCount = nextScheduledCardCount;
 	}
+	public IScoreCardData withNextScheduledCardCount(Integer nextScheduledCardCount) {
+		this.nextScheduledCardCount = nextScheduledCardCount;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getNextScheduledCardScheduledDate() {
@@ -165,6 +193,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	}
 	public void setNextScheduledCardScheduledDate(org.joda.time.DateTime nextScheduledCardScheduledDate) {
 		this.nextScheduledCardScheduledDate = nextScheduledCardScheduledDate;
+	}
+	public IScoreCardData withNextScheduledCardScheduledDate(org.joda.time.DateTime nextScheduledCardScheduledDate) {
+		this.nextScheduledCardScheduledDate = nextScheduledCardScheduledDate;
+		return this;
 	}
 	
 	@JsonProperty
@@ -174,6 +206,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	public void setNextScheduledCardLastQuality(Integer nextScheduledCardLastQuality) {
 		this.nextScheduledCardLastQuality = nextScheduledCardLastQuality;
 	}
+	public IScoreCardData withNextScheduledCardLastQuality(Integer nextScheduledCardLastQuality) {
+		this.nextScheduledCardLastQuality = nextScheduledCardLastQuality;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getScoredCardScheduledCardId() {
@@ -181,6 +217,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	}
 	public void setScoredCardScheduledCardId(String scoredCardScheduledCardId) {
 		this.scoredCardScheduledCardId = scoredCardScheduledCardId;
+	}
+	public IScoreCardData withScoredCardScheduledCardId(String scoredCardScheduledCardId) {
+		this.scoredCardScheduledCardId = scoredCardScheduledCardId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -190,6 +230,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	public void setScoredCardQuality(Integer scoredCardQuality) {
 		this.scoredCardQuality = scoredCardQuality;
 	}
+	public IScoreCardData withScoredCardQuality(Integer scoredCardQuality) {
+		this.scoredCardQuality = scoredCardQuality;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getScoredCardScoredDate() {
@@ -197,6 +241,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	}
 	public void setScoredCardScoredDate(org.joda.time.DateTime scoredCardScoredDate) {
 		this.scoredCardScoredDate = scoredCardScoredDate;
+	}
+	public IScoreCardData withScoredCardScoredDate(org.joda.time.DateTime scoredCardScoredDate) {
+		this.scoredCardScoredDate = scoredCardScoredDate;
+		return this;
 	}
 	
 	@JsonProperty
@@ -206,6 +254,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	public void setReinforceCardId(String reinforceCardId) {
 		this.reinforceCardId = reinforceCardId;
 	}
+	public IScoreCardData withReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getReinforceCardCreatedDate() {
@@ -213,6 +265,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	}
 	public void setReinforceCardCreatedDate(org.joda.time.DateTime reinforceCardCreatedDate) {
 		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
+	}
+	public IScoreCardData withReinforceCardCreatedDate(org.joda.time.DateTime reinforceCardCreatedDate) {
+		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
+		return this;
 	}
 	
 	@JsonProperty
@@ -222,6 +278,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public IScoreCardData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getBoxId() {
@@ -229,6 +289,10 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	public IScoreCardData withBoxId(String boxId) {
+		this.boxId = boxId;
+		return this;
 	}
 	
 	

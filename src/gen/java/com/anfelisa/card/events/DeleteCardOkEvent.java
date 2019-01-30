@@ -5,11 +5,11 @@ import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.card.data.CardDeleteData;
+import com.anfelisa.card.data.ICardDeleteData;
 
-public class DeleteCardOkEvent extends Event<CardDeleteData> {
+public class DeleteCardOkEvent extends Event<ICardDeleteData> {
 
-	public DeleteCardOkEvent(CardDeleteData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public DeleteCardOkEvent(ICardDeleteData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.events.DeleteCardOkEvent", eventData, databaseHandle, daoProvider, viewProvider);
 	}
 

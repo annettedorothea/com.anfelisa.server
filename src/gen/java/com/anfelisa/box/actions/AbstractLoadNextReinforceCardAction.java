@@ -31,12 +31,13 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.box.data.INextReinforceCardData;
 import com.anfelisa.box.data.NextReinforceCardData;
 
 
 @SuppressWarnings("unused")
 @Path("/box/next-reinforce-card")
-public abstract class AbstractLoadNextReinforceCardAction extends Action<NextReinforceCardData> {
+public abstract class AbstractLoadNextReinforceCardAction extends Action<INextReinforceCardData> {
 
 	public AbstractLoadNextReinforceCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.LoadNextReinforceCardAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -48,7 +49,7 @@ public abstract class AbstractLoadNextReinforceCardAction extends Action<NextRei
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (NextReinforceCardData)data;
+		this.actionData = (INextReinforceCardData)data;
 	}
 
 

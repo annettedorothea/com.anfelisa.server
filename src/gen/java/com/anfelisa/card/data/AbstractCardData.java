@@ -72,6 +72,10 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
+	public ICardData withCardId(String cardId) {
+		this.cardId = cardId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getGiven() {
@@ -79,6 +83,10 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 	}
 	public void setGiven(String given) {
 		this.given = given;
+	}
+	public ICardData withGiven(String given) {
+		this.given = given;
+		return this;
 	}
 	
 	@JsonProperty
@@ -88,6 +96,10 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
 	}
+	public ICardData withWanted(String wanted) {
+		this.wanted = wanted;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getImage() {
@@ -95,6 +107,10 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	public ICardData withImage(String image) {
+		this.image = image;
+		return this;
 	}
 	
 	@JsonProperty
@@ -104,6 +120,10 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 	public void setCardAuthor(String cardAuthor) {
 		this.cardAuthor = cardAuthor;
 	}
+	public ICardData withCardAuthor(String cardAuthor) {
+		this.cardAuthor = cardAuthor;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getCardIndex() {
@@ -111,6 +131,10 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 	}
 	public void setCardIndex(Integer cardIndex) {
 		this.cardIndex = cardIndex;
+	}
+	public ICardData withCardIndex(Integer cardIndex) {
+		this.cardIndex = cardIndex;
+		return this;
 	}
 	
 	@JsonProperty
@@ -120,6 +144,10 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public ICardData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRootCategoryId() {
@@ -127,6 +155,10 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
+	}
+	public ICardData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+		return this;
 	}
 	
 	

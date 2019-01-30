@@ -97,6 +97,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public INextCardData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getToday() {
@@ -104,6 +108,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	public void setToday(org.joda.time.DateTime today) {
 		this.today = today;
+	}
+	public INextCardData withToday(org.joda.time.DateTime today) {
+		this.today = today;
+		return this;
 	}
 	
 	@JsonProperty
@@ -113,6 +121,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
+	public INextCardData withScheduledCardId(String scheduledCardId) {
+		this.scheduledCardId = scheduledCardId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCardId() {
@@ -120,6 +132,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
+	}
+	public INextCardData withCardId(String cardId) {
+		this.cardId = cardId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -129,6 +145,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
+	public INextCardData withScheduledDate(org.joda.time.DateTime scheduledDate) {
+		this.scheduledDate = scheduledDate;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getLastQuality() {
@@ -136,6 +156,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	public void setLastQuality(Integer lastQuality) {
 		this.lastQuality = lastQuality;
+	}
+	public INextCardData withLastQuality(Integer lastQuality) {
+		this.lastQuality = lastQuality;
+		return this;
 	}
 	
 	@JsonProperty
@@ -145,6 +169,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	public void setGiven(String given) {
 		this.given = given;
 	}
+	public INextCardData withGiven(String given) {
+		this.given = given;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getWanted() {
@@ -152,6 +180,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
+	}
+	public INextCardData withWanted(String wanted) {
+		this.wanted = wanted;
+		return this;
 	}
 	
 	@JsonProperty
@@ -161,6 +193,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	public void setImage(String image) {
 		this.image = image;
 	}
+	public INextCardData withImage(String image) {
+		this.image = image;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCategoryId() {
@@ -168,6 +204,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
+	}
+	public INextCardData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -177,6 +217,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}
+	public INextCardData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getCount() {
@@ -184,6 +228,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	public void setCount(Integer count) {
 		this.count = count;
+	}
+	public INextCardData withCount(Integer count) {
+		this.count = count;
+		return this;
 	}
 	
 	@JsonProperty
@@ -193,6 +241,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	public void setScoredDate(org.joda.time.DateTime scoredDate) {
 		this.scoredDate = scoredDate;
 	}
+	public INextCardData withScoredDate(org.joda.time.DateTime scoredDate) {
+		this.scoredDate = scoredDate;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getBoxId() {
@@ -200,6 +252,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	public INextCardData withBoxId(String boxId) {
+		this.boxId = boxId;
+		return this;
 	}
 	
 	

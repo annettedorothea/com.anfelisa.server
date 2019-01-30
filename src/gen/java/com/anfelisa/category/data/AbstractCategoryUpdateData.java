@@ -61,6 +61,10 @@ public abstract class AbstractCategoryUpdateData extends AbstractData implements
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public ICategoryUpdateData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCategoryName() {
@@ -68,6 +72,10 @@ public abstract class AbstractCategoryUpdateData extends AbstractData implements
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	public ICategoryUpdateData withCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+		return this;
 	}
 	
 	@JsonProperty
@@ -77,6 +85,10 @@ public abstract class AbstractCategoryUpdateData extends AbstractData implements
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
 		this.dictionaryLookup = dictionaryLookup;
 	}
+	public ICategoryUpdateData withDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getGivenLanguage() {
@@ -84,6 +96,10 @@ public abstract class AbstractCategoryUpdateData extends AbstractData implements
 	}
 	public void setGivenLanguage(String givenLanguage) {
 		this.givenLanguage = givenLanguage;
+	}
+	public ICategoryUpdateData withGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+		return this;
 	}
 	
 	@JsonProperty
@@ -93,6 +109,10 @@ public abstract class AbstractCategoryUpdateData extends AbstractData implements
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
 	}
+	public ICategoryUpdateData withWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -100,6 +120,10 @@ public abstract class AbstractCategoryUpdateData extends AbstractData implements
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public ICategoryUpdateData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

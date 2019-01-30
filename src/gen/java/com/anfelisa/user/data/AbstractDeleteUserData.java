@@ -50,6 +50,10 @@ public abstract class AbstractDeleteUserData extends AbstractData implements IDe
 	public void setUsernameToBeDeleted(String usernameToBeDeleted) {
 		this.usernameToBeDeleted = usernameToBeDeleted;
 	}
+	public IDeleteUserData withUsernameToBeDeleted(String usernameToBeDeleted) {
+		this.usernameToBeDeleted = usernameToBeDeleted;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUsername() {
@@ -58,6 +62,10 @@ public abstract class AbstractDeleteUserData extends AbstractData implements IDe
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public IDeleteUserData withUsername(String username) {
+		this.username = username;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRole() {
@@ -65,6 +73,10 @@ public abstract class AbstractDeleteUserData extends AbstractData implements IDe
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public IDeleteUserData withRole(String role) {
+		this.role = role;
+		return this;
 	}
 	
 	

@@ -57,6 +57,10 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	public void setGiven(String given) {
 		this.given = given;
 	}
+	public ICardSearchData withGiven(String given) {
+		this.given = given;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getWanted() {
@@ -64,6 +68,10 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	}
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
+	}
+	public ICardSearchData withWanted(String wanted) {
+		this.wanted = wanted;
+		return this;
 	}
 	
 	@JsonProperty
@@ -73,6 +81,10 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public ICardSearchData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> getCardList() {
@@ -81,6 +93,10 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	public void setCardList(java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList) {
 		this.cardList = cardList;
 	}
+	public ICardSearchData withCardList(java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList) {
+		this.cardList = cardList;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getNaturalInputOrder() {
@@ -88,6 +104,10 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	}
 	public void setNaturalInputOrder(Boolean naturalInputOrder) {
 		this.naturalInputOrder = naturalInputOrder;
+	}
+	public ICardSearchData withNaturalInputOrder(Boolean naturalInputOrder) {
+		this.naturalInputOrder = naturalInputOrder;
+		return this;
 	}
 	
 	

@@ -5,11 +5,11 @@ import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.category.data.CategoryDeleteData;
+import com.anfelisa.category.data.ICategoryDeleteData;
 
-public class DeleteCategoryRootEvent extends Event<CategoryDeleteData> {
+public class DeleteCategoryRootEvent extends Event<ICategoryDeleteData> {
 
-	public DeleteCategoryRootEvent(CategoryDeleteData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public DeleteCategoryRootEvent(ICategoryDeleteData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.events.DeleteCategoryRootEvent", eventData, databaseHandle, daoProvider, viewProvider);
 	}
 

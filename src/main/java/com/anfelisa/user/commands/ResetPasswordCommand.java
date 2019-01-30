@@ -6,16 +6,16 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
+import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
 import com.anfelisa.user.models.IResetPasswordModel;
 
 public class ResetPasswordCommand extends AbstractResetPasswordCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ResetPasswordCommand.class);
 
-	public ResetPasswordCommand(ResetPasswordWithNewPasswordData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
+	public ResetPasswordCommand(IResetPasswordWithNewPasswordData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

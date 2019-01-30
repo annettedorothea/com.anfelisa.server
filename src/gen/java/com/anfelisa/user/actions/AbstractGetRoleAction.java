@@ -31,12 +31,13 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.user.data.IRoleData;
 import com.anfelisa.user.data.RoleData;
 
 
 @SuppressWarnings("unused")
 @Path("/user/role")
-public abstract class AbstractGetRoleAction extends Action<RoleData> {
+public abstract class AbstractGetRoleAction extends Action<IRoleData> {
 
 	public AbstractGetRoleAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.GetRoleAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -48,7 +49,7 @@ public abstract class AbstractGetRoleAction extends Action<RoleData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (RoleData)data;
+		this.actionData = (IRoleData)data;
 	}
 
 

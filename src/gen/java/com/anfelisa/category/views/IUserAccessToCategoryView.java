@@ -3,16 +3,16 @@ package com.anfelisa.category.views;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.category.data.CategoryCreationData;
-import com.anfelisa.category.data.InviteUserData;
-import com.anfelisa.category.data.RevokeUserData;
+import com.anfelisa.category.data.ICategoryCreationData;
+import com.anfelisa.category.data.IInviteUserData;
+import com.anfelisa.category.data.IRevokeUserData;
 
 @SuppressWarnings("all")
 public interface IUserAccessToCategoryView {
 
-	void grantAccess(CategoryCreationData data, Handle handle);
-	void grantAccessInvitation(InviteUserData data, Handle handle);
-	void revokeAccess(RevokeUserData data, Handle handle);
+	void grantAccess(ICategoryCreationData data, Handle handle);
+	void grantAccessInvitation(IInviteUserData data, Handle handle);
+	void revokeAccess(IRevokeUserData data, Handle handle);
 
 }
 

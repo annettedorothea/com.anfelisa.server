@@ -8,6 +8,14 @@ import com.anfelisa.user.models.IDeleteUserModel;
 
 @JsonDeserialize(as=DeleteUserData.class)
 public interface IDeleteUserData extends IDeleteUserModel, IDataContainer {
+	
+	IDeleteUserData withUsernameToBeDeleted(String usernameToBeDeleted);
+	
+	IDeleteUserData withUsername(String username);
+	
+	IDeleteUserData withRole(String role);
+	
+	
 }
 
 /*       S.D.G.       */

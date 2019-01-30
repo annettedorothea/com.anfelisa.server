@@ -95,6 +95,10 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public IScheduleNextCardData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getBoxId() {
@@ -102,6 +106,10 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	public IScheduleNextCardData withBoxId(String boxId) {
+		this.boxId = boxId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -111,6 +119,10 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
+	public IScheduleNextCardData withScheduledCardId(String scheduledCardId) {
+		this.scheduledCardId = scheduledCardId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCardId() {
@@ -118,6 +130,10 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	}
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
+	}
+	public IScheduleNextCardData withCardId(String cardId) {
+		this.cardId = cardId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -127,6 +143,10 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	public void setCreatedDate(org.joda.time.DateTime createdDate) {
 		this.createdDate = createdDate;
 	}
+	public IScheduleNextCardData withCreatedDate(org.joda.time.DateTime createdDate) {
+		this.createdDate = createdDate;
+		return this;
+	}
 	
 	@JsonProperty
 	public Float getEf() {
@@ -134,6 +154,10 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	}
 	public void setEf(Float ef) {
 		this.ef = ef;
+	}
+	public IScheduleNextCardData withEf(Float ef) {
+		this.ef = ef;
+		return this;
 	}
 	
 	@JsonProperty
@@ -143,6 +167,10 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	public void setInterval(Integer interval) {
 		this.interval = interval;
 	}
+	public IScheduleNextCardData withInterval(Integer interval) {
+		this.interval = interval;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getN() {
@@ -150,6 +178,10 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	}
 	public void setN(Integer n) {
 		this.n = n;
+	}
+	public IScheduleNextCardData withN(Integer n) {
+		this.n = n;
+		return this;
 	}
 	
 	@JsonProperty
@@ -159,6 +191,10 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	public void setCount(Integer count) {
 		this.count = count;
 	}
+	public IScheduleNextCardData withCount(Integer count) {
+		this.count = count;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getScheduledDate() {
@@ -166,6 +202,10 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	}
 	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
+	}
+	public IScheduleNextCardData withScheduledDate(org.joda.time.DateTime scheduledDate) {
+		this.scheduledDate = scheduledDate;
+		return this;
 	}
 	
 	@JsonProperty
@@ -175,6 +215,10 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	public void setLastQuality(Integer lastQuality) {
 		this.lastQuality = lastQuality;
 	}
+	public IScheduleNextCardData withLastQuality(Integer lastQuality) {
+		this.lastQuality = lastQuality;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getQuality() {
@@ -183,6 +227,10 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	public void setQuality(Integer quality) {
 		this.quality = quality;
 	}
+	public IScheduleNextCardData withQuality(Integer quality) {
+		this.quality = quality;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getScoredDate() {
@@ -190,6 +238,10 @@ public abstract class AbstractScheduleNextCardData extends AbstractData implemen
 	}
 	public void setScoredDate(org.joda.time.DateTime scoredDate) {
 		this.scoredDate = scoredDate;
+	}
+	public IScheduleNextCardData withScoredDate(org.joda.time.DateTime scoredDate) {
+		this.scoredDate = scoredDate;
+		return this;
 	}
 	
 	

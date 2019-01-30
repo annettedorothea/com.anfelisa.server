@@ -90,8 +90,6 @@ views
 	}
 	
 models 
-	schema public
-	
 	persistent Category {
 		Unique PrimaryKey NotNull String categoryId
 		Unique NotNull String categoryName

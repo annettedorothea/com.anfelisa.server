@@ -10,7 +10,7 @@ import java.util.Optional;
 public class AbstractUserDao {
 	
 	public void insert(Handle handle, IUserModel userModel) {
-		Update statement = handle.createUpdate("INSERT INTO public.user (userid, username, password, email, role, emailconfirmed) VALUES (:userid, :username, :password, :email, :role, :emailconfirmed)");
+		Update statement = handle.createUpdate("INSERT INTO \"user\" (userid, username, password, email, role, emailconfirmed) VALUES (:userid, :username, :password, :email, :role, :emailconfirmed)");
 		statement.bind("userid",  userModel.getUserId() );
 		statement.bind("username",  userModel.getUsername() );
 		statement.bind("password",  userModel.getPassword() );
@@ -22,7 +22,7 @@ public class AbstractUserDao {
 	
 	
 	public void updateByUserId(Handle handle, IUserModel userModel) {
-		Update statement = handle.createUpdate("UPDATE public.user SET userid = :userid, username = :username, password = :password, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE userid = :userid");
+		Update statement = handle.createUpdate("UPDATE \"user\" SET userid = :userid, username = :username, password = :password, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE userid = :userid");
 		statement.bind("userid",  userModel.getUserId() );
 		statement.bind("username",  userModel.getUsername() );
 		statement.bind("password",  userModel.getPassword() );
@@ -34,20 +34,20 @@ public class AbstractUserDao {
 	}
 
 	public void deleteByUserId(Handle handle, String userId) {
-		Update statement = handle.createUpdate("DELETE FROM public.user WHERE userid = :userid");
+		Update statement = handle.createUpdate("DELETE FROM \"user\" WHERE userid = :userid");
 		statement.bind("userid", userId);
 		statement.execute();
 	}
 
 	public IUserModel selectByUserId(Handle handle, String userId) {
-		Optional<IUserModel> optional = handle.createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM public.user WHERE userid = :userid")
+		Optional<IUserModel> optional = handle.createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM \"user\" WHERE userid = :userid")
 			.bind("userid", userId)
 			.map(new UserMapper())
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 	public void updateByUsername(Handle handle, IUserModel userModel) {
-		Update statement = handle.createUpdate("UPDATE public.user SET userid = :userid, username = :username, password = :password, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE username = :username");
+		Update statement = handle.createUpdate("UPDATE \"user\" SET userid = :userid, username = :username, password = :password, email = :email, role = :role, emailconfirmed = :emailconfirmed WHERE username = :username");
 		statement.bind("userid",  userModel.getUserId() );
 		statement.bind("username",  userModel.getUsername() );
 		statement.bind("password",  userModel.getPassword() );
@@ -59,13 +59,13 @@ public class AbstractUserDao {
 	}
 
 	public void deleteByUsername(Handle handle, String username) {
-		Update statement = handle.createUpdate("DELETE FROM public.user WHERE username = :username");
+		Update statement = handle.createUpdate("DELETE FROM \"user\" WHERE username = :username");
 		statement.bind("username", username);
 		statement.execute();
 	}
 
 	public IUserModel selectByUsername(Handle handle, String username) {
-		Optional<IUserModel> optional = handle.createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM public.user WHERE username = :username")
+		Optional<IUserModel> optional = handle.createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM \"user\" WHERE username = :username")
 			.bind("username", username)
 			.map(new UserMapper())
 			.findFirst();
@@ -73,13 +73,13 @@ public class AbstractUserDao {
 	}
 	
 	public List<IUserModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM public.user")
+		return handle.createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM \"user\"")
 			.map(new UserMapper())
 			.list();
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createUpdate("TRUNCATE public.user CASCADE");
+		Update statement = handle.createUpdate("TRUNCATE TABLE \"user\" CASCADE");
 		statement.execute();
 	}
 

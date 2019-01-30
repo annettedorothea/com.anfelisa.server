@@ -8,6 +8,12 @@ import com.anfelisa.category.models.IUserWithAccessModel;
 
 @JsonDeserialize(as=UserWithAccessData.class)
 public interface IUserWithAccessData extends IUserWithAccessModel, IDataContainer {
+	
+	IUserWithAccessData withUserId(String userId);
+	
+	IUserWithAccessData withUsername(String username);
+	
+	
 }
 
 /*       S.D.G.       */

@@ -3,14 +3,14 @@ package com.anfelisa.user.views;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.user.data.ForgotPasswordData;
-import com.anfelisa.user.data.UserRegistrationData;
+import com.anfelisa.user.data.IForgotPasswordData;
+import com.anfelisa.user.data.IUserRegistrationData;
 
 @SuppressWarnings("all")
 public interface IEmailView {
 
-	void sendForgotPasswordEmail(ForgotPasswordData data, Handle handle);
-	void sendRegistrationEmail(UserRegistrationData data, Handle handle);
+	void sendForgotPasswordEmail(IForgotPasswordData data, Handle handle);
+	void sendRegistrationEmail(IUserRegistrationData data, Handle handle);
 
 }
 

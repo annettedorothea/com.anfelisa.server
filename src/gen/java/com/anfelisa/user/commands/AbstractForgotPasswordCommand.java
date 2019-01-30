@@ -7,14 +7,14 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.user.data.ForgotPasswordData;
+import com.anfelisa.user.data.IForgotPasswordData;
 
-public abstract class AbstractForgotPasswordCommand extends Command<ForgotPasswordData> {
+public abstract class AbstractForgotPasswordCommand extends Command<IForgotPasswordData> {
 
 	protected static final String ok = "ok";
 	protected static final String doesNotExist = "doesNotExist";
 
-	public AbstractForgotPasswordCommand(ForgotPasswordData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractForgotPasswordCommand(IForgotPasswordData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.ForgotPasswordCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

@@ -7,7 +7,7 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 import org.joda.time.DateTime;
 
-import com.anfelisa.box.data.BoxUpdateData;
+import com.anfelisa.box.data.IBoxUpdateData;
 
 public class BoxDao extends AbstractBoxDao {
 	public List<IBoxViewModel> selectByUserId(Handle handle, String userId, DateTime today) {
@@ -58,7 +58,7 @@ public class BoxDao extends AbstractBoxDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public void updateBox(Handle handle, BoxUpdateData boxModel) {
+	public void updateBox(Handle handle, IBoxUpdateData boxModel) {
 		Update statement = handle.createUpdate("UPDATE public.box SET maxinterval = :maxinterval WHERE boxId = :boxId");
 		statement.bind("boxId", boxModel.getBoxId());
 		statement.bind("maxinterval",  boxModel.getMaxInterval() );

@@ -43,6 +43,10 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	public void setCategoryList(java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList) {
 		this.categoryList = categoryList;
 	}
+	public ICategoryTreeData withCategoryList(java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList) {
+		this.categoryList = categoryList;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -50,6 +54,10 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public ICategoryTreeData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

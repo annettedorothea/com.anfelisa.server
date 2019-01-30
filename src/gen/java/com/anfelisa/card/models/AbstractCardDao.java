@@ -10,7 +10,7 @@ import java.util.Optional;
 public class AbstractCardDao {
 	
 	public void insert(Handle handle, ICardModel cardModel) {
-		Update statement = handle.createUpdate("INSERT INTO public.card (cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid) VALUES (:cardid, :given, :wanted, :image, :cardauthor, :cardindex, :categoryid, :rootcategoryid)");
+		Update statement = handle.createUpdate("INSERT INTO \"card\" (cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid) VALUES (:cardid, :given, :wanted, :image, :cardauthor, :cardindex, :categoryid, :rootcategoryid)");
 		statement.bind("cardid",  cardModel.getCardId() );
 		statement.bind("given",  cardModel.getGiven() );
 		statement.bind("wanted",  cardModel.getWanted() );
@@ -24,7 +24,7 @@ public class AbstractCardDao {
 	
 	
 	public void updateByCardId(Handle handle, ICardModel cardModel) {
-		Update statement = handle.createUpdate("UPDATE public.card SET cardid = :cardid, given = :given, wanted = :wanted, image = :image, cardauthor = :cardauthor, cardindex = :cardindex, categoryid = :categoryid, rootcategoryid = :rootcategoryid WHERE cardid = :cardid");
+		Update statement = handle.createUpdate("UPDATE \"card\" SET cardid = :cardid, given = :given, wanted = :wanted, image = :image, cardauthor = :cardauthor, cardindex = :cardindex, categoryid = :categoryid, rootcategoryid = :rootcategoryid WHERE cardid = :cardid");
 		statement.bind("cardid",  cardModel.getCardId() );
 		statement.bind("given",  cardModel.getGiven() );
 		statement.bind("wanted",  cardModel.getWanted() );
@@ -38,13 +38,13 @@ public class AbstractCardDao {
 	}
 
 	public void deleteByCardId(Handle handle, String cardId) {
-		Update statement = handle.createUpdate("DELETE FROM public.card WHERE cardid = :cardid");
+		Update statement = handle.createUpdate("DELETE FROM \"card\" WHERE cardid = :cardid");
 		statement.bind("cardid", cardId);
 		statement.execute();
 	}
 
 	public ICardModel selectByCardId(Handle handle, String cardId) {
-		Optional<ICardModel> optional = handle.createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid FROM public.card WHERE cardid = :cardid")
+		Optional<ICardModel> optional = handle.createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid FROM \"card\" WHERE cardid = :cardid")
 			.bind("cardid", cardId)
 			.map(new CardMapper())
 			.findFirst();
@@ -52,13 +52,13 @@ public class AbstractCardDao {
 	}
 	
 	public List<ICardModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid FROM public.card")
+		return handle.createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid FROM \"card\"")
 			.map(new CardMapper())
 			.list();
 	}
 
 	public void truncate(Handle handle) {
-		Update statement = handle.createUpdate("TRUNCATE public.card CASCADE");
+		Update statement = handle.createUpdate("TRUNCATE TABLE \"card\" CASCADE");
 		statement.execute();
 	}
 

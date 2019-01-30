@@ -31,13 +31,14 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.box.data.BoxUpdateData;
 
 import com.anfelisa.box.commands.UpdateBoxCommand;
 
 @SuppressWarnings("unused")
 @Path("/box/update")
-public abstract class AbstractUpdateBoxAction extends Action<BoxUpdateData> {
+public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 
 	public AbstractUpdateBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.UpdateBoxAction", HttpMethod.PUT, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -49,7 +50,7 @@ public abstract class AbstractUpdateBoxAction extends Action<BoxUpdateData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (BoxUpdateData)data;
+		this.actionData = (IBoxUpdateData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -61,7 +62,7 @@ public abstract class AbstractUpdateBoxAction extends Action<BoxUpdateData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateBoxResource(
 			@Auth AuthUser authUser, 
-			@NotNull BoxUpdateData payload)
+			@NotNull IBoxUpdateData payload)
 			throws JsonProcessingException {
 		this.actionData = new BoxUpdateData(payload.getUuid());
 		this.actionData.setMaxInterval(payload.getMaxInterval());

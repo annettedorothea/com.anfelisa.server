@@ -65,6 +65,10 @@ public abstract class AbstractUserData extends AbstractData implements IUserData
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public IUserData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUsername() {
@@ -72,6 +76,10 @@ public abstract class AbstractUserData extends AbstractData implements IUserData
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public IUserData withUsername(String username) {
+		this.username = username;
+		return this;
 	}
 	
 	@JsonProperty
@@ -81,6 +89,10 @@ public abstract class AbstractUserData extends AbstractData implements IUserData
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public IUserData withPassword(String password) {
+		this.password = password;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getEmail() {
@@ -88,6 +100,10 @@ public abstract class AbstractUserData extends AbstractData implements IUserData
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public IUserData withEmail(String email) {
+		this.email = email;
+		return this;
 	}
 	
 	@JsonProperty
@@ -97,6 +113,10 @@ public abstract class AbstractUserData extends AbstractData implements IUserData
 	public void setRole(String role) {
 		this.role = role;
 	}
+	public IUserData withRole(String role) {
+		this.role = role;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getEmailConfirmed() {
@@ -104,6 +124,10 @@ public abstract class AbstractUserData extends AbstractData implements IUserData
 	}
 	public void setEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
+	}
+	public IUserData withEmailConfirmed(Boolean emailConfirmed) {
+		this.emailConfirmed = emailConfirmed;
+		return this;
 	}
 	
 	

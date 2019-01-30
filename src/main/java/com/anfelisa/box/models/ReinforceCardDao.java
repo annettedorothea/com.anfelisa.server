@@ -6,10 +6,10 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 import org.joda.time.DateTime;
 
-import com.anfelisa.box.data.ScoreCardData;
+import com.anfelisa.box.data.IScoreCardData;
 
 public class ReinforceCardDao extends AbstractReinforceCardDao {
-	public void insert(Handle handle, ScoreCardData scoreCardData) {
+	public void insert(Handle handle, IScoreCardData scoreCardData) {
 		Update statement = handle.createUpdate(
 				"INSERT INTO public.reinforcecard (reinforcecardid, scheduledcardid, boxid, changedate) VALUES (:reinforcecardid, :scheduledcardid, :boxid, :changedate)");
 		statement.bind("reinforcecardid", scoreCardData.getReinforceCardId());

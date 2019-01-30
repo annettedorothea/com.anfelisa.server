@@ -30,13 +30,14 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 
+import com.anfelisa.user.data.IUserRegistrationData;
 import com.anfelisa.user.data.UserRegistrationData;
 
 import com.anfelisa.user.commands.RegisterUserCommand;
 
 @SuppressWarnings("unused")
 @Path("/users/register")
-public abstract class AbstractRegisterUserAction extends Action<UserRegistrationData> {
+public abstract class AbstractRegisterUserAction extends Action<IUserRegistrationData> {
 
 	public AbstractRegisterUserAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.RegisterUserAction", HttpMethod.POST, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -48,7 +49,7 @@ public abstract class AbstractRegisterUserAction extends Action<UserRegistration
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (UserRegistrationData)data;
+		this.actionData = (IUserRegistrationData)data;
 	}
 
 	protected final void loadDataForGetRequest() {
@@ -59,7 +60,7 @@ public abstract class AbstractRegisterUserAction extends Action<UserRegistration
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response registerUserResource(
-			@NotNull UserRegistrationData payload)
+			@NotNull IUserRegistrationData payload)
 			throws JsonProcessingException {
 		this.actionData = new UserRegistrationData(payload.getUuid());
 		this.actionData.setPassword(payload.getPassword());

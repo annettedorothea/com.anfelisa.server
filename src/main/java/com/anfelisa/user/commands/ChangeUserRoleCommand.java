@@ -7,15 +7,15 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.Roles;
-import com.anfelisa.user.data.ChangeUserRoleData;
+import com.anfelisa.user.data.IChangeUserRoleData;
 
 public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ChangeUserRoleCommand.class);
 
-	public ChangeUserRoleCommand(ChangeUserRoleData commandParam, DatabaseHandle databaseHandle,
+	public ChangeUserRoleCommand(IChangeUserRoleData actionData, DatabaseHandle databaseHandle,
 			IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandParam, databaseHandle, daoProvider, viewProvider);
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	public ChangeUserRoleCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {

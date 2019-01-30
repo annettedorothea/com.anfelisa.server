@@ -79,6 +79,10 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public ICategoryData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCategoryName() {
@@ -86,6 +90,10 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	public ICategoryData withCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+		return this;
 	}
 	
 	@JsonProperty
@@ -95,6 +103,10 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	public void setCategoryAuthor(String categoryAuthor) {
 		this.categoryAuthor = categoryAuthor;
 	}
+	public ICategoryData withCategoryAuthor(String categoryAuthor) {
+		this.categoryAuthor = categoryAuthor;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getCategoryIndex() {
@@ -102,6 +114,10 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	public void setCategoryIndex(Integer categoryIndex) {
 		this.categoryIndex = categoryIndex;
+	}
+	public ICategoryData withCategoryIndex(Integer categoryIndex) {
+		this.categoryIndex = categoryIndex;
+		return this;
 	}
 	
 	@JsonProperty
@@ -111,6 +127,10 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	public void setParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
 	}
+	public ICategoryData withParentCategoryId(String parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRootCategoryId() {
@@ -118,6 +138,10 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
+	}
+	public ICategoryData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -127,6 +151,10 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
 		this.dictionaryLookup = dictionaryLookup;
 	}
+	public ICategoryData withDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getGivenLanguage() {
@@ -134,6 +162,10 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	public void setGivenLanguage(String givenLanguage) {
 		this.givenLanguage = givenLanguage;
+	}
+	public ICategoryData withGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+		return this;
 	}
 	
 	@JsonProperty
@@ -143,6 +175,10 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
 	}
+	public ICategoryData withWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getPublicRootCategory() {
@@ -150,6 +186,10 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	public void setPublicRootCategory(Boolean publicRootCategory) {
 		this.publicRootCategory = publicRootCategory;
+	}
+	public ICategoryData withPublicRootCategory(Boolean publicRootCategory) {
+		this.publicRootCategory = publicRootCategory;
+		return this;
 	}
 	
 	

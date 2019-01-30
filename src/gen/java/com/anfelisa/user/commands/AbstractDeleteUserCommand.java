@@ -7,13 +7,13 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.user.data.DeleteUserData;
+import com.anfelisa.user.data.IDeleteUserData;
 
-public abstract class AbstractDeleteUserCommand extends Command<DeleteUserData> {
+public abstract class AbstractDeleteUserCommand extends Command<IDeleteUserData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractDeleteUserCommand(DeleteUserData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractDeleteUserCommand(IDeleteUserData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.DeleteUserCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

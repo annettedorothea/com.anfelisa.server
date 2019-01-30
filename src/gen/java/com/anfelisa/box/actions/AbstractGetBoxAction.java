@@ -31,12 +31,13 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.box.data.IBoxInfoData;
 import com.anfelisa.box.data.BoxInfoData;
 
 
 @SuppressWarnings("unused")
 @Path("/box/get")
-public abstract class AbstractGetBoxAction extends Action<BoxInfoData> {
+public abstract class AbstractGetBoxAction extends Action<IBoxInfoData> {
 
 	public AbstractGetBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.GetBoxAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -48,7 +49,7 @@ public abstract class AbstractGetBoxAction extends Action<BoxInfoData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (BoxInfoData)data;
+		this.actionData = (IBoxInfoData)data;
 	}
 
 

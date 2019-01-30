@@ -3,11 +3,11 @@ package com.anfelisa.user.views;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.user.data.ChangeUserRoleData;
-import com.anfelisa.user.data.ConfirmEmailData;
-import com.anfelisa.user.data.DeleteUserData;
-import com.anfelisa.user.data.ResetPasswordWithNewPasswordData;
-import com.anfelisa.user.data.UserRegistrationData;
+import com.anfelisa.user.data.IChangeUserRoleData;
+import com.anfelisa.user.data.IConfirmEmailData;
+import com.anfelisa.user.data.IDeleteUserData;
+import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
+import com.anfelisa.user.data.IUserRegistrationData;
 
 public class UserView implements IUserView {
 
@@ -18,23 +18,23 @@ public class UserView implements IUserView {
 		this.daoProvider = daoProvider;
 	}
 
-	public void registerUser(UserRegistrationData data, Handle handle) {
+	public void registerUser(IUserRegistrationData data, Handle handle) {
 		daoProvider.getUserDao().insert(handle, data);
 	}
 
-	public void confirmEmail(ConfirmEmailData data, Handle handle) {
+	public void confirmEmail(IConfirmEmailData data, Handle handle) {
 		daoProvider.getUserDao().confirmEmail(handle, data.getUserId());
 	}
 
-	public void changeUserRole(ChangeUserRoleData data, Handle handle) {
+	public void changeUserRole(IChangeUserRoleData data, Handle handle) {
 		daoProvider.getUserDao().changeUserRole(handle, data.getUserId(), data.getRole());
 	}
 
-	public void deleteUser(DeleteUserData data, Handle handle) {
+	public void deleteUser(IDeleteUserData data, Handle handle) {
 		daoProvider.getUserDao().deleteByUsername(handle, data.getUsernameToBeDeleted());
 	}
 
-	public void resetPassword(ResetPasswordWithNewPasswordData data, Handle handle) {
+	public void resetPassword(IResetPasswordWithNewPasswordData data, Handle handle) {
 		daoProvider.getUserDao().updatePassword(handle, data);
 	}
 }

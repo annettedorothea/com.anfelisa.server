@@ -45,6 +45,10 @@ public abstract class AbstractUserAccessToCategoryData extends AbstractData impl
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public IUserAccessToCategoryData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -52,6 +56,10 @@ public abstract class AbstractUserAccessToCategoryData extends AbstractData impl
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public IUserAccessToCategoryData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

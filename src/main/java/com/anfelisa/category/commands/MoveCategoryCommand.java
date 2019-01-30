@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.category.data.CategoryMoveData;
+import com.anfelisa.category.data.ICategoryMoveData;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
@@ -14,9 +14,9 @@ public class MoveCategoryCommand extends AbstractMoveCategoryCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(MoveCategoryCommand.class);
 
-	public MoveCategoryCommand(CategoryMoveData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
+	public MoveCategoryCommand(ICategoryMoveData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
-		super(commandData, databaseHandle, daoProvider, viewProvider);
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

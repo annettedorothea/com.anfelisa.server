@@ -5,11 +5,11 @@ import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.category.data.CategoryUpdateData;
+import com.anfelisa.category.data.ICategoryUpdateData;
 
-public class UpdateCategoryOkEvent extends Event<CategoryUpdateData> {
+public class UpdateCategoryOkEvent extends Event<ICategoryUpdateData> {
 
-	public UpdateCategoryOkEvent(CategoryUpdateData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public UpdateCategoryOkEvent(ICategoryUpdateData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.events.UpdateCategoryOkEvent", eventData, databaseHandle, daoProvider, viewProvider);
 	}
 

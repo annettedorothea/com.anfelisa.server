@@ -61,6 +61,10 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	public void setMovedCategoryId(String movedCategoryId) {
 		this.movedCategoryId = movedCategoryId;
 	}
+	public ICategoryMoveData withMovedCategoryId(String movedCategoryId) {
+		this.movedCategoryId = movedCategoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getTargetCategoryId() {
@@ -68,6 +72,10 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	}
 	public void setTargetCategoryId(String targetCategoryId) {
 		this.targetCategoryId = targetCategoryId;
+	}
+	public ICategoryMoveData withTargetCategoryId(String targetCategoryId) {
+		this.targetCategoryId = targetCategoryId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -77,6 +85,10 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	public void setMovedCategory(com.anfelisa.category.models.ICategoryModel movedCategory) {
 		this.movedCategory = movedCategory;
 	}
+	public ICategoryMoveData withMovedCategory(com.anfelisa.category.models.ICategoryModel movedCategory) {
+		this.movedCategory = movedCategory;
+		return this;
+	}
 	
 	@JsonProperty
 	public Integer getCategoryIndexWhereRemoved() {
@@ -84,6 +96,10 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	}
 	public void setCategoryIndexWhereRemoved(Integer categoryIndexWhereRemoved) {
 		this.categoryIndexWhereRemoved = categoryIndexWhereRemoved;
+	}
+	public ICategoryMoveData withCategoryIndexWhereRemoved(Integer categoryIndexWhereRemoved) {
+		this.categoryIndexWhereRemoved = categoryIndexWhereRemoved;
+		return this;
 	}
 	
 	@JsonProperty
@@ -93,6 +109,10 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	public void setParentCategoryIdWhereRemoved(String parentCategoryIdWhereRemoved) {
 		this.parentCategoryIdWhereRemoved = parentCategoryIdWhereRemoved;
 	}
+	public ICategoryMoveData withParentCategoryIdWhereRemoved(String parentCategoryIdWhereRemoved) {
+		this.parentCategoryIdWhereRemoved = parentCategoryIdWhereRemoved;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getUserId() {
@@ -100,6 +120,10 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public ICategoryMoveData withUserId(String userId) {
+		this.userId = userId;
+		return this;
 	}
 	
 	

@@ -6,15 +6,15 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.box.data.BoxUpdateData;
+import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.box.models.IBoxModel;
 
 public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateBoxCommand.class);
 
-	public UpdateBoxCommand(BoxUpdateData commandData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(commandData, databaseHandle, daoProvider, viewProvider);
+	public UpdateBoxCommand(IBoxUpdateData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override

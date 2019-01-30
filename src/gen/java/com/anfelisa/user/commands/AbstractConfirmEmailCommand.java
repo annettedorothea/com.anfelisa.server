@@ -7,14 +7,14 @@ import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.user.data.ConfirmEmailData;
+import com.anfelisa.user.data.IConfirmEmailData;
 
-public abstract class AbstractConfirmEmailCommand extends Command<ConfirmEmailData> {
+public abstract class AbstractConfirmEmailCommand extends Command<IConfirmEmailData> {
 
 	protected static final String ok = "ok";
 	protected static final String alreadyConfirmed = "alreadyConfirmed";
 
-	public AbstractConfirmEmailCommand(ConfirmEmailData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractConfirmEmailCommand(IConfirmEmailData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.commands.ConfirmEmailCommand", commandParam, databaseHandle, daoProvider, viewProvider);
 	}
 

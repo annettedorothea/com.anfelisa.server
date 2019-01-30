@@ -79,6 +79,10 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
+	public ICategoryTreeRootItemData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getCategoryName() {
@@ -86,6 +90,10 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	public ICategoryTreeRootItemData withCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+		return this;
 	}
 	
 	@JsonProperty
@@ -95,6 +103,10 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	public void setCategoryIndex(Integer categoryIndex) {
 		this.categoryIndex = categoryIndex;
 	}
+	public ICategoryTreeRootItemData withCategoryIndex(Integer categoryIndex) {
+		this.categoryIndex = categoryIndex;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getEmpty() {
@@ -102,6 +114,10 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	}
 	public void setEmpty(Boolean empty) {
 		this.empty = empty;
+	}
+	public ICategoryTreeRootItemData withEmpty(Boolean empty) {
+		this.empty = empty;
+		return this;
 	}
 	
 	@JsonProperty
@@ -111,6 +127,10 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
 	}
+	public ICategoryTreeRootItemData withEditable(Boolean editable) {
+		this.editable = editable;
+		return this;
+	}
 	
 	@JsonProperty
 	public Boolean getHasBox() {
@@ -118,6 +138,10 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	}
 	public void setHasBox(Boolean hasBox) {
 		this.hasBox = hasBox;
+	}
+	public ICategoryTreeRootItemData withHasBox(Boolean hasBox) {
+		this.hasBox = hasBox;
+		return this;
 	}
 	
 	@JsonProperty
@@ -127,6 +151,10 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
 		this.dictionaryLookup = dictionaryLookup;
 	}
+	public ICategoryTreeRootItemData withDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getGivenLanguage() {
@@ -134,6 +162,10 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	}
 	public void setGivenLanguage(String givenLanguage) {
 		this.givenLanguage = givenLanguage;
+	}
+	public ICategoryTreeRootItemData withGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+		return this;
 	}
 	
 	@JsonProperty
@@ -143,6 +175,10 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
 	}
+	public ICategoryTreeRootItemData withWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getRootCategoryId() {
@@ -151,6 +187,10 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}
+	public ICategoryTreeRootItemData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+		return this;
+	}
 	
 	@JsonProperty
 	public java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> getChildCategories() {
@@ -158,6 +198,10 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	}
 	public void setChildCategories(java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories) {
 		this.childCategories = childCategories;
+	}
+	public ICategoryTreeRootItemData withChildCategories(java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories) {
+		this.childCategories = childCategories;
+		return this;
 	}
 	
 	

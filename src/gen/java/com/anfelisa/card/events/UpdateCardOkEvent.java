@@ -5,11 +5,11 @@ import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.card.data.CardUpdateData;
+import com.anfelisa.card.data.ICardUpdateData;
 
-public class UpdateCardOkEvent extends Event<CardUpdateData> {
+public class UpdateCardOkEvent extends Event<ICardUpdateData> {
 
-	public UpdateCardOkEvent(CardUpdateData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public UpdateCardOkEvent(ICardUpdateData eventData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.events.UpdateCardOkEvent", eventData, databaseHandle, daoProvider, viewProvider);
 	}
 

@@ -3,8 +3,8 @@ package com.anfelisa.user.views;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.user.data.ConfirmEmailData;
-import com.anfelisa.user.data.UserRegistrationData;
+import com.anfelisa.user.data.IConfirmEmailData;
+import com.anfelisa.user.data.IUserRegistrationData;
 
 public class EmailConfirmationView implements IEmailConfirmationView {
 
@@ -15,11 +15,11 @@ public class EmailConfirmationView implements IEmailConfirmationView {
 		this.daoProvider = daoProvider;
 	}
 
-	public void insert(UserRegistrationData data, Handle handle) {
+	public void insert(IUserRegistrationData data, Handle handle) {
 		daoProvider.getEmailConfirmationDao().insert(handle, data);
 	}
 
-	public void delete(ConfirmEmailData data, Handle handle) {
+	public void delete(IConfirmEmailData data, Handle handle) {
 		daoProvider.getEmailConfirmationDao().deleteByToken(handle, data.getToken());
 	}
 

@@ -55,6 +55,10 @@ public abstract class AbstractReinforceCardData extends AbstractData implements 
 	public void setReinforceCardId(String reinforceCardId) {
 		this.reinforceCardId = reinforceCardId;
 	}
+	public IReinforceCardData withReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
+		return this;
+	}
 	
 	@JsonProperty
 	public String getScheduledCardId() {
@@ -62,6 +66,10 @@ public abstract class AbstractReinforceCardData extends AbstractData implements 
 	}
 	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
+	}
+	public IReinforceCardData withScheduledCardId(String scheduledCardId) {
+		this.scheduledCardId = scheduledCardId;
+		return this;
 	}
 	
 	@JsonProperty
@@ -71,6 +79,10 @@ public abstract class AbstractReinforceCardData extends AbstractData implements 
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
+	public IReinforceCardData withBoxId(String boxId) {
+		this.boxId = boxId;
+		return this;
+	}
 	
 	@JsonProperty
 	public org.joda.time.DateTime getChangeDate() {
@@ -78,6 +90,10 @@ public abstract class AbstractReinforceCardData extends AbstractData implements 
 	}
 	public void setChangeDate(org.joda.time.DateTime changeDate) {
 		this.changeDate = changeDate;
+	}
+	public IReinforceCardData withChangeDate(org.joda.time.DateTime changeDate) {
+		this.changeDate = changeDate;
+		return this;
 	}
 	
 	

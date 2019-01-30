@@ -31,12 +31,13 @@ import org.joda.time.DateTimeZone;
 
 import com.anfelisa.auth.AuthUser;
 
+import com.anfelisa.user.data.IUserListData;
 import com.anfelisa.user.data.UserListData;
 
 
 @SuppressWarnings("unused")
 @Path("/users/all")
-public abstract class AbstractGetAllUsersAction extends Action<UserListData> {
+public abstract class AbstractGetAllUsersAction extends Action<IUserListData> {
 
 	public AbstractGetAllUsersAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.GetAllUsersAction", HttpMethod.GET, jdbi, appConfiguration, daoProvider, viewProvider);
@@ -48,7 +49,7 @@ public abstract class AbstractGetAllUsersAction extends Action<UserListData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (UserListData)data;
+		this.actionData = (IUserListData)data;
 	}
 
 
