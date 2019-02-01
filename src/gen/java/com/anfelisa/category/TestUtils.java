@@ -25,6 +25,7 @@ import org.junit.BeforeClass;
 import org.mockito.MockitoAnnotations;
 
 import com.anfelisa.ace.App;
+import com.anfelisa.ace.AbstractBaseTest;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.ITimelineItem;
@@ -50,10 +51,11 @@ public class TestUtils {
 		return UUID.randomUUID().toString();
 	}
 	
-	public static Response callCreateCategory(com.anfelisa.category.data.ICategoryCreationData data) {
+	public static Response callCreateCategory(com.anfelisa.category.data.ICategoryCreationData data, String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/category/create", BaseTest.SUPPORT.getLocalPort())).request()
-				.post(Entity.json(data));
+		Builder builder = client.target(String.format("http://localhost:%d/api/category/create", AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		builder.header("Authorization", authorization);
+		return builder.post(Entity.json(data));
 	}
 	
 	public static TimelineItem createCreateCategorySubEventTimelineItem(com.anfelisa.category.data.ICategoryCreationData data) throws JsonProcessingException {
@@ -69,10 +71,12 @@ public class TestUtils {
 	public static Response callUpdateCategory(
 			com.anfelisa.category.data.ICategoryUpdateData data, 
 			String uuid
+			, String authorization
 		) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/category/update?uuid=" + uuid, BaseTest.SUPPORT.getLocalPort())).request()
-				.put(Entity.json(data));
+		Builder builder = client.target(String.format("http://localhost:%d/api/category/update?uuid=" + uuid, AbstractBaseTest.SUPPORT.getLocalPort())).request();
+		builder.header("Authorization", authorization);
+		return builder.put(Entity.json(data));
 	}
 	
 	public static TimelineItem createUpdateCategoryOkEventTimelineItem(com.anfelisa.category.data.ICategoryUpdateData data) throws JsonProcessingException {
@@ -83,10 +87,12 @@ public class TestUtils {
 	public static Response callDeleteCategory(
 			String uuid, 
 			String categoryId
+			, String authorization
 	) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/category/delete?uuid=" + uuid + "&categoryId=" + categoryId, BaseTest.SUPPORT.getLocalPort())).request()
-				.delete();
+		Builder builder = client.target(String.format("http://localhost:%d/api/category/delete?uuid=" + uuid + "&categoryId=" + categoryId, AbstractBaseTest.SUPPORT.getLocalPort())).request();
+		builder.header("Authorization", authorization);
+		return builder.delete();
 	}
 	
 	public static TimelineItem createDeleteCategoryNoRootEventTimelineItem(com.anfelisa.category.data.ICategoryDeleteData data) throws JsonProcessingException {
@@ -99,10 +105,11 @@ public class TestUtils {
 		String json = mapper.writeValueAsString(event.getEventData());
 		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
 	}
-	public static Response callInviteUser(com.anfelisa.category.data.IInviteUserData data) {
+	public static Response callInviteUser(com.anfelisa.category.data.IInviteUserData data, String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/category/invite", BaseTest.SUPPORT.getLocalPort())).request()
-				.post(Entity.json(data));
+		Builder builder = client.target(String.format("http://localhost:%d/api/category/invite", AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		builder.header("Authorization", authorization);
+		return builder.post(Entity.json(data));
 	}
 	
 	public static TimelineItem createInviteUserOkEventTimelineItem(com.anfelisa.category.data.IInviteUserData data) throws JsonProcessingException {
@@ -118,10 +125,12 @@ public class TestUtils {
 	public static Response callRevokeUserAccess(
 			String uuid, 
 			String revokedUserId, String categoryId
+			, String authorization
 	) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/category/revoke?uuid=" + uuid + "&revokedUserId=" + revokedUserId + "&categoryId=" + categoryId, BaseTest.SUPPORT.getLocalPort())).request()
-				.delete();
+		Builder builder = client.target(String.format("http://localhost:%d/api/category/revoke?uuid=" + uuid + "&revokedUserId=" + revokedUserId + "&categoryId=" + categoryId, AbstractBaseTest.SUPPORT.getLocalPort())).request();
+		builder.header("Authorization", authorization);
+		return builder.delete();
 	}
 	
 	public static TimelineItem createRevokeUserAccessOkEventTimelineItem(com.anfelisa.category.data.IRevokeUserData data) throws JsonProcessingException {
@@ -137,29 +146,33 @@ public class TestUtils {
 	public static Response callGetUsersWithAccess(
 			String uuid, 
 			String categoryId
+			, String authorization
 	) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(
-				String.format("http://localhost:%d/api/category/users?uuid=" + uuid + "&categoryId=" + categoryId, BaseTest.SUPPORT.getLocalPort()))
-				.request().get();
+		Builder builder = client.target(String.format("http://localhost:%d/api/category/users?uuid=" + uuid + "&categoryId=" + categoryId, AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
 	}
 	
 	public static Response callGetCategoryTree(
 			String uuid
+			, String authorization
 	) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(
-				String.format("http://localhost:%d/api/category/tree?uuid=" + uuid, BaseTest.SUPPORT.getLocalPort()))
-				.request().get();
+		Builder builder = client.target(String.format("http://localhost:%d/api/category/tree?uuid=" + uuid, AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
 	}
 	
 	public static Response callMoveCategory(
 			com.anfelisa.category.data.ICategoryMoveData data, 
 			String uuid
+			, String authorization
 		) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/category/move?uuid=" + uuid, BaseTest.SUPPORT.getLocalPort())).request()
-				.put(Entity.json(data));
+		Builder builder = client.target(String.format("http://localhost:%d/api/category/move?uuid=" + uuid, AbstractBaseTest.SUPPORT.getLocalPort())).request();
+		builder.header("Authorization", authorization);
+		return builder.put(Entity.json(data));
 	}
 	
 	public static TimelineItem createMoveCategoryOkEventTimelineItem(com.anfelisa.category.data.ICategoryMoveData data) throws JsonProcessingException {

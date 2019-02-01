@@ -25,6 +25,7 @@ import org.junit.BeforeClass;
 import org.mockito.MockitoAnnotations;
 
 import com.anfelisa.ace.App;
+import com.anfelisa.ace.AbstractBaseTest;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.ITimelineItem;
@@ -50,10 +51,11 @@ public class TestUtils {
 		return UUID.randomUUID().toString();
 	}
 	
-	public static Response callCreateCard(com.anfelisa.card.data.ICardCreationData data) {
+	public static Response callCreateCard(com.anfelisa.card.data.ICardCreationData data, String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/card/create", BaseTest.SUPPORT.getLocalPort())).request()
-				.post(Entity.json(data));
+		Builder builder = client.target(String.format("http://localhost:%d/api/card/create", AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		builder.header("Authorization", authorization);
+		return builder.post(Entity.json(data));
 	}
 	
 	public static TimelineItem createCreateCardOkEventTimelineItem(com.anfelisa.card.data.ICardCreationData data) throws JsonProcessingException {
@@ -64,10 +66,12 @@ public class TestUtils {
 	public static Response callUpdateCard(
 			com.anfelisa.card.data.ICardUpdateData data, 
 			String uuid
+			, String authorization
 		) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/card/update?uuid=" + uuid, BaseTest.SUPPORT.getLocalPort())).request()
-				.put(Entity.json(data));
+		Builder builder = client.target(String.format("http://localhost:%d/api/card/update?uuid=" + uuid, AbstractBaseTest.SUPPORT.getLocalPort())).request();
+		builder.header("Authorization", authorization);
+		return builder.put(Entity.json(data));
 	}
 	
 	public static TimelineItem createUpdateCardOkEventTimelineItem(com.anfelisa.card.data.ICardUpdateData data) throws JsonProcessingException {
@@ -78,10 +82,12 @@ public class TestUtils {
 	public static Response callDeleteCard(
 			String uuid, 
 			String cardId
+			, String authorization
 	) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/card/delete?uuid=" + uuid + "&cardId=" + cardId, BaseTest.SUPPORT.getLocalPort())).request()
-				.delete();
+		Builder builder = client.target(String.format("http://localhost:%d/api/card/delete?uuid=" + uuid + "&cardId=" + cardId, AbstractBaseTest.SUPPORT.getLocalPort())).request();
+		builder.header("Authorization", authorization);
+		return builder.delete();
 	}
 	
 	public static TimelineItem createDeleteCardOkEventTimelineItem(com.anfelisa.card.data.ICardDeleteData data) throws JsonProcessingException {
@@ -92,40 +98,45 @@ public class TestUtils {
 	public static Response callGetDuplicates(
 			String uuid, 
 			String given, String wanted, Boolean naturalInputOrder, String categoryId
+			, String authorization
 	) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(
-				String.format("http://localhost:%d/api/cards/search?uuid=" + uuid + "&given=" + given + "&wanted=" + wanted + "&naturalInputOrder=" + naturalInputOrder + "&categoryId=" + categoryId, BaseTest.SUPPORT.getLocalPort()))
-				.request().get();
+		Builder builder = client.target(String.format("http://localhost:%d/api/cards/search?uuid=" + uuid + "&given=" + given + "&wanted=" + wanted + "&naturalInputOrder=" + naturalInputOrder + "&categoryId=" + categoryId, AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
 	}
 	
 	public static Response callGetTranslation(
 			String uuid, 
 			String sourceValue, String sourceLanguage, String targetLanguage
+			, String authorization
 	) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(
-				String.format("http://localhost:%d/api/card/translation?uuid=" + uuid + "&sourceValue=" + sourceValue + "&sourceLanguage=" + sourceLanguage + "&targetLanguage=" + targetLanguage, BaseTest.SUPPORT.getLocalPort()))
-				.request().get();
+		Builder builder = client.target(String.format("http://localhost:%d/api/card/translation?uuid=" + uuid + "&sourceValue=" + sourceValue + "&sourceLanguage=" + sourceLanguage + "&targetLanguage=" + targetLanguage, AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
 	}
 	
 	public static Response callGetCards(
 			String uuid, 
 			String categoryId
+			, String authorization
 	) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(
-				String.format("http://localhost:%d/api/cards?uuid=" + uuid + "&categoryId=" + categoryId, BaseTest.SUPPORT.getLocalPort()))
-				.request().get();
+		Builder builder = client.target(String.format("http://localhost:%d/api/cards?uuid=" + uuid + "&categoryId=" + categoryId, AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
 	}
 	
 	public static Response callMoveCards(
 			com.anfelisa.card.data.ICardIdListData data, 
 			String uuid
+			, String authorization
 		) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/cards/move?uuid=" + uuid, BaseTest.SUPPORT.getLocalPort())).request()
-				.put(Entity.json(data));
+		Builder builder = client.target(String.format("http://localhost:%d/api/cards/move?uuid=" + uuid, AbstractBaseTest.SUPPORT.getLocalPort())).request();
+		builder.header("Authorization", authorization);
+		return builder.put(Entity.json(data));
 	}
 	
 	public static TimelineItem createMoveCardsOkEventTimelineItem(com.anfelisa.card.data.ICardIdListData data) throws JsonProcessingException {

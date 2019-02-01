@@ -17,7 +17,7 @@ public class EmailService {
 	}
 
 	public void sendEmail(String to, String subject, String message) {
-		try {
+		/*try {
 			Email email = new SimpleEmail();
 			email.setHostName(emailConfiguration.getHost());
 			email.setSmtpPort(emailConfiguration.getPort());
@@ -32,11 +32,11 @@ public class EmailService {
 		} catch (EmailException e) {
 			e.printStackTrace();
 			throw new WebApplicationException("failedToSendEmail", Response.Status.BAD_REQUEST);
-		}
+		}*/
 	}
 	
 	public void sendAdminEmail(String subject, String message) {
-		try {
+		/*try {
 			Email email = new SimpleEmail();
 			email.setHostName(emailConfiguration.getHost());
 			email.setSmtpPort(emailConfiguration.getPort());
@@ -51,7 +51,7 @@ public class EmailService {
 		} catch (EmailException e) {
 			e.printStackTrace();
 			throw new WebApplicationException("failedToSendEmail", Response.Status.BAD_REQUEST);
-		}
+		}*/
 	}
 	
 	public String getLocalhost() {

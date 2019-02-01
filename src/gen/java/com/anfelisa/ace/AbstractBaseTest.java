@@ -1,4 +1,4 @@
-package com.anfelisa.user;
+package com.anfelisa.ace;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -42,7 +42,7 @@ import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 
 @SuppressWarnings("unused")
-public abstract class BaseTest {
+public abstract class AbstractBaseTest {
 
 	protected final JodaObjectMapper mapper = new JodaObjectMapper();
 
@@ -56,12 +56,6 @@ public abstract class BaseTest {
 	@BeforeClass
 	public static void beforeClass() throws SQLException, LiquibaseException {
 		SUPPORT.before();
-		ManagedDataSource ds = SUPPORT.getConfiguration().getDataSourceFactory().build(SUPPORT.getEnvironment().metrics(), "migrations");
-		try (Connection connection = ds.getConnection()) {
-			Liquibase migrator = new Liquibase("migrations.xml", new ClassLoaderResourceAccessor(),
-					new JdbcConnection(connection));
-			migrator.update("");
-		}
 	}
 
 	@AfterClass
@@ -85,14 +79,14 @@ public abstract class BaseTest {
 
 	protected void prepare(List<ITimelineItem> timeline) {
 		Client client = new JerseyClientBuilder().build();
-		client.target(String.format("http://localhost:%d/api/test/prepare", SUPPORT.getLocalPort()))
+		client.target(String.format("http://localhost:%d/api/test/replay-events", SUPPORT.getLocalPort()))
 				.request().put(Entity.json(timeline));
 	}
 
 	protected void prepare() {
 		List<ITimelineItem> timeline = new ArrayList<>();
 		Client client = new JerseyClientBuilder().build();
-		client.target(String.format("http://localhost:%d/api/test/prepare", SUPPORT.getLocalPort()))
+		client.target(String.format("http://localhost:%d/api/test/replay-events", SUPPORT.getLocalPort()))
 				.request().put(Entity.json(timeline));
 	}
 
@@ -102,7 +96,9 @@ public abstract class BaseTest {
 				.request().put(Entity.json(systemTime.toString()));
 	}
 
-	protected abstract Builder addAuthentication(Builder builder);
+	protected String getAuthenticationHeader() {
+		return "";
+	}
 	
 }
 

@@ -25,6 +25,7 @@ import org.junit.BeforeClass;
 import org.mockito.MockitoAnnotations;
 
 import com.anfelisa.ace.App;
+import com.anfelisa.ace.AbstractBaseTest;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.DaoProvider;
 import com.anfelisa.ace.ITimelineItem;
@@ -52,11 +53,12 @@ public class TestUtils {
 	
 	public static Response callGetUserProfile(
 			String uuid
+			, String authorization
 	) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(
-				String.format("http://localhost:%d/api/user/get?uuid=" + uuid, BaseTest.SUPPORT.getLocalPort()))
-				.request().get();
+		Builder builder = client.target(String.format("http://localhost:%d/api/user/get?uuid=" + uuid, AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
 	}
 	
 	public static Response callUsernameAvailable(
@@ -64,33 +66,34 @@ public class TestUtils {
 			String username
 	) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(
-				String.format("http://localhost:%d/api/users/username?uuid=" + uuid + "&username=" + username, BaseTest.SUPPORT.getLocalPort()))
-				.request().get();
+		Builder builder = client.target(String.format("http://localhost:%d/api/users/username?uuid=" + uuid + "&username=" + username, AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		return builder.get();
 	}
 	
 	public static Response callGetRole(
 			String uuid
+			, String authorization
 	) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(
-				String.format("http://localhost:%d/api/user/role?uuid=" + uuid, BaseTest.SUPPORT.getLocalPort()))
-				.request().get();
+		Builder builder = client.target(String.format("http://localhost:%d/api/user/role?uuid=" + uuid, AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
 	}
 	
 	public static Response callGetAllUsers(
 			String uuid
+			, String authorization
 	) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(
-				String.format("http://localhost:%d/api/users/all?uuid=" + uuid, BaseTest.SUPPORT.getLocalPort()))
-				.request().get();
+		Builder builder = client.target(String.format("http://localhost:%d/api/users/all?uuid=" + uuid, AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
 	}
 	
 	public static Response callForgotPassword(com.anfelisa.user.data.IForgotPasswordData data) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/users/forgot-password", BaseTest.SUPPORT.getLocalPort())).request()
-				.post(Entity.json(data));
+		Builder builder = client.target(String.format("http://localhost:%d/api/users/forgot-password", AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		return builder.post(Entity.json(data));
 	}
 	
 	public static TimelineItem createForgotPasswordOkEventTimelineItem(com.anfelisa.user.data.IForgotPasswordData data) throws JsonProcessingException {
@@ -108,8 +111,8 @@ public class TestUtils {
 			String uuid
 		) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/users/resetpassword?uuid=" + uuid, BaseTest.SUPPORT.getLocalPort())).request()
-				.put(Entity.json(data));
+		Builder builder = client.target(String.format("http://localhost:%d/api/users/resetpassword?uuid=" + uuid, AbstractBaseTest.SUPPORT.getLocalPort())).request();
+		return builder.put(Entity.json(data));
 	}
 	
 	public static TimelineItem createResetPasswordOkEventTimelineItem(com.anfelisa.user.data.IResetPasswordWithNewPasswordData data) throws JsonProcessingException {
@@ -119,8 +122,8 @@ public class TestUtils {
 	}
 	public static Response callRegisterUser(com.anfelisa.user.data.IUserRegistrationData data) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/users/register", BaseTest.SUPPORT.getLocalPort())).request()
-				.post(Entity.json(data));
+		Builder builder = client.target(String.format("http://localhost:%d/api/users/register", AbstractBaseTest.SUPPORT.getLocalPort())).request(); 
+		return builder.post(Entity.json(data));
 	}
 	
 	public static TimelineItem createRegisterUserOkEventTimelineItem(com.anfelisa.user.data.IUserRegistrationData data) throws JsonProcessingException {
@@ -133,8 +136,8 @@ public class TestUtils {
 			String uuid
 		) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/users/confirm?uuid=" + uuid, BaseTest.SUPPORT.getLocalPort())).request()
-				.put(Entity.json(data));
+		Builder builder = client.target(String.format("http://localhost:%d/api/users/confirm?uuid=" + uuid, AbstractBaseTest.SUPPORT.getLocalPort())).request();
+		return builder.put(Entity.json(data));
 	}
 	
 	public static TimelineItem createConfirmEmailOkEventTimelineItem(com.anfelisa.user.data.IConfirmEmailData data) throws JsonProcessingException {
@@ -150,10 +153,12 @@ public class TestUtils {
 	public static Response callChangeUserRole(
 			com.anfelisa.user.data.IChangeUserRoleData data, 
 			String uuid
+			, String authorization
 		) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/user/role?uuid=" + uuid, BaseTest.SUPPORT.getLocalPort())).request()
-				.put(Entity.json(data));
+		Builder builder = client.target(String.format("http://localhost:%d/api/user/role?uuid=" + uuid, AbstractBaseTest.SUPPORT.getLocalPort())).request();
+		builder.header("Authorization", authorization);
+		return builder.put(Entity.json(data));
 	}
 	
 	public static TimelineItem createChangeUserRoleOkEventTimelineItem(com.anfelisa.user.data.IChangeUserRoleData data) throws JsonProcessingException {
@@ -164,10 +169,12 @@ public class TestUtils {
 	public static Response callDeleteUser(
 			String uuid, 
 			String usernameToBeDeleted
+			, String authorization
 	) {
 		Client client = new JerseyClientBuilder().build();
-		return client.target(String.format("http://localhost:%d/api/user/delete?uuid=" + uuid + "&usernameToBeDeleted=" + usernameToBeDeleted, BaseTest.SUPPORT.getLocalPort())).request()
-				.delete();
+		Builder builder = client.target(String.format("http://localhost:%d/api/user/delete?uuid=" + uuid + "&usernameToBeDeleted=" + usernameToBeDeleted, AbstractBaseTest.SUPPORT.getLocalPort())).request();
+		builder.header("Authorization", authorization);
+		return builder.delete();
 	}
 	
 	public static TimelineItem createDeleteUserOkEventTimelineItem(com.anfelisa.user.data.IDeleteUserData data) throws JsonProcessingException {
