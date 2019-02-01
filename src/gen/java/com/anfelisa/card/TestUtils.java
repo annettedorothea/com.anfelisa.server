@@ -59,9 +59,8 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createCreateCardOkEventTimelineItem(com.anfelisa.card.data.ICardCreationData data) throws JsonProcessingException {
-		com.anfelisa.card.events.CreateCardOkEvent event =  new com.anfelisa.card.events.CreateCardOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.card.events.CreateCardOkEvent", null, json, randomUUID());
 	}
 	public static Response callUpdateCard(
 			com.anfelisa.card.data.ICardUpdateData data, 
@@ -75,9 +74,8 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createUpdateCardOkEventTimelineItem(com.anfelisa.card.data.ICardUpdateData data) throws JsonProcessingException {
-		com.anfelisa.card.events.UpdateCardOkEvent event =  new com.anfelisa.card.events.UpdateCardOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.card.events.UpdateCardOkEvent", null, json, randomUUID());
 	}
 	public static Response callDeleteCard(
 			String uuid, 
@@ -91,9 +89,8 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createDeleteCardOkEventTimelineItem(com.anfelisa.card.data.ICardDeleteData data) throws JsonProcessingException {
-		com.anfelisa.card.events.DeleteCardOkEvent event =  new com.anfelisa.card.events.DeleteCardOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.card.events.DeleteCardOkEvent", null, json, randomUUID());
 	}
 	public static Response callGetDuplicates(
 			String uuid, 
@@ -140,9 +137,8 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createMoveCardsOkEventTimelineItem(com.anfelisa.card.data.ICardIdListData data) throws JsonProcessingException {
-		com.anfelisa.card.events.MoveCardsOkEvent event =  new com.anfelisa.card.events.MoveCardsOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.card.events.MoveCardsOkEvent", null, json, randomUUID());
 	}
 	
 	public static void assertEquals(com.anfelisa.card.models.ICardModel actual, com.anfelisa.card.models.ICardModel expected) {

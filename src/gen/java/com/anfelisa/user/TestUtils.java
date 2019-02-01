@@ -97,14 +97,12 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createForgotPasswordOkEventTimelineItem(com.anfelisa.user.data.IForgotPasswordData data) throws JsonProcessingException {
-		com.anfelisa.user.events.ForgotPasswordOkEvent event =  new com.anfelisa.user.events.ForgotPasswordOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.user.events.ForgotPasswordOkEvent", null, json, randomUUID());
 	}
 	public static TimelineItem createForgotPasswordDoesNotExistEventTimelineItem(com.anfelisa.user.data.IForgotPasswordData data) throws JsonProcessingException {
-		com.anfelisa.user.events.ForgotPasswordDoesNotExistEvent event =  new com.anfelisa.user.events.ForgotPasswordDoesNotExistEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.user.events.ForgotPasswordDoesNotExistEvent", null, json, randomUUID());
 	}
 	public static Response callResetPassword(
 			com.anfelisa.user.data.IResetPasswordWithNewPasswordData data, 
@@ -116,9 +114,8 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createResetPasswordOkEventTimelineItem(com.anfelisa.user.data.IResetPasswordWithNewPasswordData data) throws JsonProcessingException {
-		com.anfelisa.user.events.ResetPasswordOkEvent event =  new com.anfelisa.user.events.ResetPasswordOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.user.events.ResetPasswordOkEvent", null, json, randomUUID());
 	}
 	public static Response callRegisterUser(com.anfelisa.user.data.IUserRegistrationData data) {
 		Client client = new JerseyClientBuilder().build();
@@ -127,9 +124,8 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createRegisterUserOkEventTimelineItem(com.anfelisa.user.data.IUserRegistrationData data) throws JsonProcessingException {
-		com.anfelisa.user.events.RegisterUserOkEvent event =  new com.anfelisa.user.events.RegisterUserOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.user.events.RegisterUserOkEvent", null, json, randomUUID());
 	}
 	public static Response callConfirmEmail(
 			com.anfelisa.user.data.IConfirmEmailData data, 
@@ -141,14 +137,12 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createConfirmEmailOkEventTimelineItem(com.anfelisa.user.data.IConfirmEmailData data) throws JsonProcessingException {
-		com.anfelisa.user.events.ConfirmEmailOkEvent event =  new com.anfelisa.user.events.ConfirmEmailOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.user.events.ConfirmEmailOkEvent", null, json, randomUUID());
 	}
 	public static TimelineItem createConfirmEmailAlreadyConfirmedEventTimelineItem(com.anfelisa.user.data.IConfirmEmailData data) throws JsonProcessingException {
-		com.anfelisa.user.events.ConfirmEmailAlreadyConfirmedEvent event =  new com.anfelisa.user.events.ConfirmEmailAlreadyConfirmedEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.user.events.ConfirmEmailAlreadyConfirmedEvent", null, json, randomUUID());
 	}
 	public static Response callChangeUserRole(
 			com.anfelisa.user.data.IChangeUserRoleData data, 
@@ -162,9 +156,8 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createChangeUserRoleOkEventTimelineItem(com.anfelisa.user.data.IChangeUserRoleData data) throws JsonProcessingException {
-		com.anfelisa.user.events.ChangeUserRoleOkEvent event =  new com.anfelisa.user.events.ChangeUserRoleOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.user.events.ChangeUserRoleOkEvent", null, json, randomUUID());
 	}
 	public static Response callDeleteUser(
 			String uuid, 
@@ -178,9 +171,8 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createDeleteUserOkEventTimelineItem(com.anfelisa.user.data.IDeleteUserData data) throws JsonProcessingException {
-		com.anfelisa.user.events.DeleteUserOkEvent event =  new com.anfelisa.user.events.DeleteUserOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.user.events.DeleteUserOkEvent", null, json, randomUUID());
 	}
 	
 	public static void assertEquals(com.anfelisa.user.models.IUserModel actual, com.anfelisa.user.models.IUserModel expected) {

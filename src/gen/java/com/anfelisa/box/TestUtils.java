@@ -81,9 +81,8 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createCreateBoxOkEventTimelineItem(com.anfelisa.box.data.IBoxData data) throws JsonProcessingException {
-		com.anfelisa.box.events.CreateBoxOkEvent event =  new com.anfelisa.box.events.CreateBoxOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.box.events.CreateBoxOkEvent", null, json, randomUUID());
 	}
 	public static Response callUpdateBox(
 			com.anfelisa.box.data.IBoxUpdateData data, 
@@ -97,9 +96,8 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createUpdateBoxOkEventTimelineItem(com.anfelisa.box.data.IBoxUpdateData data) throws JsonProcessingException {
-		com.anfelisa.box.events.UpdateBoxOkEvent event =  new com.anfelisa.box.events.UpdateBoxOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.box.events.UpdateBoxOkEvent", null, json, randomUUID());
 	}
 	public static Response callPostponeCards(
 			com.anfelisa.box.data.IPostponeCardsData data, 
@@ -113,14 +111,12 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createPostponeCardsOkEventTimelineItem(com.anfelisa.box.data.IPostponeCardsData data) throws JsonProcessingException {
-		com.anfelisa.box.events.PostponeCardsOkEvent event =  new com.anfelisa.box.events.PostponeCardsOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.box.events.PostponeCardsOkEvent", null, json, randomUUID());
 	}
 	public static TimelineItem createPostponeCardsNoDelayEventTimelineItem(com.anfelisa.box.data.IPostponeCardsData data) throws JsonProcessingException {
-		com.anfelisa.box.events.PostponeCardsNoDelayEvent event =  new com.anfelisa.box.events.PostponeCardsNoDelayEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.box.events.PostponeCardsNoDelayEvent", null, json, randomUUID());
 	}
 	public static Response callDeleteBox(
 			String uuid, 
@@ -134,9 +130,8 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createDeleteBoxOkEventTimelineItem(com.anfelisa.box.data.IDeleteBoxData data) throws JsonProcessingException {
-		com.anfelisa.box.events.DeleteBoxOkEvent event =  new com.anfelisa.box.events.DeleteBoxOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.box.events.DeleteBoxOkEvent", null, json, randomUUID());
 	}
 	public static Response callLoadNextCard(
 			String uuid, 
@@ -168,9 +163,8 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createScheduleNextCardOkEventTimelineItem(com.anfelisa.box.data.IScheduleNextCardData data) throws JsonProcessingException {
-		com.anfelisa.box.events.ScheduleNextCardOkEvent event =  new com.anfelisa.box.events.ScheduleNextCardOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.box.events.ScheduleNextCardOkEvent", null, json, randomUUID());
 	}
 	public static Response callScheduleCards(com.anfelisa.box.data.IScheduledCardsData data, String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -180,14 +174,12 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createScheduleCardsOkEventTimelineItem(com.anfelisa.box.data.IScheduledCardsData data) throws JsonProcessingException {
-		com.anfelisa.box.events.ScheduleCardsOkEvent event =  new com.anfelisa.box.events.ScheduleCardsOkEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.box.events.ScheduleCardsOkEvent", null, json, randomUUID());
 	}
 	public static TimelineItem createScheduleCardsNullOrEmptyEventTimelineItem(com.anfelisa.box.data.IScheduledCardsData data) throws JsonProcessingException {
-		com.anfelisa.box.events.ScheduleCardsNullOrEmptyEvent event =  new com.anfelisa.box.events.ScheduleCardsNullOrEmptyEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.box.events.ScheduleCardsNullOrEmptyEvent", null, json, randomUUID());
 	}
 	public static Response callScoreCard(com.anfelisa.box.data.IScoreCardData data, String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -197,14 +189,12 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createScoreCardScoreEventTimelineItem(com.anfelisa.box.data.IScoreCardData data) throws JsonProcessingException {
-		com.anfelisa.box.events.ScoreCardScoreEvent event =  new com.anfelisa.box.events.ScoreCardScoreEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.box.events.ScoreCardScoreEvent", null, json, randomUUID());
 	}
 	public static TimelineItem createScoreCardScoreAndReinforceEventTimelineItem(com.anfelisa.box.data.IScoreCardData data) throws JsonProcessingException {
-		com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent event =  new com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent", null, json, randomUUID());
 	}
 	public static Response callScoreReinforceCard(com.anfelisa.box.data.IScoreReinforceCardData data, String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -214,14 +204,12 @@ public class TestUtils {
 	}
 	
 	public static TimelineItem createScoreReinforceCardRemoveEventTimelineItem(com.anfelisa.box.data.IScoreReinforceCardData data) throws JsonProcessingException {
-		com.anfelisa.box.events.ScoreReinforceCardRemoveEvent event =  new com.anfelisa.box.events.ScoreReinforceCardRemoveEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.box.events.ScoreReinforceCardRemoveEvent", null, json, randomUUID());
 	}
 	public static TimelineItem createScoreReinforceCardKeepEventTimelineItem(com.anfelisa.box.data.IScoreReinforceCardData data) throws JsonProcessingException {
-		com.anfelisa.box.events.ScoreReinforceCardKeepEvent event =  new com.anfelisa.box.events.ScoreReinforceCardKeepEvent(data, null, null, null);
-		String json = mapper.writeValueAsString(event.getEventData());
-		return new TimelineItem("prepare", null, event.getEventName(), null, json, randomUUID());
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.box.events.ScoreReinforceCardKeepEvent", null, json, randomUUID());
 	}
 	
 	public static void assertEquals(com.anfelisa.box.models.IBoxModel actual, com.anfelisa.box.models.IBoxModel expected) {
