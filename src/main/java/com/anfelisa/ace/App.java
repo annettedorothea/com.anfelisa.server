@@ -41,7 +41,7 @@ public class App extends Application<CustomAppConfiguration> {
 	}
 
 	public static String getVersion() {
-		return "0.4.2";
+		return "0.4.3";
 	}
 
 	public static void reportException(Exception x) {
