@@ -41,7 +41,7 @@ public interface INextCardViewModel {
 	String getBoxId();
 	void setBoxId(String boxId);
 	
-
+	
 }
 
 /*       S.D.G.       */

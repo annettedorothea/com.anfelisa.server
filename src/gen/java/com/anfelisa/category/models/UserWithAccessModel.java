@@ -3,6 +3,8 @@ package com.anfelisa.category.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class UserWithAccessModel implements IUserWithAccessModel {
@@ -13,6 +15,9 @@ public class UserWithAccessModel implements IUserWithAccessModel {
 	@NotNull
 	private String username;
 	
+
+	public UserWithAccessModel() {
+	}
 
 	public UserWithAccessModel(
 		@JsonProperty("userId") String userId,
@@ -38,7 +43,18 @@ public class UserWithAccessModel implements IUserWithAccessModel {
 		this.username = username;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IUserWithAccessModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

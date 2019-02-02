@@ -3,6 +3,8 @@ package com.anfelisa.category.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class RevokeUserModel implements IRevokeUserModel {
@@ -18,6 +20,9 @@ public class RevokeUserModel implements IRevokeUserModel {
 	
 	private String userId;
 	
+
+	public RevokeUserModel() {
+	}
 
 	public RevokeUserModel(
 		@JsonProperty("categoryId") String categoryId,
@@ -63,7 +68,24 @@ public class RevokeUserModel implements IRevokeUserModel {
 		this.userId = userId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IRevokeUserModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
+			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+		}
+		if (!(this.getRootCategoryId() == null && other.getRootCategoryId() == null) && !this.getRootCategoryId().equals(other.getRootCategoryId())) {
+			differingAttributes.add("rootCategoryId: " + this.getRootCategoryId() + " " + other.getRootCategoryId());
+		}
+		if (!(this.getRevokedUserId() == null && other.getRevokedUserId() == null) && !this.getRevokedUserId().equals(other.getRevokedUserId())) {
+			differingAttributes.add("revokedUserId: " + this.getRevokedUserId() + " " + other.getRevokedUserId());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

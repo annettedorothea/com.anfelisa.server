@@ -37,6 +37,8 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	
 	private Integer maxInterval;
 	
+	private Integer maxCardsPerDay;
+	
 	private Integer quality0Count;
 	
 	private Integer quality1Count;
@@ -63,6 +65,7 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("maxInterval") Integer maxInterval,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
@@ -82,6 +85,7 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 		this.daysBehindSchedule = daysBehindSchedule;
 		this.categoryName = categoryName;
 		this.maxInterval = maxInterval;
+		this.maxCardsPerDay = maxCardsPerDay;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -204,6 +208,18 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	}
 	
 	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+	}
+	public IBoxInfoData withMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+		return this;
+	}
+	
+	@JsonProperty
 	public Integer getQuality0Count() {
 		return this.quality0Count;
 	}
@@ -296,6 +312,7 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 		this.daysBehindSchedule = model.getDaysBehindSchedule();
 		this.categoryName = model.getCategoryName();
 		this.maxInterval = model.getMaxInterval();
+		this.maxCardsPerDay = model.getMaxCardsPerDay();
 		this.quality0Count = model.getQuality0Count();
 		this.quality1Count = model.getQuality1Count();
 		this.quality2Count = model.getQuality2Count();

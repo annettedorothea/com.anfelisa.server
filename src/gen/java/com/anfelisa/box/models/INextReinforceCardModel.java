@@ -11,7 +11,7 @@ public interface INextReinforceCardModel extends com.anfelisa.box.models.INextRe
 	String getUserId();
 	void setUserId(String userId);
 	
-
+	
 }
 
 /*       S.D.G.       */

@@ -8,7 +8,7 @@ public interface ICategoryCreationModel extends com.anfelisa.category.models.ICa
 	String getUsername();
 	void setUsername(String username);
 	
-
+	
 }
 
 /*       S.D.G.       */

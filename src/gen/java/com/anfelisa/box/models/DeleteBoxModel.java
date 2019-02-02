@@ -3,6 +3,8 @@ package com.anfelisa.box.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class DeleteBoxModel implements IDeleteBoxModel {
@@ -12,6 +14,9 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 	@NotNull
 	private String boxId;
 	
+
+	public DeleteBoxModel() {
+	}
 
 	public DeleteBoxModel(
 		@JsonProperty("userId") String userId,
@@ -37,7 +42,18 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 		this.boxId = boxId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IDeleteBoxModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
+			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

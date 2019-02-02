@@ -29,7 +29,7 @@ public interface ICardModel {
 	String getRootCategoryId();
 	void setRootCategoryId(String rootCategoryId);
 	
-
+	
 }
 
 /*       S.D.G.       */

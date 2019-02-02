@@ -11,7 +11,7 @@ public interface IDeleteBoxModel {
 	String getBoxId();
 	void setBoxId(String boxId);
 	
-
+	
 }
 
 /*       S.D.G.       */

@@ -11,7 +11,7 @@ public interface IUsernameAvailableModel {
 	Boolean getAvailable();
 	void setAvailable(Boolean available);
 	
-
+	
 }
 
 /*       S.D.G.       */

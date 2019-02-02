@@ -3,6 +3,8 @@ package com.anfelisa.category.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class CategoryCreationModel implements ICategoryCreationModel {
@@ -36,6 +38,9 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	@NotNull
 	private String userId;
 	
+
+	public CategoryCreationModel() {
+	}
 
 	public CategoryCreationModel(
 		@JsonProperty("username") String username,
@@ -161,7 +166,15 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 		this.userId = userId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(ICategoryCreationModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

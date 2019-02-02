@@ -20,7 +20,7 @@ public interface IInviteUserModel {
 	String getUserId();
 	void setUserId(String userId);
 	
-
+	
 }
 
 /*       S.D.G.       */

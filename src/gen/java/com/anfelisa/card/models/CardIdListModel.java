@@ -3,6 +3,8 @@ package com.anfelisa.card.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class CardIdListModel implements ICardIdListModel {
@@ -15,6 +17,9 @@ public class CardIdListModel implements ICardIdListModel {
 	
 	private java.util.List<com.anfelisa.card.models.ICardModel> movedCards;
 	
+
+	public CardIdListModel() {
+	}
 
 	public CardIdListModel(
 		@JsonProperty("cardIdList") java.util.List<String> cardIdList,
@@ -60,7 +65,18 @@ public class CardIdListModel implements ICardIdListModel {
 		this.movedCards = movedCards;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(ICardIdListModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
+			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

@@ -3,6 +3,8 @@ package com.anfelisa.user.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class DeleteUserModel implements IDeleteUserModel {
@@ -16,6 +18,9 @@ public class DeleteUserModel implements IDeleteUserModel {
 	@NotNull
 	private String role;
 	
+
+	public DeleteUserModel() {
+	}
 
 	public DeleteUserModel(
 		@JsonProperty("usernameToBeDeleted") String usernameToBeDeleted,
@@ -51,7 +56,21 @@ public class DeleteUserModel implements IDeleteUserModel {
 		this.role = role;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IDeleteUserModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUsernameToBeDeleted() == null && other.getUsernameToBeDeleted() == null) && !this.getUsernameToBeDeleted().equals(other.getUsernameToBeDeleted())) {
+			differingAttributes.add("usernameToBeDeleted: " + this.getUsernameToBeDeleted() + " " + other.getUsernameToBeDeleted());
+		}
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		if (!(this.getRole() == null && other.getRole() == null) && !this.getRole().equals(other.getRole())) {
+			differingAttributes.add("role: " + this.getRole() + " " + other.getRole());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

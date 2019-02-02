@@ -41,7 +41,7 @@ public interface IScheduledCardModel {
 	org.joda.time.DateTime getScoredDate();
 	void setScoredDate(org.joda.time.DateTime scoredDate);
 	
-
+	
 }
 
 /*       S.D.G.       */

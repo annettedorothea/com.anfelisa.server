@@ -17,7 +17,7 @@ public interface IChangeUserRoleModel {
 	String getRole();
 	void setRole(String role);
 	
-
+	
 }
 
 /*       S.D.G.       */

@@ -23,6 +23,7 @@ ACE
 			categoryName
 			daysBehindSchedule
 			maxInterval
+			maxCardsPerDay
 			myCards
 			quality0Count
 			quality1Count
@@ -46,6 +47,7 @@ ACE
 		authorize
 		payload 
 			maxInterval 
+			maxCardsPerDay
 			boxId
 		on ok ( Box.updateBox )
 	
@@ -119,7 +121,7 @@ ACE
 			scoredCardQuality
 		on score (ScheduledCard.score ScheduledCard.scheduleNext)
 		on scoreAndReinforce (ScheduledCard.score ScheduledCard.scheduleNext ReinforceCard.add)
-	
+
 	ScoreReinforceCard<ScoreReinforceCard>
 		POST "/reinforce-card/score" 
 		authorize 
@@ -155,6 +157,7 @@ models
 		NotNull String userId references com.anfelisa.user.User.userId
 		NotNull String categoryId references com.anfelisa.category.Category.categoryId
 		Integer maxInterval
+		Integer maxCardsPerDay
 	}
 
 	persistent ScheduledCard {
@@ -187,6 +190,7 @@ models
 		Integer daysBehindSchedule
 		NotNull String categoryName
 		Integer maxInterval
+		Integer maxCardsPerDay
 		Integer quality0Count
 		Integer quality1Count
 		Integer quality2Count
@@ -216,6 +220,7 @@ models
 		NotNull String userId
 		NotNull String boxId
 		Integer maxInterval
+		Integer maxCardsPerDay
 	}
 
 	NextCardView {

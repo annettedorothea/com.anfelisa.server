@@ -8,7 +8,7 @@ public interface IUserRegistrationModel extends com.anfelisa.user.models.IUserMo
 	String getLanguage();
 	void setLanguage(String language);
 	
-
+	
 }
 
 /*       S.D.G.       */

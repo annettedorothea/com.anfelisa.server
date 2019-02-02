@@ -17,7 +17,7 @@ public interface IScoreReinforceCardModel {
 	String getUserId();
 	void setUserId(String userId);
 	
-
+	
 }
 
 /*       S.D.G.       */

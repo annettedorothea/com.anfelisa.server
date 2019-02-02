@@ -20,7 +20,7 @@ public interface ICardUpdateModel {
 	String getUserId();
 	void setUserId(String userId);
 	
-
+	
 }
 
 /*       S.D.G.       */

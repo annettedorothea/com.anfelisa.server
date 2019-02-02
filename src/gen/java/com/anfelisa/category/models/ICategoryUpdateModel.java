@@ -23,7 +23,7 @@ public interface ICategoryUpdateModel {
 	String getUserId();
 	void setUserId(String userId);
 	
-
+	
 }
 
 /*       S.D.G.       */

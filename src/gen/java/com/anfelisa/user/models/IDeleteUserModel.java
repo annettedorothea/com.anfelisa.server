@@ -14,7 +14,7 @@ public interface IDeleteUserModel {
 	String getRole();
 	void setRole(String role);
 	
-
+	
 }
 
 /*       S.D.G.       */

@@ -3,6 +3,8 @@ package com.anfelisa.box.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class NextReinforceCardViewModel implements INextReinforceCardViewModel {
@@ -23,6 +25,9 @@ public class NextReinforceCardViewModel implements INextReinforceCardViewModel {
 	
 	private String categoryId;
 	
+
+	public NextReinforceCardViewModel() {
+	}
 
 	public NextReinforceCardViewModel(
 		@JsonProperty("reinforceCardId") String reinforceCardId,
@@ -98,7 +103,33 @@ public class NextReinforceCardViewModel implements INextReinforceCardViewModel {
 		this.categoryId = categoryId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(INextReinforceCardViewModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getReinforceCardId() == null && other.getReinforceCardId() == null) && !this.getReinforceCardId().equals(other.getReinforceCardId())) {
+			differingAttributes.add("reinforceCardId: " + this.getReinforceCardId() + " " + other.getReinforceCardId());
+		}
+		if (!(this.getChangeDate() == null && other.getChangeDate() == null) && !this.getChangeDate().equals(other.getChangeDate())) {
+			differingAttributes.add("changeDate: " + this.getChangeDate() + " " + other.getChangeDate());
+		}
+		if (!(this.getLastQuality() == null && other.getLastQuality() == null) && !this.getLastQuality().equals(other.getLastQuality())) {
+			differingAttributes.add("lastQuality: " + this.getLastQuality() + " " + other.getLastQuality());
+		}
+		if (!(this.getGiven() == null && other.getGiven() == null) && !this.getGiven().equals(other.getGiven())) {
+			differingAttributes.add("given: " + this.getGiven() + " " + other.getGiven());
+		}
+		if (!(this.getWanted() == null && other.getWanted() == null) && !this.getWanted().equals(other.getWanted())) {
+			differingAttributes.add("wanted: " + this.getWanted() + " " + other.getWanted());
+		}
+		if (!(this.getImage() == null && other.getImage() == null) && !this.getImage().equals(other.getImage())) {
+			differingAttributes.add("image: " + this.getImage() + " " + other.getImage());
+		}
+		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
+			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

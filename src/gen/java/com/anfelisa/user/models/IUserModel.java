@@ -23,7 +23,7 @@ public interface IUserModel {
 	Boolean getEmailConfirmed();
 	void setEmailConfirmed(Boolean emailConfirmed);
 	
-
+	
 }
 
 /*       S.D.G.       */

@@ -17,7 +17,7 @@ public interface IReinforceCardModel {
 	org.joda.time.DateTime getChangeDate();
 	void setChangeDate(org.joda.time.DateTime changeDate);
 	
-
+	
 }
 
 /*       S.D.G.       */

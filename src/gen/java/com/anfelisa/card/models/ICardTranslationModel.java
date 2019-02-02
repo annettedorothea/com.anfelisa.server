@@ -17,7 +17,7 @@ public interface ICardTranslationModel {
 	String getTargetLanguage();
 	void setTargetLanguage(String targetLanguage);
 	
-
+	
 }
 
 /*       S.D.G.       */

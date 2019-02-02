@@ -11,7 +11,7 @@ public interface IUserListModel {
 	String getRole();
 	void setRole(String role);
 	
-
+	
 }
 
 /*       S.D.G.       */

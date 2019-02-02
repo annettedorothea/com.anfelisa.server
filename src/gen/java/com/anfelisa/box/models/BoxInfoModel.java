@@ -3,6 +3,8 @@ package com.anfelisa.box.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class BoxInfoModel implements IBoxInfoModel {
@@ -27,6 +29,8 @@ public class BoxInfoModel implements IBoxInfoModel {
 	
 	private Integer maxInterval;
 	
+	private Integer maxCardsPerDay;
+	
 	private Integer quality0Count;
 	
 	private Integer quality1Count;
@@ -43,6 +47,9 @@ public class BoxInfoModel implements IBoxInfoModel {
 	private String boxId;
 	
 
+	public BoxInfoModel() {
+	}
+
 	public BoxInfoModel(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("today") org.joda.time.DateTime today,
@@ -53,6 +60,7 @@ public class BoxInfoModel implements IBoxInfoModel {
 		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("maxInterval") Integer maxInterval,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
@@ -70,6 +78,7 @@ public class BoxInfoModel implements IBoxInfoModel {
 		this.daysBehindSchedule = daysBehindSchedule;
 		this.categoryName = categoryName;
 		this.maxInterval = maxInterval;
+		this.maxCardsPerDay = maxCardsPerDay;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -152,6 +161,14 @@ public class BoxInfoModel implements IBoxInfoModel {
 	}
 	
 	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+	}
+	
+	@JsonProperty
 	public Integer getQuality0Count() {
 		return this.quality0Count;
 	}
@@ -207,7 +224,18 @@ public class BoxInfoModel implements IBoxInfoModel {
 		this.boxId = boxId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IBoxInfoModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		if (!(this.getToday() == null && other.getToday() == null) && !this.getToday().equals(other.getToday())) {
+			differingAttributes.add("today: " + this.getToday() + " " + other.getToday());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

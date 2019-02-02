@@ -3,6 +3,8 @@ package com.anfelisa.user.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class RoleModel implements IRoleModel {
@@ -11,6 +13,9 @@ public class RoleModel implements IRoleModel {
 	
 	private String role;
 	
+
+	public RoleModel() {
+	}
 
 	public RoleModel(
 		@JsonProperty("username") String username,
@@ -36,7 +41,18 @@ public class RoleModel implements IRoleModel {
 		this.role = role;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IRoleModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		if (!(this.getRole() == null && other.getRole() == null) && !this.getRole().equals(other.getRole())) {
+			differingAttributes.add("role: " + this.getRole() + " " + other.getRole());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

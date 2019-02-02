@@ -8,7 +8,7 @@ public interface IConfirmEmailModel extends com.anfelisa.user.models.IEmailConfi
 	String getUsername();
 	void setUsername(String username);
 	
-
+	
 }
 
 /*       S.D.G.       */

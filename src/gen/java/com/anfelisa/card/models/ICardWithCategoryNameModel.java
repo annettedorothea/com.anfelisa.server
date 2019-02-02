@@ -8,7 +8,7 @@ public interface ICardWithCategoryNameModel extends com.anfelisa.card.models.ICa
 	String getCategoryName();
 	void setCategoryName(String categoryName);
 	
-
+	
 }
 
 /*       S.D.G.       */

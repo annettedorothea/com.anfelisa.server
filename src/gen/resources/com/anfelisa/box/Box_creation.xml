@@ -11,4 +11,7 @@
 	<column name="maxinterval" type="integer">
 		<constraints    />
 	</column>
+	<column name="maxcardsperday" type="integer">
+		<constraints    />
+	</column>
 </createTable>

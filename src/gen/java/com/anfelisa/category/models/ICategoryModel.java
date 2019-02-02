@@ -35,7 +35,7 @@ public interface ICategoryModel {
 	Boolean getPublicRootCategory();
 	void setPublicRootCategory(Boolean publicRootCategory);
 	
-
+	
 }
 
 /*       S.D.G.       */

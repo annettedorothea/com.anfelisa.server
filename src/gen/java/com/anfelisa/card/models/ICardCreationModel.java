@@ -11,7 +11,7 @@ public interface ICardCreationModel extends com.anfelisa.card.models.ICardModel{
 	String getUsername();
 	void setUsername(String username);
 	
-
+	
 }
 
 /*       S.D.G.       */

@@ -3,6 +3,8 @@ package com.anfelisa.category.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class CategoryTreeModel implements ICategoryTreeModel {
@@ -11,6 +13,9 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	
 	private String userId;
 	
+
+	public CategoryTreeModel() {
+	}
 
 	public CategoryTreeModel(
 		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList,
@@ -36,7 +41,15 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 		this.userId = userId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(ICategoryTreeModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

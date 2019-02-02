@@ -11,7 +11,7 @@ public interface IUserAccessToCategoryModel {
 	String getUserId();
 	void setUserId(String userId);
 	
-
+	
 }
 
 /*       S.D.G.       */

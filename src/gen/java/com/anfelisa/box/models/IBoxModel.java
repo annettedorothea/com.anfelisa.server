@@ -17,7 +17,10 @@ public interface IBoxModel {
 	Integer getMaxInterval();
 	void setMaxInterval(Integer maxInterval);
 	
-
+	Integer getMaxCardsPerDay();
+	void setMaxCardsPerDay(Integer maxCardsPerDay);
+	
+	
 }
 
 /*       S.D.G.       */

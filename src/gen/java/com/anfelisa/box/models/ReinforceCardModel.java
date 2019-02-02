@@ -3,6 +3,8 @@ package com.anfelisa.box.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class ReinforceCardModel implements IReinforceCardModel {
@@ -19,6 +21,9 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	@NotNull
 	private org.joda.time.DateTime changeDate;
 	
+
+	public ReinforceCardModel() {
+	}
 
 	public ReinforceCardModel(
 		@JsonProperty("reinforceCardId") String reinforceCardId,
@@ -64,7 +69,24 @@ public class ReinforceCardModel implements IReinforceCardModel {
 		this.changeDate = changeDate;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IReinforceCardModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getReinforceCardId() == null && other.getReinforceCardId() == null) && !this.getReinforceCardId().equals(other.getReinforceCardId())) {
+			differingAttributes.add("reinforceCardId: " + this.getReinforceCardId() + " " + other.getReinforceCardId());
+		}
+		if (!(this.getScheduledCardId() == null && other.getScheduledCardId() == null) && !this.getScheduledCardId().equals(other.getScheduledCardId())) {
+			differingAttributes.add("scheduledCardId: " + this.getScheduledCardId() + " " + other.getScheduledCardId());
+		}
+		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
+			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
+		}
+		if (!(this.getChangeDate() == null && other.getChangeDate() == null) && !this.getChangeDate().equals(other.getChangeDate())) {
+			differingAttributes.add("changeDate: " + this.getChangeDate() + " " + other.getChangeDate());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

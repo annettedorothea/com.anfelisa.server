@@ -26,6 +26,9 @@ public interface IBoxViewModel {
 	Integer getMaxInterval();
 	void setMaxInterval(Integer maxInterval);
 	
+	Integer getMaxCardsPerDay();
+	void setMaxCardsPerDay(Integer maxCardsPerDay);
+	
 	Integer getQuality0Count();
 	void setQuality0Count(Integer quality0Count);
 	
@@ -47,7 +50,7 @@ public interface IBoxViewModel {
 	String getBoxId();
 	void setBoxId(String boxId);
 	
-
+	
 }
 
 /*       S.D.G.       */

@@ -17,7 +17,7 @@ public interface ICardIdListModel {
 	java.util.List<com.anfelisa.card.models.ICardModel> getMovedCards();
 	void setMovedCards(java.util.List<com.anfelisa.card.models.ICardModel> movedCards);
 	
-
+	
 }
 
 /*       S.D.G.       */

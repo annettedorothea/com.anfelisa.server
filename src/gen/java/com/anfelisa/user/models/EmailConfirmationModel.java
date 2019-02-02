@@ -3,6 +3,8 @@ package com.anfelisa.user.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class EmailConfirmationModel implements IEmailConfirmationModel {
@@ -13,6 +15,9 @@ public class EmailConfirmationModel implements IEmailConfirmationModel {
 	@NotNull
 	private String userId;
 	
+
+	public EmailConfirmationModel() {
+	}
 
 	public EmailConfirmationModel(
 		@JsonProperty("token") String token,
@@ -38,7 +43,18 @@ public class EmailConfirmationModel implements IEmailConfirmationModel {
 		this.userId = userId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IEmailConfirmationModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getToken() == null && other.getToken() == null) && !this.getToken().equals(other.getToken())) {
+			differingAttributes.add("token: " + this.getToken() + " " + other.getToken());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

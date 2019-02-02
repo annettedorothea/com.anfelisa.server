@@ -14,7 +14,7 @@ public interface IForgotPasswordModel extends com.anfelisa.user.models.IResetPas
 	String getUsername();
 	void setUsername(String username);
 	
-
+	
 }
 
 /*       S.D.G.       */

@@ -9,6 +9,8 @@ public interface IGetBoxResponse {
 	
 	Integer getMaxInterval();
 	
+	Integer getMaxCardsPerDay();
+	
 	Integer getMyCards();
 	
 	Integer getQuality0Count();

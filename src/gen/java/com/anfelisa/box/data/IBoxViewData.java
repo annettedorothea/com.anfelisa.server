@@ -23,6 +23,8 @@ public interface IBoxViewData extends IBoxViewModel, IDataContainer {
 	
 	IBoxViewData withMaxInterval(Integer maxInterval);
 	
+	IBoxViewData withMaxCardsPerDay(Integer maxCardsPerDay);
+	
 	IBoxViewData withQuality0Count(Integer quality0Count);
 	
 	IBoxViewData withQuality1Count(Integer quality1Count);

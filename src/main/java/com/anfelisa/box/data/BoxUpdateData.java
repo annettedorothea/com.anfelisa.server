@@ -9,12 +9,14 @@ public class BoxUpdateData extends AbstractBoxUpdateData implements IBoxUpdateDa
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("boxId") String boxId, 
 		@JsonProperty("maxInterval") Integer maxInterval, 
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			userId,
 			boxId,
 			maxInterval,
+			maxCardsPerDay,
 			uuid
 		);
 	}

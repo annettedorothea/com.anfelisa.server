@@ -3,6 +3,8 @@ package com.anfelisa.card.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class CardWithCategoryNameModel implements ICardWithCategoryNameModel {
@@ -30,6 +32,9 @@ public class CardWithCategoryNameModel implements ICardWithCategoryNameModel {
 	@NotNull
 	private String rootCategoryId;
 	
+
+	public CardWithCategoryNameModel() {
+	}
 
 	public CardWithCategoryNameModel(
 		@JsonProperty("categoryName") String categoryName,
@@ -125,7 +130,15 @@ public class CardWithCategoryNameModel implements ICardWithCategoryNameModel {
 		this.rootCategoryId = rootCategoryId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(ICardWithCategoryNameModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getCategoryName() == null && other.getCategoryName() == null) && !this.getCategoryName().equals(other.getCategoryName())) {
+			differingAttributes.add("categoryName: " + this.getCategoryName() + " " + other.getCategoryName());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

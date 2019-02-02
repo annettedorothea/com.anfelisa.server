@@ -16,13 +16,15 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScoreCardCommand.class);
 
-	public ScoreCardCommand(IScoreCardData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public ScoreCardCommand(IScoreCardData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
+			ViewProvider viewProvider) {
 		super(actionData, databaseHandle, daoProvider, viewProvider);
 	}
 
 	@Override
 	protected void executeCommand() {
-		IScheduledCardModel scheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(getHandle(), commandData.getScoredCardScheduledCardId());
+		IScheduledCardModel scheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(getHandle(),
+				commandData.getScoredCardScheduledCardId());
 		if (scheduledCard == null) {
 			throwBadRequest("cardDoesNotExist");
 		}
@@ -33,7 +35,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		if (!commandData.getUserId().equals(box.getUserId())) {
 			throwUnauthorized();
 		}
-		
+
 		Float ef = scheduledCard.getEf();
 		Integer interval = scheduledCard.getInterval();
 		Integer count = scheduledCard.getCount() + 1;
@@ -49,10 +51,10 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 			if (newFactor < 1.3) {
 				newFactor = 1.3F;
 			}
-			this.commandData.setOutcome(score);
 		}
-		
-		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByCardId(getHandle(), scheduledCard.getCardId());
+
+		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByCardId(getHandle(),
+				scheduledCard.getCardId());
 		if (quality <= 3 && reinforceCard == null) {
 			this.commandData.setOutcome(scoreAndReinforce);
 		} else {
@@ -67,20 +69,38 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		if (box.getMaxInterval() != null && newInterval > box.getMaxInterval()) {
 			newInterval = box.getMaxInterval();
 		}
-		DateTime next = this.commandData.getSystemTime().plusDays(newInterval);
-
+		DateTime newTime = this.commandData.getSystemTime().plusDays(newInterval);
+		if (box.getMaxCardsPerDay() != null) {
+			if (scheduledCard.getScheduledDate().isAfter(commandData.getSystemTime())) {
+				newTime = scheduledCard.getScheduledDate().plusDays(newInterval);
+			} else {
+				newTime = commandData.getSystemTime().plusDays(newInterval);
+			}
+			Integer cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(getHandle(), box.getBoxId(),
+					newTime.withTimeAtStartOfDay(), newTime.plusDays(1).withTimeAtStartOfDay());
+			while (cardCount >= box.getMaxCardsPerDay()) {
+				newInterval += 1;
+				if (scheduledCard.getScheduledDate().isAfter(commandData.getSystemTime())) {
+					newTime = scheduledCard.getScheduledDate().plusDays(newInterval);
+				} else {
+					newTime = commandData.getSystemTime().plusDays(newInterval);
+				}
+				cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(getHandle(), box.getBoxId(),
+						newTime.withTimeAtStartOfDay(), newTime.plusDays(1).withTimeAtStartOfDay());
+			}
+		}
 		this.commandData.setNextScheduledCardScheduledCardId(commandData.getUuid());
 		this.commandData.setNextScheduledCardEf(newFactor);
 		this.commandData.setNextScheduledCardInterval(newInterval);
 		this.commandData.setNextScheduledCardCount(count);
 		this.commandData.setNextScheduledCardN(n);
-		this.commandData.setNextScheduledCardScheduledDate(next);
+		this.commandData.setNextScheduledCardScheduledDate(newTime);
 		this.commandData.setNextScheduledCardLastQuality(quality);
 		this.commandData.setNextScheduledCardCreatedDate(this.commandData.getSystemTime());
-		
+
 		this.commandData.setCardId(scheduledCard.getCardId());
 		this.commandData.setBoxId(scheduledCard.getBoxId());
-		
+
 		this.commandData.setScoredCardScoredDate(this.commandData.getSystemTime());
 
 		this.commandData.setReinforceCardId(this.commandData.getUuid());
@@ -90,4 +110,4 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

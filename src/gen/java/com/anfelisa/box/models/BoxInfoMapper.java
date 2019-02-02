@@ -19,6 +19,7 @@ public class BoxInfoMapper implements RowMapper<IBoxInfoModel> {
 			r.getObject("daysBehindSchedule") != null ? r.getInt("daysBehindSchedule") : null,
 			r.getString("categoryName"),
 			r.getObject("maxInterval") != null ? r.getInt("maxInterval") : null,
+			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null,
 			r.getObject("quality0Count") != null ? r.getInt("quality0Count") : null,
 			r.getObject("quality1Count") != null ? r.getInt("quality1Count") : null,
 			r.getObject("quality2Count") != null ? r.getInt("quality2Count") : null,

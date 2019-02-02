@@ -25,17 +25,21 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	
 	private Integer maxInterval;
 	
+	private Integer maxCardsPerDay;
+	
 
 	public AbstractBoxUpdateData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("maxInterval") Integer maxInterval
+		@JsonProperty("maxInterval") Integer maxInterval,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.userId = userId;
 		this.boxId = boxId;
 		this.maxInterval = maxInterval;
+		this.maxCardsPerDay = maxCardsPerDay;
 	}
 
 	public AbstractBoxUpdateData( String uuid ) {
@@ -75,6 +79,18 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	public IBoxUpdateData withMaxInterval(Integer maxInterval) {
 		this.maxInterval = maxInterval;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+	}
+	public IBoxUpdateData withMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
 		return this;
 	}
 	

@@ -15,6 +15,8 @@ public interface IBoxUpdateData extends IBoxUpdateModel, IDataContainer {
 	
 	IBoxUpdateData withMaxInterval(Integer maxInterval);
 	
+	IBoxUpdateData withMaxCardsPerDay(Integer maxCardsPerDay);
+	
 	
 }
 

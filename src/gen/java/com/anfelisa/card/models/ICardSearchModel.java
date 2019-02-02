@@ -20,7 +20,7 @@ public interface ICardSearchModel {
 	Boolean getNaturalInputOrder();
 	void setNaturalInputOrder(Boolean naturalInputOrder);
 	
-
+	
 }
 
 /*       S.D.G.       */

@@ -17,7 +17,7 @@ public interface IPostponeCardsModel {
 	org.joda.time.DateTime getToday();
 	void setToday(org.joda.time.DateTime today);
 	
-
+	
 }
 
 /*       S.D.G.       */

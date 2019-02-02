@@ -8,7 +8,7 @@ public interface IResetPasswordWithNewPasswordModel extends com.anfelisa.user.mo
 	String getPassword();
 	void setPassword(String password);
 	
-
+	
 }
 
 /*       S.D.G.       */

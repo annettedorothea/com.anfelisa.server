@@ -11,7 +11,7 @@ public interface IBoxInfoModel extends com.anfelisa.box.models.IBoxViewModel{
 	org.joda.time.DateTime getToday();
 	void setToday(org.joda.time.DateTime today);
 	
-
+	
 }
 
 /*       S.D.G.       */

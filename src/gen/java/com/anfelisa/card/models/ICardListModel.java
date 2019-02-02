@@ -14,7 +14,7 @@ public interface ICardListModel {
 	String getCategoryId();
 	void setCategoryId(String categoryId);
 	
-
+	
 }
 
 /*       S.D.G.       */

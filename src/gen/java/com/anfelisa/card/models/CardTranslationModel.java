@@ -3,6 +3,8 @@ package com.anfelisa.card.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class CardTranslationModel implements ICardTranslationModel {
@@ -19,6 +21,9 @@ public class CardTranslationModel implements ICardTranslationModel {
 	@NotEmpty
 	private String targetLanguage;
 	
+
+	public CardTranslationModel() {
+	}
 
 	public CardTranslationModel(
 		@JsonProperty("sourceValue") String sourceValue,
@@ -64,7 +69,24 @@ public class CardTranslationModel implements ICardTranslationModel {
 		this.targetLanguage = targetLanguage;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(ICardTranslationModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getSourceValue() == null && other.getSourceValue() == null) && !this.getSourceValue().equals(other.getSourceValue())) {
+			differingAttributes.add("sourceValue: " + this.getSourceValue() + " " + other.getSourceValue());
+		}
+		if (!(this.getTargetValue() == null && other.getTargetValue() == null) && !this.getTargetValue().equals(other.getTargetValue())) {
+			differingAttributes.add("targetValue: " + this.getTargetValue() + " " + other.getTargetValue());
+		}
+		if (!(this.getSourceLanguage() == null && other.getSourceLanguage() == null) && !this.getSourceLanguage().equals(other.getSourceLanguage())) {
+			differingAttributes.add("sourceLanguage: " + this.getSourceLanguage() + " " + other.getSourceLanguage());
+		}
+		if (!(this.getTargetLanguage() == null && other.getTargetLanguage() == null) && !this.getTargetLanguage().equals(other.getTargetLanguage())) {
+			differingAttributes.add("targetLanguage: " + this.getTargetLanguage() + " " + other.getTargetLanguage());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

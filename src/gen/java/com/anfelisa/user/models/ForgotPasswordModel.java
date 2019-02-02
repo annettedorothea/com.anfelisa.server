@@ -3,6 +3,8 @@ package com.anfelisa.user.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class ForgotPasswordModel implements IForgotPasswordModel {
@@ -22,6 +24,9 @@ public class ForgotPasswordModel implements IForgotPasswordModel {
 	@NotNull
 	private String userId;
 	
+
+	public ForgotPasswordModel() {
+	}
 
 	public ForgotPasswordModel(
 		@JsonProperty("language") String language,
@@ -77,7 +82,21 @@ public class ForgotPasswordModel implements IForgotPasswordModel {
 		this.userId = userId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IForgotPasswordModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getLanguage() == null && other.getLanguage() == null) && !this.getLanguage().equals(other.getLanguage())) {
+			differingAttributes.add("language: " + this.getLanguage() + " " + other.getLanguage());
+		}
+		if (!(this.getEmail() == null && other.getEmail() == null) && !this.getEmail().equals(other.getEmail())) {
+			differingAttributes.add("email: " + this.getEmail() + " " + other.getEmail());
+		}
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

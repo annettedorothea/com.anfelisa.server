@@ -11,7 +11,7 @@ public interface IUserWithAccessModel {
 	String getUsername();
 	void setUsername(String username);
 	
-
+	
 }
 
 /*       S.D.G.       */

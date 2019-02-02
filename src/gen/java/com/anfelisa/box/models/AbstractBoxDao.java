@@ -10,21 +10,23 @@ import java.util.Optional;
 public class AbstractBoxDao {
 	
 	public void insert(Handle handle, IBoxModel boxModel) {
-		Update statement = handle.createUpdate("INSERT INTO \"box\" (boxid, userid, categoryid, maxinterval) VALUES (:boxid, :userid, :categoryid, :maxinterval)");
+		Update statement = handle.createUpdate("INSERT INTO \"box\" (boxid, userid, categoryid, maxinterval, maxcardsperday) VALUES (:boxid, :userid, :categoryid, :maxinterval, :maxcardsperday)");
 		statement.bind("boxid",  boxModel.getBoxId() );
 		statement.bind("userid",  boxModel.getUserId() );
 		statement.bind("categoryid",  boxModel.getCategoryId() );
 		statement.bind("maxinterval",  boxModel.getMaxInterval() );
+		statement.bind("maxcardsperday",  boxModel.getMaxCardsPerDay() );
 		statement.execute();
 	}
 	
 	
 	public void updateByBoxId(Handle handle, IBoxModel boxModel) {
-		Update statement = handle.createUpdate("UPDATE \"box\" SET boxid = :boxid, userid = :userid, categoryid = :categoryid, maxinterval = :maxinterval WHERE boxid = :boxid");
+		Update statement = handle.createUpdate("UPDATE \"box\" SET boxid = :boxid, userid = :userid, categoryid = :categoryid, maxinterval = :maxinterval, maxcardsperday = :maxcardsperday WHERE boxid = :boxid");
 		statement.bind("boxid",  boxModel.getBoxId() );
 		statement.bind("userid",  boxModel.getUserId() );
 		statement.bind("categoryid",  boxModel.getCategoryId() );
 		statement.bind("maxinterval",  boxModel.getMaxInterval() );
+		statement.bind("maxcardsperday",  boxModel.getMaxCardsPerDay() );
 		statement.bind("boxid",  boxModel.getBoxId()  );
 		statement.execute();
 	}
@@ -36,7 +38,7 @@ public class AbstractBoxDao {
 	}
 
 	public IBoxModel selectByBoxId(Handle handle, String boxId) {
-		Optional<IBoxModel> optional = handle.createQuery("SELECT boxid, userid, categoryid, maxinterval FROM \"box\" WHERE boxid = :boxid")
+		Optional<IBoxModel> optional = handle.createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday FROM \"box\" WHERE boxid = :boxid")
 			.bind("boxid", boxId)
 			.map(new BoxMapper())
 			.findFirst();
@@ -44,7 +46,7 @@ public class AbstractBoxDao {
 	}
 	
 	public List<IBoxModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT boxid, userid, categoryid, maxinterval FROM \"box\"")
+		return handle.createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday FROM \"box\"")
 			.map(new BoxMapper())
 			.list();
 	}

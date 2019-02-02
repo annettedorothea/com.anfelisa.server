@@ -3,6 +3,8 @@ package com.anfelisa.card.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class CardSearchModel implements ICardSearchModel {
@@ -19,6 +21,9 @@ public class CardSearchModel implements ICardSearchModel {
 	
 	private Boolean naturalInputOrder = false;
 	
+
+	public CardSearchModel() {
+	}
 
 	public CardSearchModel(
 		@JsonProperty("given") String given,
@@ -74,7 +79,24 @@ public class CardSearchModel implements ICardSearchModel {
 		this.naturalInputOrder = naturalInputOrder;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(ICardSearchModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getGiven() == null && other.getGiven() == null) && !this.getGiven().equals(other.getGiven())) {
+			differingAttributes.add("given: " + this.getGiven() + " " + other.getGiven());
+		}
+		if (!(this.getWanted() == null && other.getWanted() == null) && !this.getWanted().equals(other.getWanted())) {
+			differingAttributes.add("wanted: " + this.getWanted() + " " + other.getWanted());
+		}
+		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
+			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+		}
+		if (!(this.getNaturalInputOrder() == null && other.getNaturalInputOrder() == null) && !this.getNaturalInputOrder().equals(other.getNaturalInputOrder())) {
+			differingAttributes.add("naturalInputOrder: " + this.getNaturalInputOrder() + " " + other.getNaturalInputOrder());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

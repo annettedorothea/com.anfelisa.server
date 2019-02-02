@@ -3,6 +3,8 @@ package com.anfelisa.box.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
@@ -18,6 +20,9 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 	
 	private String userId;
 	
+
+	public ScoreReinforceCardModel() {
+	}
 
 	public ScoreReinforceCardModel(
 		@JsonProperty("reinforceCardId") String reinforceCardId,
@@ -63,7 +68,24 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 		this.userId = userId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IScoreReinforceCardModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getReinforceCardId() == null && other.getReinforceCardId() == null) && !this.getReinforceCardId().equals(other.getReinforceCardId())) {
+			differingAttributes.add("reinforceCardId: " + this.getReinforceCardId() + " " + other.getReinforceCardId());
+		}
+		if (!(this.getQuality() == null && other.getQuality() == null) && !this.getQuality().equals(other.getQuality())) {
+			differingAttributes.add("quality: " + this.getQuality() + " " + other.getQuality());
+		}
+		if (!(this.getChangeDate() == null && other.getChangeDate() == null) && !this.getChangeDate().equals(other.getChangeDate())) {
+			differingAttributes.add("changeDate: " + this.getChangeDate() + " " + other.getChangeDate());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

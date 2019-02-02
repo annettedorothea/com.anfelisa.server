@@ -23,6 +23,8 @@ public class GetBoxResponse implements IGetBoxResponse {
 	
 	private Integer maxInterval;
 	
+	private Integer maxCardsPerDay;
+	
 	private Integer myCards;
 	
 	private Integer quality0Count;
@@ -51,6 +53,7 @@ public class GetBoxResponse implements IGetBoxResponse {
 		categoryName = data.getCategoryName();
 		daysBehindSchedule = data.getDaysBehindSchedule();
 		maxInterval = data.getMaxInterval();
+		maxCardsPerDay = data.getMaxCardsPerDay();
 		myCards = data.getMyCards();
 		quality0Count = data.getQuality0Count();
 		quality1Count = data.getQuality1Count();
@@ -81,6 +84,11 @@ public class GetBoxResponse implements IGetBoxResponse {
 	@JsonProperty
 	public Integer getMaxInterval() {
 		return this.maxInterval;
+	}
+	
+	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
 	}
 	
 	@JsonProperty

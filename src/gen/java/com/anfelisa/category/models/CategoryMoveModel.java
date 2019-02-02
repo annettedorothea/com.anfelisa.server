@@ -3,6 +3,8 @@ package com.anfelisa.category.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class CategoryMoveModel implements ICategoryMoveModel {
@@ -21,6 +23,9 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 	
 	private String userId;
 	
+
+	public CategoryMoveModel() {
+	}
 
 	public CategoryMoveModel(
 		@JsonProperty("movedCategoryId") String movedCategoryId,
@@ -86,7 +91,27 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 		this.userId = userId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(ICategoryMoveModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getMovedCategoryId() == null && other.getMovedCategoryId() == null) && !this.getMovedCategoryId().equals(other.getMovedCategoryId())) {
+			differingAttributes.add("movedCategoryId: " + this.getMovedCategoryId() + " " + other.getMovedCategoryId());
+		}
+		if (!(this.getTargetCategoryId() == null && other.getTargetCategoryId() == null) && !this.getTargetCategoryId().equals(other.getTargetCategoryId())) {
+			differingAttributes.add("targetCategoryId: " + this.getTargetCategoryId() + " " + other.getTargetCategoryId());
+		}
+		if (!(this.getCategoryIndexWhereRemoved() == null && other.getCategoryIndexWhereRemoved() == null) && !this.getCategoryIndexWhereRemoved().equals(other.getCategoryIndexWhereRemoved())) {
+			differingAttributes.add("categoryIndexWhereRemoved: " + this.getCategoryIndexWhereRemoved() + " " + other.getCategoryIndexWhereRemoved());
+		}
+		if (!(this.getParentCategoryIdWhereRemoved() == null && other.getParentCategoryIdWhereRemoved() == null) && !this.getParentCategoryIdWhereRemoved().equals(other.getParentCategoryIdWhereRemoved())) {
+			differingAttributes.add("parentCategoryIdWhereRemoved: " + this.getParentCategoryIdWhereRemoved() + " " + other.getParentCategoryIdWhereRemoved());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

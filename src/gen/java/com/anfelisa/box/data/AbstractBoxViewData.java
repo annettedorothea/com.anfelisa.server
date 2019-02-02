@@ -32,6 +32,8 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	
 	private Integer maxInterval;
 	
+	private Integer maxCardsPerDay;
+	
 	private Integer quality0Count;
 	
 	private Integer quality1Count;
@@ -56,6 +58,7 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("maxInterval") Integer maxInterval,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
@@ -73,6 +76,7 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		this.daysBehindSchedule = daysBehindSchedule;
 		this.categoryName = categoryName;
 		this.maxInterval = maxInterval;
+		this.maxCardsPerDay = maxCardsPerDay;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -167,6 +171,18 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	public IBoxViewData withMaxInterval(Integer maxInterval) {
 		this.maxInterval = maxInterval;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+	}
+	public IBoxViewData withMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
 		return this;
 	}
 	

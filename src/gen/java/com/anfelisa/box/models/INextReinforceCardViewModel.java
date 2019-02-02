@@ -26,7 +26,7 @@ public interface INextReinforceCardViewModel {
 	String getCategoryId();
 	void setCategoryId(String categoryId);
 	
-
+	
 }
 
 /*       S.D.G.       */

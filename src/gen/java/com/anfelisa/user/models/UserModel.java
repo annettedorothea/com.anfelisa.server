@@ -3,6 +3,8 @@ package com.anfelisa.user.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class UserModel implements IUserModel {
@@ -25,6 +27,9 @@ public class UserModel implements IUserModel {
 	@NotNull
 	private Boolean emailConfirmed = false;
 	
+
+	public UserModel() {
+	}
 
 	public UserModel(
 		@JsonProperty("userId") String userId,
@@ -90,7 +95,30 @@ public class UserModel implements IUserModel {
 		this.emailConfirmed = emailConfirmed;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IUserModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		if (!(this.getPassword() == null && other.getPassword() == null) && !this.getPassword().equals(other.getPassword())) {
+			differingAttributes.add("password: " + this.getPassword() + " " + other.getPassword());
+		}
+		if (!(this.getEmail() == null && other.getEmail() == null) && !this.getEmail().equals(other.getEmail())) {
+			differingAttributes.add("email: " + this.getEmail() + " " + other.getEmail());
+		}
+		if (!(this.getRole() == null && other.getRole() == null) && !this.getRole().equals(other.getRole())) {
+			differingAttributes.add("role: " + this.getRole() + " " + other.getRole());
+		}
+		if (!(this.getEmailConfirmed() == null && other.getEmailConfirmed() == null) && !this.getEmailConfirmed().equals(other.getEmailConfirmed())) {
+			differingAttributes.add("emailConfirmed: " + this.getEmailConfirmed() + " " + other.getEmailConfirmed());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

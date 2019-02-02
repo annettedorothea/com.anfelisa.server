@@ -3,6 +3,8 @@ package com.anfelisa.box.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class ScheduleNextCardModel implements IScheduleNextCardModel {
@@ -41,6 +43,9 @@ public class ScheduleNextCardModel implements IScheduleNextCardModel {
 	
 	private org.joda.time.DateTime scoredDate;
 	
+
+	public ScheduleNextCardModel() {
+	}
 
 	public ScheduleNextCardModel(
 		@JsonProperty("userId") String userId,
@@ -176,7 +181,18 @@ public class ScheduleNextCardModel implements IScheduleNextCardModel {
 		this.scoredDate = scoredDate;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IScheduleNextCardModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
+			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

@@ -3,6 +3,8 @@ package com.anfelisa.box.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class BoxListModel implements IBoxListModel {
@@ -14,6 +16,9 @@ public class BoxListModel implements IBoxListModel {
 	@NotNull
 	private org.joda.time.DateTime today;
 	
+
+	public BoxListModel() {
+	}
 
 	public BoxListModel(
 		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList,
@@ -49,7 +54,18 @@ public class BoxListModel implements IBoxListModel {
 		this.today = today;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IBoxListModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		if (!(this.getToday() == null && other.getToday() == null) && !this.getToday().equals(other.getToday())) {
+			differingAttributes.add("today: " + this.getToday() + " " + other.getToday());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

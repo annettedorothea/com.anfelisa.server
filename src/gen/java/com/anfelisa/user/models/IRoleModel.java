@@ -11,7 +11,7 @@ public interface IRoleModel {
 	String getRole();
 	void setRole(String role);
 	
-
+	
 }
 
 /*       S.D.G.       */

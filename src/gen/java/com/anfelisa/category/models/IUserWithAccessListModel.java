@@ -11,7 +11,7 @@ public interface IUserWithAccessListModel {
 	java.util.List<com.anfelisa.category.models.IUserWithAccessModel> getUserList();
 	void setUserList(java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList);
 	
-
+	
 }
 
 /*       S.D.G.       */

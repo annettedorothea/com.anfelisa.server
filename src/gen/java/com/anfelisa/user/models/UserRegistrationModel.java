@@ -3,6 +3,8 @@ package com.anfelisa.user.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class UserRegistrationModel implements IUserRegistrationModel {
@@ -31,6 +33,9 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	@NotNull
 	private String token;
 	
+
+	public UserRegistrationModel() {
+	}
 
 	public UserRegistrationModel(
 		@JsonProperty("language") String language,
@@ -116,7 +121,15 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 		this.token = token;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IUserRegistrationModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getLanguage() == null && other.getLanguage() == null) && !this.getLanguage().equals(other.getLanguage())) {
+			differingAttributes.add("language: " + this.getLanguage() + " " + other.getLanguage());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

@@ -66,6 +66,7 @@ public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 			throws JsonProcessingException {
 		this.actionData = new BoxUpdateData(payload.getUuid());
 		this.actionData.setMaxInterval(payload.getMaxInterval());
+		this.actionData.setMaxCardsPerDay(payload.getMaxCardsPerDay());
 		this.actionData.setBoxId(payload.getBoxId());
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();

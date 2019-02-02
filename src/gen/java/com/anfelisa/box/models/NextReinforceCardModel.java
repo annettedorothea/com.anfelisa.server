@@ -3,6 +3,8 @@ package com.anfelisa.box.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class NextReinforceCardModel implements INextReinforceCardModel {
@@ -28,6 +30,9 @@ public class NextReinforceCardModel implements INextReinforceCardModel {
 	
 	private String categoryId;
 	
+
+	public NextReinforceCardModel() {
+	}
 
 	public NextReinforceCardModel(
 		@JsonProperty("boxId") String boxId,
@@ -123,7 +128,18 @@ public class NextReinforceCardModel implements INextReinforceCardModel {
 		this.categoryId = categoryId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(INextReinforceCardModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
+			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

@@ -38,7 +38,7 @@ public interface ICategoryTreeRootItemModel {
 	java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> getChildCategories();
 	void setChildCategories(java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories);
 	
-
+	
 }
 
 /*       S.D.G.       */

@@ -3,6 +3,8 @@ package com.anfelisa.user.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class ResetPasswordWithNewPasswordModel implements IResetPasswordWithNewPasswordModel {
@@ -16,6 +18,9 @@ public class ResetPasswordWithNewPasswordModel implements IResetPasswordWithNewP
 	@NotNull
 	private String userId;
 	
+
+	public ResetPasswordWithNewPasswordModel() {
+	}
 
 	public ResetPasswordWithNewPasswordModel(
 		@JsonProperty("password") String password,
@@ -51,7 +56,15 @@ public class ResetPasswordWithNewPasswordModel implements IResetPasswordWithNewP
 		this.userId = userId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IResetPasswordWithNewPasswordModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getPassword() == null && other.getPassword() == null) && !this.getPassword().equals(other.getPassword())) {
+			differingAttributes.add("password: " + this.getPassword() + " " + other.getPassword());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

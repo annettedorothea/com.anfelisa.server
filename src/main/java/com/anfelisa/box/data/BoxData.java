@@ -10,6 +10,7 @@ public class BoxData extends AbstractBoxData implements IBoxData {
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("maxInterval") Integer maxInterval, 
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -17,6 +18,7 @@ public class BoxData extends AbstractBoxData implements IBoxData {
 			userId,
 			categoryId,
 			maxInterval,
+			maxCardsPerDay,
 			uuid
 		);
 	}

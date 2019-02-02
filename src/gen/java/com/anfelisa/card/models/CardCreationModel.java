@@ -3,6 +3,8 @@ package com.anfelisa.card.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class CardCreationModel implements ICardCreationModel {
@@ -32,6 +34,9 @@ public class CardCreationModel implements ICardCreationModel {
 	@NotNull
 	private String rootCategoryId;
 	
+
+	public CardCreationModel() {
+	}
 
 	public CardCreationModel(
 		@JsonProperty("userId") String userId,
@@ -137,7 +142,18 @@ public class CardCreationModel implements ICardCreationModel {
 		this.rootCategoryId = rootCategoryId;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(ICardCreationModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

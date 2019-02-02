@@ -11,7 +11,7 @@ public interface IScheduleNextCardModel extends com.anfelisa.box.models.ISchedul
 	String getBoxId();
 	void setBoxId(String boxId);
 	
-
+	
 }
 
 /*       S.D.G.       */

@@ -3,6 +3,8 @@ package com.anfelisa.user.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class ChangeUserRoleModel implements IChangeUserRoleModel {
@@ -19,6 +21,9 @@ public class ChangeUserRoleModel implements IChangeUserRoleModel {
 	@NotNull
 	private String role;
 	
+
+	public ChangeUserRoleModel() {
+	}
 
 	public ChangeUserRoleModel(
 		@JsonProperty("editedUserId") String editedUserId,
@@ -64,7 +69,24 @@ public class ChangeUserRoleModel implements IChangeUserRoleModel {
 		this.role = role;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IChangeUserRoleModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getEditedUserId() == null && other.getEditedUserId() == null) && !this.getEditedUserId().equals(other.getEditedUserId())) {
+			differingAttributes.add("editedUserId: " + this.getEditedUserId() + " " + other.getEditedUserId());
+		}
+		if (!(this.getNewRole() == null && other.getNewRole() == null) && !this.getNewRole().equals(other.getNewRole())) {
+			differingAttributes.add("newRole: " + this.getNewRole() + " " + other.getNewRole());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		if (!(this.getRole() == null && other.getRole() == null) && !this.getRole().equals(other.getRole())) {
+			differingAttributes.add("role: " + this.getRole() + " " + other.getRole());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

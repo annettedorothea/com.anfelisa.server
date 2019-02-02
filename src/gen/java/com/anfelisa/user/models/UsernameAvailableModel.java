@@ -3,6 +3,8 @@ package com.anfelisa.user.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class UsernameAvailableModel implements IUsernameAvailableModel {
@@ -12,6 +14,9 @@ public class UsernameAvailableModel implements IUsernameAvailableModel {
 	
 	private Boolean available = false;
 	
+
+	public UsernameAvailableModel() {
+	}
 
 	public UsernameAvailableModel(
 		@JsonProperty("username") String username,
@@ -37,7 +42,18 @@ public class UsernameAvailableModel implements IUsernameAvailableModel {
 		this.available = available;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IUsernameAvailableModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		if (!(this.getAvailable() == null && other.getAvailable() == null) && !this.getAvailable().equals(other.getAvailable())) {
+			differingAttributes.add("available: " + this.getAvailable() + " " + other.getAvailable());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */

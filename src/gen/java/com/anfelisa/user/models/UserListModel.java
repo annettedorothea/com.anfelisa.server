@@ -3,6 +3,8 @@ package com.anfelisa.user.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import java.util.List;
+import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class UserListModel implements IUserListModel {
@@ -11,6 +13,9 @@ public class UserListModel implements IUserListModel {
 	
 	private String role;
 	
+
+	public UserListModel() {
+	}
 
 	public UserListModel(
 		@JsonProperty("userList") java.util.List<com.anfelisa.user.models.IUserModel> userList,
@@ -36,7 +41,15 @@ public class UserListModel implements IUserListModel {
 		this.role = role;
 	}
 	
-
+	
+	public List<String> equalsPrimitiveTypes(IUserListModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getRole() == null && other.getRole() == null) && !this.getRole().equals(other.getRole())) {
+			differingAttributes.add("role: " + this.getRole() + " " + other.getRole());
+		}
+		return differingAttributes;
+	}
+	
 }
 
 /*       S.D.G.       */
