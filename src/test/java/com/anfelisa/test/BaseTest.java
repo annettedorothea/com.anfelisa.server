@@ -10,6 +10,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.mockito.MockitoAnnotations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.AbstractBaseTest;
 import com.anfelisa.ace.App;
@@ -29,6 +31,8 @@ import io.dropwizard.testing.DropwizardTestSupport;
 
 public class BaseTest extends AbstractBaseTest {
 
+	static final Logger LOG = LoggerFactory.getLogger(BaseTest.class);
+
 	public static final DropwizardTestSupport<CustomAppConfiguration> DROPWIZARD = new DropwizardTestSupport<CustomAppConfiguration>(
 			App.class, "test.yml");
 	
@@ -43,7 +47,11 @@ public class BaseTest extends AbstractBaseTest {
 
 	@AfterClass
 	public static void afterClass() {
-		DROPWIZARD.after();
+		try {
+			DROPWIZARD.after();
+		} catch (Exception x) {
+			LOG.error("exception when shutting down dropwizard", x);
+		}
 	}
 
 	@Before
