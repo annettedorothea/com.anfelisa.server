@@ -6,7 +6,9 @@ import java.util.List;
 import org.glassfish.jersey.internal.util.Base64;
 import org.jdbi.v3.core.Jdbi;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.mockito.MockitoAnnotations;
 
 import com.anfelisa.ace.AbstractBaseTest;
@@ -27,25 +29,35 @@ import io.dropwizard.testing.DropwizardTestSupport;
 
 public class BaseTest extends AbstractBaseTest {
 
-	public static final DropwizardTestSupport<CustomAppConfiguration> SUPPORT = new DropwizardTestSupport<CustomAppConfiguration>(
+	public static final DropwizardTestSupport<CustomAppConfiguration> DROPWIZARD = new DropwizardTestSupport<CustomAppConfiguration>(
 			App.class, "test.yml");
+	
+	private static Jdbi jdbi;
+
+	@BeforeClass
+	public static void beforeClass() {
+		DROPWIZARD.before();
+		final JdbiFactory factory = new JdbiFactory();
+		jdbi = factory.build(DROPWIZARD.getEnvironment(), DROPWIZARD.getConfiguration().getDataSourceFactory(), "testdb");
+	}
+
+	@AfterClass
+	public static void afterClass() {
+		DROPWIZARD.after();
+	}
 
 	@Before
 	public void before() {
-		SUPPORT.before();
-		final JdbiFactory factory = new JdbiFactory();
-		Jdbi jdbi = factory.build(SUPPORT.getEnvironment(), SUPPORT.getConfiguration().getDataSourceFactory(), "testdb");
 		daoProvider = new DaoProvider();
 		handle = jdbi.open();
 		MockitoAnnotations.initMocks(this);
 	}
-
+	
 	@After
 	public void after() {
-		SUPPORT.after();
 		handle.close();
 	}
-
+	
 	protected String getAuthenticationHeader(IUserModel user) {
 		String username = user.getUsername();
 		String password = user.getPassword();

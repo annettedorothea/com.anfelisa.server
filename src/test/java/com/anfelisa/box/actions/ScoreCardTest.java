@@ -65,14 +65,14 @@ public class ScoreCardTest extends BaseTest {
 		timeline.add(com.anfelisa.card.TestUtils.createCreateCardOkEventTimelineItem(card));
 		timeline.add(com.anfelisa.box.TestUtils.createCreateBoxOkEventTimelineItem(box));
 		timeline.add(com.anfelisa.box.TestUtils.createScheduleNextCardOkEventTimelineItem(scheduleNextCardData));
-		prepare(timeline, SUPPORT.getLocalPort());
+		prepare(timeline, DROPWIZARD.getLocalPort());
 
 		DateTime systemTime = new DateTime(2019, 1, 23, 15, 0, 0);
-		setSystemTime(systemTime, SUPPORT.getLocalPort());
+		setSystemTime(systemTime, DROPWIZARD.getLocalPort());
 
 		String uuid = randomUUID();
 		Response response = com.anfelisa.box.ActionCalls.callScoreCard(uuid, scheduleNextCardData.getScheduledCardId(),
-				box.getBoxId(), scoredCardQuality, SUPPORT.getLocalPort(), getAuthenticationHeader(user));
+				box.getBoxId(), scoredCardQuality, DROPWIZARD.getLocalPort(), getAuthenticationHeader(user));
 
 		assertThat(response.getStatus(), is(Response.Status.OK.getStatusCode()));
 
@@ -142,13 +142,13 @@ public class ScoreCardTest extends BaseTest {
 			timeline.add(com.anfelisa.box.TestUtils.createScheduleNextCardOkEventTimelineItem(
 					createScheduleNextCard(user, box, card, systemTime.plusDays(createCardsInDays))));
 		}
-		prepare(timeline, SUPPORT.getLocalPort());
+		prepare(timeline, DROPWIZARD.getLocalPort());
 
-		setSystemTime(systemTime, SUPPORT.getLocalPort());
+		setSystemTime(systemTime, DROPWIZARD.getLocalPort());
 
 		String uuid = randomUUID();
 		Response response = com.anfelisa.box.ActionCalls.callScoreCard(uuid, scheduleNextCardData.getScheduledCardId(),
-				box.getBoxId(), 5, SUPPORT.getLocalPort(), getAuthenticationHeader(user));
+				box.getBoxId(), 5, DROPWIZARD.getLocalPort(), getAuthenticationHeader(user));
 
 		assertThat(response.getStatus(), is(Response.Status.OK.getStatusCode()));
 
