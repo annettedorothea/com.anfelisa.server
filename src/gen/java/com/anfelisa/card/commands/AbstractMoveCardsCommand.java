@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -13,12 +14,8 @@ public abstract class AbstractMoveCardsCommand extends Command<ICardIdListData> 
 
 	protected static final String ok = "ok";
 
-	public AbstractMoveCardsCommand(ICardIdListData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.card.commands.MoveCardsCommand", commandParam, daoProvider, viewProvider);
-	}
-
-	public AbstractMoveCardsCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.card.commands.MoveCardsCommand", null, daoProvider, viewProvider);
+	public AbstractMoveCardsCommand(ICardIdListData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.card.commands.MoveCardsCommand", commandParam, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override

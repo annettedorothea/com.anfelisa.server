@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -13,12 +14,8 @@ public abstract class AbstractCreateCardCommand extends Command<ICardCreationDat
 
 	protected static final String ok = "ok";
 
-	public AbstractCreateCardCommand(ICardCreationData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.card.commands.CreateCardCommand", commandParam, daoProvider, viewProvider);
-	}
-
-	public AbstractCreateCardCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.card.commands.CreateCardCommand", null, daoProvider, viewProvider);
+	public AbstractCreateCardCommand(ICardCreationData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.card.commands.CreateCardCommand", commandParam, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override

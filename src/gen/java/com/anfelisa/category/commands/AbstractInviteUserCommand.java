@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -14,12 +15,8 @@ public abstract class AbstractInviteUserCommand extends Command<IInviteUserData>
 	protected static final String ok = "ok";
 	protected static final String hasAccess = "hasAccess";
 
-	public AbstractInviteUserCommand(IInviteUserData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.InviteUserCommand", commandParam, daoProvider, viewProvider);
-	}
-
-	public AbstractInviteUserCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.InviteUserCommand", null, daoProvider, viewProvider);
+	public AbstractInviteUserCommand(IInviteUserData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.category.commands.InviteUserCommand", commandParam, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override

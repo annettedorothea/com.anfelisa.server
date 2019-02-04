@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IScoreCardData;
@@ -17,8 +18,8 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 	static final Logger LOG = LoggerFactory.getLogger(ScoreCardCommand.class);
 
 	public ScoreCardCommand(IScoreCardData actionData, IDaoProvider daoProvider,
-			ViewProvider viewProvider) {
-		super(actionData, daoProvider, viewProvider);
+			ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super(actionData, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override

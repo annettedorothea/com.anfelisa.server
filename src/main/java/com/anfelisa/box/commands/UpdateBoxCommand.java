@@ -4,6 +4,7 @@ import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IBoxUpdateData;
@@ -13,8 +14,9 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateBoxCommand.class);
 
-	public UpdateBoxCommand(IBoxUpdateData actionData, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(actionData, daoProvider, viewProvider);
+	public UpdateBoxCommand(IBoxUpdateData actionData, IDaoProvider daoProvider, ViewProvider viewProvider,
+			CustomAppConfiguration appConfiguration) {
+		super(actionData, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override
@@ -23,9 +25,9 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();
 		}
-		this.commandData.setOutcome(AbstractUpdateBoxCommand.ok); 
+		this.commandData.setOutcome(AbstractUpdateBoxCommand.ok);
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

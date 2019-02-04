@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -13,12 +14,8 @@ public abstract class AbstractUpdateBoxCommand extends Command<IBoxUpdateData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractUpdateBoxCommand(IBoxUpdateData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.commands.UpdateBoxCommand", commandParam, daoProvider, viewProvider);
-	}
-
-	public AbstractUpdateBoxCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.commands.UpdateBoxCommand", null, daoProvider, viewProvider);
+	public AbstractUpdateBoxCommand(IBoxUpdateData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.commands.UpdateBoxCommand", commandParam, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override

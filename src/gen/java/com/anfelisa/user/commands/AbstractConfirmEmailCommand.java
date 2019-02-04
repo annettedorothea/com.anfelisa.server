@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -14,12 +15,8 @@ public abstract class AbstractConfirmEmailCommand extends Command<IConfirmEmailD
 	protected static final String ok = "ok";
 	protected static final String alreadyConfirmed = "alreadyConfirmed";
 
-	public AbstractConfirmEmailCommand(IConfirmEmailData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.user.commands.ConfirmEmailCommand", commandParam, daoProvider, viewProvider);
-	}
-
-	public AbstractConfirmEmailCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.user.commands.ConfirmEmailCommand", null, daoProvider, viewProvider);
+	public AbstractConfirmEmailCommand(IConfirmEmailData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.user.commands.ConfirmEmailCommand", commandParam, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override

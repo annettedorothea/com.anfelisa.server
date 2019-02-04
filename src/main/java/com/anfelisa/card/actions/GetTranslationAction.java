@@ -23,10 +23,10 @@ public class GetTranslationAction extends AbstractGetTranslationAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetTranslationAction.class);
 
-	public GetTranslationAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(jdbi,appConfiguration, daoProvider, viewProvider);
+	public GetTranslationAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
+			ViewProvider viewProvider) {
+		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
-
 
 	@SuppressWarnings("unchecked")
 	protected final void loadDataForGetRequest(Handle readonlyHandle) {
@@ -49,10 +49,10 @@ public class GetTranslationAction extends AbstractGetTranslationAction {
 			TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {
 			};
 			HashMap<String, Object> o = mapper.readValue(response.toString(), typeRef);
-			HashMap<String, Object> data = (HashMap<String, Object>)o.get("data");
-			ArrayList<Object> translations = (ArrayList<Object>)data.get("translations");
+			HashMap<String, Object> data = (HashMap<String, Object>) o.get("data");
+			ArrayList<Object> translations = (ArrayList<Object>) data.get("translations");
 			if (translations.size() > 0) {
-				HashMap<String, Object> translation = (HashMap<String, Object>)translations.get(0);
+				HashMap<String, Object> translation = (HashMap<String, Object>) translations.get(0);
 				Object translatedText = translation.get("translatedText");
 				this.actionData.setTargetValue(translatedText.toString());
 			} else {
@@ -65,11 +65,10 @@ public class GetTranslationAction extends AbstractGetTranslationAction {
 		}
 	}
 
-
 	@Override
 	public void initActionData() {
 	}
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

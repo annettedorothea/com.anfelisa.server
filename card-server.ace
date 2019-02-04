@@ -42,7 +42,7 @@ ACE
 		response
 			cardList
 		
-	GetTranslation<CardTranslation>
+	proxy GetTranslation<CardTranslation>
 		GET "/card/translation" 
 		authorize 
 		queryParams 

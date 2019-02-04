@@ -1,4 +1,4 @@
-<createTable tableName="\"useraccesstocategory\"">
+<createTable tableName="useraccesstocategory">
 	<column name="categoryid" type="character varying">
 		<constraints primaryKey="true" nullable="false" 	references="\"category\"(categoryid)" deleteCascade="true" foreignKeyName="fk_\"useraccesstocategory\"_categoryid" />
 	</column>

@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -13,12 +14,8 @@ public abstract class AbstractUpdateCategoryCommand extends Command<ICategoryUpd
 
 	protected static final String ok = "ok";
 
-	public AbstractUpdateCategoryCommand(ICategoryUpdateData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.UpdateCategoryCommand", commandParam, daoProvider, viewProvider);
-	}
-
-	public AbstractUpdateCategoryCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.UpdateCategoryCommand", null, daoProvider, viewProvider);
+	public AbstractUpdateCategoryCommand(ICategoryUpdateData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.category.commands.UpdateCategoryCommand", commandParam, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override

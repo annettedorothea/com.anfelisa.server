@@ -1,4 +1,4 @@
-<createTable tableName="\"box\"">
+<createTable tableName="box">
 	<column name="boxid" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>

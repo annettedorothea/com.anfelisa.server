@@ -103,7 +103,6 @@ public abstract class AbstractGetTranslationAction extends Action<ICardTranslati
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
 		try {
-			IDataContainer originalData = null;
 			if (ServerConfiguration.DEV.equals(appConfiguration.getServerConfiguration().getMode())
 					|| ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (daoProvider.getAceDao().contains(databaseHandle.getHandle(), this.actionData.getUuid())) {
@@ -114,17 +113,8 @@ public abstract class AbstractGetTranslationAction extends Action<ICardTranslati
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
-				if (timelineItem != null) {
-					IAction action = ActionFactory.createAction(timelineItem.getName(), timelineItem.getData(), jdbi,
-							appConfiguration, daoProvider, viewProvider);
-					if (action != null) {
-						originalData = action.getActionData();
-						this.actionData = (ICardTranslationData)originalData;
-					}
-				} else {
-					throw new WebApplicationException(
-							"action for " + this.actionData.getUuid() + " not found in timeline");
-				}
+				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
+				this.actionData = (ICardTranslationData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (SetSystemTimeResource.systemTime != null) {
 					this.actionData.setSystemTime(SetSystemTimeResource.systemTime);
@@ -132,8 +122,10 @@ public abstract class AbstractGetTranslationAction extends Action<ICardTranslati
 					this.actionData.setSystemTime(new DateTime());
 				}
 			}
+			if (!ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
+				this.loadDataForGetRequest(this.databaseHandle.getReadonlyHandle());
+			}
 			daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
-			this.loadDataForGetRequest(this.databaseHandle.getReadonlyHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
 			return response;

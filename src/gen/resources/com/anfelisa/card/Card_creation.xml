@@ -1,4 +1,4 @@
-<createTable tableName="\"card\"">
+<createTable tableName="card">
 	<column name="cardid" type="character varying">
 		<constraints primaryKey="true" nullable="false"  />
 	</column>

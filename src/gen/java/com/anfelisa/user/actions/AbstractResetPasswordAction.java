@@ -72,7 +72,7 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 
 	@Override
 	public ICommand getCommand() {
-		return new ResetPasswordCommand(this.actionData, daoProvider, viewProvider);
+		return new ResetPasswordCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	public void setActionData(IDataContainer data) {
@@ -97,7 +97,6 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
 		try {
-			IDataContainer originalData = null;
 			if (ServerConfiguration.DEV.equals(appConfiguration.getServerConfiguration().getMode())
 					|| ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (daoProvider.getAceDao().contains(databaseHandle.getHandle(), this.actionData.getUuid())) {
@@ -108,17 +107,8 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
-				if (timelineItem != null) {
-					IAction action = ActionFactory.createAction(timelineItem.getName(), timelineItem.getData(), jdbi,
-							appConfiguration, daoProvider, viewProvider);
-					if (action != null) {
-						originalData = action.getActionData();
-						this.actionData = (IResetPasswordWithNewPasswordData)originalData;
-					}
-				} else {
-					throw new WebApplicationException(
-							"action for " + this.actionData.getUuid() + " not found in timeline");
-				}
+				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
+				this.actionData = (IResetPasswordWithNewPasswordData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (SetSystemTimeResource.systemTime != null) {
 					this.actionData.setSystemTime(SetSystemTimeResource.systemTime);

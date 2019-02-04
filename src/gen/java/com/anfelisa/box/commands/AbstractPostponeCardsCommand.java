@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -14,12 +15,8 @@ public abstract class AbstractPostponeCardsCommand extends Command<IPostponeCard
 	protected static final String ok = "ok";
 	protected static final String noDelay = "noDelay";
 
-	public AbstractPostponeCardsCommand(IPostponeCardsData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.commands.PostponeCardsCommand", commandParam, daoProvider, viewProvider);
-	}
-
-	public AbstractPostponeCardsCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.commands.PostponeCardsCommand", null, daoProvider, viewProvider);
+	public AbstractPostponeCardsCommand(IPostponeCardsData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.commands.PostponeCardsCommand", commandParam, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override

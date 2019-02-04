@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -14,12 +15,8 @@ public abstract class AbstractCreateCategoryCommand extends Command<ICategoryCre
 	protected static final String sub = "sub";
 	protected static final String root = "root";
 
-	public AbstractCreateCategoryCommand(ICategoryCreationData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.CreateCategoryCommand", commandParam, daoProvider, viewProvider);
-	}
-
-	public AbstractCreateCategoryCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.CreateCategoryCommand", null, daoProvider, viewProvider);
+	public AbstractCreateCategoryCommand(ICategoryCreationData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.category.commands.CreateCategoryCommand", commandParam, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override

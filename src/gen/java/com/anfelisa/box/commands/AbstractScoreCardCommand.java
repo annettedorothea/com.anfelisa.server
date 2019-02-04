@@ -4,6 +4,7 @@ import javax.ws.rs.WebApplicationException;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
+import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -14,12 +15,8 @@ public abstract class AbstractScoreCardCommand extends Command<IScoreCardData> {
 	protected static final String score = "score";
 	protected static final String scoreAndReinforce = "scoreAndReinforce";
 
-	public AbstractScoreCardCommand(IScoreCardData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.commands.ScoreCardCommand", commandParam, daoProvider, viewProvider);
-	}
-
-	public AbstractScoreCardCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.commands.ScoreCardCommand", null, daoProvider, viewProvider);
+	public AbstractScoreCardCommand(IScoreCardData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.commands.ScoreCardCommand", commandParam, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override
