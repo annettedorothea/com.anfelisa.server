@@ -1,7 +1,9 @@
 package com.anfelisa.user.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=EmailConfirmationModel.class)
 public interface IEmailConfirmationModel {
 
@@ -11,6 +13,8 @@ public interface IEmailConfirmationModel {
 	String getUserId();
 	void setUserId(String userId);
 	
+	
+	List<String> equalsPrimitiveTypes(IEmailConfirmationModel other);
 	
 }
 

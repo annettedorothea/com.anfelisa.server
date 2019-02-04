@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.card.models.ICardUpdateModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -109,6 +111,28 @@ public abstract class AbstractCardUpdateData extends AbstractData implements ICa
 	public ICardUpdateData withUserId(String userId) {
 		this.userId = userId;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(ICardUpdateModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getCardId() == null && other.getCardId() == null) && !this.getCardId().equals(other.getCardId())) {
+			differingAttributes.add("cardId: " + this.getCardId() + " " + other.getCardId());
+		}
+		if (!(this.getGiven() == null && other.getGiven() == null) && !this.getGiven().equals(other.getGiven())) {
+			differingAttributes.add("given: " + this.getGiven() + " " + other.getGiven());
+		}
+		if (!(this.getWanted() == null && other.getWanted() == null) && !this.getWanted().equals(other.getWanted())) {
+			differingAttributes.add("wanted: " + this.getWanted() + " " + other.getWanted());
+		}
+		if (!(this.getImage() == null && other.getImage() == null) && !this.getImage().equals(other.getImage())) {
+			differingAttributes.add("image: " + this.getImage() + " " + other.getImage());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
 	}
 	
 	

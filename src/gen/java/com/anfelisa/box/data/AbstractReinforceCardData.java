@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.box.models.IReinforceCardModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -94,6 +96,25 @@ public abstract class AbstractReinforceCardData extends AbstractData implements 
 	public IReinforceCardData withChangeDate(org.joda.time.DateTime changeDate) {
 		this.changeDate = changeDate;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(IReinforceCardModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getReinforceCardId() == null && other.getReinforceCardId() == null) && !this.getReinforceCardId().equals(other.getReinforceCardId())) {
+			differingAttributes.add("reinforceCardId: " + this.getReinforceCardId() + " " + other.getReinforceCardId());
+		}
+		if (!(this.getScheduledCardId() == null && other.getScheduledCardId() == null) && !this.getScheduledCardId().equals(other.getScheduledCardId())) {
+			differingAttributes.add("scheduledCardId: " + this.getScheduledCardId() + " " + other.getScheduledCardId());
+		}
+		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
+			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
+		}
+		if (!(this.getChangeDate() == null && other.getChangeDate() == null) && !this.getChangeDate().equals(other.getChangeDate())) {
+			differingAttributes.add("changeDate: " + this.getChangeDate() + " " + other.getChangeDate());
+		}
+		return differingAttributes;
 	}
 	
 	

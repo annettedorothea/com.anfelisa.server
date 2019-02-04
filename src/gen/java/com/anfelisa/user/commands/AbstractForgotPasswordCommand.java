@@ -1,9 +1,9 @@
 package com.anfelisa.user.commands;
 
 import javax.ws.rs.WebApplicationException;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -14,19 +14,19 @@ public abstract class AbstractForgotPasswordCommand extends Command<IForgotPassw
 	protected static final String ok = "ok";
 	protected static final String doesNotExist = "doesNotExist";
 
-	public AbstractForgotPasswordCommand(IForgotPasswordData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.user.commands.ForgotPasswordCommand", commandParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractForgotPasswordCommand(IForgotPasswordData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.commands.ForgotPasswordCommand", commandParam, daoProvider, viewProvider);
 	}
 
-	public AbstractForgotPasswordCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.user.commands.ForgotPasswordCommand", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractForgotPasswordCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.commands.ForgotPasswordCommand", null, daoProvider, viewProvider);
 	}
 
 	@Override
-	public void publishEvents() {
+	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.user.events.ForgotPasswordOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.user.events.ForgotPasswordOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		case doesNotExist:
 			break;

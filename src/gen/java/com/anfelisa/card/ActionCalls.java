@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.JerseyClientBuilder;
 
+@SuppressWarnings("unused")
 public class ActionCalls {
 
 	public static Response callCreateCard(String uuid, String wanted, String given, String image, String categoryId, int port, String authorization) {

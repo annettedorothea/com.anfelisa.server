@@ -16,6 +16,10 @@ public class UpdateCardAction extends AbstractUpdateCardAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
+
 
 
 }

@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.category.models.ICategoryMoveModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -124,6 +126,28 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	public ICategoryMoveData withUserId(String userId) {
 		this.userId = userId;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(ICategoryMoveModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getMovedCategoryId() == null && other.getMovedCategoryId() == null) && !this.getMovedCategoryId().equals(other.getMovedCategoryId())) {
+			differingAttributes.add("movedCategoryId: " + this.getMovedCategoryId() + " " + other.getMovedCategoryId());
+		}
+		if (!(this.getTargetCategoryId() == null && other.getTargetCategoryId() == null) && !this.getTargetCategoryId().equals(other.getTargetCategoryId())) {
+			differingAttributes.add("targetCategoryId: " + this.getTargetCategoryId() + " " + other.getTargetCategoryId());
+		}
+		if (!(this.getCategoryIndexWhereRemoved() == null && other.getCategoryIndexWhereRemoved() == null) && !this.getCategoryIndexWhereRemoved().equals(other.getCategoryIndexWhereRemoved())) {
+			differingAttributes.add("categoryIndexWhereRemoved: " + this.getCategoryIndexWhereRemoved() + " " + other.getCategoryIndexWhereRemoved());
+		}
+		if (!(this.getParentCategoryIdWhereRemoved() == null && other.getParentCategoryIdWhereRemoved() == null) && !this.getParentCategoryIdWhereRemoved().equals(other.getParentCategoryIdWhereRemoved())) {
+			differingAttributes.add("parentCategoryIdWhereRemoved: " + this.getParentCategoryIdWhereRemoved() + " " + other.getParentCategoryIdWhereRemoved());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
 	}
 	
 	

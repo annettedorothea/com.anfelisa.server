@@ -1,7 +1,9 @@
 package com.anfelisa.box.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=BoxUpdateModel.class)
 public interface IBoxUpdateModel {
 
@@ -17,6 +19,8 @@ public interface IBoxUpdateModel {
 	Integer getMaxCardsPerDay();
 	void setMaxCardsPerDay(Integer maxCardsPerDay);
 	
+	
+	List<String> equalsPrimitiveTypes(IBoxUpdateModel other);
 	
 }
 

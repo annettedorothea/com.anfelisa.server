@@ -16,6 +16,9 @@ public class InviteUserAction extends AbstractInviteUserAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

@@ -1,7 +1,9 @@
 package com.anfelisa.category.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=CategoryMoveModel.class)
 public interface ICategoryMoveModel {
 
@@ -23,6 +25,8 @@ public interface ICategoryMoveModel {
 	String getUserId();
 	void setUserId(String userId);
 	
+	
+	List<String> equalsPrimitiveTypes(ICategoryMoveModel other);
 	
 }
 

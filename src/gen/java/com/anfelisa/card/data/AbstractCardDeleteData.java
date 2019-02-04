@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.card.models.ICardDeleteModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -93,6 +95,25 @@ public abstract class AbstractCardDeleteData extends AbstractData implements ICa
 	public ICardDeleteData withUserId(String userId) {
 		this.userId = userId;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(ICardDeleteModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getCardId() == null && other.getCardId() == null) && !this.getCardId().equals(other.getCardId())) {
+			differingAttributes.add("cardId: " + this.getCardId() + " " + other.getCardId());
+		}
+		if (!(this.getCardIndex() == null && other.getCardIndex() == null) && !this.getCardIndex().equals(other.getCardIndex())) {
+			differingAttributes.add("cardIndex: " + this.getCardIndex() + " " + other.getCardIndex());
+		}
+		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
+			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
 	}
 	
 	

@@ -1,9 +1,9 @@
 package com.anfelisa.box.commands;
 
 import javax.ws.rs.WebApplicationException;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -14,22 +14,22 @@ public abstract class AbstractScoreCardCommand extends Command<IScoreCardData> {
 	protected static final String score = "score";
 	protected static final String scoreAndReinforce = "scoreAndReinforce";
 
-	public AbstractScoreCardCommand(IScoreCardData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.commands.ScoreCardCommand", commandParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractScoreCardCommand(IScoreCardData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.commands.ScoreCardCommand", commandParam, daoProvider, viewProvider);
 	}
 
-	public AbstractScoreCardCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.commands.ScoreCardCommand", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractScoreCardCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.commands.ScoreCardCommand", null, daoProvider, viewProvider);
 	}
 
 	@Override
-	public void publishEvents() {
+	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case score:
-			new com.anfelisa.box.events.ScoreCardScoreEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.box.events.ScoreCardScoreEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		case scoreAndReinforce:
-			new com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

@@ -2,6 +2,7 @@ package com.anfelisa.card.actions;
 
 import java.util.List;
 
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,13 +22,18 @@ public class GetCardsAction extends AbstractGetCardsAction {
 	}
 
 
-	protected final void loadDataForGetRequest() {
-		IUserAccessToCategoryModel userAccessToCategoryModel = daoProvider.getUserAccessToCategoryDao().hasUserAccessTo(getHandle(), actionData.getCategoryId(), actionData.getUserId());
+	protected final void loadDataForGetRequest(Handle readonlyHandle) {
+		IUserAccessToCategoryModel userAccessToCategoryModel = daoProvider.getUserAccessToCategoryDao().hasUserAccessTo(readonlyHandle, actionData.getCategoryId(), actionData.getUserId());
 		if (userAccessToCategoryModel == null) {
 			throwBadRequest();
 		}
-		List<ICardModel> cardList = daoProvider.getCardDao().selectAllOfCategory(getHandle(), actionData.getCategoryId());
+		List<ICardModel> cardList = daoProvider.getCardDao().selectAllOfCategory(readonlyHandle, actionData.getCategoryId());
 		this.actionData.setCardList(cardList);
+	}
+
+
+	@Override
+	public void initActionData() {
 	}
 
 }

@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.box.models.IScoreReinforceCardModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -93,6 +95,25 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	public IScoreReinforceCardData withUserId(String userId) {
 		this.userId = userId;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(IScoreReinforceCardModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getReinforceCardId() == null && other.getReinforceCardId() == null) && !this.getReinforceCardId().equals(other.getReinforceCardId())) {
+			differingAttributes.add("reinforceCardId: " + this.getReinforceCardId() + " " + other.getReinforceCardId());
+		}
+		if (!(this.getQuality() == null && other.getQuality() == null) && !this.getQuality().equals(other.getQuality())) {
+			differingAttributes.add("quality: " + this.getQuality() + " " + other.getQuality());
+		}
+		if (!(this.getChangeDate() == null && other.getChangeDate() == null) && !this.getChangeDate().equals(other.getChangeDate())) {
+			differingAttributes.add("changeDate: " + this.getChangeDate() + " " + other.getChangeDate());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
 	}
 	
 	

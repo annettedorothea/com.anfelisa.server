@@ -16,6 +16,9 @@ public class MoveCardsAction extends AbstractMoveCardsAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

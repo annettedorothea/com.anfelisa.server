@@ -2,10 +2,10 @@ package com.anfelisa.user.commands;
 
 import java.util.UUID;
 
+import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.IForgotPasswordData;
@@ -15,14 +15,13 @@ public class ForgotPasswordCommand extends AbstractForgotPasswordCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ForgotPasswordCommand.class);
 
-	public ForgotPasswordCommand(IForgotPasswordData actionData, DatabaseHandle databaseHandle,
-			IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(actionData, databaseHandle, daoProvider, viewProvider);
+	public ForgotPasswordCommand(IForgotPasswordData actionData, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected void executeCommand() {
-		IUserModel user = daoProvider.getUserDao().selectByUsername(this.getDatabaseHandle().getHandle(),
+	protected void executeCommand(Handle readonlyHandle) {
+		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle,
 				this.commandData.getUsername());
 		if (user != null) {
 			this.commandData.setEmail(user.getEmail());

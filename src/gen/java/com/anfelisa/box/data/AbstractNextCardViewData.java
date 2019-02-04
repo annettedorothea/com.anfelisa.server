@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.box.models.INextCardViewModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -223,6 +225,49 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	public INextCardViewData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(INextCardViewModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getScheduledCardId() == null && other.getScheduledCardId() == null) && !this.getScheduledCardId().equals(other.getScheduledCardId())) {
+			differingAttributes.add("scheduledCardId: " + this.getScheduledCardId() + " " + other.getScheduledCardId());
+		}
+		if (!(this.getCardId() == null && other.getCardId() == null) && !this.getCardId().equals(other.getCardId())) {
+			differingAttributes.add("cardId: " + this.getCardId() + " " + other.getCardId());
+		}
+		if (!(this.getScheduledDate() == null && other.getScheduledDate() == null) && !this.getScheduledDate().equals(other.getScheduledDate())) {
+			differingAttributes.add("scheduledDate: " + this.getScheduledDate() + " " + other.getScheduledDate());
+		}
+		if (!(this.getLastQuality() == null && other.getLastQuality() == null) && !this.getLastQuality().equals(other.getLastQuality())) {
+			differingAttributes.add("lastQuality: " + this.getLastQuality() + " " + other.getLastQuality());
+		}
+		if (!(this.getGiven() == null && other.getGiven() == null) && !this.getGiven().equals(other.getGiven())) {
+			differingAttributes.add("given: " + this.getGiven() + " " + other.getGiven());
+		}
+		if (!(this.getWanted() == null && other.getWanted() == null) && !this.getWanted().equals(other.getWanted())) {
+			differingAttributes.add("wanted: " + this.getWanted() + " " + other.getWanted());
+		}
+		if (!(this.getImage() == null && other.getImage() == null) && !this.getImage().equals(other.getImage())) {
+			differingAttributes.add("image: " + this.getImage() + " " + other.getImage());
+		}
+		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
+			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+		}
+		if (!(this.getRootCategoryId() == null && other.getRootCategoryId() == null) && !this.getRootCategoryId().equals(other.getRootCategoryId())) {
+			differingAttributes.add("rootCategoryId: " + this.getRootCategoryId() + " " + other.getRootCategoryId());
+		}
+		if (!(this.getCount() == null && other.getCount() == null) && !this.getCount().equals(other.getCount())) {
+			differingAttributes.add("count: " + this.getCount() + " " + other.getCount());
+		}
+		if (!(this.getScoredDate() == null && other.getScoredDate() == null) && !this.getScoredDate().equals(other.getScoredDate())) {
+			differingAttributes.add("scoredDate: " + this.getScoredDate() + " " + other.getScoredDate());
+		}
+		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
+			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
+		}
+		return differingAttributes;
 	}
 	
 	

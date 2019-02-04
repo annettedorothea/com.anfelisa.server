@@ -8,6 +8,9 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.card.models.ICardCreationModel;
+import com.anfelisa.card.models.ICardModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -204,6 +207,48 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 		this.categoryId = model.getCategoryId();
 		this.rootCategoryId = model.getRootCategoryId();
 	}
+	
+	public List<String> equalsPrimitiveTypes(ICardCreationModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		return differingAttributes;
+	}
+	
+	public List<String> equalsPrimitiveTypes(ICardModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getCardId() == null && other.getCardId() == null) && !this.getCardId().equals(other.getCardId())) {
+			differingAttributes.add("cardId: " + this.getCardId() + " " + other.getCardId());
+		}
+		if (!(this.getGiven() == null && other.getGiven() == null) && !this.getGiven().equals(other.getGiven())) {
+			differingAttributes.add("given: " + this.getGiven() + " " + other.getGiven());
+		}
+		if (!(this.getWanted() == null && other.getWanted() == null) && !this.getWanted().equals(other.getWanted())) {
+			differingAttributes.add("wanted: " + this.getWanted() + " " + other.getWanted());
+		}
+		if (!(this.getImage() == null && other.getImage() == null) && !this.getImage().equals(other.getImage())) {
+			differingAttributes.add("image: " + this.getImage() + " " + other.getImage());
+		}
+		if (!(this.getCardAuthor() == null && other.getCardAuthor() == null) && !this.getCardAuthor().equals(other.getCardAuthor())) {
+			differingAttributes.add("cardAuthor: " + this.getCardAuthor() + " " + other.getCardAuthor());
+		}
+		if (!(this.getCardIndex() == null && other.getCardIndex() == null) && !this.getCardIndex().equals(other.getCardIndex())) {
+			differingAttributes.add("cardIndex: " + this.getCardIndex() + " " + other.getCardIndex());
+		}
+		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
+			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+		}
+		if (!(this.getRootCategoryId() == null && other.getRootCategoryId() == null) && !this.getRootCategoryId().equals(other.getRootCategoryId())) {
+			differingAttributes.add("rootCategoryId: " + this.getRootCategoryId() + " " + other.getRootCategoryId());
+		}
+		return differingAttributes;
+	}
+	
+	
 }
 
 /*       S.D.G.       */

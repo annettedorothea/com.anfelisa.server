@@ -16,6 +16,9 @@ public class UpdateCategoryAction extends AbstractUpdateCategoryAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

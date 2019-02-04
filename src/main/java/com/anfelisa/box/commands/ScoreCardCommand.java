@@ -1,10 +1,10 @@
 package com.anfelisa.box.commands;
 
+import org.jdbi.v3.core.Handle;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IScoreCardData;
@@ -16,19 +16,19 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScoreCardCommand.class);
 
-	public ScoreCardCommand(IScoreCardData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
+	public ScoreCardCommand(IScoreCardData actionData, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
-		super(actionData, databaseHandle, daoProvider, viewProvider);
+		super(actionData, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected void executeCommand() {
-		IScheduledCardModel scheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(getHandle(),
+	protected void executeCommand(Handle readonlyHandle) {
+		IScheduledCardModel scheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(readonlyHandle, 
 				commandData.getScoredCardScheduledCardId());
 		if (scheduledCard == null) {
 			throwBadRequest("cardDoesNotExist");
 		}
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(getHandle(), scheduledCard.getBoxId());
+		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle,  scheduledCard.getBoxId());
 		if (box == null) {
 			throwBadRequest("boxDoesNotExist");
 		}
@@ -53,7 +53,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 			}
 		}
 
-		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByCardId(getHandle(),
+		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByCardId(readonlyHandle, 
 				scheduledCard.getCardId());
 		if (quality <= 3 && reinforceCard == null) {
 			this.commandData.setOutcome(scoreAndReinforce);
@@ -76,7 +76,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 			} else {
 				newTime = commandData.getSystemTime().plusDays(newInterval);
 			}
-			Integer cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(getHandle(), box.getBoxId(),
+			Integer cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(readonlyHandle,  box.getBoxId(),
 					newTime.withTimeAtStartOfDay(), newTime.plusDays(1).withTimeAtStartOfDay());
 			while (cardCount >= box.getMaxCardsPerDay()) {
 				newInterval += 1;
@@ -85,7 +85,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 				} else {
 					newTime = commandData.getSystemTime().plusDays(newInterval);
 				}
-				cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(getHandle(), box.getBoxId(),
+				cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(readonlyHandle,  box.getBoxId(),
 						newTime.withTimeAtStartOfDay(), newTime.plusDays(1).withTimeAtStartOfDay());
 			}
 		}

@@ -1,7 +1,9 @@
 package com.anfelisa.card.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=CardSearchModel.class)
 public interface ICardSearchModel {
 
@@ -20,6 +22,8 @@ public interface ICardSearchModel {
 	Boolean getNaturalInputOrder();
 	void setNaturalInputOrder(Boolean naturalInputOrder);
 	
+	
+	List<String> equalsPrimitiveTypes(ICardSearchModel other);
 	
 }
 

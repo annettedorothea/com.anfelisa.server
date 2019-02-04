@@ -1,7 +1,9 @@
 package com.anfelisa.user.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=DeleteUserModel.class)
 public interface IDeleteUserModel {
 
@@ -14,6 +16,8 @@ public interface IDeleteUserModel {
 	String getRole();
 	void setRole(String role);
 	
+	
+	List<String> equalsPrimitiveTypes(IDeleteUserModel other);
 	
 }
 

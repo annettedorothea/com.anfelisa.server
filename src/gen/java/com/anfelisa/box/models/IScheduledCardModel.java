@@ -1,7 +1,9 @@
 package com.anfelisa.box.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=ScheduledCardModel.class)
 public interface IScheduledCardModel {
 
@@ -41,6 +43,8 @@ public interface IScheduledCardModel {
 	org.joda.time.DateTime getScoredDate();
 	void setScoredDate(org.joda.time.DateTime scoredDate);
 	
+	
+	List<String> equalsPrimitiveTypes(IScheduledCardModel other);
 	
 }
 

@@ -3,11 +3,11 @@ package com.anfelisa.box.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jdbi.v3.core.Handle;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IScheduledCardsData;
@@ -20,27 +20,27 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScheduleCardsCommand.class);
 
-	public ScheduleCardsCommand(IScheduledCardsData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
+	public ScheduleCardsCommand(IScheduledCardsData actionData, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
-		super(actionData, databaseHandle, daoProvider, viewProvider);
+		super(actionData, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected void executeCommand() {
+	protected void executeCommand(Handle readonlyHandle) {
 		if (this.commandData.getCardIds() == null || this.commandData.getCardIds().size() == 0) {
 			this.commandData.setOutcome(nullOrEmpty);
 		} else {
 			String firstCardId = this.commandData.getCardIds().get(0);
-			ICardModel firstCard = daoProvider.getCardDao().selectByCardId(getHandle(), firstCardId);
+			ICardModel firstCard = daoProvider.getCardDao().selectByCardId(readonlyHandle,  firstCardId);
 			if (firstCard == null) {
 				throwBadRequest("cardDoesNotExist");
 			}
-			IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(getHandle(),
+			IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, 
 					firstCard.getRootCategoryId(), commandData.getUserId());
 			if (box == null) {
 				throwBadRequest("boxDoesNotExist");
 			}
-			List<IScheduledCardModel> allCards = daoProvider.getScheduledCardDao().selectAllCardsOfBox(getHandle(),
+			List<IScheduledCardModel> allCards = daoProvider.getScheduledCardDao().selectAllCardsOfBox(readonlyHandle, 
 					box.getBoxId());
 			this.commandData.setExistingScheduledCardIds(new ArrayList<String>());
 			this.commandData.setNewScheduledCards(new ArrayList<IScheduledCardModel>());

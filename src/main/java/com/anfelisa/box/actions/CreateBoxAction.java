@@ -16,6 +16,9 @@ public class CreateBoxAction extends AbstractCreateBoxAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

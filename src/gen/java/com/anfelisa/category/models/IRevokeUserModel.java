@@ -1,7 +1,9 @@
 package com.anfelisa.category.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=RevokeUserModel.class)
 public interface IRevokeUserModel {
 
@@ -17,6 +19,8 @@ public interface IRevokeUserModel {
 	String getUserId();
 	void setUserId(String userId);
 	
+	
+	List<String> equalsPrimitiveTypes(IRevokeUserModel other);
 	
 }
 

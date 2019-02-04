@@ -1,9 +1,9 @@
 package com.anfelisa.card.commands;
 
 import javax.ws.rs.WebApplicationException;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -13,19 +13,19 @@ public abstract class AbstractMoveCardsCommand extends Command<ICardIdListData> 
 
 	protected static final String ok = "ok";
 
-	public AbstractMoveCardsCommand(ICardIdListData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.card.commands.MoveCardsCommand", commandParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractMoveCardsCommand(ICardIdListData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.card.commands.MoveCardsCommand", commandParam, daoProvider, viewProvider);
 	}
 
-	public AbstractMoveCardsCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.card.commands.MoveCardsCommand", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractMoveCardsCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.card.commands.MoveCardsCommand", null, daoProvider, viewProvider);
 	}
 
 	@Override
-	public void publishEvents() {
+	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.card.events.MoveCardsOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.card.events.MoveCardsOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

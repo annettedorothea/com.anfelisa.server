@@ -16,6 +16,9 @@ public class ScoreCardAction extends AbstractScoreCardAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

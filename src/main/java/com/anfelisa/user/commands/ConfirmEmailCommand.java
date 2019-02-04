@@ -1,9 +1,9 @@
 package com.anfelisa.user.commands;
 
+import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.IConfirmEmailData;
@@ -14,21 +14,21 @@ public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ConfirmEmailCommand.class);
 
-	public ConfirmEmailCommand(IConfirmEmailData actionData, DatabaseHandle databaseHandle,
+	public ConfirmEmailCommand(IConfirmEmailData actionData, 
 			IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(actionData, databaseHandle, daoProvider, viewProvider);
+		super(actionData, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected void executeCommand() {
-		IUserModel user = daoProvider.getUserDao().selectByUsername(getHandle(), commandData.getUsername());
+	protected void executeCommand(Handle readonlyHandle) {
+		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle,  commandData.getUsername());
 		if (user == null) {
 			throwBadRequest("userDoesNotExist");
 		}
 		if (user.getEmailConfirmed()) {
 			this.commandData.setOutcome(alreadyConfirmed);
 		} else {
-			IEmailConfirmationModel emailConfirmation = daoProvider.getEmailConfirmationDao().selectByToken(getHandle(),
+			IEmailConfirmationModel emailConfirmation = daoProvider.getEmailConfirmationDao().selectByToken(readonlyHandle, 
 					commandData.getToken());
 			if (emailConfirmation == null) {
 				throwBadRequest("confirmationTokenDoesNotExist");

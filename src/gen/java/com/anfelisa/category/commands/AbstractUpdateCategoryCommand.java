@@ -1,9 +1,9 @@
 package com.anfelisa.category.commands;
 
 import javax.ws.rs.WebApplicationException;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -13,19 +13,19 @@ public abstract class AbstractUpdateCategoryCommand extends Command<ICategoryUpd
 
 	protected static final String ok = "ok";
 
-	public AbstractUpdateCategoryCommand(ICategoryUpdateData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.UpdateCategoryCommand", commandParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractUpdateCategoryCommand(ICategoryUpdateData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.commands.UpdateCategoryCommand", commandParam, daoProvider, viewProvider);
 	}
 
-	public AbstractUpdateCategoryCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.UpdateCategoryCommand", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractUpdateCategoryCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.commands.UpdateCategoryCommand", null, daoProvider, viewProvider);
 	}
 
 	@Override
-	public void publishEvents() {
+	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.category.events.UpdateCategoryOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.category.events.UpdateCategoryOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

@@ -2,6 +2,7 @@ package com.anfelisa.category.actions;
 
 import java.util.List;
 
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,22 +22,26 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 		super(jdbi, appConfiguration, daoProvider, viewProvider);
 	}
 
-	protected final void loadDataForGetRequest() {
-		List<ICategoryTreeRootItemModel> rootCategories = daoProvider.getCategoryDao().selectAllRoot(getHandle(),
+	protected final void loadDataForGetRequest(Handle readonlyHandle) {
+		List<ICategoryTreeRootItemModel> rootCategories = daoProvider.getCategoryDao().selectAllRoot(readonlyHandle,
 				actionData.getUserId());
 		actionData.setCategoryList(rootCategories);
 		for (ICategoryTreeRootItemModel categoryItemModel : rootCategories) {
-			categoryItemModel.setChildCategories(loadChildren(categoryItemModel.getCategoryId()));
+			categoryItemModel.setChildCategories(loadChildren(categoryItemModel.getCategoryId(), readonlyHandle));
 		}
 	}
 
-	private List<ICategoryTreeItemModel> loadChildren(String categoryId) {
-		List<ICategoryTreeItemModel> children = daoProvider.getCategoryDao().selectAllChildren(getHandle(), categoryId,
+	private List<ICategoryTreeItemModel> loadChildren(String categoryId, Handle readonlyHandle) {
+		List<ICategoryTreeItemModel> children = daoProvider.getCategoryDao().selectAllChildren(readonlyHandle, categoryId,
 				actionData.getUserId());
 		for (ICategoryTreeItemModel child : children) {
-			child.setChildCategories(loadChildren(child.getCategoryId()));
+			child.setChildCategories(loadChildren(child.getCategoryId(), readonlyHandle));
 		}
 		return children;
+	}
+
+	@Override
+	public void initActionData() {
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.anfelisa.category.events;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.IEvent;
 import com.anfelisa.ace.ViewProvider;
@@ -23,55 +22,54 @@ public class EventFactory {
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
-	public static IEvent createEvent(String eventClass, String json, DatabaseHandle databaseHandle,
-		IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public static IEvent createEvent(String eventClass, String json, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		try {
 			if (eventClass.equals("com.anfelisa.category.events.CreateCategorySubEvent")) {
 				CategoryCreationData data = mapper.readValue(json, CategoryCreationData.class);
 				data.migrateLegacyData(json);
-				CreateCategorySubEvent event = new CreateCategorySubEvent(data, databaseHandle, daoProvider, viewProvider);
+				CreateCategorySubEvent event = new CreateCategorySubEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.CreateCategoryRootEvent")) {
 				CategoryCreationData data = mapper.readValue(json, CategoryCreationData.class);
 				data.migrateLegacyData(json);
-				CreateCategoryRootEvent event = new CreateCategoryRootEvent(data, databaseHandle, daoProvider, viewProvider);
+				CreateCategoryRootEvent event = new CreateCategoryRootEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.UpdateCategoryOkEvent")) {
 				CategoryUpdateData data = mapper.readValue(json, CategoryUpdateData.class);
 				data.migrateLegacyData(json);
-				UpdateCategoryOkEvent event = new UpdateCategoryOkEvent(data, databaseHandle, daoProvider, viewProvider);
+				UpdateCategoryOkEvent event = new UpdateCategoryOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryNoRootEvent")) {
 				CategoryDeleteData data = mapper.readValue(json, CategoryDeleteData.class);
 				data.migrateLegacyData(json);
-				DeleteCategoryNoRootEvent event = new DeleteCategoryNoRootEvent(data, databaseHandle, daoProvider, viewProvider);
+				DeleteCategoryNoRootEvent event = new DeleteCategoryNoRootEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryRootEvent")) {
 				CategoryDeleteData data = mapper.readValue(json, CategoryDeleteData.class);
 				data.migrateLegacyData(json);
-				DeleteCategoryRootEvent event = new DeleteCategoryRootEvent(data, databaseHandle, daoProvider, viewProvider);
+				DeleteCategoryRootEvent event = new DeleteCategoryRootEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.InviteUserOkEvent")) {
 				InviteUserData data = mapper.readValue(json, InviteUserData.class);
 				data.migrateLegacyData(json);
-				InviteUserOkEvent event = new InviteUserOkEvent(data, databaseHandle, daoProvider, viewProvider);
+				InviteUserOkEvent event = new InviteUserOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.RevokeUserAccessOkEvent")) {
 				RevokeUserData data = mapper.readValue(json, RevokeUserData.class);
 				data.migrateLegacyData(json);
-				RevokeUserAccessOkEvent event = new RevokeUserAccessOkEvent(data, databaseHandle, daoProvider, viewProvider);
+				RevokeUserAccessOkEvent event = new RevokeUserAccessOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.MoveCategoryOkEvent")) {
 				CategoryMoveData data = mapper.readValue(json, CategoryMoveData.class);
 				data.migrateLegacyData(json);
-				MoveCategoryOkEvent event = new MoveCategoryOkEvent(data, databaseHandle, daoProvider, viewProvider);
+				MoveCategoryOkEvent event = new MoveCategoryOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 		} catch (IOException e) {
@@ -81,31 +79,30 @@ public class EventFactory {
 		return null;
 	}
 
-	public static IEvent createEvent(String eventClass, IDataContainer data, DatabaseHandle databaseHandle,
-		IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public static IEvent createEvent(String eventClass, IDataContainer data, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		if (eventClass.equals("com.anfelisa.category.events.CreateCategorySubEvent")) {
-			return new CreateCategorySubEvent((CategoryCreationData)data, databaseHandle, daoProvider, viewProvider);
+			return new CreateCategorySubEvent((CategoryCreationData)data, daoProvider, viewProvider);
 		}
 		if (eventClass.equals("com.anfelisa.category.events.CreateCategoryRootEvent")) {
-			return new CreateCategoryRootEvent((CategoryCreationData)data, databaseHandle, daoProvider, viewProvider);
+			return new CreateCategoryRootEvent((CategoryCreationData)data, daoProvider, viewProvider);
 		}
 		if (eventClass.equals("com.anfelisa.category.events.UpdateCategoryOkEvent")) {
-			return new UpdateCategoryOkEvent((CategoryUpdateData)data, databaseHandle, daoProvider, viewProvider);
+			return new UpdateCategoryOkEvent((CategoryUpdateData)data, daoProvider, viewProvider);
 		}
 		if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryNoRootEvent")) {
-			return new DeleteCategoryNoRootEvent((CategoryDeleteData)data, databaseHandle, daoProvider, viewProvider);
+			return new DeleteCategoryNoRootEvent((CategoryDeleteData)data, daoProvider, viewProvider);
 		}
 		if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryRootEvent")) {
-			return new DeleteCategoryRootEvent((CategoryDeleteData)data, databaseHandle, daoProvider, viewProvider);
+			return new DeleteCategoryRootEvent((CategoryDeleteData)data, daoProvider, viewProvider);
 		}
 		if (eventClass.equals("com.anfelisa.category.events.InviteUserOkEvent")) {
-			return new InviteUserOkEvent((InviteUserData)data, databaseHandle, daoProvider, viewProvider);
+			return new InviteUserOkEvent((InviteUserData)data, daoProvider, viewProvider);
 		}
 		if (eventClass.equals("com.anfelisa.category.events.RevokeUserAccessOkEvent")) {
-			return new RevokeUserAccessOkEvent((RevokeUserData)data, databaseHandle, daoProvider, viewProvider);
+			return new RevokeUserAccessOkEvent((RevokeUserData)data, daoProvider, viewProvider);
 		}
 		if (eventClass.equals("com.anfelisa.category.events.MoveCategoryOkEvent")) {
-			return new MoveCategoryOkEvent((CategoryMoveData)data, databaseHandle, daoProvider, viewProvider);
+			return new MoveCategoryOkEvent((CategoryMoveData)data, daoProvider, viewProvider);
 		}
 
 		return null;

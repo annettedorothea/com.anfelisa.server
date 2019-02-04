@@ -16,6 +16,9 @@ public class ConfirmEmailAction extends AbstractConfirmEmailAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

@@ -1,7 +1,9 @@
 package com.anfelisa.category.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=CategoryModel.class)
 public interface ICategoryModel {
 
@@ -35,6 +37,8 @@ public interface ICategoryModel {
 	Boolean getPublicRootCategory();
 	void setPublicRootCategory(Boolean publicRootCategory);
 	
+	
+	List<String> equalsPrimitiveTypes(ICategoryModel other);
 	
 }
 

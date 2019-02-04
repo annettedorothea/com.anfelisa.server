@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.box.models.IScoreCardModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -293,6 +295,61 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	public IScoreCardData withBoxId(String boxId) {
 		this.boxId = boxId;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(IScoreCardModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getCardId() == null && other.getCardId() == null) && !this.getCardId().equals(other.getCardId())) {
+			differingAttributes.add("cardId: " + this.getCardId() + " " + other.getCardId());
+		}
+		if (!(this.getNextScheduledCardScheduledCardId() == null && other.getNextScheduledCardScheduledCardId() == null) && !this.getNextScheduledCardScheduledCardId().equals(other.getNextScheduledCardScheduledCardId())) {
+			differingAttributes.add("nextScheduledCardScheduledCardId: " + this.getNextScheduledCardScheduledCardId() + " " + other.getNextScheduledCardScheduledCardId());
+		}
+		if (!(this.getNextScheduledCardCreatedDate() == null && other.getNextScheduledCardCreatedDate() == null) && !this.getNextScheduledCardCreatedDate().equals(other.getNextScheduledCardCreatedDate())) {
+			differingAttributes.add("nextScheduledCardCreatedDate: " + this.getNextScheduledCardCreatedDate() + " " + other.getNextScheduledCardCreatedDate());
+		}
+		if (!(this.getNextScheduledCardEf() == null && other.getNextScheduledCardEf() == null) && !this.getNextScheduledCardEf().equals(other.getNextScheduledCardEf())) {
+			differingAttributes.add("nextScheduledCardEf: " + this.getNextScheduledCardEf() + " " + other.getNextScheduledCardEf());
+		}
+		if (!(this.getNextScheduledCardInterval() == null && other.getNextScheduledCardInterval() == null) && !this.getNextScheduledCardInterval().equals(other.getNextScheduledCardInterval())) {
+			differingAttributes.add("nextScheduledCardInterval: " + this.getNextScheduledCardInterval() + " " + other.getNextScheduledCardInterval());
+		}
+		if (!(this.getNextScheduledCardN() == null && other.getNextScheduledCardN() == null) && !this.getNextScheduledCardN().equals(other.getNextScheduledCardN())) {
+			differingAttributes.add("nextScheduledCardN: " + this.getNextScheduledCardN() + " " + other.getNextScheduledCardN());
+		}
+		if (!(this.getNextScheduledCardCount() == null && other.getNextScheduledCardCount() == null) && !this.getNextScheduledCardCount().equals(other.getNextScheduledCardCount())) {
+			differingAttributes.add("nextScheduledCardCount: " + this.getNextScheduledCardCount() + " " + other.getNextScheduledCardCount());
+		}
+		if (!(this.getNextScheduledCardScheduledDate() == null && other.getNextScheduledCardScheduledDate() == null) && !this.getNextScheduledCardScheduledDate().equals(other.getNextScheduledCardScheduledDate())) {
+			differingAttributes.add("nextScheduledCardScheduledDate: " + this.getNextScheduledCardScheduledDate() + " " + other.getNextScheduledCardScheduledDate());
+		}
+		if (!(this.getNextScheduledCardLastQuality() == null && other.getNextScheduledCardLastQuality() == null) && !this.getNextScheduledCardLastQuality().equals(other.getNextScheduledCardLastQuality())) {
+			differingAttributes.add("nextScheduledCardLastQuality: " + this.getNextScheduledCardLastQuality() + " " + other.getNextScheduledCardLastQuality());
+		}
+		if (!(this.getScoredCardScheduledCardId() == null && other.getScoredCardScheduledCardId() == null) && !this.getScoredCardScheduledCardId().equals(other.getScoredCardScheduledCardId())) {
+			differingAttributes.add("scoredCardScheduledCardId: " + this.getScoredCardScheduledCardId() + " " + other.getScoredCardScheduledCardId());
+		}
+		if (!(this.getScoredCardQuality() == null && other.getScoredCardQuality() == null) && !this.getScoredCardQuality().equals(other.getScoredCardQuality())) {
+			differingAttributes.add("scoredCardQuality: " + this.getScoredCardQuality() + " " + other.getScoredCardQuality());
+		}
+		if (!(this.getScoredCardScoredDate() == null && other.getScoredCardScoredDate() == null) && !this.getScoredCardScoredDate().equals(other.getScoredCardScoredDate())) {
+			differingAttributes.add("scoredCardScoredDate: " + this.getScoredCardScoredDate() + " " + other.getScoredCardScoredDate());
+		}
+		if (!(this.getReinforceCardId() == null && other.getReinforceCardId() == null) && !this.getReinforceCardId().equals(other.getReinforceCardId())) {
+			differingAttributes.add("reinforceCardId: " + this.getReinforceCardId() + " " + other.getReinforceCardId());
+		}
+		if (!(this.getReinforceCardCreatedDate() == null && other.getReinforceCardCreatedDate() == null) && !this.getReinforceCardCreatedDate().equals(other.getReinforceCardCreatedDate())) {
+			differingAttributes.add("reinforceCardCreatedDate: " + this.getReinforceCardCreatedDate() + " " + other.getReinforceCardCreatedDate());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
+			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
+		}
+		return differingAttributes;
 	}
 	
 	

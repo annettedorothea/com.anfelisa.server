@@ -1,7 +1,9 @@
 package com.anfelisa.card.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=CardTranslationModel.class)
 public interface ICardTranslationModel {
 
@@ -17,6 +19,8 @@ public interface ICardTranslationModel {
 	String getTargetLanguage();
 	void setTargetLanguage(String targetLanguage);
 	
+	
+	List<String> equalsPrimitiveTypes(ICardTranslationModel other);
 	
 }
 

@@ -3,10 +3,10 @@ package com.anfelisa.card.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.card.data.ICardIdListData;
@@ -17,19 +17,19 @@ public class MoveCardsCommand extends AbstractMoveCardsCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(MoveCardsCommand.class);
 
-	public MoveCardsCommand(ICardIdListData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
+	public MoveCardsCommand(ICardIdListData actionData, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
-		super(actionData, databaseHandle, daoProvider, viewProvider);
+		super(actionData, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected void executeCommand() {
+	protected void executeCommand(Handle readonlyHandle) {
 		IUserAccessToCategoryModel accessToCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.hasUserAccessTo(getHandle(), commandData.getCategoryId(), commandData.getUserId());
+				.hasUserAccessTo(readonlyHandle,  commandData.getCategoryId(), commandData.getUserId());
 		if (accessToCategory == null) {
 			throwUnauthorized();
 		}
-		Integer cardIndex = this.daoProvider.getCardDao().selectMaxIndexInCategory(getHandle(),
+		Integer cardIndex = this.daoProvider.getCardDao().selectMaxIndexInCategory(readonlyHandle, 
 				commandData.getCategoryId());
 		if (cardIndex == null) {
 			cardIndex = 0;
@@ -38,12 +38,12 @@ public class MoveCardsCommand extends AbstractMoveCardsCommand {
 		}
 		List<ICardModel> movedCards = new ArrayList<>();
 		for (String cardId : commandData.getCardIdList()) {
-			ICardModel card = daoProvider.getCardDao().selectByCardId(getHandle(), cardId);
+			ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle,  cardId);
 			if (card == null) {
 				throwBadRequest("cardDoesNotExist");
 			}
 			IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
-					.hasUserAccessTo(getHandle(), card.getRootCategoryId(), commandData.getUserId());
+					.hasUserAccessTo(readonlyHandle,  card.getRootCategoryId(), commandData.getUserId());
 			if (accessToRootCategory == null) {
 				throwUnauthorized();
 			}

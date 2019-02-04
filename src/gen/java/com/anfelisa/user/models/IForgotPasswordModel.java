@@ -1,7 +1,9 @@
 package com.anfelisa.user.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=ForgotPasswordModel.class)
 public interface IForgotPasswordModel extends com.anfelisa.user.models.IResetPasswordModel{
 
@@ -14,6 +16,8 @@ public interface IForgotPasswordModel extends com.anfelisa.user.models.IResetPas
 	String getUsername();
 	void setUsername(String username);
 	
+	
+	List<String> equalsPrimitiveTypes(IForgotPasswordModel other);
 	
 }
 

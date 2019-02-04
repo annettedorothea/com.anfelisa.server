@@ -66,6 +66,7 @@ public class BoxInfoData extends AbstractBoxInfoData implements IBoxInfoData {
 		}*/
 	}
 
+
 }
 
 /*       S.D.G.       */

@@ -1,9 +1,9 @@
 package com.anfelisa.user.commands;
 
 import javax.ws.rs.WebApplicationException;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -13,19 +13,19 @@ public abstract class AbstractDeleteUserCommand extends Command<IDeleteUserData>
 
 	protected static final String ok = "ok";
 
-	public AbstractDeleteUserCommand(IDeleteUserData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.user.commands.DeleteUserCommand", commandParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractDeleteUserCommand(IDeleteUserData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.commands.DeleteUserCommand", commandParam, daoProvider, viewProvider);
 	}
 
-	public AbstractDeleteUserCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.user.commands.DeleteUserCommand", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractDeleteUserCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.commands.DeleteUserCommand", null, daoProvider, viewProvider);
 	}
 
 	@Override
-	public void publishEvents() {
+	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.user.events.DeleteUserOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.user.events.DeleteUserOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

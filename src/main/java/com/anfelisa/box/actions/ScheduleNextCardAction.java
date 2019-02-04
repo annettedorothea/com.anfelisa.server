@@ -16,6 +16,9 @@ public class ScheduleNextCardAction extends AbstractScheduleNextCardAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

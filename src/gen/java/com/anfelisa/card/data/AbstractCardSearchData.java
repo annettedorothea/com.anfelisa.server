@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.card.models.ICardSearchModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -108,6 +110,25 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	public ICardSearchData withNaturalInputOrder(Boolean naturalInputOrder) {
 		this.naturalInputOrder = naturalInputOrder;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(ICardSearchModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getGiven() == null && other.getGiven() == null) && !this.getGiven().equals(other.getGiven())) {
+			differingAttributes.add("given: " + this.getGiven() + " " + other.getGiven());
+		}
+		if (!(this.getWanted() == null && other.getWanted() == null) && !this.getWanted().equals(other.getWanted())) {
+			differingAttributes.add("wanted: " + this.getWanted() + " " + other.getWanted());
+		}
+		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
+			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+		}
+		if (!(this.getNaturalInputOrder() == null && other.getNaturalInputOrder() == null) && !this.getNaturalInputOrder().equals(other.getNaturalInputOrder())) {
+			differingAttributes.add("naturalInputOrder: " + this.getNaturalInputOrder() + " " + other.getNaturalInputOrder());
+		}
+		return differingAttributes;
 	}
 	
 	

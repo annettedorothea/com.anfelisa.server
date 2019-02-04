@@ -17,6 +17,9 @@ public class UpdateBoxAction extends AbstractUpdateBoxAction {
 	}
 
 
+	@Override
+	public void initActionData() {
+	}
 
 }
 

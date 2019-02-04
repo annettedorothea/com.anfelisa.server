@@ -1,7 +1,9 @@
 package com.anfelisa.card.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=CardModel.class)
 public interface ICardModel {
 
@@ -29,6 +31,8 @@ public interface ICardModel {
 	String getRootCategoryId();
 	void setRootCategoryId(String rootCategoryId);
 	
+	
+	List<String> equalsPrimitiveTypes(ICardModel other);
 	
 }
 

@@ -1,9 +1,9 @@
 package com.anfelisa.box.commands;
 
 import javax.ws.rs.WebApplicationException;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -13,19 +13,19 @@ public abstract class AbstractUpdateBoxCommand extends Command<IBoxUpdateData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractUpdateBoxCommand(IBoxUpdateData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.commands.UpdateBoxCommand", commandParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractUpdateBoxCommand(IBoxUpdateData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.commands.UpdateBoxCommand", commandParam, daoProvider, viewProvider);
 	}
 
-	public AbstractUpdateBoxCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.commands.UpdateBoxCommand", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractUpdateBoxCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.commands.UpdateBoxCommand", null, daoProvider, viewProvider);
 	}
 
 	@Override
-	public void publishEvents() {
+	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.box.events.UpdateBoxOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.box.events.UpdateBoxOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

@@ -8,6 +8,10 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.category.models.ICategoryCreationModel;
+import com.anfelisa.category.models.ICategoryModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -242,6 +246,62 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		this.categoryId = model.getCategoryId();
 		this.userId = model.getUserId();
 	}
+	
+	public List<String> equalsPrimitiveTypes(ICategoryCreationModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		return differingAttributes;
+	}
+	
+	public List<String> equalsPrimitiveTypes(ICategoryModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
+			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+		}
+		if (!(this.getCategoryName() == null && other.getCategoryName() == null) && !this.getCategoryName().equals(other.getCategoryName())) {
+			differingAttributes.add("categoryName: " + this.getCategoryName() + " " + other.getCategoryName());
+		}
+		if (!(this.getCategoryAuthor() == null && other.getCategoryAuthor() == null) && !this.getCategoryAuthor().equals(other.getCategoryAuthor())) {
+			differingAttributes.add("categoryAuthor: " + this.getCategoryAuthor() + " " + other.getCategoryAuthor());
+		}
+		if (!(this.getCategoryIndex() == null && other.getCategoryIndex() == null) && !this.getCategoryIndex().equals(other.getCategoryIndex())) {
+			differingAttributes.add("categoryIndex: " + this.getCategoryIndex() + " " + other.getCategoryIndex());
+		}
+		if (!(this.getParentCategoryId() == null && other.getParentCategoryId() == null) && !this.getParentCategoryId().equals(other.getParentCategoryId())) {
+			differingAttributes.add("parentCategoryId: " + this.getParentCategoryId() + " " + other.getParentCategoryId());
+		}
+		if (!(this.getRootCategoryId() == null && other.getRootCategoryId() == null) && !this.getRootCategoryId().equals(other.getRootCategoryId())) {
+			differingAttributes.add("rootCategoryId: " + this.getRootCategoryId() + " " + other.getRootCategoryId());
+		}
+		if (!(this.getDictionaryLookup() == null && other.getDictionaryLookup() == null) && !this.getDictionaryLookup().equals(other.getDictionaryLookup())) {
+			differingAttributes.add("dictionaryLookup: " + this.getDictionaryLookup() + " " + other.getDictionaryLookup());
+		}
+		if (!(this.getGivenLanguage() == null && other.getGivenLanguage() == null) && !this.getGivenLanguage().equals(other.getGivenLanguage())) {
+			differingAttributes.add("givenLanguage: " + this.getGivenLanguage() + " " + other.getGivenLanguage());
+		}
+		if (!(this.getWantedLanguage() == null && other.getWantedLanguage() == null) && !this.getWantedLanguage().equals(other.getWantedLanguage())) {
+			differingAttributes.add("wantedLanguage: " + this.getWantedLanguage() + " " + other.getWantedLanguage());
+		}
+		if (!(this.getPublicRootCategory() == null && other.getPublicRootCategory() == null) && !this.getPublicRootCategory().equals(other.getPublicRootCategory())) {
+			differingAttributes.add("publicRootCategory: " + this.getPublicRootCategory() + " " + other.getPublicRootCategory());
+		}
+		return differingAttributes;
+	}
+	
+	public List<String> equalsPrimitiveTypes(IUserAccessToCategoryModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
+			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
+	}
+	
+	
 }
 
 /*       S.D.G.       */

@@ -1,6 +1,5 @@
 package com.anfelisa.card.events;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.IEvent;
 import com.anfelisa.ace.ViewProvider;
@@ -23,31 +22,30 @@ public class EventFactory {
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
-	public static IEvent createEvent(String eventClass, String json, DatabaseHandle databaseHandle,
-		IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public static IEvent createEvent(String eventClass, String json, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		try {
 			if (eventClass.equals("com.anfelisa.card.events.CreateCardOkEvent")) {
 				CardCreationData data = mapper.readValue(json, CardCreationData.class);
 				data.migrateLegacyData(json);
-				CreateCardOkEvent event = new CreateCardOkEvent(data, databaseHandle, daoProvider, viewProvider);
+				CreateCardOkEvent event = new CreateCardOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.card.events.UpdateCardOkEvent")) {
 				CardUpdateData data = mapper.readValue(json, CardUpdateData.class);
 				data.migrateLegacyData(json);
-				UpdateCardOkEvent event = new UpdateCardOkEvent(data, databaseHandle, daoProvider, viewProvider);
+				UpdateCardOkEvent event = new UpdateCardOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.card.events.DeleteCardOkEvent")) {
 				CardDeleteData data = mapper.readValue(json, CardDeleteData.class);
 				data.migrateLegacyData(json);
-				DeleteCardOkEvent event = new DeleteCardOkEvent(data, databaseHandle, daoProvider, viewProvider);
+				DeleteCardOkEvent event = new DeleteCardOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.card.events.MoveCardsOkEvent")) {
 				CardIdListData data = mapper.readValue(json, CardIdListData.class);
 				data.migrateLegacyData(json);
-				MoveCardsOkEvent event = new MoveCardsOkEvent(data, databaseHandle, daoProvider, viewProvider);
+				MoveCardsOkEvent event = new MoveCardsOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 		} catch (IOException e) {
@@ -57,19 +55,18 @@ public class EventFactory {
 		return null;
 	}
 
-	public static IEvent createEvent(String eventClass, IDataContainer data, DatabaseHandle databaseHandle,
-		IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public static IEvent createEvent(String eventClass, IDataContainer data, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		if (eventClass.equals("com.anfelisa.card.events.CreateCardOkEvent")) {
-			return new CreateCardOkEvent((CardCreationData)data, databaseHandle, daoProvider, viewProvider);
+			return new CreateCardOkEvent((CardCreationData)data, daoProvider, viewProvider);
 		}
 		if (eventClass.equals("com.anfelisa.card.events.UpdateCardOkEvent")) {
-			return new UpdateCardOkEvent((CardUpdateData)data, databaseHandle, daoProvider, viewProvider);
+			return new UpdateCardOkEvent((CardUpdateData)data, daoProvider, viewProvider);
 		}
 		if (eventClass.equals("com.anfelisa.card.events.DeleteCardOkEvent")) {
-			return new DeleteCardOkEvent((CardDeleteData)data, databaseHandle, daoProvider, viewProvider);
+			return new DeleteCardOkEvent((CardDeleteData)data, daoProvider, viewProvider);
 		}
 		if (eventClass.equals("com.anfelisa.card.events.MoveCardsOkEvent")) {
-			return new MoveCardsOkEvent((CardIdListData)data, databaseHandle, daoProvider, viewProvider);
+			return new MoveCardsOkEvent((CardIdListData)data, daoProvider, viewProvider);
 		}
 
 		return null;

@@ -1,9 +1,9 @@
 package com.anfelisa.user.commands;
 
 import javax.ws.rs.WebApplicationException;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -13,19 +13,19 @@ public abstract class AbstractResetPasswordCommand extends Command<IResetPasswor
 
 	protected static final String ok = "ok";
 
-	public AbstractResetPasswordCommand(IResetPasswordWithNewPasswordData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.user.commands.ResetPasswordCommand", commandParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractResetPasswordCommand(IResetPasswordWithNewPasswordData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.commands.ResetPasswordCommand", commandParam, daoProvider, viewProvider);
 	}
 
-	public AbstractResetPasswordCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.user.commands.ResetPasswordCommand", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractResetPasswordCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.commands.ResetPasswordCommand", null, daoProvider, viewProvider);
 	}
 
 	@Override
-	public void publishEvents() {
+	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.user.events.ResetPasswordOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.user.events.ResetPasswordOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

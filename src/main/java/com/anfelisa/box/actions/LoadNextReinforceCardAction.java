@@ -1,5 +1,6 @@
 package com.anfelisa.box.actions;
 
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +20,8 @@ public class LoadNextReinforceCardAction extends AbstractLoadNextReinforceCardAc
 	}
 
 
-	protected final void loadDataForGetRequest() {
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(getHandle(), actionData.getBoxId());
+	protected final void loadDataForGetRequest(Handle readonlyHandle) {
+		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, actionData.getBoxId());
 		if (box == null) {
 			throwBadRequest("box does not exist");
 		}
@@ -28,11 +29,16 @@ public class LoadNextReinforceCardAction extends AbstractLoadNextReinforceCardAc
 			throwUnauthorized();
 		}
 
-		INextReinforceCardViewModel nextCard = daoProvider.getReinforceCardDao().selectFirstScheduledCard(getHandle(),
+		INextReinforceCardViewModel nextCard = daoProvider.getReinforceCardDao().selectFirstScheduledCard(readonlyHandle,
 				actionData.getBoxId());
 		if (nextCard != null) {
 			this.actionData.mapFrom(nextCard);
 		}
+	}
+
+
+	@Override
+	public void initActionData() {
 	}
 
 }

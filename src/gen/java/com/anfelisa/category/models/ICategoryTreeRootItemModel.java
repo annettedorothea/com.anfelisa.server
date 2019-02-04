@@ -1,7 +1,9 @@
 package com.anfelisa.category.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=CategoryTreeRootItemModel.class)
 public interface ICategoryTreeRootItemModel {
 
@@ -38,6 +40,8 @@ public interface ICategoryTreeRootItemModel {
 	java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> getChildCategories();
 	void setChildCategories(java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories);
 	
+	
+	List<String> equalsPrimitiveTypes(ICategoryTreeRootItemModel other);
 	
 }
 

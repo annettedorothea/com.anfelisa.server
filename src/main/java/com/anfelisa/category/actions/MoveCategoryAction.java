@@ -16,6 +16,9 @@ public class MoveCategoryAction extends AbstractMoveCategoryAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

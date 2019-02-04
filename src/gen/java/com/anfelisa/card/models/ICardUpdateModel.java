@@ -1,7 +1,9 @@
 package com.anfelisa.card.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=CardUpdateModel.class)
 public interface ICardUpdateModel {
 
@@ -20,6 +22,8 @@ public interface ICardUpdateModel {
 	String getUserId();
 	void setUserId(String userId);
 	
+	
+	List<String> equalsPrimitiveTypes(ICardUpdateModel other);
 	
 }
 

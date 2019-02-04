@@ -17,6 +17,9 @@ public class ForgotPasswordAction extends AbstractForgotPasswordAction {
 	}
 
 
+	@Override
+	public void initActionData() {
+	}
 
 }
 

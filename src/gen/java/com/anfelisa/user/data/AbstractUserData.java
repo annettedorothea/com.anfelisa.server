@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.user.models.IUserModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -128,6 +130,31 @@ public abstract class AbstractUserData extends AbstractData implements IUserData
 	public IUserData withEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(IUserModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		if (!(this.getPassword() == null && other.getPassword() == null) && !this.getPassword().equals(other.getPassword())) {
+			differingAttributes.add("password: " + this.getPassword() + " " + other.getPassword());
+		}
+		if (!(this.getEmail() == null && other.getEmail() == null) && !this.getEmail().equals(other.getEmail())) {
+			differingAttributes.add("email: " + this.getEmail() + " " + other.getEmail());
+		}
+		if (!(this.getRole() == null && other.getRole() == null) && !this.getRole().equals(other.getRole())) {
+			differingAttributes.add("role: " + this.getRole() + " " + other.getRole());
+		}
+		if (!(this.getEmailConfirmed() == null && other.getEmailConfirmed() == null) && !this.getEmailConfirmed().equals(other.getEmailConfirmed())) {
+			differingAttributes.add("emailConfirmed: " + this.getEmailConfirmed() + " " + other.getEmailConfirmed());
+		}
+		return differingAttributes;
 	}
 	
 	

@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.JerseyClientBuilder;
 
+@SuppressWarnings("unused")
 public class ActionCalls {
 
 	public static Response callGetBoxes(String uuid, org.joda.time.DateTime today, int port, String authorization) {

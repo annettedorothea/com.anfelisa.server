@@ -16,6 +16,9 @@ public class ScoreReinforceCardAction extends AbstractScoreReinforceCardAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

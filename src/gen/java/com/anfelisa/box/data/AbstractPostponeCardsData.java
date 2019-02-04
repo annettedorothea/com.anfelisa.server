@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.box.models.IPostponeCardsModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -93,6 +95,25 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 	public IPostponeCardsData withToday(org.joda.time.DateTime today) {
 		this.today = today;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(IPostponeCardsModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getDays() == null && other.getDays() == null) && !this.getDays().equals(other.getDays())) {
+			differingAttributes.add("days: " + this.getDays() + " " + other.getDays());
+		}
+		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
+			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		if (!(this.getToday() == null && other.getToday() == null) && !this.getToday().equals(other.getToday())) {
+			differingAttributes.add("today: " + this.getToday() + " " + other.getToday());
+		}
+		return differingAttributes;
 	}
 	
 	

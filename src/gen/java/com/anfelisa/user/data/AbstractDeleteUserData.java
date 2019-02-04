@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.user.models.IDeleteUserModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -77,6 +79,22 @@ public abstract class AbstractDeleteUserData extends AbstractData implements IDe
 	public IDeleteUserData withRole(String role) {
 		this.role = role;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(IDeleteUserModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUsernameToBeDeleted() == null && other.getUsernameToBeDeleted() == null) && !this.getUsernameToBeDeleted().equals(other.getUsernameToBeDeleted())) {
+			differingAttributes.add("usernameToBeDeleted: " + this.getUsernameToBeDeleted() + " " + other.getUsernameToBeDeleted());
+		}
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		if (!(this.getRole() == null && other.getRole() == null) && !this.getRole().equals(other.getRole())) {
+			differingAttributes.add("role: " + this.getRole() + " " + other.getRole());
+		}
+		return differingAttributes;
 	}
 	
 	

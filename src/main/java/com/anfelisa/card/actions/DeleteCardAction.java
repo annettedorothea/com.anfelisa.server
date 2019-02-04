@@ -16,6 +16,9 @@ public class DeleteCardAction extends AbstractDeleteCardAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

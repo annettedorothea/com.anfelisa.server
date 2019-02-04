@@ -235,6 +235,55 @@ public class BoxInfoModel implements IBoxInfoModel {
 		}
 		return differingAttributes;
 	}
+	public List<String> equalsPrimitiveTypes(IBoxViewModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getTodaysCards() == null && other.getTodaysCards() == null) && !this.getTodaysCards().equals(other.getTodaysCards())) {
+			differingAttributes.add("todaysCards: " + this.getTodaysCards() + " " + other.getTodaysCards());
+		}
+		if (!(this.getTotalCards() == null && other.getTotalCards() == null) && !this.getTotalCards().equals(other.getTotalCards())) {
+			differingAttributes.add("totalCards: " + this.getTotalCards() + " " + other.getTotalCards());
+		}
+		if (!(this.getReinforceCards() == null && other.getReinforceCards() == null) && !this.getReinforceCards().equals(other.getReinforceCards())) {
+			differingAttributes.add("reinforceCards: " + this.getReinforceCards() + " " + other.getReinforceCards());
+		}
+		if (!(this.getMyCards() == null && other.getMyCards() == null) && !this.getMyCards().equals(other.getMyCards())) {
+			differingAttributes.add("myCards: " + this.getMyCards() + " " + other.getMyCards());
+		}
+		if (!(this.getDaysBehindSchedule() == null && other.getDaysBehindSchedule() == null) && !this.getDaysBehindSchedule().equals(other.getDaysBehindSchedule())) {
+			differingAttributes.add("daysBehindSchedule: " + this.getDaysBehindSchedule() + " " + other.getDaysBehindSchedule());
+		}
+		if (!(this.getCategoryName() == null && other.getCategoryName() == null) && !this.getCategoryName().equals(other.getCategoryName())) {
+			differingAttributes.add("categoryName: " + this.getCategoryName() + " " + other.getCategoryName());
+		}
+		if (!(this.getMaxInterval() == null && other.getMaxInterval() == null) && !this.getMaxInterval().equals(other.getMaxInterval())) {
+			differingAttributes.add("maxInterval: " + this.getMaxInterval() + " " + other.getMaxInterval());
+		}
+		if (!(this.getMaxCardsPerDay() == null && other.getMaxCardsPerDay() == null) && !this.getMaxCardsPerDay().equals(other.getMaxCardsPerDay())) {
+			differingAttributes.add("maxCardsPerDay: " + this.getMaxCardsPerDay() + " " + other.getMaxCardsPerDay());
+		}
+		if (!(this.getQuality0Count() == null && other.getQuality0Count() == null) && !this.getQuality0Count().equals(other.getQuality0Count())) {
+			differingAttributes.add("quality0Count: " + this.getQuality0Count() + " " + other.getQuality0Count());
+		}
+		if (!(this.getQuality1Count() == null && other.getQuality1Count() == null) && !this.getQuality1Count().equals(other.getQuality1Count())) {
+			differingAttributes.add("quality1Count: " + this.getQuality1Count() + " " + other.getQuality1Count());
+		}
+		if (!(this.getQuality2Count() == null && other.getQuality2Count() == null) && !this.getQuality2Count().equals(other.getQuality2Count())) {
+			differingAttributes.add("quality2Count: " + this.getQuality2Count() + " " + other.getQuality2Count());
+		}
+		if (!(this.getQuality3Count() == null && other.getQuality3Count() == null) && !this.getQuality3Count().equals(other.getQuality3Count())) {
+			differingAttributes.add("quality3Count: " + this.getQuality3Count() + " " + other.getQuality3Count());
+		}
+		if (!(this.getQuality4Count() == null && other.getQuality4Count() == null) && !this.getQuality4Count().equals(other.getQuality4Count())) {
+			differingAttributes.add("quality4Count: " + this.getQuality4Count() + " " + other.getQuality4Count());
+		}
+		if (!(this.getQuality5Count() == null && other.getQuality5Count() == null) && !this.getQuality5Count().equals(other.getQuality5Count())) {
+			differingAttributes.add("quality5Count: " + this.getQuality5Count() + " " + other.getQuality5Count());
+		}
+		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
+			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
+		}
+		return differingAttributes;
+	}
 	
 }
 

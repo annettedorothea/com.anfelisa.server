@@ -28,16 +28,6 @@ public interface IDaoProvider {
 
 	AceDao getAceDao();
 	
-	void addExceptionToTimeline(String uuid, Throwable x, DatabaseHandle databaseHandle);
-	
-	void addPreparingEventToTimeline(IEvent event, String uuid);
-	
-	public void addEventToTimeline(IEvent event);
-	
-	public void addCommandToTimeline(ICommand command);
-	
-	void addActionToTimeline(IAction action);
-
 	BoxDao getBoxDao();
 
 	ScheduledCardDao getScheduledCardDao();

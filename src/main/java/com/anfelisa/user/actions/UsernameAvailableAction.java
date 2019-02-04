@@ -1,5 +1,6 @@
 package com.anfelisa.user.actions;
 
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,14 +18,20 @@ public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 	}
 
 
-	protected final void loadDataForGetRequest() {
-		if (daoProvider.getUserDao().selectByUsername(this.getDatabaseHandle().getHandle(),
+	protected void loadDataForGetRequest(Handle readonlyHandle) {
+		if (daoProvider.getUserDao().selectByUsername(readonlyHandle,
 				this.actionData.getUsername()) == null) {
 			this.actionData.setAvailable(true);
 		} else {
 			this.actionData.setAvailable(false);
 		}
 	}
+
+
+	@Override
+	public void initActionData() {
+	}
+
 
 }
 

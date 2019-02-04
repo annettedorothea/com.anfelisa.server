@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.category.models.IUserWithAccessListModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -58,6 +60,16 @@ public abstract class AbstractUserWithAccessListData extends AbstractData implem
 	public IUserWithAccessListData withUserList(java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList) {
 		this.userList = userList;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(IUserWithAccessListModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
+			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+		}
+		return differingAttributes;
 	}
 	
 	

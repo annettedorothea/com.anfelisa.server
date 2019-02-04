@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.card.models.ICardTranslationModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -94,6 +96,25 @@ public abstract class AbstractCardTranslationData extends AbstractData implement
 	public ICardTranslationData withTargetLanguage(String targetLanguage) {
 		this.targetLanguage = targetLanguage;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(ICardTranslationModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getSourceValue() == null && other.getSourceValue() == null) && !this.getSourceValue().equals(other.getSourceValue())) {
+			differingAttributes.add("sourceValue: " + this.getSourceValue() + " " + other.getSourceValue());
+		}
+		if (!(this.getTargetValue() == null && other.getTargetValue() == null) && !this.getTargetValue().equals(other.getTargetValue())) {
+			differingAttributes.add("targetValue: " + this.getTargetValue() + " " + other.getTargetValue());
+		}
+		if (!(this.getSourceLanguage() == null && other.getSourceLanguage() == null) && !this.getSourceLanguage().equals(other.getSourceLanguage())) {
+			differingAttributes.add("sourceLanguage: " + this.getSourceLanguage() + " " + other.getSourceLanguage());
+		}
+		if (!(this.getTargetLanguage() == null && other.getTargetLanguage() == null) && !this.getTargetLanguage().equals(other.getTargetLanguage())) {
+			differingAttributes.add("targetLanguage: " + this.getTargetLanguage() + " " + other.getTargetLanguage());
+		}
+		return differingAttributes;
 	}
 	
 	

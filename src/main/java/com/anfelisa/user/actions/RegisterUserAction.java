@@ -16,6 +16,9 @@ public class RegisterUserAction extends AbstractRegisterUserAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

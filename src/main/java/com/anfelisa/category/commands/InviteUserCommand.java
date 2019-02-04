@@ -1,9 +1,9 @@
 package com.anfelisa.category.commands;
 
+import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.data.IInviteUserData;
@@ -15,28 +15,28 @@ public class InviteUserCommand extends AbstractInviteUserCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(InviteUserCommand.class);
 
-	public InviteUserCommand(IInviteUserData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(actionData, databaseHandle, daoProvider, viewProvider);
+	public InviteUserCommand(IInviteUserData actionData, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected void executeCommand() {
-		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
+	protected void executeCommand(Handle readonlyHandle) {
+		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, 
 				commandData.getCategoryId());
 		if (category == null) {
 			throwBadRequest("categoryDoesNotExist");
 		}
-		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), commandData.getUserId());
+		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle,  category.getRootCategoryId(), commandData.getUserId());
 		if (access == null) {
 			throwUnauthorized();
 		}
-		IUserModel invitedUser = this.daoProvider.getUserDao().selectByUsername(getHandle(), commandData.getInvitedUsername());
+		IUserModel invitedUser = this.daoProvider.getUserDao().selectByUsername(readonlyHandle,  commandData.getInvitedUsername());
 		if (invitedUser == null) {
 			throwBadRequest("userDoesNotExist");
 		}
 		this.commandData.setInvitedUserId(invitedUser.getUserId());
 		this.commandData.setRootCategoryId(category.getRootCategoryId());
-		IUserAccessToCategoryModel hasAccess = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(getHandle(), category.getRootCategoryId(), invitedUser.getUserId());
+		IUserAccessToCategoryModel hasAccess = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle,  category.getRootCategoryId(), invitedUser.getUserId());
 		if (hasAccess == null) {
 			this.commandData.setOutcome(ok);
 		} else {

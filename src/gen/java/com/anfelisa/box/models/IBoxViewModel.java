@@ -1,7 +1,9 @@
 package com.anfelisa.box.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=BoxViewModel.class)
 public interface IBoxViewModel {
 
@@ -50,6 +52,8 @@ public interface IBoxViewModel {
 	String getBoxId();
 	void setBoxId(String boxId);
 	
+	
+	List<String> equalsPrimitiveTypes(IBoxViewModel other);
 	
 }
 

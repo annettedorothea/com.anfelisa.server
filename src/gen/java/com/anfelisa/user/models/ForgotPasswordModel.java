@@ -96,6 +96,16 @@ public class ForgotPasswordModel implements IForgotPasswordModel {
 		}
 		return differingAttributes;
 	}
+	public List<String> equalsPrimitiveTypes(IResetPasswordModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getToken() == null && other.getToken() == null) && !this.getToken().equals(other.getToken())) {
+			differingAttributes.add("token: " + this.getToken() + " " + other.getToken());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
+	}
 	
 }
 

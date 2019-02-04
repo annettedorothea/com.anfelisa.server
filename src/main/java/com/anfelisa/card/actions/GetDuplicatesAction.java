@@ -2,6 +2,7 @@ package com.anfelisa.card.actions;
 
 import java.util.List;
 
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +21,15 @@ public class GetDuplicatesAction extends AbstractGetDuplicatesAction {
 	}
 
 
-	protected final void loadDataForGetRequest() {
-		List<ICardWithCategoryNameModel> cardList = this.daoProvider.getCardDao().search(getHandle(), actionData.getCategoryId(),
+	protected final void loadDataForGetRequest(Handle readonlyHandle) {
+		List<ICardWithCategoryNameModel> cardList = this.daoProvider.getCardDao().search(readonlyHandle, actionData.getCategoryId(),
 				actionData.getNaturalInputOrder(), actionData.getGiven(), actionData.getWanted());
 		this.actionData.setCardList(cardList);
+	}
+
+
+	@Override
+	public void initActionData() {
 	}
 
 }

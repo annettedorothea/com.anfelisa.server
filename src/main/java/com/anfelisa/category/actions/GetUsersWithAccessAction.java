@@ -2,6 +2,7 @@ package com.anfelisa.category.actions;
 
 import java.util.List;
 
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +21,14 @@ public class GetUsersWithAccessAction extends AbstractGetUsersWithAccessAction {
 	}
 
 
-	protected final void loadDataForGetRequest() {
-		List<IUserWithAccessModel> users = daoProvider.getUserAccessToCategoryDao().selectByCategoryId(getHandle(), this.actionData.getCategoryId());
+	protected final void loadDataForGetRequest(Handle readonlyHandle) {
+		List<IUserWithAccessModel> users = daoProvider.getUserAccessToCategoryDao().selectByCategoryId(readonlyHandle, this.actionData.getCategoryId());
 		this.actionData.setUserList(users);
+	}
+
+
+	@Override
+	public void initActionData() {
 	}
 
 }

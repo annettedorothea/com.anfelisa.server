@@ -1,7 +1,9 @@
 package com.anfelisa.user.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=ChangeUserRoleModel.class)
 public interface IChangeUserRoleModel {
 
@@ -17,6 +19,8 @@ public interface IChangeUserRoleModel {
 	String getRole();
 	void setRole(String role);
 	
+	
+	List<String> equalsPrimitiveTypes(IChangeUserRoleModel other);
 	
 }
 

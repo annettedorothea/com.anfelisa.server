@@ -1,9 +1,9 @@
 package com.anfelisa.category.commands;
 
 import javax.ws.rs.WebApplicationException;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -14,19 +14,19 @@ public abstract class AbstractMoveCategoryCommand extends Command<ICategoryMoveD
 	protected static final String ok = "ok";
 	protected static final String noMove = "noMove";
 
-	public AbstractMoveCategoryCommand(ICategoryMoveData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.MoveCategoryCommand", commandParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractMoveCategoryCommand(ICategoryMoveData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.commands.MoveCategoryCommand", commandParam, daoProvider, viewProvider);
 	}
 
-	public AbstractMoveCategoryCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.MoveCategoryCommand", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractMoveCategoryCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.commands.MoveCategoryCommand", null, daoProvider, viewProvider);
 	}
 
 	@Override
-	public void publishEvents() {
+	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.category.events.MoveCategoryOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.category.events.MoveCategoryOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		case noMove:
 			break;

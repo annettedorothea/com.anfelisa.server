@@ -17,6 +17,9 @@ public class DeleteUserAction extends AbstractDeleteUserAction {
 	}
 
 
+	@Override
+	public void initActionData() {
+	}
 
 }
 

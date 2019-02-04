@@ -1,5 +1,6 @@
 package com.anfelisa.box.actions;
 
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,17 +20,22 @@ public class GetBoxAction extends AbstractGetBoxAction {
 	}
 
 
-	protected final void loadDataForGetRequest() {
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(getHandle(), actionData.getBoxId());
+	protected final void loadDataForGetRequest(Handle readonlyHandle) {
+		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, actionData.getBoxId());
 		if (box == null) {
 			throwBadRequest("box does not exist");
 		}
 		if (!box.getUserId().equals(actionData.getUserId())) {
 			throwUnauthorized();
 		}
-		IBoxViewModel boxInfo = daoProvider.getBoxDao().selectByBoxId(getHandle(), actionData.getBoxId(),
+		IBoxViewModel boxInfo = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, actionData.getBoxId(),
 				actionData.getToday());
 		this.actionData.mapFrom(boxInfo);
+	}
+
+
+	@Override
+	public void initActionData() {
 	}
 
 }

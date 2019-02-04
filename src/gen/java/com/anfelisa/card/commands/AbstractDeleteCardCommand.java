@@ -1,9 +1,9 @@
 package com.anfelisa.card.commands;
 
 import javax.ws.rs.WebApplicationException;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -13,19 +13,19 @@ public abstract class AbstractDeleteCardCommand extends Command<ICardDeleteData>
 
 	protected static final String ok = "ok";
 
-	public AbstractDeleteCardCommand(ICardDeleteData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.card.commands.DeleteCardCommand", commandParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractDeleteCardCommand(ICardDeleteData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.card.commands.DeleteCardCommand", commandParam, daoProvider, viewProvider);
 	}
 
-	public AbstractDeleteCardCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.card.commands.DeleteCardCommand", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractDeleteCardCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.card.commands.DeleteCardCommand", null, daoProvider, viewProvider);
 	}
 
 	@Override
-	public void publishEvents() {
+	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.card.events.DeleteCardOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.card.events.DeleteCardOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

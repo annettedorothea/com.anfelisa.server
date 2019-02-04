@@ -1,7 +1,9 @@
 package com.anfelisa.box.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=ScoreCardModel.class)
 public interface IScoreCardModel {
 
@@ -53,6 +55,8 @@ public interface IScoreCardModel {
 	String getBoxId();
 	void setBoxId(String boxId);
 	
+	
+	List<String> equalsPrimitiveTypes(IScoreCardModel other);
 	
 }
 

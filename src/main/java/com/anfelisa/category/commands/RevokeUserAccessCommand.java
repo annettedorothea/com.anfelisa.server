@@ -2,10 +2,10 @@ package com.anfelisa.category.commands;
 
 import java.util.List;
 
+import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.data.IRevokeUserData;
@@ -17,25 +17,25 @@ public class RevokeUserAccessCommand extends AbstractRevokeUserAccessCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(RevokeUserAccessCommand.class);
 
-	public RevokeUserAccessCommand(IRevokeUserData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(actionData, databaseHandle, daoProvider, viewProvider);
+	public RevokeUserAccessCommand(IRevokeUserData actionData, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected void executeCommand() {
-		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(getHandle(),
+	protected void executeCommand(Handle readonlyHandle) {
+		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, 
 				commandData.getCategoryId());
 		if (category == null) {
 			throwBadRequest("categoryDoesNotExist");
 		}
-		List<IUserWithAccessModel> accessList = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryId(getHandle(), category.getRootCategoryId());
+		List<IUserWithAccessModel> accessList = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryId(readonlyHandle,  category.getRootCategoryId());
 		if (!containsUser(accessList, commandData.getUserId())) {
 			throwUnauthorized();
 		}
 		if (accessList.size() == 1) {
 			throwBadRequest("atLeastOneUserMustHaveAccessToCategory");
 		}
-		IUserModel revokedUser = this.daoProvider.getUserDao().selectByUserId(getHandle(),  commandData.getRevokedUserId());
+		IUserModel revokedUser = this.daoProvider.getUserDao().selectByUserId(readonlyHandle,   commandData.getRevokedUserId());
 		if (revokedUser == null) {
 			throwBadRequest("userDoesNotExist");
 		}

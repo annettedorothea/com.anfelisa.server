@@ -1,7 +1,9 @@
 package com.anfelisa.category.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=InviteUserModel.class)
 public interface IInviteUserModel {
 
@@ -20,6 +22,8 @@ public interface IInviteUserModel {
 	String getUserId();
 	void setUserId(String userId);
 	
+	
+	List<String> equalsPrimitiveTypes(IInviteUserModel other);
 	
 }
 

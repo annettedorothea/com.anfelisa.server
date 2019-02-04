@@ -1,9 +1,9 @@
 package com.anfelisa.user.commands;
 
+import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.auth.Roles;
@@ -14,23 +14,23 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteUserCommand.class);
 
-	public DeleteUserCommand(IDeleteUserData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider,
+	public DeleteUserCommand(IDeleteUserData actionData, IDaoProvider daoProvider,
 			ViewProvider viewProvider) {
-		super(actionData, databaseHandle, daoProvider, viewProvider);
+		super(actionData, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected void executeCommand() {
+	protected void executeCommand(Handle readonlyHandle) {
 		if (!Roles.ADMIN.equals(commandData.getRole())
 				&& !commandData.getUsername().equals(commandData.getUsernameToBeDeleted())) {
 			throwUnauthorized();
 		}
-		IUserModel userToBeDeleted = daoProvider.getUserDao().selectByUsername(getHandle(), commandData.getUsernameToBeDeleted());
+		IUserModel userToBeDeleted = daoProvider.getUserDao().selectByUsername(readonlyHandle,  commandData.getUsernameToBeDeleted());
 		if (userToBeDeleted == null) {
 			throwBadRequest("userDoesNotExist");
 		}
 		if (Roles.ADMIN.equals(userToBeDeleted.getRole())) {
-			if (daoProvider.getUserDao().selectAdminCount(getHandle()) == 1) {
+			if (daoProvider.getUserDao().selectAdminCount(readonlyHandle) == 1) {
 				throwBadRequest("lastAdminMustNotBeDeleted");
 			}
 		}

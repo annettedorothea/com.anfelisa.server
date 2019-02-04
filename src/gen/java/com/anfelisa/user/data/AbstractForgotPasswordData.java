@@ -8,6 +8,9 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.user.models.IForgotPasswordModel;
+import com.anfelisa.user.models.IResetPasswordModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -118,6 +121,33 @@ public abstract class AbstractForgotPasswordData extends AbstractData implements
 		this.token = model.getToken();
 		this.userId = model.getUserId();
 	}
+	
+	public List<String> equalsPrimitiveTypes(IForgotPasswordModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getLanguage() == null && other.getLanguage() == null) && !this.getLanguage().equals(other.getLanguage())) {
+			differingAttributes.add("language: " + this.getLanguage() + " " + other.getLanguage());
+		}
+		if (!(this.getEmail() == null && other.getEmail() == null) && !this.getEmail().equals(other.getEmail())) {
+			differingAttributes.add("email: " + this.getEmail() + " " + other.getEmail());
+		}
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		return differingAttributes;
+	}
+	
+	public List<String> equalsPrimitiveTypes(IResetPasswordModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getToken() == null && other.getToken() == null) && !this.getToken().equals(other.getToken())) {
+			differingAttributes.add("token: " + this.getToken() + " " + other.getToken());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
+	}
+	
+	
 }
 
 /*       S.D.G.       */

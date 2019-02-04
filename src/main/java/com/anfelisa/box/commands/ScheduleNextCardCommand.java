@@ -2,10 +2,10 @@ package com.anfelisa.box.commands;
 
 import java.util.List;
 
+import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IScheduleNextCardData;
@@ -16,25 +16,25 @@ public class ScheduleNextCardCommand extends AbstractScheduleNextCardCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScheduleNextCardCommand.class);
 
-	public ScheduleNextCardCommand(IScheduleNextCardData actionData, DatabaseHandle databaseHandle,
+	public ScheduleNextCardCommand(IScheduleNextCardData actionData, 
 			IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(actionData, databaseHandle, daoProvider, viewProvider);
+		super(actionData, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected void executeCommand() {
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(getHandle(), commandData.getBoxId());
+	protected void executeCommand(Handle readonlyHandle) {
+		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle,  commandData.getBoxId());
 		if (box == null) {
 			throwBadRequest("boxDoesNotExist");
 		}
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();
 		}
-		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(getHandle(), box.getCategoryId());
+		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,  box.getCategoryId());
 		if (category == null) {
 			throwBadRequest("categoryDoesNotExist");
 		}
-		String nextCardId = searchNextCard(category);
+		String nextCardId = searchNextCard(category, readonlyHandle);
 		if (nextCardId == null) {
 			throwBadRequest("noCardsLeft");
 		} else {
@@ -51,16 +51,16 @@ public class ScheduleNextCardCommand extends AbstractScheduleNextCardCommand {
 		}
 	}
 
-	private String searchNextCard(ICategoryModel category) {
-		String nextCardId = daoProvider.getScheduledCardDao().selectNextCardId(getHandle(), category.getCategoryId(),
+	private String searchNextCard(ICategoryModel category, Handle readonlyHandle) {
+		String nextCardId = daoProvider.getScheduledCardDao().selectNextCardId(readonlyHandle,  category.getCategoryId(),
 				commandData.getBoxId());
 		if (nextCardId != null) {
 			return nextCardId;
 		}
-		List<ICategoryModel> categories = daoProvider.getCategoryDao().selectAllChildren(getHandle(),
+		List<ICategoryModel> categories = daoProvider.getCategoryDao().selectAllChildren(readonlyHandle, 
 				category.getCategoryId());
 		for (ICategoryModel subCategory : categories) {
-			nextCardId = searchNextCard(subCategory);
+			nextCardId = searchNextCard(subCategory, readonlyHandle);
 			if (nextCardId != null) {
 				return nextCardId;
 			}

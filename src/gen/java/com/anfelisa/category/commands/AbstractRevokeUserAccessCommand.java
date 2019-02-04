@@ -1,9 +1,9 @@
 package com.anfelisa.category.commands;
 
 import javax.ws.rs.WebApplicationException;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -14,19 +14,19 @@ public abstract class AbstractRevokeUserAccessCommand extends Command<IRevokeUse
 	protected static final String ok = "ok";
 	protected static final String hasNoAccess = "hasNoAccess";
 
-	public AbstractRevokeUserAccessCommand(IRevokeUserData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.RevokeUserAccessCommand", commandParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractRevokeUserAccessCommand(IRevokeUserData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.commands.RevokeUserAccessCommand", commandParam, daoProvider, viewProvider);
 	}
 
-	public AbstractRevokeUserAccessCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.RevokeUserAccessCommand", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractRevokeUserAccessCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.commands.RevokeUserAccessCommand", null, daoProvider, viewProvider);
 	}
 
 	@Override
-	public void publishEvents() {
+	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.category.events.RevokeUserAccessOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.category.events.RevokeUserAccessOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		case hasNoAccess:
 			break;

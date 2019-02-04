@@ -1,9 +1,9 @@
 package com.anfelisa.box.commands;
 
 import javax.ws.rs.WebApplicationException;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -14,19 +14,19 @@ public abstract class AbstractPostponeCardsCommand extends Command<IPostponeCard
 	protected static final String ok = "ok";
 	protected static final String noDelay = "noDelay";
 
-	public AbstractPostponeCardsCommand(IPostponeCardsData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.commands.PostponeCardsCommand", commandParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractPostponeCardsCommand(IPostponeCardsData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.commands.PostponeCardsCommand", commandParam, daoProvider, viewProvider);
 	}
 
-	public AbstractPostponeCardsCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.commands.PostponeCardsCommand", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractPostponeCardsCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.box.commands.PostponeCardsCommand", null, daoProvider, viewProvider);
 	}
 
 	@Override
-	public void publishEvents() {
+	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.box.events.PostponeCardsOkEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.box.events.PostponeCardsOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		case noDelay:
 			break;

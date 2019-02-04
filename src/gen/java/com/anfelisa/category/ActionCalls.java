@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.JerseyClientBuilder;
 
+@SuppressWarnings("unused")
 public class ActionCalls {
 
 	public static Response callCreateCategory(String uuid, String categoryName, String parentCategoryId, Boolean dictionaryLookup, String givenLanguage, String wantedLanguage, int port, String authorization) {

@@ -1,9 +1,9 @@
 package com.anfelisa.category.commands;
 
 import javax.ws.rs.WebApplicationException;
+import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -14,22 +14,22 @@ public abstract class AbstractCreateCategoryCommand extends Command<ICategoryCre
 	protected static final String sub = "sub";
 	protected static final String root = "root";
 
-	public AbstractCreateCategoryCommand(ICategoryCreationData commandParam, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.CreateCategoryCommand", commandParam, databaseHandle, daoProvider, viewProvider);
+	public AbstractCreateCategoryCommand(ICategoryCreationData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.commands.CreateCategoryCommand", commandParam, daoProvider, viewProvider);
 	}
 
-	public AbstractCreateCategoryCommand(DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.commands.CreateCategoryCommand", null, databaseHandle, daoProvider, viewProvider);
+	public AbstractCreateCategoryCommand(IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.commands.CreateCategoryCommand", null, daoProvider, viewProvider);
 	}
 
 	@Override
-	public void publishEvents() {
+	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case sub:
-			new com.anfelisa.category.events.CreateCategorySubEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.category.events.CreateCategorySubEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		case root:
-			new com.anfelisa.category.events.CreateCategoryRootEvent(this.commandData, databaseHandle, daoProvider, viewProvider).publish();
+			new com.anfelisa.category.events.CreateCategoryRootEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

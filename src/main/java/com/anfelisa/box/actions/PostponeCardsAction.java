@@ -16,6 +16,9 @@ public class PostponeCardsAction extends AbstractPostponeCardsAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

@@ -1,9 +1,9 @@
 package com.anfelisa.box.commands;
 
+import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IScoreReinforceCardData;
@@ -14,17 +14,17 @@ public class ScoreReinforceCardCommand extends AbstractScoreReinforceCardCommand
 
 	static final Logger LOG = LoggerFactory.getLogger(ScoreReinforceCardCommand.class);
 
-	public ScoreReinforceCardCommand(IScoreReinforceCardData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(actionData, databaseHandle, daoProvider, viewProvider);
+	public ScoreReinforceCardCommand(IScoreReinforceCardData actionData, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected void executeCommand() {
-		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByReinforceCardId(getHandle(), commandData.getReinforceCardId());
+	protected void executeCommand(Handle readonlyHandle) {
+		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByReinforceCardId(readonlyHandle,  commandData.getReinforceCardId());
 		if (reinforceCard == null) {
 			throwBadRequest("cardDoesNotExist");
 		}
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(this.getHandle(), reinforceCard.getBoxId());
+		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, reinforceCard.getBoxId());
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();
 		}

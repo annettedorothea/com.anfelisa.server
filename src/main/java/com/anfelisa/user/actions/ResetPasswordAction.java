@@ -16,6 +16,9 @@ public class ResetPasswordAction extends AbstractResetPasswordAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

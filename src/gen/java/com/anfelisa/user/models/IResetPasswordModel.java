@@ -1,7 +1,9 @@
 package com.anfelisa.user.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=ResetPasswordModel.class)
 public interface IResetPasswordModel {
 
@@ -11,6 +13,8 @@ public interface IResetPasswordModel {
 	String getUserId();
 	void setUserId(String userId);
 	
+	
+	List<String> equalsPrimitiveTypes(IResetPasswordModel other);
 	
 }
 

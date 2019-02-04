@@ -1,7 +1,9 @@
 package com.anfelisa.category.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=UserWithAccessModel.class)
 public interface IUserWithAccessModel {
 
@@ -11,6 +13,8 @@ public interface IUserWithAccessModel {
 	String getUsername();
 	void setUsername(String username);
 	
+	
+	List<String> equalsPrimitiveTypes(IUserWithAccessModel other);
 	
 }
 

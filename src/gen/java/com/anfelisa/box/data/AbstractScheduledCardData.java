@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.box.models.IScheduledCardModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -226,6 +228,49 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	public IScheduledCardData withScoredDate(org.joda.time.DateTime scoredDate) {
 		this.scoredDate = scoredDate;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(IScheduledCardModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getScheduledCardId() == null && other.getScheduledCardId() == null) && !this.getScheduledCardId().equals(other.getScheduledCardId())) {
+			differingAttributes.add("scheduledCardId: " + this.getScheduledCardId() + " " + other.getScheduledCardId());
+		}
+		if (!(this.getCardId() == null && other.getCardId() == null) && !this.getCardId().equals(other.getCardId())) {
+			differingAttributes.add("cardId: " + this.getCardId() + " " + other.getCardId());
+		}
+		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
+			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
+		}
+		if (!(this.getCreatedDate() == null && other.getCreatedDate() == null) && !this.getCreatedDate().equals(other.getCreatedDate())) {
+			differingAttributes.add("createdDate: " + this.getCreatedDate() + " " + other.getCreatedDate());
+		}
+		if (!(this.getEf() == null && other.getEf() == null) && !this.getEf().equals(other.getEf())) {
+			differingAttributes.add("ef: " + this.getEf() + " " + other.getEf());
+		}
+		if (!(this.getInterval() == null && other.getInterval() == null) && !this.getInterval().equals(other.getInterval())) {
+			differingAttributes.add("interval: " + this.getInterval() + " " + other.getInterval());
+		}
+		if (!(this.getN() == null && other.getN() == null) && !this.getN().equals(other.getN())) {
+			differingAttributes.add("n: " + this.getN() + " " + other.getN());
+		}
+		if (!(this.getCount() == null && other.getCount() == null) && !this.getCount().equals(other.getCount())) {
+			differingAttributes.add("count: " + this.getCount() + " " + other.getCount());
+		}
+		if (!(this.getScheduledDate() == null && other.getScheduledDate() == null) && !this.getScheduledDate().equals(other.getScheduledDate())) {
+			differingAttributes.add("scheduledDate: " + this.getScheduledDate() + " " + other.getScheduledDate());
+		}
+		if (!(this.getLastQuality() == null && other.getLastQuality() == null) && !this.getLastQuality().equals(other.getLastQuality())) {
+			differingAttributes.add("lastQuality: " + this.getLastQuality() + " " + other.getLastQuality());
+		}
+		if (!(this.getQuality() == null && other.getQuality() == null) && !this.getQuality().equals(other.getQuality())) {
+			differingAttributes.add("quality: " + this.getQuality() + " " + other.getQuality());
+		}
+		if (!(this.getScoredDate() == null && other.getScoredDate() == null) && !this.getScoredDate().equals(other.getScoredDate())) {
+			differingAttributes.add("scoredDate: " + this.getScoredDate() + " " + other.getScoredDate());
+		}
+		return differingAttributes;
 	}
 	
 	

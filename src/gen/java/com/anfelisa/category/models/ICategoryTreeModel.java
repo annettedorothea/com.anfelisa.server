@@ -1,7 +1,9 @@
 package com.anfelisa.category.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=CategoryTreeModel.class)
 public interface ICategoryTreeModel {
 
@@ -11,6 +13,8 @@ public interface ICategoryTreeModel {
 	String getUserId();
 	void setUserId(String userId);
 	
+	
+	List<String> equalsPrimitiveTypes(ICategoryTreeModel other);
 	
 }
 

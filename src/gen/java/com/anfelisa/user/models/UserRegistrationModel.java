@@ -129,6 +129,38 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 		}
 		return differingAttributes;
 	}
+	public List<String> equalsPrimitiveTypes(IUserModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
+			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
+		}
+		if (!(this.getPassword() == null && other.getPassword() == null) && !this.getPassword().equals(other.getPassword())) {
+			differingAttributes.add("password: " + this.getPassword() + " " + other.getPassword());
+		}
+		if (!(this.getEmail() == null && other.getEmail() == null) && !this.getEmail().equals(other.getEmail())) {
+			differingAttributes.add("email: " + this.getEmail() + " " + other.getEmail());
+		}
+		if (!(this.getRole() == null && other.getRole() == null) && !this.getRole().equals(other.getRole())) {
+			differingAttributes.add("role: " + this.getRole() + " " + other.getRole());
+		}
+		if (!(this.getEmailConfirmed() == null && other.getEmailConfirmed() == null) && !this.getEmailConfirmed().equals(other.getEmailConfirmed())) {
+			differingAttributes.add("emailConfirmed: " + this.getEmailConfirmed() + " " + other.getEmailConfirmed());
+		}
+		return differingAttributes;
+	}
+	public List<String> equalsPrimitiveTypes(IEmailConfirmationModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getToken() == null && other.getToken() == null) && !this.getToken().equals(other.getToken())) {
+			differingAttributes.add("token: " + this.getToken() + " " + other.getToken());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
+	}
 	
 }
 

@@ -1,9 +1,9 @@
 package com.anfelisa.box.commands;
 
+import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.DatabaseHandle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IDeleteBoxData;
@@ -13,13 +13,13 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(DeleteBoxCommand.class);
 
-	public DeleteBoxCommand(IDeleteBoxData actionData, DatabaseHandle databaseHandle, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(actionData, databaseHandle, daoProvider, viewProvider);
+	public DeleteBoxCommand(IDeleteBoxData actionData, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(actionData, daoProvider, viewProvider);
 	}
 
 	@Override
-	protected void executeCommand() {
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(this.getHandle(), this.commandData.getBoxId());
+	protected void executeCommand(Handle readonlyHandle) {
+		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, this.commandData.getBoxId());
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();
 		}

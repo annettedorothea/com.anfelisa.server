@@ -1,7 +1,9 @@
 package com.anfelisa.box.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=ReinforceCardModel.class)
 public interface IReinforceCardModel {
 
@@ -17,6 +19,8 @@ public interface IReinforceCardModel {
 	org.joda.time.DateTime getChangeDate();
 	void setChangeDate(org.joda.time.DateTime changeDate);
 	
+	
+	List<String> equalsPrimitiveTypes(IReinforceCardModel other);
 	
 }
 

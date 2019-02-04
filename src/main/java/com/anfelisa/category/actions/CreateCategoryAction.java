@@ -16,6 +16,9 @@ public class CreateCategoryAction extends AbstractCreateCategoryAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

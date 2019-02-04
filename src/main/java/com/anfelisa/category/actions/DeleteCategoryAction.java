@@ -16,6 +16,9 @@ public class DeleteCategoryAction extends AbstractDeleteCategoryAction {
 		super(jdbi,appConfiguration, daoProvider, viewProvider);
 	}
 
+	@Override
+	public void initActionData() {
+	}
 
 
 }

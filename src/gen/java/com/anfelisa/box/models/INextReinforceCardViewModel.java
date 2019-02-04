@@ -1,7 +1,9 @@
 package com.anfelisa.box.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=NextReinforceCardViewModel.class)
 public interface INextReinforceCardViewModel {
 
@@ -26,6 +28,8 @@ public interface INextReinforceCardViewModel {
 	String getCategoryId();
 	void setCategoryId(String categoryId);
 	
+	
+	List<String> equalsPrimitiveTypes(INextReinforceCardViewModel other);
 	
 }
 

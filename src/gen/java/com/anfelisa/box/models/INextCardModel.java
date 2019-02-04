@@ -1,7 +1,9 @@
 package com.anfelisa.box.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=NextCardModel.class)
 public interface INextCardModel extends com.anfelisa.box.models.INextCardViewModel{
 
@@ -11,6 +13,8 @@ public interface INextCardModel extends com.anfelisa.box.models.INextCardViewMod
 	org.joda.time.DateTime getToday();
 	void setToday(org.joda.time.DateTime today);
 	
+	
+	List<String> equalsPrimitiveTypes(INextCardModel other);
 	
 }
 

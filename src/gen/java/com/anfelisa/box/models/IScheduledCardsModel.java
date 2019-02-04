@@ -1,7 +1,9 @@
 package com.anfelisa.box.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+@SuppressWarnings("unused")
 @JsonDeserialize(as=ScheduledCardsModel.class)
 public interface IScheduledCardsModel {
 
@@ -23,6 +25,8 @@ public interface IScheduledCardsModel {
 	String getBoxId();
 	void setBoxId(String boxId);
 	
+	
+	List<String> equalsPrimitiveTypes(IScheduledCardsModel other);
 	
 }
 

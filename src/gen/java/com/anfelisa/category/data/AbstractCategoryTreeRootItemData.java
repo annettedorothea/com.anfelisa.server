@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.category.models.ICategoryTreeRootItemModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -202,6 +204,43 @@ public abstract class AbstractCategoryTreeRootItemData extends AbstractData impl
 	public ICategoryTreeRootItemData withChildCategories(java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories) {
 		this.childCategories = childCategories;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(ICategoryTreeRootItemModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
+			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+		}
+		if (!(this.getCategoryName() == null && other.getCategoryName() == null) && !this.getCategoryName().equals(other.getCategoryName())) {
+			differingAttributes.add("categoryName: " + this.getCategoryName() + " " + other.getCategoryName());
+		}
+		if (!(this.getCategoryIndex() == null && other.getCategoryIndex() == null) && !this.getCategoryIndex().equals(other.getCategoryIndex())) {
+			differingAttributes.add("categoryIndex: " + this.getCategoryIndex() + " " + other.getCategoryIndex());
+		}
+		if (!(this.getEmpty() == null && other.getEmpty() == null) && !this.getEmpty().equals(other.getEmpty())) {
+			differingAttributes.add("empty: " + this.getEmpty() + " " + other.getEmpty());
+		}
+		if (!(this.getEditable() == null && other.getEditable() == null) && !this.getEditable().equals(other.getEditable())) {
+			differingAttributes.add("editable: " + this.getEditable() + " " + other.getEditable());
+		}
+		if (!(this.getHasBox() == null && other.getHasBox() == null) && !this.getHasBox().equals(other.getHasBox())) {
+			differingAttributes.add("hasBox: " + this.getHasBox() + " " + other.getHasBox());
+		}
+		if (!(this.getDictionaryLookup() == null && other.getDictionaryLookup() == null) && !this.getDictionaryLookup().equals(other.getDictionaryLookup())) {
+			differingAttributes.add("dictionaryLookup: " + this.getDictionaryLookup() + " " + other.getDictionaryLookup());
+		}
+		if (!(this.getGivenLanguage() == null && other.getGivenLanguage() == null) && !this.getGivenLanguage().equals(other.getGivenLanguage())) {
+			differingAttributes.add("givenLanguage: " + this.getGivenLanguage() + " " + other.getGivenLanguage());
+		}
+		if (!(this.getWantedLanguage() == null && other.getWantedLanguage() == null) && !this.getWantedLanguage().equals(other.getWantedLanguage())) {
+			differingAttributes.add("wantedLanguage: " + this.getWantedLanguage() + " " + other.getWantedLanguage());
+		}
+		if (!(this.getRootCategoryId() == null && other.getRootCategoryId() == null) && !this.getRootCategoryId().equals(other.getRootCategoryId())) {
+			differingAttributes.add("rootCategoryId: " + this.getRootCategoryId() + " " + other.getRootCategoryId());
+		}
+		return differingAttributes;
 	}
 	
 	

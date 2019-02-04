@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import com.anfelisa.category.models.IInviteUserModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -110,6 +112,28 @@ public abstract class AbstractInviteUserData extends AbstractData implements IIn
 	public IInviteUserData withUserId(String userId) {
 		this.userId = userId;
 		return this;
+	}
+	
+	
+	
+	public List<String> equalsPrimitiveTypes(IInviteUserModel other) {
+		List<String> differingAttributes = new ArrayList<String>();
+		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
+			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+		}
+		if (!(this.getRootCategoryId() == null && other.getRootCategoryId() == null) && !this.getRootCategoryId().equals(other.getRootCategoryId())) {
+			differingAttributes.add("rootCategoryId: " + this.getRootCategoryId() + " " + other.getRootCategoryId());
+		}
+		if (!(this.getInvitedUserId() == null && other.getInvitedUserId() == null) && !this.getInvitedUserId().equals(other.getInvitedUserId())) {
+			differingAttributes.add("invitedUserId: " + this.getInvitedUserId() + " " + other.getInvitedUserId());
+		}
+		if (!(this.getInvitedUsername() == null && other.getInvitedUsername() == null) && !this.getInvitedUsername().equals(other.getInvitedUsername())) {
+			differingAttributes.add("invitedUsername: " + this.getInvitedUsername() + " " + other.getInvitedUsername());
+		}
+		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
+			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+		}
+		return differingAttributes;
 	}
 	
 	
