@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.E2E;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
@@ -12,8 +13,8 @@ public class ScoreCardAction extends AbstractScoreCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(ScoreCardAction.class);
 
-	public ScoreCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super(jdbi,appConfiguration, daoProvider, viewProvider);
+	public ScoreCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
+		super(jdbi,appConfiguration, daoProvider, viewProvider, e2e);
 	}
 
 	@Override

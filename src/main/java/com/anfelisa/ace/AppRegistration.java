@@ -7,18 +7,18 @@ import io.dropwizard.setup.Environment;
 public class AppRegistration {
 
 	public static void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration,
-			IDaoProvider daoProvider, ViewProvider viewProvider) {
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		com.anfelisa.user.AppRegistration.registerResources(environment, jdbi, appConfiguration, daoProvider,
-				viewProvider);
+				viewProvider, e2e);
 
 		com.anfelisa.box.AppRegistration.registerResources(environment, jdbi, appConfiguration, daoProvider,
-				viewProvider);
+				viewProvider, e2e);
 
 		com.anfelisa.category.AppRegistration.registerResources(environment, jdbi, appConfiguration, daoProvider,
-				viewProvider);
+				viewProvider, e2e);
 
 		com.anfelisa.card.AppRegistration.registerResources(environment, jdbi, appConfiguration, daoProvider,
-				viewProvider);
+				viewProvider, e2e);
 
 	}
 

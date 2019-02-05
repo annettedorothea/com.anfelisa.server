@@ -64,15 +64,17 @@ public abstract class AbstractScheduleNextCardAction extends Action<IScheduleNex
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
-	private String authorization;
+	private E2E e2e;
 
-	public AbstractScheduleNextCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractScheduleNextCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.box.actions.ScheduleNextCardAction", HttpMethod.POST);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
 		this.viewProvider = viewProvider;
+		this.e2e = e2e;
 	}
 
 	@Override
@@ -90,17 +92,15 @@ public abstract class AbstractScheduleNextCardAction extends Action<IScheduleNex
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scheduleNextCardResource(
 			@Auth AuthUser authUser, 
-			@HeaderParam("authorization") String authorization,
-			@NotNull IScheduleNextCardData payload)
+			@NotNull IScheduleNextCardData payload) 
 			throws JsonProcessingException {
 		this.actionData = new ScheduleNextCardData(payload.getUuid());
 		this.actionData.setBoxId(payload.getBoxId());
 		this.actionData.setUserId(authUser.getUserId());
-		this.authorization = authorization;
 		
 		return this.apply();
 	}
-
+	
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
@@ -114,7 +114,7 @@ public abstract class AbstractScheduleNextCardAction extends Action<IScheduleNex
 				this.actionData.setSystemTime(new DateTime());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
-				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
+				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				this.actionData = (IScheduleNextCardData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
@@ -130,6 +130,8 @@ public abstract class AbstractScheduleNextCardAction extends Action<IScheduleNex
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
+			
+			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -155,6 +157,9 @@ public abstract class AbstractScheduleNextCardAction extends Action<IScheduleNex
 			databaseHandle.close();
 		}
 	}
+	
+	
+	
 
 
 }

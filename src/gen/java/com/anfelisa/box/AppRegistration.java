@@ -6,6 +6,7 @@ import com.anfelisa.ace.AceExecutionMode;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.ServerConfiguration;
+import com.anfelisa.ace.E2E;
 
 import org.jdbi.v3.core.Jdbi;
 
@@ -15,19 +16,20 @@ import com.anfelisa.box.actions.*;
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public static void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		environment.jersey().register(new GetBoxesAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new GetBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new CreateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new UpdateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new PostponeCardsAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new DeleteBoxAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new LoadNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new LoadNextReinforceCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new ScheduleNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new ScheduleCardsAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new ScoreCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new ScoreReinforceCardAction(jdbi, appConfiguration, daoProvider, viewProvider));
+	public static void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
+		environment.jersey().register(new GetBoxesAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetBoxAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new CreateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new UpdateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new PostponeCardsAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new DeleteBoxAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new LoadNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new LoadNextReinforceCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new ScheduleNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new ScheduleCardsAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new ScoreCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new ScoreReinforceCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 	}
 
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {

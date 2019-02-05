@@ -6,6 +6,7 @@ import com.anfelisa.ace.AceExecutionMode;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.ServerConfiguration;
+import com.anfelisa.ace.E2E;
 
 import org.jdbi.v3.core.Jdbi;
 
@@ -15,15 +16,16 @@ import com.anfelisa.category.actions.*;
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public static void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		environment.jersey().register(new CreateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new UpdateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new DeleteCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new InviteUserAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new RevokeUserAccessAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new GetUsersWithAccessAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new GetCategoryTreeAction(jdbi, appConfiguration, daoProvider, viewProvider));
-		environment.jersey().register(new MoveCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider));
+	public static void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
+		environment.jersey().register(new CreateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new UpdateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new DeleteCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new InviteUserAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new RevokeUserAccessAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetUsersWithAccessAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetCategoryTreeAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new MoveCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 	}
 
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {

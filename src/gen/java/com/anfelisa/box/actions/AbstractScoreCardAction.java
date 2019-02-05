@@ -64,15 +64,17 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
-	private String authorization;
+	private E2E e2e;
 
-	public AbstractScoreCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractScoreCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.box.actions.ScoreCardAction", HttpMethod.POST);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
 		this.viewProvider = viewProvider;
+		this.e2e = e2e;
 	}
 
 	@Override
@@ -90,19 +92,17 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scoreCardResource(
 			@Auth AuthUser authUser, 
-			@HeaderParam("authorization") String authorization,
-			@NotNull IScoreCardData payload)
+			@NotNull IScoreCardData payload) 
 			throws JsonProcessingException {
 		this.actionData = new ScoreCardData(payload.getUuid());
 		this.actionData.setScoredCardScheduledCardId(payload.getScoredCardScheduledCardId());
 		this.actionData.setBoxId(payload.getBoxId());
 		this.actionData.setScoredCardQuality(payload.getScoredCardQuality());
 		this.actionData.setUserId(authUser.getUserId());
-		this.authorization = authorization;
 		
 		return this.apply();
 	}
-
+	
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
@@ -116,7 +116,7 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 				this.actionData.setSystemTime(new DateTime());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
-				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
+				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				this.actionData = (IScoreCardData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
@@ -132,6 +132,9 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
+			
+			
+			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -157,6 +160,10 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 			databaseHandle.close();
 		}
 	}
+	
+	
+	
+	
 
 
 }

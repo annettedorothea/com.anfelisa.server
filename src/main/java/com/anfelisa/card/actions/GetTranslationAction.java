@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.App;
 import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.E2E;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -24,8 +25,8 @@ public class GetTranslationAction extends AbstractGetTranslationAction {
 	static final Logger LOG = LoggerFactory.getLogger(GetTranslationAction.class);
 
 	public GetTranslationAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
-			ViewProvider viewProvider) {
-		super(jdbi, appConfiguration, daoProvider, viewProvider);
+			ViewProvider viewProvider, E2E e2e) {
+		super(jdbi, appConfiguration, daoProvider, viewProvider, e2e);
 	}
 
 	@SuppressWarnings("unchecked")

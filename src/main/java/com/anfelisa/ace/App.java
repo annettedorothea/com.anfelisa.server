@@ -5,9 +5,6 @@ import java.util.EnumSet;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 
-import org.eclipse.jetty.server.Connector;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.jdbi.v3.core.Jdbi;
@@ -24,7 +21,6 @@ import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.jdbi3.bundles.JdbiExceptionsBundle;
-import io.dropwizard.lifecycle.ServerLifecycleListener;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -51,7 +47,11 @@ public class App extends Application<CustomAppConfiguration> {
 	public static void reportException(Exception x) {
 		if (EMAIL_SERVICE != null) {
 			try {
-				EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", x.getMessage());
+				if (x != null && x.getMessage() != null) {
+					EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", x.getMessage());
+				} else {
+					EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", "unknown exception");
+				}
 			} catch (Exception e) {
 				LOG.error("failed to notify about exception", x.getMessage());
 			}
@@ -74,19 +74,6 @@ public class App extends Application<CustomAppConfiguration> {
 	public void run(CustomAppConfiguration configuration, Environment environment) throws ClassNotFoundException {
 		LOG.info("running version {}", getVersion());
 
-		/*environment.lifecycle().addServerLifecycleListener(new ServerLifecycleListener() {
-			@Override
-			public void serverStarted(Server server) {
-				for (Connector connector : server.getConnectors()) {
-					if (connector instanceof ServerConnector) {
-						try (ServerConnector serverConnector = (ServerConnector) connector) {
-							configuration.setPort(serverConnector.getPort());
-						}
-					}
-				}
-			}
-		});*/
-
 		EMAIL_SERVICE = new EmailService(configuration.getEmail());
 
 		DaoProvider daoProvider = new DaoProvider();
@@ -95,12 +82,14 @@ public class App extends Application<CustomAppConfiguration> {
 		final JdbiFactory factory = new JdbiFactory();
 
 		Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "data-source-name");
+		
+		E2E e2e = new E2E();
 
 		String mode = configuration.getServerConfiguration().getMode();
 		if (ServerConfiguration.REPLAY.equals(mode)) {
-			environment.jersey().register(new PrepareE2EResource(jdbi, daoProvider, viewProvider));
-			environment.jersey().register(new StartE2ESessionResource(jdbi, daoProvider));
-			environment.jersey().register(new StopE2ESessionResource());
+			environment.jersey().register(new PrepareE2EResource(jdbi, daoProvider, viewProvider, e2e));
+			environment.jersey().register(new StartE2ESessionResource(jdbi, daoProvider, e2e));
+			environment.jersey().register(new StopE2ESessionResource(e2e));
 			environment.jersey().register(new GetServerTimelineResource(jdbi));
 		} else if (ServerConfiguration.DEV.equals(mode)) {
 			environment.jersey().register(new GetServerTimelineResource(jdbi));
@@ -124,7 +113,7 @@ public class App extends Application<CustomAppConfiguration> {
 
 		configureCors(environment);
 
-		AppRegistration.registerResources(environment, jdbi, configuration, daoProvider, viewProvider);
+		AppRegistration.registerResources(environment, jdbi, configuration, daoProvider, viewProvider, e2e);
 		AppRegistration.registerConsumers(viewProvider, mode);
 	}
 

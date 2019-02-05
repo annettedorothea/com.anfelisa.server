@@ -63,14 +63,17 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private E2E e2e;
 
-	public AbstractResetPasswordAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractResetPasswordAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.ResetPasswordAction", HttpMethod.PUT);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
 		this.viewProvider = viewProvider;
+		this.e2e = e2e;
 	}
 
 	@Override
@@ -87,7 +90,7 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response resetPasswordResource(
-			@NotNull IResetPasswordWithNewPasswordData payload)
+			@NotNull IResetPasswordWithNewPasswordData payload) 
 			throws JsonProcessingException {
 		this.actionData = new ResetPasswordWithNewPasswordData(payload.getUuid());
 		this.actionData.setPassword(payload.getPassword());
@@ -95,7 +98,7 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 		
 		return this.apply();
 	}
-
+	
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
@@ -109,7 +112,7 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 				this.actionData.setSystemTime(new DateTime());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
-				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
+				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				this.actionData = (IResetPasswordWithNewPasswordData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
@@ -125,6 +128,8 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
+			
+			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -150,6 +155,9 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 			databaseHandle.close();
 		}
 	}
+	
+	
+	
 
 
 }

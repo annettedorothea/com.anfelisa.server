@@ -63,14 +63,17 @@ public abstract class AbstractSendRegistrationEmailAction extends Action<IUserRe
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private E2E e2e;
 
-	public AbstractSendRegistrationEmailAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractSendRegistrationEmailAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.SendRegistrationEmailAction", HttpMethod.PUT);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
 		this.viewProvider = viewProvider;
+		this.e2e = e2e;
 	}
 
 	@Override
@@ -87,7 +90,7 @@ public abstract class AbstractSendRegistrationEmailAction extends Action<IUserRe
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response sendRegistrationEmailResource(
-			@NotNull IUserRegistrationData payload)
+			@NotNull IUserRegistrationData payload) 
 			throws JsonProcessingException {
 		this.actionData = new UserRegistrationData(payload.getUuid());
 		this.actionData.setEmail(payload.getEmail());
@@ -96,7 +99,7 @@ public abstract class AbstractSendRegistrationEmailAction extends Action<IUserRe
 		
 		return this.apply();
 	}
-
+	
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
@@ -110,7 +113,7 @@ public abstract class AbstractSendRegistrationEmailAction extends Action<IUserRe
 				this.actionData.setSystemTime(new DateTime());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
-				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
+				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				this.actionData = (IUserRegistrationData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
@@ -126,6 +129,8 @@ public abstract class AbstractSendRegistrationEmailAction extends Action<IUserRe
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
+			
+			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -151,6 +156,9 @@ public abstract class AbstractSendRegistrationEmailAction extends Action<IUserRe
 			databaseHandle.close();
 		}
 	}
+	
+	
+	
 
 
 }

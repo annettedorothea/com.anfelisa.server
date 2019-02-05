@@ -63,14 +63,17 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private E2E e2e;
 
-	public AbstractRegisterUserAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractRegisterUserAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.RegisterUserAction", HttpMethod.POST);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
 		this.viewProvider = viewProvider;
+		this.e2e = e2e;
 	}
 
 	@Override
@@ -87,7 +90,7 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response registerUserResource(
-			@NotNull IUserRegistrationData payload)
+			@NotNull IUserRegistrationData payload) 
 			throws JsonProcessingException {
 		this.actionData = new UserRegistrationData(payload.getUuid());
 		this.actionData.setPassword(payload.getPassword());
@@ -97,7 +100,7 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 		
 		return this.apply();
 	}
-
+	
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
@@ -111,7 +114,7 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 				this.actionData.setSystemTime(new DateTime());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
-				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
+				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				this.actionData = (IUserRegistrationData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
@@ -127,13 +130,11 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
-			com.anfelisa.user.ActionCalls.callSendRegistrationEmail(
-				UUID.randomUUID().toString(),
-				((IUserRegistrationData)command.getCommandData()).getEmail(),
-				((IUserRegistrationData)command.getCommandData()).getLanguage(),
-				((IUserRegistrationData)command.getCommandData()).getToken(),
-				8080
-			);
+			
+			SendRegistrationEmailThread sendRegistrationEmailThread = new SendRegistrationEmailThread(
+				jdbi, mapper, appConfiguration, daoProvider, viewProvider, e2e, command.getCommandData());
+			sendRegistrationEmailThread.start();
+			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -159,6 +160,44 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 			databaseHandle.close();
 		}
 	}
+	
+	public class SendRegistrationEmailThread extends Thread {
+		private Jdbi jdbi;
+		private JodaObjectMapper mapper;
+		private CustomAppConfiguration appConfiguration;
+		private IDaoProvider daoProvider;
+		private ViewProvider viewProvider;
+		private IDataContainer commandData;
+		private E2E e2e;
+
+		public SendRegistrationEmailThread(Jdbi jdbi, JodaObjectMapper mapper, CustomAppConfiguration appConfiguration,
+				IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e, IDataContainer commandData) {
+		   this.jdbi = jdbi;
+		   this.mapper = mapper;
+		   this.appConfiguration = appConfiguration;
+		   this.daoProvider = daoProvider;
+		   this.viewProvider = viewProvider;
+		   this.e2e = e2e;
+		   this.commandData = commandData;
+		}
+	
+		public void run() {
+			try {
+				LOG.info("trigger SendRegistrationEmail");
+				com.anfelisa.user.actions.SendRegistrationEmailAction sendRegistrationEmail 
+					= new com.anfelisa.user.actions.SendRegistrationEmailAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e);
+				IDataContainer data = AceDataFactory.createAceData("com.anfelisa.user.actions.SendRegistrationEmailAction", mapper.writeValueAsString(commandData));
+				data.setUuid(commandData.getUuid() + "SendRegistrationEmail");
+				sendRegistrationEmail.setActionData(data);
+				sendRegistrationEmail.apply();
+				LOG.info("trigger SendRegistrationEmail finished");
+			} catch (Exception x) {
+				LOG.error("failed to trigger SendRegistrationEmail " + x.getMessage());
+			}
+		}
+	};
+	
+	
 
 
 }

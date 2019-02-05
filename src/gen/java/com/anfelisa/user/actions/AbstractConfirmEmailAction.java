@@ -63,14 +63,17 @@ public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailDat
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private E2E e2e;
 
-	public AbstractConfirmEmailAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractConfirmEmailAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.ConfirmEmailAction", HttpMethod.PUT);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
 		this.viewProvider = viewProvider;
+		this.e2e = e2e;
 	}
 
 	@Override
@@ -87,7 +90,7 @@ public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailDat
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response confirmEmailResource(
-			@NotNull IConfirmEmailData payload)
+			@NotNull IConfirmEmailData payload) 
 			throws JsonProcessingException {
 		this.actionData = new ConfirmEmailData(payload.getUuid());
 		this.actionData.setToken(payload.getToken());
@@ -95,7 +98,7 @@ public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailDat
 		
 		return this.apply();
 	}
-
+	
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
@@ -109,7 +112,7 @@ public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailDat
 				this.actionData.setSystemTime(new DateTime());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
-				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
+				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				this.actionData = (IConfirmEmailData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
@@ -125,6 +128,9 @@ public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailDat
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
+			
+			
+			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -150,6 +156,10 @@ public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailDat
 			databaseHandle.close();
 		}
 	}
+	
+	
+	
+	
 
 
 }

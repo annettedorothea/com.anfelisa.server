@@ -29,6 +29,11 @@ public abstract class AbstractData implements IDataContainer {
 	}
 
 	@JsonProperty
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	@JsonProperty
 	public org.joda.time.DateTime getSystemTime() {
 		return systemTime;
 	}

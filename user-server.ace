@@ -37,7 +37,6 @@ ACE
 		POST "/users/forgot-password" 
 		payload  username language
 		on ok ( ResetPassword.insert ) triggers (SendForgotPasswordEmail )
-		
 		on doesNotExist
 	
 	SendForgotPasswordEmail<ForgotPassword>

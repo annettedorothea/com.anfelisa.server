@@ -64,15 +64,17 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
-	private String authorization;
+	private E2E e2e;
 
-	public AbstractDeleteCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractDeleteCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.card.actions.DeleteCardAction", HttpMethod.DELETE);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
 		this.viewProvider = viewProvider;
+		this.e2e = e2e;
 	}
 
 	@Override
@@ -91,17 +93,15 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 	public Response deleteCardResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("cardId") String cardId, 
-			@HeaderParam("authorization") String authorization,
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new CardDeleteData(uuid);
 		this.actionData.setCardId(cardId);
 		this.actionData.setUserId(authUser.getUserId());
-		this.authorization = authorization;
 		
 		return this.apply();
 	}
-
+	
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
@@ -115,7 +115,7 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 				this.actionData.setSystemTime(new DateTime());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
-				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
+				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				this.actionData = (ICardDeleteData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
@@ -131,6 +131,8 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
+			
+			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -156,6 +158,9 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 			databaseHandle.close();
 		}
 	}
+	
+	
+	
 
 
 }

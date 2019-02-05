@@ -63,14 +63,17 @@ public abstract class AbstractSendForgotPasswordEmailAction extends Action<IForg
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private E2E e2e;
 
-	public AbstractSendForgotPasswordEmailAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractSendForgotPasswordEmailAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.SendForgotPasswordEmailAction", HttpMethod.PUT);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
 		this.viewProvider = viewProvider;
+		this.e2e = e2e;
 	}
 
 	@Override
@@ -87,7 +90,7 @@ public abstract class AbstractSendForgotPasswordEmailAction extends Action<IForg
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response sendForgotPasswordEmailResource(
-			@NotNull IForgotPasswordData payload)
+			@NotNull IForgotPasswordData payload) 
 			throws JsonProcessingException {
 		this.actionData = new ForgotPasswordData(payload.getUuid());
 		this.actionData.setUsername(payload.getUsername());
@@ -96,7 +99,7 @@ public abstract class AbstractSendForgotPasswordEmailAction extends Action<IForg
 		
 		return this.apply();
 	}
-
+	
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
@@ -110,7 +113,7 @@ public abstract class AbstractSendForgotPasswordEmailAction extends Action<IForg
 				this.actionData.setSystemTime(new DateTime());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
-				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
+				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				this.actionData = (IForgotPasswordData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
@@ -126,6 +129,9 @@ public abstract class AbstractSendForgotPasswordEmailAction extends Action<IForg
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
+			
+			
+			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -151,6 +157,10 @@ public abstract class AbstractSendForgotPasswordEmailAction extends Action<IForg
 			databaseHandle.close();
 		}
 	}
+	
+	
+	
+	
 
 
 }

@@ -5,6 +5,8 @@ import org.joda.time.DateTime;
 public interface IDataContainer {
 
 	String getUuid();
+	
+	void setUuid(String uuid);
 
 	String getOutcome();
 

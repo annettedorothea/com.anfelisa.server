@@ -64,15 +64,17 @@ public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
-	private String authorization;
+	private E2E e2e;
 
-	public AbstractUpdateBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractUpdateBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.box.actions.UpdateBoxAction", HttpMethod.PUT);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
 		this.viewProvider = viewProvider;
+		this.e2e = e2e;
 	}
 
 	@Override
@@ -90,19 +92,17 @@ public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateBoxResource(
 			@Auth AuthUser authUser, 
-			@HeaderParam("authorization") String authorization,
-			@NotNull IBoxUpdateData payload)
+			@NotNull IBoxUpdateData payload) 
 			throws JsonProcessingException {
 		this.actionData = new BoxUpdateData(payload.getUuid());
 		this.actionData.setMaxInterval(payload.getMaxInterval());
 		this.actionData.setMaxCardsPerDay(payload.getMaxCardsPerDay());
 		this.actionData.setBoxId(payload.getBoxId());
 		this.actionData.setUserId(authUser.getUserId());
-		this.authorization = authorization;
 		
 		return this.apply();
 	}
-
+	
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
@@ -116,7 +116,7 @@ public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 				this.actionData.setSystemTime(new DateTime());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
-				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
+				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				this.actionData = (IBoxUpdateData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
@@ -132,6 +132,8 @@ public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
+			
+			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -157,6 +159,9 @@ public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 			databaseHandle.close();
 		}
 	}
+	
+	
+	
 
 
 }

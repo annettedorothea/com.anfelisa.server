@@ -64,15 +64,17 @@ public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveDat
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
-	private String authorization;
+	private E2E e2e;
 
-	public AbstractMoveCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractMoveCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.category.actions.MoveCategoryAction", HttpMethod.PUT);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
 		this.viewProvider = viewProvider;
+		this.e2e = e2e;
 	}
 
 	@Override
@@ -90,18 +92,16 @@ public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveDat
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response moveCategoryResource(
 			@Auth AuthUser authUser, 
-			@HeaderParam("authorization") String authorization,
-			@NotNull ICategoryMoveData payload)
+			@NotNull ICategoryMoveData payload) 
 			throws JsonProcessingException {
 		this.actionData = new CategoryMoveData(payload.getUuid());
 		this.actionData.setMovedCategoryId(payload.getMovedCategoryId());
 		this.actionData.setTargetCategoryId(payload.getTargetCategoryId());
 		this.actionData.setUserId(authUser.getUserId());
-		this.authorization = authorization;
 		
 		return this.apply();
 	}
-
+	
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
@@ -115,7 +115,7 @@ public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveDat
 				this.actionData.setSystemTime(new DateTime());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
-				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
+				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				this.actionData = (ICategoryMoveData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
@@ -131,6 +131,9 @@ public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveDat
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
+			
+			
+			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -156,6 +159,10 @@ public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveDat
 			databaseHandle.close();
 		}
 	}
+	
+	
+	
+	
 
 
 }

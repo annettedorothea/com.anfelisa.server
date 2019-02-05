@@ -64,15 +64,17 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
-	private String authorization;
+	private E2E e2e;
 
-	public AbstractCreateCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public AbstractCreateCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.category.actions.CreateCategoryAction", HttpMethod.POST);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
 		this.viewProvider = viewProvider;
+		this.e2e = e2e;
 	}
 
 	@Override
@@ -90,8 +92,7 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createCategoryResource(
 			@Auth AuthUser authUser, 
-			@HeaderParam("authorization") String authorization,
-			@NotNull ICategoryCreationData payload)
+			@NotNull ICategoryCreationData payload) 
 			throws JsonProcessingException {
 		this.actionData = new CategoryCreationData(payload.getUuid());
 		this.actionData.setCategoryName(payload.getCategoryName());
@@ -101,11 +102,10 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 		this.actionData.setWantedLanguage(payload.getWantedLanguage());
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setUserId(authUser.getUserId());
-		this.authorization = authorization;
 		
 		return this.apply();
 	}
-
+	
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
@@ -119,7 +119,7 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 				this.actionData.setSystemTime(new DateTime());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
-				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
+				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				this.actionData = (ICategoryCreationData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
@@ -135,6 +135,9 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
+			
+			
+			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -160,6 +163,10 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 			databaseHandle.close();
 		}
 	}
+	
+	
+	
+	
 
 
 }
