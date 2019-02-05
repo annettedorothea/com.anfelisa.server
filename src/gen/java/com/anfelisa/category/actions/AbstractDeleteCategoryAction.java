@@ -1,5 +1,7 @@
 package com.anfelisa.category.actions;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
+import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -61,6 +64,7 @@ public abstract class AbstractDeleteCategoryAction extends Action<ICategoryDelet
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private String authorization;
 
 	public AbstractDeleteCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.actions.DeleteCategoryAction", HttpMethod.DELETE);
@@ -80,7 +84,6 @@ public abstract class AbstractDeleteCategoryAction extends Action<ICategoryDelet
 		this.actionData = (ICategoryDeleteData)data;
 	}
 
-
 	@DELETE
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
@@ -88,11 +91,14 @@ public abstract class AbstractDeleteCategoryAction extends Action<ICategoryDelet
 	public Response deleteCategoryResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("categoryId") String categoryId, 
+			@HeaderParam("authorization") String authorization,
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new CategoryDeleteData(uuid);
 		this.actionData.setCategoryId(categoryId);
 		this.actionData.setUserId(authUser.getUserId());
+		this.authorization = authorization;
+		
 		return this.apply();
 	}
 

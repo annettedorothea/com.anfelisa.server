@@ -1,5 +1,7 @@
 package com.anfelisa.card.actions;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
+import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -61,6 +64,7 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private String authorization;
 
 	public AbstractDeleteCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.actions.DeleteCardAction", HttpMethod.DELETE);
@@ -80,7 +84,6 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 		this.actionData = (ICardDeleteData)data;
 	}
 
-
 	@DELETE
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
@@ -88,11 +91,14 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 	public Response deleteCardResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("cardId") String cardId, 
+			@HeaderParam("authorization") String authorization,
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new CardDeleteData(uuid);
 		this.actionData.setCardId(cardId);
 		this.actionData.setUserId(authUser.getUserId());
+		this.authorization = authorization;
+		
 		return this.apply();
 	}
 

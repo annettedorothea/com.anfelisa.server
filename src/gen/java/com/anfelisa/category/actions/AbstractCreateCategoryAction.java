@@ -1,5 +1,7 @@
 package com.anfelisa.category.actions;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
+import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -61,6 +64,7 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private String authorization;
 
 	public AbstractCreateCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.actions.CreateCategoryAction", HttpMethod.POST);
@@ -80,13 +84,13 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 		this.actionData = (ICategoryCreationData)data;
 	}
 
-
 	@POST
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createCategoryResource(
 			@Auth AuthUser authUser, 
+			@HeaderParam("authorization") String authorization,
 			@NotNull ICategoryCreationData payload)
 			throws JsonProcessingException {
 		this.actionData = new CategoryCreationData(payload.getUuid());
@@ -97,6 +101,8 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 		this.actionData.setWantedLanguage(payload.getWantedLanguage());
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setUserId(authUser.getUserId());
+		this.authorization = authorization;
+		
 		return this.apply();
 	}
 

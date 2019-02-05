@@ -59,15 +59,22 @@ public class EventFactory {
 		if (eventClass.equals("com.anfelisa.card.events.CreateCardOkEvent")) {
 			return new CreateCardOkEvent((CardCreationData)data, daoProvider, viewProvider);
 		}
+
 		if (eventClass.equals("com.anfelisa.card.events.UpdateCardOkEvent")) {
 			return new UpdateCardOkEvent((CardUpdateData)data, daoProvider, viewProvider);
 		}
+
 		if (eventClass.equals("com.anfelisa.card.events.DeleteCardOkEvent")) {
 			return new DeleteCardOkEvent((CardDeleteData)data, daoProvider, viewProvider);
 		}
+
+
+
+
 		if (eventClass.equals("com.anfelisa.card.events.MoveCardsOkEvent")) {
 			return new MoveCardsOkEvent((CardIdListData)data, daoProvider, viewProvider);
 		}
+
 
 		return null;
 	}

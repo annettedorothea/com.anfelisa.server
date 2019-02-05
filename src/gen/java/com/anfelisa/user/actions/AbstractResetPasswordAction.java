@@ -1,5 +1,7 @@
 package com.anfelisa.user.actions;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
+import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -79,7 +82,6 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 		this.actionData = (IResetPasswordWithNewPasswordData)data;
 	}
 
-
 	@PUT
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
@@ -90,6 +92,7 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 		this.actionData = new ResetPasswordWithNewPasswordData(payload.getUuid());
 		this.actionData.setPassword(payload.getPassword());
 		this.actionData.setToken(payload.getToken());
+		
 		return this.apply();
 	}
 

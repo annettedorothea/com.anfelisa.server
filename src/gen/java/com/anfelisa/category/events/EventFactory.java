@@ -86,24 +86,32 @@ public class EventFactory {
 		if (eventClass.equals("com.anfelisa.category.events.CreateCategoryRootEvent")) {
 			return new CreateCategoryRootEvent((CategoryCreationData)data, daoProvider, viewProvider);
 		}
+
 		if (eventClass.equals("com.anfelisa.category.events.UpdateCategoryOkEvent")) {
 			return new UpdateCategoryOkEvent((CategoryUpdateData)data, daoProvider, viewProvider);
 		}
+
 		if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryNoRootEvent")) {
 			return new DeleteCategoryNoRootEvent((CategoryDeleteData)data, daoProvider, viewProvider);
 		}
 		if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryRootEvent")) {
 			return new DeleteCategoryRootEvent((CategoryDeleteData)data, daoProvider, viewProvider);
 		}
+
 		if (eventClass.equals("com.anfelisa.category.events.InviteUserOkEvent")) {
 			return new InviteUserOkEvent((InviteUserData)data, daoProvider, viewProvider);
 		}
+
 		if (eventClass.equals("com.anfelisa.category.events.RevokeUserAccessOkEvent")) {
 			return new RevokeUserAccessOkEvent((RevokeUserData)data, daoProvider, viewProvider);
 		}
+
+
+
 		if (eventClass.equals("com.anfelisa.category.events.MoveCategoryOkEvent")) {
 			return new MoveCategoryOkEvent((CategoryMoveData)data, daoProvider, viewProvider);
 		}
+
 
 		return null;
 	}

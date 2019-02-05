@@ -1,5 +1,7 @@
 package com.anfelisa.category.actions;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
+import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -61,6 +64,7 @@ public abstract class AbstractInviteUserAction extends Action<IInviteUserData> {
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private String authorization;
 
 	public AbstractInviteUserAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.actions.InviteUserAction", HttpMethod.POST);
@@ -80,19 +84,21 @@ public abstract class AbstractInviteUserAction extends Action<IInviteUserData> {
 		this.actionData = (IInviteUserData)data;
 	}
 
-
 	@POST
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response inviteUserResource(
 			@Auth AuthUser authUser, 
+			@HeaderParam("authorization") String authorization,
 			@NotNull IInviteUserData payload)
 			throws JsonProcessingException {
 		this.actionData = new InviteUserData(payload.getUuid());
 		this.actionData.setCategoryId(payload.getCategoryId());
 		this.actionData.setInvitedUsername(payload.getInvitedUsername());
 		this.actionData.setUserId(authUser.getUserId());
+		this.authorization = authorization;
+		
 		return this.apply();
 	}
 

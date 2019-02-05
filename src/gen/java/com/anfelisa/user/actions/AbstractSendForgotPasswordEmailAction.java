@@ -1,4 +1,4 @@
-package com.anfelisa.card.actions;
+package com.anfelisa.user.actions;
 
 import java.util.UUID;
 
@@ -47,16 +47,15 @@ import javax.ws.rs.WebApplicationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.auth.AuthUser;
-import com.anfelisa.card.data.ICardIdListData;
-import com.anfelisa.card.data.CardIdListData;
-import com.anfelisa.card.commands.MoveCardsCommand;
+import com.anfelisa.user.data.IForgotPasswordData;
+import com.anfelisa.user.data.ForgotPasswordData;
+import com.anfelisa.user.commands.SendForgotPasswordEmailCommand;
 
-@Path("/cards/move")
+@Path("/users/send-forgot-password-email")
 @SuppressWarnings("unused")
-public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
+public abstract class AbstractSendForgotPasswordEmailAction extends Action<IForgotPasswordData> {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractMoveCardsAction.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractSendForgotPasswordEmailAction.class);
 
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
@@ -64,10 +63,9 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
-	private String authorization;
 
-	public AbstractMoveCardsAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.card.actions.MoveCardsAction", HttpMethod.PUT);
+	public AbstractSendForgotPasswordEmailAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.actions.SendForgotPasswordEmailAction", HttpMethod.PUT);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
@@ -77,27 +75,24 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 
 	@Override
 	public ICommand getCommand() {
-		return new MoveCardsCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+		return new SendForgotPasswordEmailCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (ICardIdListData)data;
+		this.actionData = (IForgotPasswordData)data;
 	}
 
 	@PUT
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response moveCardsResource(
-			@Auth AuthUser authUser, 
-			@HeaderParam("authorization") String authorization,
-			@NotNull ICardIdListData payload)
+	public Response sendForgotPasswordEmailResource(
+			@NotNull IForgotPasswordData payload)
 			throws JsonProcessingException {
-		this.actionData = new CardIdListData(payload.getUuid());
-		this.actionData.setCardIdList(payload.getCardIdList());
-		this.actionData.setCategoryId(payload.getCategoryId());
-		this.actionData.setUserId(authUser.getUserId());
-		this.authorization = authorization;
+		this.actionData = new ForgotPasswordData(payload.getUuid());
+		this.actionData.setUsername(payload.getUsername());
+		this.actionData.setLanguage(payload.getLanguage());
+		this.actionData.setToken(payload.getToken());
 		
 		return this.apply();
 	}
@@ -117,7 +112,7 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
-				this.actionData = (ICardIdListData)originalData;
+				this.actionData = (IForgotPasswordData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (SetSystemTimeResource.systemTime != null) {
 					this.actionData.setSystemTime(SetSystemTimeResource.systemTime);

@@ -1,5 +1,7 @@
 package com.anfelisa.box.actions;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
+import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -61,6 +64,7 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private String authorization;
 
 	public AbstractScoreCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.ScoreCardAction", HttpMethod.POST);
@@ -80,13 +84,13 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 		this.actionData = (IScoreCardData)data;
 	}
 
-
 	@POST
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scoreCardResource(
 			@Auth AuthUser authUser, 
+			@HeaderParam("authorization") String authorization,
 			@NotNull IScoreCardData payload)
 			throws JsonProcessingException {
 		this.actionData = new ScoreCardData(payload.getUuid());
@@ -94,6 +98,8 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 		this.actionData.setBoxId(payload.getBoxId());
 		this.actionData.setScoredCardQuality(payload.getScoredCardQuality());
 		this.actionData.setUserId(authUser.getUserId());
+		this.authorization = authorization;
+		
 		return this.apply();
 	}
 

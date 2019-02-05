@@ -92,36 +92,48 @@ public class EventFactory {
 	}
 
 	public static IEvent createEvent(String eventClass, IDataContainer data, IDaoProvider daoProvider, ViewProvider viewProvider) {
+
+
 		if (eventClass.equals("com.anfelisa.box.events.CreateBoxOkEvent")) {
 			return new CreateBoxOkEvent((BoxData)data, daoProvider, viewProvider);
 		}
+
 		if (eventClass.equals("com.anfelisa.box.events.UpdateBoxOkEvent")) {
 			return new UpdateBoxOkEvent((BoxUpdateData)data, daoProvider, viewProvider);
 		}
+
 		if (eventClass.equals("com.anfelisa.box.events.PostponeCardsOkEvent")) {
 			return new PostponeCardsOkEvent((PostponeCardsData)data, daoProvider, viewProvider);
 		}
+
 		if (eventClass.equals("com.anfelisa.box.events.DeleteBoxOkEvent")) {
 			return new DeleteBoxOkEvent((DeleteBoxData)data, daoProvider, viewProvider);
 		}
+
+
+
 		if (eventClass.equals("com.anfelisa.box.events.ScheduleNextCardOkEvent")) {
 			return new ScheduleNextCardOkEvent((ScheduleNextCardData)data, daoProvider, viewProvider);
 		}
+
 		if (eventClass.equals("com.anfelisa.box.events.ScheduleCardsOkEvent")) {
 			return new ScheduleCardsOkEvent((ScheduledCardsData)data, daoProvider, viewProvider);
 		}
+
 		if (eventClass.equals("com.anfelisa.box.events.ScoreCardScoreEvent")) {
 			return new ScoreCardScoreEvent((ScoreCardData)data, daoProvider, viewProvider);
 		}
 		if (eventClass.equals("com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent")) {
 			return new ScoreCardScoreAndReinforceEvent((ScoreCardData)data, daoProvider, viewProvider);
 		}
+
 		if (eventClass.equals("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent")) {
 			return new ScoreReinforceCardRemoveEvent((ScoreReinforceCardData)data, daoProvider, viewProvider);
 		}
 		if (eventClass.equals("com.anfelisa.box.events.ScoreReinforceCardKeepEvent")) {
 			return new ScoreReinforceCardKeepEvent((ScoreReinforceCardData)data, daoProvider, viewProvider);
 		}
+
 
 		return null;
 	}

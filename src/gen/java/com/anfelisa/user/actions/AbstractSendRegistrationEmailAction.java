@@ -1,4 +1,4 @@
-package com.anfelisa.card.actions;
+package com.anfelisa.user.actions;
 
 import java.util.UUID;
 
@@ -47,16 +47,15 @@ import javax.ws.rs.WebApplicationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.auth.AuthUser;
-import com.anfelisa.card.data.ICardIdListData;
-import com.anfelisa.card.data.CardIdListData;
-import com.anfelisa.card.commands.MoveCardsCommand;
+import com.anfelisa.user.data.IUserRegistrationData;
+import com.anfelisa.user.data.UserRegistrationData;
+import com.anfelisa.user.commands.SendRegistrationEmailCommand;
 
-@Path("/cards/move")
+@Path("/users/send-registration-email")
 @SuppressWarnings("unused")
-public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
+public abstract class AbstractSendRegistrationEmailAction extends Action<IUserRegistrationData> {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractMoveCardsAction.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractSendRegistrationEmailAction.class);
 
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
@@ -64,10 +63,9 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
-	private String authorization;
 
-	public AbstractMoveCardsAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.card.actions.MoveCardsAction", HttpMethod.PUT);
+	public AbstractSendRegistrationEmailAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.user.actions.SendRegistrationEmailAction", HttpMethod.PUT);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
@@ -77,27 +75,24 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 
 	@Override
 	public ICommand getCommand() {
-		return new MoveCardsCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+		return new SendRegistrationEmailCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (ICardIdListData)data;
+		this.actionData = (IUserRegistrationData)data;
 	}
 
 	@PUT
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response moveCardsResource(
-			@Auth AuthUser authUser, 
-			@HeaderParam("authorization") String authorization,
-			@NotNull ICardIdListData payload)
+	public Response sendRegistrationEmailResource(
+			@NotNull IUserRegistrationData payload)
 			throws JsonProcessingException {
-		this.actionData = new CardIdListData(payload.getUuid());
-		this.actionData.setCardIdList(payload.getCardIdList());
-		this.actionData.setCategoryId(payload.getCategoryId());
-		this.actionData.setUserId(authUser.getUserId());
-		this.authorization = authorization;
+		this.actionData = new UserRegistrationData(payload.getUuid());
+		this.actionData.setEmail(payload.getEmail());
+		this.actionData.setLanguage(payload.getLanguage());
+		this.actionData.setToken(payload.getToken());
 		
 		return this.apply();
 	}
@@ -117,7 +112,7 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = E2E.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
-				this.actionData = (ICardIdListData)originalData;
+				this.actionData = (IUserRegistrationData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (SetSystemTimeResource.systemTime != null) {
 					this.actionData.setSystemTime(SetSystemTimeResource.systemTime);

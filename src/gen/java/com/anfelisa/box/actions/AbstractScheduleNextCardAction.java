@@ -1,5 +1,7 @@
 package com.anfelisa.box.actions;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
+import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -61,6 +64,7 @@ public abstract class AbstractScheduleNextCardAction extends Action<IScheduleNex
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private String authorization;
 
 	public AbstractScheduleNextCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.box.actions.ScheduleNextCardAction", HttpMethod.POST);
@@ -80,18 +84,20 @@ public abstract class AbstractScheduleNextCardAction extends Action<IScheduleNex
 		this.actionData = (IScheduleNextCardData)data;
 	}
 
-
 	@POST
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scheduleNextCardResource(
 			@Auth AuthUser authUser, 
+			@HeaderParam("authorization") String authorization,
 			@NotNull IScheduleNextCardData payload)
 			throws JsonProcessingException {
 		this.actionData = new ScheduleNextCardData(payload.getUuid());
 		this.actionData.setBoxId(payload.getBoxId());
 		this.actionData.setUserId(authUser.getUserId());
+		this.authorization = authorization;
+		
 		return this.apply();
 	}
 

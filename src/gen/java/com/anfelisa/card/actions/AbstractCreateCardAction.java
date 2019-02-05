@@ -1,5 +1,7 @@
 package com.anfelisa.card.actions;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
+import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -61,6 +64,7 @@ public abstract class AbstractCreateCardAction extends Action<ICardCreationData>
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private String authorization;
 
 	public AbstractCreateCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.card.actions.CreateCardAction", HttpMethod.POST);
@@ -80,13 +84,13 @@ public abstract class AbstractCreateCardAction extends Action<ICardCreationData>
 		this.actionData = (ICardCreationData)data;
 	}
 
-
 	@POST
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createCardResource(
 			@Auth AuthUser authUser, 
+			@HeaderParam("authorization") String authorization,
 			@NotNull ICardCreationData payload)
 			throws JsonProcessingException {
 		this.actionData = new CardCreationData(payload.getUuid());
@@ -96,6 +100,8 @@ public abstract class AbstractCreateCardAction extends Action<ICardCreationData>
 		this.actionData.setCategoryId(payload.getCategoryId());
 		this.actionData.setUserId(authUser.getUserId());
 		this.actionData.setUsername(authUser.getUsername());
+		this.authorization = authorization;
+		
 		return this.apply();
 	}
 

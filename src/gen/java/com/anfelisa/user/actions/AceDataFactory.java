@@ -21,30 +21,22 @@ public class AceDataFactory {
 
 	public static IDataContainer createAceData(String className, String json) {
 		try {
-			if (className.equals("com.anfelisa.user.actions.GetUserProfileAction") ||
-					className.equals("com.anfelisa.user.commands.GetUserProfileCommand") 
-			) {
+			if (className.equals("com.anfelisa.user.actions.GetUserProfileAction")) {
 				UserData data = mapper.readValue(json, UserData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.user.actions.UsernameAvailableAction") ||
-					className.equals("com.anfelisa.user.commands.UsernameAvailableCommand") 
-			) {
+			if (className.equals("com.anfelisa.user.actions.UsernameAvailableAction")) {
 				UsernameAvailableData data = mapper.readValue(json, UsernameAvailableData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.user.actions.GetRoleAction") ||
-					className.equals("com.anfelisa.user.commands.GetRoleCommand") 
-			) {
+			if (className.equals("com.anfelisa.user.actions.GetRoleAction")) {
 				RoleData data = mapper.readValue(json, RoleData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.user.actions.GetAllUsersAction") ||
-					className.equals("com.anfelisa.user.commands.GetAllUsersCommand") 
-			) {
+			if (className.equals("com.anfelisa.user.actions.GetAllUsersAction")) {
 				UserListData data = mapper.readValue(json, UserListData.class);
 				data.migrateLegacyData(json);
 				return data;
@@ -53,6 +45,15 @@ public class AceDataFactory {
 					className.equals("com.anfelisa.user.commands.ForgotPasswordCommand") ||
 					className.equals("com.anfelisa.user.events.ForgotPasswordOkEvent")||
 					className.equals("com.anfelisa.user.events.ForgotPasswordDoesNotExistEvent")
+			) {
+				ForgotPasswordData data = mapper.readValue(json, ForgotPasswordData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
+			if (className.equals("com.anfelisa.user.actions.SendForgotPasswordEmailAction") ||
+					className.equals("com.anfelisa.user.commands.SendForgotPasswordEmailCommand") ||
+					className.equals("com.anfelisa.user.events.SendForgotPasswordEmailOkEvent")||
+					className.equals("com.anfelisa.user.events.SendForgotPasswordEmailDoesNotExistEvent")
 			) {
 				ForgotPasswordData data = mapper.readValue(json, ForgotPasswordData.class);
 				data.migrateLegacyData(json);
@@ -69,6 +70,14 @@ public class AceDataFactory {
 			if (className.equals("com.anfelisa.user.actions.RegisterUserAction") ||
 					className.equals("com.anfelisa.user.commands.RegisterUserCommand") ||
 					className.equals("com.anfelisa.user.events.RegisterUserOkEvent")
+			) {
+				UserRegistrationData data = mapper.readValue(json, UserRegistrationData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
+			if (className.equals("com.anfelisa.user.actions.SendRegistrationEmailAction") ||
+					className.equals("com.anfelisa.user.commands.SendRegistrationEmailCommand") ||
+					className.equals("com.anfelisa.user.events.SendRegistrationEmailOkEvent")
 			) {
 				UserRegistrationData data = mapper.readValue(json, UserRegistrationData.class);
 				data.migrateLegacyData(json);

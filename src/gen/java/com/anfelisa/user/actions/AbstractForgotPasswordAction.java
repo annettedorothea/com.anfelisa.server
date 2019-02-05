@@ -1,5 +1,7 @@
 package com.anfelisa.user.actions;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
+import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -79,7 +82,6 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 		this.actionData = (IForgotPasswordData)data;
 	}
 
-
 	@POST
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
@@ -90,6 +92,7 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 		this.actionData = new ForgotPasswordData(payload.getUuid());
 		this.actionData.setUsername(payload.getUsername());
 		this.actionData.setLanguage(payload.getLanguage());
+		
 		return this.apply();
 	}
 
@@ -122,6 +125,13 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
+			com.anfelisa.user.ActionCalls.callSendForgotPasswordEmail(
+				UUID.randomUUID().toString(),
+				((IForgotPasswordData)command.getCommandData()).getUsername(),
+				((IForgotPasswordData)command.getCommandData()).getLanguage(),
+				((IForgotPasswordData)command.getCommandData()).getToken(),
+				appConfiguration.getPort()
+			);
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());

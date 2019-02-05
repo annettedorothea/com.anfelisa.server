@@ -5,6 +5,9 @@ import java.util.EnumSet;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 
+import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.jdbi.v3.core.Jdbi;
@@ -21,6 +24,7 @@ import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.jdbi3.bundles.JdbiExceptionsBundle;
+import io.dropwizard.lifecycle.ServerLifecycleListener;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -70,6 +74,18 @@ public class App extends Application<CustomAppConfiguration> {
 	public void run(CustomAppConfiguration configuration, Environment environment) throws ClassNotFoundException {
 		LOG.info("running version {}", getVersion());
 
+		/*environment.lifecycle().addServerLifecycleListener(new ServerLifecycleListener() {
+			@Override
+			public void serverStarted(Server server) {
+				for (Connector connector : server.getConnectors()) {
+					if (connector instanceof ServerConnector) {
+						try (ServerConnector serverConnector = (ServerConnector) connector) {
+							configuration.setPort(serverConnector.getPort());
+						}
+					}
+				}
+			}
+		});*/
 
 		EMAIL_SERVICE = new EmailService(configuration.getEmail());
 

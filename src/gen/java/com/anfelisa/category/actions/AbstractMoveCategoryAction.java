@@ -1,5 +1,7 @@
 package com.anfelisa.category.actions;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
+import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -61,6 +64,7 @@ public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveDat
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private String authorization;
 
 	public AbstractMoveCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.category.actions.MoveCategoryAction", HttpMethod.PUT);
@@ -80,19 +84,21 @@ public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveDat
 		this.actionData = (ICategoryMoveData)data;
 	}
 
-
 	@PUT
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response moveCategoryResource(
 			@Auth AuthUser authUser, 
+			@HeaderParam("authorization") String authorization,
 			@NotNull ICategoryMoveData payload)
 			throws JsonProcessingException {
 		this.actionData = new CategoryMoveData(payload.getUuid());
 		this.actionData.setMovedCategoryId(payload.getMovedCategoryId());
 		this.actionData.setTargetCategoryId(payload.getTargetCategoryId());
 		this.actionData.setUserId(authUser.getUserId());
+		this.authorization = authorization;
+		
 		return this.apply();
 	}
 

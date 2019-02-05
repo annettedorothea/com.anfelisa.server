@@ -65,16 +65,12 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.category.actions.GetUsersWithAccessAction") ||
-					className.equals("com.anfelisa.category.commands.GetUsersWithAccessCommand") 
-			) {
+			if (className.equals("com.anfelisa.category.actions.GetUsersWithAccessAction")) {
 				UserWithAccessListData data = mapper.readValue(json, UserWithAccessListData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.category.actions.GetCategoryTreeAction") ||
-					className.equals("com.anfelisa.category.commands.GetCategoryTreeCommand") 
-			) {
+			if (className.equals("com.anfelisa.category.actions.GetCategoryTreeAction")) {
 				CategoryTreeData data = mapper.readValue(json, CategoryTreeData.class);
 				data.migrateLegacyData(json);
 				return data;

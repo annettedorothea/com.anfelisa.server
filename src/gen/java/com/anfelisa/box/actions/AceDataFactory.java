@@ -21,16 +21,12 @@ public class AceDataFactory {
 
 	public static IDataContainer createAceData(String className, String json) {
 		try {
-			if (className.equals("com.anfelisa.box.actions.GetBoxesAction") ||
-					className.equals("com.anfelisa.box.commands.GetBoxesCommand") 
-			) {
+			if (className.equals("com.anfelisa.box.actions.GetBoxesAction")) {
 				BoxListData data = mapper.readValue(json, BoxListData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.box.actions.GetBoxAction") ||
-					className.equals("com.anfelisa.box.commands.GetBoxCommand") 
-			) {
+			if (className.equals("com.anfelisa.box.actions.GetBoxAction")) {
 				BoxInfoData data = mapper.readValue(json, BoxInfoData.class);
 				data.migrateLegacyData(json);
 				return data;
@@ -68,16 +64,12 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.box.actions.LoadNextCardAction") ||
-					className.equals("com.anfelisa.box.commands.LoadNextCardCommand") 
-			) {
+			if (className.equals("com.anfelisa.box.actions.LoadNextCardAction")) {
 				NextCardData data = mapper.readValue(json, NextCardData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.box.actions.LoadNextReinforceCardAction") ||
-					className.equals("com.anfelisa.box.commands.LoadNextReinforceCardCommand") 
-			) {
+			if (className.equals("com.anfelisa.box.actions.LoadNextReinforceCardAction")) {
 				NextReinforceCardData data = mapper.readValue(json, NextReinforceCardData.class);
 				data.migrateLegacyData(json);
 				return data;

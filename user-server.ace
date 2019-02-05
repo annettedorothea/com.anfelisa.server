@@ -36,7 +36,14 @@ ACE
 	ForgotPassword<ForgotPassword>
 		POST "/users/forgot-password" 
 		payload  username language
-		on ok ( ResetPassword.insert Email.sendForgotPasswordEmail)
+		on ok ( ResetPassword.insert ) triggers (SendForgotPasswordEmail )
+		
+		on doesNotExist
+	
+	SendForgotPasswordEmail<ForgotPassword>
+		PUT "/users/send-forgot-password-email" 
+		payload  username language token
+		on ok ( Email.sendForgotPasswordEmail)
 		on doesNotExist
 	
 	ResetPassword<ResetPasswordWithNewPassword>
@@ -46,14 +53,22 @@ ACE
 			token 
 		on ok (User.resetPassword ResetPassword.delete)
 	
-	RegisterUser<UserRegistration>
+	 RegisterUser<UserRegistration>
 		POST "/users/register"
 		payload 
 			password
 			username
 			email
 			language
-		on ok (User.registerUser EmailConfirmation.insert Email.sendRegistrationEmail)
+		on ok (User.registerUser EmailConfirmation.insert) triggers (SendRegistrationEmail)
+		
+	SendRegistrationEmail<UserRegistration>
+		PUT "/users/send-registration-email"
+		payload 
+			email
+			language
+			token
+		on ok (Email.sendRegistrationEmail)
 	
 	ConfirmEmail<ConfirmEmail>
 		PUT "/users/confirm" 

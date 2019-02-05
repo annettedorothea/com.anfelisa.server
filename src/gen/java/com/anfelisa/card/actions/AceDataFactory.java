@@ -45,23 +45,17 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.card.actions.GetDuplicatesAction") ||
-					className.equals("com.anfelisa.card.commands.GetDuplicatesCommand") 
-			) {
+			if (className.equals("com.anfelisa.card.actions.GetDuplicatesAction")) {
 				CardSearchData data = mapper.readValue(json, CardSearchData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.card.actions.GetTranslationAction") ||
-					className.equals("com.anfelisa.card.commands.GetTranslationCommand") 
-			) {
+			if (className.equals("com.anfelisa.card.actions.GetTranslationAction")) {
 				CardTranslationData data = mapper.readValue(json, CardTranslationData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.card.actions.GetCardsAction") ||
-					className.equals("com.anfelisa.card.commands.GetCardsCommand") 
-			) {
+			if (className.equals("com.anfelisa.card.actions.GetCardsAction")) {
 				CardListData data = mapper.readValue(json, CardListData.class);
 				data.migrateLegacyData(json);
 				return data;

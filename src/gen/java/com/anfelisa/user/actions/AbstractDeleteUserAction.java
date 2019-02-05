@@ -1,5 +1,7 @@
 package com.anfelisa.user.actions;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
+import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -61,6 +64,7 @@ public abstract class AbstractDeleteUserAction extends Action<IDeleteUserData> {
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private String authorization;
 
 	public AbstractDeleteUserAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.DeleteUserAction", HttpMethod.DELETE);
@@ -80,7 +84,6 @@ public abstract class AbstractDeleteUserAction extends Action<IDeleteUserData> {
 		this.actionData = (IDeleteUserData)data;
 	}
 
-
 	@DELETE
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
@@ -88,12 +91,15 @@ public abstract class AbstractDeleteUserAction extends Action<IDeleteUserData> {
 	public Response deleteUserResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("usernameToBeDeleted") String usernameToBeDeleted, 
+			@HeaderParam("authorization") String authorization,
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new DeleteUserData(uuid);
 		this.actionData.setUsernameToBeDeleted(usernameToBeDeleted);
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setRole(authUser.getRole());
+		this.authorization = authorization;
+		
 		return this.apply();
 	}
 

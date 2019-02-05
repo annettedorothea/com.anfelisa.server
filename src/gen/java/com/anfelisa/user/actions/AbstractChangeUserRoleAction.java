@@ -1,5 +1,7 @@
 package com.anfelisa.user.actions;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
+import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -61,6 +64,7 @@ public abstract class AbstractChangeUserRoleAction extends Action<IChangeUserRol
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private String authorization;
 
 	public AbstractChangeUserRoleAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.ChangeUserRoleAction", HttpMethod.PUT);
@@ -80,13 +84,13 @@ public abstract class AbstractChangeUserRoleAction extends Action<IChangeUserRol
 		this.actionData = (IChangeUserRoleData)data;
 	}
 
-
 	@PUT
 	@Timed
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response changeUserRoleResource(
 			@Auth AuthUser authUser, 
+			@HeaderParam("authorization") String authorization,
 			@NotNull IChangeUserRoleData payload)
 			throws JsonProcessingException {
 		this.actionData = new ChangeUserRoleData(payload.getUuid());
@@ -94,6 +98,8 @@ public abstract class AbstractChangeUserRoleAction extends Action<IChangeUserRol
 		this.actionData.setEditedUserId(payload.getEditedUserId());
 		this.actionData.setUserId(authUser.getUserId());
 		this.actionData.setRole(authUser.getRole());
+		this.authorization = authorization;
+		
 		return this.apply();
 	}
 
