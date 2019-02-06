@@ -87,7 +87,7 @@ public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailDat
 
 	@PUT
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response confirmEmailResource(
 			@NotNull IConfirmEmailData payload) 

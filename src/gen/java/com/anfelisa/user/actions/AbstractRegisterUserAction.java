@@ -87,7 +87,7 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 
 	@POST
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response registerUserResource(
 			@NotNull IUserRegistrationData payload) 
@@ -112,6 +112,7 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 					throwBadRequest("uuid already exists - please choose another one");
 				}
 				this.actionData.setSystemTime(new DateTime());
+				this.actionData.addUuidForTriggeredAction("com.anfelisa.user.actions.SendRegistrationEmailAction", UUID.randomUUID().toString());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
@@ -123,6 +124,7 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 				} else {
 					this.actionData.setSystemTime(new DateTime());
 				}
+				this.actionData.addUuidForTriggeredAction("com.anfelisa.user.actions.SendRegistrationEmailAction", UUID.randomUUID().toString());
 			}
 			daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
 			ICommand command = this.getCommand();
@@ -133,6 +135,7 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 			
 			SendRegistrationEmailThread sendRegistrationEmailThread = new SendRegistrationEmailThread(
 				jdbi, mapper, appConfiguration, daoProvider, viewProvider, e2e, command.getCommandData());
+			e2e.addTriggeredThread(sendRegistrationEmailThread);
 			sendRegistrationEmailThread.start();
 			
 			return response;
@@ -179,6 +182,7 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 		   this.viewProvider = viewProvider;
 		   this.e2e = e2e;
 		   this.commandData = commandData;
+		   this.setName("SendRegistrationEmailThread");
 		}
 	
 		public void run() {
@@ -187,7 +191,7 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 				com.anfelisa.user.actions.SendRegistrationEmailAction sendRegistrationEmail 
 					= new com.anfelisa.user.actions.SendRegistrationEmailAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e);
 				IDataContainer data = AceDataFactory.createAceData("com.anfelisa.user.actions.SendRegistrationEmailAction", mapper.writeValueAsString(commandData));
-				data.setUuid(commandData.getUuid() + "SendRegistrationEmail");
+				data.setUuid(commandData.getUuidForTriggeredAction("com.anfelisa.user.actions.SendRegistrationEmailAction"));
 				sendRegistrationEmail.setActionData(data);
 				sendRegistrationEmail.apply();
 				LOG.info("trigger SendRegistrationEmail finished");

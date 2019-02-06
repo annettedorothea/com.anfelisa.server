@@ -88,7 +88,7 @@ public abstract class AbstractDeleteUserAction extends Action<IDeleteUserData> {
 
 	@DELETE
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteUserResource(
 			@Auth AuthUser authUser, 

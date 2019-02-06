@@ -88,7 +88,7 @@ public abstract class AbstractInviteUserAction extends Action<IInviteUserData> {
 
 	@POST
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response inviteUserResource(
 			@Auth AuthUser authUser, 

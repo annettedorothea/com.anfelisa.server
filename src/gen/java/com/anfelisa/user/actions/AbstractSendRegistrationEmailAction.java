@@ -87,7 +87,7 @@ public abstract class AbstractSendRegistrationEmailAction extends Action<IUserRe
 
 	@PUT
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response sendRegistrationEmailResource(
 			@NotNull IUserRegistrationData payload) 

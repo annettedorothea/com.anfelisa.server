@@ -88,7 +88,7 @@ public abstract class AbstractUpdateCategoryAction extends Action<ICategoryUpdat
 
 	@PUT
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateCategoryResource(
 			@Auth AuthUser authUser, 

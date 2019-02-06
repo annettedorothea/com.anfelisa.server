@@ -88,7 +88,7 @@ public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 
 	@PUT
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateBoxResource(
 			@Auth AuthUser authUser, 

@@ -87,7 +87,7 @@ public abstract class AbstractSendForgotPasswordEmailAction extends Action<IForg
 
 	@PUT
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response sendForgotPasswordEmailResource(
 			@NotNull IForgotPasswordData payload) 

@@ -88,7 +88,7 @@ public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveDat
 
 	@PUT
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response moveCategoryResource(
 			@Auth AuthUser authUser, 

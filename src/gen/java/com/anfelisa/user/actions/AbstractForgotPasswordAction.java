@@ -87,7 +87,7 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 
 	@POST
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response forgotPasswordResource(
 			@NotNull IForgotPasswordData payload) 
@@ -110,6 +110,7 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 					throwBadRequest("uuid already exists - please choose another one");
 				}
 				this.actionData.setSystemTime(new DateTime());
+				this.actionData.addUuidForTriggeredAction("com.anfelisa.user.actions.SendForgotPasswordEmailAction", UUID.randomUUID().toString());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
@@ -121,6 +122,7 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 				} else {
 					this.actionData.setSystemTime(new DateTime());
 				}
+				this.actionData.addUuidForTriggeredAction("com.anfelisa.user.actions.SendForgotPasswordEmailAction", UUID.randomUUID().toString());
 			}
 			daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
 			ICommand command = this.getCommand();
@@ -131,6 +133,7 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 			
 			SendForgotPasswordEmailThread sendForgotPasswordEmailThread = new SendForgotPasswordEmailThread(
 				jdbi, mapper, appConfiguration, daoProvider, viewProvider, e2e, command.getCommandData());
+			e2e.addTriggeredThread(sendForgotPasswordEmailThread);
 			sendForgotPasswordEmailThread.start();
 			
 			
@@ -178,6 +181,7 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 		   this.viewProvider = viewProvider;
 		   this.e2e = e2e;
 		   this.commandData = commandData;
+		   this.setName("SendForgotPasswordEmailThread");
 		}
 	
 		public void run() {
@@ -186,7 +190,7 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 				com.anfelisa.user.actions.SendForgotPasswordEmailAction sendForgotPasswordEmail 
 					= new com.anfelisa.user.actions.SendForgotPasswordEmailAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e);
 				IDataContainer data = AceDataFactory.createAceData("com.anfelisa.user.actions.SendForgotPasswordEmailAction", mapper.writeValueAsString(commandData));
-				data.setUuid(commandData.getUuid() + "SendForgotPasswordEmail");
+				data.setUuid(commandData.getUuidForTriggeredAction("com.anfelisa.user.actions.SendForgotPasswordEmailAction"));
 				sendForgotPasswordEmail.setActionData(data);
 				sendForgotPasswordEmail.apply();
 				LOG.info("trigger SendForgotPasswordEmail finished");

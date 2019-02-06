@@ -88,7 +88,7 @@ public abstract class AbstractScoreReinforceCardAction extends Action<IScoreRein
 
 	@POST
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scoreReinforceCardResource(
 			@Auth AuthUser authUser, 

@@ -88,7 +88,7 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 
 	@DELETE
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteCardResource(
 			@Auth AuthUser authUser, 

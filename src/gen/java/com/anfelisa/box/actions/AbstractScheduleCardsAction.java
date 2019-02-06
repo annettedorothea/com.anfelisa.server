@@ -88,7 +88,7 @@ public abstract class AbstractScheduleCardsAction extends Action<IScheduledCards
 
 	@POST
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scheduleCardsResource(
 			@Auth AuthUser authUser, 

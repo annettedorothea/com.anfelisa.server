@@ -88,7 +88,7 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 
 	@POST
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createCategoryResource(
 			@Auth AuthUser authUser, 

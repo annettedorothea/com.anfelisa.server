@@ -88,7 +88,7 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 
 	@POST
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scoreCardResource(
 			@Auth AuthUser authUser, 

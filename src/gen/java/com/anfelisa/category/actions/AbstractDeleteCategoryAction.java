@@ -88,7 +88,7 @@ public abstract class AbstractDeleteCategoryAction extends Action<ICategoryDelet
 
 	@DELETE
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteCategoryResource(
 			@Auth AuthUser authUser, 

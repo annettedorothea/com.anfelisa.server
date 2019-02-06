@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class E2E {
 
@@ -18,12 +20,21 @@ public class E2E {
 	private List<String> uuidList;
 
 	private int index;
+	
+	private List<Thread> triggerdThreads;
+
+	static final Logger LOG = LoggerFactory.getLogger(E2E.class);
 
 	public E2E() {
 		this.sessionIsRunning = false;
 		this.sessionStartedAt = null;
 		this.timeline = null;
 		this.index = 0;
+		this.triggerdThreads = new ArrayList<>();
+	}
+	
+	public void addTriggeredThread(Thread thread) {
+		triggerdThreads.add(thread);
 	}
 	
 	public boolean isSessionRunning() {
@@ -35,11 +46,21 @@ public class E2E {
 	}
 
 	public void reset() {
+		for (Thread thread : triggerdThreads) {
+			try {
+				LOG.info("wait for thread {} to finish before resetting E2E session", thread.getName());
+				thread.join();
+			} catch (InterruptedException e) {
+				LOG.error("thread.join {} was interrupted", thread.getName(), e);
+			}
+		}
 		this.sessionIsRunning = false;
 		this.sessionStartedAt = null;
 		this.timeline = null;
 		this.index = 0;
+		this.triggerdThreads.clear();
 	}
+
 
 	public void init(List<ITimelineItem> initialTimeline) {
 		timeline = new HashMap<>();

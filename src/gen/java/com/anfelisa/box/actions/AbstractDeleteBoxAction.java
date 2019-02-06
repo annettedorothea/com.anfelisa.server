@@ -88,7 +88,7 @@ public abstract class AbstractDeleteBoxAction extends Action<IDeleteBoxData> {
 
 	@DELETE
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteBoxResource(
 			@Auth AuthUser authUser, 

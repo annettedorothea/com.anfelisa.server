@@ -88,7 +88,7 @@ public abstract class AbstractCreateCardAction extends Action<ICardCreationData>
 
 	@POST
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createCardResource(
 			@Auth AuthUser authUser, 

@@ -88,7 +88,7 @@ public abstract class AbstractRevokeUserAccessAction extends Action<IRevokeUserD
 
 	@DELETE
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response revokeUserAccessResource(
 			@Auth AuthUser authUser, 

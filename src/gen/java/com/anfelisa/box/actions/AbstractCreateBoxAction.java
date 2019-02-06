@@ -88,7 +88,7 @@ public abstract class AbstractCreateBoxAction extends Action<IBoxData> {
 
 	@POST
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createBoxResource(
 			@Auth AuthUser authUser, 

@@ -88,7 +88,7 @@ public abstract class AbstractScheduleNextCardAction extends Action<IScheduleNex
 
 	@POST
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scheduleNextCardResource(
 			@Auth AuthUser authUser, 

@@ -88,7 +88,7 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 
 	@PUT
 	@Timed
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response moveCardsResource(
 			@Auth AuthUser authUser, 
