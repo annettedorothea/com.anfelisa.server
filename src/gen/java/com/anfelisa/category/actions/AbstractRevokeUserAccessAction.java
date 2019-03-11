@@ -152,9 +152,6 @@ public abstract class AbstractRevokeUserAccessAction extends Action<IRevokeUserD
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
-			
-			
-			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -181,11 +178,6 @@ public abstract class AbstractRevokeUserAccessAction extends Action<IRevokeUserD
 		}
 	}
 	
-	
-	
-	
-
-
 }
 
 

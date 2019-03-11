@@ -69,15 +69,6 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.user.actions.SendForgotPasswordEmailAction") ||
-					className.equals("com.anfelisa.user.commands.SendForgotPasswordEmailCommand") ||
-					className.equals("com.anfelisa.user.events.SendForgotPasswordEmailOkEvent")||
-					className.equals("com.anfelisa.user.events.SendForgotPasswordEmailDoesNotExistEvent")
-			) {
-				ForgotPasswordData data = mapper.readValue(json, ForgotPasswordData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
 			if (className.equals("com.anfelisa.user.actions.ResetPasswordAction") ||
 					className.equals("com.anfelisa.user.commands.ResetPasswordCommand") ||
 					className.equals("com.anfelisa.user.events.ResetPasswordOkEvent")
@@ -89,14 +80,6 @@ public class AceDataFactory {
 			if (className.equals("com.anfelisa.user.actions.RegisterUserAction") ||
 					className.equals("com.anfelisa.user.commands.RegisterUserCommand") ||
 					className.equals("com.anfelisa.user.events.RegisterUserOkEvent")
-			) {
-				UserRegistrationData data = mapper.readValue(json, UserRegistrationData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
-			if (className.equals("com.anfelisa.user.actions.SendRegistrationEmailAction") ||
-					className.equals("com.anfelisa.user.commands.SendRegistrationEmailCommand") ||
-					className.equals("com.anfelisa.user.events.SendRegistrationEmailOkEvent")
 			) {
 				UserRegistrationData data = mapper.readValue(json, UserRegistrationData.class);
 				data.migrateLegacyData(json);

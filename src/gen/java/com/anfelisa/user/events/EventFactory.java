@@ -49,12 +49,6 @@ public class EventFactory {
 				ForgotPasswordOkEvent event = new ForgotPasswordOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
-			if (eventClass.equals("com.anfelisa.user.events.SendForgotPasswordEmailOkEvent")) {
-				ForgotPasswordData data = mapper.readValue(json, ForgotPasswordData.class);
-				data.migrateLegacyData(json);
-				SendForgotPasswordEmailOkEvent event = new SendForgotPasswordEmailOkEvent(data, daoProvider, viewProvider);
-				return event;
-			}
 			if (eventClass.equals("com.anfelisa.user.events.ResetPasswordOkEvent")) {
 				ResetPasswordWithNewPasswordData data = mapper.readValue(json, ResetPasswordWithNewPasswordData.class);
 				data.migrateLegacyData(json);
@@ -65,12 +59,6 @@ public class EventFactory {
 				UserRegistrationData data = mapper.readValue(json, UserRegistrationData.class);
 				data.migrateLegacyData(json);
 				RegisterUserOkEvent event = new RegisterUserOkEvent(data, daoProvider, viewProvider);
-				return event;
-			}
-			if (eventClass.equals("com.anfelisa.user.events.SendRegistrationEmailOkEvent")) {
-				UserRegistrationData data = mapper.readValue(json, UserRegistrationData.class);
-				data.migrateLegacyData(json);
-				SendRegistrationEmailOkEvent event = new SendRegistrationEmailOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.user.events.ConfirmEmailOkEvent")) {
@@ -107,20 +95,12 @@ public class EventFactory {
 			return new ForgotPasswordOkEvent((ForgotPasswordData)data, daoProvider, viewProvider);
 		}
 
-		if (eventClass.equals("com.anfelisa.user.events.SendForgotPasswordEmailOkEvent")) {
-			return new SendForgotPasswordEmailOkEvent((ForgotPasswordData)data, daoProvider, viewProvider);
-		}
-
 		if (eventClass.equals("com.anfelisa.user.events.ResetPasswordOkEvent")) {
 			return new ResetPasswordOkEvent((ResetPasswordWithNewPasswordData)data, daoProvider, viewProvider);
 		}
 
 		if (eventClass.equals("com.anfelisa.user.events.RegisterUserOkEvent")) {
 			return new RegisterUserOkEvent((UserRegistrationData)data, daoProvider, viewProvider);
-		}
-
-		if (eventClass.equals("com.anfelisa.user.events.SendRegistrationEmailOkEvent")) {
-			return new SendRegistrationEmailOkEvent((UserRegistrationData)data, daoProvider, viewProvider);
 		}
 
 		if (eventClass.equals("com.anfelisa.user.events.ConfirmEmailOkEvent")) {

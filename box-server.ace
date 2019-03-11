@@ -306,4 +306,4 @@ models
 		String userId
 		NotNull String boxId
 	}
-	
+

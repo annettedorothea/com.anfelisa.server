@@ -65,16 +65,6 @@ public class ActionCalls {
 		return builder.post(Entity.json(data));
 	}
 	
-	public static Response callSendForgotPasswordEmail(String uuid, String username, String language, String token, int port) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/users/send-forgot-password-email?uuid=" + uuid, port)).request();
-		com.anfelisa.user.data.IForgotPasswordData data = new com.anfelisa.user.data.ForgotPasswordData(uuid);
-		data.setUsername(username);
-		data.setLanguage(language);
-		data.setToken(token);
-		return builder.put(Entity.json(data));
-	}
-	
 	public static Response callResetPassword(String uuid, String password, String token, int port) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/users/resetpassword?uuid=" + uuid, port)).request();
@@ -93,16 +83,6 @@ public class ActionCalls {
 		data.setEmail(email);
 		data.setLanguage(language);
 		return builder.post(Entity.json(data));
-	}
-	
-	public static Response callSendRegistrationEmail(String uuid, String email, String language, String token, int port) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/users/send-registration-email?uuid=" + uuid, port)).request();
-		com.anfelisa.user.data.IUserRegistrationData data = new com.anfelisa.user.data.UserRegistrationData(uuid);
-		data.setEmail(email);
-		data.setLanguage(language);
-		data.setToken(token);
-		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callConfirmEmail(String uuid, String token, String username, int port) {

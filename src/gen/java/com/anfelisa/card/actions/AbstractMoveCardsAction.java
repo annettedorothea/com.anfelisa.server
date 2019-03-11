@@ -150,8 +150,6 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
-			
-			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -178,10 +176,6 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 		}
 	}
 	
-	
-	
-
-
 }
 
 

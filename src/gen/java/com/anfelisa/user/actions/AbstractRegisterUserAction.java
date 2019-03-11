@@ -131,7 +131,6 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 					throwBadRequest("uuid already exists - please choose another one");
 				}
 				this.actionData.setSystemTime(new DateTime());
-				this.actionData.addUuidForTriggeredAction("com.anfelisa.user.actions.SendRegistrationEmailAction", UUID.randomUUID().toString());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
@@ -143,7 +142,6 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 				} else {
 					this.actionData.setSystemTime(new DateTime());
 				}
-				this.actionData.addUuidForTriggeredAction("com.anfelisa.user.actions.SendRegistrationEmailAction", UUID.randomUUID().toString());
 			}
 			daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
 			ICommand command = this.getCommand();
@@ -151,12 +149,6 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
-			
-			SendRegistrationEmailThread sendRegistrationEmailThread = new SendRegistrationEmailThread(
-				jdbi, mapper, appConfiguration, daoProvider, viewProvider, e2e, command.getCommandData());
-			e2e.addTriggeredThread(sendRegistrationEmailThread);
-			sendRegistrationEmailThread.start();
-			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -183,46 +175,6 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 		}
 	}
 	
-	public class SendRegistrationEmailThread extends Thread {
-		private Jdbi jdbi;
-		private JodaObjectMapper mapper;
-		private CustomAppConfiguration appConfiguration;
-		private IDaoProvider daoProvider;
-		private ViewProvider viewProvider;
-		private IDataContainer commandData;
-		private E2E e2e;
-
-		public SendRegistrationEmailThread(Jdbi jdbi, JodaObjectMapper mapper, CustomAppConfiguration appConfiguration,
-				IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e, IDataContainer commandData) {
-		   this.jdbi = jdbi;
-		   this.mapper = mapper;
-		   this.appConfiguration = appConfiguration;
-		   this.daoProvider = daoProvider;
-		   this.viewProvider = viewProvider;
-		   this.e2e = e2e;
-		   this.commandData = commandData;
-		   this.setName("SendRegistrationEmailThread");
-		}
-	
-		public void run() {
-			try {
-				LOG.info("trigger SendRegistrationEmail");
-				com.anfelisa.user.actions.SendRegistrationEmailAction sendRegistrationEmail 
-					= new com.anfelisa.user.actions.SendRegistrationEmailAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e);
-				IDataContainer data = AceDataFactory.createAceData("com.anfelisa.user.actions.SendRegistrationEmailAction", mapper.writeValueAsString(commandData));
-				data.setUuid(commandData.getUuidForTriggeredAction("com.anfelisa.user.actions.SendRegistrationEmailAction"));
-				sendRegistrationEmail.setActionData(data);
-				sendRegistrationEmail.apply();
-				LOG.info("trigger SendRegistrationEmail finished");
-			} catch (Exception x) {
-				LOG.error("failed to trigger SendRegistrationEmail " + x.getMessage());
-			}
-		}
-	};
-	
-	
-
-
 }
 
 

@@ -129,7 +129,6 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 					throwBadRequest("uuid already exists - please choose another one");
 				}
 				this.actionData.setSystemTime(new DateTime());
-				this.actionData.addUuidForTriggeredAction("com.anfelisa.user.actions.SendForgotPasswordEmailAction", UUID.randomUUID().toString());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
@@ -141,7 +140,6 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 				} else {
 					this.actionData.setSystemTime(new DateTime());
 				}
-				this.actionData.addUuidForTriggeredAction("com.anfelisa.user.actions.SendForgotPasswordEmailAction", UUID.randomUUID().toString());
 			}
 			daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
 			ICommand command = this.getCommand();
@@ -149,13 +147,6 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
-			
-			SendForgotPasswordEmailThread sendForgotPasswordEmailThread = new SendForgotPasswordEmailThread(
-				jdbi, mapper, appConfiguration, daoProvider, viewProvider, e2e, command.getCommandData());
-			e2e.addTriggeredThread(sendForgotPasswordEmailThread);
-			sendForgotPasswordEmailThread.start();
-			
-			
 			return response;
 		} catch (WebApplicationException x) {
 			LOG.error(actionName + " failed " + x.getMessage());
@@ -182,47 +173,6 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 		}
 	}
 	
-	public class SendForgotPasswordEmailThread extends Thread {
-		private Jdbi jdbi;
-		private JodaObjectMapper mapper;
-		private CustomAppConfiguration appConfiguration;
-		private IDaoProvider daoProvider;
-		private ViewProvider viewProvider;
-		private IDataContainer commandData;
-		private E2E e2e;
-
-		public SendForgotPasswordEmailThread(Jdbi jdbi, JodaObjectMapper mapper, CustomAppConfiguration appConfiguration,
-				IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e, IDataContainer commandData) {
-		   this.jdbi = jdbi;
-		   this.mapper = mapper;
-		   this.appConfiguration = appConfiguration;
-		   this.daoProvider = daoProvider;
-		   this.viewProvider = viewProvider;
-		   this.e2e = e2e;
-		   this.commandData = commandData;
-		   this.setName("SendForgotPasswordEmailThread");
-		}
-	
-		public void run() {
-			try {
-				LOG.info("trigger SendForgotPasswordEmail");
-				com.anfelisa.user.actions.SendForgotPasswordEmailAction sendForgotPasswordEmail 
-					= new com.anfelisa.user.actions.SendForgotPasswordEmailAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e);
-				IDataContainer data = AceDataFactory.createAceData("com.anfelisa.user.actions.SendForgotPasswordEmailAction", mapper.writeValueAsString(commandData));
-				data.setUuid(commandData.getUuidForTriggeredAction("com.anfelisa.user.actions.SendForgotPasswordEmailAction"));
-				sendForgotPasswordEmail.setActionData(data);
-				sendForgotPasswordEmail.apply();
-				LOG.info("trigger SendForgotPasswordEmail finished");
-			} catch (Exception x) {
-				LOG.error("failed to trigger SendForgotPasswordEmail " + x.getMessage());
-			}
-		}
-	};
-	
-	
-	
-
-
 }
 
 
