@@ -53,11 +53,6 @@ public interface ICategoryModel {
 	String getWantedLanguage();
 	void setWantedLanguage(String wantedLanguage);
 	
-	Boolean getPublicRootCategory();
-	void setPublicRootCategory(Boolean publicRootCategory);
-	
-	
-	List<String> equalsPrimitiveTypes(com.anfelisa.category.models.ICategoryModel other);
 	
 }
 

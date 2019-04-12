@@ -30,8 +30,6 @@ public interface ICardWithCategoryNameModel extends com.anfelisa.card.models.ICa
 	void setCategoryName(String categoryName);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.card.models.ICardWithCategoryNameModel other);
-	
 }
 
 

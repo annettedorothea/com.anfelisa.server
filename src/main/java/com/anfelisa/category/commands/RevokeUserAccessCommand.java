@@ -29,11 +29,11 @@ public class RevokeUserAccessCommand extends AbstractRevokeUserAccessCommand {
 		if (category == null) {
 			throwBadRequest("categoryDoesNotExist");
 		}
-		List<IUserWithAccessModel> accessList = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryId(readonlyHandle,  category.getRootCategoryId());
-		if (!containsUser(accessList, commandData.getUserId())) {
+		List<IUserWithAccessModel> writeAccessList = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdWhereEditable(readonlyHandle,  category.getRootCategoryId());
+		if (!containsUser(writeAccessList, commandData.getUserId())) {
 			throwUnauthorized();
 		}
-		if (accessList.size() == 1) {
+		if (writeAccessList.size() == 1 && containsUser(writeAccessList, commandData.getRevokedUserId())) {
 			throwBadRequest("atLeastOneUserMustHaveAccessToCategory");
 		}
 		IUserModel revokedUser = this.daoProvider.getUserDao().selectByUserId(readonlyHandle,   commandData.getRevokedUserId());
@@ -41,6 +41,7 @@ public class RevokeUserAccessCommand extends AbstractRevokeUserAccessCommand {
 			throwBadRequest("userDoesNotExist");
 		}
 		this.commandData.setRootCategoryId(category.getRootCategoryId());
+		List<IUserWithAccessModel> accessList = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryId(readonlyHandle,  category.getRootCategoryId());
 		if (containsUser(accessList, commandData.getRevokedUserId())) {
 			this.commandData.setOutcome(ok);
 		} else {

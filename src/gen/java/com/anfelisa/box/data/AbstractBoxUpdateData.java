@@ -68,9 +68,9 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -80,9 +80,9 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	
 	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
-	}
+		public String getBoxId() {
+			return this.boxId;
+		}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
@@ -92,9 +92,9 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	
 	@JsonProperty
-	public Integer getMaxInterval() {
-		return this.maxInterval;
-	}
+		public Integer getMaxInterval() {
+			return this.maxInterval;
+		}
 	public void setMaxInterval(Integer maxInterval) {
 		this.maxInterval = maxInterval;
 	}
@@ -104,9 +104,9 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	
 	@JsonProperty
-	public Integer getMaxCardsPerDay() {
-		return this.maxCardsPerDay;
-	}
+		public Integer getMaxCardsPerDay() {
+			return this.maxCardsPerDay;
+		}
 	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
 		this.maxCardsPerDay = maxCardsPerDay;
 	}
@@ -115,24 +115,6 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 		return this;
 	}
 	
-	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IBoxUpdateModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
-			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
-		}
-		if (!(this.getMaxInterval() == null && other.getMaxInterval() == null) && !this.getMaxInterval().equals(other.getMaxInterval())) {
-			differingAttributes.add("maxInterval: " + this.getMaxInterval() + " " + other.getMaxInterval());
-		}
-		if (!(this.getMaxCardsPerDay() == null && other.getMaxCardsPerDay() == null) && !this.getMaxCardsPerDay().equals(other.getMaxCardsPerDay())) {
-			differingAttributes.add("maxCardsPerDay: " + this.getMaxCardsPerDay() + " " + other.getMaxCardsPerDay());
-		}
-		return differingAttributes;
-	}
 	
 	
 }

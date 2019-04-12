@@ -44,15 +44,19 @@ public abstract class AbstractUserAccessToCategoryData extends AbstractData impl
 	@NotNull
 	private String userId;
 	
+	private Boolean editable = false;
+	
 
 	public AbstractUserAccessToCategoryData(
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("userId") String userId
+		@JsonProperty("userId") String userId,
+		@JsonProperty("editable") Boolean editable
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.categoryId = categoryId;
 		this.userId = userId;
+		this.editable = editable;
 	}
 
 	public AbstractUserAccessToCategoryData( String uuid ) {
@@ -60,9 +64,9 @@ public abstract class AbstractUserAccessToCategoryData extends AbstractData impl
 	}
 
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
+		public String getCategoryId() {
+			return this.categoryId;
+		}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
@@ -72,9 +76,9 @@ public abstract class AbstractUserAccessToCategoryData extends AbstractData impl
 	}
 	
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -83,18 +87,18 @@ public abstract class AbstractUserAccessToCategoryData extends AbstractData impl
 		return this;
 	}
 	
-	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.category.models.IUserAccessToCategoryModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
-			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
+	@JsonProperty
+		public Boolean getEditable() {
+			return this.editable;
 		}
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		return differingAttributes;
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
 	}
+	public IUserAccessToCategoryData withEditable(Boolean editable) {
+		this.editable = editable;
+		return this;
+	}
+	
 	
 	
 }

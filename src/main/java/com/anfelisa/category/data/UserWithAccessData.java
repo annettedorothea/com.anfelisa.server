@@ -8,11 +8,13 @@ public class UserWithAccessData extends AbstractUserWithAccessData implements IU
 	public UserWithAccessData(
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("username") String username, 
+		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			userId,
 			username,
+			editable,
 			uuid
 		);
 	}

@@ -18,12 +18,15 @@ public class UserAccessToCategoryView implements IUserAccessToCategoryView {
 	}
 
 	public void grantAccess(ICategoryCreationData data, Handle handle) {
+		if (data.getEditable() == null) {
+			data.setEditable(true);
+		}
 		daoProvider.getUserAccessToCategoryDao().insert(handle, data);
 	}
 
 	public void grantAccessInvitation(IInviteUserData data, Handle handle) {
-		daoProvider.getUserAccessToCategoryDao().insert(handle,
-				new UserAccessToCategoryModel(data.getRootCategoryId(), data.getInvitedUserId()));
+		daoProvider.getUserAccessToCategoryDao().insert(handle, new UserAccessToCategoryModel(data.getRootCategoryId(),
+				data.getInvitedUserId(), data.getEditable() == null ? false : data.getEditable()));
 	}
 
 	public void revokeAccess(IRevokeUserData data, Handle handle) {

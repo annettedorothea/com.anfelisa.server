@@ -36,8 +36,6 @@ public interface IDeleteUserModel {
 	void setRole(String role);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IDeleteUserModel other);
-	
 }
 
 

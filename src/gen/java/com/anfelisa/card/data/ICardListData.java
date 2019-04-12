@@ -30,7 +30,7 @@ public interface ICardListData extends ICardListModel, IDataContainer {
 	
 	ICardListData withUserId(String userId);
 	
-	ICardListData withCardList(java.util.List<com.anfelisa.card.models.ICardModel> cardList);
+	ICardListData withCardList(java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList);
 	
 	ICardListData withCategoryId(String categoryId);
 	

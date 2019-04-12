@@ -45,29 +45,21 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	}
 
 	@JsonProperty
-	public java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> getCategoryList() {
-		return this.categoryList;
-	}
+		public java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> getCategoryList() {
+			return this.categoryList;
+		}
 	public void setCategoryList(java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList) {
 		this.categoryList = categoryList;
 	}
 	
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.category.models.ICategoryTreeModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		return differingAttributes;
-	}
 	
 }
 

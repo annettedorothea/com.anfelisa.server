@@ -45,8 +45,6 @@ public interface IUserModel {
 	void setEmailConfirmed(Boolean emailConfirmed);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IUserModel other);
-	
 }
 
 

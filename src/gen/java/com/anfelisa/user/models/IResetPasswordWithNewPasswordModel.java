@@ -30,8 +30,6 @@ public interface IResetPasswordWithNewPasswordModel extends com.anfelisa.user.mo
 	void setPassword(String password);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IResetPasswordWithNewPasswordModel other);
-	
 }
 
 

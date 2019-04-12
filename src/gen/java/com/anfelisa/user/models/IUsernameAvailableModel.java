@@ -33,8 +33,6 @@ public interface IUsernameAvailableModel {
 	void setAvailable(Boolean available);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IUsernameAvailableModel other);
-	
 }
 
 

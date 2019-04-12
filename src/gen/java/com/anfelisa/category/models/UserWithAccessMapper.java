@@ -30,7 +30,8 @@ public class UserWithAccessMapper implements RowMapper<IUserWithAccessModel> {
 	public IUserWithAccessModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserWithAccessModel(
 			r.getString("userId"),
-			r.getString("username")
+			r.getString("username"),
+			r.getBoolean("editable")
 		);
 	}
 }

@@ -28,7 +28,7 @@ public class InviteUserCommand extends AbstractInviteUserCommand {
 			throwBadRequest("categoryDoesNotExist");
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle,  category.getRootCategoryId(), commandData.getUserId());
-		if (access == null) {
+		if (access == null || access.getEditable() == false) {
 			throwUnauthorized();
 		}
 		IUserModel invitedUser = this.daoProvider.getUserDao().selectByUsername(readonlyHandle,  commandData.getInvitedUsername());

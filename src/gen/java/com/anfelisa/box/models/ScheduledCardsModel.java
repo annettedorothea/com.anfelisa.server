@@ -62,67 +62,53 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	}
 
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IScheduledCardModel> getNewScheduledCards() {
-		return this.newScheduledCards;
-	}
+		public java.util.List<com.anfelisa.box.models.IScheduledCardModel> getNewScheduledCards() {
+			return this.newScheduledCards;
+		}
 	public void setNewScheduledCards(java.util.List<com.anfelisa.box.models.IScheduledCardModel> newScheduledCards) {
 		this.newScheduledCards = newScheduledCards;
 	}
 	
 	@JsonProperty
-	public java.util.List<String> getExistingScheduledCardIds() {
-		return this.existingScheduledCardIds;
-	}
+		public java.util.List<String> getExistingScheduledCardIds() {
+			return this.existingScheduledCardIds;
+		}
 	public void setExistingScheduledCardIds(java.util.List<String> existingScheduledCardIds) {
 		this.existingScheduledCardIds = existingScheduledCardIds;
 	}
 	
 	@JsonProperty
-	public java.util.List<String> getCardIds() {
-		return this.cardIds;
-	}
+		public java.util.List<String> getCardIds() {
+			return this.cardIds;
+		}
 	public void setCardIds(java.util.List<String> cardIds) {
 		this.cardIds = cardIds;
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getScheduledDate() {
-		return this.scheduledDate;
-	}
+		public org.joda.time.DateTime getScheduledDate() {
+			return this.scheduledDate;
+		}
 	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
 	
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
-	}
+		public String getBoxId() {
+			return this.boxId;
+		}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IScheduledCardsModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getScheduledDate() == null && other.getScheduledDate() == null) && !this.getScheduledDate().equals(other.getScheduledDate())) {
-			differingAttributes.add("scheduledDate: " + this.getScheduledDate() + " " + other.getScheduledDate());
-		}
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
-			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
-		}
-		return differingAttributes;
-	}
 	
 }
 

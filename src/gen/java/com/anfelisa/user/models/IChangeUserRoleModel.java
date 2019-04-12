@@ -39,8 +39,6 @@ public interface IChangeUserRoleModel {
 	void setRole(String role);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IChangeUserRoleModel other);
-	
 }
 
 

@@ -32,6 +32,8 @@ public interface IUserWithAccessData extends IUserWithAccessModel, IDataContaine
 	
 	IUserWithAccessData withUsername(String username);
 	
+	IUserWithAccessData withEditable(Boolean editable);
+	
 	
 }
 

@@ -39,8 +39,6 @@ public interface IBoxUpdateModel {
 	void setMaxCardsPerDay(Integer maxCardsPerDay);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IBoxUpdateModel other);
-	
 }
 
 

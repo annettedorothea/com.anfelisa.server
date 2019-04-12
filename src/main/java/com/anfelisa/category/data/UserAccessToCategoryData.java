@@ -8,11 +8,13 @@ public class UserAccessToCategoryData extends AbstractUserAccessToCategoryData i
 	public UserAccessToCategoryData(
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("userId") String userId, 
+		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			categoryId,
 			userId,
+			editable,
 			uuid
 		);
 	}

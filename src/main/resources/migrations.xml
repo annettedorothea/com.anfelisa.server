@@ -329,4 +329,21 @@
 		</addColumn>
 	</changeSet>
 
+	<changeSet id="010" author="annette">
+
+		<addColumn tableName="useraccesstocategory">
+			<column name="editable" type="boolean">
+				<constraints />
+			</column>
+		</addColumn>
+		<dropColumn columnName="publicrootcategory" tableName="category" />
+	</changeSet>
+
+	<changeSet id="011" author="annette">
+
+		<sql>
+			update useraccesstocategory set editable = true;
+		</sql>
+	</changeSet>
+
 </databaseChangeLog>

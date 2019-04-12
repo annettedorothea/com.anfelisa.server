@@ -26,6 +26,7 @@ import com.anfelisa.card.data.ICardCreationData;
 import com.anfelisa.card.data.ICardDeleteData;
 import com.anfelisa.card.data.ICardUpdateData;
 import com.anfelisa.card.data.ICardIdListData;
+import com.anfelisa.card.data.ICsvUploadData;
 
 @SuppressWarnings("all")
 public interface ICardView {
@@ -34,6 +35,7 @@ public interface ICardView {
 	void delete(ICardDeleteData data, Handle handle);
 	void update(ICardUpdateData data, Handle handle);
 	void moveCards(ICardIdListData data, Handle handle);
+	void bulkInsert(ICsvUploadData data, Handle handle);
 
 }
 

@@ -33,8 +33,6 @@ public interface IDeleteBoxModel {
 	void setBoxId(String boxId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IDeleteBoxModel other);
-	
 }
 
 

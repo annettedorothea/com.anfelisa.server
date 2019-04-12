@@ -9,3 +9,4 @@ replay.yml
 live-replay.yml
 dev-replay.yml
 test.yml
+event-replay.yml

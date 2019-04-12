@@ -42,8 +42,6 @@ public interface ICardUpdateModel {
 	void setUserId(String userId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.card.models.ICardUpdateModel other);
-	
 }
 
 

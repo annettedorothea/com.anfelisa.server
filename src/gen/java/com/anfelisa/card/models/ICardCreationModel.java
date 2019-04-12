@@ -33,8 +33,6 @@ public interface ICardCreationModel extends com.anfelisa.card.models.ICardModel{
 	void setUsername(String username);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.card.models.ICardCreationModel other);
-	
 }
 
 

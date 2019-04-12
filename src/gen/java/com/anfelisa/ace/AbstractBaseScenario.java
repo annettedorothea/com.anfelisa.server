@@ -30,7 +30,7 @@ import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.jdbi.v3.core.Handle;
 import org.joda.time.DateTime;
 
-public abstract class AbstractBaseTest {
+public abstract class AbstractBaseScenario {
 
 	protected final JodaObjectMapper mapper = new JodaObjectMapper();
 
@@ -60,6 +60,8 @@ public abstract class AbstractBaseTest {
 		client.target(String.format("http://localhost:%d/api/test/system-time", port))
 				.request().put(Entity.json(systemTime.toString()));
 	}
+	
+	protected abstract String authorization(String username, String password);
 
 }
 

@@ -33,6 +33,7 @@ public class InviteUserMapper implements RowMapper<IInviteUserModel> {
 			r.getString("rootCategoryId"),
 			r.getString("invitedUserId"),
 			r.getString("invitedUsername"),
+			r.getBoolean("editable"),
 			r.getString("userId")
 		);
 	}

@@ -60,8 +60,6 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	
 	private String wantedLanguage;
 	
-	private Boolean publicRootCategory = false;
-	
 
 	public AbstractCategoryData(
 		@JsonProperty("categoryId") String categoryId,
@@ -72,8 +70,7 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
-		@JsonProperty("wantedLanguage") String wantedLanguage,
-		@JsonProperty("publicRootCategory") Boolean publicRootCategory
+		@JsonProperty("wantedLanguage") String wantedLanguage
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -86,7 +83,6 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
-		this.publicRootCategory = publicRootCategory;
 	}
 
 	public AbstractCategoryData( String uuid ) {
@@ -94,9 +90,9 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
+		public String getCategoryId() {
+			return this.categoryId;
+		}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
@@ -106,9 +102,9 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	
 	@JsonProperty
-	public String getCategoryName() {
-		return this.categoryName;
-	}
+		public String getCategoryName() {
+			return this.categoryName;
+		}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
@@ -118,9 +114,9 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	
 	@JsonProperty
-	public String getCategoryAuthor() {
-		return this.categoryAuthor;
-	}
+		public String getCategoryAuthor() {
+			return this.categoryAuthor;
+		}
 	public void setCategoryAuthor(String categoryAuthor) {
 		this.categoryAuthor = categoryAuthor;
 	}
@@ -130,9 +126,9 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	
 	@JsonProperty
-	public Integer getCategoryIndex() {
-		return this.categoryIndex;
-	}
+		public Integer getCategoryIndex() {
+			return this.categoryIndex;
+		}
 	public void setCategoryIndex(Integer categoryIndex) {
 		this.categoryIndex = categoryIndex;
 	}
@@ -142,9 +138,9 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	
 	@JsonProperty
-	public String getParentCategoryId() {
-		return this.parentCategoryId;
-	}
+		public String getParentCategoryId() {
+			return this.parentCategoryId;
+		}
 	public void setParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
 	}
@@ -154,9 +150,9 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	
 	@JsonProperty
-	public String getRootCategoryId() {
-		return this.rootCategoryId;
-	}
+		public String getRootCategoryId() {
+			return this.rootCategoryId;
+		}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}
@@ -166,9 +162,9 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	
 	@JsonProperty
-	public Boolean getDictionaryLookup() {
-		return this.dictionaryLookup;
-	}
+		public Boolean getDictionaryLookup() {
+			return this.dictionaryLookup;
+		}
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
 		this.dictionaryLookup = dictionaryLookup;
 	}
@@ -178,9 +174,9 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	
 	@JsonProperty
-	public String getGivenLanguage() {
-		return this.givenLanguage;
-	}
+		public String getGivenLanguage() {
+			return this.givenLanguage;
+		}
 	public void setGivenLanguage(String givenLanguage) {
 		this.givenLanguage = givenLanguage;
 	}
@@ -190,9 +186,9 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 	}
 	
 	@JsonProperty
-	public String getWantedLanguage() {
-		return this.wantedLanguage;
-	}
+		public String getWantedLanguage() {
+			return this.wantedLanguage;
+		}
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
 	}
@@ -201,54 +197,6 @@ public abstract class AbstractCategoryData extends AbstractData implements ICate
 		return this;
 	}
 	
-	@JsonProperty
-	public Boolean getPublicRootCategory() {
-		return this.publicRootCategory;
-	}
-	public void setPublicRootCategory(Boolean publicRootCategory) {
-		this.publicRootCategory = publicRootCategory;
-	}
-	public ICategoryData withPublicRootCategory(Boolean publicRootCategory) {
-		this.publicRootCategory = publicRootCategory;
-		return this;
-	}
-	
-	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.category.models.ICategoryModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
-			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
-		}
-		if (!(this.getCategoryName() == null && other.getCategoryName() == null) && !this.getCategoryName().equals(other.getCategoryName())) {
-			differingAttributes.add("categoryName: " + this.getCategoryName() + " " + other.getCategoryName());
-		}
-		if (!(this.getCategoryAuthor() == null && other.getCategoryAuthor() == null) && !this.getCategoryAuthor().equals(other.getCategoryAuthor())) {
-			differingAttributes.add("categoryAuthor: " + this.getCategoryAuthor() + " " + other.getCategoryAuthor());
-		}
-		if (!(this.getCategoryIndex() == null && other.getCategoryIndex() == null) && !this.getCategoryIndex().equals(other.getCategoryIndex())) {
-			differingAttributes.add("categoryIndex: " + this.getCategoryIndex() + " " + other.getCategoryIndex());
-		}
-		if (!(this.getParentCategoryId() == null && other.getParentCategoryId() == null) && !this.getParentCategoryId().equals(other.getParentCategoryId())) {
-			differingAttributes.add("parentCategoryId: " + this.getParentCategoryId() + " " + other.getParentCategoryId());
-		}
-		if (!(this.getRootCategoryId() == null && other.getRootCategoryId() == null) && !this.getRootCategoryId().equals(other.getRootCategoryId())) {
-			differingAttributes.add("rootCategoryId: " + this.getRootCategoryId() + " " + other.getRootCategoryId());
-		}
-		if (!(this.getDictionaryLookup() == null && other.getDictionaryLookup() == null) && !this.getDictionaryLookup().equals(other.getDictionaryLookup())) {
-			differingAttributes.add("dictionaryLookup: " + this.getDictionaryLookup() + " " + other.getDictionaryLookup());
-		}
-		if (!(this.getGivenLanguage() == null && other.getGivenLanguage() == null) && !this.getGivenLanguage().equals(other.getGivenLanguage())) {
-			differingAttributes.add("givenLanguage: " + this.getGivenLanguage() + " " + other.getGivenLanguage());
-		}
-		if (!(this.getWantedLanguage() == null && other.getWantedLanguage() == null) && !this.getWantedLanguage().equals(other.getWantedLanguage())) {
-			differingAttributes.add("wantedLanguage: " + this.getWantedLanguage() + " " + other.getWantedLanguage());
-		}
-		if (!(this.getPublicRootCategory() == null && other.getPublicRootCategory() == null) && !this.getPublicRootCategory().equals(other.getPublicRootCategory())) {
-			differingAttributes.add("publicRootCategory: " + this.getPublicRootCategory() + " " + other.getPublicRootCategory());
-		}
-		return differingAttributes;
-	}
 	
 	
 }

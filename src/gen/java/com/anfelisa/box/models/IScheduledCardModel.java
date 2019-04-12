@@ -63,8 +63,6 @@ public interface IScheduledCardModel {
 	void setScoredDate(org.joda.time.DateTime scoredDate);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IScheduledCardModel other);
-	
 }
 
 

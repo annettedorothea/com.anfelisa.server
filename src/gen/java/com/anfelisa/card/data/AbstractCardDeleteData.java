@@ -69,9 +69,9 @@ public abstract class AbstractCardDeleteData extends AbstractData implements ICa
 	}
 
 	@JsonProperty
-	public String getCardId() {
-		return this.cardId;
-	}
+		public String getCardId() {
+			return this.cardId;
+		}
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
@@ -81,9 +81,9 @@ public abstract class AbstractCardDeleteData extends AbstractData implements ICa
 	}
 	
 	@JsonProperty
-	public Integer getCardIndex() {
-		return this.cardIndex;
-	}
+		public Integer getCardIndex() {
+			return this.cardIndex;
+		}
 	public void setCardIndex(Integer cardIndex) {
 		this.cardIndex = cardIndex;
 	}
@@ -93,9 +93,9 @@ public abstract class AbstractCardDeleteData extends AbstractData implements ICa
 	}
 	
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
+		public String getCategoryId() {
+			return this.categoryId;
+		}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
@@ -105,9 +105,9 @@ public abstract class AbstractCardDeleteData extends AbstractData implements ICa
 	}
 	
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -116,24 +116,6 @@ public abstract class AbstractCardDeleteData extends AbstractData implements ICa
 		return this;
 	}
 	
-	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.card.models.ICardDeleteModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getCardId() == null && other.getCardId() == null) && !this.getCardId().equals(other.getCardId())) {
-			differingAttributes.add("cardId: " + this.getCardId() + " " + other.getCardId());
-		}
-		if (!(this.getCardIndex() == null && other.getCardIndex() == null) && !this.getCardIndex().equals(other.getCardIndex())) {
-			differingAttributes.add("cardIndex: " + this.getCardIndex() + " " + other.getCardIndex());
-		}
-		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
-			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
-		}
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		return differingAttributes;
-	}
 	
 	
 }

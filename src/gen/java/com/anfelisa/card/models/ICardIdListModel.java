@@ -39,8 +39,6 @@ public interface ICardIdListModel {
 	void setMovedCards(java.util.List<com.anfelisa.card.models.ICardModel> movedCards);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.card.models.ICardIdListModel other);
-	
 }
 
 

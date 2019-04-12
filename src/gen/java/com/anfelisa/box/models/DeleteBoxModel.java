@@ -46,32 +46,21 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 	}
 
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
-	}
+		public String getBoxId() {
+			return this.boxId;
+		}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IDeleteBoxModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
-			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
-		}
-		return differingAttributes;
-	}
 	
 }
 

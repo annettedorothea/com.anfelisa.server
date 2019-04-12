@@ -63,8 +63,6 @@ public interface INextCardViewModel {
 	void setBoxId(String boxId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.INextCardViewModel other);
-	
 }
 
 

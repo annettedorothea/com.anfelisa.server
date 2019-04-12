@@ -69,9 +69,9 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 	}
 
 	@JsonProperty
-	public Integer getDays() {
-		return this.days;
-	}
+		public Integer getDays() {
+			return this.days;
+		}
 	public void setDays(Integer days) {
 		this.days = days;
 	}
@@ -81,9 +81,9 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 	}
 	
 	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
-	}
+		public String getBoxId() {
+			return this.boxId;
+		}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
@@ -93,9 +93,9 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 	}
 	
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -105,9 +105,9 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getToday() {
-		return this.today;
-	}
+		public org.joda.time.DateTime getToday() {
+			return this.today;
+		}
 	public void setToday(org.joda.time.DateTime today) {
 		this.today = today;
 	}
@@ -116,24 +116,6 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 		return this;
 	}
 	
-	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IPostponeCardsModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getDays() == null && other.getDays() == null) && !this.getDays().equals(other.getDays())) {
-			differingAttributes.add("days: " + this.getDays() + " " + other.getDays());
-		}
-		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
-			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
-		}
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		if (!(this.getToday() == null && other.getToday() == null) && !this.getToday().equals(other.getToday())) {
-			differingAttributes.add("today: " + this.getToday() + " " + other.getToday());
-		}
-		return differingAttributes;
-	}
 	
 	
 }

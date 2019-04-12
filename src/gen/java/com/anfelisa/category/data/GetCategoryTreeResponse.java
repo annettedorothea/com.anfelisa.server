@@ -42,9 +42,9 @@ public class GetCategoryTreeResponse implements IGetCategoryTreeResponse {
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> getCategoryList() {
-		return this.categoryList;
-	}
+		public java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> getCategoryList() {
+			return this.categoryList;
+		}
 	
 }
 

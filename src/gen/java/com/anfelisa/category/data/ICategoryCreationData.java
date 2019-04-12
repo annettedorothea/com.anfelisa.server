@@ -50,9 +50,9 @@ public interface ICategoryCreationData extends ICategoryCreationModel, IDataCont
 	
 	ICategoryCreationData withWantedLanguage(String wantedLanguage);
 	
-	ICategoryCreationData withPublicRootCategory(Boolean publicRootCategory);
-	
 	ICategoryCreationData withUserId(String userId);
+	
+	ICategoryCreationData withEditable(Boolean editable);
 	
 	
 }

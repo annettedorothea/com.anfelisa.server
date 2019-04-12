@@ -70,9 +70,9 @@ public abstract class AbstractChangeUserRoleData extends AbstractData implements
 	}
 
 	@JsonProperty
-	public String getEditedUserId() {
-		return this.editedUserId;
-	}
+		public String getEditedUserId() {
+			return this.editedUserId;
+		}
 	public void setEditedUserId(String editedUserId) {
 		this.editedUserId = editedUserId;
 	}
@@ -82,9 +82,9 @@ public abstract class AbstractChangeUserRoleData extends AbstractData implements
 	}
 	
 	@JsonProperty
-	public String getNewRole() {
-		return this.newRole;
-	}
+		public String getNewRole() {
+			return this.newRole;
+		}
 	public void setNewRole(String newRole) {
 		this.newRole = newRole;
 	}
@@ -94,9 +94,9 @@ public abstract class AbstractChangeUserRoleData extends AbstractData implements
 	}
 	
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -106,9 +106,9 @@ public abstract class AbstractChangeUserRoleData extends AbstractData implements
 	}
 	
 	@JsonProperty
-	public String getRole() {
-		return this.role;
-	}
+		public String getRole() {
+			return this.role;
+		}
 	public void setRole(String role) {
 		this.role = role;
 	}
@@ -117,24 +117,6 @@ public abstract class AbstractChangeUserRoleData extends AbstractData implements
 		return this;
 	}
 	
-	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IChangeUserRoleModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getEditedUserId() == null && other.getEditedUserId() == null) && !this.getEditedUserId().equals(other.getEditedUserId())) {
-			differingAttributes.add("editedUserId: " + this.getEditedUserId() + " " + other.getEditedUserId());
-		}
-		if (!(this.getNewRole() == null && other.getNewRole() == null) && !this.getNewRole().equals(other.getNewRole())) {
-			differingAttributes.add("newRole: " + this.getNewRole() + " " + other.getNewRole());
-		}
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		if (!(this.getRole() == null && other.getRole() == null) && !this.getRole().equals(other.getRole())) {
-			differingAttributes.add("role: " + this.getRole() + " " + other.getRole());
-		}
-		return differingAttributes;
-	}
 	
 	
 }

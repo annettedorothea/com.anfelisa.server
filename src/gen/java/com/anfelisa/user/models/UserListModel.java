@@ -45,29 +45,21 @@ public class UserListModel implements IUserListModel {
 	}
 
 	@JsonProperty
-	public java.util.List<com.anfelisa.user.models.IUserModel> getUserList() {
-		return this.userList;
-	}
+		public java.util.List<com.anfelisa.user.models.IUserModel> getUserList() {
+			return this.userList;
+		}
 	public void setUserList(java.util.List<com.anfelisa.user.models.IUserModel> userList) {
 		this.userList = userList;
 	}
 	
 	@JsonProperty
-	public String getRole() {
-		return this.role;
-	}
+		public String getRole() {
+			return this.role;
+		}
 	public void setRole(String role) {
 		this.role = role;
 	}
 	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IUserListModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getRole() == null && other.getRole() == null) && !this.getRole().equals(other.getRole())) {
-			differingAttributes.add("role: " + this.getRole() + " " + other.getRole());
-		}
-		return differingAttributes;
-	}
 	
 }
 

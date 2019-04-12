@@ -51,8 +51,6 @@ public interface ICardModel {
 	void setRootCategoryId(String rootCategoryId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.card.models.ICardModel other);
-	
 }
 
 

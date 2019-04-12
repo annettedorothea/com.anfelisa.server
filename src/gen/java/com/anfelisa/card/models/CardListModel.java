@@ -30,7 +30,7 @@ public class CardListModel implements ICardListModel {
 
 	private String userId;
 	
-	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
+	private java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList;
 	
 	private String categoryId;
 	
@@ -40,7 +40,7 @@ public class CardListModel implements ICardListModel {
 
 	public CardListModel(
 		@JsonProperty("userId") String userId,
-		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardModel> cardList,
+		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList,
 		@JsonProperty("categoryId") String categoryId
 	) {
 		this.userId = userId;
@@ -49,40 +49,29 @@ public class CardListModel implements ICardListModel {
 	}
 
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.card.models.ICardModel> getCardList() {
-		return this.cardList;
-	}
-	public void setCardList(java.util.List<com.anfelisa.card.models.ICardModel> cardList) {
+		public java.util.List<com.anfelisa.card.models.ICardWithInfoModel> getCardList() {
+			return this.cardList;
+		}
+	public void setCardList(java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList) {
 		this.cardList = cardList;
 	}
 	
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
+		public String getCategoryId() {
+			return this.categoryId;
+		}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.card.models.ICardListModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
-			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
-		}
-		return differingAttributes;
-	}
 	
 }
 

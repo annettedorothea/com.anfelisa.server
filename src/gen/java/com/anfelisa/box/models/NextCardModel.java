@@ -99,168 +99,117 @@ public class NextCardModel implements INextCardModel {
 	}
 
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getToday() {
-		return this.today;
-	}
+		public org.joda.time.DateTime getToday() {
+			return this.today;
+		}
 	public void setToday(org.joda.time.DateTime today) {
 		this.today = today;
 	}
 	
 	@JsonProperty
-	public String getScheduledCardId() {
-		return this.scheduledCardId;
-	}
+		public String getScheduledCardId() {
+			return this.scheduledCardId;
+		}
 	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
 	
 	@JsonProperty
-	public String getCardId() {
-		return this.cardId;
-	}
+		public String getCardId() {
+			return this.cardId;
+		}
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getScheduledDate() {
-		return this.scheduledDate;
-	}
+		public org.joda.time.DateTime getScheduledDate() {
+			return this.scheduledDate;
+		}
 	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
 	
 	@JsonProperty
-	public Integer getLastQuality() {
-		return this.lastQuality;
-	}
+		public Integer getLastQuality() {
+			return this.lastQuality;
+		}
 	public void setLastQuality(Integer lastQuality) {
 		this.lastQuality = lastQuality;
 	}
 	
 	@JsonProperty
-	public String getGiven() {
-		return this.given;
-	}
+		public String getGiven() {
+			return this.given;
+		}
 	public void setGiven(String given) {
 		this.given = given;
 	}
 	
 	@JsonProperty
-	public String getWanted() {
-		return this.wanted;
-	}
+		public String getWanted() {
+			return this.wanted;
+		}
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
 	}
 	
 	@JsonProperty
-	public String getImage() {
-		return this.image;
-	}
+		public String getImage() {
+			return this.image;
+		}
 	public void setImage(String image) {
 		this.image = image;
 	}
 	
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
+		public String getCategoryId() {
+			return this.categoryId;
+		}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
-	public String getRootCategoryId() {
-		return this.rootCategoryId;
-	}
+		public String getRootCategoryId() {
+			return this.rootCategoryId;
+		}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}
 	
 	@JsonProperty
-	public Integer getCount() {
-		return this.count;
-	}
+		public Integer getCount() {
+			return this.count;
+		}
 	public void setCount(Integer count) {
 		this.count = count;
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getScoredDate() {
-		return this.scoredDate;
-	}
+		public org.joda.time.DateTime getScoredDate() {
+			return this.scoredDate;
+		}
 	public void setScoredDate(org.joda.time.DateTime scoredDate) {
 		this.scoredDate = scoredDate;
 	}
 	
 	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
-	}
+		public String getBoxId() {
+			return this.boxId;
+		}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.box.models.INextCardModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		if (!(this.getToday() == null && other.getToday() == null) && !this.getToday().equals(other.getToday())) {
-			differingAttributes.add("today: " + this.getToday() + " " + other.getToday());
-		}
-		return differingAttributes;
-	}
-	public List<String> equalsPrimitiveTypes(com.anfelisa.box.models.INextCardViewModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getScheduledCardId() == null && other.getScheduledCardId() == null) && !this.getScheduledCardId().equals(other.getScheduledCardId())) {
-			differingAttributes.add("scheduledCardId: " + this.getScheduledCardId() + " " + other.getScheduledCardId());
-		}
-		if (!(this.getCardId() == null && other.getCardId() == null) && !this.getCardId().equals(other.getCardId())) {
-			differingAttributes.add("cardId: " + this.getCardId() + " " + other.getCardId());
-		}
-		if (!(this.getScheduledDate() == null && other.getScheduledDate() == null) && !this.getScheduledDate().equals(other.getScheduledDate())) {
-			differingAttributes.add("scheduledDate: " + this.getScheduledDate() + " " + other.getScheduledDate());
-		}
-		if (!(this.getLastQuality() == null && other.getLastQuality() == null) && !this.getLastQuality().equals(other.getLastQuality())) {
-			differingAttributes.add("lastQuality: " + this.getLastQuality() + " " + other.getLastQuality());
-		}
-		if (!(this.getGiven() == null && other.getGiven() == null) && !this.getGiven().equals(other.getGiven())) {
-			differingAttributes.add("given: " + this.getGiven() + " " + other.getGiven());
-		}
-		if (!(this.getWanted() == null && other.getWanted() == null) && !this.getWanted().equals(other.getWanted())) {
-			differingAttributes.add("wanted: " + this.getWanted() + " " + other.getWanted());
-		}
-		if (!(this.getImage() == null && other.getImage() == null) && !this.getImage().equals(other.getImage())) {
-			differingAttributes.add("image: " + this.getImage() + " " + other.getImage());
-		}
-		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
-			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
-		}
-		if (!(this.getRootCategoryId() == null && other.getRootCategoryId() == null) && !this.getRootCategoryId().equals(other.getRootCategoryId())) {
-			differingAttributes.add("rootCategoryId: " + this.getRootCategoryId() + " " + other.getRootCategoryId());
-		}
-		if (!(this.getCount() == null && other.getCount() == null) && !this.getCount().equals(other.getCount())) {
-			differingAttributes.add("count: " + this.getCount() + " " + other.getCount());
-		}
-		if (!(this.getScoredDate() == null && other.getScoredDate() == null) && !this.getScoredDate().equals(other.getScoredDate())) {
-			differingAttributes.add("scoredDate: " + this.getScoredDate() + " " + other.getScoredDate());
-		}
-		if (!(this.getBoxId() == null && other.getBoxId() == null) && !this.getBoxId().equals(other.getBoxId())) {
-			differingAttributes.add("boxId: " + this.getBoxId() + " " + other.getBoxId());
-		}
-		return differingAttributes;
-	}
 	
 }
 

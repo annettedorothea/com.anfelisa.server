@@ -30,8 +30,6 @@ public interface IUserRegistrationModel extends com.anfelisa.user.models.IUserMo
 	void setLanguage(String language);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IUserRegistrationModel other);
-	
 }
 
 

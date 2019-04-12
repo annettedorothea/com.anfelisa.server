@@ -32,8 +32,9 @@ public interface IUserAccessToCategoryModel {
 	String getUserId();
 	void setUserId(String userId);
 	
+	Boolean getEditable();
+	void setEditable(Boolean editable);
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.category.models.IUserAccessToCategoryModel other);
 	
 }
 

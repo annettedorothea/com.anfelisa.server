@@ -50,40 +50,29 @@ public class BoxListModel implements IBoxListModel {
 	}
 
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxViewModel> getBoxList() {
-		return this.boxList;
-	}
+		public java.util.List<com.anfelisa.box.models.IBoxViewModel> getBoxList() {
+			return this.boxList;
+		}
 	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList) {
 		this.boxList = boxList;
 	}
 	
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getToday() {
-		return this.today;
-	}
+		public org.joda.time.DateTime getToday() {
+			return this.today;
+		}
 	public void setToday(org.joda.time.DateTime today) {
 		this.today = today;
 	}
 	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IBoxListModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		if (!(this.getToday() == null && other.getToday() == null) && !this.getToday().equals(other.getToday())) {
-			differingAttributes.add("today: " + this.getToday() + " " + other.getToday());
-		}
-		return differingAttributes;
-	}
 	
 }
 

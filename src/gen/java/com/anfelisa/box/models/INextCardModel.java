@@ -33,8 +33,6 @@ public interface INextCardModel extends com.anfelisa.box.models.INextCardViewMod
 	void setToday(org.joda.time.DateTime today);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.INextCardModel other);
-	
 }
 
 

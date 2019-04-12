@@ -33,8 +33,6 @@ public interface IUserWithAccessListModel {
 	void setUserList(java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.category.models.IUserWithAccessListModel other);
-	
 }
 
 

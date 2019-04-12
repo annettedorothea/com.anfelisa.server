@@ -75,8 +75,6 @@ public interface IScoreCardModel {
 	void setBoxId(String boxId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IScoreCardModel other);
-	
 }
 
 

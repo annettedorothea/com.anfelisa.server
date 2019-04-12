@@ -29,14 +29,12 @@ public interface ICardListModel {
 	String getUserId();
 	void setUserId(String userId);
 	
-	java.util.List<com.anfelisa.card.models.ICardModel> getCardList();
-	void setCardList(java.util.List<com.anfelisa.card.models.ICardModel> cardList);
+	java.util.List<com.anfelisa.card.models.ICardWithInfoModel> getCardList();
+	void setCardList(java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList);
 	
 	String getCategoryId();
 	void setCategoryId(String categoryId);
 	
-	
-	List<String> equalsPrimitiveTypes(com.anfelisa.card.models.ICardListModel other);
 	
 }
 

@@ -33,8 +33,6 @@ public interface INextReinforceCardModel extends com.anfelisa.box.models.INextRe
 	void setUserId(String userId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.INextReinforceCardModel other);
-	
 }
 
 

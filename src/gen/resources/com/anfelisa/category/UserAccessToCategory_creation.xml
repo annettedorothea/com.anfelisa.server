@@ -5,4 +5,7 @@
 	<column name="userid" type="character varying">
 		<constraints primaryKey="true" nullable="false" 	references="\"user\"(userid)" deleteCascade="true" foreignKeyName="fk_\"useraccesstocategory\"_userid" />
 	</column>
+	<column name="editable" type="boolean">
+		<constraints    />
+	</column>
 </createTable>

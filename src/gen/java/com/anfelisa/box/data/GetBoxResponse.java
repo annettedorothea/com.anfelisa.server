@@ -86,79 +86,79 @@ public class GetBoxResponse implements IGetBoxResponse {
 	}
 	
 	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
-	}
+		public String getBoxId() {
+			return this.boxId;
+		}
 	
 	@JsonProperty
-	public String getCategoryName() {
-		return this.categoryName;
-	}
+		public String getCategoryName() {
+			return this.categoryName;
+		}
 	
 	@JsonProperty
-	public Integer getDaysBehindSchedule() {
-		return this.daysBehindSchedule;
-	}
+		public Integer getDaysBehindSchedule() {
+			return this.daysBehindSchedule;
+		}
 	
 	@JsonProperty
-	public Integer getMaxInterval() {
-		return this.maxInterval;
-	}
+		public Integer getMaxInterval() {
+			return this.maxInterval;
+		}
 	
 	@JsonProperty
-	public Integer getMaxCardsPerDay() {
-		return this.maxCardsPerDay;
-	}
+		public Integer getMaxCardsPerDay() {
+			return this.maxCardsPerDay;
+		}
 	
 	@JsonProperty
-	public Integer getMyCards() {
-		return this.myCards;
-	}
+		public Integer getMyCards() {
+			return this.myCards;
+		}
 	
 	@JsonProperty
-	public Integer getQuality0Count() {
-		return this.quality0Count;
-	}
+		public Integer getQuality0Count() {
+			return this.quality0Count;
+		}
 	
 	@JsonProperty
-	public Integer getQuality1Count() {
-		return this.quality1Count;
-	}
+		public Integer getQuality1Count() {
+			return this.quality1Count;
+		}
 	
 	@JsonProperty
-	public Integer getQuality2Count() {
-		return this.quality2Count;
-	}
+		public Integer getQuality2Count() {
+			return this.quality2Count;
+		}
 	
 	@JsonProperty
-	public Integer getQuality3Count() {
-		return this.quality3Count;
-	}
+		public Integer getQuality3Count() {
+			return this.quality3Count;
+		}
 	
 	@JsonProperty
-	public Integer getQuality4Count() {
-		return this.quality4Count;
-	}
+		public Integer getQuality4Count() {
+			return this.quality4Count;
+		}
 	
 	@JsonProperty
-	public Integer getQuality5Count() {
-		return this.quality5Count;
-	}
+		public Integer getQuality5Count() {
+			return this.quality5Count;
+		}
 	
 	@JsonProperty
-	public Integer getReinforceCards() {
-		return this.reinforceCards;
-	}
+		public Integer getReinforceCards() {
+			return this.reinforceCards;
+		}
 	
 	@JsonProperty
-	public Integer getTodaysCards() {
-		return this.todaysCards;
-	}
+		public Integer getTodaysCards() {
+			return this.todaysCards;
+		}
 	
 	@JsonProperty
-	public Integer getTotalCards() {
-		return this.totalCards;
-	}
+		public Integer getTotalCards() {
+			return this.totalCards;
+		}
 	
 }
 

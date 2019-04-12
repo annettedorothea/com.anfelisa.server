@@ -46,8 +46,6 @@ public interface ICategoryData extends ICategoryModel, IDataContainer {
 	
 	ICategoryData withWantedLanguage(String wantedLanguage);
 	
-	ICategoryData withPublicRootCategory(Boolean publicRootCategory);
-	
 	
 }
 

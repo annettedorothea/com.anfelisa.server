@@ -69,9 +69,9 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	}
 
 	@JsonProperty
-	public String getReinforceCardId() {
-		return this.reinforceCardId;
-	}
+		public String getReinforceCardId() {
+			return this.reinforceCardId;
+		}
 	public void setReinforceCardId(String reinforceCardId) {
 		this.reinforceCardId = reinforceCardId;
 	}
@@ -81,9 +81,9 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	}
 	
 	@JsonProperty
-	public Integer getQuality() {
-		return this.quality;
-	}
+		public Integer getQuality() {
+			return this.quality;
+		}
 	public void setQuality(Integer quality) {
 		this.quality = quality;
 	}
@@ -93,9 +93,9 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getChangeDate() {
-		return this.changeDate;
-	}
+		public org.joda.time.DateTime getChangeDate() {
+			return this.changeDate;
+		}
 	public void setChangeDate(org.joda.time.DateTime changeDate) {
 		this.changeDate = changeDate;
 	}
@@ -105,9 +105,9 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	}
 	
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -116,24 +116,6 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 		return this;
 	}
 	
-	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IScoreReinforceCardModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getReinforceCardId() == null && other.getReinforceCardId() == null) && !this.getReinforceCardId().equals(other.getReinforceCardId())) {
-			differingAttributes.add("reinforceCardId: " + this.getReinforceCardId() + " " + other.getReinforceCardId());
-		}
-		if (!(this.getQuality() == null && other.getQuality() == null) && !this.getQuality().equals(other.getQuality())) {
-			differingAttributes.add("quality: " + this.getQuality() + " " + other.getQuality());
-		}
-		if (!(this.getChangeDate() == null && other.getChangeDate() == null) && !this.getChangeDate().equals(other.getChangeDate())) {
-			differingAttributes.add("changeDate: " + this.getChangeDate() + " " + other.getChangeDate());
-		}
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		return differingAttributes;
-	}
 	
 	
 }

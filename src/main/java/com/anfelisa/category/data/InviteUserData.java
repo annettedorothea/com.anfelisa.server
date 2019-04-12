@@ -10,6 +10,7 @@ public class InviteUserData extends AbstractInviteUserData implements IInviteUse
 		@JsonProperty("rootCategoryId") String rootCategoryId, 
 		@JsonProperty("invitedUserId") String invitedUserId, 
 		@JsonProperty("invitedUsername") String invitedUsername, 
+		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("uuid") String uuid
 	) {
@@ -18,6 +19,7 @@ public class InviteUserData extends AbstractInviteUserData implements IInviteUse
 			rootCategoryId,
 			invitedUserId,
 			invitedUsername,
+			editable,
 			userId,
 			uuid
 		);

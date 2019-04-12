@@ -28,7 +28,7 @@ public class AceAuthenticator implements Authenticator<BasicCredentials, AuthUse
 		Handle handle = this.jdbi.open();
 		try {
 			IUserModel user = userDao.selectByUsername(handle, username);
-			if (user != null && user.getPassword().equals(credentials.getPassword()) && user.getEmailConfirmed()) {
+			if (user != null && user.getPassword().equals(credentials.getPassword()) /*&& user.getEmailConfirmed()*/) {
 				return Optional.of(new AuthUser(user.getUserId(), credentials.getUsername(), credentials.getPassword(), user.getRole()));
 			} else {
 				return Optional.empty();

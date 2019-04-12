@@ -32,8 +32,9 @@ public interface IUserWithAccessModel {
 	String getUsername();
 	void setUsername(String username);
 	
+	Boolean getEditable();
+	void setEditable(Boolean editable);
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.category.models.IUserWithAccessModel other);
 	
 }
 

@@ -42,9 +42,9 @@ public class GetRoleResponse implements IGetRoleResponse {
 	}
 	
 	@JsonProperty
-	public String getRole() {
-		return this.role;
-	}
+		public String getRole() {
+			return this.role;
+		}
 	
 }
 

@@ -30,8 +30,6 @@ public interface IConfirmEmailModel extends com.anfelisa.user.models.IEmailConfi
 	void setUsername(String username);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IConfirmEmailModel other);
-	
 }
 
 

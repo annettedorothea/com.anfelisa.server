@@ -11,9 +11,9 @@ import com.anfelisa.category.data.ICategoryUpdateData;
 public class CategoryDao extends AbstractCategoryDao {
 	public List<ICategoryTreeItemModel> selectAllChildren(Handle handle, String parentCategoryId, String userId) {
 		return handle.createQuery(
-				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, publicrootcategory, "
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
-						+ "(select a.categoryid from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid) is not null as editable, "
+						+ "(select a.editable from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid), "
 						+ "false as isRoot, "
 						+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
 						+ "FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
@@ -22,12 +22,12 @@ public class CategoryDao extends AbstractCategoryDao {
 
 	public List<ICategoryTreeRootItemModel> selectAllRoot(Handle handle, String userId) {
 		return handle.createQuery("SELECT * FROM "
-				+ "( SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, publicrootcategory, "
+				+ "( SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
 				+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
-				+ "(select a.categoryid from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid) is not null as editable, "
+				+ "(select a.editable from useraccesstocategory a where a.categoryid = c.rootcategoryid and a.userid = :userid), "
 				+ "true as isRoot, "
 				+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
-				+ "FROM public.category c) as categoryitem WHERE parentcategoryid is null and (publicrootcategory = true or editable = true) order by categoryindex, categoryname")
+				+ "FROM public.category c) as categoryitem WHERE parentcategoryid is null and editable is not null order by categoryindex, categoryname")
 				.bind("userid", userId).map(new CategoryTreeRootItemMapper()).list();
 	}
 
@@ -74,7 +74,7 @@ public class CategoryDao extends AbstractCategoryDao {
 
 	public List<ICategoryModel> selectAllChildren(Handle handle, String parentCategoryId) {
 		return handle.createQuery(
-				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, publicrootcategory FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
 				.bind("parentcategoryid", parentCategoryId).map(new CategoryMapper()).list();
 	}
 

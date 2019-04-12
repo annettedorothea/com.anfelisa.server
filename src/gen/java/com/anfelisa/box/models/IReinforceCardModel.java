@@ -39,8 +39,6 @@ public interface IReinforceCardModel {
 	void setChangeDate(org.joda.time.DateTime changeDate);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IReinforceCardModel other);
-	
 }
 
 

@@ -39,8 +39,6 @@ public interface IScoreReinforceCardModel {
 	void setUserId(String userId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IScoreReinforceCardModel other);
-	
 }
 
 

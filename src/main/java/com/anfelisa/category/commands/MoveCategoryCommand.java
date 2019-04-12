@@ -24,12 +24,12 @@ public class MoveCategoryCommand extends AbstractMoveCategoryCommand {
 	protected void executeCommand(Handle readonlyHandle) {
 		IUserAccessToCategoryModel accessToMovedCategory = this.daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle,  commandData.getMovedCategoryId(), commandData.getUserId());
-		if (accessToMovedCategory == null) {
+		if (accessToMovedCategory == null || accessToMovedCategory.getEditable() == false) {
 			throwUnauthorized();
 		}
 		IUserAccessToCategoryModel accessToTargetCategory = this.daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle,  commandData.getTargetCategoryId(), commandData.getUserId());
-		if (accessToTargetCategory == null) {
+		if (accessToTargetCategory == null || accessToTargetCategory.getEditable() == false) {
 			throwUnauthorized();
 		}
 

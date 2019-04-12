@@ -36,6 +36,8 @@ public interface IInviteUserData extends IInviteUserModel, IDataContainer {
 	
 	IInviteUserData withInvitedUsername(String invitedUsername);
 	
+	IInviteUserData withEditable(Boolean editable);
+	
 	IInviteUserData withUserId(String userId);
 	
 	

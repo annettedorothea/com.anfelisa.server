@@ -16,8 +16,8 @@ public class CategoryCreationData extends AbstractCategoryCreationData implement
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup, 
 		@JsonProperty("givenLanguage") String givenLanguage, 
 		@JsonProperty("wantedLanguage") String wantedLanguage, 
-		@JsonProperty("publicRootCategory") Boolean publicRootCategory, 
 		@JsonProperty("userId") String userId, 
+		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -31,8 +31,8 @@ public class CategoryCreationData extends AbstractCategoryCreationData implement
 			dictionaryLookup,
 			givenLanguage,
 			wantedLanguage,
-			publicRootCategory,
 			userId,
+			editable,
 			uuid
 		);
 	}

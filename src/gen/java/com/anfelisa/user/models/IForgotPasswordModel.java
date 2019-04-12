@@ -36,8 +36,6 @@ public interface IForgotPasswordModel extends com.anfelisa.user.models.IResetPas
 	void setUsername(String username);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IForgotPasswordModel other);
-	
 }
 
 

@@ -42,8 +42,6 @@ public interface ICardSearchModel {
 	void setNaturalInputOrder(Boolean naturalInputOrder);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.card.models.ICardSearchModel other);
-	
 }
 
 

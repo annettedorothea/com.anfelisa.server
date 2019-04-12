@@ -60,9 +60,9 @@ public abstract class AbstractResetPasswordData extends AbstractData implements 
 	}
 
 	@JsonProperty
-	public String getToken() {
-		return this.token;
-	}
+		public String getToken() {
+			return this.token;
+		}
 	public void setToken(String token) {
 		this.token = token;
 	}
@@ -72,9 +72,9 @@ public abstract class AbstractResetPasswordData extends AbstractData implements 
 	}
 	
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -83,18 +83,6 @@ public abstract class AbstractResetPasswordData extends AbstractData implements 
 		return this;
 	}
 	
-	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IResetPasswordModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getToken() == null && other.getToken() == null) && !this.getToken().equals(other.getToken())) {
-			differingAttributes.add("token: " + this.getToken() + " " + other.getToken());
-		}
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		return differingAttributes;
-	}
 	
 	
 }

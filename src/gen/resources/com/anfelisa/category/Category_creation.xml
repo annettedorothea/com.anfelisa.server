@@ -26,7 +26,4 @@
 	<column name="wantedlanguage" type="character varying">
 		<constraints    />
 	</column>
-	<column name="publicrootcategory" type="boolean">
-		<constraints    />
-	</column>
 </createTable>

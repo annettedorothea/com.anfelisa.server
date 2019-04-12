@@ -9,13 +9,23 @@ import org.jdbi.v3.core.statement.Update;
 import com.anfelisa.card.data.ICardUpdateData;
 
 public class CardDao extends AbstractCardDao {
-	public List<ICardModel> selectAllOfCategory(Handle handle, String categoryId) {
+	public List<ICardWithInfoModel> selectAllOfCategory(Handle handle, String categoryId) {
 		return handle.createQuery(
-				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid FROM public.card "
+				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, null as next FROM public.card "
 						+ "WHERE categoryid = :categoryid ORDER BY cardindex, given")
-				.bind("categoryid", categoryId).map(new CardMapper()).list();
+				.bind("categoryid", categoryId).map(new CardWithInfoMapper()).list();
 	}
 
+	public List<ICardWithInfoModel> selectAllOfCategoryWithBoxInfo(Handle handle, String categoryId, String boxId) {
+		return handle.createQuery(
+				"SELECT c.cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, s.scheduleddate as next FROM public.card c "
+				+ "left outer join scheduledcard s on c.cardid = s.cardid and s.boxid = :boxid and s.quality is null "
+						+ "WHERE categoryid = :categoryid ORDER BY cardindex, given")
+				.bind("categoryid", categoryId)
+				.bind("boxid", boxId)
+				.map(new CardWithInfoMapper()).list();
+	}
+	
 	public Integer selectMaxIndexInCategory(Handle handle, String categoryId) {
 		Optional<Integer> optional = handle.createQuery("SELECT max(cardindex) FROM public.card WHERE categoryid = :categoryid")
 				.bind("categoryid", categoryId).mapTo(Integer.class).findFirst();

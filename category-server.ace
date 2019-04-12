@@ -73,7 +73,7 @@ ACE
 			targetCategoryId
 		on ok (Category.moveCategory)
 		on noMove
-
+		
 views 
 	Category {
 		insert(CategoryCreation)
@@ -100,12 +100,12 @@ models
 		Boolean dictionaryLookup
 		String givenLanguage
 		String wantedLanguage
-		Boolean publicRootCategory
 	}
 	
 	persistent UserAccessToCategory {
 		PrimaryKey NotNull String categoryId references Category.categoryId
 		PrimaryKey NotNull String userId references com.anfelisa.user.User.userId
+		Boolean editable
 	}
 	
 	CategoryUpdate {
@@ -166,6 +166,7 @@ models
 	UserWithAccess {
 		NotNull String userId
 		NotNull String username
+		Boolean editable
 	}
 	
 	InviteUser {
@@ -173,6 +174,7 @@ models
 		NotNull String rootCategoryId
 		NotNull String invitedUserId
 		NotNull String invitedUsername
+		Boolean editable
 		String userId
 	}
 	
@@ -195,6 +197,7 @@ models
 		NotNull String parentCategoryIdWhereRemoved
 		String userId
 	}
+	
 	
 	
 

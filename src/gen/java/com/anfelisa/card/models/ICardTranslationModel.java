@@ -39,8 +39,6 @@ public interface ICardTranslationModel {
 	void setTargetLanguage(String targetLanguage);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.card.models.ICardTranslationModel other);
-	
 }
 
 

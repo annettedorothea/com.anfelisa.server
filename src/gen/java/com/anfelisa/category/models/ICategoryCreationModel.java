@@ -30,8 +30,6 @@ public interface ICategoryCreationModel extends com.anfelisa.category.models.ICa
 	void setUsername(String username);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.category.models.ICategoryCreationModel other);
-	
 }
 
 

@@ -42,9 +42,9 @@ public class GetBoxesResponse implements IGetBoxesResponse {
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxViewModel> getBoxList() {
-		return this.boxList;
-	}
+		public java.util.List<com.anfelisa.box.models.IBoxViewModel> getBoxList() {
+			return this.boxList;
+		}
 	
 }
 

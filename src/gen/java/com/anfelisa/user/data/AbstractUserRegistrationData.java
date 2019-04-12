@@ -92,9 +92,9 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 
 	@JsonProperty
-	public String getLanguage() {
-		return this.language;
-	}
+		public String getLanguage() {
+			return this.language;
+		}
 	public void setLanguage(String language) {
 		this.language = language;
 	}
@@ -104,9 +104,9 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -116,9 +116,9 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
-	}
+		public String getUsername() {
+			return this.username;
+		}
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -128,9 +128,9 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-	public String getPassword() {
-		return this.password;
-	}
+		public String getPassword() {
+			return this.password;
+		}
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -140,9 +140,9 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-	public String getEmail() {
-		return this.email;
-	}
+		public String getEmail() {
+			return this.email;
+		}
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -152,9 +152,9 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-	public String getRole() {
-		return this.role;
-	}
+		public String getRole() {
+			return this.role;
+		}
 	public void setRole(String role) {
 		this.role = role;
 	}
@@ -164,9 +164,9 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-	public Boolean getEmailConfirmed() {
-		return this.emailConfirmed;
-	}
+		public Boolean getEmailConfirmed() {
+			return this.emailConfirmed;
+		}
 	public void setEmailConfirmed(Boolean emailConfirmed) {
 		this.emailConfirmed = emailConfirmed;
 	}
@@ -176,9 +176,9 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-	public String getToken() {
-		return this.token;
-	}
+		public String getToken() {
+			return this.token;
+		}
 	public void setToken(String token) {
 		this.token = token;
 	}
@@ -200,49 +200,6 @@ public abstract class AbstractUserRegistrationData extends AbstractData implemen
 		this.token = model.getToken();
 		this.userId = model.getUserId();
 	}
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IUserRegistrationModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getLanguage() == null && other.getLanguage() == null) && !this.getLanguage().equals(other.getLanguage())) {
-			differingAttributes.add("language: " + this.getLanguage() + " " + other.getLanguage());
-		}
-		return differingAttributes;
-	}
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IUserModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
-			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
-		}
-		if (!(this.getPassword() == null && other.getPassword() == null) && !this.getPassword().equals(other.getPassword())) {
-			differingAttributes.add("password: " + this.getPassword() + " " + other.getPassword());
-		}
-		if (!(this.getEmail() == null && other.getEmail() == null) && !this.getEmail().equals(other.getEmail())) {
-			differingAttributes.add("email: " + this.getEmail() + " " + other.getEmail());
-		}
-		if (!(this.getRole() == null && other.getRole() == null) && !this.getRole().equals(other.getRole())) {
-			differingAttributes.add("role: " + this.getRole() + " " + other.getRole());
-		}
-		if (!(this.getEmailConfirmed() == null && other.getEmailConfirmed() == null) && !this.getEmailConfirmed().equals(other.getEmailConfirmed())) {
-			differingAttributes.add("emailConfirmed: " + this.getEmailConfirmed() + " " + other.getEmailConfirmed());
-		}
-		return differingAttributes;
-	}
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IEmailConfirmationModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getToken() == null && other.getToken() == null) && !this.getToken().equals(other.getToken())) {
-			differingAttributes.add("token: " + this.getToken() + " " + other.getToken());
-		}
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		return differingAttributes;
-	}
-	
 	
 }
 

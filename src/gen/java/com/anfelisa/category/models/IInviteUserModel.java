@@ -38,11 +38,12 @@ public interface IInviteUserModel {
 	String getInvitedUsername();
 	void setInvitedUsername(String invitedUsername);
 	
+	Boolean getEditable();
+	void setEditable(Boolean editable);
+	
 	String getUserId();
 	void setUserId(String userId);
 	
-	
-	List<String> equalsPrimitiveTypes(com.anfelisa.category.models.IInviteUserModel other);
 	
 }
 

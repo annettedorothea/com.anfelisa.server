@@ -45,8 +45,6 @@ public interface IScheduledCardsModel {
 	void setBoxId(String boxId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IScheduledCardsModel other);
-	
 }
 
 

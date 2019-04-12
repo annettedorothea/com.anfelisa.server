@@ -33,8 +33,6 @@ public interface IScheduleNextCardModel extends com.anfelisa.box.models.ISchedul
 	void setBoxId(String boxId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IScheduleNextCardModel other);
-	
 }
 
 

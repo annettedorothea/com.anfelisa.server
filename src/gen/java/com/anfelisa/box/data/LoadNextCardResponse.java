@@ -76,59 +76,59 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	}
 	
 	@JsonProperty
-	public String getCardId() {
-		return this.cardId;
-	}
+		public String getCardId() {
+			return this.cardId;
+		}
 	
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
+		public String getCategoryId() {
+			return this.categoryId;
+		}
 	
 	@JsonProperty
-	public Integer getCount() {
-		return this.count;
-	}
+		public Integer getCount() {
+			return this.count;
+		}
 	
 	@JsonProperty
-	public String getGiven() {
-		return this.given;
-	}
+		public String getGiven() {
+			return this.given;
+		}
 	
 	@JsonProperty
-	public String getImage() {
-		return this.image;
-	}
+		public String getImage() {
+			return this.image;
+		}
 	
 	@JsonProperty
-	public Integer getLastQuality() {
-		return this.lastQuality;
-	}
+		public Integer getLastQuality() {
+			return this.lastQuality;
+		}
 	
 	@JsonProperty
-	public String getRootCategoryId() {
-		return this.rootCategoryId;
-	}
+		public String getRootCategoryId() {
+			return this.rootCategoryId;
+		}
 	
 	@JsonProperty
-	public String getScheduledCardId() {
-		return this.scheduledCardId;
-	}
+		public String getScheduledCardId() {
+			return this.scheduledCardId;
+		}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getScheduledDate() {
-		return this.scheduledDate;
-	}
+		public org.joda.time.DateTime getScheduledDate() {
+			return this.scheduledDate;
+		}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getScoredDate() {
-		return this.scoredDate;
-	}
+		public org.joda.time.DateTime getScoredDate() {
+			return this.scoredDate;
+		}
 	
 	@JsonProperty
-	public String getWanted() {
-		return this.wanted;
-	}
+		public String getWanted() {
+			return this.wanted;
+		}
 	
 }
 

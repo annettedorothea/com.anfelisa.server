@@ -66,44 +66,44 @@ public class LoadNextReinforceCardResponse implements ILoadNextReinforceCardResp
 	}
 	
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
+		public String getCategoryId() {
+			return this.categoryId;
+		}
 	
 	@JsonProperty
-	public String getBoxId() {
-		return this.boxId;
-	}
+		public String getBoxId() {
+			return this.boxId;
+		}
 	
 	@JsonProperty
-	public org.joda.time.DateTime getChangeDate() {
-		return this.changeDate;
-	}
+		public org.joda.time.DateTime getChangeDate() {
+			return this.changeDate;
+		}
 	
 	@JsonProperty
-	public String getGiven() {
-		return this.given;
-	}
+		public String getGiven() {
+			return this.given;
+		}
 	
 	@JsonProperty
-	public String getImage() {
-		return this.image;
-	}
+		public String getImage() {
+			return this.image;
+		}
 	
 	@JsonProperty
-	public Integer getLastQuality() {
-		return this.lastQuality;
-	}
+		public Integer getLastQuality() {
+			return this.lastQuality;
+		}
 	
 	@JsonProperty
-	public String getReinforceCardId() {
-		return this.reinforceCardId;
-	}
+		public String getReinforceCardId() {
+			return this.reinforceCardId;
+		}
 	
 	@JsonProperty
-	public String getWanted() {
-		return this.wanted;
-	}
+		public String getWanted() {
+			return this.wanted;
+		}
 	
 }
 

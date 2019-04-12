@@ -25,9 +25,14 @@ public class EmailService {
 					new DefaultAuthenticator(emailConfiguration.getUser(), emailConfiguration.getPassword()));
 			email.setStartTLSEnabled(emailConfiguration.isTls());
 			email.setFrom(emailConfiguration.getUser());
-			email.setSubject(subject);
 			email.setMsg(message);
-			email.addTo(to);
+			if (ServerConfiguration.REPLAY.equals(App.getMode())) {
+				email.addTo(emailConfiguration.getUser());
+				email.setSubject("REPLAY: to " +  to + " subject " + subject);
+			} else {
+				email.addTo(to);
+				email.setSubject(subject);
+			}
 			email.send();
 		} catch (EmailException e) {
 			e.printStackTrace();

@@ -59,9 +59,9 @@ public abstract class AbstractUsernameAvailableData extends AbstractData impleme
 	}
 
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
-	}
+		public String getUsername() {
+			return this.username;
+		}
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -71,9 +71,9 @@ public abstract class AbstractUsernameAvailableData extends AbstractData impleme
 	}
 	
 	@JsonProperty
-	public Boolean getAvailable() {
-		return this.available;
-	}
+		public Boolean getAvailable() {
+			return this.available;
+		}
 	public void setAvailable(Boolean available) {
 		this.available = available;
 	}
@@ -82,18 +82,6 @@ public abstract class AbstractUsernameAvailableData extends AbstractData impleme
 		return this;
 	}
 	
-	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IUsernameAvailableModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
-			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
-		}
-		if (!(this.getAvailable() == null && other.getAvailable() == null) && !this.getAvailable().equals(other.getAvailable())) {
-			differingAttributes.add("available: " + this.getAvailable() + " " + other.getAvailable());
-		}
-		return differingAttributes;
-	}
 	
 	
 }

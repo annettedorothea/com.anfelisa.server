@@ -72,8 +72,6 @@ public interface IBoxViewModel {
 	void setBoxId(String boxId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IBoxViewModel other);
-	
 }
 
 

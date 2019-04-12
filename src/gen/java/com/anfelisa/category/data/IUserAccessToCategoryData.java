@@ -32,6 +32,8 @@ public interface IUserAccessToCategoryData extends IUserAccessToCategoryModel, I
 	
 	IUserAccessToCategoryData withUserId(String userId);
 	
+	IUserAccessToCategoryData withEditable(Boolean editable);
+	
 	
 }
 

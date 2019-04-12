@@ -44,15 +44,19 @@ public abstract class AbstractUserWithAccessData extends AbstractData implements
 	@NotNull
 	private String username;
 	
+	private Boolean editable = false;
+	
 
 	public AbstractUserWithAccessData(
 		@JsonProperty("userId") String userId,
-		@JsonProperty("username") String username
+		@JsonProperty("username") String username,
+		@JsonProperty("editable") Boolean editable
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.userId = userId;
 		this.username = username;
+		this.editable = editable;
 	}
 
 	public AbstractUserWithAccessData( String uuid ) {
@@ -60,9 +64,9 @@ public abstract class AbstractUserWithAccessData extends AbstractData implements
 	}
 
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -72,9 +76,9 @@ public abstract class AbstractUserWithAccessData extends AbstractData implements
 	}
 	
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
-	}
+		public String getUsername() {
+			return this.username;
+		}
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -83,18 +87,18 @@ public abstract class AbstractUserWithAccessData extends AbstractData implements
 		return this;
 	}
 	
-	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.category.models.IUserWithAccessModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
+	@JsonProperty
+		public Boolean getEditable() {
+			return this.editable;
 		}
-		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
-			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
-		}
-		return differingAttributes;
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
 	}
+	public IUserWithAccessData withEditable(Boolean editable) {
+		this.editable = editable;
+		return this;
+	}
+	
 	
 	
 }

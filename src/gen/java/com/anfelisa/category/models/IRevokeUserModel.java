@@ -39,8 +39,6 @@ public interface IRevokeUserModel {
 	void setUserId(String userId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.category.models.IRevokeUserModel other);
-	
 }
 
 

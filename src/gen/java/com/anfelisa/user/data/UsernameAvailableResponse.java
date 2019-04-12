@@ -42,9 +42,9 @@ public class UsernameAvailableResponse implements IUsernameAvailableResponse {
 	}
 	
 	@JsonProperty
-	public Boolean getAvailable() {
-		return this.available;
-	}
+		public Boolean getAvailable() {
+			return this.available;
+		}
 	
 }
 

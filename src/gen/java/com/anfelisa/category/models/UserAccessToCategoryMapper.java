@@ -30,7 +30,8 @@ public class UserAccessToCategoryMapper implements RowMapper<IUserAccessToCatego
 	public IUserAccessToCategoryModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new UserAccessToCategoryModel(
 			r.getString("categoryId"),
-			r.getString("userId")
+			r.getString("userId"),
+			r.getBoolean("editable")
 		);
 	}
 }

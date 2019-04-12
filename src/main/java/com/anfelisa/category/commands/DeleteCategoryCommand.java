@@ -29,7 +29,7 @@ public class DeleteCategoryCommand extends AbstractDeleteCategoryCommand {
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), commandData.getUserId());
-		if (access == null) {
+		if (access == null || access.getEditable() == false) {
 			throwUnauthorized();
 		}
 		this.commandData.setCategoryIndex(category.getCategoryIndex());

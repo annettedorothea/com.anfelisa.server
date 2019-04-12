@@ -42,9 +42,9 @@ public class GetUsersWithAccessResponse implements IGetUsersWithAccessResponse {
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.category.models.IUserWithAccessModel> getUserList() {
-		return this.userList;
-	}
+		public java.util.List<com.anfelisa.category.models.IUserWithAccessModel> getUserList() {
+			return this.userList;
+		}
 	
 }
 

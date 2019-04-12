@@ -33,8 +33,6 @@ public interface IBoxInfoModel extends com.anfelisa.box.models.IBoxViewModel{
 	void setToday(org.joda.time.DateTime today);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IBoxInfoModel other);
-	
 }
 
 

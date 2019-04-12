@@ -58,9 +58,9 @@ public abstract class AbstractRoleData extends AbstractData implements IRoleData
 	}
 
 	@JsonProperty
-	public String getUsername() {
-		return this.username;
-	}
+		public String getUsername() {
+			return this.username;
+		}
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -70,9 +70,9 @@ public abstract class AbstractRoleData extends AbstractData implements IRoleData
 	}
 	
 	@JsonProperty
-	public String getRole() {
-		return this.role;
-	}
+		public String getRole() {
+			return this.role;
+		}
 	public void setRole(String role) {
 		this.role = role;
 	}
@@ -81,18 +81,6 @@ public abstract class AbstractRoleData extends AbstractData implements IRoleData
 		return this;
 	}
 	
-	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IRoleModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getUsername() == null && other.getUsername() == null) && !this.getUsername().equals(other.getUsername())) {
-			differingAttributes.add("username: " + this.getUsername() + " " + other.getUsername());
-		}
-		if (!(this.getRole() == null && other.getRole() == null) && !this.getRole().equals(other.getRole())) {
-			differingAttributes.add("role: " + this.getRole() + " " + other.getRole());
-		}
-		return differingAttributes;
-	}
 	
 	
 }

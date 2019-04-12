@@ -33,8 +33,6 @@ public interface IUserListModel {
 	void setRole(String role);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IUserListModel other);
-	
 }
 
 

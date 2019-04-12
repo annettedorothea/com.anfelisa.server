@@ -52,47 +52,29 @@ public class ResetPasswordWithNewPasswordModel implements IResetPasswordWithNewP
 	}
 
 	@JsonProperty
-	public String getPassword() {
-		return this.password;
-	}
+		public String getPassword() {
+			return this.password;
+		}
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	
 	@JsonProperty
-	public String getToken() {
-		return this.token;
-	}
+		public String getToken() {
+			return this.token;
+		}
 	public void setToken(String token) {
 		this.token = token;
 	}
 	
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IResetPasswordWithNewPasswordModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getPassword() == null && other.getPassword() == null) && !this.getPassword().equals(other.getPassword())) {
-			differingAttributes.add("password: " + this.getPassword() + " " + other.getPassword());
-		}
-		return differingAttributes;
-	}
-	public List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IResetPasswordModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getToken() == null && other.getToken() == null) && !this.getToken().equals(other.getToken())) {
-			differingAttributes.add("token: " + this.getToken() + " " + other.getToken());
-		}
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		return differingAttributes;
-	}
 	
 }
 

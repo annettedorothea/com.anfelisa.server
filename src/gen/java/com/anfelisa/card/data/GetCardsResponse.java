@@ -32,7 +32,7 @@ import com.anfelisa.ace.IDataContainer;
 @SuppressWarnings("all")
 public class GetCardsResponse implements IGetCardsResponse {
 	
-	private java.util.List<com.anfelisa.card.models.ICardModel> cardList;
+	private java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList;
 	
 	public GetCardsResponse() {
 	}
@@ -42,9 +42,9 @@ public class GetCardsResponse implements IGetCardsResponse {
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.card.models.ICardModel> getCardList() {
-		return this.cardList;
-	}
+		public java.util.List<com.anfelisa.card.models.ICardWithInfoModel> getCardList() {
+			return this.cardList;
+		}
 	
 }
 

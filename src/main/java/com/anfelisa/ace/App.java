@@ -30,6 +30,8 @@ public class App extends Application<CustomAppConfiguration> {
 	static final Logger LOG = LoggerFactory.getLogger(App.class);
 
 	static EmailService EMAIL_SERVICE;
+	
+	private static String mode;
 
 	public static void main(String[] args) throws Exception {
 		new App().run(args);
@@ -41,7 +43,11 @@ public class App extends Application<CustomAppConfiguration> {
 	}
 
 	public static String getVersion() {
-		return "0.5.0";
+		return "0.6.0";
+	}
+
+	public static String getMode() {
+		return mode;
 	}
 
 	public static void reportException(Exception x) {
@@ -85,7 +91,7 @@ public class App extends Application<CustomAppConfiguration> {
 		
 		E2E e2e = new E2E();
 
-		String mode = configuration.getServerConfiguration().getMode();
+		mode = configuration.getServerConfiguration().getMode();
 		if (ServerConfiguration.REPLAY.equals(mode)) {
 			environment.jersey().register(new PrepareE2EResource(jdbi, daoProvider, viewProvider, e2e, configuration));
 			environment.jersey().register(new StartE2ESessionResource(jdbi, daoProvider, e2e, configuration));

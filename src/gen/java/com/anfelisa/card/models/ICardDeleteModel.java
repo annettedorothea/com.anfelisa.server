@@ -39,8 +39,6 @@ public interface ICardDeleteModel {
 	void setUserId(String userId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.card.models.ICardDeleteModel other);
-	
 }
 
 

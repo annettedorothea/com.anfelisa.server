@@ -45,8 +45,6 @@ public interface ICategoryUpdateModel {
 	void setUserId(String userId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.category.models.ICategoryUpdateModel other);
-	
 }
 
 

@@ -33,8 +33,6 @@ public interface ICategoryTreeModel {
 	void setUserId(String userId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.category.models.ICategoryTreeModel other);
-	
 }
 
 

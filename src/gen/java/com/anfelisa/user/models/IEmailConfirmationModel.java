@@ -33,8 +33,6 @@ public interface IEmailConfirmationModel {
 	void setUserId(String userId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.user.models.IEmailConfirmationModel other);
-	
 }
 
 

@@ -53,48 +53,37 @@ public class CardIdListModel implements ICardIdListModel {
 	}
 
 	@JsonProperty
-	public java.util.List<String> getCardIdList() {
-		return this.cardIdList;
-	}
+		public java.util.List<String> getCardIdList() {
+			return this.cardIdList;
+		}
 	public void setCardIdList(java.util.List<String> cardIdList) {
 		this.cardIdList = cardIdList;
 	}
 	
 	@JsonProperty
-	public String getCategoryId() {
-		return this.categoryId;
-	}
+		public String getCategoryId() {
+			return this.categoryId;
+		}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.card.models.ICardModel> getMovedCards() {
-		return this.movedCards;
-	}
+		public java.util.List<com.anfelisa.card.models.ICardModel> getMovedCards() {
+			return this.movedCards;
+		}
 	public void setMovedCards(java.util.List<com.anfelisa.card.models.ICardModel> movedCards) {
 		this.movedCards = movedCards;
 	}
 	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.card.models.ICardIdListModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getCategoryId() == null && other.getCategoryId() == null) && !this.getCategoryId().equals(other.getCategoryId())) {
-			differingAttributes.add("categoryId: " + this.getCategoryId() + " " + other.getCategoryId());
-		}
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		return differingAttributes;
-	}
 	
 }
 

@@ -63,8 +63,6 @@ public interface ICategoryTreeItemModel {
 	void setChildCategories(java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.category.models.ICategoryTreeItemModel other);
-	
 }
 
 

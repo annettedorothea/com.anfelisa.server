@@ -68,12 +68,21 @@ ACE
 			categoryId
 		on ok (Card.moveCards)
 
+	ImportCsv<CsvUpload>
+		PUT "/category/import-csv"
+		authorize
+		payload
+			previewCsv
+			categoryId
+		on ok (Card.bulkInsert)
+
 views 
 	Card {
 		insert(CardCreation)
 		delete(CardDelete)
 		update(CardUpdate)
 		moveCards(CardIdList)
+		bulkInsert(CsvUpload)
 	}
 
 models 
@@ -128,8 +137,12 @@ models
 	
 	CardList {
 		String userId
-		List Card cardList
+		List CardWithInfo cardList
 		String categoryId	
+	}
+	
+	CardWithInfo extends Card {
+		DateTime next
 	}
 	
 	CardIdList {
@@ -137,6 +150,19 @@ models
 		String categoryId	
 		String userId
 		List Card movedCards
+	}
+
+	CsvUpload {
+		String userId
+		NotNull String categoryId
+		List SimpleCard previewCsv
+		List Card cards
+	}
+	
+	SimpleCard {
+		NotNull String given
+		NotNull String wanted
+		NotNull String id
 	}
 
 

@@ -29,16 +29,17 @@ import java.util.Optional;
 public class AbstractUserAccessToCategoryDao {
 	
 	public void insert(Handle handle, IUserAccessToCategoryModel userAccessToCategoryModel) {
-		Update statement = handle.createUpdate("INSERT INTO \"useraccesstocategory\" (categoryid, userid) VALUES (:categoryid, :userid)");
+		Update statement = handle.createUpdate("INSERT INTO \"useraccesstocategory\" (categoryid, userid, editable) VALUES (:categoryid, :userid, :editable)");
 		statement.bind("categoryid",  userAccessToCategoryModel.getCategoryId() );
 		statement.bind("userid",  userAccessToCategoryModel.getUserId() );
+		statement.bind("editable",  userAccessToCategoryModel.getEditable() );
 		statement.execute();
 	}
 	
 	
 	
 	public List<IUserAccessToCategoryModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT categoryid, userid FROM \"useraccesstocategory\"")
+		return handle.createQuery("SELECT categoryid, userid, editable FROM \"useraccesstocategory\"")
 			.map(new UserAccessToCategoryMapper())
 			.list();
 	}

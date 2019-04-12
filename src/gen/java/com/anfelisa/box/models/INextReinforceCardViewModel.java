@@ -48,8 +48,6 @@ public interface INextReinforceCardViewModel {
 	void setCategoryId(String categoryId);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.INextReinforceCardViewModel other);
-	
 }
 
 

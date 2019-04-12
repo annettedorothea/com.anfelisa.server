@@ -39,8 +39,8 @@ public class CategoryCreationMapper implements RowMapper<ICategoryCreationModel>
 			r.getBoolean("dictionaryLookup"),
 			r.getString("givenLanguage"),
 			r.getString("wantedLanguage"),
-			r.getBoolean("publicRootCategory"),
-			r.getString("userId")
+			r.getString("userId"),
+			r.getBoolean("editable")
 		);
 	}
 }

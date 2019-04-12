@@ -76,9 +76,9 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	}
 
 	@JsonProperty
-	public String getMovedCategoryId() {
-		return this.movedCategoryId;
-	}
+		public String getMovedCategoryId() {
+			return this.movedCategoryId;
+		}
 	public void setMovedCategoryId(String movedCategoryId) {
 		this.movedCategoryId = movedCategoryId;
 	}
@@ -88,9 +88,9 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-	public String getTargetCategoryId() {
-		return this.targetCategoryId;
-	}
+		public String getTargetCategoryId() {
+			return this.targetCategoryId;
+		}
 	public void setTargetCategoryId(String targetCategoryId) {
 		this.targetCategoryId = targetCategoryId;
 	}
@@ -100,9 +100,9 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-	public com.anfelisa.category.models.ICategoryModel getMovedCategory() {
-		return this.movedCategory;
-	}
+		public com.anfelisa.category.models.ICategoryModel getMovedCategory() {
+			return this.movedCategory;
+		}
 	public void setMovedCategory(com.anfelisa.category.models.ICategoryModel movedCategory) {
 		this.movedCategory = movedCategory;
 	}
@@ -112,9 +112,9 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-	public Integer getCategoryIndexWhereRemoved() {
-		return this.categoryIndexWhereRemoved;
-	}
+		public Integer getCategoryIndexWhereRemoved() {
+			return this.categoryIndexWhereRemoved;
+		}
 	public void setCategoryIndexWhereRemoved(Integer categoryIndexWhereRemoved) {
 		this.categoryIndexWhereRemoved = categoryIndexWhereRemoved;
 	}
@@ -124,9 +124,9 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-	public String getParentCategoryIdWhereRemoved() {
-		return this.parentCategoryIdWhereRemoved;
-	}
+		public String getParentCategoryIdWhereRemoved() {
+			return this.parentCategoryIdWhereRemoved;
+		}
 	public void setParentCategoryIdWhereRemoved(String parentCategoryIdWhereRemoved) {
 		this.parentCategoryIdWhereRemoved = parentCategoryIdWhereRemoved;
 	}
@@ -136,9 +136,9 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-	public String getUserId() {
-		return this.userId;
-	}
+		public String getUserId() {
+			return this.userId;
+		}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -147,27 +147,6 @@ public abstract class AbstractCategoryMoveData extends AbstractData implements I
 		return this;
 	}
 	
-	
-	
-	public List<String> equalsPrimitiveTypes(com.anfelisa.category.models.ICategoryMoveModel other) {
-		List<String> differingAttributes = new ArrayList<String>();
-		if (!(this.getMovedCategoryId() == null && other.getMovedCategoryId() == null) && !this.getMovedCategoryId().equals(other.getMovedCategoryId())) {
-			differingAttributes.add("movedCategoryId: " + this.getMovedCategoryId() + " " + other.getMovedCategoryId());
-		}
-		if (!(this.getTargetCategoryId() == null && other.getTargetCategoryId() == null) && !this.getTargetCategoryId().equals(other.getTargetCategoryId())) {
-			differingAttributes.add("targetCategoryId: " + this.getTargetCategoryId() + " " + other.getTargetCategoryId());
-		}
-		if (!(this.getCategoryIndexWhereRemoved() == null && other.getCategoryIndexWhereRemoved() == null) && !this.getCategoryIndexWhereRemoved().equals(other.getCategoryIndexWhereRemoved())) {
-			differingAttributes.add("categoryIndexWhereRemoved: " + this.getCategoryIndexWhereRemoved() + " " + other.getCategoryIndexWhereRemoved());
-		}
-		if (!(this.getParentCategoryIdWhereRemoved() == null && other.getParentCategoryIdWhereRemoved() == null) && !this.getParentCategoryIdWhereRemoved().equals(other.getParentCategoryIdWhereRemoved())) {
-			differingAttributes.add("parentCategoryIdWhereRemoved: " + this.getParentCategoryIdWhereRemoved() + " " + other.getParentCategoryIdWhereRemoved());
-		}
-		if (!(this.getUserId() == null && other.getUserId() == null) && !this.getUserId().equals(other.getUserId())) {
-			differingAttributes.add("userId: " + this.getUserId() + " " + other.getUserId());
-		}
-		return differingAttributes;
-	}
 	
 	
 }

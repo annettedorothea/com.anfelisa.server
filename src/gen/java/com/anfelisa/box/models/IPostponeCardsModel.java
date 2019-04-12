@@ -39,8 +39,6 @@ public interface IPostponeCardsModel {
 	void setToday(org.joda.time.DateTime today);
 	
 	
-	List<String> equalsPrimitiveTypes(com.anfelisa.box.models.IPostponeCardsModel other);
-	
 }
 
 

@@ -41,7 +41,6 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 			this.commandData.setOutcome(sub);
 		} else {
 			commandData.setRootCategoryId(commandData.getCategoryId());
-			commandData.setPublicRootCategory(false);
 			this.commandData.setOutcome(root);
 		}
 
@@ -63,6 +62,7 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 			max = 0;
 		}
 		commandData.setCategoryIndex(max + 1);
+		commandData.setEditable(true);
 	}
 
 	private void validateLanguage(String language) {
