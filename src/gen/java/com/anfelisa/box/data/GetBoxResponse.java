@@ -62,6 +62,8 @@ public class GetBoxResponse implements IGetBoxResponse {
 	
 	private Integer todaysCards;
 	
+	private Integer tomorrowsCards;
+	
 	private Integer totalCards;
 	
 	public GetBoxResponse() {
@@ -82,6 +84,7 @@ public class GetBoxResponse implements IGetBoxResponse {
 		quality5Count = data.getQuality5Count();
 		reinforceCards = data.getReinforceCards();
 		todaysCards = data.getTodaysCards();
+		tomorrowsCards = data.getTomorrowsCards();
 		totalCards = data.getTotalCards();
 	}
 	
@@ -153,6 +156,11 @@ public class GetBoxResponse implements IGetBoxResponse {
 	@JsonProperty
 		public Integer getTodaysCards() {
 			return this.todaysCards;
+		}
+	
+	@JsonProperty
+		public Integer getTomorrowsCards() {
+			return this.tomorrowsCards;
 		}
 	
 	@JsonProperty

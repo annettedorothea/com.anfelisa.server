@@ -11,7 +11,10 @@ import com.anfelisa.box.data.IBoxUpdateData;
 
 public class BoxDao extends AbstractBoxDao {
 	public List<IBoxViewModel> selectByUserId(Handle handle, String userId, DateTime today) {
-		return handle.createQuery("SELECT (SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = b.boxid AND quality is null AND scheduledDate <= :today) as todayscards, "
+		DateTime tomorrow = today.plusDays(1);
+		return handle.createQuery("SELECT "
+				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = b.boxid AND quality is null AND scheduledDate <= :today) as todayscards, "
+				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = b.boxid AND quality is null AND scheduledDate > :today and scheduledDate <= :tomorrow) as tomorrowscards, "
 				+ "(select count(cardid) from card where rootcategoryid = b.categoryid) as totalcards, "
 				+ "(select count(distinct(cardid)) from public.scheduledcard where boxid = b.boxid ) as mycards, "
 				+ "(select count(reinforcecardid) from public.reinforcecard where boxid = b.boxid ) as reinforcecards, "
@@ -26,11 +29,15 @@ public class BoxDao extends AbstractBoxDao {
 				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid where userid = :userid order by c.categoryindex")
 				.bind("userid", userId)
 				.bind("today", today)
+				.bind("tomorrow", tomorrow)
 				.map(new BoxViewMapper()).list();
 	}
 	
 	public IBoxViewModel selectByBoxId(Handle handle, String boxId, DateTime today) {
-		Optional<IBoxViewModel> optional =  handle.createQuery("SELECT (SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate <= :today) as todayscards, "
+		DateTime tomorrow = today.plusDays(1);
+		Optional<IBoxViewModel> optional =  handle.createQuery("SELECT "
+				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate <= :today) as todayscards, "
+				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate > :today and scheduledDate <= :tomorrow) as tomorrowscards, "
 				+ "(select count(cardid) from card where rootcategoryid = b.categoryid) as totalcards, "
 				+ "(select count(distinct(cardid)) from public.scheduledcard where boxid = :boxid ) as mycards, "
 				+ "(select count(reinforcecardid) from public.reinforcecard where boxid = :boxid ) as reinforcecards, "
@@ -45,6 +52,7 @@ public class BoxDao extends AbstractBoxDao {
 				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid where boxid = :boxid ")
 				.bind("boxid", boxId)
 				.bind("today", today)
+				.bind("tomorrow", tomorrow)
 				.map(new BoxViewMapper()).findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}

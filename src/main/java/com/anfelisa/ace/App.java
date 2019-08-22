@@ -43,7 +43,7 @@ public class App extends Application<CustomAppConfiguration> {
 	}
 
 	public static String getVersion() {
-		return "0.6.0";
+		return "0.6.1";
 	}
 
 	public static String getMode() {
@@ -73,7 +73,9 @@ public class App extends Application<CustomAppConfiguration> {
 			}
 		});
 
-		bootstrap.addCommand(new EventReplayCommand(this));
+		if (!ServerConfiguration.LIVE.equals(mode)) {
+			bootstrap.addCommand(new EventReplayCommand(this));
+		}
 	}
 
 	@Override

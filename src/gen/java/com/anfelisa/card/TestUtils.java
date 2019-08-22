@@ -43,8 +43,6 @@ public class TestUtils {
 	}
 
 
-
-
 	public static TimelineItem createMoveCardsOkEventTimelineItem(com.anfelisa.card.data.ICardIdListData data) throws JsonProcessingException {
 		String json = mapper.writeValueAsString(data);
 		return new TimelineItem("prepare", null, "com.anfelisa.card.events.MoveCardsOkEvent", null, json, data.getUuid());

@@ -32,6 +32,7 @@ public class BoxInfoMapper implements RowMapper<IBoxInfoModel> {
 			r.getString("userId"),
 			r.getTimestamp("today") != null ? new org.joda.time.DateTime(r.getTimestamp("today")) : null,
 			r.getObject("todaysCards") != null ? r.getInt("todaysCards") : null,
+			r.getObject("tomorrowsCards") != null ? r.getInt("tomorrowsCards") : null,
 			r.getObject("totalCards") != null ? r.getInt("totalCards") : null,
 			r.getObject("reinforceCards") != null ? r.getInt("reinforceCards") : null,
 			r.getObject("myCards") != null ? r.getInt("myCards") : null,

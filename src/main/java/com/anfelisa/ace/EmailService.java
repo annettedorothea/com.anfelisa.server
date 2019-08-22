@@ -26,12 +26,12 @@ public class EmailService {
 			email.setStartTLSEnabled(emailConfiguration.isTls());
 			email.setFrom(emailConfiguration.getUser());
 			email.setMsg(message);
-			if (ServerConfiguration.REPLAY.equals(App.getMode())) {
-				email.addTo(emailConfiguration.getUser());
-				email.setSubject("REPLAY: to " +  to + " subject " + subject);
-			} else {
+			if (ServerConfiguration.LIVE.equals(App.getMode())) {
 				email.addTo(to);
 				email.setSubject(subject);
+			} else {
+				email.addTo(emailConfiguration.getUser());
+				email.setSubject("REPLAY: to " +  to + " subject " + subject);
 			}
 			email.send();
 		} catch (EmailException e) {

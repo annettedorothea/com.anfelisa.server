@@ -33,6 +33,7 @@ ACE
 			quality5Count
 			reinforceCards
 			todaysCards
+			tomorrowsCards
 			totalCards
 		
 	CreateBox<Box>
@@ -184,6 +185,7 @@ models
 
 	BoxView {
 		Integer todaysCards
+		Integer tomorrowsCards
 		Integer totalCards
 		Integer reinforceCards
 		Integer myCards

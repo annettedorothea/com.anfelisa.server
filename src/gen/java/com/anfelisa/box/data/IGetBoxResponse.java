@@ -48,6 +48,8 @@ public interface IGetBoxResponse {
 	
 	Integer getTodaysCards();
 	
+	Integer getTomorrowsCards();
+	
 	Integer getTotalCards();
 	
 

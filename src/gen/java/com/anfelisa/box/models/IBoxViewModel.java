@@ -29,6 +29,9 @@ public interface IBoxViewModel {
 	Integer getTodaysCards();
 	void setTodaysCards(Integer todaysCards);
 	
+	Integer getTomorrowsCards();
+	void setTomorrowsCards(Integer tomorrowsCards);
+	
 	Integer getTotalCards();
 	void setTotalCards(Integer totalCards);
 	

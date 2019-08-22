@@ -31,27 +31,6 @@ ACE
 		queryParams cardId
 		on ok (Card.delete)
 	
-	GetDuplicates<CardSearch>
-		GET "/cards/search"  
-		authorize
-		queryParams 
-			given 
-			wanted 
-			naturalInputOrder 
-			categoryId
-		response
-			cardList
-		
-	proxy GetTranslation<CardTranslation>
-		GET "/card/translation" 
-		authorize 
-		queryParams 
-			sourceValue 
-			sourceLanguage 
-			targetLanguage
-		response
-			targetValue
-			
 	GetCards<CardList>
 		GET "/cards" 
 		authorize 

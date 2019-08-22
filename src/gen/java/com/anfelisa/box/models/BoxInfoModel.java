@@ -35,6 +35,8 @@ public class BoxInfoModel implements IBoxInfoModel {
 	
 	private Integer todaysCards;
 	
+	private Integer tomorrowsCards;
+	
 	private Integer totalCards;
 	
 	private Integer reinforceCards;
@@ -73,6 +75,7 @@ public class BoxInfoModel implements IBoxInfoModel {
 		@JsonProperty("userId") String userId,
 		@JsonProperty("today") org.joda.time.DateTime today,
 		@JsonProperty("todaysCards") Integer todaysCards,
+		@JsonProperty("tomorrowsCards") Integer tomorrowsCards,
 		@JsonProperty("totalCards") Integer totalCards,
 		@JsonProperty("reinforceCards") Integer reinforceCards,
 		@JsonProperty("myCards") Integer myCards,
@@ -91,6 +94,7 @@ public class BoxInfoModel implements IBoxInfoModel {
 		this.userId = userId;
 		this.today = today;
 		this.todaysCards = todaysCards;
+		this.tomorrowsCards = tomorrowsCards;
 		this.totalCards = totalCards;
 		this.reinforceCards = reinforceCards;
 		this.myCards = myCards;
@@ -129,6 +133,14 @@ public class BoxInfoModel implements IBoxInfoModel {
 		}
 	public void setTodaysCards(Integer todaysCards) {
 		this.todaysCards = todaysCards;
+	}
+	
+	@JsonProperty
+		public Integer getTomorrowsCards() {
+			return this.tomorrowsCards;
+		}
+	public void setTomorrowsCards(Integer tomorrowsCards) {
+		this.tomorrowsCards = tomorrowsCards;
 	}
 	
 	@JsonProperty

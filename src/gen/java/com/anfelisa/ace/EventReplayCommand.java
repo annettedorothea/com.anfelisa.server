@@ -46,9 +46,6 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 		if (ServerConfiguration.LIVE.equals(configuration.getServerConfiguration().getMode())) {
 			throw new RuntimeException("we won't truncate all views and replay events in a live environment");
 		}
-		if (ServerConfiguration.REPLAY.equals(configuration.getServerConfiguration().getMode())) {
-			throw new RuntimeException("replay events in a replay environment doesn't make sense");
-		}
 
 		IDaoProvider daoProvider = DaoProvider.create();
 		ViewProvider viewProvider = ViewProvider.create(daoProvider, configuration);
@@ -70,12 +67,14 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 			int i = 0;
 			for (ITimelineItem nextEvent : timeline) {
 				IEvent event = EventFactory.createEvent(nextEvent.getName(), nextEvent.getData(), daoProvider, viewProvider);
-				event.notifyListeners(databaseHandle.getHandle());
-				i++;
-				if (i%1000 == 0) {
-					LOG.info("published " + i + " events");
+				if (event != null) {
+					event.notifyListeners(databaseHandle.getHandle());
+					i++;
+					if (i%1000 == 0) {
+						LOG.info("published " + i + " events");
+					}
+					//LOG.info("published " + nextEvent.getUuid() + " - " + nextEvent.getName());
 				}
-				//LOG.info("published " + nextEvent.getUuid() + " - " + nextEvent.getName());
 			}
 
 			databaseHandle.commitTransaction();

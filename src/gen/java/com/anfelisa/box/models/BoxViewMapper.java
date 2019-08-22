@@ -30,6 +30,7 @@ public class BoxViewMapper implements RowMapper<IBoxViewModel> {
 	public IBoxViewModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxViewModel(
 			r.getObject("todaysCards") != null ? r.getInt("todaysCards") : null,
+			r.getObject("tomorrowsCards") != null ? r.getInt("tomorrowsCards") : null,
 			r.getObject("totalCards") != null ? r.getInt("totalCards") : null,
 			r.getObject("reinforceCards") != null ? r.getInt("reinforceCards") : null,
 			r.getObject("myCards") != null ? r.getInt("myCards") : null,

@@ -35,6 +35,8 @@ public interface IBoxInfoData extends IBoxInfoModel, IDataContainer {
 	
 	IBoxInfoData withTodaysCards(Integer todaysCards);
 	
+	IBoxInfoData withTomorrowsCards(Integer tomorrowsCards);
+	
 	IBoxInfoData withTotalCards(Integer totalCards);
 	
 	IBoxInfoData withReinforceCards(Integer reinforceCards);

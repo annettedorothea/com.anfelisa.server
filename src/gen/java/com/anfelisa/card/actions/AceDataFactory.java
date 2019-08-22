@@ -64,16 +64,6 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.card.actions.GetDuplicatesAction")) {
-				CardSearchData data = mapper.readValue(json, CardSearchData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
-			if (className.equals("com.anfelisa.card.actions.GetTranslationAction")) {
-				CardTranslationData data = mapper.readValue(json, CardTranslationData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
 			if (className.equals("com.anfelisa.card.actions.GetCardsAction")) {
 				CardListData data = mapper.readValue(json, CardListData.class);
 				data.migrateLegacyData(json);

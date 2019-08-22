@@ -60,20 +60,6 @@ public class ActionCalls {
 		return builder.delete();
 	}
 	
-	public static Response callGetDuplicates(String uuid, String given, String wanted, Boolean naturalInputOrder, String categoryId, int port, String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/cards/search?uuid=" + uuid + "&given=" + given + "&wanted=" + wanted + "&naturalInputOrder=" + naturalInputOrder + "&categoryId=" + categoryId, port)).request(); 
-		builder.header("Authorization", authorization);
-		return builder.get();
-	}
-	
-	public static Response callGetTranslation(String uuid, String sourceValue, String sourceLanguage, String targetLanguage, int port, String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/card/translation?uuid=" + uuid + "&sourceValue=" + sourceValue + "&sourceLanguage=" + sourceLanguage + "&targetLanguage=" + targetLanguage, port)).request(); 
-		builder.header("Authorization", authorization);
-		return builder.get();
-	}
-	
 	public static Response callGetCards(String uuid, String categoryId, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/cards?uuid=" + uuid + "&categoryId=" + categoryId, port)).request(); 

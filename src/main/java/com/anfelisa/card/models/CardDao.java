@@ -49,8 +49,8 @@ public class CardDao extends AbstractCardDao {
 		String orderBy = naturalInputOrder ? "given" : "wanted";
 		return handle.createQuery(
 				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, "
-				+ "(select categoryname from category where category.categoryid = :categoryid) as categoryname FROM public.card "
-						+ "where rootcategoryid = (select rootcategoryid from category where category.categoryid = :categoryid) and "
+				+ "(select categoryname from category where category.categoryid = cd.categoryid) as categoryname "
+				+ "FROM public.card cd where cd.rootcategoryid = (select rootcategoryid from category where category.categoryid = :categoryid) and "
 						+ "( length(:given) > 0 and given like :givenSearchString or "
 						+ " length(:wanted) > 0 and wanted like :wantedSearchString) " + "order by upper("
 						+ orderBy + ") limit 25")

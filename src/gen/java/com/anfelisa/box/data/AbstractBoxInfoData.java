@@ -46,6 +46,8 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	
 	private Integer todaysCards;
 	
+	private Integer tomorrowsCards;
+	
 	private Integer totalCards;
 	
 	private Integer reinforceCards;
@@ -81,6 +83,7 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 		@JsonProperty("userId") String userId,
 		@JsonProperty("today") org.joda.time.DateTime today,
 		@JsonProperty("todaysCards") Integer todaysCards,
+		@JsonProperty("tomorrowsCards") Integer tomorrowsCards,
 		@JsonProperty("totalCards") Integer totalCards,
 		@JsonProperty("reinforceCards") Integer reinforceCards,
 		@JsonProperty("myCards") Integer myCards,
@@ -101,6 +104,7 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 		this.userId = userId;
 		this.today = today;
 		this.todaysCards = todaysCards;
+		this.tomorrowsCards = tomorrowsCards;
 		this.totalCards = totalCards;
 		this.reinforceCards = reinforceCards;
 		this.myCards = myCards;
@@ -154,6 +158,18 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	}
 	public IBoxInfoData withTodaysCards(Integer todaysCards) {
 		this.todaysCards = todaysCards;
+		return this;
+	}
+	
+	@JsonProperty
+		public Integer getTomorrowsCards() {
+			return this.tomorrowsCards;
+		}
+	public void setTomorrowsCards(Integer tomorrowsCards) {
+		this.tomorrowsCards = tomorrowsCards;
+	}
+	public IBoxInfoData withTomorrowsCards(Integer tomorrowsCards) {
+		this.tomorrowsCards = tomorrowsCards;
 		return this;
 	}
 	
@@ -328,6 +344,7 @@ public abstract class AbstractBoxInfoData extends AbstractData implements IBoxIn
 	
 	public void mapFrom(com.anfelisa.box.models.IBoxViewModel model) {
 		this.todaysCards = model.getTodaysCards();
+		this.tomorrowsCards = model.getTomorrowsCards();
 		this.totalCards = model.getTotalCards();
 		this.reinforceCards = model.getReinforceCards();
 		this.myCards = model.getMyCards();

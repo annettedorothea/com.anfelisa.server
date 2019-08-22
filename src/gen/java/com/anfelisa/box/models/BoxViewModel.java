@@ -30,6 +30,8 @@ public class BoxViewModel implements IBoxViewModel {
 
 	private Integer todaysCards;
 	
+	private Integer tomorrowsCards;
+	
 	private Integer totalCards;
 	
 	private Integer reinforceCards;
@@ -66,6 +68,7 @@ public class BoxViewModel implements IBoxViewModel {
 
 	public BoxViewModel(
 		@JsonProperty("todaysCards") Integer todaysCards,
+		@JsonProperty("tomorrowsCards") Integer tomorrowsCards,
 		@JsonProperty("totalCards") Integer totalCards,
 		@JsonProperty("reinforceCards") Integer reinforceCards,
 		@JsonProperty("myCards") Integer myCards,
@@ -82,6 +85,7 @@ public class BoxViewModel implements IBoxViewModel {
 		@JsonProperty("boxId") String boxId
 	) {
 		this.todaysCards = todaysCards;
+		this.tomorrowsCards = tomorrowsCards;
 		this.totalCards = totalCards;
 		this.reinforceCards = reinforceCards;
 		this.myCards = myCards;
@@ -104,6 +108,14 @@ public class BoxViewModel implements IBoxViewModel {
 		}
 	public void setTodaysCards(Integer todaysCards) {
 		this.todaysCards = todaysCards;
+	}
+	
+	@JsonProperty
+		public Integer getTomorrowsCards() {
+			return this.tomorrowsCards;
+		}
+	public void setTomorrowsCards(Integer tomorrowsCards) {
+		this.tomorrowsCards = tomorrowsCards;
 	}
 	
 	@JsonProperty

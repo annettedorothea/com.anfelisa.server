@@ -40,6 +40,8 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	
 	private Integer todaysCards;
 	
+	private Integer tomorrowsCards;
+	
 	private Integer totalCards;
 	
 	private Integer reinforceCards;
@@ -73,6 +75,7 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 
 	public AbstractBoxViewData(
 		@JsonProperty("todaysCards") Integer todaysCards,
+		@JsonProperty("tomorrowsCards") Integer tomorrowsCards,
 		@JsonProperty("totalCards") Integer totalCards,
 		@JsonProperty("reinforceCards") Integer reinforceCards,
 		@JsonProperty("myCards") Integer myCards,
@@ -91,6 +94,7 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	) {
 		super(uuid);
 		this.todaysCards = todaysCards;
+		this.tomorrowsCards = tomorrowsCards;
 		this.totalCards = totalCards;
 		this.reinforceCards = reinforceCards;
 		this.myCards = myCards;
@@ -120,6 +124,18 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	public IBoxViewData withTodaysCards(Integer todaysCards) {
 		this.todaysCards = todaysCards;
+		return this;
+	}
+	
+	@JsonProperty
+		public Integer getTomorrowsCards() {
+			return this.tomorrowsCards;
+		}
+	public void setTomorrowsCards(Integer tomorrowsCards) {
+		this.tomorrowsCards = tomorrowsCards;
+	}
+	public IBoxViewData withTomorrowsCards(Integer tomorrowsCards) {
+		this.tomorrowsCards = tomorrowsCards;
 		return this;
 	}
 	
