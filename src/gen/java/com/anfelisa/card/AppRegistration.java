@@ -41,6 +41,7 @@ public class AppRegistration {
 		environment.jersey().register(new UpdateCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new DeleteCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new GetCardsAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetDuplicatesAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new MoveCardsAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ImportCsvAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 	}

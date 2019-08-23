@@ -39,6 +39,17 @@ ACE
 		response
 			cardList
 			
+	GetDuplicates<CardSearch>
+		GET "/cards/search"  
+		authorize
+		queryParams 
+			given 
+			wanted 
+			naturalInputOrder 
+			categoryId
+		response
+			cardList
+
 	MoveCards<CardIdList>
 		PUT "/cards/move"
 		authorize

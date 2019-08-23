@@ -67,6 +67,13 @@ public class ActionCalls {
 		return builder.get();
 	}
 	
+	public static Response callGetDuplicates(String uuid, String given, String wanted, Boolean naturalInputOrder, String categoryId, int port, String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/cards/search?uuid=" + uuid + "&given=" + given + "&wanted=" + wanted + "&naturalInputOrder=" + naturalInputOrder + "&categoryId=" + categoryId, port)).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
+	}
+	
 	public static Response callMoveCards(String uuid, java.util.List<String> cardIdList, String categoryId, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/cards/move?uuid=" + uuid, port)).request();

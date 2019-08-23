@@ -94,6 +94,7 @@ public class EventFactory {
 		}
 
 
+
 		if (eventClass.equals("com.anfelisa.card.events.MoveCardsOkEvent")) {
 			return new MoveCardsOkEvent((CardIdListData)data, daoProvider, viewProvider);
 		}
