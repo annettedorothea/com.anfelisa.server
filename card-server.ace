@@ -58,6 +58,14 @@ ACE
 			categoryId
 		on ok (Card.moveCards)
 
+	ChangeOrder<ChangeCardOrderList>
+		PUT "/cards/changeorder"
+		authorize
+		payload
+			cardIdList
+			cardId
+		on ok (Card.changeCardOrder)
+
 	ImportCsv<CsvUpload>
 		PUT "/category/import-csv"
 		authorize
@@ -73,6 +81,7 @@ views
 		update(CardUpdate)
 		moveCards(CardIdList)
 		bulkInsert(CsvUpload)
+		changeCardOrder(ChangeCardOrderList)
 	}
 
 models 
@@ -140,6 +149,13 @@ models
 		String categoryId	
 		String userId
 		List Card movedCards
+	}
+
+	ChangeCardOrderList {
+		List String cardIdList
+		String cardId	
+		String userId
+		List Card updatedIndices
 	}
 
 	CsvUpload {

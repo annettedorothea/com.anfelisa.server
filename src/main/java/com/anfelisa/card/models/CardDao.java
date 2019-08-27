@@ -26,6 +26,14 @@ public class CardDao extends AbstractCardDao {
 				.map(new CardWithInfoMapper()).list();
 	}
 	
+	public List<ICardModel> selectAll(Handle handle, String categoryId) {
+		return handle.createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid FROM \"card\" "
+				+ "WHERE categoryid = :categoryid ORDER BY cardindex")
+			.bind("categoryid", categoryId)
+			.map(new CardMapper())
+			.list();
+	}
+
 	public Integer selectMaxIndexInCategory(Handle handle, String categoryId) {
 		Optional<Integer> optional = handle.createQuery("SELECT max(cardindex) FROM public.card WHERE categoryid = :categoryid")
 				.bind("categoryid", categoryId).mapTo(Integer.class).findFirst();
@@ -42,6 +50,14 @@ public class CardDao extends AbstractCardDao {
 		statement.execute();
 	}
 
+	public void updateIndex(Handle handle, ICardModel cardModel) {
+		Update statement = handle.createUpdate(
+				"UPDATE public.card SET cardindex = :cardindex WHERE cardid = :cardid");
+		statement.bind("cardindex", cardModel.getCardIndex());
+		statement.bind("cardid", cardModel.getCardId());
+		statement.execute();
+	}
+	
 	public List<ICardWithCategoryNameModel> search(Handle handle, String categoryId, Boolean naturalInputOrder, String given,
 			String wanted) {
 		String givenSearchString = "%" + given + "%";
@@ -75,8 +91,6 @@ public class CardDao extends AbstractCardDao {
 		statement.bind("cardindex", cardIndex);
 		statement.execute();
 	}
-
-
 
 }
 

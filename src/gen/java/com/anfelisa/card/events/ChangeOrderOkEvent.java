@@ -17,27 +17,19 @@
 
 
 
-package com.anfelisa.card.views;
+package com.anfelisa.card.events;
 
-import org.jdbi.v3.core.Handle;
+import com.anfelisa.ace.Event;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.card.data.ICardCreationData;
-import com.anfelisa.card.data.ICardDeleteData;
-import com.anfelisa.card.data.ICardUpdateData;
-import com.anfelisa.card.data.ICardIdListData;
-import com.anfelisa.card.data.ICsvUploadData;
 import com.anfelisa.card.data.IChangeCardOrderListData;
 
-@SuppressWarnings("all")
-public interface ICardView {
+public class ChangeOrderOkEvent extends Event<IChangeCardOrderListData> {
 
-	void insert(ICardCreationData data, Handle handle);
-	void delete(ICardDeleteData data, Handle handle);
-	void update(ICardUpdateData data, Handle handle);
-	void moveCards(ICardIdListData data, Handle handle);
-	void bulkInsert(ICsvUploadData data, Handle handle);
-	void changeCardOrder(IChangeCardOrderListData data, Handle handle);
+	public ChangeOrderOkEvent(IChangeCardOrderListData eventData, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.card.events.ChangeOrderOkEvent", eventData, daoProvider, viewProvider);
+	}
 
 }
 

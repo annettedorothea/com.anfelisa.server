@@ -17,27 +17,30 @@
 
 
 
-package com.anfelisa.card.views;
+package com.anfelisa.card.actions;
 
-import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.Jdbi;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.card.data.ICardCreationData;
-import com.anfelisa.card.data.ICardDeleteData;
-import com.anfelisa.card.data.ICardUpdateData;
-import com.anfelisa.card.data.ICardIdListData;
-import com.anfelisa.card.data.ICsvUploadData;
-import com.anfelisa.card.data.IChangeCardOrderListData;
+import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.E2E;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
-@SuppressWarnings("all")
-public interface ICardView {
+public class ChangeOrderAction extends AbstractChangeOrderAction {
 
-	void insert(ICardCreationData data, Handle handle);
-	void delete(ICardDeleteData data, Handle handle);
-	void update(ICardUpdateData data, Handle handle);
-	void moveCards(ICardIdListData data, Handle handle);
-	void bulkInsert(ICsvUploadData data, Handle handle);
-	void changeCardOrder(IChangeCardOrderListData data, Handle handle);
+	static final Logger LOG = LoggerFactory.getLogger(ChangeOrderAction.class);
+
+	public ChangeOrderAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, 
+			ViewProvider viewProvider, E2E e2e) {
+		super(jdbi,appConfiguration, daoProvider, viewProvider, e2e);
+	}
+
+
+	
+	public void initActionData() {
+	}
 
 }
 

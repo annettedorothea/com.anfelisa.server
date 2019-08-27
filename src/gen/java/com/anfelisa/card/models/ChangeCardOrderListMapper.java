@@ -17,28 +17,24 @@
 
 
 
-package com.anfelisa.card.views;
+package com.anfelisa.card.models;
 
-import org.jdbi.v3.core.Handle;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.card.data.ICardCreationData;
-import com.anfelisa.card.data.ICardDeleteData;
-import com.anfelisa.card.data.ICardUpdateData;
-import com.anfelisa.card.data.ICardIdListData;
-import com.anfelisa.card.data.ICsvUploadData;
-import com.anfelisa.card.data.IChangeCardOrderListData;
+import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 
-@SuppressWarnings("all")
-public interface ICardView {
-
-	void insert(ICardCreationData data, Handle handle);
-	void delete(ICardDeleteData data, Handle handle);
-	void update(ICardUpdateData data, Handle handle);
-	void moveCards(ICardIdListData data, Handle handle);
-	void bulkInsert(ICsvUploadData data, Handle handle);
-	void changeCardOrder(IChangeCardOrderListData data, Handle handle);
-
+public class ChangeCardOrderListMapper implements RowMapper<IChangeCardOrderListModel> {
+	
+	public IChangeCardOrderListModel map(ResultSet r, StatementContext ctx) throws SQLException {
+		return new ChangeCardOrderListModel(
+			null,
+			r.getString("cardId"),
+			r.getString("userId"),
+			null
+		);
+	}
 }
 
 

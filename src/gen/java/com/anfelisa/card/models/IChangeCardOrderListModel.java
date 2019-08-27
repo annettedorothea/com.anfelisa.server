@@ -17,28 +17,28 @@
 
 
 
-package com.anfelisa.card.views;
+package com.anfelisa.card.models;
 
-import org.jdbi.v3.core.Handle;
+import java.util.List;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.card.data.ICardCreationData;
-import com.anfelisa.card.data.ICardDeleteData;
-import com.anfelisa.card.data.ICardUpdateData;
-import com.anfelisa.card.data.ICardIdListData;
-import com.anfelisa.card.data.ICsvUploadData;
-import com.anfelisa.card.data.IChangeCardOrderListData;
+@SuppressWarnings("unused")
+@JsonDeserialize(as=ChangeCardOrderListModel.class)
+public interface IChangeCardOrderListModel {
 
-@SuppressWarnings("all")
-public interface ICardView {
-
-	void insert(ICardCreationData data, Handle handle);
-	void delete(ICardDeleteData data, Handle handle);
-	void update(ICardUpdateData data, Handle handle);
-	void moveCards(ICardIdListData data, Handle handle);
-	void bulkInsert(ICsvUploadData data, Handle handle);
-	void changeCardOrder(IChangeCardOrderListData data, Handle handle);
-
+	java.util.List<String> getCardIdList();
+	void setCardIdList(java.util.List<String> cardIdList);
+	
+	String getCardId();
+	void setCardId(String cardId);
+	
+	String getUserId();
+	void setUserId(String userId);
+	
+	java.util.List<com.anfelisa.card.models.ICardModel> getUpdatedIndices();
+	void setUpdatedIndices(java.util.List<com.anfelisa.card.models.ICardModel> updatedIndices);
+	
+	
 }
 
 

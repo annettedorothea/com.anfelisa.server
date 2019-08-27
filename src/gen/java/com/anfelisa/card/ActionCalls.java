@@ -84,6 +84,16 @@ public class ActionCalls {
 		return builder.put(Entity.json(data));
 	}
 	
+	public static Response callChangeOrder(String uuid, java.util.List<String> cardIdList, String cardId, int port, String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/cards/changeorder?uuid=" + uuid, port)).request();
+		com.anfelisa.card.data.IChangeCardOrderListData data = new com.anfelisa.card.data.ChangeCardOrderListData(uuid);
+		data.setCardIdList(cardIdList);
+		data.setCardId(cardId);
+		builder.header("Authorization", authorization);
+		return builder.put(Entity.json(data));
+	}
+	
 	public static Response callImportCsv(String uuid, java.util.List<com.anfelisa.card.models.ISimpleCardModel> previewCsv, String categoryId, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/category/import-csv?uuid=" + uuid, port)).request();

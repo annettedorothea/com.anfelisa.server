@@ -17,27 +17,34 @@
 
 
 
-package com.anfelisa.card.views;
+package com.anfelisa.card.data;
 
-import org.jdbi.v3.core.Handle;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.card.data.ICardCreationData;
-import com.anfelisa.card.data.ICardDeleteData;
-import com.anfelisa.card.data.ICardUpdateData;
-import com.anfelisa.card.data.ICardIdListData;
-import com.anfelisa.card.data.ICsvUploadData;
-import com.anfelisa.card.data.IChangeCardOrderListData;
+public class ChangeCardOrderListData extends AbstractChangeCardOrderListData implements IChangeCardOrderListData {
+	
+	public ChangeCardOrderListData(
+		@JsonProperty("cardIdList") java.util.List<String> cardIdList, 
+		@JsonProperty("cardId") String cardId, 
+		@JsonProperty("userId") String userId, 
+		@JsonProperty("updatedIndices") java.util.List<com.anfelisa.card.models.ICardModel> updatedIndices, 
+		@JsonProperty("uuid") String uuid
+	) {
+		super(
+			cardIdList,
+			cardId,
+			userId,
+			updatedIndices,
+			uuid
+		);
+	}
 
-@SuppressWarnings("all")
-public interface ICardView {
+	public ChangeCardOrderListData( String uuid ) {
+		super(uuid);
+	}
 
-	void insert(ICardCreationData data, Handle handle);
-	void delete(ICardDeleteData data, Handle handle);
-	void update(ICardUpdateData data, Handle handle);
-	void moveCards(ICardIdListData data, Handle handle);
-	void bulkInsert(ICsvUploadData data, Handle handle);
-	void changeCardOrder(IChangeCardOrderListData data, Handle handle);
+	public void migrateLegacyData(String json) {
+	}
 
 }
 

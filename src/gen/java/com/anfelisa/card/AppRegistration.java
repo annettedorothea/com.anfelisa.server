@@ -43,6 +43,7 @@ public class AppRegistration {
 		environment.jersey().register(new GetCardsAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new GetDuplicatesAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new MoveCardsAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new ChangeOrderAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ImportCsvAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 	}
 
@@ -61,6 +62,10 @@ public class AppRegistration {
 		
 		viewProvider.addConsumer("com.anfelisa.card.events.MoveCardsOkEvent", (dataContainer, handle) -> {
 			viewProvider.cardView.moveCards((com.anfelisa.card.data.CardIdListData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.card.events.ChangeOrderOkEvent", (dataContainer, handle) -> {
+			viewProvider.cardView.changeCardOrder((com.anfelisa.card.data.ChangeCardOrderListData) dataContainer, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.card.events.ImportCsvOkEvent", (dataContainer, handle) -> {

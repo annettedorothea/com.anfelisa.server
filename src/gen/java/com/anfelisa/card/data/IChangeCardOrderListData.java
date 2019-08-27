@@ -17,28 +17,26 @@
 
 
 
-package com.anfelisa.card.views;
+package com.anfelisa.card.data;
 
-import org.jdbi.v3.core.Handle;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.card.data.ICardCreationData;
-import com.anfelisa.card.data.ICardDeleteData;
-import com.anfelisa.card.data.ICardUpdateData;
-import com.anfelisa.card.data.ICardIdListData;
-import com.anfelisa.card.data.ICsvUploadData;
-import com.anfelisa.card.data.IChangeCardOrderListData;
 
-@SuppressWarnings("all")
-public interface ICardView {
+import com.anfelisa.card.models.IChangeCardOrderListModel;
 
-	void insert(ICardCreationData data, Handle handle);
-	void delete(ICardDeleteData data, Handle handle);
-	void update(ICardUpdateData data, Handle handle);
-	void moveCards(ICardIdListData data, Handle handle);
-	void bulkInsert(ICsvUploadData data, Handle handle);
-	void changeCardOrder(IChangeCardOrderListData data, Handle handle);
-
+@JsonDeserialize(as=ChangeCardOrderListData.class)
+public interface IChangeCardOrderListData extends IChangeCardOrderListModel, IDataContainer {
+	
+	IChangeCardOrderListData withCardIdList(java.util.List<String> cardIdList);
+	
+	IChangeCardOrderListData withCardId(String cardId);
+	
+	IChangeCardOrderListData withUserId(String userId);
+	
+	IChangeCardOrderListData withUpdatedIndices(java.util.List<com.anfelisa.card.models.ICardModel> updatedIndices);
+	
+	
 }
 
 

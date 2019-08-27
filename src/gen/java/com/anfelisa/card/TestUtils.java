@@ -49,6 +49,11 @@ public class TestUtils {
 		return new TimelineItem("prepare", null, "com.anfelisa.card.events.MoveCardsOkEvent", null, json, data.getUuid());
 	}
 
+	public static TimelineItem createChangeOrderOkEventTimelineItem(com.anfelisa.card.data.IChangeCardOrderListData data) throws JsonProcessingException {
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.card.events.ChangeOrderOkEvent", null, json, data.getUuid());
+	}
+
 	public static TimelineItem createImportCsvOkEventTimelineItem(com.anfelisa.card.data.ICsvUploadData data) throws JsonProcessingException {
 		String json = mapper.writeValueAsString(data);
 		return new TimelineItem("prepare", null, "com.anfelisa.card.events.ImportCsvOkEvent", null, json, data.getUuid());

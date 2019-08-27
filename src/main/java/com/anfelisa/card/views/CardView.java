@@ -7,6 +7,7 @@ import com.anfelisa.card.data.ICardCreationData;
 import com.anfelisa.card.data.ICardDeleteData;
 import com.anfelisa.card.data.ICardIdListData;
 import com.anfelisa.card.data.ICardUpdateData;
+import com.anfelisa.card.data.IChangeCardOrderListData;
 import com.anfelisa.card.data.ICsvUploadData;
 import com.anfelisa.card.models.ICardModel;
 
@@ -43,6 +44,13 @@ public class CardView implements ICardView {
 	public void bulkInsert(ICsvUploadData data, Handle handle) {
 		for (ICardModel card : data.getCards()) {
 			daoProvider.getCardDao().insert(handle, card);
+		}
+	}
+
+	@Override
+	public void changeCardOrder(IChangeCardOrderListData data, Handle handle) {
+		for (ICardModel card : data.getUpdatedIndices()) {
+			daoProvider.getCardDao().updateIndex(handle, card);
 		}
 	}
 
