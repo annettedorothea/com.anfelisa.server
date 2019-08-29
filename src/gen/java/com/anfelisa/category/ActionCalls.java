@@ -103,6 +103,16 @@ public class ActionCalls {
 		return builder.put(Entity.json(data));
 	}
 	
+	public static Response callChangeOrderCategory(String uuid, String movedCategoryId, String targetCategoryId, int port, String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/category/changeorder?uuid=" + uuid, port)).request();
+		com.anfelisa.category.data.ICategoryChangeOrderData data = new com.anfelisa.category.data.CategoryChangeOrderData(uuid);
+		data.setMovedCategoryId(movedCategoryId);
+		data.setTargetCategoryId(targetCategoryId);
+		builder.header("Authorization", authorization);
+		return builder.put(Entity.json(data));
+	}
+	
 	
 }
 

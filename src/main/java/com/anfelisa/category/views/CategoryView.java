@@ -3,6 +3,7 @@ package com.anfelisa.category.views;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.category.data.ICategoryChangeOrderData;
 import com.anfelisa.category.data.ICategoryCreationData;
 import com.anfelisa.category.data.ICategoryDeleteData;
 import com.anfelisa.category.data.ICategoryMoveData;
@@ -41,6 +42,12 @@ public class CategoryView implements ICategoryView {
 	public void moveCategory(ICategoryMoveData data, Handle handle) {
 		daoProvider.getCategoryDao().updateByCategoryId(handle, data.getMovedCategory());
 		daoProvider.getCategoryDao().shiftCategories(handle, data.getCategoryIndexWhereRemoved(), data.getParentCategoryIdWhereRemoved());
+	}
+
+	@Override
+	public void changeOrder(ICategoryChangeOrderData data, Handle handle) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

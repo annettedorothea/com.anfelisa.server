@@ -17,28 +17,26 @@
 
 
 
-package com.anfelisa.category.views;
+package com.anfelisa.category.data;
 
-import org.jdbi.v3.core.Handle;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.category.data.ICategoryCreationData;
-import com.anfelisa.category.data.ICategoryDeleteData;
-import com.anfelisa.category.data.ICategoryDeleteData;
-import com.anfelisa.category.data.ICategoryUpdateData;
-import com.anfelisa.category.data.ICategoryMoveData;
-import com.anfelisa.category.data.ICategoryChangeOrderData;
 
-@SuppressWarnings("all")
-public interface ICategoryView {
+import com.anfelisa.category.models.ICategoryChangeOrderModel;
 
-	void insert(ICategoryCreationData data, Handle handle);
-	void delete(ICategoryDeleteData data, Handle handle);
-	void deleteRoot(ICategoryDeleteData data, Handle handle);
-	void update(ICategoryUpdateData data, Handle handle);
-	void moveCategory(ICategoryMoveData data, Handle handle);
-	void changeOrder(ICategoryChangeOrderData data, Handle handle);
-
+@JsonDeserialize(as=CategoryChangeOrderData.class)
+public interface ICategoryChangeOrderData extends ICategoryChangeOrderModel, IDataContainer {
+	
+	ICategoryChangeOrderData withMovedCategoryId(String movedCategoryId);
+	
+	ICategoryChangeOrderData withTargetCategoryId(String targetCategoryId);
+	
+	ICategoryChangeOrderData withUserId(String userId);
+	
+	ICategoryChangeOrderData withUpdatedIndices(java.util.List<com.anfelisa.category.models.ICategoryModel> updatedIndices);
+	
+	
 }
 
 

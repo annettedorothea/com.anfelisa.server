@@ -79,6 +79,15 @@ public class TestUtils {
 		return new TimelineItem("prepare", null, "com.anfelisa.category.events.MoveCategoryNoMoveEvent", null, json, data.getUuid());
 	}
 
+	public static TimelineItem createChangeOrderCategoryOkEventTimelineItem(com.anfelisa.category.data.ICategoryChangeOrderData data) throws JsonProcessingException {
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.category.events.ChangeOrderCategoryOkEvent", null, json, data.getUuid());
+	}
+	public static TimelineItem createChangeOrderCategoryNoMoveEventTimelineItem(com.anfelisa.category.data.ICategoryChangeOrderData data) throws JsonProcessingException {
+		String json = mapper.writeValueAsString(data);
+		return new TimelineItem("prepare", null, "com.anfelisa.category.events.ChangeOrderCategoryNoMoveEvent", null, json, data.getUuid());
+	}
+
 	
 }
 

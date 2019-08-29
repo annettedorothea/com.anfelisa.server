@@ -17,27 +17,19 @@
 
 
 
-package com.anfelisa.category.views;
+package com.anfelisa.category.events;
 
-import org.jdbi.v3.core.Handle;
+import com.anfelisa.ace.Event;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.category.data.ICategoryCreationData;
-import com.anfelisa.category.data.ICategoryDeleteData;
-import com.anfelisa.category.data.ICategoryDeleteData;
-import com.anfelisa.category.data.ICategoryUpdateData;
-import com.anfelisa.category.data.ICategoryMoveData;
 import com.anfelisa.category.data.ICategoryChangeOrderData;
 
-@SuppressWarnings("all")
-public interface ICategoryView {
+public class ChangeOrderCategoryNoMoveEvent extends Event<ICategoryChangeOrderData> {
 
-	void insert(ICategoryCreationData data, Handle handle);
-	void delete(ICategoryDeleteData data, Handle handle);
-	void deleteRoot(ICategoryDeleteData data, Handle handle);
-	void update(ICategoryUpdateData data, Handle handle);
-	void moveCategory(ICategoryMoveData data, Handle handle);
-	void changeOrder(ICategoryChangeOrderData data, Handle handle);
+	public ChangeOrderCategoryNoMoveEvent(ICategoryChangeOrderData eventData, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.events.ChangeOrderCategoryNoMoveEvent", eventData, daoProvider, viewProvider);
+	}
 
 }
 

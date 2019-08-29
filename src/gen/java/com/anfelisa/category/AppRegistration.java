@@ -45,6 +45,7 @@ public class AppRegistration {
 		environment.jersey().register(new GetUsersWithAccessAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new GetCategoryTreeAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new MoveCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new ChangeOrderCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 	}
 
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {
@@ -82,6 +83,10 @@ public class AppRegistration {
 		
 		viewProvider.addConsumer("com.anfelisa.category.events.MoveCategoryOkEvent", (dataContainer, handle) -> {
 			viewProvider.categoryView.moveCategory((com.anfelisa.category.data.CategoryMoveData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.category.events.ChangeOrderCategoryOkEvent", (dataContainer, handle) -> {
+			viewProvider.categoryView.changeOrder((com.anfelisa.category.data.CategoryChangeOrderData) dataContainer, handle);
 		});
 		
     }

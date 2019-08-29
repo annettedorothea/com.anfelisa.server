@@ -103,6 +103,15 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
+			if (className.equals("com.anfelisa.category.actions.ChangeOrderCategoryAction") ||
+					className.equals("com.anfelisa.category.commands.ChangeOrderCategoryCommand") ||
+					className.equals("com.anfelisa.category.events.ChangeOrderCategoryOkEvent")||
+					className.equals("com.anfelisa.category.events.ChangeOrderCategoryNoMoveEvent")
+			) {
+				CategoryChangeOrderData data = mapper.readValue(json, CategoryChangeOrderData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
 		} catch (IOException e) {
 			LOG.error("failed to create ace data {} with data {}", className, json, e);
 		}

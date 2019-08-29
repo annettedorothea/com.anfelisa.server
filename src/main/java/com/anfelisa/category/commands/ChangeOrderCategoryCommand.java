@@ -17,27 +17,31 @@
 
 
 
-package com.anfelisa.category.views;
+package com.anfelisa.category.commands;
 
+import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.CustomAppConfiguration;
 import org.jdbi.v3.core.Handle;
 
-import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.category.data.ICategoryCreationData;
-import com.anfelisa.category.data.ICategoryDeleteData;
-import com.anfelisa.category.data.ICategoryDeleteData;
-import com.anfelisa.category.data.ICategoryUpdateData;
-import com.anfelisa.category.data.ICategoryMoveData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.anfelisa.category.data.ICategoryChangeOrderData;
 
-@SuppressWarnings("all")
-public interface ICategoryView {
+public class ChangeOrderCategoryCommand extends AbstractChangeOrderCategoryCommand {
 
-	void insert(ICategoryCreationData data, Handle handle);
-	void delete(ICategoryDeleteData data, Handle handle);
-	void deleteRoot(ICategoryDeleteData data, Handle handle);
-	void update(ICategoryUpdateData data, Handle handle);
-	void moveCategory(ICategoryMoveData data, Handle handle);
-	void changeOrder(ICategoryChangeOrderData data, Handle handle);
+	static final Logger LOG = LoggerFactory.getLogger(ChangeOrderCategoryCommand.class);
+
+	public ChangeOrderCategoryCommand(ICategoryChangeOrderData commandData, IDaoProvider daoProvider, ViewProvider viewProvider, 
+			CustomAppConfiguration appConfiguration) {
+		super(commandData, daoProvider, viewProvider, appConfiguration);
+	}
+
+	@Override
+	protected void executeCommand(Handle readonlyHandle) {
+		this.commandData.setOutcome(ok);
+	}
 
 }
 

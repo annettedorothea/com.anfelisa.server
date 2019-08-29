@@ -74,6 +74,15 @@ ACE
 		on ok (Category.moveCategory)
 		on noMove
 		
+	ChangeOrderCategory<CategoryChangeOrder>
+		PUT "/category/changeorder"
+		authorize
+		payload
+			movedCategoryId
+			targetCategoryId
+		on ok (Category.changeOrder)
+		on noMove
+		
 views 
 	Category {
 		insert(CategoryCreation)
@@ -81,6 +90,7 @@ views
 		deleteRoot(CategoryDelete)
 		update(CategoryUpdate)
 		moveCategory(CategoryMove)
+		changeOrder(CategoryChangeOrder)
 	}
 	
 	UserAccessToCategory { 
@@ -198,6 +208,11 @@ models
 		String userId
 	}
 	
-	
+	CategoryChangeOrder {
+		String movedCategoryId
+		String targetCategoryId
+		String userId
+		List Category updatedIndices
+	}
 	
 
