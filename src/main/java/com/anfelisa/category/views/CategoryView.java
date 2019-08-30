@@ -8,6 +8,7 @@ import com.anfelisa.category.data.ICategoryCreationData;
 import com.anfelisa.category.data.ICategoryDeleteData;
 import com.anfelisa.category.data.ICategoryMoveData;
 import com.anfelisa.category.data.ICategoryUpdateData;
+import com.anfelisa.category.models.ICategoryModel;
 
 public class CategoryView implements ICategoryView {
 
@@ -46,8 +47,9 @@ public class CategoryView implements ICategoryView {
 
 	@Override
 	public void changeOrder(ICategoryChangeOrderData data, Handle handle) {
-		// TODO Auto-generated method stub
-		
+		for (ICategoryModel category : data.getUpdatedIndices()) {
+			daoProvider.getCategoryDao().updateIndex(handle, category);
+		}
 	}
 
 }

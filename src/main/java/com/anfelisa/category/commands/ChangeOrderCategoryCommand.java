@@ -14,41 +14,80 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-
-
-
 package com.anfelisa.category.commands;
 
-import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.CustomAppConfiguration;
-import org.jdbi.v3.core.Handle;
+import java.util.List;
 
+import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.data.ICategoryChangeOrderData;
+import com.anfelisa.category.models.ICategoryModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 public class ChangeOrderCategoryCommand extends AbstractChangeOrderCategoryCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(ChangeOrderCategoryCommand.class);
 
-	public ChangeOrderCategoryCommand(ICategoryChangeOrderData commandData, IDaoProvider daoProvider, ViewProvider viewProvider, 
-			CustomAppConfiguration appConfiguration) {
+	public ChangeOrderCategoryCommand(ICategoryChangeOrderData commandData, IDaoProvider daoProvider,
+			ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super(commandData, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override
 	protected void executeCommand(Handle readonlyHandle) {
+		ICategoryModel targetCategory = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				commandData.getTargetCategoryId());
+		if (targetCategory == null) {
+			throwBadRequest("categoryDoesNotExist");
+		}
+		List<ICategoryModel> categories;
+		if (targetCategory.getParentCategoryId() == null) {
+			categories = this.daoProvider.getCategoryDao().selectAllUsersRoot(readonlyHandle,
+					this.commandData.getUserId());
+		} else {
+			IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
+					.hasUserAccessTo(readonlyHandle, targetCategory.getRootCategoryId(), commandData.getUserId());
+			if (accessToRootCategory == null) {
+				throwUnauthorized();
+			}
+			categories = this.daoProvider.getCategoryDao().selectAllChildren(readonlyHandle,
+					targetCategory.getParentCategoryId());
+		}
+		int index = 1;
+		for (ICategoryModel category : categories) {
+			if (category.getCategoryIndex() < targetCategory.getCategoryIndex()) {
+				if (!commandData.getMovedCategoryId().equals(category.getCategoryId())) {
+					category.setCategoryIndex(index);
+					index++;
+				}
+			} else {
+				break;
+			}
+		}
+		for (ICategoryModel category : categories) {
+			if (commandData.getMovedCategoryId().equals(category.getCategoryId())) {
+				category.setCategoryIndex(index);
+				index++;
+				break;
+			}
+		}
+		for (ICategoryModel category : categories) {
+			if (category.getCategoryIndex() >= targetCategory.getCategoryIndex()) {
+				if (!commandData.getMovedCategoryId().equals(category.getCategoryId())) {
+					category.setCategoryIndex(index);
+					index++;
+				}
+			}
+		}
+		this.commandData.setUpdatedIndices(categories);
 		this.commandData.setOutcome(ok);
 	}
 
 }
 
-
-
-
 /******* S.D.G. *******/
-
-
-

@@ -31,6 +31,14 @@ public class CategoryDao extends AbstractCategoryDao {
 				.bind("userid", userId).map(new CategoryTreeRootItemMapper()).list();
 	}
 
+	public List<ICategoryModel> selectAllUsersRoot(Handle handle, String userId) {
+		return handle.createQuery("SELECT * FROM "
+				+ "( SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
+				+ "(select a.editable from useraccesstocategory a where a.categoryid = c.rootcategoryid and a.userid = :userid) "
+				+ "FROM public.category c) as categoryitem WHERE parentcategoryid is null and editable is not null order by categoryindex, categoryname")
+				.bind("userid", userId).map(new CategoryMapper()).list();
+	}
+	
 	public Integer selectMaxIndexInCategory(Handle handle, String parentCategoryId) {
 		Optional<Integer> optional = handle
 				.createQuery(
@@ -57,6 +65,14 @@ public class CategoryDao extends AbstractCategoryDao {
 		statement.execute();
 	}
 
+	public void updateIndex(Handle handle, ICategoryModel categoryModel) {
+		Update statement = handle.createUpdate(
+				"UPDATE public.category SET categoryindex = :categoryindex WHERE categoryid = :categoryid");
+		statement.bind("categoryindex", categoryModel.getCategoryIndex());
+		statement.bind("categoryid", categoryModel.getCategoryId());
+		statement.execute();
+	}
+	
 	public void shiftCategories(Handle handle, Integer categoryIndex, String parentCategoryId) {
 		Update statement = handle.createUpdate(
 				"UPDATE public.category SET categoryindex = categoryindex-1 WHERE parentcategoryid = :parentcategoryid and categoryindex > :categoryindex");
