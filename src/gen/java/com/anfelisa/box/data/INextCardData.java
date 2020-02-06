@@ -57,6 +57,10 @@ public interface INextCardData extends INextCardModel, IDataContainer {
 	
 	INextCardData withBoxId(String boxId);
 	
+	INextCardData withOpenTodaysCards(Integer openTodaysCards);
+	
+	INextCardData withAllTodaysCards(Integer allTodaysCards);
+	
 	
 }
 

@@ -28,23 +28,17 @@ import com.anfelisa.box.models.IBoxViewModel;
 @JsonDeserialize(as=BoxViewData.class)
 public interface IBoxViewData extends IBoxViewModel, IDataContainer {
 	
-	IBoxViewData withTodaysCards(Integer todaysCards);
+	IBoxViewData withOpenTodaysCards(Integer openTodaysCards);
 	
-	IBoxViewData withTomorrowsCards(Integer tomorrowsCards);
+	IBoxViewData withAllTodaysCards(Integer allTodaysCards);
 	
-	IBoxViewData withTotalCards(Integer totalCards);
-	
-	IBoxViewData withReinforceCards(Integer reinforceCards);
+	IBoxViewData withMaxCardsPerDay(Integer maxCardsPerDay);
 	
 	IBoxViewData withMyCards(Integer myCards);
 	
-	IBoxViewData withDaysBehindSchedule(Integer daysBehindSchedule);
+	IBoxViewData withTotalCards(Integer totalCards);
 	
 	IBoxViewData withCategoryName(String categoryName);
-	
-	IBoxViewData withMaxInterval(Integer maxInterval);
-	
-	IBoxViewData withMaxCardsPerDay(Integer maxCardsPerDay);
 	
 	IBoxViewData withQuality0Count(Integer quality0Count);
 	

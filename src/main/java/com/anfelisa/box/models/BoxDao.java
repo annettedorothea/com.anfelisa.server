@@ -11,15 +11,14 @@ import com.anfelisa.box.data.IBoxUpdateData;
 
 public class BoxDao extends AbstractBoxDao {
 	public List<IBoxViewModel> selectByUserId(Handle handle, String userId, DateTime today) {
-		DateTime tomorrow = today.plusDays(1);
+		DateTime yesterday = today.minusDays(1);
 		return handle.createQuery("SELECT "
-				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = b.boxid AND quality is null AND scheduledDate <= :today) as todayscards, "
-				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = b.boxid AND quality is null AND scheduledDate > :today and scheduledDate <= :tomorrow) as tomorrowscards, "
+				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = b.boxid AND scheduledDate > :yesterday and scheduledDate <= :today) as allTodaysCards, "
+				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = b.boxid AND quality is null AND scheduledDate <= :today) + "
+				+ "(select count(reinforcecardid) from public.reinforcecard where boxid = b.boxid ) as openTodaysCards, "
 				+ "(select count(cardid) from card where rootcategoryid = b.categoryid) as totalcards, "
 				+ "(select count(distinct(cardid)) from public.scheduledcard where boxid = b.boxid ) as mycards, "
-				+ "(select count(reinforcecardid) from public.reinforcecard where boxid = b.boxid ) as reinforcecards, "
-				+ "(select date_part('day', age(:today::timestamp, (select min(scheduleddate) from scheduledcard where boxid = b.boxid and quality is null)::timestamp) )) as daysbehindschedule, "
-				+ "b.boxid, b.categoryid, c.categoryname, c.categoryindex, b.maxinterval, b.maxcardsperday, "
+				+ "b.boxid, b.categoryid, c.categoryname, c.categoryindex, b.maxcardsperday, "
 				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 0) as quality0Count, "
 				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 1) as quality1Count, "
 				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 2) as quality2Count, "
@@ -29,8 +28,18 @@ public class BoxDao extends AbstractBoxDao {
 				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid where userid = :userid order by c.categoryindex")
 				.bind("userid", userId)
 				.bind("today", today)
-				.bind("tomorrow", tomorrow)
+				.bind("yesterday", yesterday)
 				.map(new BoxViewMapper()).list();
+	}
+	
+	public List<IInitBoxesModel> selectInitBoxesModelByUserId(Handle handle, String userId, DateTime today) {
+		return handle.createQuery("SELECT "
+				+ "(select date_part('day', age(:today::timestamp, (select min(scheduleddate) from scheduledcard where boxid = b.boxid and quality is null)::timestamp) )) as daysbehindschedule, "
+				+ "b.boxid "
+				+ "FROM public.box b where userid = :userid")
+				.bind("userid", userId)
+				.bind("today", today)
+				.map(new InitBoxesMapper()).list();
 	}
 	
 	public IBoxViewModel selectByBoxId(Handle handle, String boxId, DateTime today) {

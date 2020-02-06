@@ -98,6 +98,11 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
+			if (className.equals("com.anfelisa.card.actions.GetTranslationAction")) {
+				CardTranslationData data = mapper.readValue(json, CardTranslationData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
 		} catch (IOException e) {
 			LOG.error("failed to create ace data {} with data {}", className, json, e);
 		}

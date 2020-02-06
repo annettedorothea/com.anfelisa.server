@@ -4,6 +4,7 @@ com.anfelisa.box
 
 import com.anfelisa.user.AuthUser
 
+
 ACE 
 	GetBoxes<BoxList>
 	GET "/boxes/my/" 
@@ -11,30 +12,6 @@ ACE
 		queryParams today
 		response 
 			boxList
-		
-	GetBox<BoxInfo>
-		GET "/box/get" 
-		authorize
-		queryParams 
-			boxId 
-			today
-		response 
-			boxId
-			categoryName
-			daysBehindSchedule
-			maxInterval
-			maxCardsPerDay
-			myCards
-			quality0Count
-			quality1Count
-			quality2Count
-			quality3Count
-			quality4Count
-			quality5Count
-			reinforceCards
-			todaysCards
-			tomorrowsCards
-			totalCards
 		
 	CreateBox<Box>
 		POST "/box/create" 
@@ -51,15 +28,13 @@ ACE
 			maxCardsPerDay
 			boxId
 		on ok ( Box.updateBox )
-	
-	PostponeCards<PostponeCards>
-		PUT "/cards/postpone" 
+		
+	InitMyBoxesForDay<InitMyBoxesData>
+		PUT "/box/init"  
 		authorize
 		payload 
-			boxId
-			today
-		on ok ( ScheduledCard.postponeCards )
-		on noDelay
+			today 
+		on ok ( ScheduledCard.postponeCards ReinforceCard.clear )
 	
 	DeleteBox<DeleteBox>
 		DELETE "/box/delete"  
@@ -85,6 +60,8 @@ ACE
 			scheduledDate
 			scoredDate
 			wanted
+			openTodaysCards
+			allTodaysCards
 
 	LoadNextReinforceCard<NextReinforceCard>
 		GET "/box/next-reinforce-card" 
@@ -100,12 +77,6 @@ ACE
 			reinforceCardId
 			wanted			
 
-	ScheduleNextCard<ScheduleNextCard>
-		POST "/card/schedule-next" 
-		authorize 
-		payload boxId
-		on ok (Box.scheduleCard)
-	
 	ScheduleCards<ScheduledCards>
 		POST "/cards/schedule" 
 		authorize 
@@ -129,6 +100,8 @@ ACE
 		payload reinforceCardId quality
 		on remove (ReinforceCard.remove)
 		on keep (ReinforceCard.update)
+		
+	
 	
 
 views 
@@ -136,20 +109,20 @@ views
 		createBox (Box)
 		updateBox (BoxUpdate)
 		deleteBox (DeleteBox)
-		scheduleCard(ScheduleNextCard)
 		scheduleCards(ScheduledCards)
 	}
 	
 	ScheduledCard { 
 		score(ScoreCard)
 		scheduleNext(ScoreCard)
-		postponeCards(PostponeCards)
+		postponeCards(InitMyBoxesData)
 	}
 	
 	ReinforceCard { 
 		add(ScoreCard)
 		remove(ScoreReinforceCard)
 		update(ScoreReinforceCard)
+		clear(InitMyBoxesData)
 	}
 
 models 
@@ -158,7 +131,7 @@ models
 		NotNull String userId references com.anfelisa.user.User.userId
 		NotNull String categoryId references com.anfelisa.category.Category.categoryId
 		Integer maxInterval
-		Integer maxCardsPerDay
+		NotNull Integer maxCardsPerDay
 	}
 
 	persistent ScheduledCard {
@@ -184,15 +157,12 @@ models
 	}
 
 	BoxView {
-		Integer todaysCards
-		Integer tomorrowsCards
-		Integer totalCards
-		Integer reinforceCards
-		Integer myCards
-		Integer daysBehindSchedule
-		NotNull String categoryName
-		Integer maxInterval
+		Integer openTodaysCards
+		Integer allTodaysCards
 		Integer maxCardsPerDay
+		Integer myCards
+		Integer totalCards
+		NotNull String categoryName
 		Integer quality0Count
 		Integer quality1Count
 		Integer quality2Count
@@ -202,20 +172,25 @@ models
 		NotNull String boxId
 	}
 
-	BoxInfo extends BoxView {
-		String userId
-		NotNull DateTime today
+	InitBoxes {
+		Integer daysBehindSchedule
+		NotNull String boxId
 	}
+
 	BoxList {
 		List BoxView boxList
 		String userId
 		NotNull DateTime today
 	}
+	InitMyBoxesData {
+		String userId
+		NotNull DateTime today
+		List PostponeCards postponeCards
+		List String outdatedReinforceCardsIds
+	}
 	PostponeCards {
 		NotNull Integer days
 		NotNull String boxId
-		String userId
-		NotNull DateTime today
 	}
 
 	BoxUpdate {
@@ -224,6 +199,7 @@ models
 		Integer maxInterval
 		Integer maxCardsPerDay
 	}
+
 
 	NextCardView {
 		NotNull String scheduledCardId
@@ -238,6 +214,8 @@ models
 		NotNull Integer count
 		DateTime scoredDate
 		NotNull String boxId
+		Integer openTodaysCards
+		Integer allTodaysCards
 	}
 	
 	NextCard extends NextCardView {
@@ -283,6 +261,7 @@ models
 		String userId
 	}
 	
+	
 	ScoreReinforceCard {
 		NotNull String reinforceCardId
 		NotNull Integer quality
@@ -304,8 +283,4 @@ models
 		NotNull String boxId
 	}
 	
-	ScheduleNextCard extends ScheduledCard {
-		String userId
-		NotNull String boxId
-	}
 

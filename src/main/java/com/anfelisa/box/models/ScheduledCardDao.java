@@ -7,17 +7,16 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 import org.joda.time.DateTime;
 
-import com.anfelisa.box.data.IPostponeCardsData;
 import com.anfelisa.box.data.IScoreCardData;
 
 public class ScheduledCardDao extends AbstractScheduledCardDao {
-	public INextCardViewModel selectFirstScheduledCard(Handle handle, String boxId, DateTime today) {
-		Optional<INextCardViewModel> optional = handle.createQuery(
+	public INextCardModel selectFirstScheduledCard(Handle handle, String boxId, DateTime today) {
+		Optional<INextCardModel> optional = handle.createQuery(
 				"SELECT sc.scheduledcardid, c.cardid, sc.scheduleddate, sc.boxid, sc.lastquality, c.given, c.wanted, c.image, c.categoryid, c.rootCategoryid as rootCategoryId, sc.count, sc.scoreddate FROM public.scheduledcard sc "
 						+ "inner join public.card c on c.cardid = sc.cardid "
 						+ "inner join public.category ct on c.categoryid = ct.categoryid "
-						+ "WHERE sc.boxid = :boxId and quality is null order by sc.scheduleddate, ct.categoryindex, c.cardindex limit 1")
-				.bind("boxId", boxId).bind("today", today).map(new NextCardViewMapper()).findFirst();
+						+ "WHERE sc.boxid = :boxId and quality is null and sc.scheduleddate <= :today order by sc.scheduleddate, ct.categoryindex, c.cardindex limit 1")
+				.bind("boxId", boxId).bind("today", today).map(new NextCardMapper()).findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 
@@ -29,20 +28,6 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 				.bind("boxId", boxId).bind("startoftoday", startOfToday).bind("endoftoday", endOfToday)
 				.mapTo(Integer.class).findFirst();
 		return optional.isPresent() ? optional.get() : null;
-	}
-
-	public List<IScheduledCardModel> selectReinforceCards(Handle handle, String boxId, DateTime now) {
-		return handle.createQuery(
-				"SELECT scheduledcardid, cardid, ef, interval, n, count, scheduleddate, boxid, lastquality, timestamp FROM public.scheduledcard WHERE boxid = :boxId AND lastquality < 4 AND date_trunc('day', timestamp) >= date_trunc('day', TIMESTAMP ':now') ORDER BY timestamp ASC")
-				.bind("boxId", boxId).bind("now", now.toString()).map(new ScheduledCardMapper()).list();
-	}
-
-	public void postponeScheduledCards(Handle handle, IPostponeCardsData postponeCardsData) {
-		Update statement = handle
-				.createUpdate("UPDATE public.scheduledcard SET scheduleddate = scheduleddate + INTERVAL '"
-						+ postponeCardsData.getDays() + " days' WHERE boxid = :boxId and quality is null");
-		statement.bind("boxId", postponeCardsData.getBoxId());
-		statement.execute();
 	}
 
 	public void scheduleScheduledCard(Handle handle, String scheduledCardId, DateTime scheduleddDate) {
@@ -91,6 +76,14 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 				"SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM public.scheduledcard "
 						+ "where boxid = :boxid and quality is null")
 				.bind("boxid", boxId).map(new ScheduledCardMapper()).list();
+	}
+
+	public void postponeScheduledCards(Handle handle, IPostponeCardsModel data) {
+		Update statement = handle
+				.createUpdate("UPDATE public.scheduledcard SET scheduleddate = scheduleddate + INTERVAL '"
+						+ data.getDays() + " days' WHERE boxid = :boxId and quality is null");
+		statement.bind("boxId", data.getBoxId());
+		statement.execute();
 	}
 
 }

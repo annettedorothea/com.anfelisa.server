@@ -17,41 +17,57 @@
 
 
 
-package com.anfelisa.box.models;
+package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
+import com.anfelisa.box.models.IInitBoxesModel;
 
-@SuppressWarnings("all")
-public class PostponeCardsModel implements IPostponeCardsModel {
+import com.anfelisa.ace.AbstractData;
+import com.anfelisa.ace.IDataContainer;
 
-	@NotNull
-	private Integer days;
+@SuppressWarnings("unused")
+public abstract class AbstractInitBoxesData extends AbstractData implements IInitBoxesData {
+	
+	static final Logger LOG = LoggerFactory.getLogger(AbstractInitBoxesData.class);
+	
+	private Integer daysBehindSchedule;
 	
 	@NotNull
 	private String boxId;
 	
 
-	public PostponeCardsModel() {
-	}
-
-	public PostponeCardsModel(
-		@JsonProperty("days") Integer days,
+	public AbstractInitBoxesData(
+		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
 		@JsonProperty("boxId") String boxId
+,		@JsonProperty("uuid") String uuid
 	) {
-		this.days = days;
+		super(uuid);
+		this.daysBehindSchedule = daysBehindSchedule;
 		this.boxId = boxId;
 	}
 
+	public AbstractInitBoxesData( String uuid ) {
+		super(uuid);
+	}
+
 	@JsonProperty
-		public Integer getDays() {
-			return this.days;
+		public Integer getDaysBehindSchedule() {
+			return this.daysBehindSchedule;
 		}
-	public void setDays(Integer days) {
-		this.days = days;
+	public void setDaysBehindSchedule(Integer daysBehindSchedule) {
+		this.daysBehindSchedule = daysBehindSchedule;
+	}
+	public IInitBoxesData withDaysBehindSchedule(Integer daysBehindSchedule) {
+		this.daysBehindSchedule = daysBehindSchedule;
+		return this;
 	}
 	
 	@JsonProperty
@@ -61,6 +77,11 @@ public class PostponeCardsModel implements IPostponeCardsModel {
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
+	public IInitBoxesData withBoxId(String boxId) {
+		this.boxId = boxId;
+		return this;
+	}
+	
 	
 	
 }

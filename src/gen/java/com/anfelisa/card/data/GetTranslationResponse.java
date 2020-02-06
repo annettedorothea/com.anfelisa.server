@@ -17,20 +17,36 @@
 
 
 
-package com.anfelisa.box.events;
+package com.anfelisa.card.data;
 
-import com.anfelisa.ace.Event;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import com.anfelisa.box.data.IPostponeCardsData;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
+import java.util.List;
 
-public class PostponeCardsNoDelayEvent extends Event<IPostponeCardsData> {
+import com.anfelisa.ace.IDataContainer;
 
-	public PostponeCardsNoDelayEvent(IPostponeCardsData eventData, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.events.PostponeCardsNoDelayEvent", eventData, daoProvider, viewProvider);
+@SuppressWarnings("all")
+public class GetTranslationResponse implements IGetTranslationResponse {
+	
+	@NotEmpty
+	private String targetValue;
+	
+	public GetTranslationResponse() {
 	}
-
+	
+	public GetTranslationResponse(com.anfelisa.card.models.ICardTranslationModel data) {
+		targetValue = data.getTargetValue();
+	}
+	
+	@JsonProperty
+		public String getTargetValue() {
+			return this.targetValue;
+		}
+	
 }
 
 

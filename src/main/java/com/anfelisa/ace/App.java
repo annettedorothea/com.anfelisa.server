@@ -54,9 +54,9 @@ public class App extends Application<CustomAppConfiguration> {
 		if (EMAIL_SERVICE != null) {
 			try {
 				if (x != null && x.getMessage() != null) {
-					EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", x.getMessage());
+					//EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", x.getMessage());
 				} else {
-					EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", "unknown exception");
+					//EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", "unknown exception");
 				}
 			} catch (Exception e) {
 				LOG.error("failed to notify about exception", x.getMessage());

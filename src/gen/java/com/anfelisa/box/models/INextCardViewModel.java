@@ -62,6 +62,12 @@ public interface INextCardViewModel {
 	String getBoxId();
 	void setBoxId(String boxId);
 	
+	Integer getOpenTodaysCards();
+	void setOpenTodaysCards(Integer openTodaysCards);
+	
+	Integer getAllTodaysCards();
+	void setAllTodaysCards(Integer allTodaysCards);
+	
 	
 }
 

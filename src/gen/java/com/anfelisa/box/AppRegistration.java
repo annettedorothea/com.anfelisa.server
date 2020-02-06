@@ -38,14 +38,12 @@ public class AppRegistration {
 	public static void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		environment.jersey().register(new GetBoxesAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new GetBoxAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new CreateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new UpdateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new PostponeCardsAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new InitMyBoxesForDayAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new DeleteBoxAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new LoadNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new LoadNextReinforceCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new ScheduleNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ScheduleCardsAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ScoreCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ScoreReinforceCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
@@ -60,16 +58,16 @@ public class AppRegistration {
 			viewProvider.boxView.updateBox((com.anfelisa.box.data.BoxUpdateData) dataContainer, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.box.events.PostponeCardsOkEvent", (dataContainer, handle) -> {
-			viewProvider.scheduledCardView.postponeCards((com.anfelisa.box.data.PostponeCardsData) dataContainer, handle);
+		viewProvider.addConsumer("com.anfelisa.box.events.InitMyBoxesForDayOkEvent", (dataContainer, handle) -> {
+			viewProvider.scheduledCardView.postponeCards((com.anfelisa.box.data.InitMyBoxesDataData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.box.events.InitMyBoxesForDayOkEvent", (dataContainer, handle) -> {
+			viewProvider.reinforceCardView.clear((com.anfelisa.box.data.InitMyBoxesDataData) dataContainer, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.box.events.DeleteBoxOkEvent", (dataContainer, handle) -> {
 			viewProvider.boxView.deleteBox((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.box.events.ScheduleNextCardOkEvent", (dataContainer, handle) -> {
-			viewProvider.boxView.scheduleCard((com.anfelisa.box.data.ScheduleNextCardData) dataContainer, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCardsOkEvent", (dataContainer, handle) -> {

@@ -58,6 +58,10 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	
 	private String wanted;
 	
+	private Integer openTodaysCards;
+	
+	private Integer allTodaysCards;
+	
 	public LoadNextCardResponse() {
 	}
 	
@@ -73,6 +77,8 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 		scheduledDate = data.getScheduledDate();
 		scoredDate = data.getScoredDate();
 		wanted = data.getWanted();
+		openTodaysCards = data.getOpenTodaysCards();
+		allTodaysCards = data.getAllTodaysCards();
 	}
 	
 	@JsonProperty
@@ -128,6 +134,16 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	@JsonProperty
 		public String getWanted() {
 			return this.wanted;
+		}
+	
+	@JsonProperty
+		public Integer getOpenTodaysCards() {
+			return this.openTodaysCards;
+		}
+	
+	@JsonProperty
+		public Integer getAllTodaysCards() {
+			return this.allTodaysCards;
 		}
 	
 }

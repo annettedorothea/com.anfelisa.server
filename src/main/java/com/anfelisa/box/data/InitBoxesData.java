@@ -17,22 +17,31 @@
 
 
 
-package com.anfelisa.box.models;
+package com.anfelisa.box.data;
 
-import java.util.List;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@SuppressWarnings("unused")
-@JsonDeserialize(as=ScheduleNextCardModel.class)
-public interface IScheduleNextCardModel extends com.anfelisa.box.models.IScheduledCardModel{
+public class InitBoxesData extends AbstractInitBoxesData implements IInitBoxesData {
+	
+	public InitBoxesData(
+		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule, 
+		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("uuid") String uuid
+	) {
+		super(
+			daysBehindSchedule,
+			boxId,
+			uuid
+		);
+	}
 
-	String getUserId();
-	void setUserId(String userId);
-	
-	String getBoxId();
-	void setBoxId(String boxId);
-	
-	
+	public InitBoxesData( String uuid ) {
+		super(uuid);
+	}
+
+	public void migrateLegacyData(String json) {
+	}
+
 }
 
 

@@ -336,7 +336,8 @@
 				<constraints />
 			</column>
 		</addColumn>
-		<dropColumn columnName="publicrootcategory" tableName="category" />
+		<dropColumn columnName="publicrootcategory"
+			tableName="category" />
 	</changeSet>
 
 	<changeSet id="011" author="annette">
@@ -344,6 +345,12 @@
 		<sql>
 			update useraccesstocategory set editable = true;
 		</sql>
+	</changeSet>
+
+	<changeSet id="012" author="annette">
+
+		<addNotNullConstraint columnName="maxcardsperday"
+			defaultNullValue="8" tableName="box" />
 	</changeSet>
 
 </databaseChangeLog>

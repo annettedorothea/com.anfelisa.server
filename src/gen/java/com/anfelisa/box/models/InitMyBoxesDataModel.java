@@ -26,48 +26,33 @@ import java.util.List;
 import java.util.ArrayList;
 
 @SuppressWarnings("all")
-public class BoxModel implements IBoxModel {
+public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 
-	@NotNull
-	private String boxId;
-	
-	@NotNull
 	private String userId;
 	
 	@NotNull
-	private String categoryId;
+	private org.joda.time.DateTime today;
 	
-	private Integer maxInterval;
+	private java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards;
 	
-	@NotNull
-	private Integer maxCardsPerDay;
+	private java.util.List<String> outdatedReinforceCardsIds;
 	
 
-	public BoxModel() {
+	public InitMyBoxesDataModel() {
 	}
 
-	public BoxModel(
-		@JsonProperty("boxId") String boxId,
+	public InitMyBoxesDataModel(
 		@JsonProperty("userId") String userId,
-		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("maxInterval") Integer maxInterval,
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
+		@JsonProperty("today") org.joda.time.DateTime today,
+		@JsonProperty("postponeCards") java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards,
+		@JsonProperty("outdatedReinforceCardsIds") java.util.List<String> outdatedReinforceCardsIds
 	) {
-		this.boxId = boxId;
 		this.userId = userId;
-		this.categoryId = categoryId;
-		this.maxInterval = maxInterval;
-		this.maxCardsPerDay = maxCardsPerDay;
+		this.today = today;
+		this.postponeCards = postponeCards;
+		this.outdatedReinforceCardsIds = outdatedReinforceCardsIds;
 	}
 
-	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
-	public void setBoxId(String boxId) {
-		this.boxId = boxId;
-	}
-	
 	@JsonProperty
 		public String getUserId() {
 			return this.userId;
@@ -77,27 +62,27 @@ public class BoxModel implements IBoxModel {
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
+		public org.joda.time.DateTime getToday() {
+			return this.today;
 		}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public void setToday(org.joda.time.DateTime today) {
+		this.today = today;
 	}
 	
 	@JsonProperty
-		public Integer getMaxInterval() {
-			return this.maxInterval;
+		public java.util.List<com.anfelisa.box.models.IPostponeCardsModel> getPostponeCards() {
+			return this.postponeCards;
 		}
-	public void setMaxInterval(Integer maxInterval) {
-		this.maxInterval = maxInterval;
+	public void setPostponeCards(java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards) {
+		this.postponeCards = postponeCards;
 	}
 	
 	@JsonProperty
-		public Integer getMaxCardsPerDay() {
-			return this.maxCardsPerDay;
+		public java.util.List<String> getOutdatedReinforceCardsIds() {
+			return this.outdatedReinforceCardsIds;
 		}
-	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
+	public void setOutdatedReinforceCardsIds(java.util.List<String> outdatedReinforceCardsIds) {
+		this.outdatedReinforceCardsIds = outdatedReinforceCardsIds;
 	}
 	
 	

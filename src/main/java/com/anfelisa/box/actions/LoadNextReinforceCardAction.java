@@ -16,10 +16,10 @@ public class LoadNextReinforceCardAction extends AbstractLoadNextReinforceCardAc
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadNextReinforceCardAction.class);
 
-	public LoadNextReinforceCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
-		super(jdbi,appConfiguration, daoProvider, viewProvider, e2e);
+	public LoadNextReinforceCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
+			ViewProvider viewProvider, E2E e2e) {
+		super(jdbi, appConfiguration, daoProvider, viewProvider, e2e);
 	}
-
 
 	protected final void loadDataForGetRequest(Handle readonlyHandle) {
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, actionData.getBoxId());
@@ -30,13 +30,12 @@ public class LoadNextReinforceCardAction extends AbstractLoadNextReinforceCardAc
 			throwUnauthorized();
 		}
 
-		INextReinforceCardViewModel nextCard = daoProvider.getReinforceCardDao().selectFirstScheduledCard(readonlyHandle,
-				actionData.getBoxId());
+		INextReinforceCardViewModel nextCard = daoProvider.getReinforceCardDao()
+				.selectFirstScheduledCard(readonlyHandle, actionData.getBoxId());
 		if (nextCard != null) {
 			this.actionData.mapFrom(nextCard);
 		}
 	}
-
 
 	@Override
 	public void initActionData() {
@@ -44,4 +43,4 @@ public class LoadNextReinforceCardAction extends AbstractLoadNextReinforceCardAc
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

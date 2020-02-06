@@ -36,13 +36,6 @@ public class ActionCalls {
 		return builder.get();
 	}
 	
-	public static Response callGetBox(String uuid, String boxId, org.joda.time.DateTime today, int port, String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/box/get?uuid=" + uuid + "&boxId=" + boxId + "&today=" + today, port)).request(); 
-		builder.header("Authorization", authorization);
-		return builder.get();
-	}
-	
 	public static Response callCreateBox(String uuid, String categoryId, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/box/create", port)).request(); 
@@ -63,11 +56,10 @@ public class ActionCalls {
 		return builder.put(Entity.json(data));
 	}
 	
-	public static Response callPostponeCards(String uuid, String boxId, org.joda.time.DateTime today, int port, String authorization) {
+	public static Response callInitMyBoxesForDay(String uuid, org.joda.time.DateTime today, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/cards/postpone?uuid=" + uuid, port)).request();
-		com.anfelisa.box.data.IPostponeCardsData data = new com.anfelisa.box.data.PostponeCardsData(uuid);
-		data.setBoxId(boxId);
+		Builder builder = client.target(String.format("http://localhost:%d/api/box/init?uuid=" + uuid, port)).request();
+		com.anfelisa.box.data.IInitMyBoxesDataData data = new com.anfelisa.box.data.InitMyBoxesDataData(uuid);
 		data.setToday(today);
 		builder.header("Authorization", authorization);
 		return builder.put(Entity.json(data));
@@ -92,15 +84,6 @@ public class ActionCalls {
 		Builder builder = client.target(String.format("http://localhost:%d/api/box/next-reinforce-card?uuid=" + uuid + "&boxId=" + boxId, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
-	}
-	
-	public static Response callScheduleNextCard(String uuid, String boxId, int port, String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/card/schedule-next", port)).request(); 
-		com.anfelisa.box.data.IScheduleNextCardData data = new com.anfelisa.box.data.ScheduleNextCardData(uuid);
-		data.setBoxId(boxId);
-		builder.header("Authorization", authorization);
-		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callScheduleCards(String uuid, java.util.List<String> cardIds, int port, String authorization) {

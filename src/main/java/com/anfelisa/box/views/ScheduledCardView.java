@@ -3,8 +3,9 @@ package com.anfelisa.box.views;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.box.data.IPostponeCardsData;
+import com.anfelisa.box.data.IInitMyBoxesDataData;
 import com.anfelisa.box.data.IScoreCardData;
+import com.anfelisa.box.models.IPostponeCardsModel;
 
 public class ScheduledCardView implements IScheduledCardView {
 
@@ -23,8 +24,11 @@ public class ScheduledCardView implements IScheduledCardView {
 		daoProvider.getScheduledCardDao().scheduleNext(handle, data);
 	}
 
-	public void postponeCards(IPostponeCardsData data, Handle handle) {
-		daoProvider.getScheduledCardDao().postponeScheduledCards(handle, data);
+	@Override
+	public void postponeCards(IInitMyBoxesDataData data, Handle handle) {
+		for (IPostponeCardsModel postponeCards : data.getPostponeCards()) {
+			daoProvider.getScheduledCardDao().postponeScheduledCards(handle, postponeCards);
+		}
 	}
 
 }

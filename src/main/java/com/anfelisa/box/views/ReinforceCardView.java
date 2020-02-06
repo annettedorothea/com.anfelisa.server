@@ -3,6 +3,7 @@ package com.anfelisa.box.views;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.box.data.IInitMyBoxesDataData;
 import com.anfelisa.box.data.IScoreCardData;
 import com.anfelisa.box.data.IScoreReinforceCardData;
 
@@ -25,6 +26,14 @@ public class ReinforceCardView implements IReinforceCardView {
 
 	public void update(IScoreReinforceCardData data, Handle handle) {
 		daoProvider.getReinforceCardDao().updateChangeDate(handle, data.getReinforceCardId(), data.getChangeDate());
+	}
+
+	@Override
+	public void clear(IInitMyBoxesDataData data, Handle handle) {
+		for (String cardId : data.getOutdatedReinforceCardsIds()) {
+			daoProvider.getReinforceCardDao().deleteByScheduledCardId(handle, cardId);
+		}
+		
 	}
 
 }

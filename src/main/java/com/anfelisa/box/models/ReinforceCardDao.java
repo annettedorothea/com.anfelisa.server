@@ -1,5 +1,6 @@
 package com.anfelisa.box.models;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.jdbi.v3.core.Handle;
@@ -42,6 +43,15 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 			.map(new ReinforceCardMapper())
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
+	}
+
+	public List<IReinforceCardModel> selectOutdatedReinforceCards(Handle handle, String boxId, DateTime now) {
+		return handle.createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM reinforcecard "
+				+ "WHERE boxid = :boxId AND date_trunc('day', changedate) < date_trunc('day', TIMESTAMP ':now')")
+				.bind("boxId", boxId)
+				.bind("now", now)
+				.map(new ReinforceCardMapper())
+				.list();
 	}
 
 }

@@ -29,15 +29,12 @@ public class BoxViewMapper implements RowMapper<IBoxViewModel> {
 	
 	public IBoxViewModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxViewModel(
-			r.getObject("todaysCards") != null ? r.getInt("todaysCards") : null,
-			r.getObject("tomorrowsCards") != null ? r.getInt("tomorrowsCards") : null,
-			r.getObject("totalCards") != null ? r.getInt("totalCards") : null,
-			r.getObject("reinforceCards") != null ? r.getInt("reinforceCards") : null,
-			r.getObject("myCards") != null ? r.getInt("myCards") : null,
-			r.getObject("daysBehindSchedule") != null ? r.getInt("daysBehindSchedule") : null,
-			r.getString("categoryName"),
-			r.getObject("maxInterval") != null ? r.getInt("maxInterval") : null,
+			r.getObject("openTodaysCards") != null ? r.getInt("openTodaysCards") : null,
+			r.getObject("allTodaysCards") != null ? r.getInt("allTodaysCards") : null,
 			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null,
+			r.getObject("myCards") != null ? r.getInt("myCards") : null,
+			r.getObject("totalCards") != null ? r.getInt("totalCards") : null,
+			r.getString("categoryName"),
 			r.getObject("quality0Count") != null ? r.getInt("quality0Count") : null,
 			r.getObject("quality1Count") != null ? r.getInt("quality1Count") : null,
 			r.getObject("quality2Count") != null ? r.getInt("quality2Count") : null,

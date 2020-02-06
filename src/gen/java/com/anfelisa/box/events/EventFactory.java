@@ -55,22 +55,16 @@ public class EventFactory {
 				UpdateBoxOkEvent event = new UpdateBoxOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
-			if (eventClass.equals("com.anfelisa.box.events.PostponeCardsOkEvent")) {
-				PostponeCardsData data = mapper.readValue(json, PostponeCardsData.class);
+			if (eventClass.equals("com.anfelisa.box.events.InitMyBoxesForDayOkEvent")) {
+				InitMyBoxesDataData data = mapper.readValue(json, InitMyBoxesDataData.class);
 				data.migrateLegacyData(json);
-				PostponeCardsOkEvent event = new PostponeCardsOkEvent(data, daoProvider, viewProvider);
+				InitMyBoxesForDayOkEvent event = new InitMyBoxesForDayOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.box.events.DeleteBoxOkEvent")) {
 				DeleteBoxData data = mapper.readValue(json, DeleteBoxData.class);
 				data.migrateLegacyData(json);
 				DeleteBoxOkEvent event = new DeleteBoxOkEvent(data, daoProvider, viewProvider);
-				return event;
-			}
-			if (eventClass.equals("com.anfelisa.box.events.ScheduleNextCardOkEvent")) {
-				ScheduleNextCardData data = mapper.readValue(json, ScheduleNextCardData.class);
-				data.migrateLegacyData(json);
-				ScheduleNextCardOkEvent event = new ScheduleNextCardOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.box.events.ScheduleCardsOkEvent")) {
@@ -112,7 +106,6 @@ public class EventFactory {
 
 	public static IEvent createEvent(String eventClass, IDataContainer data, IDaoProvider daoProvider, ViewProvider viewProvider) {
 
-
 		if (eventClass.equals("com.anfelisa.box.events.CreateBoxOkEvent")) {
 			return new CreateBoxOkEvent((BoxData)data, daoProvider, viewProvider);
 		}
@@ -121,8 +114,8 @@ public class EventFactory {
 			return new UpdateBoxOkEvent((BoxUpdateData)data, daoProvider, viewProvider);
 		}
 
-		if (eventClass.equals("com.anfelisa.box.events.PostponeCardsOkEvent")) {
-			return new PostponeCardsOkEvent((PostponeCardsData)data, daoProvider, viewProvider);
+		if (eventClass.equals("com.anfelisa.box.events.InitMyBoxesForDayOkEvent")) {
+			return new InitMyBoxesForDayOkEvent((InitMyBoxesDataData)data, daoProvider, viewProvider);
 		}
 
 		if (eventClass.equals("com.anfelisa.box.events.DeleteBoxOkEvent")) {
@@ -130,10 +123,6 @@ public class EventFactory {
 		}
 
 
-
-		if (eventClass.equals("com.anfelisa.box.events.ScheduleNextCardOkEvent")) {
-			return new ScheduleNextCardOkEvent((ScheduleNextCardData)data, daoProvider, viewProvider);
-		}
 
 		if (eventClass.equals("com.anfelisa.box.events.ScheduleCardsOkEvent")) {
 			return new ScheduleCardsOkEvent((ScheduledCardsData)data, daoProvider, viewProvider);

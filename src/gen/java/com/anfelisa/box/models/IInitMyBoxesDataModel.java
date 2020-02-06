@@ -17,20 +17,28 @@
 
 
 
-package com.anfelisa.box.events;
+package com.anfelisa.box.models;
 
-import com.anfelisa.ace.Event;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
+import java.util.List;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import com.anfelisa.box.data.IPostponeCardsData;
+@SuppressWarnings("unused")
+@JsonDeserialize(as=InitMyBoxesDataModel.class)
+public interface IInitMyBoxesDataModel {
 
-public class PostponeCardsOkEvent extends Event<IPostponeCardsData> {
-
-	public PostponeCardsOkEvent(IPostponeCardsData eventData, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.events.PostponeCardsOkEvent", eventData, daoProvider, viewProvider);
-	}
-
+	String getUserId();
+	void setUserId(String userId);
+	
+	org.joda.time.DateTime getToday();
+	void setToday(org.joda.time.DateTime today);
+	
+	java.util.List<com.anfelisa.box.models.IPostponeCardsModel> getPostponeCards();
+	void setPostponeCards(java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards);
+	
+	java.util.List<String> getOutdatedReinforceCardsIds();
+	void setOutdatedReinforceCardsIds(java.util.List<String> outdatedReinforceCardsIds);
+	
+	
 }
 
 

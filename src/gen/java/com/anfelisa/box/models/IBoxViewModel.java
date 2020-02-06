@@ -26,32 +26,23 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=BoxViewModel.class)
 public interface IBoxViewModel {
 
-	Integer getTodaysCards();
-	void setTodaysCards(Integer todaysCards);
+	Integer getOpenTodaysCards();
+	void setOpenTodaysCards(Integer openTodaysCards);
 	
-	Integer getTomorrowsCards();
-	void setTomorrowsCards(Integer tomorrowsCards);
+	Integer getAllTodaysCards();
+	void setAllTodaysCards(Integer allTodaysCards);
 	
-	Integer getTotalCards();
-	void setTotalCards(Integer totalCards);
-	
-	Integer getReinforceCards();
-	void setReinforceCards(Integer reinforceCards);
+	Integer getMaxCardsPerDay();
+	void setMaxCardsPerDay(Integer maxCardsPerDay);
 	
 	Integer getMyCards();
 	void setMyCards(Integer myCards);
 	
-	Integer getDaysBehindSchedule();
-	void setDaysBehindSchedule(Integer daysBehindSchedule);
+	Integer getTotalCards();
+	void setTotalCards(Integer totalCards);
 	
 	String getCategoryName();
 	void setCategoryName(String categoryName);
-	
-	Integer getMaxInterval();
-	void setMaxInterval(Integer maxInterval);
-	
-	Integer getMaxCardsPerDay();
-	void setMaxCardsPerDay(Integer maxCardsPerDay);
 	
 	Integer getQuality0Count();
 	void setQuality0Count(Integer quality0Count);

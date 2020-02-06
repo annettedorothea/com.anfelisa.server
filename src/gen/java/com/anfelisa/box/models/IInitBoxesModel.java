@@ -17,20 +17,22 @@
 
 
 
-package com.anfelisa.box.events;
+package com.anfelisa.box.models;
 
-import com.anfelisa.ace.Event;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
+import java.util.List;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import com.anfelisa.box.data.IScheduleNextCardData;
+@SuppressWarnings("unused")
+@JsonDeserialize(as=InitBoxesModel.class)
+public interface IInitBoxesModel {
 
-public class ScheduleNextCardOkEvent extends Event<IScheduleNextCardData> {
-
-	public ScheduleNextCardOkEvent(IScheduleNextCardData eventData, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.events.ScheduleNextCardOkEvent", eventData, daoProvider, viewProvider);
-	}
-
+	Integer getDaysBehindSchedule();
+	void setDaysBehindSchedule(Integer daysBehindSchedule);
+	
+	String getBoxId();
+	void setBoxId(String boxId);
+	
+	
 }
 
 

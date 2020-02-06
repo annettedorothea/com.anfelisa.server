@@ -32,10 +32,6 @@ public interface IPostponeCardsData extends IPostponeCardsModel, IDataContainer 
 	
 	IPostponeCardsData withBoxId(String boxId);
 	
-	IPostponeCardsData withUserId(String userId);
-	
-	IPostponeCardsData withToday(org.joda.time.DateTime today);
-	
 	
 }
 

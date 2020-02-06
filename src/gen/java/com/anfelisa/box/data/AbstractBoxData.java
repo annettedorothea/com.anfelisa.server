@@ -49,6 +49,7 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 	
 	private Integer maxInterval;
 	
+	@NotNull
 	private Integer maxCardsPerDay;
 	
 

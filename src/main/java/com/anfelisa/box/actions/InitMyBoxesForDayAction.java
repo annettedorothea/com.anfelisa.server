@@ -17,41 +17,31 @@
 
 
 
-package com.anfelisa.box.data;
+package com.anfelisa.box.actions;
 
-public interface IGetBoxResponse {
-	String getBoxId();
+import org.jdbi.v3.core.Jdbi;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.E2E;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
+
+public class InitMyBoxesForDayAction extends AbstractInitMyBoxesForDayAction {
+
+	static final Logger LOG = LoggerFactory.getLogger(InitMyBoxesForDayAction.class);
+
+	public InitMyBoxesForDayAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, 
+			ViewProvider viewProvider, E2E e2e) {
+		super(jdbi,appConfiguration, daoProvider, viewProvider, e2e);
+	}
+
+
 	
-	String getCategoryName();
-	
-	Integer getDaysBehindSchedule();
-	
-	Integer getMaxInterval();
-	
-	Integer getMaxCardsPerDay();
-	
-	Integer getMyCards();
-	
-	Integer getQuality0Count();
-	
-	Integer getQuality1Count();
-	
-	Integer getQuality2Count();
-	
-	Integer getQuality3Count();
-	
-	Integer getQuality4Count();
-	
-	Integer getQuality5Count();
-	
-	Integer getReinforceCards();
-	
-	Integer getTodaysCards();
-	
-	Integer getTomorrowsCards();
-	
-	Integer getTotalCards();
-	
+	public void initActionData() {
+		// init not replayable data here
+	}
 
 }
 

@@ -17,20 +17,20 @@
 
 
 
-package com.anfelisa.box.models;
+package com.anfelisa.box.data;
 
-import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@SuppressWarnings("unused")
-@JsonDeserialize(as=PostponeCardsModel.class)
-public interface IPostponeCardsModel {
+import com.anfelisa.ace.IDataContainer;
 
-	Integer getDays();
-	void setDays(Integer days);
+import com.anfelisa.box.models.IInitBoxesModel;
+
+@JsonDeserialize(as=InitBoxesData.class)
+public interface IInitBoxesData extends IInitBoxesModel, IDataContainer {
 	
-	String getBoxId();
-	void setBoxId(String boxId);
+	IInitBoxesData withDaysBehindSchedule(Integer daysBehindSchedule);
+	
+	IInitBoxesData withBoxId(String boxId);
 	
 	
 }

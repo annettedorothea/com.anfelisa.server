@@ -104,6 +104,13 @@ public class ActionCalls {
 		return builder.put(Entity.json(data));
 	}
 	
+	public static Response callGetTranslation(String uuid, String sourceValue, String sourceLanguage, String targetLanguage, int port, String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/card/translation?uuid=" + uuid + "&sourceValue=" + sourceValue + "&sourceLanguage=" + sourceLanguage + "&targetLanguage=" + targetLanguage, port)).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
+	}
+	
 	
 }
 

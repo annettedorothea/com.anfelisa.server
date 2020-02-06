@@ -28,24 +28,18 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class BoxViewModel implements IBoxViewModel {
 
-	private Integer todaysCards;
+	private Integer openTodaysCards;
 	
-	private Integer tomorrowsCards;
+	private Integer allTodaysCards;
 	
-	private Integer totalCards;
-	
-	private Integer reinforceCards;
+	private Integer maxCardsPerDay;
 	
 	private Integer myCards;
 	
-	private Integer daysBehindSchedule;
+	private Integer totalCards;
 	
 	@NotNull
 	private String categoryName;
-	
-	private Integer maxInterval;
-	
-	private Integer maxCardsPerDay;
 	
 	private Integer quality0Count;
 	
@@ -67,15 +61,12 @@ public class BoxViewModel implements IBoxViewModel {
 	}
 
 	public BoxViewModel(
-		@JsonProperty("todaysCards") Integer todaysCards,
-		@JsonProperty("tomorrowsCards") Integer tomorrowsCards,
-		@JsonProperty("totalCards") Integer totalCards,
-		@JsonProperty("reinforceCards") Integer reinforceCards,
-		@JsonProperty("myCards") Integer myCards,
-		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
-		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("maxInterval") Integer maxInterval,
+		@JsonProperty("openTodaysCards") Integer openTodaysCards,
+		@JsonProperty("allTodaysCards") Integer allTodaysCards,
 		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
+		@JsonProperty("myCards") Integer myCards,
+		@JsonProperty("totalCards") Integer totalCards,
+		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
@@ -84,15 +75,12 @@ public class BoxViewModel implements IBoxViewModel {
 		@JsonProperty("quality5Count") Integer quality5Count,
 		@JsonProperty("boxId") String boxId
 	) {
-		this.todaysCards = todaysCards;
-		this.tomorrowsCards = tomorrowsCards;
-		this.totalCards = totalCards;
-		this.reinforceCards = reinforceCards;
-		this.myCards = myCards;
-		this.daysBehindSchedule = daysBehindSchedule;
-		this.categoryName = categoryName;
-		this.maxInterval = maxInterval;
+		this.openTodaysCards = openTodaysCards;
+		this.allTodaysCards = allTodaysCards;
 		this.maxCardsPerDay = maxCardsPerDay;
+		this.myCards = myCards;
+		this.totalCards = totalCards;
+		this.categoryName = categoryName;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -103,35 +91,27 @@ public class BoxViewModel implements IBoxViewModel {
 	}
 
 	@JsonProperty
-		public Integer getTodaysCards() {
-			return this.todaysCards;
+		public Integer getOpenTodaysCards() {
+			return this.openTodaysCards;
 		}
-	public void setTodaysCards(Integer todaysCards) {
-		this.todaysCards = todaysCards;
+	public void setOpenTodaysCards(Integer openTodaysCards) {
+		this.openTodaysCards = openTodaysCards;
 	}
 	
 	@JsonProperty
-		public Integer getTomorrowsCards() {
-			return this.tomorrowsCards;
+		public Integer getAllTodaysCards() {
+			return this.allTodaysCards;
 		}
-	public void setTomorrowsCards(Integer tomorrowsCards) {
-		this.tomorrowsCards = tomorrowsCards;
+	public void setAllTodaysCards(Integer allTodaysCards) {
+		this.allTodaysCards = allTodaysCards;
 	}
 	
 	@JsonProperty
-		public Integer getTotalCards() {
-			return this.totalCards;
+		public Integer getMaxCardsPerDay() {
+			return this.maxCardsPerDay;
 		}
-	public void setTotalCards(Integer totalCards) {
-		this.totalCards = totalCards;
-	}
-	
-	@JsonProperty
-		public Integer getReinforceCards() {
-			return this.reinforceCards;
-		}
-	public void setReinforceCards(Integer reinforceCards) {
-		this.reinforceCards = reinforceCards;
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
 	}
 	
 	@JsonProperty
@@ -143,11 +123,11 @@ public class BoxViewModel implements IBoxViewModel {
 	}
 	
 	@JsonProperty
-		public Integer getDaysBehindSchedule() {
-			return this.daysBehindSchedule;
+		public Integer getTotalCards() {
+			return this.totalCards;
 		}
-	public void setDaysBehindSchedule(Integer daysBehindSchedule) {
-		this.daysBehindSchedule = daysBehindSchedule;
+	public void setTotalCards(Integer totalCards) {
+		this.totalCards = totalCards;
 	}
 	
 	@JsonProperty
@@ -156,22 +136,6 @@ public class BoxViewModel implements IBoxViewModel {
 		}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-	}
-	
-	@JsonProperty
-		public Integer getMaxInterval() {
-			return this.maxInterval;
-		}
-	public void setMaxInterval(Integer maxInterval) {
-		this.maxInterval = maxInterval;
-	}
-	
-	@JsonProperty
-		public Integer getMaxCardsPerDay() {
-			return this.maxCardsPerDay;
-		}
-	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
 	}
 	
 	@JsonProperty

@@ -42,6 +42,10 @@ public interface ILoadNextCardResponse {
 	
 	String getWanted();
 	
+	Integer getOpenTodaysCards();
+	
+	Integer getAllTodaysCards();
+	
 
 }
 

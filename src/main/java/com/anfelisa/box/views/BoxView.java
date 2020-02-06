@@ -8,7 +8,6 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.box.data.IBoxData;
 import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.data.IScheduleNextCardData;
 import com.anfelisa.box.data.IScheduledCardsData;
 import com.anfelisa.box.models.IScheduledCardModel;
 
@@ -30,9 +29,6 @@ public class BoxView implements IBoxView {
 	public void deleteBox(IDeleteBoxData data, Handle handle) {
 		daoProvider.getBoxDao().deleteByBoxId(handle, data.getBoxId());
 	}
-	public void scheduleCard(IScheduleNextCardData data, Handle handle) {
-		daoProvider.getScheduledCardDao().insert(handle, data);
-	}
 	public void scheduleCards(IScheduledCardsData data, Handle handle) {
 		List<IScheduledCardModel> newScheduledCards = data.getNewScheduledCards();
 		for (IScheduledCardModel scheduledCardModel : newScheduledCards) {
@@ -43,7 +39,6 @@ public class BoxView implements IBoxView {
 			daoProvider.getScheduledCardDao().scheduleScheduledCard(handle, scheduledCardId, data.getScheduledDate());
 		}
 	}
-
 
 }
 

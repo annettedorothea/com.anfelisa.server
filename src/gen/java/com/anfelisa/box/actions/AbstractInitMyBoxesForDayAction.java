@@ -19,6 +19,8 @@
 
 package com.anfelisa.box.actions;
 
+import java.util.UUID;
+
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -32,6 +34,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
+import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -64,14 +67,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.box.data.IBoxInfoData;
-import com.anfelisa.box.data.BoxInfoData;
+import com.anfelisa.box.data.IInitMyBoxesDataData;
+import com.anfelisa.box.data.InitMyBoxesDataData;
+import com.anfelisa.box.commands.InitMyBoxesForDayCommand;
 
-@Path("/box/get")
+@Path("/box/init")
 @SuppressWarnings("unused")
-public abstract class AbstractGetBoxAction extends Action<IBoxInfoData> {
+public abstract class AbstractInitMyBoxesForDayAction extends Action<IInitMyBoxesDataData> {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractGetBoxAction.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractInitMyBoxesForDayAction.class);
 
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
@@ -81,9 +85,9 @@ public abstract class AbstractGetBoxAction extends Action<IBoxInfoData> {
 	private ViewProvider viewProvider;
 	private E2E e2e;
 
-	public AbstractGetBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+	public AbstractInitMyBoxesForDayAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
-		super("com.anfelisa.box.actions.GetBoxAction", HttpMethod.GET);
+		super("com.anfelisa.box.actions.InitMyBoxesForDayAction", HttpMethod.PUT);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
@@ -94,32 +98,28 @@ public abstract class AbstractGetBoxAction extends Action<IBoxInfoData> {
 
 	@Override
 	public ICommand getCommand() {
-		return null;
+		return new InitMyBoxesForDayCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (IBoxInfoData)data;
+		this.actionData = (IInitMyBoxesDataData)data;
 	}
 
-	protected abstract void loadDataForGetRequest(Handle readonlyHandle);
-
-	@GET
+	@PUT
 	@Timed
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getBoxResource(
+	public Response initMyBoxesForDayResource(
 			@Auth AuthUser authUser, 
-			@QueryParam("boxId") String boxId, 
-			@QueryParam("today") String today, 
-			@NotNull @QueryParam("uuid") String uuid) 
+			@NotNull IInitMyBoxesDataData payload) 
 			throws JsonProcessingException {
-		this.actionData = new BoxInfoData(uuid);
-		this.actionData.setBoxId(boxId);
-		this.actionData.setToday(new DateTime(today).withZone(DateTimeZone.UTC));
+		this.actionData = new InitMyBoxesDataData(payload.getUuid());
+		this.actionData.setToday(payload.getToday());
 		this.actionData.setUserId(authUser.getUserId());
+		
 		return this.apply();
 	}
-
+	
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
@@ -135,7 +135,7 @@ public abstract class AbstractGetBoxAction extends Action<IBoxInfoData> {
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
-				this.actionData = (IBoxInfoData)originalData;
+				this.actionData = (IInitMyBoxesDataData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (SetSystemTimeResource.systemTime != null) {
 					this.actionData.setSystemTime(SetSystemTimeResource.systemTime);
@@ -143,8 +143,10 @@ public abstract class AbstractGetBoxAction extends Action<IBoxInfoData> {
 					this.actionData.setSystemTime(new DateTime());
 				}
 			}
-			this.loadDataForGetRequest(this.databaseHandle.getReadonlyHandle());
 			daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
+			ICommand command = this.getCommand();
+			command.execute(this.databaseHandle.getReadonlyHandle(), this.databaseHandle.getTimelineHandle());
+			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
 			return response;
@@ -172,11 +174,7 @@ public abstract class AbstractGetBoxAction extends Action<IBoxInfoData> {
 			databaseHandle.close();
 		}
 	}
-
-
-	protected Object createReponse() {
-		return new com.anfelisa.box.data.GetBoxResponse(this.actionData);
-	}
+	
 }
 
 

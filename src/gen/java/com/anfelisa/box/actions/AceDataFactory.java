@@ -45,11 +45,6 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.box.actions.GetBoxAction")) {
-				BoxInfoData data = mapper.readValue(json, BoxInfoData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
 			if (className.equals("com.anfelisa.box.actions.CreateBoxAction") ||
 					className.equals("com.anfelisa.box.commands.CreateBoxCommand") ||
 					className.equals("com.anfelisa.box.events.CreateBoxOkEvent")
@@ -66,12 +61,11 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.box.actions.PostponeCardsAction") ||
-					className.equals("com.anfelisa.box.commands.PostponeCardsCommand") ||
-					className.equals("com.anfelisa.box.events.PostponeCardsOkEvent")||
-					className.equals("com.anfelisa.box.events.PostponeCardsNoDelayEvent")
+			if (className.equals("com.anfelisa.box.actions.InitMyBoxesForDayAction") ||
+					className.equals("com.anfelisa.box.commands.InitMyBoxesForDayCommand") ||
+					className.equals("com.anfelisa.box.events.InitMyBoxesForDayOkEvent")
 			) {
-				PostponeCardsData data = mapper.readValue(json, PostponeCardsData.class);
+				InitMyBoxesDataData data = mapper.readValue(json, InitMyBoxesDataData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}
@@ -90,14 +84,6 @@ public class AceDataFactory {
 			}
 			if (className.equals("com.anfelisa.box.actions.LoadNextReinforceCardAction")) {
 				NextReinforceCardData data = mapper.readValue(json, NextReinforceCardData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
-			if (className.equals("com.anfelisa.box.actions.ScheduleNextCardAction") ||
-					className.equals("com.anfelisa.box.commands.ScheduleNextCardCommand") ||
-					className.equals("com.anfelisa.box.events.ScheduleNextCardOkEvent")
-			) {
-				ScheduleNextCardData data = mapper.readValue(json, ScheduleNextCardData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}

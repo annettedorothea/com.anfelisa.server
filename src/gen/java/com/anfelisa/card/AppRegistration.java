@@ -45,6 +45,7 @@ public class AppRegistration {
 		environment.jersey().register(new MoveCardsAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ChangeOrderAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ImportCsvAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetTranslationAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 	}
 
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {

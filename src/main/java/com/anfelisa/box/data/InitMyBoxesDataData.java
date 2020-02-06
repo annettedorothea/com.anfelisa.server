@@ -17,52 +17,35 @@
 
 
 
-package com.anfelisa.box.models;
+package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
-import java.util.List;
-import java.util.ArrayList;
 
-@SuppressWarnings("all")
-public class PostponeCardsModel implements IPostponeCardsModel {
-
-	@NotNull
-	private Integer days;
+public class InitMyBoxesDataData extends AbstractInitMyBoxesDataData implements IInitMyBoxesDataData {
 	
-	@NotNull
-	private String boxId;
-	
-
-	public PostponeCardsModel() {
-	}
-
-	public PostponeCardsModel(
-		@JsonProperty("days") Integer days,
-		@JsonProperty("boxId") String boxId
+	public InitMyBoxesDataData(
+		@JsonProperty("userId") String userId, 
+		@JsonProperty("today") org.joda.time.DateTime today, 
+		@JsonProperty("postponeCards") java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards, 
+		@JsonProperty("outdatedReinforceCardsIds") java.util.List<String> outdatedReinforceCardsIds, 
+		@JsonProperty("uuid") String uuid
 	) {
-		this.days = days;
-		this.boxId = boxId;
+		super(
+			userId,
+			today,
+			postponeCards,
+			outdatedReinforceCardsIds,
+			uuid
+		);
 	}
 
-	@JsonProperty
-		public Integer getDays() {
-			return this.days;
-		}
-	public void setDays(Integer days) {
-		this.days = days;
+	public InitMyBoxesDataData( String uuid ) {
+		super(uuid);
 	}
-	
-	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
-	public void setBoxId(String boxId) {
-		this.boxId = boxId;
+
+	public void migrateLegacyData(String json) {
 	}
-	
-	
+
 }
 
 

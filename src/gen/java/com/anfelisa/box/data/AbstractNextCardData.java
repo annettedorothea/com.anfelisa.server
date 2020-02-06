@@ -73,6 +73,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	@NotNull
 	private String boxId;
 	
+	private Integer openTodaysCards;
+	
+	private Integer allTodaysCards;
+	
 
 	public AbstractNextCardData(
 		@JsonProperty("userId") String userId,
@@ -88,7 +92,9 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
-		@JsonProperty("boxId") String boxId
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("openTodaysCards") Integer openTodaysCards,
+		@JsonProperty("allTodaysCards") Integer allTodaysCards
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -106,6 +112,8 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		this.count = count;
 		this.scoredDate = scoredDate;
 		this.boxId = boxId;
+		this.openTodaysCards = openTodaysCards;
+		this.allTodaysCards = allTodaysCards;
 	}
 
 	public AbstractNextCardData( String uuid ) {
@@ -280,6 +288,30 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		return this;
 	}
 	
+	@JsonProperty
+		public Integer getOpenTodaysCards() {
+			return this.openTodaysCards;
+		}
+	public void setOpenTodaysCards(Integer openTodaysCards) {
+		this.openTodaysCards = openTodaysCards;
+	}
+	public INextCardData withOpenTodaysCards(Integer openTodaysCards) {
+		this.openTodaysCards = openTodaysCards;
+		return this;
+	}
+	
+	@JsonProperty
+		public Integer getAllTodaysCards() {
+			return this.allTodaysCards;
+		}
+	public void setAllTodaysCards(Integer allTodaysCards) {
+		this.allTodaysCards = allTodaysCards;
+	}
+	public INextCardData withAllTodaysCards(Integer allTodaysCards) {
+		this.allTodaysCards = allTodaysCards;
+		return this;
+	}
+	
 	
 	public void mapFrom(com.anfelisa.box.models.INextCardViewModel model) {
 		this.scheduledCardId = model.getScheduledCardId();
@@ -294,6 +326,8 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		this.count = model.getCount();
 		this.scoredDate = model.getScoredDate();
 		this.boxId = model.getBoxId();
+		this.openTodaysCards = model.getOpenTodaysCards();
+		this.allTodaysCards = model.getAllTodaysCards();
 	}
 	
 }

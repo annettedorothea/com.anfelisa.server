@@ -12,6 +12,6 @@
 		<constraints    />
 	</column>
 	<column name="maxcardsperday" type="integer">
-		<constraints    />
+		<constraints  nullable="false"  />
 	</column>
 </createTable>

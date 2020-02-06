@@ -17,9 +17,7 @@
 
 
 
-package com.anfelisa.box.actions;
-
-import java.util.UUID;
+package com.anfelisa.card.actions;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
@@ -34,7 +32,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import io.dropwizard.auth.Auth;
-import javax.ws.rs.HeaderParam;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.ViewProvider;
@@ -67,15 +64,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.box.data.IPostponeCardsData;
-import com.anfelisa.box.data.PostponeCardsData;
-import com.anfelisa.box.commands.PostponeCardsCommand;
+import com.anfelisa.card.data.ICardTranslationData;
+import com.anfelisa.card.data.CardTranslationData;
 
-@Path("/cards/postpone")
+@Path("/card/translation")
 @SuppressWarnings("unused")
-public abstract class AbstractPostponeCardsAction extends Action<IPostponeCardsData> {
+public abstract class AbstractGetTranslationAction extends Action<ICardTranslationData> {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractPostponeCardsAction.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractGetTranslationAction.class);
 
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
@@ -85,9 +81,9 @@ public abstract class AbstractPostponeCardsAction extends Action<IPostponeCardsD
 	private ViewProvider viewProvider;
 	private E2E e2e;
 
-	public AbstractPostponeCardsAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+	public AbstractGetTranslationAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
-		super("com.anfelisa.box.actions.PostponeCardsAction", HttpMethod.PUT);
+		super("com.anfelisa.card.actions.GetTranslationAction", HttpMethod.GET);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
@@ -98,29 +94,33 @@ public abstract class AbstractPostponeCardsAction extends Action<IPostponeCardsD
 
 	@Override
 	public ICommand getCommand() {
-		return new PostponeCardsCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+		return null;
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (IPostponeCardsData)data;
+		this.actionData = (ICardTranslationData)data;
 	}
 
-	@PUT
+	protected abstract void loadDataForGetRequest(Handle readonlyHandle);
+
+	@GET
 	@Timed
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response postponeCardsResource(
+	public Response getTranslationResource(
 			@Auth AuthUser authUser, 
-			@NotNull IPostponeCardsData payload) 
+			@QueryParam("sourceValue") String sourceValue, 
+			@QueryParam("sourceLanguage") String sourceLanguage, 
+			@QueryParam("targetLanguage") String targetLanguage, 
+			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new PostponeCardsData(payload.getUuid());
-		this.actionData.setBoxId(payload.getBoxId());
-		this.actionData.setToday(payload.getToday());
-		this.actionData.setUserId(authUser.getUserId());
-		
+		this.actionData = new CardTranslationData(uuid);
+		this.actionData.setSourceValue(sourceValue);
+		this.actionData.setSourceLanguage(sourceLanguage);
+		this.actionData.setTargetLanguage(targetLanguage);
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
@@ -136,7 +136,7 @@ public abstract class AbstractPostponeCardsAction extends Action<IPostponeCardsD
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
-				this.actionData = (IPostponeCardsData)originalData;
+				this.actionData = (ICardTranslationData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (SetSystemTimeResource.systemTime != null) {
 					this.actionData.setSystemTime(SetSystemTimeResource.systemTime);
@@ -144,10 +144,10 @@ public abstract class AbstractPostponeCardsAction extends Action<IPostponeCardsD
 					this.actionData.setSystemTime(new DateTime());
 				}
 			}
+			if (!ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
+				this.loadDataForGetRequest(this.databaseHandle.getReadonlyHandle());
+			}
 			daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
-			ICommand command = this.getCommand();
-			command.execute(this.databaseHandle.getReadonlyHandle(), this.databaseHandle.getTimelineHandle());
-			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
 			return response;
@@ -175,7 +175,11 @@ public abstract class AbstractPostponeCardsAction extends Action<IPostponeCardsD
 			databaseHandle.close();
 		}
 	}
-	
+
+
+	protected Object createReponse() {
+		return new com.anfelisa.card.data.GetTranslationResponse(this.actionData);
+	}
 }
 
 

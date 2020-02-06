@@ -19,50 +19,22 @@
 
 package com.anfelisa.box.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
-import java.util.List;
-import java.util.ArrayList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-@SuppressWarnings("all")
-public class PostponeCardsModel implements IPostponeCardsModel {
+import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 
-	@NotNull
-	private Integer days;
+public class InitMyBoxesDataMapper implements RowMapper<IInitMyBoxesDataModel> {
 	
-	@NotNull
-	private String boxId;
-	
-
-	public PostponeCardsModel() {
+	public IInitMyBoxesDataModel map(ResultSet r, StatementContext ctx) throws SQLException {
+		return new InitMyBoxesDataModel(
+			r.getString("userId"),
+			r.getTimestamp("today") != null ? new org.joda.time.DateTime(r.getTimestamp("today")) : null,
+			null,
+			null
+		);
 	}
-
-	public PostponeCardsModel(
-		@JsonProperty("days") Integer days,
-		@JsonProperty("boxId") String boxId
-	) {
-		this.days = days;
-		this.boxId = boxId;
-	}
-
-	@JsonProperty
-		public Integer getDays() {
-			return this.days;
-		}
-	public void setDays(Integer days) {
-		this.days = days;
-	}
-	
-	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
-	public void setBoxId(String boxId) {
-		this.boxId = boxId;
-	}
-	
-	
 }
 
 

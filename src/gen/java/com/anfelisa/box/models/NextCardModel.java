@@ -62,6 +62,10 @@ public class NextCardModel implements INextCardModel {
 	@NotNull
 	private String boxId;
 	
+	private Integer openTodaysCards;
+	
+	private Integer allTodaysCards;
+	
 
 	public NextCardModel() {
 	}
@@ -80,7 +84,9 @@ public class NextCardModel implements INextCardModel {
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
-		@JsonProperty("boxId") String boxId
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("openTodaysCards") Integer openTodaysCards,
+		@JsonProperty("allTodaysCards") Integer allTodaysCards
 	) {
 		this.userId = userId;
 		this.today = today;
@@ -96,6 +102,8 @@ public class NextCardModel implements INextCardModel {
 		this.count = count;
 		this.scoredDate = scoredDate;
 		this.boxId = boxId;
+		this.openTodaysCards = openTodaysCards;
+		this.allTodaysCards = allTodaysCards;
 	}
 
 	@JsonProperty
@@ -208,6 +216,22 @@ public class NextCardModel implements INextCardModel {
 		}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	
+	@JsonProperty
+		public Integer getOpenTodaysCards() {
+			return this.openTodaysCards;
+		}
+	public void setOpenTodaysCards(Integer openTodaysCards) {
+		this.openTodaysCards = openTodaysCards;
+	}
+	
+	@JsonProperty
+		public Integer getAllTodaysCards() {
+			return this.allTodaysCards;
+		}
+	public void setAllTodaysCards(Integer allTodaysCards) {
+		this.allTodaysCards = allTodaysCards;
 	}
 	
 	

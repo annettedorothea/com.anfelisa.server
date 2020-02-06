@@ -73,6 +73,17 @@ ACE
 			previewCsv
 			categoryId
 		on ok (Card.bulkInsert)
+		
+	proxy GetTranslation<CardTranslation>
+		GET "/card/translation" 
+		authorize 
+		queryParams 
+			sourceValue 
+			sourceLanguage 
+			targetLanguage
+		response
+			targetValue
+		
 
 views 
 	Card {
@@ -170,5 +181,6 @@ models
 		NotNull String wanted
 		NotNull String id
 	}
+
 
 

@@ -26,32 +26,31 @@ import java.util.List;
 import java.util.ArrayList;
 
 @SuppressWarnings("all")
-public class PostponeCardsModel implements IPostponeCardsModel {
+public class InitBoxesModel implements IInitBoxesModel {
 
-	@NotNull
-	private Integer days;
+	private Integer daysBehindSchedule;
 	
 	@NotNull
 	private String boxId;
 	
 
-	public PostponeCardsModel() {
+	public InitBoxesModel() {
 	}
 
-	public PostponeCardsModel(
-		@JsonProperty("days") Integer days,
+	public InitBoxesModel(
+		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
 		@JsonProperty("boxId") String boxId
 	) {
-		this.days = days;
+		this.daysBehindSchedule = daysBehindSchedule;
 		this.boxId = boxId;
 	}
 
 	@JsonProperty
-		public Integer getDays() {
-			return this.days;
+		public Integer getDaysBehindSchedule() {
+			return this.daysBehindSchedule;
 		}
-	public void setDays(Integer days) {
-		this.days = days;
+	public void setDaysBehindSchedule(Integer daysBehindSchedule) {
+		this.daysBehindSchedule = daysBehindSchedule;
 	}
 	
 	@JsonProperty

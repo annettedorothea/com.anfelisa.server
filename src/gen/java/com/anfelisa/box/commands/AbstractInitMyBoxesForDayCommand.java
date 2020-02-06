@@ -27,21 +27,21 @@ import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.box.data.IScheduleNextCardData;
+import com.anfelisa.box.data.IInitMyBoxesDataData;
 
-public abstract class AbstractScheduleNextCardCommand extends Command<IScheduleNextCardData> {
+public abstract class AbstractInitMyBoxesForDayCommand extends Command<IInitMyBoxesDataData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractScheduleNextCardCommand(IScheduleNextCardData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.box.commands.ScheduleNextCardCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractInitMyBoxesForDayCommand(IInitMyBoxesDataData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.commands.InitMyBoxesForDayCommand", commandParam, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override
 	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.box.events.ScheduleNextCardOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
+			new com.anfelisa.box.events.InitMyBoxesForDayOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

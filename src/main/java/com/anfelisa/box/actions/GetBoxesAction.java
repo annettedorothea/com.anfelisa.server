@@ -30,8 +30,6 @@ public class GetBoxesAction extends AbstractGetBoxesAction {
 
 	@Override
 	public void initActionData() {
-		// TODO Auto-generated method stub
-
 	}
 
 }
