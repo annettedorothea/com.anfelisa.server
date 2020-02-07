@@ -4,29 +4,26 @@ import com.anfelisa.ace.IDataContainer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ForgotPasswordData extends AbstractForgotPasswordData implements IForgotPasswordData {
-	
+
 	public ForgotPasswordData(
-		@JsonProperty("language") String language, 
-		@JsonProperty("email") String email, 
-		@JsonProperty("username") String username, 
-		@JsonProperty("token") String token, 
-		@JsonProperty("userId") String userId, 
-		@JsonProperty("uuid") String uuid
-	) {
+			@JsonProperty("language") String language,
+			@JsonProperty("email") String email,
+			@JsonProperty("username") String username,
+			@JsonProperty("token") String token,
+			@JsonProperty("userId") String userId,
+			@JsonProperty("uuid") String uuid) {
 		super(
-			language,
-			email,
-			username,
-			token,
-			userId,
-			uuid
-		);
+				language,
+				email,
+				username,
+				token,
+				userId,
+				uuid);
 	}
 
-	public ForgotPasswordData( String uuid ) {
+	public ForgotPasswordData(String uuid) {
 		super(uuid);
 	}
-
 
 	public void migrateLegacyData(String json) {
 	}
@@ -34,7 +31,7 @@ public class ForgotPasswordData extends AbstractForgotPasswordData implements IF
 	public void overwriteNotReplayableData(IDataContainer dataContainer) {
 		if (dataContainer != null) {
 			try {
-				IForgotPasswordData original = (IForgotPasswordData)dataContainer;
+				IForgotPasswordData original = (IForgotPasswordData) dataContainer;
 				this.setToken(original.getToken());
 			} catch (ClassCastException x) {
 				LOG.error("cannot cast data to IForgotPasswordData for overwriting not replayable attributes", x);
@@ -44,4 +41,4 @@ public class ForgotPasswordData extends AbstractForgotPasswordData implements IF
 
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

@@ -14,28 +14,23 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-
-
-
 package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class InitBoxesData extends AbstractInitBoxesData implements IInitBoxesData {
-	
+
 	public InitBoxesData(
-		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule, 
-		@JsonProperty("boxId") String boxId, 
-		@JsonProperty("uuid") String uuid
-	) {
+			@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
+			@JsonProperty("boxId") String boxId,
+			@JsonProperty("uuid") String uuid) {
 		super(
-			daysBehindSchedule,
-			boxId,
-			uuid
-		);
+				daysBehindSchedule,
+				boxId,
+				uuid);
 	}
 
-	public InitBoxesData( String uuid ) {
+	public InitBoxesData(String uuid) {
 		super(uuid);
 	}
 
@@ -44,10 +39,4 @@ public class InitBoxesData extends AbstractInitBoxesData implements IInitBoxesDa
 
 }
 
-
-
-
 /******* S.D.G. *******/
-
-
-
