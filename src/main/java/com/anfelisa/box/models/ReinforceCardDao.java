@@ -20,12 +20,26 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 		statement.execute();
 	}
 
-	public INextCardModel selectFirstReinforceCard(Handle handle, String boxId) {
-		Optional<INextCardModel> optional = handle.createQuery(
-				"SELECT r.reinforcecardid, r.changedate, sc.quality as lastQuality, c.given, c.wanted, c.image, c.categoryid FROM public.reinforcecard r "
+	public INextCardViewModel selectFirstReinforceCard(Handle handle, String boxId) {
+		Optional<INextCardViewModel> optional = handle.createQuery(
+				"SELECT "
+						+ "null as scheduledcardid, "
+						+ "r.reinforcecardid, "
+						+ "c.cardid, "
+						+ "sc.scheduleddate, "
+						+ "r.changedate, "
+						+ "sc.quality as lastQuality, "
+						+ "c.given, "
+						+ "c.wanted, "
+						+ "c.image, "
+						+ "c.categoryid, "
+						+ "c.rootcategoryid, "
+						+ "sc.count, "
+						+ "sc.scoreddate "
+						+ "FROM public.reinforcecard r "
 						+ "inner join public.scheduledcard sc on r.scheduledcardid = sc.scheduledcardid "
 						+ "inner join public.card c on sc.cardid = c.cardid where sc.boxid = :boxid order by r.changedate")
-				.bind("boxid", boxId).map(new NextCardMapper()).findFirst();
+				.bind("boxid", boxId).map(new NextCardViewMapper()).findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 
@@ -38,10 +52,11 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 	}
 
 	public IReinforceCardModel selectByCardId(Handle handle, String cardId) {
-		Optional<IReinforceCardModel> optional = handle.createQuery("SELECT rc.reinforcecardid, rc.scheduledcardid, rc.boxid, rc.changedate FROM public.reinforcecard rc left outer join scheduledcard sc on rc.scheduledcardid = sc.scheduledcardid WHERE cardid = :cardid")
-			.bind("cardid", cardId)
-			.map(new ReinforceCardMapper())
-			.findFirst();
+		Optional<IReinforceCardModel> optional = handle.createQuery(
+				"SELECT rc.reinforcecardid, rc.scheduledcardid, rc.boxid, rc.changedate FROM public.reinforcecard rc left outer join scheduledcard sc on rc.scheduledcardid = sc.scheduledcardid WHERE cardid = :cardid")
+				.bind("cardid", cardId)
+				.map(new ReinforceCardMapper())
+				.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 
@@ -56,5 +71,4 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 
 }
 
-
-/*       S.D.G.       */
+/* S.D.G. */

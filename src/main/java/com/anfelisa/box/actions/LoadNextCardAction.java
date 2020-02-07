@@ -11,6 +11,7 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.INextCardViewModel;
+import com.anfelisa.box.models.ITodaysCardsStatusModel;
 
 public class LoadNextCardAction extends AbstractLoadNextCardAction {
 
@@ -39,6 +40,9 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		if (nextCard != null) {
 			this.actionData.mapFrom(nextCard);
 		}
+		ITodaysCardsStatusModel todaysCardsStatus = daoProvider.getBoxDao().todaysCardsStatus(readonlyHandle, box.getBoxId(), actionData.getToday());
+		this.actionData.setAllTodaysCards(todaysCardsStatus.getAllTodaysCards());
+		this.actionData.setOpenTodaysCards(todaysCardsStatus.getOpenTodaysCards());
 	}
 
 

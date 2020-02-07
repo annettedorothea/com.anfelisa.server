@@ -200,6 +200,11 @@ models
 		Integer openTodaysCards
 		Integer allTodaysCards
 	}
+	
+	TodaysCardsStatus {
+		Integer openTodaysCards
+		Integer allTodaysCards
+	}
 
 	ScoreCard {
 		NotNull String cardId
