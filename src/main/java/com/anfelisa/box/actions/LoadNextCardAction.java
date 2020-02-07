@@ -10,7 +10,7 @@ import com.anfelisa.ace.E2E;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.INextCardModel;
+import com.anfelisa.box.models.INextCardViewModel;
 
 public class LoadNextCardAction extends AbstractLoadNextCardAction {
 
@@ -30,8 +30,12 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 			throwUnauthorized();
 		}
 
-		INextCardModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(readonlyHandle,
+		INextCardViewModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(readonlyHandle,
 				actionData.getBoxId(), actionData.getToday());
+		if (nextCard == null) {
+			nextCard = daoProvider.getReinforceCardDao().selectFirstReinforceCard(readonlyHandle,
+					actionData.getBoxId());
+		}
 		if (nextCard != null) {
 			this.actionData.mapFrom(nextCard);
 		}

@@ -29,6 +29,9 @@ public interface INextCardViewModel {
 	String getScheduledCardId();
 	void setScheduledCardId(String scheduledCardId);
 	
+	String getReinforceCardId();
+	void setReinforceCardId(String reinforceCardId);
+	
 	String getCardId();
 	void setCardId(String cardId);
 	
@@ -58,15 +61,6 @@ public interface INextCardViewModel {
 	
 	org.joda.time.DateTime getScoredDate();
 	void setScoredDate(org.joda.time.DateTime scoredDate);
-	
-	String getBoxId();
-	void setBoxId(String boxId);
-	
-	Integer getOpenTodaysCards();
-	void setOpenTodaysCards(Integer openTodaysCards);
-	
-	Integer getAllTodaysCards();
-	void setAllTodaysCards(Integer allTodaysCards);
 	
 	
 }

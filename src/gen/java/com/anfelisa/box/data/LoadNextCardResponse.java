@@ -52,6 +52,9 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	private String scheduledCardId;
 	
 	@NotNull
+	private String reinforceCardId;
+	
+	@NotNull
 	private org.joda.time.DateTime scheduledDate;
 	
 	private org.joda.time.DateTime scoredDate;
@@ -74,6 +77,7 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 		lastQuality = data.getLastQuality();
 		rootCategoryId = data.getRootCategoryId();
 		scheduledCardId = data.getScheduledCardId();
+		reinforceCardId = data.getReinforceCardId();
 		scheduledDate = data.getScheduledDate();
 		scoredDate = data.getScoredDate();
 		wanted = data.getWanted();
@@ -119,6 +123,11 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	@JsonProperty
 		public String getScheduledCardId() {
 			return this.scheduledCardId;
+		}
+	
+	@JsonProperty
+		public String getReinforceCardId() {
+			return this.reinforceCardId;
 		}
 	
 	@JsonProperty

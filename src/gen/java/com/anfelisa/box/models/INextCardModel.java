@@ -29,8 +29,17 @@ public interface INextCardModel extends com.anfelisa.box.models.INextCardViewMod
 	String getUserId();
 	void setUserId(String userId);
 	
+	String getBoxId();
+	void setBoxId(String boxId);
+	
 	org.joda.time.DateTime getToday();
 	void setToday(org.joda.time.DateTime today);
+	
+	Integer getOpenTodaysCards();
+	void setOpenTodaysCards(Integer openTodaysCards);
+	
+	Integer getAllTodaysCards();
+	void setAllTodaysCards(Integer allTodaysCards);
 	
 	
 }

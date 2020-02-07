@@ -49,7 +49,6 @@ public class TestUtils {
 	}
 
 
-
 	public static TimelineItem createScheduleCardsOkEventTimelineItem(com.anfelisa.box.data.IScheduledCardsData data) throws JsonProcessingException {
 		String json = mapper.writeValueAsString(data);
 		return new TimelineItem("prepare", null, "com.anfelisa.box.events.ScheduleCardsOkEvent", null, json, data.getUuid());
@@ -66,15 +65,6 @@ public class TestUtils {
 	public static TimelineItem createScoreCardScoreAndReinforceEventTimelineItem(com.anfelisa.box.data.IScoreCardData data) throws JsonProcessingException {
 		String json = mapper.writeValueAsString(data);
 		return new TimelineItem("prepare", null, "com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent", null, json, data.getUuid());
-	}
-
-	public static TimelineItem createScoreReinforceCardRemoveEventTimelineItem(com.anfelisa.box.data.IScoreReinforceCardData data) throws JsonProcessingException {
-		String json = mapper.writeValueAsString(data);
-		return new TimelineItem("prepare", null, "com.anfelisa.box.events.ScoreReinforceCardRemoveEvent", null, json, data.getUuid());
-	}
-	public static TimelineItem createScoreReinforceCardKeepEventTimelineItem(com.anfelisa.box.data.IScoreReinforceCardData data) throws JsonProcessingException {
-		String json = mapper.writeValueAsString(data);
-		return new TimelineItem("prepare", null, "com.anfelisa.box.events.ScoreReinforceCardKeepEvent", null, json, data.getUuid());
 	}
 
 	

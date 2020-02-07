@@ -82,11 +82,6 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.box.actions.LoadNextReinforceCardAction")) {
-				NextReinforceCardData data = mapper.readValue(json, NextReinforceCardData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
 			if (className.equals("com.anfelisa.box.actions.ScheduleCardsAction") ||
 					className.equals("com.anfelisa.box.commands.ScheduleCardsCommand") ||
 					className.equals("com.anfelisa.box.events.ScheduleCardsOkEvent")||
@@ -102,15 +97,6 @@ public class AceDataFactory {
 					className.equals("com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent")
 			) {
 				ScoreCardData data = mapper.readValue(json, ScoreCardData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
-			if (className.equals("com.anfelisa.box.actions.ScoreReinforceCardAction") ||
-					className.equals("com.anfelisa.box.commands.ScoreReinforceCardCommand") ||
-					className.equals("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent")||
-					className.equals("com.anfelisa.box.events.ScoreReinforceCardKeepEvent")
-			) {
-				ScoreReinforceCardData data = mapper.readValue(json, ScoreReinforceCardData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}

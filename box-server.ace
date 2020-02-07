@@ -57,25 +57,12 @@ ACE
 			lastQuality
 			rootCategoryId
 			scheduledCardId
+			reinforceCardId
 			scheduledDate
 			scoredDate
 			wanted
 			openTodaysCards
 			allTodaysCards
-
-	LoadNextReinforceCard<NextReinforceCard>
-		GET "/box/next-reinforce-card" 
-		authorize
-		queryParams boxId
-		response
-			categoryId
-			boxId
-			changeDate
-			given
-			image
-			lastQuality
-			reinforceCardId
-			wanted			
 
 	ScheduleCards<ScheduledCards>
 		POST "/cards/schedule" 
@@ -93,16 +80,6 @@ ACE
 			scoredCardQuality
 		on score (ScheduledCard.score ScheduledCard.scheduleNext)
 		on scoreAndReinforce (ScheduledCard.score ScheduledCard.scheduleNext ReinforceCard.add)
-
-	ScoreReinforceCard<ScoreReinforceCard>
-		POST "/reinforce-card/score" 
-		authorize 
-		payload reinforceCardId quality
-		on remove (ReinforceCard.remove)
-		on keep (ReinforceCard.update)
-		
-	
-	
 
 views 
 	Box {
@@ -203,6 +180,7 @@ models
 
 	NextCardView {
 		NotNull String scheduledCardId
+		NotNull String reinforceCardId
 		NotNull String cardId
 		NotNull DateTime scheduledDate
 		Integer lastQuality
@@ -213,16 +191,16 @@ models
 		String rootCategoryId
 		NotNull Integer count
 		DateTime scoredDate
-		NotNull String boxId
-		Integer openTodaysCards
-		Integer allTodaysCards
 	}
 	
 	NextCard extends NextCardView {
 		String userId
+		NotNull String boxId
 		NotNull DateTime today
+		Integer openTodaysCards
+		Integer allTodaysCards
 	}
-	
+
 	ScoreCard {
 		NotNull String cardId
 		
@@ -245,22 +223,6 @@ models
 		String userId
 		NotNull String boxId
 	}
-	
-	NextReinforceCardView  {
-		NotNull String reinforceCardId
-		NotNull DateTime changeDate
-		Integer lastQuality
-		String given
-		String wanted
-		String image
-		String categoryId
-	}
-	
-	NextReinforceCard extends NextReinforceCardView {
-		NotNull String boxId
-		String userId
-	}
-	
 	
 	ScoreReinforceCard {
 		NotNull String reinforceCardId

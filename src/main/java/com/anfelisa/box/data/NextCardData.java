@@ -25,8 +25,12 @@ public class NextCardData extends AbstractNextCardData implements INextCardData 
 	
 	public NextCardData(
 		@JsonProperty("userId") String userId, 
+		@JsonProperty("boxId") String boxId, 
 		@JsonProperty("today") org.joda.time.DateTime today, 
+		@JsonProperty("openTodaysCards") Integer openTodaysCards, 
+		@JsonProperty("allTodaysCards") Integer allTodaysCards, 
 		@JsonProperty("scheduledCardId") String scheduledCardId, 
+		@JsonProperty("reinforceCardId") String reinforceCardId, 
 		@JsonProperty("cardId") String cardId, 
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate, 
 		@JsonProperty("lastQuality") Integer lastQuality, 
@@ -37,15 +41,16 @@ public class NextCardData extends AbstractNextCardData implements INextCardData 
 		@JsonProperty("rootCategoryId") String rootCategoryId, 
 		@JsonProperty("count") Integer count, 
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate, 
-		@JsonProperty("boxId") String boxId, 
-		@JsonProperty("openTodaysCards") Integer openTodaysCards, 
-		@JsonProperty("allTodaysCards") Integer allTodaysCards, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			userId,
+			boxId,
 			today,
+			openTodaysCards,
+			allTodaysCards,
 			scheduledCardId,
+			reinforceCardId,
 			cardId,
 			scheduledDate,
 			lastQuality,
@@ -56,13 +61,11 @@ public class NextCardData extends AbstractNextCardData implements INextCardData 
 			rootCategoryId,
 			count,
 			scoredDate,
-			boxId,
-			openTodaysCards,
-			allTodaysCards,
 			uuid
 		);
 	}
 
+	@Deprecated
 	public NextCardData(
 			@JsonProperty("userId") String userId, 
 			@JsonProperty("today") org.joda.time.DateTime today, 
@@ -82,8 +85,12 @@ public class NextCardData extends AbstractNextCardData implements INextCardData 
 			) {
 		super(
 				userId,
+				boxId,
 				today,
+				0,
+				0,
 				scheduledCardId,
+				null,
 				cardId,
 				scheduledDate,
 				lastQuality,
@@ -94,9 +101,6 @@ public class NextCardData extends AbstractNextCardData implements INextCardData 
 				rootCategoryId,
 				count,
 				scoredDate,
-				boxId,
-				0,
-				0,
 				uuid
 				);
 	}

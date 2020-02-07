@@ -43,10 +43,8 @@ public class AppRegistration {
 		environment.jersey().register(new InitMyBoxesForDayAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new DeleteBoxAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new LoadNextCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new LoadNextReinforceCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ScheduleCardsAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ScoreCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new ScoreReinforceCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 	}
 
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {
@@ -92,14 +90,6 @@ public class AppRegistration {
 		
 		viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent", (dataContainer, handle) -> {
 			viewProvider.reinforceCardView.add((com.anfelisa.box.data.ScoreCardData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent", (dataContainer, handle) -> {
-			viewProvider.reinforceCardView.remove((com.anfelisa.box.data.ScoreReinforceCardData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.box.events.ScoreReinforceCardKeepEvent", (dataContainer, handle) -> {
-			viewProvider.reinforceCardView.update((com.anfelisa.box.data.ScoreReinforceCardData) dataContainer, handle);
 		});
 		
     }

@@ -25,6 +25,7 @@ public class NextCardViewData extends AbstractNextCardViewData implements INextC
 	
 	public NextCardViewData(
 		@JsonProperty("scheduledCardId") String scheduledCardId, 
+		@JsonProperty("reinforceCardId") String reinforceCardId, 
 		@JsonProperty("cardId") String cardId, 
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate, 
 		@JsonProperty("lastQuality") Integer lastQuality, 
@@ -35,13 +36,11 @@ public class NextCardViewData extends AbstractNextCardViewData implements INextC
 		@JsonProperty("rootCategoryId") String rootCategoryId, 
 		@JsonProperty("count") Integer count, 
 		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate, 
-		@JsonProperty("boxId") String boxId, 
-		@JsonProperty("openTodaysCards") Integer openTodaysCards, 
-		@JsonProperty("allTodaysCards") Integer allTodaysCards, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			scheduledCardId,
+			reinforceCardId,
 			cardId,
 			scheduledDate,
 			lastQuality,
@@ -52,9 +51,6 @@ public class NextCardViewData extends AbstractNextCardViewData implements INextC
 			rootCategoryId,
 			count,
 			scoredDate,
-			boxId,
-			openTodaysCards,
-			allTodaysCards,
 			uuid
 		);
 	}

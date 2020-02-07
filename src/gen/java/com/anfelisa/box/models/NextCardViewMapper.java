@@ -30,6 +30,7 @@ public class NextCardViewMapper implements RowMapper<INextCardViewModel> {
 	public INextCardViewModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new NextCardViewModel(
 			r.getString("scheduledCardId"),
+			r.getString("reinforceCardId"),
 			r.getString("cardId"),
 			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")) : null,
 			r.getObject("lastQuality") != null ? r.getInt("lastQuality") : null,
@@ -39,10 +40,7 @@ public class NextCardViewMapper implements RowMapper<INextCardViewModel> {
 			r.getString("categoryId"),
 			r.getString("rootCategoryId"),
 			r.getObject("count") != null ? r.getInt("count") : null,
-			r.getTimestamp("scoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredDate")) : null,
-			r.getString("boxId"),
-			r.getObject("openTodaysCards") != null ? r.getInt("openTodaysCards") : null,
-			r.getObject("allTodaysCards") != null ? r.getInt("allTodaysCards") : null
+			r.getTimestamp("scoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredDate")) : null
 		);
 	}
 }

@@ -42,10 +42,20 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	private String userId;
 	
 	@NotNull
+	private String boxId;
+	
+	@NotNull
 	private org.joda.time.DateTime today;
+	
+	private Integer openTodaysCards;
+	
+	private Integer allTodaysCards;
 	
 	@NotNull
 	private String scheduledCardId;
+	
+	@NotNull
+	private String reinforceCardId;
 	
 	@NotNull
 	private String cardId;
@@ -70,18 +80,15 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	
 	private org.joda.time.DateTime scoredDate;
 	
-	@NotNull
-	private String boxId;
-	
-	private Integer openTodaysCards;
-	
-	private Integer allTodaysCards;
-	
 
 	public AbstractNextCardData(
 		@JsonProperty("userId") String userId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("today") org.joda.time.DateTime today,
+		@JsonProperty("openTodaysCards") Integer openTodaysCards,
+		@JsonProperty("allTodaysCards") Integer allTodaysCards,
 		@JsonProperty("scheduledCardId") String scheduledCardId,
+		@JsonProperty("reinforceCardId") String reinforceCardId,
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
 		@JsonProperty("lastQuality") Integer lastQuality,
@@ -91,16 +98,17 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
-		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
-		@JsonProperty("boxId") String boxId,
-		@JsonProperty("openTodaysCards") Integer openTodaysCards,
-		@JsonProperty("allTodaysCards") Integer allTodaysCards
+		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.userId = userId;
+		this.boxId = boxId;
 		this.today = today;
+		this.openTodaysCards = openTodaysCards;
+		this.allTodaysCards = allTodaysCards;
 		this.scheduledCardId = scheduledCardId;
+		this.reinforceCardId = reinforceCardId;
 		this.cardId = cardId;
 		this.scheduledDate = scheduledDate;
 		this.lastQuality = lastQuality;
@@ -111,9 +119,6 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		this.rootCategoryId = rootCategoryId;
 		this.count = count;
 		this.scoredDate = scoredDate;
-		this.boxId = boxId;
-		this.openTodaysCards = openTodaysCards;
-		this.allTodaysCards = allTodaysCards;
 	}
 
 	public AbstractNextCardData( String uuid ) {
@@ -133,6 +138,18 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	
 	@JsonProperty
+		public String getBoxId() {
+			return this.boxId;
+		}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
+	}
+	public INextCardData withBoxId(String boxId) {
+		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
 		public org.joda.time.DateTime getToday() {
 			return this.today;
 		}
@@ -145,6 +162,30 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	
 	@JsonProperty
+		public Integer getOpenTodaysCards() {
+			return this.openTodaysCards;
+		}
+	public void setOpenTodaysCards(Integer openTodaysCards) {
+		this.openTodaysCards = openTodaysCards;
+	}
+	public INextCardData withOpenTodaysCards(Integer openTodaysCards) {
+		this.openTodaysCards = openTodaysCards;
+		return this;
+	}
+	
+	@JsonProperty
+		public Integer getAllTodaysCards() {
+			return this.allTodaysCards;
+		}
+	public void setAllTodaysCards(Integer allTodaysCards) {
+		this.allTodaysCards = allTodaysCards;
+	}
+	public INextCardData withAllTodaysCards(Integer allTodaysCards) {
+		this.allTodaysCards = allTodaysCards;
+		return this;
+	}
+	
+	@JsonProperty
 		public String getScheduledCardId() {
 			return this.scheduledCardId;
 		}
@@ -153,6 +194,18 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	}
 	public INextCardData withScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
+		return this;
+	}
+	
+	@JsonProperty
+		public String getReinforceCardId() {
+			return this.reinforceCardId;
+		}
+	public void setReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
+	}
+	public INextCardData withReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
 		return this;
 	}
 	
@@ -276,45 +329,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		return this;
 	}
 	
-	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
-	public void setBoxId(String boxId) {
-		this.boxId = boxId;
-	}
-	public INextCardData withBoxId(String boxId) {
-		this.boxId = boxId;
-		return this;
-	}
-	
-	@JsonProperty
-		public Integer getOpenTodaysCards() {
-			return this.openTodaysCards;
-		}
-	public void setOpenTodaysCards(Integer openTodaysCards) {
-		this.openTodaysCards = openTodaysCards;
-	}
-	public INextCardData withOpenTodaysCards(Integer openTodaysCards) {
-		this.openTodaysCards = openTodaysCards;
-		return this;
-	}
-	
-	@JsonProperty
-		public Integer getAllTodaysCards() {
-			return this.allTodaysCards;
-		}
-	public void setAllTodaysCards(Integer allTodaysCards) {
-		this.allTodaysCards = allTodaysCards;
-	}
-	public INextCardData withAllTodaysCards(Integer allTodaysCards) {
-		this.allTodaysCards = allTodaysCards;
-		return this;
-	}
-	
 	
 	public void mapFrom(com.anfelisa.box.models.INextCardViewModel model) {
 		this.scheduledCardId = model.getScheduledCardId();
+		this.reinforceCardId = model.getReinforceCardId();
 		this.cardId = model.getCardId();
 		this.scheduledDate = model.getScheduledDate();
 		this.lastQuality = model.getLastQuality();
@@ -325,9 +343,6 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		this.rootCategoryId = model.getRootCategoryId();
 		this.count = model.getCount();
 		this.scoredDate = model.getScoredDate();
-		this.boxId = model.getBoxId();
-		this.openTodaysCards = model.getOpenTodaysCards();
-		this.allTodaysCards = model.getAllTodaysCards();
 	}
 	
 }

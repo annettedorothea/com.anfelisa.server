@@ -10,13 +10,26 @@ import org.joda.time.DateTime;
 import com.anfelisa.box.data.IScoreCardData;
 
 public class ScheduledCardDao extends AbstractScheduledCardDao {
-	public INextCardModel selectFirstScheduledCard(Handle handle, String boxId, DateTime today) {
-		Optional<INextCardModel> optional = handle.createQuery(
-				"SELECT sc.scheduledcardid, c.cardid, sc.scheduleddate, sc.boxid, sc.lastquality, c.given, c.wanted, c.image, c.categoryid, c.rootCategoryid as rootCategoryId, sc.count, sc.scoreddate FROM public.scheduledcard sc "
+	public INextCardViewModel selectFirstScheduledCard(Handle handle, String boxId, DateTime today) {
+		Optional<INextCardViewModel> optional = handle.createQuery(
+				"SELECT "
+				+ "sc.scheduledcardid, "
+				+ "null as reinforcecardid, "
+				+ "c.cardid, "
+				+ "sc.scheduleddate, "
+				+ "sc.lastquality, "
+				+ "c.given, "
+				+ "c.wanted, "
+				+ "c.image, "
+				+ "c.categoryid, "
+				+ "c.rootcategoryid, "
+				+ "sc.count, "
+				+ "sc.scoreddate "
+				+ "FROM public.scheduledcard sc "
 						+ "inner join public.card c on c.cardid = sc.cardid "
 						+ "inner join public.category ct on c.categoryid = ct.categoryid "
 						+ "WHERE sc.boxid = :boxId and quality is null and sc.scheduleddate <= :today order by sc.scheduleddate, ct.categoryindex, c.cardindex limit 1")
-				.bind("boxId", boxId).bind("today", today).map(new NextCardMapper()).findFirst();
+				.bind("boxId", boxId).bind("today", today).map(new NextCardViewMapper()).findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 

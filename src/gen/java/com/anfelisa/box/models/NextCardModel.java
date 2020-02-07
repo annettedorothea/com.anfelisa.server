@@ -31,10 +31,20 @@ public class NextCardModel implements INextCardModel {
 	private String userId;
 	
 	@NotNull
+	private String boxId;
+	
+	@NotNull
 	private org.joda.time.DateTime today;
+	
+	private Integer openTodaysCards;
+	
+	private Integer allTodaysCards;
 	
 	@NotNull
 	private String scheduledCardId;
+	
+	@NotNull
+	private String reinforceCardId;
 	
 	@NotNull
 	private String cardId;
@@ -59,21 +69,18 @@ public class NextCardModel implements INextCardModel {
 	
 	private org.joda.time.DateTime scoredDate;
 	
-	@NotNull
-	private String boxId;
-	
-	private Integer openTodaysCards;
-	
-	private Integer allTodaysCards;
-	
 
 	public NextCardModel() {
 	}
 
 	public NextCardModel(
 		@JsonProperty("userId") String userId,
+		@JsonProperty("boxId") String boxId,
 		@JsonProperty("today") org.joda.time.DateTime today,
+		@JsonProperty("openTodaysCards") Integer openTodaysCards,
+		@JsonProperty("allTodaysCards") Integer allTodaysCards,
 		@JsonProperty("scheduledCardId") String scheduledCardId,
+		@JsonProperty("reinforceCardId") String reinforceCardId,
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
 		@JsonProperty("lastQuality") Integer lastQuality,
@@ -83,14 +90,15 @@ public class NextCardModel implements INextCardModel {
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
-		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
-		@JsonProperty("boxId") String boxId,
-		@JsonProperty("openTodaysCards") Integer openTodaysCards,
-		@JsonProperty("allTodaysCards") Integer allTodaysCards
+		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate
 	) {
 		this.userId = userId;
+		this.boxId = boxId;
 		this.today = today;
+		this.openTodaysCards = openTodaysCards;
+		this.allTodaysCards = allTodaysCards;
 		this.scheduledCardId = scheduledCardId;
+		this.reinforceCardId = reinforceCardId;
 		this.cardId = cardId;
 		this.scheduledDate = scheduledDate;
 		this.lastQuality = lastQuality;
@@ -101,9 +109,6 @@ public class NextCardModel implements INextCardModel {
 		this.rootCategoryId = rootCategoryId;
 		this.count = count;
 		this.scoredDate = scoredDate;
-		this.boxId = boxId;
-		this.openTodaysCards = openTodaysCards;
-		this.allTodaysCards = allTodaysCards;
 	}
 
 	@JsonProperty
@@ -115,6 +120,14 @@ public class NextCardModel implements INextCardModel {
 	}
 	
 	@JsonProperty
+		public String getBoxId() {
+			return this.boxId;
+		}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
+	}
+	
+	@JsonProperty
 		public org.joda.time.DateTime getToday() {
 			return this.today;
 		}
@@ -123,11 +136,35 @@ public class NextCardModel implements INextCardModel {
 	}
 	
 	@JsonProperty
+		public Integer getOpenTodaysCards() {
+			return this.openTodaysCards;
+		}
+	public void setOpenTodaysCards(Integer openTodaysCards) {
+		this.openTodaysCards = openTodaysCards;
+	}
+	
+	@JsonProperty
+		public Integer getAllTodaysCards() {
+			return this.allTodaysCards;
+		}
+	public void setAllTodaysCards(Integer allTodaysCards) {
+		this.allTodaysCards = allTodaysCards;
+	}
+	
+	@JsonProperty
 		public String getScheduledCardId() {
 			return this.scheduledCardId;
 		}
 	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
+	}
+	
+	@JsonProperty
+		public String getReinforceCardId() {
+			return this.reinforceCardId;
+		}
+	public void setReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
 	}
 	
 	@JsonProperty
@@ -208,30 +245,6 @@ public class NextCardModel implements INextCardModel {
 		}
 	public void setScoredDate(org.joda.time.DateTime scoredDate) {
 		this.scoredDate = scoredDate;
-	}
-	
-	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
-	public void setBoxId(String boxId) {
-		this.boxId = boxId;
-	}
-	
-	@JsonProperty
-		public Integer getOpenTodaysCards() {
-			return this.openTodaysCards;
-		}
-	public void setOpenTodaysCards(Integer openTodaysCards) {
-		this.openTodaysCards = openTodaysCards;
-	}
-	
-	@JsonProperty
-		public Integer getAllTodaysCards() {
-			return this.allTodaysCards;
-		}
-	public void setAllTodaysCards(Integer allTodaysCards) {
-		this.allTodaysCards = allTodaysCards;
 	}
 	
 	

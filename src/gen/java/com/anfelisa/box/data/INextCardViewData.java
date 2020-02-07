@@ -30,6 +30,8 @@ public interface INextCardViewData extends INextCardViewModel, IDataContainer {
 	
 	INextCardViewData withScheduledCardId(String scheduledCardId);
 	
+	INextCardViewData withReinforceCardId(String reinforceCardId);
+	
 	INextCardViewData withCardId(String cardId);
 	
 	INextCardViewData withScheduledDate(org.joda.time.DateTime scheduledDate);
@@ -49,12 +51,6 @@ public interface INextCardViewData extends INextCardViewModel, IDataContainer {
 	INextCardViewData withCount(Integer count);
 	
 	INextCardViewData withScoredDate(org.joda.time.DateTime scoredDate);
-	
-	INextCardViewData withBoxId(String boxId);
-	
-	INextCardViewData withOpenTodaysCards(Integer openTodaysCards);
-	
-	INextCardViewData withAllTodaysCards(Integer allTodaysCards);
 	
 	
 }

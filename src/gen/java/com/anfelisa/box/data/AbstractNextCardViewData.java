@@ -42,6 +42,9 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	private String scheduledCardId;
 	
 	@NotNull
+	private String reinforceCardId;
+	
+	@NotNull
 	private String cardId;
 	
 	@NotNull
@@ -64,16 +67,10 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	
 	private org.joda.time.DateTime scoredDate;
 	
-	@NotNull
-	private String boxId;
-	
-	private Integer openTodaysCards;
-	
-	private Integer allTodaysCards;
-	
 
 	public AbstractNextCardViewData(
 		@JsonProperty("scheduledCardId") String scheduledCardId,
+		@JsonProperty("reinforceCardId") String reinforceCardId,
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
 		@JsonProperty("lastQuality") Integer lastQuality,
@@ -83,14 +80,12 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
-		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
-		@JsonProperty("boxId") String boxId,
-		@JsonProperty("openTodaysCards") Integer openTodaysCards,
-		@JsonProperty("allTodaysCards") Integer allTodaysCards
+		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.scheduledCardId = scheduledCardId;
+		this.reinforceCardId = reinforceCardId;
 		this.cardId = cardId;
 		this.scheduledDate = scheduledDate;
 		this.lastQuality = lastQuality;
@@ -101,9 +96,6 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 		this.rootCategoryId = rootCategoryId;
 		this.count = count;
 		this.scoredDate = scoredDate;
-		this.boxId = boxId;
-		this.openTodaysCards = openTodaysCards;
-		this.allTodaysCards = allTodaysCards;
 	}
 
 	public AbstractNextCardViewData( String uuid ) {
@@ -119,6 +111,18 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	public INextCardViewData withScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
+		return this;
+	}
+	
+	@JsonProperty
+		public String getReinforceCardId() {
+			return this.reinforceCardId;
+		}
+	public void setReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
+	}
+	public INextCardViewData withReinforceCardId(String reinforceCardId) {
+		this.reinforceCardId = reinforceCardId;
 		return this;
 	}
 	
@@ -239,42 +243,6 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	public INextCardViewData withScoredDate(org.joda.time.DateTime scoredDate) {
 		this.scoredDate = scoredDate;
-		return this;
-	}
-	
-	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
-	public void setBoxId(String boxId) {
-		this.boxId = boxId;
-	}
-	public INextCardViewData withBoxId(String boxId) {
-		this.boxId = boxId;
-		return this;
-	}
-	
-	@JsonProperty
-		public Integer getOpenTodaysCards() {
-			return this.openTodaysCards;
-		}
-	public void setOpenTodaysCards(Integer openTodaysCards) {
-		this.openTodaysCards = openTodaysCards;
-	}
-	public INextCardViewData withOpenTodaysCards(Integer openTodaysCards) {
-		this.openTodaysCards = openTodaysCards;
-		return this;
-	}
-	
-	@JsonProperty
-		public Integer getAllTodaysCards() {
-			return this.allTodaysCards;
-		}
-	public void setAllTodaysCards(Integer allTodaysCards) {
-		this.allTodaysCards = allTodaysCards;
-	}
-	public INextCardViewData withAllTodaysCards(Integer allTodaysCards) {
-		this.allTodaysCards = allTodaysCards;
 		return this;
 	}
 	
