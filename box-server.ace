@@ -81,6 +81,15 @@ ACE
 		on score (ScheduledCard.score ScheduledCard.scheduleNext)
 		on scoreAndReinforce (ScheduledCard.score ScheduledCard.scheduleNext ReinforceCard.add)
 
+	ScoreReinforceCard<ScoreReinforceCard>
+		POST "/card/score-reinforce"  
+		authorize
+		payload 
+			reinforceCardId 
+			quality
+		on keep (ReinforceCard.update)
+		on remove (ReinforceCard.remove)
+
 views 
 	Box {
 		createBox (Box)
@@ -136,9 +145,6 @@ models
 	BoxView {
 		Integer openTodaysCards
 		Integer allTodaysCards
-		Integer maxCardsPerDay
-		Integer myCards
-		Integer totalCards
 		NotNull String categoryName
 		Integer quality0Count
 		Integer quality1Count

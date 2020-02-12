@@ -32,15 +32,6 @@ public interface IBoxViewModel {
 	Integer getAllTodaysCards();
 	void setAllTodaysCards(Integer allTodaysCards);
 	
-	Integer getMaxCardsPerDay();
-	void setMaxCardsPerDay(Integer maxCardsPerDay);
-	
-	Integer getMyCards();
-	void setMyCards(Integer myCards);
-	
-	Integer getTotalCards();
-	void setTotalCards(Integer totalCards);
-	
 	String getCategoryName();
 	void setCategoryName(String categoryName);
 	

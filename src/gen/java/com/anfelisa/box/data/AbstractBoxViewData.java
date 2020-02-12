@@ -42,12 +42,6 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	
 	private Integer allTodaysCards;
 	
-	private Integer maxCardsPerDay;
-	
-	private Integer myCards;
-	
-	private Integer totalCards;
-	
 	@NotNull
 	private String categoryName;
 	
@@ -70,9 +64,6 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	public AbstractBoxViewData(
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("allTodaysCards") Integer allTodaysCards,
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
-		@JsonProperty("myCards") Integer myCards,
-		@JsonProperty("totalCards") Integer totalCards,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
@@ -86,9 +77,6 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 		super(uuid);
 		this.openTodaysCards = openTodaysCards;
 		this.allTodaysCards = allTodaysCards;
-		this.maxCardsPerDay = maxCardsPerDay;
-		this.myCards = myCards;
-		this.totalCards = totalCards;
 		this.categoryName = categoryName;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
@@ -124,42 +112,6 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	public IBoxViewData withAllTodaysCards(Integer allTodaysCards) {
 		this.allTodaysCards = allTodaysCards;
-		return this;
-	}
-	
-	@JsonProperty
-		public Integer getMaxCardsPerDay() {
-			return this.maxCardsPerDay;
-		}
-	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
-	}
-	public IBoxViewData withMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
-		return this;
-	}
-	
-	@JsonProperty
-		public Integer getMyCards() {
-			return this.myCards;
-		}
-	public void setMyCards(Integer myCards) {
-		this.myCards = myCards;
-	}
-	public IBoxViewData withMyCards(Integer myCards) {
-		this.myCards = myCards;
-		return this;
-	}
-	
-	@JsonProperty
-		public Integer getTotalCards() {
-			return this.totalCards;
-		}
-	public void setTotalCards(Integer totalCards) {
-		this.totalCards = totalCards;
-	}
-	public IBoxViewData withTotalCards(Integer totalCards) {
-		this.totalCards = totalCards;
 		return this;
 	}
 	

@@ -32,12 +32,6 @@ public class BoxViewModel implements IBoxViewModel {
 	
 	private Integer allTodaysCards;
 	
-	private Integer maxCardsPerDay;
-	
-	private Integer myCards;
-	
-	private Integer totalCards;
-	
 	@NotNull
 	private String categoryName;
 	
@@ -63,9 +57,6 @@ public class BoxViewModel implements IBoxViewModel {
 	public BoxViewModel(
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("allTodaysCards") Integer allTodaysCards,
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
-		@JsonProperty("myCards") Integer myCards,
-		@JsonProperty("totalCards") Integer totalCards,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
@@ -77,9 +68,6 @@ public class BoxViewModel implements IBoxViewModel {
 	) {
 		this.openTodaysCards = openTodaysCards;
 		this.allTodaysCards = allTodaysCards;
-		this.maxCardsPerDay = maxCardsPerDay;
-		this.myCards = myCards;
-		this.totalCards = totalCards;
 		this.categoryName = categoryName;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
@@ -104,30 +92,6 @@ public class BoxViewModel implements IBoxViewModel {
 		}
 	public void setAllTodaysCards(Integer allTodaysCards) {
 		this.allTodaysCards = allTodaysCards;
-	}
-	
-	@JsonProperty
-		public Integer getMaxCardsPerDay() {
-			return this.maxCardsPerDay;
-		}
-	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
-	}
-	
-	@JsonProperty
-		public Integer getMyCards() {
-			return this.myCards;
-		}
-	public void setMyCards(Integer myCards) {
-		this.myCards = myCards;
-	}
-	
-	@JsonProperty
-		public Integer getTotalCards() {
-			return this.totalCards;
-		}
-	public void setTotalCards(Integer totalCards) {
-		this.totalCards = totalCards;
 	}
 	
 	@JsonProperty

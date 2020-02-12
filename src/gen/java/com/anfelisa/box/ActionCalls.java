@@ -99,6 +99,16 @@ public class ActionCalls {
 		return builder.post(Entity.json(data));
 	}
 	
+	public static Response callScoreReinforceCard(String uuid, String reinforceCardId, Integer quality, int port, String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/card/score-reinforce", port)).request(); 
+		com.anfelisa.box.data.IScoreReinforceCardData data = new com.anfelisa.box.data.ScoreReinforceCardData(uuid);
+		data.setReinforceCardId(reinforceCardId);
+		data.setQuality(quality);
+		builder.header("Authorization", authorization);
+		return builder.post(Entity.json(data));
+	}
+	
 	
 }
 

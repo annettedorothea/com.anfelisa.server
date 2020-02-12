@@ -100,6 +100,15 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
+			if (className.equals("com.anfelisa.box.actions.ScoreReinforceCardAction") ||
+					className.equals("com.anfelisa.box.commands.ScoreReinforceCardCommand") ||
+					className.equals("com.anfelisa.box.events.ScoreReinforceCardKeepEvent")||
+					className.equals("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent")
+			) {
+				ScoreReinforceCardData data = mapper.readValue(json, ScoreReinforceCardData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
 		} catch (IOException e) {
 			LOG.error("failed to create ace data {} with data {}", className, json, e);
 		}

@@ -32,12 +32,6 @@ public interface IBoxViewData extends IBoxViewModel, IDataContainer {
 	
 	IBoxViewData withAllTodaysCards(Integer allTodaysCards);
 	
-	IBoxViewData withMaxCardsPerDay(Integer maxCardsPerDay);
-	
-	IBoxViewData withMyCards(Integer myCards);
-	
-	IBoxViewData withTotalCards(Integer totalCards);
-	
 	IBoxViewData withCategoryName(String categoryName);
 	
 	IBoxViewData withQuality0Count(Integer quality0Count);

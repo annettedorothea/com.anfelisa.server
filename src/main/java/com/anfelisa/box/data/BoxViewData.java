@@ -14,49 +14,41 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+
+
+
 package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
-
+	
 	public BoxViewData(
-			@JsonProperty("todaysCards") Integer todaysCards,
-			@JsonProperty("reinforceCards") Integer reinforceCards,
-			@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
-			@JsonProperty("myCards") Integer myCards,
-			@JsonProperty("totalCards") Integer totalCards,
-			@JsonProperty("categoryName") String categoryName,
-			@JsonProperty("quality0Count") Integer quality0Count,
-			@JsonProperty("quality1Count") Integer quality1Count,
-			@JsonProperty("quality2Count") Integer quality2Count,
-			@JsonProperty("quality3Count") Integer quality3Count,
-			@JsonProperty("quality4Count") Integer quality4Count,
-			@JsonProperty("quality5Count") Integer quality5Count,
-			@JsonProperty("boxId") String boxId,
-			@JsonProperty("uuid") String uuid) {
+		@JsonProperty("openTodaysCards") Integer openTodaysCards, 
+		@JsonProperty("allTodaysCards") Integer allTodaysCards, 
+		@JsonProperty("categoryName") String categoryName, 
+		@JsonProperty("quality0Count") Integer quality0Count, 
+		@JsonProperty("quality1Count") Integer quality1Count, 
+		@JsonProperty("quality2Count") Integer quality2Count, 
+		@JsonProperty("quality3Count") Integer quality3Count, 
+		@JsonProperty("quality4Count") Integer quality4Count, 
+		@JsonProperty("quality5Count") Integer quality5Count, 
+		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("uuid") String uuid
+	) {
 		super(
-				todaysCards,
-				reinforceCards,
-				maxCardsPerDay,
-				myCards,
-				totalCards,
-				categoryName,
-				quality0Count,
-				quality1Count,
-				quality2Count,
-				quality3Count,
-				quality4Count,
-				quality5Count,
-				boxId,
-				uuid);
-	}
-
-	public BoxViewData(String uuid) {
-		super(uuid);
-	}
-
-	public void migrateLegacyData(String json) {
+			openTodaysCards,
+			allTodaysCards,
+			categoryName,
+			quality0Count,
+			quality1Count,
+			quality2Count,
+			quality3Count,
+			quality4Count,
+			quality5Count,
+			boxId,
+			uuid
+		);
 	}
 
 	@Deprecated
@@ -82,10 +74,7 @@ public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 			@JsonProperty("uuid") String uuid) {
 		super(
 				todaysCards,
-				reinforceCards,
-				maxCardsPerDay,
-				myCards,
-				totalCards,
+				0,
 				categoryName,
 				quality0Count,
 				quality1Count,
@@ -97,6 +86,19 @@ public class BoxViewData extends AbstractBoxViewData implements IBoxViewData {
 				uuid);
 	}
 
+	public BoxViewData( String uuid ) {
+		super(uuid);
+	}
+
+	public void migrateLegacyData(String json) {
+	}
+
 }
 
+
+
+
 /******* S.D.G. *******/
+
+
+

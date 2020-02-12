@@ -85,6 +85,18 @@ public class EventFactory {
 				ScoreCardScoreAndReinforceEvent event = new ScoreCardScoreAndReinforceEvent(data, daoProvider, viewProvider);
 				return event;
 			}
+			if (eventClass.equals("com.anfelisa.box.events.ScoreReinforceCardKeepEvent")) {
+				ScoreReinforceCardData data = mapper.readValue(json, ScoreReinforceCardData.class);
+				data.migrateLegacyData(json);
+				ScoreReinforceCardKeepEvent event = new ScoreReinforceCardKeepEvent(data, daoProvider, viewProvider);
+				return event;
+			}
+			if (eventClass.equals("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent")) {
+				ScoreReinforceCardData data = mapper.readValue(json, ScoreReinforceCardData.class);
+				data.migrateLegacyData(json);
+				ScoreReinforceCardRemoveEvent event = new ScoreReinforceCardRemoveEvent(data, daoProvider, viewProvider);
+				return event;
+			}
 		} catch (IOException e) {
 			LOG.error("failed to create event {} with data {}", eventClass, json, e);
 		}
@@ -120,6 +132,13 @@ public class EventFactory {
 		}
 		if (eventClass.equals("com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent")) {
 			return new ScoreCardScoreAndReinforceEvent((ScoreCardData)data, daoProvider, viewProvider);
+		}
+
+		if (eventClass.equals("com.anfelisa.box.events.ScoreReinforceCardKeepEvent")) {
+			return new ScoreReinforceCardKeepEvent((ScoreReinforceCardData)data, daoProvider, viewProvider);
+		}
+		if (eventClass.equals("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent")) {
+			return new ScoreReinforceCardRemoveEvent((ScoreReinforceCardData)data, daoProvider, viewProvider);
 		}
 
 

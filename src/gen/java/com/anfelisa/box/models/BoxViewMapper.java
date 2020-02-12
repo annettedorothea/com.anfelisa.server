@@ -31,9 +31,6 @@ public class BoxViewMapper implements RowMapper<IBoxViewModel> {
 		return new BoxViewModel(
 			r.getObject("openTodaysCards") != null ? r.getInt("openTodaysCards") : null,
 			r.getObject("allTodaysCards") != null ? r.getInt("allTodaysCards") : null,
-			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null,
-			r.getObject("myCards") != null ? r.getInt("myCards") : null,
-			r.getObject("totalCards") != null ? r.getInt("totalCards") : null,
 			r.getString("categoryName"),
 			r.getObject("quality0Count") != null ? r.getInt("quality0Count") : null,
 			r.getObject("quality1Count") != null ? r.getInt("quality1Count") : null,
