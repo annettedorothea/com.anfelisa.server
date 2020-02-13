@@ -32,7 +32,7 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 	private String reinforceCardId;
 	
 	@NotNull
-	private Integer quality;
+	private Integer scoredCardQuality;
 	
 	@NotNull
 	private org.joda.time.DateTime changeDate;
@@ -45,12 +45,12 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 
 	public ScoreReinforceCardModel(
 		@JsonProperty("reinforceCardId") String reinforceCardId,
-		@JsonProperty("quality") Integer quality,
+		@JsonProperty("scoredCardQuality") Integer scoredCardQuality,
 		@JsonProperty("changeDate") org.joda.time.DateTime changeDate,
 		@JsonProperty("userId") String userId
 	) {
 		this.reinforceCardId = reinforceCardId;
-		this.quality = quality;
+		this.scoredCardQuality = scoredCardQuality;
 		this.changeDate = changeDate;
 		this.userId = userId;
 	}
@@ -64,11 +64,11 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 	}
 	
 	@JsonProperty
-		public Integer getQuality() {
-			return this.quality;
+		public Integer getScoredCardQuality() {
+			return this.scoredCardQuality;
 		}
-	public void setQuality(Integer quality) {
-		this.quality = quality;
+	public void setScoredCardQuality(Integer scoredCardQuality) {
+		this.scoredCardQuality = scoredCardQuality;
 	}
 	
 	@JsonProperty

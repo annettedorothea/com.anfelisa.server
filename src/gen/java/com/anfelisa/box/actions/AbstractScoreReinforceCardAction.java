@@ -115,7 +115,7 @@ public abstract class AbstractScoreReinforceCardAction extends Action<IScoreRein
 			throws JsonProcessingException {
 		this.actionData = new ScoreReinforceCardData(payload.getUuid());
 		this.actionData.setReinforceCardId(payload.getReinforceCardId());
-		this.actionData.setQuality(payload.getQuality());
+		this.actionData.setScoredCardQuality(payload.getScoredCardQuality());
 		this.actionData.setUserId(authUser.getUserId());
 		
 		return this.apply();

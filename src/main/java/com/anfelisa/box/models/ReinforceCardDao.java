@@ -38,7 +38,9 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 						+ "sc.scoreddate "
 						+ "FROM public.reinforcecard r "
 						+ "inner join public.scheduledcard sc on r.scheduledcardid = sc.scheduledcardid "
-						+ "inner join public.card c on sc.cardid = c.cardid where sc.boxid = :boxid order by r.changedate")
+						+ "inner join public.card c on sc.cardid = c.cardid "
+						+ "where sc.boxid = :boxid "
+						+ "order by r.changedate")
 				.bind("boxid", boxId).map(new NextCardViewMapper()).findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}

@@ -40,7 +40,12 @@ public class ScoreReinforceCardCommand extends AbstractScoreReinforceCardCommand
 
 	@Override
 	protected void executeCommand(Handle readonlyHandle) {
-		this.commandData.setOutcome(remove);
+		if (this.commandData.getScoredCardQuality() > 3) {
+			this.commandData.setOutcome(remove);
+		} else {
+			this.commandData.setChangeDate(this.commandData.getSystemTime());
+			this.commandData.setOutcome(keep);
+		}
 	}
 
 }

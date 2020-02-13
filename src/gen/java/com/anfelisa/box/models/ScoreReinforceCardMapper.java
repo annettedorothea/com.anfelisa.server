@@ -30,7 +30,7 @@ public class ScoreReinforceCardMapper implements RowMapper<IScoreReinforceCardMo
 	public IScoreReinforceCardModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new ScoreReinforceCardModel(
 			r.getString("reinforceCardId"),
-			r.getObject("quality") != null ? r.getInt("quality") : null,
+			r.getObject("scoredCardQuality") != null ? r.getInt("scoredCardQuality") : null,
 			r.getTimestamp("changeDate") != null ? new org.joda.time.DateTime(r.getTimestamp("changeDate")) : null,
 			r.getString("userId")
 		);

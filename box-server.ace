@@ -86,7 +86,7 @@ ACE
 		authorize
 		payload 
 			reinforceCardId 
-			quality
+			scoredCardQuality
 		on keep (ReinforceCard.update)
 		on remove (ReinforceCard.remove)
 
@@ -237,7 +237,7 @@ models
 	
 	ScoreReinforceCard {
 		NotNull String reinforceCardId
-		NotNull Integer quality
+		NotNull Integer scoredCardQuality
 		NotNull DateTime changeDate
 		String userId
 	}

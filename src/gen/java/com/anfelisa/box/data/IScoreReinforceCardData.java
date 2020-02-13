@@ -30,7 +30,7 @@ public interface IScoreReinforceCardData extends IScoreReinforceCardModel, IData
 	
 	IScoreReinforceCardData withReinforceCardId(String reinforceCardId);
 	
-	IScoreReinforceCardData withQuality(Integer quality);
+	IScoreReinforceCardData withScoredCardQuality(Integer scoredCardQuality);
 	
 	IScoreReinforceCardData withChangeDate(org.joda.time.DateTime changeDate);
 	
