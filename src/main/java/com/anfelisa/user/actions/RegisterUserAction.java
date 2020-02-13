@@ -1,5 +1,7 @@
 package com.anfelisa.user.actions;
 
+import java.util.UUID;
+
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,7 @@ public class RegisterUserAction extends AbstractRegisterUserAction {
 
 	@Override
 	public void initActionData() {
+		this.actionData.setToken(UUID.randomUUID().toString());
 	}
 
 

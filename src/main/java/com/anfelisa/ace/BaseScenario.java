@@ -70,7 +70,7 @@ public class BaseScenario extends AbstractBaseScenario {
 	
 	@Override
 	protected String authorization(String username, String password) {
-		return "";
+		return "anfelisaBasic QW5uZXR0ZToyZTM4MTcyOTNmYzI3NWRiZWU3NGJkNzFjZTZlYjA1Ng==";
 	}
 
 }

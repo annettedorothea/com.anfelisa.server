@@ -49,7 +49,7 @@ public class InitMyBoxesForDayCommand extends AbstractInitMyBoxesForDayCommand {
 		List<String> outdatedReinforceCardsIds = new ArrayList<String>();
 		for (IInitBoxesModel box : boxList) {
 			List<IReinforceCardModel> outdatedReinforceCards = this.daoProvider.getReinforceCardDao()
-					.selectOutdatedReinforceCards(readonlyHandle, box.getBoxId(), commandData.getSystemTime());
+					.selectOutdatedReinforceCards(readonlyHandle, box.getBoxId(), commandData.getToday());
 			for (IReinforceCardModel card : outdatedReinforceCards) {
 				outdatedReinforceCardsIds.add(card.getScheduledCardId());
 			}

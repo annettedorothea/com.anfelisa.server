@@ -60,11 +60,12 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public List<IReinforceCardModel> selectOutdatedReinforceCards(Handle handle, String boxId, DateTime now) {
+	public List<IReinforceCardModel> selectOutdatedReinforceCards(Handle handle, String boxId, DateTime today) {
+		DateTime yesterday = today.minusDays(1);
 		return handle.createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM reinforcecard "
-				+ "WHERE boxid = :boxId AND date_trunc('day', changedate) < date_trunc('day', TIMESTAMP ':now')")
+				+ "WHERE boxid = :boxId AND date_trunc('day', changedate) > :yesterday")
 				.bind("boxId", boxId)
-				.bind("now", now)
+				.bind("yesterday", yesterday)
 				.map(new ReinforceCardMapper())
 				.list();
 	}
