@@ -35,6 +35,9 @@ public interface IBoxViewModel {
 	String getCategoryName();
 	void setCategoryName(String categoryName);
 	
+	String getCategoryId();
+	void setCategoryId(String categoryId);
+	
 	Integer getQuality0Count();
 	void setQuality0Count(Integer quality0Count);
 	

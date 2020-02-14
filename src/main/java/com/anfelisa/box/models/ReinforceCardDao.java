@@ -63,11 +63,10 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 	}
 
 	public List<IReinforceCardModel> selectOutdatedReinforceCards(Handle handle, String boxId, DateTime today) {
-		DateTime yesterday = today.minusDays(1);
 		return handle.createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM reinforcecard "
-				+ "WHERE boxid = :boxId AND date_trunc('day', changedate) > :yesterday")
+				+ "WHERE boxid = :boxId AND changedate <= :today")
 				.bind("boxId", boxId)
-				.bind("yesterday", yesterday)
+				.bind("today", today)
 				.map(new ReinforceCardMapper())
 				.list();
 	}

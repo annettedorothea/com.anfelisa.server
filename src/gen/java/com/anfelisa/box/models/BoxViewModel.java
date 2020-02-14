@@ -35,6 +35,9 @@ public class BoxViewModel implements IBoxViewModel {
 	@NotNull
 	private String categoryName;
 	
+	@NotNull
+	private String categoryId;
+	
 	private Integer quality0Count;
 	
 	private Integer quality1Count;
@@ -58,6 +61,7 @@ public class BoxViewModel implements IBoxViewModel {
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("allTodaysCards") Integer allTodaysCards,
 		@JsonProperty("categoryName") String categoryName,
+		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("quality0Count") Integer quality0Count,
 		@JsonProperty("quality1Count") Integer quality1Count,
 		@JsonProperty("quality2Count") Integer quality2Count,
@@ -69,6 +73,7 @@ public class BoxViewModel implements IBoxViewModel {
 		this.openTodaysCards = openTodaysCards;
 		this.allTodaysCards = allTodaysCards;
 		this.categoryName = categoryName;
+		this.categoryId = categoryId;
 		this.quality0Count = quality0Count;
 		this.quality1Count = quality1Count;
 		this.quality2Count = quality2Count;
@@ -100,6 +105,14 @@ public class BoxViewModel implements IBoxViewModel {
 		}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	
+	@JsonProperty
+		public String getCategoryId() {
+			return this.categoryId;
+		}
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty

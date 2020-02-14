@@ -146,6 +146,7 @@ models
 		Integer openTodaysCards
 		Integer allTodaysCards
 		NotNull String categoryName
+		NotNull String categoryId
 		Integer quality0Count
 		Integer quality1Count
 		Integer quality2Count

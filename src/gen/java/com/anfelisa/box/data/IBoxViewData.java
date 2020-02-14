@@ -34,6 +34,8 @@ public interface IBoxViewData extends IBoxViewModel, IDataContainer {
 	
 	IBoxViewData withCategoryName(String categoryName);
 	
+	IBoxViewData withCategoryId(String categoryId);
+	
 	IBoxViewData withQuality0Count(Integer quality0Count);
 	
 	IBoxViewData withQuality1Count(Integer quality1Count);
