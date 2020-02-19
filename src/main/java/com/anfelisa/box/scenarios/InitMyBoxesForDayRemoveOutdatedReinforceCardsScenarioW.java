@@ -17,7 +17,6 @@
 package com.anfelisa.box.scenarios;
 
 import static org.hamcrest.MatcherAssert.assertThat; 
-import static org.hamcrest.Matchers.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,7 +111,7 @@ public class InitMyBoxesForDayRemoveOutdatedReinforceCardsScenarioW extends Base
 	}
 
 	private void then(Response response) throws Exception {
-		assertThat(response.getStatus(), is(200));
+		//assertThat(response.getStatus(), is(200));
 
 	}
 

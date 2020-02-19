@@ -157,7 +157,7 @@ models
 	}
 
 	InitBoxes {
-		Integer daysBehindSchedule
+		DateTime minScheduledDate
 		NotNull String boxId
 	}
 

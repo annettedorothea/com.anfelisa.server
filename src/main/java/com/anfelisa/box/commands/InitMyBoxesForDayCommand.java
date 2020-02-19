@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jdbi.v3.core.Handle;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,8 +55,11 @@ public class InitMyBoxesForDayCommand extends AbstractInitMyBoxesForDayCommand {
 			for (IReinforceCardModel card : outdatedReinforceCards) {
 				outdatedReinforceCardsIds.add(card.getScheduledCardId());
 			}
-			if (box.getDaysBehindSchedule() > 0) {
-				PostponeCardsData postponeData = new PostponeCardsData(box.getDaysBehindSchedule(), box.getBoxId(),
+			DateTime min = box.getMinScheduledDate();
+			DateTime today = this.commandData.getToday();
+			if (min.isBefore(today)) {
+				int days = Days.daysBetween(min, today).getDays() + 1;
+				PostponeCardsData postponeData = new PostponeCardsData(days, box.getBoxId(),
 						commandData.getUuid());
 				postponeCards.add(postponeData);
 			}

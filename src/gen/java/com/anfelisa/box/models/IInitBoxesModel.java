@@ -26,8 +26,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=InitBoxesModel.class)
 public interface IInitBoxesModel {
 
-	Integer getDaysBehindSchedule();
-	void setDaysBehindSchedule(Integer daysBehindSchedule);
+	org.joda.time.DateTime getMinScheduledDate();
+	void setMinScheduledDate(org.joda.time.DateTime minScheduledDate);
 	
 	String getBoxId();
 	void setBoxId(String boxId);

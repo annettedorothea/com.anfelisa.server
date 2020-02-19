@@ -28,7 +28,7 @@ import com.anfelisa.box.models.IInitBoxesModel;
 @JsonDeserialize(as=InitBoxesData.class)
 public interface IInitBoxesData extends IInitBoxesModel, IDataContainer {
 	
-	IInitBoxesData withDaysBehindSchedule(Integer daysBehindSchedule);
+	IInitBoxesData withMinScheduledDate(org.joda.time.DateTime minScheduledDate);
 	
 	IInitBoxesData withBoxId(String boxId);
 	

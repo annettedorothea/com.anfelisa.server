@@ -28,7 +28,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InitBoxesModel implements IInitBoxesModel {
 
-	private Integer daysBehindSchedule;
+	private org.joda.time.DateTime minScheduledDate;
 	
 	@NotNull
 	private String boxId;
@@ -38,19 +38,19 @@ public class InitBoxesModel implements IInitBoxesModel {
 	}
 
 	public InitBoxesModel(
-		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
+		@JsonProperty("minScheduledDate") org.joda.time.DateTime minScheduledDate,
 		@JsonProperty("boxId") String boxId
 	) {
-		this.daysBehindSchedule = daysBehindSchedule;
+		this.minScheduledDate = minScheduledDate;
 		this.boxId = boxId;
 	}
 
 	@JsonProperty
-		public Integer getDaysBehindSchedule() {
-			return this.daysBehindSchedule;
+		public org.joda.time.DateTime getMinScheduledDate() {
+			return this.minScheduledDate;
 		}
-	public void setDaysBehindSchedule(Integer daysBehindSchedule) {
-		this.daysBehindSchedule = daysBehindSchedule;
+	public void setMinScheduledDate(org.joda.time.DateTime minScheduledDate) {
+		this.minScheduledDate = minScheduledDate;
 	}
 	
 	@JsonProperty

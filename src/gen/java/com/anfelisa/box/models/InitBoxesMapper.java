@@ -29,7 +29,7 @@ public class InitBoxesMapper implements RowMapper<IInitBoxesModel> {
 	
 	public IInitBoxesModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new InitBoxesModel(
-			r.getObject("daysBehindSchedule") != null ? r.getInt("daysBehindSchedule") : null,
+			r.getTimestamp("minScheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("minScheduledDate")) : null,
 			r.getString("boxId")
 		);
 	}

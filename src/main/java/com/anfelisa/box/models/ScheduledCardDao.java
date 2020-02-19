@@ -11,6 +11,7 @@ import com.anfelisa.box.data.IScoreCardData;
 
 public class ScheduledCardDao extends AbstractScheduledCardDao {
 	public INextCardViewModel selectFirstScheduledCard(Handle handle, String boxId, DateTime today) {
+		DateTime endOfDay = today.plusDays(1);
 		Optional<INextCardViewModel> optional = handle.createQuery(
 				"SELECT "
 						+ "sc.scheduledcardid, "
@@ -28,8 +29,13 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 						+ "FROM public.scheduledcard sc "
 						+ "inner join public.card c on c.cardid = sc.cardid "
 						+ "inner join public.category ct on c.categoryid = ct.categoryid "
-						+ "WHERE sc.boxid = :boxId and quality is null and sc.scheduleddate <= :today order by sc.scheduleddate, ct.categoryindex, c.cardindex limit 1")
-				.bind("boxId", boxId).bind("today", today).map(new NextCardViewMapper()).findFirst();
+						+ "WHERE sc.boxid = :boxId "
+						+ "and quality is null "
+						+ "and sc.scheduleddate <= :endofday "
+						+ "order by sc.scheduleddate, ct.categoryindex, c.cardindex limit 1")
+				.bind("boxId", boxId)
+				.bind("endofday", endOfDay)
+				.map(new NextCardViewMapper()).findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 
@@ -49,14 +55,6 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 		statement.bind("scheduleddate", scheduleddDate);
 		statement.bind("scheduledcardid", scheduledCardId);
 		statement.execute();
-	}
-
-	public String selectNextCardId(Handle handle, String categoryId, String boxId) {
-		Optional<String> optional = handle.createQuery(
-				"select cardid from (SELECT cardid, cardindex from public.card where categoryid = :categoryid "
-						+ "except select c.cardid, c.cardindex FROM public.scheduledcard sc inner join card c on c.cardid = sc.cardid where sc.boxid = :boxid order by cardindex) as cards limit 1")
-				.bind("categoryid", categoryId).bind("boxid", boxId).mapTo(String.class).findFirst();
-		return optional.isPresent() ? optional.get() : null;
 	}
 
 	public void score(Handle handle, IScoreCardData scoreCardData) {

@@ -38,19 +38,19 @@ public abstract class AbstractInitBoxesData extends AbstractData implements IIni
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractInitBoxesData.class);
 	
-	private Integer daysBehindSchedule;
+	private org.joda.time.DateTime minScheduledDate;
 	
 	@NotNull
 	private String boxId;
 	
 
 	public AbstractInitBoxesData(
-		@JsonProperty("daysBehindSchedule") Integer daysBehindSchedule,
+		@JsonProperty("minScheduledDate") org.joda.time.DateTime minScheduledDate,
 		@JsonProperty("boxId") String boxId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
-		this.daysBehindSchedule = daysBehindSchedule;
+		this.minScheduledDate = minScheduledDate;
 		this.boxId = boxId;
 	}
 
@@ -59,14 +59,14 @@ public abstract class AbstractInitBoxesData extends AbstractData implements IIni
 	}
 
 	@JsonProperty
-		public Integer getDaysBehindSchedule() {
-			return this.daysBehindSchedule;
+		public org.joda.time.DateTime getMinScheduledDate() {
+			return this.minScheduledDate;
 		}
-	public void setDaysBehindSchedule(Integer daysBehindSchedule) {
-		this.daysBehindSchedule = daysBehindSchedule;
+	public void setMinScheduledDate(org.joda.time.DateTime minScheduledDate) {
+		this.minScheduledDate = minScheduledDate;
 	}
-	public IInitBoxesData withDaysBehindSchedule(Integer daysBehindSchedule) {
-		this.daysBehindSchedule = daysBehindSchedule;
+	public IInitBoxesData withMinScheduledDate(org.joda.time.DateTime minScheduledDate) {
+		this.minScheduledDate = minScheduledDate;
 		return this;
 	}
 	
