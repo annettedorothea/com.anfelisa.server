@@ -66,29 +66,6 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.category.actions.InviteUserAction") ||
-					className.equals("com.anfelisa.category.commands.InviteUserCommand") ||
-					className.equals("com.anfelisa.category.events.InviteUserOkEvent")||
-					className.equals("com.anfelisa.category.events.InviteUserHasAccessEvent")
-			) {
-				InviteUserData data = mapper.readValue(json, InviteUserData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
-			if (className.equals("com.anfelisa.category.actions.RevokeUserAccessAction") ||
-					className.equals("com.anfelisa.category.commands.RevokeUserAccessCommand") ||
-					className.equals("com.anfelisa.category.events.RevokeUserAccessOkEvent")||
-					className.equals("com.anfelisa.category.events.RevokeUserAccessHasNoAccessEvent")
-			) {
-				RevokeUserData data = mapper.readValue(json, RevokeUserData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
-			if (className.equals("com.anfelisa.category.actions.GetUsersWithAccessAction")) {
-				UserWithAccessListData data = mapper.readValue(json, UserWithAccessListData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
 			if (className.equals("com.anfelisa.category.actions.GetCategoryTreeAction")) {
 				CategoryTreeData data = mapper.readValue(json, CategoryTreeData.class);
 				data.migrateLegacyData(json);

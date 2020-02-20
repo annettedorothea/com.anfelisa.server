@@ -35,30 +35,6 @@ ACE
 		on noRoot (Category.delete)
 		on root (Category.deleteRoot)
 	
-	InviteUser<InviteUser>
-		POST "/category/invite" 
-		authorize 
-		payload 
-			categoryId
-			invitedUsername
-		on ok (UserAccessToCategory.grantAccessInvitation)
-		on hasAccess
-	
-	RevokeUserAccess<RevokeUser>
-		DELETE "/category/revoke" 
-		authorize
-		queryParams 
-			revokedUserId 
-			categoryId 
-		on ok (UserAccessToCategory.revokeAccess)
-		on hasNoAccess
-	
-	GetUsersWithAccess<UserWithAccessList>
-		GET "/category/users"
-		authorize
-		queryParams categoryId
-		response userList
-	
 	GetCategoryTree<CategoryTree>
 		GET "/category/tree" 
 		authorize 

@@ -50,25 +50,6 @@ public class TestUtils {
 		return new TimelineItem("prepare", null, "com.anfelisa.category.events.DeleteCategoryRootEvent", null, json, data.getUuid());
 	}
 
-	public static TimelineItem createInviteUserOkEventTimelineItem(com.anfelisa.category.data.IInviteUserData data) throws JsonProcessingException {
-		String json = mapper.writeValueAsString(data);
-		return new TimelineItem("prepare", null, "com.anfelisa.category.events.InviteUserOkEvent", null, json, data.getUuid());
-	}
-	public static TimelineItem createInviteUserHasAccessEventTimelineItem(com.anfelisa.category.data.IInviteUserData data) throws JsonProcessingException {
-		String json = mapper.writeValueAsString(data);
-		return new TimelineItem("prepare", null, "com.anfelisa.category.events.InviteUserHasAccessEvent", null, json, data.getUuid());
-	}
-
-	public static TimelineItem createRevokeUserAccessOkEventTimelineItem(com.anfelisa.category.data.IRevokeUserData data) throws JsonProcessingException {
-		String json = mapper.writeValueAsString(data);
-		return new TimelineItem("prepare", null, "com.anfelisa.category.events.RevokeUserAccessOkEvent", null, json, data.getUuid());
-	}
-	public static TimelineItem createRevokeUserAccessHasNoAccessEventTimelineItem(com.anfelisa.category.data.IRevokeUserData data) throws JsonProcessingException {
-		String json = mapper.writeValueAsString(data);
-		return new TimelineItem("prepare", null, "com.anfelisa.category.events.RevokeUserAccessHasNoAccessEvent", null, json, data.getUuid());
-	}
-
-
 
 	public static TimelineItem createMoveCategoryOkEventTimelineItem(com.anfelisa.category.data.ICategoryMoveData data) throws JsonProcessingException {
 		String json = mapper.writeValueAsString(data);

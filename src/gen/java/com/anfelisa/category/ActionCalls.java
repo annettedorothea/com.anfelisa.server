@@ -62,30 +62,6 @@ public class ActionCalls {
 		return builder.delete();
 	}
 	
-	public static Response callInviteUser(String uuid, String categoryId, String invitedUsername, int port, String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/category/invite", port)).request(); 
-		com.anfelisa.category.data.IInviteUserData data = new com.anfelisa.category.data.InviteUserData(uuid);
-		data.setCategoryId(categoryId);
-		data.setInvitedUsername(invitedUsername);
-		builder.header("Authorization", authorization);
-		return builder.post(Entity.json(data));
-	}
-	
-	public static Response callRevokeUserAccess(String uuid, String revokedUserId, String categoryId, int port, String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/category/revoke?uuid=" + uuid + "&revokedUserId=" + revokedUserId + "&categoryId=" + categoryId, port)).request();
-		builder.header("Authorization", authorization);
-		return builder.delete();
-	}
-	
-	public static Response callGetUsersWithAccess(String uuid, String categoryId, int port, String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/category/users?uuid=" + uuid + "&categoryId=" + categoryId, port)).request(); 
-		builder.header("Authorization", authorization);
-		return builder.get();
-	}
-	
 	public static Response callGetCategoryTree(String uuid, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/category/tree?uuid=" + uuid, port)).request(); 

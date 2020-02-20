@@ -40,9 +40,6 @@ public class AppRegistration {
 		environment.jersey().register(new CreateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new UpdateCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new DeleteCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new InviteUserAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new RevokeUserAccessAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new GetUsersWithAccessAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new GetCategoryTreeAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new MoveCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ChangeOrderCategoryAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
@@ -75,14 +72,6 @@ public class AppRegistration {
 		
 		viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryRootEvent", (dataContainer, handle) -> {
 			viewProvider.categoryView.deleteRoot((com.anfelisa.category.data.CategoryDeleteData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.category.events.InviteUserOkEvent", (dataContainer, handle) -> {
-			viewProvider.userAccessToCategoryView.grantAccessInvitation((com.anfelisa.category.data.InviteUserData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.category.events.RevokeUserAccessOkEvent", (dataContainer, handle) -> {
-			viewProvider.userAccessToCategoryView.revokeAccess((com.anfelisa.category.data.RevokeUserData) dataContainer, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.category.events.MoveCategoryOkEvent", (dataContainer, handle) -> {
