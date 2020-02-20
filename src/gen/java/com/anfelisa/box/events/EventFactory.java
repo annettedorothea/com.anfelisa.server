@@ -106,6 +106,7 @@ public class EventFactory {
 
 	public static IEvent createEvent(String eventClass, IDataContainer data, IDaoProvider daoProvider, ViewProvider viewProvider) {
 
+
 		if (eventClass.equals("com.anfelisa.box.events.CreateBoxOkEvent")) {
 			return new CreateBoxOkEvent((BoxData)data, daoProvider, viewProvider);
 		}

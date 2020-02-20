@@ -10,6 +10,7 @@ import org.joda.time.DateTime;
 import com.anfelisa.box.data.IBoxUpdateData;
 
 public class BoxDao extends AbstractBoxDao {
+	
 	public List<IBoxViewModel> selectByUserId(Handle handle, String userId, DateTime today) {
 		DateTime endOfDay = today.plusDays(1);
 		return handle.createQuery("SELECT "
@@ -70,6 +71,14 @@ public class BoxDao extends AbstractBoxDao {
 		statement.bind("maxinterval", boxModel.getMaxInterval());
 		statement.bind("maxcardsperday", boxModel.getMaxCardsPerDay());
 		statement.execute();
+	}
+
+	public IBoxSettingsModel selectSettingsByBoxId(Handle handle, String boxId) {
+		Optional<IBoxSettingsModel> optional = handle.createQuery("SELECT boxId, maxinterval, maxcardsperday FROM \"box\" WHERE boxid = :boxid")
+			.bind("boxid", boxId)
+			.map(new BoxSettingsMapper())
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
 	}
 
 }

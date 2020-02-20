@@ -36,6 +36,13 @@ public class ActionCalls {
 		return builder.get();
 	}
 	
+	public static Response callGetBoxSettings(String uuid, String boxId, int port, String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/box/settings/" + boxId + "/?uuid=" + uuid, port)).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
+	}
+	
 	public static Response callCreateBox(String uuid, String categoryId, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/box/create", port)).request(); 

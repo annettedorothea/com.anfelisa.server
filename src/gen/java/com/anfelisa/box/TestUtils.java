@@ -28,6 +28,7 @@ public class TestUtils {
 	private static final JodaObjectMapper mapper = new JodaObjectMapper();
 
 
+
 	public static TimelineItem createCreateBoxOkEventTimelineItem(com.anfelisa.box.data.IBoxData data) throws JsonProcessingException {
 		String json = mapper.writeValueAsString(data);
 		return new TimelineItem("prepare", null, "com.anfelisa.box.events.CreateBoxOkEvent", null, json, data.getUuid());

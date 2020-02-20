@@ -13,6 +13,14 @@ ACE
 		response 
 			boxList
 		
+	GetBoxSettings<BoxSettings>
+	GET "/box/settings/{boxId}/" 
+		authorize 
+		pathParams boxId
+		response 
+			maxCardsPerDay
+			maxInterval
+
 	CreateBox<Box>
 		POST "/box/create" 
 		authorize 
@@ -179,6 +187,12 @@ models
 
 	BoxUpdate {
 		NotNull String userId
+		NotNull String boxId
+		Integer maxInterval
+		Integer maxCardsPerDay
+	}
+	
+	BoxSettings {
 		NotNull String boxId
 		Integer maxInterval
 		Integer maxCardsPerDay

@@ -9,6 +9,7 @@ import org.jdbi.v3.core.statement.Update;
 import com.anfelisa.card.data.ICardUpdateData;
 
 public class CardDao extends AbstractCardDao {
+	
 	public List<ICardWithInfoModel> selectAllOfCategory(Handle handle, String categoryId) {
 		return handle.createQuery(
 				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, null as next FROM public.card "

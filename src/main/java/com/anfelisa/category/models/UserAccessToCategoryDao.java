@@ -7,6 +7,7 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 
 public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
+	
 	public IUserAccessToCategoryModel selectByCategoryIdAndUserId(Handle handle, String categoryId, String userId) {
 		Optional<IUserAccessToCategoryModel> optional = handle.createQuery(
 				"SELECT categoryid, userid, editable FROM public.useraccesstocategory where categoryid = :categoryid and userid = :userid")

@@ -9,6 +9,7 @@ import org.jdbi.v3.core.statement.Update;
 import com.anfelisa.category.data.ICategoryUpdateData;
 
 public class CategoryDao extends AbstractCategoryDao {
+	
 	public List<ICategoryTreeItemModel> selectAllChildren(Handle handle, String parentCategoryId, String userId) {
 		return handle.createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
