@@ -41,6 +41,8 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 			this.commandData.setOutcome(sub);
 		} else {
 			commandData.setRootCategoryId(commandData.getCategoryId());
+			this.commandData.setBoxId(commandData.getCategoryId());
+			this.commandData.setMaxCardsPerDay(8);
 			this.commandData.setOutcome(root);
 		}
 

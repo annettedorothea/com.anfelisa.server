@@ -17,19 +17,26 @@
 
 
 
-package com.anfelisa.category.models;
+package com.anfelisa.category.views;
 
-import java.util.List;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.jdbi.v3.core.Handle;
 
-@SuppressWarnings("unused")
-@JsonDeserialize(as=CategoryCreationModel.class)
-public interface ICategoryCreationModel extends com.anfelisa.category.models.ICategoryModel,com.anfelisa.category.models.IUserAccessToCategoryModel,com.anfelisa.box.models.IBoxModel{
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.category.data.ICategoryCreationData;
 
-	String getUsername();
-	void setUsername(String username);
+public class BoxCategoryView implements IBoxCategoryView {
+
+	private IDaoProvider daoProvider;
 	
-	
+	public BoxCategoryView(IDaoProvider daoProvider) {
+		super();
+		this.daoProvider = daoProvider;
+	}
+
+	public void createBox(ICategoryCreationData data, Handle handle) {
+		daoProvider.getBoxDao().insert(handle, data);
+	}
+
 }
 
 

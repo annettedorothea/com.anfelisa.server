@@ -17,19 +17,17 @@
 
 
 
-package com.anfelisa.box.events;
+package com.anfelisa.category.views;
 
-import com.anfelisa.ace.Event;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
+import org.jdbi.v3.core.Handle;
 
-import com.anfelisa.box.data.IBoxData;
+import com.anfelisa.ace.IDataContainer;
+import com.anfelisa.category.data.ICategoryCreationData;
 
-public class CreateBoxOkEvent extends Event<IBoxData> {
+@SuppressWarnings("all")
+public interface IBoxCategoryView {
 
-	public CreateBoxOkEvent(IBoxData eventData, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.events.CreateBoxOkEvent", eventData, daoProvider, viewProvider);
-	}
+	void createBox(ICategoryCreationData data, Handle handle);
 
 }
 

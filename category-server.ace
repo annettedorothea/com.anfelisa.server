@@ -15,7 +15,7 @@ ACE
 			givenLanguage
 			wantedLanguage
 		on sub (Category.insert)
-		on root (Category.insert UserAccessToCategory.grantAccess)
+		on root (Category.insert UserAccessToCategory.grantAccess BoxCategory.createBox)
 	
 	UpdateCategory<CategoryUpdate>
 		PUT "/category/update" 
@@ -97,6 +97,10 @@ views
 		grantAccess(CategoryCreation)
 		grantAccessInvitation(InviteUser)
 		revokeAccess(RevokeUser)
+	}
+	
+	BoxCategory {
+		createBox (com.anfelisa.category.CategoryCreation)
 	}
 	
 models 
@@ -195,7 +199,7 @@ models
 		String userId
 	}
 	
-	CategoryCreation extends Category, UserAccessToCategory {
+	CategoryCreation extends Category, UserAccessToCategory, com.anfelisa.box.Box {
 		String username
 	}
 	
@@ -214,5 +218,4 @@ models
 		String userId
 		List Category updatedIndices
 	}
-	
 

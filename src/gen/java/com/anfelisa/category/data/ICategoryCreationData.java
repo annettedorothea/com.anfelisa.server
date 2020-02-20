@@ -29,6 +29,7 @@ import com.anfelisa.category.models.ICategoryCreationModel;
 public interface ICategoryCreationData extends ICategoryCreationModel, IDataContainer {
 	void mapFrom(com.anfelisa.category.models.ICategoryModel model);
 	void mapFrom(com.anfelisa.category.models.IUserAccessToCategoryModel model);
+	void mapFrom(com.anfelisa.box.models.IBoxModel model);
 	
 	ICategoryCreationData withUsername(String username);
 	
@@ -53,6 +54,12 @@ public interface ICategoryCreationData extends ICategoryCreationModel, IDataCont
 	ICategoryCreationData withUserId(String userId);
 	
 	ICategoryCreationData withEditable(Boolean editable);
+	
+	ICategoryCreationData withBoxId(String boxId);
+	
+	ICategoryCreationData withMaxInterval(Integer maxInterval);
+	
+	ICategoryCreationData withMaxCardsPerDay(Integer maxCardsPerDay);
 	
 	
 }

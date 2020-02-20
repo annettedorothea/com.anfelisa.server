@@ -29,11 +29,6 @@ public class TestUtils {
 
 
 
-	public static TimelineItem createCreateBoxOkEventTimelineItem(com.anfelisa.box.data.IBoxData data) throws JsonProcessingException {
-		String json = mapper.writeValueAsString(data);
-		return new TimelineItem("prepare", null, "com.anfelisa.box.events.CreateBoxOkEvent", null, json, data.getUuid());
-	}
-
 	public static TimelineItem createUpdateBoxOkEventTimelineItem(com.anfelisa.box.data.IBoxUpdateData data) throws JsonProcessingException {
 		String json = mapper.writeValueAsString(data);
 		return new TimelineItem("prepare", null, "com.anfelisa.box.events.UpdateBoxOkEvent", null, json, data.getUuid());

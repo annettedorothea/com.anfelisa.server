@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import com.anfelisa.category.models.ICategoryCreationModel;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.box.models.IBoxModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -69,6 +70,14 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	
 	private Boolean editable = false;
 	
+	@NotNull
+	private String boxId;
+	
+	private Integer maxInterval;
+	
+	@NotNull
+	private Integer maxCardsPerDay;
+	
 
 	public AbstractCategoryCreationData(
 		@JsonProperty("username") String username,
@@ -82,7 +91,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("editable") Boolean editable
+		@JsonProperty("editable") Boolean editable,
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("maxInterval") Integer maxInterval,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -98,6 +110,9 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		this.wantedLanguage = wantedLanguage;
 		this.userId = userId;
 		this.editable = editable;
+		this.boxId = boxId;
+		this.maxInterval = maxInterval;
+		this.maxCardsPerDay = maxCardsPerDay;
 	}
 
 	public AbstractCategoryCreationData( String uuid ) {
@@ -248,6 +263,42 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		return this;
 	}
 	
+	@JsonProperty
+		public String getBoxId() {
+			return this.boxId;
+		}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
+	}
+	public ICategoryCreationData withBoxId(String boxId) {
+		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+		public Integer getMaxInterval() {
+			return this.maxInterval;
+		}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+	}
+	public ICategoryCreationData withMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+		return this;
+	}
+	
+	@JsonProperty
+		public Integer getMaxCardsPerDay() {
+			return this.maxCardsPerDay;
+		}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+	}
+	public ICategoryCreationData withMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+		return this;
+	}
+	
 	
 	public void mapFrom(com.anfelisa.category.models.ICategoryModel model) {
 		this.categoryId = model.getCategoryId();
@@ -264,6 +315,13 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		this.categoryId = model.getCategoryId();
 		this.userId = model.getUserId();
 		this.editable = model.getEditable();
+	}
+	public void mapFrom(com.anfelisa.box.models.IBoxModel model) {
+		this.boxId = model.getBoxId();
+		this.userId = model.getUserId();
+		this.categoryId = model.getCategoryId();
+		this.maxInterval = model.getMaxInterval();
+		this.maxCardsPerDay = model.getMaxCardsPerDay();
 	}
 	
 }

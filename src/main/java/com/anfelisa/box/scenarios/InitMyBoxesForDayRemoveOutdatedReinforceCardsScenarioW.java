@@ -79,13 +79,6 @@ public class InitMyBoxesForDayRemoveOutdatedReinforceCardsScenarioW extends Base
 		cardCreation3.setWanted("wanted");
 		timeline.add(com.anfelisa.card.TestUtils.createCreateCardOkEventTimelineItem(cardCreation3));
 		
-		com.anfelisa.box.data.BoxData box4 = new com.anfelisa.box.data.BoxData(randomUUID());
-		box4.setBoxId("boxid");
-		box4.setCategoryId("catid");
-		box4.setMaxCardsPerDay(8);
-		box4.setUserId("userid");
-		timeline.add(com.anfelisa.box.TestUtils.createCreateBoxOkEventTimelineItem(box4));
-		
 		com.anfelisa.box.data.ScheduledCardsData scheduledCards5 = new com.anfelisa.box.data.ScheduledCardsData(randomUUID());
 		List<com.anfelisa.box.models.IScheduledCardModel> scheduledCards5NewScheduledCards = new ArrayList<com.anfelisa.box.models.IScheduledCardModel>();
 		com.anfelisa.box.models.IScheduledCardModel scheduledCards5NewScheduledCards0 = new com.anfelisa.box.models.ScheduledCardModel();

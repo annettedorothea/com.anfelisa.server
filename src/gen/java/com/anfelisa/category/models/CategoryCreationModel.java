@@ -57,6 +57,14 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	
 	private Boolean editable = false;
 	
+	@NotNull
+	private String boxId;
+	
+	private Integer maxInterval;
+	
+	@NotNull
+	private Integer maxCardsPerDay;
+	
 
 	public CategoryCreationModel() {
 	}
@@ -73,7 +81,10 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("editable") Boolean editable
+		@JsonProperty("editable") Boolean editable,
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("maxInterval") Integer maxInterval,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
 	) {
 		this.username = username;
 		this.categoryId = categoryId;
@@ -87,6 +98,9 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 		this.wantedLanguage = wantedLanguage;
 		this.userId = userId;
 		this.editable = editable;
+		this.boxId = boxId;
+		this.maxInterval = maxInterval;
+		this.maxCardsPerDay = maxCardsPerDay;
 	}
 
 	@JsonProperty
@@ -183,6 +197,30 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 		}
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
+	}
+	
+	@JsonProperty
+		public String getBoxId() {
+			return this.boxId;
+		}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
+	}
+	
+	@JsonProperty
+		public Integer getMaxInterval() {
+			return this.maxInterval;
+		}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+	}
+	
+	@JsonProperty
+		public Integer getMaxCardsPerDay() {
+			return this.maxCardsPerDay;
+		}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
 	}
 	
 	

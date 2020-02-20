@@ -4,6 +4,7 @@ import com.anfelisa.box.views.BoxView;
 import com.anfelisa.box.views.ReinforceCardView;
 import com.anfelisa.box.views.ScheduledCardView;
 import com.anfelisa.card.views.CardView;
+import com.anfelisa.category.views.BoxCategoryView;
 import com.anfelisa.category.views.CategoryView;
 import com.anfelisa.category.views.UserAccessToCategoryView;
 import com.anfelisa.user.views.EmailConfirmationView;
@@ -17,6 +18,7 @@ public class ViewProvider extends AbstractViewProvider {
 	public CardView cardView;
 	public ScheduledCardView scheduledCardView;
 	public CategoryView categoryView;
+	public BoxCategoryView boxCategoryView;
 	public UserAccessToCategoryView userAccessToCategoryView;
 	public EmailConfirmationView emailConfirmationView;
 	public UserView userView;
@@ -30,6 +32,7 @@ public class ViewProvider extends AbstractViewProvider {
 
 	public ViewProvider(IDaoProvider daoProvider, EmailService emailService) {
 		boxView = new BoxView(daoProvider);
+		boxCategoryView = new BoxCategoryView(daoProvider);
 		cardView = new CardView(daoProvider);
 		scheduledCardView = new ScheduledCardView(daoProvider);
 		categoryView = new CategoryView(daoProvider);

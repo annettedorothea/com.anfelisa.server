@@ -21,13 +21,6 @@ ACE
 			maxCardsPerDay
 			maxInterval
 
-	CreateBox<Box>
-		POST "/box/create" 
-		authorize 
-		payload 
-			categoryId 
-		on ok ( Box.createBox )
-	
 	UpdateBox<BoxUpdate> 
 		PUT "/box/update"  
 		authorize
@@ -100,7 +93,6 @@ ACE
 
 views 
 	Box {
-		createBox (Box)
 		updateBox (BoxUpdate)
 		deleteBox (DeleteBox)
 		scheduleCards(ScheduledCards)

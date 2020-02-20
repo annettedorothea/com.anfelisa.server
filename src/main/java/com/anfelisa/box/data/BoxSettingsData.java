@@ -21,11 +21,6 @@ package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import org.joda.time.DateTime;
-import java.util.List;
-
-import com.anfelisa.ace.AbstractData;
-
 public class BoxSettingsData extends AbstractBoxSettingsData implements IBoxSettingsData {
 	
 	public BoxSettingsData(

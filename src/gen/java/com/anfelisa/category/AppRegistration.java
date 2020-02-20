@@ -61,6 +61,10 @@ public class AppRegistration {
 			viewProvider.userAccessToCategoryView.grantAccess((com.anfelisa.category.data.CategoryCreationData) dataContainer, handle);
 		});
 		
+		viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryRootEvent", (dataContainer, handle) -> {
+			viewProvider.boxCategoryView.createBox((com.anfelisa.category.data.CategoryCreationData) dataContainer, handle);
+		});
+		
 		viewProvider.addConsumer("com.anfelisa.category.events.UpdateCategoryOkEvent", (dataContainer, handle) -> {
 			viewProvider.categoryView.update((com.anfelisa.category.data.CategoryUpdateData) dataContainer, handle);
 		});

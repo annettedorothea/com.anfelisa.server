@@ -43,15 +43,6 @@ public class ActionCalls {
 		return builder.get();
 	}
 	
-	public static Response callCreateBox(String uuid, String categoryId, int port, String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/box/create", port)).request(); 
-		com.anfelisa.box.data.IBoxData data = new com.anfelisa.box.data.BoxData(uuid);
-		data.setCategoryId(categoryId);
-		builder.header("Authorization", authorization);
-		return builder.post(Entity.json(data));
-	}
-	
 	public static Response callUpdateBox(String uuid, Integer maxInterval, Integer maxCardsPerDay, String boxId, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/box/update?uuid=" + uuid, port)).request();
