@@ -17,42 +17,49 @@
 
 
 
-package com.anfelisa.category.data;
+package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import com.anfelisa.ace.IDataContainer;
 
-import com.anfelisa.category.models.ICategoryCreationModel;
+import com.anfelisa.box.models.IBoxCreationModel;
 
-@JsonDeserialize(as=CategoryCreationData.class)
-public interface ICategoryCreationData extends ICategoryCreationModel, IDataContainer {
+@JsonDeserialize(as=BoxCreationData.class)
+public interface IBoxCreationData extends IBoxCreationModel, IDataContainer {
 	void mapFrom(com.anfelisa.category.models.ICategoryModel model);
 	void mapFrom(com.anfelisa.category.models.IUserAccessToCategoryModel model);
+	void mapFrom(com.anfelisa.box.models.IBoxModel model);
 	
-	ICategoryCreationData withUsername(String username);
+	IBoxCreationData withUsername(String username);
 	
-	ICategoryCreationData withCategoryId(String categoryId);
+	IBoxCreationData withMaxInterval(Integer maxInterval);
 	
-	ICategoryCreationData withCategoryName(String categoryName);
+	IBoxCreationData withMaxCardsPerDay(Integer maxCardsPerDay);
 	
-	ICategoryCreationData withCategoryAuthor(String categoryAuthor);
+	IBoxCreationData withCategoryId(String categoryId);
 	
-	ICategoryCreationData withCategoryIndex(Integer categoryIndex);
+	IBoxCreationData withCategoryName(String categoryName);
 	
-	ICategoryCreationData withParentCategoryId(String parentCategoryId);
+	IBoxCreationData withCategoryAuthor(String categoryAuthor);
 	
-	ICategoryCreationData withRootCategoryId(String rootCategoryId);
+	IBoxCreationData withCategoryIndex(Integer categoryIndex);
 	
-	ICategoryCreationData withDictionaryLookup(Boolean dictionaryLookup);
+	IBoxCreationData withParentCategoryId(String parentCategoryId);
 	
-	ICategoryCreationData withGivenLanguage(String givenLanguage);
+	IBoxCreationData withRootCategoryId(String rootCategoryId);
 	
-	ICategoryCreationData withWantedLanguage(String wantedLanguage);
+	IBoxCreationData withDictionaryLookup(Boolean dictionaryLookup);
 	
-	ICategoryCreationData withUserId(String userId);
+	IBoxCreationData withGivenLanguage(String givenLanguage);
 	
-	ICategoryCreationData withEditable(Boolean editable);
+	IBoxCreationData withWantedLanguage(String wantedLanguage);
+	
+	IBoxCreationData withUserId(String userId);
+	
+	IBoxCreationData withEditable(Boolean editable);
+	
+	IBoxCreationData withBoxId(String boxId);
 	
 	
 }

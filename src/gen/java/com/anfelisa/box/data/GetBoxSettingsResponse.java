@@ -36,12 +36,27 @@ public class GetBoxSettingsResponse implements IGetBoxSettingsResponse {
 	
 	private Integer maxInterval;
 	
+	private String categoryName;
+	
+	private Boolean dictionaryLookup = false;
+	
+	private String givenLanguage;
+	
+	private String wantedLanguage;
+	
+	private String categoryId;
+	
 	public GetBoxSettingsResponse() {
 	}
 	
 	public GetBoxSettingsResponse(com.anfelisa.box.models.IBoxSettingsModel data) {
 		maxCardsPerDay = data.getMaxCardsPerDay();
 		maxInterval = data.getMaxInterval();
+		categoryName = data.getCategoryName();
+		dictionaryLookup = data.getDictionaryLookup();
+		givenLanguage = data.getGivenLanguage();
+		wantedLanguage = data.getWantedLanguage();
+		categoryId = data.getCategoryId();
 	}
 	
 	@JsonProperty
@@ -52,6 +67,31 @@ public class GetBoxSettingsResponse implements IGetBoxSettingsResponse {
 	@JsonProperty
 		public Integer getMaxInterval() {
 			return this.maxInterval;
+		}
+	
+	@JsonProperty
+		public String getCategoryName() {
+			return this.categoryName;
+		}
+	
+	@JsonProperty
+		public Boolean getDictionaryLookup() {
+			return this.dictionaryLookup;
+		}
+	
+	@JsonProperty
+		public String getGivenLanguage() {
+			return this.givenLanguage;
+		}
+	
+	@JsonProperty
+		public String getWantedLanguage() {
+			return this.wantedLanguage;
+		}
+	
+	@JsonProperty
+		public String getCategoryId() {
+			return this.categoryId;
 		}
 	
 }

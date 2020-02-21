@@ -67,15 +67,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.AuthUser;
-import com.anfelisa.box.data.IBoxUpdateData;
-import com.anfelisa.box.data.BoxUpdateData;
-import com.anfelisa.box.commands.UpdateBoxCommand;
+import com.anfelisa.box.data.IBoxCreationData;
+import com.anfelisa.box.data.BoxCreationData;
+import com.anfelisa.box.commands.CreateBoxCommand;
 
-@Path("/box/update")
+@Path("/box/create")
 @SuppressWarnings("unused")
-public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
+public abstract class AbstractCreateBoxAction extends Action<IBoxCreationData> {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractUpdateBoxAction.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractCreateBoxAction.class);
 
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
@@ -85,9 +85,9 @@ public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 	private ViewProvider viewProvider;
 	private E2E e2e;
 
-	public AbstractUpdateBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+	public AbstractCreateBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
-		super("com.anfelisa.box.actions.UpdateBoxAction", HttpMethod.PUT);
+		super("com.anfelisa.box.actions.CreateBoxAction", HttpMethod.POST);
 		this.jdbi = jdbi;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
@@ -98,30 +98,29 @@ public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 
 	@Override
 	public ICommand getCommand() {
-		return new UpdateBoxCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
+		return new CreateBoxCommand(this.actionData, daoProvider, viewProvider, this.appConfiguration);
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (IBoxUpdateData)data;
+		this.actionData = (IBoxCreationData)data;
 	}
 
-	@PUT
+	@POST
 	@Timed
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateBoxResource(
+	public Response createBoxResource(
 			@Auth AuthUser authUser, 
-			@NotNull IBoxUpdateData payload) 
+			@NotNull IBoxCreationData payload) 
 			throws JsonProcessingException {
-		this.actionData = new BoxUpdateData(payload.getUuid());
-		this.actionData.setMaxInterval(payload.getMaxInterval());
-		this.actionData.setMaxCardsPerDay(payload.getMaxCardsPerDay());
-		this.actionData.setBoxId(payload.getBoxId());
-		this.actionData.setCategoryId(payload.getCategoryId());
+		this.actionData = new BoxCreationData(payload.getUuid());
 		this.actionData.setCategoryName(payload.getCategoryName());
 		this.actionData.setDictionaryLookup(payload.getDictionaryLookup());
 		this.actionData.setGivenLanguage(payload.getGivenLanguage());
 		this.actionData.setWantedLanguage(payload.getWantedLanguage());
+		this.actionData.setMaxCardsPerDay(payload.getMaxCardsPerDay());
+		this.actionData.setMaxInterval(payload.getMaxInterval());
+		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setUserId(authUser.getUserId());
 		
 		return this.apply();
@@ -142,7 +141,7 @@ public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
-				this.actionData = (IBoxUpdateData)originalData;
+				this.actionData = (IBoxCreationData)originalData;
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (SetSystemTimeResource.systemTime != null) {
 					this.actionData.setSystemTime(SetSystemTimeResource.systemTime);

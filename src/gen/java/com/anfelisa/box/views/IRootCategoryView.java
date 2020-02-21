@@ -17,28 +17,20 @@
 
 
 
-package com.anfelisa.category.models;
+package com.anfelisa.box.views;
 
-import java.util.List;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.jdbi.v3.core.Handle;
 
-@SuppressWarnings("unused")
-@JsonDeserialize(as=RevokeUserModel.class)
-public interface IRevokeUserModel {
+import com.anfelisa.ace.IDataContainer;
+import com.anfelisa.box.data.IBoxCreationData;
+import com.anfelisa.box.data.IBoxUpdateData;
 
-	String getCategoryId();
-	void setCategoryId(String categoryId);
-	
-	String getRootCategoryId();
-	void setRootCategoryId(String rootCategoryId);
-	
-	String getRevokedUserId();
-	void setRevokedUserId(String revokedUserId);
-	
-	String getUserId();
-	void setUserId(String userId);
-	
-	
+@SuppressWarnings("all")
+public interface IRootCategoryView {
+
+	void insert(IBoxCreationData data, Handle handle);
+	void update(IBoxUpdateData data, Handle handle);
+
 }
 
 

@@ -42,8 +42,7 @@ public class AceDataFactory {
 		try {
 			if (className.equals("com.anfelisa.category.actions.CreateCategoryAction") ||
 					className.equals("com.anfelisa.category.commands.CreateCategoryCommand") ||
-					className.equals("com.anfelisa.category.events.CreateCategorySubEvent")||
-					className.equals("com.anfelisa.category.events.CreateCategoryRootEvent")
+					className.equals("com.anfelisa.category.events.CreateCategoryOkEvent")
 			) {
 				CategoryCreationData data = mapper.readValue(json, CategoryCreationData.class);
 				data.migrateLegacyData(json);

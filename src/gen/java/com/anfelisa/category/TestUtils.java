@@ -27,13 +27,9 @@ public class TestUtils {
 
 	private static final JodaObjectMapper mapper = new JodaObjectMapper();
 
-	public static TimelineItem createCreateCategorySubEventTimelineItem(com.anfelisa.category.data.ICategoryCreationData data) throws JsonProcessingException {
+	public static TimelineItem createCreateCategoryOkEventTimelineItem(com.anfelisa.category.data.ICategoryCreationData data) throws JsonProcessingException {
 		String json = mapper.writeValueAsString(data);
-		return new TimelineItem("prepare", null, "com.anfelisa.category.events.CreateCategorySubEvent", null, json, data.getUuid());
-	}
-	public static TimelineItem createCreateCategoryRootEventTimelineItem(com.anfelisa.category.data.ICategoryCreationData data) throws JsonProcessingException {
-		String json = mapper.writeValueAsString(data);
-		return new TimelineItem("prepare", null, "com.anfelisa.category.events.CreateCategoryRootEvent", null, json, data.getUuid());
+		return new TimelineItem("prepare", null, "com.anfelisa.category.events.CreateCategoryOkEvent", null, json, data.getUuid());
 	}
 
 	public static TimelineItem createUpdateCategoryOkEventTimelineItem(com.anfelisa.category.data.ICategoryUpdateData data) throws JsonProcessingException {

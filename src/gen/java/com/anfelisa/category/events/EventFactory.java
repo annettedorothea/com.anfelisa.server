@@ -43,16 +43,10 @@ public class EventFactory {
 
 	public static IEvent createEvent(String eventClass, String json, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		try {
-			if (eventClass.equals("com.anfelisa.category.events.CreateCategorySubEvent")) {
+			if (eventClass.equals("com.anfelisa.category.events.CreateCategoryOkEvent")) {
 				CategoryCreationData data = mapper.readValue(json, CategoryCreationData.class);
 				data.migrateLegacyData(json);
-				CreateCategorySubEvent event = new CreateCategorySubEvent(data, daoProvider, viewProvider);
-				return event;
-			}
-			if (eventClass.equals("com.anfelisa.category.events.CreateCategoryRootEvent")) {
-				CategoryCreationData data = mapper.readValue(json, CategoryCreationData.class);
-				data.migrateLegacyData(json);
-				CreateCategoryRootEvent event = new CreateCategoryRootEvent(data, daoProvider, viewProvider);
+				CreateCategoryOkEvent event = new CreateCategoryOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.UpdateCategoryOkEvent")) {
@@ -93,11 +87,8 @@ public class EventFactory {
 	}
 
 	public static IEvent createEvent(String eventClass, IDataContainer data, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		if (eventClass.equals("com.anfelisa.category.events.CreateCategorySubEvent")) {
-			return new CreateCategorySubEvent((CategoryCreationData)data, daoProvider, viewProvider);
-		}
-		if (eventClass.equals("com.anfelisa.category.events.CreateCategoryRootEvent")) {
-			return new CreateCategoryRootEvent((CategoryCreationData)data, daoProvider, viewProvider);
+		if (eventClass.equals("com.anfelisa.category.events.CreateCategoryOkEvent")) {
+			return new CreateCategoryOkEvent((CategoryCreationData)data, daoProvider, viewProvider);
 		}
 
 		if (eventClass.equals("com.anfelisa.category.events.UpdateCategoryOkEvent")) {

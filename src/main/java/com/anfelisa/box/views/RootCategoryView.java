@@ -17,18 +17,31 @@
 
 
 
-package com.anfelisa.category.events;
+package com.anfelisa.box.views;
 
-import com.anfelisa.ace.Event;
+import org.jdbi.v3.core.Handle;
+
 import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.box.data.IBoxCreationData;
+import com.anfelisa.box.data.IBoxUpdateData;
 
-import com.anfelisa.category.data.ICategoryCreationData;
+public class RootCategoryView implements IRootCategoryView {
 
-public class CreateCategoryRootEvent extends Event<ICategoryCreationData> {
+	private IDaoProvider daoProvider;
+	
+	public RootCategoryView(IDaoProvider daoProvider) {
+		super();
+		this.daoProvider = daoProvider;
+	}
 
-	public CreateCategoryRootEvent(ICategoryCreationData eventData, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.category.events.CreateCategoryRootEvent", eventData, daoProvider, viewProvider);
+	@Override
+	public void insert(IBoxCreationData data, Handle handle) {
+		daoProvider.getCategoryDao().insert(handle, data);
+	}
+
+	@Override
+	public void update(IBoxUpdateData data, Handle handle) {
+		daoProvider.getCategoryDao().update(handle, data);
 	}
 
 }

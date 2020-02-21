@@ -36,6 +36,20 @@ public class ActionCalls {
 		return builder.get();
 	}
 	
+	public static Response callCreateBox(String uuid, String categoryName, Boolean dictionaryLookup, String givenLanguage, String wantedLanguage, Integer maxCardsPerDay, Integer maxInterval, int port, String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/box/create", port)).request(); 
+		com.anfelisa.box.data.IBoxCreationData data = new com.anfelisa.box.data.BoxCreationData(uuid);
+		data.setCategoryName(categoryName);
+		data.setDictionaryLookup(dictionaryLookup);
+		data.setGivenLanguage(givenLanguage);
+		data.setWantedLanguage(wantedLanguage);
+		data.setMaxCardsPerDay(maxCardsPerDay);
+		data.setMaxInterval(maxInterval);
+		builder.header("Authorization", authorization);
+		return builder.post(Entity.json(data));
+	}
+	
 	public static Response callGetBoxSettings(String uuid, String boxId, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/box/settings/" + boxId + "/?uuid=" + uuid, port)).request(); 
@@ -43,13 +57,18 @@ public class ActionCalls {
 		return builder.get();
 	}
 	
-	public static Response callUpdateBox(String uuid, Integer maxInterval, Integer maxCardsPerDay, String boxId, int port, String authorization) {
+	public static Response callUpdateBox(String uuid, Integer maxInterval, Integer maxCardsPerDay, String boxId, String categoryId, String categoryName, Boolean dictionaryLookup, String givenLanguage, String wantedLanguage, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/box/update?uuid=" + uuid, port)).request();
 		com.anfelisa.box.data.IBoxUpdateData data = new com.anfelisa.box.data.BoxUpdateData(uuid);
 		data.setMaxInterval(maxInterval);
 		data.setMaxCardsPerDay(maxCardsPerDay);
 		data.setBoxId(boxId);
+		data.setCategoryId(categoryId);
+		data.setCategoryName(categoryName);
+		data.setDictionaryLookup(dictionaryLookup);
+		data.setGivenLanguage(givenLanguage);
+		data.setWantedLanguage(wantedLanguage);
 		builder.header("Authorization", authorization);
 		return builder.put(Entity.json(data));
 	}

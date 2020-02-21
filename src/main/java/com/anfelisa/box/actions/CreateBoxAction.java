@@ -17,21 +17,31 @@
 
 
 
-package com.anfelisa.category.views;
+package com.anfelisa.box.actions;
 
-import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.Jdbi;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.category.data.ICategoryCreationData;
-import com.anfelisa.category.data.IInviteUserData;
-import com.anfelisa.category.data.IRevokeUserData;
+import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.E2E;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
-@SuppressWarnings("all")
-public interface IUserAccessToCategoryView {
+public class CreateBoxAction extends AbstractCreateBoxAction {
 
-	void grantAccess(ICategoryCreationData data, Handle handle);
-	void grantAccessInvitation(IInviteUserData data, Handle handle);
-	void revokeAccess(IRevokeUserData data, Handle handle);
+	static final Logger LOG = LoggerFactory.getLogger(CreateBoxAction.class);
+
+	public CreateBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, 
+			ViewProvider viewProvider, E2E e2e) {
+		super(jdbi,appConfiguration, daoProvider, viewProvider, e2e);
+	}
+
+
+	
+	public void initActionData() {
+		// init not replayable data here
+	}
 
 }
 

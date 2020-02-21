@@ -36,6 +36,16 @@ public interface IBoxUpdateData extends IBoxUpdateModel, IDataContainer {
 	
 	IBoxUpdateData withMaxCardsPerDay(Integer maxCardsPerDay);
 	
+	IBoxUpdateData withCategoryName(String categoryName);
+	
+	IBoxUpdateData withDictionaryLookup(Boolean dictionaryLookup);
+	
+	IBoxUpdateData withGivenLanguage(String givenLanguage);
+	
+	IBoxUpdateData withWantedLanguage(String wantedLanguage);
+	
+	IBoxUpdateData withCategoryId(String categoryId);
+	
 	
 }
 

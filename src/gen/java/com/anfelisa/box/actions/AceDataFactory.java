@@ -45,6 +45,14 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
+			if (className.equals("com.anfelisa.box.actions.CreateBoxAction") ||
+					className.equals("com.anfelisa.box.commands.CreateBoxCommand") ||
+					className.equals("com.anfelisa.box.events.CreateBoxOkEvent")
+			) {
+				BoxCreationData data = mapper.readValue(json, BoxCreationData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
 			if (className.equals("com.anfelisa.box.actions.GetBoxSettingsAction")) {
 				BoxSettingsData data = mapper.readValue(json, BoxSettingsData.class);
 				data.migrateLegacyData(json);

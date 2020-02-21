@@ -46,20 +46,8 @@ public class AppRegistration {
 	}
 
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {
-		viewProvider.addConsumer("com.anfelisa.category.events.CreateCategorySubEvent", (dataContainer, handle) -> {
+		viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryOkEvent", (dataContainer, handle) -> {
 			viewProvider.categoryView.insert((com.anfelisa.category.data.CategoryCreationData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryRootEvent", (dataContainer, handle) -> {
-			viewProvider.categoryView.insert((com.anfelisa.category.data.CategoryCreationData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryRootEvent", (dataContainer, handle) -> {
-			viewProvider.userAccessToCategoryView.grantAccess((com.anfelisa.category.data.CategoryCreationData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryRootEvent", (dataContainer, handle) -> {
-			viewProvider.boxCategoryView.createBox((com.anfelisa.category.data.CategoryCreationData) dataContainer, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.category.events.UpdateCategoryOkEvent", (dataContainer, handle) -> {

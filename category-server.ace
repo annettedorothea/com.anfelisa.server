@@ -5,6 +5,7 @@ com.anfelisa.category
 import com.anfelisa.user.AuthUser
 
 ACE 
+
 	CreateCategory<CategoryCreation>
 		POST "/category/create"  
 		authorize
@@ -14,8 +15,7 @@ ACE
 			dictionaryLookup
 			givenLanguage
 			wantedLanguage
-		on sub (Category.insert)
-		on root (Category.insert UserAccessToCategory.grantAccess BoxCategory.createBox)
+		on ok (Category.insert)
 	
 	UpdateCategory<CategoryUpdate>
 		PUT "/category/update" 
@@ -67,16 +67,6 @@ views
 		update(CategoryUpdate)
 		moveCategory(CategoryMove)
 		changeOrder(CategoryChangeOrder)
-	}
-	
-	UserAccessToCategory { 
-		grantAccess(CategoryCreation)
-		grantAccessInvitation(InviteUser)
-		revokeAccess(RevokeUser)
-	}
-	
-	BoxCategory {
-		createBox (com.anfelisa.category.CategoryCreation)
 	}
 	
 models 
@@ -159,23 +149,7 @@ models
 		Boolean editable
 	}
 	
-	InviteUser {
-		NotNull String categoryId
-		NotNull String rootCategoryId
-		NotNull String invitedUserId
-		NotNull String invitedUsername
-		Boolean editable
-		String userId
-	}
-	
-	RevokeUser {
-		NotNull String categoryId
-		NotNull String rootCategoryId
-		NotNull String revokedUserId
-		String userId
-	}
-	
-	CategoryCreation extends Category, UserAccessToCategory, com.anfelisa.box.Box {
+	CategoryCreation extends Category, UserAccessToCategory {
 		String username
 	}
 	

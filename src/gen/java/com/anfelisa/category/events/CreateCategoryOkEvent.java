@@ -17,26 +17,20 @@
 
 
 
-package com.anfelisa.category.models;
+package com.anfelisa.category.events;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.anfelisa.ace.Event;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
 
-import org.jdbi.v3.core.mapper.RowMapper;
-import org.jdbi.v3.core.statement.StatementContext;
+import com.anfelisa.category.data.ICategoryCreationData;
 
-public class InviteUserMapper implements RowMapper<IInviteUserModel> {
-	
-	public IInviteUserModel map(ResultSet r, StatementContext ctx) throws SQLException {
-		return new InviteUserModel(
-			r.getString("categoryId"),
-			r.getString("rootCategoryId"),
-			r.getString("invitedUserId"),
-			r.getString("invitedUsername"),
-			r.getBoolean("editable"),
-			r.getString("userId")
-		);
+public class CreateCategoryOkEvent extends Event<ICategoryCreationData> {
+
+	public CreateCategoryOkEvent(ICategoryCreationData eventData, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super("com.anfelisa.category.events.CreateCategoryOkEvent", eventData, daoProvider, viewProvider);
 	}
+
 }
 
 

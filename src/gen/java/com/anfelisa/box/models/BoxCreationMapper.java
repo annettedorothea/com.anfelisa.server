@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.category.models;
+package com.anfelisa.box.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,14 +25,25 @@ import java.sql.SQLException;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
-public class RevokeUserMapper implements RowMapper<IRevokeUserModel> {
+public class BoxCreationMapper implements RowMapper<IBoxCreationModel> {
 	
-	public IRevokeUserModel map(ResultSet r, StatementContext ctx) throws SQLException {
-		return new RevokeUserModel(
+	public IBoxCreationModel map(ResultSet r, StatementContext ctx) throws SQLException {
+		return new BoxCreationModel(
+			r.getString("username"),
+			r.getObject("maxInterval") != null ? r.getInt("maxInterval") : null,
+			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null,
 			r.getString("categoryId"),
+			r.getString("categoryName"),
+			r.getString("categoryAuthor"),
+			r.getObject("categoryIndex") != null ? r.getInt("categoryIndex") : null,
+			r.getString("parentCategoryId"),
 			r.getString("rootCategoryId"),
-			r.getString("revokedUserId"),
-			r.getString("userId")
+			r.getBoolean("dictionaryLookup"),
+			r.getString("givenLanguage"),
+			r.getString("wantedLanguage"),
+			r.getString("userId"),
+			r.getBoolean("editable"),
+			r.getString("boxId")
 		);
 	}
 }

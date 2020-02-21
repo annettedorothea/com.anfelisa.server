@@ -40,10 +40,7 @@ public class CategoryCreationMapper implements RowMapper<ICategoryCreationModel>
 			r.getString("givenLanguage"),
 			r.getString("wantedLanguage"),
 			r.getString("userId"),
-			r.getBoolean("editable"),
-			r.getString("boxId"),
-			r.getObject("maxInterval") != null ? r.getInt("maxInterval") : null,
-			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null
+			r.getBoolean("editable")
 		);
 	}
 }

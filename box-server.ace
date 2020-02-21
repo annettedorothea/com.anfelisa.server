@@ -13,6 +13,18 @@ ACE
 		response 
 			boxList
 		
+	CreateBox<BoxCreation>
+		POST "/box/create"  
+		authorize
+		payload 
+			categoryName
+			dictionaryLookup
+			givenLanguage
+			wantedLanguage
+			maxCardsPerDay
+			maxInterval
+		on ok (RootCategory.insert UserAccessToCategory.grantAccess Box.createBox)
+
 	GetBoxSettings<BoxSettings>
 	GET "/box/settings/{boxId}/" 
 		authorize 
@@ -20,6 +32,11 @@ ACE
 		response 
 			maxCardsPerDay
 			maxInterval
+			categoryName
+			dictionaryLookup
+			givenLanguage
+			wantedLanguage
+			categoryId
 
 	UpdateBox<BoxUpdate> 
 		PUT "/box/update"  
@@ -28,7 +45,12 @@ ACE
 			maxInterval 
 			maxCardsPerDay
 			boxId
-		on ok ( Box.updateBox )
+			categoryId
+			categoryName
+			dictionaryLookup
+			givenLanguage
+			wantedLanguage
+		on ok ( Box.updateBox RootCategory.update)
 		
 	InitMyBoxesForDay<InitMyBoxesData>
 		PUT "/box/init"  
@@ -93,6 +115,7 @@ ACE
 
 views 
 	Box {
+		createBox (BoxCreation)
 		updateBox (BoxUpdate)
 		deleteBox (DeleteBox)
 		scheduleCards(ScheduledCards)
@@ -110,6 +133,15 @@ views
 		update(ScoreReinforceCard)
 		clear(InitMyBoxesData)
 	}
+	RootCategory {
+		insert(BoxCreation)
+		update(BoxUpdate)
+	}
+	
+	UserAccessToCategory { 
+		grantAccess(BoxCreation)
+	}
+	
 
 models 
 	persistent Box {
@@ -182,12 +214,22 @@ models
 		NotNull String boxId
 		Integer maxInterval
 		Integer maxCardsPerDay
+		String categoryName
+		Boolean dictionaryLookup
+		String givenLanguage
+		String wantedLanguage
+		String categoryId
 	}
 	
 	BoxSettings {
 		NotNull String boxId
 		Integer maxInterval
 		Integer maxCardsPerDay
+		String categoryName
+		Boolean dictionaryLookup
+		String givenLanguage
+		String wantedLanguage
+		String categoryId
 	}
 
 
@@ -261,6 +303,12 @@ models
 	DeleteBox {
 		String userId
 		NotNull String boxId
+	}
+
+	BoxCreation extends com.anfelisa.category.Category, com.anfelisa.category.UserAccessToCategory, Box {
+		String username
+		Integer maxInterval
+		NotNull Integer maxCardsPerDay
 	}
 	
 /*

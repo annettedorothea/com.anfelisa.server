@@ -34,6 +34,16 @@ public interface IBoxSettingsData extends IBoxSettingsModel, IDataContainer {
 	
 	IBoxSettingsData withMaxCardsPerDay(Integer maxCardsPerDay);
 	
+	IBoxSettingsData withCategoryName(String categoryName);
+	
+	IBoxSettingsData withDictionaryLookup(Boolean dictionaryLookup);
+	
+	IBoxSettingsData withGivenLanguage(String givenLanguage);
+	
+	IBoxSettingsData withWantedLanguage(String wantedLanguage);
+	
+	IBoxSettingsData withCategoryId(String categoryId);
+	
 	
 }
 

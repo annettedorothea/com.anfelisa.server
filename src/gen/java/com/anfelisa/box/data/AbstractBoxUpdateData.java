@@ -48,12 +48,27 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	
 	private Integer maxCardsPerDay;
 	
+	private String categoryName;
+	
+	private Boolean dictionaryLookup = false;
+	
+	private String givenLanguage;
+	
+	private String wantedLanguage;
+	
+	private String categoryId;
+	
 
 	public AbstractBoxUpdateData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
 		@JsonProperty("maxInterval") Integer maxInterval,
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
+		@JsonProperty("categoryName") String categoryName,
+		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
+		@JsonProperty("givenLanguage") String givenLanguage,
+		@JsonProperty("wantedLanguage") String wantedLanguage,
+		@JsonProperty("categoryId") String categoryId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -61,6 +76,11 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 		this.boxId = boxId;
 		this.maxInterval = maxInterval;
 		this.maxCardsPerDay = maxCardsPerDay;
+		this.categoryName = categoryName;
+		this.dictionaryLookup = dictionaryLookup;
+		this.givenLanguage = givenLanguage;
+		this.wantedLanguage = wantedLanguage;
+		this.categoryId = categoryId;
 	}
 
 	public AbstractBoxUpdateData( String uuid ) {
@@ -112,6 +132,66 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	public IBoxUpdateData withMaxCardsPerDay(Integer maxCardsPerDay) {
 		this.maxCardsPerDay = maxCardsPerDay;
+		return this;
+	}
+	
+	@JsonProperty
+		public String getCategoryName() {
+			return this.categoryName;
+		}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	public IBoxUpdateData withCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+		return this;
+	}
+	
+	@JsonProperty
+		public Boolean getDictionaryLookup() {
+			return this.dictionaryLookup;
+		}
+	public void setDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+	}
+	public IBoxUpdateData withDictionaryLookup(Boolean dictionaryLookup) {
+		this.dictionaryLookup = dictionaryLookup;
+		return this;
+	}
+	
+	@JsonProperty
+		public String getGivenLanguage() {
+			return this.givenLanguage;
+		}
+	public void setGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+	}
+	public IBoxUpdateData withGivenLanguage(String givenLanguage) {
+		this.givenLanguage = givenLanguage;
+		return this;
+	}
+	
+	@JsonProperty
+		public String getWantedLanguage() {
+			return this.wantedLanguage;
+		}
+	public void setWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
+	}
+	public IBoxUpdateData withWantedLanguage(String wantedLanguage) {
+		this.wantedLanguage = wantedLanguage;
+		return this;
+	}
+	
+	@JsonProperty
+		public String getCategoryId() {
+			return this.categoryId;
+		}
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	public IBoxUpdateData withCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 		return this;
 	}
 	

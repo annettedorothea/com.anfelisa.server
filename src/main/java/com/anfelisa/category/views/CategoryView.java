@@ -19,22 +19,26 @@ public class CategoryView implements ICategoryView {
 		this.daoProvider = daoProvider;
 	}
 
+	@Override
 	public void insert(ICategoryCreationData data, Handle handle) {
 		daoProvider.getCategoryDao().insert(handle, data);
 	}
 
+	@Override
 	public void delete(ICategoryDeleteData data, Handle handle) {
 		daoProvider.getCardDao().deleteByCategoryId(handle, data.getCategoryId());
 		daoProvider.getCategoryDao().deleteByCategoryId(handle, data.getCategoryId());
 		daoProvider.getCategoryDao().shiftCategories(handle, data.getCategoryIndex(), data.getParentCategoryId());
 	}
 
+	@Override
 	public void deleteRoot(ICategoryDeleteData data, Handle handle) {
 		daoProvider.getCardDao().deleteByCategoryId(handle, data.getCategoryId());
 		daoProvider.getCategoryDao().deleteByCategoryId(handle, data.getCategoryId());
 		daoProvider.getCategoryDao().shiftRootCategories(handle, data.getCategoryIndex());
 	}
 
+	@Override
 	public void update(ICategoryUpdateData data, Handle handle) {
 		daoProvider.getCategoryDao().update(handle, data);
 	}

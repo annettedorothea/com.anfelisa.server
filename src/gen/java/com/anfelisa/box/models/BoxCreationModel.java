@@ -26,16 +26,30 @@ import java.util.List;
 import java.util.ArrayList;
 
 @SuppressWarnings("all")
-public class BoxSettingsModel implements IBoxSettingsModel {
+public class BoxCreationModel implements IBoxCreationModel {
 
-	@NotNull
-	private String boxId;
+	private String username;
 	
 	private Integer maxInterval;
 	
+	@NotNull
 	private Integer maxCardsPerDay;
 	
+	@NotNull
+	private String categoryId;
+	
+	@NotNull
 	private String categoryName;
+	
+	@NotNull
+	private String categoryAuthor;
+	
+	@NotNull
+	private Integer categoryIndex;
+	
+	private String parentCategoryId;
+	
+	private String rootCategoryId;
 	
 	private Boolean dictionaryLookup = false;
 	
@@ -43,38 +57,58 @@ public class BoxSettingsModel implements IBoxSettingsModel {
 	
 	private String wantedLanguage;
 	
-	private String categoryId;
+	@NotNull
+	private String userId;
+	
+	private Boolean editable = false;
+	
+	@NotNull
+	private String boxId;
 	
 
-	public BoxSettingsModel() {
+	public BoxCreationModel() {
 	}
 
-	public BoxSettingsModel(
-		@JsonProperty("boxId") String boxId,
+	public BoxCreationModel(
+		@JsonProperty("username") String username,
 		@JsonProperty("maxInterval") Integer maxInterval,
 		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
+		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
+		@JsonProperty("categoryAuthor") String categoryAuthor,
+		@JsonProperty("categoryIndex") Integer categoryIndex,
+		@JsonProperty("parentCategoryId") String parentCategoryId,
+		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
-		@JsonProperty("categoryId") String categoryId
+		@JsonProperty("userId") String userId,
+		@JsonProperty("editable") Boolean editable,
+		@JsonProperty("boxId") String boxId
 	) {
-		this.boxId = boxId;
+		this.username = username;
 		this.maxInterval = maxInterval;
 		this.maxCardsPerDay = maxCardsPerDay;
+		this.categoryId = categoryId;
 		this.categoryName = categoryName;
+		this.categoryAuthor = categoryAuthor;
+		this.categoryIndex = categoryIndex;
+		this.parentCategoryId = parentCategoryId;
+		this.rootCategoryId = rootCategoryId;
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
-		this.categoryId = categoryId;
+		this.userId = userId;
+		this.editable = editable;
+		this.boxId = boxId;
 	}
 
 	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
+		public String getUsername() {
+			return this.username;
 		}
-	public void setBoxId(String boxId) {
-		this.boxId = boxId;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	@JsonProperty
@@ -94,11 +128,51 @@ public class BoxSettingsModel implements IBoxSettingsModel {
 	}
 	
 	@JsonProperty
+		public String getCategoryId() {
+			return this.categoryId;
+		}
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	
+	@JsonProperty
 		public String getCategoryName() {
 			return this.categoryName;
 		}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	
+	@JsonProperty
+		public String getCategoryAuthor() {
+			return this.categoryAuthor;
+		}
+	public void setCategoryAuthor(String categoryAuthor) {
+		this.categoryAuthor = categoryAuthor;
+	}
+	
+	@JsonProperty
+		public Integer getCategoryIndex() {
+			return this.categoryIndex;
+		}
+	public void setCategoryIndex(Integer categoryIndex) {
+		this.categoryIndex = categoryIndex;
+	}
+	
+	@JsonProperty
+		public String getParentCategoryId() {
+			return this.parentCategoryId;
+		}
+	public void setParentCategoryId(String parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
+	}
+	
+	@JsonProperty
+		public String getRootCategoryId() {
+			return this.rootCategoryId;
+		}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
 	}
 	
 	@JsonProperty
@@ -126,11 +200,27 @@ public class BoxSettingsModel implements IBoxSettingsModel {
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
+		public String getUserId() {
+			return this.userId;
 		}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@JsonProperty
+		public Boolean getEditable() {
+			return this.editable;
+		}
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
+	}
+	
+	@JsonProperty
+		public String getBoxId() {
+			return this.boxId;
+		}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
 	}
 	
 	

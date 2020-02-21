@@ -5,6 +5,7 @@ import java.util.List;
 import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.data.IScheduledCardsData;
@@ -34,6 +35,11 @@ public class BoxView implements IBoxView {
 		for (String scheduledCardId : existingScheduledCardIds) {
 			daoProvider.getScheduledCardDao().scheduleScheduledCard(handle, scheduledCardId, data.getScheduledDate());
 		}
+	}
+
+	@Override
+	public void createBox(IBoxCreationData data, Handle handle) {
+		daoProvider.getBoxDao().insert(handle, data);
 	}
 
 }

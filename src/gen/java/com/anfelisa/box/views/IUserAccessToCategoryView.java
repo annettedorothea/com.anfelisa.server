@@ -17,34 +17,18 @@
 
 
 
-package com.anfelisa.category.models;
+package com.anfelisa.box.views;
 
-import java.util.List;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.jdbi.v3.core.Handle;
 
-@SuppressWarnings("unused")
-@JsonDeserialize(as=InviteUserModel.class)
-public interface IInviteUserModel {
+import com.anfelisa.ace.IDataContainer;
+import com.anfelisa.box.data.IBoxCreationData;
 
-	String getCategoryId();
-	void setCategoryId(String categoryId);
-	
-	String getRootCategoryId();
-	void setRootCategoryId(String rootCategoryId);
-	
-	String getInvitedUserId();
-	void setInvitedUserId(String invitedUserId);
-	
-	String getInvitedUsername();
-	void setInvitedUsername(String invitedUsername);
-	
-	Boolean getEditable();
-	void setEditable(Boolean editable);
-	
-	String getUserId();
-	void setUserId(String userId);
-	
-	
+@SuppressWarnings("all")
+public interface IUserAccessToCategoryView {
+
+	void grantAccess(IBoxCreationData data, Handle handle);
+
 }
 
 

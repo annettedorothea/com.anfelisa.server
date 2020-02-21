@@ -16,14 +16,11 @@
 
 package com.anfelisa.box.scenarios;
 
-import static org.hamcrest.MatcherAssert.assertThat; 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-import org.hamcrest.core.Is;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.Test;
@@ -65,7 +62,7 @@ public class InitMyBoxesForDayRemoveOutdatedReinforceCardsScenarioW extends Base
 		categoryCreation2.setRootCategoryId("catid");
 		categoryCreation2.setUserId("userid");
 		categoryCreation2.setUsername("Annette");
-		timeline.add(com.anfelisa.category.TestUtils.createCreateCategoryRootEventTimelineItem(categoryCreation2));
+		//timeline.add(com.anfelisa.category.TestUtils.createCreateCategoryRootEventTimelineItem(categoryCreation2));
 
 		com.anfelisa.card.data.CardCreationData cardCreation3 = new com.anfelisa.card.data.CardCreationData(randomUUID());
 		cardCreation3.setCardAuthor("test");

@@ -6,10 +6,11 @@ import java.util.Optional;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 
+import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.category.data.ICategoryUpdateData;
 
 public class CategoryDao extends AbstractCategoryDao {
-	
+
 	public List<ICategoryTreeItemModel> selectAllChildren(Handle handle, String parentCategoryId, String userId) {
 		return handle.createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
@@ -18,7 +19,8 @@ public class CategoryDao extends AbstractCategoryDao {
 						+ "false as isRoot, "
 						+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
 						+ "FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
-				.bind("userid", userId).bind("parentcategoryid", parentCategoryId).map(new CategoryTreeItemMapper()).list();
+				.bind("userid", userId).bind("parentcategoryid", parentCategoryId).map(new CategoryTreeItemMapper())
+				.list();
 	}
 
 	public List<ICategoryTreeRootItemModel> selectAllRoot(Handle handle, String userId) {
@@ -39,7 +41,7 @@ public class CategoryDao extends AbstractCategoryDao {
 				+ "FROM public.category c) as categoryitem WHERE parentcategoryid is null and editable is not null order by categoryindex, categoryname")
 				.bind("userid", userId).map(new CategoryMapper()).list();
 	}
-	
+
 	public Integer selectMaxIndexInCategory(Handle handle, String parentCategoryId) {
 		Optional<Integer> optional = handle
 				.createQuery(
@@ -73,7 +75,7 @@ public class CategoryDao extends AbstractCategoryDao {
 		statement.bind("categoryid", categoryModel.getCategoryId());
 		statement.execute();
 	}
-	
+
 	public void shiftCategories(Handle handle, Integer categoryIndex, String parentCategoryId) {
 		Update statement = handle.createUpdate(
 				"UPDATE public.category SET categoryindex = categoryindex-1 WHERE parentcategoryid = :parentcategoryid and categoryindex > :categoryindex");
@@ -95,6 +97,17 @@ public class CategoryDao extends AbstractCategoryDao {
 				.bind("parentcategoryid", parentCategoryId).map(new CategoryMapper()).list();
 	}
 
+	public void update(Handle handle, IBoxUpdateData categoryModel) {
+		Update statement = handle.createUpdate(
+				"UPDATE public.category SET categoryname = :categoryname, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryid = :categoryid");
+		statement.bind("categoryname", categoryModel.getCategoryName());
+		statement.bind("categoryid", categoryModel.getCategoryId());
+		statement.bind("dictionarylookup", categoryModel.getDictionaryLookup());
+		statement.bind("givenlanguage", categoryModel.getGivenLanguage());
+		statement.bind("wantedlanguage", categoryModel.getWantedLanguage());
+		statement.execute();
+	}
+
 }
 
-/*       S.D.G.       */
+/* S.D.G. */

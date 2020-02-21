@@ -24,6 +24,16 @@ public interface IGetBoxSettingsResponse {
 	
 	Integer getMaxInterval();
 	
+	String getCategoryName();
+	
+	Boolean getDictionaryLookup();
+	
+	String getGivenLanguage();
+	
+	String getWantedLanguage();
+	
+	String getCategoryId();
+	
 
 }
 

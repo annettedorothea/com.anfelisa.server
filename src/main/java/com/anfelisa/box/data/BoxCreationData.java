@@ -17,14 +17,16 @@
 
 
 
-package com.anfelisa.category.data;
+package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CategoryCreationData extends AbstractCategoryCreationData implements ICategoryCreationData {
+public class BoxCreationData extends AbstractBoxCreationData implements IBoxCreationData {
 	
-	public CategoryCreationData(
+	public BoxCreationData(
 		@JsonProperty("username") String username, 
+		@JsonProperty("maxInterval") Integer maxInterval, 
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay, 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("categoryName") String categoryName, 
 		@JsonProperty("categoryAuthor") String categoryAuthor, 
@@ -36,10 +38,13 @@ public class CategoryCreationData extends AbstractCategoryCreationData implement
 		@JsonProperty("wantedLanguage") String wantedLanguage, 
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("editable") Boolean editable, 
+		@JsonProperty("boxId") String boxId, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			username,
+			maxInterval,
+			maxCardsPerDay,
 			categoryId,
 			categoryName,
 			categoryAuthor,
@@ -51,11 +56,12 @@ public class CategoryCreationData extends AbstractCategoryCreationData implement
 			wantedLanguage,
 			userId,
 			editable,
+			boxId,
 			uuid
 		);
 	}
 
-	public CategoryCreationData( String uuid ) {
+	public BoxCreationData( String uuid ) {
 		super(uuid);
 	}
 

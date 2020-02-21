@@ -43,6 +43,12 @@ public class EventFactory {
 
 	public static IEvent createEvent(String eventClass, String json, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		try {
+			if (eventClass.equals("com.anfelisa.box.events.CreateBoxOkEvent")) {
+				BoxCreationData data = mapper.readValue(json, BoxCreationData.class);
+				data.migrateLegacyData(json);
+				CreateBoxOkEvent event = new CreateBoxOkEvent(data, daoProvider, viewProvider);
+				return event;
+			}
 			if (eventClass.equals("com.anfelisa.box.events.UpdateBoxOkEvent")) {
 				BoxUpdateData data = mapper.readValue(json, BoxUpdateData.class);
 				data.migrateLegacyData(json);
@@ -99,6 +105,10 @@ public class EventFactory {
 	}
 
 	public static IEvent createEvent(String eventClass, IDataContainer data, IDaoProvider daoProvider, ViewProvider viewProvider) {
+
+		if (eventClass.equals("com.anfelisa.box.events.CreateBoxOkEvent")) {
+			return new CreateBoxOkEvent((BoxCreationData)data, daoProvider, viewProvider);
+		}
 
 
 		if (eventClass.equals("com.anfelisa.box.events.UpdateBoxOkEvent")) {

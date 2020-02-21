@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.category.commands;
+package com.anfelisa.box.commands;
 
 import javax.ws.rs.WebApplicationException;
 import org.jdbi.v3.core.Handle;
@@ -27,21 +27,21 @@ import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 
-import com.anfelisa.category.data.ICategoryCreationData;
+import com.anfelisa.box.data.IBoxCreationData;
 
-public abstract class AbstractCreateCategoryCommand extends Command<ICategoryCreationData> {
+public abstract class AbstractCreateBoxCommand extends Command<IBoxCreationData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractCreateCategoryCommand(ICategoryCreationData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.category.commands.CreateCategoryCommand", commandParam, daoProvider, viewProvider, appConfiguration);
+	public AbstractCreateBoxCommand(IBoxCreationData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.commands.CreateBoxCommand", commandParam, daoProvider, viewProvider, appConfiguration);
 	}
 
 	@Override
 	public void publishEvents(Handle handle, Handle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.category.events.CreateCategoryOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
+			new com.anfelisa.box.events.CreateBoxOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

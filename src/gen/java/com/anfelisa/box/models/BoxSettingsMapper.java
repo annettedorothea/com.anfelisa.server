@@ -31,7 +31,12 @@ public class BoxSettingsMapper implements RowMapper<IBoxSettingsModel> {
 		return new BoxSettingsModel(
 			r.getString("boxId"),
 			r.getObject("maxInterval") != null ? r.getInt("maxInterval") : null,
-			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null
+			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null,
+			r.getString("categoryName"),
+			r.getBoolean("dictionaryLookup"),
+			r.getString("givenLanguage"),
+			r.getString("wantedLanguage"),
+			r.getString("categoryId")
 		);
 	}
 }

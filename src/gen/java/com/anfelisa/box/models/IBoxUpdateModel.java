@@ -38,6 +38,21 @@ public interface IBoxUpdateModel {
 	Integer getMaxCardsPerDay();
 	void setMaxCardsPerDay(Integer maxCardsPerDay);
 	
+	String getCategoryName();
+	void setCategoryName(String categoryName);
+	
+	Boolean getDictionaryLookup();
+	void setDictionaryLookup(Boolean dictionaryLookup);
+	
+	String getGivenLanguage();
+	void setGivenLanguage(String givenLanguage);
+	
+	String getWantedLanguage();
+	void setWantedLanguage(String wantedLanguage);
+	
+	String getCategoryId();
+	void setCategoryId(String categoryId);
+	
 	
 }
 

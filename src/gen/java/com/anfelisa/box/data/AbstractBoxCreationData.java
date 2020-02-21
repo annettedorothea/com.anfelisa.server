@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.category.data;
+package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -28,19 +28,25 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
-import com.anfelisa.category.models.ICategoryCreationModel;
+import com.anfelisa.box.models.IBoxCreationModel;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
+import com.anfelisa.box.models.IBoxModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
 
 @SuppressWarnings("unused")
-public abstract class AbstractCategoryCreationData extends AbstractData implements ICategoryCreationData {
+public abstract class AbstractBoxCreationData extends AbstractData implements IBoxCreationData {
 	
-	static final Logger LOG = LoggerFactory.getLogger(AbstractCategoryCreationData.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractBoxCreationData.class);
 	
 	private String username;
+	
+	private Integer maxInterval;
+	
+	@NotNull
+	private Integer maxCardsPerDay;
 	
 	@NotNull
 	private String categoryId;
@@ -69,9 +75,14 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	
 	private Boolean editable = false;
 	
+	@NotNull
+	private String boxId;
+	
 
-	public AbstractCategoryCreationData(
+	public AbstractBoxCreationData(
 		@JsonProperty("username") String username,
+		@JsonProperty("maxInterval") Integer maxInterval,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryAuthor") String categoryAuthor,
@@ -82,11 +93,14 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		@JsonProperty("givenLanguage") String givenLanguage,
 		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("editable") Boolean editable
+		@JsonProperty("editable") Boolean editable,
+		@JsonProperty("boxId") String boxId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.username = username;
+		this.maxInterval = maxInterval;
+		this.maxCardsPerDay = maxCardsPerDay;
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryAuthor = categoryAuthor;
@@ -98,9 +112,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		this.wantedLanguage = wantedLanguage;
 		this.userId = userId;
 		this.editable = editable;
+		this.boxId = boxId;
 	}
 
-	public AbstractCategoryCreationData( String uuid ) {
+	public AbstractBoxCreationData( String uuid ) {
 		super(uuid);
 	}
 
@@ -111,8 +126,32 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public ICategoryCreationData withUsername(String username) {
+	public IBoxCreationData withUsername(String username) {
 		this.username = username;
+		return this;
+	}
+	
+	@JsonProperty
+		public Integer getMaxInterval() {
+			return this.maxInterval;
+		}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+	}
+	public IBoxCreationData withMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+		return this;
+	}
+	
+	@JsonProperty
+		public Integer getMaxCardsPerDay() {
+			return this.maxCardsPerDay;
+		}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+	}
+	public IBoxCreationData withMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
 		return this;
 	}
 	
@@ -123,7 +162,7 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
-	public ICategoryCreationData withCategoryId(String categoryId) {
+	public IBoxCreationData withCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 		return this;
 	}
@@ -135,7 +174,7 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	public ICategoryCreationData withCategoryName(String categoryName) {
+	public IBoxCreationData withCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 		return this;
 	}
@@ -147,7 +186,7 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setCategoryAuthor(String categoryAuthor) {
 		this.categoryAuthor = categoryAuthor;
 	}
-	public ICategoryCreationData withCategoryAuthor(String categoryAuthor) {
+	public IBoxCreationData withCategoryAuthor(String categoryAuthor) {
 		this.categoryAuthor = categoryAuthor;
 		return this;
 	}
@@ -159,7 +198,7 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setCategoryIndex(Integer categoryIndex) {
 		this.categoryIndex = categoryIndex;
 	}
-	public ICategoryCreationData withCategoryIndex(Integer categoryIndex) {
+	public IBoxCreationData withCategoryIndex(Integer categoryIndex) {
 		this.categoryIndex = categoryIndex;
 		return this;
 	}
@@ -171,7 +210,7 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
 	}
-	public ICategoryCreationData withParentCategoryId(String parentCategoryId) {
+	public IBoxCreationData withParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
 		return this;
 	}
@@ -183,7 +222,7 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}
-	public ICategoryCreationData withRootCategoryId(String rootCategoryId) {
+	public IBoxCreationData withRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 		return this;
 	}
@@ -195,7 +234,7 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
 		this.dictionaryLookup = dictionaryLookup;
 	}
-	public ICategoryCreationData withDictionaryLookup(Boolean dictionaryLookup) {
+	public IBoxCreationData withDictionaryLookup(Boolean dictionaryLookup) {
 		this.dictionaryLookup = dictionaryLookup;
 		return this;
 	}
@@ -207,7 +246,7 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setGivenLanguage(String givenLanguage) {
 		this.givenLanguage = givenLanguage;
 	}
-	public ICategoryCreationData withGivenLanguage(String givenLanguage) {
+	public IBoxCreationData withGivenLanguage(String givenLanguage) {
 		this.givenLanguage = givenLanguage;
 		return this;
 	}
@@ -219,7 +258,7 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
 	}
-	public ICategoryCreationData withWantedLanguage(String wantedLanguage) {
+	public IBoxCreationData withWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
 		return this;
 	}
@@ -231,7 +270,7 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public ICategoryCreationData withUserId(String userId) {
+	public IBoxCreationData withUserId(String userId) {
 		this.userId = userId;
 		return this;
 	}
@@ -243,8 +282,20 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
 	}
-	public ICategoryCreationData withEditable(Boolean editable) {
+	public IBoxCreationData withEditable(Boolean editable) {
 		this.editable = editable;
+		return this;
+	}
+	
+	@JsonProperty
+		public String getBoxId() {
+			return this.boxId;
+		}
+	public void setBoxId(String boxId) {
+		this.boxId = boxId;
+	}
+	public IBoxCreationData withBoxId(String boxId) {
+		this.boxId = boxId;
 		return this;
 	}
 	
@@ -264,6 +315,13 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		this.categoryId = model.getCategoryId();
 		this.userId = model.getUserId();
 		this.editable = model.getEditable();
+	}
+	public void mapFrom(com.anfelisa.box.models.IBoxModel model) {
+		this.boxId = model.getBoxId();
+		this.userId = model.getUserId();
+		this.categoryId = model.getCategoryId();
+		this.maxInterval = model.getMaxInterval();
+		this.maxCardsPerDay = model.getMaxCardsPerDay();
 	}
 	
 }

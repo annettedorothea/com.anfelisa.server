@@ -17,28 +17,23 @@
 
 
 
-package com.anfelisa.category.data;
+package com.anfelisa.box.models;
 
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import com.anfelisa.ace.IDataContainer;
+@SuppressWarnings("unused")
+@JsonDeserialize(as=BoxCreationModel.class)
+public interface IBoxCreationModel extends com.anfelisa.category.models.ICategoryModel,com.anfelisa.category.models.IUserAccessToCategoryModel,com.anfelisa.box.models.IBoxModel{
 
-import com.anfelisa.category.models.IInviteUserModel;
-
-@JsonDeserialize(as=InviteUserData.class)
-public interface IInviteUserData extends IInviteUserModel, IDataContainer {
+	String getUsername();
+	void setUsername(String username);
 	
-	IInviteUserData withCategoryId(String categoryId);
+	Integer getMaxInterval();
+	void setMaxInterval(Integer maxInterval);
 	
-	IInviteUserData withRootCategoryId(String rootCategoryId);
-	
-	IInviteUserData withInvitedUserId(String invitedUserId);
-	
-	IInviteUserData withInvitedUsername(String invitedUsername);
-	
-	IInviteUserData withEditable(Boolean editable);
-	
-	IInviteUserData withUserId(String userId);
+	Integer getMaxCardsPerDay();
+	void setMaxCardsPerDay(Integer maxCardsPerDay);
 	
 	
 }

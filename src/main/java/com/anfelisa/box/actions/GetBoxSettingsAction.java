@@ -19,17 +19,16 @@
 
 package com.anfelisa.box.actions;
 
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.box.models.IBoxSettingsModel;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.E2E;
-
+import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.jdbi.v3.core.Handle;
-import org.jdbi.v3.core.Jdbi;
+import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.E2E;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.box.models.IBoxSettingsModel;
 
 public class GetBoxSettingsAction extends AbstractGetBoxSettingsAction {
 
@@ -45,6 +44,11 @@ public class GetBoxSettingsAction extends AbstractGetBoxSettingsAction {
 		IBoxSettingsModel settings = this.daoProvider.getBoxDao().selectSettingsByBoxId(readonlyHandle, actionData.getBoxId());
 		this.actionData.setMaxCardsPerDay(settings.getMaxCardsPerDay());
 		this.actionData.setMaxInterval(settings.getMaxInterval());
+		this.actionData.setCategoryId(settings.getCategoryId());
+		this.actionData.setCategoryName(settings.getCategoryName());
+		this.actionData.setDictionaryLookup(settings.getDictionaryLookup());
+		this.actionData.setGivenLanguage(settings.getGivenLanguage());
+		this.actionData.setWantedLanguage(settings.getWantedLanguage());
 	}
 	
 	public void initActionData() {

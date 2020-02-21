@@ -1,7 +1,5 @@
 package com.anfelisa.category.commands;
 
-import java.util.Arrays;
-
 import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +15,6 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateCategoryCommand.class);
 
-	private final String[] languages = new String[] { "de", "fr", "en" };
-
 	public CreateCategoryCommand(ICategoryCreationData actionData, IDaoProvider daoProvider, ViewProvider viewProvider,
 			CustomAppConfiguration appConfiguration) {
 		super(actionData, daoProvider, viewProvider, appConfiguration);
@@ -28,51 +24,37 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 	protected void executeCommand(Handle readonlyHandle) {
 		this.commandData.setCategoryId(commandData.getUuid());
 		this.commandData.setCategoryAuthor(commandData.getUsername());
-		if (commandData.getParentCategoryId() != null) {
-			ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
-					commandData.getParentCategoryId());
-			IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
-					.selectByCategoryIdAndUserId(readonlyHandle, parentCategory.getRootCategoryId(),
-							commandData.getUserId());
-			if (access == null) {
-				throwUnauthorized();
-			}
-			commandData.setRootCategoryId(parentCategory.getRootCategoryId());
-			this.commandData.setOutcome(sub);
-		} else {
-			commandData.setRootCategoryId(commandData.getCategoryId());
-			this.commandData.setBoxId(commandData.getCategoryId());
-			this.commandData.setMaxCardsPerDay(8);
-			this.commandData.setOutcome(root);
-		}
-
-		validateLanguage(commandData.getGivenLanguage());
-		validateLanguage(commandData.getWantedLanguage());
-		if (commandData.getDictionaryLookup() == null || !commandData.getDictionaryLookup()) {
-			commandData.setGivenLanguage(null);
-			commandData.setWantedLanguage(null);
-		}
-
-		Integer max = null;
 		if (commandData.getParentCategoryId() == null) {
-			max = this.daoProvider.getCategoryDao().selectMaxIndexInRootCategory(readonlyHandle);
-		} else {
-			max = this.daoProvider.getCategoryDao().selectMaxIndexInCategory(readonlyHandle,
-					commandData.getParentCategoryId());
+			throwBadRequest("missing parent category id");
 		}
+		if (this.commandData.getCategoryName() == null) {
+			throwBadRequest("category name must not be null");
+		}
+		ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				commandData.getParentCategoryId());
+		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
+				.selectByCategoryIdAndUserId(readonlyHandle, parentCategory.getRootCategoryId(),
+						commandData.getUserId());
+		if (access == null) {
+			throwUnauthorized();
+		}
+		commandData.setRootCategoryId(parentCategory.getRootCategoryId());
+
+		ICategoryModel rootCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				parentCategory.getRootCategoryId());
+
+		commandData.setDictionaryLookup(rootCategory.getDictionaryLookup());
+		commandData.setGivenLanguage(rootCategory.getGivenLanguage());
+		commandData.setWantedLanguage(rootCategory.getWantedLanguage());
+
+		Integer max = this.daoProvider.getCategoryDao().selectMaxIndexInCategory(readonlyHandle,
+				commandData.getParentCategoryId());
 		if (max == null) {
 			max = 0;
 		}
 		commandData.setCategoryIndex(max + 1);
 		commandData.setEditable(true);
-	}
-
-	private void validateLanguage(String language) {
-		if (commandData.getDictionaryLookup() != null && commandData.getDictionaryLookup() == true && language != null
-				&& !Arrays.asList(languages).contains(language)) {
-			throwBadRequest("invalidLanguage");
-		}
-
+		this.commandData.setOutcome(ok);
 	}
 
 }

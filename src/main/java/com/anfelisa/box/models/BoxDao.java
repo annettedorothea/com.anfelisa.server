@@ -74,7 +74,12 @@ public class BoxDao extends AbstractBoxDao {
 	}
 
 	public IBoxSettingsModel selectSettingsByBoxId(Handle handle, String boxId) {
-		Optional<IBoxSettingsModel> optional = handle.createQuery("SELECT boxId, maxinterval, maxcardsperday FROM \"box\" WHERE boxid = :boxid")
+		Optional<IBoxSettingsModel> optional = handle.createQuery("SELECT "
+				+ "b.boxId, b.maxinterval, b.maxcardsperday,"
+				+ "c.categoryname, c.dictionarylookup, c.givenlanguage, c.wantedLanguage, c.categoryid "
+				+ "FROM \"box\" b, category c "
+				+ "WHERE b.boxid = :boxid "
+				+ "AND c.categoryid = b.categoryid")
 			.bind("boxid", boxId)
 			.map(new BoxSettingsMapper())
 			.findFirst();

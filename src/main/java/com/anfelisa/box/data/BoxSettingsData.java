@@ -27,12 +27,22 @@ public class BoxSettingsData extends AbstractBoxSettingsData implements IBoxSett
 		@JsonProperty("boxId") String boxId, 
 		@JsonProperty("maxInterval") Integer maxInterval, 
 		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay, 
+		@JsonProperty("categoryName") String categoryName, 
+		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup, 
+		@JsonProperty("givenLanguage") String givenLanguage, 
+		@JsonProperty("wantedLanguage") String wantedLanguage, 
+		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			boxId,
 			maxInterval,
 			maxCardsPerDay,
+			categoryName,
+			dictionaryLookup,
+			givenLanguage,
+			wantedLanguage,
+			categoryId,
 			uuid
 		);
 	}
