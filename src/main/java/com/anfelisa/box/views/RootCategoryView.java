@@ -24,6 +24,7 @@ import org.jdbi.v3.core.Handle;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IBoxUpdateData;
+import com.anfelisa.box.data.IDeleteBoxData;
 
 public class RootCategoryView implements IRootCategoryView {
 
@@ -42,6 +43,13 @@ public class RootCategoryView implements IRootCategoryView {
 	@Override
 	public void update(IBoxUpdateData data, Handle handle) {
 		daoProvider.getCategoryDao().update(handle, data);
+	}
+
+	@Override
+	public void deleteAll(IDeleteBoxData data, Handle handle) {
+		daoProvider.getCardDao().deleteByRootCategoryId(handle, data.getRootCategoryId());
+		daoProvider.getCategoryDao().deleteByRootCategoryId(handle, data.getRootCategoryId());
+		daoProvider.getCategoryDao().deleteByCategoryId(handle, data.getRootCategoryId());
 	}
 
 }

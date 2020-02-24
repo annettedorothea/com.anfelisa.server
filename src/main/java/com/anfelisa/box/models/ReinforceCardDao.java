@@ -71,6 +71,12 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 				.list();
 	}
 
+	public void deleteByBoxId(Handle handle, String boxId) {
+		Update statement = handle.createUpdate("DELETE FROM \"reinforcecard\" WHERE boxid = :boxid");
+		statement.bind("boxid", boxId);
+		statement.execute();
+	}
+
 }
 
 /* S.D.G. */

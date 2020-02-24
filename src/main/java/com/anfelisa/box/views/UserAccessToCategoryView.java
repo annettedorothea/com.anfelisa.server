@@ -20,6 +20,7 @@ import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.box.data.IBoxCreationData;
+import com.anfelisa.box.data.IDeleteBoxData;
 
 public class UserAccessToCategoryView implements IUserAccessToCategoryView {
 
@@ -32,12 +33,15 @@ public class UserAccessToCategoryView implements IUserAccessToCategoryView {
 
 	@Override
 	public void grantAccess(IBoxCreationData data, Handle handle) {
-		/*
-		 * if (data.getEditable() == null) {
-		 * data.setEditable(true);
-		 * }
-		 */
 		daoProvider.getUserAccessToCategoryDao().insert(handle, data);
+	}
+
+	@Override
+	public void delete(IDeleteBoxData data, Handle handle) {
+		for (String categoryId : data.getAllReferencedCategories()) {
+			daoProvider.getUserAccessToCategoryDao().deleteByCategoryId(handle, categoryId);
+		}
+		
 	}
 
 }

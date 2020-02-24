@@ -108,6 +108,18 @@ public class CategoryDao extends AbstractCategoryDao {
 		statement.execute();
 	}
 
+	public void deleteByRootCategoryId(Handle handle, String rootCategoryId) {
+		Update statement = handle.createUpdate("DELETE FROM public.category WHERE rootcategoryid = :rootcategoryid");
+		statement.bind("rootcategoryid", rootCategoryId);
+		statement.execute();
+	}
+
+	public List<String> selectAllByRootCategoryId(Handle handle, String rootCategoryId) {
+		return handle.createQuery(
+				"SELECT categoryid FROM public.category WHERE rootcategoryid = :rootcategoryid")
+				.bind("rootcategoryid", rootCategoryId).mapTo(String.class).list();
+	}
+
 }
 
 /* S.D.G. */

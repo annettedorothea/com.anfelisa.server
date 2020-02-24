@@ -9,6 +9,8 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.category.models.ICategoryModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 
@@ -25,6 +27,21 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();
 		}
+		String rootCategoryId = box.getCategoryId();
+		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, rootCategoryId);
+		if (category == null) {
+			throwBadRequest("category does not exist");
+		}
+		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
+				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), commandData.getUserId());
+		if (access == null || access.getEditable() == false) {
+			throwUnauthorized();
+		}
+
+		this.commandData.setAllReferencedCategories(
+				daoProvider.getCategoryDao().selectAllByRootCategoryId(readonlyHandle, category.getRootCategoryId()));
+
+		this.commandData.setRootCategoryId(rootCategoryId);
 		this.commandData.setOutcome(ok);
 	}
 

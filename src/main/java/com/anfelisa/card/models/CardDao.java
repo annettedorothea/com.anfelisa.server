@@ -98,6 +98,12 @@ public class CardDao extends AbstractCardDao {
 		statement.execute();
 	}
 
+	public void deleteByRootCategoryId(Handle handle, String rootCategoryId) {
+		Update statement = handle.createUpdate("DELETE FROM public.card WHERE rootcategoryid = :rootcategoryid");
+		statement.bind("rootcategoryid", rootCategoryId);
+		statement.execute();
+	}
+
 }
 
 /* S.D.G. */

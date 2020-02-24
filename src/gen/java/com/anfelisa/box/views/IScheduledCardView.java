@@ -25,6 +25,7 @@ import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.box.data.IScoreCardData;
 import com.anfelisa.box.data.IScoreCardData;
 import com.anfelisa.box.data.IInitMyBoxesDataData;
+import com.anfelisa.box.data.IDeleteBoxData;
 
 @SuppressWarnings("all")
 public interface IScheduledCardView {
@@ -32,6 +33,7 @@ public interface IScheduledCardView {
 	void score(IScoreCardData data, Handle handle);
 	void scheduleNext(IScoreCardData data, Handle handle);
 	void postponeCards(IInitMyBoxesDataData data, Handle handle);
+	void deleteAll(IDeleteBoxData data, Handle handle);
 
 }
 

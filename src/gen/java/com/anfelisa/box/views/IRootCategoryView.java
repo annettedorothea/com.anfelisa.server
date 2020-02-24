@@ -24,12 +24,14 @@ import org.jdbi.v3.core.Handle;
 import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IBoxUpdateData;
+import com.anfelisa.box.data.IDeleteBoxData;
 
 @SuppressWarnings("all")
 public interface IRootCategoryView {
 
 	void insert(IBoxCreationData data, Handle handle);
 	void update(IBoxUpdateData data, Handle handle);
+	void deleteAll(IDeleteBoxData data, Handle handle);
 
 }
 

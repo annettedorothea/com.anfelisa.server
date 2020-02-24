@@ -26,6 +26,7 @@ import com.anfelisa.box.data.IScoreCardData;
 import com.anfelisa.box.data.IScoreReinforceCardData;
 import com.anfelisa.box.data.IScoreReinforceCardData;
 import com.anfelisa.box.data.IInitMyBoxesDataData;
+import com.anfelisa.box.data.IDeleteBoxData;
 
 @SuppressWarnings("all")
 public interface IReinforceCardView {
@@ -34,6 +35,7 @@ public interface IReinforceCardView {
 	void remove(IScoreReinforceCardData data, Handle handle);
 	void update(IScoreReinforceCardData data, Handle handle);
 	void clear(IInitMyBoxesDataData data, Handle handle);
+	void deleteAll(IDeleteBoxData data, Handle handle);
 
 }
 

@@ -19,8 +19,7 @@
 
 package com.anfelisa.box.commands;
 
-import java.util.Arrays;
-
+import org.apache.commons.lang3.StringUtils;
 import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +28,11 @@ import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IBoxCreationData;
+import com.anfelisa.box.utils.LanguageValidator;
 
 public class CreateBoxCommand extends AbstractCreateBoxCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(CreateBoxCommand.class);
-
-	private final String[] languages = new String[] { "de", "fr", "en" };
 
 	public CreateBoxCommand(IBoxCreationData commandData, IDaoProvider daoProvider, ViewProvider viewProvider, 
 			CustomAppConfiguration appConfiguration) {
@@ -43,26 +41,32 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 
 	@Override
 	protected void executeCommand(Handle readonlyHandle) {
-		this.commandData.setCategoryId(commandData.getUuid());
-		this.commandData.setCategoryAuthor(commandData.getUsername());
-		commandData.setRootCategoryId(commandData.getCategoryId());
-		this.commandData.setBoxId(commandData.getCategoryId());
 		if (this.commandData.getMaxCardsPerDay() == null) {
 			throwBadRequest("max cards per day must not be null");
 		}
 		if (this.commandData.getParentCategoryId() != null) {
 			throwBadRequest("root category must not have a parent category");
 		}
-		if (this.commandData.getCategoryName() == null) {
-			throwBadRequest("category name must not be null");
+		if (StringUtils.isBlank(this.commandData.getCategoryName())) {
+			throwBadRequest("category name must not be null or empty");
 		}
 
-		validateLanguage(commandData.getGivenLanguage());
-		validateLanguage(commandData.getWantedLanguage());
-		if (commandData.getDictionaryLookup() == null || !commandData.getDictionaryLookup()) {
+		if (commandData.getDictionaryLookup() != null && commandData.getDictionaryLookup()) {
+			if (!LanguageValidator.isLanguageValid(commandData.getGivenLanguage())) {
+				throwBadRequest("given language is invalid");
+			}
+			if (!LanguageValidator.isLanguageValid(commandData.getWantedLanguage())) {
+				throwBadRequest("wanted language is invalid");
+			}
+		} else {
 			commandData.setGivenLanguage(null);
 			commandData.setWantedLanguage(null);
 		}
+
+		this.commandData.setCategoryId(commandData.getUuid());
+		this.commandData.setCategoryAuthor(commandData.getUsername());
+		commandData.setRootCategoryId(commandData.getCategoryId());
+		this.commandData.setBoxId(commandData.getCategoryId());
 
 		Integer max = this.daoProvider.getCategoryDao().selectMaxIndexInRootCategory(readonlyHandle);
 		if (max == null) {
@@ -73,13 +77,6 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 		this.commandData.setOutcome(ok);
 	}
 
-	private void validateLanguage(String language) {
-		if (commandData.getDictionaryLookup() != null && commandData.getDictionaryLookup() == true && language != null
-				&& !Arrays.asList(languages).contains(language)) {
-			throwBadRequest("invalidLanguage");
-		}
-
-	}
 
 }
 

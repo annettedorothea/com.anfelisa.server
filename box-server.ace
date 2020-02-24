@@ -63,7 +63,7 @@ ACE
 		DELETE "/box/delete"  
 		authorize
 		queryParams boxId
-		on ok (Box.deleteBox)
+		on ok ( ScheduledCard.deleteAll ReinforceCard.deleteAll RootCategory.deleteAll Box.deleteBox )
 	
 	LoadNextCard<NextCard>
 		GET "/box/next-card"
@@ -125,6 +125,7 @@ views
 		score(ScoreCard)
 		scheduleNext(ScoreCard)
 		postponeCards(InitMyBoxesData)
+		deleteAll(DeleteBox)
 	}
 	
 	ReinforceCard { 
@@ -132,16 +133,19 @@ views
 		remove(ScoreReinforceCard)
 		update(ScoreReinforceCard)
 		clear(InitMyBoxesData)
+		deleteAll(DeleteBox)
 	}
+	
 	RootCategory {
 		insert(BoxCreation)
 		update(BoxUpdate)
+		deleteAll(DeleteBox)
 	}
 	
 	UserAccessToCategory { 
 		grantAccess(BoxCreation)
+		delete(DeleteBox)
 	}
-	
 
 models 
 	persistent Box {
@@ -283,7 +287,7 @@ models
 		String userId
 		NotNull String boxId
 	}
-	
+
 	ScoreReinforceCard {
 		NotNull String reinforceCardId
 		NotNull Integer scoredCardQuality
@@ -303,6 +307,8 @@ models
 	DeleteBox {
 		String userId
 		NotNull String boxId
+		String rootCategoryId
+		List String allReferencedCategories
 	}
 
 	BoxCreation extends com.anfelisa.category.Category, com.anfelisa.category.UserAccessToCategory, Box {
@@ -310,7 +316,7 @@ models
 		Integer maxInterval
 		NotNull Integer maxCardsPerDay
 	}
-	
+
 /*
  * Scenario-Durchlauf loggt den resultierenden Event in eine Text-Datei raus,
  * so dass er in das folgende Scenario kopiert werden kann

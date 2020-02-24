@@ -97,6 +97,12 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 		statement.execute();
 	}
 
+	public void deleteByBoxId(Handle handle, String boxId) {
+		Update statement = handle.createUpdate("DELETE FROM scheduledcard WHERE boxid = :boxid");
+		statement.bind("boxid", boxId);
+		statement.execute();
+	}
+
 }
 
 /* S.D.G. */

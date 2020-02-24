@@ -36,6 +36,13 @@ public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 		statement.execute();
 	}
 
+	public void deleteByCategoryId(Handle handle, String categoryId) {
+		Update statement = handle.createUpdate(
+				"DELETE FROM public.useraccesstocategory WHERE categoryid = :categoryid");
+		statement.bind("categoryid", categoryId);
+		statement.execute();
+	}
+	
 	public IUserAccessToCategoryModel hasUserAccessTo(Handle handle, String categoryId, String userId) {
 		Optional<IUserAccessToCategoryModel> optional = handle.createQuery("SELECT uc.categoryid, uc.userid, uc.editable "
 				+ "from public.useraccesstocategory uc "
