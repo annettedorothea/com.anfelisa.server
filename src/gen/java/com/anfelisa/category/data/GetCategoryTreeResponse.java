@@ -32,18 +32,18 @@ import com.anfelisa.ace.IDataContainer;
 @SuppressWarnings("all")
 public class GetCategoryTreeResponse implements IGetCategoryTreeResponse {
 	
-	private java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList;
+	private com.anfelisa.category.models.ICategoryTreeItemModel rootCategory;
 	
 	public GetCategoryTreeResponse() {
 	}
 	
 	public GetCategoryTreeResponse(com.anfelisa.category.models.ICategoryTreeModel data) {
-		categoryList = data.getCategoryList();
+		rootCategory = data.getRootCategory();
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> getCategoryList() {
-			return this.categoryList;
+		public com.anfelisa.category.models.ICategoryTreeItemModel getRootCategory() {
+			return this.rootCategory;
 		}
 	
 }

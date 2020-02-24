@@ -28,28 +28,32 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class CategoryTreeModel implements ICategoryTreeModel {
 
-	private java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList;
+	private com.anfelisa.category.models.ICategoryTreeItemModel rootCategory;
 	
 	private String userId;
+	
+	private String rootCategoryId;
 	
 
 	public CategoryTreeModel() {
 	}
 
 	public CategoryTreeModel(
-		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList,
-		@JsonProperty("userId") String userId
+		@JsonProperty("rootCategory") com.anfelisa.category.models.ICategoryTreeItemModel rootCategory,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("rootCategoryId") String rootCategoryId
 	) {
-		this.categoryList = categoryList;
+		this.rootCategory = rootCategory;
 		this.userId = userId;
+		this.rootCategoryId = rootCategoryId;
 	}
 
 	@JsonProperty
-		public java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> getCategoryList() {
-			return this.categoryList;
+		public com.anfelisa.category.models.ICategoryTreeItemModel getRootCategory() {
+			return this.rootCategory;
 		}
-	public void setCategoryList(java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList) {
-		this.categoryList = categoryList;
+	public void setRootCategory(com.anfelisa.category.models.ICategoryTreeItemModel rootCategory) {
+		this.rootCategory = rootCategory;
 	}
 	
 	@JsonProperty
@@ -58,6 +62,14 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 		}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	
+	@JsonProperty
+		public String getRootCategoryId() {
+			return this.rootCategoryId;
+		}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
 	}
 	
 	

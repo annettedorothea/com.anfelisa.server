@@ -28,9 +28,11 @@ import com.anfelisa.category.models.ICategoryTreeModel;
 @JsonDeserialize(as=CategoryTreeData.class)
 public interface ICategoryTreeData extends ICategoryTreeModel, IDataContainer {
 	
-	ICategoryTreeData withCategoryList(java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList);
+	ICategoryTreeData withRootCategory(com.anfelisa.category.models.ICategoryTreeItemModel rootCategory);
 	
 	ICategoryTreeData withUserId(String userId);
+	
+	ICategoryTreeData withRootCategoryId(String rootCategoryId);
 	
 	
 }

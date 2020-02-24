@@ -26,11 +26,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=CategoryTreeModel.class)
 public interface ICategoryTreeModel {
 
-	java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> getCategoryList();
-	void setCategoryList(java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList);
+	com.anfelisa.category.models.ICategoryTreeItemModel getRootCategory();
+	void setRootCategory(com.anfelisa.category.models.ICategoryTreeItemModel rootCategory);
 	
 	String getUserId();
 	void setUserId(String userId);
+	
+	String getRootCategoryId();
+	void setRootCategoryId(String rootCategoryId);
 	
 	
 }

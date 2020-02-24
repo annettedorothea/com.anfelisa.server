@@ -38,8 +38,9 @@ ACE
 	GetCategoryTree<CategoryTree>
 		GET "/category/tree" 
 		authorize 
+		queryParams rootCategoryId
 		response
-			categoryList
+			rootCategory
 
 	MoveCategory<CategoryMove>
 		PUT "/category/move"
@@ -105,8 +106,9 @@ models
 	}
 	
 	CategoryTree {
-		List CategoryTreeRootItem categoryList
+		CategoryTreeItem rootCategory
 		String userId
+		String rootCategoryId
 	}
 	
 	CategoryTreeItem {
@@ -120,21 +122,7 @@ models
 		Boolean dictionaryLookup
 		String givenLanguage
 		String wantedLanguage
-		String rootCategoryId references categoryId
-		List CategoryTreeItem childCategories
-	}
-	
-	CategoryTreeRootItem {
-		String categoryId
-		String categoryName
-		Integer categoryIndex
-		Boolean empty
-		Boolean editable
-		Boolean hasBox
-		Boolean dictionaryLookup
-		String givenLanguage
-		String wantedLanguage
-		String rootCategoryId references categoryId
+		String rootCategoryId
 		List CategoryTreeItem childCategories
 	}
 	

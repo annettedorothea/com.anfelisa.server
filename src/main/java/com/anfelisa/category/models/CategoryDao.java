@@ -11,6 +11,19 @@ import com.anfelisa.category.data.ICategoryUpdateData;
 
 public class CategoryDao extends AbstractCategoryDao {
 
+	public ICategoryTreeItemModel selectRoot(Handle handle, String rootCategoryId, String userId) {
+		Optional<ICategoryTreeItemModel> optional = handle.createQuery(
+				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
+						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
+						+ "(select a.editable from useraccesstocategory a where a.categoryid = :categoryid and userid = :userid), "
+						+ "true as isRoot, "
+						+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
+						+ "FROM public.category c WHERE categoryid = :categoryid")
+				.bind("userid", userId).bind("categoryid", rootCategoryId).map(new CategoryTreeItemMapper())
+				.findFirst();
+		return optional.isPresent() ? optional.get() : null;
+	}
+
 	public List<ICategoryTreeItemModel> selectAllChildren(Handle handle, String parentCategoryId, String userId) {
 		return handle.createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
@@ -22,18 +35,7 @@ public class CategoryDao extends AbstractCategoryDao {
 				.bind("userid", userId).bind("parentcategoryid", parentCategoryId).map(new CategoryTreeItemMapper())
 				.list();
 	}
-
-	public List<ICategoryTreeRootItemModel> selectAllRoot(Handle handle, String userId) {
-		return handle.createQuery("SELECT * FROM "
-				+ "( SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
-				+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
-				+ "(select a.editable from useraccesstocategory a where a.categoryid = c.rootcategoryid and a.userid = :userid), "
-				+ "true as isRoot, "
-				+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
-				+ "FROM public.category c) as categoryitem WHERE parentcategoryid is null and editable is not null order by categoryindex, categoryname")
-				.bind("userid", userId).map(new CategoryTreeRootItemMapper()).list();
-	}
-
+	
 	public List<ICategoryModel> selectAllUsersRoot(Handle handle, String userId) {
 		return handle.createQuery("SELECT * FROM "
 				+ "( SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "

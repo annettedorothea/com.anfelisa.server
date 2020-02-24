@@ -38,19 +38,23 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractCategoryTreeData.class);
 	
-	private java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList;
+	private com.anfelisa.category.models.ICategoryTreeItemModel rootCategory;
 	
 	private String userId;
 	
+	private String rootCategoryId;
+	
 
 	public AbstractCategoryTreeData(
-		@JsonProperty("categoryList") java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList,
-		@JsonProperty("userId") String userId
+		@JsonProperty("rootCategory") com.anfelisa.category.models.ICategoryTreeItemModel rootCategory,
+		@JsonProperty("userId") String userId,
+		@JsonProperty("rootCategoryId") String rootCategoryId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
-		this.categoryList = categoryList;
+		this.rootCategory = rootCategory;
 		this.userId = userId;
+		this.rootCategoryId = rootCategoryId;
 	}
 
 	public AbstractCategoryTreeData( String uuid ) {
@@ -58,14 +62,14 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	}
 
 	@JsonProperty
-		public java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> getCategoryList() {
-			return this.categoryList;
+		public com.anfelisa.category.models.ICategoryTreeItemModel getRootCategory() {
+			return this.rootCategory;
 		}
-	public void setCategoryList(java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList) {
-		this.categoryList = categoryList;
+	public void setRootCategory(com.anfelisa.category.models.ICategoryTreeItemModel rootCategory) {
+		this.rootCategory = rootCategory;
 	}
-	public ICategoryTreeData withCategoryList(java.util.List<com.anfelisa.category.models.ICategoryTreeRootItemModel> categoryList) {
-		this.categoryList = categoryList;
+	public ICategoryTreeData withRootCategory(com.anfelisa.category.models.ICategoryTreeItemModel rootCategory) {
+		this.rootCategory = rootCategory;
 		return this;
 	}
 	
@@ -78,6 +82,18 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	}
 	public ICategoryTreeData withUserId(String userId) {
 		this.userId = userId;
+		return this;
+	}
+	
+	@JsonProperty
+		public String getRootCategoryId() {
+			return this.rootCategoryId;
+		}
+	public void setRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+	}
+	public ICategoryTreeData withRootCategoryId(String rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
 		return this;
 	}
 	

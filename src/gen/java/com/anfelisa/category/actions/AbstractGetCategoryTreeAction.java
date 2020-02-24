@@ -109,9 +109,11 @@ public abstract class AbstractGetCategoryTreeAction extends Action<ICategoryTree
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getCategoryTreeResource(
 			@Auth AuthUser authUser, 
+			@QueryParam("rootCategoryId") String rootCategoryId, 
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new CategoryTreeData(uuid);
+		this.actionData.setRootCategoryId(rootCategoryId);
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}

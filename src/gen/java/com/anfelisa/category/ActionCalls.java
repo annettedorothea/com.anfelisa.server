@@ -62,9 +62,9 @@ public class ActionCalls {
 		return builder.delete();
 	}
 	
-	public static Response callGetCategoryTree(String uuid, int port, String authorization) {
+	public static Response callGetCategoryTree(String uuid, String rootCategoryId, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/category/tree?uuid=" + uuid, port)).request(); 
+		Builder builder = client.target(String.format("http://localhost:%d/api/category/tree?uuid=" + uuid + "&rootCategoryId=" + rootCategoryId, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}

@@ -12,7 +12,6 @@ import com.anfelisa.ace.E2E;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.models.ICategoryTreeItemModel;
-import com.anfelisa.category.models.ICategoryTreeRootItemModel;
 
 public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 
@@ -24,16 +23,20 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 	}
 
 	protected final void loadDataForGetRequest(Handle readonlyHandle) {
-		List<ICategoryTreeRootItemModel> rootCategories = daoProvider.getCategoryDao().selectAllRoot(readonlyHandle,
-				actionData.getUserId());
-		actionData.setCategoryList(rootCategories);
-		for (ICategoryTreeRootItemModel categoryItemModel : rootCategories) {
+		ICategoryTreeItemModel rootCategory = daoProvider.getCategoryDao().selectRoot(readonlyHandle,
+				actionData.getRootCategoryId(), actionData.getUserId());
+		List<ICategoryTreeItemModel> childCategories = daoProvider.getCategoryDao().selectAllChildren(readonlyHandle,
+				actionData.getRootCategoryId(), actionData.getUserId());
+		rootCategory.setChildCategories(childCategories);
+		for (ICategoryTreeItemModel categoryItemModel : childCategories) {
 			categoryItemModel.setChildCategories(loadChildren(categoryItemModel.getCategoryId(), readonlyHandle));
 		}
+		actionData.setRootCategory(rootCategory);
 	}
 
 	private List<ICategoryTreeItemModel> loadChildren(String categoryId, Handle readonlyHandle) {
-		List<ICategoryTreeItemModel> children = daoProvider.getCategoryDao().selectAllChildren(readonlyHandle, categoryId,
+		List<ICategoryTreeItemModel> children = daoProvider.getCategoryDao().selectAllChildren(readonlyHandle,
+				categoryId,
 				actionData.getUserId());
 		for (ICategoryTreeItemModel child : children) {
 			child.setChildCategories(loadChildren(child.getCategoryId(), readonlyHandle));
