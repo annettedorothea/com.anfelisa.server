@@ -41,9 +41,6 @@ public interface ICategoryTreeItemModel {
 	Boolean getEditable();
 	void setEditable(Boolean editable);
 	
-	Boolean getHasBox();
-	void setHasBox(Boolean hasBox);
-	
 	String getParentCategoryId();
 	void setParentCategoryId(String parentCategoryId);
 	

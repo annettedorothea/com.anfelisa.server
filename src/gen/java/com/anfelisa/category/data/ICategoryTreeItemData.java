@@ -38,8 +38,6 @@ public interface ICategoryTreeItemData extends ICategoryTreeItemModel, IDataCont
 	
 	ICategoryTreeItemData withEditable(Boolean editable);
 	
-	ICategoryTreeItemData withHasBox(Boolean hasBox);
-	
 	ICategoryTreeItemData withParentCategoryId(String parentCategoryId);
 	
 	ICategoryTreeItemData withDictionaryLookup(Boolean dictionaryLookup);

@@ -16,8 +16,7 @@ public class CategoryDao extends AbstractCategoryDao {
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
 						+ "(select a.editable from useraccesstocategory a where a.categoryid = :categoryid and userid = :userid), "
-						+ "true as isRoot, "
-						+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
+						+ "true as isRoot "
 						+ "FROM public.category c WHERE categoryid = :categoryid")
 				.bind("userid", userId).bind("categoryid", rootCategoryId).map(new CategoryTreeItemMapper())
 				.findFirst();
@@ -29,8 +28,7 @@ public class CategoryDao extends AbstractCategoryDao {
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
 						+ "(select a.editable from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid), "
-						+ "false as isRoot, "
-						+ "(select boxid from box b where categoryid = c.rootcategoryid and userid = :userid) is not null as hasBox "
+						+ "false as isRoot "
 						+ "FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
 				.bind("userid", userId).bind("parentcategoryid", parentCategoryId).map(new CategoryTreeItemMapper())
 				.list();

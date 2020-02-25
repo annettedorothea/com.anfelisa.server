@@ -48,8 +48,6 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	
 	private Boolean editable = false;
 	
-	private Boolean hasBox = false;
-	
 	private String parentCategoryId;
 	
 	private Boolean dictionaryLookup = false;
@@ -69,7 +67,6 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 		@JsonProperty("categoryIndex") Integer categoryIndex,
 		@JsonProperty("empty") Boolean empty,
 		@JsonProperty("editable") Boolean editable,
-		@JsonProperty("hasBox") Boolean hasBox,
 		@JsonProperty("parentCategoryId") String parentCategoryId,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
@@ -84,7 +81,6 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 		this.categoryIndex = categoryIndex;
 		this.empty = empty;
 		this.editable = editable;
-		this.hasBox = hasBox;
 		this.parentCategoryId = parentCategoryId;
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
@@ -154,18 +150,6 @@ public abstract class AbstractCategoryTreeItemData extends AbstractData implemen
 	}
 	public ICategoryTreeItemData withEditable(Boolean editable) {
 		this.editable = editable;
-		return this;
-	}
-	
-	@JsonProperty
-		public Boolean getHasBox() {
-			return this.hasBox;
-		}
-	public void setHasBox(Boolean hasBox) {
-		this.hasBox = hasBox;
-	}
-	public ICategoryTreeItemData withHasBox(Boolean hasBox) {
-		this.hasBox = hasBox;
 		return this;
 	}
 	
