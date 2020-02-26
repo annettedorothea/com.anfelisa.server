@@ -63,6 +63,10 @@ public abstract class AbstractBaseScenario {
 	
 	protected abstract String authorization(String username, String password);
 
+	protected abstract void assertThat(int actual, int expected);
+
+	protected abstract void assertThat(Object actual, Object expected);
+
 }
 
 

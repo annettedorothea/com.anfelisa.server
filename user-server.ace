@@ -167,4 +167,42 @@ models
 	}
 
 
+scenarios 
+	RegisterUser 
+		WHEN RegisterUser 
+			{ 
+				email : "annette.pohl@anfelisa.de"
+				language : "de"
+				password : "password"
+				username : "Annette"
+			}
+		THEN 200
+	
+	UsernameAvailable
+		WHEN UsernameAvailable
+				{
+					username : "lala"
+					
+				}
+		THEN 200
+		response {
+			available : "true"
+		}				
+
+	UsernameNotAvailable
+		GIVEN RegisterUser
+		WHEN UsernameAvailable
+				uuid "123"
+				{
+					username : "Annette"
+				}
+				
+		THEN 200
+		response {
+			available : "false"
+		}
+		
+		
+						
+
 

@@ -27,6 +27,11 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.ace.AbstractBaseScenario;
+import com.anfelisa.ace.App;
+import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.DaoProvider;
+
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.testing.DropwizardTestSupport;
 
@@ -59,7 +64,6 @@ public class BaseScenario extends AbstractBaseScenario {
 	public void before() {
 		daoProvider = new DaoProvider();
 		handle = jdbi.open();
-		//MockitoAnnotations.initMocks(this);
 	}
 	
 	@After
@@ -69,8 +73,17 @@ public class BaseScenario extends AbstractBaseScenario {
 	
 	@Override
 	protected String authorization(String username, String password) {
-		return "anfelisaBasic QW5uZXR0ZToyZTM4MTcyOTNmYzI3NWRiZWU3NGJkNzFjZTZlYjA1Ng==";
+		return "";
 	}
 
+	@Override
+	protected void assertThat(int actual, int expected) {
+		throw new RuntimeException("BaseScenario.assertThat not implemented");
+	}
+
+	@Override
+	protected void assertThat(Object actual, Object expected) {
+		throw new RuntimeException("BaseScenario.assertThat not implemented");
+	}
 }
 

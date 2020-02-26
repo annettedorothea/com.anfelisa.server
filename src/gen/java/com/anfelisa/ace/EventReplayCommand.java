@@ -74,6 +74,8 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 						LOG.info("published " + i + " events");
 					}
 					//LOG.info("published " + nextEvent.getUuid() + " - " + nextEvent.getName());
+				} else {
+					LOG.info("event " + nextEvent.getName() + " seems to be obsolete and was not replayed");
 				}
 			}
 
