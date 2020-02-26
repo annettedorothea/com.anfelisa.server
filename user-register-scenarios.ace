@@ -1,0 +1,46 @@
+HttpServer 
+
+com.anfelisa.user
+
+
+scenarios 
+	RegisterUser 
+		WHEN com.anfelisa.user.RegisterUser 
+			{ 
+				email : "annette.pohl@anfelisa.de"
+				language : "de"
+				password : "password"
+				username : "Annette"
+				//token: "token"
+			}
+		THEN 200
+	
+	RegisterUserEmptyUsername 
+		WHEN com.anfelisa.user.RegisterUser 
+			{ 
+				email : "annette.pohl@anfelisa.de"
+				language : "de"
+				password : "password"
+				username : ""
+			}
+		THEN 400
+	
+	RegisterUserBlankUsername 
+		WHEN com.anfelisa.user.RegisterUser
+			{ 
+				email : "annette.pohl@anfelisa.de"
+				language : "de"
+				password : "password"
+				username : "  "
+			}
+		THEN 400
+	
+	RegisterUserNoUsername 
+		WHEN com.anfelisa.user.RegisterUser 
+			{ 
+				email : "annette.pohl@anfelisa.de"
+				language : "de"
+				password : "password"
+			}
+		THEN 400
+	

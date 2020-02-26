@@ -1,5 +1,6 @@
 package com.anfelisa.user.commands;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,9 @@ public class RegisterUserCommand extends AbstractRegisterUserCommand {
 
 	@Override
 	protected void executeCommand(Handle readonlyHandle) {
+		if (StringUtils.isBlank(commandData.getUsername())) {
+			throwBadRequest("invalid username");
+		}
 		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, commandData.getUsername());
 		if (user != null) {
 			throwBadRequest("usernameAlreadyTaken");

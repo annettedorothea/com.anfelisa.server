@@ -102,7 +102,6 @@ public class App extends Application<CustomAppConfiguration> {
 		} else if (ServerConfiguration.DEV.equals(mode)) {
 			environment.jersey().register(new GetServerTimelineResource(jdbi, configuration));
 		} else if (ServerConfiguration.TEST.equals(mode)) {
-			environment.jersey().register(new ReplayEventsResource(jdbi, daoProvider, viewProvider, configuration));
 			environment.jersey().register(new SetSystemTimeResource(configuration));
 		}
 

@@ -19,50 +19,15 @@
 
 package com.anfelisa.user.scenarios;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ws.rs.core.Response;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-
-import org.junit.Test;
-
-import com.anfelisa.ace.BaseScenario;
-import com.anfelisa.ace.ITimelineItem;
-import com.anfelisa.user.TestUtils;
-import com.anfelisa.user.ActionCalls;
-
 @SuppressWarnings("unused")
-public class RegisterUserScenario extends BaseScenario {
+public class RegisterUserScenario extends AbstractRegisterUserScenario {
 
-	private void given() throws Exception {
-		List<ITimelineItem> timeline = new ArrayList<>();
-		
-		prepare(timeline, DROPWIZARD.getLocalPort());
+	@Override
+	protected void verifications(Response response) {
 	}
-	
-	private Response when() throws Exception {
-		return ActionCalls.callRegisterUser(randomUUID(), "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
-	}
-	
-	private void then(Response response) throws Exception {
-		assertThat(response.getStatus(), 200);
-		
-		
-	}
-	
-	@Test
-	public void registerUser() throws Exception {
-		given();
-		
-		Response response = when();
 
-		then(response);
-	}
-	
-	
 }
 
 

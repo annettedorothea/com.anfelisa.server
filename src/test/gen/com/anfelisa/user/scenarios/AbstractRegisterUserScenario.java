@@ -31,46 +31,37 @@ import org.junit.Test;
 
 import com.anfelisa.ace.BaseScenario;
 import com.anfelisa.ace.ITimelineItem;
-import com.anfelisa.user.TestUtils;
 import com.anfelisa.user.ActionCalls;
 
 @SuppressWarnings("unused")
-public class UsernameAvailableScenario extends BaseScenario {
+public abstract class AbstractRegisterUserScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		List<ITimelineItem> timeline = new ArrayList<>();
-		
-		prepare(timeline, DROPWIZARD.getLocalPort());
 	}
 	
 	private Response when() throws Exception {
-		return ActionCalls.callUsernameAvailable(randomUUID(), "lala", DROPWIZARD.getLocalPort());
+		return ActionCalls.callRegisterUser(randomUUID(), "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
-		com.anfelisa.user.data.UsernameAvailableData expectedData = new com.anfelisa.user.data.UsernameAvailableData(randomUUID());
-		expectedData.setAvailable(new Boolean("true"));
-		
-		com.anfelisa.user.data.UsernameAvailableResponse expected = new com.anfelisa.user.data.UsernameAvailableResponse(expectedData);
-
-		com.anfelisa.user.data.UsernameAvailableResponse actual = response.readEntity(com.anfelisa.user.data.UsernameAvailableResponse.class);
-
-		assertThat(actual, expected);
 		
 	}
 	
 	@Test
-	public void usernameAvailable() throws Exception {
+	public void registerUser() throws Exception {
 		given();
 		
 		Response response = when();
 
 		then(response);
+		
+		verifications(response);
 	}
 	
-	
+	protected abstract void verifications(Response response);
+
 }
 
 

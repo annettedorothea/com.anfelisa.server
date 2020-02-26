@@ -19,6 +19,9 @@
 
 package com.anfelisa.ace;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
+
 import org.jdbi.v3.core.Jdbi;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -26,11 +29,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.anfelisa.ace.AbstractBaseScenario;
-import com.anfelisa.ace.App;
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.DaoProvider;
 
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.testing.DropwizardTestSupport;
@@ -78,12 +76,12 @@ public class BaseScenario extends AbstractBaseScenario {
 
 	@Override
 	protected void assertThat(int actual, int expected) {
-		throw new RuntimeException("BaseScenario.assertThat not implemented");
+		org.junit.Assert.assertThat(actual, is(expected));
 	}
 
 	@Override
 	protected void assertThat(Object actual, Object expected) {
-		throw new RuntimeException("BaseScenario.assertThat not implemented");
+		org.junit.Assert.assertThat(actual, is(samePropertyValuesAs(expected)));
 	}
 }
 
