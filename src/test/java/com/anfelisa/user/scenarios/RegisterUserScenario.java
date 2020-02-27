@@ -21,11 +21,28 @@ package com.anfelisa.user.scenarios;
 
 import javax.ws.rs.core.Response;
 
+import com.anfelisa.auth.Roles;
+import com.anfelisa.user.actions.RegisterUserAction;
+import com.anfelisa.user.models.EmailConfirmationModel;
+import com.anfelisa.user.models.IEmailConfirmationModel;
+import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.user.models.UserModel;
+
 @SuppressWarnings("unused")
 public class RegisterUserScenario extends AbstractRegisterUserScenario {
 
 	@Override
 	protected void verifications(Response response) {
+		String test = RegisterUserAction.test;
+		
+		
+		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette");
+		IUserModel expectedUser = new UserModel("uuid", "Annette", "password", "annette.pohl@anfelisa.de", Roles.STUDENT, false);
+		assertThat(actualUser, expectedUser);
+		
+		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN");
+		IEmailConfirmationModel expectedEmailConfirmationModel = new EmailConfirmationModel("TOKEN", "uuid");
+		assertThat(actualEmailConfirmationModel, expectedEmailConfirmationModel);
 	}
 
 }

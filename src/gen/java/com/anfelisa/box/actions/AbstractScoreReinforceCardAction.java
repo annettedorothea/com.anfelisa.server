@@ -176,6 +176,7 @@ public abstract class AbstractScoreReinforceCardAction extends Action<IScoreRein
 		}
 	}
 	
+
 }
 
 

@@ -174,6 +174,7 @@ public abstract class AbstractGetRoleAction extends Action<IRoleData> {
 	protected Object createReponse() {
 		return new com.anfelisa.user.data.GetRoleResponse(this.actionData);
 	}
+	
 }
 
 

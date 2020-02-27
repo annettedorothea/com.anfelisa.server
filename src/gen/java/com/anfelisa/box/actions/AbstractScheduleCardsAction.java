@@ -175,6 +175,7 @@ public abstract class AbstractScheduleCardsAction extends Action<IScheduledCards
 		}
 	}
 	
+
 }
 
 

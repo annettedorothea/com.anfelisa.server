@@ -34,32 +34,32 @@ import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.user.ActionCalls;
 
 @SuppressWarnings("unused")
-public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario {
+public abstract class AbstractGetRoleScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 	}
 	
 	private Response when() throws Exception {
-		return ActionCalls.callUsernameAvailable(randomUUID(), "Annette", DROPWIZARD.getLocalPort());
+		return ActionCalls.callGetRole(randomUUID(), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
-		com.anfelisa.user.data.UsernameAvailableData expectedData = new com.anfelisa.user.data.UsernameAvailableData(randomUUID());
-		expectedData.setAvailable(new Boolean("false"));
+		com.anfelisa.user.data.RoleData expectedData = new com.anfelisa.user.data.RoleData(randomUUID());
+		expectedData.setRole("STUDENT");
 		
-		com.anfelisa.user.data.UsernameAvailableResponse expected = new com.anfelisa.user.data.UsernameAvailableResponse(expectedData);
+		com.anfelisa.user.data.GetRoleResponse expected = new com.anfelisa.user.data.GetRoleResponse(expectedData);
 
-		com.anfelisa.user.data.UsernameAvailableResponse actual = response.readEntity(com.anfelisa.user.data.UsernameAvailableResponse.class);
+		com.anfelisa.user.data.GetRoleResponse actual = response.readEntity(com.anfelisa.user.data.GetRoleResponse.class);
 
 		assertThat(actual, expected);
 		
 	}
 	
 	@Test
-	public void usernameNotAvailable() throws Exception {
+	public void getRole() throws Exception {
 		given();
 		
 		Response response = when();

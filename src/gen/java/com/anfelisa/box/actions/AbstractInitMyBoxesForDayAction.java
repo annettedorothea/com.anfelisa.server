@@ -175,6 +175,7 @@ public abstract class AbstractInitMyBoxesForDayAction extends Action<IInitMyBoxe
 		}
 	}
 	
+
 }
 
 

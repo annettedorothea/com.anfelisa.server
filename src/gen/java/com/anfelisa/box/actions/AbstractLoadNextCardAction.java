@@ -177,6 +177,7 @@ public abstract class AbstractLoadNextCardAction extends Action<INextCardData> {
 	protected Object createReponse() {
 		return new com.anfelisa.box.data.LoadNextCardResponse(this.actionData);
 	}
+	
 }
 
 

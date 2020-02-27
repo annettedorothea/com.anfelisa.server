@@ -14,13 +14,12 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-
-
-
 package com.anfelisa.ace;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
+
+import java.util.Base64;
 
 import org.jdbi.v3.core.Jdbi;
 import org.junit.After;
@@ -39,14 +38,15 @@ public class BaseScenario extends AbstractBaseScenario {
 
 	public static final DropwizardTestSupport<CustomAppConfiguration> DROPWIZARD = new DropwizardTestSupport<CustomAppConfiguration>(
 			App.class, "test.yml");
-	
-	private static Jdbi jdbi;
 
+	private static Jdbi jdbi;
+	
 	@BeforeClass
 	public static void beforeClass() {
 		DROPWIZARD.before();
 		final JdbiFactory factory = new JdbiFactory();
-		jdbi = factory.build(DROPWIZARD.getEnvironment(), DROPWIZARD.getConfiguration().getDataSourceFactory(), "testdb");
+		jdbi = factory.build(DROPWIZARD.getEnvironment(), DROPWIZARD.getConfiguration().getDataSourceFactory(),
+				"testdb");
 	}
 
 	@AfterClass
@@ -62,16 +62,19 @@ public class BaseScenario extends AbstractBaseScenario {
 	public void before() {
 		daoProvider = new DaoProvider();
 		handle = jdbi.open();
+		daoProvider.truncateAllViews(handle);
 	}
-	
+
 	@After
 	public void after() {
 		handle.close();
 	}
-	
+
 	@Override
 	protected String authorization(String username, String password) {
-		return "";
+		String string = username + ":" + password;
+		String hash = Base64.getEncoder().encodeToString(string.getBytes());
+		return "anfelisaBasic " + hash;
 	}
 
 	@Override
@@ -83,5 +86,9 @@ public class BaseScenario extends AbstractBaseScenario {
 	protected void assertThat(Object actual, Object expected) {
 		org.junit.Assert.assertThat(actual, is(samePropertyValuesAs(expected)));
 	}
-}
 
+	@Override
+	protected void assertIsNull(Object actual) {
+		org.junit.Assert.assertNull(actual);
+	}
+}

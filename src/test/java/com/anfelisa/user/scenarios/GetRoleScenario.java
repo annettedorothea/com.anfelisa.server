@@ -19,25 +19,13 @@
 
 package com.anfelisa.user.scenarios;
 
-import java.util.List;
-
 import javax.ws.rs.core.Response;
 
-import com.anfelisa.auth.Roles;
-import com.anfelisa.user.models.IEmailConfirmationModel;
-import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserModel;
-
 @SuppressWarnings("unused")
-public class RegisterUserEmptyUsernameScenario extends AbstractRegisterUserEmptyUsernameScenario {
+public class GetRoleScenario extends AbstractGetRoleScenario {
 
 	@Override
 	protected void verifications(Response response) {
-		List<IUserModel> actualUsers = this.daoProvider.getUserDao().selectAll(handle);
-		assertThat(actualUsers.size(), 0);
-		
-		List<IEmailConfirmationModel> allEmailConfirmations = this.daoProvider.getEmailConfirmationDao().selectAll(handle);
-		assertThat(allEmailConfirmations.size(), 0);
 	}
 
 }

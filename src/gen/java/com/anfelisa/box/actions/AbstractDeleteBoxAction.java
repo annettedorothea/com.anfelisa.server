@@ -176,6 +176,7 @@ public abstract class AbstractDeleteBoxAction extends Action<IDeleteBoxData> {
 		}
 	}
 	
+
 }
 
 

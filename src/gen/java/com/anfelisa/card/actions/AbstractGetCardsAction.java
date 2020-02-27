@@ -175,6 +175,7 @@ public abstract class AbstractGetCardsAction extends Action<ICardListData> {
 	protected Object createReponse() {
 		return new com.anfelisa.card.data.GetCardsResponse(this.actionData);
 	}
+	
 }
 
 

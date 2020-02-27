@@ -175,6 +175,7 @@ public abstract class AbstractGetCategoryTreeAction extends Action<ICategoryTree
 	protected Object createReponse() {
 		return new com.anfelisa.category.data.GetCategoryTreeResponse(this.actionData);
 	}
+	
 }
 
 

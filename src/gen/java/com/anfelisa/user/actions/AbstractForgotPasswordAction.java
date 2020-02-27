@@ -173,6 +173,7 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 		}
 	}
 	
+
 }
 
 

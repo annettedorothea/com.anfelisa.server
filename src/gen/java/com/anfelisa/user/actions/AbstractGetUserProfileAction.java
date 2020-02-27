@@ -176,6 +176,7 @@ public abstract class AbstractGetUserProfileAction extends Action<IUserData> {
 	protected Object createReponse() {
 		return new com.anfelisa.user.data.GetUserProfileResponse(this.actionData);
 	}
+	
 }
 
 

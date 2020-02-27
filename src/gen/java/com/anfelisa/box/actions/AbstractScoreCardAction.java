@@ -177,6 +177,7 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 		}
 	}
 	
+
 }
 
 

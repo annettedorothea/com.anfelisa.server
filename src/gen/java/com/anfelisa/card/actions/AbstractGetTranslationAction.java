@@ -180,6 +180,7 @@ public abstract class AbstractGetTranslationAction extends Action<ICardTranslati
 	protected Object createReponse() {
 		return new com.anfelisa.card.data.GetTranslationResponse(this.actionData);
 	}
+	
 }
 
 

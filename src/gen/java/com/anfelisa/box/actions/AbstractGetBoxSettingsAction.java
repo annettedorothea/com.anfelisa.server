@@ -174,6 +174,7 @@ public abstract class AbstractGetBoxSettingsAction extends Action<IBoxSettingsDa
 	protected Object createReponse() {
 		return new com.anfelisa.box.data.GetBoxSettingsResponse(this.actionData);
 	}
+	
 }
 
 

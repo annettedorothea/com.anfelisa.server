@@ -176,6 +176,7 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 		}
 	}
 	
+
 }
 
 

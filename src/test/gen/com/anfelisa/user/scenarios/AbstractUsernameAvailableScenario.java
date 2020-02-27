@@ -37,8 +37,7 @@ import com.anfelisa.user.ActionCalls;
 public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		// RegisterUser
-		
+		ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 	}
 	
 	private Response when() throws Exception {

@@ -40,7 +40,7 @@ public abstract class AbstractRegisterUserScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		return ActionCalls.callRegisterUser(randomUUID(), "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		return ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 	}
 	
 	private void then(Response response) throws Exception {

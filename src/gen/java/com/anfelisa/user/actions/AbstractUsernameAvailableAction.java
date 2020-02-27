@@ -172,6 +172,7 @@ public abstract class AbstractUsernameAvailableAction extends Action<IUsernameAv
 	protected Object createReponse() {
 		return new com.anfelisa.user.data.UsernameAvailableResponse(this.actionData);
 	}
+	
 }
 
 

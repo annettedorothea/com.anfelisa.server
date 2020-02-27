@@ -173,6 +173,7 @@ public abstract class AbstractGetAllUsersAction extends Action<IUserListData> {
 	protected Object createReponse() {
 		return new com.anfelisa.user.data.GetAllUsersResponse(this.actionData);
 	}
+	
 }
 
 

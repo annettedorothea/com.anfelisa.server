@@ -180,6 +180,7 @@ public abstract class AbstractGetDuplicatesAction extends Action<ICardSearchData
 	protected Object createReponse() {
 		return new com.anfelisa.card.data.GetDuplicatesResponse(this.actionData);
 	}
+	
 }
 
 

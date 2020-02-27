@@ -176,6 +176,7 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 		}
 	}
 	
+
 }
 
 

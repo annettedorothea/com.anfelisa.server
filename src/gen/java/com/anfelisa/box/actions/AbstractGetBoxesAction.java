@@ -175,6 +175,7 @@ public abstract class AbstractGetBoxesAction extends Action<IBoxListData> {
 	protected Object createReponse() {
 		return new com.anfelisa.box.data.GetBoxesResponse(this.actionData);
 	}
+	
 }
 
 

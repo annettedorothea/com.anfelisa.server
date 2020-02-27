@@ -92,6 +92,8 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 		categoryDao.truncate(handle);
 		userAccessToCategoryDao.truncate(handle);
 		userDao.truncate(handle);
+		
+		aceDao.truncateTimelineTable(handle);
 	}
 
 }
