@@ -75,7 +75,7 @@ import com.anfelisa.box.commands.InitMyBoxesForDayCommand;
 public abstract class AbstractInitMyBoxesForDayAction extends Action<IInitMyBoxesDataData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractInitMyBoxesForDayAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractInitMyBoxesForDayAction extends Action<IInitMyBoxe
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractInitMyBoxesForDayAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

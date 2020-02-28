@@ -75,7 +75,7 @@ import com.anfelisa.box.commands.ScoreCardCommand;
 public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractScoreCardAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractScoreCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

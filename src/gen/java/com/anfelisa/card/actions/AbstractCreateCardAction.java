@@ -75,7 +75,7 @@ import com.anfelisa.card.commands.CreateCardCommand;
 public abstract class AbstractCreateCardAction extends Action<ICardCreationData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractCreateCardAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractCreateCardAction extends Action<ICardCreationData>
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractCreateCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

@@ -75,7 +75,7 @@ import com.anfelisa.card.commands.UpdateCardCommand;
 public abstract class AbstractUpdateCardAction extends Action<ICardUpdateData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractUpdateCardAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractUpdateCardAction extends Action<ICardUpdateData> {
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractUpdateCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

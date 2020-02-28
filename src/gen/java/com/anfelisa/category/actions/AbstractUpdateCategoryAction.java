@@ -75,7 +75,7 @@ import com.anfelisa.category.commands.UpdateCategoryCommand;
 public abstract class AbstractUpdateCategoryAction extends Action<ICategoryUpdateData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractUpdateCategoryAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractUpdateCategoryAction extends Action<ICategoryUpdat
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractUpdateCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

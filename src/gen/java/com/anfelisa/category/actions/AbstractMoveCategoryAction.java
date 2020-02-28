@@ -75,7 +75,7 @@ import com.anfelisa.category.commands.MoveCategoryCommand;
 public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractMoveCategoryAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveDat
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractMoveCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

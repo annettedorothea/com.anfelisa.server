@@ -75,7 +75,7 @@ import com.anfelisa.box.commands.ScheduleCardsCommand;
 public abstract class AbstractScheduleCardsAction extends Action<IScheduledCardsData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractScheduleCardsAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractScheduleCardsAction extends Action<IScheduledCards
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractScheduleCardsAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

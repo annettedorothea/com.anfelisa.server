@@ -72,7 +72,7 @@ import com.anfelisa.category.data.CategoryTreeData;
 public abstract class AbstractGetCategoryTreeAction extends Action<ICategoryTreeData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetCategoryTreeAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -80,7 +80,8 @@ public abstract class AbstractGetCategoryTreeAction extends Action<ICategoryTree
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
-
+	
+	
 	public AbstractGetCategoryTreeAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.category.actions.GetCategoryTreeAction", HttpMethod.GET);

@@ -75,7 +75,7 @@ import com.anfelisa.category.commands.CreateCategoryCommand;
 public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreationData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractCreateCategoryAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractCreateCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

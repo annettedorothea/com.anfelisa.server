@@ -75,7 +75,7 @@ import com.anfelisa.card.commands.ChangeOrderCommand;
 public abstract class AbstractChangeOrderAction extends Action<IChangeCardOrderListData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractChangeOrderAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractChangeOrderAction extends Action<IChangeCardOrderL
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractChangeOrderAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

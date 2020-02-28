@@ -75,7 +75,7 @@ import com.anfelisa.category.commands.DeleteCategoryCommand;
 public abstract class AbstractDeleteCategoryAction extends Action<ICategoryDeleteData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteCategoryAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractDeleteCategoryAction extends Action<ICategoryDelet
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractDeleteCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

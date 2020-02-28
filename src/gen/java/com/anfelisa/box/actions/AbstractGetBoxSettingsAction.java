@@ -72,7 +72,7 @@ import com.anfelisa.box.data.BoxSettingsData;
 public abstract class AbstractGetBoxSettingsAction extends Action<IBoxSettingsData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetBoxSettingsAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -80,7 +80,8 @@ public abstract class AbstractGetBoxSettingsAction extends Action<IBoxSettingsDa
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
-
+	
+	
 	public AbstractGetBoxSettingsAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.box.actions.GetBoxSettingsAction", HttpMethod.GET);

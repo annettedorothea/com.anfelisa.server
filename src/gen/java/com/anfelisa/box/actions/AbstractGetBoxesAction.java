@@ -72,7 +72,7 @@ import com.anfelisa.box.data.BoxListData;
 public abstract class AbstractGetBoxesAction extends Action<IBoxListData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetBoxesAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -80,7 +80,8 @@ public abstract class AbstractGetBoxesAction extends Action<IBoxListData> {
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
-
+	
+	
 	public AbstractGetBoxesAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.box.actions.GetBoxesAction", HttpMethod.GET);

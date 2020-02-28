@@ -72,7 +72,7 @@ import com.anfelisa.user.data.UserListData;
 public abstract class AbstractGetAllUsersAction extends Action<IUserListData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetAllUsersAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -80,7 +80,8 @@ public abstract class AbstractGetAllUsersAction extends Action<IUserListData> {
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
-
+	
+	
 	public AbstractGetAllUsersAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.GetAllUsersAction", HttpMethod.GET);

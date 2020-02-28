@@ -75,7 +75,7 @@ import com.anfelisa.user.commands.ChangeUserRoleCommand;
 public abstract class AbstractChangeUserRoleAction extends Action<IChangeUserRoleData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractChangeUserRoleAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractChangeUserRoleAction extends Action<IChangeUserRol
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractChangeUserRoleAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

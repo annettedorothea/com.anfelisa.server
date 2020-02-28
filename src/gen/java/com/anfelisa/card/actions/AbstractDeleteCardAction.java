@@ -75,7 +75,7 @@ import com.anfelisa.card.commands.DeleteCardCommand;
 public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteCardAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractDeleteCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

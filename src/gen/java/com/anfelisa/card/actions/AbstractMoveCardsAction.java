@@ -75,7 +75,7 @@ import com.anfelisa.card.commands.MoveCardsCommand;
 public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractMoveCardsAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractMoveCardsAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

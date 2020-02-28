@@ -74,7 +74,7 @@ import com.anfelisa.user.commands.ConfirmEmailCommand;
 public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractConfirmEmailAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -82,6 +82,7 @@ public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailDat
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractConfirmEmailAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

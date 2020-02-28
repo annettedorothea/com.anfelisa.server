@@ -74,7 +74,7 @@ import com.anfelisa.user.commands.ForgotPasswordCommand;
 public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswordData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractForgotPasswordAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -82,6 +82,7 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractForgotPasswordAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

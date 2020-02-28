@@ -72,7 +72,7 @@ import com.anfelisa.card.data.CardListData;
 public abstract class AbstractGetCardsAction extends Action<ICardListData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetCardsAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -80,7 +80,8 @@ public abstract class AbstractGetCardsAction extends Action<ICardListData> {
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
-
+	
+	
 	public AbstractGetCardsAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.card.actions.GetCardsAction", HttpMethod.GET);

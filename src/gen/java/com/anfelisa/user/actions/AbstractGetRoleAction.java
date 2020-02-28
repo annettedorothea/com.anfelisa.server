@@ -72,7 +72,7 @@ import com.anfelisa.user.data.RoleData;
 public abstract class AbstractGetRoleAction extends Action<IRoleData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetRoleAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -80,7 +80,8 @@ public abstract class AbstractGetRoleAction extends Action<IRoleData> {
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
-
+	
+	
 	public AbstractGetRoleAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.GetRoleAction", HttpMethod.GET);

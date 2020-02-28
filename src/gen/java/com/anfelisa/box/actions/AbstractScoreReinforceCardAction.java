@@ -75,7 +75,7 @@ import com.anfelisa.box.commands.ScoreReinforceCardCommand;
 public abstract class AbstractScoreReinforceCardAction extends Action<IScoreReinforceCardData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractScoreReinforceCardAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractScoreReinforceCardAction extends Action<IScoreRein
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractScoreReinforceCardAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {

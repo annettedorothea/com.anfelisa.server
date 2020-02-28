@@ -72,7 +72,7 @@ import com.anfelisa.card.data.CardTranslationData;
 public abstract class AbstractGetTranslationAction extends Action<ICardTranslationData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetTranslationAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -80,7 +80,8 @@ public abstract class AbstractGetTranslationAction extends Action<ICardTranslati
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
-
+	
+	
 	public AbstractGetTranslationAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.card.actions.GetTranslationAction", HttpMethod.GET);

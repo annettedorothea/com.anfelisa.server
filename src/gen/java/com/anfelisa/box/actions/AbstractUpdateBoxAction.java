@@ -75,7 +75,7 @@ import com.anfelisa.box.commands.UpdateBoxCommand;
 public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractUpdateBoxAction.class);
-
+	
 	private DatabaseHandle databaseHandle;
 	private Jdbi jdbi;
 	protected JodaObjectMapper mapper;
@@ -83,6 +83,7 @@ public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
 	private E2E e2e;
+	
 
 	public AbstractUpdateBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
