@@ -61,7 +61,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.jdbi.v3.core.Handle;
 
 
-
 import javax.ws.rs.GET;
 
 import com.anfelisa.auth.AuthUser;
