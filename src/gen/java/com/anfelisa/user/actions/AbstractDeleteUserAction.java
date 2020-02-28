@@ -118,10 +118,9 @@ public abstract class AbstractDeleteUserAction extends Action<IDeleteUserData> {
 		this.actionData.setUsernameToBeDeleted(usernameToBeDeleted);
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setRole(authUser.getRole());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

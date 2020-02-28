@@ -111,7 +111,7 @@ public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateBoxResource(
 			@Auth AuthUser authUser, 
-			@NotNull IBoxUpdateData payload) 
+			@NotNull IBoxUpdateData payload)
 			throws JsonProcessingException {
 		this.actionData = new BoxUpdateData(payload.getUuid());
 		this.actionData.setMaxInterval(payload.getMaxInterval());
@@ -123,10 +123,9 @@ public abstract class AbstractUpdateBoxAction extends Action<IBoxUpdateData> {
 		this.actionData.setGivenLanguage(payload.getGivenLanguage());
 		this.actionData.setWantedLanguage(payload.getWantedLanguage());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

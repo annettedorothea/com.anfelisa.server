@@ -111,16 +111,15 @@ public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveDat
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response moveCategoryResource(
 			@Auth AuthUser authUser, 
-			@NotNull ICategoryMoveData payload) 
+			@NotNull ICategoryMoveData payload)
 			throws JsonProcessingException {
 		this.actionData = new CategoryMoveData(payload.getUuid());
 		this.actionData.setMovedCategoryId(payload.getMovedCategoryId());
 		this.actionData.setTargetCategoryId(payload.getTargetCategoryId());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

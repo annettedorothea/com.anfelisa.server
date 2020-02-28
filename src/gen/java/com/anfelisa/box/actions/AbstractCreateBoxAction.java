@@ -111,7 +111,7 @@ public abstract class AbstractCreateBoxAction extends Action<IBoxCreationData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createBoxResource(
 			@Auth AuthUser authUser, 
-			@NotNull IBoxCreationData payload) 
+			@NotNull IBoxCreationData payload)
 			throws JsonProcessingException {
 		this.actionData = new BoxCreationData(payload.getUuid());
 		this.actionData.setCategoryName(payload.getCategoryName());
@@ -122,10 +122,9 @@ public abstract class AbstractCreateBoxAction extends Action<IBoxCreationData> {
 		this.actionData.setMaxInterval(payload.getMaxInterval());
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

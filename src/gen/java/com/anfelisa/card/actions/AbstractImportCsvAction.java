@@ -111,16 +111,15 @@ public abstract class AbstractImportCsvAction extends Action<ICsvUploadData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response importCsvResource(
 			@Auth AuthUser authUser, 
-			@NotNull ICsvUploadData payload) 
+			@NotNull ICsvUploadData payload)
 			throws JsonProcessingException {
 		this.actionData = new CsvUploadData(payload.getUuid());
 		this.actionData.setPreviewCsv(payload.getPreviewCsv());
 		this.actionData.setCategoryId(payload.getCategoryId());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

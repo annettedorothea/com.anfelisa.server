@@ -117,10 +117,9 @@ public abstract class AbstractDeleteCategoryAction extends Action<ICategoryDelet
 		this.actionData = new CategoryDeleteData(uuid);
 		this.actionData.setCategoryId(categoryId);
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

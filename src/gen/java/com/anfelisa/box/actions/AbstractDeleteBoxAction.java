@@ -117,10 +117,9 @@ public abstract class AbstractDeleteBoxAction extends Action<IDeleteBoxData> {
 		this.actionData = new DeleteBoxData(uuid);
 		this.actionData.setBoxId(boxId);
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

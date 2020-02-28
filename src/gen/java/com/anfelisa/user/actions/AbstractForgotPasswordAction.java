@@ -109,15 +109,14 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response forgotPasswordResource(
-			@NotNull IForgotPasswordData payload) 
+			@NotNull IForgotPasswordData payload)
 			throws JsonProcessingException {
 		this.actionData = new ForgotPasswordData(payload.getUuid());
 		this.actionData.setUsername(payload.getUsername());
 		this.actionData.setLanguage(payload.getLanguage());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

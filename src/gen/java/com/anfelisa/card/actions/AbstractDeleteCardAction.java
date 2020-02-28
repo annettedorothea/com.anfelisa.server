@@ -117,10 +117,9 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 		this.actionData = new CardDeleteData(uuid);
 		this.actionData.setCardId(cardId);
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

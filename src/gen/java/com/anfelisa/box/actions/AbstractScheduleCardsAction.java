@@ -111,15 +111,14 @@ public abstract class AbstractScheduleCardsAction extends Action<IScheduledCards
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scheduleCardsResource(
 			@Auth AuthUser authUser, 
-			@NotNull IScheduledCardsData payload) 
+			@NotNull IScheduledCardsData payload)
 			throws JsonProcessingException {
 		this.actionData = new ScheduledCardsData(payload.getUuid());
 		this.actionData.setCardIds(payload.getCardIds());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

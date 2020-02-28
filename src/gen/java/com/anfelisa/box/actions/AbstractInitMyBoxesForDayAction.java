@@ -111,15 +111,14 @@ public abstract class AbstractInitMyBoxesForDayAction extends Action<IInitMyBoxe
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response initMyBoxesForDayResource(
 			@Auth AuthUser authUser, 
-			@NotNull IInitMyBoxesDataData payload) 
+			@NotNull IInitMyBoxesDataData payload)
 			throws JsonProcessingException {
 		this.actionData = new InitMyBoxesDataData(payload.getUuid());
 		this.actionData.setToday(payload.getToday());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

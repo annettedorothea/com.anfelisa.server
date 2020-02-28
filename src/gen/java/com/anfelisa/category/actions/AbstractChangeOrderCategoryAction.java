@@ -111,16 +111,15 @@ public abstract class AbstractChangeOrderCategoryAction extends Action<ICategory
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response changeOrderCategoryResource(
 			@Auth AuthUser authUser, 
-			@NotNull ICategoryChangeOrderData payload) 
+			@NotNull ICategoryChangeOrderData payload)
 			throws JsonProcessingException {
 		this.actionData = new CategoryChangeOrderData(payload.getUuid());
 		this.actionData.setMovedCategoryId(payload.getMovedCategoryId());
 		this.actionData.setTargetCategoryId(payload.getTargetCategoryId());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

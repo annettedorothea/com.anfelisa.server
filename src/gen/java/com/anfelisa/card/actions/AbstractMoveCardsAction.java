@@ -111,16 +111,15 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response moveCardsResource(
 			@Auth AuthUser authUser, 
-			@NotNull ICardIdListData payload) 
+			@NotNull ICardIdListData payload)
 			throws JsonProcessingException {
 		this.actionData = new CardIdListData(payload.getUuid());
 		this.actionData.setCardIdList(payload.getCardIdList());
 		this.actionData.setCategoryId(payload.getCategoryId());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

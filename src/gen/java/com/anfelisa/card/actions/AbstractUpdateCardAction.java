@@ -111,7 +111,7 @@ public abstract class AbstractUpdateCardAction extends Action<ICardUpdateData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateCardResource(
 			@Auth AuthUser authUser, 
-			@NotNull ICardUpdateData payload) 
+			@NotNull ICardUpdateData payload)
 			throws JsonProcessingException {
 		this.actionData = new CardUpdateData(payload.getUuid());
 		this.actionData.setCardId(payload.getCardId());
@@ -119,10 +119,9 @@ public abstract class AbstractUpdateCardAction extends Action<ICardUpdateData> {
 		this.actionData.setImage(payload.getImage());
 		this.actionData.setWanted(payload.getWanted());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

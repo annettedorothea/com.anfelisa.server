@@ -111,17 +111,16 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scoreCardResource(
 			@Auth AuthUser authUser, 
-			@NotNull IScoreCardData payload) 
+			@NotNull IScoreCardData payload)
 			throws JsonProcessingException {
 		this.actionData = new ScoreCardData(payload.getUuid());
 		this.actionData.setScoredCardScheduledCardId(payload.getScoredCardScheduledCardId());
 		this.actionData.setBoxId(payload.getBoxId());
 		this.actionData.setScoredCardQuality(payload.getScoredCardQuality());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

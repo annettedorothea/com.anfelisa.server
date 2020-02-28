@@ -111,16 +111,15 @@ public abstract class AbstractChangeOrderAction extends Action<IChangeCardOrderL
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response changeOrderResource(
 			@Auth AuthUser authUser, 
-			@NotNull IChangeCardOrderListData payload) 
+			@NotNull IChangeCardOrderListData payload)
 			throws JsonProcessingException {
 		this.actionData = new ChangeCardOrderListData(payload.getUuid());
 		this.actionData.setCardIdList(payload.getCardIdList());
 		this.actionData.setCardId(payload.getCardId());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

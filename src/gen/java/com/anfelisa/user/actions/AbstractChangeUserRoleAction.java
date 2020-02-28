@@ -111,17 +111,16 @@ public abstract class AbstractChangeUserRoleAction extends Action<IChangeUserRol
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response changeUserRoleResource(
 			@Auth AuthUser authUser, 
-			@NotNull IChangeUserRoleData payload) 
+			@NotNull IChangeUserRoleData payload)
 			throws JsonProcessingException {
 		this.actionData = new ChangeUserRoleData(payload.getUuid());
 		this.actionData.setNewRole(payload.getNewRole());
 		this.actionData.setEditedUserId(payload.getEditedUserId());
 		this.actionData.setUserId(authUser.getUserId());
 		this.actionData.setRole(authUser.getRole());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

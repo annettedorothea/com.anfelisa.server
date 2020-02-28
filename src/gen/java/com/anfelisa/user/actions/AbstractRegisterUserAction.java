@@ -109,17 +109,16 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response registerUserResource(
-			@NotNull IUserRegistrationData payload) 
+			@NotNull IUserRegistrationData payload)
 			throws JsonProcessingException {
 		this.actionData = new UserRegistrationData(payload.getUuid());
 		this.actionData.setPassword(payload.getPassword());
 		this.actionData.setUsername(payload.getUsername());
 		this.actionData.setEmail(payload.getEmail());
 		this.actionData.setLanguage(payload.getLanguage());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

@@ -109,15 +109,14 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response resetPasswordResource(
-			@NotNull IResetPasswordWithNewPasswordData payload) 
+			@NotNull IResetPasswordWithNewPasswordData payload)
 			throws JsonProcessingException {
 		this.actionData = new ResetPasswordWithNewPasswordData(payload.getUuid());
 		this.actionData.setPassword(payload.getPassword());
 		this.actionData.setToken(payload.getToken());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

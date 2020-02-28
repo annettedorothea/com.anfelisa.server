@@ -111,7 +111,7 @@ public abstract class AbstractUpdateCategoryAction extends Action<ICategoryUpdat
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateCategoryResource(
 			@Auth AuthUser authUser, 
-			@NotNull ICategoryUpdateData payload) 
+			@NotNull ICategoryUpdateData payload)
 			throws JsonProcessingException {
 		this.actionData = new CategoryUpdateData(payload.getUuid());
 		this.actionData.setCategoryId(payload.getCategoryId());
@@ -120,10 +120,9 @@ public abstract class AbstractUpdateCategoryAction extends Action<ICategoryUpdat
 		this.actionData.setGivenLanguage(payload.getGivenLanguage());
 		this.actionData.setWantedLanguage(payload.getWantedLanguage());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

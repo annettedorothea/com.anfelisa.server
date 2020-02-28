@@ -111,7 +111,7 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createCategoryResource(
 			@Auth AuthUser authUser, 
-			@NotNull ICategoryCreationData payload) 
+			@NotNull ICategoryCreationData payload)
 			throws JsonProcessingException {
 		this.actionData = new CategoryCreationData(payload.getUuid());
 		this.actionData.setCategoryName(payload.getCategoryName());
@@ -121,10 +121,9 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 		this.actionData.setWantedLanguage(payload.getWantedLanguage());
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

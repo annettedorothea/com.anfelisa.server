@@ -111,16 +111,15 @@ public abstract class AbstractScoreReinforceCardAction extends Action<IScoreRein
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scoreReinforceCardResource(
 			@Auth AuthUser authUser, 
-			@NotNull IScoreReinforceCardData payload) 
+			@NotNull IScoreReinforceCardData payload)
 			throws JsonProcessingException {
 		this.actionData = new ScoreReinforceCardData(payload.getUuid());
 		this.actionData.setReinforceCardId(payload.getReinforceCardId());
 		this.actionData.setScoredCardQuality(payload.getScoredCardQuality());
 		this.actionData.setUserId(authUser.getUserId());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();

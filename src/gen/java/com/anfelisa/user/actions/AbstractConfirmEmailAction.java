@@ -109,15 +109,14 @@ public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailDat
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response confirmEmailResource(
-			@NotNull IConfirmEmailData payload) 
+			@NotNull IConfirmEmailData payload)
 			throws JsonProcessingException {
 		this.actionData = new ConfirmEmailData(payload.getUuid());
 		this.actionData.setToken(payload.getToken());
 		this.actionData.setUsername(payload.getUsername());
-		
 		return this.apply();
 	}
-	
+
 	public Response apply() {
 		databaseHandle = new DatabaseHandle(jdbi);
 		databaseHandle.beginTransaction();
