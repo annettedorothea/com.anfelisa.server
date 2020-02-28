@@ -31,6 +31,7 @@ import org.junit.Test;
 
 import com.anfelisa.ace.BaseScenario;
 import com.anfelisa.ace.ITimelineItem;
+import com.anfelisa.ace.NotReplayableDataProvider;
 import com.anfelisa.user.ActionCalls;
 
 @SuppressWarnings("unused")
@@ -40,6 +41,7 @@ public abstract class AbstractRegisterUserScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
+		NotReplayableDataProvider.put("token", "TOKEN");
 		return ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 	}
 	

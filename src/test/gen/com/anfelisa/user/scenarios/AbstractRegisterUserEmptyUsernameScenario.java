@@ -31,6 +31,7 @@ import org.junit.Test;
 
 import com.anfelisa.ace.BaseScenario;
 import com.anfelisa.ace.ITimelineItem;
+import com.anfelisa.ace.NotReplayableDataProvider;
 import com.anfelisa.user.ActionCalls;
 
 @SuppressWarnings("unused")
