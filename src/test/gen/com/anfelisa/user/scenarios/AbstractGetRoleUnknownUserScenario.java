@@ -32,19 +32,18 @@ import org.junit.Test;
 import com.anfelisa.ace.BaseScenario;
 import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.ace.NotReplayableDataProvider;
-import com.anfelisa.user.ActionCalls;
 
 @SuppressWarnings("unused")
 public abstract class AbstractGetRoleUnknownUserScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", "TOKEN");
-		ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 
 	}
 	
 	private Response when() throws Exception {
-		return ActionCalls.callGetRole(randomUUID(), DROPWIZARD.getLocalPort(), authorization("lala", "password"));
+		return com.anfelisa.user.ActionCalls.callGetRole(randomUUID(), DROPWIZARD.getLocalPort(), authorization("lala", "password"));
 	}
 	
 	private void then(Response response) throws Exception {

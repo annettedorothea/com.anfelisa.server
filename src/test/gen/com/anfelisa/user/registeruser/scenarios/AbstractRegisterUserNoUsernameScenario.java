@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.scenarios;
+package com.anfelisa.user.registeruser.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,6 @@ import org.junit.Test;
 import com.anfelisa.ace.BaseScenario;
 import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.ace.NotReplayableDataProvider;
-import com.anfelisa.user.ActionCalls;
 
 @SuppressWarnings("unused")
 public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenario {
@@ -41,7 +40,7 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 	}
 	
 	private Response when() throws Exception {
-		return ActionCalls.callRegisterUser(randomUUID(), "password", null, "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		return com.anfelisa.user.ActionCalls.callRegisterUser(randomUUID(), "password", null, "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 	}
 	
 	private void then(Response response) throws Exception {

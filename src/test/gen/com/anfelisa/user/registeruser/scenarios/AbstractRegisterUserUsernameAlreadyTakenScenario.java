@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.scenarios;
+package com.anfelisa.user.registeruser.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,16 +32,19 @@ import org.junit.Test;
 import com.anfelisa.ace.BaseScenario;
 import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.ace.NotReplayableDataProvider;
-import com.anfelisa.user.ActionCalls;
 
 @SuppressWarnings("unused")
-public abstract class AbstractRegisterUserBlankUsernameScenario extends BaseScenario {
+public abstract class AbstractRegisterUserUsernameAlreadyTakenScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		NotReplayableDataProvider.put("token", "TOKEN");
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+
 	}
 	
 	private Response when() throws Exception {
-		return ActionCalls.callRegisterUser(randomUUID(), "password", "  ", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", "XXX");
+		return com.anfelisa.user.ActionCalls.callRegisterUser("uuid-at", "pw", "Annette", "info@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 	}
 	
 	private void then(Response response) throws Exception {
@@ -51,7 +54,7 @@ public abstract class AbstractRegisterUserBlankUsernameScenario extends BaseScen
 	}
 	
 	@Test
-	public void registerUserBlankUsername() throws Exception {
+	public void registerUserUsernameAlreadyTaken() throws Exception {
 		given();
 		
 		Response response = when();

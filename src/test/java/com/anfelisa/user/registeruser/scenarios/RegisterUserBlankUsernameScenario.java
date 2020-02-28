@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.scenarios;
+package com.anfelisa.user.registeruser.scenarios;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ import com.anfelisa.user.models.IEmailConfirmationModel;
 import com.anfelisa.user.models.IUserModel;
 
 @SuppressWarnings("unused")
-public class RegisterUserNoUsernameScenario extends AbstractRegisterUserNoUsernameScenario {
+public class RegisterUserBlankUsernameScenario extends AbstractRegisterUserBlankUsernameScenario {
 
 	@Override
 	protected void verifications(Response response) {

@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.scenarios;
+package com.anfelisa.user.registeruser.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,26 +34,23 @@ import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.ace.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario {
+public abstract class AbstractRegisterUserEmptyUsernameScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
-
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callGetRole(randomUUID(), DROPWIZARD.getLocalPort(), authorization("Annette", "wrong"));
+		return com.anfelisa.user.ActionCalls.callRegisterUser(randomUUID(), "password", "", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 	}
 	
 	private void then(Response response) throws Exception {
-		assertThat(response.getStatus(), 401);
+		assertThat(response.getStatus(), 400);
 		
 		
 	}
 	
 	@Test
-	public void getRoleWrongPassword() throws Exception {
+	public void registerUserEmptyUsername() throws Exception {
 		given();
 		
 		Response response = when();

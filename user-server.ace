@@ -167,50 +167,9 @@ models
 	}
 
 scenarios 
-	RegisterUser 
-		WHEN RegisterUser
-			uuid "uuid" 
-			{ 
-				email : "annette.pohl@anfelisa.de"
-				language : "de"
-				password : "password"
-				username : "Annette"
-				token : "TOKEN"				
-			}
-		THEN 200
-	
-	RegisterUserEmptyUsername 
-		WHEN RegisterUser 
-			{ 
-				email : "annette.pohl@anfelisa.de"
-				language : "de"
-				password : "password"
-				username : ""
-			}
-		THEN 400
-	
-	RegisterUserBlankUsername 
-		WHEN RegisterUser
-			{ 
-				email : "annette.pohl@anfelisa.de"
-				language : "de"
-				password : "password"
-				username : "  "
-			}
-		THEN 400
-	
-	RegisterUserNoUsername 
-		WHEN RegisterUser 
-			{ 
-				email : "annette.pohl@anfelisa.de"
-				language : "de"
-				password : "password"
-			}
-		THEN 400
-	
 	UsernameAvailable
 		GIVEN 
-			RegisterUser
+			com.anfelisa.user.registeruser.RegisterUser
 		WHEN UsernameAvailable
 				{
 					username : "lala"
@@ -223,7 +182,7 @@ scenarios
 
 	UsernameNotAvailable
 		GIVEN 
-			RegisterUser
+			com.anfelisa.user.registeruser.RegisterUser
 		WHEN UsernameAvailable
 				{
 					username: "Annette"
@@ -236,7 +195,7 @@ scenarios
 		}
 	
 	GetRole
-		GIVEN RegisterUser
+		GIVEN com.anfelisa.user.registeruser.RegisterUser
 		WHEN GetRole
 			authorization "Annette" : "password"
 		THEN 200
@@ -245,13 +204,13 @@ scenarios
 		}
 
 	GetRoleWrongPassword
-		GIVEN RegisterUser
+		GIVEN com.anfelisa.user.registeruser.RegisterUser
 		WHEN GetRole
 			authorization "Annette" : "wrong"
 		THEN 401
 
 	GetRoleUnknownUser
-		GIVEN RegisterUser
+		GIVEN com.anfelisa.user.registeruser.RegisterUser
 		WHEN GetRole
 			authorization "lala" : "password"
 		THEN 401

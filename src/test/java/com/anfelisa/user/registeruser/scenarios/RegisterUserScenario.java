@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.scenarios;
+package com.anfelisa.user.registeruser.scenarios;
 
 import javax.ws.rs.core.Response;
 
@@ -33,9 +33,6 @@ public class RegisterUserScenario extends AbstractRegisterUserScenario {
 
 	@Override
 	protected void verifications(Response response) {
-		String test = RegisterUserAction.test;
-		
-		
 		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette");
 		IUserModel expectedUser = new UserModel("uuid", "Annette", "password", "annette.pohl@anfelisa.de", Roles.STUDENT, false);
 		assertThat(actualUser, expectedUser);

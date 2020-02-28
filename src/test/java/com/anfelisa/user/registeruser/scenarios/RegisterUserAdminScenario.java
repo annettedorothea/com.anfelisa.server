@@ -17,27 +17,32 @@
 
 
 
-package com.anfelisa.user.scenarios;
-
-import java.util.List;
+package com.anfelisa.user.registeruser.scenarios;
 
 import javax.ws.rs.core.Response;
 
 import com.anfelisa.auth.Roles;
+import com.anfelisa.user.actions.RegisterUserAction;
+import com.anfelisa.user.models.EmailConfirmationModel;
 import com.anfelisa.user.models.IEmailConfirmationModel;
 import com.anfelisa.user.models.IUserModel;
 import com.anfelisa.user.models.UserModel;
 
 @SuppressWarnings("unused")
-public class RegisterUserEmptyUsernameScenario extends AbstractRegisterUserEmptyUsernameScenario {
+public class RegisterUserAdminScenario extends AbstractRegisterUserAdminScenario {
 
 	@Override
 	protected void verifications(Response response) {
-		List<IUserModel> actualUsers = this.daoProvider.getUserDao().selectAll(handle);
-		assertThat(actualUsers.size(), 0);
+		String test = RegisterUserAction.test;
 		
-		List<IEmailConfirmationModel> allEmailConfirmations = this.daoProvider.getEmailConfirmationDao().selectAll(handle);
-		assertThat(allEmailConfirmations.size(), 0);
+		
+		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Admin");
+		IUserModel expectedUser = new UserModel("uuid-admin", "Admin", "password", "annette.pohl@anfelisa.de", Roles.ADMIN, false);
+		assertThat(actualUser, expectedUser);
+		
+		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN");
+		IEmailConfirmationModel expectedEmailConfirmationModel = new EmailConfirmationModel("TOKEN", "uuid-admin");
+		assertThat(actualEmailConfirmationModel, expectedEmailConfirmationModel);
 	}
 
 }

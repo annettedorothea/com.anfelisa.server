@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.scenarios;
+package com.anfelisa.user.registeruser.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,26 +32,26 @@ import org.junit.Test;
 import com.anfelisa.ace.BaseScenario;
 import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.ace.NotReplayableDataProvider;
-import com.anfelisa.user.ActionCalls;
 
 @SuppressWarnings("unused")
-public abstract class AbstractRegisterUserEmptyUsernameScenario extends BaseScenario {
+public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
 	}
 	
 	private Response when() throws Exception {
-		return ActionCalls.callRegisterUser(randomUUID(), "password", "", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", "TOKEN");
+		return com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", "password", "Admin", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 	}
 	
 	private void then(Response response) throws Exception {
-		assertThat(response.getStatus(), 400);
+		assertThat(response.getStatus(), 200);
 		
 		
 	}
 	
 	@Test
-	public void registerUserEmptyUsername() throws Exception {
+	public void registerUserAdmin() throws Exception {
 		given();
 		
 		Response response = when();
