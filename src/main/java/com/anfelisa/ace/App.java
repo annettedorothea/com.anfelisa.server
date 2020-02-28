@@ -101,8 +101,6 @@ public class App extends Application<CustomAppConfiguration> {
 			environment.jersey().register(new GetServerTimelineResource(jdbi, configuration));
 		} else if (ServerConfiguration.DEV.equals(mode)) {
 			environment.jersey().register(new GetServerTimelineResource(jdbi, configuration));
-		} else if (ServerConfiguration.TEST.equals(mode)) {
-			environment.jersey().register(new SetSystemTimeResource(configuration));
 		}
 
 		environment.jersey().register(new GetServerInfoResource());

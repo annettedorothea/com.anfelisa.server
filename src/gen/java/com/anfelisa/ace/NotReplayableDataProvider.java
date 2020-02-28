@@ -19,32 +19,39 @@
 
 package com.anfelisa.ace;
 
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.jdbi.v3.core.Handle;
+import org.joda.time.DateTime;
 
-public abstract class AbstractBaseScenario {
+public class NotReplayableDataProvider {
+	
+	private static DateTime systemTime;
+	
+	private static Map<String, Object> valueMap = new HashMap<>();
 
-	protected final JodaObjectMapper mapper = new JodaObjectMapper();
-
-	protected DaoProvider daoProvider;
-
-	protected Handle handle;
-
-	public static String randomUUID() {
-		return UUID.randomUUID().toString();
+	public static DateTime getSystemTime() {
+		return systemTime;
 	}
 
-	protected abstract String authorization(String username, String password);
-
-	protected abstract void assertThat(int actual, int expected);
-
-	protected abstract void assertThat(Object actual, Object expected);
-
-	protected abstract void assertIsNull(Object actual);
+	public static void setSystemTime(DateTime systemTime) {
+		NotReplayableDataProvider.systemTime = systemTime;
+	}
+	
+	public static void put(String key, Object value) {
+		valueMap.put(key, value);
+	}
+	
+	public static Object get(String key) {
+		return valueMap.get(key);
+	}
+	
+	public static void clear() {
+		systemTime = null;
+		valueMap.clear();
+	}
 
 }
-
 
 
 

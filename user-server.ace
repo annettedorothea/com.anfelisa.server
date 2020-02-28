@@ -253,6 +253,7 @@ scenarios
 	GetRoleUnknownUser
 		GIVEN RegisterUser
 		WHEN GetRole
+			systemTime " " 
 			authorization "lala" : "password"
 		THEN 401
 
