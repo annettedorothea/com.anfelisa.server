@@ -142,7 +142,8 @@ public abstract class AbstractGetTranslationAction extends Action<ICardTranslati
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				// TODO
 			}
-			if (!ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
+			if (ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())
+					|| ServerConfiguration.DEV.equals(appConfiguration.getServerConfiguration().getMode())) {
 				this.loadDataForGetRequest(this.databaseHandle.getReadonlyHandle());
 			}
 			daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
