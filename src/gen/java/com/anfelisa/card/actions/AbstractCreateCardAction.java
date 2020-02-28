@@ -50,6 +50,7 @@ import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.ace.JodaObjectMapper;
 import com.anfelisa.ace.ServerConfiguration;
 import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.ace.NotReplayableDataProvider;
 import com.anfelisa.auth.AuthUser;
 
 import com.codahale.metrics.annotation.Timed;
@@ -138,10 +139,12 @@ public abstract class AbstractCreateCardAction extends Action<ICardCreationData>
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
-				this.actionData = (ICardCreationData)originalData;
-				// TODO
+				ICardCreationData originalActionData = (ICardCreationData)originalData;
+				this.actionData.setSystemTime(originalActionData.getSystemTime());
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
-				// TODO
+				if (NotReplayableDataProvider.getSystemTime() != null) {
+					this.actionData.setSystemTime(NotReplayableDataProvider.getSystemTime());
+				}
 			}
 			daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
 			ICommand command = this.getCommand();
@@ -172,6 +175,9 @@ public abstract class AbstractCreateCardAction extends Action<ICardCreationData>
 			return Response.status(500).entity(x.getMessage()).build();
 		} finally {
 			databaseHandle.close();
+			if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
+				NotReplayableDataProvider.clear();
+			}
 		}
 	}
 	
