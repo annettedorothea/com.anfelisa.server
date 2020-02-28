@@ -136,7 +136,7 @@ public abstract class AbstractDeleteBoxAction extends Action<IDeleteBoxData> {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				this.actionData = (IDeleteBoxData)originalData;
-				// TODO only not replayable
+				// TODO
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				// TODO
 			}

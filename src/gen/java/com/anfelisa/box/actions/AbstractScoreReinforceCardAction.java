@@ -136,7 +136,7 @@ public abstract class AbstractScoreReinforceCardAction extends Action<IScoreRein
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				this.actionData = (IScoreReinforceCardData)originalData;
-				// TODO only not replayable
+				// TODO
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				// TODO
 			}
