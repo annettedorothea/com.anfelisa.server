@@ -48,7 +48,9 @@ public abstract class Command<T extends IDataContainer> implements ICommand {
 
 	public void execute(Handle readonlyHandle, Handle timelineHandle) {
 		this.executeCommand(readonlyHandle);
-		daoProvider.getAceDao().addCommandToTimeline(this, timelineHandle);
+		if (!ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())) {
+			daoProvider.getAceDao().addCommandToTimeline(this, timelineHandle);
+		}
 	}
 
 	public IDataContainer getCommandData() {

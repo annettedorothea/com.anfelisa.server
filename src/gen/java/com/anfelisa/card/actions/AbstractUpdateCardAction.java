@@ -145,7 +145,9 @@ public abstract class AbstractUpdateCardAction extends Action<ICardUpdateData> {
 					this.actionData.setSystemTime(NotReplayableDataProvider.getSystemTime());
 				}
 			}
-			daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
+			if (!ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())) {
+				daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
+			}
 			ICommand command = this.getCommand();
 			command.execute(this.databaseHandle.getReadonlyHandle(), this.databaseHandle.getTimelineHandle());
 			command.publishEvents(this.databaseHandle.getHandle(), this.databaseHandle.getTimelineHandle());
