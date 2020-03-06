@@ -17,16 +17,12 @@
 
 
 
-package com.anfelisa.user.scenarios;
-
-import static org.hamcrest.CoreMatchers.equalTo;
+package com.anfelisa.user.usernameavailable.scenarios;
 
 import javax.ws.rs.core.Response;
 
-import com.anfelisa.user.data.UsernameAvailableResponse;
-
 @SuppressWarnings("unused")
-public class UsernameAvailableScenario extends AbstractUsernameAvailableScenario {
+public class UsernameNotAvailableScenario extends AbstractUsernameNotAvailableScenario {
 
 	@Override
 	protected void verifications(Response response) {

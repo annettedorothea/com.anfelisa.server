@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.scenarios;
+package com.anfelisa.user.getrole.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,34 +34,37 @@ import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.ace.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
+public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		NotReplayableDataProvider.put("token", "ADMIN-TOKEN");
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", "admin-password", "Admin", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+
 		NotReplayableDataProvider.put("token", "TOKEN");
 		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callUsernameAvailable(randomUUID(), "lala", DROPWIZARD.getLocalPort());
+		return com.anfelisa.user.ActionCalls.callGetRole(randomUUID(), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
-		com.anfelisa.user.data.UsernameAvailableData expectedData = new com.anfelisa.user.data.UsernameAvailableData(randomUUID());
-		expectedData.setAvailable(new Boolean("true"));
+		com.anfelisa.user.data.RoleData expectedData = new com.anfelisa.user.data.RoleData(randomUUID());
+		expectedData.setRole("STUDENT");
 		
-		com.anfelisa.user.data.UsernameAvailableResponse expected = new com.anfelisa.user.data.UsernameAvailableResponse(expectedData);
+		com.anfelisa.user.data.GetRoleResponse expected = new com.anfelisa.user.data.GetRoleResponse(expectedData);
 
-		com.anfelisa.user.data.UsernameAvailableResponse actual = response.readEntity(com.anfelisa.user.data.UsernameAvailableResponse.class);
+		com.anfelisa.user.data.GetRoleResponse actual = response.readEntity(com.anfelisa.user.data.GetRoleResponse.class);
 
 		assertThat(actual, expected);
 		
 	}
 	
 	@Test
-	public void usernameAvailable() throws Exception {
+	public void getRoleStudent() throws Exception {
 		given();
 		
 		Response response = when();

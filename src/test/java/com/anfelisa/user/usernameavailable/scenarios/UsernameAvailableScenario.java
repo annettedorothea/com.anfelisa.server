@@ -17,12 +17,12 @@
 
 
 
-package com.anfelisa.user.scenarios;
+package com.anfelisa.user.usernameavailable.scenarios;
 
 import javax.ws.rs.core.Response;
 
 @SuppressWarnings("unused")
-public class GetRoleScenario extends AbstractGetRoleScenario {
+public class UsernameAvailableScenario extends AbstractUsernameAvailableScenario {
 
 	@Override
 	protected void verifications(Response response) {

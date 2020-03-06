@@ -1,0 +1,34 @@
+HttpServer 
+
+com.anfelisa.user.usernameavailable
+
+
+scenarios 
+
+	UsernameAvailable
+		GIVEN 
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.UsernameAvailable
+				{
+					username : "lala"
+					
+				}
+		THEN 200
+		response {
+			available : "true"
+		}				
+
+	UsernameNotAvailable
+		GIVEN 
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.UsernameAvailable
+				{
+					username: "Annette"
+				}
+				
+		THEN 200
+		response
+		{
+			available : "false"
+		}
+	

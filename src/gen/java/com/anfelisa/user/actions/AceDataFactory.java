@@ -40,8 +40,16 @@ public class AceDataFactory {
 
 	public static IDataContainer createAceData(String className, String json) {
 		try {
-			if (className.equals("com.anfelisa.user.actions.GetUserProfileAction")) {
-				UserData data = mapper.readValue(json, UserData.class);
+			if (className.equals("com.anfelisa.user.actions.RegisterUserAction") ||
+					className.equals("com.anfelisa.user.commands.RegisterUserCommand") ||
+					className.equals("com.anfelisa.user.events.RegisterUserOkEvent")
+			) {
+				UserRegistrationData data = mapper.readValue(json, UserRegistrationData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
+			if (className.equals("com.anfelisa.user.actions.GetRoleAction")) {
+				RoleData data = mapper.readValue(json, RoleData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}
@@ -50,8 +58,17 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.user.actions.GetRoleAction")) {
-				RoleData data = mapper.readValue(json, RoleData.class);
+			if (className.equals("com.anfelisa.user.actions.ConfirmEmailAction") ||
+					className.equals("com.anfelisa.user.commands.ConfirmEmailCommand") ||
+					className.equals("com.anfelisa.user.events.ConfirmEmailOkEvent")||
+					className.equals("com.anfelisa.user.events.ConfirmEmailAlreadyConfirmedEvent")
+			) {
+				ConfirmEmailData data = mapper.readValue(json, ConfirmEmailData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
+			if (className.equals("com.anfelisa.user.actions.GetUserProfileAction")) {
+				UserData data = mapper.readValue(json, UserData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}
@@ -74,23 +91,6 @@ public class AceDataFactory {
 					className.equals("com.anfelisa.user.events.ResetPasswordOkEvent")
 			) {
 				ResetPasswordWithNewPasswordData data = mapper.readValue(json, ResetPasswordWithNewPasswordData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
-			if (className.equals("com.anfelisa.user.actions.RegisterUserAction") ||
-					className.equals("com.anfelisa.user.commands.RegisterUserCommand") ||
-					className.equals("com.anfelisa.user.events.RegisterUserOkEvent")
-			) {
-				UserRegistrationData data = mapper.readValue(json, UserRegistrationData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
-			if (className.equals("com.anfelisa.user.actions.ConfirmEmailAction") ||
-					className.equals("com.anfelisa.user.commands.ConfirmEmailCommand") ||
-					className.equals("com.anfelisa.user.events.ConfirmEmailOkEvent")||
-					className.equals("com.anfelisa.user.events.ConfirmEmailAlreadyConfirmedEvent")
-			) {
-				ConfirmEmailData data = mapper.readValue(json, ConfirmEmailData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}

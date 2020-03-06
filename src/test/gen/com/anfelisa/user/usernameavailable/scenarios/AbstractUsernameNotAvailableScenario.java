@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.registeruser.scenarios;
+package com.anfelisa.user.usernameavailable.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,24 +34,34 @@ import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.ace.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
+public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		NotReplayableDataProvider.put("token", "TOKEN");
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", "ADMIN-TOKEN");
-		return com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", "admin-password", "Admin", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		return com.anfelisa.user.ActionCalls.callUsernameAvailable(randomUUID(), "Annette", DROPWIZARD.getLocalPort());
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
+		com.anfelisa.user.data.UsernameAvailableData expectedData = new com.anfelisa.user.data.UsernameAvailableData(randomUUID());
+		expectedData.setAvailable(new Boolean("false"));
+		
+		com.anfelisa.user.data.UsernameAvailableResponse expected = new com.anfelisa.user.data.UsernameAvailableResponse(expectedData);
+
+		com.anfelisa.user.data.UsernameAvailableResponse actual = response.readEntity(com.anfelisa.user.data.UsernameAvailableResponse.class);
+
+		assertThat(actual, expected);
 		
 	}
 	
 	@Test
-	public void registerUserAdmin() throws Exception {
+	public void usernameNotAvailable() throws Exception {
 		given();
 		
 		Response response = when();

@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.scenarios;
+package com.anfelisa.user.getrole.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,23 +34,26 @@ import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.ace.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetRoleScenario extends BaseScenario {
+public abstract class AbstractGetRoleAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", "TOKEN");
 		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 
+		NotReplayableDataProvider.put("token", "ADMIN-TOKEN");
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", "admin-password", "Admin", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callGetRole(randomUUID(), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		return com.anfelisa.user.ActionCalls.callGetRole(randomUUID(), DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
 		com.anfelisa.user.data.RoleData expectedData = new com.anfelisa.user.data.RoleData(randomUUID());
-		expectedData.setRole("STUDENT");
+		expectedData.setRole("ADMIN");
 		
 		com.anfelisa.user.data.GetRoleResponse expected = new com.anfelisa.user.data.GetRoleResponse(expectedData);
 
@@ -61,7 +64,7 @@ public abstract class AbstractGetRoleScenario extends BaseScenario {
 	}
 	
 	@Test
-	public void getRole() throws Exception {
+	public void getRoleAdmin() throws Exception {
 		given();
 		
 		Response response = when();

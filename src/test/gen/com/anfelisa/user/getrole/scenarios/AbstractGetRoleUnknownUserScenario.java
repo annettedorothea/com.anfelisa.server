@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.scenarios;
+package com.anfelisa.user.getrole.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,0 +1,41 @@
+HttpServer 
+
+com.anfelisa.user.getrole
+
+scenarios 
+
+	GetRoleStudent
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin 
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.GetRole
+			authorization "Annette" : "password"
+		THEN 200
+		response {
+			role: "STUDENT"
+		}
+
+	GetRoleWrongPassword
+		GIVEN com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.GetRole
+			authorization "Annette" : "wrong"
+		THEN 401
+
+	GetRoleUnknownUser
+		GIVEN com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.GetRole
+			authorization "lala" : "password"
+		THEN 401
+		
+	GetRoleAdmin
+		GIVEN 
+			com.anfelisa.user.registeruser.RegisterUser
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.GetRole
+			authorization "Admin" : "admin-password"
+		THEN  200 
+		response {
+			role: "ADMIN"
+		}
+		
+

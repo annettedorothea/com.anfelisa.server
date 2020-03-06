@@ -43,18 +43,6 @@ public class EventFactory {
 
 	public static IEvent createEvent(String eventClass, String json, IDaoProvider daoProvider, ViewProvider viewProvider) {
 		try {
-			if (eventClass.equals("com.anfelisa.user.events.ForgotPasswordOkEvent")) {
-				ForgotPasswordData data = mapper.readValue(json, ForgotPasswordData.class);
-				data.migrateLegacyData(json);
-				ForgotPasswordOkEvent event = new ForgotPasswordOkEvent(data, daoProvider, viewProvider);
-				return event;
-			}
-			if (eventClass.equals("com.anfelisa.user.events.ResetPasswordOkEvent")) {
-				ResetPasswordWithNewPasswordData data = mapper.readValue(json, ResetPasswordWithNewPasswordData.class);
-				data.migrateLegacyData(json);
-				ResetPasswordOkEvent event = new ResetPasswordOkEvent(data, daoProvider, viewProvider);
-				return event;
-			}
 			if (eventClass.equals("com.anfelisa.user.events.RegisterUserOkEvent")) {
 				UserRegistrationData data = mapper.readValue(json, UserRegistrationData.class);
 				data.migrateLegacyData(json);
@@ -65,6 +53,18 @@ public class EventFactory {
 				ConfirmEmailData data = mapper.readValue(json, ConfirmEmailData.class);
 				data.migrateLegacyData(json);
 				ConfirmEmailOkEvent event = new ConfirmEmailOkEvent(data, daoProvider, viewProvider);
+				return event;
+			}
+			if (eventClass.equals("com.anfelisa.user.events.ForgotPasswordOkEvent")) {
+				ForgotPasswordData data = mapper.readValue(json, ForgotPasswordData.class);
+				data.migrateLegacyData(json);
+				ForgotPasswordOkEvent event = new ForgotPasswordOkEvent(data, daoProvider, viewProvider);
+				return event;
+			}
+			if (eventClass.equals("com.anfelisa.user.events.ResetPasswordOkEvent")) {
+				ResetPasswordWithNewPasswordData data = mapper.readValue(json, ResetPasswordWithNewPasswordData.class);
+				data.migrateLegacyData(json);
+				ResetPasswordOkEvent event = new ResetPasswordOkEvent(data, daoProvider, viewProvider);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.user.events.ChangeUserRoleOkEvent")) {
@@ -87,7 +87,15 @@ public class EventFactory {
 	}
 
 	public static IEvent createEvent(String eventClass, IDataContainer data, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		if (eventClass.equals("com.anfelisa.user.events.RegisterUserOkEvent")) {
+			return new RegisterUserOkEvent((UserRegistrationData)data, daoProvider, viewProvider);
+		}
 
+
+
+		if (eventClass.equals("com.anfelisa.user.events.ConfirmEmailOkEvent")) {
+			return new ConfirmEmailOkEvent((ConfirmEmailData)data, daoProvider, viewProvider);
+		}
 
 
 
@@ -97,14 +105,6 @@ public class EventFactory {
 
 		if (eventClass.equals("com.anfelisa.user.events.ResetPasswordOkEvent")) {
 			return new ResetPasswordOkEvent((ResetPasswordWithNewPasswordData)data, daoProvider, viewProvider);
-		}
-
-		if (eventClass.equals("com.anfelisa.user.events.RegisterUserOkEvent")) {
-			return new RegisterUserOkEvent((UserRegistrationData)data, daoProvider, viewProvider);
-		}
-
-		if (eventClass.equals("com.anfelisa.user.events.ConfirmEmailOkEvent")) {
-			return new ConfirmEmailOkEvent((ConfirmEmailData)data, daoProvider, viewProvider);
 		}
 
 		if (eventClass.equals("com.anfelisa.user.events.ChangeUserRoleOkEvent")) {

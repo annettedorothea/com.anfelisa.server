@@ -10,6 +10,33 @@ Authorization AuthUser {
 }
 
 ACE 
+	 RegisterUser<UserRegistration>
+		POST "/users/register"
+		payload 
+			password
+			username
+			email
+			language
+		on ok (User.registerUser EmailConfirmation.insert Email.sendRegistrationEmail)
+		
+	GetRole <Role>
+		GET "/user/role"
+		authorize 
+		response role 
+		
+	UsernameAvailable<UsernameAvailable>
+		GET "/users/username" 
+		queryParams username
+		response available
+	
+	ConfirmEmail<ConfirmEmail>
+		PUT "/users/confirm" 
+		payload 
+			token
+			username
+		on ok (User.confirmEmail EmailConfirmation.delete)
+		on alreadyConfirmed
+	
 	GetUserProfile<User>
 		GET "/user/get" 
 		authorize 
@@ -18,16 +45,6 @@ ACE
 			username
 			userId
 	
-	UsernameAvailable<UsernameAvailable>
-		GET "/users/username" 
-		queryParams username
-		response available
-	
-	GetRole <Role>
-		GET "/user/role"
-		authorize 
-		response role 
-		
 	GetAllUsers<UserList>
 		GET "/users/all" 
 		authorize
@@ -45,23 +62,6 @@ ACE
 			password
 			token 
 		on ok (User.resetPassword ResetPassword.delete)
-	
-	 RegisterUser<UserRegistration>
-		POST "/users/register"
-		payload 
-			password
-			username
-			email
-			language
-		on ok (User.registerUser EmailConfirmation.insert Email.sendRegistrationEmail)
-		
-	ConfirmEmail<ConfirmEmail>
-		PUT "/users/confirm" 
-		payload 
-			token
-			username
-		on ok (User.confirmEmail EmailConfirmation.delete)
-		on alreadyConfirmed
 	
 	ChangeUserRole<ChangeUserRole>
 		PUT "/user/role" 
@@ -165,53 +165,4 @@ models
 	ConfirmEmail extends EmailConfirmation {
 		String username
 	}
-
-scenarios 
-	UsernameAvailable
-		GIVEN 
-			com.anfelisa.user.registeruser.RegisterUser
-		WHEN UsernameAvailable
-				{
-					username : "lala"
-					
-				}
-		THEN 200
-		response {
-			available : "true"
-		}				
-
-	UsernameNotAvailable
-		GIVEN 
-			com.anfelisa.user.registeruser.RegisterUser
-		WHEN UsernameAvailable
-				{
-					username: "Annette"
-				}
-				
-		THEN 200
-		response
-		{
-			available : "false"
-		}
-	
-	GetRole
-		GIVEN com.anfelisa.user.registeruser.RegisterUser
-		WHEN GetRole
-			authorization "Annette" : "password"
-		THEN 200
-		response {
-			role: "STUDENT"
-		}
-
-	GetRoleWrongPassword
-		GIVEN com.anfelisa.user.registeruser.RegisterUser
-		WHEN GetRole
-			authorization "Annette" : "wrong"
-		THEN 401
-
-	GetRoleUnknownUser
-		GIVEN com.anfelisa.user.registeruser.RegisterUser
-		WHEN GetRole
-			authorization "lala" : "password"
-		THEN 401
 

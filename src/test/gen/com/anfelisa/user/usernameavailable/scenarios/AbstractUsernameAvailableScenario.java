@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.scenarios;
+package com.anfelisa.user.usernameavailable.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.ace.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario {
+public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", "TOKEN");
@@ -43,17 +43,25 @@ public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callGetRole(randomUUID(), DROPWIZARD.getLocalPort(), authorization("Annette", "wrong"));
+		return com.anfelisa.user.ActionCalls.callUsernameAvailable(randomUUID(), "lala", DROPWIZARD.getLocalPort());
 	}
 	
 	private void then(Response response) throws Exception {
-		assertThat(response.getStatus(), 401);
+		assertThat(response.getStatus(), 200);
 		
+		com.anfelisa.user.data.UsernameAvailableData expectedData = new com.anfelisa.user.data.UsernameAvailableData(randomUUID());
+		expectedData.setAvailable(new Boolean("true"));
+		
+		com.anfelisa.user.data.UsernameAvailableResponse expected = new com.anfelisa.user.data.UsernameAvailableResponse(expectedData);
+
+		com.anfelisa.user.data.UsernameAvailableResponse actual = response.readEntity(com.anfelisa.user.data.UsernameAvailableResponse.class);
+
+		assertThat(actual, expected);
 		
 	}
 	
 	@Test
-	public void getRoleWrongPassword() throws Exception {
+	public void usernameAvailable() throws Exception {
 		given();
 		
 		Response response = when();

@@ -29,9 +29,20 @@ import org.glassfish.jersey.client.JerseyClientBuilder;
 @SuppressWarnings("unused")
 public class ActionCalls {
 
-	public static Response callGetUserProfile(String uuid, int port, String authorization) {
+	public static Response callRegisterUser(String uuid, String password, String username, String email, String language, int port) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/user/get?uuid=" + uuid, port)).request(); 
+		Builder builder = client.target(String.format("http://localhost:%d/api/users/register", port)).request(); 
+		com.anfelisa.user.data.IUserRegistrationData data = new com.anfelisa.user.data.UserRegistrationData(uuid);
+		data.setPassword(password);
+		data.setUsername(username);
+		data.setEmail(email);
+		data.setLanguage(language);
+		return builder.post(Entity.json(data));
+	}
+	
+	public static Response callGetRole(String uuid, int port, String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/user/role?uuid=" + uuid, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
@@ -42,9 +53,18 @@ public class ActionCalls {
 		return builder.get();
 	}
 	
-	public static Response callGetRole(String uuid, int port, String authorization) {
+	public static Response callConfirmEmail(String uuid, String token, String username, int port) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/user/role?uuid=" + uuid, port)).request(); 
+		Builder builder = client.target(String.format("http://localhost:%d/api/users/confirm?uuid=" + uuid, port)).request();
+		com.anfelisa.user.data.IConfirmEmailData data = new com.anfelisa.user.data.ConfirmEmailData(uuid);
+		data.setToken(token);
+		data.setUsername(username);
+		return builder.put(Entity.json(data));
+	}
+	
+	public static Response callGetUserProfile(String uuid, int port, String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/user/get?uuid=" + uuid, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
@@ -71,26 +91,6 @@ public class ActionCalls {
 		com.anfelisa.user.data.IResetPasswordWithNewPasswordData data = new com.anfelisa.user.data.ResetPasswordWithNewPasswordData(uuid);
 		data.setPassword(password);
 		data.setToken(token);
-		return builder.put(Entity.json(data));
-	}
-	
-	public static Response callRegisterUser(String uuid, String password, String username, String email, String language, int port) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/users/register", port)).request(); 
-		com.anfelisa.user.data.IUserRegistrationData data = new com.anfelisa.user.data.UserRegistrationData(uuid);
-		data.setPassword(password);
-		data.setUsername(username);
-		data.setEmail(email);
-		data.setLanguage(language);
-		return builder.post(Entity.json(data));
-	}
-	
-	public static Response callConfirmEmail(String uuid, String token, String username, int port) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/users/confirm?uuid=" + uuid, port)).request();
-		com.anfelisa.user.data.IConfirmEmailData data = new com.anfelisa.user.data.ConfirmEmailData(uuid);
-		data.setToken(token);
-		data.setUsername(username);
 		return builder.put(Entity.json(data));
 	}
 	
