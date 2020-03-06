@@ -1,0 +1,53 @@
+HttpServer 
+
+com.anfelisa.user.confirmemail
+
+scenarios 
+
+	ConfirmEmailOK
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.ConfirmEmail {
+			token: "TOKEN"
+			username: "Annette"
+		}
+		THEN 200
+
+	ConfirmEmailUserDoesNotExist
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.ConfirmEmail {
+			token: "TOKEN"
+			username: "doesNotExist"
+		}
+		THEN 400
+
+	ConfirmEmailAlreadyConfirmed
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+			ConfirmEmailOK
+		WHEN com.anfelisa.user.ConfirmEmail {
+			token: "TOKEN"
+			username: "Annette"
+		}
+		THEN 200
+
+	ConfirmEmailConfirmationTokenDoesNotExist
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.ConfirmEmail {
+			token: "DOES_NOT_EXIST"
+			username: "Annette"
+		}
+		THEN 400
+
+	ConfirmEmailTokenDoesNotMatch
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.ConfirmEmail {
+			token: "ADMIN-TOKEN"
+			username: "Annette"
+		}
+		THEN 400
+

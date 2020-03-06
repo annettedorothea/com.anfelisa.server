@@ -17,34 +17,16 @@
 
 
 
-package com.anfelisa.ace;
+package com.anfelisa.user.getallusers.scenarios;
 
-import java.util.UUID;
-import java.util.List;
+import javax.ws.rs.core.Response;
 
-import org.jdbi.v3.core.Handle;
+@SuppressWarnings("unused")
+public class GetAllUsersNotAdminScenario extends AbstractGetAllUsersNotAdminScenario {
 
-public abstract class AbstractBaseScenario {
-
-	protected final JodaObjectMapper mapper = new JodaObjectMapper();
-
-	protected DaoProvider daoProvider;
-
-	protected Handle handle;
-
-	public static String randomUUID() {
-		return UUID.randomUUID().toString();
+	@Override
+	protected void verifications(Response response) {
 	}
-
-	protected abstract String authorization(String username, String password);
-
-	protected abstract void assertThat(int actual, int expected);
-
-	protected abstract void assertThat(Object actual, Object expected);
-
-	protected abstract void assertIsNull(Object actual);
-	
-	protected abstract void assertThat(List<?> actual, List<?> expected);
 
 }
 

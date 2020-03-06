@@ -20,6 +20,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 
 import java.util.Base64;
+import java.util.List;
 
 import org.jdbi.v3.core.Jdbi;
 import org.junit.After;
@@ -87,6 +88,14 @@ public class BaseScenario extends AbstractBaseScenario {
 		org.junit.Assert.assertThat(actual, is(samePropertyValuesAs(expected)));
 	}
 
+	@Override
+	protected void assertThat(List<?> actual, List<?> expected) {
+		org.junit.Assert.assertThat(actual.size(), is(expected.size()));
+		for (int i=0; i<actual.size(); i++) {
+			org.junit.Assert.assertThat(actual.get(i), is(samePropertyValuesAs(expected.get(i))));
+		}
+	}
+	
 	@Override
 	protected void assertIsNull(Object actual) {
 		org.junit.Assert.assertNull(actual);

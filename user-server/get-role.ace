@@ -38,4 +38,11 @@ scenarios
 			role: "ADMIN"
 		}
 		
+	GetRoleNoAuthorization
+		GIVEN 
+			com.anfelisa.user.registeruser.RegisterUser
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.GetRole
+		THEN  401
+		
 

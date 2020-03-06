@@ -17,6 +17,9 @@ public class EmailService {
 	}
 
 	public void sendEmail(String to, String subject, String message) {
+		if (ServerConfiguration.TEST.equals(App.getMode())) {
+			return;
+		}
 		try {
 			Email email = new SimpleEmail();
 			email.setHostName(emailConfiguration.getHost());
@@ -31,7 +34,7 @@ public class EmailService {
 				email.setSubject(subject);
 			} else {
 				email.addTo(emailConfiguration.getUser());
-				email.setSubject("REPLAY: to " +  to + " subject " + subject);
+				email.setSubject("to " +  to + " subject " + subject);
 			}
 			email.send();
 		} catch (EmailException e) {

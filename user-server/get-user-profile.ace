@@ -1,0 +1,48 @@
+HttpServer 
+
+com.anfelisa.user.getuserprofile
+
+scenarios 
+
+	GetUserProfile
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin 
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.GetUserProfile
+			authorization "Annette" : "password"
+		THEN 200
+		response {
+			email : "annette.pohl@anfelisa.de"
+			username : "Annette"
+			userId : "uuid"
+		}
+
+	GetUserProfileAdmin
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin 
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.GetUserProfile
+			authorization "Admin" : "admin-password"
+		THEN 200
+		response {
+			email : "annette.pohl@anfelisa.de"
+			username : "Admin"
+			userId: "uuid-admin"
+		}
+
+	GetUserProfileWrongPassword
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin 
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.GetUserProfile
+			authorization "Admin" : "wrong"
+		THEN 401
+
+	GetUserProfileUserDoesNotExist
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin 
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.GetUserProfile
+			authorization "lala" : "wrong"
+		THEN 401
+

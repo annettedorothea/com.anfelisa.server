@@ -17,35 +17,19 @@
 
 
 
-package com.anfelisa.ace;
+package com.anfelisa.user.getallusers;
 
-import java.util.UUID;
-import java.util.List;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.core.Response;
 
-import org.jdbi.v3.core.Handle;
+import org.glassfish.jersey.client.JerseyClientBuilder;
 
-public abstract class AbstractBaseScenario {
+@SuppressWarnings("unused")
+public class ActionCalls {
 
-	protected final JodaObjectMapper mapper = new JodaObjectMapper();
-
-	protected DaoProvider daoProvider;
-
-	protected Handle handle;
-
-	public static String randomUUID() {
-		return UUID.randomUUID().toString();
-	}
-
-	protected abstract String authorization(String username, String password);
-
-	protected abstract void assertThat(int actual, int expected);
-
-	protected abstract void assertThat(Object actual, Object expected);
-
-	protected abstract void assertIsNull(Object actual);
 	
-	protected abstract void assertThat(List<?> actual, List<?> expected);
-
 }
 
 

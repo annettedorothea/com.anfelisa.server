@@ -17,35 +17,29 @@
 
 
 
-package com.anfelisa.ace;
+package com.anfelisa.user.getallusers;
 
-import java.util.UUID;
-import java.util.List;
+import io.dropwizard.setup.Environment;
+import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.AceExecutionMode;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.ace.ServerConfiguration;
+import com.anfelisa.ace.E2E;
 
-import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.Jdbi;
 
-public abstract class AbstractBaseScenario {
 
-	protected final JodaObjectMapper mapper = new JodaObjectMapper();
 
-	protected DaoProvider daoProvider;
+@SuppressWarnings("all")
+public class AppRegistration {
 
-	protected Handle handle;
-
-	public static String randomUUID() {
-		return UUID.randomUUID().toString();
+	public static void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 	}
 
-	protected abstract String authorization(String username, String password);
-
-	protected abstract void assertThat(int actual, int expected);
-
-	protected abstract void assertThat(Object actual, Object expected);
-
-	protected abstract void assertIsNull(Object actual);
-	
-	protected abstract void assertThat(List<?> actual, List<?> expected);
-
+	public static void registerConsumers(ViewProvider viewProvider, String mode) {
+    }
 }
 
 

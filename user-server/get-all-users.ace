@@ -1,0 +1,42 @@
+HttpServer 
+
+com.anfelisa.user.getallusers
+
+scenarios 
+
+	GetAllUsersNotAdmin
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin 
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.GetAllUsers
+			authorization "Annette" : "password"
+		THEN 401
+
+	GetAllUsersAdmin
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin 
+			com.anfelisa.user.confirmemail.ConfirmEmailOK
+		WHEN com.anfelisa.user.GetAllUsers
+			authorization "Admin" : "admin-password"
+		THEN 200
+			response {
+				userList : [
+					{
+						email : "annette.pohl@anfelisa.de"
+						password : "password"
+						username : "Annette"
+						emailConfirmed : "true"
+						role : "STUDENT"
+						userId : "uuid"
+					}
+					{ 
+						email : "annette.pohl@anfelisa.de"
+						password : "admin-password"
+						username : "Admin"
+						userId : "uuid-admin" 			
+						emailConfirmed : "false"
+						role : "ADMIN"
+					}
+				]
+			}
+
