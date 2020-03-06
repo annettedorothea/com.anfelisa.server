@@ -20,7 +20,6 @@
 package com.anfelisa.ace;
 
 import java.util.UUID;
-import java.util.List;
 
 import org.jdbi.v3.core.Handle;
 
@@ -43,8 +42,6 @@ public abstract class AbstractBaseScenario {
 	protected abstract void assertThat(Object actual, Object expected);
 
 	protected abstract void assertIsNull(Object actual);
-	
-	protected abstract void assertThat(List<?> actual, List<?> expected);
 
 }
 

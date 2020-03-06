@@ -43,6 +43,9 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 		NotReplayableDataProvider.put("token", "TOKEN");
 		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 
+		NotReplayableDataProvider.put("token", "TOKEN");
+		com.anfelisa.user.ActionCalls.callConfirmEmail(randomUUID(), "TOKEN", "Annette", DROPWIZARD.getLocalPort());
+
 	}
 	
 	private Response when() throws Exception {

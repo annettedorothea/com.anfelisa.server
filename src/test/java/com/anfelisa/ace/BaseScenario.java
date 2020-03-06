@@ -30,6 +30,9 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.user.data.GetAllUsersResponse;
+import com.anfelisa.user.models.IUserModel;
+
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.testing.DropwizardTestSupport;
 
@@ -41,7 +44,7 @@ public class BaseScenario extends AbstractBaseScenario {
 			App.class, "test.yml");
 
 	private static Jdbi jdbi;
-	
+
 	@BeforeClass
 	public static void beforeClass() {
 		DROPWIZARD.before();
@@ -85,17 +88,24 @@ public class BaseScenario extends AbstractBaseScenario {
 
 	@Override
 	protected void assertThat(Object actual, Object expected) {
-		org.junit.Assert.assertThat(actual, is(samePropertyValuesAs(expected)));
-	}
-
-	@Override
-	protected void assertThat(List<?> actual, List<?> expected) {
-		org.junit.Assert.assertThat(actual.size(), is(expected.size()));
-		for (int i=0; i<actual.size(); i++) {
-			org.junit.Assert.assertThat(actual.get(i), is(samePropertyValuesAs(expected.get(i))));
+		if (actual instanceof GetAllUsersResponse) {
+			assertThat((GetAllUsersResponse) actual, (GetAllUsersResponse) expected);
+		} else {
+			org.junit.Assert.assertThat(actual, is(samePropertyValuesAs(expected)));
 		}
 	}
-	
+
+	protected void assertThat(GetAllUsersResponse actual, GetAllUsersResponse expected) {
+		List<IUserModel> actualUserList = actual.getUserList();
+		List<IUserModel> expectedUserList = expected.getUserList();
+		assertThat(actualUserList.size(), expectedUserList.size());
+		for (int i = 0; i < actualUserList.size(); i++) {
+			IUserModel actualUser = actualUserList.get(i);
+			IUserModel expectedUser = expectedUserList.get(i);
+			org.junit.Assert.assertThat(actualUser, is(samePropertyValuesAs(expectedUser)));
+		}
+	}
+
 	@Override
 	protected void assertIsNull(Object actual) {
 		org.junit.Assert.assertNull(actual);
