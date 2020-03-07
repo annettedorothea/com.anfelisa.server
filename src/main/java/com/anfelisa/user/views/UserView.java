@@ -27,7 +27,7 @@ public class UserView implements IUserView {
 	}
 
 	public void changeUserRole(IChangeUserRoleData data, Handle handle) {
-		daoProvider.getUserDao().changeUserRole(handle, data.getUserId(), data.getRole());
+		daoProvider.getUserDao().changeUserRole(handle, data.getEditedUserId(), data.getNewRole());
 	}
 
 	public void deleteUser(IDeleteUserData data, Handle handle) {

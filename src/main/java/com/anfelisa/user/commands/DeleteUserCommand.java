@@ -26,7 +26,8 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 				&& !commandData.getUsername().equals(commandData.getUsernameToBeDeleted())) {
 			throwUnauthorized();
 		}
-		IUserModel userToBeDeleted = daoProvider.getUserDao().selectByUsername(readonlyHandle,  commandData.getUsernameToBeDeleted());
+		IUserModel userToBeDeleted = daoProvider.getUserDao().selectByUsername(readonlyHandle,
+				commandData.getUsernameToBeDeleted());
 		if (userToBeDeleted == null) {
 			throwBadRequest("userDoesNotExist");
 		}

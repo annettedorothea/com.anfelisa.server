@@ -71,6 +71,7 @@ ACE
 				editedUserId
 		on ok ( User.changeUserRole )
 	
+	// TODO Scenario that verifies that all user data is deleted also
 	DeleteUser <DeleteUser>
 		DELETE "/user/delete"  
 		authorize
@@ -119,7 +120,7 @@ models
 	}
 
 	persistent ResetPassword {
-		Unique PrimaryKey NotNull String token
+		Unique PrimaryKey NotNull String token notReplayable
 		NotNull String userId
 	}
 	

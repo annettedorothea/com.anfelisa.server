@@ -1,0 +1,82 @@
+HttpServer 
+
+com.anfelisa.user.changeuerrole
+
+scenarios 
+
+	ChangeUserRoleToAdmin
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.ChangeUserRole {
+			editedUserId: "uuid"
+			newRole: "ADMIN"
+		}
+		authorization "Admin": "admin-password"
+		THEN 200
+
+	ChangeUserRoleToStudent
+		GIVEN
+			ChangeUserRoleToAdmin
+		WHEN com.anfelisa.user.ChangeUserRole {
+			editedUserId: "uuid"
+			newRole: "STUDENT"
+		}
+		authorization "Admin": "admin-password"
+		THEN 200
+
+	ChangeUserRoleUnauthorized
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.ChangeUserRole {
+			editedUserId: "uuid"
+			newRole: "STUDENT"
+		}
+		authorization "Admin": "wrong"
+		THEN 401
+
+	ChangeUserRoleNoAuthorization
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.ChangeUserRole {
+			editedUserId: "uuid"
+			newRole: "STUDENT"
+		}
+		THEN 401
+
+	ChangeUserRoleNotAdmin
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.ChangeUserRole {
+			editedUserId: "uuid"
+			newRole: "STUDENT"
+		}
+		authorization "Annette": "password"
+		THEN 401
+
+	ChangeUserRoleUserDoesNotExist
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.ChangeUserRole {
+			editedUserId: "doesNotExist"
+			newRole: "STUDENT"
+		}
+		authorization "Admin": "admin-password"
+		THEN 400
+
+	ChangeUserRoleAdminRoleMustNotBeChanged
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.ChangeUserRole {
+			editedUserId: "uuid-admin"
+			newRole: "STUDENT"
+		}
+		authorization "Admin": "admin-password"
+		THEN 400
+
+

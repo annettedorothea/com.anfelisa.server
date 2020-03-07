@@ -135,9 +135,15 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 				IForgotPasswordData originalActionData = (IForgotPasswordData)originalData;
 				this.actionData.setSystemTime(originalActionData.getSystemTime());
+				this.actionData.setToken((originalActionData.getToken()));
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (NotReplayableDataProvider.getSystemTime() != null) {
 					this.actionData.setSystemTime(NotReplayableDataProvider.getSystemTime());
+				}
+				if (NotReplayableDataProvider.get("token") != null) {
+					this.actionData.setToken((String)NotReplayableDataProvider.get("token"));
+				} else {
+					LOG.warn("token is daclared as not replayable but no value was found in NotReplayableDataProvider.");
 				}
 			}
 			if (!ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())) {
