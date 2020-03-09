@@ -14,30 +14,28 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.anfelisa.box.actions;
 
-import org.jdbi.v3.core.Jdbi;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.E2E;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
 
-public class CreateBoxAction extends AbstractCreateBoxAction {
+package com.anfelisa.user.deleteuser;
 
-	static final Logger LOG = LoggerFactory.getLogger(CreateBoxAction.class);
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.core.Response;
 
-	public CreateBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
-			ViewProvider viewProvider, E2E e2e) {
-		super(jdbi, appConfiguration, daoProvider, viewProvider, e2e);
-	}
+import org.glassfish.jersey.client.JerseyClientBuilder;
 
-	public void initActionData() {
-		// init not replayable data here
-	}
+@SuppressWarnings("unused")
+public class ActionCalls {
 
+	
 }
 
+
+
+
 /******* S.D.G. *******/
+
+
+

@@ -1,0 +1,62 @@
+HttpServer 
+
+com.anfelisa.user.deleteuser
+
+scenarios 
+
+	DeleteUserAsAdmin
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.DeleteUser {
+			usernameToBeDeleted: "Annette"
+		}
+		authorization "Admin": "admin-password"
+		THEN 200
+
+	DeleteUserUnauthorized
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterTwoUsers
+		WHEN com.anfelisa.user.DeleteUser {
+			usernameToBeDeleted: "Annette"
+		}
+		authorization "Anne": "pw"
+		THEN 401
+
+	DeleteUserAsStudent
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.DeleteUser {
+			usernameToBeDeleted: "Annette"
+		}
+		authorization "Annette": "password"
+		THEN 200
+
+	DeleteUserDoesNotExist
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.DeleteUser {
+			usernameToBeDeleted: "doesNotExist"
+		}
+		authorization "Admin": "admin-password"
+		THEN 400
+
+	DeleteUserLastAdmin
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN com.anfelisa.user.DeleteUser {
+			usernameToBeDeleted: "Admin"
+		}
+		authorization "Admin": "admin-password"
+		THEN 400
+
+	DeleteAdmin
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+			com.anfelisa.user.changeuerrole.ChangeUserRoleToAdmin
+		WHEN com.anfelisa.user.DeleteUser {
+			usernameToBeDeleted: "Annette"
+		}
+		authorization "Admin": "admin-password"
+		THEN 200
+

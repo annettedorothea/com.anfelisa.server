@@ -14,30 +14,33 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.anfelisa.box.actions;
 
-import org.jdbi.v3.core.Jdbi;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.E2E;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
 
-public class CreateBoxAction extends AbstractCreateBoxAction {
+package com.anfelisa.user.deleteuser.scenarios;
 
-	static final Logger LOG = LoggerFactory.getLogger(CreateBoxAction.class);
+import javax.ws.rs.core.Response;
 
-	public CreateBoxAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
-			ViewProvider viewProvider, E2E e2e) {
-		super(jdbi, appConfiguration, daoProvider, viewProvider, e2e);
-	}
+import com.anfelisa.auth.Roles;
+import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.user.models.UserModel;
 
-	public void initActionData() {
-		// init not replayable data here
+@SuppressWarnings("unused")
+public class DeleteUserUnauthorizedScenario extends AbstractDeleteUserUnauthorizedScenario {
+
+	@Override
+	protected void verifications(Response response) {
+		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette");
+		IUserModel expectedUser = new UserModel("uuid", "Annette", "password", "annette.pohl@anfelisa.de", Roles.STUDENT, false);
+		assertThat(actualUser, expectedUser);
 	}
 
 }
 
+
+
+
 /******* S.D.G. *******/
+
+
+
