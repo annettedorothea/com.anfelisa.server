@@ -37,8 +37,8 @@ public class AppRegistration {
 
 	public static void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
-		environment.jersey().register(new GetBoxesAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new CreateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetBoxesAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new GetBoxSettingsAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new UpdateBoxAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new InitMyBoxesForDayAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));

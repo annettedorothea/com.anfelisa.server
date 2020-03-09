@@ -6,13 +6,6 @@ import com.anfelisa.user.AuthUser
 
 
 ACE 
-	GetBoxes<BoxList>
-	GET "/boxes/my/" 
-		authorize 
-		queryParams today
-		response 
-			boxList
-		
 	CreateBox<BoxCreation>
 		POST "/box/create"  
 		authorize
@@ -25,6 +18,13 @@ ACE
 			maxInterval
 		on ok (RootCategory.insert UserAccessToCategory.grantAccess Box.createBox)
 
+	GetBoxes<BoxList>
+	GET "/boxes/my/" 
+		authorize 
+		queryParams today
+		response 
+			boxList
+		
 	GetBoxSettings<BoxSettings>
 	GET "/box/settings/{boxId}/" 
 		authorize 

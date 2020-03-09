@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.deleteuser.scenarios;
+package com.anfelisa.box.createbox.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,26 +34,28 @@ import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.ace.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenario {
+public abstract class AbstractCreateSecondBoxScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", "TOKEN");
 		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 
+		com.anfelisa.box.ActionCalls.callCreateBox("boxId", "cat", new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callDeleteUser(randomUUID(), "Annette", DROPWIZARD.getLocalPort(), null);
+		return com.anfelisa.box.ActionCalls.callCreateBox("boxId2", "cat2", new Boolean("false"), null, null, 8, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
 	private void then(Response response) throws Exception {
-		assertThat(response.getStatus(), 401);
+		assertThat(response.getStatus(), 200);
 		
 		
 	}
 	
 	@Test
-	public void deleteUserUnauthorized() throws Exception {
+	public void createSecondBox() throws Exception {
 		given();
 		
 		Response response = when();

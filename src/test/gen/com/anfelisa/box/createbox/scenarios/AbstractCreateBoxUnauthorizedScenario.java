@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.deleteuser.scenarios;
+package com.anfelisa.box.createbox.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.ace.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenario {
+public abstract class AbstractCreateBoxUnauthorizedScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", "TOKEN");
@@ -43,7 +43,7 @@ public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenari
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callDeleteUser(randomUUID(), "Annette", DROPWIZARD.getLocalPort(), null);
+		return com.anfelisa.box.ActionCalls.callCreateBox("boxId", "lala", new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), null);
 	}
 	
 	private void then(Response response) throws Exception {
@@ -53,7 +53,7 @@ public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenari
 	}
 	
 	@Test
-	public void deleteUserUnauthorized() throws Exception {
+	public void createBoxUnauthorized() throws Exception {
 		given();
 		
 		Response response = when();

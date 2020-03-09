@@ -34,16 +34,19 @@ import com.anfelisa.ace.ITimelineItem;
 import com.anfelisa.ace.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenario {
+public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", "TOKEN");
 		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
 
+		NotReplayableDataProvider.put("token", "TOKEN_2");
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid2", "pw", "Anne", "info@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callDeleteUser(randomUUID(), "Annette", DROPWIZARD.getLocalPort(), null);
+		return com.anfelisa.user.ActionCalls.callDeleteUser(randomUUID(), "Annette", DROPWIZARD.getLocalPort(), authorization("Anne", "pw"));
 	}
 	
 	private void then(Response response) throws Exception {
@@ -53,7 +56,7 @@ public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenari
 	}
 	
 	@Test
-	public void deleteUserUnauthorized() throws Exception {
+	public void deleteUserUnauthorizedNotAdmin() throws Exception {
 		given();
 		
 		Response response = when();

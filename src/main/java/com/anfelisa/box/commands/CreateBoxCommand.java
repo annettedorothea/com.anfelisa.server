@@ -44,9 +44,6 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 		if (this.commandData.getMaxCardsPerDay() == null) {
 			throwBadRequest("max cards per day must not be null");
 		}
-		if (this.commandData.getParentCategoryId() != null) {
-			throwBadRequest("root category must not have a parent category");
-		}
 		if (StringUtils.isBlank(this.commandData.getCategoryName())) {
 			throwBadRequest("category name must not be null or empty");
 		}

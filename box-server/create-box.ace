@@ -1,0 +1,162 @@
+HttpServer 
+
+com.anfelisa.box.createbox
+
+scenarios 
+	CreateBoxMinimal
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN
+			com.anfelisa.box.CreateBox
+				uuid "boxId"
+				{
+					categoryName: "cat"
+					dictionaryLookup: "false"
+					maxCardsPerDay: 10
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateSecondBox
+		GIVEN
+			CreateBoxMinimal
+		WHEN
+			com.anfelisa.box.CreateBox
+				uuid "boxId2"
+				{
+					categoryName: "cat2"
+					dictionaryLookup: "false"
+					maxCardsPerDay: 8
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateBoxDictionaryLookupNull
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN
+			com.anfelisa.box.CreateBox
+				uuid "boxId"
+				{
+					categoryName: "cat"
+					maxCardsPerDay: 10
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateBoxDictionaryLookup
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN
+			com.anfelisa.box.CreateBox
+				uuid "boxId"
+				{
+					categoryName: "cat"
+					maxCardsPerDay: 10
+					dictionaryLookup: "true"
+					givenLanguage: "de"
+					wantedLanguage: "en"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		
+	CreateBoxGivenLanguageInvalid
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN
+			com.anfelisa.box.CreateBox
+				uuid "boxId"
+				{
+					categoryName: "cat"
+					maxCardsPerDay: 10
+					dictionaryLookup: "true"
+					givenLanguage: "xx"
+					wantedLanguage: "en"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+		
+	CreateBoxWantedLanguageInvalid
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN
+			com.anfelisa.box.CreateBox
+				uuid "boxId"
+				{
+					categoryName: "cat"
+					maxCardsPerDay: 10
+					dictionaryLookup: "true"
+					givenLanguage: "fr"
+					wantedLanguage: "xx"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+		
+	CreateBoxMaxCardsPerDayNull
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN
+			com.anfelisa.box.CreateBox
+				uuid "boxId"
+				{
+					categoryName: "cat"
+					dictionaryLookup: "false"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+		
+	CreateBoxCategoryNameNull
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN
+			com.anfelisa.box.CreateBox
+				uuid "boxId"
+				{
+					maxCardsPerDay: 10
+					dictionaryLookup: "false"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+		
+	CreateBoxCategoryNameEmpty
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN
+			com.anfelisa.box.CreateBox
+				uuid "boxId"
+				{
+					categoryName: ""
+					maxCardsPerDay: 10
+					dictionaryLookup: "false"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+		
+	CreateBoxCategoryNameBlank
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN
+			com.anfelisa.box.CreateBox
+				uuid "boxId"
+				{
+					categoryName: "    "
+					maxCardsPerDay: 10
+					dictionaryLookup: "false"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+		
+	CreateBoxUnauthorized
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN
+			com.anfelisa.box.CreateBox
+				uuid "boxId"
+				{
+					categoryName: "lala"
+					maxCardsPerDay: 10
+					dictionaryLookup: "false"
+				}
+		THEN 401
+		
+		

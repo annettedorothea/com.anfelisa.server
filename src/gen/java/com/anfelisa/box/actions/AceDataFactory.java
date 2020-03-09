@@ -40,16 +40,16 @@ public class AceDataFactory {
 
 	public static IDataContainer createAceData(String className, String json) {
 		try {
-			if (className.equals("com.anfelisa.box.actions.GetBoxesAction")) {
-				BoxListData data = mapper.readValue(json, BoxListData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
 			if (className.equals("com.anfelisa.box.actions.CreateBoxAction") ||
 					className.equals("com.anfelisa.box.commands.CreateBoxCommand") ||
 					className.equals("com.anfelisa.box.events.CreateBoxOkEvent")
 			) {
 				BoxCreationData data = mapper.readValue(json, BoxCreationData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
+			if (className.equals("com.anfelisa.box.actions.GetBoxesAction")) {
+				BoxListData data = mapper.readValue(json, BoxListData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}

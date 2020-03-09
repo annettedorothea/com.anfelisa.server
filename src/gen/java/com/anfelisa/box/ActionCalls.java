@@ -29,13 +29,6 @@ import org.glassfish.jersey.client.JerseyClientBuilder;
 @SuppressWarnings("unused")
 public class ActionCalls {
 
-	public static Response callGetBoxes(String uuid, org.joda.time.DateTime today, int port, String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/boxes/my/?uuid=" + uuid + "&today=" + today, port)).request(); 
-		builder.header("Authorization", authorization);
-		return builder.get();
-	}
-	
 	public static Response callCreateBox(String uuid, String categoryName, Boolean dictionaryLookup, String givenLanguage, String wantedLanguage, Integer maxCardsPerDay, Integer maxInterval, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/box/create", port)).request(); 
@@ -48,6 +41,13 @@ public class ActionCalls {
 		data.setMaxInterval(maxInterval);
 		builder.header("Authorization", authorization);
 		return builder.post(Entity.json(data));
+	}
+	
+	public static Response callGetBoxes(String uuid, org.joda.time.DateTime today, int port, String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/boxes/my/?uuid=" + uuid + "&today=" + today, port)).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
 	}
 	
 	public static Response callGetBoxSettings(String uuid, String boxId, int port, String authorization) {

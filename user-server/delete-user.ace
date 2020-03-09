@@ -14,13 +14,21 @@ scenarios
 		authorization "Admin": "admin-password"
 		THEN 200
 
-	DeleteUserUnauthorized
+	DeleteUserUnauthorizedNotAdmin
 		GIVEN
 			com.anfelisa.user.registeruser.RegisterTwoUsers
 		WHEN com.anfelisa.user.DeleteUser {
 			usernameToBeDeleted: "Annette"
 		}
 		authorization "Anne": "pw"
+		THEN 401
+
+	DeleteUserUnauthorized
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUser
+		WHEN com.anfelisa.user.DeleteUser {
+			usernameToBeDeleted: "Annette"
+		}
 		THEN 401
 
 	DeleteUserAsStudent
