@@ -19,12 +19,12 @@ package com.anfelisa.card.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.card.data.ICsvUploadData;
 import com.anfelisa.card.models.CardModel;
@@ -44,7 +44,7 @@ public class ImportCsvCommand extends AbstractImportCsvCommand {
 	}
 
 	@Override
-	protected void executeCommand(Handle readonlyHandle) {
+	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		IUserModel user = this.daoProvider.getUserDao().selectByUserId(readonlyHandle, commandData.getUserId());
 		ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getCategoryId());

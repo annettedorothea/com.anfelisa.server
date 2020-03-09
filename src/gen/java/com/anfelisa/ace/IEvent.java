@@ -19,17 +19,15 @@
 
 package com.anfelisa.ace;
 
-import org.jdbi.v3.core.Handle;
-
 public interface IEvent {
 
 	String getEventName();
 	
 	IDataContainer getEventData();
 	
-	void publish(Handle handle, Handle timelineHandle);
+	void publish(PersistenceHandle handle, PersistenceHandle timelineHandle);
 	
-	void notifyListeners(Handle handle);
+	void notifyListeners(PersistenceHandle handle);
 
 }
 

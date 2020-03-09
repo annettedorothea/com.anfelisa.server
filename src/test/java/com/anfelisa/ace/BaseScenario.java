@@ -65,13 +65,13 @@ public class BaseScenario extends AbstractBaseScenario {
 	@Before
 	public void before() {
 		daoProvider = new DaoProvider();
-		handle = jdbi.open();
+		handle = new PersistenceHandle(jdbi.open());
 		daoProvider.truncateAllViews(handle);
 	}
 
 	@After
 	public void after() {
-		handle.close();
+		handle.getHandle().close();
 	}
 
 	@Override

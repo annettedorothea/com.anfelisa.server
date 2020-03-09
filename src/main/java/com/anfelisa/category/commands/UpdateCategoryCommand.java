@@ -2,12 +2,12 @@ package com.anfelisa.category.commands;
 
 import java.util.Arrays;
 
-import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.data.ICategoryUpdateData;
 import com.anfelisa.category.models.ICategoryModel;
@@ -25,7 +25,7 @@ public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 	}
 
 	@Override
-	protected void executeCommand(Handle readonlyHandle) {
+	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, 
 				commandData.getCategoryId());
 		if (category == null) {

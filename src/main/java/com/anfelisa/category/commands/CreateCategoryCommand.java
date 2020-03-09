@@ -1,11 +1,11 @@
 package com.anfelisa.category.commands;
 
-import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.data.ICategoryCreationData;
 import com.anfelisa.category.models.ICategoryModel;
@@ -21,7 +21,7 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 	}
 
 	@Override
-	protected void executeCommand(Handle readonlyHandle) {
+	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		this.commandData.setCategoryId(commandData.getUuid());
 		this.commandData.setCategoryAuthor(commandData.getUsername());
 		if (commandData.getParentCategoryId() == null) {

@@ -19,7 +19,7 @@
 
 package com.anfelisa.category.models;
 
-import org.jdbi.v3.core.Handle;
+import com.anfelisa.ace.PersistenceHandle;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
@@ -28,8 +28,8 @@ import java.util.Optional;
 @SuppressWarnings("all")
 public class AbstractUserAccessToCategoryDao {
 	
-	public void insert(Handle handle, IUserAccessToCategoryModel userAccessToCategoryModel) {
-		Update statement = handle.createUpdate("INSERT INTO \"useraccesstocategory\" (categoryid, userid, editable) VALUES (:categoryid, :userid, :editable)");
+	public void insert(PersistenceHandle handle, IUserAccessToCategoryModel userAccessToCategoryModel) {
+		Update statement = handle.getHandle().createUpdate("INSERT INTO \"useraccesstocategory\" (categoryid, userid, editable) VALUES (:categoryid, :userid, :editable)");
 		statement.bind("categoryid",  userAccessToCategoryModel.getCategoryId() );
 		statement.bind("userid",  userAccessToCategoryModel.getUserId() );
 		statement.bind("editable",  userAccessToCategoryModel.getEditable() );
@@ -38,14 +38,14 @@ public class AbstractUserAccessToCategoryDao {
 	
 	
 	
-	public List<IUserAccessToCategoryModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT categoryid, userid, editable FROM \"useraccesstocategory\"")
+	public List<IUserAccessToCategoryModel> selectAll(PersistenceHandle handle) {
+		return handle.getHandle().createQuery("SELECT categoryid, userid, editable FROM \"useraccesstocategory\"")
 			.map(new UserAccessToCategoryMapper())
 			.list();
 	}
 
-	public void truncate(Handle handle) {
-		Update statement = handle.createUpdate("TRUNCATE TABLE \"useraccesstocategory\" CASCADE");
+	public void truncate(PersistenceHandle handle) {
+		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE \"useraccesstocategory\" CASCADE");
 		statement.execute();
 	}
 

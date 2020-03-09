@@ -17,19 +17,24 @@
 
 
 
-package com.anfelisa.user.registeruser.scenarios;
+package com.anfelisa.ace;
 
-import javax.ws.rs.core.Response;
+import org.jdbi.v3.core.Handle;
 
-@SuppressWarnings("unused")
-public class RegisterUserTwoUsersScenario extends AbstractRegisterUserTwoUsersScenario {
+public class PersistenceHandle {
+	
+	private Handle handle;
 
-	@Override
-	protected void verifications(Response response) {
+	public PersistenceHandle(Handle handle) {
+		super();
+		this.handle = handle;
+	}
+
+	public Handle getHandle() {
+		return handle;
 	}
 
 }
-
 
 
 

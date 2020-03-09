@@ -51,6 +51,9 @@ import com.anfelisa.ace.JodaObjectMapper;
 import com.anfelisa.ace.ServerConfiguration;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.NotReplayableDataProvider;
+import com.anfelisa.ace.PersistenceHandle;
+import com.anfelisa.ace.PersistenceConnection;
+
 import com.anfelisa.auth.AuthUser;
 
 import com.codahale.metrics.annotation.Timed;
@@ -77,7 +80,7 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 	static final Logger LOG = LoggerFactory.getLogger(AbstractForgotPasswordAction.class);
 	
 	private DatabaseHandle databaseHandle;
-	private Jdbi jdbi;
+	private PersistenceConnection persistenceConnection;
 	protected JodaObjectMapper mapper;
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
@@ -85,10 +88,10 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 	private E2E e2e;
 	
 
-	public AbstractForgotPasswordAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+	public AbstractForgotPasswordAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.ForgotPasswordAction", HttpMethod.POST);
-		this.jdbi = jdbi;
+		this.persistenceConnection = persistenceConnection;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
@@ -119,7 +122,7 @@ public abstract class AbstractForgotPasswordAction extends Action<IForgotPasswor
 	}
 
 	public Response apply() {
-		databaseHandle = new DatabaseHandle(jdbi);
+		databaseHandle = new DatabaseHandle(persistenceConnection.getJdbi());
 		databaseHandle.beginTransaction();
 		try {
 			if (ServerConfiguration.DEV.equals(appConfiguration.getServerConfiguration().getMode())

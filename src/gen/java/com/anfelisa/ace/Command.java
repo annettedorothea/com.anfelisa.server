@@ -23,8 +23,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import com.anfelisa.ace.CustomAppConfiguration;
 
-import org.jdbi.v3.core.Handle;
-
 public abstract class Command<T extends IDataContainer> implements ICommand {
 
 	protected T commandData;
@@ -44,9 +42,9 @@ public abstract class Command<T extends IDataContainer> implements ICommand {
 		this.appConfiguration = appConfiguration;
 	}
 
-	protected abstract void executeCommand(Handle readonlyHandle);
+	protected abstract void executeCommand(PersistenceHandle readonlyHandle);
 
-	public void execute(Handle readonlyHandle, Handle timelineHandle) {
+	public void execute(PersistenceHandle readonlyHandle, PersistenceHandle timelineHandle) {
 		this.executeCommand(readonlyHandle);
 		if (!ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())) {
 			daoProvider.getAceDao().addCommandToTimeline(this, timelineHandle);

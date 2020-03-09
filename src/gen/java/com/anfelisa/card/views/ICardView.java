@@ -19,9 +19,9 @@
 
 package com.anfelisa.card.views;
 
-import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDataContainer;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.card.data.ICardCreationData;
 import com.anfelisa.card.data.ICardDeleteData;
 import com.anfelisa.card.data.ICardUpdateData;
@@ -32,12 +32,12 @@ import com.anfelisa.card.data.IChangeCardOrderListData;
 @SuppressWarnings("all")
 public interface ICardView {
 
-	void insert(ICardCreationData data, Handle handle);
-	void delete(ICardDeleteData data, Handle handle);
-	void update(ICardUpdateData data, Handle handle);
-	void moveCards(ICardIdListData data, Handle handle);
-	void bulkInsert(ICsvUploadData data, Handle handle);
-	void changeCardOrder(IChangeCardOrderListData data, Handle handle);
+	void insert(ICardCreationData data, PersistenceHandle handle);
+	void delete(ICardDeleteData data, PersistenceHandle handle);
+	void update(ICardUpdateData data, PersistenceHandle handle);
+	void moveCards(ICardIdListData data, PersistenceHandle handle);
+	void bulkInsert(ICsvUploadData data, PersistenceHandle handle);
+	void changeCardOrder(IChangeCardOrderListData data, PersistenceHandle handle);
 
 }
 

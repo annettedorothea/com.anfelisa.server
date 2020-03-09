@@ -19,9 +19,9 @@
 
 package com.anfelisa.box.views;
 
-import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDataContainer;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.box.data.IScoreCardData;
 import com.anfelisa.box.data.IScoreReinforceCardData;
 import com.anfelisa.box.data.IScoreReinforceCardData;
@@ -31,11 +31,11 @@ import com.anfelisa.box.data.IDeleteBoxData;
 @SuppressWarnings("all")
 public interface IReinforceCardView {
 
-	void add(IScoreCardData data, Handle handle);
-	void remove(IScoreReinforceCardData data, Handle handle);
-	void update(IScoreReinforceCardData data, Handle handle);
-	void clear(IInitMyBoxesDataData data, Handle handle);
-	void deleteAll(IDeleteBoxData data, Handle handle);
+	void add(IScoreCardData data, PersistenceHandle handle);
+	void remove(IScoreReinforceCardData data, PersistenceHandle handle);
+	void update(IScoreReinforceCardData data, PersistenceHandle handle);
+	void clear(IInitMyBoxesDataData data, PersistenceHandle handle);
+	void deleteAll(IDeleteBoxData data, PersistenceHandle handle);
 
 }
 

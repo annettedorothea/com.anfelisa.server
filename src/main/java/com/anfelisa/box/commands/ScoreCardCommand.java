@@ -1,12 +1,12 @@
 package com.anfelisa.box.commands;
 
-import org.jdbi.v3.core.Handle;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IScoreCardData;
 import com.anfelisa.box.models.IBoxModel;
@@ -23,7 +23,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 	}
 
 	@Override
-	protected void executeCommand(Handle readonlyHandle) {
+	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		IScheduledCardModel scheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(readonlyHandle, 
 				commandData.getScoredCardScheduledCardId());
 		if (scheduledCard == null) {

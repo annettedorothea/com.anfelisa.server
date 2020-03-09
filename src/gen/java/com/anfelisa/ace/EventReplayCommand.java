@@ -21,7 +21,6 @@ package com.anfelisa.ace;
 
 import java.util.List;
 
-import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +58,7 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 		LOG.info("START EVENT REPLAY");
 		try {
 			databaseHandle.beginTransaction();
-			Handle handle = databaseHandle.getHandle();
+			PersistenceHandle handle = databaseHandle.getHandle();
 			daoProvider.truncateAllViews(handle);
 
 			List<ITimelineItem> timeline = daoProvider.getAceDao().selectReplayTimeline(handle);

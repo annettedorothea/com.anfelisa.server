@@ -16,9 +16,8 @@
 
 package com.anfelisa.box.views;
 
-import org.jdbi.v3.core.Handle;
-
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IDeleteBoxData;
 
@@ -32,12 +31,12 @@ public class UserAccessToCategoryView implements IUserAccessToCategoryView {
 	}
 
 	@Override
-	public void grantAccess(IBoxCreationData data, Handle handle) {
+	public void grantAccess(IBoxCreationData data, PersistenceHandle handle) {
 		daoProvider.getUserAccessToCategoryDao().insert(handle, data);
 	}
 
 	@Override
-	public void delete(IDeleteBoxData data, Handle handle) {
+	public void delete(IDeleteBoxData data, PersistenceHandle handle) {
 		for (String categoryId : data.getAllReferencedCategories()) {
 			daoProvider.getUserAccessToCategoryDao().deleteByCategoryId(handle, categoryId);
 		}

@@ -19,17 +19,17 @@
 
 package com.anfelisa.box.views;
 
-import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDataContainer;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IDeleteBoxData;
 
 @SuppressWarnings("all")
 public interface IUserAccessToCategoryView {
 
-	void grantAccess(IBoxCreationData data, Handle handle);
-	void delete(IDeleteBoxData data, Handle handle);
+	void grantAccess(IBoxCreationData data, PersistenceHandle handle);
+	void delete(IDeleteBoxData data, PersistenceHandle handle);
 
 }
 

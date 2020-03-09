@@ -1,24 +1,22 @@
 package com.anfelisa.ace;
 
-import org.jdbi.v3.core.Jdbi;
-
 import io.dropwizard.setup.Environment;
 
 public class AppRegistration {
 
-	public static void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration,
+	public static void registerResources(Environment environment, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration,
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		
-		com.anfelisa.user.AppRegistration.registerResources(environment, jdbi, appConfiguration, daoProvider,
+		com.anfelisa.user.AppRegistration.registerResources(environment, persistenceConnection, appConfiguration, daoProvider,
 				viewProvider, e2e);
 
-		com.anfelisa.box.AppRegistration.registerResources(environment, jdbi, appConfiguration, daoProvider,
+		com.anfelisa.box.AppRegistration.registerResources(environment, persistenceConnection, appConfiguration, daoProvider,
 				viewProvider, e2e);
 
-		com.anfelisa.category.AppRegistration.registerResources(environment, jdbi, appConfiguration, daoProvider,
+		com.anfelisa.category.AppRegistration.registerResources(environment, persistenceConnection, appConfiguration, daoProvider,
 				viewProvider, e2e);
 
-		com.anfelisa.card.AppRegistration.registerResources(environment, jdbi, appConfiguration, daoProvider,
+		com.anfelisa.card.AppRegistration.registerResources(environment, persistenceConnection, appConfiguration, daoProvider,
 				viewProvider, e2e);
 
 	}

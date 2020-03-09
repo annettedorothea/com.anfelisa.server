@@ -30,7 +30,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,27 +71,26 @@ public class StartE2ESessionResource {
 		}
 		e2e.init(timeline);
 		
-		Handle handle = jdbi.open();
+		PersistenceHandle handle = new PersistenceHandle(jdbi.open());
 		try {
-			handle.begin();
+			handle.getHandle().begin();
 			
 			daoProvider.getAceDao().truncateTimelineTable(handle);
 
 			daoProvider.truncateAllViews(handle);
 
-			handle.commit();
+			handle.getHandle().commit();
 
 			return Response.ok().build();
 		} catch (Exception e) {
-			handle.rollback();
+			handle.getHandle().rollback();
 			throw new WebApplicationException(e);
 		} finally {
-			handle.close();
+			handle.getHandle().close();
 		}
 	}
 
 }
-
 
 
 

@@ -30,7 +30,7 @@ public class App extends Application<CustomAppConfiguration> {
 	static final Logger LOG = LoggerFactory.getLogger(App.class);
 
 	static EmailService EMAIL_SERVICE;
-	
+
 	private static String mode;
 
 	public static void main(String[] args) throws Exception {
@@ -54,9 +54,10 @@ public class App extends Application<CustomAppConfiguration> {
 		if (EMAIL_SERVICE != null) {
 			try {
 				if (x != null && x.getMessage() != null) {
-					//EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", x.getMessage());
+					// EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", x.getMessage());
 				} else {
-					//EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", "unknown exception");
+					// EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", "unknown
+					// exception");
 				}
 			} catch (Exception e) {
 				LOG.error("failed to notify about exception", x.getMessage());
@@ -90,7 +91,7 @@ public class App extends Application<CustomAppConfiguration> {
 		final JdbiFactory factory = new JdbiFactory();
 
 		Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "data-source-name");
-		
+
 		E2E e2e = new E2E();
 
 		mode = configuration.getServerConfiguration().getMode();
@@ -112,7 +113,8 @@ public class App extends Application<CustomAppConfiguration> {
 
 		environment.jersey()
 				.register(new AuthDynamicFeature(
-						new BasicCredentialAuthFilter.Builder<AuthUser>().setAuthenticator(new AceAuthenticator(jdbi))
+						new BasicCredentialAuthFilter.Builder<AuthUser>()
+								.setAuthenticator(new AceAuthenticator(new PersistenceConnection(jdbi)))
 								.setPrefix("anfelisaBasic").setRealm("anfelisaBasic private realm").buildAuthFilter()));
 		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
 
@@ -120,7 +122,8 @@ public class App extends Application<CustomAppConfiguration> {
 
 		configureCors(environment);
 
-		AppRegistration.registerResources(environment, jdbi, configuration, daoProvider, viewProvider, e2e);
+		AppRegistration.registerResources(environment, new PersistenceConnection(jdbi), configuration, daoProvider,
+				viewProvider, e2e);
 		AppRegistration.registerConsumers(viewProvider, mode);
 	}
 

@@ -3,13 +3,13 @@ package com.anfelisa.box.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jdbi.v3.core.Handle;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IScheduledCardsData;
 import com.anfelisa.box.models.IBoxModel;
@@ -27,7 +27,7 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 	}
 
 	@Override
-	protected void executeCommand(Handle readonlyHandle) {
+	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		if (this.commandData.getCardIds() == null || this.commandData.getCardIds().size() == 0) {
 			this.commandData.setOutcome(nullOrEmpty);
 		} else {

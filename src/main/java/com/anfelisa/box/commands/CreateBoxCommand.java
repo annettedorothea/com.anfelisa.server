@@ -20,12 +20,12 @@
 package com.anfelisa.box.commands;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.utils.LanguageValidator;
@@ -40,7 +40,7 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 	}
 
 	@Override
-	protected void executeCommand(Handle readonlyHandle) {
+	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		if (this.commandData.getMaxCardsPerDay() == null) {
 			throwBadRequest("max cards per day must not be null");
 		}

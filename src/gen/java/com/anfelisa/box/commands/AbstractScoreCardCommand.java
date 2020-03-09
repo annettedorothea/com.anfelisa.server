@@ -20,12 +20,12 @@
 package com.anfelisa.box.commands;
 
 import javax.ws.rs.WebApplicationException;
-import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.ace.PersistenceHandle;
 
 import com.anfelisa.box.data.IScoreCardData;
 
@@ -39,7 +39,7 @@ public abstract class AbstractScoreCardCommand extends Command<IScoreCardData> {
 	}
 
 	@Override
-	public void publishEvents(Handle handle, Handle timelineHandle) {
+	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case score:
 			new com.anfelisa.box.events.ScoreCardScoreEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);

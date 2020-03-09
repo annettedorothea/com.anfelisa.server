@@ -1,8 +1,7 @@
 package com.anfelisa.category.views;
 
-import org.jdbi.v3.core.Handle;
-
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.category.data.ICategoryChangeOrderData;
 import com.anfelisa.category.data.ICategoryCreationData;
 import com.anfelisa.category.data.ICategoryDeleteData;
@@ -20,37 +19,37 @@ public class CategoryView implements ICategoryView {
 	}
 
 	@Override
-	public void insert(ICategoryCreationData data, Handle handle) {
+	public void insert(ICategoryCreationData data, PersistenceHandle handle) {
 		daoProvider.getCategoryDao().insert(handle, data);
 	}
 
 	@Override
-	public void delete(ICategoryDeleteData data, Handle handle) {
+	public void delete(ICategoryDeleteData data, PersistenceHandle handle) {
 		daoProvider.getCardDao().deleteByCategoryId(handle, data.getCategoryId());
 		daoProvider.getCategoryDao().deleteByCategoryId(handle, data.getCategoryId());
 		daoProvider.getCategoryDao().shiftCategories(handle, data.getCategoryIndex(), data.getParentCategoryId());
 	}
 
 	@Override
-	public void deleteRoot(ICategoryDeleteData data, Handle handle) {
+	public void deleteRoot(ICategoryDeleteData data, PersistenceHandle handle) {
 		daoProvider.getCardDao().deleteByCategoryId(handle, data.getCategoryId());
 		daoProvider.getCategoryDao().deleteByCategoryId(handle, data.getCategoryId());
 		daoProvider.getCategoryDao().shiftRootCategories(handle, data.getCategoryIndex());
 	}
 
 	@Override
-	public void update(ICategoryUpdateData data, Handle handle) {
+	public void update(ICategoryUpdateData data, PersistenceHandle handle) {
 		daoProvider.getCategoryDao().update(handle, data);
 	}
 
 	@Override
-	public void moveCategory(ICategoryMoveData data, Handle handle) {
+	public void moveCategory(ICategoryMoveData data, PersistenceHandle handle) {
 		daoProvider.getCategoryDao().updateByCategoryId(handle, data.getMovedCategory());
 		daoProvider.getCategoryDao().shiftCategories(handle, data.getCategoryIndexWhereRemoved(), data.getParentCategoryIdWhereRemoved());
 	}
 
 	@Override
-	public void changeOrder(ICategoryChangeOrderData data, Handle handle) {
+	public void changeOrder(ICategoryChangeOrderData data, PersistenceHandle handle) {
 		for (ICategoryModel category : data.getUpdatedIndices()) {
 			daoProvider.getCategoryDao().updateIndex(handle, category);
 		}

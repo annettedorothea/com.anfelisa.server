@@ -26,27 +26,25 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.ServerConfiguration;
 import com.anfelisa.ace.E2E;
-
-import org.jdbi.v3.core.Jdbi;
-
+import com.anfelisa.ace.PersistenceConnection;
 
 import com.anfelisa.user.actions.*;
 
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public static void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+	public static void registerResources(Environment environment, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
-		environment.jersey().register(new RegisterUserAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new GetRoleAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new UsernameAvailableAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new ConfirmEmailAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new GetUserProfileAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new GetAllUsersAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new ForgotPasswordAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new ResetPasswordAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new ChangeUserRoleAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new DeleteUserAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new RegisterUserAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetRoleAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new UsernameAvailableAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new ConfirmEmailAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetUserProfileAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetAllUsersAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new ForgotPasswordAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new ResetPasswordAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new ChangeUserRoleAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new DeleteUserAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 	}
 
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {

@@ -1,7 +1,5 @@
 package com.anfelisa.ace;
 
-import org.jdbi.v3.core.Handle;
-
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.ReinforceCardDao;
 import com.anfelisa.box.models.ScheduledCardDao;
@@ -82,7 +80,7 @@ public class DaoProvider extends AbstractDaoProvider implements IDaoProvider {
 	}
 
 	@Override
-	public void truncateAllViews(Handle handle) {
+	public void truncateAllViews(PersistenceHandle handle) {
 		resetPasswordDao.truncate(handle);
 		emailConfirmationDao.truncate(handle);
 		reinforceCardDao.truncate(handle);

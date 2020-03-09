@@ -2,9 +2,8 @@ package com.anfelisa.box.views;
 
 import java.util.List;
 
-import org.jdbi.v3.core.Handle;
-
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.box.data.IDeleteBoxData;
@@ -20,13 +19,13 @@ public class BoxView implements IBoxView {
 		this.daoProvider = daoProvider;
 	}
 
-	public void updateBox(IBoxUpdateData data, Handle handle) {
+	public void updateBox(IBoxUpdateData data, PersistenceHandle handle) {
 		daoProvider.getBoxDao().updateBox(handle, data);
 	}
-	public void deleteBox(IDeleteBoxData data, Handle handle) {
+	public void deleteBox(IDeleteBoxData data, PersistenceHandle handle) {
 		daoProvider.getBoxDao().deleteByBoxId(handle, data.getBoxId());
 	}
-	public void scheduleCards(IScheduledCardsData data, Handle handle) {
+	public void scheduleCards(IScheduledCardsData data, PersistenceHandle handle) {
 		List<IScheduledCardModel> newScheduledCards = data.getNewScheduledCards();
 		for (IScheduledCardModel scheduledCardModel : newScheduledCards) {
 			daoProvider.getScheduledCardDao().insert(handle, scheduledCardModel);
@@ -38,7 +37,7 @@ public class BoxView implements IBoxView {
 	}
 
 	@Override
-	public void createBox(IBoxCreationData data, Handle handle) {
+	public void createBox(IBoxCreationData data, PersistenceHandle handle) {
 		daoProvider.getBoxDao().insert(handle, data);
 	}
 

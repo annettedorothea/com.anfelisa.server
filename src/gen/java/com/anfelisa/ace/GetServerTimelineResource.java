@@ -30,8 +30,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jdbi.v3.core.Jdbi;
-
-import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,19 +60,19 @@ public class GetServerTimelineResource {
 		if (ServerConfiguration.LIVE.equals(configuration.getServerConfiguration().getMode())) {
 			throw new WebApplicationException("get server timeline is not available in a live environment", Response.Status.FORBIDDEN);
 		}
-		Handle timelineHandle = jdbi.open();
+		PersistenceHandle timelineHandle = new PersistenceHandle(jdbi.open());
+		
 		try {
 			List<ITimelineItem> serverTimeline = aceDao.selectTimeline(timelineHandle);
 			return Response.ok(serverTimeline).build();
 		} catch (Exception e) {
 			throw new WebApplicationException(e);
 		} finally {
-			timelineHandle.close();
+			timelineHandle.getHandle().close();
 		}
 	}
 
 }
-
 
 
 

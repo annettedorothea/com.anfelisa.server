@@ -19,7 +19,7 @@
 
 package com.anfelisa.user.models;
 
-import org.jdbi.v3.core.Handle;
+import com.anfelisa.ace.PersistenceHandle;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
@@ -28,44 +28,44 @@ import java.util.Optional;
 @SuppressWarnings("all")
 public class AbstractResetPasswordDao {
 	
-	public void insert(Handle handle, IResetPasswordModel resetPasswordModel) {
-		Update statement = handle.createUpdate("INSERT INTO \"resetpassword\" (token, userid) VALUES (:token, :userid)");
+	public void insert(PersistenceHandle handle, IResetPasswordModel resetPasswordModel) {
+		Update statement = handle.getHandle().createUpdate("INSERT INTO \"resetpassword\" (token, userid) VALUES (:token, :userid)");
 		statement.bind("token",  resetPasswordModel.getToken() );
 		statement.bind("userid",  resetPasswordModel.getUserId() );
 		statement.execute();
 	}
 	
 	
-	public void updateByToken(Handle handle, IResetPasswordModel resetPasswordModel) {
-		Update statement = handle.createUpdate("UPDATE \"resetpassword\" SET token = :token, userid = :userid WHERE token = :token");
+	public void updateByToken(PersistenceHandle handle, IResetPasswordModel resetPasswordModel) {
+		Update statement = handle.getHandle().createUpdate("UPDATE \"resetpassword\" SET token = :token, userid = :userid WHERE token = :token");
 		statement.bind("token",  resetPasswordModel.getToken() );
 		statement.bind("userid",  resetPasswordModel.getUserId() );
 		statement.bind("token",  resetPasswordModel.getToken()  );
 		statement.execute();
 	}
 
-	public void deleteByToken(Handle handle, String token) {
-		Update statement = handle.createUpdate("DELETE FROM \"resetpassword\" WHERE token = :token");
+	public void deleteByToken(PersistenceHandle handle, String token) {
+		Update statement = handle.getHandle().createUpdate("DELETE FROM \"resetpassword\" WHERE token = :token");
 		statement.bind("token", token);
 		statement.execute();
 	}
 
-	public IResetPasswordModel selectByToken(Handle handle, String token) {
-		Optional<IResetPasswordModel> optional = handle.createQuery("SELECT token, userid FROM \"resetpassword\" WHERE token = :token")
+	public IResetPasswordModel selectByToken(PersistenceHandle handle, String token) {
+		Optional<IResetPasswordModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"resetpassword\" WHERE token = :token")
 			.bind("token", token)
 			.map(new ResetPasswordMapper())
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
-	public List<IResetPasswordModel> selectAll(Handle handle) {
-		return handle.createQuery("SELECT token, userid FROM \"resetpassword\"")
+	public List<IResetPasswordModel> selectAll(PersistenceHandle handle) {
+		return handle.getHandle().createQuery("SELECT token, userid FROM \"resetpassword\"")
 			.map(new ResetPasswordMapper())
 			.list();
 	}
 
-	public void truncate(Handle handle) {
-		Update statement = handle.createUpdate("TRUNCATE TABLE \"resetpassword\" CASCADE");
+	public void truncate(PersistenceHandle handle) {
+		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE \"resetpassword\" CASCADE");
 		statement.execute();
 	}
 

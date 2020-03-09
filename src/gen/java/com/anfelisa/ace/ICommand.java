@@ -19,8 +19,6 @@
 
 package com.anfelisa.ace;
 
-import org.jdbi.v3.core.Handle;
-
 public interface ICommand {
 
 	String getCommandName();
@@ -29,9 +27,9 @@ public interface ICommand {
 	
 	void setCommandData(IDataContainer data);
 
-	void execute(Handle readonlyHandle, Handle timelineHandle);
+	void execute(PersistenceHandle readonlyHandle, PersistenceHandle timelineHandle);
 
-	void publishEvents(Handle handle, Handle timelineHandle);
+	void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle);
 }
 
 

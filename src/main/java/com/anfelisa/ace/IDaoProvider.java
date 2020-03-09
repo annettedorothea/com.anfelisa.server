@@ -1,7 +1,5 @@
 package com.anfelisa.ace;
 
-import org.jdbi.v3.core.Handle;
-
 import com.anfelisa.box.models.BoxDao;
 import com.anfelisa.box.models.ReinforceCardDao;
 import com.anfelisa.box.models.ScheduledCardDao;
@@ -22,7 +20,7 @@ public interface IDaoProvider {
 
 	EmailConfirmationDao getEmailConfirmationDao();
 
-	void truncateAllViews(Handle handle);
+	void truncateAllViews(PersistenceHandle handle);
 
 	ResetPasswordDao getResetPasswordDao();
 

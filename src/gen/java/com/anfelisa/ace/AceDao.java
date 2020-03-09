@@ -22,7 +22,6 @@ package com.anfelisa.ace;
 import java.util.List;
 import java.util.Optional;
 
-import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Update;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -32,12 +31,12 @@ public class AceDao {
 
 	private JodaObjectMapper mapper = new JodaObjectMapper();
 
-	public void truncateTimelineTable(Handle handle) {
-		handle.execute("TRUNCATE TABLE timeline");
+	public void truncateTimelineTable(PersistenceHandle handle) {
+		handle.getHandle().execute("TRUNCATE TABLE timeline");
 	}
 
-	public boolean contains(Handle handle, String uuid) {
-		Optional<Integer> optional = handle
+	public boolean contains(PersistenceHandle handle, String uuid) {
+		Optional<Integer> optional = handle.getHandle()
 				.createQuery("SELECT count(uuid) " + "FROM timeline "
 						+ "where uuid = :uuid")
 				.bind("uuid", uuid)
@@ -46,8 +45,8 @@ public class AceDao {
 		return count > 0;
 	}
 
-	public void insertIntoTimeline(Handle handle, String type, String method, String name, String data, String uuid) {
-		Update statement = handle.createUpdate("INSERT INTO timeline (type, method, name, time, data, uuid) " + "VALUES (:type, :method, :name, NOW(), :data, :uuid);");
+	public void insertIntoTimeline(PersistenceHandle handle, String type, String method, String name, String data, String uuid) {
+		Update statement = handle.getHandle().createUpdate("INSERT INTO timeline (type, method, name, time, data, uuid) " + "VALUES (:type, :method, :name, NOW(), :data, :uuid);");
 		statement.bind("type", type);
 		if (method != null) {
 			statement.bind("method", method);
@@ -60,27 +59,27 @@ public class AceDao {
 		statement.execute();
 	}
 
-	public ITimelineItem selectLastAction(Handle handle) {
-		Optional<ITimelineItem> optional = handle
+	public ITimelineItem selectLastAction(PersistenceHandle handle) {
+		Optional<ITimelineItem> optional = handle.getHandle()
 				.createQuery("SELECT type, method, name, time, data, uuid FROM timeline order by time desc limit 1")
 				.map(new TimelineItemMapper())
 				.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public List<ITimelineItem> selectTimeline(Handle handle) {
-		return handle
+	public List<ITimelineItem> selectTimeline(PersistenceHandle handle) {
+		return handle.getHandle()
 				.createQuery("SELECT type, method, name, time, data, uuid FROM timeline order by time asc")
 				.map(new TimelineItemMapper()).list();
 	}
 	
-	public List<ITimelineItem> selectReplayTimeline(Handle handle) {
-		return handle
+	public List<ITimelineItem> selectReplayTimeline(PersistenceHandle handle) {
+		return handle.getHandle()
 				.createQuery("SELECT type, method, name, time, data, uuid FROM timeline where type = 'event' order by time asc ")
 				.map(new TimelineItemMapper()).list();
 	}
 	
-	public void addActionToTimeline(IAction action, Handle timelineHandle) {
+	public void addActionToTimeline(IAction action, PersistenceHandle timelineHandle) {
 		try {
 			String json = mapper.writeValueAsString(action.getActionData());
 			addItemToTimeline("action", action.getHttpMethod().name(), action.getActionName(), json,
@@ -90,7 +89,7 @@ public class AceDao {
 		}
 	}
 
-	public void addCommandToTimeline(ICommand command, Handle timelineHandle) {
+	public void addCommandToTimeline(ICommand command, PersistenceHandle timelineHandle) {
 		try {
 			addItemToTimeline("command", null, command.getCommandName(),
 					mapper.writeValueAsString(command.getCommandData()), command.getCommandData().getUuid(),
@@ -100,7 +99,7 @@ public class AceDao {
 		}
 	}
 
-	public void addEventToTimeline(IEvent event, Handle timelineHandle) {
+	public void addEventToTimeline(IEvent event, PersistenceHandle timelineHandle) {
 		try {
 			addItemToTimeline("event", null, event.getEventName(), mapper.writeValueAsString(event.getEventData()),
 					event.getEventData().getUuid(), timelineHandle);
@@ -109,7 +108,7 @@ public class AceDao {
 		}
 	}
 
-	public void addPreparingEventToTimeline(IEvent event, String uuid, Handle timelineHandle) {
+	public void addPreparingEventToTimeline(IEvent event, String uuid, PersistenceHandle timelineHandle) {
 		try {
 			addItemToTimeline("preparing event", null, event.getEventName(),
 					mapper.writeValueAsString(event.getEventData()), uuid, timelineHandle);
@@ -118,13 +117,13 @@ public class AceDao {
 		}
 	}
 
-	public void addExceptionToTimeline(String uuid, Throwable x, Handle timelineHandle) {
+	public void addExceptionToTimeline(String uuid, Throwable x, PersistenceHandle timelineHandle) {
 		this.insertIntoTimeline(timelineHandle, "exception", "", x.getClass().getName(),
 				x.getMessage() != null ? x.getMessage() : "", uuid);
 	}
 
 	private void addItemToTimeline(String type, String method, String name, String json, String uuid,
-			Handle timelineHandle) {
+			PersistenceHandle timelineHandle) {
 		this.insertIntoTimeline(timelineHandle, type, method, name, json, uuid);
 	}
 

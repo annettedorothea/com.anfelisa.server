@@ -26,26 +26,24 @@ import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.ServerConfiguration;
 import com.anfelisa.ace.E2E;
-
-import org.jdbi.v3.core.Jdbi;
-
+import com.anfelisa.ace.PersistenceConnection;
 
 import com.anfelisa.card.actions.*;
 
 @SuppressWarnings("all")
 public class AppRegistration {
 
-	public static void registerResources(Environment environment, Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+	public static void registerResources(Environment environment, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
-		environment.jersey().register(new CreateCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new UpdateCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new DeleteCardAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new GetCardsAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new GetDuplicatesAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new MoveCardsAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new ChangeOrderAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new ImportCsvAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new GetTranslationAction(jdbi, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new CreateCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new UpdateCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new DeleteCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetCardsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetDuplicatesAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new MoveCardsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new ChangeOrderAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new ImportCsvAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetTranslationAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 	}
 
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {

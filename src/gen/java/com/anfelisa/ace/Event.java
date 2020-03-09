@@ -21,8 +21,6 @@ package com.anfelisa.ace;
 
 import java.util.List;
 
-import org.jdbi.v3.core.Handle;
-
 public abstract class Event<T extends IDataContainer> implements IEvent {
 
 	protected T eventData;
@@ -38,7 +36,7 @@ public abstract class Event<T extends IDataContainer> implements IEvent {
 		this.viewProvider = viewProvider;
 	}
 
-	public void notifyListeners(Handle handle) {
+	public void notifyListeners(PersistenceHandle handle) {
 		List<EventConsumer> consumerList = viewProvider.getConsumerForEvent(eventName);
 		if (consumerList != null) {
 			for (EventConsumer consumer : consumerList) {
@@ -55,7 +53,7 @@ public abstract class Event<T extends IDataContainer> implements IEvent {
 		return eventName;
 	}
 
-	public void publish(Handle handle, Handle timelineHandle) {
+	public void publish(PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		if (!ServerConfiguration.LIVE.equals(App.getMode())) {
 			daoProvider.getAceDao().addEventToTimeline(this, timelineHandle);
 		}

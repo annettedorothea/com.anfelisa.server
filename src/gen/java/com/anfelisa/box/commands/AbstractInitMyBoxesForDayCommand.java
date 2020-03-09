@@ -20,12 +20,12 @@
 package com.anfelisa.box.commands;
 
 import javax.ws.rs.WebApplicationException;
-import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.Command;
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.ace.PersistenceHandle;
 
 import com.anfelisa.box.data.IInitMyBoxesDataData;
 
@@ -38,7 +38,7 @@ public abstract class AbstractInitMyBoxesForDayCommand extends Command<IInitMyBo
 	}
 
 	@Override
-	public void publishEvents(Handle handle, Handle timelineHandle) {
+	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
 			new com.anfelisa.box.events.InitMyBoxesForDayOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);

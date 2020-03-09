@@ -21,14 +21,14 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
-import org.jdbi.v3.core.Handle;
-import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.E2E;
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceConnection;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -36,13 +36,13 @@ public class GetTranslationAction extends AbstractGetTranslationAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetTranslationAction.class);
 
-	public GetTranslationAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
+	public GetTranslationAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
 			ViewProvider viewProvider, E2E e2e) {
-		super(jdbi, appConfiguration, daoProvider, viewProvider, e2e);
+		super(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e);
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void loadDataForGetRequest(Handle readonlyHandle) {
+	protected void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
 		try {
 			String translationApiKey = appConfiguration.getTranslationApiKey();
 			String urlStr = "https://api.deepl.com/v2/translate?"

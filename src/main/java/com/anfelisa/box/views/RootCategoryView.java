@@ -19,9 +19,8 @@
 
 package com.anfelisa.box.views;
 
-import org.jdbi.v3.core.Handle;
-
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.box.data.IDeleteBoxData;
@@ -36,17 +35,17 @@ public class RootCategoryView implements IRootCategoryView {
 	}
 
 	@Override
-	public void insert(IBoxCreationData data, Handle handle) {
+	public void insert(IBoxCreationData data, PersistenceHandle handle) {
 		daoProvider.getCategoryDao().insert(handle, data);
 	}
 
 	@Override
-	public void update(IBoxUpdateData data, Handle handle) {
+	public void update(IBoxUpdateData data, PersistenceHandle handle) {
 		daoProvider.getCategoryDao().update(handle, data);
 	}
 
 	@Override
-	public void deleteAll(IDeleteBoxData data, Handle handle) {
+	public void deleteAll(IDeleteBoxData data, PersistenceHandle handle) {
 		daoProvider.getCardDao().deleteByRootCategoryId(handle, data.getRootCategoryId());
 		daoProvider.getCategoryDao().deleteByRootCategoryId(handle, data.getRootCategoryId());
 		daoProvider.getCategoryDao().deleteByCategoryId(handle, data.getRootCategoryId());

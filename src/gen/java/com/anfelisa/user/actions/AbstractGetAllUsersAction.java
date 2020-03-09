@@ -51,6 +51,9 @@ import com.anfelisa.ace.JodaObjectMapper;
 import com.anfelisa.ace.ServerConfiguration;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.NotReplayableDataProvider;
+import com.anfelisa.ace.PersistenceHandle;
+import com.anfelisa.ace.PersistenceConnection;
+
 import com.anfelisa.auth.AuthUser;
 
 import com.codahale.metrics.annotation.Timed;
@@ -75,7 +78,7 @@ public abstract class AbstractGetAllUsersAction extends Action<IUserListData> {
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetAllUsersAction.class);
 	
 	private DatabaseHandle databaseHandle;
-	private Jdbi jdbi;
+	private PersistenceConnection persistenceConnection;
 	protected JodaObjectMapper mapper;
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
@@ -83,10 +86,10 @@ public abstract class AbstractGetAllUsersAction extends Action<IUserListData> {
 	private E2E e2e;
 	
 	
-	public AbstractGetAllUsersAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+	public AbstractGetAllUsersAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.GetAllUsersAction", HttpMethod.GET);
-		this.jdbi = jdbi;
+		this.persistenceConnection = persistenceConnection;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
@@ -103,7 +106,7 @@ public abstract class AbstractGetAllUsersAction extends Action<IUserListData> {
 		this.actionData = (IUserListData)data;
 	}
 
-	protected abstract void loadDataForGetRequest(Handle readonlyHandle);
+	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
 
 	@GET
 	@Timed
@@ -119,7 +122,7 @@ public abstract class AbstractGetAllUsersAction extends Action<IUserListData> {
 	}
 
 	public Response apply() {
-		databaseHandle = new DatabaseHandle(jdbi);
+		databaseHandle = new DatabaseHandle(persistenceConnection.getJdbi());
 		databaseHandle.beginTransaction();
 		try {
 			if (ServerConfiguration.DEV.equals(appConfiguration.getServerConfiguration().getMode())

@@ -21,15 +21,13 @@ package com.anfelisa.ace;
 
 import java.util.UUID;
 
-import org.jdbi.v3.core.Handle;
-
 public abstract class AbstractBaseScenario {
 
 	protected final JodaObjectMapper mapper = new JodaObjectMapper();
 
 	protected DaoProvider daoProvider;
 
-	protected Handle handle;
+	protected PersistenceHandle handle;
 
 	public static String randomUUID() {
 		return UUID.randomUUID().toString();

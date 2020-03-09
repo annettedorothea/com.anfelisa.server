@@ -19,9 +19,9 @@
 
 package com.anfelisa.category.views;
 
-import org.jdbi.v3.core.Handle;
 
 import com.anfelisa.ace.IDataContainer;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.category.data.ICategoryCreationData;
 import com.anfelisa.category.data.ICategoryDeleteData;
 import com.anfelisa.category.data.ICategoryDeleteData;
@@ -32,12 +32,12 @@ import com.anfelisa.category.data.ICategoryChangeOrderData;
 @SuppressWarnings("all")
 public interface ICategoryView {
 
-	void insert(ICategoryCreationData data, Handle handle);
-	void delete(ICategoryDeleteData data, Handle handle);
-	void deleteRoot(ICategoryDeleteData data, Handle handle);
-	void update(ICategoryUpdateData data, Handle handle);
-	void moveCategory(ICategoryMoveData data, Handle handle);
-	void changeOrder(ICategoryChangeOrderData data, Handle handle);
+	void insert(ICategoryCreationData data, PersistenceHandle handle);
+	void delete(ICategoryDeleteData data, PersistenceHandle handle);
+	void deleteRoot(ICategoryDeleteData data, PersistenceHandle handle);
+	void update(ICategoryUpdateData data, PersistenceHandle handle);
+	void moveCategory(ICategoryMoveData data, PersistenceHandle handle);
+	void changeOrder(ICategoryChangeOrderData data, PersistenceHandle handle);
 
 }
 

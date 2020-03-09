@@ -51,6 +51,9 @@ import com.anfelisa.ace.JodaObjectMapper;
 import com.anfelisa.ace.ServerConfiguration;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.ace.NotReplayableDataProvider;
+import com.anfelisa.ace.PersistenceHandle;
+import com.anfelisa.ace.PersistenceConnection;
+
 import com.anfelisa.auth.AuthUser;
 
 import com.codahale.metrics.annotation.Timed;
@@ -78,7 +81,7 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 	static final Logger LOG = LoggerFactory.getLogger(AbstractCreateCategoryAction.class);
 	
 	private DatabaseHandle databaseHandle;
-	private Jdbi jdbi;
+	private PersistenceConnection persistenceConnection;
 	protected JodaObjectMapper mapper;
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
@@ -86,10 +89,10 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 	private E2E e2e;
 	
 
-	public AbstractCreateCategoryAction(Jdbi jdbi, CustomAppConfiguration appConfiguration, 
+	public AbstractCreateCategoryAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.category.actions.CreateCategoryAction", HttpMethod.POST);
-		this.jdbi = jdbi;
+		this.persistenceConnection = persistenceConnection;
 		mapper = new JodaObjectMapper();
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
@@ -126,7 +129,7 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 	}
 
 	public Response apply() {
-		databaseHandle = new DatabaseHandle(jdbi);
+		databaseHandle = new DatabaseHandle(persistenceConnection.getJdbi());
 		databaseHandle.beginTransaction();
 		try {
 			if (ServerConfiguration.DEV.equals(appConfiguration.getServerConfiguration().getMode())

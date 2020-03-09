@@ -1,8 +1,7 @@
 package com.anfelisa.box.views;
 
-import org.jdbi.v3.core.Handle;
-
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.data.IInitMyBoxesDataData;
 import com.anfelisa.box.data.IScoreCardData;
@@ -17,20 +16,20 @@ public class ReinforceCardView implements IReinforceCardView {
 		this.daoProvider = daoProvider;
 	}
 
-	public void add(IScoreCardData data, Handle handle) {
+	public void add(IScoreCardData data, PersistenceHandle handle) {
 		daoProvider.getReinforceCardDao().insert(handle, data);
 	}
 
-	public void remove(IScoreReinforceCardData data, Handle handle) {
+	public void remove(IScoreReinforceCardData data, PersistenceHandle handle) {
 		daoProvider.getReinforceCardDao().deleteByReinforceCardId(handle, data.getReinforceCardId());
 	}
 
-	public void update(IScoreReinforceCardData data, Handle handle) {
+	public void update(IScoreReinforceCardData data, PersistenceHandle handle) {
 		daoProvider.getReinforceCardDao().updateChangeDate(handle, data.getReinforceCardId(), data.getChangeDate());
 	}
 
 	@Override
-	public void clear(IInitMyBoxesDataData data, Handle handle) {
+	public void clear(IInitMyBoxesDataData data, PersistenceHandle handle) {
 		for (String cardId : data.getOutdatedReinforceCardsIds()) {
 			daoProvider.getReinforceCardDao().deleteByScheduledCardId(handle, cardId);
 		}
@@ -38,7 +37,7 @@ public class ReinforceCardView implements IReinforceCardView {
 	}
 
 	@Override
-	public void deleteAll(IDeleteBoxData data, Handle handle) {
+	public void deleteAll(IDeleteBoxData data, PersistenceHandle handle) {
 		daoProvider.getReinforceCardDao().deleteByBoxId(handle, data.getBoxId());
 	}
 

@@ -1,8 +1,7 @@
 package com.anfelisa.user.views;
 
-import org.jdbi.v3.core.Handle;
-
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.user.data.IChangeUserRoleData;
 import com.anfelisa.user.data.IConfirmEmailData;
 import com.anfelisa.user.data.IDeleteUserData;
@@ -18,23 +17,23 @@ public class UserView implements IUserView {
 		this.daoProvider = daoProvider;
 	}
 
-	public void registerUser(IUserRegistrationData data, Handle handle) {
+	public void registerUser(IUserRegistrationData data, PersistenceHandle handle) {
 		daoProvider.getUserDao().insert(handle, data);
 	}
 
-	public void confirmEmail(IConfirmEmailData data, Handle handle) {
+	public void confirmEmail(IConfirmEmailData data, PersistenceHandle handle) {
 		daoProvider.getUserDao().confirmEmail(handle, data.getUserId());
 	}
 
-	public void changeUserRole(IChangeUserRoleData data, Handle handle) {
+	public void changeUserRole(IChangeUserRoleData data, PersistenceHandle handle) {
 		daoProvider.getUserDao().changeUserRole(handle, data.getEditedUserId(), data.getNewRole());
 	}
 
-	public void deleteUser(IDeleteUserData data, Handle handle) {
+	public void deleteUser(IDeleteUserData data, PersistenceHandle handle) {
 		daoProvider.getUserDao().deleteByUsername(handle, data.getUsernameToBeDeleted());
 	}
 
-	public void resetPassword(IResetPasswordWithNewPasswordData data, Handle handle) {
+	public void resetPassword(IResetPasswordWithNewPasswordData data, PersistenceHandle handle) {
 		daoProvider.getUserDao().updatePassword(handle, data);
 	}
 }

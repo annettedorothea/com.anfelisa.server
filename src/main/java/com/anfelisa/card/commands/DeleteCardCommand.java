@@ -1,11 +1,11 @@
 package com.anfelisa.card.commands;
 
-import org.jdbi.v3.core.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.ace.CustomAppConfiguration;
 import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.card.data.ICardDeleteData;
 import com.anfelisa.card.models.ICardModel;
@@ -21,7 +21,7 @@ public class DeleteCardCommand extends AbstractDeleteCardCommand {
 	}
 
 	@Override
-	protected void executeCommand(Handle readonlyHandle) {
+	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, commandData.getCardId());
 		if (card == null) {
 			throwBadRequest("cardDoesNotExist");
