@@ -27,13 +27,15 @@ public abstract class Event<T extends IDataContainer> implements IEvent {
 	private String eventName;
 	protected IDaoProvider daoProvider;
 	private ViewProvider viewProvider;
+	private CustomAppConfiguration appConfiguration;
 
-	public Event(String eventName, T eventData, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public Event(String eventName, T eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super();
 		this.eventData = eventData;
 		this.eventName = eventName;
 		this.daoProvider = daoProvider;
 		this.viewProvider = viewProvider;
+		this.appConfiguration = appConfiguration;
 	}
 
 	public void notifyListeners(PersistenceHandle handle) {
@@ -54,7 +56,7 @@ public abstract class Event<T extends IDataContainer> implements IEvent {
 	}
 
 	public void publish(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (!ServerConfiguration.LIVE.equals(App.getMode())) {
+		if (appConfiguration.getServerConfiguration().writeTimeline()) {
 			daoProvider.getAceDao().addEventToTimeline(this, timelineHandle);
 		}
 		this.notifyListeners(handle);

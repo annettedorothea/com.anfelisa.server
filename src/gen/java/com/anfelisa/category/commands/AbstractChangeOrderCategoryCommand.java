@@ -42,7 +42,7 @@ public abstract class AbstractChangeOrderCategoryCommand extends Command<ICatego
 	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.category.events.ChangeOrderCategoryOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
+			new com.anfelisa.category.events.ChangeOrderCategoryOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
 			break;
 		case noMove:
 			break;

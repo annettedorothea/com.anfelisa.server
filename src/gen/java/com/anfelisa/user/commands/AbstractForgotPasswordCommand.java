@@ -42,7 +42,7 @@ public abstract class AbstractForgotPasswordCommand extends Command<IForgotPassw
 	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.user.events.ForgotPasswordOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
+			new com.anfelisa.user.events.ForgotPasswordOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
 			break;
 		case doesNotExist:
 			break;

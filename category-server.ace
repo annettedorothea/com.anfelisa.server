@@ -1,12 +1,7 @@
 HttpServer
-
 com.anfelisa.category
-
 import com.anfelisa.user.AuthUser
-
-ACE 
-
-	CreateCategory<CategoryCreation>
+ACE	CreateCategory<CategoryCreation>
 		POST "/category/create"  
 		authorize
 		payload 

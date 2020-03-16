@@ -151,7 +151,7 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 					LOG.warn("token is daclared as not replayable but no value was found in NotReplayableDataProvider.");
 				}
 			}
-			if (!ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())) {
+			if (appConfiguration.getServerConfiguration().writeTimeline()) {
 				daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
 			}
 			ICommand command = this.getCommand();
@@ -164,7 +164,9 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 			LOG.error(actionName + " failed " + x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
-				daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, this.databaseHandle.getTimelineHandle());
+				if (appConfiguration.getServerConfiguration().writeError()) {
+					daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, this.databaseHandle.getTimelineHandle());
+				}
 				App.reportException(x);
 			} catch (Exception ex) {
 				LOG.error("failed to rollback or to save or report exception " + ex.getMessage());
@@ -174,7 +176,9 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 			LOG.error(actionName + " failed " + x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
-				daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, this.databaseHandle.getTimelineHandle());
+				if (appConfiguration.getServerConfiguration().writeError()) {
+					daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, this.databaseHandle.getTimelineHandle());
+				}
 				App.reportException(x);
 			} catch (Exception ex) {
 				LOG.error("failed to rollback or to save or report exception " + ex.getMessage());

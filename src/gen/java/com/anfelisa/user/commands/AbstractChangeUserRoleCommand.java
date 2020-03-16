@@ -41,7 +41,7 @@ public abstract class AbstractChangeUserRoleCommand extends Command<IChangeUserR
 	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.user.events.ChangeUserRoleOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
+			new com.anfelisa.user.events.ChangeUserRoleOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

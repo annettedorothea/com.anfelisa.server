@@ -42,7 +42,7 @@ public abstract class AbstractScheduleCardsCommand extends Command<IScheduledCar
 	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case ok:
-			new com.anfelisa.box.events.ScheduleCardsOkEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
+			new com.anfelisa.box.events.ScheduleCardsOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
 			break;
 		case nullOrEmpty:
 			break;

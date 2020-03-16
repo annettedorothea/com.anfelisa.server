@@ -26,6 +26,7 @@ import com.anfelisa.category.data.*;
 import com.anfelisa.ace.JodaObjectMapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.anfelisa.ace.IDataContainer;
+import com.anfelisa.ace.CustomAppConfiguration;
 
 import java.io.IOException;
 
@@ -41,42 +42,42 @@ public class EventFactory {
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
-	public static IEvent createEvent(String eventClass, String json, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public static IEvent createEvent(String eventClass, String json, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		try {
 			if (eventClass.equals("com.anfelisa.category.events.CreateCategoryOkEvent")) {
 				CategoryCreationData data = mapper.readValue(json, CategoryCreationData.class);
 				data.migrateLegacyData(json);
-				CreateCategoryOkEvent event = new CreateCategoryOkEvent(data, daoProvider, viewProvider);
+				CreateCategoryOkEvent event = new CreateCategoryOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.UpdateCategoryOkEvent")) {
 				CategoryUpdateData data = mapper.readValue(json, CategoryUpdateData.class);
 				data.migrateLegacyData(json);
-				UpdateCategoryOkEvent event = new UpdateCategoryOkEvent(data, daoProvider, viewProvider);
+				UpdateCategoryOkEvent event = new UpdateCategoryOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryNoRootEvent")) {
 				CategoryDeleteData data = mapper.readValue(json, CategoryDeleteData.class);
 				data.migrateLegacyData(json);
-				DeleteCategoryNoRootEvent event = new DeleteCategoryNoRootEvent(data, daoProvider, viewProvider);
+				DeleteCategoryNoRootEvent event = new DeleteCategoryNoRootEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryRootEvent")) {
 				CategoryDeleteData data = mapper.readValue(json, CategoryDeleteData.class);
 				data.migrateLegacyData(json);
-				DeleteCategoryRootEvent event = new DeleteCategoryRootEvent(data, daoProvider, viewProvider);
+				DeleteCategoryRootEvent event = new DeleteCategoryRootEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.MoveCategoryOkEvent")) {
 				CategoryMoveData data = mapper.readValue(json, CategoryMoveData.class);
 				data.migrateLegacyData(json);
-				MoveCategoryOkEvent event = new MoveCategoryOkEvent(data, daoProvider, viewProvider);
+				MoveCategoryOkEvent event = new MoveCategoryOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.ChangeOrderCategoryOkEvent")) {
 				CategoryChangeOrderData data = mapper.readValue(json, CategoryChangeOrderData.class);
 				data.migrateLegacyData(json);
-				ChangeOrderCategoryOkEvent event = new ChangeOrderCategoryOkEvent(data, daoProvider, viewProvider);
+				ChangeOrderCategoryOkEvent event = new ChangeOrderCategoryOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 		} catch (IOException e) {
@@ -86,29 +87,29 @@ public class EventFactory {
 		return null;
 	}
 
-	public static IEvent createEvent(String eventClass, IDataContainer data, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public static IEvent createEvent(String eventClass, IDataContainer data, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		if (eventClass.equals("com.anfelisa.category.events.CreateCategoryOkEvent")) {
-			return new CreateCategoryOkEvent((CategoryCreationData)data, daoProvider, viewProvider);
+			return new CreateCategoryOkEvent((CategoryCreationData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 		if (eventClass.equals("com.anfelisa.category.events.UpdateCategoryOkEvent")) {
-			return new UpdateCategoryOkEvent((CategoryUpdateData)data, daoProvider, viewProvider);
+			return new UpdateCategoryOkEvent((CategoryUpdateData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 		if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryNoRootEvent")) {
-			return new DeleteCategoryNoRootEvent((CategoryDeleteData)data, daoProvider, viewProvider);
+			return new DeleteCategoryNoRootEvent((CategoryDeleteData)data, daoProvider, viewProvider, appConfiguration);
 		}
 		if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryRootEvent")) {
-			return new DeleteCategoryRootEvent((CategoryDeleteData)data, daoProvider, viewProvider);
+			return new DeleteCategoryRootEvent((CategoryDeleteData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 
 		if (eventClass.equals("com.anfelisa.category.events.MoveCategoryOkEvent")) {
-			return new MoveCategoryOkEvent((CategoryMoveData)data, daoProvider, viewProvider);
+			return new MoveCategoryOkEvent((CategoryMoveData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 		if (eventClass.equals("com.anfelisa.category.events.ChangeOrderCategoryOkEvent")) {
-			return new ChangeOrderCategoryOkEvent((CategoryChangeOrderData)data, daoProvider, viewProvider);
+			return new ChangeOrderCategoryOkEvent((CategoryChangeOrderData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 

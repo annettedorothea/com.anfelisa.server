@@ -26,6 +26,7 @@ import com.anfelisa.card.data.*;
 import com.anfelisa.ace.JodaObjectMapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.anfelisa.ace.IDataContainer;
+import com.anfelisa.ace.CustomAppConfiguration;
 
 import java.io.IOException;
 
@@ -41,42 +42,42 @@ public class EventFactory {
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
-	public static IEvent createEvent(String eventClass, String json, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public static IEvent createEvent(String eventClass, String json, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		try {
 			if (eventClass.equals("com.anfelisa.card.events.CreateCardOkEvent")) {
 				CardCreationData data = mapper.readValue(json, CardCreationData.class);
 				data.migrateLegacyData(json);
-				CreateCardOkEvent event = new CreateCardOkEvent(data, daoProvider, viewProvider);
+				CreateCardOkEvent event = new CreateCardOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.card.events.UpdateCardOkEvent")) {
 				CardUpdateData data = mapper.readValue(json, CardUpdateData.class);
 				data.migrateLegacyData(json);
-				UpdateCardOkEvent event = new UpdateCardOkEvent(data, daoProvider, viewProvider);
+				UpdateCardOkEvent event = new UpdateCardOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.card.events.DeleteCardOkEvent")) {
 				CardDeleteData data = mapper.readValue(json, CardDeleteData.class);
 				data.migrateLegacyData(json);
-				DeleteCardOkEvent event = new DeleteCardOkEvent(data, daoProvider, viewProvider);
+				DeleteCardOkEvent event = new DeleteCardOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.card.events.MoveCardsOkEvent")) {
 				CardIdListData data = mapper.readValue(json, CardIdListData.class);
 				data.migrateLegacyData(json);
-				MoveCardsOkEvent event = new MoveCardsOkEvent(data, daoProvider, viewProvider);
+				MoveCardsOkEvent event = new MoveCardsOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.card.events.ChangeOrderOkEvent")) {
 				ChangeCardOrderListData data = mapper.readValue(json, ChangeCardOrderListData.class);
 				data.migrateLegacyData(json);
-				ChangeOrderOkEvent event = new ChangeOrderOkEvent(data, daoProvider, viewProvider);
+				ChangeOrderOkEvent event = new ChangeOrderOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.card.events.ImportCsvOkEvent")) {
 				CsvUploadData data = mapper.readValue(json, CsvUploadData.class);
 				data.migrateLegacyData(json);
-				ImportCsvOkEvent event = new ImportCsvOkEvent(data, daoProvider, viewProvider);
+				ImportCsvOkEvent event = new ImportCsvOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 		} catch (IOException e) {
@@ -86,31 +87,31 @@ public class EventFactory {
 		return null;
 	}
 
-	public static IEvent createEvent(String eventClass, IDataContainer data, IDaoProvider daoProvider, ViewProvider viewProvider) {
+	public static IEvent createEvent(String eventClass, IDataContainer data, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		if (eventClass.equals("com.anfelisa.card.events.CreateCardOkEvent")) {
-			return new CreateCardOkEvent((CardCreationData)data, daoProvider, viewProvider);
+			return new CreateCardOkEvent((CardCreationData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 		if (eventClass.equals("com.anfelisa.card.events.UpdateCardOkEvent")) {
-			return new UpdateCardOkEvent((CardUpdateData)data, daoProvider, viewProvider);
+			return new UpdateCardOkEvent((CardUpdateData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 		if (eventClass.equals("com.anfelisa.card.events.DeleteCardOkEvent")) {
-			return new DeleteCardOkEvent((CardDeleteData)data, daoProvider, viewProvider);
+			return new DeleteCardOkEvent((CardDeleteData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 
 
 		if (eventClass.equals("com.anfelisa.card.events.MoveCardsOkEvent")) {
-			return new MoveCardsOkEvent((CardIdListData)data, daoProvider, viewProvider);
+			return new MoveCardsOkEvent((CardIdListData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 		if (eventClass.equals("com.anfelisa.card.events.ChangeOrderOkEvent")) {
-			return new ChangeOrderOkEvent((ChangeCardOrderListData)data, daoProvider, viewProvider);
+			return new ChangeOrderOkEvent((ChangeCardOrderListData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 		if (eventClass.equals("com.anfelisa.card.events.ImportCsvOkEvent")) {
-			return new ImportCsvOkEvent((CsvUploadData)data, daoProvider, viewProvider);
+			return new ImportCsvOkEvent((CsvUploadData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 

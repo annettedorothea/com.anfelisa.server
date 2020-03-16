@@ -42,10 +42,10 @@ public abstract class AbstractDeleteCategoryCommand extends Command<ICategoryDel
 	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case noRoot:
-			new com.anfelisa.category.events.DeleteCategoryNoRootEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
+			new com.anfelisa.category.events.DeleteCategoryNoRootEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
 			break;
 		case root:
-			new com.anfelisa.category.events.DeleteCategoryRootEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
+			new com.anfelisa.category.events.DeleteCategoryRootEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

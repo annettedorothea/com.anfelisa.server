@@ -22,13 +22,14 @@ package com.anfelisa.box.events;
 import com.anfelisa.ace.Event;
 import com.anfelisa.ace.IDaoProvider;
 import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.ace.CustomAppConfiguration;
 
 import com.anfelisa.box.data.IInitMyBoxesDataData;
 
 public class InitMyBoxesForDayOkEvent extends Event<IInitMyBoxesDataData> {
 
-	public InitMyBoxesForDayOkEvent(IInitMyBoxesDataData eventData, IDaoProvider daoProvider, ViewProvider viewProvider) {
-		super("com.anfelisa.box.events.InitMyBoxesForDayOkEvent", eventData, daoProvider, viewProvider);
+	public InitMyBoxesForDayOkEvent(IInitMyBoxesDataData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.InitMyBoxesForDayOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
 	}
 
 }

@@ -77,7 +77,7 @@ public class PrepareE2EResource {
 					ITimelineItem nextEvent = e2e.selectEvent(nextAction.getUuid());
 					if (nextEvent != null) {
 						LOG.info("PUBLISH EVENT " + nextEvent.getUuid() + " - " + nextEvent.getName());
-						IEvent event = EventFactory.createEvent(nextEvent.getName(), nextEvent.getData(), daoProvider, viewProvider);
+						IEvent event = EventFactory.createEvent(nextEvent.getName(), nextEvent.getData(), daoProvider, viewProvider, configuration);
 						if (event != null) {
 							event.notifyListeners(databaseHandle.getHandle());
 							daoProvider.getAceDao().addPreparingEventToTimeline(event, nextAction.getUuid(), databaseHandle.getTimelineHandle());

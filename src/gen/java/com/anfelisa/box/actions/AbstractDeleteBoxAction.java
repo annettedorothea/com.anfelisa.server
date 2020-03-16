@@ -146,7 +146,7 @@ public abstract class AbstractDeleteBoxAction extends Action<IDeleteBoxData> {
 					this.actionData.setSystemTime(NotReplayableDataProvider.getSystemTime());
 				}
 			}
-			if (!ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())) {
+			if (appConfiguration.getServerConfiguration().writeTimeline()) {
 				daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
 			}
 			ICommand command = this.getCommand();
@@ -159,7 +159,9 @@ public abstract class AbstractDeleteBoxAction extends Action<IDeleteBoxData> {
 			LOG.error(actionName + " failed " + x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
-				daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, this.databaseHandle.getTimelineHandle());
+				if (appConfiguration.getServerConfiguration().writeError()) {
+					daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, this.databaseHandle.getTimelineHandle());
+				}
 				App.reportException(x);
 			} catch (Exception ex) {
 				LOG.error("failed to rollback or to save or report exception " + ex.getMessage());
@@ -169,7 +171,9 @@ public abstract class AbstractDeleteBoxAction extends Action<IDeleteBoxData> {
 			LOG.error(actionName + " failed " + x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
-				daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, this.databaseHandle.getTimelineHandle());
+				if (appConfiguration.getServerConfiguration().writeError()) {
+					daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, this.databaseHandle.getTimelineHandle());
+				}
 				App.reportException(x);
 			} catch (Exception ex) {
 				LOG.error("failed to rollback or to save or report exception " + ex.getMessage());

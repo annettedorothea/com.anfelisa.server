@@ -22,20 +22,20 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
-		this.commandData.setCategoryId(commandData.getUuid());
-		this.commandData.setCategoryAuthor(commandData.getUsername());
 		if (commandData.getParentCategoryId() == null) {
 			throwBadRequest("missing parent category id");
 		}
 		if (this.commandData.getCategoryName() == null) {
 			throwBadRequest("category name must not be null");
 		}
+		this.commandData.setCategoryId(commandData.getUuid());
+		this.commandData.setCategoryAuthor(commandData.getUsername());
 		ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getParentCategoryId());
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, parentCategory.getRootCategoryId(),
 						commandData.getUserId());
-		if (access == null) {
+		if (access == null || !access.getEditable()) {
 			throwUnauthorized();
 		}
 		commandData.setRootCategoryId(parentCategory.getRootCategoryId());

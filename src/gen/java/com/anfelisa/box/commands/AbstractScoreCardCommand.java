@@ -42,10 +42,10 @@ public abstract class AbstractScoreCardCommand extends Command<IScoreCardData> {
 	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
 		case score:
-			new com.anfelisa.box.events.ScoreCardScoreEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
+			new com.anfelisa.box.events.ScoreCardScoreEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
 			break;
 		case scoreAndReinforce:
-			new com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent(this.commandData, daoProvider, viewProvider).publish(handle, timelineHandle);
+			new com.anfelisa.box.events.ScoreCardScoreAndReinforceEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

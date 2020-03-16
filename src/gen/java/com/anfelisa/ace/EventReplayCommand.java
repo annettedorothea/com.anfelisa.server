@@ -65,7 +65,7 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 
 			int i = 0;
 			for (ITimelineItem nextEvent : timeline) {
-				IEvent event = EventFactory.createEvent(nextEvent.getName(), nextEvent.getData(), daoProvider, viewProvider);
+				IEvent event = EventFactory.createEvent(nextEvent.getName(), nextEvent.getData(), daoProvider, viewProvider, configuration);
 				if (event != null) {
 					event.notifyListeners(databaseHandle.getHandle());
 					i++;

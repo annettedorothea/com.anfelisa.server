@@ -151,7 +151,10 @@ public abstract class AbstractGetDuplicatesAction extends Action<ICardSearchData
 				}
 			}
 			this.loadDataForGetRequest(this.databaseHandle.getReadonlyHandle());
-			daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
+			
+			if (appConfiguration.getServerConfiguration().writeTimeline()) {
+				daoProvider.getAceDao().addActionToTimeline(this, this.databaseHandle.getTimelineHandle());
+			}
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
 			return response;
@@ -159,7 +162,9 @@ public abstract class AbstractGetDuplicatesAction extends Action<ICardSearchData
 			LOG.error(actionName + " failed " + x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
-				daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, this.databaseHandle.getTimelineHandle());
+				if (appConfiguration.getServerConfiguration().writeError()) {
+					daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, this.databaseHandle.getTimelineHandle());
+				}
 				App.reportException(x);
 			} catch (Exception ex) {
 				LOG.error("failed to rollback or to save or report exception " + ex.getMessage());
@@ -169,7 +174,9 @@ public abstract class AbstractGetDuplicatesAction extends Action<ICardSearchData
 			LOG.error(actionName + " failed " + x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
-				daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, this.databaseHandle.getTimelineHandle());
+				if (appConfiguration.getServerConfiguration().writeError()) {
+					daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, this.databaseHandle.getTimelineHandle());
+				}
 				App.reportException(x);
 			} catch (Exception ex) {
 				LOG.error("failed to rollback or to save or report exception " + ex.getMessage());
