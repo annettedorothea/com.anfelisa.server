@@ -29,15 +29,12 @@ import org.glassfish.jersey.client.JerseyClientBuilder;
 @SuppressWarnings("unused")
 public class ActionCalls {
 
-	public static Response callCreateCategory(String uuid, String categoryName, String parentCategoryId, Boolean dictionaryLookup, String givenLanguage, String wantedLanguage, int port, String authorization) {
+	public static Response callCreateCategory(String uuid, String categoryName, String parentCategoryId, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/category/create", port)).request(); 
 		com.anfelisa.category.data.ICategoryCreationData data = new com.anfelisa.category.data.CategoryCreationData(uuid);
 		data.setCategoryName(categoryName);
 		data.setParentCategoryId(parentCategoryId);
-		data.setDictionaryLookup(dictionaryLookup);
-		data.setGivenLanguage(givenLanguage);
-		data.setWantedLanguage(wantedLanguage);
 		builder.header("Authorization", authorization);
 		return builder.post(Entity.json(data));
 	}

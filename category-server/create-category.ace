@@ -1,0 +1,152 @@
+HttpServer 
+
+com.anfelisa.category.createcategory
+
+scenarios 
+	CreateCategory
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.category.CreateCategory
+				uuid "cat1"
+				{
+					categoryName: "level 1 #1"
+					parentCategoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateSecondCategory
+		GIVEN
+			CreateCategory
+		WHEN
+			com.anfelisa.category.CreateCategory
+				uuid "cat2"
+				{
+					categoryName: "level 1 #2"
+					parentCategoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateCategorySecondLevel
+		GIVEN
+			CreateSecondCategory
+		WHEN
+			com.anfelisa.category.CreateCategory
+				uuid "cat3"
+				{
+					categoryName: "level 2 #1"
+					parentCategoryId: "cat2"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateCategoryWithDictionaryLookup
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxDictionaryLookup
+		WHEN
+			com.anfelisa.category.CreateCategory
+				uuid "dict"
+				{
+					categoryName: "dict"
+					parentCategoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateCategoryParentCategoryIsNull
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.category.CreateCategory
+				{
+					categoryName: "lala"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	CreateCategoryParentCategoryIsEmpty
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.category.CreateCategory
+				{
+					categoryName: "lala"
+					parentCategoryId: ""
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	CreateCategoryParentCategoryIsBlank
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.category.CreateCategory
+				{
+					categoryName: "lala"
+					parentCategoryId: "   "
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	CreateCategoryNameIsNull
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.category.CreateCategory
+				{
+					parentCategoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	CreateCategoryNameIsEmpty
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.category.CreateCategory
+				{
+					categoryName: ""
+					parentCategoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	CreateCategoryNameIsBlank
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.category.CreateCategory
+				{
+					categoryName: "   "
+					parentCategoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	CreateCategoryUnauthorized
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.category.CreateCategory
+				{
+					categoryName: "lala"
+					parentCategoryId: "boxId"
+				}
+		THEN 401
+
+	CreateCategoryUnauthorizedNoAccess
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.category.CreateCategory
+				{
+					categoryName: "lala"
+					parentCategoryId: "boxId"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+
+		

@@ -14,31 +14,24 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+package com.anfelisa.category.createcategory.scenarios;
 
+import javax.ws.rs.core.Response;
 
-
-package com.anfelisa.category.models;
-
-import java.util.List;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.anfelisa.category.models.CategoryModel;
+import com.anfelisa.category.models.ICategoryModel;
 
 @SuppressWarnings("unused")
-@JsonDeserialize(as=CategoryCreationModel.class)
-public interface ICategoryCreationModel extends com.anfelisa.category.models.ICategoryModel{
+public class CreateCategoryWithDictionaryLookupScenario extends AbstractCreateCategoryWithDictionaryLookupScenario {
 
-	String getUsername();
-	void setUsername(String username);
-	
-	String getUserId();
-	void setUserId(String userId);
-	
-	
+	@Override
+	protected void verifications(Response response) {
+		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "dict");
+		ICategoryModel expectedCategory = new CategoryModel("dict", "dict", "Annette", 1, "boxId", "boxId", true, "de",
+				"en");
+		assertThat(actualCategory, expectedCategory);
+	}
+
 }
 
-
-
-
 /******* S.D.G. *******/
-
-
-

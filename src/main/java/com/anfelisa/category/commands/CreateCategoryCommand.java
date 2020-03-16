@@ -1,5 +1,6 @@
 package com.anfelisa.category.commands;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,23 +23,23 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
-		if (commandData.getParentCategoryId() == null) {
+		if (StringUtils.isBlank(this.commandData.getParentCategoryId())) {
 			throwBadRequest("missing parent category id");
 		}
-		if (this.commandData.getCategoryName() == null) {
-			throwBadRequest("category name must not be null");
+		if (StringUtils.isBlank(this.commandData.getCategoryName())) {
+			throwBadRequest("category name must not be null or empty");
 		}
-		this.commandData.setCategoryId(commandData.getUuid());
-		this.commandData.setCategoryAuthor(commandData.getUsername());
 		ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getParentCategoryId());
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, parentCategory.getRootCategoryId(),
 						commandData.getUserId());
-		if (access == null || !access.getEditable()) {
+		if (access == null) {
 			throwUnauthorized();
 		}
 		commandData.setRootCategoryId(parentCategory.getRootCategoryId());
+		this.commandData.setCategoryId(commandData.getUuid());
+		this.commandData.setCategoryAuthor(commandData.getUsername());
 
 		ICategoryModel rootCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				parentCategory.getRootCategoryId());
@@ -53,7 +54,6 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 			max = 0;
 		}
 		commandData.setCategoryIndex(max + 1);
-		commandData.setEditable(true);
 		this.commandData.setOutcome(ok);
 	}
 

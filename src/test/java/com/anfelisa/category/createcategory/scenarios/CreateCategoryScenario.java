@@ -17,22 +17,24 @@
 
 
 
-package com.anfelisa.category.models;
+package com.anfelisa.category.createcategory.scenarios;
 
-import java.util.List;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import javax.ws.rs.core.Response;
+
+import com.anfelisa.category.models.CategoryModel;
+import com.anfelisa.category.models.ICategoryModel;
 
 @SuppressWarnings("unused")
-@JsonDeserialize(as=CategoryCreationModel.class)
-public interface ICategoryCreationModel extends com.anfelisa.category.models.ICategoryModel{
+public class CreateCategoryScenario extends AbstractCreateCategoryScenario {
 
-	String getUsername();
-	void setUsername(String username);
-	
-	String getUserId();
-	void setUserId(String userId);
-	
-	
+	@Override
+	protected void verifications(Response response) {
+		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat1");
+		ICategoryModel expectedCategory = new CategoryModel("cat1", "level 1 #1", "Annette", 1, "boxId", "boxId", false, null,
+				null);
+		assertThat(actualCategory, expectedCategory);
+	}
+
 }
 
 

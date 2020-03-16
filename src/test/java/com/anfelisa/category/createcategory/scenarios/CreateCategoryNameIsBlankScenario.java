@@ -17,22 +17,17 @@
 
 
 
-package com.anfelisa.category.models;
+package com.anfelisa.category.createcategory.scenarios;
 
-import java.util.List;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import javax.ws.rs.core.Response;
 
 @SuppressWarnings("unused")
-@JsonDeserialize(as=CategoryCreationModel.class)
-public interface ICategoryCreationModel extends com.anfelisa.category.models.ICategoryModel{
+public class CreateCategoryNameIsBlankScenario extends AbstractCreateCategoryNameIsBlankScenario {
 
-	String getUsername();
-	void setUsername(String username);
-	
-	String getUserId();
-	void setUserId(String userId);
-	
-	
+	@Override
+	protected void verifications(Response response) {
+	}
+
 }
 
 

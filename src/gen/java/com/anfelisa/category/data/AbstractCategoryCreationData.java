@@ -30,7 +30,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import com.anfelisa.category.models.ICategoryCreationModel;
 import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 import com.anfelisa.ace.AbstractData;
 import com.anfelisa.ace.IDataContainer;
@@ -41,6 +40,8 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	static final Logger LOG = LoggerFactory.getLogger(AbstractCategoryCreationData.class);
 	
 	private String username;
+	
+	private String userId;
 	
 	@NotNull
 	private String categoryId;
@@ -64,14 +65,10 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	
 	private String wantedLanguage;
 	
-	@NotNull
-	private String userId;
-	
-	private Boolean editable = false;
-	
 
 	public AbstractCategoryCreationData(
 		@JsonProperty("username") String username,
+		@JsonProperty("userId") String userId,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryAuthor") String categoryAuthor,
@@ -80,13 +77,12 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
-		@JsonProperty("wantedLanguage") String wantedLanguage,
-		@JsonProperty("userId") String userId,
-		@JsonProperty("editable") Boolean editable
+		@JsonProperty("wantedLanguage") String wantedLanguage
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.username = username;
+		this.userId = userId;
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryAuthor = categoryAuthor;
@@ -96,8 +92,6 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
-		this.userId = userId;
-		this.editable = editable;
 	}
 
 	public AbstractCategoryCreationData( String uuid ) {
@@ -113,6 +107,18 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	public ICategoryCreationData withUsername(String username) {
 		this.username = username;
+		return this;
+	}
+	
+	@JsonProperty
+		public String getUserId() {
+			return this.userId;
+		}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public ICategoryCreationData withUserId(String userId) {
+		this.userId = userId;
 		return this;
 	}
 	
@@ -224,30 +230,6 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		return this;
 	}
 	
-	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public ICategoryCreationData withUserId(String userId) {
-		this.userId = userId;
-		return this;
-	}
-	
-	@JsonProperty
-		public Boolean getEditable() {
-			return this.editable;
-		}
-	public void setEditable(Boolean editable) {
-		this.editable = editable;
-	}
-	public ICategoryCreationData withEditable(Boolean editable) {
-		this.editable = editable;
-		return this;
-	}
-	
 	
 	public void mapFrom(com.anfelisa.category.models.ICategoryModel model) {
 		this.categoryId = model.getCategoryId();
@@ -259,11 +241,6 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 		this.dictionaryLookup = model.getDictionaryLookup();
 		this.givenLanguage = model.getGivenLanguage();
 		this.wantedLanguage = model.getWantedLanguage();
-	}
-	public void mapFrom(com.anfelisa.category.models.IUserAccessToCategoryModel model) {
-		this.categoryId = model.getCategoryId();
-		this.userId = model.getUserId();
-		this.editable = model.getEditable();
 	}
 	
 }

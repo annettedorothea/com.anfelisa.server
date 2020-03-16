@@ -30,6 +30,8 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 
 	private String username;
 	
+	private String userId;
+	
 	@NotNull
 	private String categoryId;
 	
@@ -52,17 +54,13 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	
 	private String wantedLanguage;
 	
-	@NotNull
-	private String userId;
-	
-	private Boolean editable = false;
-	
 
 	public CategoryCreationModel() {
 	}
 
 	public CategoryCreationModel(
 		@JsonProperty("username") String username,
+		@JsonProperty("userId") String userId,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryAuthor") String categoryAuthor,
@@ -71,11 +69,10 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
-		@JsonProperty("wantedLanguage") String wantedLanguage,
-		@JsonProperty("userId") String userId,
-		@JsonProperty("editable") Boolean editable
+		@JsonProperty("wantedLanguage") String wantedLanguage
 	) {
 		this.username = username;
+		this.userId = userId;
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryAuthor = categoryAuthor;
@@ -85,8 +82,6 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
 		this.wantedLanguage = wantedLanguage;
-		this.userId = userId;
-		this.editable = editable;
 	}
 
 	@JsonProperty
@@ -95,6 +90,14 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 		}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	@JsonProperty
+		public String getUserId() {
+			return this.userId;
+		}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	@JsonProperty
@@ -167,22 +170,6 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 		}
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
-	}
-	
-	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	
-	@JsonProperty
-		public Boolean getEditable() {
-			return this.editable;
-		}
-	public void setEditable(Boolean editable) {
-		this.editable = editable;
 	}
 	
 	

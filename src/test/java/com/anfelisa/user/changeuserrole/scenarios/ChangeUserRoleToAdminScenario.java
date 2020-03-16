@@ -17,22 +17,24 @@
 
 
 
-package com.anfelisa.category.models;
+package com.anfelisa.user.changeuserrole.scenarios;
 
-import java.util.List;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import javax.ws.rs.core.Response;
+
+import com.anfelisa.auth.Roles;
+import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.user.models.UserModel;
 
 @SuppressWarnings("unused")
-@JsonDeserialize(as=CategoryCreationModel.class)
-public interface ICategoryCreationModel extends com.anfelisa.category.models.ICategoryModel{
+public class ChangeUserRoleToAdminScenario extends AbstractChangeUserRoleToAdminScenario {
 
-	String getUsername();
-	void setUsername(String username);
-	
-	String getUserId();
-	void setUserId(String userId);
-	
-	
+	@Override
+	protected void verifications(Response response) {
+		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette");
+		IUserModel expectedUser = new UserModel("uuid", "Annette", "password", "annette.pohl@anfelisa.de", Roles.ADMIN, false);
+		assertThat(actualUser, expectedUser);
+	}
+
 }
 
 

@@ -28,9 +28,10 @@ import com.anfelisa.category.models.ICategoryCreationModel;
 @JsonDeserialize(as=CategoryCreationData.class)
 public interface ICategoryCreationData extends ICategoryCreationModel, IDataContainer {
 	void mapFrom(com.anfelisa.category.models.ICategoryModel model);
-	void mapFrom(com.anfelisa.category.models.IUserAccessToCategoryModel model);
 	
 	ICategoryCreationData withUsername(String username);
+	
+	ICategoryCreationData withUserId(String userId);
 	
 	ICategoryCreationData withCategoryId(String categoryId);
 	
@@ -49,10 +50,6 @@ public interface ICategoryCreationData extends ICategoryCreationModel, IDataCont
 	ICategoryCreationData withGivenLanguage(String givenLanguage);
 	
 	ICategoryCreationData withWantedLanguage(String wantedLanguage);
-	
-	ICategoryCreationData withUserId(String userId);
-	
-	ICategoryCreationData withEditable(Boolean editable);
 	
 	
 }

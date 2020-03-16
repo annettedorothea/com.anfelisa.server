@@ -17,22 +17,27 @@
 
 
 
-package com.anfelisa.category.models;
+package com.anfelisa.user.changeuserrole;
 
-import java.util.List;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.dropwizard.setup.Environment;
+import com.anfelisa.ace.CustomAppConfiguration;
+import com.anfelisa.ace.AceExecutionMode;
+import com.anfelisa.ace.IDaoProvider;
+import com.anfelisa.ace.ViewProvider;
+import com.anfelisa.ace.ServerConfiguration;
+import com.anfelisa.ace.E2E;
+import com.anfelisa.ace.PersistenceConnection;
 
-@SuppressWarnings("unused")
-@JsonDeserialize(as=CategoryCreationModel.class)
-public interface ICategoryCreationModel extends com.anfelisa.category.models.ICategoryModel{
 
-	String getUsername();
-	void setUsername(String username);
-	
-	String getUserId();
-	void setUserId(String userId);
-	
-	
+@SuppressWarnings("all")
+public class AppRegistration {
+
+	public static void registerResources(Environment environment, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
+	}
+
+	public static void registerConsumers(ViewProvider viewProvider, String mode) {
+    }
 }
 
 

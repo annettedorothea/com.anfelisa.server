@@ -120,9 +120,6 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 		this.actionData = new CategoryCreationData(payload.getUuid());
 		this.actionData.setCategoryName(payload.getCategoryName());
 		this.actionData.setParentCategoryId(payload.getParentCategoryId());
-		this.actionData.setDictionaryLookup(payload.getDictionaryLookup());
-		this.actionData.setGivenLanguage(payload.getGivenLanguage());
-		this.actionData.setWantedLanguage(payload.getWantedLanguage());
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();

@@ -21,10 +21,16 @@ package com.anfelisa.category.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.joda.time.DateTime;
+import java.util.List;
+
+import com.anfelisa.ace.AbstractData;
+
 public class CategoryCreationData extends AbstractCategoryCreationData implements ICategoryCreationData {
 	
 	public CategoryCreationData(
 		@JsonProperty("username") String username, 
+		@JsonProperty("userId") String userId, 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("categoryName") String categoryName, 
 		@JsonProperty("categoryAuthor") String categoryAuthor, 
@@ -34,12 +40,11 @@ public class CategoryCreationData extends AbstractCategoryCreationData implement
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup, 
 		@JsonProperty("givenLanguage") String givenLanguage, 
 		@JsonProperty("wantedLanguage") String wantedLanguage, 
-		@JsonProperty("userId") String userId, 
-		@JsonProperty("editable") Boolean editable, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			username,
+			userId,
 			categoryId,
 			categoryName,
 			categoryAuthor,
@@ -49,8 +54,6 @@ public class CategoryCreationData extends AbstractCategoryCreationData implement
 			dictionaryLookup,
 			givenLanguage,
 			wantedLanguage,
-			userId,
-			editable,
 			uuid
 		);
 	}

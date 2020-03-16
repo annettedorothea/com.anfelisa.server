@@ -17,21 +17,18 @@
 
 
 
-package com.anfelisa.category.models;
+package com.anfelisa.category.createcategory;
 
-import java.util.List;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.core.Response;
+
+import org.glassfish.jersey.client.JerseyClientBuilder;
 
 @SuppressWarnings("unused")
-@JsonDeserialize(as=CategoryCreationModel.class)
-public interface ICategoryCreationModel extends com.anfelisa.category.models.ICategoryModel{
+public class ActionCalls {
 
-	String getUsername();
-	void setUsername(String username);
-	
-	String getUserId();
-	void setUserId(String userId);
-	
 	
 }
 

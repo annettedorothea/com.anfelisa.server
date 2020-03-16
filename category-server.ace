@@ -1,15 +1,16 @@
 HttpServer
+
 com.anfelisa.category
+
 import com.anfelisa.user.AuthUser
-ACE	CreateCategory<CategoryCreation>
+
+ACE	
+	CreateCategory<CategoryCreation>
 		POST "/category/create"  
 		authorize
 		payload 
 			categoryName
 			parentCategoryId
-			dictionaryLookup
-			givenLanguage
-			wantedLanguage
 		on ok (Category.insert)
 	
 	UpdateCategory<CategoryUpdate>
@@ -131,8 +132,9 @@ models
 		Boolean editable
 	}
 	
-	CategoryCreation extends Category, UserAccessToCategory {
+	CategoryCreation extends Category {
 		String username
+		String userId
 	}
 	
 	CategoryMove {

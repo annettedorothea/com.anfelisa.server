@@ -30,6 +30,7 @@ public class CategoryCreationMapper implements RowMapper<ICategoryCreationModel>
 	public ICategoryCreationModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CategoryCreationModel(
 			r.getString("username"),
+			r.getString("userId"),
 			r.getString("categoryId"),
 			r.getString("categoryName"),
 			r.getString("categoryAuthor"),
@@ -38,9 +39,7 @@ public class CategoryCreationMapper implements RowMapper<ICategoryCreationModel>
 			r.getString("rootCategoryId"),
 			r.getBoolean("dictionaryLookup"),
 			r.getString("givenLanguage"),
-			r.getString("wantedLanguage"),
-			r.getString("userId"),
-			r.getBoolean("editable")
+			r.getString("wantedLanguage")
 		);
 	}
 }

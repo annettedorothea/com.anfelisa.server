@@ -61,7 +61,7 @@ scenarios
 	DeleteAdmin
 		GIVEN
 			com.anfelisa.user.registeruser.RegisterUserAdmin
-			com.anfelisa.user.changeuerrole.ChangeUserRoleToAdmin
+			com.anfelisa.user.changeuserrole.ChangeUserRoleToAdmin
 		WHEN com.anfelisa.user.DeleteUser {
 			usernameToBeDeleted: "Annette"
 		}
