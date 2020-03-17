@@ -1,0 +1,62 @@
+HttpServer 
+
+com.anfelisa.category.deletecategory
+
+scenarios 
+	DeleteCategory
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+		WHEN
+			com.anfelisa.category.DeleteCategory
+				{
+					categoryId: "cat1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	DeleteCategoryUnauthorized
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+		WHEN
+			com.anfelisa.category.DeleteCategory
+				{
+					categoryId: "cat1"
+				}
+		THEN 401
+
+	DeleteCategoryNoAccess
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.category.DeleteCategory
+				{
+					categoryId: "cat1"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+
+	DeleteCategoryDoesNotExist
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.category.DeleteCategory
+				{
+					categoryId: "xx"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	DeleteRootCategory
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.category.DeleteCategory
+				{
+					categoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+

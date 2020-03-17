@@ -1,7 +1,5 @@
 package com.anfelisa.category.commands;
 
-import java.util.Arrays;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,8 +15,6 @@ public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 
 	static final Logger LOG = LoggerFactory.getLogger(UpdateCategoryCommand.class);
 
-	private final String[] languages = new String[] { "de", "fr", "en" };
-
 	public UpdateCategoryCommand(ICategoryUpdateData actionData, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super(actionData, daoProvider, viewProvider, appConfiguration);
@@ -32,25 +28,10 @@ public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 			throwBadRequest("categoryDoesNotExist");
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle,  category.getRootCategoryId(), commandData.getUserId());
-		if (access == null || access.getEditable() == false) {
+		if (access == null) {
 			throwUnauthorized();
 		}
-		validateLanguage(commandData.getGivenLanguage());
-		validateLanguage(commandData.getWantedLanguage());
-		if (commandData.getDictionaryLookup() == null || !commandData.getDictionaryLookup()) {
-			commandData.setGivenLanguage(null);
-			commandData.setWantedLanguage(null);
-		}
 		this.commandData.setOutcome(ok);
-	}
-
-	private void validateLanguage(String language) {
-		if (commandData.getDictionaryLookup() != null && commandData.getDictionaryLookup() == true
-				&& language != null
-				&& !Arrays.asList(languages).contains(language)) {
-			throwBadRequest("invalidLanguage");
-		}
-
 	}
 
 }

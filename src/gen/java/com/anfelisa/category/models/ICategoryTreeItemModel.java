@@ -38,9 +38,6 @@ public interface ICategoryTreeItemModel {
 	Boolean getEmpty();
 	void setEmpty(Boolean empty);
 	
-	Boolean getEditable();
-	void setEditable(Boolean editable);
-	
 	String getParentCategoryId();
 	void setParentCategoryId(String parentCategoryId);
 	

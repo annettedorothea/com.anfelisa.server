@@ -36,8 +36,6 @@ public interface ICategoryTreeItemData extends ICategoryTreeItemModel, IDataCont
 	
 	ICategoryTreeItemData withEmpty(Boolean empty);
 	
-	ICategoryTreeItemData withEditable(Boolean editable);
-	
 	ICategoryTreeItemData withParentCategoryId(String parentCategoryId);
 	
 	ICategoryTreeItemData withDictionaryLookup(Boolean dictionaryLookup);

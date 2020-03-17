@@ -1,0 +1,59 @@
+HttpServer 
+
+com.anfelisa.category.getcategorytree
+
+scenarios 
+	GetCategoryTree
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategorySecondLevel
+		WHEN
+			com.anfelisa.category.GetCategoryTree
+				{
+					rootCategoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				rootCategory : {
+					categoryId: "boxId"
+					categoryIndex: 1
+					categoryName: "cat"
+					dictionaryLookup: "false"
+					empty: "false"
+					rootCategoryId: "boxId"
+					childCategories: [
+						{
+							categoryId: "cat1"
+							categoryIndex: 1
+							categoryName: "level 1 #1"
+							dictionaryLookup: "false"
+							empty: "true"
+							parentCategoryId: "boxId"
+							rootCategoryId: "boxId"
+							childCategories: []
+						}
+						{
+							categoryId: "cat2"
+							categoryIndex: 2
+							categoryName: "level 1 #2"
+							dictionaryLookup: "false"
+							empty: "false"
+							parentCategoryId: "boxId"
+							rootCategoryId: "boxId"
+							childCategories : [
+								{
+									categoryId: "cat3"
+									categoryIndex: 1
+									categoryName: "level 2 #1"
+									dictionaryLookup: "false"
+									empty: "true"
+									parentCategoryId: "cat2"
+									rootCategoryId: "boxId"
+									childCategories: []
+								}
+							]
+						}
+					]
+				}
+			}
+

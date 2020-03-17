@@ -31,13 +31,6 @@ public class CategoryView implements ICategoryView {
 	}
 
 	@Override
-	public void deleteRoot(ICategoryDeleteData data, PersistenceHandle handle) {
-		daoProvider.getCardDao().deleteByCategoryId(handle, data.getCategoryId());
-		daoProvider.getCategoryDao().deleteByCategoryId(handle, data.getCategoryId());
-		daoProvider.getCategoryDao().shiftRootCategories(handle, data.getCategoryIndex());
-	}
-
-	@Override
 	public void update(ICategoryUpdateData data, PersistenceHandle handle) {
 		daoProvider.getCategoryDao().update(handle, data);
 	}

@@ -44,30 +44,18 @@ public abstract class AbstractCategoryUpdateData extends AbstractData implements
 	@NotNull
 	private String categoryName;
 	
-	private Boolean dictionaryLookup = false;
-	
-	private String givenLanguage;
-	
-	private String wantedLanguage;
-	
 	private String userId;
 	
 
 	public AbstractCategoryUpdateData(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
-		@JsonProperty("givenLanguage") String givenLanguage,
-		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("userId") String userId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
-		this.dictionaryLookup = dictionaryLookup;
-		this.givenLanguage = givenLanguage;
-		this.wantedLanguage = wantedLanguage;
 		this.userId = userId;
 	}
 
@@ -96,42 +84,6 @@ public abstract class AbstractCategoryUpdateData extends AbstractData implements
 	}
 	public ICategoryUpdateData withCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-		return this;
-	}
-	
-	@JsonProperty
-		public Boolean getDictionaryLookup() {
-			return this.dictionaryLookup;
-		}
-	public void setDictionaryLookup(Boolean dictionaryLookup) {
-		this.dictionaryLookup = dictionaryLookup;
-	}
-	public ICategoryUpdateData withDictionaryLookup(Boolean dictionaryLookup) {
-		this.dictionaryLookup = dictionaryLookup;
-		return this;
-	}
-	
-	@JsonProperty
-		public String getGivenLanguage() {
-			return this.givenLanguage;
-		}
-	public void setGivenLanguage(String givenLanguage) {
-		this.givenLanguage = givenLanguage;
-	}
-	public ICategoryUpdateData withGivenLanguage(String givenLanguage) {
-		this.givenLanguage = givenLanguage;
-		return this;
-	}
-	
-	@JsonProperty
-		public String getWantedLanguage() {
-			return this.wantedLanguage;
-		}
-	public void setWantedLanguage(String wantedLanguage) {
-		this.wantedLanguage = wantedLanguage;
-	}
-	public ICategoryUpdateData withWantedLanguage(String wantedLanguage) {
-		this.wantedLanguage = wantedLanguage;
 		return this;
 	}
 	

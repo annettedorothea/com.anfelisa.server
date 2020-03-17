@@ -31,9 +31,6 @@ public class CategoryUpdateMapper implements RowMapper<ICategoryUpdateModel> {
 		return new CategoryUpdateModel(
 			r.getString("categoryId"),
 			r.getString("categoryName"),
-			r.getBoolean("dictionaryLookup"),
-			r.getString("givenLanguage"),
-			r.getString("wantedLanguage"),
 			r.getString("userId")
 		);
 	}

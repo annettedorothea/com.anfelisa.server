@@ -120,9 +120,6 @@ public abstract class AbstractUpdateCategoryAction extends Action<ICategoryUpdat
 		this.actionData = new CategoryUpdateData(payload.getUuid());
 		this.actionData.setCategoryId(payload.getCategoryId());
 		this.actionData.setCategoryName(payload.getCategoryName());
-		this.actionData.setDictionaryLookup(payload.getDictionaryLookup());
-		this.actionData.setGivenLanguage(payload.getGivenLanguage());
-		this.actionData.setWantedLanguage(payload.getWantedLanguage());
 		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}

@@ -56,16 +56,10 @@ public class EventFactory {
 				UpdateCategoryOkEvent event = new UpdateCategoryOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
-			if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryNoRootEvent")) {
+			if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryOkEvent")) {
 				CategoryDeleteData data = mapper.readValue(json, CategoryDeleteData.class);
 				data.migrateLegacyData(json);
-				DeleteCategoryNoRootEvent event = new DeleteCategoryNoRootEvent(data, daoProvider, viewProvider, appConfiguration);
-				return event;
-			}
-			if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryRootEvent")) {
-				CategoryDeleteData data = mapper.readValue(json, CategoryDeleteData.class);
-				data.migrateLegacyData(json);
-				DeleteCategoryRootEvent event = new DeleteCategoryRootEvent(data, daoProvider, viewProvider, appConfiguration);
+				DeleteCategoryOkEvent event = new DeleteCategoryOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.category.events.MoveCategoryOkEvent")) {
@@ -96,11 +90,8 @@ public class EventFactory {
 			return new UpdateCategoryOkEvent((CategoryUpdateData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
-		if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryNoRootEvent")) {
-			return new DeleteCategoryNoRootEvent((CategoryDeleteData)data, daoProvider, viewProvider, appConfiguration);
-		}
-		if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryRootEvent")) {
-			return new DeleteCategoryRootEvent((CategoryDeleteData)data, daoProvider, viewProvider, appConfiguration);
+		if (eventClass.equals("com.anfelisa.category.events.DeleteCategoryOkEvent")) {
+			return new DeleteCategoryOkEvent((CategoryDeleteData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 

@@ -56,23 +56,29 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		assertThat(response.getStatus(), 200);
 		
 		com.anfelisa.user.data.UserListData expectedData = new com.anfelisa.user.data.UserListData(randomUUID());
-		List<com.anfelisa.user.models.IUserModel> expectedDataUserList = new ArrayList<com.anfelisa.user.models.IUserModel>();
-		com.anfelisa.user.models.IUserModel expectedDataUserList0 = new com.anfelisa.user.models.UserModel();
-		expectedDataUserList0.setEmail("annette.pohl@anfelisa.de");
-		expectedDataUserList0.setPassword("admin-password");
-		expectedDataUserList0.setUsername("Admin");
-		expectedDataUserList0.setUserId("uuid-admin");
-		expectedDataUserList0.setEmailConfirmed(new Boolean("False"));
-		expectedDataUserList0.setRole("ADMIN");
-		expectedDataUserList.add(expectedDataUserList0);
-		com.anfelisa.user.models.IUserModel expectedDataUserList1 = new com.anfelisa.user.models.UserModel();
-		expectedDataUserList1.setEmail("annette.pohl@anfelisa.de");
-		expectedDataUserList1.setPassword("password");
-		expectedDataUserList1.setUsername("Annette");
-		expectedDataUserList1.setEmailConfirmed(new Boolean("True"));
-		expectedDataUserList1.setRole("STUDENT");
-		expectedDataUserList1.setUserId("uuid");
-		expectedDataUserList.add(expectedDataUserList1);
+		// generateDataCreation
+		
+			// generateModelListCreation
+			List<com.anfelisa.user.models.IUserModel> expectedDataUserList = new ArrayList<com.anfelisa.user.models.IUserModel>();
+			com.anfelisa.user.models.IUserModel item1 = new com.anfelisa.user.models.UserModel();
+			item1.setEmail("annette.pohl@anfelisa.de");
+			item1.setPassword("admin-password");
+			item1.setUsername("Admin");
+			item1.setUserId("uuid-admin");
+			item1.setEmailConfirmed(new Boolean("False"));
+			item1.setRole("ADMIN");
+			expectedDataUserList.add(item1);
+		
+			com.anfelisa.user.models.IUserModel item2 = new com.anfelisa.user.models.UserModel();
+			item2.setEmail("annette.pohl@anfelisa.de");
+			item2.setPassword("password");
+			item2.setUsername("Annette");
+			item2.setEmailConfirmed(new Boolean("True"));
+			item2.setRole("STUDENT");
+			item2.setUserId("uuid");
+			expectedDataUserList.add(item2);
+		
+			
 		expectedData.setUserList(expectedDataUserList);
 		
 		com.anfelisa.user.data.GetAllUsersResponse expected = new com.anfelisa.user.data.GetAllUsersResponse(expectedData);

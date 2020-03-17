@@ -53,8 +53,11 @@ public abstract class AbstractGetUserProfileAdminScenario extends BaseScenario {
 		assertThat(response.getStatus(), 200);
 		
 		com.anfelisa.user.data.UserData expectedData = new com.anfelisa.user.data.UserData(randomUUID());
+		// generateDataCreation
 		expectedData.setEmail("annette.pohl@anfelisa.de");
+		// generateDataCreation
 		expectedData.setUsername("Admin");
+		// generateDataCreation
 		expectedData.setUserId("uuid-admin");
 		
 		com.anfelisa.user.data.GetUserProfileResponse expected = new com.anfelisa.user.data.GetUserProfileResponse(expectedData);

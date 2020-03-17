@@ -34,12 +34,6 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	@NotNull
 	private String categoryName;
 	
-	private Boolean dictionaryLookup = false;
-	
-	private String givenLanguage;
-	
-	private String wantedLanguage;
-	
 	private String userId;
 	
 
@@ -49,16 +43,10 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	public CategoryUpdateModel(
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
-		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
-		@JsonProperty("givenLanguage") String givenLanguage,
-		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("userId") String userId
 	) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
-		this.dictionaryLookup = dictionaryLookup;
-		this.givenLanguage = givenLanguage;
-		this.wantedLanguage = wantedLanguage;
 		this.userId = userId;
 	}
 
@@ -76,30 +64,6 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 		}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-	}
-	
-	@JsonProperty
-		public Boolean getDictionaryLookup() {
-			return this.dictionaryLookup;
-		}
-	public void setDictionaryLookup(Boolean dictionaryLookup) {
-		this.dictionaryLookup = dictionaryLookup;
-	}
-	
-	@JsonProperty
-		public String getGivenLanguage() {
-			return this.givenLanguage;
-		}
-	public void setGivenLanguage(String givenLanguage) {
-		this.givenLanguage = givenLanguage;
-	}
-	
-	@JsonProperty
-		public String getWantedLanguage() {
-			return this.wantedLanguage;
-		}
-	public void setWantedLanguage(String wantedLanguage) {
-		this.wantedLanguage = wantedLanguage;
 	}
 	
 	@JsonProperty

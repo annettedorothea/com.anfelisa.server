@@ -52,12 +52,8 @@ public class AppRegistration {
 			viewProvider.categoryView.update((com.anfelisa.category.data.CategoryUpdateData) dataContainer, handle);
 		});
 		
-		viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryNoRootEvent", (dataContainer, handle) -> {
+		viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryOkEvent", (dataContainer, handle) -> {
 			viewProvider.categoryView.delete((com.anfelisa.category.data.CategoryDeleteData) dataContainer, handle);
-		});
-		
-		viewProvider.addConsumer("com.anfelisa.category.events.DeleteCategoryRootEvent", (dataContainer, handle) -> {
-			viewProvider.categoryView.deleteRoot((com.anfelisa.category.data.CategoryDeleteData) dataContainer, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.category.events.MoveCategoryOkEvent", (dataContainer, handle) -> {

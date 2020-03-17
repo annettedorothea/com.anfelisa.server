@@ -19,17 +19,13 @@ ACE
 		payload 
 			categoryId
 			categoryName
-			dictionaryLookup
-			givenLanguage
-			wantedLanguage
 		on ok (Category.update)
 	
 	DeleteCategory<CategoryDelete>
 		DELETE "/category/delete"  
 		authorize
 		queryParams categoryId
-		on noRoot (Category.delete)
-		on root (Category.deleteRoot)
+		on ok (Category.delete)
 	
 	GetCategoryTree<CategoryTree>
 		GET "/category/tree" 
@@ -60,7 +56,6 @@ views
 	Category {
 		insert(CategoryCreation)
 		delete(CategoryDelete)
-		deleteRoot(CategoryDelete)
 		update(CategoryUpdate)
 		moveCategory(CategoryMove)
 		changeOrder(CategoryChangeOrder)
@@ -88,9 +83,6 @@ models
 	CategoryUpdate {
 		NotNull String categoryId
 		NotNull String categoryName
-		Boolean dictionaryLookup
-		String givenLanguage
-		String wantedLanguage
 		String userId
 	}
 	
@@ -112,7 +104,6 @@ models
 		String categoryName
 		Integer categoryIndex
 		Boolean empty
-		Boolean editable
 		String parentCategoryId
 		Boolean dictionaryLookup
 		String givenLanguage

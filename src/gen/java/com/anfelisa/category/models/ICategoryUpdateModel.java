@@ -32,15 +32,6 @@ public interface ICategoryUpdateModel {
 	String getCategoryName();
 	void setCategoryName(String categoryName);
 	
-	Boolean getDictionaryLookup();
-	void setDictionaryLookup(Boolean dictionaryLookup);
-	
-	String getGivenLanguage();
-	void setGivenLanguage(String givenLanguage);
-	
-	String getWantedLanguage();
-	void setWantedLanguage(String wantedLanguage);
-	
 	String getUserId();
 	void setUserId(String userId);
 	

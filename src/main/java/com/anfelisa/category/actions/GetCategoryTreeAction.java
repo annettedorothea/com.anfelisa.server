@@ -24,9 +24,9 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 
 	protected final void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
 		ICategoryTreeItemModel rootCategory = daoProvider.getCategoryDao().selectRoot(readonlyHandle,
-				actionData.getRootCategoryId(), actionData.getUserId());
-		List<ICategoryTreeItemModel> childCategories = daoProvider.getCategoryDao().selectAllChildren(readonlyHandle,
-				actionData.getRootCategoryId(), actionData.getUserId());
+				actionData.getRootCategoryId());
+		List<ICategoryTreeItemModel> childCategories = daoProvider.getCategoryDao().selectAllChildrenForTree(readonlyHandle,
+				actionData.getRootCategoryId());
 		rootCategory.setChildCategories(childCategories);
 		for (ICategoryTreeItemModel categoryItemModel : childCategories) {
 			categoryItemModel.setChildCategories(loadChildren(categoryItemModel.getCategoryId(), readonlyHandle));
@@ -35,9 +35,8 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 	}
 
 	private List<ICategoryTreeItemModel> loadChildren(String categoryId, PersistenceHandle readonlyHandle) {
-		List<ICategoryTreeItemModel> children = daoProvider.getCategoryDao().selectAllChildren(readonlyHandle,
-				categoryId,
-				actionData.getUserId());
+		List<ICategoryTreeItemModel> children = daoProvider.getCategoryDao().selectAllChildrenForTree(readonlyHandle,
+				categoryId);
 		for (ICategoryTreeItemModel child : children) {
 			child.setChildCategories(loadChildren(child.getCategoryId(), readonlyHandle));
 		}

@@ -53,6 +53,7 @@ public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 		assertThat(response.getStatus(), 200);
 		
 		com.anfelisa.user.data.RoleData expectedData = new com.anfelisa.user.data.RoleData(randomUUID());
+		// generateDataCreation
 		expectedData.setRole("STUDENT");
 		
 		com.anfelisa.user.data.GetRoleResponse expected = new com.anfelisa.user.data.GetRoleResponse(expectedData);

@@ -39,15 +39,12 @@ public class ActionCalls {
 		return builder.post(Entity.json(data));
 	}
 	
-	public static Response callUpdateCategory(String uuid, String categoryId, String categoryName, Boolean dictionaryLookup, String givenLanguage, String wantedLanguage, int port, String authorization) {
+	public static Response callUpdateCategory(String uuid, String categoryId, String categoryName, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/category/update?uuid=" + uuid, port)).request();
 		com.anfelisa.category.data.ICategoryUpdateData data = new com.anfelisa.category.data.CategoryUpdateData(uuid);
 		data.setCategoryId(categoryId);
 		data.setCategoryName(categoryName);
-		data.setDictionaryLookup(dictionaryLookup);
-		data.setGivenLanguage(givenLanguage);
-		data.setWantedLanguage(wantedLanguage);
 		builder.header("Authorization", authorization);
 		return builder.put(Entity.json(data));
 	}

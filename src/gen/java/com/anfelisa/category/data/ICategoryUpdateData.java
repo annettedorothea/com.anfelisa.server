@@ -32,12 +32,6 @@ public interface ICategoryUpdateData extends ICategoryUpdateModel, IDataContaine
 	
 	ICategoryUpdateData withCategoryName(String categoryName);
 	
-	ICategoryUpdateData withDictionaryLookup(Boolean dictionaryLookup);
-	
-	ICategoryUpdateData withGivenLanguage(String givenLanguage);
-	
-	ICategoryUpdateData withWantedLanguage(String wantedLanguage);
-	
 	ICategoryUpdateData withUserId(String userId);
 	
 	

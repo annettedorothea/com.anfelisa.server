@@ -31,8 +31,7 @@ import com.anfelisa.category.data.ICategoryDeleteData;
 
 public abstract class AbstractDeleteCategoryCommand extends Command<ICategoryDeleteData> {
 
-	protected static final String noRoot = "noRoot";
-	protected static final String root = "root";
+	protected static final String ok = "ok";
 
 	public AbstractDeleteCategoryCommand(ICategoryDeleteData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.category.commands.DeleteCategoryCommand", commandParam, daoProvider, viewProvider, appConfiguration);
@@ -41,11 +40,8 @@ public abstract class AbstractDeleteCategoryCommand extends Command<ICategoryDel
 	@Override
 	public void publishEvents(PersistenceHandle handle, PersistenceHandle timelineHandle) {
 		switch (this.commandData.getOutcome()) {
-		case noRoot:
-			new com.anfelisa.category.events.DeleteCategoryNoRootEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
-			break;
-		case root:
-			new com.anfelisa.category.events.DeleteCategoryRootEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
+		case ok:
+			new com.anfelisa.category.events.DeleteCategoryOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
 			break;
 		default:
 			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());

@@ -58,8 +58,7 @@ public class AceDataFactory {
 			}
 			if (className.equals("com.anfelisa.category.actions.DeleteCategoryAction") ||
 					className.equals("com.anfelisa.category.commands.DeleteCategoryCommand") ||
-					className.equals("com.anfelisa.category.events.DeleteCategoryNoRootEvent")||
-					className.equals("com.anfelisa.category.events.DeleteCategoryRootEvent")
+					className.equals("com.anfelisa.category.events.DeleteCategoryOkEvent")
 			) {
 				CategoryDeleteData data = mapper.readValue(json, CategoryDeleteData.class);
 				data.migrateLegacyData(json);

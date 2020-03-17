@@ -50,6 +50,7 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 		assertThat(response.getStatus(), 200);
 		
 		com.anfelisa.user.data.UsernameAvailableData expectedData = new com.anfelisa.user.data.UsernameAvailableData(randomUUID());
+		// generateDataCreation
 		expectedData.setAvailable(new Boolean("false"));
 		
 		com.anfelisa.user.data.UsernameAvailableResponse expected = new com.anfelisa.user.data.UsernameAvailableResponse(expectedData);

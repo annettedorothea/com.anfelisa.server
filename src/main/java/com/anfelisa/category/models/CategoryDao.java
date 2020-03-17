@@ -11,26 +11,26 @@ import com.anfelisa.category.data.ICategoryUpdateData;
 
 public class CategoryDao extends AbstractCategoryDao {
 
-	public ICategoryTreeItemModel selectRoot(PersistenceHandle handle, String rootCategoryId, String userId) {
+	public ICategoryTreeItemModel selectRoot(PersistenceHandle handle, String rootCategoryId) {
 		Optional<ICategoryTreeItemModel> optional = handle.getHandle().createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
-						+ "(select a.editable from useraccesstocategory a where a.categoryid = :categoryid and userid = :userid), "
 						+ "true as isRoot "
 						+ "FROM public.category c WHERE categoryid = :categoryid")
-				.bind("userid", userId).bind("categoryid", rootCategoryId).map(new CategoryTreeItemMapper())
+				.bind("categoryid", rootCategoryId)
+				.map(new CategoryTreeItemMapper())
 				.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public List<ICategoryTreeItemModel> selectAllChildren(PersistenceHandle handle, String parentCategoryId, String userId) {
+	public List<ICategoryTreeItemModel> selectAllChildrenForTree(PersistenceHandle handle, String parentCategoryId) {
 		return handle.getHandle().createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
-						+ "(select a.editable from useraccesstocategory a where a.categoryid = c.rootcategoryid and userid = :userid), "
 						+ "false as isRoot "
 						+ "FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
-				.bind("userid", userId).bind("parentcategoryid", parentCategoryId).map(new CategoryTreeItemMapper())
+				.bind("parentcategoryid", parentCategoryId)
+				.map(new CategoryTreeItemMapper())
 				.list();
 	}
 	
@@ -59,12 +59,9 @@ public class CategoryDao extends AbstractCategoryDao {
 
 	public void update(PersistenceHandle handle, ICategoryUpdateData categoryModel) {
 		Update statement = handle.getHandle().createUpdate(
-				"UPDATE public.category SET categoryname = :categoryname, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryid = :categoryid");
+				"UPDATE public.category SET categoryname = :categoryname WHERE categoryid = :categoryid");
 		statement.bind("categoryname", categoryModel.getCategoryName());
 		statement.bind("categoryid", categoryModel.getCategoryId());
-		statement.bind("dictionarylookup", categoryModel.getDictionaryLookup());
-		statement.bind("givenlanguage", categoryModel.getGivenLanguage());
-		statement.bind("wantedlanguage", categoryModel.getWantedLanguage());
 		statement.execute();
 	}
 

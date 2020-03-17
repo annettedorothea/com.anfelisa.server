@@ -36,8 +36,6 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	
 	private Boolean empty = false;
 	
-	private Boolean editable = false;
-	
 	private String parentCategoryId;
 	
 	private Boolean dictionaryLookup = false;
@@ -59,7 +57,6 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryIndex") Integer categoryIndex,
 		@JsonProperty("empty") Boolean empty,
-		@JsonProperty("editable") Boolean editable,
 		@JsonProperty("parentCategoryId") String parentCategoryId,
 		@JsonProperty("dictionaryLookup") Boolean dictionaryLookup,
 		@JsonProperty("givenLanguage") String givenLanguage,
@@ -71,7 +68,6 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 		this.categoryName = categoryName;
 		this.categoryIndex = categoryIndex;
 		this.empty = empty;
-		this.editable = editable;
 		this.parentCategoryId = parentCategoryId;
 		this.dictionaryLookup = dictionaryLookup;
 		this.givenLanguage = givenLanguage;
@@ -110,14 +106,6 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 		}
 	public void setEmpty(Boolean empty) {
 		this.empty = empty;
-	}
-	
-	@JsonProperty
-		public Boolean getEditable() {
-			return this.editable;
-		}
-	public void setEditable(Boolean editable) {
-		this.editable = editable;
 	}
 	
 	@JsonProperty

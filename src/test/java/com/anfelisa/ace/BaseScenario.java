@@ -30,6 +30,8 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.category.data.GetCategoryTreeResponse;
+import com.anfelisa.category.models.ICategoryTreeItemModel;
 import com.anfelisa.user.data.GetAllUsersResponse;
 import com.anfelisa.user.models.IUserModel;
 
@@ -88,14 +90,18 @@ public class BaseScenario extends AbstractBaseScenario {
 
 	@Override
 	protected void assertThat(Object actual, Object expected) {
-		if (actual instanceof GetAllUsersResponse) {
+		if (actual == null) {
+			assertIsNull(expected);
+		} else if (actual instanceof GetAllUsersResponse) {
 			assertThat((GetAllUsersResponse) actual, (GetAllUsersResponse) expected);
+		} else if (actual instanceof GetCategoryTreeResponse) {
+			assertThat((GetCategoryTreeResponse) actual, (GetCategoryTreeResponse) expected);
 		} else {
 			org.junit.Assert.assertThat(actual, is(samePropertyValuesAs(expected)));
 		}
 	}
 
-	protected void assertThat(GetAllUsersResponse actual, GetAllUsersResponse expected) {
+	private void assertThat(GetAllUsersResponse actual, GetAllUsersResponse expected) {
 		List<IUserModel> actualUserList = actual.getUserList();
 		List<IUserModel> expectedUserList = expected.getUserList();
 		assertThat(actualUserList.size(), expectedUserList.size());
@@ -103,6 +109,36 @@ public class BaseScenario extends AbstractBaseScenario {
 			IUserModel actualUser = actualUserList.get(i);
 			IUserModel expectedUser = expectedUserList.get(i);
 			org.junit.Assert.assertThat(actualUser, is(samePropertyValuesAs(expectedUser)));
+		}
+	}
+
+	private void assertThat(GetCategoryTreeResponse actual, GetCategoryTreeResponse expected) {
+		ICategoryTreeItemModel actualRootCategory = actual.getRootCategory();
+		ICategoryTreeItemModel expectedRootCategory = expected.getRootCategory();
+		assertThat(actualRootCategory, expectedRootCategory);
+	}
+
+	private void assertThat(ICategoryTreeItemModel actual, ICategoryTreeItemModel expected) {
+		assertThat(actual.getCategoryId(), expected.getCategoryId());
+		assertThat(actual.getCategoryIndex(), expected.getCategoryIndex());
+		assertThat(actual.getCategoryName(), expected.getCategoryName());
+		assertThat(actual.getDictionaryLookup(), expected.getDictionaryLookup());
+		assertThat(actual.getEmpty(), expected.getEmpty());
+		assertThat(actual.getGivenLanguage(), expected.getGivenLanguage());
+		assertThat(actual.getParentCategoryId(), expected.getParentCategoryId());
+		assertThat(actual.getRootCategoryId(), expected.getRootCategoryId());
+		assertThat(actual.getWantedLanguage(), expected.getWantedLanguage());
+		if (actual.getChildCategories() == null) {
+			assertIsNull(expected.getChildCategories());
+		} else if (expected.getChildCategories() == null) {
+			org.junit.Assert.fail("expected.getChildCategories is null");
+		} else {
+			assertThat(actual.getChildCategories().size(), expected.getChildCategories().size());
+			for (int i = 0; i < actual.getChildCategories().size(); i++) {
+				ICategoryTreeItemModel actualChild = actual.getChildCategories().get(i);
+				ICategoryTreeItemModel expectedChild = expected.getChildCategories().get(i);
+				assertThat(actualChild, expectedChild);
+			}
 		}
 	}
 

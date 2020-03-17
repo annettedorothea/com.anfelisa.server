@@ -1,0 +1,54 @@
+HttpServer 
+
+com.anfelisa.category.updatecategory
+
+scenarios 
+	UpdateCategory
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.category.UpdateCategory
+				{
+					categoryName: "changed"
+					categoryId: "cat1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	UpdateCategoryUnauthorized
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.category.UpdateCategory
+				{
+					categoryName: "changed"
+					categoryId: "cat1"
+				}
+		THEN 401
+		
+	UpdateCategoryNoAccess
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.category.UpdateCategory
+				{
+					categoryName: "changed"
+					categoryId: "cat1"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+		
+	UpdateCategoryDoesNotExist
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.category.UpdateCategory
+				{
+					categoryName: "changed"
+					categoryId: "xxx"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+		
+		

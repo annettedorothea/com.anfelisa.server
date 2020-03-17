@@ -29,15 +29,15 @@ public class DeleteCategoryCommand extends AbstractDeleteCategoryCommand {
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), commandData.getUserId());
-		if (access == null || access.getEditable() == false) {
+		if (access == null) {
 			throwUnauthorized();
 		}
 		this.commandData.setCategoryIndex(category.getCategoryIndex());
 		if (category.getParentCategoryId() == null) {
-			this.commandData.setOutcome(root);
+			throwBadRequest("root category must not be deleted");
 		} else {
 			this.commandData.setParentCategoryId(category.getParentCategoryId());
-			this.commandData.setOutcome(noRoot);
+			this.commandData.setOutcome(ok);
 		}
 	}
 

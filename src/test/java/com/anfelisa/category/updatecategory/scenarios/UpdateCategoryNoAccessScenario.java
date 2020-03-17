@@ -17,19 +17,15 @@
 
 
 
-package com.anfelisa.category.events;
+package com.anfelisa.category.updatecategory.scenarios;
 
-import com.anfelisa.ace.Event;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.ace.CustomAppConfiguration;
+import javax.ws.rs.core.Response;
 
-import com.anfelisa.category.data.ICategoryDeleteData;
+@SuppressWarnings("unused")
+public class UpdateCategoryNoAccessScenario extends AbstractUpdateCategoryNoAccessScenario {
 
-public class DeleteCategoryNoRootEvent extends Event<ICategoryDeleteData> {
-
-	public DeleteCategoryNoRootEvent(ICategoryDeleteData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
-		super("com.anfelisa.category.events.DeleteCategoryNoRootEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	@Override
+	protected void verifications(Response response) {
 	}
 
 }
