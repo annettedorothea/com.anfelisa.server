@@ -57,3 +57,61 @@ scenarios
 				}
 			}
 
+	GetCategoryTreeWithDictionaryLookup
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategoryWithDictionaryLookup
+		WHEN
+			com.anfelisa.category.GetCategoryTree
+				{
+					rootCategoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				rootCategory : {
+					categoryId: "boxId"
+					categoryIndex: 1
+					categoryName: "cat"
+					dictionaryLookup: "true"
+					givenLanguage: "de"
+					wantedLanguage: "en"
+					empty: "false"
+					rootCategoryId: "boxId"
+					childCategories: [
+						{
+							categoryId: "dict"
+							categoryIndex: 1
+							categoryName: "dict"
+							dictionaryLookup: "true"
+							givenLanguage: "de"
+							wantedLanguage: "en"
+							empty: "true"
+							parentCategoryId: "boxId"
+							rootCategoryId: "boxId"
+							childCategories: []
+						}
+					]
+				}
+			}
+
+	GetCategoryTreeUnauthorized
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.category.GetCategoryTree
+				{
+					rootCategoryId: "boxId"
+				}
+		THEN 401
+
+	GetCategoryTreeNoAccess
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.category.GetCategoryTree
+				{
+					rootCategoryId: "boxId"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401

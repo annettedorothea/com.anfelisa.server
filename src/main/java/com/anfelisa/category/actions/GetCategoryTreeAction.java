@@ -12,6 +12,7 @@ import com.anfelisa.ace.PersistenceConnection;
 import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.category.models.ICategoryTreeItemModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 
@@ -23,6 +24,11 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 	}
 
 	protected final void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
+		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
+				.selectByCategoryIdAndUserId(readonlyHandle, actionData.getRootCategoryId(), actionData.getUserId());
+		if (access == null) {
+			throwUnauthorized();
+		}
 		ICategoryTreeItemModel rootCategory = daoProvider.getCategoryDao().selectRoot(readonlyHandle,
 				actionData.getRootCategoryId());
 		List<ICategoryTreeItemModel> childCategories = daoProvider.getCategoryDao().selectAllChildrenForTree(readonlyHandle,

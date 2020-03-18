@@ -1,0 +1,30 @@
+HttpServer 
+
+com.anfelisa.category.movecategory
+
+scenarios 
+	MoveCategoryToRoot
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategorySecondLevel
+		WHEN
+			com.anfelisa.category.MoveCategory
+				{
+					movedCategoryId: "cat3"
+					targetCategoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	MoveCategoryToSub
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategorySecondLevel
+		WHEN
+			com.anfelisa.category.MoveCategory
+				{
+					movedCategoryId: "cat1"
+					targetCategoryId: "cat3"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+		
