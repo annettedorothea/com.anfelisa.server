@@ -2,13 +2,14 @@ package com.anfelisa.box.views;
 
 import java.util.List;
 
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.data.IScheduledCardsData;
 import com.anfelisa.box.models.IScheduledCardModel;
+
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
 
 public class BoxView implements IBoxView {
 

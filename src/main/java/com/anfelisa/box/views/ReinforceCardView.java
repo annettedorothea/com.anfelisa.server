@@ -1,11 +1,12 @@
 package com.anfelisa.box.views;
 
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.data.IInitMyBoxesDataData;
 import com.anfelisa.box.data.IScoreCardData;
 import com.anfelisa.box.data.IScoreReinforceCardData;
+
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
 
 public class ReinforceCardView implements IReinforceCardView {
 

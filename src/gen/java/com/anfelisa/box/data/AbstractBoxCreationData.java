@@ -33,8 +33,8 @@ import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 import com.anfelisa.box.models.IBoxModel;
 
-import com.anfelisa.ace.AbstractData;
-import com.anfelisa.ace.IDataContainer;
+import de.acegen.AbstractData;
+import de.acegen.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractBoxCreationData extends AbstractData implements IBoxCreationData {

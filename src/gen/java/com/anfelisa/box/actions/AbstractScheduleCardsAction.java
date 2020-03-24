@@ -37,24 +37,24 @@ import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.Action;
-import com.anfelisa.ace.App;
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.DatabaseHandle;
-import com.anfelisa.ace.E2E;
-import com.anfelisa.ace.HttpMethod;
-import com.anfelisa.ace.ICommand;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.ace.ITimelineItem;
-import com.anfelisa.ace.JodaObjectMapper;
-import com.anfelisa.ace.ServerConfiguration;
-import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.ace.NotReplayableDataProvider;
-import com.anfelisa.ace.PersistenceHandle;
-import com.anfelisa.ace.PersistenceConnection;
+import de.acegen.Action;
+import de.acegen.App;
+import de.acegen.CustomAppConfiguration;
+import de.acegen.DatabaseHandle;
+import de.acegen.E2E;
+import de.acegen.HttpMethod;
+import de.acegen.ICommand;
+import de.acegen.IDaoProvider;
+import de.acegen.IDataContainer;
+import de.acegen.ITimelineItem;
+import de.acegen.JodaObjectMapper;
+import de.acegen.ServerConfiguration;
+import de.acegen.ViewProvider;
+import de.acegen.NotReplayableDataProvider;
+import de.acegen.PersistenceHandle;
+import de.acegen.PersistenceConnection;
 
-import com.anfelisa.auth.AuthUser;
+import de.acegen.auth.AuthUser;
 
 import com.codahale.metrics.annotation.Timed;
 
@@ -69,7 +69,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.auth.AuthUser;
 import com.anfelisa.box.data.IScheduledCardsData;
 import com.anfelisa.box.data.ScheduledCardsData;
 import com.anfelisa.box.commands.ScheduleCardsCommand;
@@ -129,10 +128,13 @@ public abstract class AbstractScheduleCardsAction extends Action<IScheduledCards
 		try {
 			if (ServerConfiguration.DEV.equals(appConfiguration.getServerConfiguration().getMode())
 					|| ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())) {
-				if (daoProvider.getAceDao().contains(databaseHandle.getHandle(), this.actionData.getUuid())) {
-					databaseHandle.commitTransaction();
-					throwBadRequest("uuid already exists - please choose another one");
+				if (appConfiguration.getServerConfiguration().writeTimeline()) {
+					if (daoProvider.getAceDao().contains(databaseHandle.getHandle(), this.actionData.getUuid())) {
+						databaseHandle.commitTransaction();
+						throwBadRequest("uuid already exists - please choose another one");
+					}
 				}
+				
 				this.actionData.setSystemTime(new DateTime());
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {

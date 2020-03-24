@@ -7,15 +7,16 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.PersistenceHandle;
-import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IScheduledCardsData;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.ScheduledCardModel;
 import com.anfelisa.card.models.ICardModel;
+
+import de.acegen.CustomAppConfiguration;
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
+import de.acegen.ViewProvider;
 
 public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 

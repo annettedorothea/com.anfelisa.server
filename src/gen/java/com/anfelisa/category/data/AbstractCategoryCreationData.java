@@ -31,8 +31,8 @@ import java.util.ArrayList;
 import com.anfelisa.category.models.ICategoryCreationModel;
 import com.anfelisa.category.models.ICategoryModel;
 
-import com.anfelisa.ace.AbstractData;
-import com.anfelisa.ace.IDataContainer;
+import de.acegen.AbstractData;
+import de.acegen.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractCategoryCreationData extends AbstractData implements ICategoryCreationData {

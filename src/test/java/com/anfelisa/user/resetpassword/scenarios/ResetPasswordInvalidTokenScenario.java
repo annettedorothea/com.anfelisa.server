@@ -30,7 +30,7 @@ import com.anfelisa.user.models.UserModel;
 public class ResetPasswordInvalidTokenScenario extends AbstractResetPasswordInvalidTokenScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 	}
 
 }

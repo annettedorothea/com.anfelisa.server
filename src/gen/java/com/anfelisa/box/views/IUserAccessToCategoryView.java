@@ -20,8 +20,8 @@
 package com.anfelisa.box.views;
 
 
-import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.ace.PersistenceHandle;
+import de.acegen.IDataContainer;
+import de.acegen.PersistenceHandle;
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IDeleteBoxData;
 

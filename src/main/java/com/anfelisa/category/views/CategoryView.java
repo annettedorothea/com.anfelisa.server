@@ -1,13 +1,14 @@
 package com.anfelisa.category.views;
 
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.category.data.ICategoryChangeOrderData;
 import com.anfelisa.category.data.ICategoryCreationData;
 import com.anfelisa.category.data.ICategoryDeleteData;
 import com.anfelisa.category.data.ICategoryMoveData;
 import com.anfelisa.category.data.ICategoryUpdateData;
 import com.anfelisa.category.models.ICategoryModel;
+
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
 
 public class CategoryView implements ICategoryView {
 

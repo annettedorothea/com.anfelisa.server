@@ -25,7 +25,7 @@ import com.anfelisa.category.models.ICategoryModel;
 public class CreateCategoryWithDictionaryLookupScenario extends AbstractCreateCategoryWithDictionaryLookupScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "dict");
 		ICategoryModel expectedCategory = new CategoryModel("dict", "dict", "Annette", 1, "boxId", "boxId", true, "de",
 				"en");

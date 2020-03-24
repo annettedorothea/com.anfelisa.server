@@ -1,8 +1,9 @@
 package com.anfelisa.box.data;
 
-import com.anfelisa.ace.IDataContainer;
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import de.acegen.IDataContainer;
 
 public class ScheduledCardsData extends AbstractScheduledCardsData implements IScheduledCardsData {
 	

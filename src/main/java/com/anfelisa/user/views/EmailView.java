@@ -4,10 +4,11 @@ import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import com.anfelisa.ace.EmailService;
-import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.user.data.IForgotPasswordData;
 import com.anfelisa.user.data.IUserRegistrationData;
+
+import de.acegen.EmailService;
+import de.acegen.PersistenceHandle;
 
 public class EmailView implements IEmailView {
 

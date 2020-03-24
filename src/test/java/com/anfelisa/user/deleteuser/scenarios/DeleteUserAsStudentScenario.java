@@ -27,7 +27,7 @@ import com.anfelisa.user.models.IUserModel;
 public class DeleteUserAsStudentScenario extends AbstractDeleteUserAsStudentScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 		IUserModel user = this.daoProvider.getUserDao().selectByUsername(handle, "Annette");
 		assertIsNull(user);
 	}

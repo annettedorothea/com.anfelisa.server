@@ -21,13 +21,11 @@ package com.anfelisa.category.getcategorytree.scenarios;
 
 import javax.ws.rs.core.Response;
 
-import com.anfelisa.category.data.GetCategoryTreeResponse;
-
 @SuppressWarnings("unused")
 public class GetCategoryTreeScenario extends AbstractGetCategoryTreeScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response ) {
 	}
 
 }

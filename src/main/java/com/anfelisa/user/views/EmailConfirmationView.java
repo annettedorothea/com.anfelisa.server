@@ -1,9 +1,10 @@
 package com.anfelisa.user.views;
 
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.user.data.IConfirmEmailData;
 import com.anfelisa.user.data.IUserRegistrationData;
+
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
 
 public class EmailConfirmationView implements IEmailConfirmationView {
 

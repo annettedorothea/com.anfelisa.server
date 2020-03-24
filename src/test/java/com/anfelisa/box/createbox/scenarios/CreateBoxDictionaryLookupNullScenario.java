@@ -32,7 +32,7 @@ import com.anfelisa.category.models.UserAccessToCategoryModel;
 public class CreateBoxDictionaryLookupNullScenario extends AbstractCreateBoxDictionaryLookupNullScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId");
 		ICategoryModel expectedCategory = new CategoryModel("boxId", "cat", "Annette", 1, null, "boxId", false, null,
 				null);

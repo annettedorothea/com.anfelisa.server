@@ -31,7 +31,7 @@ import com.anfelisa.user.models.UserModel;
 public class ConfirmEmailOKScenario extends AbstractConfirmEmailOKScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette");
 		IUserModel expectedUser = new UserModel("uuid", "Annette", "password", "annette.pohl@anfelisa.de", Roles.STUDENT, true);
 		assertThat(actualUser, expectedUser);

@@ -32,7 +32,7 @@ import com.anfelisa.user.models.UserModel;
 public class RegisterUserAdminScenario extends AbstractRegisterUserAdminScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Admin");
 		IUserModel expectedUser = new UserModel("uuid-admin", "Admin", "admin-password", "annette.pohl@anfelisa.de", Roles.ADMIN, false);
 		assertThat(actualUser, expectedUser);

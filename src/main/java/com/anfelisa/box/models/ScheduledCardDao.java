@@ -6,8 +6,9 @@ import java.util.Optional;
 import org.jdbi.v3.core.statement.Update;
 import org.joda.time.DateTime;
 
-import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.box.data.IScoreCardData;
+
+import de.acegen.PersistenceHandle;
 
 public class ScheduledCardDao extends AbstractScheduledCardDao {
 	public INextCardViewModel selectFirstScheduledCard(PersistenceHandle handle, String boxId, DateTime today) {

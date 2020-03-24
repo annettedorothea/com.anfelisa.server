@@ -31,8 +31,8 @@ import java.util.ArrayList;
 import com.anfelisa.user.models.IForgotPasswordModel;
 import com.anfelisa.user.models.IResetPasswordModel;
 
-import com.anfelisa.ace.AbstractData;
-import com.anfelisa.ace.IDataContainer;
+import de.acegen.AbstractData;
+import de.acegen.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractForgotPasswordData extends AbstractData implements IForgotPasswordData {

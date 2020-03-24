@@ -30,8 +30,8 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import com.anfelisa.box.models.IScoreCardModel;
 
-import com.anfelisa.ace.AbstractData;
-import com.anfelisa.ace.IDataContainer;
+import de.acegen.AbstractData;
+import de.acegen.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractScoreCardData extends AbstractData implements IScoreCardData {

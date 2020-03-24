@@ -30,8 +30,8 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import com.anfelisa.user.models.IUserListModel;
 
-import com.anfelisa.ace.AbstractData;
-import com.anfelisa.ace.IDataContainer;
+import de.acegen.AbstractData;
+import de.acegen.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractUserListData extends AbstractData implements IUserListData {

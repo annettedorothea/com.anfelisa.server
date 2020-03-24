@@ -19,13 +19,13 @@
 
 package com.anfelisa.user.getallusers.scenarios;
 
-import javax.ws.rs.core.Response;
+import com.anfelisa.user.data.GetAllUsersResponse;
 
 @SuppressWarnings("unused")
 public class GetAllUsersAdminScenario extends AbstractGetAllUsersAdminScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications(GetAllUsersResponse response) {
 	}
 
 }

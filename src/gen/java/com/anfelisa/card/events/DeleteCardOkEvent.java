@@ -19,10 +19,10 @@
 
 package com.anfelisa.card.events;
 
-import com.anfelisa.ace.Event;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.ace.CustomAppConfiguration;
+import de.acegen.Event;
+import de.acegen.IDaoProvider;
+import de.acegen.ViewProvider;
+import de.acegen.CustomAppConfiguration;
 
 import com.anfelisa.card.data.ICardDeleteData;
 

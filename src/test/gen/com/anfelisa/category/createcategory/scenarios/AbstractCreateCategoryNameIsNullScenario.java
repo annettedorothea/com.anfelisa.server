@@ -29,9 +29,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
-import com.anfelisa.ace.BaseScenario;
-import com.anfelisa.ace.ITimelineItem;
-import com.anfelisa.ace.NotReplayableDataProvider;
+import de.acegen.BaseScenario;
+import de.acegen.ITimelineItem;
+import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
 public abstract class AbstractCreateCategoryNameIsNullScenario extends BaseScenario {
@@ -62,10 +62,10 @@ public abstract class AbstractCreateCategoryNameIsNullScenario extends BaseScena
 
 		then(response);
 		
-		verifications(response);
+		verifications();
 	}
 	
-	protected abstract void verifications(Response response);
+	protected abstract void verifications();
 
 }
 

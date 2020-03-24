@@ -28,7 +28,7 @@ import com.anfelisa.category.models.ICategoryModel;
 public class DeleteCategoryScenario extends AbstractDeleteCategoryScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat1");
 		assertIsNull(actualCategory);
 

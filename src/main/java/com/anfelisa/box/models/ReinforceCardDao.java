@@ -6,8 +6,9 @@ import java.util.Optional;
 import org.jdbi.v3.core.statement.Update;
 import org.joda.time.DateTime;
 
-import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.box.data.IScoreCardData;
+
+import de.acegen.PersistenceHandle;
 
 public class ReinforceCardDao extends AbstractReinforceCardDao {
 	public void insert(PersistenceHandle handle, IScoreCardData scoreCardData) {

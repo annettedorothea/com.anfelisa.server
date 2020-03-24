@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.jdbi.v3.core.statement.Update;
 
-import com.anfelisa.ace.PersistenceHandle;
+import de.acegen.PersistenceHandle;
 
 public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 	

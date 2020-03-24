@@ -19,20 +19,21 @@
 
 package com.anfelisa.category.events;
 
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.IEvent;
-import com.anfelisa.ace.ViewProvider;
+import de.acegen.IDaoProvider;
+import de.acegen.IEvent;
+import de.acegen.ViewProvider;
 import com.anfelisa.category.data.*;
-import com.anfelisa.ace.JodaObjectMapper;
+import de.acegen.JodaObjectMapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.ace.CustomAppConfiguration;
+import de.acegen.IDataContainer;
+import de.acegen.CustomAppConfiguration;
 
 import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("all")
 public class EventFactory {
 	
 	private static JodaObjectMapper mapper = new JodaObjectMapper();

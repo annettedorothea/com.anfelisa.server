@@ -6,8 +6,9 @@ import java.util.Optional;
 import org.jdbi.v3.core.statement.Update;
 import org.joda.time.DateTime;
 
-import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.box.data.IBoxUpdateData;
+
+import de.acegen.PersistenceHandle;
 
 public class BoxDao extends AbstractBoxDao {
 	

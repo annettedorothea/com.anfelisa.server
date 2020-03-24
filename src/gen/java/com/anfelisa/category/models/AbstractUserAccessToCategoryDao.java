@@ -19,7 +19,7 @@
 
 package com.anfelisa.category.models;
 
-import com.anfelisa.ace.PersistenceHandle;
+import de.acegen.PersistenceHandle;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;

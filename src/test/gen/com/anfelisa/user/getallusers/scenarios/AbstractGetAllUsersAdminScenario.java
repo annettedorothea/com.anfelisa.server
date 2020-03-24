@@ -29,9 +29,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
-import com.anfelisa.ace.BaseScenario;
-import com.anfelisa.ace.ITimelineItem;
-import com.anfelisa.ace.NotReplayableDataProvider;
+import de.acegen.BaseScenario;
+import de.acegen.ITimelineItem;
+import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
 public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
@@ -52,13 +52,16 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		return com.anfelisa.user.ActionCalls.callGetAllUsers(randomUUID(), DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.user.data.GetAllUsersResponse then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
+		com.anfelisa.user.data.GetAllUsersResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.user.data.GetAllUsersResponse.class);
+		} catch (Exception x) {
+		}
 		com.anfelisa.user.data.UserListData expectedData = new com.anfelisa.user.data.UserListData(randomUUID());
-		// generateDataCreation
 		
-			// generateModelListCreation
 			List<com.anfelisa.user.models.IUserModel> expectedDataUserList = new ArrayList<com.anfelisa.user.models.IUserModel>();
 			com.anfelisa.user.models.IUserModel item1 = new com.anfelisa.user.models.UserModel();
 			item1.setEmail("annette.pohl@anfelisa.de");
@@ -83,10 +86,10 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		
 		com.anfelisa.user.data.GetAllUsersResponse expected = new com.anfelisa.user.data.GetAllUsersResponse(expectedData);
 
-		com.anfelisa.user.data.GetAllUsersResponse actual = response.readEntity(com.anfelisa.user.data.GetAllUsersResponse.class);
 
 		assertThat(actual, expected);
 		
+		return actual;
 	}
 	
 	@Test
@@ -95,12 +98,12 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		
 		Response response = when();
 
-		then(response);
+		com.anfelisa.user.data.GetAllUsersResponse actualResponse = then(response);
 		
-		verifications(response);
+		verifications(actualResponse);
 	}
 	
-	protected abstract void verifications(Response response);
+	protected abstract void verifications(com.anfelisa.user.data.GetAllUsersResponse response);
 
 }
 

@@ -31,8 +31,8 @@ import java.util.ArrayList;
 import com.anfelisa.box.models.INextCardModel;
 import com.anfelisa.box.models.INextCardViewModel;
 
-import com.anfelisa.ace.AbstractData;
-import com.anfelisa.ace.IDataContainer;
+import de.acegen.AbstractData;
+import de.acegen.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractNextCardData extends AbstractData implements INextCardData {

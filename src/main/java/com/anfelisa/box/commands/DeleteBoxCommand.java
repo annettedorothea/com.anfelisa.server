@@ -3,14 +3,15 @@ package com.anfelisa.box.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.PersistenceHandle;
-import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
+
+import de.acegen.CustomAppConfiguration;
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
+import de.acegen.ViewProvider;
 
 public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 

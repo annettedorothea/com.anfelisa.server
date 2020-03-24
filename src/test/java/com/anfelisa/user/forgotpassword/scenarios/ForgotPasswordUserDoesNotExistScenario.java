@@ -27,7 +27,7 @@ import com.anfelisa.user.models.IResetPasswordModel;
 public class ForgotPasswordUserDoesNotExistScenario extends AbstractForgotPasswordUserDoesNotExistScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 		IResetPasswordModel actual = this.daoProvider.getResetPasswordDao().selectByToken(handle, "RESET-PW-TOKEN");
 		assertIsNull(actual);
 	}

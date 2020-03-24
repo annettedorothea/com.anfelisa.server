@@ -19,11 +19,12 @@
 
 package com.anfelisa.box.views;
 
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.box.data.IDeleteBoxData;
+
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
 
 public class RootCategoryView implements IRootCategoryView {
 

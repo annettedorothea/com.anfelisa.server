@@ -2,11 +2,12 @@ package com.anfelisa.auth;
 
 import java.util.Optional;
 
-import com.anfelisa.ace.PersistenceConnection;
-import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.user.models.IUserModel;
 import com.anfelisa.user.models.UserDao;
 
+import de.acegen.PersistenceConnection;
+import de.acegen.PersistenceHandle;
+import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.basic.BasicCredentials;

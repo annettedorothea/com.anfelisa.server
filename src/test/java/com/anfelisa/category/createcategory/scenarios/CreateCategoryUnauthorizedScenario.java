@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response;
 public class CreateCategoryUnauthorizedScenario extends AbstractCreateCategoryUnauthorizedScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 	}
 
 }

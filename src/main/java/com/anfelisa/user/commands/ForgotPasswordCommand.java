@@ -3,12 +3,13 @@ package com.anfelisa.user.commands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.PersistenceHandle;
-import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.data.IForgotPasswordData;
 import com.anfelisa.user.models.IUserModel;
+
+import de.acegen.CustomAppConfiguration;
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
+import de.acegen.ViewProvider;
 
 public class ForgotPasswordCommand extends AbstractForgotPasswordCommand {
 

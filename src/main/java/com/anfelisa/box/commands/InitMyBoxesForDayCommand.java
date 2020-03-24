@@ -24,15 +24,16 @@ import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.PersistenceHandle;
-import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.box.data.IInitMyBoxesDataData;
 import com.anfelisa.box.data.PostponeCardsData;
 import com.anfelisa.box.models.IInitBoxesModel;
 import com.anfelisa.box.models.IPostponeCardsModel;
 import com.anfelisa.box.models.IReinforceCardModel;
+
+import de.acegen.CustomAppConfiguration;
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
+import de.acegen.ViewProvider;
 
 public class InitMyBoxesForDayCommand extends AbstractInitMyBoxesForDayCommand {
 

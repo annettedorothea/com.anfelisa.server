@@ -1,7 +1,5 @@
 package com.anfelisa.card.views;
 
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.card.data.ICardCreationData;
 import com.anfelisa.card.data.ICardDeleteData;
 import com.anfelisa.card.data.ICardIdListData;
@@ -9,6 +7,9 @@ import com.anfelisa.card.data.ICardUpdateData;
 import com.anfelisa.card.data.IChangeCardOrderListData;
 import com.anfelisa.card.data.ICsvUploadData;
 import com.anfelisa.card.models.ICardModel;
+
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
 
 public class CardView implements ICardView {
 

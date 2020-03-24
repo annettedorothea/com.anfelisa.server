@@ -3,13 +3,14 @@ package com.anfelisa.user.actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.E2E;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.PersistenceConnection;
-import com.anfelisa.ace.PersistenceHandle;
-import com.anfelisa.ace.ViewProvider;
 import com.anfelisa.user.models.IUserModel;
+
+import de.acegen.CustomAppConfiguration;
+import de.acegen.E2E;
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceConnection;
+import de.acegen.PersistenceHandle;
+import de.acegen.ViewProvider;
 
 public class GetUserProfileAction extends AbstractGetUserProfileAction {
 

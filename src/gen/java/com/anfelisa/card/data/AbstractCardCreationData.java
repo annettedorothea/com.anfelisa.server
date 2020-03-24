@@ -31,8 +31,8 @@ import java.util.ArrayList;
 import com.anfelisa.card.models.ICardCreationModel;
 import com.anfelisa.card.models.ICardModel;
 
-import com.anfelisa.ace.AbstractData;
-import com.anfelisa.ace.IDataContainer;
+import de.acegen.AbstractData;
+import de.acegen.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractCardCreationData extends AbstractData implements ICardCreationData {

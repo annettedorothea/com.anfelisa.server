@@ -29,9 +29,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
-import com.anfelisa.ace.BaseScenario;
-import com.anfelisa.ace.ITimelineItem;
-import com.anfelisa.ace.NotReplayableDataProvider;
+import de.acegen.BaseScenario;
+import de.acegen.ITimelineItem;
+import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
 public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario {
@@ -46,19 +46,23 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 		return com.anfelisa.user.ActionCalls.callUsernameAvailable(randomUUID(), "Annette", DROPWIZARD.getLocalPort());
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.user.data.UsernameAvailableResponse then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
+		com.anfelisa.user.data.UsernameAvailableResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.user.data.UsernameAvailableResponse.class);
+		} catch (Exception x) {
+		}
 		com.anfelisa.user.data.UsernameAvailableData expectedData = new com.anfelisa.user.data.UsernameAvailableData(randomUUID());
-		// generateDataCreation
 		expectedData.setAvailable(new Boolean("false"));
 		
 		com.anfelisa.user.data.UsernameAvailableResponse expected = new com.anfelisa.user.data.UsernameAvailableResponse(expectedData);
 
-		com.anfelisa.user.data.UsernameAvailableResponse actual = response.readEntity(com.anfelisa.user.data.UsernameAvailableResponse.class);
 
 		assertThat(actual, expected);
 		
+		return actual;
 	}
 	
 	@Test
@@ -67,12 +71,12 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 		
 		Response response = when();
 
-		then(response);
+		com.anfelisa.user.data.UsernameAvailableResponse actualResponse = then(response);
 		
-		verifications(response);
+		verifications(actualResponse);
 	}
 	
-	protected abstract void verifications(Response response);
+	protected abstract void verifications(com.anfelisa.user.data.UsernameAvailableResponse response);
 
 }
 

@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response;
 public class CreateCategoryParentCategoryIsEmptyScenario extends AbstractCreateCategoryParentCategoryIsEmptyScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 	}
 
 }

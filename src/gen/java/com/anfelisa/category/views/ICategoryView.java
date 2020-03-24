@@ -20,8 +20,8 @@
 package com.anfelisa.category.views;
 
 
-import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.ace.PersistenceHandle;
+import de.acegen.IDataContainer;
+import de.acegen.PersistenceHandle;
 import com.anfelisa.category.data.ICategoryCreationData;
 import com.anfelisa.category.data.ICategoryDeleteData;
 import com.anfelisa.category.data.ICategoryUpdateData;

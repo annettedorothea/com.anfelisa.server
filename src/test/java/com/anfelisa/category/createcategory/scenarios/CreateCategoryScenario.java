@@ -28,7 +28,7 @@ import com.anfelisa.category.models.ICategoryModel;
 public class CreateCategoryScenario extends AbstractCreateCategoryScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat1");
 		ICategoryModel expectedCategory = new CategoryModel("cat1", "level 1 #1", "Annette", 1, "boxId", "boxId", false, null,
 				null);

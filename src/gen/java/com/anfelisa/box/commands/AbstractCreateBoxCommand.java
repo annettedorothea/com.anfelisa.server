@@ -21,11 +21,11 @@ package com.anfelisa.box.commands;
 
 import javax.ws.rs.WebApplicationException;
 
-import com.anfelisa.ace.Command;
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.ace.PersistenceHandle;
+import de.acegen.Command;
+import de.acegen.CustomAppConfiguration;
+import de.acegen.IDaoProvider;
+import de.acegen.ViewProvider;
+import de.acegen.PersistenceHandle;
 
 import com.anfelisa.box.data.IBoxCreationData;
 

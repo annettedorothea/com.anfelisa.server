@@ -31,7 +31,7 @@ import com.anfelisa.user.models.UserModel;
 public class RegisterTwoUsersScenario extends AbstractRegisterTwoUsersScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Anne");
 		IUserModel expectedUser = new UserModel("uuid2", "Anne", "pw", "info@anfelisa.de", Roles.STUDENT, false);
 		assertThat(actualUser, expectedUser);

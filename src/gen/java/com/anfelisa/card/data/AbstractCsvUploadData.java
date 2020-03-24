@@ -30,8 +30,8 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import com.anfelisa.card.models.ICsvUploadModel;
 
-import com.anfelisa.ace.AbstractData;
-import com.anfelisa.ace.IDataContainer;
+import de.acegen.AbstractData;
+import de.acegen.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractCsvUploadData extends AbstractData implements ICsvUploadData {

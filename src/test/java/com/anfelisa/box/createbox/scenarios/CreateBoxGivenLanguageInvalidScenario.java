@@ -32,7 +32,7 @@ import com.anfelisa.category.models.UserAccessToCategoryModel;
 public class CreateBoxGivenLanguageInvalidScenario extends AbstractCreateBoxGivenLanguageInvalidScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId");
 		assertIsNull(actualCategory);
 

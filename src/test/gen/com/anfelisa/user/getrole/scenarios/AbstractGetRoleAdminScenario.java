@@ -29,9 +29,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
-import com.anfelisa.ace.BaseScenario;
-import com.anfelisa.ace.ITimelineItem;
-import com.anfelisa.ace.NotReplayableDataProvider;
+import de.acegen.BaseScenario;
+import de.acegen.ITimelineItem;
+import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
 public abstract class AbstractGetRoleAdminScenario extends BaseScenario {
@@ -49,19 +49,23 @@ public abstract class AbstractGetRoleAdminScenario extends BaseScenario {
 		return com.anfelisa.user.ActionCalls.callGetRole(randomUUID(), DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.user.data.GetRoleResponse then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
+		com.anfelisa.user.data.GetRoleResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.user.data.GetRoleResponse.class);
+		} catch (Exception x) {
+		}
 		com.anfelisa.user.data.RoleData expectedData = new com.anfelisa.user.data.RoleData(randomUUID());
-		// generateDataCreation
 		expectedData.setRole("ADMIN");
 		
 		com.anfelisa.user.data.GetRoleResponse expected = new com.anfelisa.user.data.GetRoleResponse(expectedData);
 
-		com.anfelisa.user.data.GetRoleResponse actual = response.readEntity(com.anfelisa.user.data.GetRoleResponse.class);
 
 		assertThat(actual, expected);
 		
+		return actual;
 	}
 	
 	@Test
@@ -70,12 +74,12 @@ public abstract class AbstractGetRoleAdminScenario extends BaseScenario {
 		
 		Response response = when();
 
-		then(response);
+		com.anfelisa.user.data.GetRoleResponse actualResponse = then(response);
 		
-		verifications(response);
+		verifications(actualResponse);
 	}
 	
-	protected abstract void verifications(Response response);
+	protected abstract void verifications(com.anfelisa.user.data.GetRoleResponse response);
 
 }
 

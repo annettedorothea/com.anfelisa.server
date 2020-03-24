@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response;
 public class CreateCategoryNameIsNullScenario extends AbstractCreateCategoryNameIsNullScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 	}
 
 }

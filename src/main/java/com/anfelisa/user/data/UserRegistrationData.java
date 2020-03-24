@@ -1,7 +1,8 @@
 package com.anfelisa.user.data;
 
-import com.anfelisa.ace.IDataContainer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import de.acegen.IDataContainer;
 
 public class UserRegistrationData extends AbstractUserRegistrationData implements IUserRegistrationData {
 	

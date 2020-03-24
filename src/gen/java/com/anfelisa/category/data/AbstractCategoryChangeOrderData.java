@@ -30,8 +30,8 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import com.anfelisa.category.models.ICategoryChangeOrderModel;
 
-import com.anfelisa.ace.AbstractData;
-import com.anfelisa.ace.IDataContainer;
+import de.acegen.AbstractData;
+import de.acegen.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractCategoryChangeOrderData extends AbstractData implements ICategoryChangeOrderData {

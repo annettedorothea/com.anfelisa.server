@@ -32,8 +32,8 @@ import com.anfelisa.user.models.IUserRegistrationModel;
 import com.anfelisa.user.models.IUserModel;
 import com.anfelisa.user.models.IEmailConfirmationModel;
 
-import com.anfelisa.ace.AbstractData;
-import com.anfelisa.ace.IDataContainer;
+import de.acegen.AbstractData;
+import de.acegen.IDataContainer;
 
 @SuppressWarnings("unused")
 public abstract class AbstractUserRegistrationData extends AbstractData implements IUserRegistrationData {

@@ -32,7 +32,7 @@ import com.anfelisa.category.models.UserAccessToCategoryModel;
 public class CreateSecondBoxScenario extends AbstractCreateSecondBoxScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId2");
 		ICategoryModel expectedCategory = new CategoryModel("boxId2", "cat2", "Annette", 2, null, "boxId2", false, null,
 				null);

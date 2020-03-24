@@ -30,7 +30,7 @@ import com.anfelisa.user.models.IUserModel;
 public class RegisterUserEmptyUsernameScenario extends AbstractRegisterUserEmptyUsernameScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 		List<IUserModel> actualUsers = this.daoProvider.getUserDao().selectAll(handle);
 		assertThat(actualUsers.size(), 0);
 		

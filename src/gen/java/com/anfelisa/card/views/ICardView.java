@@ -20,8 +20,8 @@
 package com.anfelisa.card.views;
 
 
-import com.anfelisa.ace.IDataContainer;
-import com.anfelisa.ace.PersistenceHandle;
+import de.acegen.IDataContainer;
+import de.acegen.PersistenceHandle;
 import com.anfelisa.card.data.ICardCreationData;
 import com.anfelisa.card.data.ICardDeleteData;
 import com.anfelisa.card.data.ICardUpdateData;

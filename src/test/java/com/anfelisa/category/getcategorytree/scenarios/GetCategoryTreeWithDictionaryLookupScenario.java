@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response;
 public class GetCategoryTreeWithDictionaryLookupScenario extends AbstractGetCategoryTreeWithDictionaryLookupScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response ) {
 	}
 
 }

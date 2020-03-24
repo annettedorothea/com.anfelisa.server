@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response;
 public class GetAllUsersNotAdminScenario extends AbstractGetAllUsersNotAdminScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications(com.anfelisa.user.data.GetAllUsersResponse response ) {
 	}
 
 }

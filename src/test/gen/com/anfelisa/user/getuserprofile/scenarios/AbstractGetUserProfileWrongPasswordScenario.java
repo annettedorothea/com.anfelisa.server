@@ -29,9 +29,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
-import com.anfelisa.ace.BaseScenario;
-import com.anfelisa.ace.ITimelineItem;
-import com.anfelisa.ace.NotReplayableDataProvider;
+import de.acegen.BaseScenario;
+import de.acegen.ITimelineItem;
+import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
 public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseScenario {
@@ -49,10 +49,16 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 		return com.anfelisa.user.ActionCalls.callGetUserProfile(randomUUID(), DROPWIZARD.getLocalPort(), authorization("Admin", "wrong"));
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.user.data.GetUserProfileResponse then(Response response) throws Exception {
 		assertThat(response.getStatus(), 401);
 		
+		com.anfelisa.user.data.GetUserProfileResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.user.data.GetUserProfileResponse.class);
+		} catch (Exception x) {
+		}
 		
+		return actual;
 	}
 	
 	@Test
@@ -61,12 +67,12 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 		
 		Response response = when();
 
-		then(response);
+		com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
 		
-		verifications(response);
+		verifications(actualResponse);
 	}
 	
-	protected abstract void verifications(Response response);
+	protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
 
 }
 

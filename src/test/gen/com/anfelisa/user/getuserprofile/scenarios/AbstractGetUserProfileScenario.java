@@ -29,9 +29,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
-import com.anfelisa.ace.BaseScenario;
-import com.anfelisa.ace.ITimelineItem;
-import com.anfelisa.ace.NotReplayableDataProvider;
+import de.acegen.BaseScenario;
+import de.acegen.ITimelineItem;
+import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
 public abstract class AbstractGetUserProfileScenario extends BaseScenario {
@@ -49,23 +49,25 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 		return com.anfelisa.user.ActionCalls.callGetUserProfile(randomUUID(), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.user.data.GetUserProfileResponse then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
+		com.anfelisa.user.data.GetUserProfileResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.user.data.GetUserProfileResponse.class);
+		} catch (Exception x) {
+		}
 		com.anfelisa.user.data.UserData expectedData = new com.anfelisa.user.data.UserData(randomUUID());
-		// generateDataCreation
 		expectedData.setEmail("annette.pohl@anfelisa.de");
-		// generateDataCreation
 		expectedData.setUsername("Annette");
-		// generateDataCreation
 		expectedData.setUserId("uuid");
 		
 		com.anfelisa.user.data.GetUserProfileResponse expected = new com.anfelisa.user.data.GetUserProfileResponse(expectedData);
 
-		com.anfelisa.user.data.GetUserProfileResponse actual = response.readEntity(com.anfelisa.user.data.GetUserProfileResponse.class);
 
 		assertThat(actual, expected);
 		
+		return actual;
 	}
 	
 	@Test
@@ -74,12 +76,12 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 		
 		Response response = when();
 
-		then(response);
+		com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
 		
-		verifications(response);
+		verifications(actualResponse);
 	}
 	
-	protected abstract void verifications(Response response);
+	protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
 
 }
 

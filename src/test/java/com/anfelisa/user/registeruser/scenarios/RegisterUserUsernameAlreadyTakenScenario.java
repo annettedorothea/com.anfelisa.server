@@ -33,7 +33,7 @@ import com.anfelisa.user.models.UserModel;
 public class RegisterUserUsernameAlreadyTakenScenario extends AbstractRegisterUserUsernameAlreadyTakenScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications() {
 		List<IUserModel> actualUsers = this.daoProvider.getUserDao().selectAll(handle);
 		assertThat(actualUsers.size(), 1);
 

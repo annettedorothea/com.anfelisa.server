@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response;
 public class GetRoleWrongPasswordScenario extends AbstractGetRoleWrongPasswordScenario {
 
 	@Override
-	protected void verifications(Response response) {
+	protected void verifications(com.anfelisa.user.data.GetRoleResponse response ) {
 	}
 
 }

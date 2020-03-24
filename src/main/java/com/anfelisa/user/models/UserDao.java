@@ -5,9 +5,10 @@ import java.util.Optional;
 
 import org.jdbi.v3.core.statement.Update;
 
-import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.auth.Roles;
 import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
+
+import de.acegen.PersistenceHandle;
 
 public class UserDao extends AbstractUserDao {
 	public void updatePassword(PersistenceHandle handle, IResetPasswordWithNewPasswordData data) {

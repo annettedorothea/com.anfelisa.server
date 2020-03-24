@@ -29,9 +29,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
-import com.anfelisa.ace.BaseScenario;
-import com.anfelisa.ace.ITimelineItem;
-import com.anfelisa.ace.NotReplayableDataProvider;
+import de.acegen.BaseScenario;
+import de.acegen.ITimelineItem;
+import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
 public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extends BaseScenario {
@@ -50,9 +50,14 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		return com.anfelisa.category.ActionCalls.callGetCategoryTree(randomUUID(), "boxId", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.category.data.GetCategoryTreeResponse then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
+		com.anfelisa.category.data.GetCategoryTreeResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.category.data.GetCategoryTreeResponse.class);
+		} catch (Exception x) {
+		}
 		com.anfelisa.category.data.CategoryTreeData expectedData = new com.anfelisa.category.data.CategoryTreeData(randomUUID());
 		
 			com.anfelisa.category.models.ICategoryTreeItemModel expectedDataRootCategory = new com.anfelisa.category.models.CategoryTreeItemModel();
@@ -89,10 +94,10 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		
 		com.anfelisa.category.data.GetCategoryTreeResponse expected = new com.anfelisa.category.data.GetCategoryTreeResponse(expectedData);
 
-		com.anfelisa.category.data.GetCategoryTreeResponse actual = response.readEntity(com.anfelisa.category.data.GetCategoryTreeResponse.class);
 
 		assertThat(actual, expected);
 		
+		return actual;
 	}
 	
 	@Test
@@ -101,12 +106,12 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		
 		Response response = when();
 
-		then(response);
+		com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
 		
-		verifications(response);
+		verifications(actualResponse);
 	}
 	
-	protected abstract void verifications(Response response);
+	protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
 
 }
 

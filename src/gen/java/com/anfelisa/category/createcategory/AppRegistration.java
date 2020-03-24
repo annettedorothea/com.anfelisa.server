@@ -20,13 +20,13 @@
 package com.anfelisa.category.createcategory;
 
 import io.dropwizard.setup.Environment;
-import com.anfelisa.ace.CustomAppConfiguration;
-import com.anfelisa.ace.AceExecutionMode;
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.ViewProvider;
-import com.anfelisa.ace.ServerConfiguration;
-import com.anfelisa.ace.E2E;
-import com.anfelisa.ace.PersistenceConnection;
+import de.acegen.CustomAppConfiguration;
+import de.acegen.AceExecutionMode;
+import de.acegen.IDaoProvider;
+import de.acegen.ViewProvider;
+import de.acegen.ServerConfiguration;
+import de.acegen.E2E;
+import de.acegen.PersistenceConnection;
 
 
 @SuppressWarnings("all")

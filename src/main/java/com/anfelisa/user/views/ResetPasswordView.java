@@ -1,9 +1,10 @@
 package com.anfelisa.user.views;
 
-import com.anfelisa.ace.IDaoProvider;
-import com.anfelisa.ace.PersistenceHandle;
 import com.anfelisa.user.data.IForgotPasswordData;
 import com.anfelisa.user.data.IResetPasswordWithNewPasswordData;
+
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
 
 public class ResetPasswordView implements IResetPasswordView {
 
