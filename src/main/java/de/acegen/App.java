@@ -13,15 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.AceAuthenticator;
 
-import de.acegen.E2E;
-import de.acegen.EventReplayCommand;
-import de.acegen.GetServerInfoResource;
-import de.acegen.GetServerTimelineResource;
-import de.acegen.PersistenceConnection;
-import de.acegen.PrepareE2EResource;
-import de.acegen.ServerConfiguration;
-import de.acegen.StartE2ESessionResource;
-import de.acegen.StopE2ESessionResource;
 import de.acegen.auth.AuthUser;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
