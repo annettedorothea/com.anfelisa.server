@@ -44,21 +44,27 @@ public class ChangeOrderCategoryCommand extends AbstractChangeOrderCategoryComma
 		ICategoryModel targetCategory = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getTargetCategoryId());
 		if (targetCategory == null) {
-			throwBadRequest("categoryDoesNotExist");
+			throwBadRequest("target category does not exist");
 		}
-		List<ICategoryModel> categories;
-		if (targetCategory.getParentCategoryId() == null) {
-			categories = this.daoProvider.getCategoryDao().selectAllUsersRoot(readonlyHandle,
-					this.commandData.getUserId());
-		} else {
-			IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
-					.hasUserAccessTo(readonlyHandle, targetCategory.getRootCategoryId(), commandData.getUserId());
-			if (accessToRootCategory == null) {
-				throwUnauthorized();
-			}
-			categories = this.daoProvider.getCategoryDao().selectAllChildren(readonlyHandle,
-					targetCategory.getParentCategoryId());
+		IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
+				.hasUserAccessTo(readonlyHandle, targetCategory.getRootCategoryId(), commandData.getUserId());
+		if (accessToRootCategory == null) {
+			throwUnauthorized();
 		}
+
+		ICategoryModel movedCategory = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				commandData.getMovedCategoryId());
+		if (movedCategory == null) {
+			throwBadRequest("moved category does not exist");
+		}
+		accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
+				.hasUserAccessTo(readonlyHandle, movedCategory.getRootCategoryId(), commandData.getUserId());
+		if (accessToRootCategory == null) {
+			throwUnauthorized();
+		}
+		
+		List<ICategoryModel> categories = this.daoProvider.getCategoryDao().selectAllChildren(readonlyHandle,
+				targetCategory.getParentCategoryId());
 		int index = 1;
 		for (ICategoryModel category : categories) {
 			if (category.getCategoryIndex() < targetCategory.getCategoryIndex()) {

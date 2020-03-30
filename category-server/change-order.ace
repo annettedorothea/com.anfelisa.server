@@ -1,0 +1,166 @@
+HttpServer 
+
+com.anfelisa.category.changeorder
+
+scenarios 
+	CreateThirdCategory
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+		WHEN
+			com.anfelisa.category.CreateCategory
+				uuid "cat3"
+				{
+					categoryName: "level 1 #3"
+					parentCategoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateFourthCategory
+		GIVEN
+			CreateThirdCategory
+		WHEN
+			com.anfelisa.category.CreateCategory
+				uuid "cat4"
+				{
+					categoryName: "level 1 #4"
+					parentCategoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateBoxMinimalAsAdmin
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.box.CreateBox
+				uuid "adminBox"
+				{
+					categoryName: "adminBox"
+					dictionaryLookup: "false"
+					maxCardsPerDay: 10
+				}
+				authorization "Admin" : "admin-password"
+		THEN 200
+
+	CreateCategoryAsAdmin
+		GIVEN
+			CreateBoxMinimalAsAdmin
+		WHEN
+			com.anfelisa.category.CreateCategory
+				uuid "adminCat"
+				{
+					categoryName: "c"
+					parentCategoryId: "adminBox"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 200
+
+
+
+
+
+
+
+
+	ChangeOrder
+		GIVEN
+			CreateFourthCategory
+		WHEN
+			com.anfelisa.category.ChangeOrderCategory
+				{
+					movedCategoryId: "cat3"
+					targetCategoryId: "cat2"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ChangeOrderFourthToFirst
+		GIVEN
+			CreateFourthCategory
+		WHEN
+			com.anfelisa.category.ChangeOrderCategory
+				{
+					movedCategoryId: "cat4"
+					targetCategoryId: "cat1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ChangeOrderFirstToFourth
+		GIVEN
+			CreateFourthCategory
+		WHEN
+			com.anfelisa.category.ChangeOrderCategory
+				{
+					movedCategoryId: "cat1"
+					targetCategoryId: "cat4"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		
+	ChangeOrderUnauthorized
+		GIVEN
+			CreateFourthCategory
+		WHEN
+			com.anfelisa.category.ChangeOrderCategory
+				{
+					movedCategoryId: "cat1"
+					targetCategoryId: "cat4"
+				}
+		THEN 401
+		
+	ChangeOrderTargetCategoryDoesNotExist
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+		WHEN
+			com.anfelisa.category.ChangeOrderCategory
+				{
+					movedCategoryId: "cat1"
+					targetCategoryId: "lala"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	ChangeOrderMovedCategoryDoesNotExist
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+		WHEN
+			com.anfelisa.category.ChangeOrderCategory
+				{
+					movedCategoryId: "lala"
+					targetCategoryId: "cat1"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	ChangeOrderNoAccessToTargetCategory
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+			CreateCategoryAsAdmin
+		WHEN
+			com.anfelisa.category.ChangeOrderCategory
+				{
+					movedCategoryId: "cat1"
+					targetCategoryId: "adminCat"
+				}
+				authorization "Annette" : "password"
+		THEN 401
+
+	ChangeOrderNoAccessToMovedCategory
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+			CreateCategoryAsAdmin
+		WHEN
+			com.anfelisa.category.ChangeOrderCategory
+				{
+					movedCategoryId: "adminCat"
+					targetCategoryId: "cat1"
+				}
+				authorization "Annette" : "password"
+		THEN 401
+
+
+
+
+		
