@@ -1,0 +1,60 @@
+HttpServer 
+
+com.anfelisa.card.deletecard
+
+scenarios 
+	DeleteCard
+		GIVEN
+			com.anfelisa.card.createcard.CreateSecondCard
+		WHEN
+			com.anfelisa.card.DeleteCard
+				{
+					cardId: "c1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	DeleteCardMissingCardId
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.DeleteCard
+				{
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	DeleteCardCardDoesNotExist
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.DeleteCard
+				{
+					cardId: "lala"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	DeleteCardNoAccessToCategory
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.card.DeleteCard
+				{
+					cardId: "c1"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+		
+	DeleteCardUnauthorized
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.DeleteCard
+				{
+					cardId: "c1"
+				}
+		THEN 401
+		
+		
