@@ -1,6 +1,6 @@
 HttpServer 
 
-com.anfelisa.category.createcard
+com.anfelisa.card.createcard
 
 scenarios 
 	CreateCard

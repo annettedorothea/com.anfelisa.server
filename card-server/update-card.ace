@@ -1,0 +1,156 @@
+HttpServer 
+
+com.anfelisa.card.updatecard
+
+scenarios 
+	UpdateCard
+		GIVEN
+			com.anfelisa.card.createcard.CreateSecondCard
+		WHEN
+			com.anfelisa.card.UpdateCard
+				{
+					cardId: "c1"
+					given: "given-updated"
+					image: "image-updated"
+					wanted: "wanted-updated"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	UpdateCardMissingCardId
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCard
+				{
+					given: "given"
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	UpdateCardGivenNull
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCard
+				{
+					cardId: "c1"
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	UpdateCardGivenEmpty
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCard
+				{
+					cardId: "c1"
+					given: "  "
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	UpdateCardWantedNull
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCard
+				{
+					cardId: "c1"
+					given: "given"
+					image: "image"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+		
+	UpdateCardWantedEmpty
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCard
+				{
+					cardId: "c1"
+					given: "given"
+					image: "image"
+					wanted: "  "
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	UpdateCardImageNull
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCard
+				{
+					cardId: "c1"
+					given: "given"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	UpdateCardImageEmpty
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCard
+				{
+					cardId: "c1"
+					given: "given"
+					image: "  "
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	UpdateCardCardDoesNotExist
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCard
+				{
+					cardId: "lala"
+					given: "given"
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	UpdateCardNoAccessToCategory
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.card.UpdateCard
+				{
+					cardId: "c1"
+					given: "given"
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+		
+	UpdateCardUnauthorized
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCard
+				{
+					cardId: "c1"
+					given: "given"
+					image: "image"
+					wanted: "wanted"
+				}
+		THEN 401
+		
+		
