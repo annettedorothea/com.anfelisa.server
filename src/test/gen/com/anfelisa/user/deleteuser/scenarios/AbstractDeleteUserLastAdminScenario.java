@@ -37,40 +37,40 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractDeleteUserLastAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "ADMIN-TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", "admin-password", "Admin", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", this.templateStringValue("admin-password", 0), this.templateStringValue("Admin", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callDeleteUser(randomUUID(), "Admin", DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		return com.anfelisa.user.ActionCalls.callDeleteUser(randomUUID(), this.templateStringValue("Admin", 0), DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 400);
 		
-		
-	}
-	
-	@Test
-	public void deleteUserLastAdmin() throws Exception {
-		given();
-		
-		Response response = when();
-
-		then(response);
-		
-		verifications();
-	}
-	
-	protected abstract void verifications();
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+				}
+				
+				@Test
+				public void deleteUserLastAdmin() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					then(response);
+					
+					verifications();
+			}
+			
+			protected abstract void verifications();
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

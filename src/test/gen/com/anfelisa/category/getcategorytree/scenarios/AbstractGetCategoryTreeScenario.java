@@ -37,21 +37,21 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
-		com.anfelisa.box.ActionCalls.callCreateBox("boxId", "cat", new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.box.ActionCalls.callCreateBox("boxId", this.templateStringValue("cat", 1), new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.category.ActionCalls.callCreateCategory("cat1", "level 1 #1", "boxId", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.category.ActionCalls.callCreateCategory("cat1", this.templateStringValue("level 1 #1", 2), this.templateStringValue("boxId", 2), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.category.ActionCalls.callCreateCategory("cat2", "level 1 #2", "boxId", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.category.ActionCalls.callCreateCategory("cat2", this.templateStringValue("level 1 #2", 3), this.templateStringValue("boxId", 3), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.category.ActionCalls.callCreateCategory("cat3", "level 2 #1", "cat2", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.category.ActionCalls.callCreateCategory("cat3", this.templateStringValue("level 2 #1", 4), this.templateStringValue("cat2", 4), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.category.ActionCalls.callGetCategoryTree(randomUUID(), "boxId", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		return com.anfelisa.category.ActionCalls.callGetCategoryTree(randomUUID(), this.templateStringValue("boxId", 0), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
 	private com.anfelisa.category.data.GetCategoryTreeResponse then(Response response) throws Exception {
@@ -65,22 +65,22 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 		com.anfelisa.category.data.CategoryTreeData expectedData = new com.anfelisa.category.data.CategoryTreeData(randomUUID());
 		
 			com.anfelisa.category.models.ICategoryTreeItemModel expectedDataRootCategory = new com.anfelisa.category.models.CategoryTreeItemModel();
-			expectedDataRootCategory.setCategoryId("boxId");
+			expectedDataRootCategory.setCategoryId(this.templateStringValue("boxId", null));
 			expectedDataRootCategory.setCategoryIndex(1);
-			expectedDataRootCategory.setCategoryName("cat");
+			expectedDataRootCategory.setCategoryName(this.templateStringValue("cat", null));
 			expectedDataRootCategory.setDictionaryLookup(new Boolean("false"));
 			expectedDataRootCategory.setEmpty(new Boolean("false"));
-			expectedDataRootCategory.setRootCategoryId("boxId");
+			expectedDataRootCategory.setRootCategoryId(this.templateStringValue("boxId", null));
 			
 				List<com.anfelisa.category.models.ICategoryTreeItemModel> list1 = new ArrayList<com.anfelisa.category.models.ICategoryTreeItemModel>();
 				com.anfelisa.category.models.ICategoryTreeItemModel item2 = new com.anfelisa.category.models.CategoryTreeItemModel();
-				item2.setCategoryId("cat1");
+				item2.setCategoryId(this.templateStringValue("cat1", null));
 				item2.setCategoryIndex(1);
-				item2.setCategoryName("level 1 #1");
+				item2.setCategoryName(this.templateStringValue("level 1 #1", null));
 				item2.setDictionaryLookup(new Boolean("false"));
 				item2.setEmpty(new Boolean("true"));
-				item2.setParentCategoryId("boxId");
-				item2.setRootCategoryId("boxId");
+				item2.setParentCategoryId(this.templateStringValue("boxId", null));
+				item2.setRootCategoryId(this.templateStringValue("boxId", null));
 				
 					List<com.anfelisa.category.models.ICategoryTreeItemModel> list3 = new ArrayList<com.anfelisa.category.models.ICategoryTreeItemModel>();
 					
@@ -88,23 +88,23 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 				list1.add(item2);
 			
 				com.anfelisa.category.models.ICategoryTreeItemModel item4 = new com.anfelisa.category.models.CategoryTreeItemModel();
-				item4.setCategoryId("cat2");
+				item4.setCategoryId(this.templateStringValue("cat2", null));
 				item4.setCategoryIndex(2);
-				item4.setCategoryName("level 1 #2");
+				item4.setCategoryName(this.templateStringValue("level 1 #2", null));
 				item4.setDictionaryLookup(new Boolean("false"));
 				item4.setEmpty(new Boolean("false"));
-				item4.setParentCategoryId("boxId");
-				item4.setRootCategoryId("boxId");
+				item4.setParentCategoryId(this.templateStringValue("boxId", null));
+				item4.setRootCategoryId(this.templateStringValue("boxId", null));
 				
 					List<com.anfelisa.category.models.ICategoryTreeItemModel> list5 = new ArrayList<com.anfelisa.category.models.ICategoryTreeItemModel>();
 					com.anfelisa.category.models.ICategoryTreeItemModel item6 = new com.anfelisa.category.models.CategoryTreeItemModel();
-					item6.setCategoryId("cat3");
+					item6.setCategoryId(this.templateStringValue("cat3", null));
 					item6.setCategoryIndex(1);
-					item6.setCategoryName("level 2 #1");
+					item6.setCategoryName(this.templateStringValue("level 2 #1", null));
 					item6.setDictionaryLookup(new Boolean("false"));
 					item6.setEmpty(new Boolean("true"));
-					item6.setParentCategoryId("cat2");
-					item6.setRootCategoryId("boxId");
+					item6.setParentCategoryId(this.templateStringValue("cat2", null));
+					item6.setRootCategoryId(this.templateStringValue("boxId", null));
 					
 						List<com.anfelisa.category.models.ICategoryTreeItemModel> list7 = new ArrayList<com.anfelisa.category.models.ICategoryTreeItemModel>();
 						
@@ -124,29 +124,29 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 
 
 		assertThat(actual, expected);
-		
-		return actual;
-	}
-	
-	@Test
-	public void getCategoryTree() throws Exception {
-		given();
-		
-		Response response = when();
-
-		com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
-		
-		verifications(actualResponse);
-	}
-	
-	protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+			return actual;
+				}
+				
+				@Test
+				public void getCategoryTree() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
+					
+					verifications(actualResponse);
+			}
+			
+			protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

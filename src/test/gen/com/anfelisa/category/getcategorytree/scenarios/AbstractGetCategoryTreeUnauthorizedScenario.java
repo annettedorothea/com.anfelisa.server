@@ -37,17 +37,17 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
-		com.anfelisa.box.ActionCalls.callCreateBox("boxId", "cat", new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.box.ActionCalls.callCreateBox("boxId", this.templateStringValue("cat", 1), new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.category.ActionCalls.callCreateCategory("cat1", "level 1 #1", "boxId", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.category.ActionCalls.callCreateCategory("cat1", this.templateStringValue("level 1 #1", 2), this.templateStringValue("boxId", 2), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.category.ActionCalls.callGetCategoryTree(randomUUID(), "boxId", DROPWIZARD.getLocalPort(), null);
+		return com.anfelisa.category.ActionCalls.callGetCategoryTree(randomUUID(), this.templateStringValue("boxId", 0), DROPWIZARD.getLocalPort(), null);
 	}
 	
 	private com.anfelisa.category.data.GetCategoryTreeResponse then(Response response) throws Exception {
@@ -58,29 +58,29 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 			actual = response.readEntity(com.anfelisa.category.data.GetCategoryTreeResponse.class);
 		} catch (Exception x) {
 		}
-		
-		return actual;
-	}
-	
-	@Test
-	public void getCategoryTreeUnauthorized() throws Exception {
-		given();
-		
-		Response response = when();
-
-		com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
-		
-		verifications(actualResponse);
-	}
-	
-	protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+			return actual;
+				}
+				
+				@Test
+				public void getCategoryTreeUnauthorized() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
+					
+					verifications(actualResponse);
+			}
+			
+			protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

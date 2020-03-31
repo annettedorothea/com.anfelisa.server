@@ -37,40 +37,40 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractCreateBoxGivenLanguageInvalidScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.box.ActionCalls.callCreateBox("boxId", "cat", new Boolean("true"), "xx", "en", 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		return com.anfelisa.box.ActionCalls.callCreateBox("boxId", this.templateStringValue("cat", 0), new Boolean("true"), this.templateStringValue("xx", 0), this.templateStringValue("en", 0), 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 400);
 		
-		
-	}
-	
-	@Test
-	public void createBoxGivenLanguageInvalid() throws Exception {
-		given();
-		
-		Response response = when();
-
-		then(response);
-		
-		verifications();
-	}
-	
-	protected abstract void verifications();
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+				}
+				
+				@Test
+				public void createBoxGivenLanguageInvalid() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					then(response);
+					
+					verifications();
+			}
+			
+			protected abstract void verifications();
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

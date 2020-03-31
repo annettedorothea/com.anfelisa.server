@@ -40,34 +40,34 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callRegisterUser(randomUUID(), "password", null, "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		return com.anfelisa.user.ActionCalls.callRegisterUser(randomUUID(), this.templateStringValue("password", 0), null, this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 400);
 		
-		
-	}
-	
-	@Test
-	public void registerUserNoUsername() throws Exception {
-		given();
-		
-		Response response = when();
-
-		then(response);
-		
-		verifications();
-	}
-	
-	protected abstract void verifications();
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+				}
+				
+				@Test
+				public void registerUserNoUsername() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					then(response);
+					
+					verifications();
+			}
+			
+			protected abstract void verifications();
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

@@ -37,42 +37,42 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractCreateCategoryWithDictionaryLookupScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
-		com.anfelisa.box.ActionCalls.callCreateBox("boxId", "cat", new Boolean("true"), "de", "en", 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.box.ActionCalls.callCreateBox("boxId", this.templateStringValue("cat", 1), new Boolean("true"), this.templateStringValue("de", 1), this.templateStringValue("en", 1), 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.category.ActionCalls.callCreateCategory("dict", "dict", "boxId", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		return com.anfelisa.category.ActionCalls.callCreateCategory("dict", this.templateStringValue("dict", 0), this.templateStringValue("boxId", 0), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
-		
-	}
-	
-	@Test
-	public void createCategoryWithDictionaryLookup() throws Exception {
-		given();
-		
-		Response response = when();
-
-		then(response);
-		
-		verifications();
-	}
-	
-	protected abstract void verifications();
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+				}
+				
+				@Test
+				public void createCategoryWithDictionaryLookup() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					then(response);
+					
+					verifications();
+			}
+			
+			protected abstract void verifications();
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

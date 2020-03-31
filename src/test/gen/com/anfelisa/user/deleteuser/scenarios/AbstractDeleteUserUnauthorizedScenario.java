@@ -37,40 +37,40 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callDeleteUser(randomUUID(), "Annette", DROPWIZARD.getLocalPort(), null);
+		return com.anfelisa.user.ActionCalls.callDeleteUser(randomUUID(), this.templateStringValue("Annette", 0), DROPWIZARD.getLocalPort(), null);
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 401);
 		
-		
-	}
-	
-	@Test
-	public void deleteUserUnauthorized() throws Exception {
-		given();
-		
-		Response response = when();
-
-		then(response);
-		
-		verifications();
-	}
-	
-	protected abstract void verifications();
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+				}
+				
+				@Test
+				public void deleteUserUnauthorized() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					then(response);
+					
+					verifications();
+			}
+			
+			protected abstract void verifications();
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

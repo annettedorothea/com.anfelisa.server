@@ -37,46 +37,46 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractCreateCardInOtherCategoryScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
-		com.anfelisa.box.ActionCalls.callCreateBox("boxId", "cat", new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.box.ActionCalls.callCreateBox("boxId", this.templateStringValue("cat", 1), new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.category.ActionCalls.callCreateCategory("cat1", "level 1 #1", "boxId", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.category.ActionCalls.callCreateCategory("cat1", this.templateStringValue("level 1 #1", 2), this.templateStringValue("boxId", 2), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.category.ActionCalls.callCreateCategory("cat2", "level 1 #2", "boxId", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.category.ActionCalls.callCreateCategory("cat2", this.templateStringValue("level 1 #2", 3), this.templateStringValue("boxId", 3), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.card.ActionCalls.callCreateCard("c6", "zz-wanted", "aa-given", null, "cat2", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		return com.anfelisa.card.ActionCalls.callCreateCard("c6", this.templateStringValue("zz-wanted", 0), this.templateStringValue("aa-given", 0), null, this.templateStringValue("cat2", 0), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
-		
-	}
-	
-	@Test
-	public void createCardInOtherCategory() throws Exception {
-		given();
-		
-		Response response = when();
-
-		then(response);
-		
-		verifications();
-	}
-	
-	protected abstract void verifications();
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+				}
+				
+				@Test
+				public void createCardInOtherCategory() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					then(response);
+					
+					verifications();
+			}
+			
+			protected abstract void verifications();
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

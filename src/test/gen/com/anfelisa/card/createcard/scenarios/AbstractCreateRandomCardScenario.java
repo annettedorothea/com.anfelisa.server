@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.user.confirmemail.scenarios;
+package com.anfelisa.card.createcard.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,27 +34,30 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractConfirmEmailUserDoesNotExistScenario extends BaseScenario {
+public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
 		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
+		com.anfelisa.box.ActionCalls.callCreateBox("boxId", this.templateStringValue("cat", 1), new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+
+		com.anfelisa.category.ActionCalls.callCreateCategory("cat1", this.templateStringValue("level 1 #1", 2), this.templateStringValue("boxId", 2), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		return com.anfelisa.user.ActionCalls.callConfirmEmail(randomUUID(), this.templateStringValue("TOKEN", 0), this.templateStringValue("doesNotExist", 0), DROPWIZARD.getLocalPort());
+		return com.anfelisa.card.ActionCalls.callCreateCard(randomUUID(), this.templateStringValue("${index}wanted${random}", 0), this.templateStringValue("${index}given${random}", 0), null, this.templateStringValue("cat1", 0), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
 	private void then(Response response) throws Exception {
-		assertThat(response.getStatus(), 400);
+		assertThat(response.getStatus(), 200);
 		
 			
 				}
 				
 				@Test
-				public void confirmEmailUserDoesNotExist() throws Exception {
+				public void createRandomCard() throws Exception {
 					given();
 					
 					Response response = when();

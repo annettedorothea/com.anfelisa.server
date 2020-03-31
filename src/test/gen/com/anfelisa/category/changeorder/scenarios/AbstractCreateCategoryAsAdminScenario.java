@@ -37,42 +37,42 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "ADMIN-TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", "admin-password", "Admin", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", this.templateStringValue("admin-password", 0), this.templateStringValue("Admin", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
-		com.anfelisa.box.ActionCalls.callCreateBox("adminBox", "adminBox", new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.box.ActionCalls.callCreateBox("adminBox", this.templateStringValue("adminBox", 1), new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.category.ActionCalls.callCreateCategory("adminCat", "c", "adminBox", DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		return com.anfelisa.category.ActionCalls.callCreateCategory("adminCat", this.templateStringValue("c", 0), this.templateStringValue("adminBox", 0), DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
-		
-	}
-	
-	@Test
-	public void createCategoryAsAdmin() throws Exception {
-		given();
-		
-		Response response = when();
-
-		then(response);
-		
-		verifications();
-	}
-	
-	protected abstract void verifications();
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+				}
+				
+				@Test
+				public void createCategoryAsAdmin() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					then(response);
+					
+					verifications();
+			}
+			
+			protected abstract void verifications();
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

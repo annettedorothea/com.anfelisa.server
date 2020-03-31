@@ -75,6 +75,21 @@ scenarios
 			]
 		}
 
+
+	GetDuplicatesLimit
+		GIVEN
+			com.anfelisa.card.createcard.CreateRandomCard 30x
+		WHEN
+			com.anfelisa.card.GetDuplicates
+				{
+					categoryId: "boxId"
+					given: "ive"
+					wanted: "nted"
+					naturalInputOrder: "true"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
 	GetDuplicatesOrderByWanted
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard

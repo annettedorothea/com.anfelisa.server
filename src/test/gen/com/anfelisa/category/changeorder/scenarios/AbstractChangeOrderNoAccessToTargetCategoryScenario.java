@@ -37,53 +37,53 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
-		com.anfelisa.box.ActionCalls.callCreateBox("boxId", "cat", new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.box.ActionCalls.callCreateBox("boxId", this.templateStringValue("cat", 1), new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.category.ActionCalls.callCreateCategory("cat1", "level 1 #1", "boxId", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.category.ActionCalls.callCreateCategory("cat1", this.templateStringValue("level 1 #1", 2), this.templateStringValue("boxId", 2), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.category.ActionCalls.callCreateCategory("cat2", "level 1 #2", "boxId", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.category.ActionCalls.callCreateCategory("cat2", this.templateStringValue("level 1 #2", 3), this.templateStringValue("boxId", 3), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		NotReplayableDataProvider.put("token", "ADMIN-TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", "admin-password", "Admin", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", this.templateStringValue("admin-password", 4), this.templateStringValue("Admin", 4), this.templateStringValue("annette.pohl@anfelisa.de", 4), this.templateStringValue("de", 4), DROPWIZARD.getLocalPort());
 
-		com.anfelisa.box.ActionCalls.callCreateBox("adminBox", "adminBox", new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.box.ActionCalls.callCreateBox("adminBox", this.templateStringValue("adminBox", 5), new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 
-		com.anfelisa.category.ActionCalls.callCreateCategory("adminCat", "c", "adminBox", DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.category.ActionCalls.callCreateCategory("adminCat", this.templateStringValue("c", 6), this.templateStringValue("adminBox", 6), DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.category.ActionCalls.callChangeOrderCategory(randomUUID(), "cat1", "adminCat", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		return com.anfelisa.category.ActionCalls.callChangeOrderCategory(randomUUID(), this.templateStringValue("cat1", 0), this.templateStringValue("adminCat", 0), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 401);
 		
-		
-	}
-	
-	@Test
-	public void changeOrderNoAccessToTargetCategory() throws Exception {
-		given();
-		
-		Response response = when();
-
-		then(response);
-		
-		verifications();
-	}
-	
-	protected abstract void verifications();
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+				}
+				
+				@Test
+				public void changeOrderNoAccessToTargetCategory() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					then(response);
+					
+					verifications();
+			}
+			
+			protected abstract void verifications();
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

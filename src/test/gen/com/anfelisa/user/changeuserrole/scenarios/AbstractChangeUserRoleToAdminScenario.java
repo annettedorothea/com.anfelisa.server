@@ -37,43 +37,43 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractChangeUserRoleToAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
-		NotReplayableDataProvider.put("token", "ADMIN-TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", "admin-password", "Admin", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", this.templateStringValue("admin-password", 1), this.templateStringValue("Admin", 1), this.templateStringValue("annette.pohl@anfelisa.de", 1), this.templateStringValue("de", 1), DROPWIZARD.getLocalPort());
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callChangeUserRole(randomUUID(), "ADMIN", "uuid", DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		return com.anfelisa.user.ActionCalls.callChangeUserRole(randomUUID(), this.templateStringValue("ADMIN", 0), this.templateStringValue("uuid", 0), DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
-		
-	}
-	
-	@Test
-	public void changeUserRoleToAdmin() throws Exception {
-		given();
-		
-		Response response = when();
-
-		then(response);
-		
-		verifications();
-	}
-	
-	protected abstract void verifications();
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+				}
+				
+				@Test
+				public void changeUserRoleToAdmin() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					then(response);
+					
+					verifications();
+			}
+			
+			protected abstract void verifications();
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

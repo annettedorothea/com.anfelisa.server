@@ -37,11 +37,11 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "ADMIN-TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", "admin-password", "Admin", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", this.templateStringValue("admin-password", 0), this.templateStringValue("Admin", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 1), this.templateStringValue("Annette", 1), this.templateStringValue("annette.pohl@anfelisa.de", 1), this.templateStringValue("de", 1), DROPWIZARD.getLocalPort());
 
 	}
 	
@@ -58,37 +58,37 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.user.data.UserData expectedData = new com.anfelisa.user.data.UserData(randomUUID());
-		expectedData.setEmail("annette.pohl@anfelisa.de");
-		expectedData.setUsername("Annette");
-		expectedData.setUserId("uuid");
+		expectedData.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
+		expectedData.setUsername(this.templateStringValue("Annette", null));
+		expectedData.setUserId(this.templateStringValue("uuid", null));
 		
 		com.anfelisa.user.data.GetUserProfileResponse expected = new com.anfelisa.user.data.GetUserProfileResponse(expectedData);
 
 
 		assertThat(actual, expected);
-		
-		return actual;
-	}
-	
-	@Test
-	public void getUserProfile() throws Exception {
-		given();
-		
-		Response response = when();
-
-		com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
-		
-		verifications(actualResponse);
-	}
-	
-	protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+			return actual;
+				}
+				
+				@Test
+				public void getUserProfile() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
+					
+					verifications(actualResponse);
+			}
+			
+			protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

@@ -37,11 +37,11 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "ADMIN-TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", "admin-password", "Admin", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", this.templateStringValue("admin-password", 0), this.templateStringValue("Admin", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 1), this.templateStringValue("Annette", 1), this.templateStringValue("annette.pohl@anfelisa.de", 1), this.templateStringValue("de", 1), DROPWIZARD.getLocalPort());
 
 	}
 	
@@ -57,29 +57,29 @@ public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends Bas
 			actual = response.readEntity(com.anfelisa.user.data.GetUserProfileResponse.class);
 		} catch (Exception x) {
 		}
-		
-		return actual;
-	}
-	
-	@Test
-	public void getUserProfileUserDoesNotExist() throws Exception {
-		given();
-		
-		Response response = when();
-
-		com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
-		
-		verifications(actualResponse);
-	}
-	
-	protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+			return actual;
+				}
+				
+				@Test
+				public void getUserProfileUserDoesNotExist() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
+					
+					verifications(actualResponse);
+			}
+			
+			protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

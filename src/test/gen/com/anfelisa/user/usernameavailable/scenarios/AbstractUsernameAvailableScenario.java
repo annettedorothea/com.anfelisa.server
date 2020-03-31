@@ -37,13 +37,13 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callUsernameAvailable(randomUUID(), "lala", DROPWIZARD.getLocalPort());
+		return com.anfelisa.user.ActionCalls.callUsernameAvailable(randomUUID(), this.templateStringValue("lala", 0), DROPWIZARD.getLocalPort());
 	}
 	
 	private com.anfelisa.user.data.UsernameAvailableResponse then(Response response) throws Exception {
@@ -61,29 +61,29 @@ public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 
 
 		assertThat(actual, expected);
-		
-		return actual;
-	}
-	
-	@Test
-	public void usernameAvailable() throws Exception {
-		given();
-		
-		Response response = when();
-
-		com.anfelisa.user.data.UsernameAvailableResponse actualResponse = then(response);
-		
-		verifications(actualResponse);
-	}
-	
-	protected abstract void verifications(com.anfelisa.user.data.UsernameAvailableResponse response);
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+			return actual;
+				}
+				
+				@Test
+				public void usernameAvailable() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					com.anfelisa.user.data.UsernameAvailableResponse actualResponse = then(response);
+					
+					verifications(actualResponse);
+			}
+			
+			protected abstract void verifications(com.anfelisa.user.data.UsernameAvailableResponse response);
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

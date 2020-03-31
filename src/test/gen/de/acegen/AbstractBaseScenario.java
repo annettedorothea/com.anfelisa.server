@@ -33,6 +33,17 @@ public abstract class AbstractBaseScenario {
 		return UUID.randomUUID().toString();
 	}
 
+	protected String templateStringValue(String value, Integer index) {
+		String returnString = value;
+		if (index != null && value.contains("${index}")) {
+			returnString = returnString.replace("${index}", index.toString());
+		}
+		if (value.contains("${random}")) {
+			returnString = returnString.replace("${random}", UUID.randomUUID().toString().substring(0, 8));
+		}
+		return returnString;
+	}
+
 	protected abstract String authorization(String username, String password);
 
 	protected abstract void assertThat(int actual, int expected);

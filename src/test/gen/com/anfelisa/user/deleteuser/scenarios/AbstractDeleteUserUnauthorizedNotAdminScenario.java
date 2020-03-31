@@ -37,43 +37,43 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
-		NotReplayableDataProvider.put("token", "TOKEN_2");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid2", "pw", "Anne", "info@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN_2", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid2", this.templateStringValue("pw", 1), this.templateStringValue("Anne", 1), this.templateStringValue("info@anfelisa.de", 1), this.templateStringValue("de", 1), DROPWIZARD.getLocalPort());
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callDeleteUser(randomUUID(), "Annette", DROPWIZARD.getLocalPort(), authorization("Anne", "pw"));
+		return com.anfelisa.user.ActionCalls.callDeleteUser(randomUUID(), this.templateStringValue("Annette", 0), DROPWIZARD.getLocalPort(), authorization("Anne", "pw"));
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 401);
 		
-		
-	}
-	
-	@Test
-	public void deleteUserUnauthorizedNotAdmin() throws Exception {
-		given();
-		
-		Response response = when();
-
-		then(response);
-		
-		verifications();
-	}
-	
-	protected abstract void verifications();
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+				}
+				
+				@Test
+				public void deleteUserUnauthorizedNotAdmin() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					then(response);
+					
+					verifications();
+			}
+			
+			protected abstract void verifications();
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

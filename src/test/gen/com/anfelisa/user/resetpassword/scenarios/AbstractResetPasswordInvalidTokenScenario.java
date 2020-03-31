@@ -37,44 +37,44 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", "TOKEN");
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
-		NotReplayableDataProvider.put("token", "RESET-PW-TOKEN");
-		com.anfelisa.user.ActionCalls.callForgotPassword(randomUUID(), "Annette", "de", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("RESET-PW-TOKEN", null));
+		com.anfelisa.user.ActionCalls.callForgotPassword(randomUUID(), this.templateStringValue("Annette", 1), this.templateStringValue("de", 1), DROPWIZARD.getLocalPort());
 
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", "INVALID-TOKEN");
-		return com.anfelisa.user.ActionCalls.callResetPassword(randomUUID(), "newPassword", "INVALID-TOKEN", DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("INVALID-TOKEN", null));
+		return com.anfelisa.user.ActionCalls.callResetPassword(randomUUID(), this.templateStringValue("newPassword", 0), this.templateStringValue("INVALID-TOKEN", 0), DROPWIZARD.getLocalPort());
 	}
 	
 	private void then(Response response) throws Exception {
 		assertThat(response.getStatus(), 400);
 		
-		
-	}
-	
-	@Test
-	public void resetPasswordInvalidToken() throws Exception {
-		given();
-		
-		Response response = when();
-
-		then(response);
-		
-		verifications();
-	}
-	
-	protected abstract void verifications();
-
-}
-
-
-
-
-/******* S.D.G. *******/
-
-
-
+			
+				}
+				
+				@Test
+				public void resetPasswordInvalidToken() throws Exception {
+					given();
+					
+					Response response = when();
+			
+					then(response);
+					
+					verifications();
+			}
+			
+			protected abstract void verifications();
+			
+			}
+			
+			
+			
+			
+			/******* S.D.G. *******/
+			
+			
+			

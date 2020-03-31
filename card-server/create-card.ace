@@ -90,6 +90,19 @@ scenarios
 				authorization "Annette" : "password"
 		THEN 200
 
+	CreateRandomCard
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.CreateCard
+				{
+					categoryId: "cat1"
+					given: "${index}given${random}"
+					wanted: "${index}wanted${random}"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
 	CreateCardInOtherCategory
 		GIVEN
 			com.anfelisa.category.createcategory.CreateSecondCategory
