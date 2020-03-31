@@ -17,30 +17,23 @@
 
 
 
-package com.anfelisa.card.data;
+package com.anfelisa.card.createcard.scenarios;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import javax.ws.rs.core.Response;
 
-import de.acegen.IDataContainer;
+import com.anfelisa.card.models.CardModel;
+import com.anfelisa.card.models.ICardModel;
 
-import com.anfelisa.card.models.ICardSearchModel;
+@SuppressWarnings("unused")
+public class CreateCardInOtherBoxScenario extends AbstractCreateCardInOtherBoxScenario {
 
-@JsonDeserialize(as=CardSearchData.class)
-public interface ICardSearchData extends ICardSearchModel, IDataContainer {
-	
-	ICardSearchData withUserId(String userId);
-	
-	ICardSearchData withGiven(String given);
-	
-	ICardSearchData withWanted(String wanted);
-	
-	ICardSearchData withCategoryId(String categoryId);
-	
-	ICardSearchData withCardList(java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList);
-	
-	ICardSearchData withNaturalInputOrder(Boolean naturalInputOrder);
-	
-	
+	@Override
+	protected void verifications() {
+		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c7");
+		ICardModel expectedCard = new CardModel("c7", "given", "wanted", null, "Annette", 1, "boxId2", "boxId2");
+		assertThat(actualCard, expectedCard);
+	}
+
 }
 
 

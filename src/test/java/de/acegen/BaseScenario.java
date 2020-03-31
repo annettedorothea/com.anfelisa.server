@@ -31,6 +31,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.card.data.GetCardsResponse;
+import com.anfelisa.card.data.GetDuplicatesResponse;
+import com.anfelisa.card.models.ICardWithCategoryNameModel;
 import com.anfelisa.card.models.ICardWithInfoModel;
 import com.anfelisa.category.data.GetCategoryTreeResponse;
 import com.anfelisa.category.models.ICategoryTreeItemModel;
@@ -101,6 +103,8 @@ public class BaseScenario extends AbstractBaseScenario {
 			assertThat((GetCategoryTreeResponse) actual, (GetCategoryTreeResponse) expected);
 		} else if (actual instanceof GetCardsResponse) {
 			assertThat((GetCardsResponse) actual, (GetCardsResponse) expected);
+		} else if (actual instanceof GetDuplicatesResponse) {
+			assertThat((GetDuplicatesResponse) actual, (GetDuplicatesResponse) expected);
 		} else {
 			org.junit.Assert.assertThat(actual, is(samePropertyValuesAs(expected)));
 		}
@@ -162,6 +166,21 @@ public class BaseScenario extends AbstractBaseScenario {
 		}
 	}
 
+	private void assertThat(GetDuplicatesResponse actual, GetDuplicatesResponse expected) {
+		if (actual.getCardList() == null) {
+			assertIsNull(expected.getCardList());
+		} else if (expected.getCardList() == null) {
+			org.junit.Assert.fail("expected.getCardList is null");
+		} else {
+			assertThat(actual.getCardList().size(), expected.getCardList().size());
+			for (int i = 0; i < actual.getCardList().size(); i++) {
+				ICardWithCategoryNameModel actualCard = actual.getCardList().get(i);
+				ICardWithCategoryNameModel expectedCard = expected.getCardList().get(i);
+				assertThat(actualCard, expectedCard);
+			}
+		}
+	}
+	
 	@Override
 	protected void assertIsNull(Object actual) {
 		org.junit.Assert.assertNull(actual);

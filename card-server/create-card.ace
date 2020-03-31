@@ -90,6 +90,34 @@ scenarios
 				authorization "Annette" : "password"
 		THEN 200
 
+	CreateCardInOtherCategory
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c6"
+				{
+					categoryId: "cat2"
+					given: "aa-given"
+					wanted: "zz-wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateCardInOtherBox
+		GIVEN
+			com.anfelisa.box.createbox.CreateSecondBox
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c7"
+				{
+					categoryId: "boxId2"
+					given: "given"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
 	CreateCardMissingCategoryId
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategory

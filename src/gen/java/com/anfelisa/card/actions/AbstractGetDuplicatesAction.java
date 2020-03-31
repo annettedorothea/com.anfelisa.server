@@ -124,6 +124,7 @@ public abstract class AbstractGetDuplicatesAction extends Action<ICardSearchData
 		this.actionData.setWanted(wanted);
 		this.actionData.setNaturalInputOrder(naturalInputOrder);
 		this.actionData.setCategoryId(categoryId);
+		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
 

@@ -38,6 +38,8 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractCardSearchData.class);
 	
+	private String userId;
+	
 	@NotNull
 	private String given;
 	
@@ -52,6 +54,7 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	
 
 	public AbstractCardSearchData(
+		@JsonProperty("userId") String userId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("categoryId") String categoryId,
@@ -60,6 +63,7 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
+		this.userId = userId;
 		this.given = given;
 		this.wanted = wanted;
 		this.categoryId = categoryId;
@@ -71,6 +75,18 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 		super(uuid);
 	}
 
+	@JsonProperty
+		public String getUserId() {
+			return this.userId;
+		}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public ICardSearchData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
 	@JsonProperty
 		public String getGiven() {
 			return this.given;

@@ -17,30 +17,27 @@
 
 
 
-package com.anfelisa.card.data;
+package com.anfelisa.card.getduplicates;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.dropwizard.setup.Environment;
+import de.acegen.CustomAppConfiguration;
+import de.acegen.AceExecutionMode;
+import de.acegen.IDaoProvider;
+import de.acegen.ViewProvider;
+import de.acegen.ServerConfiguration;
+import de.acegen.E2E;
+import de.acegen.PersistenceConnection;
 
-import de.acegen.IDataContainer;
 
-import com.anfelisa.card.models.ICardSearchModel;
+@SuppressWarnings("all")
+public class AppRegistration {
 
-@JsonDeserialize(as=CardSearchData.class)
-public interface ICardSearchData extends ICardSearchModel, IDataContainer {
-	
-	ICardSearchData withUserId(String userId);
-	
-	ICardSearchData withGiven(String given);
-	
-	ICardSearchData withWanted(String wanted);
-	
-	ICardSearchData withCategoryId(String categoryId);
-	
-	ICardSearchData withCardList(java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList);
-	
-	ICardSearchData withNaturalInputOrder(Boolean naturalInputOrder);
-	
-	
+	public static void registerResources(Environment environment, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
+	}
+
+	public static void registerConsumers(ViewProvider viewProvider, String mode) {
+    }
 }
 
 

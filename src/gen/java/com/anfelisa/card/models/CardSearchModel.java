@@ -28,6 +28,8 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class CardSearchModel implements ICardSearchModel {
 
+	private String userId;
+	
 	@NotNull
 	private String given;
 	
@@ -45,12 +47,14 @@ public class CardSearchModel implements ICardSearchModel {
 	}
 
 	public CardSearchModel(
+		@JsonProperty("userId") String userId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("cardList") java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList,
 		@JsonProperty("naturalInputOrder") Boolean naturalInputOrder
 	) {
+		this.userId = userId;
 		this.given = given;
 		this.wanted = wanted;
 		this.categoryId = categoryId;
@@ -58,6 +62,14 @@ public class CardSearchModel implements ICardSearchModel {
 		this.naturalInputOrder = naturalInputOrder;
 	}
 
+	@JsonProperty
+		public String getUserId() {
+			return this.userId;
+		}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	@JsonProperty
 		public String getGiven() {
 			return this.given;

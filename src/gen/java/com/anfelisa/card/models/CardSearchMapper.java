@@ -29,6 +29,7 @@ public class CardSearchMapper implements RowMapper<ICardSearchModel> {
 	
 	public ICardSearchModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardSearchModel(
+			r.getString("userId"),
 			r.getString("given"),
 			r.getString("wanted"),
 			r.getString("categoryId"),

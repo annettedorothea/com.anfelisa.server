@@ -1,0 +1,192 @@
+HttpServer 
+
+com.anfelisa.card.getduplicates
+
+scenarios 
+	GetDuplicates
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+			com.anfelisa.card.createcard.CreateCardInOtherCategory
+			com.anfelisa.card.createcard.CreateCardInOtherBox
+		WHEN
+			com.anfelisa.card.GetDuplicates
+				{
+					categoryId: "boxId"
+					given: "ive"
+					wanted: "nted"
+					naturalInputOrder: "true"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		response {
+			cardList : [
+				{
+					cardAuthor: "Annette"
+					cardId: "c3"
+					cardIndex: 3
+					categoryId: "cat1"
+					given: "3given"
+					rootCategoryId: "boxId"
+					wanted: "3wanted"
+					categoryName: "level 1 #1"
+				}
+				{
+					cardAuthor: "Annette"
+					cardId: "c4"
+					cardIndex: 4
+					categoryId: "cat1"
+					given: "4given4"
+					rootCategoryId: "boxId"
+					wanted: "4wanted4"
+					categoryName: "level 1 #1"
+				}
+				{
+					cardAuthor: "Annette"
+					cardId: "c6"
+					cardIndex: 1
+					categoryId: "cat2"
+					given: "aa-given"
+					rootCategoryId: "boxId"
+					wanted: "zz-wanted"
+					categoryName: "level 1 #2"
+				}
+				{
+					cardAuthor: "Annette"
+					cardId: "c1"
+					cardIndex: 1
+					categoryId: "cat1"
+					given: "given"
+					image: "image"
+					rootCategoryId: "boxId"
+					wanted: "wanted"
+					categoryName: "level 1 #1"
+				}
+				{
+					cardAuthor: "Annette"
+					cardId: "c2"
+					cardIndex: 2
+					categoryId: "cat1"
+					given: "given2"
+					image: "image2"
+					rootCategoryId: "boxId"
+					wanted: "wanted2"
+					categoryName: "level 1 #1"
+				}
+			]
+		}
+
+	GetDuplicatesOrderByWanted
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+			com.anfelisa.card.createcard.CreateCardInOtherCategory
+			com.anfelisa.card.createcard.CreateCardInOtherBox
+		WHEN
+			com.anfelisa.card.GetDuplicates
+				{
+					categoryId: "boxId"
+					given: "ive"
+					wanted: "nted"
+					naturalInputOrder: "false"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		response {
+			cardList : [
+				{
+					cardAuthor: "Annette"
+					cardId: "c3"
+					cardIndex: 3
+					categoryId: "cat1"
+					given: "3given"
+					rootCategoryId: "boxId"
+					wanted: "3wanted"
+					categoryName: "level 1 #1"
+				}
+				{
+					cardAuthor: "Annette"
+					cardId: "c4"
+					cardIndex: 4
+					categoryId: "cat1"
+					given: "4given4"
+					rootCategoryId: "boxId"
+					wanted: "4wanted4"
+					categoryName: "level 1 #1"
+				}
+				{
+					cardAuthor: "Annette"
+					cardId: "c1"
+					cardIndex: 1
+					categoryId: "cat1"
+					given: "given"
+					image: "image"
+					rootCategoryId: "boxId"
+					wanted: "wanted"
+					categoryName: "level 1 #1"
+				}
+				{
+					cardAuthor: "Annette"
+					cardId: "c2"
+					cardIndex: 2
+					categoryId: "cat1"
+					given: "given2"
+					image: "image2"
+					rootCategoryId: "boxId"
+					wanted: "wanted2"
+					categoryName: "level 1 #1"
+				}
+				{
+					cardAuthor: "Annette"
+					cardId: "c6"
+					cardIndex: 1
+					categoryId: "cat2"
+					given: "aa-given"
+					rootCategoryId: "boxId"
+					wanted: "zz-wanted"
+					categoryName: "level 1 #2"
+				}
+			]
+		}
+
+	GetDuplicatesCategoryDoesNotExist
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.card.GetDuplicates
+				{
+					categoryId: "lala"
+					given: "ive"
+					wanted: "nted"
+					naturalInputOrder: "true"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	GetDuplicatesNoAccessToCategory
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.card.GetDuplicates
+				{
+					categoryId: "boxId"
+					given: "ive"
+					wanted: "nted"
+					naturalInputOrder: "true"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+		
+	GetDuplicatesUnauthorized
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.card.GetDuplicates
+				{
+					categoryId: "boxId"
+					given: "ive"
+					wanted: "nted"
+					naturalInputOrder: "true"
+				}
+		THEN 401
+		
+		

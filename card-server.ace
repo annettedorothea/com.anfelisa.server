@@ -122,6 +122,7 @@ models
 		String userId
 	}
 	CardSearch {
+		String userId
 		NotNull String given
 		NotNull String wanted
 		String categoryId

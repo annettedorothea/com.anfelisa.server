@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.card.getcards.scenarios;
+package com.anfelisa.card.getduplicates.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetCardsScenario extends BaseScenario {
+public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", "TOKEN");
@@ -65,79 +65,93 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 
 		com.anfelisa.card.ActionCalls.callCreateCard("c6", "zz-wanted", "aa-given", null, "cat2", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
+		NotReplayableDataProvider.put("token", "TOKEN");
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", "password", "Annette", "annette.pohl@anfelisa.de", "de", DROPWIZARD.getLocalPort());
+
+		com.anfelisa.box.ActionCalls.callCreateBox("boxId", "cat", new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+
+		com.anfelisa.box.ActionCalls.callCreateBox("boxId2", "cat2", new Boolean("false"), null, null, 8, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+
+		com.anfelisa.card.ActionCalls.callCreateCard("c7", "wanted", "given", null, "boxId2", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.card.ActionCalls.callGetCards(randomUUID(), "cat1", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		return com.anfelisa.card.ActionCalls.callGetDuplicates(randomUUID(), "ive", "nted", new Boolean("true"), "boxId", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
-	private com.anfelisa.card.data.GetCardsResponse then(Response response) throws Exception {
+	private com.anfelisa.card.data.GetDuplicatesResponse then(Response response) throws Exception {
 		assertThat(response.getStatus(), 200);
 		
-		com.anfelisa.card.data.GetCardsResponse actual = null;
+		com.anfelisa.card.data.GetDuplicatesResponse actual = null;
 		try {
-			actual = response.readEntity(com.anfelisa.card.data.GetCardsResponse.class);
+			actual = response.readEntity(com.anfelisa.card.data.GetDuplicatesResponse.class);
 		} catch (Exception x) {
 		}
-		com.anfelisa.card.data.CardListData expectedData = new com.anfelisa.card.data.CardListData(randomUUID());
+		com.anfelisa.card.data.CardSearchData expectedData = new com.anfelisa.card.data.CardSearchData(randomUUID());
 		
-			List<com.anfelisa.card.models.ICardWithInfoModel> expectedDataCardList = new ArrayList<com.anfelisa.card.models.ICardWithInfoModel>();
-			com.anfelisa.card.models.ICardWithInfoModel item1 = new com.anfelisa.card.models.CardWithInfoModel();
+			List<com.anfelisa.card.models.ICardWithCategoryNameModel> expectedDataCardList = new ArrayList<com.anfelisa.card.models.ICardWithCategoryNameModel>();
+			com.anfelisa.card.models.ICardWithCategoryNameModel item1 = new com.anfelisa.card.models.CardWithCategoryNameModel();
 			item1.setCardAuthor("Annette");
-			item1.setCardId("c1");
-			item1.setCardIndex(1);
+			item1.setCardId("c3");
+			item1.setCardIndex(3);
 			item1.setCategoryId("cat1");
-			item1.setGiven("given");
-			item1.setImage("image");
+			item1.setGiven("3given");
 			item1.setRootCategoryId("boxId");
-			item1.setWanted("wanted");
+			item1.setWanted("3wanted");
+			item1.setCategoryName("level 1 #1");
 			expectedDataCardList.add(item1);
 		
-			com.anfelisa.card.models.ICardWithInfoModel item2 = new com.anfelisa.card.models.CardWithInfoModel();
+			com.anfelisa.card.models.ICardWithCategoryNameModel item2 = new com.anfelisa.card.models.CardWithCategoryNameModel();
 			item2.setCardAuthor("Annette");
-			item2.setCardId("c2");
-			item2.setCardIndex(2);
+			item2.setCardId("c4");
+			item2.setCardIndex(4);
 			item2.setCategoryId("cat1");
-			item2.setGiven("given2");
-			item2.setImage("image2");
+			item2.setGiven("4given4");
 			item2.setRootCategoryId("boxId");
-			item2.setWanted("wanted2");
+			item2.setWanted("4wanted4");
+			item2.setCategoryName("level 1 #1");
 			expectedDataCardList.add(item2);
 		
-			com.anfelisa.card.models.ICardWithInfoModel item3 = new com.anfelisa.card.models.CardWithInfoModel();
+			com.anfelisa.card.models.ICardWithCategoryNameModel item3 = new com.anfelisa.card.models.CardWithCategoryNameModel();
 			item3.setCardAuthor("Annette");
-			item3.setCardId("c3");
-			item3.setCardIndex(3);
-			item3.setCategoryId("cat1");
-			item3.setGiven("3given");
+			item3.setCardId("c6");
+			item3.setCardIndex(1);
+			item3.setCategoryId("cat2");
+			item3.setGiven("aa-given");
 			item3.setRootCategoryId("boxId");
-			item3.setWanted("3wanted");
+			item3.setWanted("zz-wanted");
+			item3.setCategoryName("level 1 #2");
 			expectedDataCardList.add(item3);
 		
-			com.anfelisa.card.models.ICardWithInfoModel item4 = new com.anfelisa.card.models.CardWithInfoModel();
+			com.anfelisa.card.models.ICardWithCategoryNameModel item4 = new com.anfelisa.card.models.CardWithCategoryNameModel();
 			item4.setCardAuthor("Annette");
-			item4.setCardId("c4");
-			item4.setCardIndex(4);
+			item4.setCardId("c1");
+			item4.setCardIndex(1);
 			item4.setCategoryId("cat1");
-			item4.setGiven("4given4");
+			item4.setGiven("given");
+			item4.setImage("image");
 			item4.setRootCategoryId("boxId");
-			item4.setWanted("4wanted4");
+			item4.setWanted("wanted");
+			item4.setCategoryName("level 1 #1");
 			expectedDataCardList.add(item4);
 		
-			com.anfelisa.card.models.ICardWithInfoModel item5 = new com.anfelisa.card.models.CardWithInfoModel();
+			com.anfelisa.card.models.ICardWithCategoryNameModel item5 = new com.anfelisa.card.models.CardWithCategoryNameModel();
 			item5.setCardAuthor("Annette");
-			item5.setCardId("c5");
-			item5.setCardIndex(5);
+			item5.setCardId("c2");
+			item5.setCardIndex(2);
 			item5.setCategoryId("cat1");
-			item5.setGiven("different");
+			item5.setGiven("given2");
+			item5.setImage("image2");
 			item5.setRootCategoryId("boxId");
-			item5.setWanted("different");
+			item5.setWanted("wanted2");
+			item5.setCategoryName("level 1 #1");
 			expectedDataCardList.add(item5);
 		
 			
 		expectedData.setCardList(expectedDataCardList);
 		
-		com.anfelisa.card.data.GetCardsResponse expected = new com.anfelisa.card.data.GetCardsResponse(expectedData);
+		com.anfelisa.card.data.GetDuplicatesResponse expected = new com.anfelisa.card.data.GetDuplicatesResponse(expectedData);
 
 
 		assertThat(actual, expected);
@@ -146,17 +160,17 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 	}
 	
 	@Test
-	public void getCards() throws Exception {
+	public void getDuplicates() throws Exception {
 		given();
 		
 		Response response = when();
 
-		com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
+		com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 		
 		verifications(actualResponse);
 	}
 	
-	protected abstract void verifications(com.anfelisa.card.data.GetCardsResponse response);
+	protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
 
 }
 

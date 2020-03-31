@@ -17,30 +17,17 @@
 
 
 
-package com.anfelisa.card.data;
+package com.anfelisa.card.getduplicates.scenarios;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import javax.ws.rs.core.Response;
 
-import de.acegen.IDataContainer;
+@SuppressWarnings("unused")
+public class GetDuplicatesNoAccessToCategoryScenario extends AbstractGetDuplicatesNoAccessToCategoryScenario {
 
-import com.anfelisa.card.models.ICardSearchModel;
+	@Override
+	protected void verifications(com.anfelisa.card.data.GetDuplicatesResponse response ) {
+	}
 
-@JsonDeserialize(as=CardSearchData.class)
-public interface ICardSearchData extends ICardSearchModel, IDataContainer {
-	
-	ICardSearchData withUserId(String userId);
-	
-	ICardSearchData withGiven(String given);
-	
-	ICardSearchData withWanted(String wanted);
-	
-	ICardSearchData withCategoryId(String categoryId);
-	
-	ICardSearchData withCardList(java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList);
-	
-	ICardSearchData withNaturalInputOrder(Boolean naturalInputOrder);
-	
-	
 }
 
 

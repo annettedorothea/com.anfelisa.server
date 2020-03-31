@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.card.models.ICardWithCategoryNameModel;
+import com.anfelisa.category.models.ICategoryModel;
+import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
@@ -24,6 +26,16 @@ public class GetDuplicatesAction extends AbstractGetDuplicatesAction {
 
 
 	protected final void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
+		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				actionData.getCategoryId());
+		if (category == null) {
+			throwBadRequest("category does not exist");
+		}
+		IUserAccessToCategoryModel userAccessToCategoryModel = daoProvider.getUserAccessToCategoryDao()
+				.hasUserAccessTo(readonlyHandle, actionData.getCategoryId(), actionData.getUserId());
+		if (userAccessToCategoryModel == null) {
+			throwUnauthorized();
+		}
 		List<ICardWithCategoryNameModel> cardList = this.daoProvider.getCardDao().search(readonlyHandle, actionData.getCategoryId(),
 				actionData.getNaturalInputOrder(), actionData.getGiven(), actionData.getWanted());
 		this.actionData.setCardList(cardList);

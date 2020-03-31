@@ -26,6 +26,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=CardSearchModel.class)
 public interface ICardSearchModel {
 
+	String getUserId();
+	void setUserId(String userId);
+	
 	String getGiven();
 	void setGiven(String given);
 	

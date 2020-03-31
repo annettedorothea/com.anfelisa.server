@@ -17,29 +17,18 @@
 
 
 
-package com.anfelisa.card.data;
+package com.anfelisa.card.getduplicates;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.core.Response;
 
-import de.acegen.IDataContainer;
+import org.glassfish.jersey.client.JerseyClientBuilder;
 
-import com.anfelisa.card.models.ICardSearchModel;
+@SuppressWarnings("unused")
+public class ActionCalls {
 
-@JsonDeserialize(as=CardSearchData.class)
-public interface ICardSearchData extends ICardSearchModel, IDataContainer {
-	
-	ICardSearchData withUserId(String userId);
-	
-	ICardSearchData withGiven(String given);
-	
-	ICardSearchData withWanted(String wanted);
-	
-	ICardSearchData withCategoryId(String categoryId);
-	
-	ICardSearchData withCardList(java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList);
-	
-	ICardSearchData withNaturalInputOrder(Boolean naturalInputOrder);
-	
 	
 }
 
