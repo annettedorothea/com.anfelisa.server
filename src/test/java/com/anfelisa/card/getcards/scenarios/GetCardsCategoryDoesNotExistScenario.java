@@ -17,21 +17,15 @@
 
 
 
-package com.anfelisa.card.createcard.scenarios;
+package com.anfelisa.card.getcards.scenarios;
 
 import javax.ws.rs.core.Response;
 
-import com.anfelisa.card.models.CardModel;
-import com.anfelisa.card.models.ICardModel;
-
 @SuppressWarnings("unused")
-public class CreateFifthCardScenario extends AbstractCreateFifthCardScenario {
+public class GetCardsCategoryDoesNotExistScenario extends AbstractGetCardsCategoryDoesNotExistScenario {
 
 	@Override
-	protected void verifications() {
-		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c5");
-		ICardModel expectedCard = new CardModel("c5", "different", "different", null, "Annette", 5, "cat1", "boxId");
-		assertThat(actualCard, expectedCard);
+	protected void verifications(com.anfelisa.card.data.GetCardsResponse response ) {
 	}
 
 }

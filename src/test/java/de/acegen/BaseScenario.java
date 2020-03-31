@@ -30,14 +30,13 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.card.data.GetCardsResponse;
+import com.anfelisa.card.models.ICardWithInfoModel;
 import com.anfelisa.category.data.GetCategoryTreeResponse;
 import com.anfelisa.category.models.ICategoryTreeItemModel;
 import com.anfelisa.user.data.GetAllUsersResponse;
 import com.anfelisa.user.models.IUserModel;
 
-import de.acegen.App;
-import de.acegen.CustomAppConfiguration;
-import de.acegen.DaoProvider;
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.testing.DropwizardTestSupport;
 
@@ -100,6 +99,8 @@ public class BaseScenario extends AbstractBaseScenario {
 			assertThat((GetAllUsersResponse) actual, (GetAllUsersResponse) expected);
 		} else if (actual instanceof GetCategoryTreeResponse) {
 			assertThat((GetCategoryTreeResponse) actual, (GetCategoryTreeResponse) expected);
+		} else if (actual instanceof GetCardsResponse) {
+			assertThat((GetCardsResponse) actual, (GetCardsResponse) expected);
 		} else {
 			org.junit.Assert.assertThat(actual, is(samePropertyValuesAs(expected)));
 		}
@@ -142,6 +143,21 @@ public class BaseScenario extends AbstractBaseScenario {
 				ICategoryTreeItemModel actualChild = actual.getChildCategories().get(i);
 				ICategoryTreeItemModel expectedChild = expected.getChildCategories().get(i);
 				assertThat(actualChild, expectedChild);
+			}
+		}
+	}
+
+	private void assertThat(GetCardsResponse actual, GetCardsResponse expected) {
+		if (actual.getCardList() == null) {
+			assertIsNull(expected.getCardList());
+		} else if (expected.getCardList() == null) {
+			org.junit.Assert.fail("expected.getCardList is null");
+		} else {
+			assertThat(actual.getCardList().size(), expected.getCardList().size());
+			for (int i = 0; i < actual.getCardList().size(); i++) {
+				ICardWithInfoModel actualCard = actual.getCardList().get(i);
+				ICardWithInfoModel expectedCard = expected.getCardList().get(i);
+				assertThat(actualCard, expectedCard);
 			}
 		}
 	}

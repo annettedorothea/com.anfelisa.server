@@ -1,0 +1,101 @@
+HttpServer 
+
+com.anfelisa.card.getcards
+
+scenarios 
+	GetCards
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.card.GetCards
+				{
+					categoryId: "cat1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		response {
+			cardList : [
+				{
+					cardAuthor: "Annette"
+					cardId: "c1"
+					cardIndex: 1
+					categoryId: "cat1"
+					given: "given"
+					image: "image"
+					rootCategoryId: "boxId"
+					wanted: "wanted"
+				}
+				{
+					cardAuthor: "Annette"
+					cardId: "c2"
+					cardIndex: 2
+					categoryId: "cat1"
+					given: "given2"
+					image: "image2"
+					rootCategoryId: "boxId"
+					wanted: "wanted2"
+				}
+				{
+					cardAuthor: "Annette"
+					cardId: "c3"
+					cardIndex: 3
+					categoryId: "cat1"
+					given: "3given"
+					rootCategoryId: "boxId"
+					wanted: "3wanted"
+				}
+				{
+					cardAuthor: "Annette"
+					cardId: "c4"
+					cardIndex: 4
+					categoryId: "cat1"
+					given: "4given4"
+					rootCategoryId: "boxId"
+					wanted: "4wanted4"
+				}
+				{
+					cardAuthor: "Annette"
+					cardId: "c5"
+					cardIndex: 5
+					categoryId: "cat1"
+					given: "different"
+					rootCategoryId: "boxId"
+					wanted: "different"
+				}
+			]
+		}
+
+	GetCardsCategoryDoesNotExist
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.card.GetCards
+				{
+					categoryId: "lala"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	GetCardsNoAccessToCategory
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.card.GetCards
+				{
+					categoryId: "cat1"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+		
+	GetCardsUnauthorized
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.card.GetCards
+				{
+					categoryId: "cat1"
+				}
+		THEN 401
+		
+		

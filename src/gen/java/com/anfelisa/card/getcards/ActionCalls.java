@@ -17,23 +17,19 @@
 
 
 
-package com.anfelisa.card.createcard.scenarios;
+package com.anfelisa.card.getcards;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.Response;
 
-import com.anfelisa.card.models.CardModel;
-import com.anfelisa.card.models.ICardModel;
+import org.glassfish.jersey.client.JerseyClientBuilder;
 
 @SuppressWarnings("unused")
-public class CreateFifthCardScenario extends AbstractCreateFifthCardScenario {
+public class ActionCalls {
 
-	@Override
-	protected void verifications() {
-		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c5");
-		ICardModel expectedCard = new CardModel("c5", "different", "different", null, "Annette", 5, "cat1", "boxId");
-		assertThat(actualCard, expectedCard);
-	}
-
+	
 }
 
 

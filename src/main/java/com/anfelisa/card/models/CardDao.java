@@ -11,13 +11,6 @@ import de.acegen.PersistenceHandle;
 
 public class CardDao extends AbstractCardDao {
 
-	public List<ICardWithInfoModel> selectAllOfCategory(PersistenceHandle handle, String categoryId) {
-		return handle.getHandle().createQuery(
-				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, null as next FROM public.card "
-						+ "WHERE categoryid = :categoryid ORDER BY cardindex, given")
-				.bind("categoryid", categoryId).map(new CardWithInfoMapper()).list();
-	}
-
 	public List<ICardWithInfoModel> selectAllOfCategoryWithBoxInfo(PersistenceHandle handle, String categoryId,
 			String boxId) {
 		return handle.getHandle().createQuery(

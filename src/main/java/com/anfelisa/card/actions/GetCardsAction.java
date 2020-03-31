@@ -21,29 +21,28 @@ public class GetCardsAction extends AbstractGetCardsAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetCardsAction.class);
 
-	public GetCardsAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
+	public GetCardsAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration,
+			IDaoProvider daoProvider,
 			ViewProvider viewProvider, E2E e2e) {
 		super(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e);
 	}
 
 	protected final void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
+		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
+				actionData.getCategoryId());
+		if (category == null) {
+			throwBadRequest("category does not exist");
+		}
 		IUserAccessToCategoryModel userAccessToCategoryModel = daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle, actionData.getCategoryId(), actionData.getUserId());
 		if (userAccessToCategoryModel == null) {
-			throwBadRequest();
+			throwUnauthorized();
 		}
-		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
-				actionData.getCategoryId());
 		IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
 				category.getRootCategoryId(), actionData.getUserId());
-		if (box == null) {
-			this.actionData.setCardList(
-					daoProvider.getCardDao().selectAllOfCategory(readonlyHandle, actionData.getCategoryId()));
-		} else {
-			List<ICardWithInfoModel> allCards = daoProvider.getCardDao().selectAllOfCategoryWithBoxInfo(readonlyHandle,
-					actionData.getCategoryId(), box.getBoxId());
-			this.actionData.setCardList(allCards);
-		}
+		List<ICardWithInfoModel> allCards = daoProvider.getCardDao().selectAllOfCategoryWithBoxInfo(readonlyHandle,
+				actionData.getCategoryId(), box.getBoxId());
+		this.actionData.setCardList(allCards);
 	}
 
 	@Override

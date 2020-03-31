@@ -46,7 +46,7 @@ public abstract class AbstractDeleteCardScenario extends BaseScenario {
 
 		com.anfelisa.card.ActionCalls.callCreateCard("c1", "wanted", "given", "image", "cat1", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.card.ActionCalls.callCreateCard("c2", "wanted", "given", "image", "cat1", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.card.ActionCalls.callCreateCard("c2", "wanted2", "given2", "image2", "cat1", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
 	}
 	

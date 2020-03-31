@@ -30,7 +30,7 @@ public class CreateSecondCardScenario extends AbstractCreateSecondCardScenario {
 	@Override
 	protected void verifications() {
 		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c2");
-		ICardModel expectedCard = new CardModel("c2", "given", "wanted", "image", "Annette", 2, "cat1", "boxId");
+		ICardModel expectedCard = new CardModel("c2", "given2", "wanted2", "image2", "Annette", 2, "cat1", "boxId");
 		assertThat(actualCard, expectedCard);
 	}
 

@@ -17,23 +17,27 @@
 
 
 
-package com.anfelisa.card.createcard.scenarios;
+package com.anfelisa.card.getcards;
 
-import javax.ws.rs.core.Response;
+import io.dropwizard.setup.Environment;
+import de.acegen.CustomAppConfiguration;
+import de.acegen.AceExecutionMode;
+import de.acegen.IDaoProvider;
+import de.acegen.ViewProvider;
+import de.acegen.ServerConfiguration;
+import de.acegen.E2E;
+import de.acegen.PersistenceConnection;
 
-import com.anfelisa.card.models.CardModel;
-import com.anfelisa.card.models.ICardModel;
 
-@SuppressWarnings("unused")
-public class CreateFifthCardScenario extends AbstractCreateFifthCardScenario {
+@SuppressWarnings("all")
+public class AppRegistration {
 
-	@Override
-	protected void verifications() {
-		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c5");
-		ICardModel expectedCard = new CardModel("c5", "different", "different", null, "Annette", 5, "cat1", "boxId");
-		assertThat(actualCard, expectedCard);
+	public static void registerResources(Environment environment, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 	}
 
+	public static void registerConsumers(ViewProvider viewProvider, String mode) {
+    }
 }
 
 

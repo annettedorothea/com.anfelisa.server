@@ -41,9 +41,9 @@ scenarios
 				uuid "c2"
 				{
 					categoryId: "cat1"
-					given: "given"
-					image: "image"
-					wanted: "wanted"
+					given: "given2"
+					image: "image2"
+					wanted: "wanted2"
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -56,8 +56,8 @@ scenarios
 				uuid "c3"
 				{
 					categoryId: "cat1"
-					given: "given"
-					wanted: "wanted"
+					given: "3given"
+					wanted: "3wanted"
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -70,8 +70,8 @@ scenarios
 				uuid "c4"
 				{
 					categoryId: "cat1"
-					given: "given"
-					wanted: "wanted"
+					given: "4given4"
+					wanted: "4wanted4"
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -84,8 +84,8 @@ scenarios
 				uuid "c5"
 				{
 					categoryId: "cat1"
-					given: "given"
-					wanted: "wanted"
+					given: "different"
+					wanted: "different"
 				}
 				authorization "Annette" : "password"
 		THEN 200

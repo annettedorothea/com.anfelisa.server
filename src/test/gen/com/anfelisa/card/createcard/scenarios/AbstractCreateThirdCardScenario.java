@@ -46,12 +46,12 @@ public abstract class AbstractCreateThirdCardScenario extends BaseScenario {
 
 		com.anfelisa.card.ActionCalls.callCreateCard("c1", "wanted", "given", "image", "cat1", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.card.ActionCalls.callCreateCard("c2", "wanted", "given", "image", "cat1", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.card.ActionCalls.callCreateCard("c2", "wanted2", "given2", "image2", "cat1", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.card.ActionCalls.callCreateCard("c3", "wanted", "given", null, "cat1", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		return com.anfelisa.card.ActionCalls.callCreateCard("c3", "3wanted", "3given", null, "cat1", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
 	private void then(Response response) throws Exception {

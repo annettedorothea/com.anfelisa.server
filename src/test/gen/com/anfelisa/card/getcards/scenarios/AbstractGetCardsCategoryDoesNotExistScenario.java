@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.card.updatecard.scenarios;
+package com.anfelisa.card.getcards.scenarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractUpdateCardScenario extends BaseScenario {
+public abstract class AbstractGetCardsCategoryDoesNotExistScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", "TOKEN");
@@ -48,30 +48,42 @@ public abstract class AbstractUpdateCardScenario extends BaseScenario {
 
 		com.anfelisa.card.ActionCalls.callCreateCard("c2", "wanted2", "given2", "image2", "cat1", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
+		com.anfelisa.card.ActionCalls.callCreateCard("c3", "3wanted", "3given", null, "cat1", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+
+		com.anfelisa.card.ActionCalls.callCreateCard("c4", "4wanted4", "4given4", null, "cat1", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+
+		com.anfelisa.card.ActionCalls.callCreateCard("c5", "different", "different", null, "cat1", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.card.ActionCalls.callUpdateCard(randomUUID(), "c1", "given-updated", "image-updated", "wanted-updated", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		return com.anfelisa.card.ActionCalls.callGetCards(randomUUID(), "lala", DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
-	private void then(Response response) throws Exception {
-		assertThat(response.getStatus(), 200);
+	private com.anfelisa.card.data.GetCardsResponse then(Response response) throws Exception {
+		assertThat(response.getStatus(), 400);
 		
+		com.anfelisa.card.data.GetCardsResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.card.data.GetCardsResponse.class);
+		} catch (Exception x) {
+		}
 		
+		return actual;
 	}
 	
 	@Test
-	public void updateCard() throws Exception {
+	public void getCardsCategoryDoesNotExist() throws Exception {
 		given();
 		
 		Response response = when();
 
-		then(response);
+		com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
 		
-		verifications();
+		verifications(actualResponse);
 	}
 	
-	protected abstract void verifications();
+	protected abstract void verifications(com.anfelisa.card.data.GetCardsResponse response);
 
 }
 
