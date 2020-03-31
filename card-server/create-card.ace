@@ -1,0 +1,239 @@
+HttpServer 
+
+com.anfelisa.category.createcard
+
+scenarios 
+	CreateCard
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c1"
+				{
+					categoryId: "cat1"
+					given: "given"
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateCardDuplicateId
+		GIVEN
+			CreateCard
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c1"
+				{
+					categoryId: "cat1"
+					given: "given"
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 500
+
+	CreateSecondCard
+		GIVEN
+			CreateCard
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c2"
+				{
+					categoryId: "cat1"
+					given: "given"
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateThirdCard
+		GIVEN
+			CreateSecondCard
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c3"
+				{
+					categoryId: "cat1"
+					given: "given"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateFourthCard
+		GIVEN
+			CreateThirdCard
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c4"
+				{
+					categoryId: "cat1"
+					given: "given"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateFifthCard
+		GIVEN
+			CreateFourthCard
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c5"
+				{
+					categoryId: "cat1"
+					given: "given"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateCardMissingCategoryId
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c2"
+				{
+					given: "given"
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	CreateCardGivenNull
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c1"
+				{
+					categoryId: "cat1"
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	CreateCardGivenEmpty
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c1"
+				{
+					categoryId: "cat1"
+					given: "  "
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	CreateCardWantedNull
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c1"
+				{
+					categoryId: "cat1"
+					given: "given"
+					image: "image"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+		
+	CreateCardWantedEmpty
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c1"
+				{
+					categoryId: "cat1"
+					given: "given"
+					image: "image"
+					wanted: "  "
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	CreateCardImageNull
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c1"
+				{
+					categoryId: "cat1"
+					given: "given"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateCardImageEmpty
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c1"
+				{
+					categoryId: "cat1"
+					given: "given"
+					image: "  "
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateCardCategoryDoesNotExist
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c1"
+				{
+					categoryId: "lala"
+					given: "given"
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	CreateCardNoAccessToCategory
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c1"
+				{
+					categoryId: "cat1"
+					given: "given"
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+		
+	CreateCardUnauthorized
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c1"
+				{
+					categoryId: "cat1"
+					given: "given"
+					image: "image"
+					wanted: "wanted"
+				}
+		THEN 401
+		
+		

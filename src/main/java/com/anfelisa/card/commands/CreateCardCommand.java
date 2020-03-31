@@ -1,5 +1,6 @@
 package com.anfelisa.card.commands;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,10 +24,16 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
+		if (StringUtils.isBlank(this.commandData.getGiven())) {
+			throwBadRequest("given must not be null or empty or blank");
+		}
+		if (StringUtils.isBlank(this.commandData.getWanted())) {
+			throwBadRequest("wanted must not be null or empty or blank");
+		}
 		ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getCategoryId());
 		if (category == null) {
-			throwBadRequest("categoryDoesNotExist");
+			throwBadRequest("category does not exist");
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), commandData.getUserId());
