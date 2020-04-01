@@ -122,7 +122,7 @@ public abstract class AbstractGetBoxSettingsAction extends Action<IBoxSettingsDa
 	}
 
 	public Response apply() {
-		databaseHandle = new DatabaseHandle(persistenceConnection.getJdbi());
+		databaseHandle = new DatabaseHandle(persistenceConnection.getJdbi(), appConfiguration);
 		databaseHandle.beginTransaction();
 		try {
 			if (ServerConfiguration.DEV.equals(appConfiguration.getServerConfiguration().getMode())

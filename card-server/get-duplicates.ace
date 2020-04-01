@@ -75,7 +75,6 @@ scenarios
 			]
 		}
 
-
 	GetDuplicatesLimit
 		GIVEN
 			com.anfelisa.card.createcard.CreateRandomCard 30x

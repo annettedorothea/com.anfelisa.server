@@ -125,7 +125,7 @@ public abstract class AbstractLoadNextCardAction extends Action<INextCardData> {
 	}
 
 	public Response apply() {
-		databaseHandle = new DatabaseHandle(persistenceConnection.getJdbi());
+		databaseHandle = new DatabaseHandle(persistenceConnection.getJdbi(), appConfiguration);
 		databaseHandle.beginTransaction();
 		try {
 			if (ServerConfiguration.DEV.equals(appConfiguration.getServerConfiguration().getMode())

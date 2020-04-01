@@ -65,7 +65,7 @@ public class PrepareE2EResource {
 		if (ServerConfiguration.LIVE.equals(configuration.getServerConfiguration().getMode())) {
 			throw new WebApplicationException("prepare e2e replay is not available in a live environment", Response.Status.FORBIDDEN);
 		}
-		DatabaseHandle databaseHandle = new DatabaseHandle(jdbi);
+		DatabaseHandle databaseHandle = new DatabaseHandle(jdbi, configuration);
 		LOG.info("PREPARE ACTION " + uuid);
 		try {
 			databaseHandle.beginTransaction();
