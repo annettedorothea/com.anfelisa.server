@@ -149,4 +149,18 @@ scenarios
 				authorization "Admin" : "admin-password"
 		THEN 401
 
+	CreateCategoryAsAdmin
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimalAsAdmin
+		WHEN
+			com.anfelisa.category.CreateCategory
+				uuid "adminCat"
+				{
+					categoryName: "c"
+					parentCategoryId: "adminBox"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 200
+
+
 		

@@ -158,5 +158,20 @@ scenarios
 					dictionaryLookup: "false"
 				}
 		THEN 401
+	
+	CreateBoxMinimalAsAdmin
+		GIVEN
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.box.CreateBox
+				uuid "adminBox"
+				{
+					categoryName: "adminBox"
+					dictionaryLookup: "false"
+					maxCardsPerDay: 10
+				}
+				authorization "Admin" : "admin-password"
+		THEN 200
+
 		
 		

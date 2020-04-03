@@ -1,7 +1,5 @@
 package de.acegen;
 
-import de.acegen.IEvent;
-
 public class EventFactory {
 	public static IEvent createEvent(String eventClass, String json, IDaoProvider daoProvider,
 			ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {

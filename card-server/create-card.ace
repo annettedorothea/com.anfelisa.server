@@ -265,7 +265,7 @@ scenarios
 		
 	CreateCardUnauthorized
 		GIVEN
-			com.anfelisa.category.changeorder.CreateCategoryAsAdmin
+			com.anfelisa.category.createcategory.CreateCategoryAsAdmin
 		WHEN
 			com.anfelisa.card.CreateCard
 				{
@@ -276,4 +276,47 @@ scenarios
 				}
 		THEN 401
 		
+	CreateCardAsAdmin
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategoryAsAdmin
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "c6"
+				{
+					categoryId: "adminCat"
+					given: "given"
+					image: "image"
+					wanted: "wanted"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 200
+		
+		CreateThirdCategory
+		GIVEN
+			com.anfelisa.category.createcategory.CreateSecondCategory
+		WHEN
+			com.anfelisa.category.CreateCategory
+				uuid "cat3"
+				{
+					categoryName: "level 1 #3"
+					parentCategoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	CreateFourthCategory
+		GIVEN
+			CreateThirdCategory
+		WHEN
+			com.anfelisa.category.CreateCategory
+				uuid "cat4"
+				{
+					categoryName: "level 1 #4"
+					parentCategoryId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	
+
 		

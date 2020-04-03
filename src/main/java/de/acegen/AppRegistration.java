@@ -1,7 +1,5 @@
 package de.acegen;
 
-import de.acegen.E2E;
-import de.acegen.PersistenceConnection;
 import io.dropwizard.setup.Environment;
 
 public class AppRegistration {

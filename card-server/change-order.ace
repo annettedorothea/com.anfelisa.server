@@ -1,0 +1,106 @@
+HttpServer 
+
+com.anfelisa.card.changeorder
+
+scenarios 
+	ChangeOrder
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.card.ChangeOrder
+				{
+					cardId: "c1"
+					cardIdList: ( "c3" "c4" )
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ChangeOrderFifthToFirst
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.card.ChangeOrder
+				{
+					cardId: "c1"
+					cardIdList: ( "c5" )
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ChangeOrderFirstToFifth
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.card.ChangeOrder
+				{
+					cardId: "c5"
+					cardIdList: ( "c1" )
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		
+	ChangeOrderUnauthorized
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.card.ChangeOrder
+				{
+					cardId: "c1"
+					cardIdList: ( "c2" "c4" )
+				}
+		THEN 401
+		
+	ChangeOrderTargetCardDoesNotExist
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.card.ChangeOrder
+				{
+					cardId: "xx"
+					cardIdList: ( "c2" "c4" )
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	ChangeOrderMovedCardDoesNotExist
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.card.ChangeOrder
+				{
+					cardId: "c1"
+					cardIdList: ( "c2" "xx" )
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	ChangeOrderNoAccessToTargetCard
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+			com.anfelisa.card.createcard.CreateCardAsAdmin
+		WHEN
+			com.anfelisa.card.ChangeOrder
+				{
+					cardId: "c6"
+					cardIdList: ( "c2" )
+				}
+				authorization "Annette" : "password"
+		THEN 401
+
+	ChangeOrderNoAccessToMovedCard
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+			com.anfelisa.card.createcard.CreateCardAsAdmin
+		WHEN
+			com.anfelisa.card.ChangeOrder
+				{
+					cardId: "c1"
+					cardIdList: ( "c6" )
+				}
+				authorization "Annette" : "password"
+		THEN 401
+
+
+
+
+		

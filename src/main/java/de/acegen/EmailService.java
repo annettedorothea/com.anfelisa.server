@@ -8,8 +8,6 @@ import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 
-import de.acegen.ServerConfiguration;
-
 public class EmailService {
 
 	private EmailConfiguration emailConfiguration;

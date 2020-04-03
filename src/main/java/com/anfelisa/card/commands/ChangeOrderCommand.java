@@ -44,12 +44,23 @@ public class ChangeOrderCommand extends AbstractChangeOrderCommand {
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		ICardModel targetCard = daoProvider.getCardDao().selectByCardId(readonlyHandle, commandData.getCardId());
 		if (targetCard == null) {
-			throwBadRequest("cardDoesNotExist");
+			throwBadRequest("card does not exist");
 		}
 		IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle, targetCard.getRootCategoryId(), commandData.getUserId());
 		if (accessToRootCategory == null) {
 			throwUnauthorized();
+		}
+		for (String cardId : commandData.getCardIdList()) {
+			ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
+			if (card == null) {
+				throwBadRequest("card does not exist");
+			}
+			accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
+					.hasUserAccessTo(readonlyHandle, card.getRootCategoryId(), commandData.getUserId());
+			if (accessToRootCategory == null) {
+				throwUnauthorized();
+			}
 		}
 		List<ICardModel> cards = daoProvider.getCardDao().selectAll(readonlyHandle, targetCard.getCategoryId());
 		int index = 1;
@@ -78,7 +89,6 @@ public class ChangeOrderCommand extends AbstractChangeOrderCommand {
 		}
 		this.commandData.setUpdatedIndices(cards);
 		this.commandData.setOutcome(ok);
-
 	}
 
 	private List<ICardModel> orderedMovedCards(List<ICardModel> cards) {
