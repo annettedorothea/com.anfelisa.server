@@ -20,6 +20,7 @@
 package com.anfelisa.user.usernameavailable.scenarios;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.core.Response;

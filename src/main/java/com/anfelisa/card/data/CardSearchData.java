@@ -21,11 +21,6 @@ package com.anfelisa.card.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import org.joda.time.DateTime;
-import java.util.List;
-
-import de.acegen.AbstractData;
-
 public class CardSearchData extends AbstractCardSearchData implements ICardSearchData {
 	
 	public CardSearchData(

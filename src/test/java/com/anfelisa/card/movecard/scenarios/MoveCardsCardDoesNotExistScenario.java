@@ -17,24 +17,17 @@
 
 
 
-package com.anfelisa.card.models;
+package com.anfelisa.card.movecard.scenarios;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.ws.rs.core.Response;
 
-import org.jdbi.v3.core.mapper.RowMapper;
-import org.jdbi.v3.core.statement.StatementContext;
+@SuppressWarnings("unused")
+public class MoveCardsCardDoesNotExistScenario extends AbstractMoveCardsCardDoesNotExistScenario {
 
-public class CardIdListMapper implements RowMapper<ICardIdListModel> {
-	
-	public ICardIdListModel map(ResultSet r, StatementContext ctx) throws SQLException {
-		return new CardIdListModel(
-			null,
-			r.getString("categoryId"),
-			r.getString("userId"),
-			null
-		);
+	@Override
+	protected void verifications() {
 	}
+
 }
 
 

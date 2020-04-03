@@ -24,11 +24,11 @@ import de.acegen.IDaoProvider;
 import de.acegen.ViewProvider;
 import de.acegen.CustomAppConfiguration;
 
-import com.anfelisa.card.data.ICardIdListData;
+import com.anfelisa.card.data.IMoveCardsData;
 
-public class MoveCardsOkEvent extends Event<ICardIdListData> {
+public class MoveCardsOkEvent extends Event<IMoveCardsData> {
 
-	public MoveCardsOkEvent(ICardIdListData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+	public MoveCardsOkEvent(IMoveCardsData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.card.events.MoveCardsOkEvent", eventData, daoProvider, viewProvider, appConfiguration);
 	}
 

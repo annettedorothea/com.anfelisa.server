@@ -64,7 +64,7 @@ public class EventFactory {
 				return event;
 			}
 			if (eventClass.equals("com.anfelisa.card.events.MoveCardsOkEvent")) {
-				CardIdListData data = mapper.readValue(json, CardIdListData.class);
+				MoveCardsData data = mapper.readValue(json, MoveCardsData.class);
 				data.migrateLegacyData(json);
 				MoveCardsOkEvent event = new MoveCardsOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
@@ -104,7 +104,7 @@ public class EventFactory {
 
 
 		if (eventClass.equals("com.anfelisa.card.events.MoveCardsOkEvent")) {
-			return new MoveCardsOkEvent((CardIdListData)data, daoProvider, viewProvider, appConfiguration);
+			return new MoveCardsOkEvent((MoveCardsData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 		if (eventClass.equals("com.anfelisa.card.events.ChangeOrderOkEvent")) {

@@ -265,10 +265,9 @@ scenarios
 		
 	CreateCardUnauthorized
 		GIVEN
-			com.anfelisa.category.createcategory.CreateCategory
+			com.anfelisa.category.changeorder.CreateCategoryAsAdmin
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c1"
 				{
 					categoryId: "cat1"
 					given: "given"

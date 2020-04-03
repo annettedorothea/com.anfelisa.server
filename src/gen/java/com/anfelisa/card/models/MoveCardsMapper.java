@@ -19,26 +19,23 @@
 
 package com.anfelisa.card.models;
 
-import java.util.List;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-@SuppressWarnings("unused")
-@JsonDeserialize(as=CardIdListModel.class)
-public interface ICardIdListModel {
+import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 
-	java.util.List<String> getCardIdList();
-	void setCardIdList(java.util.List<String> cardIdList);
+public class MoveCardsMapper implements RowMapper<IMoveCardsModel> {
 	
-	String getCategoryId();
-	void setCategoryId(String categoryId);
-	
-	String getUserId();
-	void setUserId(String userId);
-	
-	java.util.List<com.anfelisa.card.models.ICardModel> getMovedCards();
-	void setMovedCards(java.util.List<com.anfelisa.card.models.ICardModel> movedCards);
-	
-	
+	public IMoveCardsModel map(ResultSet r, StatementContext ctx) throws SQLException {
+		return new MoveCardsModel(
+			null,
+			r.getString("categoryId"),
+			r.getString("userId"),
+			null,
+			null
+		);
+	}
 }
 
 

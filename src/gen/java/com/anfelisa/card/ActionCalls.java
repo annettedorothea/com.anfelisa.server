@@ -77,7 +77,7 @@ public class ActionCalls {
 	public static Response callMoveCards(String uuid, java.util.List<String> cardIdList, String categoryId, int port, String authorization) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/cards/move?uuid=" + uuid, port)).request();
-		com.anfelisa.card.data.ICardIdListData data = new com.anfelisa.card.data.CardIdListData(uuid);
+		com.anfelisa.card.data.IMoveCardsData data = new com.anfelisa.card.data.MoveCardsData(uuid);
 		data.setCardIdList(cardIdList);
 		data.setCategoryId(categoryId);
 		builder.header("Authorization", authorization);

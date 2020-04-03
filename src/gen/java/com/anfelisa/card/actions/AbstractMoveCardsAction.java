@@ -69,13 +69,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 
-import com.anfelisa.card.data.ICardIdListData;
-import com.anfelisa.card.data.CardIdListData;
+import com.anfelisa.card.data.IMoveCardsData;
+import com.anfelisa.card.data.MoveCardsData;
 import com.anfelisa.card.commands.MoveCardsCommand;
 
 @Path("/cards/move")
 @SuppressWarnings("unused")
-public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
+public abstract class AbstractMoveCardsAction extends Action<IMoveCardsData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractMoveCardsAction.class);
 	
@@ -105,7 +105,7 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (ICardIdListData)data;
+		this.actionData = (IMoveCardsData)data;
 	}
 
 	@PUT
@@ -114,9 +114,9 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response moveCardsResource(
 			@Auth AuthUser authUser, 
-			@NotNull ICardIdListData payload)
+			@NotNull IMoveCardsData payload)
 			throws JsonProcessingException {
-		this.actionData = new CardIdListData(payload.getUuid());
+		this.actionData = new MoveCardsData(payload.getUuid());
 		this.actionData.setCardIdList(payload.getCardIdList());
 		this.actionData.setCategoryId(payload.getCategoryId());
 		this.actionData.setUserId(authUser.getUserId());
@@ -141,7 +141,7 @@ public abstract class AbstractMoveCardsAction extends Action<ICardIdListData> {
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
-				ICardIdListData originalActionData = (ICardIdListData)originalData;
+				IMoveCardsData originalActionData = (IMoveCardsData)originalData;
 				this.actionData.setSystemTime(originalActionData.getSystemTime());
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (NotReplayableDataProvider.getSystemTime() != null) {

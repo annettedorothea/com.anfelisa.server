@@ -17,27 +17,17 @@
 
 
 
-package com.anfelisa.card.data;
+package com.anfelisa.card.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
-import com.anfelisa.card.models.ICardIdListModel;
 
-import de.acegen.AbstractData;
-import de.acegen.IDataContainer;
+@SuppressWarnings("all")
+public class MoveCardsModel implements IMoveCardsModel {
 
-@SuppressWarnings("unused")
-public abstract class AbstractCardIdListData extends AbstractData implements ICardIdListData {
-	
-	static final Logger LOG = LoggerFactory.getLogger(AbstractCardIdListData.class);
-	
 	private java.util.List<String> cardIdList;
 	
 	private String categoryId;
@@ -46,23 +36,24 @@ public abstract class AbstractCardIdListData extends AbstractData implements ICa
 	
 	private java.util.List<com.anfelisa.card.models.ICardModel> movedCards;
 	
+	private java.util.List<com.anfelisa.card.models.ICardModel> updatedIndices;
+	
 
-	public AbstractCardIdListData(
+	public MoveCardsModel() {
+	}
+
+	public MoveCardsModel(
 		@JsonProperty("cardIdList") java.util.List<String> cardIdList,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("movedCards") java.util.List<com.anfelisa.card.models.ICardModel> movedCards
-,		@JsonProperty("uuid") String uuid
+		@JsonProperty("movedCards") java.util.List<com.anfelisa.card.models.ICardModel> movedCards,
+		@JsonProperty("updatedIndices") java.util.List<com.anfelisa.card.models.ICardModel> updatedIndices
 	) {
-		super(uuid);
 		this.cardIdList = cardIdList;
 		this.categoryId = categoryId;
 		this.userId = userId;
 		this.movedCards = movedCards;
-	}
-
-	public AbstractCardIdListData( String uuid ) {
-		super(uuid);
+		this.updatedIndices = updatedIndices;
 	}
 
 	@JsonProperty
@@ -72,10 +63,6 @@ public abstract class AbstractCardIdListData extends AbstractData implements ICa
 	public void setCardIdList(java.util.List<String> cardIdList) {
 		this.cardIdList = cardIdList;
 	}
-	public ICardIdListData withCardIdList(java.util.List<String> cardIdList) {
-		this.cardIdList = cardIdList;
-		return this;
-	}
 	
 	@JsonProperty
 		public String getCategoryId() {
@@ -83,10 +70,6 @@ public abstract class AbstractCardIdListData extends AbstractData implements ICa
 		}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
-	}
-	public ICardIdListData withCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-		return this;
 	}
 	
 	@JsonProperty
@@ -96,10 +79,6 @@ public abstract class AbstractCardIdListData extends AbstractData implements ICa
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public ICardIdListData withUserId(String userId) {
-		this.userId = userId;
-		return this;
-	}
 	
 	@JsonProperty
 		public java.util.List<com.anfelisa.card.models.ICardModel> getMovedCards() {
@@ -108,11 +87,14 @@ public abstract class AbstractCardIdListData extends AbstractData implements ICa
 	public void setMovedCards(java.util.List<com.anfelisa.card.models.ICardModel> movedCards) {
 		this.movedCards = movedCards;
 	}
-	public ICardIdListData withMovedCards(java.util.List<com.anfelisa.card.models.ICardModel> movedCards) {
-		this.movedCards = movedCards;
-		return this;
-	}
 	
+	@JsonProperty
+		public java.util.List<com.anfelisa.card.models.ICardModel> getUpdatedIndices() {
+			return this.updatedIndices;
+		}
+	public void setUpdatedIndices(java.util.List<com.anfelisa.card.models.ICardModel> updatedIndices) {
+		this.updatedIndices = updatedIndices;
+	}
 	
 	
 }

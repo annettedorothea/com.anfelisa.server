@@ -20,6 +20,7 @@
 package com.anfelisa.card.createcard.scenarios;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.core.Response;
@@ -37,17 +38,17 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
+		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
+		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", this.templateStringValue("admin-password", 0), this.templateStringValue("Admin", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
 
-		com.anfelisa.box.ActionCalls.callCreateBox("boxId", this.templateStringValue("cat", 1), new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.box.ActionCalls.callCreateBox("adminBox", this.templateStringValue("adminBox", 1), new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 
-		com.anfelisa.category.ActionCalls.callCreateCategory("cat1", this.templateStringValue("level 1 #1", 2), this.templateStringValue("boxId", 2), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.category.ActionCalls.callCreateCategory("adminCat", this.templateStringValue("c", 2), this.templateStringValue("adminBox", 2), DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.card.ActionCalls.callCreateCard("c1", this.templateStringValue("wanted", 0), this.templateStringValue("given", 0), this.templateStringValue("image", 0), this.templateStringValue("cat1", 0), DROPWIZARD.getLocalPort(), null);
+		return com.anfelisa.card.ActionCalls.callCreateCard(randomUUID(), this.templateStringValue("wanted", 0), this.templateStringValue("given", 0), this.templateStringValue("image", 0), this.templateStringValue("cat1", 0), DROPWIZARD.getLocalPort(), null);
 	}
 	
 	private void then(Response response) throws Exception {

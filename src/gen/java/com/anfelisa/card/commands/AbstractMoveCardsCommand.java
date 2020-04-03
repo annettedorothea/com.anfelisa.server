@@ -27,13 +27,13 @@ import de.acegen.IDaoProvider;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceHandle;
 
-import com.anfelisa.card.data.ICardIdListData;
+import com.anfelisa.card.data.IMoveCardsData;
 
-public abstract class AbstractMoveCardsCommand extends Command<ICardIdListData> {
+public abstract class AbstractMoveCardsCommand extends Command<IMoveCardsData> {
 
 	protected static final String ok = "ok";
 
-	public AbstractMoveCardsCommand(ICardIdListData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+	public AbstractMoveCardsCommand(IMoveCardsData commandParam, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
 		super("com.anfelisa.card.commands.MoveCardsCommand", commandParam, daoProvider, viewProvider, appConfiguration);
 	}
 

@@ -78,7 +78,7 @@ public class AceDataFactory {
 					className.equals("com.anfelisa.card.commands.MoveCardsCommand") ||
 					className.equals("com.anfelisa.card.events.MoveCardsOkEvent")
 			) {
-				CardIdListData data = mapper.readValue(json, CardIdListData.class);
+				MoveCardsData data = mapper.readValue(json, MoveCardsData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}

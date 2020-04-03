@@ -50,7 +50,7 @@ ACE
 		response
 			cardList
 
-	MoveCards<CardIdList>
+	MoveCards<MoveCards>
 		PUT "/cards/move"
 		authorize
 		payload
@@ -90,7 +90,7 @@ views
 		insert(CardCreation)
 		delete(CardDelete)
 		update(CardUpdate)
-		moveCards(CardIdList)
+		moveCards(MoveCards)
 		bulkInsert(CsvUpload)
 		changeCardOrder(ChangeCardOrderList)
 	}
@@ -156,11 +156,12 @@ models
 		DateTime next
 	}
 	
-	CardIdList {
+	MoveCards {
 		List String cardIdList
 		String categoryId	
 		String userId
 		List Card movedCards
+		List Card updatedIndices
 	}
 
 	ChangeCardOrderList {

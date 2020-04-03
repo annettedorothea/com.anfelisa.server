@@ -1,0 +1,98 @@
+HttpServer 
+
+com.anfelisa.card.movecard
+
+scenarios 
+	MoveCards
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+			com.anfelisa.category.createcategory.CreateSecondCategory
+		WHEN
+			com.anfelisa.card.MoveCards
+				{
+					categoryId: "cat2"
+					cardIdList: (
+						"c1" "c2" "c4"
+					) 
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	MoveCardsTargetNotEmpty
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+			com.anfelisa.category.createcategory.CreateSecondCategory
+			com.anfelisa.card.createcard.CreateCardInOtherCategory
+		WHEN
+			com.anfelisa.card.MoveCards
+				{
+					categoryId: "cat2"
+					cardIdList: (
+						"c1" "c2" "c4"
+					) 
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	MoveCardsCardDoesNotExist
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+			com.anfelisa.category.createcategory.CreateSecondCategory
+		WHEN
+			com.anfelisa.card.MoveCards
+				{
+					categoryId: "cat2"
+					cardIdList: (
+						"c1" "lala" "c2" "c4"
+					) 
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	MoveCardsNoAccessToCategory
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+			com.anfelisa.category.changeorder.CreateCategoryAsAdmin
+		WHEN
+			com.anfelisa.card.MoveCards
+				{
+					categoryId: "adminCat"
+					cardIdList: (
+						"c1"
+					) 
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+
+	MoveCardsNoAccessToCard
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+			com.anfelisa.category.changeorder.CreateCategoryAsAdmin
+		WHEN
+			com.anfelisa.card.MoveCards
+				{
+					categoryId: "adminCat"
+					cardIdList: (
+						"c1"
+					) 
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+
+	MoveCardsUnauthorized
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+			com.anfelisa.category.createcategory.CreateSecondCategory
+		WHEN
+			com.anfelisa.card.MoveCards
+				{
+					categoryId: "cat2"
+					cardIdList: (
+						"c1" "c2" "c4"
+					) 
+				}
+		THEN 401
+
+

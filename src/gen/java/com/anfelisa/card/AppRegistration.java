@@ -60,7 +60,7 @@ public class AppRegistration {
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.card.events.MoveCardsOkEvent", (dataContainer, handle) -> {
-			viewProvider.cardView.moveCards((com.anfelisa.card.data.CardIdListData) dataContainer, handle);
+			viewProvider.cardView.moveCards((com.anfelisa.card.data.MoveCardsData) dataContainer, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.card.events.ChangeOrderOkEvent", (dataContainer, handle) -> {
