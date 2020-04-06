@@ -39,12 +39,22 @@ public abstract class AbstractGetRoleUnknownUserScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
+		registerUser0.setLanguage(this.templateStringValue("de", null));
+		registerUser0.setPassword(this.templateStringValue("password", null));
+		registerUser0.setUsername(this.templateStringValue("Annette", null));
+		registerUser0.setToken(this.templateStringValue("TOKEN", null));
+		
+		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callGetRole(randomUUID(), DROPWIZARD.getLocalPort(), authorization("lala", "password"));
+		com.anfelisa.user.data.RoleData getRole0 = new com.anfelisa.user.data.RoleData(randomUUID());
+		
+		return 
+		com.anfelisa.user.ActionCalls.callGetRole(getRole0, DROPWIZARD.getLocalPort(), authorization("lala", "password"));
 	}
 	
 	private com.anfelisa.user.data.GetRoleResponse then(Response response) throws Exception {

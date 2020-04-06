@@ -39,12 +39,25 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", this.templateStringValue("admin-password", 0), this.templateStringValue("Admin", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
+		registerUser0.setLanguage(this.templateStringValue("de", null));
+		registerUser0.setPassword(this.templateStringValue("admin-password", null));
+		registerUser0.setUsername(this.templateStringValue("Admin", null));
+		registerUser0.setToken(this.templateStringValue("ADMIN-TOKEN", null));
+		
+		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.box.ActionCalls.callCreateBox("adminBox", this.templateStringValue("adminBox", 0), new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.box.data.BoxCreationData createBox0 = new com.anfelisa.box.data.BoxCreationData("adminBox");
+		createBox0.setCategoryName(this.templateStringValue("adminBox", null));
+		createBox0.setDictionaryLookup(new Boolean("false"));
+		createBox0.setMaxCardsPerDay(10);
+		
+		return 
+		com.anfelisa.box.ActionCalls.callCreateBox(createBox0, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 	}
 	
 	private void then(Response response) throws Exception {

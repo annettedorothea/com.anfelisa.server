@@ -39,31 +39,97 @@ public abstract class AbstractMoveCardsCardDoesNotExistScenario extends BaseScen
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
+		registerUser0.setLanguage(this.templateStringValue("de", null));
+		registerUser0.setPassword(this.templateStringValue("password", null));
+		registerUser0.setUsername(this.templateStringValue("Annette", null));
+		registerUser0.setToken(this.templateStringValue("TOKEN", null));
+		
+		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 
-		com.anfelisa.box.ActionCalls.callCreateBox("boxId", this.templateStringValue("cat", 1), new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
+		createBox1.setCategoryName(this.templateStringValue("cat", null));
+		createBox1.setDictionaryLookup(new Boolean("false"));
+		createBox1.setMaxCardsPerDay(10);
+		
+		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.category.ActionCalls.callCreateCategory("cat1", this.templateStringValue("level 1 #1", 2), this.templateStringValue("boxId", 2), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.category.data.CategoryCreationData createCategory2 = new com.anfelisa.category.data.CategoryCreationData("cat1");
+		createCategory2.setCategoryName(this.templateStringValue("level 1 #1", null));
+		createCategory2.setParentCategoryId(this.templateStringValue("boxId", null));
+		
+		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.card.ActionCalls.callCreateCard("c1", this.templateStringValue("wanted", 3), this.templateStringValue("given", 3), this.templateStringValue("image", 3), this.templateStringValue("cat1", 3), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.card.data.CardCreationData createCard3 = new com.anfelisa.card.data.CardCreationData("c1");
+		createCard3.setCategoryId(this.templateStringValue("cat1", null));
+		createCard3.setGiven(this.templateStringValue("given", null));
+		createCard3.setImage(this.templateStringValue("image", null));
+		createCard3.setWanted(this.templateStringValue("wanted", null));
+		
+		com.anfelisa.card.ActionCalls.callCreateCard(createCard3, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.card.ActionCalls.callCreateCard("c2", this.templateStringValue("wanted2", 4), this.templateStringValue("given2", 4), this.templateStringValue("image2", 4), this.templateStringValue("cat1", 4), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.card.data.CardCreationData createCard4 = new com.anfelisa.card.data.CardCreationData("c2");
+		createCard4.setCategoryId(this.templateStringValue("cat1", null));
+		createCard4.setGiven(this.templateStringValue("given2", null));
+		createCard4.setImage(this.templateStringValue("image2", null));
+		createCard4.setWanted(this.templateStringValue("wanted2", null));
+		
+		com.anfelisa.card.ActionCalls.callCreateCard(createCard4, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.card.ActionCalls.callCreateCard("c3", this.templateStringValue("3wanted", 5), this.templateStringValue("3given", 5), null, this.templateStringValue("cat1", 5), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.card.data.CardCreationData createCard5 = new com.anfelisa.card.data.CardCreationData("c3");
+		createCard5.setCategoryId(this.templateStringValue("cat1", null));
+		createCard5.setGiven(this.templateStringValue("3given", null));
+		createCard5.setWanted(this.templateStringValue("3wanted", null));
+		
+		com.anfelisa.card.ActionCalls.callCreateCard(createCard5, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.card.ActionCalls.callCreateCard("c4", this.templateStringValue("4wanted4", 6), this.templateStringValue("4given4", 6), null, this.templateStringValue("cat1", 6), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.card.data.CardCreationData createCard6 = new com.anfelisa.card.data.CardCreationData("c4");
+		createCard6.setCategoryId(this.templateStringValue("cat1", null));
+		createCard6.setGiven(this.templateStringValue("4given4", null));
+		createCard6.setWanted(this.templateStringValue("4wanted4", null));
+		
+		com.anfelisa.card.ActionCalls.callCreateCard(createCard6, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.card.ActionCalls.callCreateCard("c5", this.templateStringValue("different", 7), this.templateStringValue("different", 7), null, this.templateStringValue("cat1", 7), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.card.data.CardCreationData createCard7 = new com.anfelisa.card.data.CardCreationData("c5");
+		createCard7.setCategoryId(this.templateStringValue("cat1", null));
+		createCard7.setGiven(this.templateStringValue("different", null));
+		createCard7.setWanted(this.templateStringValue("different", null));
+		
+		com.anfelisa.card.ActionCalls.callCreateCard(createCard7, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.category.ActionCalls.callCreateCategory("cat1", this.templateStringValue("level 1 #1", 8), this.templateStringValue("boxId", 8), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.category.data.CategoryCreationData createCategory8 = new com.anfelisa.category.data.CategoryCreationData("cat1");
+		createCategory8.setCategoryName(this.templateStringValue("level 1 #1", null));
+		createCategory8.setParentCategoryId(this.templateStringValue("boxId", null));
+		
+		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory8, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
-		com.anfelisa.category.ActionCalls.callCreateCategory("cat2", this.templateStringValue("level 1 #2", 9), this.templateStringValue("boxId", 9), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.category.data.CategoryCreationData createCategory9 = new com.anfelisa.category.data.CategoryCreationData("cat2");
+		createCategory9.setCategoryName(this.templateStringValue("level 1 #2", null));
+		createCategory9.setParentCategoryId(this.templateStringValue("boxId", null));
+		
+		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory9, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.card.ActionCalls.callMoveCards(randomUUID(), new ArrayList<>(Arrays.asList(new String[] { "c1", "lala", "c2", "c4" })), 
-		this.templateStringValue("cat2", 0), DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.card.data.MoveCardsData moveCards0 = new com.anfelisa.card.data.MoveCardsData(randomUUID());
+		moveCards0.setCategoryId(this.templateStringValue("cat2", null));
+		
+			List<String> moveCards0CardIdList = new ArrayList<String>();
+			moveCards0CardIdList.add("c1");
+		
+			moveCards0CardIdList.add("lala");
+		
+			moveCards0CardIdList.add("c2");
+		
+			moveCards0CardIdList.add("c4");
+		
+			
+		moveCards0.setCardIdList(moveCards0CardIdList);
+		
+		return 
+		com.anfelisa.card.ActionCalls.callMoveCards(moveCards0, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
 	private void then(Response response) throws Exception {

@@ -1,0 +1,34 @@
+HttpServer 
+
+com.anfelisa.card.importcsv
+
+scenarios 
+	ImportCsv
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.ImportCsv
+				uuid "c1"
+				{
+					categoryId: "cat1"
+					previewCsv : [
+						{
+							given: "g1"
+							wanted: "w1"
+							id: "1"
+						}
+						{
+							given: "g2"
+							wanted: "w2"
+							id: "2"
+						}
+						{
+							given: "g3"
+							wanted: "w3"
+							id: "3"
+						}
+					]
+				}
+				authorization "Annette" : "password"
+		THEN 200
+

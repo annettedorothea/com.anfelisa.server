@@ -50,7 +50,7 @@ public class ImportCsvCommand extends AbstractImportCsvCommand {
 		ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getCategoryId());
 		if (category == null) {
-			throwBadRequest("categoryDoesNotExist");
+			throwBadRequest("category does not exist");
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), commandData.getUserId());
@@ -66,10 +66,19 @@ public class ImportCsvCommand extends AbstractImportCsvCommand {
 
 		List<ICardModel> cards = new ArrayList<ICardModel>();
 		List<ISimpleCardModel> preview = this.commandData.getPreviewCsv();
-		for (ISimpleCardModel simpleCardModel : preview) {
-			cards.add(new CardModel(simpleCardModel.getId(), simpleCardModel.getGiven(), simpleCardModel.getWanted(),
-					"", user.getUsername(), index, commandData.getCategoryId(), category.getRootCategoryId()));
-			index++;
+		if (preview != null) {
+			for (ISimpleCardModel simpleCardModel : preview) {
+				cards.add(new CardModel(
+						simpleCardModel.getId(), 
+						simpleCardModel.getGiven(),
+						simpleCardModel.getWanted(),
+						null, 
+						user.getUsername(), 
+						index, 
+						commandData.getCategoryId(), 
+						category.getRootCategoryId()));
+				index++;
+			}
 		}
 		this.commandData.setCards(cards);
 		this.commandData.setOutcome(ok);

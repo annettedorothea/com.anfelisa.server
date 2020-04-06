@@ -39,20 +39,49 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", this.templateStringValue("admin-password", 0), this.templateStringValue("Admin", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
+		registerUser0.setLanguage(this.templateStringValue("de", null));
+		registerUser0.setPassword(this.templateStringValue("admin-password", null));
+		registerUser0.setUsername(this.templateStringValue("Admin", null));
+		registerUser0.setToken(this.templateStringValue("ADMIN-TOKEN", null));
+		
+		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 1), this.templateStringValue("Annette", 1), this.templateStringValue("annette.pohl@anfelisa.de", 1), this.templateStringValue("de", 1), DROPWIZARD.getLocalPort());
+		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
+		registerUser1.setLanguage(this.templateStringValue("de", null));
+		registerUser1.setPassword(this.templateStringValue("password", null));
+		registerUser1.setUsername(this.templateStringValue("Annette", null));
+		registerUser1.setToken(this.templateStringValue("TOKEN", null));
+		
+		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser1, DROPWIZARD.getLocalPort());
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", this.templateStringValue("admin-password", 2), this.templateStringValue("Admin", 2), this.templateStringValue("annette.pohl@anfelisa.de", 2), this.templateStringValue("de", 2), DROPWIZARD.getLocalPort());
+		com.anfelisa.user.data.UserRegistrationData registerUser2 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
+		registerUser2.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
+		registerUser2.setLanguage(this.templateStringValue("de", null));
+		registerUser2.setPassword(this.templateStringValue("admin-password", null));
+		registerUser2.setUsername(this.templateStringValue("Admin", null));
+		registerUser2.setToken(this.templateStringValue("ADMIN-TOKEN", null));
+		
+		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser2, DROPWIZARD.getLocalPort());
 
-		com.anfelisa.user.ActionCalls.callChangeUserRole(randomUUID(), this.templateStringValue("ADMIN", 3), this.templateStringValue("uuid", 3), DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.user.data.ChangeUserRoleData changeUserRole3 = new com.anfelisa.user.data.ChangeUserRoleData(randomUUID());
+		changeUserRole3.setEditedUserId(this.templateStringValue("uuid", null));
+		changeUserRole3.setNewRole(this.templateStringValue("ADMIN", null));
+		
+		com.anfelisa.user.ActionCalls.callChangeUserRole(changeUserRole3, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callDeleteUser(randomUUID(), this.templateStringValue("Annette", 0), DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.user.data.DeleteUserData deleteUser0 = new com.anfelisa.user.data.DeleteUserData(randomUUID());
+		deleteUser0.setUsernameToBeDeleted(this.templateStringValue("Annette", null));
+		
+		return 
+		com.anfelisa.user.ActionCalls.callDeleteUser(deleteUser0, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 	}
 	
 	private void then(Response response) throws Exception {

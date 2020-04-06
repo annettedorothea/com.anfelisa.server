@@ -39,12 +39,24 @@ public abstract class AbstractCreateBoxMaxCardsPerDayNullScenario extends BaseSc
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
+		registerUser0.setLanguage(this.templateStringValue("de", null));
+		registerUser0.setPassword(this.templateStringValue("password", null));
+		registerUser0.setUsername(this.templateStringValue("Annette", null));
+		registerUser0.setToken(this.templateStringValue("TOKEN", null));
+		
+		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.box.ActionCalls.callCreateBox("boxId", this.templateStringValue("cat", 0), new Boolean("false"), null, null, null, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.box.data.BoxCreationData createBox0 = new com.anfelisa.box.data.BoxCreationData("boxId");
+		createBox0.setCategoryName(this.templateStringValue("cat", null));
+		createBox0.setDictionaryLookup(new Boolean("false"));
+		
+		return 
+		com.anfelisa.box.ActionCalls.callCreateBox(createBox0, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 	}
 	
 	private void then(Response response) throws Exception {

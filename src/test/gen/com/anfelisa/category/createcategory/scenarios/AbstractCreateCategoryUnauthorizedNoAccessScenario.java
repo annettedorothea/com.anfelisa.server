@@ -39,17 +39,41 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", this.templateStringValue("admin-password", 0), this.templateStringValue("Admin", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
+		registerUser0.setLanguage(this.templateStringValue("de", null));
+		registerUser0.setPassword(this.templateStringValue("admin-password", null));
+		registerUser0.setUsername(this.templateStringValue("Admin", null));
+		registerUser0.setToken(this.templateStringValue("ADMIN-TOKEN", null));
+		
+		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 1), this.templateStringValue("Annette", 1), this.templateStringValue("annette.pohl@anfelisa.de", 1), this.templateStringValue("de", 1), DROPWIZARD.getLocalPort());
+		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
+		registerUser1.setLanguage(this.templateStringValue("de", null));
+		registerUser1.setPassword(this.templateStringValue("password", null));
+		registerUser1.setUsername(this.templateStringValue("Annette", null));
+		registerUser1.setToken(this.templateStringValue("TOKEN", null));
+		
+		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser1, DROPWIZARD.getLocalPort());
 
-		com.anfelisa.box.ActionCalls.callCreateBox("boxId", this.templateStringValue("cat", 2), new Boolean("false"), null, null, 10, null, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.box.data.BoxCreationData createBox2 = new com.anfelisa.box.data.BoxCreationData("boxId");
+		createBox2.setCategoryName(this.templateStringValue("cat", null));
+		createBox2.setDictionaryLookup(new Boolean("false"));
+		createBox2.setMaxCardsPerDay(10);
+		
+		com.anfelisa.box.ActionCalls.callCreateBox(createBox2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.category.ActionCalls.callCreateCategory(randomUUID(), this.templateStringValue("lala", 0), this.templateStringValue("boxId", 0), DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.category.data.CategoryCreationData createCategory0 = new com.anfelisa.category.data.CategoryCreationData(randomUUID());
+		createCategory0.setCategoryName(this.templateStringValue("lala", null));
+		createCategory0.setParentCategoryId(this.templateStringValue("boxId", null));
+		
+		return 
+		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory0, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 	}
 	
 	private void then(Response response) throws Exception {

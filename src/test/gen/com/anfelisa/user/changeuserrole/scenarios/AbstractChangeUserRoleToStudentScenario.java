@@ -39,17 +39,40 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid", this.templateStringValue("password", 0), this.templateStringValue("Annette", 0), this.templateStringValue("annette.pohl@anfelisa.de", 0), this.templateStringValue("de", 0), DROPWIZARD.getLocalPort());
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
+		registerUser0.setLanguage(this.templateStringValue("de", null));
+		registerUser0.setPassword(this.templateStringValue("password", null));
+		registerUser0.setUsername(this.templateStringValue("Annette", null));
+		registerUser0.setToken(this.templateStringValue("TOKEN", null));
+		
+		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.ActionCalls.callRegisterUser("uuid-admin", this.templateStringValue("admin-password", 1), this.templateStringValue("Admin", 1), this.templateStringValue("annette.pohl@anfelisa.de", 1), this.templateStringValue("de", 1), DROPWIZARD.getLocalPort());
+		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
+		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
+		registerUser1.setLanguage(this.templateStringValue("de", null));
+		registerUser1.setPassword(this.templateStringValue("admin-password", null));
+		registerUser1.setUsername(this.templateStringValue("Admin", null));
+		registerUser1.setToken(this.templateStringValue("ADMIN-TOKEN", null));
+		
+		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser1, DROPWIZARD.getLocalPort());
 
-		com.anfelisa.user.ActionCalls.callChangeUserRole(randomUUID(), this.templateStringValue("ADMIN", 2), this.templateStringValue("uuid", 2), DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.user.data.ChangeUserRoleData changeUserRole2 = new com.anfelisa.user.data.ChangeUserRoleData(randomUUID());
+		changeUserRole2.setEditedUserId(this.templateStringValue("uuid", null));
+		changeUserRole2.setNewRole(this.templateStringValue("ADMIN", null));
+		
+		com.anfelisa.user.ActionCalls.callChangeUserRole(changeUserRole2, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 
 	}
 	
 	private Response when() throws Exception {
-		return com.anfelisa.user.ActionCalls.callChangeUserRole(randomUUID(), this.templateStringValue("STUDENT", 0), this.templateStringValue("uuid", 0), DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.user.data.ChangeUserRoleData changeUserRole0 = new com.anfelisa.user.data.ChangeUserRoleData(randomUUID());
+		changeUserRole0.setEditedUserId(this.templateStringValue("uuid", null));
+		changeUserRole0.setNewRole(this.templateStringValue("STUDENT", null));
+		
+		return 
+		com.anfelisa.user.ActionCalls.callChangeUserRole(changeUserRole0, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 	}
 	
 	private void then(Response response) throws Exception {
