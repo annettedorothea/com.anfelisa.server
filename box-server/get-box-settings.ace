@@ -1,0 +1,72 @@
+HttpServer 
+
+com.anfelisa.box.getboxsettings
+
+scenarios 
+	GetBoxSettings
+	GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.box.GetBoxSettings
+				{
+					boxId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				categoryId: "boxId"
+				categoryName: "cat"
+				dictionaryLookup: "false"
+				maxCardsPerDay: 10
+			}		
+
+	GetBoxSettingsWithDictionaryLookup
+	GIVEN
+			com.anfelisa.box.createbox.CreateBoxDictionaryLookup
+		WHEN
+			com.anfelisa.box.GetBoxSettings
+				{
+					boxId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				categoryId: "boxId"
+				categoryName: "cat"
+				dictionaryLookup: "true"
+				givenLanguage: "de"
+				wantedLanguage: "en"
+				maxCardsPerDay: 10
+			}		
+
+	GetBoxSettingsNoBoxId
+	GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.box.GetBoxSettings
+				{
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	GetBoxSettingsNoAccess
+	GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.box.GetBoxSettings
+				{
+					boxId: "boxId"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+
+	GetBoxSettingsUnauthorized
+	GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.box.GetBoxSettings
+				{
+					boxId: "boxId"
+				}
+		THEN 401

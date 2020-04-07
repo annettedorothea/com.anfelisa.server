@@ -50,7 +50,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callGetBoxSettings(
-			com.anfelisa.box.data.IBoxSettingsData data,
+			com.anfelisa.box.data.IBoxSettingsWrapperData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();

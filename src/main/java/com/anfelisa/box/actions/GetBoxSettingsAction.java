@@ -16,9 +16,11 @@
 
 package com.anfelisa.box.actions;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.IBoxSettingsModel;
 
 import de.acegen.CustomAppConfiguration;
@@ -39,6 +41,13 @@ public class GetBoxSettingsAction extends AbstractGetBoxSettingsAction {
 	}
 
 	protected void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
+		if (this.actionData.getBoxId() == null || "null".equals(this.actionData.getBoxId())) {
+			throwBadRequest("box id must not be null");
+		}
+		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, this.actionData.getBoxId());
+		if (!box.getUserId().equals(actionData.getUserId())) {
+			throwUnauthorized();
+		}
 		IBoxSettingsModel settings = this.daoProvider.getBoxDao().selectSettingsByBoxId(readonlyHandle,
 				actionData.getBoxId());
 		this.actionData.setMaxCardsPerDay(settings.getMaxCardsPerDay());

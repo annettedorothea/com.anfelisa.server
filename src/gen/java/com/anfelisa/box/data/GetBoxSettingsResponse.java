@@ -49,7 +49,7 @@ public class GetBoxSettingsResponse implements IGetBoxSettingsResponse {
 	public GetBoxSettingsResponse() {
 	}
 	
-	public GetBoxSettingsResponse(com.anfelisa.box.models.IBoxSettingsModel data) {
+	public GetBoxSettingsResponse(com.anfelisa.box.models.IBoxSettingsWrapperModel data) {
 		maxCardsPerDay = data.getMaxCardsPerDay();
 		maxInterval = data.getMaxInterval();
 		categoryName = data.getCategoryName();

@@ -57,7 +57,7 @@ public class AceDataFactory {
 				return data;
 			}
 			if (className.equals("com.anfelisa.box.actions.GetBoxSettingsAction")) {
-				BoxSettingsData data = mapper.readValue(json, BoxSettingsData.class);
+				BoxSettingsWrapperData data = mapper.readValue(json, BoxSettingsWrapperData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}

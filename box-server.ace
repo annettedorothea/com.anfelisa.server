@@ -32,7 +32,7 @@ ACE
 			wantedLanguage
 		on ok ( Box.updateBox RootCategory.update)
 		
-	GetBoxSettings<BoxSettings>
+	GetBoxSettings<BoxSettingsWrapper>
 	GET "/box/settings/{boxId}/" 
 		authorize 
 		pathParams boxId
@@ -234,6 +234,10 @@ models
 		String givenLanguage
 		String wantedLanguage
 		String categoryId
+	}
+
+	BoxSettingsWrapper extends BoxSettings {
+		NotNull String userId
 	}
 
 

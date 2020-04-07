@@ -67,12 +67,12 @@ import org.jdbi.v3.core.Handle;
 
 import javax.ws.rs.GET;
 
-import com.anfelisa.box.data.IBoxSettingsData;
-import com.anfelisa.box.data.BoxSettingsData;
+import com.anfelisa.box.data.IBoxSettingsWrapperData;
+import com.anfelisa.box.data.BoxSettingsWrapperData;
 
 @Path("/box/settings/{boxId}/")
 @SuppressWarnings("unused")
-public abstract class AbstractGetBoxSettingsAction extends Action<IBoxSettingsData> {
+public abstract class AbstractGetBoxSettingsAction extends Action<IBoxSettingsWrapperData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetBoxSettingsAction.class);
 	
@@ -102,7 +102,7 @@ public abstract class AbstractGetBoxSettingsAction extends Action<IBoxSettingsDa
 	}
 	
 	public void setActionData(IDataContainer data) {
-		this.actionData = (IBoxSettingsData)data;
+		this.actionData = (IBoxSettingsWrapperData)data;
 	}
 
 	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
@@ -116,8 +116,9 @@ public abstract class AbstractGetBoxSettingsAction extends Action<IBoxSettingsDa
 			@PathParam("boxId") String boxId, 
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
-		this.actionData = new BoxSettingsData(uuid);
+		this.actionData = new BoxSettingsWrapperData(uuid);
 		this.actionData.setBoxId(boxId);
+		this.actionData.setUserId(authUser.getUserId());
 		return this.apply();
 	}
 
@@ -139,7 +140,7 @@ public abstract class AbstractGetBoxSettingsAction extends Action<IBoxSettingsDa
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
-				IBoxSettingsData originalActionData = (IBoxSettingsData)originalData;
+				IBoxSettingsWrapperData originalActionData = (IBoxSettingsWrapperData)originalData;
 				this.actionData.setSystemTime(originalActionData.getSystemTime());
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (NotReplayableDataProvider.getSystemTime() != null) {
