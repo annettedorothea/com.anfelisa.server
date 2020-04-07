@@ -40,30 +40,36 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
 		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
-		registerUser0.setLanguage(this.templateStringValue("de", null));
-		registerUser0.setPassword(this.templateStringValue("admin-password", null));
-		registerUser0.setUsername(this.templateStringValue("Admin", null));
-		registerUser0.setToken(this.templateStringValue("ADMIN-TOKEN", null));
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
+		registerUser0.setLanguage(this.templateStringValue("de", 0));
+		registerUser0.setPassword(this.templateStringValue("admin-password", 0));
+		registerUser0.setUsername(this.templateStringValue("Admin", 0));
+		registerUser0.setToken(this.templateStringValue("ADMIN-TOKEN", 0));
+		
 		
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		
 
 		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("adminBox");
-		createBox1.setCategoryName(this.templateStringValue("adminBox", null));
+		createBox1.setCategoryName(this.templateStringValue("adminBox", 1));
 		createBox1.setDictionaryLookup(new Boolean("false"));
 		createBox1.setMaxCardsPerDay(10);
 		
+		
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		
 
 	}
 	
 	private Response when() throws Exception {
 		com.anfelisa.category.data.CategoryCreationData createCategory0 = new com.anfelisa.category.data.CategoryCreationData("adminCat");
-		createCategory0.setCategoryName(this.templateStringValue("c", null));
-		createCategory0.setParentCategoryId(this.templateStringValue("adminBox", null));
+		createCategory0.setCategoryName(this.templateStringValue("c", 0));
+		createCategory0.setParentCategoryId(this.templateStringValue("adminBox", 0));
+		
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory0, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		
 	}
 	
 	private void then(Response response) throws Exception {

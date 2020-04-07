@@ -42,12 +42,14 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 	
 	private Response when() throws Exception {
 		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData(randomUUID());
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
-		registerUser0.setLanguage(this.templateStringValue("de", null));
-		registerUser0.setPassword(this.templateStringValue("password", null));
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
+		registerUser0.setLanguage(this.templateStringValue("de", 0));
+		registerUser0.setPassword(this.templateStringValue("password", 0));
+		
 		
 		return 
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		
 	}
 	
 	private void then(Response response) throws Exception {

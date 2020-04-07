@@ -40,27 +40,31 @@ public abstract class AbstractRegisterUserUsernameAlreadyTakenScenario extends B
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
 		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
-		registerUser0.setLanguage(this.templateStringValue("de", null));
-		registerUser0.setPassword(this.templateStringValue("password", null));
-		registerUser0.setUsername(this.templateStringValue("Annette", null));
-		registerUser0.setToken(this.templateStringValue("TOKEN", null));
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
+		registerUser0.setLanguage(this.templateStringValue("de", 0));
+		registerUser0.setPassword(this.templateStringValue("password", 0));
+		registerUser0.setUsername(this.templateStringValue("Annette", 0));
+		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		
 		
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		
 
 	}
 	
 	private Response when() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("XXX", null));
 		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-at");
-		registerUser0.setEmail(this.templateStringValue("info@anfelisa.de", null));
-		registerUser0.setLanguage(this.templateStringValue("de", null));
-		registerUser0.setPassword(this.templateStringValue("pw", null));
-		registerUser0.setUsername(this.templateStringValue("Annette", null));
-		registerUser0.setToken(this.templateStringValue("XXX", null));
+		registerUser0.setEmail(this.templateStringValue("info@anfelisa.de", 0));
+		registerUser0.setLanguage(this.templateStringValue("de", 0));
+		registerUser0.setPassword(this.templateStringValue("pw", 0));
+		registerUser0.setUsername(this.templateStringValue("Annette", 0));
+		registerUser0.setToken(this.templateStringValue("XXX", 0));
+		
 		
 		return 
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		
 	}
 	
 	private void then(Response response) throws Exception {

@@ -40,32 +40,38 @@ public abstract class AbstractResetPasswordScenario extends BaseScenario {
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
 		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
-		registerUser0.setLanguage(this.templateStringValue("de", null));
-		registerUser0.setPassword(this.templateStringValue("password", null));
-		registerUser0.setUsername(this.templateStringValue("Annette", null));
-		registerUser0.setToken(this.templateStringValue("TOKEN", null));
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
+		registerUser0.setLanguage(this.templateStringValue("de", 0));
+		registerUser0.setPassword(this.templateStringValue("password", 0));
+		registerUser0.setUsername(this.templateStringValue("Annette", 0));
+		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		
 		
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("RESET-PW-TOKEN", null));
 		com.anfelisa.user.data.ForgotPasswordData forgotPassword1 = new com.anfelisa.user.data.ForgotPasswordData(randomUUID());
-		forgotPassword1.setLanguage(this.templateStringValue("de", null));
-		forgotPassword1.setUsername(this.templateStringValue("Annette", null));
-		forgotPassword1.setToken(this.templateStringValue("RESET-PW-TOKEN", null));
+		forgotPassword1.setLanguage(this.templateStringValue("de", 1));
+		forgotPassword1.setUsername(this.templateStringValue("Annette", 1));
+		forgotPassword1.setToken(this.templateStringValue("RESET-PW-TOKEN", 1));
+		
 		
 		com.anfelisa.user.ActionCalls.callForgotPassword(forgotPassword1, DROPWIZARD.getLocalPort());
+		
 
 	}
 	
 	private Response when() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("RESET-PW-TOKEN", null));
 		com.anfelisa.user.data.ResetPasswordWithNewPasswordData resetPassword0 = new com.anfelisa.user.data.ResetPasswordWithNewPasswordData(randomUUID());
-		resetPassword0.setToken(this.templateStringValue("RESET-PW-TOKEN", null));
-		resetPassword0.setPassword(this.templateStringValue("newPassword", null));
+		resetPassword0.setToken(this.templateStringValue("RESET-PW-TOKEN", 0));
+		resetPassword0.setPassword(this.templateStringValue("newPassword", 0));
+		
 		
 		return 
 		com.anfelisa.user.ActionCalls.callResetPassword(resetPassword0, DROPWIZARD.getLocalPort());
+		
 	}
 	
 	private void then(Response response) throws Exception {

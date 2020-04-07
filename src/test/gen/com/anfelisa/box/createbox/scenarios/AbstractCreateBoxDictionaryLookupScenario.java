@@ -40,26 +40,30 @@ public abstract class AbstractCreateBoxDictionaryLookupScenario extends BaseScen
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
 		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
-		registerUser0.setLanguage(this.templateStringValue("de", null));
-		registerUser0.setPassword(this.templateStringValue("password", null));
-		registerUser0.setUsername(this.templateStringValue("Annette", null));
-		registerUser0.setToken(this.templateStringValue("TOKEN", null));
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
+		registerUser0.setLanguage(this.templateStringValue("de", 0));
+		registerUser0.setPassword(this.templateStringValue("password", 0));
+		registerUser0.setUsername(this.templateStringValue("Annette", 0));
+		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		
 		
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		
 
 	}
 	
 	private Response when() throws Exception {
 		com.anfelisa.box.data.BoxCreationData createBox0 = new com.anfelisa.box.data.BoxCreationData("boxId");
-		createBox0.setCategoryName(this.templateStringValue("cat", null));
+		createBox0.setCategoryName(this.templateStringValue("cat", 0));
 		createBox0.setMaxCardsPerDay(10);
 		createBox0.setDictionaryLookup(new Boolean("true"));
-		createBox0.setGivenLanguage(this.templateStringValue("de", null));
-		createBox0.setWantedLanguage(this.templateStringValue("en", null));
+		createBox0.setGivenLanguage(this.templateStringValue("de", 0));
+		createBox0.setWantedLanguage(this.templateStringValue("en", 0));
+		
 		
 		return 
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox0, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
 	}
 	
 	private void then(Response response) throws Exception {

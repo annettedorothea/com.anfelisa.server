@@ -40,25 +40,29 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
 		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
-		registerUser0.setLanguage(this.templateStringValue("de", null));
-		registerUser0.setPassword(this.templateStringValue("password", null));
-		registerUser0.setUsername(this.templateStringValue("Annette", null));
-		registerUser0.setToken(this.templateStringValue("TOKEN", null));
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
+		registerUser0.setLanguage(this.templateStringValue("de", 0));
+		registerUser0.setPassword(this.templateStringValue("password", 0));
+		registerUser0.setUsername(this.templateStringValue("Annette", 0));
+		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		
 		
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		
 
 	}
 	
 	private Response when() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("RESET-PW-TOKEN", null));
 		com.anfelisa.user.data.ForgotPasswordData forgotPassword0 = new com.anfelisa.user.data.ForgotPasswordData(randomUUID());
-		forgotPassword0.setLanguage(this.templateStringValue("de", null));
-		forgotPassword0.setUsername(this.templateStringValue("doesNotExist", null));
-		forgotPassword0.setToken(this.templateStringValue("RESET-PW-TOKEN", null));
+		forgotPassword0.setLanguage(this.templateStringValue("de", 0));
+		forgotPassword0.setUsername(this.templateStringValue("doesNotExist", 0));
+		forgotPassword0.setToken(this.templateStringValue("RESET-PW-TOKEN", 0));
+		
 		
 		return 
 		com.anfelisa.user.ActionCalls.callForgotPassword(forgotPassword0, DROPWIZARD.getLocalPort());
+		
 	}
 	
 	private void then(Response response) throws Exception {

@@ -40,37 +40,45 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
 		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
-		registerUser0.setLanguage(this.templateStringValue("de", null));
-		registerUser0.setPassword(this.templateStringValue("password", null));
-		registerUser0.setUsername(this.templateStringValue("Annette", null));
-		registerUser0.setToken(this.templateStringValue("TOKEN", null));
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
+		registerUser0.setLanguage(this.templateStringValue("de", 0));
+		registerUser0.setPassword(this.templateStringValue("password", 0));
+		registerUser0.setUsername(this.templateStringValue("Annette", 0));
+		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		
 		
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		
 
 		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
-		createBox1.setCategoryName(this.templateStringValue("cat", null));
+		createBox1.setCategoryName(this.templateStringValue("cat", 1));
 		createBox1.setMaxCardsPerDay(10);
 		createBox1.setDictionaryLookup(new Boolean("true"));
-		createBox1.setGivenLanguage(this.templateStringValue("de", null));
-		createBox1.setWantedLanguage(this.templateStringValue("en", null));
+		createBox1.setGivenLanguage(this.templateStringValue("de", 1));
+		createBox1.setWantedLanguage(this.templateStringValue("en", 1));
+		
 		
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
 
 		com.anfelisa.category.data.CategoryCreationData createCategory2 = new com.anfelisa.category.data.CategoryCreationData("dict");
-		createCategory2.setCategoryName(this.templateStringValue("dict", null));
-		createCategory2.setParentCategoryId(this.templateStringValue("boxId", null));
+		createCategory2.setCategoryName(this.templateStringValue("dict", 2));
+		createCategory2.setParentCategoryId(this.templateStringValue("boxId", 2));
+		
 		
 		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
 
 	}
 	
 	private Response when() throws Exception {
 		com.anfelisa.category.data.CategoryTreeData getCategoryTree0 = new com.anfelisa.category.data.CategoryTreeData(randomUUID());
-		getCategoryTree0.setRootCategoryId(this.templateStringValue("boxId", null));
+		getCategoryTree0.setRootCategoryId(this.templateStringValue("boxId", 0));
+		
 		
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(getCategoryTree0, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
 	}
 	
 	private com.anfelisa.category.data.GetCategoryTreeResponse then(Response response) throws Exception {
@@ -114,6 +122,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 			expectedDataRootCategory.setChildCategories(list1);
 			
 		expectedData.setRootCategory(expectedDataRootCategory);
+		
 		
 		com.anfelisa.category.data.GetCategoryTreeResponse expected = new com.anfelisa.category.data.GetCategoryTreeResponse(expectedData);
 

@@ -40,29 +40,35 @@ public abstract class AbstractCreateCategoryNameIsNullScenario extends BaseScena
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
 		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
-		registerUser0.setLanguage(this.templateStringValue("de", null));
-		registerUser0.setPassword(this.templateStringValue("password", null));
-		registerUser0.setUsername(this.templateStringValue("Annette", null));
-		registerUser0.setToken(this.templateStringValue("TOKEN", null));
+		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
+		registerUser0.setLanguage(this.templateStringValue("de", 0));
+		registerUser0.setPassword(this.templateStringValue("password", 0));
+		registerUser0.setUsername(this.templateStringValue("Annette", 0));
+		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		
 		
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		
 
 		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
-		createBox1.setCategoryName(this.templateStringValue("cat", null));
+		createBox1.setCategoryName(this.templateStringValue("cat", 1));
 		createBox1.setDictionaryLookup(new Boolean("false"));
 		createBox1.setMaxCardsPerDay(10);
 		
+		
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
 
 	}
 	
 	private Response when() throws Exception {
 		com.anfelisa.category.data.CategoryCreationData createCategory0 = new com.anfelisa.category.data.CategoryCreationData(randomUUID());
-		createCategory0.setParentCategoryId(this.templateStringValue("boxId", null));
+		createCategory0.setParentCategoryId(this.templateStringValue("boxId", 0));
+		
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory0, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
 	}
 	
 	private void then(Response response) throws Exception {
