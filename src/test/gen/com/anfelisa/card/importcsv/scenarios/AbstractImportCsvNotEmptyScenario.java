@@ -35,7 +35,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractImportCsvScenario extends BaseScenario {
+public abstract class AbstractImportCsvNotEmptyScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
@@ -65,6 +65,24 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 		
 		
 		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		com.anfelisa.category.data.CategoryCreationData createCategory3 = new com.anfelisa.category.data.CategoryCreationData("cat1");
+		createCategory3.setCategoryName(this.templateStringValue("level 1 #1", 3));
+		createCategory3.setParentCategoryId(this.templateStringValue("boxId", 3));
+		
+		
+		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory3, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		com.anfelisa.card.data.CardCreationData createCard4 = new com.anfelisa.card.data.CardCreationData("c1");
+		createCard4.setCategoryId(this.templateStringValue("cat1", 4));
+		createCard4.setGiven(this.templateStringValue("given", 4));
+		createCard4.setImage(this.templateStringValue("image", 4));
+		createCard4.setWanted(this.templateStringValue("wanted", 4));
+		
+		
+		com.anfelisa.card.ActionCalls.callCreateCard(createCard4, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 	}
@@ -108,7 +126,7 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 				}
 				
 				@Test
-				public void importCsv() throws Exception {
+				public void importCsvNotEmpty() throws Exception {
 					given();
 					
 					Response response = when();

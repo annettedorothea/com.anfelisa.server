@@ -46,12 +46,12 @@ public class ImportCsvCommand extends AbstractImportCsvCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
-		IUserModel user = this.daoProvider.getUserDao().selectByUserId(readonlyHandle, commandData.getUserId());
 		ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getCategoryId());
 		if (category == null) {
 			throwBadRequest("category does not exist");
 		}
+		IUserModel user = this.daoProvider.getUserDao().selectByUserId(readonlyHandle, commandData.getUserId());
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), commandData.getUserId());
 		if (access == null) {

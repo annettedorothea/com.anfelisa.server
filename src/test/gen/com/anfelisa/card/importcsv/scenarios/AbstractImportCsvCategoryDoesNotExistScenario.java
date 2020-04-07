@@ -35,7 +35,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractImportCsvScenario extends BaseScenario {
+public abstract class AbstractImportCsvCategoryDoesNotExistScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
@@ -71,7 +71,7 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 	
 	private Response when() throws Exception {
 		com.anfelisa.card.data.CsvUploadData importCsv0 = new com.anfelisa.card.data.CsvUploadData(randomUUID());
-		importCsv0.setCategoryId(this.templateStringValue("cat1", 0));
+		importCsv0.setCategoryId(this.templateStringValue("xx", 0));
 		
 			List<com.anfelisa.card.models.ISimpleCardModel> importCsv0PreviewCsv = new ArrayList<com.anfelisa.card.models.ISimpleCardModel>();
 			com.anfelisa.card.models.ISimpleCardModel item1 = new com.anfelisa.card.models.SimpleCardModel();
@@ -79,18 +79,6 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 			item1.setWanted(this.templateStringValue("w1", 0));
 			item1.setId(this.templateStringValue("1", 0));
 			importCsv0PreviewCsv.add(item1);
-		
-			com.anfelisa.card.models.ISimpleCardModel item2 = new com.anfelisa.card.models.SimpleCardModel();
-			item2.setGiven(this.templateStringValue("g2", 0));
-			item2.setWanted(this.templateStringValue("w2", 0));
-			item2.setId(this.templateStringValue("2", 0));
-			importCsv0PreviewCsv.add(item2);
-		
-			com.anfelisa.card.models.ISimpleCardModel item3 = new com.anfelisa.card.models.SimpleCardModel();
-			item3.setGiven(this.templateStringValue("g3", 0));
-			item3.setWanted(this.templateStringValue("w3", 0));
-			item3.setId(this.templateStringValue("3", 0));
-			importCsv0PreviewCsv.add(item3);
 		
 			
 		importCsv0.setPreviewCsv(importCsv0PreviewCsv);
@@ -102,13 +90,13 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 	}
 	
 	private void then(Response response) throws Exception {
-		assertThat(response.getStatus(), 200);
+		assertThat(response.getStatus(), 400);
 		
 			
 				}
 				
 				@Test
-				public void importCsv() throws Exception {
+				public void importCsvCategoryDoesNotExist() throws Exception {
 					given();
 					
 					Response response = when();

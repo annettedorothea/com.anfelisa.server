@@ -8,7 +8,6 @@ scenarios
 			com.anfelisa.category.createcategory.CreateCategory
 		WHEN
 			com.anfelisa.card.ImportCsv
-				uuid "c1"
 				{
 					categoryId: "cat1"
 					previewCsv : [
@@ -31,4 +30,87 @@ scenarios
 				}
 				authorization "Annette" : "password"
 		THEN 200
+
+	ImportCsvNotEmpty
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.ImportCsv
+				{
+					categoryId: "cat1"
+					previewCsv : [
+						{
+							given: "g1"
+							wanted: "w1"
+							id: "1"
+						}
+						{
+							given: "g2"
+							wanted: "w2"
+							id: "2"
+						}
+						{
+							given: "g3"
+							wanted: "w3"
+							id: "3"
+						}
+					]
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ImportCsvNoAccessToCategory
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.card.ImportCsv
+				{
+					categoryId: "cat1"
+					previewCsv : [
+						{
+							given: "g1"
+							wanted: "w1"
+							id: "1"
+						}
+					]
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+
+	ImportCsvUnauthorized
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.ImportCsv
+				{
+					categoryId: "cat1"
+					previewCsv : [
+						{
+							given: "g1"
+							wanted: "w1"
+							id: "1"
+						}
+					]
+				}
+		THEN 401
+
+	ImportCsvCategoryDoesNotExist
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.ImportCsv
+				{
+					categoryId: "xx"
+					previewCsv : [
+						{
+							given: "g1"
+							wanted: "w1"
+							id: "1"
+						}
+					]
+				}
+				authorization "Annette" : "password"
+		THEN 400
 
