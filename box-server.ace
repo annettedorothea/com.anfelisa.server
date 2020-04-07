@@ -18,26 +18,6 @@ ACE
 			maxInterval
 		on ok (RootCategory.insert UserAccessToCategory.grantAccess Box.createBox)
 
-	GetBoxes<BoxList>
-	GET "/boxes/my/" 
-		authorize 
-		queryParams today
-		response 
-			boxList
-		
-	GetBoxSettings<BoxSettings>
-	GET "/box/settings/{boxId}/" 
-		authorize 
-		pathParams boxId
-		response 
-			maxCardsPerDay
-			maxInterval
-			categoryName
-			dictionaryLookup
-			givenLanguage
-			wantedLanguage
-			categoryId
-
 	UpdateBox<BoxUpdate> 
 		PUT "/box/update"  
 		authorize
@@ -52,40 +32,18 @@ ACE
 			wantedLanguage
 		on ok ( Box.updateBox RootCategory.update)
 		
-	InitMyBoxesForDay<InitMyBoxesData>
-		PUT "/box/init"  
-		authorize
-		payload 
-			today 
-		on ok ( ScheduledCard.postponeCards ReinforceCard.clear )
-	
-	DeleteBox<DeleteBox>
-		DELETE "/box/delete"  
-		authorize
-		queryParams boxId
-		on ok ( ScheduledCard.deleteAll ReinforceCard.deleteAll RootCategory.deleteAll Box.deleteBox )
-	
-	LoadNextCard<NextCard>
-		GET "/box/next-card"
-		authorize  
-		queryParams 
-			boxId 
-			today
-		response
-			cardId
+	GetBoxSettings<BoxSettings>
+	GET "/box/settings/{boxId}/" 
+		authorize 
+		pathParams boxId
+		response 
+			maxCardsPerDay
+			maxInterval
+			categoryName
+			dictionaryLookup
+			givenLanguage
+			wantedLanguage
 			categoryId
-			count
-			given
-			image
-			lastQuality
-			rootCategoryId
-			scheduledCardId
-			reinforceCardId
-			scheduledDate
-			scoredDate
-			wanted
-			openTodaysCards
-			allTodaysCards
 
 	ScheduleCards<ScheduledCards>
 		POST "/cards/schedule" 
@@ -113,6 +71,48 @@ ACE
 		on keep (ReinforceCard.update)
 		on remove (ReinforceCard.remove)
 
+	GetBoxes<BoxList>
+	GET "/boxes/my/" 
+		authorize 
+		queryParams today
+		response 
+			boxList
+		
+	InitMyBoxesForDay<InitMyBoxesData>
+		PUT "/box/init"  
+		authorize
+		payload 
+			today 
+		on ok ( ScheduledCard.postponeCards ReinforceCard.clear )
+	
+	LoadNextCard<NextCard>
+		GET "/box/next-card"
+		authorize  
+		queryParams 
+			boxId 
+			today
+		response
+			cardId
+			categoryId
+			count
+			given
+			image
+			lastQuality
+			rootCategoryId
+			scheduledCardId
+			reinforceCardId
+			scheduledDate
+			scoredDate
+			wanted
+			openTodaysCards
+			allTodaysCards
+
+	DeleteBox<DeleteBox>
+		DELETE "/box/delete"  
+		authorize
+		queryParams boxId
+		on ok ( ScheduledCard.deleteAll ReinforceCard.deleteAll RootCategory.deleteAll Box.deleteBox )
+	
 views 
 	Box {
 		createBox (BoxCreation)

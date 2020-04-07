@@ -57,18 +57,6 @@ public class EventFactory {
 				UpdateBoxOkEvent event = new UpdateBoxOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
-			if (eventClass.equals("com.anfelisa.box.events.InitMyBoxesForDayOkEvent")) {
-				InitMyBoxesDataData data = mapper.readValue(json, InitMyBoxesDataData.class);
-				data.migrateLegacyData(json);
-				InitMyBoxesForDayOkEvent event = new InitMyBoxesForDayOkEvent(data, daoProvider, viewProvider, appConfiguration);
-				return event;
-			}
-			if (eventClass.equals("com.anfelisa.box.events.DeleteBoxOkEvent")) {
-				DeleteBoxData data = mapper.readValue(json, DeleteBoxData.class);
-				data.migrateLegacyData(json);
-				DeleteBoxOkEvent event = new DeleteBoxOkEvent(data, daoProvider, viewProvider, appConfiguration);
-				return event;
-			}
 			if (eventClass.equals("com.anfelisa.box.events.ScheduleCardsOkEvent")) {
 				ScheduledCardsData data = mapper.readValue(json, ScheduledCardsData.class);
 				data.migrateLegacyData(json);
@@ -99,6 +87,18 @@ public class EventFactory {
 				ScoreReinforceCardRemoveEvent event = new ScoreReinforceCardRemoveEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
+			if (eventClass.equals("com.anfelisa.box.events.InitMyBoxesForDayOkEvent")) {
+				InitMyBoxesDataData data = mapper.readValue(json, InitMyBoxesDataData.class);
+				data.migrateLegacyData(json);
+				InitMyBoxesForDayOkEvent event = new InitMyBoxesForDayOkEvent(data, daoProvider, viewProvider, appConfiguration);
+				return event;
+			}
+			if (eventClass.equals("com.anfelisa.box.events.DeleteBoxOkEvent")) {
+				DeleteBoxData data = mapper.readValue(json, DeleteBoxData.class);
+				data.migrateLegacyData(json);
+				DeleteBoxOkEvent event = new DeleteBoxOkEvent(data, daoProvider, viewProvider, appConfiguration);
+				return event;
+			}
 		} catch (IOException e) {
 			LOG.error("failed to create event {} with data {}", eventClass, json, e);
 		}
@@ -111,18 +111,8 @@ public class EventFactory {
 			return new CreateBoxOkEvent((BoxCreationData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
-
-
 		if (eventClass.equals("com.anfelisa.box.events.UpdateBoxOkEvent")) {
 			return new UpdateBoxOkEvent((BoxUpdateData)data, daoProvider, viewProvider, appConfiguration);
-		}
-
-		if (eventClass.equals("com.anfelisa.box.events.InitMyBoxesForDayOkEvent")) {
-			return new InitMyBoxesForDayOkEvent((InitMyBoxesDataData)data, daoProvider, viewProvider, appConfiguration);
-		}
-
-		if (eventClass.equals("com.anfelisa.box.events.DeleteBoxOkEvent")) {
-			return new DeleteBoxOkEvent((DeleteBoxData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 
@@ -142,6 +132,16 @@ public class EventFactory {
 		}
 		if (eventClass.equals("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent")) {
 			return new ScoreReinforceCardRemoveEvent((ScoreReinforceCardData)data, daoProvider, viewProvider, appConfiguration);
+		}
+
+
+		if (eventClass.equals("com.anfelisa.box.events.InitMyBoxesForDayOkEvent")) {
+			return new InitMyBoxesForDayOkEvent((InitMyBoxesDataData)data, daoProvider, viewProvider, appConfiguration);
+		}
+
+
+		if (eventClass.equals("com.anfelisa.box.events.DeleteBoxOkEvent")) {
+			return new DeleteBoxOkEvent((DeleteBoxData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 

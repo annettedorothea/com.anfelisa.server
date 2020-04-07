@@ -48,16 +48,6 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.box.actions.GetBoxesAction")) {
-				BoxListData data = mapper.readValue(json, BoxListData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
-			if (className.equals("com.anfelisa.box.actions.GetBoxSettingsAction")) {
-				BoxSettingsData data = mapper.readValue(json, BoxSettingsData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
 			if (className.equals("com.anfelisa.box.actions.UpdateBoxAction") ||
 					className.equals("com.anfelisa.box.commands.UpdateBoxCommand") ||
 					className.equals("com.anfelisa.box.events.UpdateBoxOkEvent")
@@ -66,24 +56,8 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.box.actions.InitMyBoxesForDayAction") ||
-					className.equals("com.anfelisa.box.commands.InitMyBoxesForDayCommand") ||
-					className.equals("com.anfelisa.box.events.InitMyBoxesForDayOkEvent")
-			) {
-				InitMyBoxesDataData data = mapper.readValue(json, InitMyBoxesDataData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
-			if (className.equals("com.anfelisa.box.actions.DeleteBoxAction") ||
-					className.equals("com.anfelisa.box.commands.DeleteBoxCommand") ||
-					className.equals("com.anfelisa.box.events.DeleteBoxOkEvent")
-			) {
-				DeleteBoxData data = mapper.readValue(json, DeleteBoxData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
-			if (className.equals("com.anfelisa.box.actions.LoadNextCardAction")) {
-				NextCardData data = mapper.readValue(json, NextCardData.class);
+			if (className.equals("com.anfelisa.box.actions.GetBoxSettingsAction")) {
+				BoxSettingsData data = mapper.readValue(json, BoxSettingsData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}
@@ -111,6 +85,32 @@ public class AceDataFactory {
 					className.equals("com.anfelisa.box.events.ScoreReinforceCardRemoveEvent")
 			) {
 				ScoreReinforceCardData data = mapper.readValue(json, ScoreReinforceCardData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
+			if (className.equals("com.anfelisa.box.actions.GetBoxesAction")) {
+				BoxListData data = mapper.readValue(json, BoxListData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
+			if (className.equals("com.anfelisa.box.actions.InitMyBoxesForDayAction") ||
+					className.equals("com.anfelisa.box.commands.InitMyBoxesForDayCommand") ||
+					className.equals("com.anfelisa.box.events.InitMyBoxesForDayOkEvent")
+			) {
+				InitMyBoxesDataData data = mapper.readValue(json, InitMyBoxesDataData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
+			if (className.equals("com.anfelisa.box.actions.LoadNextCardAction")) {
+				NextCardData data = mapper.readValue(json, NextCardData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
+			if (className.equals("com.anfelisa.box.actions.DeleteBoxAction") ||
+					className.equals("com.anfelisa.box.commands.DeleteBoxCommand") ||
+					className.equals("com.anfelisa.box.events.DeleteBoxOkEvent")
+			) {
+				DeleteBoxData data = mapper.readValue(json, DeleteBoxData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}

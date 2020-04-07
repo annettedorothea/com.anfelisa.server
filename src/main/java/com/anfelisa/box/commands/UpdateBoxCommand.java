@@ -24,6 +24,12 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
+		if (this.commandData.getBoxId() == null) {
+			throwBadRequest("box id must not be null");
+		}
+		if (this.commandData.getCategoryId() == null) {
+			throwBadRequest("category id must not be null");
+		}
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, this.commandData.getBoxId());
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();

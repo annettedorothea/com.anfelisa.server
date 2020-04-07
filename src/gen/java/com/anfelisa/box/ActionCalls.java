@@ -39,26 +39,6 @@ public class ActionCalls {
 		return builder.post(Entity.json(data));
 	}
 	
-	public static Response callGetBoxes(
-			com.anfelisa.box.data.IBoxListData data,
-			int port, 
-			String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/boxes/my/?uuid=" + data.getUuid() + "&today=" + data.getToday(), port)).request(); 
-		builder.header("Authorization", authorization);
-		return builder.get();
-	}
-	
-	public static Response callGetBoxSettings(
-			com.anfelisa.box.data.IBoxSettingsData data,
-			int port, 
-			String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/box/settings/" + data.getBoxId() + "/?uuid=" + data.getUuid(), port)).request(); 
-		builder.header("Authorization", authorization);
-		return builder.get();
-	}
-	
 	public static Response callUpdateBox(
 			com.anfelisa.box.data.IBoxUpdateData data, 
 			int port, 
@@ -69,32 +49,12 @@ public class ActionCalls {
 		return builder.put(Entity.json(data));
 	}
 	
-	public static Response callInitMyBoxesForDay(
-			com.anfelisa.box.data.IInitMyBoxesDataData data, 
+	public static Response callGetBoxSettings(
+			com.anfelisa.box.data.IBoxSettingsData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/box/init?uuid=" + data.getUuid(), port)).request();
-		builder.header("Authorization", authorization);
-		return builder.put(Entity.json(data));
-	}
-	
-	public static Response callDeleteBox(
-			com.anfelisa.box.data.IDeleteBoxData data,
-			int port, 
-			String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/box/delete?uuid=" + data.getUuid() + "&boxId=" + data.getBoxId(), port)).request();
-		builder.header("Authorization", authorization);
-		return builder.delete();
-	}
-	
-	public static Response callLoadNextCard(
-			com.anfelisa.box.data.INextCardData data,
-			int port, 
-			String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/box/next-card?uuid=" + data.getUuid() + "&boxId=" + data.getBoxId() + "&today=" + data.getToday(), port)).request(); 
+		Builder builder = client.target(String.format("http://localhost:%d/api/box/settings/" + data.getBoxId() + "/?uuid=" + data.getUuid(), port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
@@ -127,6 +87,46 @@ public class ActionCalls {
 		Builder builder = client.target(String.format("http://localhost:%d/api/card/score-reinforce", port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.post(Entity.json(data));
+	}
+	
+	public static Response callGetBoxes(
+			com.anfelisa.box.data.IBoxListData data,
+			int port, 
+			String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/boxes/my/?uuid=" + data.getUuid() + "&today=" + data.getToday(), port)).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
+	}
+	
+	public static Response callInitMyBoxesForDay(
+			com.anfelisa.box.data.IInitMyBoxesDataData data, 
+			int port, 
+			String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/box/init?uuid=" + data.getUuid(), port)).request();
+		builder.header("Authorization", authorization);
+		return builder.put(Entity.json(data));
+	}
+	
+	public static Response callLoadNextCard(
+			com.anfelisa.box.data.INextCardData data,
+			int port, 
+			String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/box/next-card?uuid=" + data.getUuid() + "&boxId=" + data.getBoxId() + "&today=" + data.getToday(), port)).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
+	}
+	
+	public static Response callDeleteBox(
+			com.anfelisa.box.data.IDeleteBoxData data,
+			int port, 
+			String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/box/delete?uuid=" + data.getUuid() + "&boxId=" + data.getBoxId(), port)).request();
+		builder.header("Authorization", authorization);
+		return builder.delete();
 	}
 	
 	
