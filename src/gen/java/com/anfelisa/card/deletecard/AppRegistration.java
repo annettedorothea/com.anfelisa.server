@@ -21,7 +21,6 @@ package com.anfelisa.card.deletecard;
 
 import io.dropwizard.setup.Environment;
 import de.acegen.CustomAppConfiguration;
-import de.acegen.AceExecutionMode;
 import de.acegen.IDaoProvider;
 import de.acegen.ViewProvider;
 import de.acegen.ServerConfiguration;
