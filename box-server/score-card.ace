@@ -1,0 +1,157 @@
+HttpServer 
+
+com.anfelisa.box.scorecard
+
+scenarios 
+	ScoreCard0
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score1"
+				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 0
+					scoredCardScheduledCardId: "c1-sc1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard1
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score1"
+				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 1
+					scoredCardScheduledCardId: "c1-sc1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard2
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score1"
+				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 2
+					scoredCardScheduledCardId: "c1-sc1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard3
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score1"
+				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 3
+					scoredCardScheduledCardId: "c1-sc1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard4
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score1"
+				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 4
+					scoredCardScheduledCardId: "c1-sc1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard5
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score1"
+				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 5
+					scoredCardScheduledCardId: "c1-sc1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard0DoesNotReinforceTwice
+		GIVEN
+			ScoreCard0
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score2"
+				systemTime "20200419 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 0
+					scoredCardScheduledCardId: "score1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCardCardDoesNotExist
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score1"
+				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 0
+					scoredCardScheduledCardId: "xx"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	ScoreCardCardUnauthorized
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score1"
+				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 0
+					scoredCardScheduledCardId: "c1-sc1"
+				}
+		THEN 401
+
+	ScoreCardNoAccessToBox
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score1"
+				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 0
+					scoredCardScheduledCardId: "c1-sc1"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+
+
+		

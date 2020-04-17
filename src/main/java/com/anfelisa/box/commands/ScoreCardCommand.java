@@ -28,12 +28,9 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		IScheduledCardModel scheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(readonlyHandle, 
 				commandData.getScoredCardScheduledCardId());
 		if (scheduledCard == null) {
-			throwBadRequest("cardDoesNotExist");
+			throwBadRequest("card does not exist");
 		}
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle,  scheduledCard.getBoxId());
-		if (box == null) {
-			throwBadRequest("boxDoesNotExist");
-		}
 		if (!commandData.getUserId().equals(box.getUserId())) {
 			throwUnauthorized();
 		}
@@ -55,8 +52,8 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 			}
 		}
 
-		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByCardId(readonlyHandle, 
-				scheduledCard.getCardId());
+		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByScheduledCardId(readonlyHandle, 
+				scheduledCard.getScheduledCardId());
 		if (quality <= 3 && reinforceCard == null) {
 			this.commandData.setOutcome(scoreAndReinforce);
 		} else {

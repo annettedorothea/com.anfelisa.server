@@ -54,15 +54,6 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 		statement.execute();
 	}
 
-	public IReinforceCardModel selectByCardId(PersistenceHandle handle, String cardId) {
-		Optional<IReinforceCardModel> optional = handle.getHandle().createQuery(
-				"SELECT rc.reinforcecardid, rc.scheduledcardid, rc.boxid, rc.changedate FROM public.reinforcecard rc left outer join scheduledcard sc on rc.scheduledcardid = sc.scheduledcardid WHERE cardid = :cardid")
-				.bind("cardid", cardId)
-				.map(new ReinforceCardMapper())
-				.findFirst();
-		return optional.isPresent() ? optional.get() : null;
-	}
-
 	public List<IReinforceCardModel> selectOutdatedReinforceCards(PersistenceHandle handle, String boxId, DateTime today) {
 		return handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM reinforcecard "
 				+ "WHERE boxid = :boxId AND changedate < :today")
