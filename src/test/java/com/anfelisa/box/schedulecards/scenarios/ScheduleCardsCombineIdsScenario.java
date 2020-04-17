@@ -14,28 +14,30 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+package com.anfelisa.box.schedulecards.scenarios;
 
-
-
-package com.anfelisa.card.updatecard;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.client.JerseyClientBuilder;
+import org.joda.time.DateTime;
+
+import com.anfelisa.box.models.IScheduledCardModel;
+import com.anfelisa.box.models.ScheduledCardModel;
 
 @SuppressWarnings("unused")
-public class ActionCalls {
+public class ScheduleCardsCombineIdsScenario extends AbstractScheduleCardsCombineIdsScenario {
 
-	
+	@Override
+	protected void verifications() {
+		DateTime dateTime = new DateTime(2020, 4, 16, 10, 30);
+
+		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByCardIdAndBoxId(handle,
+				"123456789-123456789-123456789-123456789", "boxId");
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("123456789-123456789-123-abcdefgh",
+				"123456789-123456789-123456789-123456789", "boxId", dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
+				null);
+		assertThat(actualScheduledCard, expectedScheduledCard);
+	}
+
 }
 
-
-
-
 /******* S.D.G. *******/
-
-
-

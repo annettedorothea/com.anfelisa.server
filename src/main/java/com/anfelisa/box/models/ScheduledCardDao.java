@@ -104,6 +104,19 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 		statement.execute();
 	}
 
+	public IScheduledCardModel selectByCardIdAndBoxId(PersistenceHandle handle, String cardId, String boxId) {
+		Optional<IScheduledCardModel> optional = handle.getHandle().createQuery("SELECT "
+				+ "scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate "
+				+ "FROM scheduledcard "
+				+ "WHERE cardid = :cardid "
+				+ "AND boxid = :boxid")
+			.bind("cardid", cardId)
+			.bind("boxid", boxId)
+			.map(new ScheduledCardMapper())
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
+	}
+
 }
 
 /* S.D.G. */

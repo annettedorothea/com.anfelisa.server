@@ -1,0 +1,93 @@
+HttpServer 
+
+com.anfelisa.box.schedulecards
+
+scenarios 
+	ScheduleCards
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.box.ScheduleCards
+				uuid "sc1"
+				systemTime "20200416 10:30" "yyyyMMdd HH:mm"
+				{
+					cardIds: ("c1" "c3" "c4" )
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScheduleCardsCombineIds
+		GIVEN
+			com.anfelisa.card.createcard.CreateCardWithLongUuid
+		WHEN
+			com.anfelisa.box.ScheduleCards
+				uuid "abcdefghi-abcdefghi-abcdefghi-abcdefghi-abcdefghi"
+				systemTime "20200416 10:30" "yyyyMMdd HH:mm"
+				{
+					cardIds: ("123456789-123456789-123456789-123456789")
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScheduleCardsWithExisting
+		GIVEN
+			ScheduleCards
+		WHEN
+			com.anfelisa.box.ScheduleCards
+				uuid "sc1"
+				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
+				{
+					cardIds: ("c2" "c5" )
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScheduleCardsEmptyCardIds
+		GIVEN
+			ScheduleCards
+		WHEN
+			com.anfelisa.box.ScheduleCards
+				uuid "sc1"
+				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
+				{
+					cardIds: ()
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScheduleCardsNullCardIds
+		GIVEN
+			ScheduleCards
+		WHEN
+			com.anfelisa.box.ScheduleCards
+				uuid "sc1"
+				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScheduleCardsUnauthorized
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+		WHEN
+			com.anfelisa.box.ScheduleCards
+				uuid "sc1"
+				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
+				{
+					cardIds: ("c2" "c5" )
+				}
+		THEN 401
+
+	ScheduleCardsNotMyBox
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.box.ScheduleCards
+				uuid "sc1"
+				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
+				{
+					cardIds: ("c2" "c5" )
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+

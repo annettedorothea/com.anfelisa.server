@@ -17,19 +17,26 @@
 
 
 
-package com.anfelisa.card.updatecard;
+package com.anfelisa.box.schedulecards;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation.Builder;
-import javax.ws.rs.core.Response;
+import io.dropwizard.setup.Environment;
+import de.acegen.CustomAppConfiguration;
+import de.acegen.IDaoProvider;
+import de.acegen.ViewProvider;
+import de.acegen.ServerConfiguration;
+import de.acegen.E2E;
+import de.acegen.PersistenceConnection;
 
-import org.glassfish.jersey.client.JerseyClientBuilder;
 
-@SuppressWarnings("unused")
-public class ActionCalls {
+@SuppressWarnings("all")
+public class AppRegistration {
 
-	
+	public static void registerResources(Environment environment, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
+	}
+
+	public static void registerConsumers(ViewProvider viewProvider, String mode) {
+    }
 }
 
 

@@ -90,6 +90,20 @@ scenarios
 				authorization "Annette" : "password"
 		THEN 200
 
+	CreateCardWithLongUuid
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.card.CreateCard
+				uuid "123456789-123456789-123456789-123456789"
+				{
+					categoryId: "cat1"
+					given: "x"
+					wanted: "y"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
 	CreateRandomCard
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategory

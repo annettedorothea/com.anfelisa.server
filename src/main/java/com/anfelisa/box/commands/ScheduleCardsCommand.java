@@ -1,9 +1,7 @@
 package com.anfelisa.box.commands;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,54 +30,33 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 		if (this.commandData.getCardIds() == null || this.commandData.getCardIds().size() == 0) {
 			this.commandData.setOutcome(nullOrEmpty);
 		} else {
-			String firstCardId = this.commandData.getCardIds().get(0);
-			ICardModel firstCard = daoProvider.getCardDao().selectByCardId(readonlyHandle,  firstCardId);
-			if (firstCard == null) {
-				throwBadRequest("cardDoesNotExist");
-			}
-			IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle, 
-					firstCard.getRootCategoryId(), commandData.getUserId());
-			if (box == null) {
-				throwBadRequest("boxDoesNotExist");
-			}
-			List<IScheduledCardModel> allCards = daoProvider.getScheduledCardDao().selectAllCardsOfBox(readonlyHandle, 
-					box.getBoxId());
 			this.commandData.setExistingScheduledCardIds(new ArrayList<String>());
 			this.commandData.setNewScheduledCards(new ArrayList<IScheduledCardModel>());
-			DateTime scheduledDateTime = firstCardByDateTime(allCards);
-			this.commandData.setScheduledDate(scheduledDateTime);
+			this.commandData.setScheduledDate(this.commandData.getSystemTime());
 			for (String cardId : this.commandData.getCardIds()) {
-				IScheduledCardModel scheduledCardModel = findByCardId(allCards, cardId);
-				if (scheduledCardModel != null) {
-					this.commandData.getExistingScheduledCardIds().add(scheduledCardModel.getScheduledCardId());
-				} else {
-					String uuid = combineUuids(cardId, commandData.getUuid());
-					ScheduledCardModel newScheduledCard = new ScheduledCardModel(uuid, cardId, box.getBoxId(),
-							commandData.getSystemTime(), 2.5F, 1, 1, 0, scheduledDateTime, null, null, null);
+				ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
+				if (card == null) {
+					throwBadRequest("card does not exist");
+				}
+				IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
+						card.getRootCategoryId(), commandData.getUserId());
+				if (box == null) {
+					throwUnauthorized();
+				}
+				IScheduledCardModel scheduledCard = daoProvider.getScheduledCardDao()
+						.selectByCardIdAndBoxId(readonlyHandle, cardId, box.getBoxId());
+				if (scheduledCard == null) {
+					ScheduledCardModel newScheduledCard = new ScheduledCardModel(
+							combineUuids(cardId, commandData.getUuid()), cardId, box.getBoxId(),
+							commandData.getSystemTime(), 2.5F, 1, 1, 0, this.commandData.getSystemTime(), null, null,
+							null);
 					this.commandData.getNewScheduledCards().add(newScheduledCard);
+				} else {
+					this.commandData.getExistingScheduledCardIds().add(scheduledCard.getScheduledCardId());
 				}
 			}
 			this.commandData.setOutcome(ok);
 		}
-	}
-
-	private IScheduledCardModel findByCardId(List<IScheduledCardModel> allCards, String cardId) {
-		for (IScheduledCardModel scheduledCardModel : allCards) {
-			if (scheduledCardModel.getCardId().equals(cardId)) {
-				return scheduledCardModel;
-			}
-		}
-		return null;
-	}
-
-	private DateTime firstCardByDateTime(List<IScheduledCardModel> allCards) {
-		DateTime dateTime = commandData.getSystemTime();
-		for (IScheduledCardModel scheduledCardModel : allCards) {
-			if (scheduledCardModel.getScheduledDate().isBefore(dateTime)) {
-				dateTime = scheduledCardModel.getScheduledDate();
-			}
-		}
-		return dateTime.minusMinutes(1);
 	}
 
 	private String combineUuids(String uuid1, String uuid2) {

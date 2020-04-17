@@ -17,19 +17,17 @@
 
 
 
-package com.anfelisa.card.updatecard;
+package com.anfelisa.card.createcard.scenarios;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.client.JerseyClientBuilder;
-
 @SuppressWarnings("unused")
-public class ActionCalls {
+public class CreateCardWithLongUuidScenario extends AbstractCreateCardWithLongUuidScenario {
 
-	
+	@Override
+	protected void verifications() {
+	}
+
 }
 
 

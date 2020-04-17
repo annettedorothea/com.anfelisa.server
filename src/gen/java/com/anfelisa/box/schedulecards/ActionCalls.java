@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.card.updatecard;
+package com.anfelisa.box.schedulecards;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
