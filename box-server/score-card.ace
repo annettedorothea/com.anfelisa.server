@@ -8,7 +8,7 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score1"
+				uuid "score0"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId"
@@ -38,7 +38,7 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score1"
+				uuid "score2"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId"
@@ -53,7 +53,7 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score1"
+				uuid "score3"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId"
@@ -68,7 +68,7 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score1"
+				uuid "score4"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId"
@@ -83,7 +83,7 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score1"
+				uuid "score5"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId"
@@ -98,12 +98,178 @@ scenarios
 			ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score2"
+				uuid "score01"
 				systemTime "20200419 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId"
 					scoredCardQuality: 0
-					scoredCardScheduledCardId: "score1"
+					scoredCardScheduledCardId: "score0"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard31
+		GIVEN
+			ScoreCard3
+			com.anfelisa.box.updatebox.UpdateBoxMaxInterval
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score31"
+				systemTime "20200425 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 3
+					scoredCardScheduledCardId: "score3"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard32
+		GIVEN
+			ScoreCard31
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score32"
+				systemTime "20200515 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 3
+					scoredCardScheduledCardId: "score31"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard33
+		GIVEN
+			ScoreCard32
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score33"
+				systemTime "20200615 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 4
+					scoredCardScheduledCardId: "score32"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard34
+		GIVEN
+			ScoreCard33
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score34"
+				systemTime "20200819 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 5
+					scoredCardScheduledCardId: "score33"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard35
+		GIVEN
+			ScoreCard34
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score35"
+				systemTime "20201120 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 3
+					scoredCardScheduledCardId: "score34"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard36
+		GIVEN
+			ScoreCard35
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score36"
+				systemTime "20210301 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 3
+					scoredCardScheduledCardId: "score35"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard37
+		GIVEN
+			ScoreCard36
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score37"
+				systemTime "20210701 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 3
+					scoredCardScheduledCardId: "score36"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard38
+		GIVEN
+			ScoreCard37
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score38"
+				systemTime "20211001 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 3
+					scoredCardScheduledCardId: "score37"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard39
+		GIVEN
+			ScoreCard38
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score39"
+				systemTime "20220201 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 3
+					scoredCardScheduledCardId: "score38"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCard310
+		GIVEN
+			ScoreCard39
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score310"
+				systemTime "20220601 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 3
+					scoredCardScheduledCardId: "score39"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCardMinimumQFactor
+		GIVEN
+			ScoreCard310
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "q"
+				systemTime "20221001 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 3
+					scoredCardScheduledCardId: "score310"
 				}
 				authorization "Annette" : "password"
 		THEN 200

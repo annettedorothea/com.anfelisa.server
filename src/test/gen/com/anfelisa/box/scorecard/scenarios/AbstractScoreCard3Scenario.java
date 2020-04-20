@@ -135,7 +135,7 @@ public abstract class AbstractScoreCard3Scenario extends BaseScenario {
 	
 	private Response when() throws Exception {
 		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
-		com.anfelisa.box.data.ScoreCardData scoreCard0 = new com.anfelisa.box.data.ScoreCardData("score1");
+		com.anfelisa.box.data.ScoreCardData scoreCard0 = new com.anfelisa.box.data.ScoreCardData("score3");
 		scoreCard0.setBoxId(this.templateStringValue("boxId", 0));
 		scoreCard0.setScoredCardQuality(3);
 		scoreCard0.setScoredCardScheduledCardId(this.templateStringValue("c1-sc1", 0));

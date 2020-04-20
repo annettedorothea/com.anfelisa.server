@@ -18,6 +18,37 @@ scenarios
 				authorization "Annette" : "password"
 		THEN 200
 
+	UpdateBoxMaxInterval
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.box.UpdateBox
+				{
+					boxId: "boxId"
+					categoryId: "boxId"
+					categoryName: "changed"
+					dictionaryLookup: "false"
+					maxCardsPerDay: 11
+					maxInterval: 90
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	UpdateBoxMaxIntervalSetToNull
+		GIVEN
+			UpdateBoxMaxInterval
+		WHEN
+			com.anfelisa.box.UpdateBox
+				{
+					boxId: "boxId"
+					categoryId: "boxId"
+					categoryName: "changed"
+					dictionaryLookup: "false"
+					maxCardsPerDay: 11
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
 	UpdateBoxDictionaryLookupNull
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxDictionaryLookup

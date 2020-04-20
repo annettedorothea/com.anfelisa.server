@@ -36,8 +36,8 @@ public class ScoreCard2Scenario extends AbstractScoreCard2Scenario {
 		DateTime scoredDateTime = new DateTime(2020, 4, 18, 16, 30);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score1");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score1", "c1", "boxId",
+				"score2");
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score2", "c1", "boxId",
 				scoredDateTime, 2.5F, 1, 1, 1, scoredDateTime.plusDays(1), 2, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
@@ -52,7 +52,7 @@ public class ScoreCard2Scenario extends AbstractScoreCard2Scenario {
 		assertThat(actualScheduledCard, expectedScheduledCard);
 		
 		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-sc1");
-		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score1", "c1-sc1", "boxId", scoredDateTime);
+		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score2", "c1-sc1", "boxId", scoredDateTime);
 		assertThat(actualReinforceCard, expectedReinforceCard);
 	}
 

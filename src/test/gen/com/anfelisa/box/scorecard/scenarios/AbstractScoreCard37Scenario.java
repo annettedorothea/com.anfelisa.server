@@ -35,7 +35,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractScoreCard2Scenario extends BaseScenario {
+public abstract class AbstractScoreCard37Scenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
@@ -131,14 +131,105 @@ public abstract class AbstractScoreCard2Scenario extends BaseScenario {
 		com.anfelisa.box.ActionCalls.callScheduleCards(scheduleCards8, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		com.anfelisa.box.data.ScoreCardData scoreCard9 = new com.anfelisa.box.data.ScoreCardData("score3");
+		scoreCard9.setBoxId(this.templateStringValue("boxId", 9));
+		scoreCard9.setScoredCardQuality(3);
+		scoreCard9.setScoredCardScheduledCardId(this.templateStringValue("c1-sc1", 9));
+		
+		
+		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard9, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		com.anfelisa.box.data.BoxCreationData createBox10 = new com.anfelisa.box.data.BoxCreationData("boxId");
+		createBox10.setCategoryName(this.templateStringValue("cat", 10));
+		createBox10.setDictionaryLookup(new Boolean("false"));
+		createBox10.setMaxCardsPerDay(10);
+		
+		
+		com.anfelisa.box.ActionCalls.callCreateBox(createBox10, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		com.anfelisa.box.data.BoxUpdateData updateBox11 = new com.anfelisa.box.data.BoxUpdateData(randomUUID());
+		updateBox11.setBoxId(this.templateStringValue("boxId", 11));
+		updateBox11.setCategoryId(this.templateStringValue("boxId", 11));
+		updateBox11.setCategoryName(this.templateStringValue("changed", 11));
+		updateBox11.setDictionaryLookup(new Boolean("false"));
+		updateBox11.setMaxCardsPerDay(11);
+		updateBox11.setMaxInterval(90);
+		
+		
+		com.anfelisa.box.ActionCalls.callUpdateBox(updateBox11, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200425 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		com.anfelisa.box.data.ScoreCardData scoreCard12 = new com.anfelisa.box.data.ScoreCardData("score31");
+		scoreCard12.setBoxId(this.templateStringValue("boxId", 12));
+		scoreCard12.setScoredCardQuality(3);
+		scoreCard12.setScoredCardScheduledCardId(this.templateStringValue("score3", 12));
+		
+		
+		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard12, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200515 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		com.anfelisa.box.data.ScoreCardData scoreCard13 = new com.anfelisa.box.data.ScoreCardData("score32");
+		scoreCard13.setBoxId(this.templateStringValue("boxId", 13));
+		scoreCard13.setScoredCardQuality(3);
+		scoreCard13.setScoredCardScheduledCardId(this.templateStringValue("score31", 13));
+		
+		
+		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard13, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200615 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		com.anfelisa.box.data.ScoreCardData scoreCard14 = new com.anfelisa.box.data.ScoreCardData("score33");
+		scoreCard14.setBoxId(this.templateStringValue("boxId", 14));
+		scoreCard14.setScoredCardQuality(4);
+		scoreCard14.setScoredCardScheduledCardId(this.templateStringValue("score32", 14));
+		
+		
+		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard14, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200819 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		com.anfelisa.box.data.ScoreCardData scoreCard15 = new com.anfelisa.box.data.ScoreCardData("score34");
+		scoreCard15.setBoxId(this.templateStringValue("boxId", 15));
+		scoreCard15.setScoredCardQuality(5);
+		scoreCard15.setScoredCardScheduledCardId(this.templateStringValue("score33", 15));
+		
+		
+		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard15, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20201120 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		com.anfelisa.box.data.ScoreCardData scoreCard16 = new com.anfelisa.box.data.ScoreCardData("score35");
+		scoreCard16.setBoxId(this.templateStringValue("boxId", 16));
+		scoreCard16.setScoredCardQuality(3);
+		scoreCard16.setScoredCardScheduledCardId(this.templateStringValue("score34", 16));
+		
+		
+		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard16, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20210301 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		com.anfelisa.box.data.ScoreCardData scoreCard17 = new com.anfelisa.box.data.ScoreCardData("score36");
+		scoreCard17.setBoxId(this.templateStringValue("boxId", 17));
+		scoreCard17.setScoredCardQuality(3);
+		scoreCard17.setScoredCardScheduledCardId(this.templateStringValue("score35", 17));
+		
+		
+		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard17, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
-		com.anfelisa.box.data.ScoreCardData scoreCard0 = new com.anfelisa.box.data.ScoreCardData("score2");
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20210701 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		com.anfelisa.box.data.ScoreCardData scoreCard0 = new com.anfelisa.box.data.ScoreCardData("score37");
 		scoreCard0.setBoxId(this.templateStringValue("boxId", 0));
-		scoreCard0.setScoredCardQuality(2);
-		scoreCard0.setScoredCardScheduledCardId(this.templateStringValue("c1-sc1", 0));
+		scoreCard0.setScoredCardQuality(3);
+		scoreCard0.setScoredCardScheduledCardId(this.templateStringValue("score36", 0));
 		
 		
 		return 
@@ -153,7 +244,7 @@ public abstract class AbstractScoreCard2Scenario extends BaseScenario {
 				}
 				
 				@Test
-				public void scoreCard2() throws Exception {
+				public void scoreCard37() throws Exception {
 					given();
 					
 					Response response = when();

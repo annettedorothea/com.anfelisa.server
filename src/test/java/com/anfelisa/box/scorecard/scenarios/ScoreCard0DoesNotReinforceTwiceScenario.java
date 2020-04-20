@@ -33,8 +33,8 @@ public class ScoreCard0DoesNotReinforceTwiceScenario extends AbstractScoreCard0D
 		DateTime scoredDateTime = new DateTime(2020, 4, 19, 16, 30);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score2");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score2", "c1", "boxId",
+				"score01");
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score01", "c1", "boxId",
 				scoredDateTime, 2.5F, 1, 1, 2, scoredDateTime.plusDays(1), 0, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
@@ -42,15 +42,15 @@ public class ScoreCard0DoesNotReinforceTwiceScenario extends AbstractScoreCard0D
 		DateTime dateTime = new DateTime(2020, 4, 18, 16, 30);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score1");
-		expectedScheduledCard = new ScheduledCardModel("score1", "c1", "boxId",
+				"score0");
+		expectedScheduledCard = new ScheduledCardModel("score0", "c1", "boxId",
 				dateTime, 2.5F, 1, 1, 1, scoredDateTime, 0, 0,
 				scoredDateTime);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
 		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle,
 				"c1-sc1");
-		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score1", "c1-sc1", "boxId", dateTime);
+		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score0", "c1-sc1", "boxId", dateTime);
 		assertThat(actualReinforceCard, expectedReinforceCard);
 	}
 
