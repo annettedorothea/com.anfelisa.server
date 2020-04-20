@@ -71,7 +71,7 @@ ACE
 				editedUserId
 		on ok ( User.changeUserRole )
 	
-	// TODO Scenario that verifies that all user data is deleted also
+	// TODO user has to type email as verification, cascade all data of user and scenario that verifies that all user data is deleted also
 	DeleteUser <DeleteUser>
 		DELETE "/user/delete"  
 		authorize

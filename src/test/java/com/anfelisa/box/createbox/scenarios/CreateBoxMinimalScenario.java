@@ -44,7 +44,7 @@ public class CreateBoxMinimalScenario extends AbstractCreateBoxMinimalScenario {
 		assertThat(actualAccessToCategory, expectedAccessToCategory);
 		
 		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle, "boxId");
-		IBoxModel expectedBox = new BoxModel("boxId", "uuid", "boxId", null, 10);
+		IBoxModel expectedBox = new BoxModel("boxId", "uuid", "boxId", null, 1);
 		assertThat(actualBox, expectedBox);
 	}
 

@@ -319,5 +319,36 @@ scenarios
 				authorization "Admin" : "admin-password"
 		THEN 401
 
+	ScoreCardSecond0
+		GIVEN
+			ScoreCard0
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score0-2"
+				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 0
+					scoredCardScheduledCardId: "c3-sc1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScoreCardMaxCardsPerDay
+		GIVEN
+			ScoreCardSecond0
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "score0-3"
+				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "boxId"
+					scoredCardQuality: 0
+					scoredCardScheduledCardId: "c4-sc1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+
 
 		

@@ -12,7 +12,7 @@ scenarios
 				{
 					categoryName: "cat"
 					dictionaryLookup: "false"
-					maxCardsPerDay: 10
+					maxCardsPerDay: 1
 				}
 				authorization "Annette" : "password"
 		THEN 200

@@ -53,7 +53,7 @@ public abstract class AbstractScoreCard37Scenario extends BaseScenario {
 		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
 		createBox1.setCategoryName(this.templateStringValue("cat", 1));
 		createBox1.setDictionaryLookup(new Boolean("false"));
-		createBox1.setMaxCardsPerDay(10);
+		createBox1.setMaxCardsPerDay(1);
 		
 		
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -144,7 +144,7 @@ public abstract class AbstractScoreCard37Scenario extends BaseScenario {
 		com.anfelisa.box.data.BoxCreationData createBox10 = new com.anfelisa.box.data.BoxCreationData("boxId");
 		createBox10.setCategoryName(this.templateStringValue("cat", 10));
 		createBox10.setDictionaryLookup(new Boolean("false"));
-		createBox10.setMaxCardsPerDay(10);
+		createBox10.setMaxCardsPerDay(1);
 		
 		
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox10, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

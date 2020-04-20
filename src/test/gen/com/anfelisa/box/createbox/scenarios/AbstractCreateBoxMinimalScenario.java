@@ -56,7 +56,7 @@ public abstract class AbstractCreateBoxMinimalScenario extends BaseScenario {
 		com.anfelisa.box.data.BoxCreationData createBox0 = new com.anfelisa.box.data.BoxCreationData("boxId");
 		createBox0.setCategoryName(this.templateStringValue("cat", 0));
 		createBox0.setDictionaryLookup(new Boolean("false"));
-		createBox0.setMaxCardsPerDay(10);
+		createBox0.setMaxCardsPerDay(1);
 		
 		
 		return 

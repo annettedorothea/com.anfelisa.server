@@ -53,7 +53,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
 		createBox1.setCategoryName(this.templateStringValue("cat", 1));
 		createBox1.setDictionaryLookup(new Boolean("false"));
-		createBox1.setMaxCardsPerDay(10);
+		createBox1.setMaxCardsPerDay(1);
 		
 		
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -142,7 +142,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.box.data.BoxCreationData createBox11 = new com.anfelisa.box.data.BoxCreationData("boxId");
 		createBox11.setCategoryName(this.templateStringValue("cat", 11));
 		createBox11.setDictionaryLookup(new Boolean("false"));
-		createBox11.setMaxCardsPerDay(10);
+		createBox11.setMaxCardsPerDay(1);
 		
 		
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox11, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

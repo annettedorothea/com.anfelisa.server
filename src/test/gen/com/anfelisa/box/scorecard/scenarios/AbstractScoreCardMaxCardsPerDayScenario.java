@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.card.getcards.scenarios;
+package com.anfelisa.box.scorecard.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +35,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetCardsUnauthorizedScenario extends BaseScenario {
+public abstract class AbstractScoreCardMaxCardsPerDayScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
@@ -114,42 +114,76 @@ public abstract class AbstractGetCardsUnauthorizedScenario extends BaseScenario 
 		com.anfelisa.card.ActionCalls.callCreateCard(createCard7, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200416 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		com.anfelisa.box.data.ScheduledCardsData scheduleCards8 = new com.anfelisa.box.data.ScheduledCardsData("sc1");
+		
+			List<String> scheduleCards8CardIds = new ArrayList<String>();
+			scheduleCards8CardIds.add("c1");
+		
+			scheduleCards8CardIds.add("c3");
+		
+			scheduleCards8CardIds.add("c4");
+		
+			
+		scheduleCards8.setCardIds(scheduleCards8CardIds);
+		
+		
+		com.anfelisa.box.ActionCalls.callScheduleCards(scheduleCards8, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		com.anfelisa.box.data.ScoreCardData scoreCard9 = new com.anfelisa.box.data.ScoreCardData("score0");
+		scoreCard9.setBoxId(this.templateStringValue("boxId", 9));
+		scoreCard9.setScoredCardQuality(0);
+		scoreCard9.setScoredCardScheduledCardId(this.templateStringValue("c1-sc1", 9));
+		
+		
+		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard9, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		com.anfelisa.box.data.ScoreCardData scoreCard10 = new com.anfelisa.box.data.ScoreCardData("score0-2");
+		scoreCard10.setBoxId(this.templateStringValue("boxId", 10));
+		scoreCard10.setScoredCardQuality(0);
+		scoreCard10.setScoredCardScheduledCardId(this.templateStringValue("c3-sc1", 10));
+		
+		
+		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard10, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.card.data.CardListData getCards0 = new com.anfelisa.card.data.CardListData(randomUUID());
-		getCards0.setCategoryId(this.templateStringValue("cat1", 0));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		com.anfelisa.box.data.ScoreCardData scoreCard0 = new com.anfelisa.box.data.ScoreCardData("score0-3");
+		scoreCard0.setBoxId(this.templateStringValue("boxId", 0));
+		scoreCard0.setScoredCardQuality(0);
+		scoreCard0.setScoredCardScheduledCardId(this.templateStringValue("c4-sc1", 0));
 		
 		
 		return 
-		com.anfelisa.card.ActionCalls.callGetCards(getCards0, DROPWIZARD.getLocalPort(), null);
+		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard0, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 	}
 	
-	private com.anfelisa.card.data.GetCardsResponse then(Response response) throws Exception {
-		assertThat(response.getStatus(), 401);
+	private void then(Response response) throws Exception {
+		assertThat(response.getStatus(), 200);
 		
-		com.anfelisa.card.data.GetCardsResponse actual = null;
-		try {
-			actual = response.readEntity(com.anfelisa.card.data.GetCardsResponse.class);
-		} catch (Exception x) {
-		}
 			
-			return actual;
 				}
 				
 				@Test
-				public void getCardsUnauthorized() throws Exception {
+				public void scoreCardMaxCardsPerDay() throws Exception {
 					given();
 					
 					Response response = when();
 			
-					com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
+					then(response);
 					
-					verifications(actualResponse);
+					verifications();
 			}
 			
-			protected abstract void verifications(com.anfelisa.card.data.GetCardsResponse response);
+			protected abstract void verifications();
 			
 			}
 			

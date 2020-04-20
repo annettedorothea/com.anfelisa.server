@@ -65,7 +65,7 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 		com.anfelisa.box.data.BoxCreationData createBox2 = new com.anfelisa.box.data.BoxCreationData("boxId");
 		createBox2.setCategoryName(this.templateStringValue("cat", 2));
 		createBox2.setDictionaryLookup(new Boolean("false"));
-		createBox2.setMaxCardsPerDay(10);
+		createBox2.setMaxCardsPerDay(1);
 		
 		
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

@@ -25,12 +25,13 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
-		IScheduledCardModel scheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(readonlyHandle, 
+		IScheduledCardModel scheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(
+				readonlyHandle,
 				commandData.getScoredCardScheduledCardId());
 		if (scheduledCard == null) {
 			throwBadRequest("card does not exist");
 		}
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle,  scheduledCard.getBoxId());
+		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, scheduledCard.getBoxId());
 		if (!commandData.getUserId().equals(box.getUserId())) {
 			throwUnauthorized();
 		}
@@ -52,7 +53,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 			}
 		}
 
-		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByScheduledCardId(readonlyHandle, 
+		IReinforceCardModel reinforceCard = daoProvider.getReinforceCardDao().selectByScheduledCardId(readonlyHandle,
 				scheduledCard.getScheduledCardId());
 		if (quality <= 3 && reinforceCard == null) {
 			this.commandData.setOutcome(scoreAndReinforce);
@@ -70,21 +71,13 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		}
 		DateTime newTime = this.commandData.getSystemTime().plusDays(newInterval);
 		if (box.getMaxCardsPerDay() != null) {
-			if (scheduledCard.getScheduledDate().isAfter(commandData.getSystemTime())) {
-				newTime = scheduledCard.getScheduledDate().plusDays(newInterval);
-			} else {
-				newTime = commandData.getSystemTime().plusDays(newInterval);
-			}
-			Integer cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(readonlyHandle,  box.getBoxId(),
+			newTime = commandData.getSystemTime().plusDays(newInterval);
+			Integer cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(readonlyHandle, box.getBoxId(),
 					newTime.withTimeAtStartOfDay(), newTime.plusDays(1).withTimeAtStartOfDay());
 			while (cardCount >= box.getMaxCardsPerDay()) {
 				newInterval += 1;
-				if (scheduledCard.getScheduledDate().isAfter(commandData.getSystemTime())) {
-					newTime = scheduledCard.getScheduledDate().plusDays(newInterval);
-				} else {
-					newTime = commandData.getSystemTime().plusDays(newInterval);
-				}
-				cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(readonlyHandle,  box.getBoxId(),
+				newTime = commandData.getSystemTime().plusDays(newInterval);
+				cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(readonlyHandle, box.getBoxId(),
 						newTime.withTimeAtStartOfDay(), newTime.plusDays(1).withTimeAtStartOfDay());
 			}
 		}
