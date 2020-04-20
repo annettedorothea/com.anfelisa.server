@@ -34,7 +34,6 @@ public class ReinforceCardView implements IReinforceCardView {
 		for (String cardId : data.getOutdatedReinforceCardsIds()) {
 			daoProvider.getReinforceCardDao().deleteByScheduledCardId(handle, cardId);
 		}
-		
 	}
 
 	@Override

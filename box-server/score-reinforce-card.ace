@@ -1,0 +1,129 @@
+HttpServer 
+
+com.anfelisa.box.scorereinforcecard
+
+scenarios 
+	ScoreReinforceCard0
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.ScoreReinforceCard
+				uuid "1"
+				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 0
+					reinforceCardId: "score0"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		
+	ScoreReinforceCard1
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.ScoreReinforceCard
+				uuid "1"
+				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 1
+					reinforceCardId: "score0"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		
+	ScoreReinforceCard2
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.ScoreReinforceCard
+				uuid "1"
+				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 2
+					reinforceCardId: "score0"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		
+	ScoreReinforceCard3
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.ScoreReinforceCard
+				uuid "1"
+				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 3
+					reinforceCardId: "score0"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		
+	ScoreReinforceCard4
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.ScoreReinforceCard
+				uuid "1"
+				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 4
+					reinforceCardId: "score0"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		
+	ScoreReinforceCard5
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.ScoreReinforceCard
+				uuid "1"
+				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 5
+					reinforceCardId: "score0"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		
+	ScoreReinforceCardNotMyCard
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.box.ScoreReinforceCard
+				uuid "1"
+				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 5
+					reinforceCardId: "score0"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+		
+	ScoreReinforceCardUnauthorized
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.ScoreReinforceCard
+				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 5
+					reinforceCardId: "score0"
+				}
+		THEN 401
+		
+	ScoreReinforceCardDoesNotExist
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.ScoreReinforceCard
+				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 5
+					reinforceCardId: "xx"
+				}
+				authorization "Annette" : "password"
+		THEN 400
+		

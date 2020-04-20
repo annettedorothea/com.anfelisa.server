@@ -23,6 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.box.data.IScoreReinforceCardData;
+import com.anfelisa.box.models.IBoxModel;
+import com.anfelisa.box.models.IReinforceCardModel;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -40,6 +42,14 @@ public class ScoreReinforceCardCommand extends AbstractScoreReinforceCardCommand
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
+		IReinforceCardModel reinforceCard = this.daoProvider.getReinforceCardDao().selectByReinforceCardId(readonlyHandle, commandData.getReinforceCardId());
+		if (reinforceCard == null) {
+			throwBadRequest("card does not exist");
+		}
+		IBoxModel box = this.daoProvider.getBoxDao().selectByBoxId(readonlyHandle, reinforceCard.getBoxId());
+		if (!box.getUserId().equals(this.commandData.getUserId())) {
+			throwUnauthorized();
+		}
 		if (this.commandData.getScoredCardQuality() > 3) {
 			this.commandData.setOutcome(remove);
 		} else {
