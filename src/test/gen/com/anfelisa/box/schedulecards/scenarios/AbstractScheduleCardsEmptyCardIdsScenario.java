@@ -26,6 +26,7 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
@@ -114,7 +115,7 @@ public abstract class AbstractScheduleCardsEmptyCardIdsScenario extends BaseScen
 		com.anfelisa.card.ActionCalls.callCreateCard(createCard7, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200416 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200416 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		com.anfelisa.box.data.ScheduledCardsData scheduleCards8 = new com.anfelisa.box.data.ScheduledCardsData("sc1");
 		
 			List<String> scheduleCards8CardIds = new ArrayList<String>();
@@ -134,7 +135,7 @@ public abstract class AbstractScheduleCardsEmptyCardIdsScenario extends BaseScen
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200417 12:20", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200417 12:20", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		com.anfelisa.box.data.ScheduledCardsData scheduleCards0 = new com.anfelisa.box.data.ScheduledCardsData("sc1");
 		
 			List<String> scheduleCards0CardIds = new ArrayList<String>();

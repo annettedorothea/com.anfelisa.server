@@ -16,17 +16,12 @@
 
 package com.anfelisa.box.createbox.scenarios;
 
-import javax.ws.rs.core.Response;
-
-import com.anfelisa.auth.Roles;
 import com.anfelisa.box.models.BoxModel;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.category.models.CategoryModel;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 import com.anfelisa.category.models.UserAccessToCategoryModel;
-import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserModel;
 
 @SuppressWarnings("unused")
 public class CreateBoxMinimalScenario extends AbstractCreateBoxMinimalScenario {

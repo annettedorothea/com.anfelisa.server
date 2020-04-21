@@ -19,8 +19,6 @@
 
 package com.anfelisa.card.getcards.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class GetCardsNoAccessToCategoryScenario extends AbstractGetCardsNoAccessToCategoryScenario {
 

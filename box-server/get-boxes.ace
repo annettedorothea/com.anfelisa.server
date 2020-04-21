@@ -1,0 +1,35 @@
+HttpServer 
+
+com.anfelisa.box.getboxes
+
+
+scenarios 
+	GetBoxes
+	GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.box.scorecard.ScoreCard1
+			com.anfelisa.box.scorecard.ScoreCard5
+		WHEN
+			com.anfelisa.box.GetBoxes
+				{
+					today: "20200420 18:30" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				boxList: [
+					{
+						allTodaysCards: 3
+						boxId: "boxId"
+						categoryId: "cat1"
+						categoryName: ""
+						openTodaysCards: 3
+						quality0Count: 1
+						quality1Count: 1
+						quality2Count: 0
+						quality3Count: 0
+						quality4Count: 0
+						quality5Count: 1
+					}
+				]
+			}		

@@ -19,8 +19,6 @@
 
 package com.anfelisa.card.updatecard.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class UpdateCardWantedNullScenario extends AbstractUpdateCardWantedNullScenario {
 

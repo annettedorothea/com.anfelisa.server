@@ -26,6 +26,7 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
@@ -79,7 +80,7 @@ public abstract class AbstractScheduleCardsCombineIdsScenario extends BaseScenar
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200416 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200416 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		com.anfelisa.box.data.ScheduledCardsData scheduleCards0 = new com.anfelisa.box.data.ScheduledCardsData("abcdefghi-abcdefghi-abcdefghi-abcdefghi-abcdefghi");
 		
 			List<String> scheduleCards0CardIds = new ArrayList<String>();

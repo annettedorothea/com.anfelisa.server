@@ -19,8 +19,6 @@
 
 package com.anfelisa.card.getduplicates.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class GetDuplicatesLimitScenario extends AbstractGetDuplicatesLimitScenario {
 

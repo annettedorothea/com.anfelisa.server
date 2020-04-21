@@ -32,7 +32,7 @@ public class ScheduledCardsMapper implements RowMapper<IScheduledCardsModel> {
 			null,
 			null,
 			null,
-			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")) : null,
+			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")).withZone(org.joda.time.DateTimeZone.UTC) : null,
 			r.getString("userId"),
 			r.getString("boxId")
 		);

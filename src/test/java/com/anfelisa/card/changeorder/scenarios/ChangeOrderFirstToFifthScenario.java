@@ -16,8 +16,6 @@
 
 package com.anfelisa.card.changeorder.scenarios;
 
-import javax.ws.rs.core.Response;
-
 import com.anfelisa.card.models.CardModel;
 import com.anfelisa.card.models.ICardModel;
 

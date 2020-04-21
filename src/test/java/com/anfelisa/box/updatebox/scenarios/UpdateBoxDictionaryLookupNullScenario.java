@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.updatebox.scenarios;
 
-import javax.ws.rs.core.Response;
-
 import com.anfelisa.box.models.BoxModel;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.category.models.CategoryModel;

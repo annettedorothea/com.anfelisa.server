@@ -19,8 +19,6 @@
 
 package com.anfelisa.card.deletecard.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class DeleteCardCardDoesNotExistScenario extends AbstractDeleteCardCardDoesNotExistScenario {
 

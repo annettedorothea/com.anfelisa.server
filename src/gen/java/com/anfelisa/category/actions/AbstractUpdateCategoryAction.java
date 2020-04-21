@@ -136,7 +136,7 @@ public abstract class AbstractUpdateCategoryAction extends Action<ICategoryUpdat
 					}
 				}
 				
-				this.actionData.setSystemTime(new DateTime());
+				this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());

@@ -19,10 +19,7 @@
 
 package com.anfelisa.user.registeruser.scenarios;
 
-import javax.ws.rs.core.Response;
-
 import com.anfelisa.auth.Roles;
-import com.anfelisa.user.actions.RegisterUserAction;
 import com.anfelisa.user.models.EmailConfirmationModel;
 import com.anfelisa.user.models.IEmailConfirmationModel;
 import com.anfelisa.user.models.IUserModel;

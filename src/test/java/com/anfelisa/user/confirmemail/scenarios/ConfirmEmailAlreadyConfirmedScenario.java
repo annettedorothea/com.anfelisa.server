@@ -19,8 +19,6 @@
 
 package com.anfelisa.user.confirmemail.scenarios;
 
-import javax.ws.rs.core.Response;
-
 import com.anfelisa.auth.Roles;
 import com.anfelisa.user.models.IEmailConfirmationModel;
 import com.anfelisa.user.models.IUserModel;

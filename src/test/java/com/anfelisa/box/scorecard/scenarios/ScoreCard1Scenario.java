@@ -22,6 +22,7 @@ package com.anfelisa.box.scorecard.scenarios;
 import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import com.anfelisa.box.models.IReinforceCardModel;
 import com.anfelisa.box.models.IScheduledCardModel;
@@ -33,26 +34,26 @@ public class ScoreCard1Scenario extends AbstractScoreCard1Scenario {
 
 	@Override
 	protected void verifications() {
-		DateTime scoredDateTime = new DateTime(2020, 4, 18, 16, 30);
+		DateTime scoredDateTime = new DateTime(2020, 4, 18, 16, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"score1");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score1", "c1", "boxId",
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score1", "c3", "boxId",
 				scoredDateTime, 2.5F, 1, 1, 1, scoredDateTime.plusDays(1), 1, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 		
-		DateTime dateTime = new DateTime(2020, 4, 16, 10, 30);
+		DateTime dateTime = new DateTime(2020, 4, 16, 10, 30).withZone(DateTimeZone.UTC);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"c1-sc1");
-		expectedScheduledCard = new ScheduledCardModel("c1-sc1", "c1", "boxId",
+				"c3-sc1");
+		expectedScheduledCard = new ScheduledCardModel("c3-sc1", "c3", "boxId",
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, 1,
 				scoredDateTime);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 		
-		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-sc1");
-		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score1", "c1-sc1", "boxId", scoredDateTime);
+		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c3-sc1");
+		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score1", "c3-sc1", "boxId", scoredDateTime);
 		assertThat(actualReinforceCard, expectedReinforceCard);
 	}
 

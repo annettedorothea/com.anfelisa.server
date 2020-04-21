@@ -22,6 +22,7 @@ package com.anfelisa.box.scorereinforcecard.scenarios;
 import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import com.anfelisa.box.models.IReinforceCardModel;
 import com.anfelisa.box.models.ReinforceCardModel;
@@ -31,7 +32,7 @@ public class ScoreReinforceCard2Scenario extends AbstractScoreReinforceCard2Scen
 
 	@Override
 	protected void verifications() {
-		DateTime scoredDateTime = new DateTime(2020, 4, 18, 16, 40);
+		DateTime scoredDateTime = new DateTime(2020, 4, 18, 16, 40).withZone(DateTimeZone.UTC);
 		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-sc1");
 		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score0", "c1-sc1", "boxId", scoredDateTime);
 		assertThat(actualReinforceCard, expectedReinforceCard);

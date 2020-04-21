@@ -21,7 +21,6 @@ package com.anfelisa.card.createcard.scenarios;
 
 import com.anfelisa.card.models.CardModel;
 import com.anfelisa.card.models.ICardModel;
-import com.anfelisa.category.models.ICategoryModel;
 
 @SuppressWarnings("unused")
 public class CreateCardScenario extends AbstractCreateCardScenario {

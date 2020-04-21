@@ -19,8 +19,6 @@
 
 package com.anfelisa.card.createcard.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class CreateCardWantedEmptyScenario extends AbstractCreateCardWantedEmptyScenario {
 

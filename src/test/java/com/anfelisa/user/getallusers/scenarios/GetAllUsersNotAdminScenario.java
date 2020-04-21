@@ -19,8 +19,6 @@
 
 package com.anfelisa.user.getallusers.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class GetAllUsersNotAdminScenario extends AbstractGetAllUsersNotAdminScenario {
 

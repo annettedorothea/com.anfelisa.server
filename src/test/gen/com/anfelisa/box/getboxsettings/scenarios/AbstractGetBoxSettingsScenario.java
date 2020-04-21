@@ -26,6 +26,7 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
@@ -83,7 +84,7 @@ public abstract class AbstractGetBoxSettingsScenario extends BaseScenario {
 		expectedData.setCategoryId(this.templateStringValue("boxId", null));
 		expectedData.setCategoryName(this.templateStringValue("cat", null));
 		expectedData.setDictionaryLookup(new Boolean("false"));
-		expectedData.setMaxCardsPerDay(10);
+		expectedData.setMaxCardsPerDay(1);
 		
 		
 		com.anfelisa.box.data.GetBoxSettingsResponse expected = new com.anfelisa.box.data.GetBoxSettingsResponse(expectedData);

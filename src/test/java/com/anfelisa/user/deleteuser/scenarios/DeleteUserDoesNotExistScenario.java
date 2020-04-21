@@ -19,8 +19,6 @@
 
 package com.anfelisa.user.deleteuser.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class DeleteUserDoesNotExistScenario extends AbstractDeleteUserDoesNotExistScenario {
 

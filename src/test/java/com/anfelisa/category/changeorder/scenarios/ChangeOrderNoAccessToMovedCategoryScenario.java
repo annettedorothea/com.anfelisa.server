@@ -19,8 +19,6 @@
 
 package com.anfelisa.category.changeorder.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class ChangeOrderNoAccessToMovedCategoryScenario extends AbstractChangeOrderNoAccessToMovedCategoryScenario {
 

@@ -22,6 +22,7 @@ package com.anfelisa.box.scorecard.scenarios;
 import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import com.anfelisa.box.models.IReinforceCardModel;
 import com.anfelisa.box.models.IScheduledCardModel;
@@ -33,25 +34,25 @@ public class ScoreCard5Scenario extends AbstractScoreCard5Scenario {
 
 	@Override
 	protected void verifications() {
-		DateTime scoredDateTime = new DateTime(2020, 4, 18, 16, 30);
+		DateTime scoredDateTime = new DateTime(2020, 4, 18, 16, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"score5");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score5", "c1", "boxId",
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score5", "c4", "boxId",
 				scoredDateTime, 2.6F, 6, 2, 1, scoredDateTime.plusDays(6), 5, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 		
-		DateTime dateTime = new DateTime(2020, 4, 16, 10, 30);
+		DateTime dateTime = new DateTime(2020, 4, 16, 10, 30).withZone(DateTimeZone.UTC);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"c1-sc1");
-		expectedScheduledCard = new ScheduledCardModel("c1-sc1", "c1", "boxId",
+				"c4-sc1");
+		expectedScheduledCard = new ScheduledCardModel("c4-sc1", "c4", "boxId",
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, 5,
 				scoredDateTime);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 		
-		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-sc1");
+		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c4-sc1");
 		assertIsNull(actualReinforceCard);
 	}
 

@@ -26,6 +26,7 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
@@ -117,7 +118,7 @@ public abstract class AbstractScheduleCardsUnauthorizedScenario extends BaseScen
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200417 12:20", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200417 12:20", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		com.anfelisa.box.data.ScheduledCardsData scheduleCards0 = new com.anfelisa.box.data.ScheduledCardsData("sc1");
 		
 			List<String> scheduleCards0CardIds = new ArrayList<String>();

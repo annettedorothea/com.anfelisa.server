@@ -19,8 +19,6 @@
 
 package com.anfelisa.user.forgotpassword.scenarios;
 
-import javax.ws.rs.core.Response;
-
 import com.anfelisa.user.models.IResetPasswordModel;
 
 @SuppressWarnings("unused")

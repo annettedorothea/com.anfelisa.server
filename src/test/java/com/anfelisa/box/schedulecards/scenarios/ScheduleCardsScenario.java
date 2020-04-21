@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.ScheduledCardModel;
@@ -31,7 +32,7 @@ public class ScheduleCardsScenario extends AbstractScheduleCardsScenario {
 
 	@Override
 	protected void verifications() {
-		DateTime dateTime = new DateTime(2020, 4, 16, 10, 30);
+		DateTime dateTime = new DateTime(2020, 4, 16, 10, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByCardIdAndBoxId(handle,
 				"c1", "boxId");

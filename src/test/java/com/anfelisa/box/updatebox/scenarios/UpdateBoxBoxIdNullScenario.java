@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.updatebox.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class UpdateBoxBoxIdNullScenario extends AbstractUpdateBoxBoxIdNullScenario {
 

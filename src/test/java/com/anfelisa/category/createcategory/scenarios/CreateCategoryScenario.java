@@ -19,8 +19,6 @@
 
 package com.anfelisa.category.createcategory.scenarios;
 
-import javax.ws.rs.core.Response;
-
 import com.anfelisa.category.models.CategoryModel;
 import com.anfelisa.category.models.ICategoryModel;
 

@@ -19,8 +19,6 @@
 
 package com.anfelisa.category.updatecategory.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class UpdateCategoryDoesNotExistScenario extends AbstractUpdateCategoryDoesNotExistScenario {
 

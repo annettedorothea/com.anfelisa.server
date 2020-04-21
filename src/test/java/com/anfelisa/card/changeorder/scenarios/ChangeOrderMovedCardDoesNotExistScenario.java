@@ -19,8 +19,6 @@
 
 package com.anfelisa.card.changeorder.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class ChangeOrderMovedCardDoesNotExistScenario extends AbstractChangeOrderMovedCardDoesNotExistScenario {
 

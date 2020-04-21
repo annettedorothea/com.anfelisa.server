@@ -19,6 +19,7 @@ package com.anfelisa.box.scorecard.scenarios;
 import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import com.anfelisa.box.models.IReinforceCardModel;
 import com.anfelisa.box.models.IScheduledCardModel;
@@ -30,7 +31,7 @@ public class ScoreCard0DoesNotReinforceTwiceScenario extends AbstractScoreCard0D
 
 	@Override
 	protected void verifications() {
-		DateTime scoredDateTime = new DateTime(2020, 4, 19, 16, 30);
+		DateTime scoredDateTime = new DateTime(2020, 4, 19, 16, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"score01");
@@ -39,7 +40,7 @@ public class ScoreCard0DoesNotReinforceTwiceScenario extends AbstractScoreCard0D
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
-		DateTime dateTime = new DateTime(2020, 4, 18, 16, 30);
+		DateTime dateTime = new DateTime(2020, 4, 18, 16, 30).withZone(DateTimeZone.UTC);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"score0");

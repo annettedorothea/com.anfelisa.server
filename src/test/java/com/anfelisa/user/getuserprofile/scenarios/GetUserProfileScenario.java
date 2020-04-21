@@ -19,8 +19,6 @@
 
 package com.anfelisa.user.getuserprofile.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class GetUserProfileScenario extends AbstractGetUserProfileScenario {
 

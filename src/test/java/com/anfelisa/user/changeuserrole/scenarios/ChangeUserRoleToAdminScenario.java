@@ -19,8 +19,6 @@
 
 package com.anfelisa.user.changeuserrole.scenarios;
 
-import javax.ws.rs.core.Response;
-
 import com.anfelisa.auth.Roles;
 import com.anfelisa.user.models.IUserModel;
 import com.anfelisa.user.models.UserModel;

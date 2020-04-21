@@ -19,8 +19,6 @@
 
 package com.anfelisa.card.updatecard.scenarios;
 
-import javax.ws.rs.core.Response;
-
 import com.anfelisa.card.models.CardModel;
 import com.anfelisa.card.models.ICardModel;
 

@@ -17,7 +17,7 @@ scenarios
 				categoryId: "boxId"
 				categoryName: "cat"
 				dictionaryLookup: "false"
-				maxCardsPerDay: 10
+				maxCardsPerDay: 1
 			}		
 
 	GetBoxSettingsWithDictionaryLookup

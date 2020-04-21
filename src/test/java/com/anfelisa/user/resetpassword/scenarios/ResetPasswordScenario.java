@@ -19,8 +19,6 @@
 
 package com.anfelisa.user.resetpassword.scenarios;
 
-import javax.ws.rs.core.Response;
-
 import com.anfelisa.auth.Roles;
 import com.anfelisa.user.models.IResetPasswordModel;
 import com.anfelisa.user.models.IUserModel;

@@ -19,8 +19,6 @@
 
 package com.anfelisa.category.deletecategory.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class DeleteRootCategoryScenario extends AbstractDeleteRootCategoryScenario {
 

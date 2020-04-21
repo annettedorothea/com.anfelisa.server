@@ -19,8 +19,6 @@
 
 package com.anfelisa.category.movecategory.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class MoveCategoryToSubScenario extends AbstractMoveCategoryToSubScenario {
 

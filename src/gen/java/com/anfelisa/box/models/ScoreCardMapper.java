@@ -31,18 +31,18 @@ public class ScoreCardMapper implements RowMapper<IScoreCardModel> {
 		return new ScoreCardModel(
 			r.getString("cardId"),
 			r.getString("nextScheduledCardScheduledCardId"),
-			r.getTimestamp("nextScheduledCardCreatedDate") != null ? new org.joda.time.DateTime(r.getTimestamp("nextScheduledCardCreatedDate")) : null,
+			r.getTimestamp("nextScheduledCardCreatedDate") != null ? new org.joda.time.DateTime(r.getTimestamp("nextScheduledCardCreatedDate")).withZone(org.joda.time.DateTimeZone.UTC) : null,
 			r.getFloat("nextScheduledCardEf"),
 			r.getObject("nextScheduledCardInterval") != null ? r.getInt("nextScheduledCardInterval") : null,
 			r.getObject("nextScheduledCardN") != null ? r.getInt("nextScheduledCardN") : null,
 			r.getObject("nextScheduledCardCount") != null ? r.getInt("nextScheduledCardCount") : null,
-			r.getTimestamp("nextScheduledCardScheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("nextScheduledCardScheduledDate")) : null,
+			r.getTimestamp("nextScheduledCardScheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("nextScheduledCardScheduledDate")).withZone(org.joda.time.DateTimeZone.UTC) : null,
 			r.getObject("nextScheduledCardLastQuality") != null ? r.getInt("nextScheduledCardLastQuality") : null,
 			r.getString("scoredCardScheduledCardId"),
 			r.getObject("scoredCardQuality") != null ? r.getInt("scoredCardQuality") : null,
-			r.getTimestamp("scoredCardScoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredCardScoredDate")) : null,
+			r.getTimestamp("scoredCardScoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredCardScoredDate")).withZone(org.joda.time.DateTimeZone.UTC) : null,
 			r.getString("reinforceCardId"),
-			r.getTimestamp("reinforceCardCreatedDate") != null ? new org.joda.time.DateTime(r.getTimestamp("reinforceCardCreatedDate")) : null,
+			r.getTimestamp("reinforceCardCreatedDate") != null ? new org.joda.time.DateTime(r.getTimestamp("reinforceCardCreatedDate")).withZone(org.joda.time.DateTimeZone.UTC) : null,
 			r.getString("userId"),
 			r.getString("boxId")
 		);

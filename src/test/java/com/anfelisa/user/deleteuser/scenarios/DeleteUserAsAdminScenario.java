@@ -19,8 +19,6 @@
 
 package com.anfelisa.user.deleteuser.scenarios;
 
-import javax.ws.rs.core.Response;
-
 import com.anfelisa.user.models.IUserModel;
 
 @SuppressWarnings("unused")

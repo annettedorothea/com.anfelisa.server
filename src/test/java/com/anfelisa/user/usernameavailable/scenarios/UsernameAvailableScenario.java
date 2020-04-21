@@ -19,8 +19,6 @@
 
 package com.anfelisa.user.usernameavailable.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class UsernameAvailableScenario extends AbstractUsernameAvailableScenario {
 

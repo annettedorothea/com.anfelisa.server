@@ -19,8 +19,6 @@
 
 package com.anfelisa.card.importcsv.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class ImportCsvCategoryDoesNotExistScenario extends AbstractImportCsvCategoryDoesNotExistScenario {
 

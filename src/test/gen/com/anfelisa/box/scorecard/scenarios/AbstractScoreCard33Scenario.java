@@ -26,6 +26,7 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
@@ -114,7 +115,7 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 		com.anfelisa.card.ActionCalls.callCreateCard(createCard7, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200416 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200416 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		com.anfelisa.box.data.ScheduledCardsData scheduleCards8 = new com.anfelisa.box.data.ScheduledCardsData("sc1");
 		
 			List<String> scheduleCards8CardIds = new ArrayList<String>();
@@ -131,7 +132,7 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 		com.anfelisa.box.ActionCalls.callScheduleCards(scheduleCards8, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		com.anfelisa.box.data.ScoreCardData scoreCard9 = new com.anfelisa.box.data.ScoreCardData("score3");
 		scoreCard9.setBoxId(this.templateStringValue("boxId", 9));
 		scoreCard9.setScoredCardQuality(3);
@@ -162,7 +163,7 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 		com.anfelisa.box.ActionCalls.callUpdateBox(updateBox11, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200425 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200425 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		com.anfelisa.box.data.ScoreCardData scoreCard12 = new com.anfelisa.box.data.ScoreCardData("score31");
 		scoreCard12.setBoxId(this.templateStringValue("boxId", 12));
 		scoreCard12.setScoredCardQuality(3);
@@ -172,7 +173,7 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard12, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200515 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200515 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		com.anfelisa.box.data.ScoreCardData scoreCard13 = new com.anfelisa.box.data.ScoreCardData("score32");
 		scoreCard13.setBoxId(this.templateStringValue("boxId", 13));
 		scoreCard13.setScoredCardQuality(3);
@@ -185,7 +186,7 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200615 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200615 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		com.anfelisa.box.data.ScoreCardData scoreCard0 = new com.anfelisa.box.data.ScoreCardData("score33");
 		scoreCard0.setBoxId(this.templateStringValue("boxId", 0));
 		scoreCard0.setScoredCardQuality(4);

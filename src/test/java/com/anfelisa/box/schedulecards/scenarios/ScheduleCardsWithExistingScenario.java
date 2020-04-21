@@ -19,6 +19,7 @@ package com.anfelisa.box.schedulecards.scenarios;
 import javax.ws.rs.core.Response;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.ScheduledCardModel;
@@ -28,7 +29,7 @@ public class ScheduleCardsWithExistingScenario extends AbstractScheduleCardsWith
 
 	@Override
 	protected void verifications() {
-		DateTime dateTime = new DateTime(2020, 4, 17, 12, 20);
+		DateTime dateTime = new DateTime(2020, 4, 17, 12, 20).withZone(DateTimeZone.UTC);
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByCardIdAndBoxId(handle,
 				"c2", "boxId");
 		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c2-sc1", "c2", "boxId",
@@ -42,7 +43,7 @@ public class ScheduleCardsWithExistingScenario extends AbstractScheduleCardsWith
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
-		dateTime = new DateTime(2020, 4, 16, 10, 30);
+		dateTime = new DateTime(2020, 4, 16, 10, 30).withZone(DateTimeZone.UTC);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByCardIdAndBoxId(handle,
 				"c1", "boxId");

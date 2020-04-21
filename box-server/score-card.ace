@@ -28,7 +28,7 @@ scenarios
 				{
 					boxId: "boxId"
 					scoredCardQuality: 1
-					scoredCardScheduledCardId: "c1-sc1"
+					scoredCardScheduledCardId: "c3-sc1"
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -88,7 +88,7 @@ scenarios
 				{
 					boxId: "boxId"
 					scoredCardQuality: 5
-					scoredCardScheduledCardId: "c1-sc1"
+					scoredCardScheduledCardId: "c4-sc1"
 				}
 				authorization "Annette" : "password"
 		THEN 200
