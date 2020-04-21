@@ -12,8 +12,6 @@ import com.anfelisa.user.views.EmailView;
 import com.anfelisa.user.views.ResetPasswordView;
 import com.anfelisa.user.views.UserView;
 
-import de.acegen.AbstractViewProvider;
-
 public class ViewProvider extends AbstractViewProvider {
 
 	public BoxView boxView;

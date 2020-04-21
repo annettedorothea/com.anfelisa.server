@@ -16,16 +16,11 @@
 
 package com.anfelisa.box.schedulecards.scenarios;
 
-import static org.junit.Assert.assertEquals;
-
-import javax.ws.rs.core.Response;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.ScheduledCardModel;
-import com.anfelisa.category.models.ICategoryModel;
 
 @SuppressWarnings("unused")
 public class ScheduleCardsScenario extends AbstractScheduleCardsScenario {

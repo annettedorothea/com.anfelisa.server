@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.scorereinforcecard.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class ScoreReinforceCardDoesNotExistScenario extends AbstractScoreReinforceCardDoesNotExistScenario {
 

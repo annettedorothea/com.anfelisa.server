@@ -10,9 +10,6 @@ import com.anfelisa.user.models.EmailConfirmationDao;
 import com.anfelisa.user.models.ResetPasswordDao;
 import com.anfelisa.user.models.UserDao;
 
-import de.acegen.AceDao;
-import de.acegen.PersistenceHandle;
-
 public interface IDaoProvider {
 
 	CardDao getCardDao();

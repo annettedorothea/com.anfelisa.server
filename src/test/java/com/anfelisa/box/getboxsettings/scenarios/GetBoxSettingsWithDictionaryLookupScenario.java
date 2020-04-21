@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.getboxsettings.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class GetBoxSettingsWithDictionaryLookupScenario extends AbstractGetBoxSettingsWithDictionaryLookupScenario {
 

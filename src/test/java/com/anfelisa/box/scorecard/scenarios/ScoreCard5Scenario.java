@@ -19,14 +19,11 @@
 
 package com.anfelisa.box.scorecard.scenarios;
 
-import javax.ws.rs.core.Response;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 import com.anfelisa.box.models.IReinforceCardModel;
 import com.anfelisa.box.models.IScheduledCardModel;
-import com.anfelisa.box.models.ReinforceCardModel;
 import com.anfelisa.box.models.ScheduledCardModel;
 
 @SuppressWarnings("unused")

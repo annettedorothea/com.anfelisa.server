@@ -5,8 +5,6 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import de.acegen.AppConfiguration;
-
 public class CustomAppConfiguration extends AppConfiguration {
 
 	@Valid

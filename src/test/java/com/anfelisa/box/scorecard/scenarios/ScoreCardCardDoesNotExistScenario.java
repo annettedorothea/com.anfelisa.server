@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.scorecard.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class ScoreCardCardDoesNotExistScenario extends AbstractScoreCardCardDoesNotExistScenario {
 

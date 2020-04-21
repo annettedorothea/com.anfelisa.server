@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.scorereinforcecard.scenarios;
 
-import javax.ws.rs.core.Response;
-
 import com.anfelisa.box.models.IReinforceCardModel;
 
 @SuppressWarnings("unused")

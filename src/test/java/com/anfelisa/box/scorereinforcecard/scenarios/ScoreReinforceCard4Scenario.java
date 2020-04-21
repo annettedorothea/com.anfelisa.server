@@ -19,12 +19,7 @@
 
 package com.anfelisa.box.scorereinforcecard.scenarios;
 
-import javax.ws.rs.core.Response;
-
-import org.joda.time.DateTime;
-
 import com.anfelisa.box.models.IReinforceCardModel;
-import com.anfelisa.box.models.ReinforceCardModel;
 
 @SuppressWarnings("unused")
 public class ScoreReinforceCard4Scenario extends AbstractScoreReinforceCard4Scenario {

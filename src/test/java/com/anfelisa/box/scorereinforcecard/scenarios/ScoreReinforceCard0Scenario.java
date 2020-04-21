@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.scorereinforcecard.scenarios;
 
-import javax.ws.rs.core.Response;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
