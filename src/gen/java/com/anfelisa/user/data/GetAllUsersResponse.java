@@ -21,6 +21,7 @@ package com.anfelisa.user.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -28,6 +29,7 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 import de.acegen.IDataContainer;
+import de.acegen.DateTimeToStringConverter;
 
 @SuppressWarnings("all")
 public class GetAllUsersResponse implements IGetAllUsersResponse {
@@ -44,9 +46,6 @@ public class GetAllUsersResponse implements IGetAllUsersResponse {
 	@JsonProperty
 	public java.util.List<com.anfelisa.user.models.IUserModel> getUserList() {
 		return this.userList;
-	}
-	public void setUserList(java.util.List<com.anfelisa.user.models.IUserModel> userList) {
-		this.userList = userList;
 	}
 	
 }

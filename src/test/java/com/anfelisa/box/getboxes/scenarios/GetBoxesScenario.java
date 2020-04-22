@@ -26,8 +26,6 @@ public class GetBoxesScenario extends AbstractGetBoxesScenario {
 
 	@Override
 	protected void verifications(GetBoxesResponse response) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

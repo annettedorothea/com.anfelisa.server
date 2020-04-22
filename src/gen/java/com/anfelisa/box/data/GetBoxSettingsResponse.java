@@ -21,6 +21,7 @@ package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -28,6 +29,7 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 import de.acegen.IDataContainer;
+import de.acegen.DateTimeToStringConverter;
 
 @SuppressWarnings("all")
 public class GetBoxSettingsResponse implements IGetBoxSettingsResponse {
@@ -63,56 +65,35 @@ public class GetBoxSettingsResponse implements IGetBoxSettingsResponse {
 	public Integer getMaxCardsPerDay() {
 		return this.maxCardsPerDay;
 	}
-	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
-	}
 	
 	@JsonProperty
 	public Integer getMaxInterval() {
 		return this.maxInterval;
-	}
-	public void setMaxInterval(Integer maxInterval) {
-		this.maxInterval = maxInterval;
 	}
 	
 	@JsonProperty
 	public String getCategoryName() {
 		return this.categoryName;
 	}
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
 	
 	@JsonProperty
 	public Boolean getDictionaryLookup() {
 		return this.dictionaryLookup;
-	}
-	public void setDictionaryLookup(Boolean dictionaryLookup) {
-		this.dictionaryLookup = dictionaryLookup;
 	}
 	
 	@JsonProperty
 	public String getGivenLanguage() {
 		return this.givenLanguage;
 	}
-	public void setGivenLanguage(String givenLanguage) {
-		this.givenLanguage = givenLanguage;
-	}
 	
 	@JsonProperty
 	public String getWantedLanguage() {
 		return this.wantedLanguage;
 	}
-	public void setWantedLanguage(String wantedLanguage) {
-		this.wantedLanguage = wantedLanguage;
-	}
 	
 	@JsonProperty
 	public String getCategoryId() {
 		return this.categoryId;
-	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
 	}
 	
 }

@@ -40,7 +40,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -51,7 +51,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxCreationTestData createBox1 = new com.anfelisa.box.data.BoxCreationTestData("boxId");
+		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
 		createBox1.setCategoryName(this.templateStringValue("cat", 1));
 		createBox1.setDictionaryLookup(new Boolean("false"));
 		createBox1.setMaxCardsPerDay(1);
@@ -60,7 +60,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.category.data.CategoryCreationTestData createCategory2 = new com.anfelisa.category.data.CategoryCreationTestData("cat1");
+		com.anfelisa.category.data.CategoryCreationData createCategory2 = new com.anfelisa.category.data.CategoryCreationData("cat1");
 		createCategory2.setCategoryName(this.templateStringValue("level 1 #1", 2));
 		createCategory2.setParentCategoryId(this.templateStringValue("boxId", 2));
 		
@@ -68,7 +68,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationTestData createCard3 = new com.anfelisa.card.data.CardCreationTestData("c1");
+		com.anfelisa.card.data.CardCreationData createCard3 = new com.anfelisa.card.data.CardCreationData("c1");
 		createCard3.setCategoryId(this.templateStringValue("cat1", 3));
 		createCard3.setGiven(this.templateStringValue("given", 3));
 		createCard3.setImage(this.templateStringValue("image", 3));
@@ -78,7 +78,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		com.anfelisa.card.ActionCalls.callCreateCard(createCard3, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationTestData createCard4 = new com.anfelisa.card.data.CardCreationTestData("c2");
+		com.anfelisa.card.data.CardCreationData createCard4 = new com.anfelisa.card.data.CardCreationData("c2");
 		createCard4.setCategoryId(this.templateStringValue("cat1", 4));
 		createCard4.setGiven(this.templateStringValue("given2", 4));
 		createCard4.setImage(this.templateStringValue("image2", 4));
@@ -88,7 +88,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		com.anfelisa.card.ActionCalls.callCreateCard(createCard4, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationTestData createCard5 = new com.anfelisa.card.data.CardCreationTestData("c3");
+		com.anfelisa.card.data.CardCreationData createCard5 = new com.anfelisa.card.data.CardCreationData("c3");
 		createCard5.setCategoryId(this.templateStringValue("cat1", 5));
 		createCard5.setGiven(this.templateStringValue("3given", 5));
 		createCard5.setWanted(this.templateStringValue("3wanted", 5));
@@ -97,7 +97,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		com.anfelisa.card.ActionCalls.callCreateCard(createCard5, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationTestData createCard6 = new com.anfelisa.card.data.CardCreationTestData("c4");
+		com.anfelisa.card.data.CardCreationData createCard6 = new com.anfelisa.card.data.CardCreationData("c4");
 		createCard6.setCategoryId(this.templateStringValue("cat1", 6));
 		createCard6.setGiven(this.templateStringValue("4given4", 6));
 		createCard6.setWanted(this.templateStringValue("4wanted4", 6));
@@ -106,7 +106,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		com.anfelisa.card.ActionCalls.callCreateCard(createCard6, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationTestData createCard7 = new com.anfelisa.card.data.CardCreationTestData("c5");
+		com.anfelisa.card.data.CardCreationData createCard7 = new com.anfelisa.card.data.CardCreationData("c5");
 		createCard7.setCategoryId(this.templateStringValue("cat1", 7));
 		createCard7.setGiven(this.templateStringValue("different", 7));
 		createCard7.setWanted(this.templateStringValue("different", 7));
@@ -116,7 +116,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		
 
 		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200416 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		com.anfelisa.box.data.ScheduledCardsTestData scheduleCards8 = new com.anfelisa.box.data.ScheduledCardsTestData("sc1");
+		com.anfelisa.box.data.ScheduledCardsData scheduleCards8 = new com.anfelisa.box.data.ScheduledCardsData("sc1");
 		
 			List<String> scheduleCards8CardIds = new ArrayList<String>();
 			scheduleCards8CardIds.add("c1");
@@ -133,7 +133,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		
 
 		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		com.anfelisa.box.data.ScoreCardTestData scoreCard9 = new com.anfelisa.box.data.ScoreCardTestData("score0");
+		com.anfelisa.box.data.ScoreCardData scoreCard9 = new com.anfelisa.box.data.ScoreCardData("score0");
 		scoreCard9.setBoxId(this.templateStringValue("boxId", 9));
 		scoreCard9.setScoredCardQuality(0);
 		scoreCard9.setScoredCardScheduledCardId(this.templateStringValue("c1-sc1", 9));
@@ -143,7 +143,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		
 
 		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		com.anfelisa.box.data.ScoreCardTestData scoreCard10 = new com.anfelisa.box.data.ScoreCardTestData("score1");
+		com.anfelisa.box.data.ScoreCardData scoreCard10 = new com.anfelisa.box.data.ScoreCardData("score1");
 		scoreCard10.setBoxId(this.templateStringValue("boxId", 10));
 		scoreCard10.setScoredCardQuality(1);
 		scoreCard10.setScoredCardScheduledCardId(this.templateStringValue("c3-sc1", 10));
@@ -153,7 +153,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		
 
 		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		com.anfelisa.box.data.ScoreCardTestData scoreCard11 = new com.anfelisa.box.data.ScoreCardTestData("score5");
+		com.anfelisa.box.data.ScoreCardData scoreCard11 = new com.anfelisa.box.data.ScoreCardData("score5");
 		scoreCard11.setBoxId(this.templateStringValue("boxId", 11));
 		scoreCard11.setScoredCardQuality(5);
 		scoreCard11.setScoredCardScheduledCardId(this.templateStringValue("c4-sc1", 11));
@@ -165,8 +165,8 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.box.data.BoxListTestData getBoxes0 = new com.anfelisa.box.data.BoxListTestData(randomUUID());
-		getBoxes0.setToday(DateTime.parse("20200420 18:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC).toString());
+		com.anfelisa.box.data.BoxListData getBoxes0 = new com.anfelisa.box.data.BoxListData(randomUUID());
+		getBoxes0.setToday(DateTime.parse("20200420 18:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		
 		
 		return 

@@ -30,7 +30,7 @@ import org.glassfish.jersey.client.JerseyClientBuilder;
 public class ActionCalls {
 
 	public static Response callCreateBox(
-			com.anfelisa.box.data.BoxCreationTestData data,
+			com.anfelisa.box.data.IBoxCreationData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -40,7 +40,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callUpdateBox(
-			com.anfelisa.box.data.BoxUpdateTestData data, 
+			com.anfelisa.box.data.IBoxUpdateData data, 
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -50,7 +50,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callGetBoxSettings(
-			com.anfelisa.box.data.BoxSettingsWrapperTestData data,
+			com.anfelisa.box.data.IBoxSettingsWrapperData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -60,7 +60,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callScheduleCards(
-			com.anfelisa.box.data.ScheduledCardsTestData data,
+			com.anfelisa.box.data.IScheduledCardsData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -70,7 +70,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callScoreCard(
-			com.anfelisa.box.data.ScoreCardTestData data,
+			com.anfelisa.box.data.IScoreCardData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -80,7 +80,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callScoreReinforceCard(
-			com.anfelisa.box.data.ScoreReinforceCardTestData data,
+			com.anfelisa.box.data.IScoreReinforceCardData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -90,7 +90,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callInitMyBoxesForDay(
-			com.anfelisa.box.data.InitMyBoxesDataTestData data, 
+			com.anfelisa.box.data.IInitMyBoxesDataData data, 
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -100,7 +100,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callGetBoxes(
-			com.anfelisa.box.data.BoxListTestData data,
+			com.anfelisa.box.data.IBoxListData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -110,7 +110,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callLoadNextCard(
-			com.anfelisa.box.data.NextCardTestData data,
+			com.anfelisa.box.data.INextCardData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -120,7 +120,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callDeleteBox(
-			com.anfelisa.box.data.DeleteBoxTestData data,
+			com.anfelisa.box.data.IDeleteBoxData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();

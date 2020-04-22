@@ -40,7 +40,7 @@ public abstract class AbstractConfirmEmailOKScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -55,7 +55,7 @@ public abstract class AbstractConfirmEmailOKScenario extends BaseScenario {
 	
 	private Response when() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.ConfirmEmailTestData confirmEmail0 = new com.anfelisa.user.data.ConfirmEmailTestData(randomUUID());
+		com.anfelisa.user.data.ConfirmEmailData confirmEmail0 = new com.anfelisa.user.data.ConfirmEmailData(randomUUID());
 		confirmEmail0.setToken(this.templateStringValue("TOKEN", 0));
 		confirmEmail0.setUsername(this.templateStringValue("Annette", 0));
 		

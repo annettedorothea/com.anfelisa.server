@@ -40,7 +40,7 @@ public abstract class AbstractGetRoleUnknownUserScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -54,7 +54,7 @@ public abstract class AbstractGetRoleUnknownUserScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.RoleTestData getRole0 = new com.anfelisa.user.data.RoleTestData(randomUUID());
+		com.anfelisa.user.data.RoleData getRole0 = new com.anfelisa.user.data.RoleData(randomUUID());
 		
 		return 
 		com.anfelisa.user.ActionCalls.callGetRole(getRole0, DROPWIZARD.getLocalPort(), authorization("lala", "password"));

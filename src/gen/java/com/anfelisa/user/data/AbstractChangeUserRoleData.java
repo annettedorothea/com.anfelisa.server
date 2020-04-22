@@ -20,6 +20,7 @@
 package com.anfelisa.user.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -32,6 +33,7 @@ import com.anfelisa.user.models.IChangeUserRoleModel;
 
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
+import de.acegen.DateTimeToStringConverter;
 
 @SuppressWarnings("unused")
 public abstract class AbstractChangeUserRoleData extends AbstractData implements IChangeUserRoleData {

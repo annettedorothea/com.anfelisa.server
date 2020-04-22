@@ -17,39 +17,18 @@
 
 
 
-package com.anfelisa.box.data;
+package de.acegen;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
-import java.util.List;
 
-import de.acegen.IDataContainer;
-import de.acegen.DateTimeToStringConverter;
+import com.fasterxml.jackson.databind.util.StdConverter;
 
-@SuppressWarnings("all")
-public class GetBoxesResponse implements IGetBoxesResponse {
-	
-	private java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList;
-	
-	public GetBoxesResponse() {
+public class DateTimeToStringConverter extends StdConverter<DateTime, String> {
+	@Override
+	public String convert(DateTime value) {
+		return value.toString();
 	}
-	
-	public GetBoxesResponse(com.anfelisa.box.models.IBoxListModel data) {
-		boxList = data.getBoxList();
-	}
-	
-	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxViewModel> getBoxList() {
-		return this.boxList;
-	}
-	
 }
-
 
 
 

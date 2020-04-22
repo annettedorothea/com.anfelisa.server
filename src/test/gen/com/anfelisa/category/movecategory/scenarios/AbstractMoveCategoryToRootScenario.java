@@ -40,7 +40,7 @@ public abstract class AbstractMoveCategoryToRootScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -51,7 +51,7 @@ public abstract class AbstractMoveCategoryToRootScenario extends BaseScenario {
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxCreationTestData createBox1 = new com.anfelisa.box.data.BoxCreationTestData("boxId");
+		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
 		createBox1.setCategoryName(this.templateStringValue("cat", 1));
 		createBox1.setDictionaryLookup(new Boolean("false"));
 		createBox1.setMaxCardsPerDay(1);
@@ -60,7 +60,7 @@ public abstract class AbstractMoveCategoryToRootScenario extends BaseScenario {
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.category.data.CategoryCreationTestData createCategory2 = new com.anfelisa.category.data.CategoryCreationTestData("cat1");
+		com.anfelisa.category.data.CategoryCreationData createCategory2 = new com.anfelisa.category.data.CategoryCreationData("cat1");
 		createCategory2.setCategoryName(this.templateStringValue("level 1 #1", 2));
 		createCategory2.setParentCategoryId(this.templateStringValue("boxId", 2));
 		
@@ -68,7 +68,7 @@ public abstract class AbstractMoveCategoryToRootScenario extends BaseScenario {
 		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.category.data.CategoryCreationTestData createCategory3 = new com.anfelisa.category.data.CategoryCreationTestData("cat2");
+		com.anfelisa.category.data.CategoryCreationData createCategory3 = new com.anfelisa.category.data.CategoryCreationData("cat2");
 		createCategory3.setCategoryName(this.templateStringValue("level 1 #2", 3));
 		createCategory3.setParentCategoryId(this.templateStringValue("boxId", 3));
 		
@@ -76,7 +76,7 @@ public abstract class AbstractMoveCategoryToRootScenario extends BaseScenario {
 		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory3, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.category.data.CategoryCreationTestData createCategory4 = new com.anfelisa.category.data.CategoryCreationTestData("cat3");
+		com.anfelisa.category.data.CategoryCreationData createCategory4 = new com.anfelisa.category.data.CategoryCreationData("cat3");
 		createCategory4.setCategoryName(this.templateStringValue("level 2 #1", 4));
 		createCategory4.setParentCategoryId(this.templateStringValue("cat2", 4));
 		
@@ -87,7 +87,7 @@ public abstract class AbstractMoveCategoryToRootScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.category.data.CategoryMoveTestData moveCategory0 = new com.anfelisa.category.data.CategoryMoveTestData(randomUUID());
+		com.anfelisa.category.data.CategoryMoveData moveCategory0 = new com.anfelisa.category.data.CategoryMoveData(randomUUID());
 		moveCategory0.setMovedCategoryId(this.templateStringValue("cat3", 0));
 		moveCategory0.setTargetCategoryId(this.templateStringValue("boxId", 0));
 		

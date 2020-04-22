@@ -21,6 +21,7 @@ package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -28,6 +29,7 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 import de.acegen.IDataContainer;
+import de.acegen.DateTimeToStringConverter;
 
 @SuppressWarnings("all")
 public class LoadNextCardResponse implements ILoadNextCardResponse {
@@ -89,112 +91,72 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	public String getCardId() {
 		return this.cardId;
 	}
-	public void setCardId(String cardId) {
-		this.cardId = cardId;
-	}
 	
 	@JsonProperty
 	public String getCategoryId() {
 		return this.categoryId;
-	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
 	public Integer getCount() {
 		return this.count;
 	}
-	public void setCount(Integer count) {
-		this.count = count;
-	}
 	
 	@JsonProperty
 	public String getGiven() {
 		return this.given;
-	}
-	public void setGiven(String given) {
-		this.given = given;
 	}
 	
 	@JsonProperty
 	public String getImage() {
 		return this.image;
 	}
-	public void setImage(String image) {
-		this.image = image;
-	}
 	
 	@JsonProperty
 	public Integer getLastQuality() {
 		return this.lastQuality;
-	}
-	public void setLastQuality(Integer lastQuality) {
-		this.lastQuality = lastQuality;
 	}
 	
 	@JsonProperty
 	public String getRootCategoryId() {
 		return this.rootCategoryId;
 	}
-	public void setRootCategoryId(String rootCategoryId) {
-		this.rootCategoryId = rootCategoryId;
-	}
 	
 	@JsonProperty
 	public String getScheduledCardId() {
 		return this.scheduledCardId;
-	}
-	public void setScheduledCardId(String scheduledCardId) {
-		this.scheduledCardId = scheduledCardId;
 	}
 	
 	@JsonProperty
 	public String getReinforceCardId() {
 		return this.reinforceCardId;
 	}
-	public void setReinforceCardId(String reinforceCardId) {
-		this.reinforceCardId = reinforceCardId;
-	}
 	
 	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	public org.joda.time.DateTime getScheduledDate() {
 		return this.scheduledDate;
 	}
-	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
-		this.scheduledDate = scheduledDate;
-	}
 	
 	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	public org.joda.time.DateTime getScoredDate() {
 		return this.scoredDate;
-	}
-	public void setScoredDate(org.joda.time.DateTime scoredDate) {
-		this.scoredDate = scoredDate;
 	}
 	
 	@JsonProperty
 	public String getWanted() {
 		return this.wanted;
 	}
-	public void setWanted(String wanted) {
-		this.wanted = wanted;
-	}
 	
 	@JsonProperty
 	public Integer getOpenTodaysCards() {
 		return this.openTodaysCards;
 	}
-	public void setOpenTodaysCards(Integer openTodaysCards) {
-		this.openTodaysCards = openTodaysCards;
-	}
 	
 	@JsonProperty
 	public Integer getAllTodaysCards() {
 		return this.allTodaysCards;
-	}
-	public void setAllTodaysCards(Integer allTodaysCards) {
-		this.allTodaysCards = allTodaysCards;
 	}
 	
 }

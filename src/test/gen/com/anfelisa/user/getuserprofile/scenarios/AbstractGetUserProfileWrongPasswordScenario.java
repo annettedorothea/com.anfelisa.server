@@ -40,7 +40,7 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid-admin");
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("admin-password", 0));
@@ -52,7 +52,7 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 		
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser1 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
+		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid");
 		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 1));
 		registerUser1.setLanguage(this.templateStringValue("de", 1));
 		registerUser1.setPassword(this.templateStringValue("password", 1));
@@ -66,7 +66,7 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.UserTestData getUserProfile0 = new com.anfelisa.user.data.UserTestData(randomUUID());
+		com.anfelisa.user.data.UserData getUserProfile0 = new com.anfelisa.user.data.UserData(randomUUID());
 		
 		return 
 		com.anfelisa.user.ActionCalls.callGetUserProfile(getUserProfile0, DROPWIZARD.getLocalPort(), authorization("Admin", "wrong"));

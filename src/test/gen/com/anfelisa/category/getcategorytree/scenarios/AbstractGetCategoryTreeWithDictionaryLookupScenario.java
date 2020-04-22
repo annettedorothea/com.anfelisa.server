@@ -40,7 +40,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -51,7 +51,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxCreationTestData createBox1 = new com.anfelisa.box.data.BoxCreationTestData("boxId");
+		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
 		createBox1.setCategoryName(this.templateStringValue("cat", 1));
 		createBox1.setMaxCardsPerDay(10);
 		createBox1.setDictionaryLookup(new Boolean("true"));
@@ -62,7 +62,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.category.data.CategoryCreationTestData createCategory2 = new com.anfelisa.category.data.CategoryCreationTestData("dict");
+		com.anfelisa.category.data.CategoryCreationData createCategory2 = new com.anfelisa.category.data.CategoryCreationData("dict");
 		createCategory2.setCategoryName(this.templateStringValue("dict", 2));
 		createCategory2.setParentCategoryId(this.templateStringValue("boxId", 2));
 		
@@ -73,7 +73,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.category.data.CategoryTreeTestData getCategoryTree0 = new com.anfelisa.category.data.CategoryTreeTestData(randomUUID());
+		com.anfelisa.category.data.CategoryTreeData getCategoryTree0 = new com.anfelisa.category.data.CategoryTreeData(randomUUID());
 		getCategoryTree0.setRootCategoryId(this.templateStringValue("boxId", 0));
 		
 		

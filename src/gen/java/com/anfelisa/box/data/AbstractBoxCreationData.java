@@ -20,6 +20,7 @@
 package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -35,6 +36,7 @@ import com.anfelisa.box.models.IBoxModel;
 
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
+import de.acegen.DateTimeToStringConverter;
 
 @SuppressWarnings("unused")
 public abstract class AbstractBoxCreationData extends AbstractData implements IBoxCreationData {

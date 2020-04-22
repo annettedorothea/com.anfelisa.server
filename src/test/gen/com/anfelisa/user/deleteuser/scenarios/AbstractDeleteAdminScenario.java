@@ -40,7 +40,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid-admin");
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("admin-password", 0));
@@ -52,7 +52,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser1 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
+		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid");
 		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 1));
 		registerUser1.setLanguage(this.templateStringValue("de", 1));
 		registerUser1.setPassword(this.templateStringValue("password", 1));
@@ -64,7 +64,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser2 = new com.anfelisa.user.data.UserRegistrationTestData("uuid-admin");
+		com.anfelisa.user.data.UserRegistrationData registerUser2 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
 		registerUser2.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 2));
 		registerUser2.setLanguage(this.templateStringValue("de", 2));
 		registerUser2.setPassword(this.templateStringValue("admin-password", 2));
@@ -75,7 +75,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser2, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.user.data.ChangeUserRoleTestData changeUserRole3 = new com.anfelisa.user.data.ChangeUserRoleTestData(randomUUID());
+		com.anfelisa.user.data.ChangeUserRoleData changeUserRole3 = new com.anfelisa.user.data.ChangeUserRoleData(randomUUID());
 		changeUserRole3.setEditedUserId(this.templateStringValue("uuid", 3));
 		changeUserRole3.setNewRole(this.templateStringValue("ADMIN", 3));
 		
@@ -86,7 +86,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.DeleteUserTestData deleteUser0 = new com.anfelisa.user.data.DeleteUserTestData(randomUUID());
+		com.anfelisa.user.data.DeleteUserData deleteUser0 = new com.anfelisa.user.data.DeleteUserData(randomUUID());
 		deleteUser0.setUsernameToBeDeleted(this.templateStringValue("Annette", 0));
 		
 		

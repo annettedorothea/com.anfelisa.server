@@ -30,7 +30,7 @@ import org.glassfish.jersey.client.JerseyClientBuilder;
 public class ActionCalls {
 
 	public static Response callCreateCategory(
-			com.anfelisa.category.data.CategoryCreationTestData data,
+			com.anfelisa.category.data.ICategoryCreationData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -40,7 +40,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callUpdateCategory(
-			com.anfelisa.category.data.CategoryUpdateTestData data, 
+			com.anfelisa.category.data.ICategoryUpdateData data, 
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -50,7 +50,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callDeleteCategory(
-			com.anfelisa.category.data.CategoryDeleteTestData data,
+			com.anfelisa.category.data.ICategoryDeleteData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -60,7 +60,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callGetCategoryTree(
-			com.anfelisa.category.data.CategoryTreeTestData data,
+			com.anfelisa.category.data.ICategoryTreeData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -70,7 +70,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callMoveCategory(
-			com.anfelisa.category.data.CategoryMoveTestData data, 
+			com.anfelisa.category.data.ICategoryMoveData data, 
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -80,7 +80,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callChangeOrderCategory(
-			com.anfelisa.category.data.CategoryChangeOrderTestData data, 
+			com.anfelisa.category.data.ICategoryChangeOrderData data, 
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();

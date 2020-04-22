@@ -21,6 +21,7 @@ package com.anfelisa.user.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -28,6 +29,7 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 import de.acegen.IDataContainer;
+import de.acegen.DateTimeToStringConverter;
 
 @SuppressWarnings("all")
 public class GetUserProfileResponse implements IGetUserProfileResponse {
@@ -54,24 +56,15 @@ public class GetUserProfileResponse implements IGetUserProfileResponse {
 	public String getEmail() {
 		return this.email;
 	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	
 	@JsonProperty
 	public String getUsername() {
 		return this.username;
 	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
 	
 	@JsonProperty
 	public String getUserId() {
 		return this.userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 	
 }

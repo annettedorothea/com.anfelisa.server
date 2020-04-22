@@ -20,6 +20,7 @@
 package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -32,6 +33,7 @@ import com.anfelisa.box.models.INextCardViewModel;
 
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
+import de.acegen.DateTimeToStringConverter;
 
 @SuppressWarnings("unused")
 public abstract class AbstractNextCardViewData extends AbstractData implements INextCardViewData {
@@ -139,6 +141,7 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	
 	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	public org.joda.time.DateTime getScheduledDate() {
 		return this.scheduledDate;
 	}
@@ -235,6 +238,7 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	
 	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	public org.joda.time.DateTime getScoredDate() {
 		return this.scoredDate;
 	}

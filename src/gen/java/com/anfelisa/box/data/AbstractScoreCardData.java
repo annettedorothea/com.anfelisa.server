@@ -20,6 +20,7 @@
 package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -32,6 +33,7 @@ import com.anfelisa.box.models.IScoreCardModel;
 
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
+import de.acegen.DateTimeToStringConverter;
 
 @SuppressWarnings("unused")
 public abstract class AbstractScoreCardData extends AbstractData implements IScoreCardData {
@@ -149,6 +151,7 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	}
 	
 	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	public org.joda.time.DateTime getNextScheduledCardCreatedDate() {
 		return this.nextScheduledCardCreatedDate;
 	}
@@ -209,6 +212,7 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	}
 	
 	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	public org.joda.time.DateTime getNextScheduledCardScheduledDate() {
 		return this.nextScheduledCardScheduledDate;
 	}
@@ -257,6 +261,7 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	}
 	
 	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	public org.joda.time.DateTime getScoredCardScoredDate() {
 		return this.scoredCardScoredDate;
 	}
@@ -281,6 +286,7 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	}
 	
 	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	public org.joda.time.DateTime getReinforceCardCreatedDate() {
 		return this.reinforceCardCreatedDate;
 	}

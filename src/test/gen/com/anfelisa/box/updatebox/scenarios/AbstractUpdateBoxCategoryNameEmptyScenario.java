@@ -40,7 +40,7 @@ public abstract class AbstractUpdateBoxCategoryNameEmptyScenario extends BaseSce
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -51,7 +51,7 @@ public abstract class AbstractUpdateBoxCategoryNameEmptyScenario extends BaseSce
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxCreationTestData createBox1 = new com.anfelisa.box.data.BoxCreationTestData("boxId");
+		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
 		createBox1.setCategoryName(this.templateStringValue("cat", 1));
 		createBox1.setDictionaryLookup(new Boolean("false"));
 		createBox1.setMaxCardsPerDay(1);
@@ -63,7 +63,7 @@ public abstract class AbstractUpdateBoxCategoryNameEmptyScenario extends BaseSce
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.box.data.BoxUpdateTestData updateBox0 = new com.anfelisa.box.data.BoxUpdateTestData(randomUUID());
+		com.anfelisa.box.data.BoxUpdateData updateBox0 = new com.anfelisa.box.data.BoxUpdateData(randomUUID());
 		updateBox0.setBoxId(this.templateStringValue("boxId", 0));
 		updateBox0.setCategoryId(this.templateStringValue("boxId", 0));
 		updateBox0.setCategoryName(this.templateStringValue("", 0));

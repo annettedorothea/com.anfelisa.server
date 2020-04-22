@@ -40,7 +40,7 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid-admin");
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("admin-password", 0));
@@ -52,7 +52,7 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 		
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser1 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
+		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid");
 		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 1));
 		registerUser1.setLanguage(this.templateStringValue("de", 1));
 		registerUser1.setPassword(this.templateStringValue("password", 1));
@@ -64,7 +64,7 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 		
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.ConfirmEmailTestData confirmEmail2 = new com.anfelisa.user.data.ConfirmEmailTestData(randomUUID());
+		com.anfelisa.user.data.ConfirmEmailData confirmEmail2 = new com.anfelisa.user.data.ConfirmEmailData(randomUUID());
 		confirmEmail2.setToken(this.templateStringValue("TOKEN", 2));
 		confirmEmail2.setUsername(this.templateStringValue("Annette", 2));
 		
@@ -75,7 +75,7 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.UserListTestData getAllUsers0 = new com.anfelisa.user.data.UserListTestData(randomUUID());
+		com.anfelisa.user.data.UserListData getAllUsers0 = new com.anfelisa.user.data.UserListData(randomUUID());
 		
 		return 
 		com.anfelisa.user.ActionCalls.callGetAllUsers(getAllUsers0, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

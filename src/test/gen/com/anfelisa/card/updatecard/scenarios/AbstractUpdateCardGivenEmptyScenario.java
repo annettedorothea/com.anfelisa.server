@@ -40,7 +40,7 @@ public abstract class AbstractUpdateCardGivenEmptyScenario extends BaseScenario 
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
+		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -51,7 +51,7 @@ public abstract class AbstractUpdateCardGivenEmptyScenario extends BaseScenario 
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxCreationTestData createBox1 = new com.anfelisa.box.data.BoxCreationTestData("boxId");
+		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
 		createBox1.setCategoryName(this.templateStringValue("cat", 1));
 		createBox1.setDictionaryLookup(new Boolean("false"));
 		createBox1.setMaxCardsPerDay(1);
@@ -60,7 +60,7 @@ public abstract class AbstractUpdateCardGivenEmptyScenario extends BaseScenario 
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.category.data.CategoryCreationTestData createCategory2 = new com.anfelisa.category.data.CategoryCreationTestData("cat1");
+		com.anfelisa.category.data.CategoryCreationData createCategory2 = new com.anfelisa.category.data.CategoryCreationData("cat1");
 		createCategory2.setCategoryName(this.templateStringValue("level 1 #1", 2));
 		createCategory2.setParentCategoryId(this.templateStringValue("boxId", 2));
 		
@@ -68,7 +68,7 @@ public abstract class AbstractUpdateCardGivenEmptyScenario extends BaseScenario 
 		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationTestData createCard3 = new com.anfelisa.card.data.CardCreationTestData("c1");
+		com.anfelisa.card.data.CardCreationData createCard3 = new com.anfelisa.card.data.CardCreationData("c1");
 		createCard3.setCategoryId(this.templateStringValue("cat1", 3));
 		createCard3.setGiven(this.templateStringValue("given", 3));
 		createCard3.setImage(this.templateStringValue("image", 3));
@@ -81,7 +81,7 @@ public abstract class AbstractUpdateCardGivenEmptyScenario extends BaseScenario 
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.card.data.CardUpdateTestData updateCard0 = new com.anfelisa.card.data.CardUpdateTestData(randomUUID());
+		com.anfelisa.card.data.CardUpdateData updateCard0 = new com.anfelisa.card.data.CardUpdateData(randomUUID());
 		updateCard0.setCardId(this.templateStringValue("c1", 0));
 		updateCard0.setGiven(this.templateStringValue("  ", 0));
 		updateCard0.setImage(this.templateStringValue("image", 0));

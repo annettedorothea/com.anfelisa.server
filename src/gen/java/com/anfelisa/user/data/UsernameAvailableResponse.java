@@ -21,6 +21,7 @@ package com.anfelisa.user.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -28,6 +29,7 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 import de.acegen.IDataContainer;
+import de.acegen.DateTimeToStringConverter;
 
 @SuppressWarnings("all")
 public class UsernameAvailableResponse implements IUsernameAvailableResponse {
@@ -44,9 +46,6 @@ public class UsernameAvailableResponse implements IUsernameAvailableResponse {
 	@JsonProperty
 	public Boolean getAvailable() {
 		return this.available;
-	}
-	public void setAvailable(Boolean available) {
-		this.available = available;
 	}
 	
 }

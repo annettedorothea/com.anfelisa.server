@@ -20,10 +20,14 @@
 package com.anfelisa.box.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import java.util.List;
 import java.util.ArrayList;
+
+import de.acegen.DateTimeToStringConverter;
 
 @SuppressWarnings("all")
 public class ReinforceCardModel implements IReinforceCardModel {
@@ -81,6 +85,7 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	}
 	
 	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	public org.joda.time.DateTime getChangeDate() {
 		return this.changeDate;
 	}

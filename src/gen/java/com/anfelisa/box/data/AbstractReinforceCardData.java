@@ -20,6 +20,7 @@
 package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -32,6 +33,7 @@ import com.anfelisa.box.models.IReinforceCardModel;
 
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
+import de.acegen.DateTimeToStringConverter;
 
 @SuppressWarnings("unused")
 public abstract class AbstractReinforceCardData extends AbstractData implements IReinforceCardData {
@@ -106,6 +108,7 @@ public abstract class AbstractReinforceCardData extends AbstractData implements 
 	}
 	
 	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	public org.joda.time.DateTime getChangeDate() {
 		return this.changeDate;
 	}
