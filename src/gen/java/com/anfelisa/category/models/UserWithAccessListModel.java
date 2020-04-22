@@ -45,17 +45,17 @@ public class UserWithAccessListModel implements IUserWithAccessListModel {
 	}
 
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.category.models.IUserWithAccessModel> getUserList() {
-			return this.userList;
-		}
+	public java.util.List<com.anfelisa.category.models.IUserWithAccessModel> getUserList() {
+		return this.userList;
+	}
 	public void setUserList(java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList) {
 		this.userList = userList;
 	}

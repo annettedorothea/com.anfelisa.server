@@ -45,17 +45,17 @@ public class TodaysCardsStatusModel implements ITodaysCardsStatusModel {
 	}
 
 	@JsonProperty
-		public Integer getOpenTodaysCards() {
-			return this.openTodaysCards;
-		}
+	public Integer getOpenTodaysCards() {
+		return this.openTodaysCards;
+	}
 	public void setOpenTodaysCards(Integer openTodaysCards) {
 		this.openTodaysCards = openTodaysCards;
 	}
 	
 	@JsonProperty
-		public Integer getAllTodaysCards() {
-			return this.allTodaysCards;
-		}
+	public Integer getAllTodaysCards() {
+		return this.allTodaysCards;
+	}
 	public void setAllTodaysCards(Integer allTodaysCards) {
 		this.allTodaysCards = allTodaysCards;
 	}

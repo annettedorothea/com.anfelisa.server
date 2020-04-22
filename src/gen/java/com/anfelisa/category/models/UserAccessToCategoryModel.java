@@ -51,25 +51,25 @@ public class UserAccessToCategoryModel implements IUserAccessToCategoryModel {
 	}
 
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-		public Boolean getEditable() {
-			return this.editable;
-		}
+	public Boolean getEditable() {
+		return this.editable;
+	}
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
 	}

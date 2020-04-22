@@ -54,33 +54,33 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 	}
 
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
+	public String getBoxId() {
+		return this.boxId;
+	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	
 	@JsonProperty
-		public String getRootCategoryId() {
-			return this.rootCategoryId;
-		}
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}
 	
 	@JsonProperty
-		public java.util.List<String> getAllReferencedCategories() {
-			return this.allReferencedCategories;
-		}
+	public java.util.List<String> getAllReferencedCategories() {
+		return this.allReferencedCategories;
+	}
 	public void setAllReferencedCategories(java.util.List<String> allReferencedCategories) {
 		this.allReferencedCategories = allReferencedCategories;
 	}

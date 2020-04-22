@@ -60,9 +60,9 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 	}
 
 	@JsonProperty
-		public Integer getDays() {
-			return this.days;
-		}
+	public Integer getDays() {
+		return this.days;
+	}
 	public void setDays(Integer days) {
 		this.days = days;
 	}
@@ -72,9 +72,9 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 	}
 	
 	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
+	public String getBoxId() {
+		return this.boxId;
+	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}

@@ -99,9 +99,9 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 
 	@JsonProperty
-		public String getUsername() {
-			return this.username;
-		}
+	public String getUsername() {
+		return this.username;
+	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -111,9 +111,9 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -123,9 +123,9 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
@@ -135,9 +135,9 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-		public String getCategoryName() {
-			return this.categoryName;
-		}
+	public String getCategoryName() {
+		return this.categoryName;
+	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
@@ -147,9 +147,9 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-		public String getCategoryAuthor() {
-			return this.categoryAuthor;
-		}
+	public String getCategoryAuthor() {
+		return this.categoryAuthor;
+	}
 	public void setCategoryAuthor(String categoryAuthor) {
 		this.categoryAuthor = categoryAuthor;
 	}
@@ -159,9 +159,9 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-		public Integer getCategoryIndex() {
-			return this.categoryIndex;
-		}
+	public Integer getCategoryIndex() {
+		return this.categoryIndex;
+	}
 	public void setCategoryIndex(Integer categoryIndex) {
 		this.categoryIndex = categoryIndex;
 	}
@@ -171,9 +171,9 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-		public String getParentCategoryId() {
-			return this.parentCategoryId;
-		}
+	public String getParentCategoryId() {
+		return this.parentCategoryId;
+	}
 	public void setParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
 	}
@@ -183,9 +183,9 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-		public String getRootCategoryId() {
-			return this.rootCategoryId;
-		}
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}
@@ -195,9 +195,9 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-		public Boolean getDictionaryLookup() {
-			return this.dictionaryLookup;
-		}
+	public Boolean getDictionaryLookup() {
+		return this.dictionaryLookup;
+	}
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
 		this.dictionaryLookup = dictionaryLookup;
 	}
@@ -207,9 +207,9 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-		public String getGivenLanguage() {
-			return this.givenLanguage;
-		}
+	public String getGivenLanguage() {
+		return this.givenLanguage;
+	}
 	public void setGivenLanguage(String givenLanguage) {
 		this.givenLanguage = givenLanguage;
 	}
@@ -219,9 +219,9 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 	}
 	
 	@JsonProperty
-		public String getWantedLanguage() {
-			return this.wantedLanguage;
-		}
+	public String getWantedLanguage() {
+		return this.wantedLanguage;
+	}
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
 	}

@@ -59,9 +59,9 @@ public abstract class AbstractInitBoxesData extends AbstractData implements IIni
 	}
 
 	@JsonProperty
-		public org.joda.time.DateTime getMinScheduledDate() {
-			return this.minScheduledDate;
-		}
+	public org.joda.time.DateTime getMinScheduledDate() {
+		return this.minScheduledDate;
+	}
 	public void setMinScheduledDate(org.joda.time.DateTime minScheduledDate) {
 		this.minScheduledDate = minScheduledDate;
 	}
@@ -71,9 +71,9 @@ public abstract class AbstractInitBoxesData extends AbstractData implements IIni
 	}
 	
 	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
+	public String getBoxId() {
+		return this.boxId;
+	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}

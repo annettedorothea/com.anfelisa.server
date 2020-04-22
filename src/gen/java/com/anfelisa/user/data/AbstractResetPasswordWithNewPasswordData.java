@@ -66,9 +66,9 @@ public abstract class AbstractResetPasswordWithNewPasswordData extends AbstractD
 	}
 
 	@JsonProperty
-		public String getPassword() {
-			return this.password;
-		}
+	public String getPassword() {
+		return this.password;
+	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -78,9 +78,9 @@ public abstract class AbstractResetPasswordWithNewPasswordData extends AbstractD
 	}
 	
 	@JsonProperty
-		public String getToken() {
-			return this.token;
-		}
+	public String getToken() {
+		return this.token;
+	}
 	public void setToken(String token) {
 		this.token = token;
 	}
@@ -90,9 +90,9 @@ public abstract class AbstractResetPasswordWithNewPasswordData extends AbstractD
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}

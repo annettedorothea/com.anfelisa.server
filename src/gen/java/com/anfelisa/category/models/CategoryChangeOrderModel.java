@@ -53,33 +53,33 @@ public class CategoryChangeOrderModel implements ICategoryChangeOrderModel {
 	}
 
 	@JsonProperty
-		public String getMovedCategoryId() {
-			return this.movedCategoryId;
-		}
+	public String getMovedCategoryId() {
+		return this.movedCategoryId;
+	}
 	public void setMovedCategoryId(String movedCategoryId) {
 		this.movedCategoryId = movedCategoryId;
 	}
 	
 	@JsonProperty
-		public String getTargetCategoryId() {
-			return this.targetCategoryId;
-		}
+	public String getTargetCategoryId() {
+		return this.targetCategoryId;
+	}
 	public void setTargetCategoryId(String targetCategoryId) {
 		this.targetCategoryId = targetCategoryId;
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.category.models.ICategoryModel> getUpdatedIndices() {
-			return this.updatedIndices;
-		}
+	public java.util.List<com.anfelisa.category.models.ICategoryModel> getUpdatedIndices() {
+		return this.updatedIndices;
+	}
 	public void setUpdatedIndices(java.util.List<com.anfelisa.category.models.ICategoryModel> updatedIndices) {
 		this.updatedIndices = updatedIndices;
 	}

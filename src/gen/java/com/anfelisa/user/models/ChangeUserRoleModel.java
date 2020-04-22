@@ -57,33 +57,33 @@ public class ChangeUserRoleModel implements IChangeUserRoleModel {
 	}
 
 	@JsonProperty
-		public String getEditedUserId() {
-			return this.editedUserId;
-		}
+	public String getEditedUserId() {
+		return this.editedUserId;
+	}
 	public void setEditedUserId(String editedUserId) {
 		this.editedUserId = editedUserId;
 	}
 	
 	@JsonProperty
-		public String getNewRole() {
-			return this.newRole;
-		}
+	public String getNewRole() {
+		return this.newRole;
+	}
 	public void setNewRole(String newRole) {
 		this.newRole = newRole;
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-		public String getRole() {
-			return this.role;
-		}
+	public String getRole() {
+		return this.role;
+	}
 	public void setRole(String role) {
 		this.role = role;
 	}

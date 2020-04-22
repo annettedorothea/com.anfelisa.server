@@ -65,9 +65,9 @@ public abstract class AbstractConfirmEmailData extends AbstractData implements I
 	}
 
 	@JsonProperty
-		public String getUsername() {
-			return this.username;
-		}
+	public String getUsername() {
+		return this.username;
+	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -77,9 +77,9 @@ public abstract class AbstractConfirmEmailData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public String getToken() {
-			return this.token;
-		}
+	public String getToken() {
+		return this.token;
+	}
 	public void setToken(String token) {
 		this.token = token;
 	}
@@ -89,9 +89,9 @@ public abstract class AbstractConfirmEmailData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}

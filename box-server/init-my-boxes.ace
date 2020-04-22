@@ -1,0 +1,28 @@
+HttpServer 
+
+com.anfelisa.box.initmyboxes
+
+scenarios 
+	InitMyBoxesForDayNothingScored
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.InitMyBoxesForDay
+				{
+					today: "20200416 13:30" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	InitMyBoxesForDayWithScoredAndReinforceCards
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+		WHEN
+			com.anfelisa.box.InitMyBoxesForDay
+				{
+					today: "20200516 13:30" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200

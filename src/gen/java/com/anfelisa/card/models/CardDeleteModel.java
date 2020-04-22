@@ -56,33 +56,33 @@ public class CardDeleteModel implements ICardDeleteModel {
 	}
 
 	@JsonProperty
-		public String getCardId() {
-			return this.cardId;
-		}
+	public String getCardId() {
+		return this.cardId;
+	}
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
 	
 	@JsonProperty
-		public Integer getCardIndex() {
-			return this.cardIndex;
-		}
+	public Integer getCardIndex() {
+		return this.cardIndex;
+	}
 	public void setCardIndex(Integer cardIndex) {
 		this.cardIndex = cardIndex;
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}

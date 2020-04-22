@@ -30,7 +30,7 @@ import org.glassfish.jersey.client.JerseyClientBuilder;
 public class ActionCalls {
 
 	public static Response callRegisterUser(
-			com.anfelisa.user.data.IUserRegistrationData data,
+			com.anfelisa.user.data.UserRegistrationTestData data,
 			int port) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/users/register", port)).request(); 
@@ -38,7 +38,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callGetRole(
-			com.anfelisa.user.data.IRoleData data,
+			com.anfelisa.user.data.RoleTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -48,7 +48,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callUsernameAvailable(
-			com.anfelisa.user.data.IUsernameAvailableData data,
+			com.anfelisa.user.data.UsernameAvailableTestData data,
 			int port) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/users/username?uuid=" + data.getUuid() + "&username=" + data.getUsername(), port)).request(); 
@@ -56,7 +56,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callConfirmEmail(
-			com.anfelisa.user.data.IConfirmEmailData data, 
+			com.anfelisa.user.data.ConfirmEmailTestData data, 
 			int port) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/users/confirm?uuid=" + data.getUuid(), port)).request();
@@ -64,7 +64,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callGetUserProfile(
-			com.anfelisa.user.data.IUserData data,
+			com.anfelisa.user.data.UserTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -74,7 +74,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callGetAllUsers(
-			com.anfelisa.user.data.IUserListData data,
+			com.anfelisa.user.data.UserListTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -84,7 +84,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callForgotPassword(
-			com.anfelisa.user.data.IForgotPasswordData data,
+			com.anfelisa.user.data.ForgotPasswordTestData data,
 			int port) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/users/forgot-password", port)).request(); 
@@ -92,7 +92,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callResetPassword(
-			com.anfelisa.user.data.IResetPasswordWithNewPasswordData data, 
+			com.anfelisa.user.data.ResetPasswordWithNewPasswordTestData data, 
 			int port) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("http://localhost:%d/api/users/resetpassword?uuid=" + data.getUuid(), port)).request();
@@ -100,7 +100,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callChangeUserRole(
-			com.anfelisa.user.data.IChangeUserRoleData data, 
+			com.anfelisa.user.data.ChangeUserRoleTestData data, 
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -110,7 +110,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callDeleteUser(
-			com.anfelisa.user.data.IDeleteUserData data,
+			com.anfelisa.user.data.DeleteUserTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();

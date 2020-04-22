@@ -88,16 +88,16 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
-			if (className.equals("com.anfelisa.box.actions.GetBoxesAction")) {
-				BoxListData data = mapper.readValue(json, BoxListData.class);
-				data.migrateLegacyData(json);
-				return data;
-			}
 			if (className.equals("com.anfelisa.box.actions.InitMyBoxesForDayAction") ||
 					className.equals("com.anfelisa.box.commands.InitMyBoxesForDayCommand") ||
 					className.equals("com.anfelisa.box.events.InitMyBoxesForDayOkEvent")
 			) {
 				InitMyBoxesDataData data = mapper.readValue(json, InitMyBoxesDataData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
+			if (className.equals("com.anfelisa.box.actions.GetBoxesAction")) {
+				BoxListData data = mapper.readValue(json, BoxListData.class);
 				data.migrateLegacyData(json);
 				return data;
 			}

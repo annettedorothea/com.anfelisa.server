@@ -42,9 +42,12 @@ public class GetCardsResponse implements IGetCardsResponse {
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.card.models.ICardWithInfoModel> getCardList() {
-			return this.cardList;
-		}
+	public java.util.List<com.anfelisa.card.models.ICardWithInfoModel> getCardList() {
+		return this.cardList;
+	}
+	public void setCardList(java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList) {
+		this.cardList = cardList;
+	}
 	
 }
 

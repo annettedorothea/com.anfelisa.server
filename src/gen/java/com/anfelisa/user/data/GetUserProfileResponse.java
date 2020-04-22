@@ -51,19 +51,28 @@ public class GetUserProfileResponse implements IGetUserProfileResponse {
 	}
 	
 	@JsonProperty
-		public String getEmail() {
-			return this.email;
-		}
+	public String getEmail() {
+		return this.email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 	@JsonProperty
-		public String getUsername() {
-			return this.username;
-		}
+	public String getUsername() {
+		return this.username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	
 }
 

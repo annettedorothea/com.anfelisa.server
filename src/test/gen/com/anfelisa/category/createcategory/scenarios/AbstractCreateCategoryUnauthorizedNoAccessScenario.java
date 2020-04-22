@@ -40,7 +40,7 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid-admin");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("admin-password", 0));
@@ -52,7 +52,7 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 		
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser1 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
 		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 1));
 		registerUser1.setLanguage(this.templateStringValue("de", 1));
 		registerUser1.setPassword(this.templateStringValue("password", 1));
@@ -63,7 +63,7 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser1, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxCreationData createBox2 = new com.anfelisa.box.data.BoxCreationData("boxId");
+		com.anfelisa.box.data.BoxCreationTestData createBox2 = new com.anfelisa.box.data.BoxCreationTestData("boxId");
 		createBox2.setCategoryName(this.templateStringValue("cat", 2));
 		createBox2.setDictionaryLookup(new Boolean("false"));
 		createBox2.setMaxCardsPerDay(1);
@@ -75,7 +75,7 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.category.data.CategoryCreationData createCategory0 = new com.anfelisa.category.data.CategoryCreationData(randomUUID());
+		com.anfelisa.category.data.CategoryCreationTestData createCategory0 = new com.anfelisa.category.data.CategoryCreationTestData(randomUUID());
 		createCategory0.setCategoryName(this.templateStringValue("lala", 0));
 		createCategory0.setParentCategoryId(this.templateStringValue("boxId", 0));
 		

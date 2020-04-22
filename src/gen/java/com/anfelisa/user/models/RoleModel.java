@@ -45,17 +45,17 @@ public class RoleModel implements IRoleModel {
 	}
 
 	@JsonProperty
-		public String getUsername() {
-			return this.username;
-		}
+	public String getUsername() {
+		return this.username;
+	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
 	
 	@JsonProperty
-		public String getRole() {
-			return this.role;
-		}
+	public String getRole() {
+		return this.role;
+	}
 	public void setRole(String role) {
 		this.role = role;
 	}

@@ -58,9 +58,9 @@ public abstract class AbstractUserWithAccessListData extends AbstractData implem
 	}
 
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
@@ -70,9 +70,9 @@ public abstract class AbstractUserWithAccessListData extends AbstractData implem
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.category.models.IUserWithAccessModel> getUserList() {
-			return this.userList;
-		}
+	public java.util.List<com.anfelisa.category.models.IUserWithAccessModel> getUserList() {
+		return this.userList;
+	}
 	public void setUserList(java.util.List<com.anfelisa.category.models.IUserWithAccessModel> userList) {
 		this.userList = userList;
 	}

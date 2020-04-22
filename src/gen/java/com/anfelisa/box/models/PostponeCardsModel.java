@@ -47,17 +47,17 @@ public class PostponeCardsModel implements IPostponeCardsModel {
 	}
 
 	@JsonProperty
-		public Integer getDays() {
-			return this.days;
-		}
+	public Integer getDays() {
+		return this.days;
+	}
 	public void setDays(Integer days) {
 		this.days = days;
 	}
 	
 	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
+	public String getBoxId() {
+		return this.boxId;
+	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}

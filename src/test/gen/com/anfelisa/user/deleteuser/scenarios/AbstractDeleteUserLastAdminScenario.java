@@ -40,7 +40,7 @@ public abstract class AbstractDeleteUserLastAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid-admin");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("admin-password", 0));
@@ -54,7 +54,7 @@ public abstract class AbstractDeleteUserLastAdminScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.DeleteUserData deleteUser0 = new com.anfelisa.user.data.DeleteUserData(randomUUID());
+		com.anfelisa.user.data.DeleteUserTestData deleteUser0 = new com.anfelisa.user.data.DeleteUserTestData(randomUUID());
 		deleteUser0.setUsernameToBeDeleted(this.templateStringValue("Admin", 0));
 		
 		

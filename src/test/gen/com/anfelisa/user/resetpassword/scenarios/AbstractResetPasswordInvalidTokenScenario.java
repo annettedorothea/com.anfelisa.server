@@ -40,7 +40,7 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -52,7 +52,7 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 		
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("RESET-PW-TOKEN", null));
-		com.anfelisa.user.data.ForgotPasswordData forgotPassword1 = new com.anfelisa.user.data.ForgotPasswordData(randomUUID());
+		com.anfelisa.user.data.ForgotPasswordTestData forgotPassword1 = new com.anfelisa.user.data.ForgotPasswordTestData(randomUUID());
 		forgotPassword1.setLanguage(this.templateStringValue("de", 1));
 		forgotPassword1.setUsername(this.templateStringValue("Annette", 1));
 		forgotPassword1.setToken(this.templateStringValue("RESET-PW-TOKEN", 1));
@@ -65,7 +65,7 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 	
 	private Response when() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("INVALID-TOKEN", null));
-		com.anfelisa.user.data.ResetPasswordWithNewPasswordData resetPassword0 = new com.anfelisa.user.data.ResetPasswordWithNewPasswordData(randomUUID());
+		com.anfelisa.user.data.ResetPasswordWithNewPasswordTestData resetPassword0 = new com.anfelisa.user.data.ResetPasswordWithNewPasswordTestData(randomUUID());
 		resetPassword0.setToken(this.templateStringValue("INVALID-TOKEN", 0));
 		resetPassword0.setPassword(this.templateStringValue("newPassword", 0));
 		

@@ -63,49 +63,49 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 	}
 
 	@JsonProperty
-		public String getMovedCategoryId() {
-			return this.movedCategoryId;
-		}
+	public String getMovedCategoryId() {
+		return this.movedCategoryId;
+	}
 	public void setMovedCategoryId(String movedCategoryId) {
 		this.movedCategoryId = movedCategoryId;
 	}
 	
 	@JsonProperty
-		public String getTargetCategoryId() {
-			return this.targetCategoryId;
-		}
+	public String getTargetCategoryId() {
+		return this.targetCategoryId;
+	}
 	public void setTargetCategoryId(String targetCategoryId) {
 		this.targetCategoryId = targetCategoryId;
 	}
 	
 	@JsonProperty
-		public com.anfelisa.category.models.ICategoryModel getMovedCategory() {
-			return this.movedCategory;
-		}
+	public com.anfelisa.category.models.ICategoryModel getMovedCategory() {
+		return this.movedCategory;
+	}
 	public void setMovedCategory(com.anfelisa.category.models.ICategoryModel movedCategory) {
 		this.movedCategory = movedCategory;
 	}
 	
 	@JsonProperty
-		public Integer getCategoryIndexWhereRemoved() {
-			return this.categoryIndexWhereRemoved;
-		}
+	public Integer getCategoryIndexWhereRemoved() {
+		return this.categoryIndexWhereRemoved;
+	}
 	public void setCategoryIndexWhereRemoved(Integer categoryIndexWhereRemoved) {
 		this.categoryIndexWhereRemoved = categoryIndexWhereRemoved;
 	}
 	
 	@JsonProperty
-		public String getParentCategoryIdWhereRemoved() {
-			return this.parentCategoryIdWhereRemoved;
-		}
+	public String getParentCategoryIdWhereRemoved() {
+		return this.parentCategoryIdWhereRemoved;
+	}
 	public void setParentCategoryIdWhereRemoved(String parentCategoryIdWhereRemoved) {
 		this.parentCategoryIdWhereRemoved = parentCategoryIdWhereRemoved;
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}

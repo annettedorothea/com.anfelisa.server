@@ -40,7 +40,7 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -52,7 +52,7 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 		
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN_2", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid2");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser1 = new com.anfelisa.user.data.UserRegistrationTestData("uuid2");
 		registerUser1.setEmail(this.templateStringValue("info@anfelisa.de", 1));
 		registerUser1.setLanguage(this.templateStringValue("de", 1));
 		registerUser1.setPassword(this.templateStringValue("pw", 1));
@@ -66,7 +66,7 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.DeleteUserData deleteUser0 = new com.anfelisa.user.data.DeleteUserData(randomUUID());
+		com.anfelisa.user.data.DeleteUserTestData deleteUser0 = new com.anfelisa.user.data.DeleteUserTestData(randomUUID());
 		deleteUser0.setUsernameToBeDeleted(this.templateStringValue("Annette", 0));
 		
 		

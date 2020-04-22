@@ -40,7 +40,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -51,7 +51,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
+		com.anfelisa.box.data.BoxCreationTestData createBox1 = new com.anfelisa.box.data.BoxCreationTestData("boxId");
 		createBox1.setCategoryName(this.templateStringValue("cat", 1));
 		createBox1.setDictionaryLookup(new Boolean("false"));
 		createBox1.setMaxCardsPerDay(1);
@@ -60,7 +60,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.category.data.CategoryCreationData createCategory2 = new com.anfelisa.category.data.CategoryCreationData("cat1");
+		com.anfelisa.category.data.CategoryCreationTestData createCategory2 = new com.anfelisa.category.data.CategoryCreationTestData("cat1");
 		createCategory2.setCategoryName(this.templateStringValue("level 1 #1", 2));
 		createCategory2.setParentCategoryId(this.templateStringValue("boxId", 2));
 		
@@ -68,7 +68,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationData createCard3 = new com.anfelisa.card.data.CardCreationData("c1");
+		com.anfelisa.card.data.CardCreationTestData createCard3 = new com.anfelisa.card.data.CardCreationTestData("c1");
 		createCard3.setCategoryId(this.templateStringValue("cat1", 3));
 		createCard3.setGiven(this.templateStringValue("given", 3));
 		createCard3.setImage(this.templateStringValue("image", 3));
@@ -79,7 +79,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 		
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser4 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser4 = new com.anfelisa.user.data.UserRegistrationTestData("uuid-admin");
 		registerUser4.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 4));
 		registerUser4.setLanguage(this.templateStringValue("de", 4));
 		registerUser4.setPassword(this.templateStringValue("admin-password", 4));
@@ -91,7 +91,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 		
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser5 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser5 = new com.anfelisa.user.data.UserRegistrationTestData("uuid-admin");
 		registerUser5.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 5));
 		registerUser5.setLanguage(this.templateStringValue("de", 5));
 		registerUser5.setPassword(this.templateStringValue("admin-password", 5));
@@ -102,7 +102,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser5, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxCreationData createBox6 = new com.anfelisa.box.data.BoxCreationData("adminBox");
+		com.anfelisa.box.data.BoxCreationTestData createBox6 = new com.anfelisa.box.data.BoxCreationTestData("adminBox");
 		createBox6.setCategoryName(this.templateStringValue("adminBox", 6));
 		createBox6.setDictionaryLookup(new Boolean("false"));
 		createBox6.setMaxCardsPerDay(10);
@@ -111,7 +111,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox6, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
 
-		com.anfelisa.category.data.CategoryCreationData createCategory7 = new com.anfelisa.category.data.CategoryCreationData("adminCat");
+		com.anfelisa.category.data.CategoryCreationTestData createCategory7 = new com.anfelisa.category.data.CategoryCreationTestData("adminCat");
 		createCategory7.setCategoryName(this.templateStringValue("c", 7));
 		createCategory7.setParentCategoryId(this.templateStringValue("adminBox", 7));
 		
@@ -122,7 +122,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.card.data.MoveCardsData moveCards0 = new com.anfelisa.card.data.MoveCardsData(randomUUID());
+		com.anfelisa.card.data.MoveCardsTestData moveCards0 = new com.anfelisa.card.data.MoveCardsTestData(randomUUID());
 		moveCards0.setCategoryId(this.templateStringValue("adminCat", 0));
 		
 			List<String> moveCards0CardIdList = new ArrayList<String>();

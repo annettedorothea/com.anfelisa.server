@@ -112,137 +112,137 @@ public class NextCardModel implements INextCardModel {
 	}
 
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
+	public String getBoxId() {
+		return this.boxId;
+	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	
 	@JsonProperty
-		public org.joda.time.DateTime getToday() {
-			return this.today;
-		}
+	public org.joda.time.DateTime getToday() {
+		return this.today;
+	}
 	public void setToday(org.joda.time.DateTime today) {
 		this.today = today;
 	}
 	
 	@JsonProperty
-		public Integer getOpenTodaysCards() {
-			return this.openTodaysCards;
-		}
+	public Integer getOpenTodaysCards() {
+		return this.openTodaysCards;
+	}
 	public void setOpenTodaysCards(Integer openTodaysCards) {
 		this.openTodaysCards = openTodaysCards;
 	}
 	
 	@JsonProperty
-		public Integer getAllTodaysCards() {
-			return this.allTodaysCards;
-		}
+	public Integer getAllTodaysCards() {
+		return this.allTodaysCards;
+	}
 	public void setAllTodaysCards(Integer allTodaysCards) {
 		this.allTodaysCards = allTodaysCards;
 	}
 	
 	@JsonProperty
-		public String getScheduledCardId() {
-			return this.scheduledCardId;
-		}
+	public String getScheduledCardId() {
+		return this.scheduledCardId;
+	}
 	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
 	
 	@JsonProperty
-		public String getReinforceCardId() {
-			return this.reinforceCardId;
-		}
+	public String getReinforceCardId() {
+		return this.reinforceCardId;
+	}
 	public void setReinforceCardId(String reinforceCardId) {
 		this.reinforceCardId = reinforceCardId;
 	}
 	
 	@JsonProperty
-		public String getCardId() {
-			return this.cardId;
-		}
+	public String getCardId() {
+		return this.cardId;
+	}
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
 	
 	@JsonProperty
-		public org.joda.time.DateTime getScheduledDate() {
-			return this.scheduledDate;
-		}
+	public org.joda.time.DateTime getScheduledDate() {
+		return this.scheduledDate;
+	}
 	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
 	
 	@JsonProperty
-		public Integer getLastQuality() {
-			return this.lastQuality;
-		}
+	public Integer getLastQuality() {
+		return this.lastQuality;
+	}
 	public void setLastQuality(Integer lastQuality) {
 		this.lastQuality = lastQuality;
 	}
 	
 	@JsonProperty
-		public String getGiven() {
-			return this.given;
-		}
+	public String getGiven() {
+		return this.given;
+	}
 	public void setGiven(String given) {
 		this.given = given;
 	}
 	
 	@JsonProperty
-		public String getWanted() {
-			return this.wanted;
-		}
+	public String getWanted() {
+		return this.wanted;
+	}
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
 	}
 	
 	@JsonProperty
-		public String getImage() {
-			return this.image;
-		}
+	public String getImage() {
+		return this.image;
+	}
 	public void setImage(String image) {
 		this.image = image;
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
-		public String getRootCategoryId() {
-			return this.rootCategoryId;
-		}
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}
 	
 	@JsonProperty
-		public Integer getCount() {
-			return this.count;
-		}
+	public Integer getCount() {
+		return this.count;
+	}
 	public void setCount(Integer count) {
 		this.count = count;
 	}
 	
 	@JsonProperty
-		public org.joda.time.DateTime getScoredDate() {
-			return this.scoredDate;
-		}
+	public org.joda.time.DateTime getScoredDate() {
+		return this.scoredDate;
+	}
 	public void setScoredDate(org.joda.time.DateTime scoredDate) {
 		this.scoredDate = scoredDate;
 	}

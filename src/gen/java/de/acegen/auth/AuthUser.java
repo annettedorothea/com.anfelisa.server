@@ -44,21 +44,21 @@ public class AuthUser implements Principal {
 		this.role = role;
 	}
 
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	
-		public String getUsername() {
-			return this.username;
-		}
+	public String getUsername() {
+		return this.username;
+	}
 	
-		public String getPassword() {
-			return this.password;
-		}
+	public String getPassword() {
+		return this.password;
+	}
 	
-		public String getRole() {
-			return this.role;
-		}
+	public String getRole() {
+		return this.role;
+	}
 	
 	public String getName() {
 		return "AuthUser";

@@ -52,25 +52,25 @@ public class DeleteUserModel implements IDeleteUserModel {
 	}
 
 	@JsonProperty
-		public String getUsernameToBeDeleted() {
-			return this.usernameToBeDeleted;
-		}
+	public String getUsernameToBeDeleted() {
+		return this.usernameToBeDeleted;
+	}
 	public void setUsernameToBeDeleted(String usernameToBeDeleted) {
 		this.usernameToBeDeleted = usernameToBeDeleted;
 	}
 	
 	@JsonProperty
-		public String getUsername() {
-			return this.username;
-		}
+	public String getUsername() {
+		return this.username;
+	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
 	
 	@JsonProperty
-		public String getRole() {
-			return this.role;
-		}
+	public String getRole() {
+		return this.role;
+	}
 	public void setRole(String role) {
 		this.role = role;
 	}

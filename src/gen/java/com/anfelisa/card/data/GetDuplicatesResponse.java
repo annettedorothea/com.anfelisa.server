@@ -42,9 +42,12 @@ public class GetDuplicatesResponse implements IGetDuplicatesResponse {
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> getCardList() {
-			return this.cardList;
-		}
+	public java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> getCardList() {
+		return this.cardList;
+	}
+	public void setCardList(java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList) {
+		this.cardList = cardList;
+	}
 	
 }
 

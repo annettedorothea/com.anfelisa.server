@@ -40,7 +40,7 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid-admin");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("admin-password", 0));
@@ -51,7 +51,7 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("adminBox");
+		com.anfelisa.box.data.BoxCreationTestData createBox1 = new com.anfelisa.box.data.BoxCreationTestData("adminBox");
 		createBox1.setCategoryName(this.templateStringValue("adminBox", 1));
 		createBox1.setDictionaryLookup(new Boolean("false"));
 		createBox1.setMaxCardsPerDay(10);
@@ -63,7 +63,7 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.category.data.CategoryCreationData createCategory0 = new com.anfelisa.category.data.CategoryCreationData("adminCat");
+		com.anfelisa.category.data.CategoryCreationTestData createCategory0 = new com.anfelisa.category.data.CategoryCreationTestData("adminCat");
 		createCategory0.setCategoryName(this.templateStringValue("c", 0));
 		createCategory0.setParentCategoryId(this.templateStringValue("adminBox", 0));
 		

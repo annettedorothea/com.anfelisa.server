@@ -30,6 +30,7 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.box.data.GetBoxesResponse;
 import com.anfelisa.card.data.GetCardsResponse;
 import com.anfelisa.card.data.GetDuplicatesResponse;
 import com.anfelisa.card.models.ICardWithCategoryNameModel;
@@ -105,6 +106,8 @@ public class BaseScenario extends AbstractBaseScenario {
 			assertThat((GetCardsResponse) actual, (GetCardsResponse) expected);
 		} else if (actual instanceof GetDuplicatesResponse) {
 			assertThat((GetDuplicatesResponse) actual, (GetDuplicatesResponse) expected);
+		} else if (actual instanceof GetBoxesResponse) {
+			assertThat((GetBoxesResponse) actual, (GetBoxesResponse) expected);
 		} else {
 			org.junit.Assert.assertThat(actual, is(samePropertyValuesAs(expected)));
 		}
@@ -179,6 +182,9 @@ public class BaseScenario extends AbstractBaseScenario {
 				assertThat(actualCard, expectedCard);
 			}
 		}
+	}
+	
+	private void assertThat(GetBoxesResponse actual, GetBoxesResponse expected) {
 	}
 	
 	@Override

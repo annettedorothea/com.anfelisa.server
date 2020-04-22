@@ -46,17 +46,17 @@ public class InitBoxesModel implements IInitBoxesModel {
 	}
 
 	@JsonProperty
-		public org.joda.time.DateTime getMinScheduledDate() {
-			return this.minScheduledDate;
-		}
+	public org.joda.time.DateTime getMinScheduledDate() {
+		return this.minScheduledDate;
+	}
 	public void setMinScheduledDate(org.joda.time.DateTime minScheduledDate) {
 		this.minScheduledDate = minScheduledDate;
 	}
 	
 	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
+	public String getBoxId() {
+		return this.boxId;
+	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}

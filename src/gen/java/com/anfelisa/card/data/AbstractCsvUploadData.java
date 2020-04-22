@@ -67,9 +67,9 @@ public abstract class AbstractCsvUploadData extends AbstractData implements ICsv
 	}
 
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -79,9 +79,9 @@ public abstract class AbstractCsvUploadData extends AbstractData implements ICsv
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
@@ -91,9 +91,9 @@ public abstract class AbstractCsvUploadData extends AbstractData implements ICsv
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.card.models.ISimpleCardModel> getPreviewCsv() {
-			return this.previewCsv;
-		}
+	public java.util.List<com.anfelisa.card.models.ISimpleCardModel> getPreviewCsv() {
+		return this.previewCsv;
+	}
 	public void setPreviewCsv(java.util.List<com.anfelisa.card.models.ISimpleCardModel> previewCsv) {
 		this.previewCsv = previewCsv;
 	}
@@ -103,9 +103,9 @@ public abstract class AbstractCsvUploadData extends AbstractData implements ICsv
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.card.models.ICardModel> getCards() {
-			return this.cards;
-		}
+	public java.util.List<com.anfelisa.card.models.ICardModel> getCards() {
+		return this.cards;
+	}
 	public void setCards(java.util.List<com.anfelisa.card.models.ICardModel> cards) {
 		this.cards = cards;
 	}

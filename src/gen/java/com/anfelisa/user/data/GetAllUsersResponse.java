@@ -42,9 +42,12 @@ public class GetAllUsersResponse implements IGetAllUsersResponse {
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.user.models.IUserModel> getUserList() {
-			return this.userList;
-		}
+	public java.util.List<com.anfelisa.user.models.IUserModel> getUserList() {
+		return this.userList;
+	}
+	public void setUserList(java.util.List<com.anfelisa.user.models.IUserModel> userList) {
+		this.userList = userList;
+	}
 	
 }
 

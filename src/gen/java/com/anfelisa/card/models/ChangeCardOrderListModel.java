@@ -53,33 +53,33 @@ public class ChangeCardOrderListModel implements IChangeCardOrderListModel {
 	}
 
 	@JsonProperty
-		public java.util.List<String> getCardIdList() {
-			return this.cardIdList;
-		}
+	public java.util.List<String> getCardIdList() {
+		return this.cardIdList;
+	}
 	public void setCardIdList(java.util.List<String> cardIdList) {
 		this.cardIdList = cardIdList;
 	}
 	
 	@JsonProperty
-		public String getCardId() {
-			return this.cardId;
-		}
+	public String getCardId() {
+		return this.cardId;
+	}
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.card.models.ICardModel> getUpdatedIndices() {
-			return this.updatedIndices;
-		}
+	public java.util.List<com.anfelisa.card.models.ICardModel> getUpdatedIndices() {
+		return this.updatedIndices;
+	}
 	public void setUpdatedIndices(java.util.List<com.anfelisa.card.models.ICardModel> updatedIndices) {
 		this.updatedIndices = updatedIndices;
 	}

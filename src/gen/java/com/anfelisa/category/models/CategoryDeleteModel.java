@@ -56,33 +56,33 @@ public class CategoryDeleteModel implements ICategoryDeleteModel {
 	}
 
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
-		public Integer getCategoryIndex() {
-			return this.categoryIndex;
-		}
+	public Integer getCategoryIndex() {
+		return this.categoryIndex;
+	}
 	public void setCategoryIndex(Integer categoryIndex) {
 		this.categoryIndex = categoryIndex;
 	}
 	
 	@JsonProperty
-		public String getParentCategoryId() {
-			return this.parentCategoryId;
-		}
+	public String getParentCategoryId() {
+		return this.parentCategoryId;
+	}
 	public void setParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}

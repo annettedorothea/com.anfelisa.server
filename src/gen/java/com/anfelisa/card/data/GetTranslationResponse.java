@@ -43,9 +43,12 @@ public class GetTranslationResponse implements IGetTranslationResponse {
 	}
 	
 	@JsonProperty
-		public String getTargetValue() {
-			return this.targetValue;
-		}
+	public String getTargetValue() {
+		return this.targetValue;
+	}
+	public void setTargetValue(String targetValue) {
+		this.targetValue = targetValue;
+	}
 	
 }
 

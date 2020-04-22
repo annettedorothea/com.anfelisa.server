@@ -30,7 +30,7 @@ import org.glassfish.jersey.client.JerseyClientBuilder;
 public class ActionCalls {
 
 	public static Response callCreateCard(
-			com.anfelisa.card.data.ICardCreationData data,
+			com.anfelisa.card.data.CardCreationTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -40,7 +40,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callUpdateCard(
-			com.anfelisa.card.data.ICardUpdateData data, 
+			com.anfelisa.card.data.CardUpdateTestData data, 
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -50,7 +50,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callDeleteCard(
-			com.anfelisa.card.data.ICardDeleteData data,
+			com.anfelisa.card.data.CardDeleteTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -60,7 +60,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callGetCards(
-			com.anfelisa.card.data.ICardListData data,
+			com.anfelisa.card.data.CardListTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -70,7 +70,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callGetDuplicates(
-			com.anfelisa.card.data.ICardSearchData data,
+			com.anfelisa.card.data.CardSearchTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -80,7 +80,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callMoveCards(
-			com.anfelisa.card.data.IMoveCardsData data, 
+			com.anfelisa.card.data.MoveCardsTestData data, 
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -90,7 +90,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callChangeOrder(
-			com.anfelisa.card.data.IChangeCardOrderListData data, 
+			com.anfelisa.card.data.ChangeCardOrderListTestData data, 
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -100,7 +100,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callImportCsv(
-			com.anfelisa.card.data.ICsvUploadData data, 
+			com.anfelisa.card.data.CsvUploadTestData data, 
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -110,7 +110,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callGetTranslation(
-			com.anfelisa.card.data.ICardTranslationData data,
+			com.anfelisa.card.data.CardTranslationTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();

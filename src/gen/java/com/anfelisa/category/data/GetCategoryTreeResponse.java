@@ -42,9 +42,12 @@ public class GetCategoryTreeResponse implements IGetCategoryTreeResponse {
 	}
 	
 	@JsonProperty
-		public com.anfelisa.category.models.ICategoryTreeItemModel getRootCategory() {
-			return this.rootCategory;
-		}
+	public com.anfelisa.category.models.ICategoryTreeItemModel getRootCategory() {
+		return this.rootCategory;
+	}
+	public void setRootCategory(com.anfelisa.category.models.ICategoryTreeItemModel rootCategory) {
+		this.rootCategory = rootCategory;
+	}
 	
 }
 

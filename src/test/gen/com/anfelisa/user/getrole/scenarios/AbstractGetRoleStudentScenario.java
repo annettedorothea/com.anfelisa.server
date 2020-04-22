@@ -40,7 +40,7 @@ public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid-admin");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("admin-password", 0));
@@ -52,7 +52,7 @@ public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 		
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser1 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
 		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 1));
 		registerUser1.setLanguage(this.templateStringValue("de", 1));
 		registerUser1.setPassword(this.templateStringValue("password", 1));
@@ -66,7 +66,7 @@ public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.RoleData getRole0 = new com.anfelisa.user.data.RoleData(randomUUID());
+		com.anfelisa.user.data.RoleTestData getRole0 = new com.anfelisa.user.data.RoleTestData(randomUUID());
 		
 		return 
 		com.anfelisa.user.ActionCalls.callGetRole(getRole0, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

@@ -40,7 +40,7 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -51,7 +51,7 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
+		com.anfelisa.box.data.BoxCreationTestData createBox1 = new com.anfelisa.box.data.BoxCreationTestData("boxId");
 		createBox1.setCategoryName(this.templateStringValue("cat", 1));
 		createBox1.setDictionaryLookup(new Boolean("false"));
 		createBox1.setMaxCardsPerDay(1);
@@ -60,7 +60,7 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.category.data.CategoryCreationData createCategory2 = new com.anfelisa.category.data.CategoryCreationData("cat1");
+		com.anfelisa.category.data.CategoryCreationTestData createCategory2 = new com.anfelisa.category.data.CategoryCreationTestData("cat1");
 		createCategory2.setCategoryName(this.templateStringValue("level 1 #1", 2));
 		createCategory2.setParentCategoryId(this.templateStringValue("boxId", 2));
 		
@@ -71,23 +71,23 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.card.data.CsvUploadData importCsv0 = new com.anfelisa.card.data.CsvUploadData(randomUUID());
+		com.anfelisa.card.data.CsvUploadTestData importCsv0 = new com.anfelisa.card.data.CsvUploadTestData(randomUUID());
 		importCsv0.setCategoryId(this.templateStringValue("cat1", 0));
 		
-			List<com.anfelisa.card.models.ISimpleCardModel> importCsv0PreviewCsv = new ArrayList<com.anfelisa.card.models.ISimpleCardModel>();
-			com.anfelisa.card.models.ISimpleCardModel item1 = new com.anfelisa.card.models.SimpleCardModel();
+			List<com.anfelisa.card.data.SimpleCardTestData> importCsv0PreviewCsv = new ArrayList<com.anfelisa.card.data.SimpleCardTestData>();
+			com.anfelisa.card.data.SimpleCardTestData item1 = new com.anfelisa.card.data.SimpleCardTestData();
 			item1.setGiven(this.templateStringValue("g1", 0));
 			item1.setWanted(this.templateStringValue("w1", 0));
 			item1.setId(this.templateStringValue("1", 0));
 			importCsv0PreviewCsv.add(item1);
 		
-			com.anfelisa.card.models.ISimpleCardModel item2 = new com.anfelisa.card.models.SimpleCardModel();
+			com.anfelisa.card.data.SimpleCardTestData item2 = new com.anfelisa.card.data.SimpleCardTestData();
 			item2.setGiven(this.templateStringValue("g2", 0));
 			item2.setWanted(this.templateStringValue("w2", 0));
 			item2.setId(this.templateStringValue("2", 0));
 			importCsv0PreviewCsv.add(item2);
 		
-			com.anfelisa.card.models.ISimpleCardModel item3 = new com.anfelisa.card.models.SimpleCardModel();
+			com.anfelisa.card.data.SimpleCardTestData item3 = new com.anfelisa.card.data.SimpleCardTestData();
 			item3.setGiven(this.templateStringValue("g3", 0));
 			item3.setWanted(this.templateStringValue("w3", 0));
 			item3.setId(this.templateStringValue("3", 0));

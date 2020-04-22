@@ -61,41 +61,41 @@ public class BoxModel implements IBoxModel {
 	}
 
 	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
+	public String getBoxId() {
+		return this.boxId;
+	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
-		public Integer getMaxInterval() {
-			return this.maxInterval;
-		}
+	public Integer getMaxInterval() {
+		return this.maxInterval;
+	}
 	public void setMaxInterval(Integer maxInterval) {
 		this.maxInterval = maxInterval;
 	}
 	
 	@JsonProperty
-		public Integer getMaxCardsPerDay() {
-			return this.maxCardsPerDay;
-		}
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
 	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
 		this.maxCardsPerDay = maxCardsPerDay;
 	}

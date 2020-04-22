@@ -51,25 +51,25 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	}
 
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
-		public String getCategoryName() {
-			return this.categoryName;
-		}
+	public String getCategoryName() {
+		return this.categoryName;
+	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}

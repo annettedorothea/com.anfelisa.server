@@ -97,9 +97,9 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 
 	@JsonProperty
-		public Integer getOpenTodaysCards() {
-			return this.openTodaysCards;
-		}
+	public Integer getOpenTodaysCards() {
+		return this.openTodaysCards;
+	}
 	public void setOpenTodaysCards(Integer openTodaysCards) {
 		this.openTodaysCards = openTodaysCards;
 	}
@@ -109,9 +109,9 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	
 	@JsonProperty
-		public Integer getAllTodaysCards() {
-			return this.allTodaysCards;
-		}
+	public Integer getAllTodaysCards() {
+		return this.allTodaysCards;
+	}
 	public void setAllTodaysCards(Integer allTodaysCards) {
 		this.allTodaysCards = allTodaysCards;
 	}
@@ -121,9 +121,9 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	
 	@JsonProperty
-		public String getCategoryName() {
-			return this.categoryName;
-		}
+	public String getCategoryName() {
+		return this.categoryName;
+	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
@@ -133,9 +133,9 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
@@ -145,9 +145,9 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	
 	@JsonProperty
-		public Integer getQuality0Count() {
-			return this.quality0Count;
-		}
+	public Integer getQuality0Count() {
+		return this.quality0Count;
+	}
 	public void setQuality0Count(Integer quality0Count) {
 		this.quality0Count = quality0Count;
 	}
@@ -157,9 +157,9 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	
 	@JsonProperty
-		public Integer getQuality1Count() {
-			return this.quality1Count;
-		}
+	public Integer getQuality1Count() {
+		return this.quality1Count;
+	}
 	public void setQuality1Count(Integer quality1Count) {
 		this.quality1Count = quality1Count;
 	}
@@ -169,9 +169,9 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	
 	@JsonProperty
-		public Integer getQuality2Count() {
-			return this.quality2Count;
-		}
+	public Integer getQuality2Count() {
+		return this.quality2Count;
+	}
 	public void setQuality2Count(Integer quality2Count) {
 		this.quality2Count = quality2Count;
 	}
@@ -181,9 +181,9 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	
 	@JsonProperty
-		public Integer getQuality3Count() {
-			return this.quality3Count;
-		}
+	public Integer getQuality3Count() {
+		return this.quality3Count;
+	}
 	public void setQuality3Count(Integer quality3Count) {
 		this.quality3Count = quality3Count;
 	}
@@ -193,9 +193,9 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	
 	@JsonProperty
-		public Integer getQuality4Count() {
-			return this.quality4Count;
-		}
+	public Integer getQuality4Count() {
+		return this.quality4Count;
+	}
 	public void setQuality4Count(Integer quality4Count) {
 		this.quality4Count = quality4Count;
 	}
@@ -205,9 +205,9 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	
 	@JsonProperty
-		public Integer getQuality5Count() {
-			return this.quality5Count;
-		}
+	public Integer getQuality5Count() {
+		return this.quality5Count;
+	}
 	public void setQuality5Count(Integer quality5Count) {
 		this.quality5Count = quality5Count;
 	}
@@ -217,9 +217,9 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 	}
 	
 	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
+	public String getBoxId() {
+		return this.boxId;
+	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}

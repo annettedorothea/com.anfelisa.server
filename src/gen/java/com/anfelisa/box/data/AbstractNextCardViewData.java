@@ -103,9 +103,9 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 
 	@JsonProperty
-		public String getScheduledCardId() {
-			return this.scheduledCardId;
-		}
+	public String getScheduledCardId() {
+		return this.scheduledCardId;
+	}
 	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
@@ -115,9 +115,9 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public String getReinforceCardId() {
-			return this.reinforceCardId;
-		}
+	public String getReinforceCardId() {
+		return this.reinforceCardId;
+	}
 	public void setReinforceCardId(String reinforceCardId) {
 		this.reinforceCardId = reinforceCardId;
 	}
@@ -127,9 +127,9 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public String getCardId() {
-			return this.cardId;
-		}
+	public String getCardId() {
+		return this.cardId;
+	}
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
@@ -139,9 +139,9 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public org.joda.time.DateTime getScheduledDate() {
-			return this.scheduledDate;
-		}
+	public org.joda.time.DateTime getScheduledDate() {
+		return this.scheduledDate;
+	}
 	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
@@ -151,9 +151,9 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public Integer getLastQuality() {
-			return this.lastQuality;
-		}
+	public Integer getLastQuality() {
+		return this.lastQuality;
+	}
 	public void setLastQuality(Integer lastQuality) {
 		this.lastQuality = lastQuality;
 	}
@@ -163,9 +163,9 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public String getGiven() {
-			return this.given;
-		}
+	public String getGiven() {
+		return this.given;
+	}
 	public void setGiven(String given) {
 		this.given = given;
 	}
@@ -175,9 +175,9 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public String getWanted() {
-			return this.wanted;
-		}
+	public String getWanted() {
+		return this.wanted;
+	}
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
 	}
@@ -187,9 +187,9 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public String getImage() {
-			return this.image;
-		}
+	public String getImage() {
+		return this.image;
+	}
 	public void setImage(String image) {
 		this.image = image;
 	}
@@ -199,9 +199,9 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
@@ -211,9 +211,9 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public String getRootCategoryId() {
-			return this.rootCategoryId;
-		}
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}
@@ -223,9 +223,9 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public Integer getCount() {
-			return this.count;
-		}
+	public Integer getCount() {
+		return this.count;
+	}
 	public void setCount(Integer count) {
 		this.count = count;
 	}
@@ -235,9 +235,9 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public org.joda.time.DateTime getScoredDate() {
-			return this.scoredDate;
-		}
+	public org.joda.time.DateTime getScoredDate() {
+		return this.scoredDate;
+	}
 	public void setScoredDate(org.joda.time.DateTime scoredDate) {
 		this.scoredDate = scoredDate;
 	}

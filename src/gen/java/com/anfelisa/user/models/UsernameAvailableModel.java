@@ -46,17 +46,17 @@ public class UsernameAvailableModel implements IUsernameAvailableModel {
 	}
 
 	@JsonProperty
-		public String getUsername() {
-			return this.username;
-		}
+	public String getUsername() {
+		return this.username;
+	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
 	
 	@JsonProperty
-		public Boolean getAvailable() {
-			return this.available;
-		}
+	public Boolean getAvailable() {
+		return this.available;
+	}
 	public void setAvailable(Boolean available) {
 		this.available = available;
 	}

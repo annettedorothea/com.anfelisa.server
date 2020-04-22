@@ -134,10 +134,10 @@ public class EventFactory {
 			return new ScoreReinforceCardRemoveEvent((ScoreReinforceCardData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
-
 		if (eventClass.equals("com.anfelisa.box.events.InitMyBoxesForDayOkEvent")) {
 			return new InitMyBoxesForDayOkEvent((InitMyBoxesDataData)data, daoProvider, viewProvider, appConfiguration);
 		}
+
 
 
 		if (eventClass.equals("com.anfelisa.box.events.DeleteBoxOkEvent")) {

@@ -40,7 +40,7 @@ public abstract class AbstractCreateBoxCategoryNameBlankScenario extends BaseSce
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -54,7 +54,7 @@ public abstract class AbstractCreateBoxCategoryNameBlankScenario extends BaseSce
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.box.data.BoxCreationData createBox0 = new com.anfelisa.box.data.BoxCreationData("boxId");
+		com.anfelisa.box.data.BoxCreationTestData createBox0 = new com.anfelisa.box.data.BoxCreationTestData("boxId");
 		createBox0.setCategoryName(this.templateStringValue("    ", 0));
 		createBox0.setMaxCardsPerDay(10);
 		createBox0.setDictionaryLookup(new Boolean("false"));

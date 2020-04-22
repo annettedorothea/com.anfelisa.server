@@ -40,7 +40,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -51,7 +51,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
+		com.anfelisa.box.data.BoxCreationTestData createBox1 = new com.anfelisa.box.data.BoxCreationTestData("boxId");
 		createBox1.setCategoryName(this.templateStringValue("cat", 1));
 		createBox1.setDictionaryLookup(new Boolean("false"));
 		createBox1.setMaxCardsPerDay(1);
@@ -60,7 +60,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.category.data.CategoryCreationData createCategory2 = new com.anfelisa.category.data.CategoryCreationData("cat1");
+		com.anfelisa.category.data.CategoryCreationTestData createCategory2 = new com.anfelisa.category.data.CategoryCreationTestData("cat1");
 		createCategory2.setCategoryName(this.templateStringValue("level 1 #1", 2));
 		createCategory2.setParentCategoryId(this.templateStringValue("boxId", 2));
 		
@@ -68,7 +68,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationData createCard3 = new com.anfelisa.card.data.CardCreationData("c1");
+		com.anfelisa.card.data.CardCreationTestData createCard3 = new com.anfelisa.card.data.CardCreationTestData("c1");
 		createCard3.setCategoryId(this.templateStringValue("cat1", 3));
 		createCard3.setGiven(this.templateStringValue("given", 3));
 		createCard3.setImage(this.templateStringValue("image", 3));
@@ -78,7 +78,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.card.ActionCalls.callCreateCard(createCard3, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationData createCard4 = new com.anfelisa.card.data.CardCreationData("c2");
+		com.anfelisa.card.data.CardCreationTestData createCard4 = new com.anfelisa.card.data.CardCreationTestData("c2");
 		createCard4.setCategoryId(this.templateStringValue("cat1", 4));
 		createCard4.setGiven(this.templateStringValue("given2", 4));
 		createCard4.setImage(this.templateStringValue("image2", 4));
@@ -88,7 +88,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.card.ActionCalls.callCreateCard(createCard4, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationData createCard5 = new com.anfelisa.card.data.CardCreationData("c3");
+		com.anfelisa.card.data.CardCreationTestData createCard5 = new com.anfelisa.card.data.CardCreationTestData("c3");
 		createCard5.setCategoryId(this.templateStringValue("cat1", 5));
 		createCard5.setGiven(this.templateStringValue("3given", 5));
 		createCard5.setWanted(this.templateStringValue("3wanted", 5));
@@ -97,7 +97,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.card.ActionCalls.callCreateCard(createCard5, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationData createCard6 = new com.anfelisa.card.data.CardCreationData("c4");
+		com.anfelisa.card.data.CardCreationTestData createCard6 = new com.anfelisa.card.data.CardCreationTestData("c4");
 		createCard6.setCategoryId(this.templateStringValue("cat1", 6));
 		createCard6.setGiven(this.templateStringValue("4given4", 6));
 		createCard6.setWanted(this.templateStringValue("4wanted4", 6));
@@ -106,7 +106,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.card.ActionCalls.callCreateCard(createCard6, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationData createCard7 = new com.anfelisa.card.data.CardCreationData("c5");
+		com.anfelisa.card.data.CardCreationTestData createCard7 = new com.anfelisa.card.data.CardCreationTestData("c5");
 		createCard7.setCategoryId(this.templateStringValue("cat1", 7));
 		createCard7.setGiven(this.templateStringValue("different", 7));
 		createCard7.setWanted(this.templateStringValue("different", 7));
@@ -115,7 +115,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.card.ActionCalls.callCreateCard(createCard7, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.category.data.CategoryCreationData createCategory8 = new com.anfelisa.category.data.CategoryCreationData("cat1");
+		com.anfelisa.category.data.CategoryCreationTestData createCategory8 = new com.anfelisa.category.data.CategoryCreationTestData("cat1");
 		createCategory8.setCategoryName(this.templateStringValue("level 1 #1", 8));
 		createCategory8.setParentCategoryId(this.templateStringValue("boxId", 8));
 		
@@ -123,7 +123,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory8, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.category.data.CategoryCreationData createCategory9 = new com.anfelisa.category.data.CategoryCreationData("cat2");
+		com.anfelisa.category.data.CategoryCreationTestData createCategory9 = new com.anfelisa.category.data.CategoryCreationTestData("cat2");
 		createCategory9.setCategoryName(this.templateStringValue("level 1 #2", 9));
 		createCategory9.setParentCategoryId(this.templateStringValue("boxId", 9));
 		
@@ -131,7 +131,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory9, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationData createCard10 = new com.anfelisa.card.data.CardCreationData("c6");
+		com.anfelisa.card.data.CardCreationTestData createCard10 = new com.anfelisa.card.data.CardCreationTestData("c6");
 		createCard10.setCategoryId(this.templateStringValue("cat2", 10));
 		createCard10.setGiven(this.templateStringValue("aa-given", 10));
 		createCard10.setWanted(this.templateStringValue("zz-wanted", 10));
@@ -140,7 +140,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.card.ActionCalls.callCreateCard(createCard10, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.box.data.BoxCreationData createBox11 = new com.anfelisa.box.data.BoxCreationData("boxId");
+		com.anfelisa.box.data.BoxCreationTestData createBox11 = new com.anfelisa.box.data.BoxCreationTestData("boxId");
 		createBox11.setCategoryName(this.templateStringValue("cat", 11));
 		createBox11.setDictionaryLookup(new Boolean("false"));
 		createBox11.setMaxCardsPerDay(1);
@@ -149,7 +149,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox11, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.box.data.BoxCreationData createBox12 = new com.anfelisa.box.data.BoxCreationData("boxId2");
+		com.anfelisa.box.data.BoxCreationTestData createBox12 = new com.anfelisa.box.data.BoxCreationTestData("boxId2");
 		createBox12.setCategoryName(this.templateStringValue("cat2", 12));
 		createBox12.setDictionaryLookup(new Boolean("false"));
 		createBox12.setMaxCardsPerDay(8);
@@ -158,7 +158,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		com.anfelisa.box.ActionCalls.callCreateBox(createBox12, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationData createCard13 = new com.anfelisa.card.data.CardCreationData("c7");
+		com.anfelisa.card.data.CardCreationTestData createCard13 = new com.anfelisa.card.data.CardCreationTestData("c7");
 		createCard13.setCategoryId(this.templateStringValue("boxId2", 13));
 		createCard13.setGiven(this.templateStringValue("given", 13));
 		createCard13.setWanted(this.templateStringValue("wanted", 13));
@@ -170,7 +170,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.card.data.CardSearchData getDuplicates0 = new com.anfelisa.card.data.CardSearchData(randomUUID());
+		com.anfelisa.card.data.CardSearchTestData getDuplicates0 = new com.anfelisa.card.data.CardSearchTestData(randomUUID());
 		getDuplicates0.setCategoryId(this.templateStringValue("boxId", 0));
 		getDuplicates0.setGiven(this.templateStringValue("ive", 0));
 		getDuplicates0.setWanted(this.templateStringValue("nted", 0));

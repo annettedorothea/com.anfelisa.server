@@ -50,25 +50,25 @@ public class BoxListModel implements IBoxListModel {
 	}
 
 	@JsonProperty
-		public java.util.List<com.anfelisa.box.models.IBoxViewModel> getBoxList() {
-			return this.boxList;
-		}
+	public java.util.List<com.anfelisa.box.models.IBoxViewModel> getBoxList() {
+		return this.boxList;
+	}
 	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList) {
 		this.boxList = boxList;
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-		public org.joda.time.DateTime getToday() {
-			return this.today;
-		}
+	public org.joda.time.DateTime getToday() {
+		return this.today;
+	}
 	public void setToday(org.joda.time.DateTime today) {
 		this.today = today;
 	}

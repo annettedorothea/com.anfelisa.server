@@ -49,25 +49,25 @@ public class CardListModel implements ICardListModel {
 	}
 
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.card.models.ICardWithInfoModel> getCardList() {
-			return this.cardList;
-		}
+	public java.util.List<com.anfelisa.card.models.ICardWithInfoModel> getCardList() {
+		return this.cardList;
+	}
 	public void setCardList(java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList) {
 		this.cardList = cardList;
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}

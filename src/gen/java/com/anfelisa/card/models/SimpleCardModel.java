@@ -52,25 +52,25 @@ public class SimpleCardModel implements ISimpleCardModel {
 	}
 
 	@JsonProperty
-		public String getGiven() {
-			return this.given;
-		}
+	public String getGiven() {
+		return this.given;
+	}
 	public void setGiven(String given) {
 		this.given = given;
 	}
 	
 	@JsonProperty
-		public String getWanted() {
-			return this.wanted;
-		}
+	public String getWanted() {
+		return this.wanted;
+	}
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
 	}
 	
 	@JsonProperty
-		public String getId() {
-			return this.id;
-		}
+	public String getId() {
+		return this.id;
+	}
 	public void setId(String id) {
 		this.id = id;
 	}

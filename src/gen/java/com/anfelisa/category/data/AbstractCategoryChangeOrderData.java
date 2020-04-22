@@ -66,9 +66,9 @@ public abstract class AbstractCategoryChangeOrderData extends AbstractData imple
 	}
 
 	@JsonProperty
-		public String getMovedCategoryId() {
-			return this.movedCategoryId;
-		}
+	public String getMovedCategoryId() {
+		return this.movedCategoryId;
+	}
 	public void setMovedCategoryId(String movedCategoryId) {
 		this.movedCategoryId = movedCategoryId;
 	}
@@ -78,9 +78,9 @@ public abstract class AbstractCategoryChangeOrderData extends AbstractData imple
 	}
 	
 	@JsonProperty
-		public String getTargetCategoryId() {
-			return this.targetCategoryId;
-		}
+	public String getTargetCategoryId() {
+		return this.targetCategoryId;
+	}
 	public void setTargetCategoryId(String targetCategoryId) {
 		this.targetCategoryId = targetCategoryId;
 	}
@@ -90,9 +90,9 @@ public abstract class AbstractCategoryChangeOrderData extends AbstractData imple
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -102,9 +102,9 @@ public abstract class AbstractCategoryChangeOrderData extends AbstractData imple
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.category.models.ICategoryModel> getUpdatedIndices() {
-			return this.updatedIndices;
-		}
+	public java.util.List<com.anfelisa.category.models.ICategoryModel> getUpdatedIndices() {
+		return this.updatedIndices;
+	}
 	public void setUpdatedIndices(java.util.List<com.anfelisa.category.models.ICategoryModel> updatedIndices) {
 		this.updatedIndices = updatedIndices;
 	}

@@ -60,41 +60,41 @@ public class CardUpdateModel implements ICardUpdateModel {
 	}
 
 	@JsonProperty
-		public String getCardId() {
-			return this.cardId;
-		}
+	public String getCardId() {
+		return this.cardId;
+	}
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
 	
 	@JsonProperty
-		public String getGiven() {
-			return this.given;
-		}
+	public String getGiven() {
+		return this.given;
+	}
 	public void setGiven(String given) {
 		this.given = given;
 	}
 	
 	@JsonProperty
-		public String getWanted() {
-			return this.wanted;
-		}
+	public String getWanted() {
+		return this.wanted;
+	}
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
 	}
 	
 	@JsonProperty
-		public String getImage() {
-			return this.image;
-		}
+	public String getImage() {
+		return this.image;
+	}
 	public void setImage(String image) {
 		this.image = image;
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}

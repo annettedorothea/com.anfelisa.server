@@ -69,9 +69,9 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	}
 
 	@JsonProperty
-		public String getReinforceCardId() {
-			return this.reinforceCardId;
-		}
+	public String getReinforceCardId() {
+		return this.reinforceCardId;
+	}
 	public void setReinforceCardId(String reinforceCardId) {
 		this.reinforceCardId = reinforceCardId;
 	}
@@ -81,9 +81,9 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	}
 	
 	@JsonProperty
-		public Integer getScoredCardQuality() {
-			return this.scoredCardQuality;
-		}
+	public Integer getScoredCardQuality() {
+		return this.scoredCardQuality;
+	}
 	public void setScoredCardQuality(Integer scoredCardQuality) {
 		this.scoredCardQuality = scoredCardQuality;
 	}
@@ -93,9 +93,9 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	}
 	
 	@JsonProperty
-		public org.joda.time.DateTime getChangeDate() {
-			return this.changeDate;
-		}
+	public org.joda.time.DateTime getChangeDate() {
+		return this.changeDate;
+	}
 	public void setChangeDate(org.joda.time.DateTime changeDate) {
 		this.changeDate = changeDate;
 	}
@@ -105,9 +105,9 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}

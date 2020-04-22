@@ -62,9 +62,9 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	}
 
 	@JsonProperty
-		public com.anfelisa.category.models.ICategoryTreeItemModel getRootCategory() {
-			return this.rootCategory;
-		}
+	public com.anfelisa.category.models.ICategoryTreeItemModel getRootCategory() {
+		return this.rootCategory;
+	}
 	public void setRootCategory(com.anfelisa.category.models.ICategoryTreeItemModel rootCategory) {
 		this.rootCategory = rootCategory;
 	}
@@ -74,9 +74,9 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -86,9 +86,9 @@ public abstract class AbstractCategoryTreeData extends AbstractData implements I
 	}
 	
 	@JsonProperty
-		public String getRootCategoryId() {
-			return this.rootCategoryId;
-		}
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}

@@ -62,41 +62,41 @@ public class ForgotPasswordModel implements IForgotPasswordModel {
 	}
 
 	@JsonProperty
-		public String getLanguage() {
-			return this.language;
-		}
+	public String getLanguage() {
+		return this.language;
+	}
 	public void setLanguage(String language) {
 		this.language = language;
 	}
 	
 	@JsonProperty
-		public String getEmail() {
-			return this.email;
-		}
+	public String getEmail() {
+		return this.email;
+	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
 	
 	@JsonProperty
-		public String getUsername() {
-			return this.username;
-		}
+	public String getUsername() {
+		return this.username;
+	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
 	
 	@JsonProperty
-		public String getToken() {
-			return this.token;
-		}
+	public String getToken() {
+		return this.token;
+	}
 	public void setToken(String token) {
 		this.token = token;
 	}
 	
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}

@@ -64,9 +64,9 @@ public abstract class AbstractUserWithAccessData extends AbstractData implements
 	}
 
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -76,9 +76,9 @@ public abstract class AbstractUserWithAccessData extends AbstractData implements
 	}
 	
 	@JsonProperty
-		public String getUsername() {
-			return this.username;
-		}
+	public String getUsername() {
+		return this.username;
+	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -88,9 +88,9 @@ public abstract class AbstractUserWithAccessData extends AbstractData implements
 	}
 	
 	@JsonProperty
-		public Boolean getEditable() {
-			return this.editable;
-		}
+	public Boolean getEditable() {
+		return this.editable;
+	}
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
 	}

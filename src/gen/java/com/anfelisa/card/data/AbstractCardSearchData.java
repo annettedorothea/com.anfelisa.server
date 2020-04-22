@@ -76,9 +76,9 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	}
 
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -88,9 +88,9 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	}
 	
 	@JsonProperty
-		public String getGiven() {
-			return this.given;
-		}
+	public String getGiven() {
+		return this.given;
+	}
 	public void setGiven(String given) {
 		this.given = given;
 	}
@@ -100,9 +100,9 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	}
 	
 	@JsonProperty
-		public String getWanted() {
-			return this.wanted;
-		}
+	public String getWanted() {
+		return this.wanted;
+	}
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
 	}
@@ -112,9 +112,9 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
@@ -124,9 +124,9 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> getCardList() {
-			return this.cardList;
-		}
+	public java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> getCardList() {
+		return this.cardList;
+	}
 	public void setCardList(java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList) {
 		this.cardList = cardList;
 	}
@@ -136,9 +136,9 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 	}
 	
 	@JsonProperty
-		public Boolean getNaturalInputOrder() {
-			return this.naturalInputOrder;
-		}
+	public Boolean getNaturalInputOrder() {
+		return this.naturalInputOrder;
+	}
 	public void setNaturalInputOrder(Boolean naturalInputOrder) {
 		this.naturalInputOrder = naturalInputOrder;
 	}

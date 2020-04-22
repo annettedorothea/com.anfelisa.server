@@ -40,7 +40,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser0 = new com.anfelisa.user.data.UserRegistrationTestData("uuid");
 		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
 		registerUser0.setLanguage(this.templateStringValue("de", 0));
 		registerUser0.setPassword(this.templateStringValue("password", 0));
@@ -52,7 +52,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 		
 
 		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
+		com.anfelisa.user.data.UserRegistrationTestData registerUser1 = new com.anfelisa.user.data.UserRegistrationTestData("uuid-admin");
 		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 1));
 		registerUser1.setLanguage(this.templateStringValue("de", 1));
 		registerUser1.setPassword(this.templateStringValue("admin-password", 1));
@@ -63,7 +63,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser1, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.user.data.ChangeUserRoleData changeUserRole2 = new com.anfelisa.user.data.ChangeUserRoleData(randomUUID());
+		com.anfelisa.user.data.ChangeUserRoleTestData changeUserRole2 = new com.anfelisa.user.data.ChangeUserRoleTestData(randomUUID());
 		changeUserRole2.setEditedUserId(this.templateStringValue("uuid", 2));
 		changeUserRole2.setNewRole(this.templateStringValue("ADMIN", 2));
 		
@@ -74,7 +74,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.ChangeUserRoleData changeUserRole0 = new com.anfelisa.user.data.ChangeUserRoleData(randomUUID());
+		com.anfelisa.user.data.ChangeUserRoleTestData changeUserRole0 = new com.anfelisa.user.data.ChangeUserRoleTestData(randomUUID());
 		changeUserRole0.setEditedUserId(this.templateStringValue("uuid", 0));
 		changeUserRole0.setNewRole(this.templateStringValue("STUDENT", 0));
 		

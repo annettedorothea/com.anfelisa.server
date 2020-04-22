@@ -30,7 +30,7 @@ import org.glassfish.jersey.client.JerseyClientBuilder;
 public class ActionCalls {
 
 	public static Response callCreateBox(
-			com.anfelisa.box.data.IBoxCreationData data,
+			com.anfelisa.box.data.BoxCreationTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -40,7 +40,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callUpdateBox(
-			com.anfelisa.box.data.IBoxUpdateData data, 
+			com.anfelisa.box.data.BoxUpdateTestData data, 
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -50,7 +50,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callGetBoxSettings(
-			com.anfelisa.box.data.IBoxSettingsWrapperData data,
+			com.anfelisa.box.data.BoxSettingsWrapperTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -60,7 +60,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callScheduleCards(
-			com.anfelisa.box.data.IScheduledCardsData data,
+			com.anfelisa.box.data.ScheduledCardsTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -70,7 +70,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callScoreCard(
-			com.anfelisa.box.data.IScoreCardData data,
+			com.anfelisa.box.data.ScoreCardTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -80,7 +80,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callScoreReinforceCard(
-			com.anfelisa.box.data.IScoreReinforceCardData data,
+			com.anfelisa.box.data.ScoreReinforceCardTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -89,18 +89,8 @@ public class ActionCalls {
 		return builder.post(Entity.json(data));
 	}
 	
-	public static Response callGetBoxes(
-			com.anfelisa.box.data.IBoxListData data,
-			int port, 
-			String authorization) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/boxes/my/?uuid=" + data.getUuid() + "&today=" + data.getToday(), port)).request(); 
-		builder.header("Authorization", authorization);
-		return builder.get();
-	}
-	
 	public static Response callInitMyBoxesForDay(
-			com.anfelisa.box.data.IInitMyBoxesDataData data, 
+			com.anfelisa.box.data.InitMyBoxesDataTestData data, 
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -109,8 +99,18 @@ public class ActionCalls {
 		return builder.put(Entity.json(data));
 	}
 	
+	public static Response callGetBoxes(
+			com.anfelisa.box.data.BoxListTestData data,
+			int port, 
+			String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/boxes/my/?uuid=" + data.getUuid() + "&today=" + data.getToday(), port)).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
+	}
+	
 	public static Response callLoadNextCard(
-			com.anfelisa.box.data.INextCardData data,
+			com.anfelisa.box.data.NextCardTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
@@ -120,7 +120,7 @@ public class ActionCalls {
 	}
 	
 	public static Response callDeleteBox(
-			com.anfelisa.box.data.IDeleteBoxData data,
+			com.anfelisa.box.data.DeleteBoxTestData data,
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();

@@ -57,33 +57,33 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	}
 
 	@JsonProperty
-		public String getReinforceCardId() {
-			return this.reinforceCardId;
-		}
+	public String getReinforceCardId() {
+		return this.reinforceCardId;
+	}
 	public void setReinforceCardId(String reinforceCardId) {
 		this.reinforceCardId = reinforceCardId;
 	}
 	
 	@JsonProperty
-		public String getScheduledCardId() {
-			return this.scheduledCardId;
-		}
+	public String getScheduledCardId() {
+		return this.scheduledCardId;
+	}
 	public void setScheduledCardId(String scheduledCardId) {
 		this.scheduledCardId = scheduledCardId;
 	}
 	
 	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
+	public String getBoxId() {
+		return this.boxId;
+	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
 	
 	@JsonProperty
-		public org.joda.time.DateTime getChangeDate() {
-			return this.changeDate;
-		}
+	public org.joda.time.DateTime getChangeDate() {
+		return this.changeDate;
+	}
 	public void setChangeDate(org.joda.time.DateTime changeDate) {
 		this.changeDate = changeDate;
 	}

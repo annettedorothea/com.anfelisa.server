@@ -67,9 +67,9 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 	}
 
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -79,9 +79,9 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 	}
 	
 	@JsonProperty
-		public org.joda.time.DateTime getToday() {
-			return this.today;
-		}
+	public org.joda.time.DateTime getToday() {
+		return this.today;
+	}
 	public void setToday(org.joda.time.DateTime today) {
 		this.today = today;
 	}
@@ -91,9 +91,9 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.box.models.IPostponeCardsModel> getPostponeCards() {
-			return this.postponeCards;
-		}
+	public java.util.List<com.anfelisa.box.models.IPostponeCardsModel> getPostponeCards() {
+		return this.postponeCards;
+	}
 	public void setPostponeCards(java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards) {
 		this.postponeCards = postponeCards;
 	}
@@ -103,9 +103,9 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 	}
 	
 	@JsonProperty
-		public java.util.List<String> getOutdatedReinforceCardsIds() {
-			return this.outdatedReinforceCardsIds;
-		}
+	public java.util.List<String> getOutdatedReinforceCardsIds() {
+		return this.outdatedReinforceCardsIds;
+	}
 	public void setOutdatedReinforceCardsIds(java.util.List<String> outdatedReinforceCardsIds) {
 		this.outdatedReinforceCardsIds = outdatedReinforceCardsIds;
 	}

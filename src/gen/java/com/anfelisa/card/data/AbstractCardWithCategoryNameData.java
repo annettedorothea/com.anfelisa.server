@@ -92,9 +92,9 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 	}
 
 	@JsonProperty
-		public String getCategoryName() {
-			return this.categoryName;
-		}
+	public String getCategoryName() {
+		return this.categoryName;
+	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
@@ -104,9 +104,9 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 	}
 	
 	@JsonProperty
-		public String getCardId() {
-			return this.cardId;
-		}
+	public String getCardId() {
+		return this.cardId;
+	}
 	public void setCardId(String cardId) {
 		this.cardId = cardId;
 	}
@@ -116,9 +116,9 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 	}
 	
 	@JsonProperty
-		public String getGiven() {
-			return this.given;
-		}
+	public String getGiven() {
+		return this.given;
+	}
 	public void setGiven(String given) {
 		this.given = given;
 	}
@@ -128,9 +128,9 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 	}
 	
 	@JsonProperty
-		public String getWanted() {
-			return this.wanted;
-		}
+	public String getWanted() {
+		return this.wanted;
+	}
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
 	}
@@ -140,9 +140,9 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 	}
 	
 	@JsonProperty
-		public String getImage() {
-			return this.image;
-		}
+	public String getImage() {
+		return this.image;
+	}
 	public void setImage(String image) {
 		this.image = image;
 	}
@@ -152,9 +152,9 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 	}
 	
 	@JsonProperty
-		public String getCardAuthor() {
-			return this.cardAuthor;
-		}
+	public String getCardAuthor() {
+		return this.cardAuthor;
+	}
 	public void setCardAuthor(String cardAuthor) {
 		this.cardAuthor = cardAuthor;
 	}
@@ -164,9 +164,9 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 	}
 	
 	@JsonProperty
-		public Integer getCardIndex() {
-			return this.cardIndex;
-		}
+	public Integer getCardIndex() {
+		return this.cardIndex;
+	}
 	public void setCardIndex(Integer cardIndex) {
 		this.cardIndex = cardIndex;
 	}
@@ -176,9 +176,9 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
@@ -188,9 +188,9 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 	}
 	
 	@JsonProperty
-		public String getRootCategoryId() {
-			return this.rootCategoryId;
-		}
+	public String getRootCategoryId() {
+		return this.rootCategoryId;
+	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
 	}

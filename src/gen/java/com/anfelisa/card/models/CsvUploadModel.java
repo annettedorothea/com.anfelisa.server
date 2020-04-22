@@ -54,33 +54,33 @@ public class CsvUploadModel implements ICsvUploadModel {
 	}
 
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.card.models.ISimpleCardModel> getPreviewCsv() {
-			return this.previewCsv;
-		}
+	public java.util.List<com.anfelisa.card.models.ISimpleCardModel> getPreviewCsv() {
+		return this.previewCsv;
+	}
 	public void setPreviewCsv(java.util.List<com.anfelisa.card.models.ISimpleCardModel> previewCsv) {
 		this.previewCsv = previewCsv;
 	}
 	
 	@JsonProperty
-		public java.util.List<com.anfelisa.card.models.ICardModel> getCards() {
-			return this.cards;
-		}
+	public java.util.List<com.anfelisa.card.models.ICardModel> getCards() {
+		return this.cards;
+	}
 	public void setCards(java.util.List<com.anfelisa.card.models.ICardModel> cards) {
 		this.cards = cards;
 	}

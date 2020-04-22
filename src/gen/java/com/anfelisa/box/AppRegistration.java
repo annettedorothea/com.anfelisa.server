@@ -40,8 +40,8 @@ public class AppRegistration {
 		environment.jersey().register(new ScheduleCardsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ScoreCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ScoreReinforceCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new GetBoxesAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new InitMyBoxesForDayAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetBoxesAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new LoadNextCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new DeleteBoxAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 	}

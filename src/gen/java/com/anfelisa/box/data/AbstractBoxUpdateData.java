@@ -88,9 +88,9 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -100,9 +100,9 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	
 	@JsonProperty
-		public String getBoxId() {
-			return this.boxId;
-		}
+	public String getBoxId() {
+		return this.boxId;
+	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
 	}
@@ -112,9 +112,9 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	
 	@JsonProperty
-		public Integer getMaxInterval() {
-			return this.maxInterval;
-		}
+	public Integer getMaxInterval() {
+		return this.maxInterval;
+	}
 	public void setMaxInterval(Integer maxInterval) {
 		this.maxInterval = maxInterval;
 	}
@@ -124,9 +124,9 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	
 	@JsonProperty
-		public Integer getMaxCardsPerDay() {
-			return this.maxCardsPerDay;
-		}
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
 	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
 		this.maxCardsPerDay = maxCardsPerDay;
 	}
@@ -136,9 +136,9 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	
 	@JsonProperty
-		public String getCategoryName() {
-			return this.categoryName;
-		}
+	public String getCategoryName() {
+		return this.categoryName;
+	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
@@ -148,9 +148,9 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	
 	@JsonProperty
-		public Boolean getDictionaryLookup() {
-			return this.dictionaryLookup;
-		}
+	public Boolean getDictionaryLookup() {
+		return this.dictionaryLookup;
+	}
 	public void setDictionaryLookup(Boolean dictionaryLookup) {
 		this.dictionaryLookup = dictionaryLookup;
 	}
@@ -160,9 +160,9 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	
 	@JsonProperty
-		public String getGivenLanguage() {
-			return this.givenLanguage;
-		}
+	public String getGivenLanguage() {
+		return this.givenLanguage;
+	}
 	public void setGivenLanguage(String givenLanguage) {
 		this.givenLanguage = givenLanguage;
 	}
@@ -172,9 +172,9 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	
 	@JsonProperty
-		public String getWantedLanguage() {
-			return this.wantedLanguage;
-		}
+	public String getWantedLanguage() {
+		return this.wantedLanguage;
+	}
 	public void setWantedLanguage(String wantedLanguage) {
 		this.wantedLanguage = wantedLanguage;
 	}
@@ -184,9 +184,9 @@ public abstract class AbstractBoxUpdateData extends AbstractData implements IBox
 	}
 	
 	@JsonProperty
-		public String getCategoryId() {
-			return this.categoryId;
-		}
+	public String getCategoryId() {
+		return this.categoryId;
+	}
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}

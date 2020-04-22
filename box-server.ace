@@ -71,13 +71,6 @@ ACE
 		on keep (ReinforceCard.update)
 		on remove (ReinforceCard.remove)
 
-	GetBoxes<BoxList>
-	GET "/boxes/my/" 
-		authorize 
-		queryParams today
-		response 
-			boxList
-		
 	InitMyBoxesForDay<InitMyBoxesData>
 		PUT "/box/init"  
 		authorize
@@ -85,6 +78,13 @@ ACE
 			today 
 		on ok ( ScheduledCard.postponeCards ReinforceCard.clear )
 	
+	GetBoxes<BoxList>
+	GET "/boxes/my/" 
+		authorize 
+		queryParams today
+		response 
+			boxList
+		
 	LoadNextCard<NextCard>
 		GET "/box/next-card"
 		authorize  

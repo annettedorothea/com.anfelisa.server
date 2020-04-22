@@ -51,25 +51,25 @@ public class UserWithAccessModel implements IUserWithAccessModel {
 	}
 
 	@JsonProperty
-		public String getUserId() {
-			return this.userId;
-		}
+	public String getUserId() {
+		return this.userId;
+	}
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
 	@JsonProperty
-		public String getUsername() {
-			return this.username;
-		}
+	public String getUsername() {
+		return this.username;
+	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
 	
 	@JsonProperty
-		public Boolean getEditable() {
-			return this.editable;
-		}
+	public Boolean getEditable() {
+		return this.editable;
+	}
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
 	}
