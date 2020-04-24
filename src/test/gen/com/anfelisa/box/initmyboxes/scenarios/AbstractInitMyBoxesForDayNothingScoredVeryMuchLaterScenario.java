@@ -36,7 +36,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsScenario extends BaseScenario {
+public abstract class AbstractInitMyBoxesForDayNothingScoredVeryMuchLaterScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
@@ -144,50 +144,14 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsScenar
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score0\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 0," + 
-				"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score1\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 1," + 
-				"\"scoredCardScheduledCardId\" : \"c3-sc1\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score5\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 5," + 
-				"\"scoredCardScheduledCardId\" : \"c4-sc1\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-
 	}
 	
 	private Response when() throws Exception {
 		
 		return 
 		com.anfelisa.box.ActionCalls.callInitMyBoxesForDay(objectMapper.readValue("{" +
-			"\"uuid\" : \"f9cfad19-173b-484d-8feb-7717679960de\"," + 
-				"\"today\" : \"2020-05-16T11:30:00.000Z\"} ",
+			"\"uuid\" : \"ee4b6fac-b313-4b66-b7b6-2eaab2200f45\"," + 
+				"\"today\" : \"2021-01-20T05:17:00.000Z\"} ",
 		com.anfelisa.box.data.InitMyBoxesDataData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -201,7 +165,7 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsScenar
 				}
 				
 				@Test
-				public void initMyBoxesForDayWithScoredAndReinforceCards() throws Exception {
+				public void initMyBoxesForDayNothingScoredVeryMuchLater() throws Exception {
 					given();
 					
 					Response response = when();

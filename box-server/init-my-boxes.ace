@@ -3,13 +3,46 @@ HttpServer
 com.anfelisa.box.initmyboxes
 
 scenarios 
-	InitMyBoxesForDayNothingScored
+	InitMyBoxesForDayNothingScoredSameDay
 		GIVEN
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
-					today: "20200416 13:30" "yyyyMMdd HH:mm"
+					today: "20200416 10:32" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	InitMyBoxesForDayNothingScoredOneDayLater
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.InitMyBoxesForDay
+				{
+					today: "20200417 08:32" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	InitMyBoxesForDayNothingScoredMuchLater
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.InitMyBoxesForDay
+				{
+					today: "20200717 15:32" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	InitMyBoxesForDayNothingScoredVeryMuchLater
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.InitMyBoxesForDay
+				{
+					today: "20210120 06:17" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette" : "password"
 		THEN 200

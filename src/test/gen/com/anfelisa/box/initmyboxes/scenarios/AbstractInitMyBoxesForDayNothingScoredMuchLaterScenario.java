@@ -36,7 +36,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractInitMyBoxesForDayNothingScoredScenario extends BaseScenario {
+public abstract class AbstractInitMyBoxesForDayNothingScoredMuchLaterScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
@@ -150,8 +150,8 @@ public abstract class AbstractInitMyBoxesForDayNothingScoredScenario extends Bas
 		
 		return 
 		com.anfelisa.box.ActionCalls.callInitMyBoxesForDay(objectMapper.readValue("{" +
-			"\"uuid\" : \"151d6721-e29a-4454-aee8-ce032c99cb4d\"," + 
-				"\"today\" : \"2020-04-16T11:30:00.000Z\"} ",
+			"\"uuid\" : \"494d0fb6-b77e-4b30-89ef-8e3b91fa7a7a\"," + 
+				"\"today\" : \"2020-07-17T13:32:00.000Z\"} ",
 		com.anfelisa.box.data.InitMyBoxesDataData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -165,7 +165,7 @@ public abstract class AbstractInitMyBoxesForDayNothingScoredScenario extends Bas
 				}
 				
 				@Test
-				public void initMyBoxesForDayNothingScored() throws Exception {
+				public void initMyBoxesForDayNothingScoredMuchLater() throws Exception {
 					given();
 					
 					Response response = when();

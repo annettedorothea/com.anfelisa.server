@@ -58,8 +58,10 @@ public class InitMyBoxesForDayCommand extends AbstractInitMyBoxesForDayCommand {
 			}
 			DateTime min = box.getMinScheduledDate();
 			DateTime today = this.commandData.getToday();
-			if (min != null && min.isBefore(today)) {
-				int days = Days.daysBetween(min, today).getDays() + 1;
+			DateTime minDate = new DateTime(min.getYear(), min.getMonthOfYear(), min.getDayOfMonth(), 0, 0);
+			DateTime minToday = new DateTime(today.getYear(), today.getMonthOfYear(), today.getDayOfMonth(), 0, 0);
+			if (minDate != null && minDate.isBefore(minToday)) {
+				int days = Days.daysBetween(minDate, minToday).getDays();
 				PostponeCardsData postponeData = new PostponeCardsData(days, box.getBoxId(),
 						commandData.getUuid());
 				postponeCards.add(postponeData);

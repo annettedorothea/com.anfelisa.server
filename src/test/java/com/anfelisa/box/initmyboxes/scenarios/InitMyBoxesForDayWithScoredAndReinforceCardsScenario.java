@@ -21,6 +21,12 @@ package com.anfelisa.box.initmyboxes.scenarios;
 
 import javax.ws.rs.core.Response;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
+import com.anfelisa.box.models.IScheduledCardModel;
+import com.anfelisa.box.models.ScheduledCardModel;
+
 @SuppressWarnings("unused")
 public class InitMyBoxesForDayWithScoredAndReinforceCardsScenario extends AbstractInitMyBoxesForDayWithScoredAndReinforceCardsScenario {
 
