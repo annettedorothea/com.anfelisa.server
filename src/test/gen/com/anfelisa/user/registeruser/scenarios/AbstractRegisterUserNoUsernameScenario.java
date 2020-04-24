@@ -42,14 +42,16 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData(randomUUID());
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("password", 0));
-		
 		
 		return 
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"7e41a6e9-650e-4a0e-99f9-24127c0eaab6\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
+		
+		, DROPWIZARD.getLocalPort());
 		
 	}
 	

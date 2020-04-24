@@ -17,50 +17,50 @@ scenarios
 		response {
 			cardList : [
 				{
-					cardAuthor: "Annette"
-					cardId: "c1"
-					cardIndex: 1
-					categoryId: "cat1"
-					given: "given"
-					image: "image"
-					rootCategoryId: "boxId"
+					cardAuthor: "Annette",
+					cardId: "c1",
+					cardIndex: 1,
+					categoryId: "cat1",
+					given: "given",
+					image: "image",
+					rootCategoryId: "boxId",
 					wanted: "wanted"
-				}
+				},
 				{
-					cardAuthor: "Annette"
-					cardId: "c2"
-					cardIndex: 2
-					categoryId: "cat1"
-					given: "given2"
-					image: "image2"
-					rootCategoryId: "boxId"
+					cardAuthor: "Annette",
+					cardId: "c2",
+					cardIndex: 2,
+					categoryId: "cat1",
+					given: "given2",
+					image: "image2",
+					rootCategoryId: "boxId",
 					wanted: "wanted2"
-				}
+				},
 				{
-					cardAuthor: "Annette"
-					cardId: "c3"
-					cardIndex: 3
-					categoryId: "cat1"
-					given: "3given"
-					rootCategoryId: "boxId"
+					cardAuthor: "Annette",
+					cardId: "c3",
+					cardIndex: 3,
+					categoryId: "cat1",
+					given: "3given",
+					rootCategoryId: "boxId",
 					wanted: "3wanted"
-				}
+				},
 				{
-					cardAuthor: "Annette"
-					cardId: "c4"
-					cardIndex: 4
-					categoryId: "cat1"
-					given: "4given4"
-					rootCategoryId: "boxId"
+					cardAuthor: "Annette",
+					cardId: "c4",
+					cardIndex: 4,
+					categoryId: "cat1",
+					given: "4given4",
+					rootCategoryId: "boxId",
 					wanted: "4wanted4"
-				}
+				},
 				{
-					cardAuthor: "Annette"
-					cardId: "c5"
-					cardIndex: 5
-					categoryId: "cat1"
-					given: "different"
-					rootCategoryId: "boxId"
+					cardAuthor: "Annette",
+					cardId: "c5",
+					cardIndex: 5,
+					categoryId: "cat1",
+					given: "different",
+					rootCategoryId: "boxId",
 					wanted: "different"
 				}
 			]

@@ -2,13 +2,14 @@ HttpServer
 
 com.anfelisa.user.confirmemail
 
+
 scenarios 
 
 	ConfirmEmailOK
 		GIVEN
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN com.anfelisa.user.ConfirmEmail {
-			token: "TOKEN"
+			token: "TOKEN",
 			username: "Annette"
 		}
 		THEN 200
@@ -17,7 +18,7 @@ scenarios
 		GIVEN
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN com.anfelisa.user.ConfirmEmail {
-			token: "TOKEN"
+			token: "TOKEN",
 			username: "doesNotExist"
 		}
 		THEN 400
@@ -27,7 +28,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			ConfirmEmailOK
 		WHEN com.anfelisa.user.ConfirmEmail {
-			token: "TOKEN"
+			token: "TOKEN",
 			username: "Annette"
 		}
 		THEN 200
@@ -36,7 +37,7 @@ scenarios
 		GIVEN
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN com.anfelisa.user.ConfirmEmail {
-			token: "DOES_NOT_EXIST"
+			token: "DOES_NOT_EXIST",
 			username: "Annette"
 		}
 		THEN 400
@@ -46,7 +47,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN com.anfelisa.user.ConfirmEmail {
-			token: "ADMIN-TOKEN"
+			token: "ADMIN-TOKEN",
 			username: "Annette"
 		}
 		THEN 400

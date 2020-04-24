@@ -39,49 +39,59 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("admin-password", 0));
-		registerUser0.setUsername(this.templateStringValue("Admin", 0));
-		registerUser0.setToken(this.templateStringValue("ADMIN-TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid-admin\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"username\" : \"Admin\"," + 
+				"\"token\" : \"ADMIN-TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
-		
-
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 1));
-		registerUser1.setLanguage(this.templateStringValue("de", 1));
-		registerUser1.setPassword(this.templateStringValue("password", 1));
-		registerUser1.setUsername(this.templateStringValue("Annette", 1));
-		registerUser1.setToken(this.templateStringValue("TOKEN", 1));
-		
-		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser1, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxCreationData createBox2 = new com.anfelisa.box.data.BoxCreationData("boxId");
-		createBox2.setCategoryName(this.templateStringValue("cat", 2));
-		createBox2.setDictionaryLookup(new Boolean("false"));
-		createBox2.setMaxCardsPerDay(1);
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.box.ActionCalls.callCreateBox(createBox2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort());
+		
+
+		
+		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"boxId\"," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 1} ",
+		com.anfelisa.box.data.BoxCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.category.data.CategoryCreationData createCategory0 = new com.anfelisa.category.data.CategoryCreationData(randomUUID());
-		createCategory0.setCategoryName(this.templateStringValue("lala", 0));
-		createCategory0.setParentCategoryId(this.templateStringValue("boxId", 0));
-		
 		
 		return 
-		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory0, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+			"\"uuid\" : \"e72a4280-491c-4e23-8f83-97b03dd3e98c\"," + 
+				"\"categoryName\" : \"lala\"," + 
+				"\"parentCategoryId\" : \"boxId\"} ",
+		com.anfelisa.category.data.CategoryCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
 	}
 	

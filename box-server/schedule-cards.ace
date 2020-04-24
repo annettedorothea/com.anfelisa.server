@@ -11,7 +11,7 @@ scenarios
 				uuid "sc1"
 				systemTime "20200416 10:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ("c1" "c3" "c4" )
+					cardIds: ["c1", "c3", "c4" ]
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -24,7 +24,7 @@ scenarios
 				uuid "abcdefghi-abcdefghi-abcdefghi-abcdefghi-abcdefghi"
 				systemTime "20200416 10:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ("123456789-123456789-123456789-123456789")
+					cardIds: ["123456789-123456789-123456789-123456789"]
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -37,7 +37,7 @@ scenarios
 				uuid "sc1"
 				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
 				{
-					cardIds: ("c2" "c5" )
+					cardIds: ["c2", "c5" ]
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -50,7 +50,7 @@ scenarios
 				uuid "sc1"
 				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
 				{
-					cardIds: ()
+					cardIds: []
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -73,7 +73,7 @@ scenarios
 				uuid "sc1"
 				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
 				{
-					cardIds: ("c2" "c5" )
+					cardIds: ["c2", "c5" ]
 				}
 		THEN 401
 
@@ -86,7 +86,7 @@ scenarios
 				uuid "sc1"
 				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
 				{
-					cardIds: ("c2" "c5" )
+					cardIds: ["c2", "c5" ]
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401

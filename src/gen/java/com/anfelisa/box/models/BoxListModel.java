@@ -21,6 +21,7 @@ package com.anfelisa.box.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
+import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
 public class BoxListModel implements IBoxListModel {
@@ -71,6 +73,7 @@ public class BoxListModel implements IBoxListModel {
 	
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public org.joda.time.DateTime getToday() {
 		return this.today;
 	}

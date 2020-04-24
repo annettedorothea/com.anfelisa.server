@@ -39,57 +39,69 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractUpdateCategoryNoAccessScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("password", 0));
-		registerUser0.setUsername(this.templateStringValue("Annette", 0));
-		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
-		
-
-		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
-		createBox1.setCategoryName(this.templateStringValue("cat", 1));
-		createBox1.setDictionaryLookup(new Boolean("false"));
-		createBox1.setMaxCardsPerDay(1);
-		
-		
-		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.category.data.CategoryCreationData createCategory2 = new com.anfelisa.category.data.CategoryCreationData("cat1");
-		createCategory2.setCategoryName(this.templateStringValue("level 1 #1", 2));
-		createCategory2.setParentCategoryId(this.templateStringValue("boxId", 2));
 		
+		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"boxId\"," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 1} ",
+		com.anfelisa.box.data.BoxCreationData.class)
 		
-		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser3 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
-		registerUser3.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 3));
-		registerUser3.setLanguage(this.templateStringValue("de", 3));
-		registerUser3.setPassword(this.templateStringValue("admin-password", 3));
-		registerUser3.setUsername(this.templateStringValue("Admin", 3));
-		registerUser3.setToken(this.templateStringValue("ADMIN-TOKEN", 3));
 		
+		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+			"\"uuid\" : \"cat1\"," + 
+				"\"categoryName\" : \"level 1 #1\"," + 
+				"\"parentCategoryId\" : \"boxId\"} ",
+		com.anfelisa.category.data.CategoryCreationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser3, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
+				 String.class));
+		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid-admin\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"username\" : \"Admin\"," + 
+				"\"token\" : \"ADMIN-TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
+		
+		, DROPWIZARD.getLocalPort());
 		
 
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.category.data.CategoryUpdateData updateCategory0 = new com.anfelisa.category.data.CategoryUpdateData(randomUUID());
-		updateCategory0.setCategoryName(this.templateStringValue("changed", 0));
-		updateCategory0.setCategoryId(this.templateStringValue("cat1", 0));
-		
 		
 		return 
-		com.anfelisa.category.ActionCalls.callUpdateCategory(updateCategory0, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.category.ActionCalls.callUpdateCategory(objectMapper.readValue("{" +
+			"\"uuid\" : \"0092fc58-cddb-4aaf-8bc9-c8c85386788a\"," + 
+				"\"categoryName\" : \"changed\"," + 
+				"\"categoryId\" : \"cat1\"} ",
+		com.anfelisa.category.data.CategoryUpdateData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
 	}
 	

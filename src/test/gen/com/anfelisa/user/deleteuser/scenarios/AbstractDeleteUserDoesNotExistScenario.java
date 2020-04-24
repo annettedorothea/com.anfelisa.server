@@ -39,27 +39,32 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("admin-password", 0));
-		registerUser0.setUsername(this.templateStringValue("Admin", 0));
-		registerUser0.setToken(this.templateStringValue("ADMIN-TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid-admin\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"username\" : \"Admin\"," + 
+				"\"token\" : \"ADMIN-TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.DeleteUserData deleteUser0 = new com.anfelisa.user.data.DeleteUserData(randomUUID());
-		deleteUser0.setUsernameToBeDeleted(this.templateStringValue("doesNotExist", 0));
-		
 		
 		return 
-		com.anfelisa.user.ActionCalls.callDeleteUser(deleteUser0, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"4704ac45-a50f-4c2d-8827-eacaa8dc7c30\"," + 
+				"\"usernameToBeDeleted\" : \"doesNotExist\"} ",
+		com.anfelisa.user.data.DeleteUserData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
 	}
 	

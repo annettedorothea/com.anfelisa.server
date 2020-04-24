@@ -39,32 +39,38 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("password", 0));
-		registerUser0.setUsername(this.templateStringValue("Annette", 0));
-		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN_2", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid2");
-		registerUser0.setEmail(this.templateStringValue("info@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("pw", 0));
-		registerUser0.setUsername(this.templateStringValue("Anne", 0));
-		registerUser0.setToken(this.templateStringValue("TOKEN_2", 0));
-		
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN_2\"",
+				 String.class));
 		
 		return 
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid2\"," + 
+				"\"email\" : \"info@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"pw\"," + 
+				"\"username\" : \"Anne\"," + 
+				"\"token\" : \"TOKEN_2\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
+		
+		, DROPWIZARD.getLocalPort());
 		
 	}
 	

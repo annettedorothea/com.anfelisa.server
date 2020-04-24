@@ -19,37 +19,17 @@
 
 package de.acegen;
 
-import java.util.UUID;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
-public abstract class AbstractBaseScenario {
+import com.fasterxml.jackson.databind.util.StdConverter;
 
-	protected final JodaObjectMapper mapper = new JodaObjectMapper();
-
-	protected DaoProvider daoProvider;
-
-	protected PersistenceHandle handle;
-	
-	protected ObjectMapper objectMapper;
-	
-	public AbstractBaseScenario() {
-		objectMapper = new ObjectMapper();
+public class StringToDateTimeConverter extends StdConverter<String, DateTime> {
+	@Override
+	public DateTime convert(String value) {
+		return DateTime.parse(value).withZone(DateTimeZone.UTC);
 	}
-
-	public static String randomUUID() {
-		return UUID.randomUUID().toString();
-	}
-
-	protected abstract String authorization(String username, String password);
-
-	protected abstract void assertThat(int actual, int expected);
-
-	protected abstract void assertThat(Object actual, Object expected);
-
-	protected abstract void assertIsNull(Object actual);
-
 }
-
 
 
 

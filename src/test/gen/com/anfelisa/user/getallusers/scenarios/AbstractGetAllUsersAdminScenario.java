@@ -39,46 +39,57 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("admin-password", 0));
-		registerUser0.setUsername(this.templateStringValue("Admin", 0));
-		registerUser0.setToken(this.templateStringValue("ADMIN-TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid-admin\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"username\" : \"Admin\"," + 
+				"\"token\" : \"ADMIN-TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
-		
-
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 1));
-		registerUser1.setLanguage(this.templateStringValue("de", 1));
-		registerUser1.setPassword(this.templateStringValue("password", 1));
-		registerUser1.setUsername(this.templateStringValue("Annette", 1));
-		registerUser1.setToken(this.templateStringValue("TOKEN", 1));
-		
-		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser1, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.ConfirmEmailData confirmEmail2 = new com.anfelisa.user.data.ConfirmEmailData(randomUUID());
-		confirmEmail2.setToken(this.templateStringValue("TOKEN", 2));
-		confirmEmail2.setUsername(this.templateStringValue("Annette", 2));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callConfirmEmail(confirmEmail2, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
+		
+
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
+		
+		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
+			"\"uuid\" : \"90ecbbc6-088f-4c33-a095-ce4b4d4aca28\"," + 
+				"\"token\" : \"TOKEN\"," + 
+				"\"username\" : \"Annette\"} ",
+		com.anfelisa.user.data.ConfirmEmailData.class)
+		
+		, DROPWIZARD.getLocalPort());
 		
 
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.UserListData getAllUsers0 = new com.anfelisa.user.data.UserListData(randomUUID());
 		
 		return 
-		com.anfelisa.user.ActionCalls.callGetAllUsers(getAllUsers0, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.user.ActionCalls.callGetAllUsers(objectMapper.readValue("{}",
+		com.anfelisa.user.data.UserListData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
 	}
 	
@@ -90,30 +101,23 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 			actual = response.readEntity(com.anfelisa.user.data.GetAllUsersResponse.class);
 		} catch (Exception x) {
 		}
-		com.anfelisa.user.data.UserListData expectedData = new com.anfelisa.user.data.UserListData(randomUUID());
+		com.anfelisa.user.data.UserListData expectedData = objectMapper.readValue("{" +
+			"\"uuid\" : \"60c2e5aa-e3d0-48d0-8ad2-1c2056aa3ab0\"," + 
+				"\"userList\" : [ { \"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"username\" : \"Admin\"," + 
+				"\"userId\" : \"uuid-admin\"," + 
+				"\"emailConfirmed\" : false," + 
+				"\"role\" : \"ADMIN\"}," + 
+				"{ \"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"emailConfirmed\" : true," + 
+				"\"role\" : \"STUDENT\"," + 
+				"\"userId\" : \"uuid\"}]} ",
+		com.anfelisa.user.data.UserListData.class)
 		
-			List<com.anfelisa.user.models.IUserModel> expectedDataUserList = new ArrayList<com.anfelisa.user.models.IUserModel>();
-			com.anfelisa.user.models.IUserModel item1 = new com.anfelisa.user.models.UserModel();
-			item1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
-			item1.setPassword(this.templateStringValue("admin-password", null));
-			item1.setUsername(this.templateStringValue("Admin", null));
-			item1.setUserId(this.templateStringValue("uuid-admin", null));
-			item1.setEmailConfirmed(new Boolean("False"));
-			item1.setRole(this.templateStringValue("ADMIN", null));
-			expectedDataUserList.add(item1);
-		
-			com.anfelisa.user.models.IUserModel item2 = new com.anfelisa.user.models.UserModel();
-			item2.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
-			item2.setPassword(this.templateStringValue("password", null));
-			item2.setUsername(this.templateStringValue("Annette", null));
-			item2.setEmailConfirmed(new Boolean("True"));
-			item2.setRole(this.templateStringValue("STUDENT", null));
-			item2.setUserId(this.templateStringValue("uuid", null));
-			expectedDataUserList.add(item2);
-		
-			
-		expectedData.setUserList(expectedDataUserList);
-		
+		;
 		
 		com.anfelisa.user.data.GetAllUsersResponse expected = new com.anfelisa.user.data.GetAllUsersResponse(expectedData);
 

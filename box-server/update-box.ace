@@ -9,10 +9,10 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryId: "boxId"
-					categoryName: "changed"
-					dictionaryLookup: "false"
+					boxId: "boxId",
+					categoryId: "boxId",
+					categoryName: "changed",
+					dictionaryLookup: false,
 					maxCardsPerDay: 11
 				}
 				authorization "Annette" : "password"
@@ -24,11 +24,11 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryId: "boxId"
-					categoryName: "changed"
-					dictionaryLookup: "false"
-					maxCardsPerDay: 11
+					boxId: "boxId",
+					categoryId: "boxId",
+					categoryName: "changed",
+					dictionaryLookup: false,
+					maxCardsPerDay: 11,
 					maxInterval: 90
 				}
 				authorization "Annette" : "password"
@@ -40,10 +40,10 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryId: "boxId"
-					categoryName: "changed"
-					dictionaryLookup: "false"
+					boxId: "boxId",
+					categoryId: "boxId",
+					categoryName: "changed",
+					dictionaryLookup: false,
 					maxCardsPerDay: 11
 				}
 				authorization "Annette" : "password"
@@ -55,9 +55,9 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryId: "boxId"
-					categoryName: "cat"
+					boxId: "boxId",
+					categoryId: "boxId",
+					categoryName: "cat",
 					maxCardsPerDay: 10
 				}
 				authorization "Annette" : "password"
@@ -69,12 +69,12 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryId: "boxId"
-					categoryName: "cat"
-					maxCardsPerDay: 10
-					dictionaryLookup: "true"
-					givenLanguage: "de"
+					boxId: "boxId",
+					categoryId: "boxId",
+					categoryName: "cat",
+					maxCardsPerDay: 10,
+					dictionaryLookup: true,
+					givenLanguage: "de",
 					wantedLanguage: "en"
 				}
 				authorization "Annette" : "password"
@@ -86,12 +86,12 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryId: "boxId"
-					categoryName: "cat"
-					maxCardsPerDay: 10
-					dictionaryLookup: "true"
-					givenLanguage: "xx"
+					boxId: "boxId",
+					categoryId: "boxId",
+					categoryName: "cat",
+					maxCardsPerDay: 10,
+					dictionaryLookup: true,
+					givenLanguage: "xx",
 					wantedLanguage: "en"
 				}
 				authorization "Annette" : "password"
@@ -103,12 +103,12 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryId: "boxId"
-					categoryName: "cat"
-					maxCardsPerDay: 10
-					dictionaryLookup: "true"
-					givenLanguage: "fr"
+					boxId: "boxId",
+					categoryId: "boxId",
+					categoryName: "cat",
+					maxCardsPerDay: 10,
+					dictionaryLookup: true,
+					givenLanguage: "fr",
 					wantedLanguage: "xx"
 				}
 				authorization "Annette" : "password"
@@ -120,8 +120,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryId: "boxId"
+					boxId: "boxId",
+					categoryId: "boxId",
 					categoryName: "cat"
 				}
 				authorization "Annette" : "password"
@@ -133,8 +133,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					categoryId: "boxId"
-					categoryName: "cat"
+					categoryId: "boxId",
+					categoryName: "cat",
 					maxCardsPerDay: 10
 				}
 				authorization "Annette" : "password"
@@ -146,8 +146,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryName: "cat"
+					boxId: "boxId",
+					categoryName: "cat",
 					maxCardsPerDay: 10
 				}
 				authorization "Annette" : "password"
@@ -159,8 +159,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryId: "boxId"
+					boxId: "boxId",
+					categoryId: "boxId",
 					maxCardsPerDay: 10
 				}
 				authorization "Annette" : "password"
@@ -172,9 +172,9 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryId: "boxId"
-					categoryName: ""
+					boxId: "boxId",
+					categoryId: "boxId",
+					categoryName: "",
 					maxCardsPerDay: 10
 				}
 				authorization "Annette" : "password"
@@ -186,9 +186,9 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryId: "boxId"
-					categoryName: "    "
+					boxId: "boxId",
+					categoryId: "boxId",
+					categoryName: "    ",
 					maxCardsPerDay: 10
 				}
 				authorization "Annette" : "password"
@@ -200,9 +200,9 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryId: "boxId"
-					categoryName: "lala"
+					boxId: "boxId",
+					categoryId: "boxId",
+					categoryName: "lala",
 					maxCardsPerDay: 10
 				}
 		THEN 401
@@ -214,9 +214,9 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId"
-					categoryId: "boxId"
-					categoryName: "adminBox"
+					boxId: "boxId",
+					categoryId: "boxId",
+					categoryName: "adminBox",
 					maxCardsPerDay: 10
 				}
 				authorization "Admin" : "admin-password"

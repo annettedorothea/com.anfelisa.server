@@ -19,16 +19,16 @@ scenarios
 			response {
 				boxList: [
 					{
-						allTodaysCards: 0
-						boxId: "boxId"
-						categoryId: "boxId"
-						categoryName: "cat"
-						openTodaysCards: 4
-						quality0Count: 1
-						quality1Count: 1
-						quality2Count: 0
-						quality3Count: 0
-						quality4Count: 0
+						allTodaysCards: 0,
+						boxId: "boxId",
+						categoryId: "boxId",
+						categoryName: "cat",
+						openTodaysCards: 4,
+						quality0Count: 1,
+						quality1Count: 1,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 0,
 						quality5Count: 1
 					}
 				]

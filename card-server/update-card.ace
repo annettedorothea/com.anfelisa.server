@@ -9,9 +9,9 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1"
-					given: "given-updated"
-					image: "image-updated"
+					cardId: "c1",
+					given: "given-updated",
+					image: "image-updated",
 					wanted: "wanted-updated"
 				}
 				authorization "Annette" : "password"
@@ -22,9 +22,9 @@ scenarios
 			com.anfelisa.card.createcard.CreateCard
 		WHEN
 			com.anfelisa.card.UpdateCard
-				{
-					given: "given"
-					image: "image"
+				{,
+					given: "given",
+					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -36,8 +36,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1"
-					image: "image"
+					cardId: "c1",
+					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -49,9 +49,9 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1"
-					given: "  "
-					image: "image"
+					cardId: "c1",
+					given: "  ",
+					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -63,8 +63,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1"
-					given: "given"
+					cardId: "c1",
+					given: "given",
 					image: "image"
 				}
 				authorization "Annette" : "password"
@@ -76,9 +76,9 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1"
-					given: "given"
-					image: "image"
+					cardId: "c1",
+					given: "given",
+					image: "image",
 					wanted: "  "
 				}
 				authorization "Annette" : "password"
@@ -90,8 +90,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1"
-					given: "given"
+					cardId: "c1",
+					given: "given",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -103,9 +103,9 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1"
-					given: "given"
-					image: "  "
+					cardId: "c1",
+					given: "given",
+					image: "  ",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -117,9 +117,9 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "lala"
-					given: "given"
-					image: "image"
+					cardId: "lala",
+					given: "given",
+					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -132,9 +132,9 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1"
-					given: "given"
-					image: "image"
+					cardId: "c1",
+					given: "given",
+					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Admin" : "admin-password"
@@ -146,9 +146,9 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1"
-					given: "given"
-					image: "image"
+					cardId: "c1",
+					given: "given",
+					image: "image",
 					wanted: "wanted"
 				}
 		THEN 401

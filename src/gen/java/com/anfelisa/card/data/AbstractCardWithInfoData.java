@@ -21,6 +21,7 @@ package com.anfelisa.card.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -35,6 +36,7 @@ import com.anfelisa.card.models.ICardModel;
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
+import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("unused")
 public abstract class AbstractCardWithInfoData extends AbstractData implements ICardWithInfoData {
@@ -95,6 +97,7 @@ public abstract class AbstractCardWithInfoData extends AbstractData implements I
 
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public org.joda.time.DateTime getNext() {
 		return this.next;
 	}

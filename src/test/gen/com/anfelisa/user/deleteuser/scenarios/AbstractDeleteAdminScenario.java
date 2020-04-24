@@ -39,59 +39,72 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("admin-password", 0));
-		registerUser0.setUsername(this.templateStringValue("Admin", 0));
-		registerUser0.setToken(this.templateStringValue("ADMIN-TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid-admin\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"username\" : \"Admin\"," + 
+				"\"token\" : \"ADMIN-TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
-		
-
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 1));
-		registerUser1.setLanguage(this.templateStringValue("de", 1));
-		registerUser1.setPassword(this.templateStringValue("password", 1));
-		registerUser1.setUsername(this.templateStringValue("Annette", 1));
-		registerUser1.setToken(this.templateStringValue("TOKEN", 1));
-		
-		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser1, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
-		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser2 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
-		registerUser2.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 2));
-		registerUser2.setLanguage(this.templateStringValue("de", 2));
-		registerUser2.setPassword(this.templateStringValue("admin-password", 2));
-		registerUser2.setUsername(this.templateStringValue("Admin", 2));
-		registerUser2.setToken(this.templateStringValue("ADMIN-TOKEN", 2));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser2, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.user.data.ChangeUserRoleData changeUserRole3 = new com.anfelisa.user.data.ChangeUserRoleData(randomUUID());
-		changeUserRole3.setEditedUserId(this.templateStringValue("uuid", 3));
-		changeUserRole3.setNewRole(this.templateStringValue("ADMIN", 3));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid-admin\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"username\" : \"Admin\"," + 
+				"\"token\" : \"ADMIN-TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callChangeUserRole(changeUserRole3, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		, DROPWIZARD.getLocalPort());
+		
+
+		
+		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
+			"\"uuid\" : \"7e21fb15-9117-4ef4-8fae-038fa2937e83\"," + 
+				"\"editedUserId\" : \"uuid\"," + 
+				"\"newRole\" : \"ADMIN\"} ",
+		com.anfelisa.user.data.ChangeUserRoleData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
 
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.DeleteUserData deleteUser0 = new com.anfelisa.user.data.DeleteUserData(randomUUID());
-		deleteUser0.setUsernameToBeDeleted(this.templateStringValue("Annette", 0));
-		
 		
 		return 
-		com.anfelisa.user.ActionCalls.callDeleteUser(deleteUser0, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"6c45b8da-912a-41ae-88a1-e4771264d4c1\"," + 
+				"\"usernameToBeDeleted\" : \"Annette\"} ",
+		com.anfelisa.user.data.DeleteUserData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
 	}
 	

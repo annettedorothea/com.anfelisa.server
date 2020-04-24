@@ -21,6 +21,7 @@ package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -34,6 +35,7 @@ import com.anfelisa.box.models.IDeleteBoxModel;
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
+import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("unused")
 public abstract class AbstractDeleteBoxData extends AbstractData implements IDeleteBoxData {

@@ -39,46 +39,55 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("password", 0));
-		registerUser0.setUsername(this.templateStringValue("Annette", 0));
-		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
-		
-
-		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
-		createBox1.setCategoryName(this.templateStringValue("cat", 1));
-		createBox1.setMaxCardsPerDay(10);
-		createBox1.setDictionaryLookup(new Boolean("true"));
-		createBox1.setGivenLanguage(this.templateStringValue("de", 1));
-		createBox1.setWantedLanguage(this.templateStringValue("en", 1));
-		
-		
-		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.category.data.CategoryCreationData createCategory2 = new com.anfelisa.category.data.CategoryCreationData("dict");
-		createCategory2.setCategoryName(this.templateStringValue("dict", 2));
-		createCategory2.setParentCategoryId(this.templateStringValue("boxId", 2));
 		
+		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"boxId\"," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"maxCardsPerDay\" : 10," + 
+				"\"dictionaryLookup\" : true," + 
+				"\"givenLanguage\" : \"de\"," + 
+				"\"wantedLanguage\" : \"en\"} ",
+		com.anfelisa.box.data.BoxCreationData.class)
 		
-		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		
+		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+			"\"uuid\" : \"dict\"," + 
+				"\"categoryName\" : \"dict\"," + 
+				"\"parentCategoryId\" : \"boxId\"} ",
+		com.anfelisa.category.data.CategoryCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.category.data.CategoryTreeData getCategoryTree0 = new com.anfelisa.category.data.CategoryTreeData(randomUUID());
-		getCategoryTree0.setRootCategoryId(this.templateStringValue("boxId", 0));
-		
 		
 		return 
-		com.anfelisa.category.ActionCalls.callGetCategoryTree(getCategoryTree0, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
+			"\"uuid\" : \"a4e59794-f644-4e06-b558-c9dc4f81cf08\"," + 
+				"\"rootCategoryId\" : \"boxId\"} ",
+		com.anfelisa.category.data.CategoryTreeData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 	}
 	
@@ -90,40 +99,29 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 			actual = response.readEntity(com.anfelisa.category.data.GetCategoryTreeResponse.class);
 		} catch (Exception x) {
 		}
-		com.anfelisa.category.data.CategoryTreeData expectedData = new com.anfelisa.category.data.CategoryTreeData(randomUUID());
+		com.anfelisa.category.data.CategoryTreeData expectedData = objectMapper.readValue("{" +
+			"\"uuid\" : \"51742f47-1884-40b4-a805-83ac303ad5ea\"," + 
+				"\"rootCategory\" : { \"categoryId\" : \"boxId\"," + 
+				"\"categoryIndex\" : 1," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : true," + 
+				"\"givenLanguage\" : \"de\"," + 
+				"\"wantedLanguage\" : \"en\"," + 
+				"\"empty\" : false," + 
+				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"childCategories\" : [ { \"categoryId\" : \"dict\"," + 
+				"\"categoryIndex\" : 1," + 
+				"\"categoryName\" : \"dict\"," + 
+				"\"dictionaryLookup\" : true," + 
+				"\"givenLanguage\" : \"de\"," + 
+				"\"wantedLanguage\" : \"en\"," + 
+				"\"empty\" : true," + 
+				"\"parentCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"childCategories\" : []}]}} ",
+		com.anfelisa.category.data.CategoryTreeData.class)
 		
-			com.anfelisa.category.models.ICategoryTreeItemModel expectedDataRootCategory = new com.anfelisa.category.models.CategoryTreeItemModel();
-			expectedDataRootCategory.setCategoryId(this.templateStringValue("boxId", null));
-			expectedDataRootCategory.setCategoryIndex(1);
-			expectedDataRootCategory.setCategoryName(this.templateStringValue("cat", null));
-			expectedDataRootCategory.setDictionaryLookup(new Boolean("true"));
-			expectedDataRootCategory.setGivenLanguage(this.templateStringValue("de", null));
-			expectedDataRootCategory.setWantedLanguage(this.templateStringValue("en", null));
-			expectedDataRootCategory.setEmpty(new Boolean("false"));
-			expectedDataRootCategory.setRootCategoryId(this.templateStringValue("boxId", null));
-			
-				List<com.anfelisa.category.models.ICategoryTreeItemModel> list1 = new ArrayList<com.anfelisa.category.models.ICategoryTreeItemModel>();
-				com.anfelisa.category.models.ICategoryTreeItemModel item2 = new com.anfelisa.category.models.CategoryTreeItemModel();
-				item2.setCategoryId(this.templateStringValue("dict", null));
-				item2.setCategoryIndex(1);
-				item2.setCategoryName(this.templateStringValue("dict", null));
-				item2.setDictionaryLookup(new Boolean("true"));
-				item2.setGivenLanguage(this.templateStringValue("de", null));
-				item2.setWantedLanguage(this.templateStringValue("en", null));
-				item2.setEmpty(new Boolean("true"));
-				item2.setParentCategoryId(this.templateStringValue("boxId", null));
-				item2.setRootCategoryId(this.templateStringValue("boxId", null));
-				
-					List<com.anfelisa.category.models.ICategoryTreeItemModel> list3 = new ArrayList<com.anfelisa.category.models.ICategoryTreeItemModel>();
-					
-				item2.setChildCategories(list3);
-				list1.add(item2);
-			
-				
-			expectedDataRootCategory.setChildCategories(list1);
-			
-		expectedData.setRootCategory(expectedDataRootCategory);
-		
+		;
 		
 		com.anfelisa.category.data.GetCategoryTreeResponse expected = new com.anfelisa.category.data.GetCategoryTreeResponse(expectedData);
 

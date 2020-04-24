@@ -9,7 +9,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.UpdateCategory
 				{
-					categoryName: "changed"
+					categoryName: "changed",
 					categoryId: "cat1"
 				}
 				authorization "Annette" : "password"
@@ -21,7 +21,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.UpdateCategory
 				{
-					categoryName: "changed"
+					categoryName: "changed",
 					categoryId: "cat1"
 				}
 		THEN 401
@@ -33,7 +33,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.UpdateCategory
 				{
-					categoryName: "changed"
+					categoryName: "changed",
 					categoryId: "cat1"
 				}
 				authorization "Admin" : "admin-password"
@@ -45,7 +45,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.UpdateCategory
 				{
-					categoryName: "changed"
+					categoryName: "changed",
 					categoryId: "xxx"
 				}
 				authorization "Annette" : "password"

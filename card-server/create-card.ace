@@ -10,9 +10,9 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c1"
 				{
-					categoryId: "cat1"
-					given: "given"
-					image: "image"
+					categoryId: "cat1",
+					given: "given",
+					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -25,9 +25,9 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c1"
 				{
-					categoryId: "cat1"
-					given: "given"
-					image: "image"
+					categoryId: "cat1",
+					given: "given",
+					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -40,9 +40,9 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c2"
 				{
-					categoryId: "cat1"
-					given: "given2"
-					image: "image2"
+					categoryId: "cat1",
+					given: "given2",
+					image: "image2",
 					wanted: "wanted2"
 				}
 				authorization "Annette" : "password"
@@ -55,8 +55,8 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c3"
 				{
-					categoryId: "cat1"
-					given: "3given"
+					categoryId: "cat1",
+					given: "3given",
 					wanted: "3wanted"
 				}
 				authorization "Annette" : "password"
@@ -69,8 +69,8 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c4"
 				{
-					categoryId: "cat1"
-					given: "4given4"
+					categoryId: "cat1",
+					given: "4given4",
 					wanted: "4wanted4"
 				}
 				authorization "Annette" : "password"
@@ -83,8 +83,8 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c5"
 				{
-					categoryId: "cat1"
-					given: "different"
+					categoryId: "cat1",
+					given: "different",
 					wanted: "different"
 				}
 				authorization "Annette" : "password"
@@ -97,8 +97,8 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "123456789-123456789-123456789-123456789"
 				{
-					categoryId: "cat1"
-					given: "x"
+					categoryId: "cat1",
+					given: "x",
 					wanted: "y"
 				}
 				authorization "Annette" : "password"
@@ -110,8 +110,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.CreateCard
 				{
-					categoryId: "cat1"
-					given: "${index}given${random}"
+					categoryId: "cat1",
+					given: "${index}given${random}",
 					wanted: "${index}wanted${random}"
 				}
 				authorization "Annette" : "password"
@@ -124,8 +124,8 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c6"
 				{
-					categoryId: "cat2"
-					given: "aa-given"
+					categoryId: "cat2",
+					given: "aa-given",
 					wanted: "zz-wanted"
 				}
 				authorization "Annette" : "password"
@@ -138,8 +138,8 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c7"
 				{
-					categoryId: "boxId2"
-					given: "given"
+					categoryId: "boxId2",
+					given: "given",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -152,8 +152,8 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c2"
 				{
-					given: "given"
-					image: "image"
+					given: "given",
+					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -166,8 +166,8 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c1"
 				{
-					categoryId: "cat1"
-					image: "image"
+					categoryId: "cat1",
+					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -180,9 +180,9 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c1"
 				{
-					categoryId: "cat1"
-					given: "  "
-					image: "image"
+					categoryId: "cat1",
+					given: "  ",
+					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -195,8 +195,8 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c1"
 				{
-					categoryId: "cat1"
-					given: "given"
+					categoryId: "cat1",
+					given: "given",
 					image: "image"
 				}
 				authorization "Annette" : "password"
@@ -209,9 +209,9 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c1"
 				{
-					categoryId: "cat1"
-					given: "given"
-					image: "image"
+					categoryId: "cat1",
+					given: "given",
+					image: "image",
 					wanted: "  "
 				}
 				authorization "Annette" : "password"
@@ -224,8 +224,8 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c1"
 				{
-					categoryId: "cat1"
-					given: "given"
+					categoryId: "cat1",
+					given: "given",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -238,9 +238,9 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c1"
 				{
-					categoryId: "cat1"
-					given: "given"
-					image: "  "
+					categoryId: "cat1",
+					given: "given",
+					image: "  ",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -253,9 +253,9 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c1"
 				{
-					categoryId: "lala"
-					given: "given"
-					image: "image"
+					categoryId: "lala",
+					given: "given",
+					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
@@ -269,9 +269,9 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c1"
 				{
-					categoryId: "cat1"
-					given: "given"
-					image: "image"
+					categoryId: "cat1",
+					given: "given",
+					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Admin" : "admin-password"
@@ -283,9 +283,9 @@ scenarios
 		WHEN
 			com.anfelisa.card.CreateCard
 				{
-					categoryId: "cat1"
-					given: "given"
-					image: "image"
+					categoryId: "cat1",
+					given: "given",
+					image: "image",
 					wanted: "wanted"
 				}
 		THEN 401
@@ -297,9 +297,9 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c6"
 				{
-					categoryId: "adminCat"
-					given: "given"
-					image: "image"
+					categoryId: "adminCat",
+					given: "given",
+					image: "image",
 					wanted: "wanted"
 				}
 				authorization "Admin" : "admin-password"
@@ -312,7 +312,7 @@ scenarios
 			com.anfelisa.category.CreateCategory
 				uuid "cat3"
 				{
-					categoryName: "level 1 #3"
+					categoryName: "level 1 #3",
 					parentCategoryId: "boxId"
 				}
 				authorization "Annette" : "password"
@@ -325,7 +325,7 @@ scenarios
 			com.anfelisa.category.CreateCategory
 				uuid "cat4"
 				{
-					categoryName: "level 1 #4"
+					categoryName: "level 1 #4",
 					parentCategoryId: "boxId"
 				}
 				authorization "Annette" : "password"

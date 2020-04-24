@@ -22,19 +22,19 @@ scenarios
 			response {
 				userList : [
 					{ 
-						email : "annette.pohl@anfelisa.de"
-						password : "admin-password"
-						username : "Admin"
-						userId : "uuid-admin" 			
-						emailConfirmed : "False"
+						email : "annette.pohl@anfelisa.de",
+						password : "admin-password",
+						username : "Admin",
+						userId : "uuid-admin", 			
+						emailConfirmed : false,
 						role : "ADMIN"
-					}
+					},
 					{
-						email : "annette.pohl@anfelisa.de"
-						password : "password"
-						username : "Annette"
-						emailConfirmed : "True"
-						role : "STUDENT"
+						email : "annette.pohl@anfelisa.de",
+						password : "password",
+						username : "Annette",
+						emailConfirmed : true,
+						role : "STUDENT",
 						userId : "uuid"
 					}
 				]

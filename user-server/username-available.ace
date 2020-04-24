@@ -15,7 +15,7 @@ scenarios
 				}
 		THEN 200
 		response {
-			available : "true"
+			available : true
 		}				
 
 	UsernameNotAvailable
@@ -29,6 +29,6 @@ scenarios
 		THEN 200
 		response
 		{
-			available : "false"
+			available : false
 		}
 	

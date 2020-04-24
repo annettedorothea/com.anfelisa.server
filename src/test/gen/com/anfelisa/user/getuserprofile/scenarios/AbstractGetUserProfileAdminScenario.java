@@ -39,37 +39,45 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetUserProfileAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("admin-password", 0));
-		registerUser0.setUsername(this.templateStringValue("Admin", 0));
-		registerUser0.setToken(this.templateStringValue("ADMIN-TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid-admin\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"username\" : \"Admin\"," + 
+				"\"token\" : \"ADMIN-TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 1));
-		registerUser1.setLanguage(this.templateStringValue("de", 1));
-		registerUser1.setPassword(this.templateStringValue("password", 1));
-		registerUser1.setUsername(this.templateStringValue("Annette", 1));
-		registerUser1.setToken(this.templateStringValue("TOKEN", 1));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser1, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.UserData getUserProfile0 = new com.anfelisa.user.data.UserData(randomUUID());
 		
 		return 
-		com.anfelisa.user.ActionCalls.callGetUserProfile(getUserProfile0, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		com.anfelisa.user.ActionCalls.callGetUserProfile(objectMapper.readValue("{}",
+		com.anfelisa.user.data.UserData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
 	}
 	
@@ -81,11 +89,14 @@ public abstract class AbstractGetUserProfileAdminScenario extends BaseScenario {
 			actual = response.readEntity(com.anfelisa.user.data.GetUserProfileResponse.class);
 		} catch (Exception x) {
 		}
-		com.anfelisa.user.data.UserData expectedData = new com.anfelisa.user.data.UserData(randomUUID());
-		expectedData.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", null));
-		expectedData.setUsername(this.templateStringValue("Admin", null));
-		expectedData.setUserId(this.templateStringValue("uuid-admin", null));
+		com.anfelisa.user.data.UserData expectedData = objectMapper.readValue("{" +
+			"\"uuid\" : \"46682a52-791e-4f4b-bd7f-e0656c0d16c0\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"username\" : \"Admin\"," + 
+				"\"userId\" : \"uuid-admin\"} ",
+		com.anfelisa.user.data.UserData.class)
 		
+		;
 		
 		com.anfelisa.user.data.GetUserProfileResponse expected = new com.anfelisa.user.data.GetUserProfileResponse(expectedData);
 

@@ -1,5 +1,6 @@
 HttpServer 
 
+
 com.anfelisa.box.createbox
 
 scenarios 
@@ -10,8 +11,8 @@ scenarios
 			com.anfelisa.box.CreateBox
 				uuid "boxId"
 				{
-					categoryName: "cat"
-					dictionaryLookup: "false"
+					categoryName: "cat",
+					dictionaryLookup: false,
 					maxCardsPerDay: 1
 				}
 				authorization "Annette" : "password"
@@ -24,8 +25,8 @@ scenarios
 			com.anfelisa.box.CreateBox
 				uuid "boxId2"
 				{
-					categoryName: "cat2"
-					dictionaryLookup: "false"
+					categoryName: "cat2",
+					dictionaryLookup: false,
 					maxCardsPerDay: 8
 				}
 				authorization "Annette" : "password"
@@ -38,7 +39,7 @@ scenarios
 			com.anfelisa.box.CreateBox
 				uuid "boxId"
 				{
-					categoryName: "cat"
+					categoryName: "cat",
 					maxCardsPerDay: 10
 				}
 				authorization "Annette" : "password"
@@ -51,10 +52,10 @@ scenarios
 			com.anfelisa.box.CreateBox
 				uuid "boxId"
 				{
-					categoryName: "cat"
-					maxCardsPerDay: 10
-					dictionaryLookup: "true"
-					givenLanguage: "de"
+					categoryName: "cat",
+					maxCardsPerDay: 10,
+					dictionaryLookup: true,
+					givenLanguage: "de",
 					wantedLanguage: "en"
 				}
 				authorization "Annette" : "password"
@@ -67,10 +68,10 @@ scenarios
 			com.anfelisa.box.CreateBox
 				uuid "boxId"
 				{
-					categoryName: "cat"
-					maxCardsPerDay: 10
-					dictionaryLookup: "true"
-					givenLanguage: "xx"
+					categoryName: "cat",
+					maxCardsPerDay: 10,
+					dictionaryLookup: true,
+					givenLanguage: "xx",
 					wantedLanguage: "en"
 				}
 				authorization "Annette" : "password"
@@ -83,10 +84,10 @@ scenarios
 			com.anfelisa.box.CreateBox
 				uuid "boxId"
 				{
-					categoryName: "cat"
-					maxCardsPerDay: 10
-					dictionaryLookup: "true"
-					givenLanguage: "fr"
+					categoryName: "cat",
+					maxCardsPerDay: 10,
+					dictionaryLookup: true,
+					givenLanguage: "fr",
 					wantedLanguage: "xx"
 				}
 				authorization "Annette" : "password"
@@ -99,8 +100,8 @@ scenarios
 			com.anfelisa.box.CreateBox
 				uuid "boxId"
 				{
-					categoryName: "cat"
-					dictionaryLookup: "false"
+					categoryName: "cat",
+					dictionaryLookup: false
 				}
 				authorization "Annette" : "password"
 		THEN 400
@@ -112,8 +113,8 @@ scenarios
 			com.anfelisa.box.CreateBox
 				uuid "boxId"
 				{
-					maxCardsPerDay: 10
-					dictionaryLookup: "false"
+					maxCardsPerDay: 10,
+					dictionaryLookup: false
 				}
 				authorization "Annette" : "password"
 		THEN 400
@@ -125,9 +126,9 @@ scenarios
 			com.anfelisa.box.CreateBox
 				uuid "boxId"
 				{
-					categoryName: ""
-					maxCardsPerDay: 10
-					dictionaryLookup: "false"
+					categoryName: "",
+					maxCardsPerDay: 10,
+					dictionaryLookup: false
 				}
 				authorization "Annette" : "password"
 		THEN 400
@@ -139,9 +140,9 @@ scenarios
 			com.anfelisa.box.CreateBox
 				uuid "boxId"
 				{
-					categoryName: "    "
-					maxCardsPerDay: 10
-					dictionaryLookup: "false"
+					categoryName: "    ",
+					maxCardsPerDay: 10,
+					dictionaryLookup: false
 				}
 				authorization "Annette" : "password"
 		THEN 400
@@ -153,9 +154,9 @@ scenarios
 			com.anfelisa.box.CreateBox
 				uuid "boxId"
 				{
-					categoryName: "lala"
-					maxCardsPerDay: 10
-					dictionaryLookup: "false"
+					categoryName: "lala",
+					maxCardsPerDay: 10,
+					dictionaryLookup: false
 				}
 		THEN 401
 	
@@ -166,8 +167,8 @@ scenarios
 			com.anfelisa.box.CreateBox
 				uuid "adminBox"
 				{
-					categoryName: "adminBox"
-					dictionaryLookup: "false"
+					categoryName: "adminBox",
+					dictionaryLookup: false,
 					maxCardsPerDay: 10
 				}
 				authorization "Admin" : "admin-password"

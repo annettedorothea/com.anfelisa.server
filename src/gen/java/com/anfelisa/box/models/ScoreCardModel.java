@@ -21,6 +21,7 @@ package com.anfelisa.box.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import de.acegen.DateTimeToStringConverter;
+import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("all")
 public class ScoreCardModel implements IScoreCardModel {
@@ -133,6 +135,7 @@ public class ScoreCardModel implements IScoreCardModel {
 	
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public org.joda.time.DateTime getNextScheduledCardCreatedDate() {
 		return this.nextScheduledCardCreatedDate;
 	}
@@ -174,6 +177,7 @@ public class ScoreCardModel implements IScoreCardModel {
 	
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public org.joda.time.DateTime getNextScheduledCardScheduledDate() {
 		return this.nextScheduledCardScheduledDate;
 	}
@@ -207,6 +211,7 @@ public class ScoreCardModel implements IScoreCardModel {
 	
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public org.joda.time.DateTime getScoredCardScoredDate() {
 		return this.scoredCardScoredDate;
 	}
@@ -224,6 +229,7 @@ public class ScoreCardModel implements IScoreCardModel {
 	
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public org.joda.time.DateTime getReinforceCardCreatedDate() {
 		return this.reinforceCardCreatedDate;
 	}

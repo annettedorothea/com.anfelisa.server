@@ -9,7 +9,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN com.anfelisa.user.ChangeUserRole {
-			editedUserId: "uuid"
+			editedUserId: "uuid",
 			newRole: "ADMIN"
 		}
 		authorization "Admin": "admin-password"
@@ -19,7 +19,7 @@ scenarios
 		GIVEN
 			ChangeUserRoleToAdmin
 		WHEN com.anfelisa.user.ChangeUserRole {
-			editedUserId: "uuid"
+			editedUserId: "uuid",
 			newRole: "STUDENT"
 		}
 		authorization "Admin": "admin-password"
@@ -30,7 +30,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN com.anfelisa.user.ChangeUserRole {
-			editedUserId: "uuid"
+			editedUserId: "uuid",
 			newRole: "STUDENT"
 		}
 		authorization "Admin": "wrong"
@@ -41,7 +41,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN com.anfelisa.user.ChangeUserRole {
-			editedUserId: "uuid"
+			editedUserId: "uuid",
 			newRole: "STUDENT"
 		}
 		THEN 401
@@ -51,7 +51,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN com.anfelisa.user.ChangeUserRole {
-			editedUserId: "uuid"
+			editedUserId: "uuid",
 			newRole: "STUDENT"
 		}
 		authorization "Annette": "password"
@@ -62,7 +62,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN com.anfelisa.user.ChangeUserRole {
-			editedUserId: "doesNotExist"
+			editedUserId: "doesNotExist",
 			newRole: "STUDENT"
 		}
 		authorization "Admin": "admin-password"
@@ -73,7 +73,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN com.anfelisa.user.ChangeUserRole {
-			editedUserId: "uuid-admin"
+			editedUserId: "uuid-admin",
 			newRole: "STUDENT"
 		}
 		authorization "Admin": "admin-password"

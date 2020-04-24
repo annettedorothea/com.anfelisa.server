@@ -39,66 +39,62 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractImportCsvScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("password", 0));
-		registerUser0.setUsername(this.templateStringValue("Annette", 0));
-		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
-		
-
-		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
-		createBox1.setCategoryName(this.templateStringValue("cat", 1));
-		createBox1.setDictionaryLookup(new Boolean("false"));
-		createBox1.setMaxCardsPerDay(1);
-		
-		
-		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.category.data.CategoryCreationData createCategory2 = new com.anfelisa.category.data.CategoryCreationData("cat1");
-		createCategory2.setCategoryName(this.templateStringValue("level 1 #1", 2));
-		createCategory2.setParentCategoryId(this.templateStringValue("boxId", 2));
 		
+		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"boxId\"," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 1} ",
+		com.anfelisa.box.data.BoxCreationData.class)
 		
-		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		
+		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+			"\"uuid\" : \"cat1\"," + 
+				"\"categoryName\" : \"level 1 #1\"," + 
+				"\"parentCategoryId\" : \"boxId\"} ",
+		com.anfelisa.category.data.CategoryCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.card.data.CsvUploadData importCsv0 = new com.anfelisa.card.data.CsvUploadData(randomUUID());
-		importCsv0.setCategoryId(this.templateStringValue("cat1", 0));
-		
-			List<com.anfelisa.card.models.ISimpleCardModel> importCsv0PreviewCsv = new ArrayList<com.anfelisa.card.models.ISimpleCardModel>();
-			com.anfelisa.card.models.ISimpleCardModel item1 = new com.anfelisa.card.models.SimpleCardModel();
-			item1.setGiven(this.templateStringValue("g1", 0));
-			item1.setWanted(this.templateStringValue("w1", 0));
-			item1.setId(this.templateStringValue("1", 0));
-			importCsv0PreviewCsv.add(item1);
-		
-			com.anfelisa.card.models.ISimpleCardModel item2 = new com.anfelisa.card.models.SimpleCardModel();
-			item2.setGiven(this.templateStringValue("g2", 0));
-			item2.setWanted(this.templateStringValue("w2", 0));
-			item2.setId(this.templateStringValue("2", 0));
-			importCsv0PreviewCsv.add(item2);
-		
-			com.anfelisa.card.models.ISimpleCardModel item3 = new com.anfelisa.card.models.SimpleCardModel();
-			item3.setGiven(this.templateStringValue("g3", 0));
-			item3.setWanted(this.templateStringValue("w3", 0));
-			item3.setId(this.templateStringValue("3", 0));
-			importCsv0PreviewCsv.add(item3);
-		
-			
-		importCsv0.setPreviewCsv(importCsv0PreviewCsv);
-		
 		
 		return 
-		com.anfelisa.card.ActionCalls.callImportCsv(importCsv0, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.card.ActionCalls.callImportCsv(objectMapper.readValue("{" +
+			"\"uuid\" : \"30587065-f1b5-43cc-b180-4f47ef98c904\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"previewCsv\" : [ { \"given\" : \"g1\"," + 
+				"\"wanted\" : \"w1\"," + 
+				"\"id\" : \"1\"}," + 
+				"{ \"given\" : \"g2\"," + 
+				"\"wanted\" : \"w2\"," + 
+				"\"id\" : \"2\"}," + 
+				"{ \"given\" : \"g3\"," + 
+				"\"wanted\" : \"w3\"," + 
+				"\"id\" : \"3\"}]} ",
+		com.anfelisa.card.data.CsvUploadData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 	}
 	

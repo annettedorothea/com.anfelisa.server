@@ -39,39 +39,48 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractResetPasswordScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("password", 0));
-		registerUser0.setUsername(this.templateStringValue("Annette", 0));
-		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
-		NotReplayableDataProvider.put("token", this.templateStringValue("RESET-PW-TOKEN", null));
-		com.anfelisa.user.data.ForgotPasswordData forgotPassword1 = new com.anfelisa.user.data.ForgotPasswordData(randomUUID());
-		forgotPassword1.setLanguage(this.templateStringValue("de", 1));
-		forgotPassword1.setUsername(this.templateStringValue("Annette", 1));
-		forgotPassword1.setToken(this.templateStringValue("RESET-PW-TOKEN", 1));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"RESET-PW-TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callForgotPassword(objectMapper.readValue("{" +
+			"\"uuid\" : \"32059c36-92a6-4175-ae4d-4ee7897327be\"," + 
+				"\"language\" : \"de\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"RESET-PW-TOKEN\"} ",
+		com.anfelisa.user.data.ForgotPasswordData.class)
 		
-		com.anfelisa.user.ActionCalls.callForgotPassword(forgotPassword1, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("RESET-PW-TOKEN", null));
-		com.anfelisa.user.data.ResetPasswordWithNewPasswordData resetPassword0 = new com.anfelisa.user.data.ResetPasswordWithNewPasswordData(randomUUID());
-		resetPassword0.setToken(this.templateStringValue("RESET-PW-TOKEN", 0));
-		resetPassword0.setPassword(this.templateStringValue("newPassword", 0));
-		
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"RESET-PW-TOKEN\"",
+				 String.class));
 		
 		return 
-		com.anfelisa.user.ActionCalls.callResetPassword(resetPassword0, DROPWIZARD.getLocalPort());
+		com.anfelisa.user.ActionCalls.callResetPassword(objectMapper.readValue("{" +
+			"\"uuid\" : \"509cdd8e-4682-43bf-a21f-db4b42d1c89e\"," + 
+				"\"token\" : \"RESET-PW-TOKEN\"," + 
+				"\"password\" : \"newPassword\"} ",
+		com.anfelisa.user.data.ResetPasswordWithNewPasswordData.class)
+		
+		, DROPWIZARD.getLocalPort());
 		
 	}
 	

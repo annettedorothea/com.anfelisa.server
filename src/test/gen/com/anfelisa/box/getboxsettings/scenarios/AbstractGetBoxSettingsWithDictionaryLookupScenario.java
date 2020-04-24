@@ -39,38 +39,45 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("password", 0));
-		registerUser0.setUsername(this.templateStringValue("Annette", 0));
-		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
-		createBox1.setCategoryName(this.templateStringValue("cat", 1));
-		createBox1.setMaxCardsPerDay(10);
-		createBox1.setDictionaryLookup(new Boolean("true"));
-		createBox1.setGivenLanguage(this.templateStringValue("de", 1));
-		createBox1.setWantedLanguage(this.templateStringValue("en", 1));
 		
+		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"boxId\"," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"maxCardsPerDay\" : 10," + 
+				"\"dictionaryLookup\" : true," + 
+				"\"givenLanguage\" : \"de\"," + 
+				"\"wantedLanguage\" : \"en\"} ",
+		com.anfelisa.box.data.BoxCreationData.class)
 		
-		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.box.data.BoxSettingsWrapperData getBoxSettings0 = new com.anfelisa.box.data.BoxSettingsWrapperData(randomUUID());
-		getBoxSettings0.setBoxId(this.templateStringValue("boxId", 0));
-		
 		
 		return 
-		com.anfelisa.box.ActionCalls.callGetBoxSettings(getBoxSettings0, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.box.ActionCalls.callGetBoxSettings(objectMapper.readValue("{" +
+			"\"uuid\" : \"04810a35-d3b7-4a4a-9297-64359aba7b83\"," + 
+				"\"boxId\" : \"boxId\"} ",
+		com.anfelisa.box.data.BoxSettingsWrapperData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 	}
 	
@@ -82,14 +89,17 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 			actual = response.readEntity(com.anfelisa.box.data.GetBoxSettingsResponse.class);
 		} catch (Exception x) {
 		}
-		com.anfelisa.box.data.BoxSettingsWrapperData expectedData = new com.anfelisa.box.data.BoxSettingsWrapperData(randomUUID());
-		expectedData.setCategoryId(this.templateStringValue("boxId", null));
-		expectedData.setCategoryName(this.templateStringValue("cat", null));
-		expectedData.setDictionaryLookup(new Boolean("true"));
-		expectedData.setGivenLanguage(this.templateStringValue("de", null));
-		expectedData.setWantedLanguage(this.templateStringValue("en", null));
-		expectedData.setMaxCardsPerDay(10);
+		com.anfelisa.box.data.BoxSettingsWrapperData expectedData = objectMapper.readValue("{" +
+			"\"uuid\" : \"c4680149-3946-41ea-ab32-58e1f338f0ed\"," + 
+				"\"categoryId\" : \"boxId\"," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : true," + 
+				"\"givenLanguage\" : \"de\"," + 
+				"\"wantedLanguage\" : \"en\"," + 
+				"\"maxCardsPerDay\" : 10} ",
+		com.anfelisa.box.data.BoxSettingsWrapperData.class)
 		
+		;
 		
 		com.anfelisa.box.data.GetBoxSettingsResponse expected = new com.anfelisa.box.data.GetBoxSettingsResponse(expectedData);
 

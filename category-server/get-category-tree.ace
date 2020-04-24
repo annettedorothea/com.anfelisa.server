@@ -15,40 +15,40 @@ scenarios
 		THEN 200
 			response {
 				rootCategory : {
-					categoryId: "boxId"
-					categoryIndex: 1
-					categoryName: "cat"
-					dictionaryLookup: "false"
-					empty: "false"
-					rootCategoryId: "boxId"
+					categoryId: "boxId",
+					categoryIndex: 1,
+					categoryName: "cat",
+					dictionaryLookup: false,
+					empty: false,
+					rootCategoryId: "boxId",
 					childCategories: [
 						{
-							categoryId: "cat1"
-							categoryIndex: 1
-							categoryName: "level 1 #1"
-							dictionaryLookup: "false"
-							empty: "true"
-							parentCategoryId: "boxId"
-							rootCategoryId: "boxId"
+							categoryId: "cat1",
+							categoryIndex: 1,
+							categoryName: "level 1 #1",
+							dictionaryLookup: false,
+							empty: true,
+							parentCategoryId: "boxId",
+							rootCategoryId: "boxId",
 							childCategories: []
-						}
+						},
 						{
-							categoryId: "cat2"
-							categoryIndex: 2
-							categoryName: "level 1 #2"
-							dictionaryLookup: "false"
-							empty: "false"
-							parentCategoryId: "boxId"
-							rootCategoryId: "boxId"
+							categoryId: "cat2",
+							categoryIndex: 2,
+							categoryName: "level 1 #2",
+							dictionaryLookup: false,
+							empty: false,
+							parentCategoryId: "boxId",
+							rootCategoryId: "boxId",
 							childCategories : [
 								{
-									categoryId: "cat3"
-									categoryIndex: 1
-									categoryName: "level 2 #1"
-									dictionaryLookup: "false"
-									empty: "true"
-									parentCategoryId: "cat2"
-									rootCategoryId: "boxId"
+									categoryId: "cat3",
+									categoryIndex: 1,
+									categoryName: "level 2 #1",
+									dictionaryLookup: false,
+									empty: true,
+									parentCategoryId: "cat2",
+									rootCategoryId: "boxId",
 									childCategories: []
 								}
 							]
@@ -69,25 +69,25 @@ scenarios
 		THEN 200
 			response {
 				rootCategory : {
-					categoryId: "boxId"
-					categoryIndex: 1
-					categoryName: "cat"
-					dictionaryLookup: "true"
-					givenLanguage: "de"
-					wantedLanguage: "en"
-					empty: "false"
-					rootCategoryId: "boxId"
+					categoryId: "boxId",
+					categoryIndex: 1,
+					categoryName: "cat",
+					dictionaryLookup: true,
+					givenLanguage: "de",
+					wantedLanguage: "en",
+					empty: false,
+					rootCategoryId: "boxId",
 					childCategories: [
 						{
-							categoryId: "dict"
-							categoryIndex: 1
-							categoryName: "dict"
-							dictionaryLookup: "true"
-							givenLanguage: "de"
-							wantedLanguage: "en"
-							empty: "true"
-							parentCategoryId: "boxId"
-							rootCategoryId: "boxId"
+							categoryId: "dict",
+							categoryIndex: 1,
+							categoryName: "dict",
+							dictionaryLookup: true,
+							givenLanguage: "de",
+							wantedLanguage: "en",
+							empty: true,
+							parentCategoryId: "boxId",
+							rootCategoryId: "boxId",
 							childCategories: []
 						}
 					]

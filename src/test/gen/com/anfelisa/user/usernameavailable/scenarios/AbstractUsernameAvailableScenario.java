@@ -39,27 +39,32 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("password", 0));
-		registerUser0.setUsername(this.templateStringValue("Annette", 0));
-		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.user.data.UsernameAvailableData usernameAvailable0 = new com.anfelisa.user.data.UsernameAvailableData(randomUUID());
-		usernameAvailable0.setUsername(this.templateStringValue("lala", 0));
-		
 		
 		return 
-		com.anfelisa.user.ActionCalls.callUsernameAvailable(usernameAvailable0, DROPWIZARD.getLocalPort());
+		com.anfelisa.user.ActionCalls.callUsernameAvailable(objectMapper.readValue("{" +
+			"\"uuid\" : \"143bf2d8-bc73-41a9-b092-e0069bc98269\"," + 
+				"\"username\" : \"lala\"} ",
+		com.anfelisa.user.data.UsernameAvailableData.class)
+		
+		, DROPWIZARD.getLocalPort());
 		
 	}
 	
@@ -71,9 +76,12 @@ public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 			actual = response.readEntity(com.anfelisa.user.data.UsernameAvailableResponse.class);
 		} catch (Exception x) {
 		}
-		com.anfelisa.user.data.UsernameAvailableData expectedData = new com.anfelisa.user.data.UsernameAvailableData(randomUUID());
-		expectedData.setAvailable(new Boolean("true"));
+		com.anfelisa.user.data.UsernameAvailableData expectedData = objectMapper.readValue("{" +
+			"\"uuid\" : \"20e76e85-1852-428c-8de5-7abc5f61ad02\"," + 
+				"\"available\" : true} ",
+		com.anfelisa.user.data.UsernameAvailableData.class)
 		
+		;
 		
 		com.anfelisa.user.data.UsernameAvailableResponse expected = new com.anfelisa.user.data.UsernameAvailableResponse(expectedData);
 

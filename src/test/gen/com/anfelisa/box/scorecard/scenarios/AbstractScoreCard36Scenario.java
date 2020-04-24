@@ -39,192 +39,222 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractScoreCard36Scenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("password", 0));
-		registerUser0.setUsername(this.templateStringValue("Annette", 0));
-		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
-		
-
-		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
-		createBox1.setCategoryName(this.templateStringValue("cat", 1));
-		createBox1.setDictionaryLookup(new Boolean("false"));
-		createBox1.setMaxCardsPerDay(1);
-		
-		
-		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.category.data.CategoryCreationData createCategory2 = new com.anfelisa.category.data.CategoryCreationData("cat1");
-		createCategory2.setCategoryName(this.templateStringValue("level 1 #1", 2));
-		createCategory2.setParentCategoryId(this.templateStringValue("boxId", 2));
 		
+		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"boxId\"," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 1} ",
+		com.anfelisa.box.data.BoxCreationData.class)
 		
-		com.anfelisa.category.ActionCalls.callCreateCategory(createCategory2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-
-		com.anfelisa.card.data.CardCreationData createCard3 = new com.anfelisa.card.data.CardCreationData("c1");
-		createCard3.setCategoryId(this.templateStringValue("cat1", 3));
-		createCard3.setGiven(this.templateStringValue("given", 3));
-		createCard3.setImage(this.templateStringValue("image", 3));
-		createCard3.setWanted(this.templateStringValue("wanted", 3));
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(createCard3, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationData createCard4 = new com.anfelisa.card.data.CardCreationData("c2");
-		createCard4.setCategoryId(this.templateStringValue("cat1", 4));
-		createCard4.setGiven(this.templateStringValue("given2", 4));
-		createCard4.setImage(this.templateStringValue("image2", 4));
-		createCard4.setWanted(this.templateStringValue("wanted2", 4));
 		
+		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+			"\"uuid\" : \"cat1\"," + 
+				"\"categoryName\" : \"level 1 #1\"," + 
+				"\"parentCategoryId\" : \"boxId\"} ",
+		com.anfelisa.category.data.CategoryCreationData.class)
 		
-		com.anfelisa.card.ActionCalls.callCreateCard(createCard4, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-
-		com.anfelisa.card.data.CardCreationData createCard5 = new com.anfelisa.card.data.CardCreationData("c3");
-		createCard5.setCategoryId(this.templateStringValue("cat1", 5));
-		createCard5.setGiven(this.templateStringValue("3given", 5));
-		createCard5.setWanted(this.templateStringValue("3wanted", 5));
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(createCard5, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationData createCard6 = new com.anfelisa.card.data.CardCreationData("c4");
-		createCard6.setCategoryId(this.templateStringValue("cat1", 6));
-		createCard6.setGiven(this.templateStringValue("4given4", 6));
-		createCard6.setWanted(this.templateStringValue("4wanted4", 6));
 		
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"c1\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"given\"," + 
+				"\"image\" : \"image\"," + 
+				"\"wanted\" : \"wanted\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
 		
-		com.anfelisa.card.ActionCalls.callCreateCard(createCard6, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.card.data.CardCreationData createCard7 = new com.anfelisa.card.data.CardCreationData("c5");
-		createCard7.setCategoryId(this.templateStringValue("cat1", 7));
-		createCard7.setGiven(this.templateStringValue("different", 7));
-		createCard7.setWanted(this.templateStringValue("different", 7));
 		
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"c2\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"given2\"," + 
+				"\"image\" : \"image2\"," + 
+				"\"wanted\" : \"wanted2\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
 		
-		com.anfelisa.card.ActionCalls.callCreateCard(createCard7, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"c3\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"3given\"," + 
+				"\"wanted\" : \"3wanted\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"c4\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"4given4\"," + 
+				"\"wanted\" : \"4wanted4\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"c5\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"different\"," + 
+				"\"wanted\" : \"different\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200416 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		com.anfelisa.box.data.ScheduledCardsData scheduleCards8 = new com.anfelisa.box.data.ScheduledCardsData("sc1");
 		
-			List<String> scheduleCards8CardIds = new ArrayList<String>();
-			scheduleCards8CardIds.add("c1");
+		com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
+			"\"uuid\" : \"sc1\"," + 
+				"\"cardIds\" : [ \"c1\"," + 
+				"\"c3\"," + 
+				"\"c4\"]} ",
+		com.anfelisa.box.data.ScheduledCardsData.class)
 		
-			scheduleCards8CardIds.add("c3");
-		
-			scheduleCards8CardIds.add("c4");
-		
-			
-		scheduleCards8.setCardIds(scheduleCards8CardIds);
-		
-		
-		com.anfelisa.box.ActionCalls.callScheduleCards(scheduleCards8, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		com.anfelisa.box.data.ScoreCardData scoreCard9 = new com.anfelisa.box.data.ScoreCardData("score3");
-		scoreCard9.setBoxId(this.templateStringValue("boxId", 9));
-		scoreCard9.setScoredCardQuality(3);
-		scoreCard9.setScoredCardScheduledCardId(this.templateStringValue("c1-sc1", 9));
 		
+		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"score3\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"scoredCardQuality\" : 3," + 
+				"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
+		com.anfelisa.box.data.ScoreCardData.class)
 		
-		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard9, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-
-		com.anfelisa.box.data.BoxCreationData createBox10 = new com.anfelisa.box.data.BoxCreationData("boxId");
-		createBox10.setCategoryName(this.templateStringValue("cat", 10));
-		createBox10.setDictionaryLookup(new Boolean("false"));
-		createBox10.setMaxCardsPerDay(1);
-		
-		
-		com.anfelisa.box.ActionCalls.callCreateBox(createBox10, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		com.anfelisa.box.data.BoxUpdateData updateBox11 = new com.anfelisa.box.data.BoxUpdateData(randomUUID());
-		updateBox11.setBoxId(this.templateStringValue("boxId", 11));
-		updateBox11.setCategoryId(this.templateStringValue("boxId", 11));
-		updateBox11.setCategoryName(this.templateStringValue("changed", 11));
-		updateBox11.setDictionaryLookup(new Boolean("false"));
-		updateBox11.setMaxCardsPerDay(11);
-		updateBox11.setMaxInterval(90);
 		
+		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"boxId\"," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 1} ",
+		com.anfelisa.box.data.BoxCreationData.class)
 		
-		com.anfelisa.box.ActionCalls.callUpdateBox(updateBox11, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		
+		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"ce459b9d-887c-4931-a614-5caadee39518\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"categoryId\" : \"boxId\"," + 
+				"\"categoryName\" : \"changed\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 11," + 
+				"\"maxInterval\" : 90} ",
+		com.anfelisa.box.data.BoxUpdateData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200425 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		com.anfelisa.box.data.ScoreCardData scoreCard12 = new com.anfelisa.box.data.ScoreCardData("score31");
-		scoreCard12.setBoxId(this.templateStringValue("boxId", 12));
-		scoreCard12.setScoredCardQuality(3);
-		scoreCard12.setScoredCardScheduledCardId(this.templateStringValue("score3", 12));
 		
+		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"score31\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"scoredCardQuality\" : 3," + 
+				"\"scoredCardScheduledCardId\" : \"score3\"} ",
+		com.anfelisa.box.data.ScoreCardData.class)
 		
-		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard12, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200515 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		com.anfelisa.box.data.ScoreCardData scoreCard13 = new com.anfelisa.box.data.ScoreCardData("score32");
-		scoreCard13.setBoxId(this.templateStringValue("boxId", 13));
-		scoreCard13.setScoredCardQuality(3);
-		scoreCard13.setScoredCardScheduledCardId(this.templateStringValue("score31", 13));
 		
+		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"score32\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"scoredCardQuality\" : 3," + 
+				"\"scoredCardScheduledCardId\" : \"score31\"} ",
+		com.anfelisa.box.data.ScoreCardData.class)
 		
-		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard13, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200615 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		com.anfelisa.box.data.ScoreCardData scoreCard14 = new com.anfelisa.box.data.ScoreCardData("score33");
-		scoreCard14.setBoxId(this.templateStringValue("boxId", 14));
-		scoreCard14.setScoredCardQuality(4);
-		scoreCard14.setScoredCardScheduledCardId(this.templateStringValue("score32", 14));
 		
+		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"score33\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"scoredCardQuality\" : 4," + 
+				"\"scoredCardScheduledCardId\" : \"score32\"} ",
+		com.anfelisa.box.data.ScoreCardData.class)
 		
-		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard14, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200819 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		com.anfelisa.box.data.ScoreCardData scoreCard15 = new com.anfelisa.box.data.ScoreCardData("score34");
-		scoreCard15.setBoxId(this.templateStringValue("boxId", 15));
-		scoreCard15.setScoredCardQuality(5);
-		scoreCard15.setScoredCardScheduledCardId(this.templateStringValue("score33", 15));
 		
+		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"score34\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"scoredCardQuality\" : 5," + 
+				"\"scoredCardScheduledCardId\" : \"score33\"} ",
+		com.anfelisa.box.data.ScoreCardData.class)
 		
-		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard15, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 		NotReplayableDataProvider.setSystemTime(DateTime.parse("20201120 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		com.anfelisa.box.data.ScoreCardData scoreCard16 = new com.anfelisa.box.data.ScoreCardData("score35");
-		scoreCard16.setBoxId(this.templateStringValue("boxId", 16));
-		scoreCard16.setScoredCardQuality(3);
-		scoreCard16.setScoredCardScheduledCardId(this.templateStringValue("score34", 16));
 		
+		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"score35\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"scoredCardQuality\" : 3," + 
+				"\"scoredCardScheduledCardId\" : \"score34\"} ",
+		com.anfelisa.box.data.ScoreCardData.class)
 		
-		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard16, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 	}
 	
 	private Response when() throws Exception {
 		NotReplayableDataProvider.setSystemTime(DateTime.parse("20210301 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		com.anfelisa.box.data.ScoreCardData scoreCard0 = new com.anfelisa.box.data.ScoreCardData("score36");
-		scoreCard0.setBoxId(this.templateStringValue("boxId", 0));
-		scoreCard0.setScoredCardQuality(3);
-		scoreCard0.setScoredCardScheduledCardId(this.templateStringValue("score35", 0));
-		
 		
 		return 
-		com.anfelisa.box.ActionCalls.callScoreCard(scoreCard0, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"score36\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"scoredCardQuality\" : 3," + 
+				"\"scoredCardScheduledCardId\" : \"score35\"} ",
+		com.anfelisa.box.data.ScoreCardData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 	}
 	

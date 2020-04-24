@@ -21,6 +21,7 @@ package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -34,6 +35,7 @@ import com.anfelisa.box.models.IInitBoxesModel;
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
 import de.acegen.DateTimeToStringConverter;
+import de.acegen.StringToDateTimeConverter;
 
 @SuppressWarnings("unused")
 public abstract class AbstractInitBoxesData extends AbstractData implements IInitBoxesData {
@@ -62,6 +64,7 @@ public abstract class AbstractInitBoxesData extends AbstractData implements IIni
 
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public org.joda.time.DateTime getMinScheduledDate() {
 		return this.minScheduledDate;
 	}

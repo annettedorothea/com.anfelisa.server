@@ -10,10 +10,10 @@ scenarios
 		WHEN
 			com.anfelisa.card.MoveCards
 				{
-					categoryId: "cat2"
-					cardIdList: (
-						"c1" "c2" "c4"
-					) 
+					categoryId: "cat2",
+					cardIdList: [
+						"c1", "c2", "c4"
+					]
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -26,10 +26,10 @@ scenarios
 		WHEN
 			com.anfelisa.card.MoveCards
 				{
-					categoryId: "cat2"
-					cardIdList: (
-						"c1" "c2" "c4"
-					) 
+					categoryId: "cat2",
+					cardIdList: [
+						"c1", "c2", "c4"
+					] 
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -41,10 +41,10 @@ scenarios
 		WHEN
 			com.anfelisa.card.MoveCards
 				{
-					categoryId: "cat2"
-					cardIdList: (
-						"c1" "lala" "c2" "c4"
-					) 
+					categoryId: "cat2",
+					cardIdList: [
+						"c1", "lala", "c2", "c4"
+					] 
 				}
 				authorization "Annette" : "password"
 		THEN 400
@@ -57,10 +57,10 @@ scenarios
 		WHEN
 			com.anfelisa.card.MoveCards
 				{
-					categoryId: "adminCat"
-					cardIdList: (
+					categoryId: "adminCat",
+					cardIdList: [
 						"c1"
-					) 
+					] 
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -73,10 +73,10 @@ scenarios
 		WHEN
 			com.anfelisa.card.MoveCards
 				{
-					categoryId: "adminCat"
-					cardIdList: (
+					categoryId: "adminCat",
+					cardIdList: [
 						"c1"
-					) 
+					] 
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -88,10 +88,10 @@ scenarios
 		WHEN
 			com.anfelisa.card.MoveCards
 				{
-					categoryId: "cat2"
-					cardIdList: (
-						"c1" "c2" "c4"
-					) 
+					categoryId: "cat2",
+					cardIdList: [
+						"c1", "c2", "c4"
+					] 
 				}
 		THEN 401
 

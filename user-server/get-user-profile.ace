@@ -12,8 +12,8 @@ scenarios
 			authorization "Annette" : "password"
 		THEN 200
 		response {
-			email : "annette.pohl@anfelisa.de"
-			username : "Annette"
+			email : "annette.pohl@anfelisa.de",
+			username : "Annette",
 			userId : "uuid"
 		}
 
@@ -25,8 +25,8 @@ scenarios
 			authorization "Admin" : "admin-password"
 		THEN 200
 		response {
-			email : "annette.pohl@anfelisa.de"
-			username : "Admin"
+			email : "annette.pohl@anfelisa.de",
+			username : "Admin",
 			userId: "uuid-admin"
 		}
 

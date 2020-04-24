@@ -10,7 +10,7 @@ scenarios
 			com.anfelisa.category.CreateCategory
 				uuid "cat1"
 				{
-					categoryName: "level 1 #1"
+					categoryName: "level 1 #1",
 					parentCategoryId: "boxId"
 				}
 				authorization "Annette" : "password"
@@ -23,7 +23,7 @@ scenarios
 			com.anfelisa.category.CreateCategory
 				uuid "cat2"
 				{
-					categoryName: "level 1 #2"
+					categoryName: "level 1 #2",
 					parentCategoryId: "boxId"
 				}
 				authorization "Annette" : "password"
@@ -36,7 +36,7 @@ scenarios
 			com.anfelisa.category.CreateCategory
 				uuid "cat3"
 				{
-					categoryName: "level 2 #1"
+					categoryName: "level 2 #1",
 					parentCategoryId: "cat2"
 				}
 				authorization "Annette" : "password"
@@ -49,7 +49,7 @@ scenarios
 			com.anfelisa.category.CreateCategory
 				uuid "dict"
 				{
-					categoryName: "dict"
+					categoryName: "dict",
 					parentCategoryId: "boxId"
 				}
 				authorization "Annette" : "password"
@@ -72,7 +72,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.CreateCategory
 				{
-					categoryName: "lala"
+					categoryName: "lala",
 					parentCategoryId: ""
 				}
 				authorization "Annette" : "password"
@@ -84,7 +84,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.CreateCategory
 				{
-					categoryName: "lala"
+					categoryName: "lala",
 					parentCategoryId: "   "
 				}
 				authorization "Annette" : "password"
@@ -95,7 +95,7 @@ scenarios
 			com.anfelisa.box.createbox.CreateBoxMinimal
 		WHEN
 			com.anfelisa.category.CreateCategory
-				{
+				{,
 					parentCategoryId: "boxId"
 				}
 				authorization "Annette" : "password"
@@ -107,7 +107,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.CreateCategory
 				{
-					categoryName: ""
+					categoryName: "",
 					parentCategoryId: "boxId"
 				}
 				authorization "Annette" : "password"
@@ -119,7 +119,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.CreateCategory
 				{
-					categoryName: "   "
+					categoryName: "   ",
 					parentCategoryId: "boxId"
 				}
 				authorization "Annette" : "password"
@@ -131,7 +131,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.CreateCategory
 				{
-					categoryName: "lala"
+					categoryName: "lala",
 					parentCategoryId: "boxId"
 				}
 		THEN 401
@@ -143,7 +143,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.CreateCategory
 				{
-					categoryName: "lala"
+					categoryName: "lala",
 					parentCategoryId: "boxId"
 				}
 				authorization "Admin" : "admin-password"
@@ -156,7 +156,7 @@ scenarios
 			com.anfelisa.category.CreateCategory
 				uuid "adminCat"
 				{
-					categoryName: "c"
+					categoryName: "c",
 					parentCategoryId: "adminBox"
 				}
 				authorization "Admin" : "admin-password"

@@ -39,41 +39,50 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("password", 0));
-		registerUser0.setUsername(this.templateStringValue("Annette", 0));
-		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
-		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser1 = new com.anfelisa.user.data.UserRegistrationData("uuid-admin");
-		registerUser1.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 1));
-		registerUser1.setLanguage(this.templateStringValue("de", 1));
-		registerUser1.setPassword(this.templateStringValue("admin-password", 1));
-		registerUser1.setUsername(this.templateStringValue("Admin", 1));
-		registerUser1.setToken(this.templateStringValue("ADMIN-TOKEN", 1));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid-admin\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"username\" : \"Admin\"," + 
+				"\"token\" : \"ADMIN-TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser1, DROPWIZARD.getLocalPort());
+		, DROPWIZARD.getLocalPort());
 		
 
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("ADMIN-TOKEN", null));
-		com.anfelisa.user.data.ConfirmEmailData confirmEmail0 = new com.anfelisa.user.data.ConfirmEmailData(randomUUID());
-		confirmEmail0.setToken(this.templateStringValue("ADMIN-TOKEN", 0));
-		confirmEmail0.setUsername(this.templateStringValue("Annette", 0));
-		
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
+				 String.class));
 		
 		return 
-		com.anfelisa.user.ActionCalls.callConfirmEmail(confirmEmail0, DROPWIZARD.getLocalPort());
+		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
+			"\"uuid\" : \"230e7952-978e-449b-8a13-5a0816b8544a\"," + 
+				"\"token\" : \"ADMIN-TOKEN\"," + 
+				"\"username\" : \"Annette\"} ",
+		com.anfelisa.user.data.ConfirmEmailData.class)
+		
+		, DROPWIZARD.getLocalPort());
 		
 	}
 	

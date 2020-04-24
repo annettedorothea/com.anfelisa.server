@@ -39,52 +39,61 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", this.templateStringValue("TOKEN", null));
-		com.anfelisa.user.data.UserRegistrationData registerUser0 = new com.anfelisa.user.data.UserRegistrationData("uuid");
-		registerUser0.setEmail(this.templateStringValue("annette.pohl@anfelisa.de", 0));
-		registerUser0.setLanguage(this.templateStringValue("de", 0));
-		registerUser0.setPassword(this.templateStringValue("password", 0));
-		registerUser0.setUsername(this.templateStringValue("Annette", 0));
-		registerUser0.setToken(this.templateStringValue("TOKEN", 0));
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
 		
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		com.anfelisa.user.ActionCalls.callRegisterUser(registerUser0, DROPWIZARD.getLocalPort());
-		
-
-		com.anfelisa.box.data.BoxCreationData createBox1 = new com.anfelisa.box.data.BoxCreationData("boxId");
-		createBox1.setCategoryName(this.templateStringValue("cat", 1));
-		createBox1.setDictionaryLookup(new Boolean("false"));
-		createBox1.setMaxCardsPerDay(1);
-		
-		
-		com.anfelisa.box.ActionCalls.callCreateBox(createBox1, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort());
 		
 
-		com.anfelisa.box.data.BoxUpdateData updateBox2 = new com.anfelisa.box.data.BoxUpdateData(randomUUID());
-		updateBox2.setBoxId(this.templateStringValue("boxId", 2));
-		updateBox2.setCategoryId(this.templateStringValue("boxId", 2));
-		updateBox2.setCategoryName(this.templateStringValue("changed", 2));
-		updateBox2.setDictionaryLookup(new Boolean("false"));
-		updateBox2.setMaxCardsPerDay(11);
-		updateBox2.setMaxInterval(90);
 		
+		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"boxId\"," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 1} ",
+		com.anfelisa.box.data.BoxCreationData.class)
 		
-		com.anfelisa.box.ActionCalls.callUpdateBox(updateBox2, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		
+		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"ed327d08-4953-469e-8d3a-71b71af16fe4\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"categoryId\" : \"boxId\"," + 
+				"\"categoryName\" : \"changed\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 11," + 
+				"\"maxInterval\" : 90} ",
+		com.anfelisa.box.data.BoxUpdateData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
 	}
 	
 	private Response when() throws Exception {
-		com.anfelisa.box.data.BoxUpdateData updateBox0 = new com.anfelisa.box.data.BoxUpdateData(randomUUID());
-		updateBox0.setBoxId(this.templateStringValue("boxId", 0));
-		updateBox0.setCategoryId(this.templateStringValue("boxId", 0));
-		updateBox0.setCategoryName(this.templateStringValue("changed", 0));
-		updateBox0.setDictionaryLookup(new Boolean("false"));
-		updateBox0.setMaxCardsPerDay(11);
-		
 		
 		return 
-		com.anfelisa.box.ActionCalls.callUpdateBox(updateBox0, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"7a1fdf35-3622-4083-a730-b0d79aba0d4d\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"categoryId\" : \"boxId\"," + 
+				"\"categoryName\" : \"changed\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 11} ",
+		com.anfelisa.box.data.BoxUpdateData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 	}
 	
