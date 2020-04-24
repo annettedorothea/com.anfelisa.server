@@ -91,7 +91,7 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 		
 		return 
 		com.anfelisa.category.ActionCalls.callDeleteCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"8df326e6-c8be-4303-9261-4c85b80765f6\"," + 
+			"\"uuid\" : \"2be2bbea-05cf-46a6-bbef-74d20fb73eb7\"," + 
 				"\"categoryId\" : \"cat1\"} ",
 		com.anfelisa.category.data.CategoryDeleteData.class)
 		

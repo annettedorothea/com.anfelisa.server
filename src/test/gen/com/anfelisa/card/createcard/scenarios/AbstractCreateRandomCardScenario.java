@@ -81,10 +81,10 @@ public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"8b57f4e5-ecb8-4ba3-b37e-ea28e9cf6836\"," + 
+			"\"uuid\" : \"09832ee0-9631-4a67-8152-4f3d377b0903\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"0givenfae1353a\"," + 
-				"\"wanted\" : \"1wanteda7e9498a\"} ",
+				"\"given\" : \"0givenaba595bb\"," + 
+				"\"wanted\" : \"1wanteddb41f8a3\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

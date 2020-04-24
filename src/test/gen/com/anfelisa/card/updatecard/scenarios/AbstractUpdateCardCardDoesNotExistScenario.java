@@ -93,7 +93,7 @@ public abstract class AbstractUpdateCardCardDoesNotExistScenario extends BaseSce
 		
 		return 
 		com.anfelisa.card.ActionCalls.callUpdateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"041f5e90-274e-4a2d-81a6-c36b0fbc6667\"," + 
+			"\"uuid\" : \"acc174e6-b955-481e-9644-32f9eaccef25\"," + 
 				"\"cardId\" : \"lala\"," + 
 				"\"given\" : \"given\"," + 
 				"\"image\" : \"image\"," + 

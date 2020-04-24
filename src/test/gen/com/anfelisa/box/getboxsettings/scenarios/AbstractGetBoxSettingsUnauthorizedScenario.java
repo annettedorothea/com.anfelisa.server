@@ -71,7 +71,7 @@ public abstract class AbstractGetBoxSettingsUnauthorizedScenario extends BaseSce
 		
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxSettings(objectMapper.readValue("{" +
-			"\"uuid\" : \"53e22eda-8d18-4809-8d57-a889ca1a1f59\"," + 
+			"\"uuid\" : \"0bcc3eaf-02e1-4974-9650-eb5e4c5c1902\"," + 
 				"\"boxId\" : \"boxId\"} ",
 		com.anfelisa.box.data.BoxSettingsWrapperData.class)
 		

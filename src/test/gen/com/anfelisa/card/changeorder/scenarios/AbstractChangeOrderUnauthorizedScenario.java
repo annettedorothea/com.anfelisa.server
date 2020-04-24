@@ -138,7 +138,7 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 		
 		return 
 		com.anfelisa.card.ActionCalls.callChangeOrder(objectMapper.readValue("{" +
-			"\"uuid\" : \"2f2d00b3-6b28-40f6-a07b-42c471761dfe\"," + 
+			"\"uuid\" : \"24bd3da5-de2b-45b3-aedd-f737dd7ef3a1\"," + 
 				"\"cardId\" : \"c1\"," + 
 				"\"cardIdList\" : [ \"c2\"," + 
 				"\"c4\"]} ",

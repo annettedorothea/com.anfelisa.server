@@ -81,7 +81,7 @@ public abstract class AbstractUpdateCategoryScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.category.ActionCalls.callUpdateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"0c5455a0-5a23-4757-bfd5-d616783d6a5e\"," + 
+			"\"uuid\" : \"6fe65256-b6d0-4092-8f76-926bf41245b1\"," + 
 				"\"categoryName\" : \"changed\"," + 
 				"\"categoryId\" : \"cat1\"} ",
 		com.anfelisa.category.data.CategoryUpdateData.class)

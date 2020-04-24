@@ -73,7 +73,7 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 				 String.class));
 		
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
-			"\"uuid\" : \"90ecbbc6-088f-4c33-a095-ce4b4d4aca28\"," + 
+			"\"uuid\" : \"9cd066f9-fa97-4d2a-9391-b69c2dd643ec\"," + 
 				"\"token\" : \"TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
@@ -102,7 +102,7 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.user.data.UserListData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"60c2e5aa-e3d0-48d0-8ad2-1c2056aa3ab0\"," + 
+			"\"uuid\" : \"55f0d192-5358-4c2b-8f4f-9e309ae7a19b\"," + 
 				"\"userList\" : [ { \"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"password\" : \"admin-password\"," + 
 				"\"username\" : \"Admin\"," + 

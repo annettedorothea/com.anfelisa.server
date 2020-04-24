@@ -75,7 +75,7 @@ public abstract class AbstractChangeUserRoleUnauthorizedScenario extends BaseSce
 		
 		return 
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
-			"\"uuid\" : \"af0b221b-45b3-4be9-ae20-40894ec917c2\"," + 
+			"\"uuid\" : \"98312047-ecf8-49b9-8021-f8af6f632a4e\"," + 
 				"\"editedUserId\" : \"uuid\"," + 
 				"\"newRole\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)

@@ -71,7 +71,7 @@ public abstract class AbstractGetBoxSettingsNoBoxIdScenario extends BaseScenario
 		
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxSettings(objectMapper.readValue("{" +
-			"\"uuid\" : \"2ae616a1-f29b-4d06-af29-2a2b42a7b30c\"} ",
+			"\"uuid\" : \"5d1dcbaa-ea5f-42b3-b0ff-c0adc3b323e5\"} ",
 		com.anfelisa.box.data.BoxSettingsWrapperData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

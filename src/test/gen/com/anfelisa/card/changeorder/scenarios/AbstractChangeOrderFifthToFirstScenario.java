@@ -138,7 +138,7 @@ public abstract class AbstractChangeOrderFifthToFirstScenario extends BaseScenar
 		
 		return 
 		com.anfelisa.card.ActionCalls.callChangeOrder(objectMapper.readValue("{" +
-			"\"uuid\" : \"e657807e-461b-4317-a4b1-a277c65187ff\"," + 
+			"\"uuid\" : \"6a962e01-afbe-4ec9-b3e9-3905b0e10c8e\"," + 
 				"\"cardId\" : \"c1\"," + 
 				"\"cardIdList\" : [ \"c5\"]} ",
 		com.anfelisa.card.data.ChangeCardOrderListData.class)

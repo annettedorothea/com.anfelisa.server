@@ -106,7 +106,7 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 		
 		return 
 		com.anfelisa.category.ActionCalls.callDeleteCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"77b2f584-2a69-49ef-a93c-c530e314124a\"," + 
+			"\"uuid\" : \"de76eed1-0897-48fa-8275-e7bc410be960\"," + 
 				"\"categoryId\" : \"xx\"} ",
 		com.anfelisa.category.data.CategoryDeleteData.class)
 		

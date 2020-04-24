@@ -71,7 +71,7 @@ public abstract class AbstractUpdateBoxBoxIdNullScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"7d1e8160-5a63-49bb-832c-8ac9b2987c1f\"," + 
+			"\"uuid\" : \"752d6e0f-3ec5-4e29-8fa7-376643e9b5a7\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"maxCardsPerDay\" : 10} ",

@@ -71,7 +71,7 @@ public abstract class AbstractCreateCategoryNameIsEmptyScenario extends BaseScen
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"d8065b3e-fda2-44b4-ad3f-4d6725ffd2e7\"," + 
+			"\"uuid\" : \"0d8905f8-bfff-49ce-a1b5-0b92efb4acbf\"," + 
 				"\"categoryName\" : \"\"," + 
 				"\"parentCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)

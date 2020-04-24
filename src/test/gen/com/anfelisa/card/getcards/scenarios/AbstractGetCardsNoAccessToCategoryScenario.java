@@ -153,7 +153,7 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"b4604b51-12a4-44bb-8066-f5ab5d438ebd\"," + 
+			"\"uuid\" : \"de3c5609-8865-4d11-be55-45ead4da04bf\"," + 
 				"\"categoryId\" : \"cat1\"} ",
 		com.anfelisa.card.data.CardListData.class)
 		

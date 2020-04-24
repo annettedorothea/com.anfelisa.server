@@ -103,7 +103,7 @@ public abstract class AbstractImportCsvNotEmptyScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.card.ActionCalls.callImportCsv(objectMapper.readValue("{" +
-			"\"uuid\" : \"d362c9f1-3c9e-4804-ad5c-ccf84ace232e\"," + 
+			"\"uuid\" : \"e6251f60-3d3c-48a9-a64a-0dd185112baa\"," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"previewCsv\" : [ { \"given\" : \"g1\"," + 
 				"\"wanted\" : \"w1\"," + 

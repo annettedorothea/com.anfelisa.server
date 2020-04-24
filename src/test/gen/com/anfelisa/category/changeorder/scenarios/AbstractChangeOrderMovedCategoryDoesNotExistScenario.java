@@ -91,7 +91,7 @@ public abstract class AbstractChangeOrderMovedCategoryDoesNotExistScenario exten
 		
 		return 
 		com.anfelisa.category.ActionCalls.callChangeOrderCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"28c248a9-b858-4ce3-870b-5a192b01239d\"," + 
+			"\"uuid\" : \"c950d3a2-119b-4de5-bdba-c61d2f944c45\"," + 
 				"\"movedCategoryId\" : \"lala\"," + 
 				"\"targetCategoryId\" : \"cat1\"} ",
 		com.anfelisa.category.data.CategoryChangeOrderData.class)

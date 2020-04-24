@@ -169,7 +169,7 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"ce469707-bdb2-4064-9532-10e1ef5bf115\"," + 
+			"\"uuid\" : \"bfdd86ac-525f-4c5d-ace3-66903a99dae1\"," + 
 				"\"categoryId\" : \"cat1\"} ",
 		com.anfelisa.card.data.CardListData.class)
 		
@@ -186,7 +186,7 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.card.data.CardListData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"51154e2e-e40d-40c7-bd88-3979c2eae546\"," + 
+			"\"uuid\" : \"3c5cf651-5256-4431-8d53-6beee02598ec\"," + 
 				"\"cardList\" : [ { \"cardAuthor\" : \"Annette\"," + 
 				"\"cardId\" : \"c1\"," + 
 				"\"cardIndex\" : 1," + 

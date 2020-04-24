@@ -83,7 +83,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
-			"\"uuid\" : \"a4e59794-f644-4e06-b558-c9dc4f81cf08\"," + 
+			"\"uuid\" : \"0773d710-6ab7-4f93-8ac5-bdaf479e2547\"," + 
 				"\"rootCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		
@@ -100,7 +100,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		} catch (Exception x) {
 		}
 		com.anfelisa.category.data.CategoryTreeData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"51742f47-1884-40b4-a805-83ac303ad5ea\"," + 
+			"\"uuid\" : \"6c783b64-44de-45d0-8cdc-e704dbb72aeb\"," + 
 				"\"rootCategory\" : { \"categoryId\" : \"boxId\"," + 
 				"\"categoryIndex\" : 1," + 
 				"\"categoryName\" : \"cat\"," + 

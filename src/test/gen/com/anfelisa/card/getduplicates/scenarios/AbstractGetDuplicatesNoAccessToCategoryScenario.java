@@ -153,7 +153,7 @@ public abstract class AbstractGetDuplicatesNoAccessToCategoryScenario extends Ba
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
-			"\"uuid\" : \"9c7876f4-6c75-40a3-bfa2-80e389560dc3\"," + 
+			"\"uuid\" : \"7c05a4b2-29c9-4833-a602-14e1f3011a5a\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 

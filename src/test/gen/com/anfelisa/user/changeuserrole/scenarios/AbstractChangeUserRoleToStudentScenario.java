@@ -71,7 +71,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 
 		
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
-			"\"uuid\" : \"62727929-297c-49a7-89ae-a922f60cb55f\"," + 
+			"\"uuid\" : \"66ffe793-5aa8-405c-86f4-9dfc6865bed4\"," + 
 				"\"editedUserId\" : \"uuid\"," + 
 				"\"newRole\" : \"ADMIN\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)
@@ -85,7 +85,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 		
 		return 
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
-			"\"uuid\" : \"bee09d56-085e-47c0-b6b5-9379c3516136\"," + 
+			"\"uuid\" : \"3c9dda8e-d22c-442b-b2b7-319445944970\"," + 
 				"\"editedUserId\" : \"uuid\"," + 
 				"\"newRole\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)

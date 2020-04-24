@@ -73,7 +73,7 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 				 String.class));
 		
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
-			"\"uuid\" : \"187912bc-fa14-46d9-a5fb-fe2b636e537c\"," + 
+			"\"uuid\" : \"e34f03ef-abb3-4f3c-b2e6-d399b201d46a\"," + 
 				"\"token\" : \"TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
@@ -89,7 +89,7 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 		
 		return 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
-			"\"uuid\" : \"4769908d-107b-42ea-b4c8-a5b12e8643dc\"," + 
+			"\"uuid\" : \"8019f90f-df2e-4f1b-b232-7ace389493b2\"," + 
 				"\"token\" : \"TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)

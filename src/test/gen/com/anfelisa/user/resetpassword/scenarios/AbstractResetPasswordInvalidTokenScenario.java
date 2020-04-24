@@ -58,7 +58,7 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 				 String.class));
 		
 		com.anfelisa.user.ActionCalls.callForgotPassword(objectMapper.readValue("{" +
-			"\"uuid\" : \"35a24919-e7ef-41de-9370-38576a4e2b6f\"," + 
+			"\"uuid\" : \"0278404b-076e-4f33-ac23-186ec1ccb76b\"," + 
 				"\"language\" : \"de\"," + 
 				"\"username\" : \"Annette\"," + 
 				"\"token\" : \"RESET-PW-TOKEN\"} ",
@@ -75,7 +75,7 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 		
 		return 
 		com.anfelisa.user.ActionCalls.callResetPassword(objectMapper.readValue("{" +
-			"\"uuid\" : \"fd506ca3-0325-49d3-85d2-8541cb818031\"," + 
+			"\"uuid\" : \"b64868d0-ae34-4eac-bc85-b2703a293a35\"," + 
 				"\"token\" : \"INVALID-TOKEN\"," + 
 				"\"password\" : \"newPassword\"} ",
 		com.anfelisa.user.data.ResetPasswordWithNewPasswordData.class)

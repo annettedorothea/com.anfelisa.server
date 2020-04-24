@@ -93,7 +93,7 @@ public abstract class AbstractDeleteCardMissingCardIdScenario extends BaseScenar
 		
 		return 
 		com.anfelisa.card.ActionCalls.callDeleteCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"68e8b369-7ae9-404b-8f84-0da618cc2495\"} ",
+			"\"uuid\" : \"a90cab27-88e3-4a2d-ba14-a15ce28e626b\"} ",
 		com.anfelisa.card.data.CardDeleteData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

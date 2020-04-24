@@ -60,7 +60,7 @@ public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenari
 		
 		return 
 		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"1c97b94e-9a2c-47ea-bd72-5b0ba1a23a00\"," + 
+			"\"uuid\" : \"54c349e0-39c6-47f5-afc6-4ffed4e0de80\"," + 
 				"\"usernameToBeDeleted\" : \"Annette\"} ",
 		com.anfelisa.user.data.DeleteUserData.class)
 		

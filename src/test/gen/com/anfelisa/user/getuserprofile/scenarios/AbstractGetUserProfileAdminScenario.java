@@ -90,7 +90,7 @@ public abstract class AbstractGetUserProfileAdminScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.user.data.UserData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"46682a52-791e-4f4b-bd7f-e0656c0d16c0\"," + 
+			"\"uuid\" : \"7e2a6e94-3a63-4015-adbf-27b16ee5cfb9\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"username\" : \"Admin\"," + 
 				"\"userId\" : \"uuid-admin\"} ",

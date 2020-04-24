@@ -71,7 +71,7 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 		
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"87d200d3-f346-4b88-b741-d2591f778110\"," + 
+			"\"uuid\" : \"13da3062-2e07-4793-a4c9-135d10b6ceb6\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 

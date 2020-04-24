@@ -158,7 +158,7 @@ public abstract class AbstractMoveCardsScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.card.ActionCalls.callMoveCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"7cbeea95-d585-4593-9486-109b120e0d89\"," + 
+			"\"uuid\" : \"0dc32333-7bd7-41ff-baad-655044b1dfef\"," + 
 				"\"categoryId\" : \"cat2\"," + 
 				"\"cardIdList\" : [ \"c1\"," + 
 				"\"c2\"," + 

@@ -96,7 +96,7 @@ public abstract class AbstractImportCsvNoAccessToCategoryScenario extends BaseSc
 		
 		return 
 		com.anfelisa.card.ActionCalls.callImportCsv(objectMapper.readValue("{" +
-			"\"uuid\" : \"b8e06b10-f36b-48e9-9d04-314870ad1b7c\"," + 
+			"\"uuid\" : \"76b0e09f-1360-4354-905a-888d8726dce4\"," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"previewCsv\" : [ { \"given\" : \"g1\"," + 
 				"\"wanted\" : \"w1\"," + 

@@ -62,7 +62,7 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 		
 		return 
 		com.anfelisa.user.ActionCalls.callForgotPassword(objectMapper.readValue("{" +
-			"\"uuid\" : \"50d1a832-a003-435a-b38d-635b777ec2cc\"," + 
+			"\"uuid\" : \"9aa32928-2f2a-4f68-85ef-3bfca3a3825e\"," + 
 				"\"language\" : \"de\"," + 
 				"\"username\" : \"doesNotExist\"," + 
 				"\"token\" : \"RESET-PW-TOKEN\"} ",

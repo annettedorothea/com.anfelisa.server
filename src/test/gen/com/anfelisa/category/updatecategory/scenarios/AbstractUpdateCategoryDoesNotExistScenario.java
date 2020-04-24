@@ -81,7 +81,7 @@ public abstract class AbstractUpdateCategoryDoesNotExistScenario extends BaseSce
 		
 		return 
 		com.anfelisa.category.ActionCalls.callUpdateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"383ca452-8f15-4e8f-8655-ad8ba24447cb\"," + 
+			"\"uuid\" : \"22b738e8-f83b-4b0d-a519-9cc77134668a\"," + 
 				"\"categoryName\" : \"changed\"," + 
 				"\"categoryId\" : \"xxx\"} ",
 		com.anfelisa.category.data.CategoryUpdateData.class)

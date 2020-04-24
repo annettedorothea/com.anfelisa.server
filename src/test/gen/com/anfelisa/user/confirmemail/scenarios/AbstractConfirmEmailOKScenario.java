@@ -62,7 +62,7 @@ public abstract class AbstractConfirmEmailOKScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
-			"\"uuid\" : \"c4bba6a6-f0f7-48f8-9ecd-d35918c4f174\"," + 
+			"\"uuid\" : \"05ccc739-201d-47f4-b7c7-760ae037ea87\"," + 
 				"\"token\" : \"TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)

@@ -101,7 +101,7 @@ public abstract class AbstractMoveCategoryToSubScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.category.ActionCalls.callMoveCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"15df033f-e7ee-4296-b34e-56c4de3174a1\"," + 
+			"\"uuid\" : \"2d8fa3cf-097c-4c39-bd9f-ea9faef00202\"," + 
 				"\"movedCategoryId\" : \"cat1\"," + 
 				"\"targetCategoryId\" : \"cat3\"} ",
 		com.anfelisa.category.data.CategoryMoveData.class)

@@ -127,7 +127,7 @@ public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extend
 		
 		return 
 		com.anfelisa.category.ActionCalls.callChangeOrderCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"ff7b1839-3c96-4ac4-8cde-7ed02980bcfa\"," + 
+			"\"uuid\" : \"854c990e-4426-4232-b9fa-4ffc9540e480\"," + 
 				"\"movedCategoryId\" : \"cat1\"," + 
 				"\"targetCategoryId\" : \"adminCat\"} ",
 		com.anfelisa.category.data.CategoryChangeOrderData.class)

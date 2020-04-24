@@ -111,7 +111,7 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 		
 		return 
 		com.anfelisa.category.ActionCalls.callChangeOrderCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"86566dcd-f063-43b1-b56e-f671d174fec3\"," + 
+			"\"uuid\" : \"8be4a00c-7fbe-4aa8-afae-63b261a64f57\"," + 
 				"\"movedCategoryId\" : \"cat1\"," + 
 				"\"targetCategoryId\" : \"cat4\"} ",
 		com.anfelisa.category.data.CategoryChangeOrderData.class)

@@ -144,7 +144,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 		
 		return 
 		com.anfelisa.card.ActionCalls.callMoveCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"22d79626-f764-4ff5-9dcc-9ccaeed30a6d\"," + 
+			"\"uuid\" : \"ae60a2be-01e7-494c-a485-8c0c7e45e0e4\"," + 
 				"\"categoryId\" : \"adminCat\"," + 
 				"\"cardIdList\" : [ \"c1\"]} ",
 		com.anfelisa.card.data.MoveCardsData.class)

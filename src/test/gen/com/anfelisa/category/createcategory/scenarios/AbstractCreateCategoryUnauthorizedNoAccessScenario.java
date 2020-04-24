@@ -86,7 +86,7 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"e72a4280-491c-4e23-8f83-97b03dd3e98c\"," + 
+			"\"uuid\" : \"0adfa0ac-77fc-482a-9b41-2b724fef4139\"," + 
 				"\"categoryName\" : \"lala\"," + 
 				"\"parentCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)

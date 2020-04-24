@@ -81,7 +81,7 @@ public abstract class AbstractUpdateCategoryUnauthorizedScenario extends BaseSce
 		
 		return 
 		com.anfelisa.category.ActionCalls.callUpdateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"eb644943-bdc9-4d0e-8400-22ca2d458817\"," + 
+			"\"uuid\" : \"cd5cc82a-c2d9-425a-b238-9fe6fd284dde\"," + 
 				"\"categoryName\" : \"changed\"," + 
 				"\"categoryId\" : \"cat1\"} ",
 		com.anfelisa.category.data.CategoryUpdateData.class)

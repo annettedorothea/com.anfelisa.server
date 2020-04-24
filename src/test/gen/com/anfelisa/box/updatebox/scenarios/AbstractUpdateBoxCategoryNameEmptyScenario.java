@@ -71,7 +71,7 @@ public abstract class AbstractUpdateBoxCategoryNameEmptyScenario extends BaseSce
 		
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"8e9b9ac1-61f4-4101-a98e-15435083d6ba\"," + 
+			"\"uuid\" : \"e23bd020-88bf-41ea-8458-097648aff66b\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"\"," + 

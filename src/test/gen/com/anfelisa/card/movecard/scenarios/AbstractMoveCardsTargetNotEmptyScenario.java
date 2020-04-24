@@ -179,7 +179,7 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 		
 		return 
 		com.anfelisa.card.ActionCalls.callMoveCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"7d907f60-1872-446c-aafe-a5cbe856e548\"," + 
+			"\"uuid\" : \"e3e6290a-9b78-43f9-bff7-372b7c89cbfe\"," + 
 				"\"categoryId\" : \"cat2\"," + 
 				"\"cardIdList\" : [ \"c1\"," + 
 				"\"c2\"," + 

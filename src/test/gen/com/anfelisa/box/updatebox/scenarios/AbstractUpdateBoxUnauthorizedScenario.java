@@ -71,7 +71,7 @@ public abstract class AbstractUpdateBoxUnauthorizedScenario extends BaseScenario
 		
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"a3ef0244-6380-4ee7-b65b-abfb6112c05a\"," + 
+			"\"uuid\" : \"82c7956b-26b4-498a-8a0f-6a064f3e7c2f\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"lala\"," + 

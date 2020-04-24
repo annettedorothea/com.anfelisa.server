@@ -163,7 +163,7 @@ public abstract class AbstractScoreReinforceCardDoesNotExistScenario extends Bas
 		
 		return 
 		com.anfelisa.box.ActionCalls.callScoreReinforceCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"10813bd2-907f-4a79-996d-a75bef821fd6\"," + 
+			"\"uuid\" : \"906ab1c2-d604-4b9c-99f1-e0eae82977d3\"," + 
 				"\"scoredCardQuality\" : 5," + 
 				"\"reinforceCardId\" : \"xx\"} ",
 		com.anfelisa.box.data.ScoreReinforceCardData.class)

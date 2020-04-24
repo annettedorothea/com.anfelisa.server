@@ -96,7 +96,7 @@ public abstract class AbstractUpdateCategoryNoAccessScenario extends BaseScenari
 		
 		return 
 		com.anfelisa.category.ActionCalls.callUpdateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"0092fc58-cddb-4aaf-8bc9-c8c85386788a\"," + 
+			"\"uuid\" : \"8e82940c-af55-4545-a0d6-5800b2d6640c\"," + 
 				"\"categoryName\" : \"changed\"," + 
 				"\"categoryId\" : \"cat1\"} ",
 		com.anfelisa.category.data.CategoryUpdateData.class)

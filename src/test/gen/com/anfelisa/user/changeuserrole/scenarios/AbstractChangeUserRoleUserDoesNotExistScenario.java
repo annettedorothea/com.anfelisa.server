@@ -75,7 +75,7 @@ public abstract class AbstractChangeUserRoleUserDoesNotExistScenario extends Bas
 		
 		return 
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
-			"\"uuid\" : \"69681d73-db7b-4a2a-9a09-4a30640c05a0\"," + 
+			"\"uuid\" : \"0f2d3c13-4495-466c-a2e4-ad1a190618de\"," + 
 				"\"editedUserId\" : \"doesNotExist\"," + 
 				"\"newRole\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)

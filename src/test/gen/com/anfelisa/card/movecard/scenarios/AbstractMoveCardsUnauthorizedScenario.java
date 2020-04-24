@@ -158,7 +158,7 @@ public abstract class AbstractMoveCardsUnauthorizedScenario extends BaseScenario
 		
 		return 
 		com.anfelisa.card.ActionCalls.callMoveCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"e6a68373-44cc-4183-8165-c684a4dabcb1\"," + 
+			"\"uuid\" : \"a4861f86-33f1-43fe-9598-a938cacbbe42\"," + 
 				"\"categoryId\" : \"cat2\"," + 
 				"\"cardIdList\" : [ \"c1\"," + 
 				"\"c2\"," + 

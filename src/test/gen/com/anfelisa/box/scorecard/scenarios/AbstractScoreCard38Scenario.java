@@ -169,7 +169,7 @@ public abstract class AbstractScoreCard38Scenario extends BaseScenario {
 
 		
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"020abe92-8e04-44ae-a2e1-5029b1ace793\"," + 
+			"\"uuid\" : \"1658b077-0f3d-4485-9c80-691fa4f1e5d7\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"changed\"," + 

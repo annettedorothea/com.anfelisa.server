@@ -86,7 +86,7 @@ public abstract class AbstractGetBoxSettingsNoAccessScenario extends BaseScenari
 		
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxSettings(objectMapper.readValue("{" +
-			"\"uuid\" : \"fa14a555-b06c-41a8-aa37-de2d2db16c0c\"," + 
+			"\"uuid\" : \"5b59dcbc-19b8-46e3-9285-6ac9d2a8fad2\"," + 
 				"\"boxId\" : \"boxId\"} ",
 		com.anfelisa.box.data.BoxSettingsWrapperData.class)
 		

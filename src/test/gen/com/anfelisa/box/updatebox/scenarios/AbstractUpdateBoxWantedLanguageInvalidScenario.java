@@ -71,7 +71,7 @@ public abstract class AbstractUpdateBoxWantedLanguageInvalidScenario extends Bas
 		
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"d6328509-8bce-4e3a-8939-21c8c4d234f9\"," + 
+			"\"uuid\" : \"2d43085e-cf17-48e8-81c1-5a7ad291cb33\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
