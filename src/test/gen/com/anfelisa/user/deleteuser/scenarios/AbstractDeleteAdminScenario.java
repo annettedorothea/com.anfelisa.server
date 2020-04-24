@@ -86,7 +86,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 
 		
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
-			"\"uuid\" : \"5deadf65-c521-4471-b7ac-4bafd4bc1fa6\"," + 
+			"\"uuid\" : \"9517e97c-3a86-4aec-99af-e118435c5a54\"," + 
 				"\"editedUserId\" : \"uuid\"," + 
 				"\"newRole\" : \"ADMIN\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)
@@ -100,7 +100,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"b084710c-7e53-4a08-9004-05b30ab2d086\"," + 
+			"\"uuid\" : \"f910ccb6-508e-4b6f-b491-0d57ef1ca788\"," + 
 				"\"usernameToBeDeleted\" : \"Annette\"} ",
 		com.anfelisa.user.data.DeleteUserData.class)
 		

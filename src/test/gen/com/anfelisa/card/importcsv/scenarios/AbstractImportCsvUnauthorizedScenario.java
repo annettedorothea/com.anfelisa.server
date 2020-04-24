@@ -81,7 +81,7 @@ public abstract class AbstractImportCsvUnauthorizedScenario extends BaseScenario
 		
 		return 
 		com.anfelisa.card.ActionCalls.callImportCsv(objectMapper.readValue("{" +
-			"\"uuid\" : \"8e4f0985-efea-4153-85c6-5b33e0bddc6c\"," + 
+			"\"uuid\" : \"6214d638-7b4b-4f6e-a009-79df7a712db4\"," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"previewCsv\" : [ { \"given\" : \"g1\"," + 
 				"\"wanted\" : \"w1\"," + 

@@ -67,7 +67,7 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 
 		
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"2e938205-51c9-413b-a0a3-7530c2041cb6\"," + 
+			"\"uuid\" : \"49bca3b1-1be3-47da-b216-9ecfe7dd3039\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"changed\"," + 
@@ -85,7 +85,7 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 		
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"317275c6-faef-4530-99bc-3665c7b5304c\"," + 
+			"\"uuid\" : \"99d7202b-ac7b-42b8-acea-b896bf53635b\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"changed\"," + 

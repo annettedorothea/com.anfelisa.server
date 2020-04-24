@@ -73,7 +73,7 @@ public abstract class AbstractUpdateBoxDictionaryLookupNullScenario extends Base
 		
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"01f6bf8a-bb42-4fde-98b4-31dab1b399f2\"," + 
+			"\"uuid\" : \"0de059b7-a896-4b2d-beb8-1ddb9dc4b148\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 

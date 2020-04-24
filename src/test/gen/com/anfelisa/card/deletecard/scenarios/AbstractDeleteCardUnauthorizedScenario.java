@@ -93,7 +93,7 @@ public abstract class AbstractDeleteCardUnauthorizedScenario extends BaseScenari
 		
 		return 
 		com.anfelisa.card.ActionCalls.callDeleteCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"46c2ae68-9691-409e-ae4c-d4cec1634183\"," + 
+			"\"uuid\" : \"12065ae0-4294-4b94-82ba-060e725af4d2\"," + 
 				"\"cardId\" : \"c1\"} ",
 		com.anfelisa.card.data.CardDeleteData.class)
 		

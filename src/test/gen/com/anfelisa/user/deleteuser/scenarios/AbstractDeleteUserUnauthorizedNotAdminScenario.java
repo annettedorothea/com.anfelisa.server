@@ -75,7 +75,7 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 		
 		return 
 		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"116d9d16-dab6-424b-8a86-2470be2a8532\"," + 
+			"\"uuid\" : \"6560c379-806c-4392-8634-182eaed9ad1f\"," + 
 				"\"usernameToBeDeleted\" : \"Annette\"} ",
 		com.anfelisa.user.data.DeleteUserData.class)
 		

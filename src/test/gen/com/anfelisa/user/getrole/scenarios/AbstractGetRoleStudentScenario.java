@@ -90,7 +90,7 @@ public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.user.data.RoleData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"04140fb0-c138-4a1b-93a6-48370bbe2d49\"," + 
+			"\"uuid\" : \"cd7ca62d-524e-4309-bfbb-649b6b36c5bc\"," + 
 				"\"role\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.RoleData.class)
 		

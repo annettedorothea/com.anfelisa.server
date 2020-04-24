@@ -138,7 +138,7 @@ public abstract class AbstractGetCardsCategoryDoesNotExistScenario extends BaseS
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"a50ba190-07ba-4233-a863-8a2cf973204a\"," + 
+			"\"uuid\" : \"b1b05e16-740e-43a9-898d-b3e2963dda97\"," + 
 				"\"categoryId\" : \"lala\"} ",
 		com.anfelisa.card.data.CardListData.class)
 		

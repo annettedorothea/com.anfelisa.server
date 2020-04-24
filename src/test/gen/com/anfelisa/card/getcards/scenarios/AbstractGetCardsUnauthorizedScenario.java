@@ -138,7 +138,7 @@ public abstract class AbstractGetCardsUnauthorizedScenario extends BaseScenario 
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"b2feb5b9-10eb-483a-afab-e3fd58f29989\"," + 
+			"\"uuid\" : \"39f92000-bdaa-4099-9436-431e109d5a46\"," + 
 				"\"categoryId\" : \"cat1\"} ",
 		com.anfelisa.card.data.CardListData.class)
 		

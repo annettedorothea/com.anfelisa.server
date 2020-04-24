@@ -60,7 +60,7 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 		
 		return 
 		com.anfelisa.user.ActionCalls.callUsernameAvailable(objectMapper.readValue("{" +
-			"\"uuid\" : \"ac94ee3e-6fda-429e-8d64-d4b2cc6660e3\"," + 
+			"\"uuid\" : \"ee2e9e47-d235-48b7-a33a-c294a3fe1126\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.UsernameAvailableData.class)
 		
@@ -77,7 +77,7 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 		} catch (Exception x) {
 		}
 		com.anfelisa.user.data.UsernameAvailableData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"f541aa16-0361-4b3d-90cc-5894813517b1\"," + 
+			"\"uuid\" : \"424f7a63-f528-47f6-9467-710e6cc7fd0e\"," + 
 				"\"available\" : false} ",
 		com.anfelisa.user.data.UsernameAvailableData.class)
 		

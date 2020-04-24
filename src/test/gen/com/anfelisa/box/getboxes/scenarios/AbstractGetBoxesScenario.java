@@ -186,7 +186,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxes(objectMapper.readValue("{" +
-			"\"uuid\" : \"dabae513-920b-4bb8-8900-3d8c3b04f020\"," + 
+			"\"uuid\" : \"c0cbca0e-404a-4ad2-9853-f6b658634d73\"," + 
 				"\"today\" : \"2020-04-20T16:30:00.000Z\"} ",
 		com.anfelisa.box.data.BoxListData.class)
 		
@@ -203,7 +203,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.box.data.BoxListData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"b230ac45-cd65-469b-9f18-7b820137f072\"," + 
+			"\"uuid\" : \"14fad10f-e1c3-44cd-906a-9d3a86e5b0b1\"," + 
 				"\"boxList\" : [ { \"allTodaysCards\" : 0," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 

@@ -71,7 +71,7 @@ public abstract class AbstractCreateCategoryParentCategoryIsEmptyScenario extend
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"86470125-5dbb-4636-96d3-871c9fef6db8\"," + 
+			"\"uuid\" : \"33d47cb1-c741-4700-839d-5e5349eb94fa\"," + 
 				"\"categoryName\" : \"lala\"," + 
 				"\"parentCategoryId\" : \"\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)

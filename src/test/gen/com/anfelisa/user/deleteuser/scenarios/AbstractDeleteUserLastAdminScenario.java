@@ -60,7 +60,7 @@ public abstract class AbstractDeleteUserLastAdminScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"45fb60df-2dd2-4b32-9b7c-8b72c1021810\"," + 
+			"\"uuid\" : \"80a6cb65-7476-46f2-8597-3ed74d7d8818\"," + 
 				"\"usernameToBeDeleted\" : \"Admin\"} ",
 		com.anfelisa.user.data.DeleteUserData.class)
 		

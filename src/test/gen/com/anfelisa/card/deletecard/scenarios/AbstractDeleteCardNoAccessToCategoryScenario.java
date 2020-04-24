@@ -108,7 +108,7 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 		
 		return 
 		com.anfelisa.card.ActionCalls.callDeleteCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"a426e4fc-4978-4948-9ed8-2e0766b9f5be\"," + 
+			"\"uuid\" : \"f9393ac5-ae75-40d3-8c76-0d99526c2e0f\"," + 
 				"\"cardId\" : \"c1\"} ",
 		com.anfelisa.card.data.CardDeleteData.class)
 		

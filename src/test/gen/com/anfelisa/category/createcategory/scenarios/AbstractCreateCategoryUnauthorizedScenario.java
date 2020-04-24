@@ -71,7 +71,7 @@ public abstract class AbstractCreateCategoryUnauthorizedScenario extends BaseSce
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"01083d71-d9f0-4e7b-be5e-94ff0682d09f\"," + 
+			"\"uuid\" : \"abd3233f-9759-428c-8bac-97eb9f771cb2\"," + 
 				"\"categoryName\" : \"lala\"," + 
 				"\"parentCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)

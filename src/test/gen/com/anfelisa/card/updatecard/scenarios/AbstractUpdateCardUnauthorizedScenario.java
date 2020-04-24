@@ -93,7 +93,7 @@ public abstract class AbstractUpdateCardUnauthorizedScenario extends BaseScenari
 		
 		return 
 		com.anfelisa.card.ActionCalls.callUpdateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"d7914dd7-abfd-4b91-bfd7-a145cc177eb5\"," + 
+			"\"uuid\" : \"7f3e5f58-2cdf-4977-908d-ff32c8dde770\"," + 
 				"\"cardId\" : \"c1\"," + 
 				"\"given\" : \"given\"," + 
 				"\"image\" : \"image\"," + 

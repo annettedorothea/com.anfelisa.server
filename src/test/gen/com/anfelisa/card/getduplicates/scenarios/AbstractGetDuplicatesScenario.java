@@ -202,7 +202,7 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
-			"\"uuid\" : \"f2064d7f-5963-4edb-bc95-6fa7d991e971\"," + 
+			"\"uuid\" : \"bf400741-3c1e-4c36-9102-5b640de2ba9f\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 
@@ -222,7 +222,7 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.card.data.CardSearchData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"37c469b9-b9f0-4177-975f-049b03430481\"," + 
+			"\"uuid\" : \"c7536655-f0be-46a4-95e0-ebe1f04d33a4\"," + 
 				"\"cardList\" : [ { \"cardAuthor\" : \"Annette\"," + 
 				"\"cardId\" : \"c3\"," + 
 				"\"cardIndex\" : 3," + 

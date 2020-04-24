@@ -105,7 +105,7 @@ public abstract class AbstractDeleteCardScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.card.ActionCalls.callDeleteCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"955b1202-b0b8-4d1e-a284-b4fda3811bc4\"," + 
+			"\"uuid\" : \"ef07d613-49e3-4bbc-8d7d-6e6b56b8920c\"," + 
 				"\"cardId\" : \"c1\"} ",
 		com.anfelisa.card.data.CardDeleteData.class)
 		

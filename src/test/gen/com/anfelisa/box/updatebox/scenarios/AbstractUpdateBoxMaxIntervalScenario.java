@@ -71,7 +71,7 @@ public abstract class AbstractUpdateBoxMaxIntervalScenario extends BaseScenario 
 		
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"a17e99f1-3d73-4bc3-b00c-42ec9dae8495\"," + 
+			"\"uuid\" : \"57605d56-f1ed-49f5-9ee2-874015b321f4\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"changed\"," + 

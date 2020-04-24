@@ -108,7 +108,7 @@ public abstract class AbstractUpdateCardNoAccessToCategoryScenario extends BaseS
 		
 		return 
 		com.anfelisa.card.ActionCalls.callUpdateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"7641e53b-3d23-4647-ab9d-92e2ddde4467\"," + 
+			"\"uuid\" : \"25675303-2de0-4c7b-9905-c3e7998d42c0\"," + 
 				"\"cardId\" : \"c1\"," + 
 				"\"given\" : \"given\"," + 
 				"\"image\" : \"image\"," + 

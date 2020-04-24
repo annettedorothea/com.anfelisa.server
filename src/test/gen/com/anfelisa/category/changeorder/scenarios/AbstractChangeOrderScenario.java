@@ -111,7 +111,7 @@ public abstract class AbstractChangeOrderScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.category.ActionCalls.callChangeOrderCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"b99b194a-3f15-4ea1-897a-04ec799246c4\"," + 
+			"\"uuid\" : \"9997907a-58bb-42aa-81e8-2c5440fdbed2\"," + 
 				"\"movedCategoryId\" : \"cat3\"," + 
 				"\"targetCategoryId\" : \"cat2\"} ",
 		com.anfelisa.category.data.CategoryChangeOrderData.class)

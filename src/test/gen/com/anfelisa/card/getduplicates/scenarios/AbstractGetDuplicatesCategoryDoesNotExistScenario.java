@@ -138,7 +138,7 @@ public abstract class AbstractGetDuplicatesCategoryDoesNotExistScenario extends 
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
-			"\"uuid\" : \"2b977728-2776-4a60-a015-163378cd7f6d\"," + 
+			"\"uuid\" : \"167f33bf-c6d7-4256-84d8-d4a70baed5e6\"," + 
 				"\"categoryId\" : \"lala\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 

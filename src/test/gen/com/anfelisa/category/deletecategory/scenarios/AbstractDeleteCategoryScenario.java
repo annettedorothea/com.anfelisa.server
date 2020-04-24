@@ -91,7 +91,7 @@ public abstract class AbstractDeleteCategoryScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.category.ActionCalls.callDeleteCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"7fcb42ea-b86b-4342-ae0f-4f44594441ae\"," + 
+			"\"uuid\" : \"a70b28a8-64ea-4106-825a-977ee2d683bf\"," + 
 				"\"categoryId\" : \"cat1\"} ",
 		com.anfelisa.category.data.CategoryDeleteData.class)
 		

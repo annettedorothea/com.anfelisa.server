@@ -138,7 +138,7 @@ public abstract class AbstractChangeOrderScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.card.ActionCalls.callChangeOrder(objectMapper.readValue("{" +
-			"\"uuid\" : \"31c48148-a2b4-4cd9-aa5f-272c0bf048ae\"," + 
+			"\"uuid\" : \"a27f4199-0267-4a59-93b6-cff238878f8a\"," + 
 				"\"cardId\" : \"c1\"," + 
 				"\"cardIdList\" : [ \"c3\"," + 
 				"\"c4\"]} ",

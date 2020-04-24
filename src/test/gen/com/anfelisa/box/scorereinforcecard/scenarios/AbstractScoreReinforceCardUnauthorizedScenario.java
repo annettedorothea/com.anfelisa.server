@@ -163,7 +163,7 @@ public abstract class AbstractScoreReinforceCardUnauthorizedScenario extends Bas
 		
 		return 
 		com.anfelisa.box.ActionCalls.callScoreReinforceCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"ea9dc1fc-d210-428c-bd8d-138504b359c1\"," + 
+			"\"uuid\" : \"10f3652b-6515-4c3d-8aab-de2704ae8ff0\"," + 
 				"\"scoredCardQuality\" : 5," + 
 				"\"reinforceCardId\" : \"score0\"} ",
 		com.anfelisa.box.data.ScoreReinforceCardData.class)

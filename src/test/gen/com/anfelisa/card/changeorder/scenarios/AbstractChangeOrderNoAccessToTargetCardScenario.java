@@ -141,7 +141,7 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 		
 		return 
 		com.anfelisa.card.ActionCalls.callChangeOrder(objectMapper.readValue("{" +
-			"\"uuid\" : \"ab0ef56f-d4b0-4bad-b76a-179cc78cbf71\"," + 
+			"\"uuid\" : \"0f5fb52d-4f63-487d-9489-9376aa2f62c9\"," + 
 				"\"cardId\" : \"c6\"," + 
 				"\"cardIdList\" : [ \"c2\"]} ",
 		com.anfelisa.card.data.ChangeCardOrderListData.class)

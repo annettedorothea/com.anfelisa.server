@@ -93,7 +93,7 @@ public abstract class AbstractUpdateCardGivenNullScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.card.ActionCalls.callUpdateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"51f1a390-3dac-45a7-ada9-73d0043bca0b\"," + 
+			"\"uuid\" : \"cbfdab1c-3fa0-4a48-aac1-267c6781762b\"," + 
 				"\"cardId\" : \"c1\"," + 
 				"\"image\" : \"image\"," + 
 				"\"wanted\" : \"wanted\"} ",

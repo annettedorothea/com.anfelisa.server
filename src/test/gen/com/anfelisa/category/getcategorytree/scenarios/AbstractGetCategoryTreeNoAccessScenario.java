@@ -96,7 +96,7 @@ public abstract class AbstractGetCategoryTreeNoAccessScenario extends BaseScenar
 		
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
-			"\"uuid\" : \"801bc27d-15df-485f-a39f-75697de8a259\"," + 
+			"\"uuid\" : \"4d31dfd0-2615-40e0-919a-884c3db4b8be\"," + 
 				"\"rootCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		

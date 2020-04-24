@@ -138,7 +138,7 @@ public abstract class AbstractGetDuplicatesUnauthorizedScenario extends BaseScen
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
-			"\"uuid\" : \"e503b7cb-346f-4581-8536-b86e1a8738b5\"," + 
+			"\"uuid\" : \"0a7e7905-8cf6-4f0f-b60b-80b33074aeaa\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 

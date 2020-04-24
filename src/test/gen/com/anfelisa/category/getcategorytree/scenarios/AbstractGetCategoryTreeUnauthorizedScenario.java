@@ -81,7 +81,7 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 		
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
-			"\"uuid\" : \"f471376b-68c9-4c5b-b683-17ce950f7240\"," + 
+			"\"uuid\" : \"cb4ccb32-4e80-4a39-9688-9260217b647f\"," + 
 				"\"rootCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		

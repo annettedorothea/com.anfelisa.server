@@ -111,7 +111,7 @@ public abstract class AbstractChangeOrderFirstToFourthScenario extends BaseScena
 		
 		return 
 		com.anfelisa.category.ActionCalls.callChangeOrderCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"3c5b2967-b4ba-4643-a16d-e1d671cc95c1\"," + 
+			"\"uuid\" : \"224b05ea-097c-4379-b5f8-23b2d6a809dc\"," + 
 				"\"movedCategoryId\" : \"cat1\"," + 
 				"\"targetCategoryId\" : \"cat4\"} ",
 		com.anfelisa.category.data.CategoryChangeOrderData.class)

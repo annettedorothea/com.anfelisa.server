@@ -93,7 +93,7 @@ public abstract class AbstractDeleteCardCardDoesNotExistScenario extends BaseSce
 		
 		return 
 		com.anfelisa.card.ActionCalls.callDeleteCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"f5893ed3-f25b-48a5-bd53-c85a66f3e216\"," + 
+			"\"uuid\" : \"c225f55f-9423-4950-afc1-87da10e8227b\"," + 
 				"\"cardId\" : \"lala\"} ",
 		com.anfelisa.card.data.CardDeleteData.class)
 		

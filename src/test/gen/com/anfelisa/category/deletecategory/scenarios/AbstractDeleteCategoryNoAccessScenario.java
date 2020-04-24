@@ -106,7 +106,7 @@ public abstract class AbstractDeleteCategoryNoAccessScenario extends BaseScenari
 		
 		return 
 		com.anfelisa.category.ActionCalls.callDeleteCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"11cf4be0-0690-4863-ae45-1d29a3dcea2f\"," + 
+			"\"uuid\" : \"45c3b4d4-7d47-4366-a3b0-dd87d2045d53\"," + 
 				"\"categoryId\" : \"cat1\"} ",
 		com.anfelisa.category.data.CategoryDeleteData.class)
 		

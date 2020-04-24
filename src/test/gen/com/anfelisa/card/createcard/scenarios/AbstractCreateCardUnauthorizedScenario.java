@@ -81,7 +81,7 @@ public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenari
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c546eb94-1fdd-4dd8-bbda-4e836fcbf63c\"," + 
+			"\"uuid\" : \"b4137162-3748-49c1-92ee-57567a43e2b7\"," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"given\" : \"given\"," + 
 				"\"image\" : \"image\"," + 
