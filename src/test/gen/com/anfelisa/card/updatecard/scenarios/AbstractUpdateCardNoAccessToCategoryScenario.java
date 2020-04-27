@@ -59,7 +59,7 @@ public abstract class AbstractUpdateCardNoAccessToCategoryScenario extends BaseS
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -108,7 +108,7 @@ public abstract class AbstractUpdateCardNoAccessToCategoryScenario extends BaseS
 		
 		return 
 		com.anfelisa.card.ActionCalls.callUpdateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"25675303-2de0-4c7b-9905-c3e7998d42c0\"," + 
+			"\"uuid\" : \"c04c6197-1c63-40ab-9439-7a14804ab28b\"," + 
 				"\"cardId\" : \"c1\"," + 
 				"\"given\" : \"given\"," + 
 				"\"image\" : \"image\"," + 

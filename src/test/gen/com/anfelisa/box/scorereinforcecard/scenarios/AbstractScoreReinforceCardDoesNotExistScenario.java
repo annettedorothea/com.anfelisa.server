@@ -59,7 +59,7 @@ public abstract class AbstractScoreReinforceCardDoesNotExistScenario extends Bas
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -163,7 +163,7 @@ public abstract class AbstractScoreReinforceCardDoesNotExistScenario extends Bas
 		
 		return 
 		com.anfelisa.box.ActionCalls.callScoreReinforceCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"76136333-e88f-4906-9189-0ac412696cc2\"," + 
+			"\"uuid\" : \"7380dce4-0b7f-43bb-9245-7eecdead0a5f\"," + 
 				"\"scoredCardQuality\" : 5," + 
 				"\"reinforceCardId\" : \"xx\"} ",
 		com.anfelisa.box.data.ScoreReinforceCardData.class)

@@ -59,7 +59,7 @@ public abstract class AbstractScoreReinforceCardUnauthorizedScenario extends Bas
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -163,7 +163,7 @@ public abstract class AbstractScoreReinforceCardUnauthorizedScenario extends Bas
 		
 		return 
 		com.anfelisa.box.ActionCalls.callScoreReinforceCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"10f3652b-6515-4c3d-8aab-de2704ae8ff0\"," + 
+			"\"uuid\" : \"801ae72f-532d-477c-b454-311f0d82132a\"," + 
 				"\"scoredCardQuality\" : 5," + 
 				"\"reinforceCardId\" : \"score0\"} ",
 		com.anfelisa.box.data.ScoreReinforceCardData.class)

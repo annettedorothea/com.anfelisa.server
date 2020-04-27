@@ -59,7 +59,7 @@ public abstract class AbstractChangeOrderFirstToFifthScenario extends BaseScenar
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -138,7 +138,7 @@ public abstract class AbstractChangeOrderFirstToFifthScenario extends BaseScenar
 		
 		return 
 		com.anfelisa.card.ActionCalls.callChangeOrder(objectMapper.readValue("{" +
-			"\"uuid\" : \"ea74427f-430d-4456-8cde-6bb0176f1858\"," + 
+			"\"uuid\" : \"622348ea-2ee9-4ae9-8a74-de5a8b4e9501\"," + 
 				"\"cardId\" : \"c5\"," + 
 				"\"cardIdList\" : [ \"c1\"]} ",
 		com.anfelisa.card.data.ChangeCardOrderListData.class)

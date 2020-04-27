@@ -62,7 +62,7 @@ public abstract class AbstractConfirmEmailConfirmationTokenDoesNotExistScenario 
 		
 		return 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
-			"\"uuid\" : \"c3b77c58-1635-45f5-9029-af9fcc661fe3\"," + 
+			"\"uuid\" : \"f7aa3b48-ad46-4bfa-8fd4-045106b7ecd6\"," + 
 				"\"token\" : \"DOES_NOT_EXIST\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)

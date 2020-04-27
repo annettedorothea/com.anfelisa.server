@@ -59,7 +59,7 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -138,7 +138,7 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 		
 		return 
 		com.anfelisa.card.ActionCalls.callChangeOrder(objectMapper.readValue("{" +
-			"\"uuid\" : \"d719ecb7-3684-4b32-9317-751035735e48\"," + 
+			"\"uuid\" : \"db0e99e2-fe03-42b2-a5af-4e64f69f6822\"," + 
 				"\"cardId\" : \"c1\"," + 
 				"\"cardIdList\" : [ \"c2\"," + 
 				"\"c4\"]} ",

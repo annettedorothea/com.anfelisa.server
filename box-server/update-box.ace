@@ -150,7 +150,7 @@ scenarios
 					boxId: "boxId",
 					categoryId: "boxId",
 					categoryName: "cat",
-					maxCardsPerDay: 1
+					maxCardsPerDay: 0
 				}
 				authorization "Annette" : "password"
 		THEN 400

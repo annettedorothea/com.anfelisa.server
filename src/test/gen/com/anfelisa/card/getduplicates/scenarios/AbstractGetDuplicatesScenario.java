@@ -59,7 +59,7 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -168,7 +168,7 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -202,7 +202,7 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
-			"\"uuid\" : \"bf400741-3c1e-4c36-9102-5b640de2ba9f\"," + 
+			"\"uuid\" : \"d3b237fd-793b-41a7-a2dd-f2f41a6ffcd8\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 
@@ -222,7 +222,7 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.card.data.CardSearchData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"c7536655-f0be-46a4-95e0-ebe1f04d33a4\"," + 
+			"\"uuid\" : \"ddf1c26f-29f3-4301-b553-968286ee04b4\"," + 
 				"\"cardList\" : [ { \"cardAuthor\" : \"Annette\"," + 
 				"\"cardId\" : \"c3\"," + 
 				"\"cardIndex\" : 3," + 

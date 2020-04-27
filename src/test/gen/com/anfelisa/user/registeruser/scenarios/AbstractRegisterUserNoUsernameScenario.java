@@ -45,7 +45,7 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 		
 		return 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"058083c3-f5b4-4064-bbab-378f62bc680e\"," + 
+			"\"uuid\" : \"de9ff45a-6912-429f-85c2-902060cede1f\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"password\"} ",

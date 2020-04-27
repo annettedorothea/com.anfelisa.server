@@ -59,7 +59,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -168,7 +168,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -202,7 +202,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
-			"\"uuid\" : \"9ab88f01-85fd-4e50-9798-084746e4576a\"," + 
+			"\"uuid\" : \"5bcc7711-43bb-4273-b355-fad71e63c081\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 
@@ -222,7 +222,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		} catch (Exception x) {
 		}
 		com.anfelisa.card.data.CardSearchData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"49fe0c2d-a3fe-45e8-8671-b0ef9782eefb\"," + 
+			"\"uuid\" : \"a536eaee-ebac-47a5-8ae2-3032f4cf6825\"," + 
 				"\"cardList\" : [ { \"cardAuthor\" : \"Annette\"," + 
 				"\"cardId\" : \"c3\"," + 
 				"\"cardIndex\" : 3," + 

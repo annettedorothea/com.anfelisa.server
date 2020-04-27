@@ -73,7 +73,7 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 		
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxSettings(objectMapper.readValue("{" +
-			"\"uuid\" : \"4056d5e1-6f9e-46c6-ac61-32429f0f2368\"," + 
+			"\"uuid\" : \"2c109fc7-a5f0-4bdc-ac56-571662e4e1ac\"," + 
 				"\"boxId\" : \"boxId\"} ",
 		com.anfelisa.box.data.BoxSettingsWrapperData.class)
 		
@@ -90,7 +90,7 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 		} catch (Exception x) {
 		}
 		com.anfelisa.box.data.BoxSettingsWrapperData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"bb10af29-48a9-45c0-9c3a-0f94a07d7fc3\"," + 
+			"\"uuid\" : \"7856ecf5-17cb-46f4-8a08-f352a2dc86bb\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : true," + 

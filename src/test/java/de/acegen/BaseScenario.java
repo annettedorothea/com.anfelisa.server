@@ -54,7 +54,6 @@ public class BaseScenario extends AbstractBaseScenario {
 
 	@BeforeClass
 	public static void beforeClass() throws InterruptedException {
-		//Thread.sleep(500); // to slow it down due to connection pool
 		DROPWIZARD.before();
 		final JdbiFactory factory = new JdbiFactory();
 		jdbi = factory.build(DROPWIZARD.getEnvironment(), DROPWIZARD.getConfiguration().getDataSourceFactory(),

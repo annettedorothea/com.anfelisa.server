@@ -59,7 +59,7 @@ public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extend
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -127,7 +127,7 @@ public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extend
 		
 		return 
 		com.anfelisa.category.ActionCalls.callChangeOrderCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"2e0aea7c-2b1d-4c2d-886f-d5367c56c2eb\"," + 
+			"\"uuid\" : \"9931bab6-7526-4e98-8277-4f0b18021718\"," + 
 				"\"movedCategoryId\" : \"cat1\"," + 
 				"\"targetCategoryId\" : \"adminCat\"} ",
 		com.anfelisa.category.data.CategoryChangeOrderData.class)

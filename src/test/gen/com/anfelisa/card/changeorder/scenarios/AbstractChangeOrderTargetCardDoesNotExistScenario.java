@@ -59,7 +59,7 @@ public abstract class AbstractChangeOrderTargetCardDoesNotExistScenario extends 
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -138,7 +138,7 @@ public abstract class AbstractChangeOrderTargetCardDoesNotExistScenario extends 
 		
 		return 
 		com.anfelisa.card.ActionCalls.callChangeOrder(objectMapper.readValue("{" +
-			"\"uuid\" : \"aad431f0-a3ef-4aa0-91cc-ef4cdc25ccea\"," + 
+			"\"uuid\" : \"ae205c7d-9db9-4c30-b2e9-b7432588acd8\"," + 
 				"\"cardId\" : \"xx\"," + 
 				"\"cardIdList\" : [ \"c2\"," + 
 				"\"c4\"]} ",

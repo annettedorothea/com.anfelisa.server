@@ -59,7 +59,7 @@ public abstract class AbstractCreateCategoryParentCategoryIsEmptyScenario extend
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -71,7 +71,7 @@ public abstract class AbstractCreateCategoryParentCategoryIsEmptyScenario extend
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"33d47cb1-c741-4700-839d-5e5349eb94fa\"," + 
+			"\"uuid\" : \"b25621e9-33c7-4562-9f03-3b0b8372678d\"," + 
 				"\"categoryName\" : \"lala\"," + 
 				"\"parentCategoryId\" : \"\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)

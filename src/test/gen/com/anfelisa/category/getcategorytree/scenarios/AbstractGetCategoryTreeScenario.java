@@ -59,7 +59,7 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -101,7 +101,7 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
-			"\"uuid\" : \"2d5bdeca-a70d-4c25-9054-e11f1a914ddf\"," + 
+			"\"uuid\" : \"06a99f4d-91a9-4977-ad04-772d69c3e761\"," + 
 				"\"rootCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		
@@ -118,7 +118,7 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.category.data.CategoryTreeData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"a9d62931-8c26-4308-8035-0478fbeab4a3\"," + 
+			"\"uuid\" : \"1fe9f915-2eb6-49c8-bcd2-bd441cdcb7e7\"," + 
 				"\"rootCategory\" : { \"categoryId\" : \"boxId\"," + 
 				"\"categoryIndex\" : 1," + 
 				"\"categoryName\" : \"cat\"," + 

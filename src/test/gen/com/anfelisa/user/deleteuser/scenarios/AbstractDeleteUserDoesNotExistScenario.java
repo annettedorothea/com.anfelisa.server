@@ -60,7 +60,7 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 		
 		return 
 		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"624d34b9-3b1b-4c04-bf23-380da9da5f8b\"," + 
+			"\"uuid\" : \"159b7bf6-3d32-4fac-9c99-b5c66debb665\"," + 
 				"\"usernameToBeDeleted\" : \"doesNotExist\"} ",
 		com.anfelisa.user.data.DeleteUserData.class)
 		

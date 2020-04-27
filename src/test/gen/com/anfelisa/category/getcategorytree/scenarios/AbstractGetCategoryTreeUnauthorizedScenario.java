@@ -59,7 +59,7 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -81,7 +81,7 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 		
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
-			"\"uuid\" : \"cb4ccb32-4e80-4a39-9688-9260217b647f\"," + 
+			"\"uuid\" : \"cf702e00-956a-4a3d-8bd1-3e5595c2cfc8\"," + 
 				"\"rootCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		

@@ -74,7 +74,7 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -86,7 +86,7 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"0aeec67f-da31-4db6-a2f1-8beb65035542\"," + 
+			"\"uuid\" : \"174e346b-8754-46cc-bb6d-7fb97a7d0089\"," + 
 				"\"categoryName\" : \"lala\"," + 
 				"\"parentCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)

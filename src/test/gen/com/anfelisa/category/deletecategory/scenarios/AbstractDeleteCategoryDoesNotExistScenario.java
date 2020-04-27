@@ -59,7 +59,7 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -106,7 +106,7 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 		
 		return 
 		com.anfelisa.category.ActionCalls.callDeleteCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"9a5f941f-5a1c-485a-8e51-9271b6cfbc52\"," + 
+			"\"uuid\" : \"08db8671-1839-45d1-84b0-bae4e706bab2\"," + 
 				"\"categoryId\" : \"xx\"} ",
 		com.anfelisa.category.data.CategoryDeleteData.class)
 		

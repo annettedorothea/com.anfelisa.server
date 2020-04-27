@@ -77,7 +77,7 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 		
 		return 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
-			"\"uuid\" : \"94e39cba-f1ec-43db-a4ca-69952ea4441f\"," + 
+			"\"uuid\" : \"8d588cb0-a13f-4e8d-93c5-37916aad9478\"," + 
 				"\"token\" : \"ADMIN-TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)

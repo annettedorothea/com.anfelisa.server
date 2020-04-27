@@ -169,7 +169,7 @@ public abstract class AbstractScoreCardMinimumQFactorScenario extends BaseScenar
 
 		
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"c32d1325-91ec-470c-82d1-fa43a06ca99d\"," + 
+			"\"uuid\" : \"3636d4ce-470c-45c5-8106-128fc3dffb71\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"changed\"," + 

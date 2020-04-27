@@ -59,7 +59,7 @@ public abstract class AbstractDeleteCardCardDoesNotExistScenario extends BaseSce
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -93,7 +93,7 @@ public abstract class AbstractDeleteCardCardDoesNotExistScenario extends BaseSce
 		
 		return 
 		com.anfelisa.card.ActionCalls.callDeleteCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c225f55f-9423-4950-afc1-87da10e8227b\"," + 
+			"\"uuid\" : \"e1d2a291-e36a-4746-880c-377a6bf558cd\"," + 
 				"\"cardId\" : \"lala\"} ",
 		com.anfelisa.card.data.CardDeleteData.class)
 		

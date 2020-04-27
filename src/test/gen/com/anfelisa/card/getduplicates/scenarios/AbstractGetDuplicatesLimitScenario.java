@@ -59,7 +59,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -77,10 +77,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"1d571f67-0a3d-4390-92f4-d7a0cd9783b5\"," + 
+			"\"uuid\" : \"242ff316-d012-407e-b161-d4fe23c49c26\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"0giveneee5fb64\"," + 
-				"\"wanted\" : \"1wanteddbebc85e\"} ",
+				"\"given\" : \"0given7a04c63e\"," + 
+				"\"wanted\" : \"1wantedb8cb292b\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -88,10 +88,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"e0b5edac-b3a4-494c-ab24-147d2bd03459\"," + 
+			"\"uuid\" : \"f503cd71-0e90-4a8c-b433-9e5a386acf93\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"2given99bc4ca8\"," + 
-				"\"wanted\" : \"3wanted0d0c026c\"} ",
+				"\"given\" : \"2given675aa90f\"," + 
+				"\"wanted\" : \"3wantedd415767d\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -99,10 +99,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"f9bf14eb-f258-4238-aee7-16358bfd4ba6\"," + 
+			"\"uuid\" : \"15f1be96-7fdb-4cd4-b9ec-ec82b5556a39\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"4givena54c8a72\"," + 
-				"\"wanted\" : \"5wantedd81d864f\"} ",
+				"\"given\" : \"4given359cc5fc\"," + 
+				"\"wanted\" : \"5wanted0c6327d7\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -110,10 +110,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c7cc7498-939e-4c23-aa11-f22559647842\"," + 
+			"\"uuid\" : \"901f9c87-30d5-4704-8ef7-83c4ace6ef48\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"6given8796b7cb\"," + 
-				"\"wanted\" : \"7wanted54b44f94\"} ",
+				"\"given\" : \"6givenbb0ced57\"," + 
+				"\"wanted\" : \"7wanted756fadfc\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -121,10 +121,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"292e70b8-c9db-464e-ade3-9d17c665f4c9\"," + 
+			"\"uuid\" : \"9aef87cf-b86c-41a6-a105-c841ceefa07c\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"8given65c29cd5\"," + 
-				"\"wanted\" : \"9wanted30cd68a6\"} ",
+				"\"given\" : \"8given79491cd9\"," + 
+				"\"wanted\" : \"9wantedaa299c8c\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -132,10 +132,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"150cb926-8b19-440b-abd0-14f01b457704\"," + 
+			"\"uuid\" : \"c53161cf-cb7e-487c-b3e6-01c051f2ed9a\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"10givenca44bcbb\"," + 
-				"\"wanted\" : \"11wanted5f4b9bc3\"} ",
+				"\"given\" : \"10given84aaa59c\"," + 
+				"\"wanted\" : \"11wantedd54f5e33\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -143,10 +143,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"abba8771-165c-4856-b942-f25f88ecc3d0\"," + 
+			"\"uuid\" : \"df12b7f7-fbce-482d-a301-d5e06079045e\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"12given4de6dc76\"," + 
-				"\"wanted\" : \"13wantedb6ff8c5f\"} ",
+				"\"given\" : \"12givenf5011fe0\"," + 
+				"\"wanted\" : \"13wantedd4e9a9bb\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -154,10 +154,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"d052ea05-4445-40f4-930a-bf52221ddf3e\"," + 
+			"\"uuid\" : \"46af3c67-f363-4d2f-8b34-64b453cdbb43\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"14given46d87078\"," + 
-				"\"wanted\" : \"15wanted9c91789b\"} ",
+				"\"given\" : \"14givenfdd0af5e\"," + 
+				"\"wanted\" : \"15wanted215c0f45\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -165,10 +165,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"d4545950-f032-4174-bf97-9ed412b70606\"," + 
+			"\"uuid\" : \"4311752a-4eba-4d95-852c-4c684dcfa5a6\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"16given1f3be8e3\"," + 
-				"\"wanted\" : \"17wanted5db58a26\"} ",
+				"\"given\" : \"16given815c0b8f\"," + 
+				"\"wanted\" : \"17wanted50b6f8d4\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -176,10 +176,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"65b6de6b-4651-4027-994b-2c9a760246e6\"," + 
+			"\"uuid\" : \"6fa315d4-3d6c-4871-bd2e-97b4531e3929\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"18given8d0fdefc\"," + 
-				"\"wanted\" : \"19wanted788148b8\"} ",
+				"\"given\" : \"18given0d4620a7\"," + 
+				"\"wanted\" : \"19wanted6ca56e50\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -187,10 +187,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"a23f3fd2-be19-41d7-b234-75529961d024\"," + 
+			"\"uuid\" : \"cf385e3d-908b-4d03-b029-d0993a3ace30\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"20given6cbe5189\"," + 
-				"\"wanted\" : \"21wanted4105278c\"} ",
+				"\"given\" : \"20given3b2940c1\"," + 
+				"\"wanted\" : \"21wanted23a094ce\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -198,10 +198,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"ff83a369-e9e0-4cd7-a1e6-c86f72b2064a\"," + 
+			"\"uuid\" : \"9612db2b-d78f-4f34-9af0-9ea79fa30313\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"22given5bf6c047\"," + 
-				"\"wanted\" : \"23wantedd0bd5046\"} ",
+				"\"given\" : \"22given4fd6fd61\"," + 
+				"\"wanted\" : \"23wanted981f3c9d\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -209,10 +209,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"a8d50483-f5de-4c2d-90de-0a2d51d6e042\"," + 
+			"\"uuid\" : \"bed47458-997d-4a70-a458-940a00ef793b\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"24given0e80b29c\"," + 
-				"\"wanted\" : \"25wantede4a128ef\"} ",
+				"\"given\" : \"24given29819c9c\"," + 
+				"\"wanted\" : \"25wantedb8c3d988\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -220,10 +220,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"75ed4622-9275-409e-83ee-1fcdcb96170e\"," + 
+			"\"uuid\" : \"ce475602-a1b7-46fe-afaf-a0288b78f6b5\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"26given0f3b89bb\"," + 
-				"\"wanted\" : \"27wantedc041829b\"} ",
+				"\"given\" : \"26given5eb2a782\"," + 
+				"\"wanted\" : \"27wantedabae7f8d\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -231,10 +231,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"4a0152fd-986d-412b-9653-7d696b8e9196\"," + 
+			"\"uuid\" : \"74c9a4a5-0550-4d72-8935-c179d30920ca\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"28givenaf07eb1a\"," + 
-				"\"wanted\" : \"29wantedd48cba66\"} ",
+				"\"given\" : \"28given718e5690\"," + 
+				"\"wanted\" : \"29wantedc67d78aa\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -242,10 +242,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"cf83a476-6cc4-410d-87c4-f04de5939f3f\"," + 
+			"\"uuid\" : \"09b274c7-ebc3-48f2-8588-332882bc42b6\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"30givene6c629fc\"," + 
-				"\"wanted\" : \"31wanted75b8a7ed\"} ",
+				"\"given\" : \"30givenc3c20bd7\"," + 
+				"\"wanted\" : \"31wanted8790d82b\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -253,10 +253,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"bb5fc172-e629-4ecd-b6e0-baeb7443f033\"," + 
+			"\"uuid\" : \"c3ac0932-db86-4aca-b25c-4690d77bd79f\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"32given09c25c86\"," + 
-				"\"wanted\" : \"33wantedf2daa884\"} ",
+				"\"given\" : \"32given8cf05ada\"," + 
+				"\"wanted\" : \"33wanted3e375606\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -264,10 +264,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"6a35ba22-e786-4753-967b-1218dbc69067\"," + 
+			"\"uuid\" : \"5f18f416-8452-4237-808a-089698f7a6e6\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"34given8771d633\"," + 
-				"\"wanted\" : \"35wantedd6d5909e\"} ",
+				"\"given\" : \"34given52c8164d\"," + 
+				"\"wanted\" : \"35wanted1289b544\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -275,10 +275,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"4fe060b1-f8c1-4324-ac38-849db38061fd\"," + 
+			"\"uuid\" : \"976fd5f2-4e89-4a3d-87e9-85175fbac9e7\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"36givendc0442eb\"," + 
-				"\"wanted\" : \"37wanted000695ac\"} ",
+				"\"given\" : \"36givenc6f355dc\"," + 
+				"\"wanted\" : \"37wanted8ca56193\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -286,10 +286,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"90d6b811-6468-49b1-8576-899e77ea3b52\"," + 
+			"\"uuid\" : \"9d4cd302-1130-4c92-baa3-56f0b26009e9\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"38givenf33e2827\"," + 
-				"\"wanted\" : \"39wanted3787a7a4\"} ",
+				"\"given\" : \"38given8fc2e744\"," + 
+				"\"wanted\" : \"39wanted07fbfd1f\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -297,10 +297,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"f893485f-b15b-4cb4-9709-32acf85d7501\"," + 
+			"\"uuid\" : \"09e80b6d-9375-497f-8c3c-b448c5b18c61\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"40given41d822d5\"," + 
-				"\"wanted\" : \"41wantedfa30d39c\"} ",
+				"\"given\" : \"40given4f73e7c1\"," + 
+				"\"wanted\" : \"41wanted51c8ea15\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -308,10 +308,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"4c1d6d99-e7b9-45be-bfcd-5c552935b94b\"," + 
+			"\"uuid\" : \"99971983-aed4-471b-947a-6b5fdc5c8f84\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"42given23af06a4\"," + 
-				"\"wanted\" : \"43wantedc9261dbf\"} ",
+				"\"given\" : \"42given97779511\"," + 
+				"\"wanted\" : \"43wanted04db3bb1\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -319,10 +319,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"f7aa4036-0e34-459d-960a-4e0431c19a2d\"," + 
+			"\"uuid\" : \"dadcfbb8-8168-4d69-ae24-d77a27ad973f\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"44given7beb24d1\"," + 
-				"\"wanted\" : \"45wanted0876aec9\"} ",
+				"\"given\" : \"44given61616a6f\"," + 
+				"\"wanted\" : \"45wantedef0deea4\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -330,10 +330,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"0f23cd1a-8bbb-413c-9492-a7b977c4fcab\"," + 
+			"\"uuid\" : \"509b3dc9-4bb0-477e-bdd7-ec98098cb16f\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"46given3c3694c2\"," + 
-				"\"wanted\" : \"47wanted0094fd7e\"} ",
+				"\"given\" : \"46given824a2840\"," + 
+				"\"wanted\" : \"47wanted435e12eb\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -341,10 +341,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"b0e56dec-c122-475e-8980-fe2f3c13340b\"," + 
+			"\"uuid\" : \"08a4df15-d390-48f1-834b-962457c764ae\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"48given7a0b0d67\"," + 
-				"\"wanted\" : \"49wanted4fb9e76d\"} ",
+				"\"given\" : \"48givena72d7b22\"," + 
+				"\"wanted\" : \"49wantedb36ebce3\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -352,10 +352,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"e27e74ab-088b-49ff-8db8-f3a839bde354\"," + 
+			"\"uuid\" : \"59342ad1-e26f-4975-876e-a797d7670dc6\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"50giveneb3d6a16\"," + 
-				"\"wanted\" : \"51wanted8f21531f\"} ",
+				"\"given\" : \"50givenf2d88db5\"," + 
+				"\"wanted\" : \"51wantedb430487d\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -363,10 +363,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"f2c098a4-6c04-4108-a4d5-b301526d8961\"," + 
+			"\"uuid\" : \"a879e159-f826-44ee-9ef8-ccc1cda76680\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"52givend0e161cd\"," + 
-				"\"wanted\" : \"53wanted1a6e88de\"} ",
+				"\"given\" : \"52given03b573c8\"," + 
+				"\"wanted\" : \"53wanted38bf34b7\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -374,10 +374,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"bc1b1729-3144-458b-b89a-b5b811488bae\"," + 
+			"\"uuid\" : \"bdbc3a3f-4e81-437c-98d7-02e56dbcce5c\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"54givenc899a255\"," + 
-				"\"wanted\" : \"55wanteddcc83fcf\"} ",
+				"\"given\" : \"54given26e3f754\"," + 
+				"\"wanted\" : \"55wanted78a0259f\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -385,10 +385,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"f87a51e9-a461-4c6b-a611-63d004b0bf65\"," + 
+			"\"uuid\" : \"fb318d64-e140-408d-8db5-61d583791450\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"56givenc909145a\"," + 
-				"\"wanted\" : \"57wantedc24dc2e2\"} ",
+				"\"given\" : \"56given3d4ec18a\"," + 
+				"\"wanted\" : \"57wanted5ada6f8c\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -396,10 +396,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"4633e766-67c3-43e9-818c-db98a3adb175\"," + 
+			"\"uuid\" : \"b6a33aff-ca29-4f1b-8bf2-6986d6ce8cc3\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"58given072302e5\"," + 
-				"\"wanted\" : \"59wantedd1c9e4a0\"} ",
+				"\"given\" : \"58given1ad24f4f\"," + 
+				"\"wanted\" : \"59wanted49027725\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -412,7 +412,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
-			"\"uuid\" : \"ce4e39b8-5499-49a8-988b-70320fb3cfec\"," + 
+			"\"uuid\" : \"c189be3f-4d78-45ca-b3ce-2025c0c27538\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 

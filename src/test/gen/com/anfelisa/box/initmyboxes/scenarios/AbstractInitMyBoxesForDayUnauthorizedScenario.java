@@ -150,7 +150,7 @@ public abstract class AbstractInitMyBoxesForDayUnauthorizedScenario extends Base
 		
 		return 
 		com.anfelisa.box.ActionCalls.callInitMyBoxesForDay(objectMapper.readValue("{" +
-			"\"uuid\" : \"02c20032-b675-4c38-bb27-0824fb167706\"," + 
+			"\"uuid\" : \"76e72cb2-9f52-4797-9fb1-bdc44e189455\"," + 
 				"\"today\" : \"2020-04-16T08:32:00.000Z\"} ",
 		com.anfelisa.box.data.InitMyBoxesDataData.class)
 		

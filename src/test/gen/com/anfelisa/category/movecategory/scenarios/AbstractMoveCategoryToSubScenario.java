@@ -59,7 +59,7 @@ public abstract class AbstractMoveCategoryToSubScenario extends BaseScenario {
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -101,7 +101,7 @@ public abstract class AbstractMoveCategoryToSubScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.category.ActionCalls.callMoveCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"bbbe9b05-731a-4beb-b8c4-c669f58d04e5\"," + 
+			"\"uuid\" : \"c7e3f7a5-eb41-4bdf-bb53-5f88a33ffb99\"," + 
 				"\"movedCategoryId\" : \"cat1\"," + 
 				"\"targetCategoryId\" : \"cat3\"} ",
 		com.anfelisa.category.data.CategoryMoveData.class)

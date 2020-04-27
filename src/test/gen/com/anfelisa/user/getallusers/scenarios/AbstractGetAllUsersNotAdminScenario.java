@@ -73,7 +73,7 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 				 String.class));
 		
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
-			"\"uuid\" : \"b6159c51-ab88-4aee-b4d3-c7ebb8252450\"," + 
+			"\"uuid\" : \"9d8811a3-ac25-4379-96a5-e44464895879\"," + 
 				"\"token\" : \"TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)

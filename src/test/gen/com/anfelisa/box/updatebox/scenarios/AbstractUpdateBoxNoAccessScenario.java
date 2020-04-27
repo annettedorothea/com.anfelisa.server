@@ -86,7 +86,7 @@ public abstract class AbstractUpdateBoxNoAccessScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"cfd1d638-51f0-4b35-91be-b2bd9fe2801d\"," + 
+			"\"uuid\" : \"36504420-3a47-4197-b1e8-b039cf81cab8\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"adminBox\"," + 

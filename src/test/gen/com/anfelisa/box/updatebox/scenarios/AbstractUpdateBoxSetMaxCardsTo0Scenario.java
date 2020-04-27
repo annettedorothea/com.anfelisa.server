@@ -71,11 +71,11 @@ public abstract class AbstractUpdateBoxSetMaxCardsTo0Scenario extends BaseScenar
 		
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"5340c4d2-93ac-447c-8c9e-e1b0481f1adc\"," + 
+			"\"uuid\" : \"481c50c7-c46a-4098-b406-15df0517b1f8\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 0} ",
 		com.anfelisa.box.data.BoxUpdateData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

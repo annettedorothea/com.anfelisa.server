@@ -59,7 +59,7 @@ public abstract class AbstractUpdateCardWantedEmptyScenario extends BaseScenario
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -93,7 +93,7 @@ public abstract class AbstractUpdateCardWantedEmptyScenario extends BaseScenario
 		
 		return 
 		com.anfelisa.card.ActionCalls.callUpdateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"66181b90-1faf-4590-848e-efd3465a68b5\"," + 
+			"\"uuid\" : \"e4aab702-b01b-47cd-a39c-bb663bd1e313\"," + 
 				"\"cardId\" : \"c1\"," + 
 				"\"given\" : \"given\"," + 
 				"\"image\" : \"image\"," + 

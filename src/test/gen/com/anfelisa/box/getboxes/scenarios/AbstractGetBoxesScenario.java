@@ -59,7 +59,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -186,7 +186,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxes(objectMapper.readValue("{" +
-			"\"uuid\" : \"c0cbca0e-404a-4ad2-9853-f6b658634d73\"," + 
+			"\"uuid\" : \"56ed457e-97b8-40a0-bfb0-b25b5cb3ba47\"," + 
 				"\"today\" : \"2020-04-20T16:30:00.000Z\"} ",
 		com.anfelisa.box.data.BoxListData.class)
 		
@@ -203,7 +203,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.box.data.BoxListData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"14fad10f-e1c3-44cd-906a-9d3a86e5b0b1\"," + 
+			"\"uuid\" : \"add912bc-8a26-43a5-bd78-1f759f0e84b9\"," + 
 				"\"boxList\" : [ { \"allTodaysCards\" : 0," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 

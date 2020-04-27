@@ -75,7 +75,7 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 		
 		return 
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
-			"\"uuid\" : \"ab4df8a1-4ec1-40b7-bcd9-b46a10f08852\"," + 
+			"\"uuid\" : \"5d249c90-d0db-4814-bc11-6c61e0cffb41\"," + 
 				"\"editedUserId\" : \"uuid-admin\"," + 
 				"\"newRole\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)

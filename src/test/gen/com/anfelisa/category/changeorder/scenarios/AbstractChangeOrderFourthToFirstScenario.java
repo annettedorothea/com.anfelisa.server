@@ -59,7 +59,7 @@ public abstract class AbstractChangeOrderFourthToFirstScenario extends BaseScena
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -111,7 +111,7 @@ public abstract class AbstractChangeOrderFourthToFirstScenario extends BaseScena
 		
 		return 
 		com.anfelisa.category.ActionCalls.callChangeOrderCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"c2d687a3-2cae-4a96-8c77-b131d9c35234\"," + 
+			"\"uuid\" : \"8cbaa0e2-d4b0-4b1c-a5bf-e9bb94aabb99\"," + 
 				"\"movedCategoryId\" : \"cat4\"," + 
 				"\"targetCategoryId\" : \"cat1\"} ",
 		com.anfelisa.category.data.CategoryChangeOrderData.class)

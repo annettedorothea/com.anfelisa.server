@@ -150,7 +150,7 @@ public abstract class AbstractInitMyBoxesForDayNothingScoredOneDayLaterScenario 
 		
 		return 
 		com.anfelisa.box.ActionCalls.callInitMyBoxesForDay(objectMapper.readValue("{" +
-			"\"uuid\" : \"2c1394ba-a988-493b-8a2d-7f023f212a24\"," + 
+			"\"uuid\" : \"617f0936-e537-4bed-a220-14fa45b5abed\"," + 
 				"\"today\" : \"2020-04-17T06:32:00.000Z\"} ",
 		com.anfelisa.box.data.InitMyBoxesDataData.class)
 		

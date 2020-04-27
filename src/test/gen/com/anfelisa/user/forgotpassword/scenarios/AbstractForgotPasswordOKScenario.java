@@ -62,7 +62,7 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.user.ActionCalls.callForgotPassword(objectMapper.readValue("{" +
-			"\"uuid\" : \"05c44e96-fab1-4a0b-be13-6928ebb90cd1\"," + 
+			"\"uuid\" : \"141c558c-9dc8-4d8c-a1fa-ac796e0a7597\"," + 
 				"\"language\" : \"de\"," + 
 				"\"username\" : \"Annette\"," + 
 				"\"token\" : \"RESET-PW-TOKEN\"} ",

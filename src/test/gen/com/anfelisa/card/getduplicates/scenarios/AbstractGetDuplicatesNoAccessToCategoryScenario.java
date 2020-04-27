@@ -59,7 +59,7 @@ public abstract class AbstractGetDuplicatesNoAccessToCategoryScenario extends Ba
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -153,7 +153,7 @@ public abstract class AbstractGetDuplicatesNoAccessToCategoryScenario extends Ba
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
-			"\"uuid\" : \"7cb9b4ff-a812-47d4-8306-9776ad4034b2\"," + 
+			"\"uuid\" : \"8a1d02d8-9fba-493d-8b42-8605b66c5f45\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 

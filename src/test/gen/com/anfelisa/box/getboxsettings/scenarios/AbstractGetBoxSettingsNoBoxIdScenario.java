@@ -59,7 +59,7 @@ public abstract class AbstractGetBoxSettingsNoBoxIdScenario extends BaseScenario
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -71,7 +71,7 @@ public abstract class AbstractGetBoxSettingsNoBoxIdScenario extends BaseScenario
 		
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxSettings(objectMapper.readValue("{" +
-			"\"uuid\" : \"c3be1f59-0fea-485e-b48b-a26660b8b57d\"} ",
+			"\"uuid\" : \"2958e41d-bb0b-40ea-9253-417c48357536\"} ",
 		com.anfelisa.box.data.BoxSettingsWrapperData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

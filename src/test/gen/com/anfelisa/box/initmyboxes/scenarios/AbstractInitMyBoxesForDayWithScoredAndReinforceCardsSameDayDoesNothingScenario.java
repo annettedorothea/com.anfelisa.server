@@ -186,7 +186,7 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsSameDa
 		
 		return 
 		com.anfelisa.box.ActionCalls.callInitMyBoxesForDay(objectMapper.readValue("{" +
-			"\"uuid\" : \"8e4973e9-f299-4467-ba45-c38386fe21ee\"," + 
+			"\"uuid\" : \"f4cfb1cf-98f0-4074-a8a0-7748225b67c3\"," + 
 				"\"today\" : \"2020-04-18T11:30:00.000Z\"} ",
 		com.anfelisa.box.data.InitMyBoxesDataData.class)
 		

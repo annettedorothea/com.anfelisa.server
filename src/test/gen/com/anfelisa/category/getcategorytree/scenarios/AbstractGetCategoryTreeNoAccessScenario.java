@@ -59,7 +59,7 @@ public abstract class AbstractGetCategoryTreeNoAccessScenario extends BaseScenar
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -96,7 +96,7 @@ public abstract class AbstractGetCategoryTreeNoAccessScenario extends BaseScenar
 		
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
-			"\"uuid\" : \"4d31dfd0-2615-40e0-919a-884c3db4b8be\"," + 
+			"\"uuid\" : \"842a20d9-eff9-49e2-9250-bf7506a3dd39\"," + 
 				"\"rootCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		

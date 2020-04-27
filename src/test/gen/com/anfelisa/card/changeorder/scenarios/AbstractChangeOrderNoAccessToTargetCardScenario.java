@@ -59,7 +59,7 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -141,7 +141,7 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 		
 		return 
 		com.anfelisa.card.ActionCalls.callChangeOrder(objectMapper.readValue("{" +
-			"\"uuid\" : \"0f5fb52d-4f63-487d-9489-9376aa2f62c9\"," + 
+			"\"uuid\" : \"89d49cb3-1ddc-4d0b-afb1-107f07431283\"," + 
 				"\"cardId\" : \"c6\"," + 
 				"\"cardIdList\" : [ \"c2\"]} ",
 		com.anfelisa.card.data.ChangeCardOrderListData.class)

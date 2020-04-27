@@ -134,7 +134,7 @@ public abstract class AbstractScoreCardMaxCardsPerDayScenario extends BaseScenar
 
 		
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"c244d848-5334-4842-9707-aa3a62d11e9e\"," + 
+			"\"uuid\" : \"fe571cf1-d1fa-4759-8a02-238aa4cabd55\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 

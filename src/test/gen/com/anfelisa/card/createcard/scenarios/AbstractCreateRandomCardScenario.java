@@ -59,7 +59,7 @@ public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -81,10 +81,10 @@ public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"f3e1e11d-b772-4af5-a10b-55c26a54e65a\"," + 
+			"\"uuid\" : \"7cb110bf-5875-4dae-b330-dc60f329d227\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"0given9280bedc\"," + 
-				"\"wanted\" : \"1wanted63cef1c2\"} ",
+				"\"given\" : \"0givene842d9b1\"," + 
+				"\"wanted\" : \"1wantedb3b630ce\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

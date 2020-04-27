@@ -75,7 +75,7 @@ public abstract class AbstractChangeUserRoleNotAdminScenario extends BaseScenari
 		
 		return 
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
-			"\"uuid\" : \"fddf66a9-12bd-4dd7-ad50-780f66caa756\"," + 
+			"\"uuid\" : \"27206906-f9b2-41cb-928e-1803bf3198b7\"," + 
 				"\"editedUserId\" : \"uuid\"," + 
 				"\"newRole\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)

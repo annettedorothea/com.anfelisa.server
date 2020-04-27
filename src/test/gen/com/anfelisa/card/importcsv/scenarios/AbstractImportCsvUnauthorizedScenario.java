@@ -59,7 +59,7 @@ public abstract class AbstractImportCsvUnauthorizedScenario extends BaseScenario
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -81,7 +81,7 @@ public abstract class AbstractImportCsvUnauthorizedScenario extends BaseScenario
 		
 		return 
 		com.anfelisa.card.ActionCalls.callImportCsv(objectMapper.readValue("{" +
-			"\"uuid\" : \"6214d638-7b4b-4f6e-a009-79df7a712db4\"," + 
+			"\"uuid\" : \"191f3fe6-a989-46e1-bab9-4eb072a00703\"," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"previewCsv\" : [ { \"given\" : \"g1\"," + 
 				"\"wanted\" : \"w1\"," + 

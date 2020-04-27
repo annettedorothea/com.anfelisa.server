@@ -59,7 +59,7 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -108,7 +108,7 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 		
 		return 
 		com.anfelisa.card.ActionCalls.callDeleteCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"f9393ac5-ae75-40d3-8c76-0d99526c2e0f\"," + 
+			"\"uuid\" : \"41582054-b096-46a0-9791-3600cf3f5da1\"," + 
 				"\"cardId\" : \"c1\"} ",
 		com.anfelisa.card.data.CardDeleteData.class)
 		

@@ -59,7 +59,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -144,7 +144,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 		
 		return 
 		com.anfelisa.card.ActionCalls.callMoveCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"3c78abaf-a6ef-4bca-a8eb-d970670b738e\"," + 
+			"\"uuid\" : \"a1d17932-8f61-44c0-ab08-438872042df6\"," + 
 				"\"categoryId\" : \"adminCat\"," + 
 				"\"cardIdList\" : [ \"c1\"]} ",
 		com.anfelisa.card.data.MoveCardsData.class)

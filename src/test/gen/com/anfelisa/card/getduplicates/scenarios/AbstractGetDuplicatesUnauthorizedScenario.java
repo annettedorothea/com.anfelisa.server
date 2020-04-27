@@ -59,7 +59,7 @@ public abstract class AbstractGetDuplicatesUnauthorizedScenario extends BaseScen
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -138,7 +138,7 @@ public abstract class AbstractGetDuplicatesUnauthorizedScenario extends BaseScen
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
-			"\"uuid\" : \"0a7e7905-8cf6-4f0f-b60b-80b33074aeaa\"," + 
+			"\"uuid\" : \"77633005-cbd1-4170-a51c-3c6324bc72c2\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 
