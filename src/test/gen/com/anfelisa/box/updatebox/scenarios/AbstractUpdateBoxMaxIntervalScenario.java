@@ -59,7 +59,7 @@ public abstract class AbstractUpdateBoxMaxIntervalScenario extends BaseScenario 
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -71,7 +71,7 @@ public abstract class AbstractUpdateBoxMaxIntervalScenario extends BaseScenario 
 		
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"57605d56-f1ed-49f5-9ee2-874015b321f4\"," + 
+			"\"uuid\" : \"66435b88-5a18-49c0-9c68-e3ec89e44257\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"changed\"," + 

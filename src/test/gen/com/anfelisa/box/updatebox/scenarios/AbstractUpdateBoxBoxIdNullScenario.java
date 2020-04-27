@@ -59,7 +59,7 @@ public abstract class AbstractUpdateBoxBoxIdNullScenario extends BaseScenario {
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -71,7 +71,7 @@ public abstract class AbstractUpdateBoxBoxIdNullScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"c738019f-ad7d-4b7a-ab92-35f3910344b5\"," + 
+			"\"uuid\" : \"cb658e8d-de7e-48e0-b255-a4aa6b806859\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"maxCardsPerDay\" : 10} ",

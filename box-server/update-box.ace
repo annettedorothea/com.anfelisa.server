@@ -127,6 +127,34 @@ scenarios
 				authorization "Annette" : "password"
 		THEN 400
 		
+	UpdateBoxSetMaxCardsTo1
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.box.UpdateBox
+				{
+					boxId: "boxId",
+					categoryId: "boxId",
+					categoryName: "cat",
+					maxCardsPerDay: 1
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		
+	UpdateBoxSetMaxCardsTo0
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.box.UpdateBox
+				{
+					boxId: "boxId",
+					categoryId: "boxId",
+					categoryName: "cat",
+					maxCardsPerDay: 1
+				}
+				authorization "Annette" : "password"
+		THEN 400
+		
 	UpdateBoxBoxIdNull
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal

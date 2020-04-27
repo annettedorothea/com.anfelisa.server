@@ -59,7 +59,7 @@ public abstract class AbstractScoreCard34Scenario extends BaseScenario {
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -161,7 +161,7 @@ public abstract class AbstractScoreCard34Scenario extends BaseScenario {
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -169,7 +169,7 @@ public abstract class AbstractScoreCard34Scenario extends BaseScenario {
 
 		
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"3236b107-3683-4a83-81a3-c6c8bedc9632\"," + 
+			"\"uuid\" : \"2ad83ea4-b79c-4dcd-bf4c-fe537782bce8\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"changed\"," + 

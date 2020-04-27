@@ -59,7 +59,7 @@ public abstract class AbstractScoreCardSecond0Scenario extends BaseScenario {
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -128,6 +128,18 @@ public abstract class AbstractScoreCardSecond0Scenario extends BaseScenario {
 				"\"given\" : \"different\"," + 
 				"\"wanted\" : \"different\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		
+		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"93e117ab-b409-4bd1-a93b-e7a816ed92a9\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"categoryId\" : \"boxId\"," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"maxCardsPerDay\" : 1} ",
+		com.anfelisa.box.data.BoxUpdateData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		

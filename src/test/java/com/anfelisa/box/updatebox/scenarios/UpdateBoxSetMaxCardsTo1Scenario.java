@@ -14,17 +14,20 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-package com.anfelisa.box.createbox.scenarios;
+
+
+
+package com.anfelisa.box.updatebox.scenarios;
+
+import javax.ws.rs.core.Response;
 
 import com.anfelisa.box.models.BoxModel;
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.category.models.CategoryModel;
 import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
-import com.anfelisa.category.models.UserAccessToCategoryModel;
 
 @SuppressWarnings("unused")
-public class CreateBoxMinimalScenario extends AbstractCreateBoxMinimalScenario {
+public class UpdateBoxSetMaxCardsTo1Scenario extends AbstractUpdateBoxSetMaxCardsTo1Scenario {
 
 	@Override
 	protected void verifications() {
@@ -33,16 +36,17 @@ public class CreateBoxMinimalScenario extends AbstractCreateBoxMinimalScenario {
 				null);
 		assertThat(actualCategory, expectedCategory);
 
-		IUserAccessToCategoryModel actualAccessToCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(handle, "boxId", "uuid");
-		IUserAccessToCategoryModel expectedAccessToCategory = new UserAccessToCategoryModel("boxId", "uuid", true);
-		assertThat(actualAccessToCategory, expectedAccessToCategory);
-		
 		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle, "boxId");
-		IBoxModel expectedBox = new BoxModel("boxId", "uuid", "boxId", null, 10);
+		IBoxModel expectedBox = new BoxModel("boxId", "uuid", "boxId", null, 1);
 		assertThat(actualBox, expectedBox);
 	}
 
 }
 
+
+
+
 /******* S.D.G. *******/
+
+
+

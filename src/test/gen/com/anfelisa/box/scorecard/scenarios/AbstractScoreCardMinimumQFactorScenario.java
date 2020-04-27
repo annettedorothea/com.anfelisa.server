@@ -59,7 +59,7 @@ public abstract class AbstractScoreCardMinimumQFactorScenario extends BaseScenar
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -161,7 +161,7 @@ public abstract class AbstractScoreCardMinimumQFactorScenario extends BaseScenar
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -169,7 +169,7 @@ public abstract class AbstractScoreCardMinimumQFactorScenario extends BaseScenar
 
 		
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"05bf504e-c384-4b4b-bada-dd440c46981f\"," + 
+			"\"uuid\" : \"c32d1325-91ec-470c-82d1-fa43a06ca99d\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"changed\"," + 

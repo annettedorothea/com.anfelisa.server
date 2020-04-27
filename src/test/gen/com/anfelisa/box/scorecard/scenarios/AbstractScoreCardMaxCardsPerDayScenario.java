@@ -59,7 +59,7 @@ public abstract class AbstractScoreCardMaxCardsPerDayScenario extends BaseScenar
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -128,6 +128,30 @@ public abstract class AbstractScoreCardMaxCardsPerDayScenario extends BaseScenar
 				"\"given\" : \"different\"," + 
 				"\"wanted\" : \"different\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		
+		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"c244d848-5334-4842-9707-aa3a62d11e9e\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"categoryId\" : \"boxId\"," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"maxCardsPerDay\" : 1} ",
+		com.anfelisa.box.data.BoxUpdateData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200416 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+		
+		com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
+			"\"uuid\" : \"sc1\"," + 
+				"\"cardIds\" : [ \"c1\"," + 
+				"\"c3\"," + 
+				"\"c4\"]} ",
+		com.anfelisa.box.data.ScheduledCardsData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		

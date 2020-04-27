@@ -50,21 +50,23 @@ public class InitMyBoxesForDayCommand extends AbstractInitMyBoxesForDayCommand {
 				this.commandData.getUserId(), commandData.getToday());
 		List<IPostponeCardsModel> postponeCards = new ArrayList<IPostponeCardsModel>();
 		List<String> outdatedReinforceCardsIds = new ArrayList<String>();
+		DateTime today = this.commandData.getToday();
+		DateTime minToday = new DateTime(today.getYear(), today.getMonthOfYear(), today.getDayOfMonth(), 0, 0);
 		for (IInitBoxesModel box : boxList) {
 			List<IReinforceCardModel> outdatedReinforceCards = this.daoProvider.getReinforceCardDao()
-					.selectOutdatedReinforceCards(readonlyHandle, box.getBoxId(), commandData.getToday());
+					.selectOutdatedReinforceCards(readonlyHandle, box.getBoxId(), minToday);
 			for (IReinforceCardModel card : outdatedReinforceCards) {
 				outdatedReinforceCardsIds.add(card.getScheduledCardId());
 			}
 			DateTime min = box.getMinScheduledDate();
-			DateTime today = this.commandData.getToday();
-			DateTime minDate = new DateTime(min.getYear(), min.getMonthOfYear(), min.getDayOfMonth(), 0, 0);
-			DateTime minToday = new DateTime(today.getYear(), today.getMonthOfYear(), today.getDayOfMonth(), 0, 0);
-			if (minDate != null && minDate.isBefore(minToday)) {
-				int days = Days.daysBetween(minDate, minToday).getDays();
-				PostponeCardsData postponeData = new PostponeCardsData(days, box.getBoxId(),
-						commandData.getUuid());
-				postponeCards.add(postponeData);
+			if (min != null) {
+				DateTime minDate = new DateTime(min.getYear(), min.getMonthOfYear(), min.getDayOfMonth(), 0, 0);
+				if (minDate.isBefore(minToday)) {
+					int days = Days.daysBetween(minDate, minToday).getDays();
+					PostponeCardsData postponeData = new PostponeCardsData(days, box.getBoxId(),
+							commandData.getUuid());
+					postponeCards.add(postponeData);
+				}
 			}
 		}
 		this.commandData.setPostponeCards(postponeCards);

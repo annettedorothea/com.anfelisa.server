@@ -35,8 +35,8 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 			throwUnauthorized();
 		}
 		
-		if (this.commandData.getMaxCardsPerDay() == null) {
-			throwBadRequest("max cards per day must not be null");
+		if (this.commandData.getMaxCardsPerDay() == null || this.commandData.getMaxCardsPerDay() == 0) {
+			throwBadRequest("max cards per day must not be null or zero");
 		}
 		if (StringUtils.isBlank(this.commandData.getCategoryName())) {
 			throwBadRequest("category name must not be null or empty");

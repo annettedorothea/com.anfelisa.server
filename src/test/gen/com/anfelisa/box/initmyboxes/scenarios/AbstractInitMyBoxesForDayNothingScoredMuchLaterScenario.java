@@ -59,7 +59,7 @@ public abstract class AbstractInitMyBoxesForDayNothingScoredMuchLaterScenario ex
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -150,7 +150,7 @@ public abstract class AbstractInitMyBoxesForDayNothingScoredMuchLaterScenario ex
 		
 		return 
 		com.anfelisa.box.ActionCalls.callInitMyBoxesForDay(objectMapper.readValue("{" +
-			"\"uuid\" : \"494d0fb6-b77e-4b30-89ef-8e3b91fa7a7a\"," + 
+			"\"uuid\" : \"12f829f1-3a92-4bc0-89b6-7615b5d16f1a\"," + 
 				"\"today\" : \"2020-07-17T13:32:00.000Z\"} ",
 		com.anfelisa.box.data.InitMyBoxesDataData.class)
 		

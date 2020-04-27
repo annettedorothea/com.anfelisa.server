@@ -36,7 +36,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsScenario extends BaseScenario {
+public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothingScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
@@ -59,7 +59,7 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsScenar
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 1} ",
+				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -186,8 +186,8 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsScenar
 		
 		return 
 		com.anfelisa.box.ActionCalls.callInitMyBoxesForDay(objectMapper.readValue("{" +
-			"\"uuid\" : \"f9cfad19-173b-484d-8feb-7717679960de\"," + 
-				"\"today\" : \"2020-05-16T11:30:00.000Z\"} ",
+			"\"uuid\" : \"8e4973e9-f299-4467-ba45-c38386fe21ee\"," + 
+				"\"today\" : \"2020-04-18T11:30:00.000Z\"} ",
 		com.anfelisa.box.data.InitMyBoxesDataData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -201,7 +201,7 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsScenar
 				}
 				
 				@Test
-				public void initMyBoxesForDayWithScoredAndReinforceCards() throws Exception {
+				public void initMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing() throws Exception {
 					given();
 					
 					Response response = when();

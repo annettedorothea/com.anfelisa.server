@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.box.scorecard.scenarios;
+package com.anfelisa.box.initmyboxes.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +36,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractScoreCard5Scenario extends BaseScenario {
+public abstract class AbstractInitMyBoxesForDayUnauthorizedScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
@@ -147,28 +147,25 @@ public abstract class AbstractScoreCard5Scenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		
 		return 
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score5\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 5," + 
-				"\"scoredCardScheduledCardId\" : \"c4-sc1\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
+		com.anfelisa.box.ActionCalls.callInitMyBoxesForDay(objectMapper.readValue("{" +
+			"\"uuid\" : \"02c20032-b675-4c38-bb27-0824fb167706\"," + 
+				"\"today\" : \"2020-04-16T08:32:00.000Z\"} ",
+		com.anfelisa.box.data.InitMyBoxesDataData.class)
 		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, DROPWIZARD.getLocalPort(), null);
 		
 	}
 	
 	private void then(Response response) throws Exception {
-		assertThat(response.getStatus(), 200);
+		assertThat(response.getStatus(), 401);
 		
 			
 				}
 				
 				@Test
-				public void scoreCard5() throws Exception {
+				public void initMyBoxesForDayUnauthorized() throws Exception {
 					given();
 					
 					Response response = when();

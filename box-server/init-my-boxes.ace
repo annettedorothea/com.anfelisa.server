@@ -14,6 +14,16 @@ scenarios
 				authorization "Annette" : "password"
 		THEN 200
 
+	InitMyBoxesForDayUnauthorized
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.InitMyBoxesForDay
+				{
+					today: "20200416 10:32" "yyyyMMdd HH:mm"
+				}
+		THEN 401
+
 	InitMyBoxesForDayNothingScoredOneDayLater
 		GIVEN
 			com.anfelisa.box.schedulecards.ScheduleCards
@@ -47,7 +57,7 @@ scenarios
 				authorization "Annette" : "password"
 		THEN 200
 
-	InitMyBoxesForDayWithScoredAndReinforceCards
+	InitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
 			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
@@ -55,7 +65,33 @@ scenarios
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
-					today: "20200516 13:30" "yyyyMMdd HH:mm"
+					today: "20200418 13:30" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	InitMyBoxesForDayWithScoredAndReinforceCardsOneDayLaterDeletesOutdatedReinforceCards
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+		WHEN
+			com.anfelisa.box.InitMyBoxesForDay
+				{
+					today: "20200419 10:30" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	InitMyBoxesForDayWithScoredAndReinforceCardsTwoDaysLaterPostponesCards
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+		WHEN
+			com.anfelisa.box.InitMyBoxesForDay
+				{
+					today: "20200420 10:30" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette" : "password"
 		THEN 200

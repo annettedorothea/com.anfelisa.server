@@ -36,7 +36,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends BaseScenario {
+public abstract class AbstractUpdateBoxSetMaxCardsTo1Scenario extends BaseScenario {
 
 	private void given() throws Exception {
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
@@ -65,32 +65,17 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 
-		
-		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"ca6e8754-905d-46f4-8bb2-0b23a9332916\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
-				"\"categoryName\" : \"changed\"," + 
-				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 11," + 
-				"\"maxInterval\" : 90} ",
-		com.anfelisa.box.data.BoxUpdateData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-
 	}
 	
 	private Response when() throws Exception {
 		
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"e0f2576f-7550-44bc-a475-48f4bf95b50f\"," + 
+			"\"uuid\" : \"ea4ab85c-d3e2-4e2e-9ddb-ef6790cc2cb9\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
-				"\"categoryName\" : \"changed\"," + 
-				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 11} ",
+				"\"categoryName\" : \"cat\"," + 
+				"\"maxCardsPerDay\" : 1} ",
 		com.anfelisa.box.data.BoxUpdateData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -104,7 +89,7 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 				}
 				
 				@Test
-				public void updateBoxMaxIntervalSetToNull() throws Exception {
+				public void updateBoxSetMaxCardsTo1() throws Exception {
 					given();
 					
 					Response response = when();
