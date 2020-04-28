@@ -5,7 +5,8 @@ com.anfelisa.category.changeorder
 scenarios 
 	CreateThirdCategory
 		GIVEN
-			com.anfelisa.category.createcategory.CreateSecondCategory
+			com.anfelisa.category.createcategory.CreateCategory
+			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
 		WHEN
 			com.anfelisa.category.CreateCategory
 				uuid "cat3"

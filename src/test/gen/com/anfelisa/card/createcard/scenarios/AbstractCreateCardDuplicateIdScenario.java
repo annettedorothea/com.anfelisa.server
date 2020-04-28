@@ -130,7 +130,7 @@ public abstract class AbstractCreateCardDuplicateIdScenario extends BaseScenario
 			String message = response.readEntity(String.class);
 			assertFail(message);
 		}
-		assertThat(response.getStatus(), 500);
+		assertThat(response.getStatus(), 400);
 		
 			
 				}

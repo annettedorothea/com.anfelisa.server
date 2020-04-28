@@ -34,7 +34,7 @@ scenarios
 	ImportCsvNotEmpty
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategory
-			com.anfelisa.card.createcard.CreateCard
+			com.anfelisa.card.createcard.CreateCard excludeGIVEN
 		WHEN
 			com.anfelisa.card.ImportCsv
 				{

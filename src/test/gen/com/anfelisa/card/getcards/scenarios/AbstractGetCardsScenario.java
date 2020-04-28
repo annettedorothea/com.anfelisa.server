@@ -174,36 +174,6 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 		
 
 		response = 
-		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"cat1\"," + 
-				"\"categoryName\" : \"level 1 #1\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
-		com.anfelisa.category.data.CategoryCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-
-		response = 
-		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"cat2\"," + 
-				"\"categoryName\" : \"level 1 #2\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
-		com.anfelisa.category.data.CategoryCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-
-		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"c6\"," + 
 				"\"categoryId\" : \"cat2\"," + 

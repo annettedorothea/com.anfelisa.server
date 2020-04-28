@@ -31,7 +31,7 @@ scenarios
 					wanted: "wanted"
 				}
 				authorization "Annette" : "password"
-		THEN 500
+		THEN 400
 
 	CreateSecondCard
 		GIVEN
@@ -119,7 +119,8 @@ scenarios
 
 	CreateCardInOtherCategory
 		GIVEN
-			com.anfelisa.category.createcategory.CreateSecondCategory
+			com.anfelisa.category.createcategory.CreateCategory
+			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
 		WHEN
 			com.anfelisa.card.CreateCard
 				uuid "c6"
@@ -304,33 +305,4 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 200
-		
-		CreateThirdCategory
-		GIVEN
-			com.anfelisa.category.createcategory.CreateSecondCategory
-		WHEN
-			com.anfelisa.category.CreateCategory
-				uuid "cat3"
-				{
-					categoryName: "level 1 #3",
-					parentCategoryId: "boxId"
-				}
-				authorization "Annette" : "password"
-		THEN 200
-
-	CreateFourthCategory
-		GIVEN
-			CreateThirdCategory
-		WHEN
-			com.anfelisa.category.CreateCategory
-				uuid "cat4"
-				{
-					categoryName: "level 1 #4",
-					parentCategoryId: "boxId"
-				}
-				authorization "Annette" : "password"
-		THEN 200
-
-	
-
 		

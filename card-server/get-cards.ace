@@ -6,7 +6,7 @@ scenarios
 	GetCards
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.card.createcard.CreateCardInOtherCategory
+			com.anfelisa.card.createcard.CreateCardInOtherCategory excludeGIVEN
 		WHEN
 			com.anfelisa.card.GetCards
 				{

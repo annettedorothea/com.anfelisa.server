@@ -40,6 +40,42 @@ public abstract class AbstractCreateSecondCategoryScenario extends BaseScenario 
 
 	private void given() throws Exception {
 		Response response;
+		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
+				 String.class));
+		response = 
+		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			"\"uuid\" : \"uuid\"," + 
+				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"language\" : \"de\"," + 
+				"\"password\" : \"password\"," + 
+				"\"username\" : \"Annette\"," + 
+				"\"token\" : \"TOKEN\"} ",
+		com.anfelisa.user.data.UserRegistrationData.class)
+		
+		, DROPWIZARD.getLocalPort());
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
+
+		response = 
+		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+			"\"uuid\" : \"boxId\"," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"maxCardsPerDay\" : 10} ",
+		com.anfelisa.box.data.BoxCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
+
 		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"cat1\"," + 

@@ -6,8 +6,10 @@ scenarios
 	GetDuplicates
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.card.createcard.CreateCardInOtherCategory
-			com.anfelisa.card.createcard.CreateCardInOtherBox
+			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+			com.anfelisa.card.createcard.CreateCardInOtherCategory excludeGIVEN
+			com.anfelisa.box.createbox.CreateSecondBox excludeGIVEN
+			com.anfelisa.card.createcard.CreateCardInOtherBox excludeGIVEN
 		WHEN
 			com.anfelisa.card.GetDuplicates
 				{,
@@ -92,8 +94,10 @@ scenarios
 	GetDuplicatesOrderByWanted
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
-			com.anfelisa.card.createcard.CreateCardInOtherCategory
-			com.anfelisa.card.createcard.CreateCardInOtherBox
+			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+			com.anfelisa.card.createcard.CreateCardInOtherCategory excludeGIVEN
+			com.anfelisa.box.createbox.CreateSecondBox excludeGIVEN
+			com.anfelisa.card.createcard.CreateCardInOtherBox excludeGIVEN
 		WHEN
 			com.anfelisa.card.GetDuplicates
 				{,
