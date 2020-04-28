@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetBoxSettingsNoBoxIdScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,8 +54,13 @@ public abstract class AbstractGetBoxSettingsNoBoxIdScenario extends BaseScenario
 		
 		, DROPWIZARD.getLocalPort());
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -64,6 +70,11 @@ public abstract class AbstractGetBoxSettingsNoBoxIdScenario extends BaseScenario
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -71,7 +82,7 @@ public abstract class AbstractGetBoxSettingsNoBoxIdScenario extends BaseScenario
 		
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxSettings(objectMapper.readValue("{" +
-			"\"uuid\" : \"2958e41d-bb0b-40ea-9253-417c48357536\"} ",
+			"\"uuid\" : \"" + this.randomUUID() + "\"} ",
 		com.anfelisa.box.data.BoxSettingsWrapperData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -79,6 +90,10 @@ public abstract class AbstractGetBoxSettingsNoBoxIdScenario extends BaseScenario
 	}
 	
 	private com.anfelisa.box.data.GetBoxSettingsResponse then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 400);
 		
 		com.anfelisa.box.data.GetBoxSettingsResponse actual = null;
@@ -99,12 +114,16 @@ public abstract class AbstractGetBoxSettingsNoBoxIdScenario extends BaseScenario
 					com.anfelisa.box.data.GetBoxSettingsResponse actualResponse = then(response);
 					
 					verifications(actualResponse);
+				}
+				
+				protected abstract void verifications(com.anfelisa.box.data.GetBoxSettingsResponse response);
+				
+				@Override
+				protected String scenarioName() {
+					return "GetBoxSettingsNoBoxId";
+				}
+			
 			}
-			
-			protected abstract void verifications(com.anfelisa.box.data.GetBoxSettingsResponse response);
-			
-			}
-			
 			
 			
 			

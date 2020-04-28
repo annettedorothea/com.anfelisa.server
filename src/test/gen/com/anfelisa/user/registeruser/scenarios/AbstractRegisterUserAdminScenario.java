@@ -39,6 +39,7 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 	}
 	
 	private Response when() throws Exception {
@@ -60,6 +61,10 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 200);
 		
 			
@@ -74,12 +79,16 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "RegisterUserAdmin";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

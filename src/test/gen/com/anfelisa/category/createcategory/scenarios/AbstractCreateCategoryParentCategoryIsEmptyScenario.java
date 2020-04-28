@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractCreateCategoryParentCategoryIsEmptyScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,8 +54,13 @@ public abstract class AbstractCreateCategoryParentCategoryIsEmptyScenario extend
 		
 		, DROPWIZARD.getLocalPort());
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -64,6 +70,11 @@ public abstract class AbstractCreateCategoryParentCategoryIsEmptyScenario extend
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -71,7 +82,7 @@ public abstract class AbstractCreateCategoryParentCategoryIsEmptyScenario extend
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"b25621e9-33c7-4562-9f03-3b0b8372678d\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryName\" : \"lala\"," + 
 				"\"parentCategoryId\" : \"\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)
@@ -81,6 +92,10 @@ public abstract class AbstractCreateCategoryParentCategoryIsEmptyScenario extend
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 400);
 		
 			
@@ -95,12 +110,16 @@ public abstract class AbstractCreateCategoryParentCategoryIsEmptyScenario extend
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "CreateCategoryParentCategoryIsEmpty";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

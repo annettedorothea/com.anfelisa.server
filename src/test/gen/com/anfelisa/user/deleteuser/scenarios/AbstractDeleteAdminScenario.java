@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid-admin\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,10 +54,15 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -68,10 +74,15 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid-admin\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -83,15 +94,25 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
-			"\"uuid\" : \"b236dec0-31cd-4d28-ab3c-64148a29cfc4\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"editedUserId\" : \"uuid\"," + 
 				"\"newRole\" : \"ADMIN\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN ChangeUserRole fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 
 	}
@@ -100,7 +121,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"c987e534-01cb-4372-b324-9fd6b40e49dd\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"usernameToBeDeleted\" : \"Annette\"} ",
 		com.anfelisa.user.data.DeleteUserData.class)
 		
@@ -109,6 +130,10 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 200);
 		
 			
@@ -123,12 +148,16 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "DeleteAdmin";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

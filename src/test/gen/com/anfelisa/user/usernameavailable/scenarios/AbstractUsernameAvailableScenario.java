@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,6 +54,11 @@ public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -60,7 +66,7 @@ public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.user.ActionCalls.callUsernameAvailable(objectMapper.readValue("{" +
-			"\"uuid\" : \"1674bdfc-4339-4de0-808a-9cbaa584999c\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"username\" : \"lala\"} ",
 		com.anfelisa.user.data.UsernameAvailableData.class)
 		
@@ -69,6 +75,10 @@ public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 	}
 	
 	private com.anfelisa.user.data.UsernameAvailableResponse then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 200);
 		
 		com.anfelisa.user.data.UsernameAvailableResponse actual = null;
@@ -77,7 +87,7 @@ public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.user.data.UsernameAvailableData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"45a84f8f-9dda-45ec-ab02-7e1cc97026ad\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"available\" : true} ",
 		com.anfelisa.user.data.UsernameAvailableData.class)
 		
@@ -100,12 +110,16 @@ public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 					com.anfelisa.user.data.UsernameAvailableResponse actualResponse = then(response);
 					
 					verifications(actualResponse);
+				}
+				
+				protected abstract void verifications(com.anfelisa.user.data.UsernameAvailableResponse response);
+				
+				@Override
+				protected String scenarioName() {
+					return "UsernameAvailable";
+				}
+			
 			}
-			
-			protected abstract void verifications(com.anfelisa.user.data.UsernameAvailableResponse response);
-			
-			}
-			
 			
 			
 			

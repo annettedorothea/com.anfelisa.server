@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractImportCsvUnauthorizedScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,8 +54,13 @@ public abstract class AbstractImportCsvUnauthorizedScenario extends BaseScenario
 		
 		, DROPWIZARD.getLocalPort());
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -64,8 +70,13 @@ public abstract class AbstractImportCsvUnauthorizedScenario extends BaseScenario
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"cat1\"," + 
 				"\"categoryName\" : \"level 1 #1\"," + 
@@ -74,6 +85,11 @@ public abstract class AbstractImportCsvUnauthorizedScenario extends BaseScenario
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -81,7 +97,7 @@ public abstract class AbstractImportCsvUnauthorizedScenario extends BaseScenario
 		
 		return 
 		com.anfelisa.card.ActionCalls.callImportCsv(objectMapper.readValue("{" +
-			"\"uuid\" : \"191f3fe6-a989-46e1-bab9-4eb072a00703\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"previewCsv\" : [ { \"given\" : \"g1\"," + 
 				"\"wanted\" : \"w1\"," + 
@@ -93,6 +109,10 @@ public abstract class AbstractImportCsvUnauthorizedScenario extends BaseScenario
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 401);
 		
 			
@@ -107,12 +127,16 @@ public abstract class AbstractImportCsvUnauthorizedScenario extends BaseScenario
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "ImportCsvUnauthorized";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

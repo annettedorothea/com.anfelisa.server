@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractImportCsvNoAccessToCategoryScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,8 +54,13 @@ public abstract class AbstractImportCsvNoAccessToCategoryScenario extends BaseSc
 		
 		, DROPWIZARD.getLocalPort());
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -64,8 +70,13 @@ public abstract class AbstractImportCsvNoAccessToCategoryScenario extends BaseSc
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"cat1\"," + 
 				"\"categoryName\" : \"level 1 #1\"," + 
@@ -74,10 +85,15 @@ public abstract class AbstractImportCsvNoAccessToCategoryScenario extends BaseSc
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid-admin\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -89,6 +105,11 @@ public abstract class AbstractImportCsvNoAccessToCategoryScenario extends BaseSc
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -96,7 +117,7 @@ public abstract class AbstractImportCsvNoAccessToCategoryScenario extends BaseSc
 		
 		return 
 		com.anfelisa.card.ActionCalls.callImportCsv(objectMapper.readValue("{" +
-			"\"uuid\" : \"6f7a0c15-ba37-4c11-8a9b-e5c22d73259a\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"previewCsv\" : [ { \"given\" : \"g1\"," + 
 				"\"wanted\" : \"w1\"," + 
@@ -108,6 +129,10 @@ public abstract class AbstractImportCsvNoAccessToCategoryScenario extends BaseSc
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 401);
 		
 			
@@ -122,12 +147,16 @@ public abstract class AbstractImportCsvNoAccessToCategoryScenario extends BaseSc
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "ImportCsvNoAccessToCategory";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

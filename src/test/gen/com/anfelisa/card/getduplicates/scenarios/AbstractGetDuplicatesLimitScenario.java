@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,8 +54,13 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -64,8 +70,13 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"cat1\"," + 
 				"\"categoryName\" : \"level 1 #1\"," + 
@@ -74,336 +85,761 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"242ff316-d012-407e-b161-d4fe23c49c26\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"0given7a04c63e\"," + 
-				"\"wanted\" : \"1wantedb8cb292b\"} ",
+				"\"given\" : \"0given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"1wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"2given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"3wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"f503cd71-0e90-4a8c-b433-9e5a386acf93\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"2given675aa90f\"," + 
-				"\"wanted\" : \"3wantedd415767d\"} ",
+				"\"given\" : \"4given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"5wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"6given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"7wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"15f1be96-7fdb-4cd4-b9ec-ec82b5556a39\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"4given359cc5fc\"," + 
-				"\"wanted\" : \"5wanted0c6327d7\"} ",
+				"\"given\" : \"8given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"9wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"10given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"11wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"901f9c87-30d5-4704-8ef7-83c4ace6ef48\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"6givenbb0ced57\"," + 
-				"\"wanted\" : \"7wanted756fadfc\"} ",
+				"\"given\" : \"12given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"13wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"14given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"15wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"9aef87cf-b86c-41a6-a105-c841ceefa07c\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"8given79491cd9\"," + 
-				"\"wanted\" : \"9wantedaa299c8c\"} ",
+				"\"given\" : \"16given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"17wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"18given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"19wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c53161cf-cb7e-487c-b3e6-01c051f2ed9a\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"10given84aaa59c\"," + 
-				"\"wanted\" : \"11wantedd54f5e33\"} ",
+				"\"given\" : \"20given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"21wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"22given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"23wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"df12b7f7-fbce-482d-a301-d5e06079045e\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"12givenf5011fe0\"," + 
-				"\"wanted\" : \"13wantedd4e9a9bb\"} ",
+				"\"given\" : \"24given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"25wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"26given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"27wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"46af3c67-f363-4d2f-8b34-64b453cdbb43\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"14givenfdd0af5e\"," + 
-				"\"wanted\" : \"15wanted215c0f45\"} ",
+				"\"given\" : \"28given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"29wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"30given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"31wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"4311752a-4eba-4d95-852c-4c684dcfa5a6\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"16given815c0b8f\"," + 
-				"\"wanted\" : \"17wanted50b6f8d4\"} ",
+				"\"given\" : \"32given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"33wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"34given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"35wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"6fa315d4-3d6c-4871-bd2e-97b4531e3929\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"18given0d4620a7\"," + 
-				"\"wanted\" : \"19wanted6ca56e50\"} ",
+				"\"given\" : \"36given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"37wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"38given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"39wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"cf385e3d-908b-4d03-b029-d0993a3ace30\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"20given3b2940c1\"," + 
-				"\"wanted\" : \"21wanted23a094ce\"} ",
+				"\"given\" : \"40given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"41wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"42given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"43wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"9612db2b-d78f-4f34-9af0-9ea79fa30313\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"22given4fd6fd61\"," + 
-				"\"wanted\" : \"23wanted981f3c9d\"} ",
+				"\"given\" : \"44given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"45wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"46given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"47wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"bed47458-997d-4a70-a458-940a00ef793b\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"24given29819c9c\"," + 
-				"\"wanted\" : \"25wantedb8c3d988\"} ",
+				"\"given\" : \"48given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"49wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"50given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"51wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"ce475602-a1b7-46fe-afaf-a0288b78f6b5\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"26given5eb2a782\"," + 
-				"\"wanted\" : \"27wantedabae7f8d\"} ",
+				"\"given\" : \"52given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"53wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"54given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"55wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"74c9a4a5-0550-4d72-8935-c179d30920ca\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"28given718e5690\"," + 
-				"\"wanted\" : \"29wantedc67d78aa\"} ",
+				"\"given\" : \"56given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"57wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"58given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"59wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"09b274c7-ebc3-48f2-8588-332882bc42b6\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"30givenc3c20bd7\"," + 
-				"\"wanted\" : \"31wanted8790d82b\"} ",
+				"\"given\" : \"60given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"61wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"62given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"63wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c3ac0932-db86-4aca-b25c-4690d77bd79f\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"32given8cf05ada\"," + 
-				"\"wanted\" : \"33wanted3e375606\"} ",
+				"\"given\" : \"64given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"65wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"66given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"67wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"5f18f416-8452-4237-808a-089698f7a6e6\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"34given52c8164d\"," + 
-				"\"wanted\" : \"35wanted1289b544\"} ",
+				"\"given\" : \"68given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"69wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"70given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"71wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"976fd5f2-4e89-4a3d-87e9-85175fbac9e7\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"36givenc6f355dc\"," + 
-				"\"wanted\" : \"37wanted8ca56193\"} ",
+				"\"given\" : \"72given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"73wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"74given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"75wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"9d4cd302-1130-4c92-baa3-56f0b26009e9\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"38given8fc2e744\"," + 
-				"\"wanted\" : \"39wanted07fbfd1f\"} ",
+				"\"given\" : \"76given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"77wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"78given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"79wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"09e80b6d-9375-497f-8c3c-b448c5b18c61\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"40given4f73e7c1\"," + 
-				"\"wanted\" : \"41wanted51c8ea15\"} ",
+				"\"given\" : \"80given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"81wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"82given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"83wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"99971983-aed4-471b-947a-6b5fdc5c8f84\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"42given97779511\"," + 
-				"\"wanted\" : \"43wanted04db3bb1\"} ",
+				"\"given\" : \"84given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"85wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"86given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"87wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"dadcfbb8-8168-4d69-ae24-d77a27ad973f\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"44given61616a6f\"," + 
-				"\"wanted\" : \"45wantedef0deea4\"} ",
+				"\"given\" : \"88given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"89wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"90given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"91wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"509b3dc9-4bb0-477e-bdd7-ec98098cb16f\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"46given824a2840\"," + 
-				"\"wanted\" : \"47wanted435e12eb\"} ",
+				"\"given\" : \"92given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"93wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"94given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"95wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"08a4df15-d390-48f1-834b-962457c764ae\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"48givena72d7b22\"," + 
-				"\"wanted\" : \"49wantedb36ebce3\"} ",
+				"\"given\" : \"96given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"97wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"98given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"99wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"59342ad1-e26f-4975-876e-a797d7670dc6\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"50givenf2d88db5\"," + 
-				"\"wanted\" : \"51wantedb430487d\"} ",
+				"\"given\" : \"100given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"101wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"102given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"103wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"a879e159-f826-44ee-9ef8-ccc1cda76680\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"52given03b573c8\"," + 
-				"\"wanted\" : \"53wanted38bf34b7\"} ",
+				"\"given\" : \"104given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"105wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"106given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"107wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"bdbc3a3f-4e81-437c-98d7-02e56dbcce5c\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"54given26e3f754\"," + 
-				"\"wanted\" : \"55wanted78a0259f\"} ",
+				"\"given\" : \"108given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"109wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"110given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"111wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"fb318d64-e140-408d-8db5-61d583791450\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"56given3d4ec18a\"," + 
-				"\"wanted\" : \"57wanted5ada6f8c\"} ",
+				"\"given\" : \"112given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"113wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"114given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"115wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"b6a33aff-ca29-4f1b-8bf2-6986d6ce8cc3\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"58given1ad24f4f\"," + 
-				"\"wanted\" : \"59wanted49027725\"} ",
+				"\"given\" : \"116given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"117wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		response = 
+		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"cat1\"," + 
+				"\"given\" : \"118given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"119wanted" + this.randomString() + "\"} ",
+		com.anfelisa.card.data.CardCreationData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 
 	}
@@ -412,7 +848,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
-			"\"uuid\" : \"c189be3f-4d78-45ca-b3ce-2025c0c27538\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 
@@ -424,6 +860,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 	}
 	
 	private com.anfelisa.card.data.GetDuplicatesResponse then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 200);
 		
 		com.anfelisa.card.data.GetDuplicatesResponse actual = null;
@@ -444,12 +884,16 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 					com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 					
 					verifications(actualResponse);
+				}
+				
+				protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
+				
+				@Override
+				protected String scenarioName() {
+					return "GetDuplicatesLimit";
+				}
+			
 			}
-			
-			protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
-			
-			}
-			
 			
 			
 			

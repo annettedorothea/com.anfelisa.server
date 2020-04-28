@@ -39,13 +39,14 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractRegisterUserBlankUsernameScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 	}
 	
 	private Response when() throws Exception {
 		
 		return 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"addce320-14d4-4560-8d9f-05301e96d920\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"password\"," + 
@@ -57,6 +58,10 @@ public abstract class AbstractRegisterUserBlankUsernameScenario extends BaseScen
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 400);
 		
 			
@@ -71,12 +76,16 @@ public abstract class AbstractRegisterUserBlankUsernameScenario extends BaseScen
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "RegisterUserBlankUsername";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

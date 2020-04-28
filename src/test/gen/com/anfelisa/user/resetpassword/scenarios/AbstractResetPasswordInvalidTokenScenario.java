@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,18 +54,28 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"RESET-PW-TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callForgotPassword(objectMapper.readValue("{" +
-			"\"uuid\" : \"9d31e96f-f999-4218-9156-8e1f0bf0b353\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"language\" : \"de\"," + 
 				"\"username\" : \"Annette\"," + 
 				"\"token\" : \"RESET-PW-TOKEN\"} ",
 		com.anfelisa.user.data.ForgotPasswordData.class)
 		
 		, DROPWIZARD.getLocalPort());
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN ForgotPassword fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 
 	}
@@ -75,7 +86,7 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 		
 		return 
 		com.anfelisa.user.ActionCalls.callResetPassword(objectMapper.readValue("{" +
-			"\"uuid\" : \"0da6b69f-0586-48dc-a61c-1fc1c939757c\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"token\" : \"INVALID-TOKEN\"," + 
 				"\"password\" : \"newPassword\"} ",
 		com.anfelisa.user.data.ResetPasswordWithNewPasswordData.class)
@@ -85,6 +96,10 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 400);
 		
 			
@@ -99,12 +114,16 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "ResetPasswordInvalidToken";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

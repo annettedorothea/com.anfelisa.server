@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,10 +54,15 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -68,17 +74,27 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
-			"\"uuid\" : \"370db9e8-653d-4451-8781-ec29ee2db7de\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"token\" : \"TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
 		
 		, DROPWIZARD.getLocalPort());
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN ConfirmEmail fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 
 	}
@@ -89,7 +105,7 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 		
 		return 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
-			"\"uuid\" : \"3f13094e-8593-43ea-9fba-5fdfd3ae0bed\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"token\" : \"TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
@@ -99,6 +115,10 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 200);
 		
 			
@@ -113,12 +133,16 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "ConfirmEmailAlreadyConfirmed";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

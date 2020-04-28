@@ -33,10 +33,10 @@ public class DatabaseHandle {
 
 	public DatabaseHandle(Jdbi jdbi, CustomAppConfiguration appConfiguration) {
 		super();
-		this.writeHandle = new PersistenceHandle(jdbi.open());
-		this.readonlyHandle = new PersistenceHandle(jdbi.open());
+		this.writeHandle = new PersistenceHandle(jdbi.open().setReadOnly(false));
+		this.readonlyHandle = new PersistenceHandle(jdbi.open().setReadOnly(true));
 		if (appConfiguration.getServerConfiguration().writeTimeline()) {
-			this.timelineHandle = new PersistenceHandle(jdbi.open());
+			this.timelineHandle = new PersistenceHandle(jdbi.open().setReadOnly(false));
 		}
 	}
 

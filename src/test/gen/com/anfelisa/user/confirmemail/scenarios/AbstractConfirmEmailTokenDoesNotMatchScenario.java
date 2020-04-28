@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,10 +54,15 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid-admin\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -68,6 +74,11 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -77,7 +88,7 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 		
 		return 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
-			"\"uuid\" : \"8d588cb0-a13f-4e8d-93c5-37916aad9478\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"token\" : \"ADMIN-TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
@@ -87,6 +98,10 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 400);
 		
 			
@@ -101,12 +116,16 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "ConfirmEmailTokenDoesNotMatch";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

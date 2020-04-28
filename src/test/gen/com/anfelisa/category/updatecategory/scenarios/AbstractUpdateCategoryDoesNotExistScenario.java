@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractUpdateCategoryDoesNotExistScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,8 +54,13 @@ public abstract class AbstractUpdateCategoryDoesNotExistScenario extends BaseSce
 		
 		, DROPWIZARD.getLocalPort());
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -64,8 +70,13 @@ public abstract class AbstractUpdateCategoryDoesNotExistScenario extends BaseSce
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"cat1\"," + 
 				"\"categoryName\" : \"level 1 #1\"," + 
@@ -74,6 +85,11 @@ public abstract class AbstractUpdateCategoryDoesNotExistScenario extends BaseSce
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -81,7 +97,7 @@ public abstract class AbstractUpdateCategoryDoesNotExistScenario extends BaseSce
 		
 		return 
 		com.anfelisa.category.ActionCalls.callUpdateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"f097e9a0-6111-4b74-a15f-d69f784a8d75\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryName\" : \"changed\"," + 
 				"\"categoryId\" : \"xxx\"} ",
 		com.anfelisa.category.data.CategoryUpdateData.class)
@@ -91,6 +107,10 @@ public abstract class AbstractUpdateCategoryDoesNotExistScenario extends BaseSce
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 400);
 		
 			
@@ -105,12 +125,16 @@ public abstract class AbstractUpdateCategoryDoesNotExistScenario extends BaseSce
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "UpdateCategoryDoesNotExist";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

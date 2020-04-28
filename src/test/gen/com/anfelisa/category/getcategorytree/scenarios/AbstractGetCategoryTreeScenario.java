@@ -39,33 +39,8 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
-		
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"," + 
-				"\"token\" : \"TOKEN\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-
-		
-		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"boxId\"," + 
-				"\"categoryName\" : \"cat\"," + 
-				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 10} ",
-		com.anfelisa.box.data.BoxCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-
-		
+		Response response;
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"cat1\"," + 
 				"\"categoryName\" : \"level 1 #1\"," + 
@@ -74,8 +49,13 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"cat2\"," + 
 				"\"categoryName\" : \"level 1 #2\"," + 
@@ -84,8 +64,13 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"cat3\"," + 
 				"\"categoryName\" : \"level 2 #1\"," + 
@@ -94,6 +79,11 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -101,7 +91,7 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 		
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
-			"\"uuid\" : \"06a99f4d-91a9-4977-ad04-772d69c3e761\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"rootCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		
@@ -110,6 +100,10 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 	}
 	
 	private com.anfelisa.category.data.GetCategoryTreeResponse then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 200);
 		
 		com.anfelisa.category.data.GetCategoryTreeResponse actual = null;
@@ -118,7 +112,7 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.category.data.CategoryTreeData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"1fe9f915-2eb6-49c8-bcd2-bd441cdcb7e7\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"rootCategory\" : { \"categoryId\" : \"boxId\"," + 
 				"\"categoryIndex\" : 1," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -169,12 +163,16 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 					com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
 					
 					verifications(actualResponse);
+				}
+				
+				protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
+				
+				@Override
+				protected String scenarioName() {
+					return "GetCategoryTree";
+				}
+			
 			}
-			
-			protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
-			
-			}
-			
 			
 			
 			

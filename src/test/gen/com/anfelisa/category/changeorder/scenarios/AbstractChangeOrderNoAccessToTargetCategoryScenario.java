@@ -39,33 +39,8 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extends BaseScenario {
 
 	private void given() throws Exception {
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
-		
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"," + 
-				"\"token\" : \"TOKEN\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-
-		
-		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"boxId\"," + 
-				"\"categoryName\" : \"cat\"," + 
-				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 10} ",
-		com.anfelisa.box.data.BoxCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-
-		
+		Response response;
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"cat1\"," + 
 				"\"categoryName\" : \"level 1 #1\"," + 
@@ -74,8 +49,13 @@ public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extend
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"cat2\"," + 
 				"\"categoryName\" : \"level 1 #2\"," + 
@@ -84,10 +64,15 @@ public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extend
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid-admin\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -99,8 +84,13 @@ public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extend
 		
 		, DROPWIZARD.getLocalPort());
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"adminBox\"," + 
 				"\"categoryName\" : \"adminBox\"," + 
@@ -110,8 +100,13 @@ public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extend
 		
 		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"adminCat\"," + 
 				"\"categoryName\" : \"c\"," + 
@@ -120,6 +115,11 @@ public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extend
 		
 		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -127,7 +127,7 @@ public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extend
 		
 		return 
 		com.anfelisa.category.ActionCalls.callChangeOrderCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"9931bab6-7526-4e98-8277-4f0b18021718\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"movedCategoryId\" : \"cat1\"," + 
 				"\"targetCategoryId\" : \"adminCat\"} ",
 		com.anfelisa.category.data.CategoryChangeOrderData.class)
@@ -137,6 +137,10 @@ public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extend
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 401);
 		
 			
@@ -151,12 +155,16 @@ public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extend
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "ChangeOrderNoAccessToTargetCategory";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

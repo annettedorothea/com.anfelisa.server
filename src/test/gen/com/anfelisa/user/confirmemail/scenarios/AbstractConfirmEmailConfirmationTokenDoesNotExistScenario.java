@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractConfirmEmailConfirmationTokenDoesNotExistScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,6 +54,11 @@ public abstract class AbstractConfirmEmailConfirmationTokenDoesNotExistScenario 
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -62,7 +68,7 @@ public abstract class AbstractConfirmEmailConfirmationTokenDoesNotExistScenario 
 		
 		return 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
-			"\"uuid\" : \"f7aa3b48-ad46-4bfa-8fd4-045106b7ecd6\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"token\" : \"DOES_NOT_EXIST\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
@@ -72,6 +78,10 @@ public abstract class AbstractConfirmEmailConfirmationTokenDoesNotExistScenario 
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 400);
 		
 			
@@ -86,12 +96,16 @@ public abstract class AbstractConfirmEmailConfirmationTokenDoesNotExistScenario 
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "ConfirmEmailConfirmationTokenDoesNotExist";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

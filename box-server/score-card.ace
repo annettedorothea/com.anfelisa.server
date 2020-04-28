@@ -111,7 +111,7 @@ scenarios
 	ScoreCard31
 		GIVEN
 			ScoreCard3
-			com.anfelisa.box.updatebox.UpdateBoxMaxInterval
+			com.anfelisa.box.updatebox.UpdateBoxMaxInterval excludeGIVEN
 		WHEN
 			com.anfelisa.box.ScoreCard
 				uuid "score31"

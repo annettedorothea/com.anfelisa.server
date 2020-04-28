@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,6 +54,11 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -62,7 +68,7 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 		
 		return 
 		com.anfelisa.user.ActionCalls.callForgotPassword(objectMapper.readValue("{" +
-			"\"uuid\" : \"9813047f-0aca-466c-9b0f-57f11ecd7999\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"language\" : \"de\"," + 
 				"\"username\" : \"doesNotExist\"," + 
 				"\"token\" : \"RESET-PW-TOKEN\"} ",
@@ -73,6 +79,10 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 200);
 		
 			
@@ -87,12 +97,16 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "ForgotPasswordUserDoesNotExist";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

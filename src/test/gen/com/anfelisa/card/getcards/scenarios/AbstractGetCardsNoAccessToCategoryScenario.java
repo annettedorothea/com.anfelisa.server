@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,8 +54,13 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 		
 		, DROPWIZARD.getLocalPort());
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -64,8 +70,13 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"cat1\"," + 
 				"\"categoryName\" : \"level 1 #1\"," + 
@@ -74,8 +85,13 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"c1\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -86,8 +102,13 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"c2\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -98,8 +119,13 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"c3\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -109,8 +135,13 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"c4\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -120,8 +151,13 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"c5\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -131,10 +167,15 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid-admin\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -146,6 +187,11 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -153,7 +199,7 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 		
 		return 
 		com.anfelisa.card.ActionCalls.callGetCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"2c233000-e68b-42f8-a230-fff0d341082b\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"} ",
 		com.anfelisa.card.data.CardListData.class)
 		
@@ -162,6 +208,10 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 	}
 	
 	private com.anfelisa.card.data.GetCardsResponse then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 401);
 		
 		com.anfelisa.card.data.GetCardsResponse actual = null;
@@ -182,12 +232,16 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 					com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
 					
 					verifications(actualResponse);
+				}
+				
+				protected abstract void verifications(com.anfelisa.card.data.GetCardsResponse response);
+				
+				@Override
+				protected String scenarioName() {
+					return "GetCardsNoAccessToCategory";
+				}
+			
 			}
-			
-			protected abstract void verifications(com.anfelisa.card.data.GetCardsResponse response);
-			
-			}
-			
 			
 			
 			

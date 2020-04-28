@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid-admin\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,10 +54,15 @@ public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -67,6 +73,11 @@ public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 
 	}
@@ -82,6 +93,10 @@ public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 	}
 	
 	private com.anfelisa.user.data.GetRoleResponse then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 200);
 		
 		com.anfelisa.user.data.GetRoleResponse actual = null;
@@ -90,7 +105,7 @@ public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.user.data.RoleData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"0c6f1503-2c94-4d35-a059-6a0cb76d2e6d\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"role\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.RoleData.class)
 		
@@ -113,12 +128,16 @@ public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 					com.anfelisa.user.data.GetRoleResponse actualResponse = then(response);
 					
 					verifications(actualResponse);
+				}
+				
+				protected abstract void verifications(com.anfelisa.user.data.GetRoleResponse response);
+				
+				@Override
+				protected String scenarioName() {
+					return "GetRoleStudent";
+				}
+			
 			}
-			
-			protected abstract void verifications(com.anfelisa.user.data.GetRoleResponse response);
-			
-			}
-			
 			
 			
 			

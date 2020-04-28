@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetRoleUnknownUserScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -52,6 +53,11 @@ public abstract class AbstractGetRoleUnknownUserScenario extends BaseScenario {
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 
 	}
@@ -67,6 +73,10 @@ public abstract class AbstractGetRoleUnknownUserScenario extends BaseScenario {
 	}
 	
 	private com.anfelisa.user.data.GetRoleResponse then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 401);
 		
 		com.anfelisa.user.data.GetRoleResponse actual = null;
@@ -87,12 +97,16 @@ public abstract class AbstractGetRoleUnknownUserScenario extends BaseScenario {
 					com.anfelisa.user.data.GetRoleResponse actualResponse = then(response);
 					
 					verifications(actualResponse);
+				}
+				
+				protected abstract void verifications(com.anfelisa.user.data.GetRoleResponse response);
+				
+				@Override
+				protected String scenarioName() {
+					return "GetRoleUnknownUser";
+				}
+			
 			}
-			
-			protected abstract void verifications(com.anfelisa.user.data.GetRoleResponse response);
-			
-			}
-			
 			
 			
 			

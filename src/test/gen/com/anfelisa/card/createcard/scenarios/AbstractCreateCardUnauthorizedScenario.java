@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid-admin\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,8 +54,13 @@ public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenari
 		
 		, DROPWIZARD.getLocalPort());
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"adminBox\"," + 
 				"\"categoryName\" : \"adminBox\"," + 
@@ -64,8 +70,13 @@ public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenari
 		
 		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"adminCat\"," + 
 				"\"categoryName\" : \"c\"," + 
@@ -74,6 +85,11 @@ public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenari
 		
 		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -81,7 +97,7 @@ public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenari
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"3f399afa-9fc6-4b53-b823-fd321a33f9ef\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"given\" : \"given\"," + 
 				"\"image\" : \"image\"," + 
@@ -93,6 +109,10 @@ public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenari
 	}
 	
 	private void then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 401);
 		
 			
@@ -107,12 +127,16 @@ public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenari
 					then(response);
 					
 					verifications();
+				}
+				
+				protected abstract void verifications();
+				
+				@Override
+				protected String scenarioName() {
+					return "CreateCardUnauthorized";
+				}
+			
 			}
-			
-			protected abstract void verifications();
-			
-			}
-			
 			
 			
 			

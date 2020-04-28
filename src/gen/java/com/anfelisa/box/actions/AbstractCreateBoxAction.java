@@ -176,6 +176,7 @@ public abstract class AbstractCreateBoxAction extends Action<IBoxCreationData> {
 			return Response.status(x.getResponse().getStatusInfo()).entity(x.getMessage()).build();
 		} catch (Exception x) {
 			LOG.error(actionName + " failed " + x.getMessage());
+			x.printStackTrace();
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {
@@ -185,7 +186,18 @@ public abstract class AbstractCreateBoxAction extends Action<IBoxCreationData> {
 			} catch (Exception ex) {
 				LOG.error("failed to rollback or to save or report exception " + ex.getMessage());
 			}
-			return Response.status(500).entity(x.getMessage()).build();
+			String message = x.getMessage();
+			StackTraceElement[] stackTrace = x.getStackTrace();
+			int i = 1;
+			for (StackTraceElement stackTraceElement : stackTrace) {
+				message += "\n" + stackTraceElement.toString();
+				if (i > 3) {
+					message += "\n" + (stackTrace.length - 4) + " more...";
+					break;
+				}
+				i++;
+			}
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(message).build();
 		} finally {
 			databaseHandle.close();
 			if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {

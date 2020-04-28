@@ -18,7 +18,7 @@ scenarios
 
 	CreateSecondCategory
 		GIVEN
-			CreateCategory
+			CreateCategory excludeGIVEN
 		WHEN
 			com.anfelisa.category.CreateCategory
 				uuid "cat2"

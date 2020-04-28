@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,8 +54,13 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 		
 		, DROPWIZARD.getLocalPort());
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -66,6 +72,11 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -73,7 +84,7 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 		
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxSettings(objectMapper.readValue("{" +
-			"\"uuid\" : \"2c109fc7-a5f0-4bdc-ac56-571662e4e1ac\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"boxId\" : \"boxId\"} ",
 		com.anfelisa.box.data.BoxSettingsWrapperData.class)
 		
@@ -82,6 +93,10 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 	}
 	
 	private com.anfelisa.box.data.GetBoxSettingsResponse then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 200);
 		
 		com.anfelisa.box.data.GetBoxSettingsResponse actual = null;
@@ -90,7 +105,7 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 		} catch (Exception x) {
 		}
 		com.anfelisa.box.data.BoxSettingsWrapperData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"7856ecf5-17cb-46f4-8a08-f352a2dc86bb\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : true," + 
@@ -118,12 +133,16 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 					com.anfelisa.box.data.GetBoxSettingsResponse actualResponse = then(response);
 					
 					verifications(actualResponse);
+				}
+				
+				protected abstract void verifications(com.anfelisa.box.data.GetBoxSettingsResponse response);
+				
+				@Override
+				protected String scenarioName() {
+					return "GetBoxSettingsWithDictionaryLookup";
+				}
+			
 			}
-			
-			protected abstract void verifications(com.anfelisa.box.data.GetBoxSettingsResponse response);
-			
-			}
-			
 			
 			
 			

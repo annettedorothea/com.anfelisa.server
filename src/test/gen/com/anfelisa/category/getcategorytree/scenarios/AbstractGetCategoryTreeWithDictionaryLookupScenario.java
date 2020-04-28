@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,8 +54,13 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		
 		, DROPWIZARD.getLocalPort());
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -66,8 +72,13 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"dict\"," + 
 				"\"categoryName\" : \"dict\"," + 
@@ -76,6 +87,11 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -83,7 +99,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
-			"\"uuid\" : \"fb1dc45d-58df-47a7-9fb2-eefbf653ef3f\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"rootCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		
@@ -92,6 +108,10 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 	}
 	
 	private com.anfelisa.category.data.GetCategoryTreeResponse then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 200);
 		
 		com.anfelisa.category.data.GetCategoryTreeResponse actual = null;
@@ -100,7 +120,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		} catch (Exception x) {
 		}
 		com.anfelisa.category.data.CategoryTreeData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"89c12803-9ffa-477e-ae53-df35853adb92\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"rootCategory\" : { \"categoryId\" : \"boxId\"," + 
 				"\"categoryIndex\" : 1," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -140,12 +160,16 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 					com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
 					
 					verifications(actualResponse);
+				}
+				
+				protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
+				
+				@Override
+				protected String scenarioName() {
+					return "GetCategoryTreeWithDictionaryLookup";
+				}
+			
 			}
-			
-			protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
-			
-			}
-			
 			
 			
 			

@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid-admin\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,10 +54,15 @@ public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends Bas
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -67,6 +73,11 @@ public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends Bas
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 
 	}
@@ -82,6 +93,10 @@ public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends Bas
 	}
 	
 	private com.anfelisa.user.data.GetUserProfileResponse then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 401);
 		
 		com.anfelisa.user.data.GetUserProfileResponse actual = null;
@@ -102,12 +117,16 @@ public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends Bas
 					com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
 					
 					verifications(actualResponse);
+				}
+				
+				protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
+				
+				@Override
+				protected String scenarioName() {
+					return "GetUserProfileUserDoesNotExist";
+				}
+			
 			}
-			
-			protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
-			
-			}
-			
 			
 			
 			

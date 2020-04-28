@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid-admin\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,10 +54,15 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -68,17 +74,27 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
-			"\"uuid\" : \"075e0757-9554-4ee0-a7eb-a129ee0bf787\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"token\" : \"TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
 		
 		, DROPWIZARD.getLocalPort());
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN ConfirmEmail fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 
 	}
@@ -94,6 +110,10 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 	}
 	
 	private com.anfelisa.user.data.GetAllUsersResponse then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 200);
 		
 		com.anfelisa.user.data.GetAllUsersResponse actual = null;
@@ -102,7 +122,7 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		} catch (Exception x) {
 		}
 		com.anfelisa.user.data.UserListData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"171144b2-dbf4-42bc-8744-36f065e9f3f3\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"userList\" : [ { \"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"password\" : \"admin-password\"," + 
 				"\"username\" : \"Admin\"," + 
@@ -136,12 +156,16 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 					com.anfelisa.user.data.GetAllUsersResponse actualResponse = then(response);
 					
 					verifications(actualResponse);
+				}
+				
+				protected abstract void verifications(com.anfelisa.user.data.GetAllUsersResponse response);
+				
+				@Override
+				protected String scenarioName() {
+					return "GetAllUsersAdmin";
+				}
+			
 			}
-			
-			protected abstract void verifications(com.anfelisa.user.data.GetAllUsersResponse response);
-			
-			}
-			
 			
 			
 			

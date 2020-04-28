@@ -19,7 +19,6 @@
 
 package de.acegen;
 
-import java.util.UUID;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class AbstractBaseScenario {
@@ -36,9 +35,9 @@ public abstract class AbstractBaseScenario {
 		objectMapper = new ObjectMapper();
 	}
 
-	public static String randomUUID() {
-		return UUID.randomUUID().toString();
-	}
+	protected abstract String randomString();
+	
+	protected abstract String randomUUID();
 
 	protected abstract String authorization(String username, String password);
 
@@ -47,6 +46,10 @@ public abstract class AbstractBaseScenario {
 	protected abstract void assertThat(Object actual, Object expected);
 
 	protected abstract void assertIsNull(Object actual);
+
+	protected abstract void assertFail(String message);
+
+	protected abstract String scenarioName();
 
 }
 

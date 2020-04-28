@@ -21,6 +21,7 @@ import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 import org.jdbi.v3.core.Jdbi;
 import org.junit.After;
@@ -43,7 +44,7 @@ import com.anfelisa.user.models.IUserModel;
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.testing.DropwizardTestSupport;
 
-public class BaseScenario extends AbstractBaseScenario {
+public abstract class BaseScenario extends AbstractBaseScenario {
 
 	static final Logger LOG = LoggerFactory.getLogger(BaseScenario.class);
 
@@ -71,6 +72,9 @@ public class BaseScenario extends AbstractBaseScenario {
 
 	@Before
 	public void before() {
+		LOG.info("*********************************************************************************");
+		LOG.info("********   " + this.scenarioName());
+		LOG.info("*********************************************************************************");
 		daoProvider = new DaoProvider();
 		handle = new PersistenceHandle(jdbi.open());
 		daoProvider.truncateAllViews(handle);
@@ -79,6 +83,15 @@ public class BaseScenario extends AbstractBaseScenario {
 	@After
 	public void after() {
 		handle.getHandle().close();
+	}
+
+	protected String randomString() {
+		return UUID.randomUUID().toString().substring(0, 8);
+	}
+
+	@Override
+	protected String randomUUID() {
+		return UUID.randomUUID().toString();
 	}
 
 	@Override
@@ -93,6 +106,11 @@ public class BaseScenario extends AbstractBaseScenario {
 		org.junit.Assert.assertThat(actual, is(expected));
 	}
 
+	@Override
+	protected void assertFail(String message) {
+		org.junit.Assert.fail(message);
+	}
+	
 	@Override
 	protected void assertThat(Object actual, Object expected) {
 		if (actual == null) {

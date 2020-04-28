@@ -39,9 +39,10 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseScenario {
 
 	private void given() throws Exception {
+		Response response;
 		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
 				 String.class));
-		
+		response = 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"uuid\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -53,8 +54,13 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 		
 		, DROPWIZARD.getLocalPort());
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -64,8 +70,13 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
+
+		response = 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"cat1\"," + 
 				"\"categoryName\" : \"level 1 #1\"," + 
@@ -74,6 +85,11 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 
 	}
 	
@@ -81,7 +97,7 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 		
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
-			"\"uuid\" : \"cf702e00-956a-4a3d-8bd1-3e5595c2cfc8\"," + 
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"rootCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		
@@ -90,6 +106,10 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 	}
 	
 	private com.anfelisa.category.data.GetCategoryTreeResponse then(Response response) throws Exception {
+		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		assertThat(response.getStatus(), 401);
 		
 		com.anfelisa.category.data.GetCategoryTreeResponse actual = null;
@@ -110,12 +130,16 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 					com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
 					
 					verifications(actualResponse);
+				}
+				
+				protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
+				
+				@Override
+				protected String scenarioName() {
+					return "GetCategoryTreeUnauthorized";
+				}
+			
 			}
-			
-			protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
-			
-			}
-			
 			
 			
 			
