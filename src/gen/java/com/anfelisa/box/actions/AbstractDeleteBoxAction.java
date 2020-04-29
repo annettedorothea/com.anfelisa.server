@@ -118,8 +118,16 @@ public abstract class AbstractDeleteBoxAction extends Action<IDeleteBoxData> {
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new DeleteBoxData(uuid);
-		this.actionData.setBoxId(boxId);
-		this.actionData.setUserId(authUser.getUserId());
+		try {
+			this.actionData.setBoxId(boxId);
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "boxId");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
 		return this.apply();
 	}
 
@@ -158,7 +166,7 @@ public abstract class AbstractDeleteBoxAction extends Action<IDeleteBoxData> {
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

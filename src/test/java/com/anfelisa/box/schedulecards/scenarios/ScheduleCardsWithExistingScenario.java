@@ -27,7 +27,7 @@ public class ScheduleCardsWithExistingScenario extends AbstractScheduleCardsWith
 
 	@Override
 	protected void verifications() {
-		DateTime dateTime = new DateTime(2020, 4, 17, 12, 20).withZone(DateTimeZone.UTC);
+		DateTime dateTime = new DateTime(2020, 4, 19, 12, 20).withZone(DateTimeZone.UTC);
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByCardIdAndBoxId(handle,
 				"c2", "boxId");
 		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c2-sc1", "c2", "boxId",
@@ -41,7 +41,7 @@ public class ScheduleCardsWithExistingScenario extends AbstractScheduleCardsWith
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
-		dateTime = new DateTime(2020, 4, 16, 10, 30).withZone(DateTimeZone.UTC);
+		dateTime = new DateTime(2020, 4, 18, 10, 30).withZone(DateTimeZone.UTC);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByCardIdAndBoxId(handle,
 				"c1", "boxId");

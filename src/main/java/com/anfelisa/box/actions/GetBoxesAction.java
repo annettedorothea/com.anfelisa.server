@@ -25,8 +25,11 @@ public class GetBoxesAction extends AbstractGetBoxesAction {
 
 	@Override
 	protected final void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
+		if (actionData.getTodayAtMidnightInUTC() == null) {
+			throwBadRequest("today must not be null");
+		}
 		List<IBoxViewModel> boxList = this.daoProvider.getBoxDao().selectByUserId(readonlyHandle,
-				this.actionData.getUserId(), actionData.getToday());
+				this.actionData.getUserId(), actionData.getTodayAtMidnightInUTC());
 		this.actionData.setBoxList(boxList);
 	}
 

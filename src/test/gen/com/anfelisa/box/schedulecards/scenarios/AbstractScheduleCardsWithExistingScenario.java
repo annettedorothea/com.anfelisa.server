@@ -173,7 +173,7 @@ public abstract class AbstractScheduleCardsWithExistingScenario extends BaseScen
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200416 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		response = 
 		com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
 			"\"uuid\" : \"sc1\"," + 
@@ -193,7 +193,7 @@ public abstract class AbstractScheduleCardsWithExistingScenario extends BaseScen
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200417 12:20", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200419 12:20", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		
 		return 
 		com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +

@@ -117,9 +117,21 @@ public abstract class AbstractImportCsvAction extends Action<ICsvUploadData> {
 			@NotNull ICsvUploadData payload)
 			throws JsonProcessingException {
 		this.actionData = new CsvUploadData(payload.getUuid());
-		this.actionData.setPreviewCsv(payload.getPreviewCsv());
-		this.actionData.setCategoryId(payload.getCategoryId());
-		this.actionData.setUserId(authUser.getUserId());
+		try {
+			this.actionData.setPreviewCsv(payload.getPreviewCsv());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "previewCsv");
+		}
+		try {
+			this.actionData.setCategoryId(payload.getCategoryId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "categoryId");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
 		return this.apply();
 	}
 
@@ -158,7 +170,7 @@ public abstract class AbstractImportCsvAction extends Action<ICsvUploadData> {
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

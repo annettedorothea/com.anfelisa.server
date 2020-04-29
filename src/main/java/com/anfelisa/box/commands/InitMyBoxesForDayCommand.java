@@ -46,23 +46,25 @@ public class InitMyBoxesForDayCommand extends AbstractInitMyBoxesForDayCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
+		if (commandData.getTodayAtMidnightInUTC() == null) {
+			throwBadRequest("today must not be null");
+		}
 		List<IInitBoxesModel> boxList = this.daoProvider.getBoxDao().selectInitBoxesModelByUserId(readonlyHandle,
-				this.commandData.getUserId(), commandData.getToday());
+				this.commandData.getUserId(), commandData.getTodayAtMidnightInUTC());
 		List<IPostponeCardsModel> postponeCards = new ArrayList<IPostponeCardsModel>();
 		List<String> outdatedReinforceCardsIds = new ArrayList<String>();
-		DateTime today = this.commandData.getToday();
-		DateTime minToday = new DateTime(today.getYear(), today.getMonthOfYear(), today.getDayOfMonth(), 0, 0);
+		DateTime today = this.commandData.getTodayAtMidnightInUTC();
 		for (IInitBoxesModel box : boxList) {
 			List<IReinforceCardModel> outdatedReinforceCards = this.daoProvider.getReinforceCardDao()
-					.selectOutdatedReinforceCards(readonlyHandle, box.getBoxId(), minToday);
+					.selectOutdatedReinforceCards(readonlyHandle, box.getBoxId(), today);
 			for (IReinforceCardModel card : outdatedReinforceCards) {
 				outdatedReinforceCardsIds.add(card.getScheduledCardId());
 			}
 			DateTime min = box.getMinScheduledDate();
 			if (min != null) {
 				DateTime minDate = new DateTime(min.getYear(), min.getMonthOfYear(), min.getDayOfMonth(), 0, 0);
-				if (minDate.isBefore(minToday)) {
-					int days = Days.daysBetween(minDate, minToday).getDays();
+				if (minDate.isBefore(today)) {
+					int days = Days.daysBetween(minDate, today).getDays();
 					PostponeCardsData postponeData = new PostponeCardsData(days, box.getBoxId(),
 							commandData.getUuid());
 					postponeCards.add(postponeData);

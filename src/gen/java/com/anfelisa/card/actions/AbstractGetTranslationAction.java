@@ -119,9 +119,21 @@ public abstract class AbstractGetTranslationAction extends Action<ICardTranslati
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new CardTranslationData(uuid);
-		this.actionData.setSourceValue(sourceValue);
-		this.actionData.setSourceLanguage(sourceLanguage);
-		this.actionData.setTargetLanguage(targetLanguage);
+		try {
+			this.actionData.setSourceValue(sourceValue);
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "sourceValue");
+		}
+		try {
+			this.actionData.setSourceLanguage(sourceLanguage);
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "sourceLanguage");
+		}
+		try {
+			this.actionData.setTargetLanguage(targetLanguage);
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "targetLanguage");
+		}
 		return this.apply();
 	}
 
@@ -162,7 +174,7 @@ public abstract class AbstractGetTranslationAction extends Action<ICardTranslati
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

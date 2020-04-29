@@ -115,8 +115,16 @@ public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailDat
 			@NotNull IConfirmEmailData payload)
 			throws JsonProcessingException {
 		this.actionData = new ConfirmEmailData(payload.getUuid());
-		this.actionData.setToken(payload.getToken());
-		this.actionData.setUsername(payload.getUsername());
+		try {
+			this.actionData.setToken(payload.getToken());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "token");
+		}
+		try {
+			this.actionData.setUsername(payload.getUsername());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "username");
+		}
 		return this.apply();
 	}
 
@@ -148,7 +156,7 @@ public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailDat
 				if (NotReplayableDataProvider.get("token") != null) {
 					this.actionData.setToken((String)NotReplayableDataProvider.get("token"));
 				} else {
-					LOG.warn("token is daclared as not replayable but no value was found in NotReplayableDataProvider.");
+					LOG.warn("token is declared as not replayable but no value was found in NotReplayableDataProvider.");
 				}
 			}
 			if (appConfiguration.getServerConfiguration().writeTimeline()) {
@@ -161,7 +169,7 @@ public abstract class AbstractConfirmEmailAction extends Action<IConfirmEmailDat
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

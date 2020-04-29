@@ -117,10 +117,26 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 			@NotNull ICategoryCreationData payload)
 			throws JsonProcessingException {
 		this.actionData = new CategoryCreationData(payload.getUuid());
-		this.actionData.setCategoryName(payload.getCategoryName());
-		this.actionData.setParentCategoryId(payload.getParentCategoryId());
-		this.actionData.setUsername(authUser.getUsername());
-		this.actionData.setUserId(authUser.getUserId());
+		try {
+			this.actionData.setCategoryName(payload.getCategoryName());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "categoryName");
+		}
+		try {
+			this.actionData.setParentCategoryId(payload.getParentCategoryId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "parentCategoryId");
+		}
+		try {
+			this.actionData.setUsername(authUser.getUsername());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "username");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
 		return this.apply();
 	}
 
@@ -159,7 +175,7 @@ public abstract class AbstractCreateCategoryAction extends Action<ICategoryCreat
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

@@ -116,8 +116,16 @@ public abstract class AbstractGetRoleAction extends Action<IRoleData> {
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new RoleData(uuid);
-		this.actionData.setUsername(authUser.getUsername());
-		this.actionData.setRole(authUser.getRole());
+		try {
+			this.actionData.setUsername(authUser.getUsername());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "username");
+		}
+		try {
+			this.actionData.setRole(authUser.getRole());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "role");
+		}
 		return this.apply();
 	}
 
@@ -155,7 +163,7 @@ public abstract class AbstractGetRoleAction extends Action<IRoleData> {
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

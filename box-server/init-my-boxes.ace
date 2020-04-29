@@ -9,7 +9,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
-					today: "20200416 10:32" "yyyyMMdd HH:mm"
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -20,7 +20,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
-					today: "20200416 10:32" "yyyyMMdd HH:mm"
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 		THEN 401
 
@@ -30,7 +30,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
-					today: "20200417 08:32" "yyyyMMdd HH:mm"
+					todayAtMidnightInUTC: "20200419 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -41,7 +41,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
-					today: "20200717 15:32" "yyyyMMdd HH:mm"
+					todayAtMidnightInUTC: "20200719 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -52,7 +52,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
-					today: "20210120 06:17" "yyyyMMdd HH:mm"
+					todayAtMidnightInUTC: "20210120 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -65,7 +65,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
-					today: "20200418 13:30" "yyyyMMdd HH:mm"
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -78,7 +78,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
-					today: "20200419 10:30" "yyyyMMdd HH:mm"
+					todayAtMidnightInUTC: "20200419 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette" : "password"
 		THEN 200
@@ -91,7 +91,19 @@ scenarios
 		WHEN
 			com.anfelisa.box.InitMyBoxesForDay
 				{
-					today: "20200420 10:30" "yyyyMMdd HH:mm"
+					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette" : "password"
 		THEN 200
+
+	InitMyBoxesForDayTodayAtMidnightInUTCNull
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.InitMyBoxesForDay
+				{
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+		

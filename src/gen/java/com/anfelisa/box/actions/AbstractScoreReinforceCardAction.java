@@ -117,9 +117,21 @@ public abstract class AbstractScoreReinforceCardAction extends Action<IScoreRein
 			@NotNull IScoreReinforceCardData payload)
 			throws JsonProcessingException {
 		this.actionData = new ScoreReinforceCardData(payload.getUuid());
-		this.actionData.setReinforceCardId(payload.getReinforceCardId());
-		this.actionData.setScoredCardQuality(payload.getScoredCardQuality());
-		this.actionData.setUserId(authUser.getUserId());
+		try {
+			this.actionData.setReinforceCardId(payload.getReinforceCardId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "reinforceCardId");
+		}
+		try {
+			this.actionData.setScoredCardQuality(payload.getScoredCardQuality());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "scoredCardQuality");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
 		return this.apply();
 	}
 
@@ -158,7 +170,7 @@ public abstract class AbstractScoreReinforceCardAction extends Action<IScoreRein
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

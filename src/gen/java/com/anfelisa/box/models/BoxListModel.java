@@ -39,7 +39,7 @@ public class BoxListModel implements IBoxListModel {
 	private String userId;
 	
 	@NotNull
-	private org.joda.time.DateTime today;
+	private org.joda.time.DateTime todayAtMidnightInUTC;
 	
 
 	public BoxListModel() {
@@ -48,11 +48,11 @@ public class BoxListModel implements IBoxListModel {
 	public BoxListModel(
 		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("today") org.joda.time.DateTime today
+		@JsonProperty("todayAtMidnightInUTC") org.joda.time.DateTime todayAtMidnightInUTC
 	) {
 		this.boxList = boxList;
 		this.userId = userId;
-		this.today = today;
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 
 	@JsonProperty
@@ -74,11 +74,11 @@ public class BoxListModel implements IBoxListModel {
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getToday() {
-		return this.today;
+	public org.joda.time.DateTime getTodayAtMidnightInUTC() {
+		return this.todayAtMidnightInUTC;
 	}
-	public void setToday(org.joda.time.DateTime today) {
-		this.today = today;
+	public void setTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC) {
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 	
 	

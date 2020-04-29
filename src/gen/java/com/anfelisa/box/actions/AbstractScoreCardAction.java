@@ -117,10 +117,26 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 			@NotNull IScoreCardData payload)
 			throws JsonProcessingException {
 		this.actionData = new ScoreCardData(payload.getUuid());
-		this.actionData.setScoredCardScheduledCardId(payload.getScoredCardScheduledCardId());
-		this.actionData.setBoxId(payload.getBoxId());
-		this.actionData.setScoredCardQuality(payload.getScoredCardQuality());
-		this.actionData.setUserId(authUser.getUserId());
+		try {
+			this.actionData.setScoredCardScheduledCardId(payload.getScoredCardScheduledCardId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "scoredCardScheduledCardId");
+		}
+		try {
+			this.actionData.setBoxId(payload.getBoxId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "boxId");
+		}
+		try {
+			this.actionData.setScoredCardQuality(payload.getScoredCardQuality());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "scoredCardQuality");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
 		return this.apply();
 	}
 
@@ -159,7 +175,7 @@ public abstract class AbstractScoreCardAction extends Action<IScoreCardData> {
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

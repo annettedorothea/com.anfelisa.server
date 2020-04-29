@@ -33,7 +33,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		}
 
 		INextCardViewModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(readonlyHandle,
-				actionData.getBoxId(), actionData.getToday());
+				actionData.getBoxId(), actionData.getTodayAtMidnightInUTC());
 		if (nextCard == null) {
 			nextCard = daoProvider.getReinforceCardDao().selectFirstReinforceCard(readonlyHandle,
 					actionData.getBoxId());
@@ -41,7 +41,7 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 		if (nextCard != null) {
 			this.actionData.mapFrom(nextCard);
 		}
-		ITodaysCardsStatusModel todaysCardsStatus = daoProvider.getBoxDao().todaysCardsStatus(readonlyHandle, box.getBoxId(), actionData.getToday());
+		ITodaysCardsStatusModel todaysCardsStatus = daoProvider.getBoxDao().todaysCardsStatus(readonlyHandle, box.getBoxId(), actionData.getTodayAtMidnightInUTC());
 		this.actionData.setAllTodaysCards(todaysCardsStatus.getAllTodaysCards());
 		this.actionData.setOpenTodaysCards(todaysCardsStatus.getOpenTodaysCards());
 	}

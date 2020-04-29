@@ -19,13 +19,13 @@
 
 package com.anfelisa.box.getboxes.scenarios;
 
-import com.anfelisa.box.data.GetBoxesResponse;
+import javax.ws.rs.core.Response;
 
 @SuppressWarnings("unused")
-public class GetBoxesScenario extends AbstractGetBoxesScenario {
+public class GetBoxesWithOneScoredCard0AndReinforceSameDayScenario extends AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScenario {
 
 	@Override
-	protected void verifications(GetBoxesResponse response) {
+	protected void verifications(com.anfelisa.box.data.GetBoxesResponse response ) {
 	}
 
 }

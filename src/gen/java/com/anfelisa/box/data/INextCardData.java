@@ -33,7 +33,7 @@ public interface INextCardData extends INextCardModel, IDataContainer {
 	
 	INextCardData withBoxId(String boxId);
 	
-	INextCardData withToday(org.joda.time.DateTime today);
+	INextCardData withTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC);
 	
 	INextCardData withOpenTodaysCards(Integer openTodaysCards);
 	

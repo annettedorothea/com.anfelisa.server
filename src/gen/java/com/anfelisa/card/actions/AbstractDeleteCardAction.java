@@ -118,8 +118,16 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new CardDeleteData(uuid);
-		this.actionData.setCardId(cardId);
-		this.actionData.setUserId(authUser.getUserId());
+		try {
+			this.actionData.setCardId(cardId);
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "cardId");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
 		return this.apply();
 	}
 
@@ -158,7 +166,7 @@ public abstract class AbstractDeleteCardAction extends Action<ICardDeleteData> {
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

@@ -115,10 +115,26 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 			@NotNull IUserRegistrationData payload)
 			throws JsonProcessingException {
 		this.actionData = new UserRegistrationData(payload.getUuid());
-		this.actionData.setPassword(payload.getPassword());
-		this.actionData.setUsername(payload.getUsername());
-		this.actionData.setEmail(payload.getEmail());
-		this.actionData.setLanguage(payload.getLanguage());
+		try {
+			this.actionData.setPassword(payload.getPassword());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "password");
+		}
+		try {
+			this.actionData.setUsername(payload.getUsername());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "username");
+		}
+		try {
+			this.actionData.setEmail(payload.getEmail());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "email");
+		}
+		try {
+			this.actionData.setLanguage(payload.getLanguage());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "language");
+		}
 		return this.apply();
 	}
 
@@ -150,7 +166,7 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 				if (NotReplayableDataProvider.get("token") != null) {
 					this.actionData.setToken((String)NotReplayableDataProvider.get("token"));
 				} else {
-					LOG.warn("token is daclared as not replayable but no value was found in NotReplayableDataProvider.");
+					LOG.warn("token is declared as not replayable but no value was found in NotReplayableDataProvider.");
 				}
 			}
 			if (appConfiguration.getServerConfiguration().writeTimeline()) {
@@ -163,7 +179,7 @@ public abstract class AbstractRegisterUserAction extends Action<IUserRegistratio
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

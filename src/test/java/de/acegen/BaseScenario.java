@@ -18,6 +18,7 @@ package de.acegen;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Base64;
 import java.util.List;
@@ -32,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.box.data.GetBoxesResponse;
+import com.anfelisa.box.models.IBoxViewModel;
 import com.anfelisa.card.data.GetCardsResponse;
 import com.anfelisa.card.data.GetDuplicatesResponse;
 import com.anfelisa.card.models.ICardWithCategoryNameModel;
@@ -202,6 +204,38 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 	
 	private void assertThat(GetBoxesResponse actual, GetBoxesResponse expected) {
+		if (actual.getBoxList() == null) {
+			assertIsNull(expected.getBoxList());
+		} else if (expected.getBoxList() == null) {
+			org.junit.Assert.fail("expected.getBoxList is null");
+		} else {
+			assertThat(actual.getBoxList().size(), expected.getBoxList().size());
+			for (int i = 0; i < actual.getBoxList().size(); i++) {
+				IBoxViewModel actualBox = actual.getBoxList().get(i);
+				IBoxViewModel expectedBox = expected.getBoxList().get(i);
+				assertThat(actualBox, expectedBox);
+			}
+		}
+	}
+	
+	private void assertThat(IBoxViewModel actual, IBoxViewModel expected) {
+		if (actual == null) {
+			assertIsNull(expected);
+		} else if (expected == null) {
+			org.junit.Assert.fail("expected is null");
+		} else {
+			assertEquals(expected.getAllTodaysCards(), actual.getAllTodaysCards());
+			assertEquals(expected.getBoxId(), actual.getBoxId());
+			assertEquals(expected.getCategoryId(), actual.getCategoryId());
+			assertEquals(expected.getCategoryName(), actual.getCategoryName());
+			assertEquals(expected.getOpenTodaysCards(), actual.getOpenTodaysCards());
+			assertEquals(expected.getQuality0Count(), actual.getQuality0Count());
+			assertEquals(expected.getQuality1Count(), actual.getQuality1Count());
+			assertEquals(expected.getQuality2Count(), actual.getQuality2Count());
+			assertEquals(expected.getQuality3Count(), actual.getQuality3Count());
+			assertEquals(expected.getQuality4Count(), actual.getQuality4Count());
+			assertEquals(expected.getQuality5Count(), actual.getQuality5Count());
+		}
 	}
 	
 	@Override

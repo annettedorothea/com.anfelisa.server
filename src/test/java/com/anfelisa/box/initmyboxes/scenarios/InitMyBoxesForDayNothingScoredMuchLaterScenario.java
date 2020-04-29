@@ -32,8 +32,8 @@ public class InitMyBoxesForDayNothingScoredMuchLaterScenario extends AbstractIni
 
 	@Override
 	protected void verifications() {
-		DateTime createdDateTime = new DateTime(2020, 4, 16, 10, 30).withZone(DateTimeZone.UTC);
-		DateTime dateTime = new DateTime(2020, 7, 17, 10, 30).withZone(DateTimeZone.UTC);
+		DateTime createdDateTime = new DateTime(2020, 4, 18, 10, 30).withZone(DateTimeZone.UTC);
+		DateTime dateTime = new DateTime(2020, 7, 19, 10, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByCardIdAndBoxId(handle,
 				"c1", "boxId");

@@ -117,10 +117,26 @@ public abstract class AbstractChangeUserRoleAction extends Action<IChangeUserRol
 			@NotNull IChangeUserRoleData payload)
 			throws JsonProcessingException {
 		this.actionData = new ChangeUserRoleData(payload.getUuid());
-		this.actionData.setNewRole(payload.getNewRole());
-		this.actionData.setEditedUserId(payload.getEditedUserId());
-		this.actionData.setUserId(authUser.getUserId());
-		this.actionData.setRole(authUser.getRole());
+		try {
+			this.actionData.setNewRole(payload.getNewRole());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "newRole");
+		}
+		try {
+			this.actionData.setEditedUserId(payload.getEditedUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "editedUserId");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
+		try {
+			this.actionData.setRole(authUser.getRole());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "role");
+		}
 		return this.apply();
 	}
 
@@ -159,7 +175,7 @@ public abstract class AbstractChangeUserRoleAction extends Action<IChangeUserRol
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

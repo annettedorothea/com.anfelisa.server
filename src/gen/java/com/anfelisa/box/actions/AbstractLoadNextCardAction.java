@@ -114,13 +114,25 @@ public abstract class AbstractLoadNextCardAction extends Action<INextCardData> {
 	public Response loadNextCardResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("boxId") String boxId, 
-			@QueryParam("today") String today, 
+			@QueryParam("todayAtMidnightInUTC") String todayAtMidnightInUTC, 
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new NextCardData(uuid);
-		this.actionData.setBoxId(boxId);
-		this.actionData.setToday(new DateTime(today).withZone(DateTimeZone.UTC));
-		this.actionData.setUserId(authUser.getUserId());
+		try {
+			this.actionData.setBoxId(boxId);
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "boxId");
+		}
+		try {
+			this.actionData.setTodayAtMidnightInUTC(new DateTime(todayAtMidnightInUTC).withZone(DateTimeZone.UTC));
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "todayAtMidnightInUTC");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
 		return this.apply();
 	}
 
@@ -158,7 +170,7 @@ public abstract class AbstractLoadNextCardAction extends Action<INextCardData> {
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

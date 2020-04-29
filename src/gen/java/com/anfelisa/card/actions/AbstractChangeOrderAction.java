@@ -117,9 +117,21 @@ public abstract class AbstractChangeOrderAction extends Action<IChangeCardOrderL
 			@NotNull IChangeCardOrderListData payload)
 			throws JsonProcessingException {
 		this.actionData = new ChangeCardOrderListData(payload.getUuid());
-		this.actionData.setCardIdList(payload.getCardIdList());
-		this.actionData.setCardId(payload.getCardId());
-		this.actionData.setUserId(authUser.getUserId());
+		try {
+			this.actionData.setCardIdList(payload.getCardIdList());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "cardIdList");
+		}
+		try {
+			this.actionData.setCardId(payload.getCardId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "cardId");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
 		return this.apply();
 	}
 
@@ -158,7 +170,7 @@ public abstract class AbstractChangeOrderAction extends Action<IChangeCardOrderL
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

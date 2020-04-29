@@ -9,7 +9,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.ScheduleCards
 				uuid "sc1"
-				systemTime "20200416 10:30" "yyyyMMdd HH:mm"
+				systemTime "20200418 10:30" "yyyyMMdd HH:mm"
 				{
 					cardIds: ["c1", "c3", "c4" ]
 				}
@@ -22,7 +22,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.ScheduleCards
 				uuid "abcdefghi-abcdefghi-abcdefghi-abcdefghi-abcdefghi"
-				systemTime "20200416 10:30" "yyyyMMdd HH:mm"
+				systemTime "20200418 10:30" "yyyyMMdd HH:mm"
 				{
 					cardIds: ["123456789-123456789-123456789-123456789"]
 				}
@@ -35,7 +35,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.ScheduleCards
 				uuid "sc1"
-				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
+				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
 					cardIds: ["c2", "c5" ]
 				}
@@ -48,7 +48,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.ScheduleCards
 				uuid "sc1"
-				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
+				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
 					cardIds: []
 				}
@@ -61,7 +61,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.ScheduleCards
 				uuid "sc1"
-				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
+				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				authorization "Annette" : "password"
 		THEN 200
 
@@ -71,7 +71,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.ScheduleCards
 				uuid "sc1"
-				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
+				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
 					cardIds: ["c2", "c5" ]
 				}
@@ -84,7 +84,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.ScheduleCards
 				uuid "sc1"
-				systemTime "20200417 12:20" "yyyyMMdd HH:mm"
+				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
 					cardIds: ["c2", "c5" ]
 				}

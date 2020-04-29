@@ -115,7 +115,11 @@ public abstract class AbstractUsernameAvailableAction extends Action<IUsernameAv
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new UsernameAvailableData(uuid);
-		this.actionData.setUsername(username);
+		try {
+			this.actionData.setUsername(username);
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "username");
+		}
 		return this.apply();
 	}
 
@@ -153,7 +157,7 @@ public abstract class AbstractUsernameAvailableAction extends Action<IUsernameAv
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

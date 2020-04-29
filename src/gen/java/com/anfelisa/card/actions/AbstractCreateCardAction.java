@@ -117,12 +117,36 @@ public abstract class AbstractCreateCardAction extends Action<ICardCreationData>
 			@NotNull ICardCreationData payload)
 			throws JsonProcessingException {
 		this.actionData = new CardCreationData(payload.getUuid());
-		this.actionData.setWanted(payload.getWanted());
-		this.actionData.setGiven(payload.getGiven());
-		this.actionData.setImage(payload.getImage());
-		this.actionData.setCategoryId(payload.getCategoryId());
-		this.actionData.setUserId(authUser.getUserId());
-		this.actionData.setUsername(authUser.getUsername());
+		try {
+			this.actionData.setWanted(payload.getWanted());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "wanted");
+		}
+		try {
+			this.actionData.setGiven(payload.getGiven());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "given");
+		}
+		try {
+			this.actionData.setImage(payload.getImage());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "image");
+		}
+		try {
+			this.actionData.setCategoryId(payload.getCategoryId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "categoryId");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
+		try {
+			this.actionData.setUsername(authUser.getUsername());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "username");
+		}
 		return this.apply();
 	}
 
@@ -161,7 +185,7 @@ public abstract class AbstractCreateCardAction extends Action<ICardCreationData>
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

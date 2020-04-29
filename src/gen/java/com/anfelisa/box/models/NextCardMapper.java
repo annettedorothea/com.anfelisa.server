@@ -31,7 +31,7 @@ public class NextCardMapper implements RowMapper<INextCardModel> {
 		return new NextCardModel(
 			r.getString("userId"),
 			r.getString("boxId"),
-			r.getTimestamp("today") != null ? new org.joda.time.DateTime(r.getTimestamp("today")).withZone(org.joda.time.DateTimeZone.UTC) : null,
+			r.getTimestamp("todayAtMidnightInUTC") != null ? new org.joda.time.DateTime(r.getTimestamp("todayAtMidnightInUTC")).withZone(org.joda.time.DateTimeZone.UTC) : null,
 			r.getObject("openTodaysCards") != null ? r.getInt("openTodaysCards") : null,
 			r.getObject("allTodaysCards") != null ? r.getInt("allTodaysCards") : null,
 			r.getString("scheduledCardId"),

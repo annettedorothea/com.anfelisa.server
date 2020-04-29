@@ -36,7 +36,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetBoxesScenario extends BaseScenario {
+public abstract class AbstractGetBoxesTodayAtMidnightInUTCNullScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		Response response;
@@ -173,7 +173,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200416 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		response = 
 		com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
 			"\"uuid\" : \"sc1\"," + 
@@ -190,65 +190,13 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score0\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 0," + 
-				"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score1\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 1," + 
-				"\"scoredCardScheduledCardId\" : \"c3-sc1\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score5\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 5," + 
-				"\"scoredCardScheduledCardId\" : \"c4-sc1\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-
 	}
 	
 	private Response when() throws Exception {
 		
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxes(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"today\" : \"2020-04-20T16:30:00.000Z\"} ",
+			"\"uuid\" : \"" + this.randomUUID() + "\"} ",
 		com.anfelisa.box.data.BoxListData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
@@ -260,40 +208,19 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 			String message = response.readEntity(String.class);
 			assertFail(message);
 		}
-		assertThat(response.getStatus(), 200);
+		assertThat(response.getStatus(), 400);
 		
 		com.anfelisa.box.data.GetBoxesResponse actual = null;
 		try {
 			actual = response.readEntity(com.anfelisa.box.data.GetBoxesResponse.class);
 		} catch (Exception x) {
 		}
-		com.anfelisa.box.data.BoxListData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"boxList\" : [ { \"allTodaysCards\" : 0," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
-				"\"categoryName\" : \"cat\"," + 
-				"\"openTodaysCards\" : 4," + 
-				"\"quality0Count\" : 1," + 
-				"\"quality1Count\" : 1," + 
-				"\"quality2Count\" : 0," + 
-				"\"quality3Count\" : 0," + 
-				"\"quality4Count\" : 0," + 
-				"\"quality5Count\" : 1}]} ",
-		com.anfelisa.box.data.BoxListData.class)
-		
-		;
-		
-		com.anfelisa.box.data.GetBoxesResponse expected = new com.anfelisa.box.data.GetBoxesResponse(expectedData);
-
-
-		assertThat(actual, expected);
 			
 			return actual;
 				}
 				
 				@Test
-				public void getBoxes() throws Exception {
+				public void getBoxesTodayAtMidnightInUTCNull() throws Exception {
 					given();
 					
 					Response response = when();
@@ -307,7 +234,7 @@ public abstract class AbstractGetBoxesScenario extends BaseScenario {
 				
 				@Override
 				protected String scenarioName() {
-					return "GetBoxes";
+					return "GetBoxesTodayAtMidnightInUTCNull";
 				}
 			
 			}

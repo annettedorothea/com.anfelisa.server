@@ -47,19 +47,19 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 	private String userId;
 	
 	@NotNull
-	private org.joda.time.DateTime today;
+	private org.joda.time.DateTime todayAtMidnightInUTC;
 	
 
 	public AbstractBoxListData(
 		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("today") org.joda.time.DateTime today
+		@JsonProperty("todayAtMidnightInUTC") org.joda.time.DateTime todayAtMidnightInUTC
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.boxList = boxList;
 		this.userId = userId;
-		this.today = today;
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 
 	public AbstractBoxListData( String uuid ) {
@@ -93,14 +93,14 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getToday() {
-		return this.today;
+	public org.joda.time.DateTime getTodayAtMidnightInUTC() {
+		return this.todayAtMidnightInUTC;
 	}
-	public void setToday(org.joda.time.DateTime today) {
-		this.today = today;
+	public void setTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC) {
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
-	public IBoxListData withToday(org.joda.time.DateTime today) {
-		this.today = today;
+	public IBoxListData withTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC) {
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 		return this;
 	}
 	

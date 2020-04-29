@@ -116,7 +116,11 @@ public abstract class AbstractGetAllUsersAction extends Action<IUserListData> {
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new UserListData(uuid);
-		this.actionData.setRole(authUser.getRole());
+		try {
+			this.actionData.setRole(authUser.getRole());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "role");
+		}
 		return this.apply();
 	}
 
@@ -154,7 +158,7 @@ public abstract class AbstractGetAllUsersAction extends Action<IUserListData> {
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

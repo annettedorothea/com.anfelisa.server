@@ -30,7 +30,7 @@ public interface IInitMyBoxesDataData extends IInitMyBoxesDataModel, IDataContai
 	
 	IInitMyBoxesDataData withUserId(String userId);
 	
-	IInitMyBoxesDataData withToday(org.joda.time.DateTime today);
+	IInitMyBoxesDataData withTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC);
 	
 	IInitMyBoxesDataData withPostponeCards(java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards);
 	

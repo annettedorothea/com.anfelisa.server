@@ -115,8 +115,16 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 			@NotNull IResetPasswordWithNewPasswordData payload)
 			throws JsonProcessingException {
 		this.actionData = new ResetPasswordWithNewPasswordData(payload.getUuid());
-		this.actionData.setPassword(payload.getPassword());
-		this.actionData.setToken(payload.getToken());
+		try {
+			this.actionData.setPassword(payload.getPassword());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "password");
+		}
+		try {
+			this.actionData.setToken(payload.getToken());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "token");
+		}
 		return this.apply();
 	}
 
@@ -148,7 +156,7 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 				if (NotReplayableDataProvider.get("token") != null) {
 					this.actionData.setToken((String)NotReplayableDataProvider.get("token"));
 				} else {
-					LOG.warn("token is daclared as not replayable but no value was found in NotReplayableDataProvider.");
+					LOG.warn("token is declared as not replayable but no value was found in NotReplayableDataProvider.");
 				}
 			}
 			if (appConfiguration.getServerConfiguration().writeTimeline()) {
@@ -161,7 +169,7 @@ public abstract class AbstractResetPasswordAction extends Action<IResetPasswordW
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

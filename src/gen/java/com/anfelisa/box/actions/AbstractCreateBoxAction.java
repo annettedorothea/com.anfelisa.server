@@ -117,14 +117,46 @@ public abstract class AbstractCreateBoxAction extends Action<IBoxCreationData> {
 			@NotNull IBoxCreationData payload)
 			throws JsonProcessingException {
 		this.actionData = new BoxCreationData(payload.getUuid());
-		this.actionData.setCategoryName(payload.getCategoryName());
-		this.actionData.setDictionaryLookup(payload.getDictionaryLookup());
-		this.actionData.setGivenLanguage(payload.getGivenLanguage());
-		this.actionData.setWantedLanguage(payload.getWantedLanguage());
-		this.actionData.setMaxCardsPerDay(payload.getMaxCardsPerDay());
-		this.actionData.setMaxInterval(payload.getMaxInterval());
-		this.actionData.setUsername(authUser.getUsername());
-		this.actionData.setUserId(authUser.getUserId());
+		try {
+			this.actionData.setCategoryName(payload.getCategoryName());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "categoryName");
+		}
+		try {
+			this.actionData.setDictionaryLookup(payload.getDictionaryLookup());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "dictionaryLookup");
+		}
+		try {
+			this.actionData.setGivenLanguage(payload.getGivenLanguage());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "givenLanguage");
+		}
+		try {
+			this.actionData.setWantedLanguage(payload.getWantedLanguage());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "wantedLanguage");
+		}
+		try {
+			this.actionData.setMaxCardsPerDay(payload.getMaxCardsPerDay());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "maxCardsPerDay");
+		}
+		try {
+			this.actionData.setMaxInterval(payload.getMaxInterval());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "maxInterval");
+		}
+		try {
+			this.actionData.setUsername(authUser.getUsername());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "username");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
 		return this.apply();
 	}
 
@@ -163,7 +195,7 @@ public abstract class AbstractCreateBoxAction extends Action<IBoxCreationData> {
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

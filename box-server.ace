@@ -75,13 +75,13 @@ ACE
 		PUT "/box/init"  
 		authorize
 		payload 
-			today 
+			todayAtMidnightInUTC 
 		on ok ( ScheduledCard.postponeCards ReinforceCard.clear )
 	
 	GetBoxes<BoxList>
 	GET "/boxes/my/" 
 		authorize 
-		queryParams today
+		queryParams todayAtMidnightInUTC
 		response 
 			boxList
 		
@@ -90,7 +90,7 @@ ACE
 		authorize  
 		queryParams 
 			boxId 
-			today
+			todayAtMidnightInUTC
 		response
 			cardId
 			categoryId
@@ -200,11 +200,11 @@ models
 	BoxList {
 		List BoxView boxList
 		String userId
-		NotNull DateTime today
+		NotNull DateTime todayAtMidnightInUTC
 	}
 	InitMyBoxesData {
 		String userId
-		NotNull DateTime today
+		NotNull DateTime todayAtMidnightInUTC
 		List PostponeCards postponeCards
 		List String outdatedReinforceCardsIds
 	}
@@ -259,7 +259,7 @@ models
 	NextCard extends NextCardView {
 		String userId
 		NotNull String boxId
-		NotNull DateTime today
+		NotNull DateTime todayAtMidnightInUTC
 		Integer openTodaysCards
 		Integer allTodaysCards
 	}

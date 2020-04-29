@@ -104,7 +104,7 @@ public class ActionCalls {
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/boxes/my/?uuid=" + data.getUuid() + "&today=" + data.getToday(), port)).request(); 
+		Builder builder = client.target(String.format("http://localhost:%d/api/boxes/my/?uuid=" + data.getUuid() + "&todayAtMidnightInUTC=" + data.getTodayAtMidnightInUTC(), port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
@@ -114,7 +114,7 @@ public class ActionCalls {
 			int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/box/next-card?uuid=" + data.getUuid() + "&boxId=" + data.getBoxId() + "&today=" + data.getToday(), port)).request(); 
+		Builder builder = client.target(String.format("http://localhost:%d/api/box/next-card?uuid=" + data.getUuid() + "&boxId=" + data.getBoxId() + "&todayAtMidnightInUTC=" + data.getTodayAtMidnightInUTC(), port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}

@@ -116,10 +116,26 @@ public abstract class AbstractGetUserProfileAction extends Action<IUserData> {
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new UserData(uuid);
-		this.actionData.setUserId(authUser.getUserId());
-		this.actionData.setUsername(authUser.getUsername());
-		this.actionData.setPassword(authUser.getPassword());
-		this.actionData.setRole(authUser.getRole());
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
+		try {
+			this.actionData.setUsername(authUser.getUsername());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "username");
+		}
+		try {
+			this.actionData.setPassword(authUser.getPassword());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "password");
+		}
+		try {
+			this.actionData.setRole(authUser.getRole());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "role");
+		}
 		return this.apply();
 	}
 
@@ -157,7 +173,7 @@ public abstract class AbstractGetUserProfileAction extends Action<IUserData> {
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

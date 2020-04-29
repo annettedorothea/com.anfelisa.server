@@ -117,11 +117,31 @@ public abstract class AbstractUpdateCardAction extends Action<ICardUpdateData> {
 			@NotNull ICardUpdateData payload)
 			throws JsonProcessingException {
 		this.actionData = new CardUpdateData(payload.getUuid());
-		this.actionData.setCardId(payload.getCardId());
-		this.actionData.setGiven(payload.getGiven());
-		this.actionData.setImage(payload.getImage());
-		this.actionData.setWanted(payload.getWanted());
-		this.actionData.setUserId(authUser.getUserId());
+		try {
+			this.actionData.setCardId(payload.getCardId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "cardId");
+		}
+		try {
+			this.actionData.setGiven(payload.getGiven());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "given");
+		}
+		try {
+			this.actionData.setImage(payload.getImage());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "image");
+		}
+		try {
+			this.actionData.setWanted(payload.getWanted());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "wanted");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
 		return this.apply();
 	}
 
@@ -160,7 +180,7 @@ public abstract class AbstractUpdateCardAction extends Action<ICardUpdateData> {
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

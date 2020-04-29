@@ -32,7 +32,7 @@ public interface IBoxListData extends IBoxListModel, IDataContainer {
 	
 	IBoxListData withUserId(String userId);
 	
-	IBoxListData withToday(org.joda.time.DateTime today);
+	IBoxListData withTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC);
 	
 	
 }

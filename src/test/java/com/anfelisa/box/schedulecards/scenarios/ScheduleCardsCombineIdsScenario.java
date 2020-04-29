@@ -27,7 +27,7 @@ public class ScheduleCardsCombineIdsScenario extends AbstractScheduleCardsCombin
 
 	@Override
 	protected void verifications() {
-		DateTime dateTime = new DateTime(2020, 4, 16, 10, 30).withZone(DateTimeZone.UTC);
+		DateTime dateTime = new DateTime(2020, 4, 18, 10, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByCardIdAndBoxId(handle,
 				"123456789-123456789-123456789-123456789", "boxId");

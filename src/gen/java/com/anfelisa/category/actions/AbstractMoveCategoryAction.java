@@ -117,9 +117,21 @@ public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveDat
 			@NotNull ICategoryMoveData payload)
 			throws JsonProcessingException {
 		this.actionData = new CategoryMoveData(payload.getUuid());
-		this.actionData.setMovedCategoryId(payload.getMovedCategoryId());
-		this.actionData.setTargetCategoryId(payload.getTargetCategoryId());
-		this.actionData.setUserId(authUser.getUserId());
+		try {
+			this.actionData.setMovedCategoryId(payload.getMovedCategoryId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "movedCategoryId");
+		}
+		try {
+			this.actionData.setTargetCategoryId(payload.getTargetCategoryId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "targetCategoryId");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
 		return this.apply();
 	}
 
@@ -158,7 +170,7 @@ public abstract class AbstractMoveCategoryAction extends Action<ICategoryMoveDat
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

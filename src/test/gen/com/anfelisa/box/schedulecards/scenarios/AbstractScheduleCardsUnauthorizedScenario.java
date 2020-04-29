@@ -176,7 +176,7 @@ public abstract class AbstractScheduleCardsUnauthorizedScenario extends BaseScen
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200417 12:20", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200419 12:20", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		
 		return 
 		com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +

@@ -30,7 +30,7 @@ public class InitMyBoxesDataMapper implements RowMapper<IInitMyBoxesDataModel> {
 	public IInitMyBoxesDataModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new InitMyBoxesDataModel(
 			r.getString("userId"),
-			r.getTimestamp("today") != null ? new org.joda.time.DateTime(r.getTimestamp("today")).withZone(org.joda.time.DateTimeZone.UTC) : null,
+			r.getTimestamp("todayAtMidnightInUTC") != null ? new org.joda.time.DateTime(r.getTimestamp("todayAtMidnightInUTC")).withZone(org.joda.time.DateTimeZone.UTC) : null,
 			null,
 			null
 		);

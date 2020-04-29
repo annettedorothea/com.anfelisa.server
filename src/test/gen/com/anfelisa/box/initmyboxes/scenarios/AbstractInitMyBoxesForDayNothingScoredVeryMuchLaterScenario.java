@@ -173,7 +173,7 @@ public abstract class AbstractInitMyBoxesForDayNothingScoredVeryMuchLaterScenari
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200416 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		response = 
 		com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
 			"\"uuid\" : \"sc1\"," + 
@@ -197,7 +197,7 @@ public abstract class AbstractInitMyBoxesForDayNothingScoredVeryMuchLaterScenari
 		return 
 		com.anfelisa.box.ActionCalls.callInitMyBoxesForDay(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"today\" : \"2021-01-20T05:17:00.000Z\"} ",
+				"\"todayAtMidnightInUTC\" : \"2021-01-20T01:00:00.000Z\"} ",
 		com.anfelisa.box.data.InitMyBoxesDataData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

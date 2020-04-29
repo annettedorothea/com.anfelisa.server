@@ -120,11 +120,31 @@ public abstract class AbstractGetDuplicatesAction extends Action<ICardSearchData
 			@NotNull @QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
 		this.actionData = new CardSearchData(uuid);
-		this.actionData.setGiven(given);
-		this.actionData.setWanted(wanted);
-		this.actionData.setNaturalInputOrder(naturalInputOrder);
-		this.actionData.setCategoryId(categoryId);
-		this.actionData.setUserId(authUser.getUserId());
+		try {
+			this.actionData.setGiven(given);
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "given");
+		}
+		try {
+			this.actionData.setWanted(wanted);
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "wanted");
+		}
+		try {
+			this.actionData.setNaturalInputOrder(naturalInputOrder);
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "naturalInputOrder");
+		}
+		try {
+			this.actionData.setCategoryId(categoryId);
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "categoryId");
+		}
+		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
 		return this.apply();
 	}
 
@@ -162,7 +182,7 @@ public abstract class AbstractGetDuplicatesAction extends Action<ICardSearchData
 			databaseHandle.commitTransaction();
 			return response;
 		} catch (WebApplicationException x) {
-			LOG.error(actionName + " failed " + x.getMessage());
+			LOG.error(actionName + " returns {} due to {} ", x.getResponse().getStatusInfo(), x.getMessage());
 			try {
 				databaseHandle.rollbackTransaction();
 				if (appConfiguration.getServerConfiguration().writeError()) {

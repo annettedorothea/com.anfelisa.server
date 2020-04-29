@@ -40,7 +40,7 @@ public class NextCardModel implements INextCardModel {
 	private String boxId;
 	
 	@NotNull
-	private org.joda.time.DateTime today;
+	private org.joda.time.DateTime todayAtMidnightInUTC;
 	
 	private Integer openTodaysCards;
 	
@@ -82,7 +82,7 @@ public class NextCardModel implements INextCardModel {
 	public NextCardModel(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("today") org.joda.time.DateTime today,
+		@JsonProperty("todayAtMidnightInUTC") org.joda.time.DateTime todayAtMidnightInUTC,
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("allTodaysCards") Integer allTodaysCards,
 		@JsonProperty("scheduledCardId") String scheduledCardId,
@@ -100,7 +100,7 @@ public class NextCardModel implements INextCardModel {
 	) {
 		this.userId = userId;
 		this.boxId = boxId;
-		this.today = today;
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 		this.openTodaysCards = openTodaysCards;
 		this.allTodaysCards = allTodaysCards;
 		this.scheduledCardId = scheduledCardId;
@@ -136,11 +136,11 @@ public class NextCardModel implements INextCardModel {
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getToday() {
-		return this.today;
+	public org.joda.time.DateTime getTodayAtMidnightInUTC() {
+		return this.todayAtMidnightInUTC;
 	}
-	public void setToday(org.joda.time.DateTime today) {
-		this.today = today;
+	public void setTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC) {
+		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 	
 	@JsonProperty
