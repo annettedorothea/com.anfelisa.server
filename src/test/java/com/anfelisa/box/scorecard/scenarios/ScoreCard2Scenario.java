@@ -41,7 +41,7 @@ public class ScoreCard2Scenario extends AbstractScoreCard2Scenario {
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 		
-		DateTime dateTime = new DateTime(2020, 4, 16, 10, 30).withZone(DateTimeZone.UTC);
+		DateTime dateTime = new DateTime(2020, 4, 18, 10, 30).withZone(DateTimeZone.UTC);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"c1-sc1");
