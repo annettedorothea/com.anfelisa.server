@@ -87,6 +87,20 @@ scenarios
 				authorization "Annette" : "password"
 		THEN 200
 		
+	ScoreOtherReinforceCard
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard1
+		WHEN
+			com.anfelisa.box.ScoreReinforceCard
+				uuid "1"
+				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
+				{
+					scoredCardQuality: 5,
+					reinforceCardId: "score1"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		
 	ScoreReinforceCardNotMyCard
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0
