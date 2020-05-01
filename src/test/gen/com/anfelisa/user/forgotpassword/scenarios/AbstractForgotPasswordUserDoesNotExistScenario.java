@@ -48,8 +48,7 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"," + 
-				"\"token\" : \"TOKEN\"} ",
+				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());
@@ -70,8 +69,7 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 		com.anfelisa.user.ActionCalls.callForgotPassword(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"language\" : \"de\"," + 
-				"\"username\" : \"doesNotExist\"," + 
-				"\"token\" : \"RESET-PW-TOKEN\"} ",
+				"\"username\" : \"doesNotExist\"} ",
 		com.anfelisa.user.data.ForgotPasswordData.class)
 		
 		, DROPWIZARD.getLocalPort());

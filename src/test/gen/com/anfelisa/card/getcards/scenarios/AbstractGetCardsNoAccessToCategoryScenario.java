@@ -48,8 +48,7 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"," + 
-				"\"token\" : \"TOKEN\"} ",
+				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());
@@ -181,8 +180,7 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"admin-password\"," + 
-				"\"username\" : \"Admin\"," + 
-				"\"token\" : \"ADMIN-TOKEN\"} ",
+				"\"username\" : \"Admin\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());

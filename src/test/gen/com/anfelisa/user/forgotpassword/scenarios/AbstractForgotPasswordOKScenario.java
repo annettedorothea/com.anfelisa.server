@@ -48,8 +48,7 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"," + 
-				"\"token\" : \"TOKEN\"} ",
+				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());
@@ -70,8 +69,7 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 		com.anfelisa.user.ActionCalls.callForgotPassword(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"language\" : \"de\"," + 
-				"\"username\" : \"Annette\"," + 
-				"\"token\" : \"RESET-PW-TOKEN\"} ",
+				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ForgotPasswordData.class)
 		
 		, DROPWIZARD.getLocalPort());

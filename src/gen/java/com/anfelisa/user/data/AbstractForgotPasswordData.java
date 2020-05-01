@@ -31,7 +31,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import com.anfelisa.user.models.IForgotPasswordModel;
-import com.anfelisa.user.models.IResetPasswordModel;
 
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
@@ -140,10 +139,6 @@ public abstract class AbstractForgotPasswordData extends AbstractData implements
 	}
 	
 	
-	public void mapFrom(com.anfelisa.user.models.IResetPasswordModel model) {
-		this.token = model.getToken();
-		this.userId = model.getUserId();
-	}
 	
 }
 

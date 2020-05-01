@@ -31,7 +31,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import com.anfelisa.user.models.IResetPasswordWithNewPasswordModel;
-import com.anfelisa.user.models.IResetPasswordModel;
 
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
@@ -106,10 +105,6 @@ public abstract class AbstractResetPasswordWithNewPasswordData extends AbstractD
 	}
 	
 	
-	public void mapFrom(com.anfelisa.user.models.IResetPasswordModel model) {
-		this.token = model.getToken();
-		this.userId = model.getUserId();
-	}
 	
 }
 

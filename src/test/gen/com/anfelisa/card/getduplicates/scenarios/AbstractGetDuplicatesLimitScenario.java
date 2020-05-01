@@ -48,8 +48,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"," + 
-				"\"token\" : \"TOKEN\"} ",
+				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());
@@ -91,7 +90,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		}
 		
 
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -100,6 +99,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -116,7 +120,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -125,6 +129,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -141,7 +150,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -150,6 +159,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -166,7 +180,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -175,6 +189,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -191,7 +210,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -200,6 +219,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -216,7 +240,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -225,6 +249,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -241,7 +270,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -250,6 +279,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -266,7 +300,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -275,6 +309,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -291,7 +330,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -300,6 +339,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -316,7 +360,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -325,6 +369,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -341,7 +390,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -350,6 +399,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -366,7 +420,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -375,6 +429,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -391,7 +450,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -400,6 +459,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -416,7 +480,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -425,6 +489,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -441,7 +510,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			assertFail(message);
 		}
 		
-		
+		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
@@ -451,387 +520,17 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
 		response = 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"given\" : \"58given" + this.randomString() + "\"," + 
 				"\"wanted\" : \"59wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"60given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"61wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"62given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"63wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"64given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"65wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"66given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"67wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"68given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"69wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"70given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"71wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"72given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"73wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"74given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"75wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"76given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"77wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"78given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"79wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"80given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"81wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"82given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"83wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"84given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"85wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"86given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"87wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"88given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"89wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"90given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"91wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"92given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"93wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"94given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"95wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"96given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"97wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"98given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"99wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"100given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"101wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"102given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"103wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"104given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"105wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"106given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"107wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"108given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"109wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"110given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"111wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"112given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"113wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"114given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"115wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() == 500) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-		
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"116given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"117wanted" + this.randomString() + "\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"118given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"119wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

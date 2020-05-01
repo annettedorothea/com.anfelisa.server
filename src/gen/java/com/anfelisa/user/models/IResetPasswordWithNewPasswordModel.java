@@ -24,10 +24,16 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @SuppressWarnings("unused")
 @JsonDeserialize(as=ResetPasswordWithNewPasswordModel.class)
-public interface IResetPasswordWithNewPasswordModel extends com.anfelisa.user.models.IResetPasswordModel{
+public interface IResetPasswordWithNewPasswordModel {
 
 	String getPassword();
 	void setPassword(String password);
+	
+	String getToken();
+	void setToken(String token);
+	
+	String getUserId();
+	void setUserId(String userId);
 	
 	
 }

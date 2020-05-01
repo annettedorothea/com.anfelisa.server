@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @SuppressWarnings("unused")
 @JsonDeserialize(as=ForgotPasswordModel.class)
-public interface IForgotPasswordModel extends com.anfelisa.user.models.IResetPasswordModel{
+public interface IForgotPasswordModel {
 
 	String getLanguage();
 	void setLanguage(String language);
@@ -34,6 +34,12 @@ public interface IForgotPasswordModel extends com.anfelisa.user.models.IResetPas
 	
 	String getUsername();
 	void setUsername(String username);
+	
+	String getToken();
+	void setToken(String token);
+	
+	String getUserId();
+	void setUserId(String userId);
 	
 	
 }

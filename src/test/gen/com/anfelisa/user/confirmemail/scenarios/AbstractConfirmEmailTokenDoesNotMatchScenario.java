@@ -48,8 +48,7 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"," + 
-				"\"token\" : \"TOKEN\"} ",
+				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());
@@ -68,8 +67,7 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"admin-password\"," + 
-				"\"username\" : \"Admin\"," + 
-				"\"token\" : \"ADMIN-TOKEN\"} ",
+				"\"username\" : \"Admin\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());
@@ -89,7 +87,6 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 		return 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"token\" : \"ADMIN-TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
 		

@@ -48,8 +48,7 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"," + 
-				"\"token\" : \"TOKEN\"} ",
+				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());
@@ -72,8 +71,7 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 				"\"email\" : \"info@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"pw\"," + 
-				"\"username\" : \"Anne\"," + 
-				"\"token\" : \"TOKEN_2\"} ",
+				"\"username\" : \"Anne\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());

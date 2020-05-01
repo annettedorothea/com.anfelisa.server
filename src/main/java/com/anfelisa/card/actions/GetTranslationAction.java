@@ -59,9 +59,8 @@ public class GetTranslationAction extends AbstractGetTranslationAction {
 				this.actionData.setTargetValue(translation.get("text").toString());
 			}
 		} catch (Exception e) {
-			//LOG.error(e.getMessage(), e);
+			LOG.error(e.getMessage(), e);
 			this.actionData.setTargetValue("");
-			//App.reportException(e);
 		}
 	}
 

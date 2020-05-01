@@ -48,8 +48,7 @@ public abstract class AbstractDeleteRootCategoryScenario extends BaseScenario {
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"," + 
-				"\"token\" : \"TOKEN\"} ",
+				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());
@@ -114,8 +113,7 @@ public abstract class AbstractDeleteRootCategoryScenario extends BaseScenario {
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"admin-password\"," + 
-				"\"username\" : \"Admin\"," + 
-				"\"token\" : \"ADMIN-TOKEN\"} ",
+				"\"username\" : \"Admin\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());

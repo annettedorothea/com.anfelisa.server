@@ -71,7 +71,6 @@ ACE
 				editedUserId
 		on ok ( User.changeUserRole )
 	
-	// TODO user has to type email as verification, cascade all data of user and scenario that verifies that all user data is deleted also
 	DeleteUser <DeleteUser>
 		DELETE "/user/delete"  
 		authorize
@@ -147,7 +146,7 @@ models
 	}
 
 	persistent ResetPassword {
-		Unique PrimaryKey NotNull String token notReplayable
+		Unique PrimaryKey NotNull String token
 		NotNull String userId
 	}
 	
@@ -179,14 +178,18 @@ models
 		Boolean available
 	}
 	
-	ForgotPassword extends ResetPassword {
+	ForgotPassword {
 		NotNull String language
 		NotNull String email
 		NotNull String username
+		NotNull String token notReplayable
+		NotNull String userId
 	}
 
-	ResetPasswordWithNewPassword extends ResetPassword {
+	ResetPasswordWithNewPassword {
 		NotNull String password
+		NotNull String token
+		NotNull String userId
 	}
 	
 	UserRegistration extends User, EmailConfirmation {

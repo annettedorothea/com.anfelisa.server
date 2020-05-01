@@ -15,7 +15,7 @@ public class ResetPasswordView implements IResetPasswordView {
 		this.daoProvider = daoProvider;
 	}
 	public void insert(IForgotPasswordData data, PersistenceHandle handle) {
-		daoProvider.getResetPasswordDao().insert(handle, data);
+		daoProvider.getResetPasswordDao().insert(handle, data.getToken(), data.getUserId());
 	}
 	public void delete(IResetPasswordWithNewPasswordData data, PersistenceHandle handle) {
 		daoProvider.getResetPasswordDao().deleteByToken(handle, data.getToken());

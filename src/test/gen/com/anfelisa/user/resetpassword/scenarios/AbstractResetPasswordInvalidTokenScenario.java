@@ -48,8 +48,7 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"," + 
-				"\"token\" : \"TOKEN\"} ",
+				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, DROPWIZARD.getLocalPort());
@@ -66,8 +65,7 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 		com.anfelisa.user.ActionCalls.callForgotPassword(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
 				"\"language\" : \"de\"," + 
-				"\"username\" : \"Annette\"," + 
-				"\"token\" : \"RESET-PW-TOKEN\"} ",
+				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ForgotPasswordData.class)
 		
 		, DROPWIZARD.getLocalPort());
@@ -81,8 +79,6 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"INVALID-TOKEN\"",
-				 String.class));
 		
 		return 
 		com.anfelisa.user.ActionCalls.callResetPassword(objectMapper.readValue("{" +

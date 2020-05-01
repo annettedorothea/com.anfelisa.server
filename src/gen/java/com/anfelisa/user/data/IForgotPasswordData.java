@@ -27,7 +27,6 @@ import com.anfelisa.user.models.IForgotPasswordModel;
 
 @JsonDeserialize(as=ForgotPasswordData.class)
 public interface IForgotPasswordData extends IForgotPasswordModel, IDataContainer {
-	void mapFrom(com.anfelisa.user.models.IResetPasswordModel model);
 	
 	IForgotPasswordData withLanguage(String language);
 	
