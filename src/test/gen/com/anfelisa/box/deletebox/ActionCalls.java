@@ -17,29 +17,18 @@
 
 
 
-package com.anfelisa.user.data;
+package com.anfelisa.box.deletebox;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.core.Response;
 
-import de.acegen.IDataContainer;
+import org.glassfish.jersey.client.JerseyClientBuilder;
 
-import com.anfelisa.user.models.IDeleteUserModel;
+@SuppressWarnings("unused")
+public class ActionCalls {
 
-@JsonDeserialize(as=DeleteUserData.class)
-public interface IDeleteUserData extends IDeleteUserModel, IDataContainer {
-	
-	IDeleteUserData withUsernameToBeDeleted(String usernameToBeDeleted);
-	
-	IDeleteUserData withUsername(String username);
-	
-	IDeleteUserData withUserId(String userId);
-	
-	IDeleteUserData withRole(String role);
-	
-	IDeleteUserData withBoxIds(java.util.List<String> boxIds);
-	
-	IDeleteUserData withRootCategoryIds(java.util.List<String> rootCategoryIds);
-	
 	
 }
 

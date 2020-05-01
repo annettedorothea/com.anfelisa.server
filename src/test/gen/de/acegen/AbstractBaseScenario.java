@@ -47,6 +47,8 @@ public abstract class AbstractBaseScenario {
 
 	protected abstract void assertIsNull(Object actual);
 
+	protected abstract void assertIsNotNull(Object actual);
+
 	protected abstract void assertFail(String message);
 
 	protected abstract String scenarioName();

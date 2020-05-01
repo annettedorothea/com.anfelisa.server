@@ -129,6 +129,11 @@ public abstract class AbstractDeleteUserAction extends Action<IDeleteUserData> {
 			LOG.warn("failed to parse param {}", "username");
 		}
 		try {
+			this.actionData.setUserId(authUser.getUserId());
+		} catch (Exception x) {
+			LOG.warn("failed to parse param {}", "userId");
+		}
+		try {
 			this.actionData.setRole(authUser.getRole());
 		} catch (Exception x) {
 			LOG.warn("failed to parse param {}", "role");

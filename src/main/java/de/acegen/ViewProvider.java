@@ -10,6 +10,11 @@ import com.anfelisa.category.views.CategoryView;
 import com.anfelisa.user.views.EmailConfirmationView;
 import com.anfelisa.user.views.EmailView;
 import com.anfelisa.user.views.ResetPasswordView;
+import com.anfelisa.user.views.UserBoxView;
+import com.anfelisa.user.views.UserReinforceCardView;
+import com.anfelisa.user.views.UserRootCategoryView;
+import com.anfelisa.user.views.UserScheduledCardView;
+import com.anfelisa.user.views.UserUserAccessToCategoryView;
 import com.anfelisa.user.views.UserView;
 
 public class ViewProvider extends AbstractViewProvider {
@@ -25,6 +30,11 @@ public class ViewProvider extends AbstractViewProvider {
 	public ReinforceCardView reinforceCardView;
 	public RootCategoryView rootCategoryView;
 	public UserAccessToCategoryView userAccessToCategoryView;
+	public UserBoxView userBoxView;
+	public UserRootCategoryView userRootCategoryView;
+	public UserScheduledCardView userScheduledCardView;
+	public UserReinforceCardView userReinforceCardView;
+	public UserUserAccessToCategoryView userUserAccessToCategoryView;
 
 	public static ViewProvider create(IDaoProvider daoProvider, CustomAppConfiguration customAppConfiguration) {
 		return new ViewProvider(daoProvider, new EmailService(customAppConfiguration.getEmail()));
@@ -42,6 +52,11 @@ public class ViewProvider extends AbstractViewProvider {
 		reinforceCardView = new ReinforceCardView(daoProvider);
 		rootCategoryView = new RootCategoryView(daoProvider);
 		userAccessToCategoryView = new UserAccessToCategoryView(daoProvider);
+		userBoxView = new UserBoxView(daoProvider);
+		userRootCategoryView = new UserRootCategoryView(daoProvider);
+		userScheduledCardView = new UserScheduledCardView(daoProvider);
+		userReinforceCardView = new UserReinforceCardView(daoProvider);
+		userUserAccessToCategoryView = new UserUserAccessToCategoryView(daoProvider);
 	}
 
 }

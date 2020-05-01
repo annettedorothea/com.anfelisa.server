@@ -11,7 +11,7 @@ import com.anfelisa.box.data.IBoxUpdateData;
 import de.acegen.PersistenceHandle;
 
 public class BoxDao extends AbstractBoxDao {
-	
+
 	public List<IBoxViewModel> selectByUserId(PersistenceHandle handle, String userId, DateTime today) {
 		DateTime endOfDay = today.plusDays(1);
 		return handle.getHandle().createQuery("SELECT "
@@ -81,10 +81,24 @@ public class BoxDao extends AbstractBoxDao {
 				+ "FROM \"box\" b, category c "
 				+ "WHERE b.boxid = :boxid "
 				+ "AND c.categoryid = b.categoryid")
-			.bind("boxid", boxId)
-			.map(new BoxSettingsMapper())
-			.findFirst();
+				.bind("boxid", boxId)
+				.map(new BoxSettingsMapper())
+				.findFirst();
 		return optional.isPresent() ? optional.get() : null;
+	}
+
+	public void deleteByUserId(PersistenceHandle handle, String userId) {
+		Update statement = handle.getHandle().createUpdate("DELETE FROM box WHERE userid = :userid");
+		statement.bind("userid", userId);
+		statement.execute();
+	}
+
+	public List<IBoxModel> selectAllOfUser(PersistenceHandle handle, String userId) {
+		return handle.getHandle().createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday FROM box "
+				+ "WHERE userid = :userid")
+				.bind("userid", userId)
+				.map(new BoxMapper())
+				.list();
 	}
 
 }

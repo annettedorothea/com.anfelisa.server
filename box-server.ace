@@ -111,7 +111,13 @@ ACE
 		DELETE "/box/delete"  
 		authorize
 		queryParams boxId
-		on ok ( ScheduledCard.deleteAll ReinforceCard.deleteAll RootCategory.deleteAll Box.deleteBox )
+		on ok ( 
+			ScheduledCard.deleteAll 
+			ReinforceCard.deleteAll 
+			RootCategory.deleteAll 
+			Box.deleteBox 
+			UserAccessToCategory.delete
+		)
 	
 views 
 	Box {
@@ -312,7 +318,6 @@ models
 		String userId
 		NotNull String boxId
 		String rootCategoryId
-		List String allReferencedCategories
 	}
 
 	BoxCreation extends com.anfelisa.category.Category, com.anfelisa.category.UserAccessToCategory, Box {

@@ -17,30 +17,17 @@
 
 
 
-package com.anfelisa.user.data;
+package com.anfelisa.box.schedulecards.scenarios;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import javax.ws.rs.core.Response;
 
-import de.acegen.IDataContainer;
+@SuppressWarnings("unused")
+public class ScheduleCardsAsAdminScenario extends AbstractScheduleCardsAsAdminScenario {
 
-import com.anfelisa.user.models.IDeleteUserModel;
+	@Override
+	protected void verifications() {
+	}
 
-@JsonDeserialize(as=DeleteUserData.class)
-public interface IDeleteUserData extends IDeleteUserModel, IDataContainer {
-	
-	IDeleteUserData withUsernameToBeDeleted(String usernameToBeDeleted);
-	
-	IDeleteUserData withUsername(String username);
-	
-	IDeleteUserData withUserId(String userId);
-	
-	IDeleteUserData withRole(String role);
-	
-	IDeleteUserData withBoxIds(java.util.List<String> boxIds);
-	
-	IDeleteUserData withRootCategoryIds(java.util.List<String> rootCategoryIds);
-	
-	
 }
 
 

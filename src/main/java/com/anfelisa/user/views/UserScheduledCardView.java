@@ -17,30 +17,28 @@
 
 
 
-package com.anfelisa.user.data;
+package com.anfelisa.user.views;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.anfelisa.user.data.IDeleteUserData;
 
-import de.acegen.IDataContainer;
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
 
-import com.anfelisa.user.models.IDeleteUserModel;
+public class UserScheduledCardView implements IUserScheduledCardView {
 
-@JsonDeserialize(as=DeleteUserData.class)
-public interface IDeleteUserData extends IDeleteUserModel, IDataContainer {
+	private IDaoProvider daoProvider;
 	
-	IDeleteUserData withUsernameToBeDeleted(String usernameToBeDeleted);
-	
-	IDeleteUserData withUsername(String username);
-	
-	IDeleteUserData withUserId(String userId);
-	
-	IDeleteUserData withRole(String role);
-	
-	IDeleteUserData withBoxIds(java.util.List<String> boxIds);
-	
-	IDeleteUserData withRootCategoryIds(java.util.List<String> rootCategoryIds);
-	
-	
+	public UserScheduledCardView(IDaoProvider daoProvider) {
+		super();
+		this.daoProvider = daoProvider;
+	}
+
+	public void deleteAll(IDeleteUserData data, PersistenceHandle handle) {
+		for (String boxId : data.getBoxIds()) {
+			daoProvider.getScheduledCardDao().deleteByBoxId(handle, boxId);
+		}
+	}
+
 }
 
 

@@ -31,8 +31,7 @@ public class DeleteBoxMapper implements RowMapper<IDeleteBoxModel> {
 		return new DeleteBoxModel(
 			r.getString("userId"),
 			r.getString("boxId"),
-			r.getString("rootCategoryId"),
-			null
+			r.getString("rootCategoryId")
 		);
 	}
 }

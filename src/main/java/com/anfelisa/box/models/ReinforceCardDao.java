@@ -63,6 +63,14 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 				.list();
 	}
 
+	public List<IReinforceCardModel> selectAllOfBox(PersistenceHandle handle, String boxId) {
+		return handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM reinforcecard "
+				+ "WHERE boxid = :boxId")
+				.bind("boxId", boxId)
+				.map(new ReinforceCardMapper())
+				.list();
+	}
+	
 	public void deleteByBoxId(PersistenceHandle handle, String boxId) {
 		Update statement = handle.getHandle().createUpdate("DELETE FROM \"reinforcecard\" WHERE boxid = :boxid");
 		statement.bind("boxid", boxId);

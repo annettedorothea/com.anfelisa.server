@@ -33,6 +33,15 @@ public class CardDao extends AbstractCardDao {
 				.list();
 	}
 
+	public List<ICardModel> selectAllByRootCategoryId(PersistenceHandle handle, String rootCategoryId) {
+		return handle.getHandle().createQuery(
+				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid FROM \"card\" "
+						+ "WHERE rootcategoryid = :rootcategoryid")
+				.bind("rootcategoryid", rootCategoryId)
+				.map(new CardMapper())
+				.list();
+	}
+	
 	public Integer selectMaxIndexInCategory(PersistenceHandle handle, String categoryId) {
 		Optional<Integer> optional = handle.getHandle()
 				.createQuery("SELECT max(cardindex) FROM public.card WHERE categoryid = :categoryid")

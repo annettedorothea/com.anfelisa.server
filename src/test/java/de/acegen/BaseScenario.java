@@ -242,4 +242,9 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	protected void assertIsNull(Object actual) {
 		org.junit.Assert.assertNull(actual);
 	}
+	
+	@Override
+	protected void assertIsNotNull(Object actual) {
+		org.junit.Assert.assertNotNull(actual);
+	}
 }

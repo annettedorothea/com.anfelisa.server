@@ -34,8 +34,6 @@ public interface IDeleteBoxData extends IDeleteBoxModel, IDataContainer {
 	
 	IDeleteBoxData withRootCategoryId(String rootCategoryId);
 	
-	IDeleteBoxData withAllReferencedCategories(java.util.List<String> allReferencedCategories);
-	
 	
 }
 

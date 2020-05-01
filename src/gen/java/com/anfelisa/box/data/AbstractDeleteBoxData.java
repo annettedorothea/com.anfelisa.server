@@ -49,21 +49,17 @@ public abstract class AbstractDeleteBoxData extends AbstractData implements IDel
 	
 	private String rootCategoryId;
 	
-	private java.util.List<String> allReferencedCategories;
-	
 
 	public AbstractDeleteBoxData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("rootCategoryId") String rootCategoryId,
-		@JsonProperty("allReferencedCategories") java.util.List<String> allReferencedCategories
+		@JsonProperty("rootCategoryId") String rootCategoryId
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.userId = userId;
 		this.boxId = boxId;
 		this.rootCategoryId = rootCategoryId;
-		this.allReferencedCategories = allReferencedCategories;
 	}
 
 	public AbstractDeleteBoxData( String uuid ) {
@@ -103,18 +99,6 @@ public abstract class AbstractDeleteBoxData extends AbstractData implements IDel
 	}
 	public IDeleteBoxData withRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
-		return this;
-	}
-	
-	@JsonProperty
-	public java.util.List<String> getAllReferencedCategories() {
-		return this.allReferencedCategories;
-	}
-	public void setAllReferencedCategories(java.util.List<String> allReferencedCategories) {
-		this.allReferencedCategories = allReferencedCategories;
-	}
-	public IDeleteBoxData withAllReferencedCategories(java.util.List<String> allReferencedCategories) {
-		this.allReferencedCategories = allReferencedCategories;
 		return this;
 	}
 	

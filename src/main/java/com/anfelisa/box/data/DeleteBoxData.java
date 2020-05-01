@@ -27,14 +27,12 @@ public class DeleteBoxData extends AbstractDeleteBoxData implements IDeleteBoxDa
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("boxId") String boxId, 
 		@JsonProperty("rootCategoryId") String rootCategoryId, 
-		@JsonProperty("allReferencedCategories") java.util.List<String> allReferencedCategories, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			userId,
 			boxId,
 			rootCategoryId,
-			allReferencedCategories,
 			uuid
 		);
 	}

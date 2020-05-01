@@ -68,3 +68,14 @@ scenarios
 		authorization "Admin": "admin-password"
 		THEN 200
 
+
+	DeleteCascades
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCardAsAdmin
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN com.anfelisa.user.DeleteUser {
+			usernameToBeDeleted: "Annette"
+		}
+		authorization "Annette" : "password"
+		THEN 200
+

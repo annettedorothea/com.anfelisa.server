@@ -17,30 +17,18 @@
 
 
 
-package com.anfelisa.user.data;
+package com.anfelisa.user.views;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import de.acegen.IDataContainer;
+import de.acegen.PersistenceHandle;
+import com.anfelisa.user.data.IDeleteUserData;
 
-import com.anfelisa.user.models.IDeleteUserModel;
+@SuppressWarnings("all")
+public interface IUserUserAccessToCategoryView {
 
-@JsonDeserialize(as=DeleteUserData.class)
-public interface IDeleteUserData extends IDeleteUserModel, IDataContainer {
-	
-	IDeleteUserData withUsernameToBeDeleted(String usernameToBeDeleted);
-	
-	IDeleteUserData withUsername(String username);
-	
-	IDeleteUserData withUserId(String userId);
-	
-	IDeleteUserData withRole(String role);
-	
-	IDeleteUserData withBoxIds(java.util.List<String> boxIds);
-	
-	IDeleteUserData withRootCategoryIds(java.util.List<String> rootCategoryIds);
-	
-	
+	void delete(IDeleteUserData data, PersistenceHandle handle);
+
 }
 
 

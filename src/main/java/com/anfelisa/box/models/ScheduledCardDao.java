@@ -86,7 +86,7 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 	public List<IScheduledCardModel> selectAllCardsOfBox(PersistenceHandle handle, String boxId) {
 		return handle.getHandle().createQuery(
 				"SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM public.scheduledcard "
-						+ "where boxid = :boxid and quality is null")
+						+ "where boxid = :boxid")
 				.bind("boxid", boxId).map(new ScheduledCardMapper()).list();
 	}
 

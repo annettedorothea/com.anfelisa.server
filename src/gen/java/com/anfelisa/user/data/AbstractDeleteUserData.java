@@ -49,19 +49,34 @@ public abstract class AbstractDeleteUserData extends AbstractData implements IDe
 	private String username;
 	
 	@NotNull
+	private String userId;
+	
+	@NotNull
 	private String role;
+	
+	@NotNull
+	private java.util.List<String> boxIds;
+	
+	@NotNull
+	private java.util.List<String> rootCategoryIds;
 	
 
 	public AbstractDeleteUserData(
 		@JsonProperty("usernameToBeDeleted") String usernameToBeDeleted,
 		@JsonProperty("username") String username,
-		@JsonProperty("role") String role
+		@JsonProperty("userId") String userId,
+		@JsonProperty("role") String role,
+		@JsonProperty("boxIds") java.util.List<String> boxIds,
+		@JsonProperty("rootCategoryIds") java.util.List<String> rootCategoryIds
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.usernameToBeDeleted = usernameToBeDeleted;
 		this.username = username;
+		this.userId = userId;
 		this.role = role;
+		this.boxIds = boxIds;
+		this.rootCategoryIds = rootCategoryIds;
 	}
 
 	public AbstractDeleteUserData( String uuid ) {
@@ -93,6 +108,18 @@ public abstract class AbstractDeleteUserData extends AbstractData implements IDe
 	}
 	
 	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public IDeleteUserData withUserId(String userId) {
+		this.userId = userId;
+		return this;
+	}
+	
+	@JsonProperty
 	public String getRole() {
 		return this.role;
 	}
@@ -101,6 +128,30 @@ public abstract class AbstractDeleteUserData extends AbstractData implements IDe
 	}
 	public IDeleteUserData withRole(String role) {
 		this.role = role;
+		return this;
+	}
+	
+	@JsonProperty
+	public java.util.List<String> getBoxIds() {
+		return this.boxIds;
+	}
+	public void setBoxIds(java.util.List<String> boxIds) {
+		this.boxIds = boxIds;
+	}
+	public IDeleteUserData withBoxIds(java.util.List<String> boxIds) {
+		this.boxIds = boxIds;
+		return this;
+	}
+	
+	@JsonProperty
+	public java.util.List<String> getRootCategoryIds() {
+		return this.rootCategoryIds;
+	}
+	public void setRootCategoryIds(java.util.List<String> rootCategoryIds) {
+		this.rootCategoryIds = rootCategoryIds;
+	}
+	public IDeleteUserData withRootCategoryIds(java.util.List<String> rootCategoryIds) {
+		this.rootCategoryIds = rootCategoryIds;
 		return this;
 	}
 	

@@ -17,30 +17,26 @@
 
 
 
-package com.anfelisa.user.data;
+package com.anfelisa.box.deletebox;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.dropwizard.setup.Environment;
+import de.acegen.CustomAppConfiguration;
+import de.acegen.IDaoProvider;
+import de.acegen.ViewProvider;
+import de.acegen.ServerConfiguration;
+import de.acegen.E2E;
+import de.acegen.PersistenceConnection;
 
-import de.acegen.IDataContainer;
 
-import com.anfelisa.user.models.IDeleteUserModel;
+@SuppressWarnings("all")
+public class AppRegistration {
 
-@JsonDeserialize(as=DeleteUserData.class)
-public interface IDeleteUserData extends IDeleteUserModel, IDataContainer {
-	
-	IDeleteUserData withUsernameToBeDeleted(String usernameToBeDeleted);
-	
-	IDeleteUserData withUsername(String username);
-	
-	IDeleteUserData withUserId(String userId);
-	
-	IDeleteUserData withRole(String role);
-	
-	IDeleteUserData withBoxIds(java.util.List<String> boxIds);
-	
-	IDeleteUserData withRootCategoryIds(java.util.List<String> rootCategoryIds);
-	
-	
+	public static void registerResources(Environment environment, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
+	}
+
+	public static void registerConsumers(ViewProvider viewProvider, String mode) {
+    }
 }
 
 

@@ -76,7 +76,14 @@ ACE
 		DELETE "/user/delete"  
 		authorize
 		queryParams usernameToBeDeleted
-		on ok (User.deleteUser)
+		on ok ( 
+			UserScheduledCard.deleteAll 
+			UserReinforceCard.deleteAll 
+			UserRootCategory.deleteAll 
+			UserBox.deleteAll 
+			UserUserAccessToCategory.delete 
+			User.deleteUser
+		)
 	
 views 
 	User {
@@ -102,6 +109,26 @@ views
 		sendRegistrationEmail(UserRegistration)
 	}
 	
+	UserBox {
+		deleteAll (DeleteUser)
+	}
+	
+	UserScheduledCard { 
+		deleteAll(DeleteUser)
+	}
+	
+	UserReinforceCard { 
+		deleteAll(DeleteUser)
+	}
+	
+	UserRootCategory {
+		deleteAll(DeleteUser)
+	}
+	
+	UserUserAccessToCategory { 
+		delete(DeleteUser)
+	}
+
 
 models 
 
@@ -131,7 +158,10 @@ models
 	DeleteUser {
 		NotNull String usernameToBeDeleted
 		NotNull String username
+		NotNull String userId
 		NotNull String role
+		NotNull List String boxIds
+		NotNull List String rootCategoryIds
 	}
 	UserList {
 		List User userList

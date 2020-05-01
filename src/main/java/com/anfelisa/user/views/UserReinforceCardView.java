@@ -14,39 +14,28 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+package com.anfelisa.user.views;
 
+import com.anfelisa.user.data.IDeleteUserData;
 
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceHandle;
 
-package com.anfelisa.user.data;
+public class UserReinforceCardView implements IUserReinforceCardView {
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+	private IDaoProvider daoProvider;
 
-import de.acegen.IDataContainer;
+	public UserReinforceCardView(IDaoProvider daoProvider) {
+		super();
+		this.daoProvider = daoProvider;
+	}
 
-import com.anfelisa.user.models.IDeleteUserModel;
+	public void deleteAll(IDeleteUserData data, PersistenceHandle handle) {
+		for (String boxId : data.getBoxIds()) {
+			daoProvider.getReinforceCardDao().deleteByBoxId(handle, boxId);
+		}
+	}
 
-@JsonDeserialize(as=DeleteUserData.class)
-public interface IDeleteUserData extends IDeleteUserModel, IDataContainer {
-	
-	IDeleteUserData withUsernameToBeDeleted(String usernameToBeDeleted);
-	
-	IDeleteUserData withUsername(String username);
-	
-	IDeleteUserData withUserId(String userId);
-	
-	IDeleteUserData withRole(String role);
-	
-	IDeleteUserData withBoxIds(java.util.List<String> boxIds);
-	
-	IDeleteUserData withRootCategoryIds(java.util.List<String> rootCategoryIds);
-	
-	
 }
 
-
-
-
 /******* S.D.G. *******/
-
-
-

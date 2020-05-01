@@ -1,9 +1,13 @@
 package com.anfelisa.user.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.Roles;
+import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.user.data.IDeleteUserData;
 import com.anfelisa.user.models.IUserModel;
 
@@ -37,6 +41,16 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 				throwBadRequest("lastAdminMustNotBeDeleted");
 			}
 		}
+		List<IBoxModel> boxesOfUser = daoProvider.getBoxDao().selectAllOfUser(readonlyHandle, userToBeDeleted.getUserId());
+		List<String> boxIds = new ArrayList<>();
+		List<String> rootCategoryIds = new ArrayList<>();
+		for (IBoxModel box : boxesOfUser) {
+			boxIds.add(box.getBoxId());
+			rootCategoryIds.add(box.getCategoryId());
+		}
+		this.commandData.setBoxIds(boxIds);
+		this.commandData.setRootCategoryIds(rootCategoryIds);
+		this.commandData.setUserId(userToBeDeleted.getUserId());
 		this.commandData.setOutcome(ok);
 	}
 

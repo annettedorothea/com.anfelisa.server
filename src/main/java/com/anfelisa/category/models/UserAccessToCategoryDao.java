@@ -8,13 +8,21 @@ import org.jdbi.v3.core.statement.Update;
 import de.acegen.PersistenceHandle;
 
 public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
-	
-	public IUserAccessToCategoryModel selectByCategoryIdAndUserId(PersistenceHandle handle, String categoryId, String userId) {
+
+	public IUserAccessToCategoryModel selectByCategoryIdAndUserId(PersistenceHandle handle, String categoryId,
+			String userId) {
 		Optional<IUserAccessToCategoryModel> optional = handle.getHandle().createQuery(
 				"SELECT categoryid, userid, editable FROM public.useraccesstocategory where categoryid = :categoryid and userid = :userid")
 				.bind("categoryid", categoryId).bind("userid", userId).map(new UserAccessToCategoryMapper())
 				.findFirst();
 		return optional.isPresent() ? optional.get() : null;
+	}
+
+	public List<IUserAccessToCategoryModel> selectByUserId(PersistenceHandle handle, String userId) {
+		return handle.getHandle().createQuery("SELECT categoryid, userid, editable FROM useraccesstocategory where userid = :userid")
+				.bind("userid", userId)
+				.map(new UserAccessToCategoryMapper())
+				.list();
 	}
 
 	public List<IUserWithAccessModel> selectByCategoryId(PersistenceHandle handle, String categoryId) {
@@ -28,7 +36,7 @@ public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 				"SELECT a.userid, u.username, a.editable FROM public.useraccesstocategory a inner join public.user u on a.userid = u.userid where categoryid = :categoryid and editable = true order by u.username")
 				.bind("categoryid", categoryId).map(new UserWithAccessMapper()).list();
 	}
-	
+
 	public void deleteByCategoryIdAndUserId(PersistenceHandle handle, String categoryId, String userId) {
 		Update statement = handle.getHandle().createUpdate(
 				"DELETE FROM public.useraccesstocategory WHERE categoryid = :categoryid and userid = :userid");
@@ -43,12 +51,14 @@ public class UserAccessToCategoryDao extends AbstractUserAccessToCategoryDao {
 		statement.bind("categoryid", categoryId);
 		statement.execute();
 	}
-	
+
 	public IUserAccessToCategoryModel hasUserAccessTo(PersistenceHandle handle, String categoryId, String userId) {
-		Optional<IUserAccessToCategoryModel> optional = handle.getHandle().createQuery("SELECT uc.categoryid, uc.userid, uc.editable "
-				+ "from public.useraccesstocategory uc "
-				+ "where uc.categoryid = (select c.rootcategoryid from public.category c where c.categoryid = :categoryid ) "
-				+ "and uc.userid = :userid").bind("categoryid", categoryId).bind("userid", userId)
+		Optional<IUserAccessToCategoryModel> optional = handle.getHandle()
+				.createQuery("SELECT uc.categoryid, uc.userid, uc.editable "
+						+ "from public.useraccesstocategory uc "
+						+ "where uc.categoryid = (select c.rootcategoryid from public.category c where c.categoryid = :categoryid ) "
+						+ "and uc.userid = :userid")
+				.bind("categoryid", categoryId).bind("userid", userId)
 				.map(new UserAccessToCategoryMapper()).findFirst();
 		return optional.isPresent() ? optional.get() : null;
 

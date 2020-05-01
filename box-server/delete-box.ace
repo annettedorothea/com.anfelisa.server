@@ -1,0 +1,48 @@
+HttpServer 
+
+com.anfelisa.box.deletebox
+
+scenarios 
+	DeleteBoxCascadesAll
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCardAsAdmin
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.DeleteBox
+				{
+					boxId: "boxId"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	DeleteBoxNotMyBox
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.DeleteBox
+				{
+					boxId: "boxId"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+
+	DeleteBoxUnauthorized
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.DeleteBox
+				{
+					boxId: "boxId"
+				}
+		THEN 401
+
+	DeleteBoxDoesNotExist
+		GIVEN
+			com.anfelisa.box.createbox.CreateBoxMinimal
+		WHEN
+			com.anfelisa.box.DeleteBox
+				{
+					boxId: "xxx"
+				}
+				authorization "Annette" : "password"
+		THEN 400

@@ -31,7 +31,10 @@ public class DeleteUserMapper implements RowMapper<IDeleteUserModel> {
 		return new DeleteUserModel(
 			r.getString("usernameToBeDeleted"),
 			r.getString("username"),
-			r.getString("role")
+			r.getString("userId"),
+			r.getString("role"),
+			null,
+			null
 		);
 	}
 }

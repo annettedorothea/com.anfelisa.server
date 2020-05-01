@@ -5,8 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -25,24 +23,14 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, this.commandData.getBoxId());
+		if (box == null) {
+			throwBadRequest("box does not exist");
+		}
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();
 		}
-		String rootCategoryId = box.getCategoryId();
-		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, rootCategoryId);
-		if (category == null) {
-			throwBadRequest("category does not exist");
-		}
-		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), commandData.getUserId());
-		if (access == null || access.getEditable() == false) {
-			throwUnauthorized();
-		}
-
-		this.commandData.setAllReferencedCategories(
-				daoProvider.getCategoryDao().selectAllByRootCategoryId(readonlyHandle, category.getRootCategoryId()));
-
-		this.commandData.setRootCategoryId(rootCategoryId);
+		
+		this.commandData.setRootCategoryId(box.getCategoryId());
 		this.commandData.setOutcome(ok);
 	}
 

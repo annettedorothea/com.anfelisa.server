@@ -93,6 +93,21 @@ scenarios
 				authorization "Annette" : "password"
 		THEN 200
 
+	ScoreCardAsAdmin
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCardsAsAdmin
+		WHEN
+			com.anfelisa.box.ScoreCard
+				uuid "admin-score"
+				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
+				{
+					boxId: "adminBox",
+					scoredCardQuality: 1,
+					scoredCardScheduledCardId: "c6-sc6"
+				}
+				authorization "Admin" : "admin-password"
+		THEN 200
+
 	ScoreCard0DoesNotReinforceTwice
 		GIVEN
 			ScoreCard0

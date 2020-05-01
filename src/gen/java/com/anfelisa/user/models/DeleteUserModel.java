@@ -41,7 +41,16 @@ public class DeleteUserModel implements IDeleteUserModel {
 	private String username;
 	
 	@NotNull
+	private String userId;
+	
+	@NotNull
 	private String role;
+	
+	@NotNull
+	private java.util.List<String> boxIds;
+	
+	@NotNull
+	private java.util.List<String> rootCategoryIds;
 	
 
 	public DeleteUserModel() {
@@ -50,11 +59,17 @@ public class DeleteUserModel implements IDeleteUserModel {
 	public DeleteUserModel(
 		@JsonProperty("usernameToBeDeleted") String usernameToBeDeleted,
 		@JsonProperty("username") String username,
-		@JsonProperty("role") String role
+		@JsonProperty("userId") String userId,
+		@JsonProperty("role") String role,
+		@JsonProperty("boxIds") java.util.List<String> boxIds,
+		@JsonProperty("rootCategoryIds") java.util.List<String> rootCategoryIds
 	) {
 		this.usernameToBeDeleted = usernameToBeDeleted;
 		this.username = username;
+		this.userId = userId;
 		this.role = role;
+		this.boxIds = boxIds;
+		this.rootCategoryIds = rootCategoryIds;
 	}
 
 	@JsonProperty
@@ -74,11 +89,35 @@ public class DeleteUserModel implements IDeleteUserModel {
 	}
 	
 	@JsonProperty
+	public String getUserId() {
+		return this.userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	@JsonProperty
 	public String getRole() {
 		return this.role;
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	
+	@JsonProperty
+	public java.util.List<String> getBoxIds() {
+		return this.boxIds;
+	}
+	public void setBoxIds(java.util.List<String> boxIds) {
+		this.boxIds = boxIds;
+	}
+	
+	@JsonProperty
+	public java.util.List<String> getRootCategoryIds() {
+		return this.rootCategoryIds;
+	}
+	public void setRootCategoryIds(java.util.List<String> rootCategoryIds) {
+		this.rootCategoryIds = rootCategoryIds;
 	}
 	
 	

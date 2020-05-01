@@ -16,6 +16,19 @@ scenarios
 				authorization "Annette" : "password"
 		THEN 200
 
+	ScheduleCardsAsAdmin
+		GIVEN
+			com.anfelisa.card.createcard.CreateCardAsAdmin
+		WHEN
+			com.anfelisa.box.ScheduleCards
+				uuid "sc6"
+				systemTime "20200418 10:30" "yyyyMMdd HH:mm"
+				{
+					cardIds: ["c6"]
+				}
+				authorization "Admin" : "admin-password"
+		THEN 200
+
 	ScheduleCardsCombineIds
 		GIVEN
 			com.anfelisa.card.createcard.CreateCardWithLongUuid

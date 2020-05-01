@@ -35,9 +35,6 @@ public interface IDeleteBoxModel {
 	String getRootCategoryId();
 	void setRootCategoryId(String rootCategoryId);
 	
-	java.util.List<String> getAllReferencedCategories();
-	void setAllReferencedCategories(java.util.List<String> allReferencedCategories);
-	
 	
 }
 
