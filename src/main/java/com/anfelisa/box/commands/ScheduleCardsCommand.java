@@ -44,7 +44,7 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 					throwUnauthorized();
 				}
 				IScheduledCardModel scheduledCard = daoProvider.getScheduledCardDao()
-						.selectByCardIdAndBoxId(readonlyHandle, cardId, box.getBoxId());
+						.selectUnscoredByCardIdAndBoxId(readonlyHandle, cardId, box.getBoxId());
 				if (scheduledCard == null) {
 					ScheduledCardModel newScheduledCard = new ScheduledCardModel(
 							combineUuids(cardId, commandData.getUuid()), cardId, box.getBoxId(),

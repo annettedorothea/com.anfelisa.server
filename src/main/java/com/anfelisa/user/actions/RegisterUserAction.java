@@ -19,6 +19,8 @@
 
 package com.anfelisa.user.actions;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,8 +42,7 @@ public class RegisterUserAction extends AbstractRegisterUserAction {
 
 	
 	public void initActionData() {
-		// init not replayable data here
-		// token
+		this.actionData.setToken(UUID.randomUUID().toString());
 	}
 
 }

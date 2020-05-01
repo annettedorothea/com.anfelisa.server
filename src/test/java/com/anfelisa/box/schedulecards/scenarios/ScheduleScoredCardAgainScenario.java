@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.box.initmyboxes.scenarios;
+package com.anfelisa.box.schedulecards.scenarios;
 
 import javax.ws.rs.core.Response;
 
@@ -28,28 +28,17 @@ import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.ScheduledCardModel;
 
 @SuppressWarnings("unused")
-public class InitMyBoxesForDayNothingScoredSameDayScenario extends AbstractInitMyBoxesForDayNothingScoredSameDayScenario {
+public class ScheduleScoredCardAgainScenario extends AbstractScheduleScoredCardAgainScenario {
 
 	@Override
 	protected void verifications() {
-		DateTime dateTime = new DateTime(2020, 4, 18, 10, 30).withZone(DateTimeZone.UTC);
+		DateTime dateTime = new DateTime(2020, 4, 18, 17, 30).withZone(DateTimeZone.UTC);
+		DateTime creationDateTime = new DateTime(2020, 4, 18, 16, 30).withZone(DateTimeZone.UTC);
 
-		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle,
-				"c1", "boxId");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c1-sc1", "c1", "boxId",
-				dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c3", "boxId");
-		expectedScheduledCard = new ScheduledCardModel("c3-sc1", "c3", "boxId",
-				dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-		
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c4", "boxId");
-		expectedScheduledCard = new ScheduledCardModel("c4-sc1", "c4", "boxId",
-				dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
+		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
+				"score0");
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score0", "c1", "boxId",
+				creationDateTime, 2.5F, 1, 1, 1, dateTime, 0, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 	}

@@ -16,6 +16,32 @@ scenarios
 				authorization "Annette" : "password"
 		THEN 200
 
+	ScheduleScoredCardAgain
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.ScheduleCards
+				uuid "again"
+				systemTime "20200418 17:30" "yyyyMMdd HH:mm"
+				{
+					cardIds: ["c1"]
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	ScheduleScheduledCardAgain
+		GIVEN
+			ScheduleCards
+		WHEN
+			com.anfelisa.box.ScheduleCards
+				uuid "again"
+				systemTime "20200418 17:30" "yyyyMMdd HH:mm"
+				{
+					cardIds: ["c1"]
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
 	ScheduleCardsAsAdmin
 		GIVEN
 			com.anfelisa.card.createcard.CreateCardAsAdmin
