@@ -6,6 +6,7 @@ import com.anfelisa.box.data.IBoxCreationData;
 import com.anfelisa.box.data.IBoxUpdateData;
 import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.data.IScheduledCardsData;
+import com.anfelisa.box.data.ISortCardsOutData;
 import com.anfelisa.box.models.IScheduledCardModel;
 
 import de.acegen.IDaoProvider;
@@ -40,6 +41,13 @@ public class BoxView implements IBoxView {
 	@Override
 	public void createBox(IBoxCreationData data, PersistenceHandle handle) {
 		daoProvider.getBoxDao().insert(handle, data);
+	}
+
+	@Override
+	public void sortCardsOut(ISortCardsOutData data, PersistenceHandle handle) {
+		for (String scheduledCardId : data.getSortedOutScheduledCardIds()) {
+			daoProvider.getScheduledCardDao().deleteByScheduledCardId(handle, scheduledCardId);
+		}
 	}
 
 }

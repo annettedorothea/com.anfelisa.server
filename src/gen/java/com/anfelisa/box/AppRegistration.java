@@ -38,6 +38,7 @@ public class AppRegistration {
 		environment.jersey().register(new UpdateBoxAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new GetBoxSettingsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ScheduleCardsAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new SortCardsOutAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ScoreCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ScoreReinforceCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new InitMyBoxesForDayAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
@@ -69,6 +70,14 @@ public class AppRegistration {
 		
 		viewProvider.addConsumer("com.anfelisa.box.events.ScheduleCardsOkEvent", (dataContainer, handle) -> {
 			viewProvider.boxView.scheduleCards((com.anfelisa.box.data.ScheduledCardsData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.box.events.SortCardsOutOkEvent", (dataContainer, handle) -> {
+			viewProvider.boxView.sortCardsOut((com.anfelisa.box.data.SortCardsOutData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.box.events.SortCardsOutOkEvent", (dataContainer, handle) -> {
+			viewProvider.reinforceCardView.sortOut((com.anfelisa.box.data.SortCardsOutData) dataContainer, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.box.events.ScoreCardScoreEvent", (dataContainer, handle) -> {

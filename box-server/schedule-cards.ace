@@ -42,6 +42,19 @@ scenarios
 				authorization "Annette" : "password"
 		THEN 200
 
+	ScheduleSortedOutCard
+		GIVEN
+			com.anfelisa.box.sortcardsout.SortCardsOutWithScoredAndReinforce
+		WHEN
+			com.anfelisa.box.ScheduleCards
+				uuid "again"
+				systemTime "20200420 09:30" "yyyyMMdd HH:mm"
+				{
+					cardIds: ["c1"]
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
 	ScheduleCardsAsAdmin
 		GIVEN
 			com.anfelisa.card.createcard.CreateCardAsAdmin

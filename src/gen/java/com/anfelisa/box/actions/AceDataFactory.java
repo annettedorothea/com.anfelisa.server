@@ -70,6 +70,15 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
+			if (className.equals("com.anfelisa.box.actions.SortCardsOutAction") ||
+					className.equals("com.anfelisa.box.commands.SortCardsOutCommand") ||
+					className.equals("com.anfelisa.box.events.SortCardsOutOkEvent")||
+					className.equals("com.anfelisa.box.events.SortCardsOutNullOrEmptyEvent")
+			) {
+				SortCardsOutData data = mapper.readValue(json, SortCardsOutData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
 			if (className.equals("com.anfelisa.box.actions.ScoreCardAction") ||
 					className.equals("com.anfelisa.box.commands.ScoreCardCommand") ||
 					className.equals("com.anfelisa.box.events.ScoreCardScoreEvent")||

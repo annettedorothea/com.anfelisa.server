@@ -17,26 +17,31 @@
 
 
 
-package com.anfelisa.box.views;
+package com.anfelisa.box.models;
 
+import java.util.List;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import de.acegen.IDataContainer;
-import de.acegen.PersistenceHandle;
-import com.anfelisa.box.data.IBoxCreationData;
-import com.anfelisa.box.data.IBoxUpdateData;
-import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.data.IScheduledCardsData;
-import com.anfelisa.box.data.ISortCardsOutData;
+@SuppressWarnings("unused")
+@JsonDeserialize(as=SortCardsOutModel.class)
+public interface ISortCardsOutModel {
 
-@SuppressWarnings("all")
-public interface IBoxView {
-
-	void createBox(IBoxCreationData data, PersistenceHandle handle);
-	void updateBox(IBoxUpdateData data, PersistenceHandle handle);
-	void deleteBox(IDeleteBoxData data, PersistenceHandle handle);
-	void scheduleCards(IScheduledCardsData data, PersistenceHandle handle);
-	void sortCardsOut(ISortCardsOutData data, PersistenceHandle handle);
-
+	java.util.List<String> getSortedOutScheduledCardIds();
+	void setSortedOutScheduledCardIds(java.util.List<String> sortedOutScheduledCardIds);
+	
+	java.util.List<String> getSortedOutReinforceCardIds();
+	void setSortedOutReinforceCardIds(java.util.List<String> sortedOutReinforceCardIds);
+	
+	java.util.List<String> getCardIds();
+	void setCardIds(java.util.List<String> cardIds);
+	
+	String getUserId();
+	void setUserId(String userId);
+	
+	String getBoxId();
+	void setBoxId(String boxId);
+	
+	
 }
 
 

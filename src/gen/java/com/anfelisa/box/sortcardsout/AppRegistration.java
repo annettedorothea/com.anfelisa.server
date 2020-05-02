@@ -17,26 +17,26 @@
 
 
 
-package com.anfelisa.box.views;
+package com.anfelisa.box.sortcardsout;
 
+import io.dropwizard.setup.Environment;
+import de.acegen.CustomAppConfiguration;
+import de.acegen.IDaoProvider;
+import de.acegen.ViewProvider;
+import de.acegen.ServerConfiguration;
+import de.acegen.E2E;
+import de.acegen.PersistenceConnection;
 
-import de.acegen.IDataContainer;
-import de.acegen.PersistenceHandle;
-import com.anfelisa.box.data.IBoxCreationData;
-import com.anfelisa.box.data.IBoxUpdateData;
-import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.data.IScheduledCardsData;
-import com.anfelisa.box.data.ISortCardsOutData;
 
 @SuppressWarnings("all")
-public interface IBoxView {
+public class AppRegistration {
 
-	void createBox(IBoxCreationData data, PersistenceHandle handle);
-	void updateBox(IBoxUpdateData data, PersistenceHandle handle);
-	void deleteBox(IDeleteBoxData data, PersistenceHandle handle);
-	void scheduleCards(IScheduledCardsData data, PersistenceHandle handle);
-	void sortCardsOut(ISortCardsOutData data, PersistenceHandle handle);
+	public static void registerResources(Environment environment, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
+	}
 
+	public static void registerConsumers(ViewProvider viewProvider, String mode) {
+    }
 }
 
 

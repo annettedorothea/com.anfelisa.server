@@ -17,25 +17,36 @@
 
 
 
-package com.anfelisa.box.views;
+package com.anfelisa.box.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import de.acegen.IDataContainer;
-import de.acegen.PersistenceHandle;
-import com.anfelisa.box.data.IBoxCreationData;
-import com.anfelisa.box.data.IBoxUpdateData;
-import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.data.IScheduledCardsData;
-import com.anfelisa.box.data.ISortCardsOutData;
+public class SortCardsOutData extends AbstractSortCardsOutData implements ISortCardsOutData {
+	
+	public SortCardsOutData(
+		@JsonProperty("sortedOutScheduledCardIds") java.util.List<String> sortedOutScheduledCardIds, 
+		@JsonProperty("sortedOutReinforceCardIds") java.util.List<String> sortedOutReinforceCardIds, 
+		@JsonProperty("cardIds") java.util.List<String> cardIds, 
+		@JsonProperty("userId") String userId, 
+		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("uuid") String uuid
+	) {
+		super(
+			sortedOutScheduledCardIds,
+			sortedOutReinforceCardIds,
+			cardIds,
+			userId,
+			boxId,
+			uuid
+		);
+	}
 
-@SuppressWarnings("all")
-public interface IBoxView {
+	public SortCardsOutData( String uuid ) {
+		super(uuid);
+	}
 
-	void createBox(IBoxCreationData data, PersistenceHandle handle);
-	void updateBox(IBoxUpdateData data, PersistenceHandle handle);
-	void deleteBox(IDeleteBoxData data, PersistenceHandle handle);
-	void scheduleCards(IScheduledCardsData data, PersistenceHandle handle);
-	void sortCardsOut(ISortCardsOutData data, PersistenceHandle handle);
+	public void migrateLegacyData(String json) {
+	}
 
 }
 

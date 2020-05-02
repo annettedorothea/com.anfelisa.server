@@ -63,6 +63,12 @@ public class EventFactory {
 				ScheduleCardsOkEvent event = new ScheduleCardsOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
+			if (eventClass.equals("com.anfelisa.box.events.SortCardsOutOkEvent")) {
+				SortCardsOutData data = mapper.readValue(json, SortCardsOutData.class);
+				data.migrateLegacyData(json);
+				SortCardsOutOkEvent event = new SortCardsOutOkEvent(data, daoProvider, viewProvider, appConfiguration);
+				return event;
+			}
 			if (eventClass.equals("com.anfelisa.box.events.ScoreCardScoreEvent")) {
 				ScoreCardData data = mapper.readValue(json, ScoreCardData.class);
 				data.migrateLegacyData(json);
@@ -118,6 +124,10 @@ public class EventFactory {
 
 		if (eventClass.equals("com.anfelisa.box.events.ScheduleCardsOkEvent")) {
 			return new ScheduleCardsOkEvent((ScheduledCardsData)data, daoProvider, viewProvider, appConfiguration);
+		}
+
+		if (eventClass.equals("com.anfelisa.box.events.SortCardsOutOkEvent")) {
+			return new SortCardsOutOkEvent((SortCardsOutData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 		if (eventClass.equals("com.anfelisa.box.events.ScoreCardScoreEvent")) {

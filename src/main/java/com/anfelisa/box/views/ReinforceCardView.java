@@ -4,6 +4,7 @@ import com.anfelisa.box.data.IDeleteBoxData;
 import com.anfelisa.box.data.IInitMyBoxesDataData;
 import com.anfelisa.box.data.IScoreCardData;
 import com.anfelisa.box.data.IScoreReinforceCardData;
+import com.anfelisa.box.data.ISortCardsOutData;
 
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceHandle;
@@ -31,14 +32,21 @@ public class ReinforceCardView implements IReinforceCardView {
 
 	@Override
 	public void clear(IInitMyBoxesDataData data, PersistenceHandle handle) {
-		for (String cardId : data.getOutdatedReinforceCardsIds()) {
-			daoProvider.getReinforceCardDao().deleteByScheduledCardId(handle, cardId);
+		for (String scheduledCardId : data.getOutdatedReinforceCardsIds()) {
+			daoProvider.getReinforceCardDao().deleteByScheduledCardId(handle, scheduledCardId);
 		}
 	}
 
 	@Override
 	public void deleteAll(IDeleteBoxData data, PersistenceHandle handle) {
 		daoProvider.getReinforceCardDao().deleteByBoxId(handle, data.getBoxId());
+	}
+
+	@Override
+	public void sortOut(ISortCardsOutData data, PersistenceHandle handle) {
+		for (String reinforceCardId : data.getSortedOutReinforceCardIds()) {
+			daoProvider.getReinforceCardDao().deleteByReinforceCardId(handle, reinforceCardId);
+		}
 	}
 
 }

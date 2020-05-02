@@ -17,25 +17,20 @@
 
 
 
-package com.anfelisa.box.views;
+package com.anfelisa.box.events;
 
+import de.acegen.Event;
+import de.acegen.IDaoProvider;
+import de.acegen.ViewProvider;
+import de.acegen.CustomAppConfiguration;
 
-import de.acegen.IDataContainer;
-import de.acegen.PersistenceHandle;
-import com.anfelisa.box.data.IBoxCreationData;
-import com.anfelisa.box.data.IBoxUpdateData;
-import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.data.IScheduledCardsData;
 import com.anfelisa.box.data.ISortCardsOutData;
 
-@SuppressWarnings("all")
-public interface IBoxView {
+public class SortCardsOutNullOrEmptyEvent extends Event<ISortCardsOutData> {
 
-	void createBox(IBoxCreationData data, PersistenceHandle handle);
-	void updateBox(IBoxUpdateData data, PersistenceHandle handle);
-	void deleteBox(IDeleteBoxData data, PersistenceHandle handle);
-	void scheduleCards(IScheduledCardsData data, PersistenceHandle handle);
-	void sortCardsOut(ISortCardsOutData data, PersistenceHandle handle);
+	public SortCardsOutNullOrEmptyEvent(ISortCardsOutData eventData, IDaoProvider daoProvider, ViewProvider viewProvider, CustomAppConfiguration appConfiguration) {
+		super("com.anfelisa.box.events.SortCardsOutNullOrEmptyEvent", eventData, daoProvider, viewProvider, appConfiguration);
+	}
 
 }
 

@@ -45,11 +45,22 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 				}
 				IScheduledCardModel scheduledCard = daoProvider.getScheduledCardDao()
 						.selectUnscoredByCardIdAndBoxId(readonlyHandle, cardId, box.getBoxId());
+				ScheduledCardModel newScheduledCard;
 				if (scheduledCard == null) {
-					ScheduledCardModel newScheduledCard = new ScheduledCardModel(
-							combineUuids(cardId, commandData.getUuid()), cardId, box.getBoxId(),
-							commandData.getSystemTime(), 2.5F, 1, 1, 0, this.commandData.getSystemTime(), null, null,
-							null);
+					IScheduledCardModel lastScoredScheduledCard = daoProvider.getScheduledCardDao()
+							.selectLastScoredByCardIdAndBoxId(readonlyHandle, cardId, box.getBoxId());
+					if (lastScoredScheduledCard != null) {
+						newScheduledCard = new ScheduledCardModel(
+								combineUuids(cardId, commandData.getUuid()), cardId, box.getBoxId(),
+								commandData.getSystemTime(), 2.5F, 1, 1, lastScoredScheduledCard.getCount() + 1,
+								this.commandData.getSystemTime(), lastScoredScheduledCard.getQuality(), null,
+								null);
+					} else {
+						newScheduledCard = new ScheduledCardModel(
+								combineUuids(cardId, commandData.getUuid()), cardId, box.getBoxId(),
+								commandData.getSystemTime(), 2.5F, 1, 1, 0, this.commandData.getSystemTime(), null,
+								null, null);
+					}
 					this.commandData.getNewScheduledCards().add(newScheduledCard);
 				} else {
 					this.commandData.getExistingScheduledCardIds().add(scheduledCard.getScheduledCardId());

@@ -69,6 +69,16 @@ public class ActionCalls {
 		return builder.post(Entity.json(data));
 	}
 	
+	public static Response callSortCardsOut(
+			com.anfelisa.box.data.ISortCardsOutData data,
+			int port, 
+			String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/cards/sort-out", port)).request(); 
+		builder.header("Authorization", authorization);
+		return builder.post(Entity.json(data));
+	}
+	
 	public static Response callScoreCard(
 			com.anfelisa.box.data.IScoreCardData data,
 			int port, 

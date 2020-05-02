@@ -1,0 +1,93 @@
+HttpServer 
+
+com.anfelisa.box.sortcardsout
+
+scenarios 
+
+	SortCardsOut
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.SortCardsOut
+				{
+					cardIds: ["c1", "c4" ]
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	SortCardsOutTwice
+		GIVEN
+			SortCardsOut
+		WHEN
+			com.anfelisa.box.SortCardsOut
+				{
+					cardIds: ["c1", "c4" ]
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	SortCardsOutCardDoesNotExist
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.SortCardsOut
+				{
+					cardIds: ["c1", "xx", "c4" ]
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	SortCardsOutEmptyCardIds
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.SortCardsOut
+				{
+					cardIds: []
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	SortCardsOutCardIdsNull
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.SortCardsOut
+				authorization "Annette" : "password"
+		THEN 200
+
+	SortCardsOutWithScoredAndReinforce
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
+		WHEN
+			com.anfelisa.box.SortCardsOut
+				{
+					cardIds: ["c1", "c4" ]
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+	SortCardsOutUnauthorized
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.SortCardsOut
+				{
+					cardIds: ["c1", "c4" ]
+				}
+		THEN 401
+
+	SortCardsOutNotMyCards
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.box.SortCardsOut
+				{
+					cardIds: ["c1", "c4" ]
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+
+

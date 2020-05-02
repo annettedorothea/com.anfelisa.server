@@ -17,26 +17,25 @@
 
 
 
-package com.anfelisa.box.views;
+package com.anfelisa.box.models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import de.acegen.IDataContainer;
-import de.acegen.PersistenceHandle;
-import com.anfelisa.box.data.IBoxCreationData;
-import com.anfelisa.box.data.IBoxUpdateData;
-import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.data.IScheduledCardsData;
-import com.anfelisa.box.data.ISortCardsOutData;
+import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 
-@SuppressWarnings("all")
-public interface IBoxView {
-
-	void createBox(IBoxCreationData data, PersistenceHandle handle);
-	void updateBox(IBoxUpdateData data, PersistenceHandle handle);
-	void deleteBox(IDeleteBoxData data, PersistenceHandle handle);
-	void scheduleCards(IScheduledCardsData data, PersistenceHandle handle);
-	void sortCardsOut(ISortCardsOutData data, PersistenceHandle handle);
-
+public class SortCardsOutMapper implements RowMapper<ISortCardsOutModel> {
+	
+	public ISortCardsOutModel map(ResultSet r, StatementContext ctx) throws SQLException {
+		return new SortCardsOutModel(
+			null,
+			null,
+			null,
+			r.getString("userId"),
+			r.getString("boxId")
+		);
+	}
 }
 
 

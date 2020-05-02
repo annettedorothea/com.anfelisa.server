@@ -17,26 +17,28 @@
 
 
 
-package com.anfelisa.box.views;
+package com.anfelisa.box.data;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import de.acegen.IDataContainer;
-import de.acegen.PersistenceHandle;
-import com.anfelisa.box.data.IBoxCreationData;
-import com.anfelisa.box.data.IBoxUpdateData;
-import com.anfelisa.box.data.IDeleteBoxData;
-import com.anfelisa.box.data.IScheduledCardsData;
-import com.anfelisa.box.data.ISortCardsOutData;
 
-@SuppressWarnings("all")
-public interface IBoxView {
+import com.anfelisa.box.models.ISortCardsOutModel;
 
-	void createBox(IBoxCreationData data, PersistenceHandle handle);
-	void updateBox(IBoxUpdateData data, PersistenceHandle handle);
-	void deleteBox(IDeleteBoxData data, PersistenceHandle handle);
-	void scheduleCards(IScheduledCardsData data, PersistenceHandle handle);
-	void sortCardsOut(ISortCardsOutData data, PersistenceHandle handle);
-
+@JsonDeserialize(as=SortCardsOutData.class)
+public interface ISortCardsOutData extends ISortCardsOutModel, IDataContainer {
+	
+	ISortCardsOutData withSortedOutScheduledCardIds(java.util.List<String> sortedOutScheduledCardIds);
+	
+	ISortCardsOutData withSortedOutReinforceCardIds(java.util.List<String> sortedOutReinforceCardIds);
+	
+	ISortCardsOutData withCardIds(java.util.List<String> cardIds);
+	
+	ISortCardsOutData withUserId(String userId);
+	
+	ISortCardsOutData withBoxId(String boxId);
+	
+	
 }
 
 
