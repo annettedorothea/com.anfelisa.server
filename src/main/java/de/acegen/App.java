@@ -43,7 +43,7 @@ public class App extends Application<CustomAppConfiguration> {
 	}
 
 	public static String getVersion() {
-		return "0.6.1";
+		return "0.8.0";
 	}
 
 	public static String getMode() {
