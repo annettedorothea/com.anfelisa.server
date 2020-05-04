@@ -234,17 +234,10 @@ public abstract class AbstractGetBoxesWithOneScoredCard3AndReinforceSameDayScena
 		}
 		com.anfelisa.box.data.BoxListData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"boxList\" : [ { \"allTodaysCards\" : 3," + 
-				"\"boxId\" : \"boxId\"," + 
+				"\"boxList\" : [ { \"boxId\" : \"boxId\"," + 
 				"\"categoryId\" : \"boxId\"," + 
 				"\"categoryName\" : \"cat\"," + 
-				"\"openTodaysCards\" : 3," + 
-				"\"quality0Count\" : 0," + 
-				"\"quality1Count\" : 0," + 
-				"\"quality2Count\" : 0," + 
-				"\"quality3Count\" : 1," + 
-				"\"quality4Count\" : 0," + 
-				"\"quality5Count\" : 0}]} ",
+				"\"openTodaysCards\" : 3}]} ",
 		com.anfelisa.box.data.BoxListData.class)
 		
 		;

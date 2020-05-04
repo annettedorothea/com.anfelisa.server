@@ -224,17 +224,10 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		} else if (expected == null) {
 			org.junit.Assert.fail("expected is null");
 		} else {
-			assertEquals(expected.getAllTodaysCards(), actual.getAllTodaysCards());
 			assertEquals(expected.getBoxId(), actual.getBoxId());
 			assertEquals(expected.getCategoryId(), actual.getCategoryId());
 			assertEquals(expected.getCategoryName(), actual.getCategoryName());
 			assertEquals(expected.getOpenTodaysCards(), actual.getOpenTodaysCards());
-			assertEquals(expected.getQuality0Count(), actual.getQuality0Count());
-			assertEquals(expected.getQuality1Count(), actual.getQuality1Count());
-			assertEquals(expected.getQuality2Count(), actual.getQuality2Count());
-			assertEquals(expected.getQuality3Count(), actual.getQuality3Count());
-			assertEquals(expected.getQuality4Count(), actual.getQuality4Count());
-			assertEquals(expected.getQuality5Count(), actual.getQuality5Count());
 		}
 	}
 	

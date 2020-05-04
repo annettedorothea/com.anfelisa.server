@@ -30,23 +30,9 @@ public interface IBoxViewData extends IBoxViewModel, IDataContainer {
 	
 	IBoxViewData withOpenTodaysCards(Integer openTodaysCards);
 	
-	IBoxViewData withAllTodaysCards(Integer allTodaysCards);
-	
 	IBoxViewData withCategoryName(String categoryName);
 	
 	IBoxViewData withCategoryId(String categoryId);
-	
-	IBoxViewData withQuality0Count(Integer quality0Count);
-	
-	IBoxViewData withQuality1Count(Integer quality1Count);
-	
-	IBoxViewData withQuality2Count(Integer quality2Count);
-	
-	IBoxViewData withQuality3Count(Integer quality3Count);
-	
-	IBoxViewData withQuality4Count(Integer quality4Count);
-	
-	IBoxViewData withQuality5Count(Integer quality5Count);
 	
 	IBoxViewData withBoxId(String boxId);
 	

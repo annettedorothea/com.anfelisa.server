@@ -27,7 +27,7 @@
               <transformers>
                 <transformer />
                 <transformer>
-                  <mainClass>com.anfelisa.ace.App</mainClass>
+                  <mainClass>de.acegen.App</mainClass>
                 </transformer>
               </transformers>
             </configuration>

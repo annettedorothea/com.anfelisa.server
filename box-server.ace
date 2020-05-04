@@ -195,15 +195,8 @@ models
 
 	BoxView {
 		Integer openTodaysCards
-		Integer allTodaysCards
 		NotNull String categoryName
 		NotNull String categoryId
-		Integer quality0Count
-		Integer quality1Count
-		Integer quality2Count
-		Integer quality3Count
-		Integer quality4Count
-		Integer quality5Count
 		NotNull String boxId
 	}
 
