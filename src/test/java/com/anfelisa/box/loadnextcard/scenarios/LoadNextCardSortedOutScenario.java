@@ -17,31 +17,17 @@
 
 
 
-package com.anfelisa.box.models;
+package com.anfelisa.box.loadnextcard.scenarios;
 
-import java.util.List;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import javax.ws.rs.core.Response;
 
 @SuppressWarnings("unused")
-@JsonDeserialize(as=NextCardModel.class)
-public interface INextCardModel extends com.anfelisa.box.models.INextCardViewModel,com.anfelisa.box.models.ITodaysCardsStatusModel{
+public class LoadNextCardSortedOutScenario extends AbstractLoadNextCardSortedOutScenario {
 
-	String getUserId();
-	void setUserId(String userId);
-	
-	String getBoxId();
-	void setBoxId(String boxId);
-	
-	org.joda.time.DateTime getTodayAtMidnightInUTC();
-	void setTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC);
-	
-	Integer getOpenTodaysCards();
-	void setOpenTodaysCards(Integer openTodaysCards);
-	
-	Integer getAllTodaysCards();
-	void setAllTodaysCards(Integer allTodaysCards);
-	
-	
+	@Override
+	protected void verifications(com.anfelisa.box.data.LoadNextCardResponse response ) {
+	}
+
 }
 
 

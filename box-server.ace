@@ -264,7 +264,7 @@ models
 		DateTime scoredDate
 	}
 	
-	NextCard extends NextCardView {
+	NextCard extends NextCardView, TodaysCardsStatus {
 		String userId
 		NotNull String boxId
 		NotNull DateTime todayAtMidnightInUTC

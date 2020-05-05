@@ -28,6 +28,7 @@ import com.anfelisa.box.models.INextCardModel;
 @JsonDeserialize(as=NextCardData.class)
 public interface INextCardData extends INextCardModel, IDataContainer {
 	void mapFrom(com.anfelisa.box.models.INextCardViewModel model);
+	void mapFrom(com.anfelisa.box.models.ITodaysCardsStatusModel model);
 	
 	INextCardData withUserId(String userId);
 	

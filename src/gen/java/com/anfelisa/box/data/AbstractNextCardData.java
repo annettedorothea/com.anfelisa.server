@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import com.anfelisa.box.models.INextCardModel;
 import com.anfelisa.box.models.INextCardViewModel;
+import com.anfelisa.box.models.ITodaysCardsStatusModel;
 
 import de.acegen.AbstractData;
 import de.acegen.IDataContainer;
@@ -353,6 +354,10 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		this.rootCategoryId = model.getRootCategoryId();
 		this.count = model.getCount();
 		this.scoredDate = model.getScoredDate();
+	}
+	public void mapFrom(com.anfelisa.box.models.ITodaysCardsStatusModel model) {
+		this.openTodaysCards = model.getOpenTodaysCards();
+		this.allTodaysCards = model.getAllTodaysCards();
 	}
 	
 }

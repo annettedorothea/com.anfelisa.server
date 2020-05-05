@@ -387,6 +387,87 @@ scenarios
 				allTodaysCards: 3,
 				openTodaysCards: 0
 			}
+
+	LoadNextCardSortedOutReinforce
+		GIVEN
+			com.anfelisa.box.sortcardsout.SortCardsOutWithScoredAndReinforce
+		WHEN
+			com.anfelisa.box.LoadNextCard
+				{
+					boxId: "boxId",
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				allTodaysCards: 1,
+				cardId: "c3",
+				categoryId: "cat1",
+				count: 0,
+				given: "3given",
+				lastQuality: 1,
+				openTodaysCards: 1,
+				reinforceCardId: "score1",
+				rootCategoryId: "boxId",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				wanted: "3wanted"
+			}		
+
+	LoadNextCardSortedOut
+		GIVEN
+			com.anfelisa.box.sortcardsout.SortCardsOut
+		WHEN
+			com.anfelisa.box.LoadNextCard
+				{
+					boxId: "boxId",
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				allTodaysCards: 1,
+				cardId: "c3",
+				categoryId: "cat1",
+				count: 0,
+				given: "3given",
+				lastQuality: null,
+				openTodaysCards: 1,
+				reinforceCardId: null,
+				rootCategoryId: "boxId",
+				scheduledCardId: "c3-sc1",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null,
+				wanted: "3wanted"
+			}		
+					
+	LoadNextCardSortedOutAllTodaysCards
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard35
+			com.anfelisa.box.sortcardsout.SortCardsOut excludeGIVEN
+		WHEN
+			com.anfelisa.box.LoadNextCard
+				{
+					boxId: "boxId",
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				allTodaysCards: 1,
+				cardId: "c3",
+				categoryId: "cat1",
+				count: 0,
+				given: "3given",
+				lastQuality: null,
+				openTodaysCards: 1,
+				reinforceCardId: null,
+				rootCategoryId: "boxId",
+				scheduledCardId: "c3-sc1",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null,
+				wanted: "3wanted"
+			}		
 					
 	LoadNextCardNoCards
 		GIVEN
