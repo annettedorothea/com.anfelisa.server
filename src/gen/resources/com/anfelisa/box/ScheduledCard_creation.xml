@@ -24,7 +24,7 @@
 		<constraints  nullable="false"  />
 	</column>
 	<column name="scheduleddate" type="timestamp with time zone">
-		<constraints  nullable="false"  />
+		<constraints    />
 	</column>
 	<column name="lastquality" type="integer">
 		<constraints    />

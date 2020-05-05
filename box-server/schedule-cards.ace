@@ -143,3 +143,18 @@ scenarios
 				authorization "Admin" : "admin-password"
 		THEN 401
 
+	ScheduleSortedOutCardsWithMultipleScores
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard39
+			com.anfelisa.box.sortcardsout.SortCardsOut excludeGIVEN
+		WHEN
+			com.anfelisa.box.ScheduleCards
+				uuid "reschedule"
+				systemTime "20220318 10:30" "yyyyMMdd HH:mm"
+				{
+					cardIds: ["c1" ]
+				}
+				authorization "Annette" : "password"
+		THEN 200
+
+

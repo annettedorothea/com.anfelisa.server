@@ -353,4 +353,10 @@
 			defaultNullValue="8" tableName="box" />
 	</changeSet>
 
+	<changeSet id="013" author="annette">
+
+		<dropNotNullConstraint columnName="scheduleddate"
+			tableName="scheduledcard" />
+	</changeSet>
+
 </databaseChangeLog>

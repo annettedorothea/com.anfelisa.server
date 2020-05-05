@@ -43,7 +43,10 @@ public class SortCardsOutWithScoredAndReinforceScenario extends AbstractSortCard
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"score0");
-		assertIsNull(actualScheduledCard);
+		expectedScheduledCard = new ScheduledCardModel("score0", "c1", "boxId",
+				scoredDateTime, 2.5F, 1, 1, 1, null, 0, null,
+				null);
+		assertThat(actualScheduledCard, expectedScheduledCard);
 
 		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-sc1");
 		assertIsNull(actualReinforceCard);
@@ -54,8 +57,17 @@ public class SortCardsOutWithScoredAndReinforceScenario extends AbstractSortCard
 				scoredDateTime);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
+		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "score1");
+		expectedScheduledCard = new ScheduledCardModel("score1", "c3", "boxId",
+				scoredDateTime, 2.5F, 1, 1, 1, scoredDateTime.plusDays(1), 1, null,
+				null);
+		assertThat(actualScheduledCard, expectedScheduledCard);
+		
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c4-sc1");
-		assertIsNull(actualScheduledCard);
+		expectedScheduledCard = new ScheduledCardModel("c4-sc1", "c4", "boxId",
+				dateTime, 2.5F, 1, 1, 0, null, null, null,
+				null);
+		assertThat(actualScheduledCard, expectedScheduledCard);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c2",
 				"boxId");

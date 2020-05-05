@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.box.loadnextcard.scenarios;
+package com.anfelisa.box.schedulecards.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +36,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractLoadNextCardSortedOutAllTodaysCardsScenario extends BaseScenario {
+public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		Response response;
@@ -310,6 +310,74 @@ public abstract class AbstractLoadNextCardSortedOutAllTodaysCardsScenario extend
 		}
 		
 
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20210301 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+		response = 
+		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"score36\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"scoredCardQuality\" : 3," + 
+				"\"scoredCardScheduledCardId\" : \"score35\"} ",
+		com.anfelisa.box.data.ScoreCardData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
+
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20210701 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+		response = 
+		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"score37\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"scoredCardQuality\" : 3," + 
+				"\"scoredCardScheduledCardId\" : \"score36\"} ",
+		com.anfelisa.box.data.ScoreCardData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
+
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20211001 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+		response = 
+		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"score38\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"scoredCardQuality\" : 3," + 
+				"\"scoredCardScheduledCardId\" : \"score37\"} ",
+		com.anfelisa.box.data.ScoreCardData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
+
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20220201 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+		response = 
+		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			"\"uuid\" : \"score39\"," + 
+				"\"boxId\" : \"boxId\"," + 
+				"\"scoredCardQuality\" : 3," + 
+				"\"scoredCardScheduledCardId\" : \"score38\"} ",
+		com.anfelisa.box.data.ScoreCardData.class)
+		
+		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		
+		if (response.getStatus() == 500) {
+			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
+			assertFail(message);
+		}
+		
+
 		response = 
 		com.anfelisa.box.ActionCalls.callSortCardsOut(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
@@ -328,73 +396,44 @@ public abstract class AbstractLoadNextCardSortedOutAllTodaysCardsScenario extend
 	}
 	
 	private Response when() throws Exception {
+		NotReplayableDataProvider.setSystemTime(DateTime.parse("20220318 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		
 		return 
-		com.anfelisa.box.ActionCalls.callLoadNextCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"todayAtMidnightInUTC\" : \"2020-04-18T00:00:00.000Z\"} ",
-		com.anfelisa.box.data.NextCardData.class)
+		com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
+			"\"uuid\" : \"reschedule\"," + 
+				"\"cardIds\" : [ \"c1\"]} ",
+		com.anfelisa.box.data.ScheduledCardsData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 	}
 	
-	private com.anfelisa.box.data.LoadNextCardResponse then(Response response) throws Exception {
+	private void then(Response response) throws Exception {
 		if (response.getStatus() == 500) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
 		}
 		assertThat(response.getStatus(), 200);
 		
-		com.anfelisa.box.data.LoadNextCardResponse actual = null;
-		try {
-			actual = response.readEntity(com.anfelisa.box.data.LoadNextCardResponse.class);
-		} catch (Exception x) {
-		}
-		com.anfelisa.box.data.NextCardData expectedData = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"allTodaysCards\" : 1," + 
-				"\"cardId\" : \"c3\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"count\" : 0," + 
-				"\"given\" : \"3given\"," + 
-				"\"lastQuality\" : null," + 
-				"\"openTodaysCards\" : 1," + 
-				"\"reinforceCardId\" : null," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
-				"\"scheduledCardId\" : \"c3-sc1\"," + 
-				"\"scheduledDate\" : \"2020-04-18T08:30:00.000Z\"," + 
-				"\"scoredDate\" : null," + 
-				"\"wanted\" : \"3wanted\"} ",
-		com.anfelisa.box.data.NextCardData.class)
-		
-		;
-		
-		com.anfelisa.box.data.LoadNextCardResponse expected = new com.anfelisa.box.data.LoadNextCardResponse(expectedData);
-
-
-		assertThat(actual, expected);
 			
-			return actual;
 				}
 				
 				@Test
-				public void loadNextCardSortedOutAllTodaysCards() throws Exception {
+				public void scheduleSortedOutCardsWithMultipleScores() throws Exception {
 					given();
 					
 					Response response = when();
 			
-					com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
+					then(response);
 					
-					verifications(actualResponse);
+					verifications();
 				}
 				
-				protected abstract void verifications(com.anfelisa.box.data.LoadNextCardResponse response);
+				protected abstract void verifications();
 				
 				@Override
 				protected String scenarioName() {
-					return "LoadNextCardSortedOutAllTodaysCards";
+					return "ScheduleSortedOutCardsWithMultipleScores";
 				}
 			
 			}

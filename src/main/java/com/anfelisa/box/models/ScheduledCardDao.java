@@ -98,6 +98,14 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 		statement.execute();
 	}
 
+	public void sortOutCard(PersistenceHandle handle, String scheduledCardId ) {
+		Update statement = handle.getHandle()
+				.createUpdate("UPDATE public.scheduledcard SET scheduleddate = null "
+						+ "WHERE scheduledcardid = :scheduledcardid");
+		statement.bind("scheduledcardid", scheduledCardId);
+		statement.execute();
+	}
+	
 	public void deleteByBoxId(PersistenceHandle handle, String boxId) {
 		Update statement = handle.getHandle().createUpdate("DELETE FROM scheduledcard WHERE boxid = :boxid");
 		statement.bind("boxid", boxId);

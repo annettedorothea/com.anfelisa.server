@@ -28,14 +28,15 @@ public class BoxDao extends AbstractBoxDao {
 	public ITodaysCardsStatusModel todaysCardsStatus(PersistenceHandle handle, String boxId, DateTime today) {
 		DateTime endOfDay = today.plusDays(1);
 		Optional<ITodaysCardsStatusModel> optional = handle.getHandle().createQuery("SELECT "
-				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate >= :today and scheduledDate < :endofday) + "
-				+ "(select count(scheduledcardid) from public.scheduledcard sc "
-				+ "where boxid = :boxid "
-				+ "AND quality is not null "
+				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard "
+				+ "WHERE boxid = :boxid "
 				+ "AND scheduledDate >= :today "
-				+ "and scheduledDate < :endofday "
-				+ "and (select count(*) from public.scheduledcard scc where sc.cardid = scc.cardid and quality is null) > 0 ) as allTodaysCards, "
-				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = :boxid AND quality is null AND scheduledDate < :endofday) + "
+				+ "and scheduledDate < :endofday) as allTodaysCards, "
+				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard "
+				+ "WHERE boxid = :boxid "
+				+ "AND quality is null "
+				+ "AND scheduledDate >= :today "
+				+ "AND scheduledDate < :endofday) + "
 				+ "(select count(reinforcecardid) from public.reinforcecard where boxid = :boxid ) as openTodaysCards")
 				.bind("boxid", boxId)
 				.bind("today", today)

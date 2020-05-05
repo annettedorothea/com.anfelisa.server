@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.box.sortcardsout.scenarios;
+package com.anfelisa.box.schedulecards.scenarios;
 
 import javax.ws.rs.core.Response;
 
@@ -28,36 +28,19 @@ import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.ScheduledCardModel;
 
 @SuppressWarnings("unused")
-public class SortCardsOutScenario extends AbstractSortCardsOutScenario {
+public class ScheduleSortedOutCardsWithMultipleScoresScenario extends AbstractScheduleSortedOutCardsWithMultipleScoresScenario {
 
 	@Override
 	protected void verifications() {
-		DateTime dateTime = new DateTime(2020, 4, 18, 10, 30).withZone(DateTimeZone.UTC);
+		DateTime creationDateTime = new DateTime(2022, 2, 1, 16, 30).withZone(DateTimeZone.UTC);
+		DateTime scheduledDateTime = new DateTime(2022, 3, 18, 10, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"c1-sc1");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c1-sc1", "c1", "boxId",
-				dateTime, 2.5F, 1, 1, 0, null, null, null,
+				"score39");
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score39", "c1", "boxId",
+				creationDateTime, 1.48F, 90, 11, 10, scheduledDateTime, 3, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
-
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c3-sc1");
-		expectedScheduledCard = new ScheduledCardModel("c3-sc1", "c3", "boxId",
-				dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-		
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c4-sc1");
-		expectedScheduledCard = new ScheduledCardModel("c4-sc1", "c4", "boxId",
-				dateTime, 2.5F, 1, 1, 0, null, null, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-		
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c2", "boxId");
-		assertIsNull(actualScheduledCard);
-		
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c5", "boxId");
-		assertIsNull(actualScheduledCard);
 	}
 
 }

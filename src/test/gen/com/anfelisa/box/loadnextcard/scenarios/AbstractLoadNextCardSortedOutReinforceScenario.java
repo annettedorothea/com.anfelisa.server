@@ -267,7 +267,7 @@ public abstract class AbstractLoadNextCardSortedOutReinforceScenario extends Bas
 		}
 		com.anfelisa.box.data.NextCardData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"allTodaysCards\" : 1," + 
+				"\"allTodaysCards\" : 2," + 
 				"\"cardId\" : \"c3\"," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"count\" : 0," + 

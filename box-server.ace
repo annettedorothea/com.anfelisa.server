@@ -125,7 +125,7 @@ ACE
 			Box.deleteBox 
 			UserAccessToCategory.delete
 		)
-	
+		
 views 
 	Box {
 		createBox (BoxCreation)
@@ -170,7 +170,7 @@ models
 		Integer maxInterval
 		NotNull Integer maxCardsPerDay
 	}
-
+	
 	persistent ScheduledCard {
 		Unique PrimaryKey NotNull String scheduledCardId
 		NotNull String cardId references com.anfelisa.card.Card.cardId
@@ -180,7 +180,7 @@ models
 		Integer interval
 		NotNull Integer n
 		NotNull Integer count
-		NotNull DateTime scheduledDate
+		DateTime scheduledDate
 		Integer lastQuality
 		Integer quality
 		DateTime scoredDate

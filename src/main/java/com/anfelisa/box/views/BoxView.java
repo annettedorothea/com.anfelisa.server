@@ -46,7 +46,7 @@ public class BoxView implements IBoxView {
 	@Override
 	public void sortCardsOut(ISortCardsOutData data, PersistenceHandle handle) {
 		for (String scheduledCardId : data.getSortedOutScheduledCardIds()) {
-			daoProvider.getScheduledCardDao().deleteByScheduledCardId(handle, scheduledCardId);
+			daoProvider.getScheduledCardDao().sortOutCard(handle, scheduledCardId);
 		}
 	}
 

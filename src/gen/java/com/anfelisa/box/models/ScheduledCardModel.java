@@ -57,7 +57,6 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	@NotNull
 	private Integer count;
 	
-	@NotNull
 	private org.joda.time.DateTime scheduledDate;
 	
 	private Integer lastQuality;

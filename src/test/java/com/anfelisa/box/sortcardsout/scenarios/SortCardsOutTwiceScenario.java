@@ -36,16 +36,22 @@ public class SortCardsOutTwiceScenario extends AbstractSortCardsOutTwiceScenario
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"c1-sc1");
-		assertIsNull(actualScheduledCard);
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c1-sc1", "c1", "boxId",
+				dateTime, 2.5F, 1, 1, 0, null, null, null,
+				null);
+		assertThat(actualScheduledCard, expectedScheduledCard);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c3-sc1");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c3-sc1", "c3", "boxId",
+		expectedScheduledCard = new ScheduledCardModel("c3-sc1", "c3", "boxId",
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 		
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c4-sc1");
-		assertIsNull(actualScheduledCard);
+		expectedScheduledCard = new ScheduledCardModel("c4-sc1", "c4", "boxId",
+				dateTime, 2.5F, 1, 1, 0, null, null, null,
+				null);
+		assertThat(actualScheduledCard, expectedScheduledCard);
 		
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c2", "boxId");
 		assertIsNull(actualScheduledCard);
