@@ -107,6 +107,33 @@ scenarios
 				wanted: "wanted"
 			}		
 
+	LoadNextCardAllScoredNextDay
+		GIVEN
+			com.anfelisa.box.initmyboxes.InitMyBoxesForDayWithScoredAndReinforceCardsOneDayLaterDeletesOutdatedReinforceCards
+		WHEN
+			com.anfelisa.box.LoadNextCard
+				{
+					boxId: "boxId",
+					todayAtMidnightInUTC: "20200419 04:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				allTodaysCards: 2,
+				cardId: "c1",
+				categoryId: "cat1",
+				count: 1,
+				given: "given",
+				image: "image",
+				lastQuality: 0,
+				openTodaysCards: 2,
+				rootCategoryId: "boxId",
+				scheduledCardId: "score0",
+				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
+				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				wanted: "wanted"
+			}		
+
 	LoadNextCardFirstReinforceScored
 		GIVEN
 			com.anfelisa.box.scorecard.ScoreCard0

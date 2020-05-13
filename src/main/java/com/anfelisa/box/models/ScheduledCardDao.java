@@ -26,7 +26,7 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 						+ "c.categoryid, "
 						+ "c.rootcategoryid, "
 						+ "sc.count, "
-						+ "sc.scoreddate "
+						+ "(select subscc.scoreddate from scheduledcard subscc where subscc.cardid = sc.cardid and scoreddate is not null order by scoreddate desc limit 1) as scoreddate "
 						+ "FROM public.scheduledcard sc "
 						+ "inner join public.card c on c.cardid = sc.cardid "
 						+ "inner join public.category ct on c.categoryid = ct.categoryid "
