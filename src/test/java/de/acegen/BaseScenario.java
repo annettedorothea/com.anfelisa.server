@@ -58,7 +58,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	private static Jdbi jdbi;
 
 	@BeforeClass
-	public static void beforeClass() throws InterruptedException {
+	public static void beforeClass() throws Exception {
 		DROPWIZARD.before();
 		final JdbiFactory factory = new JdbiFactory();
 		jdbi = factory.build(DROPWIZARD.getEnvironment(), DROPWIZARD.getConfiguration().getDataSourceFactory(),
