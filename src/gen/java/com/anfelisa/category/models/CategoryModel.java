@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -34,16 +32,12 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class CategoryModel implements ICategoryModel {
 
-	@NotNull
 	private String categoryId;
 	
-	@NotNull
 	private String categoryName;
 	
-	@NotNull
 	private String categoryAuthor;
 	
-	@NotNull
 	private Integer categoryIndex;
 	
 	private String parentCategoryId;

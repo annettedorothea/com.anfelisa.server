@@ -24,8 +24,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
 
@@ -36,13 +34,10 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class GetUserProfileResponse implements IGetUserProfileResponse {
 	
-	@NotNull
 	private String email;
 	
-	@NotNull
 	private String username;
 	
-	@NotNull
 	private String userId;
 	
 	public GetUserProfileResponse() {

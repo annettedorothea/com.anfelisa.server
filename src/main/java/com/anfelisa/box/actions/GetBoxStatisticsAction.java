@@ -67,6 +67,7 @@ public class GetBoxStatisticsAction extends AbstractGetBoxStatisticsAction {
 	public void initActionData() {
 	}
 
+
 }
 
 

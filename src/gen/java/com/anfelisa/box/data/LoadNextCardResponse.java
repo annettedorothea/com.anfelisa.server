@@ -24,8 +24,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
 
@@ -36,12 +34,10 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class LoadNextCardResponse implements ILoadNextCardResponse {
 	
-	@NotNull
 	private String cardId;
 	
 	private String categoryId;
 	
-	@NotNull
 	private Integer count;
 	
 	private String given;
@@ -52,13 +48,10 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	
 	private String rootCategoryId;
 	
-	@NotNull
 	private String scheduledCardId;
 	
-	@NotNull
 	private String reinforceCardId;
 	
-	@NotNull
 	private org.joda.time.DateTime scheduledDate;
 	
 	private org.joda.time.DateTime scoredDate;

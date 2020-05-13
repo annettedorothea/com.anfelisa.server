@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
@@ -42,22 +40,16 @@ public abstract class AbstractUserData extends AbstractData implements IUserData
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractUserData.class);
 	
-	@NotNull
 	private String userId;
 	
-	@NotNull
 	private String username;
 	
-	@NotNull
 	private String password;
 	
-	@NotNull
 	private String email;
 	
-	@NotNull
 	private String role;
 	
-	@NotNull
 	private Boolean emailConfirmed = false;
 	
 

@@ -53,7 +53,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -69,7 +69,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -84,7 +84,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -101,7 +101,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -116,7 +116,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN ScheduleCards fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -133,7 +133,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -152,7 +152,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -168,7 +168,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -183,7 +183,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -200,7 +200,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -217,7 +217,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -233,7 +233,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -249,7 +249,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -265,7 +265,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -282,7 +282,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN ScheduleCards fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -299,7 +299,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}

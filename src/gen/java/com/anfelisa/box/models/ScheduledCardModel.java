@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -34,27 +32,20 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class ScheduledCardModel implements IScheduledCardModel {
 
-	@NotNull
 	private String scheduledCardId;
 	
-	@NotNull
 	private String cardId;
 	
-	@NotNull
 	private String boxId;
 	
-	@NotNull
 	private org.joda.time.DateTime createdDate;
 	
-	@NotNull
 	private Float ef;
 	
 	private Integer interval;
 	
-	@NotNull
 	private Integer n;
 	
-	@NotNull
 	private Integer count;
 	
 	private org.joda.time.DateTime scheduledDate;

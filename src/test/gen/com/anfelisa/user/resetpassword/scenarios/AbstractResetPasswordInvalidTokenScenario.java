@@ -53,7 +53,7 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 		
 		, DROPWIZARD.getLocalPort());
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -70,7 +70,7 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 		
 		, DROPWIZARD.getLocalPort());
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN ForgotPassword fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}

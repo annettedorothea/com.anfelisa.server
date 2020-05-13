@@ -53,7 +53,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -72,7 +72,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -91,7 +91,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -106,7 +106,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN ChangeUserRole fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}

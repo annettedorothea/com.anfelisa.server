@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -38,7 +36,6 @@ public class CardCreationModel implements ICardCreationModel {
 	
 	private String username;
 	
-	@NotNull
 	private String cardId;
 	
 	private String given;
@@ -47,16 +44,12 @@ public class CardCreationModel implements ICardCreationModel {
 	
 	private String image;
 	
-	@NotNull
 	private String cardAuthor;
 	
-	@NotNull
 	private Integer cardIndex;
 	
-	@NotNull
 	private String categoryId;
 	
-	@NotNull
 	private String rootCategoryId;
 	
 

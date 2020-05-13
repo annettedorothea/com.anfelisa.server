@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
@@ -42,27 +40,20 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractScheduledCardData.class);
 	
-	@NotNull
 	private String scheduledCardId;
 	
-	@NotNull
 	private String cardId;
 	
-	@NotNull
 	private String boxId;
 	
-	@NotNull
 	private org.joda.time.DateTime createdDate;
 	
-	@NotNull
 	private Float ef;
 	
 	private Integer interval;
 	
-	@NotNull
 	private Integer n;
 	
-	@NotNull
 	private Integer count;
 	
 	private org.joda.time.DateTime scheduledDate;

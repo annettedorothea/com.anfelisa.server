@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
@@ -52,7 +50,6 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 	
 	private String userId;
 	
-	@NotNull
 	private String boxId;
 	
 

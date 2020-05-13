@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -36,26 +34,20 @@ public class NextCardModel implements INextCardModel {
 
 	private String userId;
 	
-	@NotNull
 	private String boxId;
 	
-	@NotNull
 	private org.joda.time.DateTime todayAtMidnightInUTC;
 	
 	private Integer openTodaysCards;
 	
 	private Integer allTodaysCards;
 	
-	@NotNull
 	private String scheduledCardId;
 	
-	@NotNull
 	private String reinforceCardId;
 	
-	@NotNull
 	private String cardId;
 	
-	@NotNull
 	private org.joda.time.DateTime scheduledDate;
 	
 	private Integer lastQuality;
@@ -70,7 +62,6 @@ public class NextCardModel implements INextCardModel {
 	
 	private String rootCategoryId;
 	
-	@NotNull
 	private Integer count;
 	
 	private org.joda.time.DateTime scoredDate;

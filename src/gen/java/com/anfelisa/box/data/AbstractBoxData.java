@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
@@ -42,18 +40,14 @@ public abstract class AbstractBoxData extends AbstractData implements IBoxData {
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractBoxData.class);
 	
-	@NotNull
 	private String boxId;
 	
-	@NotNull
 	private String userId;
 	
-	@NotNull
 	private String categoryId;
 	
 	private Integer maxInterval;
 	
-	@NotNull
 	private Integer maxCardsPerDay;
 	
 

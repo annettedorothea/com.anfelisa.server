@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -34,22 +32,16 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class DeleteUserModel implements IDeleteUserModel {
 
-	@NotNull
 	private String usernameToBeDeleted;
 	
-	@NotNull
 	private String username;
 	
-	@NotNull
 	private String userId;
 	
-	@NotNull
 	private String role;
 	
-	@NotNull
 	private java.util.List<String> boxIds;
 	
-	@NotNull
 	private java.util.List<String> rootCategoryIds;
 	
 

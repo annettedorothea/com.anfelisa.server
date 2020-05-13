@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -34,47 +32,36 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class ScoreCardModel implements IScoreCardModel {
 
-	@NotNull
 	private String cardId;
 	
-	@NotNull
 	private String nextScheduledCardScheduledCardId;
 	
-	@NotNull
 	private org.joda.time.DateTime nextScheduledCardCreatedDate;
 	
-	@NotNull
 	private Float nextScheduledCardEf;
 	
 	private Integer nextScheduledCardInterval;
 	
-	@NotNull
 	private Integer nextScheduledCardN;
 	
-	@NotNull
 	private Integer nextScheduledCardCount;
 	
-	@NotNull
 	private org.joda.time.DateTime nextScheduledCardScheduledDate;
 	
 	private Integer nextScheduledCardLastQuality;
 	
-	@NotNull
 	private String scoredCardScheduledCardId;
 	
 	private Integer scoredCardQuality;
 	
 	private org.joda.time.DateTime scoredCardScoredDate;
 	
-	@NotNull
 	private String reinforceCardId;
 	
-	@NotNull
 	private org.joda.time.DateTime reinforceCardCreatedDate;
 	
 	private String userId;
 	
-	@NotNull
 	private String boxId;
 	
 

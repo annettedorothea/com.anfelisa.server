@@ -53,7 +53,7 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -72,7 +72,7 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -88,7 +88,7 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		
 		, DROPWIZARD.getLocalPort());
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN ConfirmEmail fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}

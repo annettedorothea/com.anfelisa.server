@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
@@ -42,7 +40,6 @@ public abstract class AbstractBoxSettingsData extends AbstractData implements IB
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractBoxSettingsData.class);
 	
-	@NotNull
 	private String boxId;
 	
 	private Integer maxInterval;

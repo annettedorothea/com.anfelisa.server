@@ -53,7 +53,7 @@ public abstract class AbstractUpdateCardNoAccessToCategoryScenario extends BaseS
 		
 		, DROPWIZARD.getLocalPort());
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -69,7 +69,7 @@ public abstract class AbstractUpdateCardNoAccessToCategoryScenario extends BaseS
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -84,7 +84,7 @@ public abstract class AbstractUpdateCardNoAccessToCategoryScenario extends BaseS
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -101,7 +101,7 @@ public abstract class AbstractUpdateCardNoAccessToCategoryScenario extends BaseS
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}
@@ -120,7 +120,7 @@ public abstract class AbstractUpdateCardNoAccessToCategoryScenario extends BaseS
 		
 		, DROPWIZARD.getLocalPort());
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}

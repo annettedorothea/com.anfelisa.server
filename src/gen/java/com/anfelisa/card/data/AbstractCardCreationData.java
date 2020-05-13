@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
@@ -47,7 +45,6 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	
 	private String username;
 	
-	@NotNull
 	private String cardId;
 	
 	private String given;
@@ -56,16 +53,12 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 	
 	private String image;
 	
-	@NotNull
 	private String cardAuthor;
 	
-	@NotNull
 	private Integer cardIndex;
 	
-	@NotNull
 	private String categoryId;
 	
-	@NotNull
 	private String rootCategoryId;
 	
 

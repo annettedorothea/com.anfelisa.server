@@ -53,7 +53,7 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 		
 		, DROPWIZARD.getLocalPort());
 		
-		if (response.getStatus() == 500) {
+		if (response.getStatus() >= 400) {
 			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
 			assertFail(message);
 		}

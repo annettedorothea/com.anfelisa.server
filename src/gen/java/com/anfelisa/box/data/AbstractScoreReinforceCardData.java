@@ -23,8 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import java.util.List;
 import org.slf4j.Logger;
@@ -42,13 +40,10 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractScoreReinforceCardData.class);
 	
-	@NotNull
 	private String reinforceCardId;
 	
-	@NotNull
 	private Integer scoredCardQuality;
 	
-	@NotNull
 	private org.joda.time.DateTime changeDate;
 	
 	private String userId;
