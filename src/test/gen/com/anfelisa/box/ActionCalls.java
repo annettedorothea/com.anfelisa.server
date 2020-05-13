@@ -119,6 +119,16 @@ public class ActionCalls {
 		return builder.get();
 	}
 	
+	public static Response callGetBoxStatistics(
+			com.anfelisa.box.data.IBoxStatisticsListData data,
+			int port, 
+			String authorization) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client.target(String.format("http://localhost:%d/api/boxes/statistics/?uuid=" + data.getUuid() + "&todayAtMidnightInUTC=" + data.getTodayAtMidnightInUTC(), port)).request(); 
+		builder.header("Authorization", authorization);
+		return builder.get();
+	}
+	
 	public static Response callLoadNextCard(
 			com.anfelisa.box.data.INextCardData data,
 			int port, 

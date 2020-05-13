@@ -15,8 +15,13 @@ public class BoxDao extends AbstractBoxDao {
 	public List<IBoxViewModel> selectByUserId(PersistenceHandle handle, String userId, DateTime today) {
 		DateTime endOfDay = today.plusDays(1);
 		return handle.getHandle().createQuery("SELECT "
-				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard WHERE boxid = b.boxid AND quality is null AND scheduledDate < :endofday) + "
-				+ "(select count(reinforcecardid) from public.reinforcecard where boxid = b.boxid ) as openTodaysCards, "
+				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard "
+				+ "WHERE boxid = b.boxid "
+				+ "AND quality is null "
+				+ "AND scheduledDate >= :today "
+				+ "AND scheduledDate < :endofday) + "
+				+ "(select count(reinforcecardid) from public.reinforcecard "
+				+ "where boxid = b.boxid ) as openTodaysCards, "
 				+ "b.boxid, b.categoryid, c.categoryname, c.categoryindex "
 				+ "FROM public.box b inner join public.category c on c.categoryid = b.categoryid where userid = :userid order by c.categoryindex")
 				.bind("userid", userId)
@@ -25,6 +30,35 @@ public class BoxDao extends AbstractBoxDao {
 				.map(new BoxViewMapper()).list();
 	}
 
+	public Integer selectCountOfDay(PersistenceHandle handle, String boxId, DateTime day) {
+		DateTime endOfDay = day.plusDays(1);
+		Optional<Integer> optional =  handle.getHandle().createQuery("SELECT count(scheduledcardid) "
+				+ "FROM public.scheduledcard "
+				+ "WHERE boxid = :boxid "
+				+ "AND quality is null "
+				+ "AND scheduledDate >= :day "
+				+ "AND scheduledDate < :endofday")
+				.bind("boxid", boxId)
+				.bind("day", day)
+				.bind("endofday", endOfDay)
+				.mapTo(Integer.class).findFirst();
+		return optional.isPresent() ? optional.get() : null;
+	}
+	
+	public List<IBoxStatisticsModel> selectStatisticsByUserId(PersistenceHandle handle, String userId) {
+ 		return handle.getHandle().createQuery("SELECT "
+				+ "b.boxid, b.maxcardsperday, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 0) as quality0Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 1) as quality1Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 2) as quality2Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 3) as quality3Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 4) as quality4Count, "
+				+ "(select count(*) from (SELECT DISTINCT ON (cardid) quality FROM scheduledcard where quality is not null and boxid = b.boxid ORDER BY cardid, scoreddate DESC) as qualities where quality = 5) as quality5Count "
+ 				+ "FROM public.box b where userid = :userid")
+ 				.bind("userid", userId)
+				.map(new BoxStatisticsMapper()).list();
+	}
+	
 	public ITodaysCardsStatusModel todaysCardsStatus(PersistenceHandle handle, String boxId, DateTime today) {
 		DateTime endOfDay = today.plusDays(1);
 		Optional<ITodaysCardsStatusModel> optional = handle.getHandle().createQuery("SELECT "

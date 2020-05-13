@@ -110,6 +110,11 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
+			if (className.equals("com.anfelisa.box.actions.GetBoxStatisticsAction")) {
+				BoxStatisticsListData data = mapper.readValue(json, BoxStatisticsListData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
 			if (className.equals("com.anfelisa.box.actions.LoadNextCardAction")) {
 				NextCardData data = mapper.readValue(json, NextCardData.class);
 				data.migrateLegacyData(json);

@@ -32,7 +32,9 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.anfelisa.box.data.GetBoxStatisticsResponse;
 import com.anfelisa.box.data.GetBoxesResponse;
+import com.anfelisa.box.models.IBoxStatisticsModel;
 import com.anfelisa.box.models.IBoxViewModel;
 import com.anfelisa.card.data.GetCardsResponse;
 import com.anfelisa.card.data.GetDuplicatesResponse;
@@ -112,7 +114,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	protected void assertFail(String message) {
 		org.junit.Assert.fail(message);
 	}
-	
+
 	@Override
 	protected void assertThat(Object actual, Object expected) {
 		if (actual == null) {
@@ -127,6 +129,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			assertThat((GetDuplicatesResponse) actual, (GetDuplicatesResponse) expected);
 		} else if (actual instanceof GetBoxesResponse) {
 			assertThat((GetBoxesResponse) actual, (GetBoxesResponse) expected);
+		} else if (actual instanceof GetBoxStatisticsResponse) {
+			assertThat((GetBoxStatisticsResponse) actual, (GetBoxStatisticsResponse) expected);
 		} else {
 			org.junit.Assert.assertThat(actual, is(samePropertyValuesAs(expected)));
 		}
@@ -202,7 +206,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			}
 		}
 	}
-	
+
 	private void assertThat(GetBoxesResponse actual, GetBoxesResponse expected) {
 		if (actual.getBoxList() == null) {
 			assertIsNull(expected.getBoxList());
@@ -217,7 +221,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			}
 		}
 	}
-	
+
 	private void assertThat(IBoxViewModel actual, IBoxViewModel expected) {
 		if (actual == null) {
 			assertIsNull(expected);
@@ -230,12 +234,56 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			assertEquals(expected.getOpenTodaysCards(), actual.getOpenTodaysCards());
 		}
 	}
-	
+
+	private void assertThat(GetBoxStatisticsResponse actual, GetBoxStatisticsResponse expected) {
+		if (actual.getBoxList() == null) {
+			assertIsNull(expected.getBoxList());
+		} else if (expected.getBoxList() == null) {
+			org.junit.Assert.fail("expected.getBoxList is null");
+		} else {
+			assertThat(actual.getBoxList().size(), expected.getBoxList().size());
+			for (int i = 0; i < actual.getBoxList().size(); i++) {
+				IBoxStatisticsModel actualBox = actual.getBoxList().get(i);
+				IBoxStatisticsModel expectedBox = expected.getBoxList().get(i);
+				assertThat(actualBox, expectedBox);
+			}
+		}
+	}
+
+	private void assertThat(IBoxStatisticsModel actual, IBoxStatisticsModel expected) {
+		if (actual == null) {
+			assertIsNull(expected);
+		} else if (expected == null) {
+			org.junit.Assert.fail("expected is null");
+		} else {
+			assertEquals(expected.getBoxId(), actual.getBoxId());
+			assertEquals(expected.getMaxCardsPerDay(), actual.getMaxCardsPerDay());
+			assertEquals(expected.getQuality0Count(), actual.getQuality0Count());
+			assertEquals(expected.getQuality1Count(), actual.getQuality1Count());
+			assertEquals(expected.getQuality2Count(), actual.getQuality2Count());
+			assertEquals(expected.getQuality3Count(), actual.getQuality3Count());
+			assertEquals(expected.getQuality4Count(), actual.getQuality4Count());
+			assertEquals(expected.getQuality5Count(), actual.getQuality5Count());
+			List<Integer> actualCountsPerDayNextWeek = actual.getCountsPerDayNextWeek();
+			List<Integer> expectedCountsPerDayNextWeek = expected.getCountsPerDayNextWeek();
+			if (actualCountsPerDayNextWeek == null) {
+				assertIsNull(expectedCountsPerDayNextWeek);
+			} else if (expectedCountsPerDayNextWeek == null) {
+				org.junit.Assert.fail("expected is null");
+			} else {
+				assertThat(actualCountsPerDayNextWeek.size(), expectedCountsPerDayNextWeek.size());
+				for (int i = 0; i < expectedCountsPerDayNextWeek.size(); i++) {
+					assertThat(actualCountsPerDayNextWeek.get(i), expectedCountsPerDayNextWeek.get(i));
+				}
+			}
+		}
+	}
+
 	@Override
 	protected void assertIsNull(Object actual) {
 		org.junit.Assert.assertNull(actual);
 	}
-	
+
 	@Override
 	protected void assertIsNotNull(Object actual) {
 		org.junit.Assert.assertNotNull(actual);

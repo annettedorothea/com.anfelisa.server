@@ -92,6 +92,13 @@ ACE
 		response 
 			boxList
 		
+	GetBoxStatistics<BoxStatisticsList>
+	GET "/boxes/statistics/" 
+		authorize 
+		queryParams todayAtMidnightInUTC
+		response 
+			boxList
+		
 	LoadNextCard<NextCard>
 		GET "/box/next-card"
 		authorize  
@@ -200,6 +207,18 @@ models
 		NotNull String boxId
 	}
 
+	BoxStatistics {
+		NotNull String boxId
+		Integer quality0Count
+		Integer quality1Count
+		Integer quality2Count
+		Integer quality3Count
+		Integer quality4Count
+		Integer quality5Count
+		List Integer countsPerDayNextWeek
+		Integer maxCardsPerDay
+	}
+
 	InitBoxes {
 		DateTime minScheduledDate
 		NotNull String boxId
@@ -207,6 +226,11 @@ models
 
 	BoxList {
 		List BoxView boxList
+		String userId
+		NotNull DateTime todayAtMidnightInUTC
+	}
+	BoxStatisticsList {
+		List BoxStatistics boxList
 		String userId
 		NotNull DateTime todayAtMidnightInUTC
 	}

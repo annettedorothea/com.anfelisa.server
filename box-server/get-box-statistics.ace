@@ -1,0 +1,252 @@
+HttpServer 
+
+com.anfelisa.box.getboxstatistics
+
+
+scenarios 
+	GetBoxesJustScheduled
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				boxList: [
+					{
+						boxId: "boxId",
+						maxCardsPerDay: 10,
+						quality0Count: 0,
+						quality1Count: 0,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 0,
+						quality5Count: 0,
+						countsPerDayNextWeek: [
+							0,0,0,0,0,0,0
+						]
+					}
+				]
+			}		
+
+	GetBoxesWithAllScoredCardsSameDay
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+		WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				boxList: [
+					{
+						boxId: "boxId",
+						maxCardsPerDay: 10,
+						quality0Count: 1,
+						quality1Count: 1,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 0,
+						quality5Count: 1,
+						countsPerDayNextWeek: [
+							2,0,0,0,0,1,0
+						]
+					}
+				]
+			}	
+			
+	GetBoxesWithOneScoredCardAndReinforceSameDay
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard1
+		WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				boxList: [
+					{
+						boxId: "boxId",
+						maxCardsPerDay: 10,
+						quality0Count: 0,
+						quality1Count: 1,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 0,
+						quality5Count: 0,
+						countsPerDayNextWeek: [
+							1,0,0,0,0,0,0
+						]
+					}
+				]
+			}		
+
+	GetBoxesWithOneScoredCard0AndReinforceSameDay
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+		WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				boxList: [
+					{
+						boxId: "boxId",
+						maxCardsPerDay: 10,
+						quality0Count: 1,
+						quality1Count: 0,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 0,
+						quality5Count: 0,
+						countsPerDayNextWeek: [
+							1,0,0,0,0,0,0
+						]
+					}
+				]
+			}		
+
+	GetBoxesWithOneScoredCard2AndReinforceSameDay
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard2
+		WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				boxList: [
+					{
+						boxId: "boxId",
+						maxCardsPerDay: 10,
+						quality0Count: 0,
+						quality1Count: 0,
+						quality2Count: 1,
+						quality3Count: 0,
+						quality4Count: 0,
+						quality5Count: 0,
+						countsPerDayNextWeek: [
+							1,0,0,0,0,0,0
+						]
+					}
+				]
+			}		
+
+	GetBoxesWithOneScoredCard3AndReinforceSameDay
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard3
+		WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				boxList: [
+					{
+						boxId: "boxId",
+						maxCardsPerDay: 10,
+						quality0Count: 0,
+						quality1Count: 0,
+						quality2Count: 0,
+						quality3Count: 1,
+						quality4Count: 0,
+						quality5Count: 0,
+						countsPerDayNextWeek: [
+							1,0,0,0,0,0,0
+						]
+					}
+				]
+			}		
+
+	GetBoxesWithOneScoredCardNoReinforceSameDay
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard5
+		WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				boxList: [
+					{
+						boxId: "boxId",
+						maxCardsPerDay: 10,
+						quality0Count: 0,
+						quality1Count: 0,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 0,
+						quality5Count: 1,
+						countsPerDayNextWeek: [
+							0,0,0,0,0,1,0
+						]
+					}
+				]
+			}		
+				
+	GetBoxesWithOneScoredCard4NoReinforceSameDay
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard4
+		WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette" : "password"
+		THEN 200
+			response {
+				boxList: [
+					{
+						boxId: "boxId",
+						maxCardsPerDay: 10,
+						quality0Count: 0,
+						quality1Count: 0,
+						quality2Count: 0,
+						quality3Count: 0,
+						quality4Count: 1,
+						quality5Count: 0,
+						countsPerDayNextWeek: [
+							0,0,0,0,0,1,0
+						]
+					}
+				]
+			}		
+
+	GetBoxesTodayAtMidnightInUTCNull
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+				}
+				authorization "Annette" : "password"
+		THEN 400
+
+	GetBoxesUnauthorized
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+		WHEN
+			com.anfelisa.box.GetBoxStatistics
+				{
+					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
+				}
+		THEN 401
+

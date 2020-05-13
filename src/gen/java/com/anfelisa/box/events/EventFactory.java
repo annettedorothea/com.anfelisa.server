@@ -150,6 +150,7 @@ public class EventFactory {
 
 
 
+
 		if (eventClass.equals("com.anfelisa.box.events.DeleteBoxOkEvent")) {
 			return new DeleteBoxOkEvent((DeleteBoxData)data, daoProvider, viewProvider, appConfiguration);
 		}
