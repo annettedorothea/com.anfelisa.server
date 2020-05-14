@@ -204,11 +204,14 @@ public abstract class AbstractGetBoxesJustScheduledScenario extends BaseScenario
 	}
 	
 	private com.anfelisa.box.data.GetBoxStatisticsResponse then(Response response) throws Exception {
-		String message = response.readEntity(String.class);
 		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
 			assertFail(message);
 		}
-		assertThat(response.getStatus(), 200, message);
+		if (response.getStatus() != 200) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		com.anfelisa.box.data.GetBoxStatisticsResponse actual = null;
 		try {

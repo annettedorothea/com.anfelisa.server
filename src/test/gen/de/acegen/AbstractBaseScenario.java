@@ -43,8 +43,6 @@ public abstract class AbstractBaseScenario {
 
 	protected abstract void assertThat(int actual, int expected);
 
-	protected abstract void assertThat(int actual, int expected, String message);
-
 	protected abstract void assertThat(Object actual, Object expected);
 
 	protected abstract void assertIsNull(Object actual);

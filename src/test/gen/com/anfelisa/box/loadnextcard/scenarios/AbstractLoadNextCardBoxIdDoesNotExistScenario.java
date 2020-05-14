@@ -205,11 +205,14 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 	}
 	
 	private com.anfelisa.box.data.LoadNextCardResponse then(Response response) throws Exception {
-		String message = response.readEntity(String.class);
 		if (response.getStatus() == 500) {
+			String message = response.readEntity(String.class);
 			assertFail(message);
 		}
-		assertThat(response.getStatus(), 400, message);
+		if (response.getStatus() != 400) {
+			String message = response.readEntity(String.class);
+			assertFail(message);
+		}
 		
 		com.anfelisa.box.data.LoadNextCardResponse actual = null;
 		try {
