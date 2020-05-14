@@ -112,7 +112,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	@Override
 	protected void assertThat(int actual, int expected, String message) {
-		org.junit.Assert.assertEquals(message, is(expected), actual);
+		org.junit.Assert.assertEquals(message, expected, actual);
 	}
 	
 	@Override
