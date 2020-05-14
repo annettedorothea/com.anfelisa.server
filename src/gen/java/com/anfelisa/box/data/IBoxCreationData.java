@@ -33,10 +33,6 @@ public interface IBoxCreationData extends IBoxCreationModel, IDataContainer {
 	
 	IBoxCreationData withUsername(String username);
 	
-	IBoxCreationData withMaxInterval(Integer maxInterval);
-	
-	IBoxCreationData withMaxCardsPerDay(Integer maxCardsPerDay);
-	
 	IBoxCreationData withCategoryId(String categoryId);
 	
 	IBoxCreationData withCategoryName(String categoryName);
@@ -60,6 +56,10 @@ public interface IBoxCreationData extends IBoxCreationModel, IDataContainer {
 	IBoxCreationData withEditable(Boolean editable);
 	
 	IBoxCreationData withBoxId(String boxId);
+	
+	IBoxCreationData withMaxInterval(Integer maxInterval);
+	
+	IBoxCreationData withMaxCardsPerDay(Integer maxCardsPerDay);
 	
 	
 }

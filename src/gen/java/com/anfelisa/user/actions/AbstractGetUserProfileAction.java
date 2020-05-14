@@ -19,8 +19,6 @@
 
 package com.anfelisa.user.actions;
 
-import javax.validation.constraints.NotNull;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -35,6 +33,8 @@ import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.apache.commons.lang3.StringUtils;
+
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
 import de.acegen.IDaoProvider;
@@ -44,12 +44,12 @@ import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
 import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
+import de.acegen.NotReplayableDataProvider;
 
 import de.acegen.auth.AuthUser;
+import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
-
-import io.dropwizard.auth.Auth;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -70,18 +70,20 @@ public abstract class AbstractGetUserProfileAction extends ReadAction<IUserData>
 						viewProvider, e2e);
 	}
 
-	public void setActionData(IDataContainer data) {
-		this.actionData = (IUserData)data;
-	}
-
 	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
 
 	@Override
-	protected IUserData createAceData(ITimelineItem timelineItem) {
+	protected void initActionDataFrom(ITimelineItem timelineItem) {
 		IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 		IUserData originalActionData = (IUserData)originalData;
 		this.actionData.setSystemTime(originalActionData.getSystemTime());
-		return (IUserData)originalData;
+	}
+	
+	@Override
+	protected void initActionDataFromNotReplayableDataProvider() {
+		if (NotReplayableDataProvider.getSystemTime() != null) {
+			this.actionData.setSystemTime(NotReplayableDataProvider.getSystemTime());
+		}
 	}
 
 	@GET
@@ -90,29 +92,17 @@ public abstract class AbstractGetUserProfileAction extends ReadAction<IUserData>
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getUserProfileResource(
 			@Auth AuthUser authUser, 
-			@NotNull @QueryParam("uuid") String uuid) 
+			@QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
+		if (StringUtils.isBlank(uuid)) {
+			throwBadRequest("uuid must not be blank or null");
+		}
 		this.actionData = new UserData(uuid);
-		try {
-			this.actionData.setUserId(authUser.getUserId());
-		} catch (Exception x) {
-			LOG.warn("failed to parse param {}", "userId");
-		}
-		try {
-			this.actionData.setUsername(authUser.getUsername());
-		} catch (Exception x) {
-			LOG.warn("failed to parse param {}", "username");
-		}
-		try {
-			this.actionData.setPassword(authUser.getPassword());
-		} catch (Exception x) {
-			LOG.warn("failed to parse param {}", "password");
-		}
-		try {
-			this.actionData.setRole(authUser.getRole());
-		} catch (Exception x) {
-			LOG.warn("failed to parse param {}", "role");
-		}
+		this.actionData.setUserId(authUser.getUserId());
+		this.actionData.setUsername(authUser.getUsername());
+		this.actionData.setPassword(authUser.getPassword());
+		this.actionData.setRole(authUser.getRole());
+		
 		return this.apply();
 	}
 

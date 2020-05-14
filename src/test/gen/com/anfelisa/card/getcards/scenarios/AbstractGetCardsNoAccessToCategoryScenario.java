@@ -206,11 +206,11 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 	}
 	
 	private com.anfelisa.card.data.GetCardsResponse then(Response response) throws Exception {
+		String message = response.readEntity(String.class);
 		if (response.getStatus() == 500) {
-			String message = response.readEntity(String.class);
 			assertFail(message);
 		}
-		assertThat(response.getStatus(), 401);
+		assertThat(response.getStatus(), 401, message);
 		
 		com.anfelisa.card.data.GetCardsResponse actual = null;
 		try {

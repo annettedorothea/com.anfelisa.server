@@ -25,8 +25,6 @@ public class BoxCreationData extends AbstractBoxCreationData implements IBoxCrea
 	
 	public BoxCreationData(
 		@JsonProperty("username") String username, 
-		@JsonProperty("maxInterval") Integer maxInterval, 
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay, 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("categoryName") String categoryName, 
 		@JsonProperty("categoryAuthor") String categoryAuthor, 
@@ -39,12 +37,12 @@ public class BoxCreationData extends AbstractBoxCreationData implements IBoxCrea
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("editable") Boolean editable, 
 		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("maxInterval") Integer maxInterval, 
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
 			username,
-			maxInterval,
-			maxCardsPerDay,
 			categoryId,
 			categoryName,
 			categoryAuthor,
@@ -57,6 +55,8 @@ public class BoxCreationData extends AbstractBoxCreationData implements IBoxCrea
 			userId,
 			editable,
 			boxId,
+			maxInterval,
+			maxCardsPerDay,
 			uuid
 		);
 	}

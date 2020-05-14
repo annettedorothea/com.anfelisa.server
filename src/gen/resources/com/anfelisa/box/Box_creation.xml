@@ -3,10 +3,10 @@
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
 	<column name="userid" type="character varying">
-		<constraints  nullable="false" 	references="\"user\"(userid)" deleteCascade="true" foreignKeyName="fk_\"box\"_userid" />
+		<constraints  nullable="false"  references="\"user\"(userid)" deleteCascade="true" foreignKeyName="fk_\"box\"_userid" />
 	</column>
 	<column name="categoryid" type="character varying">
-		<constraints  nullable="false" 	references="\"category\"(categoryid)" deleteCascade="true" foreignKeyName="fk_\"box\"_categoryid" />
+		<constraints  nullable="false"  references="\"category\"(categoryid)" deleteCascade="true" foreignKeyName="fk_\"box\"_categoryid" />
 	</column>
 	<column name="maxinterval" type="integer">
 		<constraints    />

@@ -45,10 +45,6 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 	
 	private String username;
 	
-	private Integer maxInterval;
-	
-	private Integer maxCardsPerDay;
-	
 	private String categoryId;
 	
 	private String categoryName;
@@ -73,11 +69,13 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 	
 	private String boxId;
 	
+	private Integer maxInterval;
+	
+	private Integer maxCardsPerDay;
+	
 
 	public AbstractBoxCreationData(
 		@JsonProperty("username") String username,
-		@JsonProperty("maxInterval") Integer maxInterval,
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryAuthor") String categoryAuthor,
@@ -89,13 +87,13 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("editable") Boolean editable,
-		@JsonProperty("boxId") String boxId
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("maxInterval") Integer maxInterval,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
 		this.username = username;
-		this.maxInterval = maxInterval;
-		this.maxCardsPerDay = maxCardsPerDay;
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryAuthor = categoryAuthor;
@@ -108,6 +106,8 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 		this.userId = userId;
 		this.editable = editable;
 		this.boxId = boxId;
+		this.maxInterval = maxInterval;
+		this.maxCardsPerDay = maxCardsPerDay;
 	}
 
 	public AbstractBoxCreationData( String uuid ) {
@@ -123,30 +123,6 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 	}
 	public IBoxCreationData withUsername(String username) {
 		this.username = username;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getMaxInterval() {
-		return this.maxInterval;
-	}
-	public void setMaxInterval(Integer maxInterval) {
-		this.maxInterval = maxInterval;
-	}
-	public IBoxCreationData withMaxInterval(Integer maxInterval) {
-		this.maxInterval = maxInterval;
-		return this;
-	}
-	
-	@JsonProperty
-	public Integer getMaxCardsPerDay() {
-		return this.maxCardsPerDay;
-	}
-	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
-	}
-	public IBoxCreationData withMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
 		return this;
 	}
 	
@@ -291,6 +267,30 @@ public abstract class AbstractBoxCreationData extends AbstractData implements IB
 	}
 	public IBoxCreationData withBoxId(String boxId) {
 		this.boxId = boxId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxInterval() {
+		return this.maxInterval;
+	}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+	}
+	public IBoxCreationData withMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
+	}
+	public IBoxCreationData withMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
 		return this;
 	}
 	

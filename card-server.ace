@@ -100,7 +100,7 @@ models
 		Unique PrimaryKey NotNull String cardId
 		String given
 		String wanted
-		String image
+		String image optional
 		NotNull String cardAuthor
 		NotNull Integer cardIndex
 		NotNull String categoryId references com.anfelisa.category.Category.categoryId
@@ -109,9 +109,9 @@ models
 
 	CardUpdate {
 		NotNull String cardId
-		NotEmpty String given
-		NotEmpty String wanted
-		String image
+		NotNull String given
+		NotNull String wanted
+		String image optional
 		String userId
 	}
 	
@@ -135,10 +135,10 @@ models
 	}
 	
 	CardTranslation {
-		NotEmpty String sourceValue
-		NotEmpty String targetValue
-		NotEmpty String sourceLanguage
-		NotEmpty String targetLanguage
+		NotNull String sourceValue
+		NotNull String targetValue
+		NotNull String sourceLanguage
+		NotNull String targetLanguage
 	}
 	
 	CardCreation extends Card {

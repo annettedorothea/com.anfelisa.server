@@ -45,6 +45,9 @@ public class RegisterUserAction extends AbstractRegisterUserAction {
 		this.actionData.setToken(UUID.randomUUID().toString());
 	}
 
+
+
+
 }
 
 

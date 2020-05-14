@@ -19,8 +19,6 @@
 
 package com.anfelisa.category.actions;
 
-import javax.validation.constraints.NotNull;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -35,6 +33,8 @@ import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.apache.commons.lang3.StringUtils;
+
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
 import de.acegen.IDaoProvider;
@@ -44,12 +44,12 @@ import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
 import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
+import de.acegen.NotReplayableDataProvider;
 
 import de.acegen.auth.AuthUser;
+import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
-
-import io.dropwizard.auth.Auth;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -70,18 +70,20 @@ public abstract class AbstractGetCategoryTreeAction extends ReadAction<ICategory
 						viewProvider, e2e);
 	}
 
-	public void setActionData(IDataContainer data) {
-		this.actionData = (ICategoryTreeData)data;
-	}
-
 	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
 
 	@Override
-	protected ICategoryTreeData createAceData(ITimelineItem timelineItem) {
+	protected void initActionDataFrom(ITimelineItem timelineItem) {
 		IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 		ICategoryTreeData originalActionData = (ICategoryTreeData)originalData;
 		this.actionData.setSystemTime(originalActionData.getSystemTime());
-		return (ICategoryTreeData)originalData;
+	}
+	
+	@Override
+	protected void initActionDataFromNotReplayableDataProvider() {
+		if (NotReplayableDataProvider.getSystemTime() != null) {
+			this.actionData.setSystemTime(NotReplayableDataProvider.getSystemTime());
+		}
 	}
 
 	@GET
@@ -91,19 +93,19 @@ public abstract class AbstractGetCategoryTreeAction extends ReadAction<ICategory
 	public Response getCategoryTreeResource(
 			@Auth AuthUser authUser, 
 			@QueryParam("rootCategoryId") String rootCategoryId, 
-			@NotNull @QueryParam("uuid") String uuid) 
+			@QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
+		if (StringUtils.isBlank(uuid)) {
+			throwBadRequest("uuid must not be blank or null");
+		}
 		this.actionData = new CategoryTreeData(uuid);
-		try {
-			this.actionData.setRootCategoryId(rootCategoryId);
-		} catch (Exception x) {
-			LOG.warn("failed to parse param {}", "rootCategoryId");
+		
+		if (rootCategoryId == null) {
+			throwBadRequest("rootCategoryId is mandatory");
 		}
-		try {
-			this.actionData.setUserId(authUser.getUserId());
-		} catch (Exception x) {
-			LOG.warn("failed to parse param {}", "userId");
-		}
+		this.actionData.setRootCategoryId(rootCategoryId);
+		this.actionData.setUserId(authUser.getUserId());
+		
 		return this.apply();
 	}
 

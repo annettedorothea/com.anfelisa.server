@@ -65,13 +65,13 @@ models
 	persistent Category {
 		Unique PrimaryKey NotNull String categoryId
 		Unique NotNull String categoryName
-		NotNull String categoryAuthor
-		NotNull Integer categoryIndex
+		NotNull String categoryAuthor optional
+		NotNull Integer categoryIndex optional
 		String parentCategoryId references categoryId
 		String rootCategoryId references categoryId
-		Boolean dictionaryLookup
-		String givenLanguage
-		String wantedLanguage
+		Boolean dictionaryLookup optional
+		String givenLanguage optional
+		String wantedLanguage optional
 	}
 	
 	persistent UserAccessToCategory {

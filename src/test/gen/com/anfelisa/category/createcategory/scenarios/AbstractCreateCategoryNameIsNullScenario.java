@@ -90,11 +90,11 @@ public abstract class AbstractCreateCategoryNameIsNullScenario extends BaseScena
 	}
 	
 	private void then(Response response) throws Exception {
+		String message = response.readEntity(String.class);
 		if (response.getStatus() == 500) {
-			String message = response.readEntity(String.class);
 			assertFail(message);
 		}
-		assertThat(response.getStatus(), 400);
+		assertThat(response.getStatus(), 400, message);
 		
 			
 				}

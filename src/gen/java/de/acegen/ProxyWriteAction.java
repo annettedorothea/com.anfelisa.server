@@ -27,29 +27,33 @@ import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class ReadAction<T extends IDataContainer> extends Action<T> {
+public abstract class ProxyWriteAction<T extends IDataContainer> extends Action<T> {
 
-	static final Logger LOG = LoggerFactory.getLogger(ReadAction.class);
+	static final Logger LOG = LoggerFactory.getLogger(ProxyWriteAction.class);
 	
 	private PersistenceConnection persistenceConnection;
 	protected CustomAppConfiguration appConfiguration;
 	protected IDaoProvider daoProvider;
+	protected ViewProvider viewProvider;
 	private E2E e2e;
 	
-	public ReadAction(String actionName, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
-			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
-		super(actionName, HttpMethod.GET);
+	public ProxyWriteAction(String actionName, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
+			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e, HttpMethod method) {
+		super(actionName, method);
 		this.persistenceConnection = persistenceConnection;
 		this.appConfiguration = appConfiguration;
 		this.daoProvider = daoProvider;
+		this.viewProvider = viewProvider;
 		this.e2e = e2e;
 	}
 
-	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
-	
 	protected abstract void initActionDataFrom(ITimelineItem timelineItem);
 
+	protected abstract T createDataFrom(ITimelineItem timelineItem);
+	
 	protected abstract void initActionDataFromNotReplayableDataProvider();
+
+	protected abstract ICommand getCommand();
 
 	public Response apply() {
 		DatabaseHandle databaseHandle = new DatabaseHandle(persistenceConnection.getJdbi(), appConfiguration);
@@ -72,11 +76,19 @@ public abstract class ReadAction<T extends IDataContainer> extends Action<T> {
 			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				initActionDataFromNotReplayableDataProvider();
 			}
-			this.loadDataForGetRequest(databaseHandle.getReadonlyHandle());
-			
 			if (appConfiguration.getServerConfiguration().writeTimeline()) {
 				daoProvider.getAceDao().addActionToTimeline(this, databaseHandle.getTimelineHandle());
 			}
+			
+			ICommand command = this.getCommand();
+			if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
+				ITimelineItem timelineItem = e2e.selectCommand(this.actionData.getUuid());
+				T originalData = this.createDataFrom(timelineItem);
+				command.setCommandData(originalData);
+			} else {
+				command.execute(databaseHandle.getReadonlyHandle(), databaseHandle.getTimelineHandle());
+			}
+			command.publishEvents(databaseHandle.getHandle(), databaseHandle.getTimelineHandle());
 			Response response = Response.ok(this.createReponse()).build();
 			databaseHandle.commitTransaction();
 			return response;

@@ -19,8 +19,6 @@
 
 package com.anfelisa.card.actions;
 
-import javax.validation.constraints.NotNull;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -35,6 +33,8 @@ import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.apache.commons.lang3.StringUtils;
+
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
 import de.acegen.IDaoProvider;
@@ -44,12 +44,12 @@ import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
 import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
+import de.acegen.NotReplayableDataProvider;
 
 import de.acegen.auth.AuthUser;
+import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
-
-import io.dropwizard.auth.Auth;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -70,18 +70,20 @@ public abstract class AbstractGetDuplicatesAction extends ReadAction<ICardSearch
 						viewProvider, e2e);
 	}
 
-	public void setActionData(IDataContainer data) {
-		this.actionData = (ICardSearchData)data;
-	}
-
 	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
 
 	@Override
-	protected ICardSearchData createAceData(ITimelineItem timelineItem) {
+	protected void initActionDataFrom(ITimelineItem timelineItem) {
 		IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 		ICardSearchData originalActionData = (ICardSearchData)originalData;
 		this.actionData.setSystemTime(originalActionData.getSystemTime());
-		return (ICardSearchData)originalData;
+	}
+	
+	@Override
+	protected void initActionDataFromNotReplayableDataProvider() {
+		if (NotReplayableDataProvider.getSystemTime() != null) {
+			this.actionData.setSystemTime(NotReplayableDataProvider.getSystemTime());
+		}
 	}
 
 	@GET
@@ -94,34 +96,34 @@ public abstract class AbstractGetDuplicatesAction extends ReadAction<ICardSearch
 			@QueryParam("wanted") String wanted, 
 			@QueryParam("naturalInputOrder") Boolean naturalInputOrder, 
 			@QueryParam("categoryId") String categoryId, 
-			@NotNull @QueryParam("uuid") String uuid) 
+			@QueryParam("uuid") String uuid) 
 			throws JsonProcessingException {
+		if (StringUtils.isBlank(uuid)) {
+			throwBadRequest("uuid must not be blank or null");
+		}
 		this.actionData = new CardSearchData(uuid);
-		try {
-			this.actionData.setGiven(given);
-		} catch (Exception x) {
-			LOG.warn("failed to parse param {}", "given");
+		
+		if (given == null) {
+			throwBadRequest("given is mandatory");
 		}
-		try {
-			this.actionData.setWanted(wanted);
-		} catch (Exception x) {
-			LOG.warn("failed to parse param {}", "wanted");
+		this.actionData.setGiven(given);
+		
+		if (wanted == null) {
+			throwBadRequest("wanted is mandatory");
 		}
-		try {
-			this.actionData.setNaturalInputOrder(naturalInputOrder);
-		} catch (Exception x) {
-			LOG.warn("failed to parse param {}", "naturalInputOrder");
+		this.actionData.setWanted(wanted);
+		
+		if (naturalInputOrder == null) {
+			throwBadRequest("naturalInputOrder is mandatory");
 		}
-		try {
-			this.actionData.setCategoryId(categoryId);
-		} catch (Exception x) {
-			LOG.warn("failed to parse param {}", "categoryId");
+		this.actionData.setNaturalInputOrder(naturalInputOrder);
+		
+		if (categoryId == null) {
+			throwBadRequest("categoryId is mandatory");
 		}
-		try {
-			this.actionData.setUserId(authUser.getUserId());
-		} catch (Exception x) {
-			LOG.warn("failed to parse param {}", "userId");
-		}
+		this.actionData.setCategoryId(categoryId);
+		this.actionData.setUserId(authUser.getUserId());
+		
 		return this.apply();
 	}
 

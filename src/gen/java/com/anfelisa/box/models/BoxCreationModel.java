@@ -34,10 +34,6 @@ public class BoxCreationModel implements IBoxCreationModel {
 
 	private String username;
 	
-	private Integer maxInterval;
-	
-	private Integer maxCardsPerDay;
-	
 	private String categoryId;
 	
 	private String categoryName;
@@ -62,14 +58,16 @@ public class BoxCreationModel implements IBoxCreationModel {
 	
 	private String boxId;
 	
+	private Integer maxInterval;
+	
+	private Integer maxCardsPerDay;
+	
 
 	public BoxCreationModel() {
 	}
 
 	public BoxCreationModel(
 		@JsonProperty("username") String username,
-		@JsonProperty("maxInterval") Integer maxInterval,
-		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay,
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("categoryName") String categoryName,
 		@JsonProperty("categoryAuthor") String categoryAuthor,
@@ -81,11 +79,11 @@ public class BoxCreationModel implements IBoxCreationModel {
 		@JsonProperty("wantedLanguage") String wantedLanguage,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("editable") Boolean editable,
-		@JsonProperty("boxId") String boxId
+		@JsonProperty("boxId") String boxId,
+		@JsonProperty("maxInterval") Integer maxInterval,
+		@JsonProperty("maxCardsPerDay") Integer maxCardsPerDay
 	) {
 		this.username = username;
-		this.maxInterval = maxInterval;
-		this.maxCardsPerDay = maxCardsPerDay;
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryAuthor = categoryAuthor;
@@ -98,6 +96,8 @@ public class BoxCreationModel implements IBoxCreationModel {
 		this.userId = userId;
 		this.editable = editable;
 		this.boxId = boxId;
+		this.maxInterval = maxInterval;
+		this.maxCardsPerDay = maxCardsPerDay;
 	}
 
 	@JsonProperty
@@ -106,22 +106,6 @@ public class BoxCreationModel implements IBoxCreationModel {
 	}
 	public void setUsername(String username) {
 		this.username = username;
-	}
-	
-	@JsonProperty
-	public Integer getMaxInterval() {
-		return this.maxInterval;
-	}
-	public void setMaxInterval(Integer maxInterval) {
-		this.maxInterval = maxInterval;
-	}
-	
-	@JsonProperty
-	public Integer getMaxCardsPerDay() {
-		return this.maxCardsPerDay;
-	}
-	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
-		this.maxCardsPerDay = maxCardsPerDay;
 	}
 	
 	@JsonProperty
@@ -218,6 +202,22 @@ public class BoxCreationModel implements IBoxCreationModel {
 	}
 	public void setBoxId(String boxId) {
 		this.boxId = boxId;
+	}
+	
+	@JsonProperty
+	public Integer getMaxInterval() {
+		return this.maxInterval;
+	}
+	public void setMaxInterval(Integer maxInterval) {
+		this.maxInterval = maxInterval;
+	}
+	
+	@JsonProperty
+	public Integer getMaxCardsPerDay() {
+		return this.maxCardsPerDay;
+	}
+	public void setMaxCardsPerDay(Integer maxCardsPerDay) {
+		this.maxCardsPerDay = maxCardsPerDay;
 	}
 	
 	

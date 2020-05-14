@@ -174,7 +174,7 @@ models
 		Unique PrimaryKey NotNull String boxId
 		NotNull String userId references com.anfelisa.user.User.userId
 		NotNull String categoryId references com.anfelisa.category.Category.categoryId
-		Integer maxInterval
+		Integer maxInterval optional
 		NotNull Integer maxCardsPerDay
 	}
 	
@@ -356,7 +356,5 @@ models
 
 	BoxCreation extends com.anfelisa.category.Category, com.anfelisa.category.UserAccessToCategory, Box {
 		String username
-		Integer maxInterval
-		NotNull Integer maxCardsPerDay
 	}
 

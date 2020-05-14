@@ -12,10 +12,10 @@
 		<constraints  nullable="false"  />
 	</column>
 	<column name="parentcategoryid" type="character varying">
-		<constraints   	references="\"category\"(categoryid)" deleteCascade="true" foreignKeyName="fk_\"category\"_categoryid" />
+		<constraints    references="\"category\"(categoryid)" deleteCascade="true" foreignKeyName="fk_\"category\"_categoryid" />
 	</column>
 	<column name="rootcategoryid" type="character varying">
-		<constraints   	references="\"category\"(categoryid)" deleteCascade="true" foreignKeyName="fk_\"category\"_categoryid" />
+		<constraints    references="\"category\"(categoryid)" deleteCascade="true" foreignKeyName="fk_\"category\"_categoryid" />
 	</column>
 	<column name="dictionarylookup" type="boolean">
 		<constraints    />

@@ -30,8 +30,6 @@ public class BoxCreationMapper implements RowMapper<IBoxCreationModel> {
 	public IBoxCreationModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new BoxCreationModel(
 			r.getString("username"),
-			r.getObject("maxInterval") != null ? r.getInt("maxInterval") : null,
-			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null,
 			r.getString("categoryId"),
 			r.getString("categoryName"),
 			r.getString("categoryAuthor"),
@@ -43,7 +41,9 @@ public class BoxCreationMapper implements RowMapper<IBoxCreationModel> {
 			r.getString("wantedLanguage"),
 			r.getString("userId"),
 			r.getBoolean("editable"),
-			r.getString("boxId")
+			r.getString("boxId"),
+			r.getObject("maxInterval") != null ? r.getInt("maxInterval") : null,
+			r.getObject("maxCardsPerDay") != null ? r.getInt("maxCardsPerDay") : null
 		);
 	}
 }

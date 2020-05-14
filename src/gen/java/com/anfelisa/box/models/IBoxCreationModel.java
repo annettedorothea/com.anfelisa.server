@@ -29,12 +29,6 @@ public interface IBoxCreationModel extends com.anfelisa.category.models.ICategor
 	String getUsername();
 	void setUsername(String username);
 	
-	Integer getMaxInterval();
-	void setMaxInterval(Integer maxInterval);
-	
-	Integer getMaxCardsPerDay();
-	void setMaxCardsPerDay(Integer maxCardsPerDay);
-	
 	
 }
 

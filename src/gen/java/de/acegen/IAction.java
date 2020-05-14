@@ -29,10 +29,6 @@ public interface IAction {
 	
 	IDataContainer getActionData();
 	
-	void setActionData(IDataContainer data);
-	
-	ICommand getCommand();
-	
     Response apply();
     
     void initActionData();
