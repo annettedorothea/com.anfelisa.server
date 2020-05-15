@@ -107,12 +107,12 @@ public abstract class AbstractScoreCardAction extends WriteAction<IScoreCardData
 		}
 		this.actionData = new ScoreCardData(payload.getUuid());
 		
-		if (payload.getScoredCardScheduledCardId() == null) {
+		if (StringUtils.isBlank(payload.getScoredCardScheduledCardId()) || "null".equals(payload.getScoredCardScheduledCardId())) {
 			throwBadRequest("scoredCardScheduledCardId is mandatory");
 		}
 		this.actionData.setScoredCardScheduledCardId(payload.getScoredCardScheduledCardId());
 		
-		if (payload.getBoxId() == null) {
+		if (StringUtils.isBlank(payload.getBoxId()) || "null".equals(payload.getBoxId())) {
 			throwBadRequest("boxId is mandatory");
 		}
 		this.actionData.setBoxId(payload.getBoxId());

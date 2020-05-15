@@ -101,12 +101,12 @@ public abstract class AbstractLoadNextCardAction extends ReadAction<INextCardDat
 		}
 		this.actionData = new NextCardData(uuid);
 		
-		if (boxId == null) {
+		if (StringUtils.isBlank(boxId) || "null".equals(boxId)) {
 			throwBadRequest("boxId is mandatory");
 		}
 		this.actionData.setBoxId(boxId);
 		
-		if (StringUtils.isBlank(todayAtMidnightInUTC)) {
+		if (StringUtils.isBlank(todayAtMidnightInUTC) || "null".equals(todayAtMidnightInUTC)) {
 			throwBadRequest("todayAtMidnightInUTC is mandatory");
 		}
 		if (StringUtils.isNotBlank(todayAtMidnightInUTC)) {

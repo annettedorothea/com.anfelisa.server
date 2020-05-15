@@ -110,12 +110,12 @@ public abstract class AbstractForgotPasswordAction extends WriteAction<IForgotPa
 		}
 		this.actionData = new ForgotPasswordData(payload.getUuid());
 		
-		if (payload.getUsername() == null) {
+		if (StringUtils.isBlank(payload.getUsername()) || "null".equals(payload.getUsername())) {
 			throwBadRequest("username is mandatory");
 		}
 		this.actionData.setUsername(payload.getUsername());
 		
-		if (payload.getLanguage() == null) {
+		if (StringUtils.isBlank(payload.getLanguage()) || "null".equals(payload.getLanguage())) {
 			throwBadRequest("language is mandatory");
 		}
 		this.actionData.setLanguage(payload.getLanguage());

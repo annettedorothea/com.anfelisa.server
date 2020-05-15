@@ -107,19 +107,19 @@ public abstract class AbstractCreateCardAction extends WriteAction<ICardCreation
 		}
 		this.actionData = new CardCreationData(payload.getUuid());
 		
-		if (payload.getWanted() == null) {
+		if (StringUtils.isBlank(payload.getWanted()) || "null".equals(payload.getWanted())) {
 			throwBadRequest("wanted is mandatory");
 		}
 		this.actionData.setWanted(payload.getWanted());
 		
-		if (payload.getGiven() == null) {
+		if (StringUtils.isBlank(payload.getGiven()) || "null".equals(payload.getGiven())) {
 			throwBadRequest("given is mandatory");
 		}
 		this.actionData.setGiven(payload.getGiven());
 		
 		this.actionData.setImage(payload.getImage());
 		
-		if (payload.getCategoryId() == null) {
+		if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 			throwBadRequest("categoryId is mandatory");
 		}
 		this.actionData.setCategoryId(payload.getCategoryId());

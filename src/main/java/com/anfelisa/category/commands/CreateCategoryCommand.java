@@ -1,6 +1,5 @@
 package com.anfelisa.category.commands;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,12 +23,6 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
-		if (StringUtils.isBlank(this.commandData.getParentCategoryId())) {
-			throwBadRequest("missing parent category id");
-		}
-		if (StringUtils.isBlank(this.commandData.getCategoryName())) {
-			throwBadRequest("category name must not be null or empty");
-		}
 		ICategoryModel parentCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getParentCategoryId());
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()

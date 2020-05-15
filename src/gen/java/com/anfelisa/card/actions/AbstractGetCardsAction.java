@@ -100,7 +100,7 @@ public abstract class AbstractGetCardsAction extends ReadAction<ICardListData> {
 		}
 		this.actionData = new CardListData(uuid);
 		
-		if (categoryId == null) {
+		if (StringUtils.isBlank(categoryId) || "null".equals(categoryId)) {
 			throwBadRequest("categoryId is mandatory");
 		}
 		this.actionData.setCategoryId(categoryId);

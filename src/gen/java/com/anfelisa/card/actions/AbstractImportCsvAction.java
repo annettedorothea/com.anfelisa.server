@@ -112,7 +112,7 @@ public abstract class AbstractImportCsvAction extends WriteAction<ICsvUploadData
 		}
 		this.actionData.setPreviewCsv(payload.getPreviewCsv());
 		
-		if (payload.getCategoryId() == null) {
+		if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 			throwBadRequest("categoryId is mandatory");
 		}
 		this.actionData.setCategoryId(payload.getCategoryId());

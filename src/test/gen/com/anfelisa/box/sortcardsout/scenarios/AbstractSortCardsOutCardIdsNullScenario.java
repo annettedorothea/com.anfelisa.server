@@ -223,7 +223,7 @@ public abstract class AbstractSortCardsOutCardIdsNullScenario extends BaseScenar
 			String message = response.readEntity(String.class);
 			assertFail(message);
 		}
-		if (response.getStatus() != 200) {
+		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
 		}

@@ -11,7 +11,7 @@ ACE
 		payload 
 			wanted
 			given
-			image
+			image optional
 			categoryId
 		on ok (Card.insert)
 	
@@ -21,7 +21,7 @@ ACE
 		payload 
 			cardId
 			given
-			image
+			image optional
 			wanted
 		on ok (Card.update)
 	
@@ -43,9 +43,9 @@ ACE
 		GET "/cards/search"  
 		authorize
 		queryParams 
-			given 
-			wanted 
-			naturalInputOrder 
+			given optional
+			wanted optional
+			naturalInputOrder optional 
 			categoryId
 		response
 			cardList
@@ -100,7 +100,7 @@ models
 		Unique PrimaryKey NotNull String cardId
 		String given
 		String wanted
-		String image optional
+		String image
 		NotNull String cardAuthor
 		NotNull Integer cardIndex
 		NotNull String categoryId references com.anfelisa.category.Category.categoryId
@@ -111,7 +111,7 @@ models
 		NotNull String cardId
 		NotNull String given
 		NotNull String wanted
-		String image optional
+		String image
 		String userId
 	}
 	

@@ -107,12 +107,12 @@ public abstract class AbstractUpdateCategoryAction extends WriteAction<ICategory
 		}
 		this.actionData = new CategoryUpdateData(payload.getUuid());
 		
-		if (payload.getCategoryId() == null) {
+		if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 			throwBadRequest("categoryId is mandatory");
 		}
 		this.actionData.setCategoryId(payload.getCategoryId());
 		
-		if (payload.getCategoryName() == null) {
+		if (StringUtils.isBlank(payload.getCategoryName()) || "null".equals(payload.getCategoryName())) {
 			throwBadRequest("categoryName is mandatory");
 		}
 		this.actionData.setCategoryName(payload.getCategoryName());

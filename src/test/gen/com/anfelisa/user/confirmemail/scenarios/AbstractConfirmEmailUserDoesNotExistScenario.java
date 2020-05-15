@@ -62,12 +62,11 @@ public abstract class AbstractConfirmEmailUserDoesNotExistScenario extends BaseS
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
 		
 		return 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"token\" : \"TOKEN\"," + 
 				"\"username\" : \"doesNotExist\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
 		

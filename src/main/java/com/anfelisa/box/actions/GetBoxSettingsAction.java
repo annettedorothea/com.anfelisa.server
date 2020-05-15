@@ -40,9 +40,6 @@ public class GetBoxSettingsAction extends AbstractGetBoxSettingsAction {
 	}
 
 	protected void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
-		if (this.actionData.getBoxId() == null || "null".equals(this.actionData.getBoxId())) {
-			throwBadRequest("box id must not be null");
-		}
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, this.actionData.getBoxId());
 		if (!box.getUserId().equals(actionData.getUserId())) {
 			throwUnauthorized();

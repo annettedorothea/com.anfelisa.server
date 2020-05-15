@@ -195,7 +195,8 @@ public abstract class AbstractGetBoxesTodayAtMidnightInUTCNullScenario extends B
 		
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxes(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"} ",
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"todayAtMidnightInUTC\" : null} ",
 		com.anfelisa.box.data.BoxListData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));

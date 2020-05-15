@@ -19,7 +19,6 @@
 
 package com.anfelisa.box.commands;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,13 +41,6 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
-		if (this.commandData.getMaxCardsPerDay() == null) {
-			throwBadRequest("max cards per day must not be null");
-		}
-		if (StringUtils.isBlank(this.commandData.getCategoryName())) {
-			throwBadRequest("category name must not be null or empty");
-		}
-
 		if (commandData.getDictionaryLookup() != null && commandData.getDictionaryLookup()) {
 			if (!LanguageValidator.isLanguageValid(commandData.getGivenLanguage())) {
 				throwBadRequest("given language is invalid");

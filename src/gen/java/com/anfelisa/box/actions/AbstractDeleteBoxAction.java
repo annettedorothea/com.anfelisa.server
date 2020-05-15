@@ -108,7 +108,7 @@ public abstract class AbstractDeleteBoxAction extends WriteAction<IDeleteBoxData
 		}
 		this.actionData = new DeleteBoxData(uuid);
 		
-		if (boxId == null) {
+		if (StringUtils.isBlank(boxId) || "null".equals(boxId)) {
 			throwBadRequest("boxId is mandatory");
 		}
 		this.actionData.setBoxId(boxId);

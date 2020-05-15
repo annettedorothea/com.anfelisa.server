@@ -1,6 +1,5 @@
 package com.anfelisa.card.commands;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,12 +23,6 @@ public class UpdateCardCommand extends AbstractUpdateCardCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
-		if (StringUtils.isBlank(this.commandData.getGiven())) {
-			throwBadRequest("given must not be null or empty or blank");
-		}
-		if (StringUtils.isBlank(this.commandData.getWanted())) {
-			throwBadRequest("wanted must not be null or empty or blank");
-		}
 		ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle,  commandData.getCardId());
 		if (card == null) {
 			throwBadRequest("card does not exist");

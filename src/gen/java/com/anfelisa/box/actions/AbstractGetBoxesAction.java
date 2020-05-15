@@ -100,7 +100,7 @@ public abstract class AbstractGetBoxesAction extends ReadAction<IBoxListData> {
 		}
 		this.actionData = new BoxListData(uuid);
 		
-		if (StringUtils.isBlank(todayAtMidnightInUTC)) {
+		if (StringUtils.isBlank(todayAtMidnightInUTC) || "null".equals(todayAtMidnightInUTC)) {
 			throwBadRequest("todayAtMidnightInUTC is mandatory");
 		}
 		if (StringUtils.isNotBlank(todayAtMidnightInUTC)) {

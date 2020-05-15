@@ -112,7 +112,7 @@ public abstract class AbstractMoveCardsAction extends WriteAction<IMoveCardsData
 		}
 		this.actionData.setCardIdList(payload.getCardIdList());
 		
-		if (payload.getCategoryId() == null) {
+		if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 			throwBadRequest("categoryId is mandatory");
 		}
 		this.actionData.setCategoryId(payload.getCategoryId());

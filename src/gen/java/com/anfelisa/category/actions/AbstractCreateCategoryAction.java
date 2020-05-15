@@ -107,12 +107,12 @@ public abstract class AbstractCreateCategoryAction extends WriteAction<ICategory
 		}
 		this.actionData = new CategoryCreationData(payload.getUuid());
 		
-		if (payload.getCategoryName() == null) {
+		if (StringUtils.isBlank(payload.getCategoryName()) || "null".equals(payload.getCategoryName())) {
 			throwBadRequest("categoryName is mandatory");
 		}
 		this.actionData.setCategoryName(payload.getCategoryName());
 		
-		if (payload.getParentCategoryId() == null) {
+		if (StringUtils.isBlank(payload.getParentCategoryId()) || "null".equals(payload.getParentCategoryId())) {
 			throwBadRequest("parentCategoryId is mandatory");
 		}
 		this.actionData.setParentCategoryId(payload.getParentCategoryId());

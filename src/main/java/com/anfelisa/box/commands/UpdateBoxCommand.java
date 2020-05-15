@@ -1,6 +1,5 @@
 package com.anfelisa.box.commands;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,22 +23,13 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
-		if (this.commandData.getBoxId() == null) {
-			throwBadRequest("box id must not be null");
-		}
-		if (this.commandData.getCategoryId() == null) {
-			throwBadRequest("category id must not be null");
-		}
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, this.commandData.getBoxId());
 		if (!box.getUserId().equals(commandData.getUserId())) {
 			throwUnauthorized();
 		}
 		
-		if (this.commandData.getMaxCardsPerDay() == null || this.commandData.getMaxCardsPerDay() == 0) {
-			throwBadRequest("max cards per day must not be null or zero");
-		}
-		if (StringUtils.isBlank(this.commandData.getCategoryName())) {
-			throwBadRequest("category name must not be null or empty");
+		if (this.commandData.getMaxCardsPerDay() == 0) {
+			throwBadRequest("max cards per day must not be zero");
 		}
 
 		if (commandData.getDictionaryLookup() != null && commandData.getDictionaryLookup()) {

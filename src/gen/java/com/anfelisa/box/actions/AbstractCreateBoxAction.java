@@ -107,7 +107,7 @@ public abstract class AbstractCreateBoxAction extends WriteAction<IBoxCreationDa
 		}
 		this.actionData = new BoxCreationData(payload.getUuid());
 		
-		if (payload.getCategoryName() == null) {
+		if (StringUtils.isBlank(payload.getCategoryName()) || "null".equals(payload.getCategoryName())) {
 			throwBadRequest("categoryName is mandatory");
 		}
 		this.actionData.setCategoryName(payload.getCategoryName());

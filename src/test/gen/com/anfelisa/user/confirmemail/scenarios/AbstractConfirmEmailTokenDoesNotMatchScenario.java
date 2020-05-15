@@ -81,12 +81,11 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
-				 String.class));
 		
 		return 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"token\" : \"ADMIN-TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
 		

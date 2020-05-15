@@ -59,30 +59,10 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 		}
 		
 
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
 		response = 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"token\" : \"TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
 		
@@ -97,12 +77,11 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
 		
 		return 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"token\" : \"TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
 		

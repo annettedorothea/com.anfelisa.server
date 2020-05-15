@@ -4,32 +4,31 @@ com.anfelisa.box
 
 import com.anfelisa.user.AuthUser
 
-
 ACE 
 	CreateBox<BoxCreation>
 		POST "/box/create"  
 		authorize
 		payload 
 			categoryName
-			dictionaryLookup
-			givenLanguage
-			wantedLanguage
+			dictionaryLookup optional
+			givenLanguage optional
+			wantedLanguage optional
 			maxCardsPerDay
-			maxInterval
+			maxInterval optional
 		on ok (RootCategory.insert UserAccessToCategory.grantAccess Box.createBox)
 
 	UpdateBox<BoxUpdate> 
 		PUT "/box/update"  
 		authorize
 		payload 
-			maxInterval 
+			maxInterval optional
 			maxCardsPerDay
 			boxId
 			categoryId
 			categoryName
-			dictionaryLookup
-			givenLanguage
-			wantedLanguage
+			dictionaryLookup optional
+			givenLanguage optional
+			wantedLanguage optional
 		on ok ( Box.updateBox RootCategory.update)
 		
 	GetBoxSettings<BoxSettingsWrapper>
@@ -48,14 +47,14 @@ ACE
 	ScheduleCards<ScheduledCards>
 		POST "/cards/schedule" 
 		authorize 
-		payload cardIds
+		payload cardIds 
 		on ok (Box.scheduleCards)
 		on nullOrEmpty
 	
 	SortCardsOut<SortCardsOut>
 		POST "/cards/sort-out" 
 		authorize 
-		payload cardIds
+		payload cardIds 
 		on ok (Box.sortCardsOut ReinforceCard.sortOut)
 		on nullOrEmpty
 	
@@ -174,7 +173,7 @@ models
 		Unique PrimaryKey NotNull String boxId
 		NotNull String userId references com.anfelisa.user.User.userId
 		NotNull String categoryId references com.anfelisa.category.Category.categoryId
-		Integer maxInterval optional
+		Integer maxInterval 
 		NotNull Integer maxCardsPerDay
 	}
 	

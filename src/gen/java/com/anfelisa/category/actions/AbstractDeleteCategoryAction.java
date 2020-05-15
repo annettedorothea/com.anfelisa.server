@@ -108,7 +108,7 @@ public abstract class AbstractDeleteCategoryAction extends WriteAction<ICategory
 		}
 		this.actionData = new CategoryDeleteData(uuid);
 		
-		if (categoryId == null) {
+		if (StringUtils.isBlank(categoryId) || "null".equals(categoryId)) {
 			throwBadRequest("categoryId is mandatory");
 		}
 		this.actionData.setCategoryId(categoryId);

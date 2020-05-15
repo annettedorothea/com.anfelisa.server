@@ -112,7 +112,7 @@ public abstract class AbstractChangeOrderAction extends WriteAction<IChangeCardO
 		}
 		this.actionData.setCardIdList(payload.getCardIdList());
 		
-		if (payload.getCardId() == null) {
+		if (StringUtils.isBlank(payload.getCardId()) || "null".equals(payload.getCardId())) {
 			throwBadRequest("cardId is mandatory");
 		}
 		this.actionData.setCardId(payload.getCardId());

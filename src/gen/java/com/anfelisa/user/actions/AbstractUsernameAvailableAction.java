@@ -97,7 +97,7 @@ public abstract class AbstractUsernameAvailableAction extends ReadAction<IUserna
 		}
 		this.actionData = new UsernameAvailableData(uuid);
 		
-		if (username == null) {
+		if (StringUtils.isBlank(username) || "null".equals(username)) {
 			throwBadRequest("username is mandatory");
 		}
 		this.actionData.setUsername(username);

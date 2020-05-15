@@ -115,7 +115,7 @@ scenarios
 				uuid "sc1"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				authorization "Annette" : "password"
-		THEN 200
+		THEN 400
 
 	ScheduleCardsUnauthorized
 		GIVEN

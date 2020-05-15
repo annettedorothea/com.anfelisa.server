@@ -52,7 +52,6 @@ scenarios
 	MoveCardsNoAccessToCategory
 		GIVEN
 			com.anfelisa.card.createcard.CreateCard
-			com.anfelisa.user.registeruser.RegisterUserAdmin
 			com.anfelisa.category.createcategory.CreateCategoryAsAdmin
 		WHEN
 			com.anfelisa.card.MoveCards
@@ -68,7 +67,6 @@ scenarios
 	MoveCardsNoAccessToCard
 		GIVEN
 			com.anfelisa.card.createcard.CreateCard
-			com.anfelisa.user.registeruser.RegisterUserAdmin
 			com.anfelisa.category.createcategory.CreateCategoryAsAdmin
 		WHEN
 			com.anfelisa.card.MoveCards

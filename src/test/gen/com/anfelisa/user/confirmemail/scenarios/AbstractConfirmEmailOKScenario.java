@@ -62,12 +62,11 @@ public abstract class AbstractConfirmEmailOKScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
 		
 		return 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"token\" : \"TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
 		

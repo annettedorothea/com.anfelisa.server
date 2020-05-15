@@ -47,9 +47,6 @@ public class GetBoxStatisticsAction extends AbstractGetBoxStatisticsAction {
 
 	@Override
 	protected void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
-		if (actionData.getTodayAtMidnightInUTC() == null) {
-			throwBadRequest("today must not be null");
-		}
 		List<IBoxStatisticsModel> boxList = this.daoProvider.getBoxDao().selectStatisticsByUserId(readonlyHandle,
 				this.actionData.getUserId());
 		for (IBoxStatisticsModel box : boxList) {

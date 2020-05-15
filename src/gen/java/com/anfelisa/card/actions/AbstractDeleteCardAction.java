@@ -108,7 +108,7 @@ public abstract class AbstractDeleteCardAction extends WriteAction<ICardDeleteDa
 		}
 		this.actionData = new CardDeleteData(uuid);
 		
-		if (cardId == null) {
+		if (StringUtils.isBlank(cardId) || "null".equals(cardId)) {
 			throwBadRequest("cardId is mandatory");
 		}
 		this.actionData.setCardId(cardId);

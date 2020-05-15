@@ -24,9 +24,6 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 
 
 	protected final void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
-		if (actionData.getTodayAtMidnightInUTC() == null) {
-			throwBadRequest("today must not be null");
-		}
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, actionData.getBoxId());
 		if (box == null) {
 			throwBadRequest("box does not exist");

@@ -110,22 +110,22 @@ public abstract class AbstractRegisterUserAction extends WriteAction<IUserRegist
 		}
 		this.actionData = new UserRegistrationData(payload.getUuid());
 		
-		if (payload.getPassword() == null) {
+		if (StringUtils.isBlank(payload.getPassword()) || "null".equals(payload.getPassword())) {
 			throwBadRequest("password is mandatory");
 		}
 		this.actionData.setPassword(payload.getPassword());
 		
-		if (payload.getUsername() == null) {
+		if (StringUtils.isBlank(payload.getUsername()) || "null".equals(payload.getUsername())) {
 			throwBadRequest("username is mandatory");
 		}
 		this.actionData.setUsername(payload.getUsername());
 		
-		if (payload.getEmail() == null) {
+		if (StringUtils.isBlank(payload.getEmail()) || "null".equals(payload.getEmail())) {
 			throwBadRequest("email is mandatory");
 		}
 		this.actionData.setEmail(payload.getEmail());
 		
-		if (payload.getLanguage() == null) {
+		if (StringUtils.isBlank(payload.getLanguage()) || "null".equals(payload.getLanguage())) {
 			throwBadRequest("language is mandatory");
 		}
 		this.actionData.setLanguage(payload.getLanguage());

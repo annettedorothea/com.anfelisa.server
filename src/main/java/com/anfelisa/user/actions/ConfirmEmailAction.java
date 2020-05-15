@@ -19,14 +19,14 @@
 
 package com.anfelisa.user.actions;
 
+import de.acegen.CustomAppConfiguration;
+import de.acegen.ViewProvider;
+import de.acegen.IDaoProvider;
+import de.acegen.E2E;
+import de.acegen.PersistenceConnection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import de.acegen.CustomAppConfiguration;
-import de.acegen.E2E;
-import de.acegen.IDaoProvider;
-import de.acegen.PersistenceConnection;
-import de.acegen.ViewProvider;
 
 public class ConfirmEmailAction extends AbstractConfirmEmailAction {
 
@@ -41,7 +41,6 @@ public class ConfirmEmailAction extends AbstractConfirmEmailAction {
 	
 	public void initActionData() {
 		// init not replayable data here
-		// token
 	}
 
 }

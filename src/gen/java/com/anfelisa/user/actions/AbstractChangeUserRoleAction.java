@@ -107,12 +107,12 @@ public abstract class AbstractChangeUserRoleAction extends WriteAction<IChangeUs
 		}
 		this.actionData = new ChangeUserRoleData(payload.getUuid());
 		
-		if (payload.getNewRole() == null) {
+		if (StringUtils.isBlank(payload.getNewRole()) || "null".equals(payload.getNewRole())) {
 			throwBadRequest("newRole is mandatory");
 		}
 		this.actionData.setNewRole(payload.getNewRole());
 		
-		if (payload.getEditedUserId() == null) {
+		if (StringUtils.isBlank(payload.getEditedUserId()) || "null".equals(payload.getEditedUserId())) {
 			throwBadRequest("editedUserId is mandatory");
 		}
 		this.actionData.setEditedUserId(payload.getEditedUserId());

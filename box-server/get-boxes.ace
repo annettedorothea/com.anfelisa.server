@@ -224,6 +224,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.GetBoxes
 				{
+					todayAtMidnightInUTC: null
 				}
 				authorization "Annette" : "password"
 		THEN 400

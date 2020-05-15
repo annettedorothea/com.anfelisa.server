@@ -100,7 +100,7 @@ public abstract class AbstractGetCategoryTreeAction extends ReadAction<ICategory
 		}
 		this.actionData = new CategoryTreeData(uuid);
 		
-		if (rootCategoryId == null) {
+		if (StringUtils.isBlank(rootCategoryId) || "null".equals(rootCategoryId)) {
 			throwBadRequest("rootCategoryId is mandatory");
 		}
 		this.actionData.setRootCategoryId(rootCategoryId);

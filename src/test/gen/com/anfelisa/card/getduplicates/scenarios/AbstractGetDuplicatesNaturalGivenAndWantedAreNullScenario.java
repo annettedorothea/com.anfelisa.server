@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.box.schedulecards.scenarios;
+package com.anfelisa.card.getduplicates.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +36,7 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractScheduleCardsNullCardIdsScenario extends BaseScenario {
+public abstract class AbstractGetDuplicatesNaturalGivenAndWantedAreNullScenario extends BaseScenario {
 
 	private void given() throws Exception {
 		Response response;
@@ -107,130 +107,69 @@ public abstract class AbstractScheduleCardsNullCardIdsScenario extends BaseScena
 		}
 		
 
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c2\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"given2\"," + 
-				"\"image\" : \"image2\"," + 
-				"\"wanted\" : \"wanted2\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c3\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"3given\"," + 
-				"\"wanted\" : \"3wanted\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c4\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"4given4\"," + 
-				"\"wanted\" : \"4wanted4\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c5\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"different\"," + 
-				"\"wanted\" : \"different\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"sc1\"," + 
-				"\"cardIds\" : [ \"c1\"," + 
-				"\"c3\"," + 
-				"\"c4\"]} ",
-		com.anfelisa.box.data.ScheduledCardsData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN ScheduleCards fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200419 12:20", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		
 		return 
-		com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{}",
-		com.anfelisa.box.data.ScheduledCardsData.class)
+		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"categoryId\" : \"boxId\"," + 
+				"\"given\" : null," + 
+				"\"wanted\" : null," + 
+				"\"naturalInputOrder\" : true} ",
+		com.anfelisa.card.data.CardSearchData.class)
 		
 		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
 		
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.card.data.GetDuplicatesResponse then(Response response) throws Exception {
 		if (response.getStatus() == 500) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
 		}
-		if (response.getStatus() != 400) {
+		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
 		}
 		
+		com.anfelisa.card.data.GetDuplicatesResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.card.data.GetDuplicatesResponse.class);
+		} catch (Exception x) {
+		}
+		com.anfelisa.card.data.CardSearchData expectedData = objectMapper.readValue("{" +
+			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"cardList\" : []} ",
+		com.anfelisa.card.data.CardSearchData.class)
+		
+		;
+		
+		com.anfelisa.card.data.GetDuplicatesResponse expected = new com.anfelisa.card.data.GetDuplicatesResponse(expectedData);
+
+
+		assertThat(actual, expected);
 			
+			return actual;
 				}
 				
 				@Test
-				public void scheduleCardsNullCardIds() throws Exception {
+				public void getDuplicatesNaturalGivenAndWantedAreNull() throws Exception {
 					given();
 					
 					Response response = when();
 			
-					then(response);
+					com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 					
-					verifications();
+					verifications(actualResponse);
 				}
 				
-				protected abstract void verifications();
+				protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
 				
 				@Override
 				protected String scenarioName() {
-					return "ScheduleCardsNullCardIds";
+					return "GetDuplicatesNaturalGivenAndWantedAreNull";
 				}
 			
 			}

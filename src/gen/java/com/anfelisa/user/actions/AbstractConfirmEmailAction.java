@@ -82,7 +82,6 @@ public abstract class AbstractConfirmEmailAction extends WriteAction<IConfirmEma
 		IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
 		IConfirmEmailData originalActionData = (IConfirmEmailData)originalData;
 		this.actionData.setSystemTime(originalActionData.getSystemTime());
-		this.actionData.setToken((originalActionData.getToken()));
 	}
 
 
@@ -90,11 +89,6 @@ public abstract class AbstractConfirmEmailAction extends WriteAction<IConfirmEma
 	protected void initActionDataFromNotReplayableDataProvider() {
 		if (NotReplayableDataProvider.getSystemTime() != null) {
 			this.actionData.setSystemTime(NotReplayableDataProvider.getSystemTime());
-		}
-		if (NotReplayableDataProvider.get("token") != null) {
-			this.actionData.setToken((String)NotReplayableDataProvider.get("token"));
-		} else {
-			LOG.warn("token is declared as not replayable but no value was found in NotReplayableDataProvider.");
 		}
 	}
 
@@ -110,12 +104,12 @@ public abstract class AbstractConfirmEmailAction extends WriteAction<IConfirmEma
 		}
 		this.actionData = new ConfirmEmailData(payload.getUuid());
 		
-		if (payload.getToken() == null) {
+		if (StringUtils.isBlank(payload.getToken()) || "null".equals(payload.getToken())) {
 			throwBadRequest("token is mandatory");
 		}
 		this.actionData.setToken(payload.getToken());
 		
-		if (payload.getUsername() == null) {
+		if (StringUtils.isBlank(payload.getUsername()) || "null".equals(payload.getUsername())) {
 			throwBadRequest("username is mandatory");
 		}
 		this.actionData.setUsername(payload.getUsername());

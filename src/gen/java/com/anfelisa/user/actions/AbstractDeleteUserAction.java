@@ -108,7 +108,7 @@ public abstract class AbstractDeleteUserAction extends WriteAction<IDeleteUserDa
 		}
 		this.actionData = new DeleteUserData(uuid);
 		
-		if (usernameToBeDeleted == null) {
+		if (StringUtils.isBlank(usernameToBeDeleted) || "null".equals(usernameToBeDeleted)) {
 			throwBadRequest("usernameToBeDeleted is mandatory");
 		}
 		this.actionData.setUsernameToBeDeleted(usernameToBeDeleted);

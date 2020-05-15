@@ -104,12 +104,12 @@ public abstract class AbstractResetPasswordAction extends WriteAction<IResetPass
 		}
 		this.actionData = new ResetPasswordWithNewPasswordData(payload.getUuid());
 		
-		if (payload.getPassword() == null) {
+		if (StringUtils.isBlank(payload.getPassword()) || "null".equals(payload.getPassword())) {
 			throwBadRequest("password is mandatory");
 		}
 		this.actionData.setPassword(payload.getPassword());
 		
-		if (payload.getToken() == null) {
+		if (StringUtils.isBlank(payload.getToken()) || "null".equals(payload.getToken())) {
 			throwBadRequest("token is mandatory");
 		}
 		this.actionData.setToken(payload.getToken());

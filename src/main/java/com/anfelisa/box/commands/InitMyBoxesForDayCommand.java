@@ -46,9 +46,6 @@ public class InitMyBoxesForDayCommand extends AbstractInitMyBoxesForDayCommand {
 
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
-		if (commandData.getTodayAtMidnightInUTC() == null) {
-			throwBadRequest("today must not be null");
-		}
 		List<IInitBoxesModel> boxList = this.daoProvider.getBoxDao().selectInitBoxesModelByUserId(readonlyHandle,
 				this.commandData.getUserId(), commandData.getTodayAtMidnightInUTC());
 		List<IPostponeCardsModel> postponeCards = new ArrayList<IPostponeCardsModel>();

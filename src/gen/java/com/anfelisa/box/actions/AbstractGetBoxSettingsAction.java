@@ -100,7 +100,7 @@ public abstract class AbstractGetBoxSettingsAction extends ReadAction<IBoxSettin
 		}
 		this.actionData = new BoxSettingsWrapperData(uuid);
 		
-		if (boxId == null) {
+		if (StringUtils.isBlank(boxId) || "null".equals(boxId)) {
 			throwBadRequest("boxId is mandatory");
 		}
 		this.actionData.setBoxId(boxId);

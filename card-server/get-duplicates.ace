@@ -77,6 +77,52 @@ scenarios
 			]
 		}
 
+	GetDuplicatesNaturalInputOrderIsNull
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.GetDuplicates
+				{,
+					categoryId: "boxId",
+					given: "ive",
+					wanted: "nted",
+					naturalInputOrder: null
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		response {
+			cardList : [
+				{
+					cardAuthor: "Annette",
+					cardId: "c1",
+					cardIndex: 1,
+					categoryId: "cat1",
+					given: "given",
+					image: "image",
+					rootCategoryId: "boxId",
+					wanted: "wanted",
+					categoryName: "level 1 #1"
+				}
+			]
+		}
+
+	GetDuplicatesNaturalGivenAndWantedAreNull
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.GetDuplicates
+				{,
+					categoryId: "boxId",
+					given: null,
+					wanted: null,
+					naturalInputOrder: true
+				}
+				authorization "Annette" : "password"
+		THEN 200
+		response {
+			cardList : []
+		}
+
 	GetDuplicatesLimit
 		GIVEN
 			com.anfelisa.card.createcard.CreateRandomCard 30x

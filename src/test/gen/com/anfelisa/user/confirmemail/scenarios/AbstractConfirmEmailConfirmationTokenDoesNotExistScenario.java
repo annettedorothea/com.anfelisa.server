@@ -62,12 +62,11 @@ public abstract class AbstractConfirmEmailConfirmationTokenDoesNotExistScenario 
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"DOES_NOT_EXIST\"",
-				 String.class));
 		
 		return 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"token\" : \"DOES_NOT_EXIST\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
 		

@@ -107,7 +107,7 @@ public abstract class AbstractScoreReinforceCardAction extends WriteAction<IScor
 		}
 		this.actionData = new ScoreReinforceCardData(payload.getUuid());
 		
-		if (payload.getReinforceCardId() == null) {
+		if (StringUtils.isBlank(payload.getReinforceCardId()) || "null".equals(payload.getReinforceCardId())) {
 			throwBadRequest("reinforceCardId is mandatory");
 		}
 		this.actionData.setReinforceCardId(payload.getReinforceCardId());

@@ -126,25 +126,6 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 		}
 		
 
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid-admin\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"admin-password\"," + 
-				"\"username\" : \"Admin\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-			assertFail(message);
-		}
-		
-
 		response = 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"adminBox\"," + 

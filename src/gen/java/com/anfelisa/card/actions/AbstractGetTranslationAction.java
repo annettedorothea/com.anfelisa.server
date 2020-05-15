@@ -102,17 +102,17 @@ public abstract class AbstractGetTranslationAction extends ReadAction<ICardTrans
 		}
 		this.actionData = new CardTranslationData(uuid);
 		
-		if (sourceValue == null) {
+		if (StringUtils.isBlank(sourceValue) || "null".equals(sourceValue)) {
 			throwBadRequest("sourceValue is mandatory");
 		}
 		this.actionData.setSourceValue(sourceValue);
 		
-		if (sourceLanguage == null) {
+		if (StringUtils.isBlank(sourceLanguage) || "null".equals(sourceLanguage)) {
 			throwBadRequest("sourceLanguage is mandatory");
 		}
 		this.actionData.setSourceLanguage(sourceLanguage);
 		
-		if (targetLanguage == null) {
+		if (StringUtils.isBlank(targetLanguage) || "null".equals(targetLanguage)) {
 			throwBadRequest("targetLanguage is mandatory");
 		}
 		this.actionData.setTargetLanguage(targetLanguage);

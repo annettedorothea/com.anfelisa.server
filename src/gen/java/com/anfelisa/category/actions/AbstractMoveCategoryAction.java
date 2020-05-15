@@ -107,12 +107,12 @@ public abstract class AbstractMoveCategoryAction extends WriteAction<ICategoryMo
 		}
 		this.actionData = new CategoryMoveData(payload.getUuid());
 		
-		if (payload.getMovedCategoryId() == null) {
+		if (StringUtils.isBlank(payload.getMovedCategoryId()) || "null".equals(payload.getMovedCategoryId())) {
 			throwBadRequest("movedCategoryId is mandatory");
 		}
 		this.actionData.setMovedCategoryId(payload.getMovedCategoryId());
 		
-		if (payload.getTargetCategoryId() == null) {
+		if (StringUtils.isBlank(payload.getTargetCategoryId()) || "null".equals(payload.getTargetCategoryId())) {
 			throwBadRequest("targetCategoryId is mandatory");
 		}
 		this.actionData.setTargetCategoryId(payload.getTargetCategoryId());

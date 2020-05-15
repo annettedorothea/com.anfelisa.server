@@ -103,22 +103,13 @@ public abstract class AbstractGetDuplicatesAction extends ReadAction<ICardSearch
 		}
 		this.actionData = new CardSearchData(uuid);
 		
-		if (given == null) {
-			throwBadRequest("given is mandatory");
-		}
 		this.actionData.setGiven(given);
 		
-		if (wanted == null) {
-			throwBadRequest("wanted is mandatory");
-		}
 		this.actionData.setWanted(wanted);
 		
-		if (naturalInputOrder == null) {
-			throwBadRequest("naturalInputOrder is mandatory");
-		}
 		this.actionData.setNaturalInputOrder(naturalInputOrder);
 		
-		if (categoryId == null) {
+		if (StringUtils.isBlank(categoryId) || "null".equals(categoryId)) {
 			throwBadRequest("categoryId is mandatory");
 		}
 		this.actionData.setCategoryId(categoryId);

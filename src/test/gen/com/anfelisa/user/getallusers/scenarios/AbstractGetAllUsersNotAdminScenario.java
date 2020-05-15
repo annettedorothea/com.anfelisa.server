@@ -78,11 +78,10 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 		}
 		
 
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
 		response = 
 		com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+				"\"token\" : \"TOKEN\"," + 
 				"\"username\" : \"Annette\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class)
 		

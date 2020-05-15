@@ -107,9 +107,6 @@ public abstract class AbstractUpdateBoxAction extends WriteAction<IBoxUpdateData
 		}
 		this.actionData = new BoxUpdateData(payload.getUuid());
 		
-		if (payload.getMaxInterval() == null) {
-			throwBadRequest("maxInterval is mandatory");
-		}
 		this.actionData.setMaxInterval(payload.getMaxInterval());
 		
 		if (payload.getMaxCardsPerDay() == null) {
@@ -117,34 +114,25 @@ public abstract class AbstractUpdateBoxAction extends WriteAction<IBoxUpdateData
 		}
 		this.actionData.setMaxCardsPerDay(payload.getMaxCardsPerDay());
 		
-		if (payload.getBoxId() == null) {
+		if (StringUtils.isBlank(payload.getBoxId()) || "null".equals(payload.getBoxId())) {
 			throwBadRequest("boxId is mandatory");
 		}
 		this.actionData.setBoxId(payload.getBoxId());
 		
-		if (payload.getCategoryId() == null) {
+		if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
 			throwBadRequest("categoryId is mandatory");
 		}
 		this.actionData.setCategoryId(payload.getCategoryId());
 		
-		if (payload.getCategoryName() == null) {
+		if (StringUtils.isBlank(payload.getCategoryName()) || "null".equals(payload.getCategoryName())) {
 			throwBadRequest("categoryName is mandatory");
 		}
 		this.actionData.setCategoryName(payload.getCategoryName());
 		
-		if (payload.getDictionaryLookup() == null) {
-			throwBadRequest("dictionaryLookup is mandatory");
-		}
 		this.actionData.setDictionaryLookup(payload.getDictionaryLookup());
 		
-		if (payload.getGivenLanguage() == null) {
-			throwBadRequest("givenLanguage is mandatory");
-		}
 		this.actionData.setGivenLanguage(payload.getGivenLanguage());
 		
-		if (payload.getWantedLanguage() == null) {
-			throwBadRequest("wantedLanguage is mandatory");
-		}
 		this.actionData.setWantedLanguage(payload.getWantedLanguage());
 		this.actionData.setUserId(authUser.getUserId());
 		

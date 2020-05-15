@@ -17,25 +17,17 @@
 
 
 
-package com.anfelisa.user.models;
+package com.anfelisa.card.getduplicates.scenarios;
 
-import java.util.List;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import javax.ws.rs.core.Response;
 
 @SuppressWarnings("unused")
-@JsonDeserialize(as=ConfirmEmailModel.class)
-public interface IConfirmEmailModel extends com.anfelisa.user.models.IEmailConfirmationModel{
+public class GetDuplicatesNaturalGivenAndWantedAreNullScenario extends AbstractGetDuplicatesNaturalGivenAndWantedAreNullScenario {
 
-	String getUsername();
-	void setUsername(String username);
-	
-	String getToken();
-	void setToken(String token);
-	
-	String getUserId();
-	void setUserId(String userId);
-	
-	
+	@Override
+	protected void verifications(com.anfelisa.card.data.GetDuplicatesResponse response ) {
+	}
+
 }
 
 

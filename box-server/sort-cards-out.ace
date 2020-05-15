@@ -54,7 +54,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				authorization "Annette" : "password"
-		THEN 200
+		THEN 400
 
 	SortCardsOutWithScoredAndReinforce
 		GIVEN
