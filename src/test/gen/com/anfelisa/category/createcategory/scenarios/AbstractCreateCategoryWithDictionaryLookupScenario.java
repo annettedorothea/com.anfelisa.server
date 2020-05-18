@@ -73,7 +73,7 @@ public abstract class AbstractCreateCategoryWithDictionaryLookupScenario extends
 		
 
 		if (prerequisite("CreateBoxDictionaryLookup")) {
-			uuid = "boxId".replace("${testId}", this.getTestId());
+			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -99,13 +99,13 @@ public abstract class AbstractCreateCategoryWithDictionaryLookupScenario extends
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "dict";
+		String uuid = "dict".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryName\" : \"dict\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -127,9 +127,9 @@ public abstract class AbstractCreateCategoryWithDictionaryLookupScenario extends
 				
 				@Test
 				public void createCategoryWithDictionaryLookup() throws Exception {
-					if (prerequisite("CreateCategoryWithDictionaryLookup")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCategoryWithDictionaryLookup")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCategory");

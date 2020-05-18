@@ -103,9 +103,9 @@ public abstract class AbstractConfirmEmailUserDoesNotExistScenario extends BaseS
 				
 				@Test
 				public void confirmEmailUserDoesNotExist() throws Exception {
-					if (prerequisite("ConfirmEmailUserDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("ConfirmEmailUserDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ConfirmEmail");

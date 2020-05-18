@@ -13,7 +13,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.GetDuplicates
 				{,
-					categoryId: "boxId",
+					categoryId: "boxId-${testId}",
 					given: "ive",
 					wanted: "nted",
 					naturalInputOrder: true
@@ -23,54 +23,54 @@ scenarios
 		response {
 			cardList : [
 				{
-					cardAuthor: "Annette",
+					cardAuthor: "Annette-${testId}",
 					cardId: "c3",
 					cardIndex: 3,
 					categoryId: "cat1",
 					given: "3given",
-					rootCategoryId: "boxId",
+					rootCategoryId: "boxId-${testId}",
 					wanted: "3wanted",
 					categoryName: "level 1 #1"
 				},
 				{
-					cardAuthor: "Annette",
+					cardAuthor: "Annette-${testId}",
 					cardId: "c4",
 					cardIndex: 4,
 					categoryId: "cat1",
 					given: "4given4",
-					rootCategoryId: "boxId",
+					rootCategoryId: "boxId-${testId}",
 					wanted: "4wanted4",
 					categoryName: "level 1 #1"
 				},
 				{
-					cardAuthor: "Annette",
+					cardAuthor: "Annette-${testId}",
 					cardId: "c6",
 					cardIndex: 1,
 					categoryId: "cat2",
 					given: "aa-given",
-					rootCategoryId: "boxId",
+					rootCategoryId: "boxId-${testId}",
 					wanted: "zz-wanted",
 					categoryName: "level 1 #2"
 				},
 				{
-					cardAuthor: "Annette",
+					cardAuthor: "Annette-${testId}",
 					cardId: "c1",
 					cardIndex: 1,
 					categoryId: "cat1",
 					given: "given",
 					image: "image",
-					rootCategoryId: "boxId",
+					rootCategoryId: "boxId-${testId}",
 					wanted: "wanted",
 					categoryName: "level 1 #1"
 				},
 				{
-					cardAuthor: "Annette",
+					cardAuthor: "Annette-${testId}",
 					cardId: "c2",
 					cardIndex: 2,
 					categoryId: "cat1",
 					given: "given2",
 					image: "image2",
-					rootCategoryId: "boxId",
+					rootCategoryId: "boxId-${testId}",
 					wanted: "wanted2",
 					categoryName: "level 1 #1"
 				}
@@ -83,7 +83,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.GetDuplicates
 				{,
-					categoryId: "boxId",
+					categoryId: "boxId-${testId}",
 					given: "ive",
 					wanted: "nted",
 					naturalInputOrder: null
@@ -93,13 +93,13 @@ scenarios
 		response {
 			cardList : [
 				{
-					cardAuthor: "Annette",
+					cardAuthor: "Annette-${testId}",
 					cardId: "c1",
 					cardIndex: 1,
 					categoryId: "cat1",
 					given: "given",
 					image: "image",
-					rootCategoryId: "boxId",
+					rootCategoryId: "boxId-${testId}",
 					wanted: "wanted",
 					categoryName: "level 1 #1"
 				}
@@ -112,7 +112,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.GetDuplicates
 				{,
-					categoryId: "boxId",
+					categoryId: "boxId-${testId}",
 					given: null,
 					wanted: null,
 					naturalInputOrder: true
@@ -129,7 +129,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.GetDuplicates
 				{,
-					categoryId: "boxId",
+					categoryId: "boxId-${testId}",
 					given: "ive",
 					wanted: "nted",
 					naturalInputOrder: true
@@ -147,7 +147,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.GetDuplicates
 				{,
-					categoryId: "boxId",
+					categoryId: "boxId-${testId}",
 					given: "ive",
 					wanted: "nted",
 					naturalInputOrder: false
@@ -157,54 +157,54 @@ scenarios
 		response {
 			cardList : [
 				{
-					cardAuthor: "Annette",
+					cardAuthor: "Annette-${testId}",
 					cardId: "c3",
 					cardIndex: 3,
 					categoryId: "cat1",
 					given: "3given",
-					rootCategoryId: "boxId",
+					rootCategoryId: "boxId-${testId}",
 					wanted: "3wanted",
 					categoryName: "level 1 #1"
 				},
 				{
-					cardAuthor: "Annette",
+					cardAuthor: "Annette-${testId}",
 					cardId: "c4",
 					cardIndex: 4,
 					categoryId: "cat1",
 					given: "4given4",
-					rootCategoryId: "boxId",
+					rootCategoryId: "boxId-${testId}",
 					wanted: "4wanted4",
 					categoryName: "level 1 #1"
 				},
 				{
-					cardAuthor: "Annette",
+					cardAuthor: "Annette-${testId}",
 					cardId: "c1",
 					cardIndex: 1,
 					categoryId: "cat1",
 					given: "given",
 					image: "image",
-					rootCategoryId: "boxId",
+					rootCategoryId: "boxId-${testId}",
 					wanted: "wanted",
 					categoryName: "level 1 #1"
 				},
 				{
-					cardAuthor: "Annette",
+					cardAuthor: "Annette-${testId}",
 					cardId: "c2",
 					cardIndex: 2,
 					categoryId: "cat1",
 					given: "given2",
 					image: "image2",
-					rootCategoryId: "boxId",
+					rootCategoryId: "boxId-${testId}",
 					wanted: "wanted2",
 					categoryName: "level 1 #1"
 				},
 				{
-					cardAuthor: "Annette",
+					cardAuthor: "Annette-${testId}",
 					cardId: "c6",
 					cardIndex: 1,
 					categoryId: "cat2",
 					given: "aa-given",
-					rootCategoryId: "boxId",
+					rootCategoryId: "boxId-${testId}",
 					wanted: "zz-wanted",
 					categoryName: "level 1 #2"
 				}
@@ -232,7 +232,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.GetDuplicates
 				{,
-					categoryId: "boxId",
+					categoryId: "boxId-${testId}",
 					given: "ive",
 					wanted: "nted",
 					naturalInputOrder: true
@@ -246,7 +246,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.GetDuplicates
 				{,
-					categoryId: "boxId",
+					categoryId: "boxId-${testId}",
 					given: "ive",
 					wanted: "nted",
 					naturalInputOrder: true

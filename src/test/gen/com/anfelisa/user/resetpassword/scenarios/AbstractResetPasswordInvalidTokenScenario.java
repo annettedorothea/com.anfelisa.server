@@ -75,13 +75,13 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 		if (prerequisite("ForgotPasswordOK")) {
 			uuid = this.randomUUID();
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"RESET-PW-TOKEN\"",  String.class),
+						objectMapper.readValue("\"RESET-PW-TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
 			com.anfelisa.user.ActionCalls.callForgotPassword(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"language\" : \"de\"," + 
-					"\"username\" : \"Annette\"} ",
+					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.ForgotPasswordData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort());
@@ -104,7 +104,7 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 		return 
 		com.anfelisa.user.ActionCalls.callResetPassword(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"token\" : \"INVALID-TOKEN\"," + 
+				"\"token\" : \"INVALID-TOKEN-" + this.getTestId() + "\"," + 
 				"\"password\" : \"newPassword\"} ",
 		com.anfelisa.user.data.ResetPasswordWithNewPasswordData.class)
 		
@@ -127,9 +127,9 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 				
 				@Test
 				public void resetPasswordInvalidToken() throws Exception {
-					if (prerequisite("ResetPasswordInvalidToken")) {
-						given();
+					given();
 						
+					if (prerequisite("ResetPasswordInvalidToken")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ResetPassword");

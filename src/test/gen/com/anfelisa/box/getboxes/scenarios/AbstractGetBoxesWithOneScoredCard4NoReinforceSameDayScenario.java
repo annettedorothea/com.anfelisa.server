@@ -100,7 +100,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard4NoReinforceSameDayScenar
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -258,7 +258,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard4NoReinforceSameDayScenar
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 4," + 
 					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -307,8 +307,8 @@ public abstract class AbstractGetBoxesWithOneScoredCard4NoReinforceSameDayScenar
 		}
 		com.anfelisa.box.data.BoxListData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"\"," + 
-				"\"boxList\" : [ { \"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"boxList\" : [ { \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"openTodaysCards\" : 2}]} ",
 		com.anfelisa.box.data.BoxListData.class)
@@ -325,9 +325,9 @@ public abstract class AbstractGetBoxesWithOneScoredCard4NoReinforceSameDayScenar
 				
 				@Test
 				public void getBoxesWithOneScoredCard4NoReinforceSameDay() throws Exception {
-					if (prerequisite("GetBoxesWithOneScoredCard4NoReinforceSameDay")) {
-						given();
+					given();
 						
+					if (prerequisite("GetBoxesWithOneScoredCard4NoReinforceSameDay")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetBoxes");

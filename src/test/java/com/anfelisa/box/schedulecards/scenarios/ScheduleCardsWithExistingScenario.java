@@ -29,14 +29,14 @@ public class ScheduleCardsWithExistingScenario extends AbstractScheduleCardsWith
 	protected void verifications() {
 		DateTime dateTime = new DateTime(2020, 4, 19, 12, 20).withZone(DateTimeZone.UTC);
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle,
-				"c2", "boxId");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c2-sc1", "c2", "boxId",
+				"c2","boxId-" + getTestId());
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c2-sc1", "c2","boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c5", "boxId");
-		expectedScheduledCard = new ScheduledCardModel("c5-sc1", "c5", "boxId",
+		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c5","boxId-" + getTestId());
+		expectedScheduledCard = new ScheduledCardModel("c5-sc1", "c5","boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
@@ -44,20 +44,20 @@ public class ScheduleCardsWithExistingScenario extends AbstractScheduleCardsWith
 		dateTime = new DateTime(2020, 4, 18, 10, 30).withZone(DateTimeZone.UTC);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle,
-				"c1", "boxId");
-		expectedScheduledCard = new ScheduledCardModel("c1-sc1", "c1", "boxId",
+				"c1","boxId-" + getTestId());
+		expectedScheduledCard = new ScheduledCardModel("c1-sc1", "c1","boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c3", "boxId");
-		expectedScheduledCard = new ScheduledCardModel("c3-sc1", "c3", "boxId",
+		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c3","boxId-" + getTestId());
+		expectedScheduledCard = new ScheduledCardModel("c3-sc1", "c3","boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c4", "boxId");
-		expectedScheduledCard = new ScheduledCardModel("c4-sc1", "c4", "boxId",
+		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c4","boxId-" + getTestId());
+		expectedScheduledCard = new ScheduledCardModel("c4-sc1", "c4","boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);

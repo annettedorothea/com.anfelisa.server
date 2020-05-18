@@ -49,7 +49,7 @@ public abstract class AbstractRegisterUserScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "uuid-${testId}";
+		String uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutValue(uuid, "token", 
 					objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 					this.getProtocol(), this.getHost(), this.getPort());
@@ -82,9 +82,9 @@ public abstract class AbstractRegisterUserScenario extends BaseScenario {
 				
 				@Test
 				public void registerUser() throws Exception {
-					if (prerequisite("RegisterUser")) {
-						given();
+					given();
 						
+					if (prerequisite("RegisterUser")) {
 						Response response = when();
 		
 						LOG.info("WHEN: RegisterUser");

@@ -102,7 +102,7 @@ public abstract class AbstractCreateCategoryNameIsNullScenario extends BaseScena
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -124,9 +124,9 @@ public abstract class AbstractCreateCategoryNameIsNullScenario extends BaseScena
 				
 				@Test
 				public void createCategoryNameIsNull() throws Exception {
-					if (prerequisite("CreateCategoryNameIsNull")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCategoryNameIsNull")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCategory");

@@ -29,13 +29,13 @@ public class UpdateBoxMinimalScenario extends AbstractUpdateBoxMinimalScenario {
 
 	@Override
 	protected void verifications() {
-		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId");
-		ICategoryModel expectedCategory = new CategoryModel("boxId", "changed", "Annette", 1, null, "boxId", false, null,
+		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle,"boxId-" + getTestId());
+		ICategoryModel expectedCategory = new CategoryModel("boxId-" + getTestId(), "changed", "Annette-" + getTestId(), 1, null,"boxId-" + getTestId(), false, null,
 				null);
 		assertThat(actualCategory, expectedCategory);
 
-		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle, "boxId");
-		IBoxModel expectedBox = new BoxModel("boxId", "uuid", "boxId", null, 11);
+		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle,"boxId-" + getTestId());
+		IBoxModel expectedBox = new BoxModel("boxId-" + getTestId(), "uuid-" + getTestId(),"boxId-" + getTestId(), null, 11);
 		assertThat(actualBox, expectedBox);
 	}
 

@@ -100,7 +100,7 @@ public abstract class AbstractUpdateCardScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -194,9 +194,9 @@ public abstract class AbstractUpdateCardScenario extends BaseScenario {
 				
 				@Test
 				public void updateCard() throws Exception {
-					if (prerequisite("UpdateCard")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateCard")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateCard");

@@ -129,8 +129,8 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 		com.anfelisa.user.data.UserData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"username\" : \"Annette\"," + 
-				"\"userId\" : \"uuid\"} ",
+				"\"username\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.data.UserData.class)
 		
 		;
@@ -145,9 +145,9 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 				
 				@Test
 				public void getUserProfile() throws Exception {
-					if (prerequisite("GetUserProfile")) {
-						given();
+					given();
 						
+					if (prerequisite("GetUserProfile")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetUserProfile");

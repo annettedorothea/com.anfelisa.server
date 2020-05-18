@@ -28,14 +28,14 @@ public class CreateBoxMaxCardsPerDayNullScenario extends AbstractCreateBoxMaxCar
 
 	@Override
 	protected void verifications() {
-		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId");
+		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle,"boxId-" + getTestId());
 		assertIsNull(actualCategory);
 
 		IUserAccessToCategoryModel actualAccessToCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(handle, "boxId", "uuid");
+				.selectByCategoryIdAndUserId(handle,"boxId-" + getTestId(), "uuid-" + getTestId());
 		assertIsNull(actualAccessToCategory);
 		
-		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle, "boxId");
+		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle,"boxId-" + getTestId());
 		assertIsNull(actualBox);
 	}
 

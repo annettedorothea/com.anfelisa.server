@@ -9,12 +9,12 @@ scenarios
 		WHEN
 			com.anfelisa.box.GetBoxSettings
 				{
-					boxId: "boxId"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
-				categoryId: "boxId",
+				categoryId: "boxId-${testId}",
 				categoryName: "cat",
 				dictionaryLookup: false,
 				maxCardsPerDay: 10
@@ -26,12 +26,12 @@ scenarios
 		WHEN
 			com.anfelisa.box.GetBoxSettings
 				{
-					boxId: "boxId"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
-				categoryId: "boxId",
+				categoryId: "boxId-${testId}",
 				categoryName: "cat",
 				dictionaryLookup: true,
 				givenLanguage: "de",
@@ -56,7 +56,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.GetBoxSettings
 				{
-					boxId: "boxId"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -67,6 +67,6 @@ scenarios
 		WHEN
 			com.anfelisa.box.GetBoxSettings
 				{
-					boxId: "boxId"
+					boxId: "boxId-${testId}"
 				}
 		THEN 401

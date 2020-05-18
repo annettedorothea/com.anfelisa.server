@@ -97,7 +97,7 @@ public abstract class AbstractCreateSecondBoxScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "boxId2";
+		String uuid = "boxId2-${testId}".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
@@ -126,9 +126,9 @@ public abstract class AbstractCreateSecondBoxScenario extends BaseScenario {
 				
 				@Test
 				public void createSecondBox() throws Exception {
-					if (prerequisite("CreateSecondBox")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateSecondBox")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateBox");

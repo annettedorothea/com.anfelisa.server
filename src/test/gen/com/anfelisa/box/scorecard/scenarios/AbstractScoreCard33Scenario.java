@@ -100,7 +100,7 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -258,7 +258,7 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
 					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -280,8 +280,8 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 			response = 
 			com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
-					"\"categoryId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+					"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"categoryName\" : \"changed\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 11," + 
@@ -307,7 +307,7 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
 					"\"scoredCardScheduledCardId\" : \"score3\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -331,7 +331,7 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
 					"\"scoredCardScheduledCardId\" : \"score31\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -351,14 +351,14 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "score33";
+		String uuid = "score33".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200615 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 					this.getProtocol(), this.getHost(), this.getPort());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scoredCardQuality\" : 4," + 
 				"\"scoredCardScheduledCardId\" : \"score32\"} ",
 		com.anfelisa.box.data.ScoreCardData.class)
@@ -382,9 +382,9 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 				
 				@Test
 				public void scoreCard33() throws Exception {
-					if (prerequisite("ScoreCard33")) {
-						given();
+					given();
 						
+					if (prerequisite("ScoreCard33")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ScoreCard");

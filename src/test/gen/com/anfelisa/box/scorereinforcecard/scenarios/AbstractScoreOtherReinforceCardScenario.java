@@ -100,7 +100,7 @@ public abstract class AbstractScoreOtherReinforceCardScenario extends BaseScenar
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -258,7 +258,7 @@ public abstract class AbstractScoreOtherReinforceCardScenario extends BaseScenar
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 1," + 
 					"\"scoredCardScheduledCardId\" : \"c3-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -278,7 +278,7 @@ public abstract class AbstractScoreOtherReinforceCardScenario extends BaseScenar
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "1";
+		String uuid = "1".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:40", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 					this.getProtocol(), this.getHost(), this.getPort());
 		
@@ -308,9 +308,9 @@ public abstract class AbstractScoreOtherReinforceCardScenario extends BaseScenar
 				
 				@Test
 				public void scoreOtherReinforceCard() throws Exception {
-					if (prerequisite("ScoreOtherReinforceCard")) {
-						given();
+					given();
 						
+					if (prerequisite("ScoreOtherReinforceCard")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ScoreReinforceCard");

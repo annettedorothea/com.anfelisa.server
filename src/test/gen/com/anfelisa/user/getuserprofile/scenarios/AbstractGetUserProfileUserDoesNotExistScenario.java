@@ -132,9 +132,9 @@ public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends Bas
 				
 				@Test
 				public void getUserProfileUserDoesNotExist() throws Exception {
-					if (prerequisite("GetUserProfileUserDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("GetUserProfileUserDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetUserProfile");

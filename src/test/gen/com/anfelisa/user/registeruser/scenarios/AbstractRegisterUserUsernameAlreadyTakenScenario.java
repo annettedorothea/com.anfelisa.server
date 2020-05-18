@@ -75,7 +75,7 @@ public abstract class AbstractRegisterUserUsernameAlreadyTakenScenario extends B
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "uuid-at";
+		String uuid = "uuid-at".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutValue(uuid, "token", 
 					objectMapper.readValue("\"XXX\"",  String.class),
 					this.getProtocol(), this.getHost(), this.getPort());
@@ -86,7 +86,7 @@ public abstract class AbstractRegisterUserUsernameAlreadyTakenScenario extends B
 				"\"email\" : \"info@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"pw\"," + 
-				"\"username\" : \"Annette\"} ",
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort());
@@ -108,9 +108,9 @@ public abstract class AbstractRegisterUserUsernameAlreadyTakenScenario extends B
 				
 				@Test
 				public void registerUserUsernameAlreadyTaken() throws Exception {
-					if (prerequisite("RegisterUserUsernameAlreadyTaken")) {
-						given();
+					given();
 						
+					if (prerequisite("RegisterUserUsernameAlreadyTaken")) {
 						Response response = when();
 		
 						LOG.info("WHEN: RegisterUser");

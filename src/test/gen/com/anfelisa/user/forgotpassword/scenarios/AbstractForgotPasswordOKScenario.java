@@ -77,14 +77,14 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 	private Response when() throws Exception {
 		String uuid = this.randomUUID();
 		this.callNotReplayableDataProviderPutValue(uuid, "token", 
-					objectMapper.readValue("\"RESET-PW-TOKEN\"",  String.class),
+					objectMapper.readValue("\"RESET-PW-TOKEN-" + this.getTestId() + "\"",  String.class),
 					this.getProtocol(), this.getHost(), this.getPort());
 		
 		return 
 		com.anfelisa.user.ActionCalls.callForgotPassword(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"language\" : \"de\"," + 
-				"\"username\" : \"Annette\"} ",
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.data.ForgotPasswordData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort());
@@ -106,9 +106,9 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 				
 				@Test
 				public void forgotPasswordOK() throws Exception {
-					if (prerequisite("ForgotPasswordOK")) {
-						given();
+					given();
 						
+					if (prerequisite("ForgotPasswordOK")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ForgotPassword");

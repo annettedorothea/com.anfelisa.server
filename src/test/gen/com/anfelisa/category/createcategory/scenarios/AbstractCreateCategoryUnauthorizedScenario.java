@@ -103,7 +103,7 @@ public abstract class AbstractCreateCategoryUnauthorizedScenario extends BaseSce
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryName\" : \"lala\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), null);
@@ -125,9 +125,9 @@ public abstract class AbstractCreateCategoryUnauthorizedScenario extends BaseSce
 				
 				@Test
 				public void createCategoryUnauthorized() throws Exception {
-					if (prerequisite("CreateCategoryUnauthorized")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCategoryUnauthorized")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCategory");

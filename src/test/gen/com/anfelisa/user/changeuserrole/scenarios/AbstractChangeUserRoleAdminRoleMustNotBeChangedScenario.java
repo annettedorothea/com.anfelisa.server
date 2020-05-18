@@ -106,7 +106,7 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 		return 
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"editedUserId\" : \"uuid-admin\"," + 
+				"\"editedUserId\" : \"uuid-admin-" + this.getTestId() + "\"," + 
 				"\"newRole\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)
 		
@@ -129,9 +129,9 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 				
 				@Test
 				public void changeUserRoleAdminRoleMustNotBeChanged() throws Exception {
-					if (prerequisite("ChangeUserRoleAdminRoleMustNotBeChanged")) {
-						given();
+					given();
 						
+					if (prerequisite("ChangeUserRoleAdminRoleMustNotBeChanged")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ChangeUserRole");

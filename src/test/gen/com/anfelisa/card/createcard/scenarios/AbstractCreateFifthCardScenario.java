@@ -100,7 +100,7 @@ public abstract class AbstractCreateFifthCardScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -208,7 +208,7 @@ public abstract class AbstractCreateFifthCardScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "c5";
+		String uuid = "c5".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -237,9 +237,9 @@ public abstract class AbstractCreateFifthCardScenario extends BaseScenario {
 				
 				@Test
 				public void createFifthCard() throws Exception {
-					if (prerequisite("CreateFifthCard")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateFifthCard")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCard");

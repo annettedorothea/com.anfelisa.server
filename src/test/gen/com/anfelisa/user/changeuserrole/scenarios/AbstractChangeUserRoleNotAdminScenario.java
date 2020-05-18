@@ -106,11 +106,11 @@ public abstract class AbstractChangeUserRoleNotAdminScenario extends BaseScenari
 		return 
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"editedUserId\" : \"uuid\"," + 
+				"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
 				"\"newRole\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)
 		
-		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette", "password"));
+		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 		
 	}
 	
@@ -129,9 +129,9 @@ public abstract class AbstractChangeUserRoleNotAdminScenario extends BaseScenari
 				
 				@Test
 				public void changeUserRoleNotAdmin() throws Exception {
-					if (prerequisite("ChangeUserRoleNotAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("ChangeUserRoleNotAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ChangeUserRole");

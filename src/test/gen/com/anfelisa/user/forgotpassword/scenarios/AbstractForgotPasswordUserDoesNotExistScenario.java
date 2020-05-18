@@ -77,7 +77,7 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 	private Response when() throws Exception {
 		String uuid = this.randomUUID();
 		this.callNotReplayableDataProviderPutValue(uuid, "token", 
-					objectMapper.readValue("\"RESET-PW-TOKEN\"",  String.class),
+					objectMapper.readValue("\"RESET-PW-TOKEN-" + this.getTestId() + "\"",  String.class),
 					this.getProtocol(), this.getHost(), this.getPort());
 		
 		return 
@@ -106,9 +106,9 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 				
 				@Test
 				public void forgotPasswordUserDoesNotExist() throws Exception {
-					if (prerequisite("ForgotPasswordUserDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("ForgotPasswordUserDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ForgotPassword");

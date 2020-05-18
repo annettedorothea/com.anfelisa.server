@@ -103,7 +103,7 @@ public abstract class AbstractCreateCategoryNameIsEmptyScenario extends BaseScen
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryName\" : \"\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -125,9 +125,9 @@ public abstract class AbstractCreateCategoryNameIsEmptyScenario extends BaseScen
 				
 				@Test
 				public void createCategoryNameIsEmpty() throws Exception {
-					if (prerequisite("CreateCategoryNameIsEmpty")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCategoryNameIsEmpty")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCategory");

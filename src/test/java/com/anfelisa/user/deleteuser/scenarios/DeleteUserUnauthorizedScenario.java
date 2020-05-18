@@ -28,8 +28,8 @@ public class DeleteUserUnauthorizedScenario extends AbstractDeleteUserUnauthoriz
 
 	@Override
 	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette");
-		IUserModel expectedUser = new UserModel("uuid", "Annette", "password", "annette.pohl@anfelisa.de", Roles.STUDENT, false);
+		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
+		IUserModel expectedUser = new UserModel("uuid-" + getTestId(), "Annette-" + getTestId(), "password", "annette.pohl@anfelisa.de", Roles.STUDENT, false);
 		assertThat(actualUser, expectedUser);
 	}
 

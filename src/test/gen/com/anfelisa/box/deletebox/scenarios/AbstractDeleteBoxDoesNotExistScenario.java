@@ -124,9 +124,9 @@ public abstract class AbstractDeleteBoxDoesNotExistScenario extends BaseScenario
 				
 				@Test
 				public void deleteBoxDoesNotExist() throws Exception {
-					if (prerequisite("DeleteBoxDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("DeleteBoxDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: DeleteBox");

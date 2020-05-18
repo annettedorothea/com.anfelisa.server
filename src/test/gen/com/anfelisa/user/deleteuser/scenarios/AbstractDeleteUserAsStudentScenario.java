@@ -80,10 +80,10 @@ public abstract class AbstractDeleteUserAsStudentScenario extends BaseScenario {
 		return 
 		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"usernameToBeDeleted\" : \"Annette\"} ",
+				"\"usernameToBeDeleted\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.data.DeleteUserData.class)
 		
-		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette", "password"));
+		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 		
 	}
 	
@@ -102,9 +102,9 @@ public abstract class AbstractDeleteUserAsStudentScenario extends BaseScenario {
 				
 				@Test
 				public void deleteUserAsStudent() throws Exception {
-					if (prerequisite("DeleteUserAsStudent")) {
-						given();
+					given();
 						
+					if (prerequisite("DeleteUserAsStudent")) {
 						Response response = when();
 		
 						LOG.info("WHEN: DeleteUser");

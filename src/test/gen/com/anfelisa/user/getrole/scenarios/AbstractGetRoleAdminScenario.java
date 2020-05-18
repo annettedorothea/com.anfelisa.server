@@ -143,9 +143,9 @@ public abstract class AbstractGetRoleAdminScenario extends BaseScenario {
 				
 				@Test
 				public void getRoleAdmin() throws Exception {
-					if (prerequisite("GetRoleAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("GetRoleAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetRole");

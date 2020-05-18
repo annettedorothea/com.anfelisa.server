@@ -100,7 +100,7 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -118,7 +118,7 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "123456789-123456789-123456789-123456789";
+		String uuid = "123456789-123456789-123456789-123456789".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -147,9 +147,9 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 				
 				@Test
 				public void createCardWithLongUuid() throws Exception {
-					if (prerequisite("CreateCardWithLongUuid")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCardWithLongUuid")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCard");

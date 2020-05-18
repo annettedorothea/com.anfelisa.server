@@ -30,9 +30,9 @@ public class ScheduleCardsCombineIdsScenario extends AbstractScheduleCardsCombin
 		DateTime dateTime = new DateTime(2020, 4, 18, 10, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle,
-				"123456789-123456789-123456789-123456789", "boxId");
+				"123456789-123456789-123456789-123456789","boxId-" + getTestId());
 		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("123456789-123456789-123-abcdefgh",
-				"123456789-123456789-123456789-123456789", "boxId", dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
+				"123456789-123456789-123456789-123456789","boxId-" + getTestId(), dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 	}

@@ -100,7 +100,7 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -194,9 +194,9 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 				
 				@Test
 				public void deleteCardNoAccessToCategory() throws Exception {
-					if (prerequisite("DeleteCardNoAccessToCategory")) {
-						given();
+					given();
 						
+					if (prerequisite("DeleteCardNoAccessToCategory")) {
 						Response response = when();
 		
 						LOG.info("WHEN: DeleteCard");

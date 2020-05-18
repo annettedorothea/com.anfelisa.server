@@ -17,7 +17,7 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
+						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
 						quality0Count: 0,
 						quality1Count: 0,
@@ -47,7 +47,7 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
+						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
 						quality0Count: 1,
 						quality1Count: 1,
@@ -75,7 +75,7 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
+						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
 						quality0Count: 0,
 						quality1Count: 1,
@@ -103,7 +103,7 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
+						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
 						quality0Count: 1,
 						quality1Count: 0,
@@ -131,7 +131,7 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
+						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
 						quality0Count: 0,
 						quality1Count: 0,
@@ -159,7 +159,7 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
+						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
 						quality0Count: 0,
 						quality1Count: 0,
@@ -187,7 +187,7 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
+						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
 						quality0Count: 0,
 						quality1Count: 0,
@@ -215,7 +215,7 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
+						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
 						quality0Count: 0,
 						quality1Count: 0,

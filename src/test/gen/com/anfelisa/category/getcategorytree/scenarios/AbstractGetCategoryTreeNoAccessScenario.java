@@ -100,7 +100,7 @@ public abstract class AbstractGetCategoryTreeNoAccessScenario extends BaseScenar
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -149,7 +149,7 @@ public abstract class AbstractGetCategoryTreeNoAccessScenario extends BaseScenar
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"rootCategoryId\" : \"boxId\"} ",
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
@@ -177,9 +177,9 @@ public abstract class AbstractGetCategoryTreeNoAccessScenario extends BaseScenar
 				
 				@Test
 				public void getCategoryTreeNoAccess() throws Exception {
-					if (prerequisite("GetCategoryTreeNoAccess")) {
-						given();
+					given();
 						
+					if (prerequisite("GetCategoryTreeNoAccess")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetCategoryTree");

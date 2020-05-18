@@ -100,7 +100,7 @@ public abstract class AbstractGetBoxesTodayAtMidnightInUTCNullScenario extends B
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -286,9 +286,9 @@ public abstract class AbstractGetBoxesTodayAtMidnightInUTCNullScenario extends B
 				
 				@Test
 				public void getBoxesTodayAtMidnightInUTCNull() throws Exception {
-					if (prerequisite("GetBoxesTodayAtMidnightInUTCNull")) {
-						given();
+					given();
 						
+					if (prerequisite("GetBoxesTodayAtMidnightInUTCNull")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetBoxStatistics");

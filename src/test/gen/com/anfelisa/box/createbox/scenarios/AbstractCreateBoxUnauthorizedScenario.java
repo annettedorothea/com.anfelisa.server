@@ -75,7 +75,7 @@ public abstract class AbstractCreateBoxUnauthorizedScenario extends BaseScenario
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "boxId";
+		String uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
@@ -104,9 +104,9 @@ public abstract class AbstractCreateBoxUnauthorizedScenario extends BaseScenario
 				
 				@Test
 				public void createBoxUnauthorized() throws Exception {
-					if (prerequisite("CreateBoxUnauthorized")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateBoxUnauthorized")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateBox");

@@ -103,9 +103,9 @@ public abstract class AbstractConfirmEmailOKScenario extends BaseScenario {
 				
 				@Test
 				public void confirmEmailOK() throws Exception {
-					if (prerequisite("ConfirmEmailOK")) {
-						given();
+					given();
 						
+					if (prerequisite("ConfirmEmailOK")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ConfirmEmail");

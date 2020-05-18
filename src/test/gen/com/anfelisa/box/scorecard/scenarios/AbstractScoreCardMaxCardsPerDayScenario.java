@@ -100,7 +100,7 @@ public abstract class AbstractScoreCardMaxCardsPerDayScenario extends BaseScenar
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -232,8 +232,8 @@ public abstract class AbstractScoreCardMaxCardsPerDayScenario extends BaseScenar
 			response = 
 			com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
-					"\"categoryId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+					"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
 					"\"maxCardsPerDay\" : 1} ",
 			com.anfelisa.box.data.BoxUpdateData.class)
@@ -305,7 +305,7 @@ public abstract class AbstractScoreCardMaxCardsPerDayScenario extends BaseScenar
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 0," + 
 					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -329,7 +329,7 @@ public abstract class AbstractScoreCardMaxCardsPerDayScenario extends BaseScenar
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 0," + 
 					"\"scoredCardScheduledCardId\" : \"c3-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -349,14 +349,14 @@ public abstract class AbstractScoreCardMaxCardsPerDayScenario extends BaseScenar
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "score0-3";
+		String uuid = "score0-3".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 					this.getProtocol(), this.getHost(), this.getPort());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scoredCardQuality\" : 0," + 
 				"\"scoredCardScheduledCardId\" : \"c4-sc1\"} ",
 		com.anfelisa.box.data.ScoreCardData.class)
@@ -380,9 +380,9 @@ public abstract class AbstractScoreCardMaxCardsPerDayScenario extends BaseScenar
 				
 				@Test
 				public void scoreCardMaxCardsPerDay() throws Exception {
-					if (prerequisite("ScoreCardMaxCardsPerDay")) {
-						given();
+					given();
 						
+					if (prerequisite("ScoreCardMaxCardsPerDay")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ScoreCard");

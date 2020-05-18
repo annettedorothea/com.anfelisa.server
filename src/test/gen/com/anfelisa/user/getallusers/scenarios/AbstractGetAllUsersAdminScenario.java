@@ -157,10 +157,10 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 				"\"role\" : \"ADMIN\"}," + 
 				"{ \"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"emailConfirmed\" : true," + 
 				"\"role\" : \"STUDENT\"," + 
-				"\"userId\" : \"uuid\"}]} ",
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"}]} ",
 		com.anfelisa.user.data.UserListData.class)
 		
 		;
@@ -175,9 +175,9 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 				
 				@Test
 				public void getAllUsersAdmin() throws Exception {
-					if (prerequisite("GetAllUsersAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("GetAllUsersAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetAllUsers");

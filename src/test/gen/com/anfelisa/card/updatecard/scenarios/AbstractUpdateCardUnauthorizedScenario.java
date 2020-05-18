@@ -100,7 +100,7 @@ public abstract class AbstractUpdateCardUnauthorizedScenario extends BaseScenari
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -171,9 +171,9 @@ public abstract class AbstractUpdateCardUnauthorizedScenario extends BaseScenari
 				
 				@Test
 				public void updateCardUnauthorized() throws Exception {
-					if (prerequisite("UpdateCardUnauthorized")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateCardUnauthorized")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateCard");

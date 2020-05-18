@@ -100,7 +100,7 @@ public abstract class AbstractScoreCardCardDoesNotExistScenario extends BaseScen
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -254,14 +254,14 @@ public abstract class AbstractScoreCardCardDoesNotExistScenario extends BaseScen
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "score1";
+		String uuid = "score1".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 					this.getProtocol(), this.getHost(), this.getPort());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scoredCardQuality\" : 0," + 
 				"\"scoredCardScheduledCardId\" : \"xx\"} ",
 		com.anfelisa.box.data.ScoreCardData.class)
@@ -285,9 +285,9 @@ public abstract class AbstractScoreCardCardDoesNotExistScenario extends BaseScen
 				
 				@Test
 				public void scoreCardCardDoesNotExist() throws Exception {
-					if (prerequisite("ScoreCardCardDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("ScoreCardCardDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ScoreCard");

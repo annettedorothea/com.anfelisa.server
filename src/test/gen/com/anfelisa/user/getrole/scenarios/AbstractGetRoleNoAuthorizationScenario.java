@@ -132,9 +132,9 @@ public abstract class AbstractGetRoleNoAuthorizationScenario extends BaseScenari
 				
 				@Test
 				public void getRoleNoAuthorization() throws Exception {
-					if (prerequisite("GetRoleNoAuthorization")) {
-						given();
+					given();
 						
+					if (prerequisite("GetRoleNoAuthorization")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetRole");

@@ -102,9 +102,9 @@ public abstract class AbstractDeleteUserLastAdminScenario extends BaseScenario {
 				
 				@Test
 				public void deleteUserLastAdmin() throws Exception {
-					if (prerequisite("DeleteUserLastAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("DeleteUserLastAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: DeleteUser");

@@ -100,7 +100,7 @@ public abstract class AbstractLoadNextCardSecondScoredScenario extends BaseScena
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -258,7 +258,7 @@ public abstract class AbstractLoadNextCardSecondScoredScenario extends BaseScena
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 0," + 
 					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -282,7 +282,7 @@ public abstract class AbstractLoadNextCardSecondScoredScenario extends BaseScena
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 1," + 
 					"\"scoredCardScheduledCardId\" : \"c3-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -307,7 +307,7 @@ public abstract class AbstractLoadNextCardSecondScoredScenario extends BaseScena
 		return 
 		com.anfelisa.box.ActionCalls.callLoadNextCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"todayAtMidnightInUTC\" : \"2020-04-18T00:00:00.000Z\"} ",
 		com.anfelisa.box.data.NextCardData.class)
 		
@@ -338,7 +338,7 @@ public abstract class AbstractLoadNextCardSecondScoredScenario extends BaseScena
 				"\"count\" : 0," + 
 				"\"given\" : \"4given4\"," + 
 				"\"openTodaysCards\" : 3," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scheduledCardId\" : \"c4-sc1\"," + 
 				"\"scheduledDate\" : \"2020-04-18T08:30:00.000Z\"," + 
 				"\"wanted\" : \"4wanted4\"} ",
@@ -356,9 +356,9 @@ public abstract class AbstractLoadNextCardSecondScoredScenario extends BaseScena
 				
 				@Test
 				public void loadNextCardSecondScored() throws Exception {
-					if (prerequisite("LoadNextCardSecondScored")) {
-						given();
+					given();
 						
+					if (prerequisite("LoadNextCardSecondScored")) {
 						Response response = when();
 		
 						LOG.info("WHEN: LoadNextCard");

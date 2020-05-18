@@ -73,11 +73,11 @@ public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenari
 		
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
-			uuid = "adminBox".replace("${testId}", this.getTestId());
+			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryName\" : \"adminBox\"," + 
+					"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
 			com.anfelisa.box.data.BoxCreationData.class)
@@ -100,7 +100,7 @@ public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenari
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"c\"," + 
-					"\"parentCategoryId\" : \"adminBox\"} ",
+					"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
@@ -148,9 +148,9 @@ public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenari
 				
 				@Test
 				public void createCardUnauthorized() throws Exception {
-					if (prerequisite("CreateCardUnauthorized")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCardUnauthorized")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCard");

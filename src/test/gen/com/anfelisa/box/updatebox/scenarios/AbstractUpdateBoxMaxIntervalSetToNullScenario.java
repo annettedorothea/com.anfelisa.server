@@ -99,8 +99,8 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 			response = 
 			com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
-					"\"categoryId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+					"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"categoryName\" : \"changed\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 11," + 
@@ -127,8 +127,8 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"changed\"," + 
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 11} ",
@@ -153,9 +153,9 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 				
 				@Test
 				public void updateBoxMaxIntervalSetToNull() throws Exception {
-					if (prerequisite("UpdateBoxMaxIntervalSetToNull")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateBoxMaxIntervalSetToNull")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateBox");

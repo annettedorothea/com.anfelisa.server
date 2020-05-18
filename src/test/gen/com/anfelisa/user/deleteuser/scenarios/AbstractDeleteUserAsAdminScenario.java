@@ -106,7 +106,7 @@ public abstract class AbstractDeleteUserAsAdminScenario extends BaseScenario {
 		return 
 		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"usernameToBeDeleted\" : \"Annette\"} ",
+				"\"usernameToBeDeleted\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.data.DeleteUserData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
@@ -128,9 +128,9 @@ public abstract class AbstractDeleteUserAsAdminScenario extends BaseScenario {
 				
 				@Test
 				public void deleteUserAsAdmin() throws Exception {
-					if (prerequisite("DeleteUserAsAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("DeleteUserAsAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: DeleteUser");

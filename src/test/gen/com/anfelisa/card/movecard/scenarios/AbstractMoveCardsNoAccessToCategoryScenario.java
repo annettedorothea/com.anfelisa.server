@@ -100,7 +100,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -165,11 +165,11 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 		
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
-			uuid = "adminBox".replace("${testId}", this.getTestId());
+			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryName\" : \"adminBox\"," + 
+					"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
 			com.anfelisa.box.data.BoxCreationData.class)
@@ -192,7 +192,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"c\"," + 
-					"\"parentCategoryId\" : \"adminBox\"} ",
+					"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
@@ -238,9 +238,9 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 				
 				@Test
 				public void moveCardsNoAccessToCategory() throws Exception {
-					if (prerequisite("MoveCardsNoAccessToCategory")) {
-						given();
+					given();
 						
+					if (prerequisite("MoveCardsNoAccessToCategory")) {
 						Response response = when();
 		
 						LOG.info("WHEN: MoveCards");

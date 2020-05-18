@@ -23,7 +23,7 @@ scenarios
 			CreateBoxMinimal
 		WHEN
 			com.anfelisa.box.CreateBox
-				uuid "boxId2"
+				uuid "boxId2-${testId}"
 				{
 					categoryName: "cat2",
 					dictionaryLookup: false,
@@ -37,7 +37,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN
 			com.anfelisa.box.CreateBox
-				uuid "boxId"
+				uuid "boxId-${testId}"
 				{
 					categoryName: "cat",
 					maxCardsPerDay: 10
@@ -50,7 +50,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN
 			com.anfelisa.box.CreateBox
-				uuid "boxId"
+				uuid "boxId-${testId}"
 				{
 					categoryName: "cat",
 					maxCardsPerDay: 10,
@@ -66,7 +66,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN
 			com.anfelisa.box.CreateBox
-				uuid "boxId"
+				uuid "boxId-${testId}"
 				{
 					categoryName: "cat",
 					maxCardsPerDay: 10,
@@ -82,7 +82,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN
 			com.anfelisa.box.CreateBox
-				uuid "boxId"
+				uuid "boxId-${testId}"
 				{
 					categoryName: "cat",
 					maxCardsPerDay: 10,
@@ -98,7 +98,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN
 			com.anfelisa.box.CreateBox
-				uuid "boxId"
+				uuid "boxId-${testId}"
 				{
 					categoryName: "cat",
 					dictionaryLookup: false
@@ -111,7 +111,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN
 			com.anfelisa.box.CreateBox
-				uuid "boxId"
+				uuid "boxId-${testId}"
 				{
 					maxCardsPerDay: 10,
 					dictionaryLookup: false
@@ -124,7 +124,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN
 			com.anfelisa.box.CreateBox
-				uuid "boxId"
+				uuid "boxId-${testId}"
 				{
 					categoryName: "",
 					maxCardsPerDay: 10,
@@ -138,7 +138,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN
 			com.anfelisa.box.CreateBox
-				uuid "boxId"
+				uuid "boxId-${testId}"
 				{
 					categoryName: "    ",
 					maxCardsPerDay: 10,
@@ -152,7 +152,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN
 			com.anfelisa.box.CreateBox
-				uuid "boxId"
+				uuid "boxId-${testId}"
 				{
 					categoryName: "lala",
 					maxCardsPerDay: 10,
@@ -165,9 +165,9 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN
 			com.anfelisa.box.CreateBox
-				uuid "adminBox"
+				uuid "adminBox-${testId}"
 				{
-					categoryName: "adminBox",
+					categoryName: "adminBox-${testId}",
 					dictionaryLookup: false,
 					maxCardsPerDay: 10
 				}

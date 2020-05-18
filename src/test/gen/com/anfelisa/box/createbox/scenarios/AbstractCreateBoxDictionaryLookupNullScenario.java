@@ -75,7 +75,7 @@ public abstract class AbstractCreateBoxDictionaryLookupNullScenario extends Base
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "boxId";
+		String uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
@@ -103,9 +103,9 @@ public abstract class AbstractCreateBoxDictionaryLookupNullScenario extends Base
 				
 				@Test
 				public void createBoxDictionaryLookupNull() throws Exception {
-					if (prerequisite("CreateBoxDictionaryLookupNull")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateBoxDictionaryLookupNull")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateBox");

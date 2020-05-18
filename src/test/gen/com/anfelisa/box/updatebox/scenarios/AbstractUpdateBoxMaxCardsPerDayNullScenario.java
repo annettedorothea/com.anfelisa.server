@@ -102,8 +102,8 @@ public abstract class AbstractUpdateBoxMaxCardsPerDayNullScenario extends BaseSc
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"} ",
 		com.anfelisa.box.data.BoxUpdateData.class)
 		
@@ -126,9 +126,9 @@ public abstract class AbstractUpdateBoxMaxCardsPerDayNullScenario extends BaseSc
 				
 				@Test
 				public void updateBoxMaxCardsPerDayNull() throws Exception {
-					if (prerequisite("UpdateBoxMaxCardsPerDayNull")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateBoxMaxCardsPerDayNull")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateBox");

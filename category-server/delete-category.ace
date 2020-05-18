@@ -55,7 +55,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.DeleteCategory
 				{
-					categoryId: "boxId"
+					categoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400

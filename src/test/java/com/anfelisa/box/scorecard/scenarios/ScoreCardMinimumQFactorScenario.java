@@ -31,7 +31,7 @@ public class ScoreCardMinimumQFactorScenario extends AbstractScoreCardMinimumQFa
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"q");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("q", "c1", "boxId",
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("q", "c1","boxId-" + getTestId(),
 				scoredDateTime, 1.3F, 90, 13, 12, scoredDateTime.plusDays(90), 3, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);

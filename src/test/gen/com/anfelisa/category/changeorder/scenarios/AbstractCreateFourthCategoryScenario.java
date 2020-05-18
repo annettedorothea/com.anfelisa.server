@@ -100,7 +100,7 @@ public abstract class AbstractCreateFourthCategoryScenario extends BaseScenario 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -121,7 +121,7 @@ public abstract class AbstractCreateFourthCategoryScenario extends BaseScenario 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #2\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -142,7 +142,7 @@ public abstract class AbstractCreateFourthCategoryScenario extends BaseScenario 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #3\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -160,13 +160,13 @@ public abstract class AbstractCreateFourthCategoryScenario extends BaseScenario 
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "cat4";
+		String uuid = "cat4".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryName\" : \"level 1 #4\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -188,9 +188,9 @@ public abstract class AbstractCreateFourthCategoryScenario extends BaseScenario 
 				
 				@Test
 				public void createFourthCategory() throws Exception {
-					if (prerequisite("CreateFourthCategory")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateFourthCategory")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCategory");

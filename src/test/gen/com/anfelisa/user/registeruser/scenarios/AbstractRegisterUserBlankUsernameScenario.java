@@ -79,9 +79,9 @@ public abstract class AbstractRegisterUserBlankUsernameScenario extends BaseScen
 				
 				@Test
 				public void registerUserBlankUsername() throws Exception {
-					if (prerequisite("RegisterUserBlankUsername")) {
-						given();
+					given();
 						
+					if (prerequisite("RegisterUserBlankUsername")) {
 						Response response = when();
 		
 						LOG.info("WHEN: RegisterUser");

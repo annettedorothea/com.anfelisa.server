@@ -100,7 +100,7 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -123,7 +123,7 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"rootCategoryId\" : \"boxId\"} ",
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), null);
@@ -151,9 +151,9 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 				
 				@Test
 				public void getCategoryTreeUnauthorized() throws Exception {
-					if (prerequisite("GetCategoryTreeUnauthorized")) {
-						given();
+					given();
 						
+					if (prerequisite("GetCategoryTreeUnauthorized")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetCategoryTree");

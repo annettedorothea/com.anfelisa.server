@@ -17,8 +17,8 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
-						categoryId: "boxId",
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
 						categoryName: "cat",
 						openTodaysCards: 3
 					}
@@ -40,8 +40,8 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
-						categoryId: "boxId",
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
 						categoryName: "cat",
 						openTodaysCards: 2
 					}
@@ -61,8 +61,8 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
-						categoryId: "boxId",
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
 						categoryName: "cat",
 						openTodaysCards: 3
 					}
@@ -82,8 +82,8 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
-						categoryId: "boxId",
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
 						categoryName: "cat",
 						openTodaysCards: 3
 					}
@@ -103,8 +103,8 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
-						categoryId: "boxId",
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
 						categoryName: "cat",
 						openTodaysCards: 3
 					}
@@ -124,8 +124,8 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
-						categoryId: "boxId",
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
 						categoryName: "cat",
 						openTodaysCards: 3
 					}
@@ -145,8 +145,8 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
-						categoryId: "boxId",
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
 						categoryName: "cat",
 						openTodaysCards: 2
 					}
@@ -166,8 +166,8 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
-						categoryId: "boxId",
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
 						categoryName: "cat",
 						openTodaysCards: 2
 					}
@@ -188,8 +188,8 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
-						categoryId: "boxId",
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
 						categoryName: "cat",
 						openTodaysCards: 2
 					}
@@ -209,8 +209,8 @@ scenarios
 			response {
 				boxList: [
 					{
-						boxId: "boxId",
-						categoryId: "boxId",
+						boxId: "boxId-${testId}",
+						categoryId: "boxId-${testId}",
 						categoryName: "cat",
 						openTodaysCards: 2
 					}

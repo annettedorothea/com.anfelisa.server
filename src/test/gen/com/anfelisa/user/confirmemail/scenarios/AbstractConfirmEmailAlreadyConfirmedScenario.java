@@ -124,9 +124,9 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 				
 				@Test
 				public void confirmEmailAlreadyConfirmed() throws Exception {
-					if (prerequisite("ConfirmEmailAlreadyConfirmed")) {
-						given();
+					given();
 						
+					if (prerequisite("ConfirmEmailAlreadyConfirmed")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ConfirmEmail");

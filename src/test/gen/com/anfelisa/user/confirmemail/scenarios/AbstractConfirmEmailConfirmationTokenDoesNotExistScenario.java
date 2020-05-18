@@ -103,9 +103,9 @@ public abstract class AbstractConfirmEmailConfirmationTokenDoesNotExistScenario 
 				
 				@Test
 				public void confirmEmailConfirmationTokenDoesNotExist() throws Exception {
-					if (prerequisite("ConfirmEmailConfirmationTokenDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("ConfirmEmailConfirmationTokenDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ConfirmEmail");

@@ -128,9 +128,9 @@ public abstract class AbstractUpdateBoxNoAccessScenario extends BaseScenario {
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
-				"\"categoryName\" : \"adminBox\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
 				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxUpdateData.class)
 		
@@ -153,9 +153,9 @@ public abstract class AbstractUpdateBoxNoAccessScenario extends BaseScenario {
 				
 				@Test
 				public void updateBoxNoAccess() throws Exception {
-					if (prerequisite("UpdateBoxNoAccess")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateBoxNoAccess")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateBox");

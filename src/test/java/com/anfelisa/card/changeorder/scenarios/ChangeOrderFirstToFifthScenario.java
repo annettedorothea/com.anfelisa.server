@@ -26,23 +26,23 @@ public class ChangeOrderFirstToFifthScenario extends AbstractChangeOrderFirstToF
 	protected void verifications() {
 
 		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c2");
-		ICardModel expectedCard = new CardModel("c2", "given2", "wanted2", "image2", "Annette", 1, "cat1", "boxId");
+		ICardModel expectedCard = new CardModel("c2", "given2", "wanted2", "image2", "Annette-" + getTestId(), 1, "cat1","boxId-" + getTestId());
 		assertThat(actualCard, expectedCard);
 
 		actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c3");
-		expectedCard = new CardModel("c3", "3given", "3wanted", null, "Annette", 2, "cat1", "boxId");
+		expectedCard = new CardModel("c3", "3given", "3wanted", null, "Annette-" + getTestId(), 2, "cat1","boxId-" + getTestId());
 		assertThat(actualCard, expectedCard);
 
 		actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c4");
-		expectedCard = new CardModel("c4", "4given4", "4wanted4", null, "Annette", 3, "cat1", "boxId");
+		expectedCard = new CardModel("c4", "4given4", "4wanted4", null, "Annette-" + getTestId(), 3, "cat1","boxId-" + getTestId());
 		assertThat(actualCard, expectedCard);
 
 		actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c1");
-		expectedCard = new CardModel("c1", "given", "wanted", "image", "Annette", 4, "cat1", "boxId");
+		expectedCard = new CardModel("c1", "given", "wanted", "image", "Annette-" + getTestId(), 4, "cat1","boxId-" + getTestId());
 		assertThat(actualCard, expectedCard);
 
 		actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c5");
-		expectedCard = new CardModel("c5", "different", "different", null, "Annette", 5, "cat1", "boxId");
+		expectedCard = new CardModel("c5", "different", "different", null, "Annette-" + getTestId(), 5, "cat1","boxId-" + getTestId());
 		assertThat(actualCard, expectedCard);
 
 	}

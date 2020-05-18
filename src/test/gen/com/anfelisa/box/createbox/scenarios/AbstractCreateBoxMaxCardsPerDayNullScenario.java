@@ -75,7 +75,7 @@ public abstract class AbstractCreateBoxMaxCardsPerDayNullScenario extends BaseSc
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "boxId";
+		String uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
@@ -103,9 +103,9 @@ public abstract class AbstractCreateBoxMaxCardsPerDayNullScenario extends BaseSc
 				
 				@Test
 				public void createBoxMaxCardsPerDayNull() throws Exception {
-					if (prerequisite("CreateBoxMaxCardsPerDayNull")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateBoxMaxCardsPerDayNull")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateBox");

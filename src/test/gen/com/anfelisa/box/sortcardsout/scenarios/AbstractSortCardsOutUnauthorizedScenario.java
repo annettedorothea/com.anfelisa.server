@@ -100,7 +100,7 @@ public abstract class AbstractSortCardsOutUnauthorizedScenario extends BaseScena
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -282,9 +282,9 @@ public abstract class AbstractSortCardsOutUnauthorizedScenario extends BaseScena
 				
 				@Test
 				public void sortCardsOutUnauthorized() throws Exception {
-					if (prerequisite("SortCardsOutUnauthorized")) {
-						given();
+					given();
 						
+					if (prerequisite("SortCardsOutUnauthorized")) {
 						Response response = when();
 		
 						LOG.info("WHEN: SortCardsOut");

@@ -139,7 +139,7 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "c7"
 				{
-					categoryId: "boxId2",
+					categoryId: "boxId2-${testId}",
 					given: "given",
 					wanted: "wanted"
 				}

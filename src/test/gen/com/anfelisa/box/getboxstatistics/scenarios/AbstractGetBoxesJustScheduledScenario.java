@@ -100,7 +100,7 @@ public abstract class AbstractGetBoxesJustScheduledScenario extends BaseScenario
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -283,7 +283,7 @@ public abstract class AbstractGetBoxesJustScheduledScenario extends BaseScenario
 		}
 		com.anfelisa.box.data.BoxStatisticsListData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"\"," + 
-				"\"boxList\" : [ { \"boxId\" : \"boxId\"," + 
+				"\"boxList\" : [ { \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"maxCardsPerDay\" : 10," + 
 				"\"quality0Count\" : 0," + 
 				"\"quality1Count\" : 0," + 
@@ -312,9 +312,9 @@ public abstract class AbstractGetBoxesJustScheduledScenario extends BaseScenario
 				
 				@Test
 				public void getBoxesJustScheduled() throws Exception {
-					if (prerequisite("GetBoxesJustScheduled")) {
-						given();
+					given();
 						
+					if (prerequisite("GetBoxesJustScheduled")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetBoxStatistics");

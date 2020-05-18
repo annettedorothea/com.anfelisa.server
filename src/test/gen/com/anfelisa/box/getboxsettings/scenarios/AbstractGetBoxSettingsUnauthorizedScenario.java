@@ -102,7 +102,7 @@ public abstract class AbstractGetBoxSettingsUnauthorizedScenario extends BaseSce
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxSettings(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"} ",
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.box.data.BoxSettingsWrapperData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), null);
@@ -130,9 +130,9 @@ public abstract class AbstractGetBoxSettingsUnauthorizedScenario extends BaseSce
 				
 				@Test
 				public void getBoxSettingsUnauthorized() throws Exception {
-					if (prerequisite("GetBoxSettingsUnauthorized")) {
-						given();
+					given();
 						
+					if (prerequisite("GetBoxSettingsUnauthorized")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetBoxSettings");

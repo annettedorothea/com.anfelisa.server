@@ -100,7 +100,7 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsSameDa
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -258,7 +258,7 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsSameDa
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 0," + 
 					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -282,7 +282,7 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsSameDa
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 1," + 
 					"\"scoredCardScheduledCardId\" : \"c3-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -306,7 +306,7 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsSameDa
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 5," + 
 					"\"scoredCardScheduledCardId\" : \"c4-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -353,9 +353,9 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsSameDa
 				
 				@Test
 				public void initMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing() throws Exception {
-					if (prerequisite("InitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing")) {
-						given();
+					given();
 						
+					if (prerequisite("InitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing")) {
 						Response response = when();
 		
 						LOG.info("WHEN: InitMyBoxesForDay");

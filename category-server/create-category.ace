@@ -11,7 +11,7 @@ scenarios
 				uuid "cat1"
 				{
 					categoryName: "level 1 #1",
-					parentCategoryId: "boxId"
+					parentCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -24,7 +24,7 @@ scenarios
 				uuid "cat2"
 				{
 					categoryName: "level 1 #2",
-					parentCategoryId: "boxId"
+					parentCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -50,7 +50,7 @@ scenarios
 				uuid "dict"
 				{
 					categoryName: "dict",
-					parentCategoryId: "boxId"
+					parentCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -96,7 +96,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.CreateCategory
 				{,
-					parentCategoryId: "boxId"
+					parentCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -108,7 +108,7 @@ scenarios
 			com.anfelisa.category.CreateCategory
 				{
 					categoryName: "",
-					parentCategoryId: "boxId"
+					parentCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -120,7 +120,7 @@ scenarios
 			com.anfelisa.category.CreateCategory
 				{
 					categoryName: "   ",
-					parentCategoryId: "boxId"
+					parentCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -132,7 +132,7 @@ scenarios
 			com.anfelisa.category.CreateCategory
 				{
 					categoryName: "lala",
-					parentCategoryId: "boxId"
+					parentCategoryId: "boxId-${testId}"
 				}
 		THEN 401
 
@@ -144,7 +144,7 @@ scenarios
 			com.anfelisa.category.CreateCategory
 				{
 					categoryName: "lala",
-					parentCategoryId: "boxId"
+					parentCategoryId: "boxId-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -157,7 +157,7 @@ scenarios
 				uuid "adminCat"
 				{
 					categoryName: "c",
-					parentCategoryId: "adminBox"
+					parentCategoryId: "adminBox-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 200

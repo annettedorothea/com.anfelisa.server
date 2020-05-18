@@ -102,8 +102,8 @@ public abstract class AbstractUpdateBoxMaxIntervalScenario extends BaseScenario 
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"changed\"," + 
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 11," + 
@@ -129,9 +129,9 @@ public abstract class AbstractUpdateBoxMaxIntervalScenario extends BaseScenario 
 				
 				@Test
 				public void updateBoxMaxInterval() throws Exception {
-					if (prerequisite("UpdateBoxMaxInterval")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateBoxMaxInterval")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateBox");

@@ -10,7 +10,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -23,7 +23,7 @@ scenarios
 				given: "given",
 				image: "image",
 				openTodaysCards: 3,
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledCardId: "c1-sc1",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				wanted: "wanted"
@@ -35,7 +35,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -47,7 +47,7 @@ scenarios
 				count: 0,
 				given: "3given",
 				openTodaysCards: 3,
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledCardId: "c3-sc1",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				wanted: "3wanted"
@@ -60,7 +60,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -72,7 +72,7 @@ scenarios
 				count: 0,
 				given: "4given4",
 				openTodaysCards: 3,
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledCardId: "c4-sc1",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				wanted: "4wanted4"
@@ -86,7 +86,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -101,7 +101,7 @@ scenarios
 				lastQuality: 0,
 				openTodaysCards: 2,
 				reinforceCardId: "score0",
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
 				wanted: "wanted"
@@ -113,7 +113,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200419 04:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -127,7 +127,7 @@ scenarios
 				image: "image",
 				lastQuality: 0,
 				openTodaysCards: 2,
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledCardId: "score0",
 				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
@@ -143,7 +143,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -157,7 +157,7 @@ scenarios
 				lastQuality: 1,
 				openTodaysCards: 2,
 				reinforceCardId: "score1",
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
 				wanted: "3wanted"
@@ -171,7 +171,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -186,7 +186,7 @@ scenarios
 				lastQuality: 2,
 				openTodaysCards: 2,
 				reinforceCardId: "score2",
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
 				wanted: "wanted"
@@ -200,7 +200,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -215,7 +215,7 @@ scenarios
 				lastQuality: 3,
 				openTodaysCards: 2,
 				reinforceCardId: "score3",
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
 				wanted: "wanted"
@@ -229,7 +229,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -243,7 +243,7 @@ scenarios
 				lastQuality: 1,
 				openTodaysCards: 1,
 				reinforceCardId: "score1",
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
 				wanted: "3wanted"
@@ -259,7 +259,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -274,7 +274,7 @@ scenarios
 				lastQuality: 0,
 				openTodaysCards: 1,
 				reinforceCardId: "score0",
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
 				wanted: "wanted"
@@ -290,7 +290,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -305,7 +305,7 @@ scenarios
 				lastQuality: 0,
 				openTodaysCards: 1,
 				reinforceCardId: "score0",
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
 				wanted: "wanted"
@@ -321,7 +321,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -336,7 +336,7 @@ scenarios
 				lastQuality: 0,
 				openTodaysCards: 1,
 				reinforceCardId: "score0",
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
 				wanted: "wanted"
@@ -352,7 +352,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -367,7 +367,7 @@ scenarios
 				lastQuality: 0,
 				openTodaysCards: 1,
 				reinforceCardId: "score0",
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
 				wanted: "wanted"
@@ -384,7 +384,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -405,7 +405,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -421,7 +421,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -435,7 +435,7 @@ scenarios
 				lastQuality: 1,
 				openTodaysCards: 1,
 				reinforceCardId: "score1",
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
 				wanted: "3wanted"
@@ -447,7 +447,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -461,7 +461,7 @@ scenarios
 				lastQuality: null,
 				openTodaysCards: 1,
 				reinforceCardId: null,
-				rootCategoryId: "boxId",
+				rootCategoryId: "boxId-${testId}",
 				scheduledCardId: "c3-sc1",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: null,
@@ -474,7 +474,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -490,7 +490,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -525,7 +525,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 				authorization "Admin" : "admin-password"
@@ -538,7 +538,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.LoadNextCard
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
 		THEN 401

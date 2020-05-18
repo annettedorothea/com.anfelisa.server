@@ -100,7 +100,7 @@ public abstract class AbstractLoadNextCardSortedOutReinforceScenario extends Bas
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -258,7 +258,7 @@ public abstract class AbstractLoadNextCardSortedOutReinforceScenario extends Bas
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 0," + 
 					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -282,7 +282,7 @@ public abstract class AbstractLoadNextCardSortedOutReinforceScenario extends Bas
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 1," + 
 					"\"scoredCardScheduledCardId\" : \"c3-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -328,7 +328,7 @@ public abstract class AbstractLoadNextCardSortedOutReinforceScenario extends Bas
 		return 
 		com.anfelisa.box.ActionCalls.callLoadNextCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"todayAtMidnightInUTC\" : \"2020-04-18T00:00:00.000Z\"} ",
 		com.anfelisa.box.data.NextCardData.class)
 		
@@ -361,7 +361,7 @@ public abstract class AbstractLoadNextCardSortedOutReinforceScenario extends Bas
 				"\"lastQuality\" : 1," + 
 				"\"openTodaysCards\" : 1," + 
 				"\"reinforceCardId\" : \"score1\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scheduledDate\" : \"2020-04-18T08:30:00.000Z\"," + 
 				"\"scoredDate\" : \"2020-04-18T14:30:00.000Z\"," + 
 				"\"wanted\" : \"3wanted\"} ",
@@ -379,9 +379,9 @@ public abstract class AbstractLoadNextCardSortedOutReinforceScenario extends Bas
 				
 				@Test
 				public void loadNextCardSortedOutReinforce() throws Exception {
-					if (prerequisite("LoadNextCardSortedOutReinforce")) {
-						given();
+					given();
 						
+					if (prerequisite("LoadNextCardSortedOutReinforce")) {
 						Response response = when();
 		
 						LOG.info("WHEN: LoadNextCard");

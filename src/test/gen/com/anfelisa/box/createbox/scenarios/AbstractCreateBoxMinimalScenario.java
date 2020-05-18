@@ -75,7 +75,7 @@ public abstract class AbstractCreateBoxMinimalScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "boxId-${testId}";
+		String uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
@@ -104,9 +104,9 @@ public abstract class AbstractCreateBoxMinimalScenario extends BaseScenario {
 				
 				@Test
 				public void createBoxMinimal() throws Exception {
-					if (prerequisite("CreateBoxMinimal")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateBoxMinimal")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateBox");

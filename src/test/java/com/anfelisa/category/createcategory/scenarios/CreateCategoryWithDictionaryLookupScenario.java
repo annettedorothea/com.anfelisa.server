@@ -25,7 +25,7 @@ public class CreateCategoryWithDictionaryLookupScenario extends AbstractCreateCa
 	@Override
 	protected void verifications() {
 		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "dict");
-		ICategoryModel expectedCategory = new CategoryModel("dict", "dict", "Annette", 1, "boxId", "boxId", true, "de",
+		ICategoryModel expectedCategory = new CategoryModel("dict", "dict", "Annette-" + getTestId(), 1,"boxId-" + getTestId(),"boxId-" + getTestId(), true, "de",
 				"en");
 		assertThat(actualCategory, expectedCategory);
 	}

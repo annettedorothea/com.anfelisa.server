@@ -100,7 +100,7 @@ public abstract class AbstractDeleteCardScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -191,9 +191,9 @@ public abstract class AbstractDeleteCardScenario extends BaseScenario {
 				
 				@Test
 				public void deleteCard() throws Exception {
-					if (prerequisite("DeleteCard")) {
-						given();
+					given();
 						
+					if (prerequisite("DeleteCard")) {
 						Response response = when();
 		
 						LOG.info("WHEN: DeleteCard");

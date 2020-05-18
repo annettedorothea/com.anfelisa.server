@@ -100,7 +100,7 @@ public abstract class AbstractDeleteCardCardDoesNotExistScenario extends BaseSce
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -168,9 +168,9 @@ public abstract class AbstractDeleteCardCardDoesNotExistScenario extends BaseSce
 				
 				@Test
 				public void deleteCardCardDoesNotExist() throws Exception {
-					if (prerequisite("DeleteCardCardDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("DeleteCardCardDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: DeleteCard");

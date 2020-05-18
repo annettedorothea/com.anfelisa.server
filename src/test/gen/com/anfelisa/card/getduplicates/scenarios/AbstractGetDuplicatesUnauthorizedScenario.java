@@ -100,7 +100,7 @@ public abstract class AbstractGetDuplicatesUnauthorizedScenario extends BaseScen
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -235,7 +235,7 @@ public abstract class AbstractGetDuplicatesUnauthorizedScenario extends BaseScen
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 
 				"\"naturalInputOrder\" : true} ",
@@ -266,9 +266,9 @@ public abstract class AbstractGetDuplicatesUnauthorizedScenario extends BaseScen
 				
 				@Test
 				public void getDuplicatesUnauthorized() throws Exception {
-					if (prerequisite("GetDuplicatesUnauthorized")) {
-						given();
+					given();
 						
+					if (prerequisite("GetDuplicatesUnauthorized")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetDuplicates");

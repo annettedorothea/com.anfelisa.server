@@ -100,7 +100,7 @@ public abstract class AbstractUpdateCategoryDoesNotExistScenario extends BaseSce
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -146,9 +146,9 @@ public abstract class AbstractUpdateCategoryDoesNotExistScenario extends BaseSce
 				
 				@Test
 				public void updateCategoryDoesNotExist() throws Exception {
-					if (prerequisite("UpdateCategoryDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateCategoryDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateCategory");

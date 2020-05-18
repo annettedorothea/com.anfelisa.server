@@ -100,7 +100,7 @@ public abstract class AbstractLoadNextCardFirstScoredScenario extends BaseScenar
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -258,7 +258,7 @@ public abstract class AbstractLoadNextCardFirstScoredScenario extends BaseScenar
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 0," + 
 					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -283,7 +283,7 @@ public abstract class AbstractLoadNextCardFirstScoredScenario extends BaseScenar
 		return 
 		com.anfelisa.box.ActionCalls.callLoadNextCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"todayAtMidnightInUTC\" : \"2020-04-18T00:00:00.000Z\"} ",
 		com.anfelisa.box.data.NextCardData.class)
 		
@@ -314,7 +314,7 @@ public abstract class AbstractLoadNextCardFirstScoredScenario extends BaseScenar
 				"\"count\" : 0," + 
 				"\"given\" : \"3given\"," + 
 				"\"openTodaysCards\" : 3," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scheduledCardId\" : \"c3-sc1\"," + 
 				"\"scheduledDate\" : \"2020-04-18T08:30:00.000Z\"," + 
 				"\"wanted\" : \"3wanted\"} ",
@@ -332,9 +332,9 @@ public abstract class AbstractLoadNextCardFirstScoredScenario extends BaseScenar
 				
 				@Test
 				public void loadNextCardFirstScored() throws Exception {
-					if (prerequisite("LoadNextCardFirstScored")) {
-						given();
+					given();
 						
+					if (prerequisite("LoadNextCardFirstScored")) {
 						Response response = when();
 		
 						LOG.info("WHEN: LoadNextCard");

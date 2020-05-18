@@ -80,7 +80,7 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 		return 
 		com.anfelisa.user.ActionCalls.callUsernameAvailable(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"username\" : \"Annette\"} ",
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.data.UsernameAvailableData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort());
@@ -119,9 +119,9 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 				
 				@Test
 				public void usernameNotAvailable() throws Exception {
-					if (prerequisite("UsernameNotAvailable")) {
-						given();
+					given();
 						
+					if (prerequisite("UsernameNotAvailable")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UsernameAvailable");

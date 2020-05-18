@@ -78,9 +78,9 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 				
 				@Test
 				public void registerUserNoUsername() throws Exception {
-					if (prerequisite("RegisterUserNoUsername")) {
-						given();
+					given();
 						
+					if (prerequisite("RegisterUserNoUsername")) {
 						Response response = when();
 		
 						LOG.info("WHEN: RegisterUser");

@@ -34,7 +34,7 @@ public class ScoreCard32Scenario extends AbstractScoreCard32Scenario {
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"score32");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score32", "c1", "boxId",
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score32", "c1","boxId-" + getTestId(),
 				scoredDateTime, 2.08F, 27, 4, 3, scoredDateTime.plusDays(27), 3, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);

@@ -100,7 +100,7 @@ public abstract class AbstractCreateCardWantedNullScenario extends BaseScenario 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -118,7 +118,7 @@ public abstract class AbstractCreateCardWantedNullScenario extends BaseScenario 
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "c1";
+		String uuid = "c1".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -147,9 +147,9 @@ public abstract class AbstractCreateCardWantedNullScenario extends BaseScenario 
 				
 				@Test
 				public void createCardWantedNull() throws Exception {
-					if (prerequisite("CreateCardWantedNull")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCardWantedNull")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCard");

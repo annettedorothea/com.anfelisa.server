@@ -100,7 +100,7 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -121,7 +121,7 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #2\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -165,7 +165,7 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"rootCategoryId\" : \"boxId\"} ",
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -189,34 +189,34 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 		}
 		com.anfelisa.category.data.CategoryTreeData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"\"," + 
-				"\"rootCategory\" : { \"categoryId\" : \"boxId\"," + 
+				"\"rootCategory\" : { \"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryIndex\" : 1," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
 				"\"empty\" : false," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"childCategories\" : [ { \"categoryId\" : \"cat1\"," + 
 				"\"categoryIndex\" : 1," + 
 				"\"categoryName\" : \"level 1 #1\"," + 
 				"\"dictionaryLookup\" : false," + 
 				"\"empty\" : true," + 
-				"\"parentCategoryId\" : \"boxId\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"childCategories\" : []}," + 
 				"{ \"categoryId\" : \"cat2\"," + 
 				"\"categoryIndex\" : 2," + 
 				"\"categoryName\" : \"level 1 #2\"," + 
 				"\"dictionaryLookup\" : false," + 
 				"\"empty\" : false," + 
-				"\"parentCategoryId\" : \"boxId\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"childCategories\" : [ { \"categoryId\" : \"cat3\"," + 
 				"\"categoryIndex\" : 1," + 
 				"\"categoryName\" : \"level 2 #1\"," + 
 				"\"dictionaryLookup\" : false," + 
 				"\"empty\" : true," + 
 				"\"parentCategoryId\" : \"cat2\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"childCategories\" : []}]}]}} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		
@@ -232,9 +232,9 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 				
 				@Test
 				public void getCategoryTree() throws Exception {
-					if (prerequisite("GetCategoryTree")) {
-						given();
+					given();
 						
+					if (prerequisite("GetCategoryTree")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetCategoryTree");

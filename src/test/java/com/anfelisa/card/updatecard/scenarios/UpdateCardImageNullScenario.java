@@ -28,7 +28,7 @@ public class UpdateCardImageNullScenario extends AbstractUpdateCardImageNullScen
 	@Override
 	protected void verifications() {
 		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c1");
-		ICardModel expectedCard = new CardModel("c1", "given", "wanted", null, "Annette", 1, "cat1", "boxId");
+		ICardModel expectedCard = new CardModel("c1", "given", "wanted", null, "Annette-" + getTestId(), 1, "cat1","boxId-" + getTestId());
 		assertThat(actualCard, expectedCard);
 	}
 

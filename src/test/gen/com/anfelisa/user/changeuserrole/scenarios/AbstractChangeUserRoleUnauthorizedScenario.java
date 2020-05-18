@@ -106,7 +106,7 @@ public abstract class AbstractChangeUserRoleUnauthorizedScenario extends BaseSce
 		return 
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"editedUserId\" : \"uuid\"," + 
+				"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
 				"\"newRole\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)
 		
@@ -129,9 +129,9 @@ public abstract class AbstractChangeUserRoleUnauthorizedScenario extends BaseSce
 				
 				@Test
 				public void changeUserRoleUnauthorized() throws Exception {
-					if (prerequisite("ChangeUserRoleUnauthorized")) {
-						given();
+					given();
 						
+					if (prerequisite("ChangeUserRoleUnauthorized")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ChangeUserRole");

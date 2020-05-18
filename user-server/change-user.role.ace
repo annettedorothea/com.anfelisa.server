@@ -9,7 +9,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN com.anfelisa.user.ChangeUserRole {
-			editedUserId: "uuid",
+			editedUserId: "uuid-${testId}",
 			newRole: "ADMIN"
 		}
 		authorization "Admin": "admin-password"
@@ -19,7 +19,7 @@ scenarios
 		GIVEN
 			ChangeUserRoleToAdmin
 		WHEN com.anfelisa.user.ChangeUserRole {
-			editedUserId: "uuid",
+			editedUserId: "uuid-${testId}",
 			newRole: "STUDENT"
 		}
 		authorization "Admin": "admin-password"
@@ -30,7 +30,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN com.anfelisa.user.ChangeUserRole {
-			editedUserId: "uuid",
+			editedUserId: "uuid-${testId}",
 			newRole: "STUDENT"
 		}
 		authorization "Admin": "wrong"
@@ -41,7 +41,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN com.anfelisa.user.ChangeUserRole {
-			editedUserId: "uuid",
+			editedUserId: "uuid-${testId}",
 			newRole: "STUDENT"
 		}
 		THEN 401
@@ -51,10 +51,10 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN com.anfelisa.user.ChangeUserRole {
-			editedUserId: "uuid",
+			editedUserId: "uuid-${testId}",
 			newRole: "STUDENT"
 		}
-		authorization "Annette": "password"
+		authorization "Annette-${testId}": "password"
 		THEN 401
 
 	ChangeUserRoleUserDoesNotExist
@@ -73,7 +73,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN com.anfelisa.user.ChangeUserRole {
-			editedUserId: "uuid-admin",
+			editedUserId: "uuid-admin-${testId}",
 			newRole: "STUDENT"
 		}
 		authorization "Admin": "admin-password"

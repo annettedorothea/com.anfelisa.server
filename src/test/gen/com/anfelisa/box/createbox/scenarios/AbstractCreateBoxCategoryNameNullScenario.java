@@ -75,7 +75,7 @@ public abstract class AbstractCreateBoxCategoryNameNullScenario extends BaseScen
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "boxId";
+		String uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
@@ -103,9 +103,9 @@ public abstract class AbstractCreateBoxCategoryNameNullScenario extends BaseScen
 				
 				@Test
 				public void createBoxCategoryNameNull() throws Exception {
-					if (prerequisite("CreateBoxCategoryNameNull")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateBoxCategoryNameNull")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateBox");

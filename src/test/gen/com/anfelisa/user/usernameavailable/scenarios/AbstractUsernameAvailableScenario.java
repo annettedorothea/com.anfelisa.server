@@ -119,9 +119,9 @@ public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 				
 				@Test
 				public void usernameAvailable() throws Exception {
-					if (prerequisite("UsernameAvailable")) {
-						given();
+					given();
 						
+					if (prerequisite("UsernameAvailable")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UsernameAvailable");

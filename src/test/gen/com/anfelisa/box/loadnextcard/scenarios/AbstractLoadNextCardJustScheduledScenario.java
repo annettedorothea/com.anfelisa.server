@@ -100,7 +100,7 @@ public abstract class AbstractLoadNextCardJustScheduledScenario extends BaseScen
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -259,7 +259,7 @@ public abstract class AbstractLoadNextCardJustScheduledScenario extends BaseScen
 		return 
 		com.anfelisa.box.ActionCalls.callLoadNextCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"todayAtMidnightInUTC\" : \"2020-04-18T00:00:00.000Z\"} ",
 		com.anfelisa.box.data.NextCardData.class)
 		
@@ -291,7 +291,7 @@ public abstract class AbstractLoadNextCardJustScheduledScenario extends BaseScen
 				"\"given\" : \"given\"," + 
 				"\"image\" : \"image\"," + 
 				"\"openTodaysCards\" : 3," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scheduledCardId\" : \"c1-sc1\"," + 
 				"\"scheduledDate\" : \"2020-04-18T08:30:00.000Z\"," + 
 				"\"wanted\" : \"wanted\"} ",
@@ -309,9 +309,9 @@ public abstract class AbstractLoadNextCardJustScheduledScenario extends BaseScen
 				
 				@Test
 				public void loadNextCardJustScheduled() throws Exception {
-					if (prerequisite("LoadNextCardJustScheduled")) {
-						given();
+					given();
 						
+					if (prerequisite("LoadNextCardJustScheduled")) {
 						Response response = when();
 		
 						LOG.info("WHEN: LoadNextCard");

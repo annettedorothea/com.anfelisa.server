@@ -100,7 +100,7 @@ public abstract class AbstractLoadNextCardReinforceScored1Scenario extends BaseS
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -258,7 +258,7 @@ public abstract class AbstractLoadNextCardReinforceScored1Scenario extends BaseS
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 0," + 
 					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -282,7 +282,7 @@ public abstract class AbstractLoadNextCardReinforceScored1Scenario extends BaseS
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 1," + 
 					"\"scoredCardScheduledCardId\" : \"c3-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -306,7 +306,7 @@ public abstract class AbstractLoadNextCardReinforceScored1Scenario extends BaseS
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 5," + 
 					"\"scoredCardScheduledCardId\" : \"c4-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -377,7 +377,7 @@ public abstract class AbstractLoadNextCardReinforceScored1Scenario extends BaseS
 		return 
 		com.anfelisa.box.ActionCalls.callLoadNextCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"todayAtMidnightInUTC\" : \"2020-04-18T00:00:00.000Z\"} ",
 		com.anfelisa.box.data.NextCardData.class)
 		
@@ -411,7 +411,7 @@ public abstract class AbstractLoadNextCardReinforceScored1Scenario extends BaseS
 				"\"lastQuality\" : 0," + 
 				"\"openTodaysCards\" : 1," + 
 				"\"reinforceCardId\" : \"score0\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scheduledDate\" : \"2020-04-18T08:30:00.000Z\"," + 
 				"\"scoredDate\" : \"2020-04-18T14:30:00.000Z\"," + 
 				"\"wanted\" : \"wanted\"} ",
@@ -429,9 +429,9 @@ public abstract class AbstractLoadNextCardReinforceScored1Scenario extends BaseS
 				
 				@Test
 				public void loadNextCardReinforceScored1() throws Exception {
-					if (prerequisite("LoadNextCardReinforceScored1")) {
-						given();
+					given();
 						
+					if (prerequisite("LoadNextCardReinforceScored1")) {
 						Response response = when();
 		
 						LOG.info("WHEN: LoadNextCard");

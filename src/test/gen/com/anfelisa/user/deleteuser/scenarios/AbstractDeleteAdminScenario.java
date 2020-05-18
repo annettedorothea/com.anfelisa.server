@@ -103,7 +103,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 			response = 
 			com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"editedUserId\" : \"uuid\"," + 
+					"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
 					"\"newRole\" : \"ADMIN\"} ",
 			com.anfelisa.user.data.ChangeUserRoleData.class)
 			
@@ -127,7 +127,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		return 
 		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"usernameToBeDeleted\" : \"Annette\"} ",
+				"\"usernameToBeDeleted\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.data.DeleteUserData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
@@ -149,9 +149,9 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 				
 				@Test
 				public void deleteAdmin() throws Exception {
-					if (prerequisite("DeleteAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("DeleteAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: DeleteUser");

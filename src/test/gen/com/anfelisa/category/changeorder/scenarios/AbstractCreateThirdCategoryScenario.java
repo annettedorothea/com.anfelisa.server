@@ -100,7 +100,7 @@ public abstract class AbstractCreateThirdCategoryScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -121,7 +121,7 @@ public abstract class AbstractCreateThirdCategoryScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #2\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -139,13 +139,13 @@ public abstract class AbstractCreateThirdCategoryScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "cat3";
+		String uuid = "cat3".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryName\" : \"level 1 #3\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -167,9 +167,9 @@ public abstract class AbstractCreateThirdCategoryScenario extends BaseScenario {
 				
 				@Test
 				public void createThirdCategory() throws Exception {
-					if (prerequisite("CreateThirdCategory")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateThirdCategory")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCategory");

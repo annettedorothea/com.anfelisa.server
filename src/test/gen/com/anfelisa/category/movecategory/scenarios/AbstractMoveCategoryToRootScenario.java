@@ -100,7 +100,7 @@ public abstract class AbstractMoveCategoryToRootScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -121,7 +121,7 @@ public abstract class AbstractMoveCategoryToRootScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #2\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -166,7 +166,7 @@ public abstract class AbstractMoveCategoryToRootScenario extends BaseScenario {
 		com.anfelisa.category.ActionCalls.callMoveCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"movedCategoryId\" : \"cat3\"," + 
-				"\"targetCategoryId\" : \"boxId\"} ",
+				"\"targetCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryMoveData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -188,9 +188,9 @@ public abstract class AbstractMoveCategoryToRootScenario extends BaseScenario {
 				
 				@Test
 				public void moveCategoryToRoot() throws Exception {
-					if (prerequisite("MoveCategoryToRoot")) {
-						given();
+					given();
 						
+					if (prerequisite("MoveCategoryToRoot")) {
 						Response response = when();
 		
 						LOG.info("WHEN: MoveCategory");

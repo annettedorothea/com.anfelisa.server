@@ -38,7 +38,7 @@ public class InitMyBoxesForDayWithScoredAndReinforceCardsTwoDaysLaterPostponesCa
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"score0");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score0", "c1", "boxId",
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score0", "c1","boxId-" + getTestId(),
 				scoredDateTime, 2.5F, 1, 1, 1, scoredDateTime.plusDays(2), 0, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
@@ -47,7 +47,7 @@ public class InitMyBoxesForDayWithScoredAndReinforceCardsTwoDaysLaterPostponesCa
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"c1-sc1");
-		expectedScheduledCard = new ScheduledCardModel("c1-sc1", "c1", "boxId",
+		expectedScheduledCard = new ScheduledCardModel("c1-sc1", "c1","boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, 0,
 				scoredDateTime);
 		assertThat(actualScheduledCard, expectedScheduledCard);
@@ -58,14 +58,14 @@ public class InitMyBoxesForDayWithScoredAndReinforceCardsTwoDaysLaterPostponesCa
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"score1");
-		expectedScheduledCard = new ScheduledCardModel("score1", "c3", "boxId",
+		expectedScheduledCard = new ScheduledCardModel("score1", "c3","boxId-" + getTestId(),
 				scoredDateTime, 2.5F, 1, 1, 1, scoredDateTime.plusDays(2), 1, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"c3-sc1");
-		expectedScheduledCard = new ScheduledCardModel("c3-sc1", "c3", "boxId",
+		expectedScheduledCard = new ScheduledCardModel("c3-sc1", "c3","boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, 1,
 				scoredDateTime);
 		assertThat(actualScheduledCard, expectedScheduledCard);
@@ -75,14 +75,14 @@ public class InitMyBoxesForDayWithScoredAndReinforceCardsTwoDaysLaterPostponesCa
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"score5");
-		expectedScheduledCard = new ScheduledCardModel("score5", "c4", "boxId",
+		expectedScheduledCard = new ScheduledCardModel("score5", "c4","boxId-" + getTestId(),
 				scoredDateTime, 2.6F, 6, 2, 1, scoredDateTime.plusDays(7), 5, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"c4-sc1");
-		expectedScheduledCard = new ScheduledCardModel("c4-sc1", "c4", "boxId",
+		expectedScheduledCard = new ScheduledCardModel("c4-sc1", "c4","boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, 5,
 				scoredDateTime);
 		assertThat(actualScheduledCard, expectedScheduledCard);

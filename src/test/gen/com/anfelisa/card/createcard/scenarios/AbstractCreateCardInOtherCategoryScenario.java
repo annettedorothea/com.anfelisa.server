@@ -100,7 +100,7 @@ public abstract class AbstractCreateCardInOtherCategoryScenario extends BaseScen
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -121,7 +121,7 @@ public abstract class AbstractCreateCardInOtherCategoryScenario extends BaseScen
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #2\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -139,7 +139,7 @@ public abstract class AbstractCreateCardInOtherCategoryScenario extends BaseScen
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "c6";
+		String uuid = "c6".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -168,9 +168,9 @@ public abstract class AbstractCreateCardInOtherCategoryScenario extends BaseScen
 				
 				@Test
 				public void createCardInOtherCategory() throws Exception {
-					if (prerequisite("CreateCardInOtherCategory")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCardInOtherCategory")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCard");

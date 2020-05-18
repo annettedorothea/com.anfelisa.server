@@ -129,7 +129,7 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryName\" : \"lala\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
@@ -151,9 +151,9 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 				
 				@Test
 				public void createCategoryUnauthorizedNoAccess() throws Exception {
-					if (prerequisite("CreateCategoryUnauthorizedNoAccess")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCategoryUnauthorizedNoAccess")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCategory");

@@ -73,11 +73,11 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 		
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
-			uuid = "adminBox".replace("${testId}", this.getTestId());
+			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryName\" : \"adminBox\"," + 
+					"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
 			com.anfelisa.box.data.BoxCreationData.class)
@@ -100,7 +100,7 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"c\"," + 
-					"\"parentCategoryId\" : \"adminBox\"} ",
+					"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
@@ -163,14 +163,14 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "admin-score";
+		String uuid = "admin-score".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 					this.getProtocol(), this.getHost(), this.getPort());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"adminBox\"," + 
+				"\"boxId\" : \"adminBox-" + this.getTestId() + "\"," + 
 				"\"scoredCardQuality\" : 1," + 
 				"\"scoredCardScheduledCardId\" : \"c6-sc6\"} ",
 		com.anfelisa.box.data.ScoreCardData.class)
@@ -194,9 +194,9 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 				
 				@Test
 				public void scoreCardAsAdmin() throws Exception {
-					if (prerequisite("ScoreCardAsAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("ScoreCardAsAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ScoreCard");

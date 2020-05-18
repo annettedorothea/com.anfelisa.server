@@ -100,7 +100,7 @@ public abstract class AbstractInitMyBoxesForDayUnauthorizedScenario extends Base
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -281,9 +281,9 @@ public abstract class AbstractInitMyBoxesForDayUnauthorizedScenario extends Base
 				
 				@Test
 				public void initMyBoxesForDayUnauthorized() throws Exception {
-					if (prerequisite("InitMyBoxesForDayUnauthorized")) {
-						given();
+					given();
 						
+					if (prerequisite("InitMyBoxesForDayUnauthorized")) {
 						Response response = when();
 		
 						LOG.info("WHEN: InitMyBoxesForDay");

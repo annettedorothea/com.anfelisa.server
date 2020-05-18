@@ -29,8 +29,8 @@ public class ResetPasswordScenario extends AbstractResetPasswordScenario {
 
 	@Override
 	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette");
-		IUserModel expectedUser = new UserModel("uuid", "Annette", "newPassword", "annette.pohl@anfelisa.de", Roles.STUDENT, false);
+		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
+		IUserModel expectedUser = new UserModel("uuid-" + getTestId(), "Annette-" + getTestId(), "newPassword", "annette.pohl@anfelisa.de", Roles.STUDENT, false);
 		assertThat(actualUser, expectedUser);
 
 		IResetPasswordModel actual = this.daoProvider.getResetPasswordDao().selectByToken(handle, "RESET-PW-TOKEN");

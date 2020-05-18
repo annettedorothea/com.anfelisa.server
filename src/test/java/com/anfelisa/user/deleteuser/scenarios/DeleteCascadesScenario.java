@@ -35,26 +35,26 @@ public class DeleteCascadesScenario extends AbstractDeleteCascadesScenario {
 
 	@Override
 	protected void verifications() {
-		IUserModel user = this.daoProvider.getUserDao().selectByUsername(handle, "Annette");
+		IUserModel user = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
 		assertIsNull(user);
 
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(handle, "boxId");
+		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(handle,"boxId-" + getTestId());
 		assertIsNull(box);
 
-		List<IUserAccessToCategoryModel> access = daoProvider.getUserAccessToCategoryDao().selectByUserId(handle, "uuid");
+		List<IUserAccessToCategoryModel> access = daoProvider.getUserAccessToCategoryDao().selectByUserId(handle, "uuid-" + getTestId());
 		assertThat(access.size(), 0);
 		
-		List<String> allCategories = daoProvider.getCategoryDao().selectAllByRootCategoryId(handle, "boxId");
+		List<String> allCategories = daoProvider.getCategoryDao().selectAllByRootCategoryId(handle,"boxId-" + getTestId());
 		assertThat(allCategories.size(), 0);
 		
-		List<ICardModel> allCards = daoProvider.getCardDao().selectAllByRootCategoryId(handle, "boxId");
+		List<ICardModel> allCards = daoProvider.getCardDao().selectAllByRootCategoryId(handle,"boxId-" + getTestId());
 		assertThat(allCards.size(), 0);
 		
 		List<IScheduledCardModel> allScheduledCards = daoProvider.getScheduledCardDao().selectAllCardsOfBox(handle,
-				"boxId");
+				"boxId-" + getTestId());
 		assertThat(allScheduledCards.size(), 0);
 
-		List<IReinforceCardModel> allReinforceCards = daoProvider.getReinforceCardDao().selectAllOfBox(handle, "boxId");
+		List<IReinforceCardModel> allReinforceCards = daoProvider.getReinforceCardDao().selectAllOfBox(handle,"boxId-" + getTestId());
 		assertThat(allReinforceCards.size(), 0);
 		
 		user = this.daoProvider.getUserDao().selectByUsername(handle, "Admin");

@@ -100,7 +100,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -233,7 +233,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #2\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -271,7 +271,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		
 
 		if (prerequisite("CreateSecondBox")) {
-			uuid = "boxId2".replace("${testId}", this.getTestId());
+			uuid = "boxId2-${testId}".replace("${testId}", this.getTestId());
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -297,7 +297,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"boxId2\"," + 
+					"\"categoryId\" : \"boxId2-" + this.getTestId() + "\"," + 
 					"\"given\" : \"given\"," + 
 					"\"wanted\" : \"wanted\"} ",
 			com.anfelisa.card.data.CardCreationData.class)
@@ -322,7 +322,7 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 
 				"\"naturalInputOrder\" : false} ",
@@ -349,46 +349,46 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 		}
 		com.anfelisa.card.data.CardSearchData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"\"," + 
-				"\"cardList\" : [ { \"cardAuthor\" : \"Annette\"," + 
+				"\"cardList\" : [ { \"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"cardId\" : \"c3\"," + 
 				"\"cardIndex\" : 3," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"given\" : \"3given\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"wanted\" : \"3wanted\"," + 
 				"\"categoryName\" : \"level 1 #1\"}," + 
-				"{ \"cardAuthor\" : \"Annette\"," + 
+				"{ \"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"cardId\" : \"c4\"," + 
 				"\"cardIndex\" : 4," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"given\" : \"4given4\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"wanted\" : \"4wanted4\"," + 
 				"\"categoryName\" : \"level 1 #1\"}," + 
-				"{ \"cardAuthor\" : \"Annette\"," + 
+				"{ \"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"cardId\" : \"c1\"," + 
 				"\"cardIndex\" : 1," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"given\" : \"given\"," + 
 				"\"image\" : \"image\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"wanted\" : \"wanted\"," + 
 				"\"categoryName\" : \"level 1 #1\"}," + 
-				"{ \"cardAuthor\" : \"Annette\"," + 
+				"{ \"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"cardId\" : \"c2\"," + 
 				"\"cardIndex\" : 2," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"given\" : \"given2\"," + 
 				"\"image\" : \"image2\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"wanted\" : \"wanted2\"," + 
 				"\"categoryName\" : \"level 1 #1\"}," + 
-				"{ \"cardAuthor\" : \"Annette\"," + 
+				"{ \"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"cardId\" : \"c6\"," + 
 				"\"cardIndex\" : 1," + 
 				"\"categoryId\" : \"cat2\"," + 
 				"\"given\" : \"aa-given\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"wanted\" : \"zz-wanted\"," + 
 				"\"categoryName\" : \"level 1 #2\"}]} ",
 		com.anfelisa.card.data.CardSearchData.class)
@@ -405,9 +405,9 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 				
 				@Test
 				public void getDuplicatesOrderByWanted() throws Exception {
-					if (prerequisite("GetDuplicatesOrderByWanted")) {
-						given();
+					given();
 						
+					if (prerequisite("GetDuplicatesOrderByWanted")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetDuplicates");

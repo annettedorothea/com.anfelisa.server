@@ -75,12 +75,12 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "adminBox";
+		String uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"categoryName\" : \"adminBox\"," + 
+				"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
@@ -104,9 +104,9 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 				
 				@Test
 				public void createBoxMinimalAsAdmin() throws Exception {
-					if (prerequisite("CreateBoxMinimalAsAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateBoxMinimalAsAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateBox");

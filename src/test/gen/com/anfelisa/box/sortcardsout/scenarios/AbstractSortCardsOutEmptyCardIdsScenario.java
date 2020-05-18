@@ -100,7 +100,7 @@ public abstract class AbstractSortCardsOutEmptyCardIdsScenario extends BaseScena
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -258,7 +258,7 @@ public abstract class AbstractSortCardsOutEmptyCardIdsScenario extends BaseScena
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 0," + 
 					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -305,9 +305,9 @@ public abstract class AbstractSortCardsOutEmptyCardIdsScenario extends BaseScena
 				
 				@Test
 				public void sortCardsOutEmptyCardIds() throws Exception {
-					if (prerequisite("SortCardsOutEmptyCardIds")) {
-						given();
+					given();
 						
+					if (prerequisite("SortCardsOutEmptyCardIds")) {
 						Response response = when();
 		
 						LOG.info("WHEN: SortCardsOut");

@@ -100,7 +100,7 @@ public abstract class AbstractUpdateCategoryNoAccessScenario extends BaseScenari
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -172,9 +172,9 @@ public abstract class AbstractUpdateCategoryNoAccessScenario extends BaseScenari
 				
 				@Test
 				public void updateCategoryNoAccess() throws Exception {
-					if (prerequisite("UpdateCategoryNoAccess")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateCategoryNoAccess")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateCategory");

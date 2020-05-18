@@ -103,7 +103,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 			response = 
 			com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"editedUserId\" : \"uuid\"," + 
+					"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
 					"\"newRole\" : \"ADMIN\"} ",
 			com.anfelisa.user.data.ChangeUserRoleData.class)
 			
@@ -127,7 +127,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 		return 
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"editedUserId\" : \"uuid\"," + 
+				"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
 				"\"newRole\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)
 		
@@ -150,9 +150,9 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 				
 				@Test
 				public void changeUserRoleToStudent() throws Exception {
-					if (prerequisite("ChangeUserRoleToStudent")) {
-						given();
+					given();
 						
+					if (prerequisite("ChangeUserRoleToStudent")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ChangeUserRole");

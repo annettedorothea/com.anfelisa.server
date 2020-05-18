@@ -100,7 +100,7 @@ public abstract class AbstractGetDuplicatesNoAccessToCategoryScenario extends Ba
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -261,7 +261,7 @@ public abstract class AbstractGetDuplicatesNoAccessToCategoryScenario extends Ba
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 
 				"\"naturalInputOrder\" : true} ",
@@ -292,9 +292,9 @@ public abstract class AbstractGetDuplicatesNoAccessToCategoryScenario extends Ba
 				
 				@Test
 				public void getDuplicatesNoAccessToCategory() throws Exception {
-					if (prerequisite("GetDuplicatesNoAccessToCategory")) {
-						given();
+					given();
 						
+					if (prerequisite("GetDuplicatesNoAccessToCategory")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetDuplicates");

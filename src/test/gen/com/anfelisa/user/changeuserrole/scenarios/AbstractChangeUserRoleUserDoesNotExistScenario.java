@@ -129,9 +129,9 @@ public abstract class AbstractChangeUserRoleUserDoesNotExistScenario extends Bas
 				
 				@Test
 				public void changeUserRoleUserDoesNotExist() throws Exception {
-					if (prerequisite("ChangeUserRoleUserDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("ChangeUserRoleUserDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ChangeUserRole");

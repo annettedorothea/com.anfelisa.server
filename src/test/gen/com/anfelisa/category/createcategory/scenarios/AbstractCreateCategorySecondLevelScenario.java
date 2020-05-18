@@ -100,7 +100,7 @@ public abstract class AbstractCreateCategorySecondLevelScenario extends BaseScen
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -121,7 +121,7 @@ public abstract class AbstractCreateCategorySecondLevelScenario extends BaseScen
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #2\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -139,7 +139,7 @@ public abstract class AbstractCreateCategorySecondLevelScenario extends BaseScen
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "cat3";
+		String uuid = "cat3".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
@@ -167,9 +167,9 @@ public abstract class AbstractCreateCategorySecondLevelScenario extends BaseScen
 				
 				@Test
 				public void createCategorySecondLevel() throws Exception {
-					if (prerequisite("CreateCategorySecondLevel")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCategorySecondLevel")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCategory");

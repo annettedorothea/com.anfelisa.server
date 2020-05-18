@@ -9,8 +9,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					categoryName: "changed",
 					dictionaryLookup: false,
 					maxCardsPerDay: 11
@@ -24,8 +24,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					categoryName: "changed",
 					dictionaryLookup: false,
 					maxCardsPerDay: 11,
@@ -40,8 +40,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					categoryName: "changed",
 					dictionaryLookup: false,
 					maxCardsPerDay: 11
@@ -55,8 +55,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					categoryName: "cat",
 					maxCardsPerDay: 10
 				}
@@ -69,8 +69,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					categoryName: "cat",
 					maxCardsPerDay: 10,
 					dictionaryLookup: true,
@@ -86,8 +86,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					categoryName: "cat",
 					maxCardsPerDay: 10,
 					dictionaryLookup: true,
@@ -103,8 +103,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					categoryName: "cat",
 					maxCardsPerDay: 10,
 					dictionaryLookup: true,
@@ -120,8 +120,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					categoryName: "cat"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -133,8 +133,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					categoryName: "cat",
 					maxCardsPerDay: 1
 				}
@@ -147,8 +147,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					categoryName: "cat",
 					maxCardsPerDay: 0
 				}
@@ -161,7 +161,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					categoryId: "boxId",
+					categoryId: "boxId-${testId}",
 					categoryName: "cat",
 					maxCardsPerDay: 10
 				}
@@ -174,7 +174,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					categoryName: "cat",
 					maxCardsPerDay: 10
 				}
@@ -187,8 +187,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					maxCardsPerDay: 10
 				}
 				authorization "Annette-${testId}" : "password"
@@ -200,8 +200,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					categoryName: "",
 					maxCardsPerDay: 10
 				}
@@ -214,8 +214,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					categoryName: "    ",
 					maxCardsPerDay: 10
 				}
@@ -228,8 +228,8 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
 					categoryName: "lala",
 					maxCardsPerDay: 10
 				}
@@ -242,9 +242,9 @@ scenarios
 		WHEN
 			com.anfelisa.box.UpdateBox
 				{
-					boxId: "boxId",
-					categoryId: "boxId",
-					categoryName: "adminBox",
+					boxId: "boxId-${testId}",
+					categoryId: "boxId-${testId}",
+					categoryName: "adminBox-${testId}",
 					maxCardsPerDay: 10
 				}
 				authorization "Admin" : "admin-password"

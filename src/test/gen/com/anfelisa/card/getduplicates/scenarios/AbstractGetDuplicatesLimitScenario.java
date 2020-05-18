@@ -100,7 +100,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -754,7 +754,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		return 
 		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 
 				"\"naturalInputOrder\" : true} ",
@@ -785,9 +785,9 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 				
 				@Test
 				public void getDuplicatesLimit() throws Exception {
-					if (prerequisite("GetDuplicatesLimit")) {
-						given();
+					given();
 						
+					if (prerequisite("GetDuplicatesLimit")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetDuplicates");

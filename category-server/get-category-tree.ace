@@ -9,18 +9,18 @@ scenarios
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
-					rootCategoryId: "boxId"
+					rootCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				rootCategory : {
-					categoryId: "boxId",
+					categoryId: "boxId-${testId}",
 					categoryIndex: 1,
 					categoryName: "cat",
 					dictionaryLookup: false,
 					empty: false,
-					rootCategoryId: "boxId",
+					rootCategoryId: "boxId-${testId}",
 					childCategories: [
 						{
 							categoryId: "cat1",
@@ -28,8 +28,8 @@ scenarios
 							categoryName: "level 1 #1",
 							dictionaryLookup: false,
 							empty: true,
-							parentCategoryId: "boxId",
-							rootCategoryId: "boxId",
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
 							childCategories: []
 						},
 						{
@@ -38,8 +38,8 @@ scenarios
 							categoryName: "level 1 #2",
 							dictionaryLookup: false,
 							empty: false,
-							parentCategoryId: "boxId",
-							rootCategoryId: "boxId",
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
 							childCategories : [
 								{
 									categoryId: "cat3",
@@ -48,7 +48,7 @@ scenarios
 									dictionaryLookup: false,
 									empty: true,
 									parentCategoryId: "cat2",
-									rootCategoryId: "boxId",
+									rootCategoryId: "boxId-${testId}",
 									childCategories: []
 								}
 							]
@@ -63,20 +63,20 @@ scenarios
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
-					rootCategoryId: "boxId"
+					rootCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				rootCategory : {
-					categoryId: "boxId",
+					categoryId: "boxId-${testId}",
 					categoryIndex: 1,
 					categoryName: "cat",
 					dictionaryLookup: true,
 					givenLanguage: "de",
 					wantedLanguage: "en",
 					empty: false,
-					rootCategoryId: "boxId",
+					rootCategoryId: "boxId-${testId}",
 					childCategories: [
 						{
 							categoryId: "dict",
@@ -86,8 +86,8 @@ scenarios
 							givenLanguage: "de",
 							wantedLanguage: "en",
 							empty: true,
-							parentCategoryId: "boxId",
-							rootCategoryId: "boxId",
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
 							childCategories: []
 						}
 					]
@@ -100,7 +100,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
-					rootCategoryId: "boxId"
+					rootCategoryId: "boxId-${testId}"
 				}
 		THEN 401
 
@@ -111,7 +111,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
-					rootCategoryId: "boxId"
+					rootCategoryId: "boxId-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401

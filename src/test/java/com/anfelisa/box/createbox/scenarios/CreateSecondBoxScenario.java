@@ -31,18 +31,18 @@ public class CreateSecondBoxScenario extends AbstractCreateSecondBoxScenario {
 
 	@Override
 	protected void verifications() {
-		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId2");
-		ICategoryModel expectedCategory = new CategoryModel("boxId2", "cat2", "Annette", 2, null, "boxId2", false, null,
+		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId2-" + getTestId());
+		ICategoryModel expectedCategory = new CategoryModel("boxId2-" + getTestId(), "cat2", "Annette-" + getTestId(), 1, null, "boxId2-" + getTestId(), false, null,
 				null);
 		assertThat(actualCategory, expectedCategory);
 
 		IUserAccessToCategoryModel actualAccessToCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(handle, "boxId2", "uuid");
-		IUserAccessToCategoryModel expectedAccessToCategory = new UserAccessToCategoryModel("boxId2", "uuid", true);
+				.selectByCategoryIdAndUserId(handle, "boxId2-" + getTestId(), "uuid-" + getTestId());
+		IUserAccessToCategoryModel expectedAccessToCategory = new UserAccessToCategoryModel("boxId2-" + getTestId(), "uuid-" + getTestId(), true);
 		assertThat(actualAccessToCategory, expectedAccessToCategory);
 		
-		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle, "boxId2");
-		IBoxModel expectedBox = new BoxModel("boxId2", "uuid", "boxId2", null, 8);
+		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle, "boxId2-" + getTestId());
+		IBoxModel expectedBox = new BoxModel("boxId2-" + getTestId(), "uuid-" + getTestId(), "boxId2-" + getTestId(), null, 8);
 		assertThat(actualBox, expectedBox);
 	}
 

@@ -100,7 +100,7 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -233,7 +233,7 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #2\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -302,42 +302,42 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 		}
 		com.anfelisa.card.data.CardListData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"\"," + 
-				"\"cardList\" : [ { \"cardAuthor\" : \"Annette\"," + 
+				"\"cardList\" : [ { \"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"cardId\" : \"c1\"," + 
 				"\"cardIndex\" : 1," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"given\" : \"given\"," + 
 				"\"image\" : \"image\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"wanted\" : \"wanted\"}," + 
-				"{ \"cardAuthor\" : \"Annette\"," + 
+				"{ \"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"cardId\" : \"c2\"," + 
 				"\"cardIndex\" : 2," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"given\" : \"given2\"," + 
 				"\"image\" : \"image2\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"wanted\" : \"wanted2\"}," + 
-				"{ \"cardAuthor\" : \"Annette\"," + 
+				"{ \"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"cardId\" : \"c3\"," + 
 				"\"cardIndex\" : 3," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"given\" : \"3given\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"wanted\" : \"3wanted\"}," + 
-				"{ \"cardAuthor\" : \"Annette\"," + 
+				"{ \"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"cardId\" : \"c4\"," + 
 				"\"cardIndex\" : 4," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"given\" : \"4given4\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"wanted\" : \"4wanted4\"}," + 
-				"{ \"cardAuthor\" : \"Annette\"," + 
+				"{ \"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"cardId\" : \"c5\"," + 
 				"\"cardIndex\" : 5," + 
 				"\"categoryId\" : \"cat1\"," + 
 				"\"given\" : \"different\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"wanted\" : \"different\"}]} ",
 		com.anfelisa.card.data.CardListData.class)
 		
@@ -353,9 +353,9 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 				
 				@Test
 				public void getCards() throws Exception {
-					if (prerequisite("GetCards")) {
-						given();
+					given();
 						
+					if (prerequisite("GetCards")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetCards");

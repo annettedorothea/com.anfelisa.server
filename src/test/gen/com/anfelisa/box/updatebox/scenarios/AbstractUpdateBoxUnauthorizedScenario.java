@@ -102,8 +102,8 @@ public abstract class AbstractUpdateBoxUnauthorizedScenario extends BaseScenario
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"lala\"," + 
 				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxUpdateData.class)
@@ -127,9 +127,9 @@ public abstract class AbstractUpdateBoxUnauthorizedScenario extends BaseScenario
 				
 				@Test
 				public void updateBoxUnauthorized() throws Exception {
-					if (prerequisite("UpdateBoxUnauthorized")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateBoxUnauthorized")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateBox");

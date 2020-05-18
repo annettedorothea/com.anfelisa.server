@@ -28,7 +28,7 @@ public class CreateFourthCardScenario extends AbstractCreateFourthCardScenario {
 	@Override
 	protected void verifications() {
 		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c4");
-		ICardModel expectedCard = new CardModel("c4", "4given4", "4wanted4", null, "Annette", 4, "cat1", "boxId");
+		ICardModel expectedCard = new CardModel("c4", "4given4", "4wanted4", null, "Annette-" + getTestId(), 4, "cat1","boxId-" + getTestId());
 		assertThat(actualCard, expectedCard);
 	}
 

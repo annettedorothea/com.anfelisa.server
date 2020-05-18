@@ -100,7 +100,7 @@ public abstract class AbstractScheduleCardsCombineIdsScenario extends BaseScenar
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -140,7 +140,7 @@ public abstract class AbstractScheduleCardsCombineIdsScenario extends BaseScenar
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "abcdefghi-abcdefghi-abcdefghi-abcdefghi-abcdefghi";
+		String uuid = "abcdefghi-abcdefghi-abcdefghi-abcdefghi-abcdefghi".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 					this.getProtocol(), this.getHost(), this.getPort());
 		
@@ -169,9 +169,9 @@ public abstract class AbstractScheduleCardsCombineIdsScenario extends BaseScenar
 				
 				@Test
 				public void scheduleCardsCombineIds() throws Exception {
-					if (prerequisite("ScheduleCardsCombineIds")) {
-						given();
+					given();
 						
+					if (prerequisite("ScheduleCardsCombineIds")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ScheduleCards");

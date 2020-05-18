@@ -106,9 +106,9 @@ public abstract class AbstractGetRoleUnknownUserScenario extends BaseScenario {
 				
 				@Test
 				public void getRoleUnknownUser() throws Exception {
-					if (prerequisite("GetRoleUnknownUser")) {
-						given();
+					given();
 						
+					if (prerequisite("GetRoleUnknownUser")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetRole");

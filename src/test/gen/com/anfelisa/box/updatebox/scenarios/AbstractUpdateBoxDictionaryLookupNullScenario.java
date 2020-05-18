@@ -73,7 +73,7 @@ public abstract class AbstractUpdateBoxDictionaryLookupNullScenario extends Base
 		
 
 		if (prerequisite("CreateBoxDictionaryLookup")) {
-			uuid = "boxId".replace("${testId}", this.getTestId());
+			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -104,8 +104,8 @@ public abstract class AbstractUpdateBoxDictionaryLookupNullScenario extends Base
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxUpdateData.class)
@@ -129,9 +129,9 @@ public abstract class AbstractUpdateBoxDictionaryLookupNullScenario extends Base
 				
 				@Test
 				public void updateBoxDictionaryLookupNull() throws Exception {
-					if (prerequisite("UpdateBoxDictionaryLookupNull")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateBoxDictionaryLookupNull")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateBox");

@@ -73,7 +73,7 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 		
 
 		if (prerequisite("CreateBoxDictionaryLookup")) {
-			uuid = "boxId".replace("${testId}", this.getTestId());
+			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -104,7 +104,7 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxSettings(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"} ",
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.box.data.BoxSettingsWrapperData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -128,7 +128,7 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 		}
 		com.anfelisa.box.data.BoxSettingsWrapperData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : true," + 
 				"\"givenLanguage\" : \"de\"," + 
@@ -148,9 +148,9 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 				
 				@Test
 				public void getBoxSettingsWithDictionaryLookup() throws Exception {
-					if (prerequisite("GetBoxSettingsWithDictionaryLookup")) {
-						given();
+					given();
 						
+					if (prerequisite("GetBoxSettingsWithDictionaryLookup")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetBoxSettings");

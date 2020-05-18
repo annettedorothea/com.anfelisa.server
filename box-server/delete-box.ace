@@ -10,7 +10,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.DeleteBox
 				{
-					boxId: "boxId"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -21,7 +21,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.DeleteBox
 				{
-					boxId: "boxId"
+					boxId: "boxId-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -32,7 +32,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.DeleteBox
 				{
-					boxId: "boxId"
+					boxId: "boxId-${testId}"
 				}
 		THEN 401
 

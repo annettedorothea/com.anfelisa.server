@@ -49,7 +49,7 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "uuid-admin";
+		String uuid = "uuid-admin".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutValue(uuid, "token", 
 					objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 					this.getProtocol(), this.getHost(), this.getPort());
@@ -82,9 +82,9 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 				
 				@Test
 				public void registerUserAdmin() throws Exception {
-					if (prerequisite("RegisterUserAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("RegisterUserAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: RegisterUser");

@@ -100,7 +100,7 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -154,9 +154,9 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 				
 				@Test
 				public void importCsv() throws Exception {
-					if (prerequisite("ImportCsv")) {
-						given();
+					given();
 						
+					if (prerequisite("ImportCsv")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ImportCsv");

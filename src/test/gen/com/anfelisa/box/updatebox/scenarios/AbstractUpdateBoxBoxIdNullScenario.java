@@ -102,7 +102,7 @@ public abstract class AbstractUpdateBoxBoxIdNullScenario extends BaseScenario {
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxUpdateData.class)
@@ -126,9 +126,9 @@ public abstract class AbstractUpdateBoxBoxIdNullScenario extends BaseScenario {
 				
 				@Test
 				public void updateBoxBoxIdNull() throws Exception {
-					if (prerequisite("UpdateBoxBoxIdNull")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateBoxBoxIdNull")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateBox");

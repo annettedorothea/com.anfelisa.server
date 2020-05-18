@@ -100,7 +100,7 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -288,9 +288,9 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 				
 				@Test
 				public void loadNextCardBoxIdDoesNotExist() throws Exception {
-					if (prerequisite("LoadNextCardBoxIdDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("LoadNextCardBoxIdDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: LoadNextCard");

@@ -27,8 +27,8 @@ public class ForgotPasswordOKScenario extends AbstractForgotPasswordOKScenario {
 
 	@Override
 	protected void verifications() {
-		IResetPasswordModel actual = this.daoProvider.getResetPasswordDao().selectByToken(handle, "RESET-PW-TOKEN");
-		IResetPasswordModel expected = new ResetPasswordModel("RESET-PW-TOKEN", "uuid");
+		IResetPasswordModel actual = this.daoProvider.getResetPasswordDao().selectByToken(handle, "RESET-PW-TOKEN-" + getTestId());
+		IResetPasswordModel expected = new ResetPasswordModel("RESET-PW-TOKEN-" + getTestId(), "uuid-" + getTestId());
 		assertThat(actual, expected);
 	}
 

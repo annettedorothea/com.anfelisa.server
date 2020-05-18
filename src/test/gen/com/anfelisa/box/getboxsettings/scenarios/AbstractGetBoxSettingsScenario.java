@@ -102,7 +102,7 @@ public abstract class AbstractGetBoxSettingsScenario extends BaseScenario {
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxSettings(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"} ",
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.box.data.BoxSettingsWrapperData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -126,7 +126,7 @@ public abstract class AbstractGetBoxSettingsScenario extends BaseScenario {
 		}
 		com.anfelisa.box.data.BoxSettingsWrapperData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
@@ -144,9 +144,9 @@ public abstract class AbstractGetBoxSettingsScenario extends BaseScenario {
 				
 				@Test
 				public void getBoxSettings() throws Exception {
-					if (prerequisite("GetBoxSettings")) {
-						given();
+					given();
 						
+					if (prerequisite("GetBoxSettings")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetBoxSettings");

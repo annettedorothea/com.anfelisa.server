@@ -73,7 +73,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		
 
 		if (prerequisite("CreateBoxDictionaryLookup")) {
-			uuid = "boxId".replace("${testId}", this.getTestId());
+			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -102,7 +102,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"dict\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -125,7 +125,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"rootCategoryId\" : \"boxId\"} ",
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -149,14 +149,14 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		}
 		com.anfelisa.category.data.CategoryTreeData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"\"," + 
-				"\"rootCategory\" : { \"categoryId\" : \"boxId\"," + 
+				"\"rootCategory\" : { \"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryIndex\" : 1," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"dictionaryLookup\" : true," + 
 				"\"givenLanguage\" : \"de\"," + 
 				"\"wantedLanguage\" : \"en\"," + 
 				"\"empty\" : false," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"childCategories\" : [ { \"categoryId\" : \"dict\"," + 
 				"\"categoryIndex\" : 1," + 
 				"\"categoryName\" : \"dict\"," + 
@@ -164,8 +164,8 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 				"\"givenLanguage\" : \"de\"," + 
 				"\"wantedLanguage\" : \"en\"," + 
 				"\"empty\" : true," + 
-				"\"parentCategoryId\" : \"boxId\"," + 
-				"\"rootCategoryId\" : \"boxId\"," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"childCategories\" : []}]}} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		
@@ -181,9 +181,9 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 				
 				@Test
 				public void getCategoryTreeWithDictionaryLookup() throws Exception {
-					if (prerequisite("GetCategoryTreeWithDictionaryLookup")) {
-						given();
+					given();
 						
+					if (prerequisite("GetCategoryTreeWithDictionaryLookup")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetCategoryTree");

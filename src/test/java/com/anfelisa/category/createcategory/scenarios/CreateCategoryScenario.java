@@ -28,7 +28,7 @@ public class CreateCategoryScenario extends AbstractCreateCategoryScenario {
 	@Override
 	protected void verifications() {
 		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat1");
-		ICategoryModel expectedCategory = new CategoryModel("cat1", "level 1 #1", "Annette", 1, "boxId", "boxId", false, null,
+		ICategoryModel expectedCategory = new CategoryModel("cat1", "level 1 #1", "Annette-" + getTestId(), 1,"boxId-" + getTestId(),"boxId-" + getTestId(), false, null,
 				null);
 		assertThat(actualCategory, expectedCategory);
 	}

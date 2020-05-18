@@ -10,7 +10,7 @@ scenarios
 			com.anfelisa.category.MoveCategory
 				{
 					movedCategoryId: "cat3",
-					targetCategoryId: "boxId"
+					targetCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200

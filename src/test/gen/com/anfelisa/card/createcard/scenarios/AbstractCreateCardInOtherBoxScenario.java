@@ -95,7 +95,7 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 		
 
 		if (prerequisite("CreateSecondBox")) {
-			uuid = "boxId2".replace("${testId}", this.getTestId());
+			uuid = "boxId2-${testId}".replace("${testId}", this.getTestId());
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -119,12 +119,12 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "c7";
+		String uuid = "c7".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"categoryId\" : \"boxId2\"," + 
+				"\"categoryId\" : \"boxId2-" + this.getTestId() + "\"," + 
 				"\"given\" : \"given\"," + 
 				"\"wanted\" : \"wanted\"} ",
 		com.anfelisa.card.data.CardCreationData.class)
@@ -148,9 +148,9 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 				
 				@Test
 				public void createCardInOtherBox() throws Exception {
-					if (prerequisite("CreateCardInOtherBox")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCardInOtherBox")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCard");

@@ -106,10 +106,10 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 		return 
 		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"usernameToBeDeleted\" : \"Annette\"} ",
+				"\"usernameToBeDeleted\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.data.DeleteUserData.class)
 		
-		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Anne", "pw"));
+		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Anne-${testId}", "pw"));
 		
 	}
 	
@@ -128,9 +128,9 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 				
 				@Test
 				public void deleteUserUnauthorizedNotAdmin() throws Exception {
-					if (prerequisite("DeleteUserUnauthorizedNotAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("DeleteUserUnauthorizedNotAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: DeleteUser");

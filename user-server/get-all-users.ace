@@ -32,10 +32,10 @@ scenarios
 					{
 						email : "annette.pohl@anfelisa.de",
 						password : "password",
-						username : "Annette",
+						username : "Annette-${testId}",
 						emailConfirmed : true,
 						role : "STUDENT",
-						userId : "uuid"
+						userId : "uuid-${testId}"
 					}
 				]
 			}

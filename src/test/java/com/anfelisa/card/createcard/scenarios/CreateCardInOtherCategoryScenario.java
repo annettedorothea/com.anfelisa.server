@@ -28,7 +28,7 @@ public class CreateCardInOtherCategoryScenario extends AbstractCreateCardInOther
 	@Override
 	protected void verifications() {
 		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c6");
-		ICardModel expectedCard = new CardModel("c6", "aa-given", "zz-wanted", null, "Annette", 1, "cat2", "boxId");
+		ICardModel expectedCard = new CardModel("c6", "aa-given", "zz-wanted", null, "Annette-" + getTestId(), 1, "cat2","boxId-" + getTestId());
 		assertThat(actualCard, expectedCard);
 	}
 

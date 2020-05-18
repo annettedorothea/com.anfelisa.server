@@ -34,7 +34,7 @@ public class ScoreCardMaxCardsPerDayScenario extends AbstractScoreCardMaxCardsPe
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"score0-3");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score0-3", "c4", "boxId",
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score0-3", "c4","boxId-" + getTestId(),
 				scoredDateTime, 2.5F, 3, 1, 1, scoredDateTime.plusDays(3), 0, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);

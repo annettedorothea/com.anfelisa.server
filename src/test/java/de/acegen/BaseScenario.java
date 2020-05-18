@@ -311,6 +311,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		switch (scenarioName) {
 		case "RegisterUserAdmin":
 			return (daoProvider.getUserDao().selectByUsername(handle, "Admin") == null);
+		case "GetAllUsersAdmin":
+			return (daoProvider.getUserDao().selectAll(handle).size() == 2);
 		default:
 			return true;
 		}

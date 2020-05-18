@@ -106,7 +106,7 @@ public abstract class AbstractChangeUserRoleNoAuthorizationScenario extends Base
 		return 
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"editedUserId\" : \"uuid\"," + 
+				"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
 				"\"newRole\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)
 		
@@ -129,9 +129,9 @@ public abstract class AbstractChangeUserRoleNoAuthorizationScenario extends Base
 				
 				@Test
 				public void changeUserRoleNoAuthorization() throws Exception {
-					if (prerequisite("ChangeUserRoleNoAuthorization")) {
-						given();
+					given();
 						
+					if (prerequisite("ChangeUserRoleNoAuthorization")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ChangeUserRole");

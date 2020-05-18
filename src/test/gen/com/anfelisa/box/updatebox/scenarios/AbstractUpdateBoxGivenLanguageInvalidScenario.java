@@ -102,8 +102,8 @@ public abstract class AbstractUpdateBoxGivenLanguageInvalidScenario extends Base
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"maxCardsPerDay\" : 10," + 
 				"\"dictionaryLookup\" : true," + 
@@ -130,9 +130,9 @@ public abstract class AbstractUpdateBoxGivenLanguageInvalidScenario extends Base
 				
 				@Test
 				public void updateBoxGivenLanguageInvalid() throws Exception {
-					if (prerequisite("UpdateBoxGivenLanguageInvalid")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateBoxGivenLanguageInvalid")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateBox");

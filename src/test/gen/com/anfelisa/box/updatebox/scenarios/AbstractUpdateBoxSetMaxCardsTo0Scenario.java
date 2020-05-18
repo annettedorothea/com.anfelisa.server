@@ -102,8 +102,8 @@ public abstract class AbstractUpdateBoxSetMaxCardsTo0Scenario extends BaseScenar
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"maxCardsPerDay\" : 0} ",
 		com.anfelisa.box.data.BoxUpdateData.class)
@@ -127,9 +127,9 @@ public abstract class AbstractUpdateBoxSetMaxCardsTo0Scenario extends BaseScenar
 				
 				@Test
 				public void updateBoxSetMaxCardsTo0() throws Exception {
-					if (prerequisite("UpdateBoxSetMaxCardsTo0")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateBoxSetMaxCardsTo0")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateBox");

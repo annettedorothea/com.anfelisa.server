@@ -100,7 +100,7 @@ public abstract class AbstractCreateCardNoAccessToCategoryScenario extends BaseS
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -144,7 +144,7 @@ public abstract class AbstractCreateCardNoAccessToCategoryScenario extends BaseS
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "c1";
+		String uuid = "c1".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -174,9 +174,9 @@ public abstract class AbstractCreateCardNoAccessToCategoryScenario extends BaseS
 				
 				@Test
 				public void createCardNoAccessToCategory() throws Exception {
-					if (prerequisite("CreateCardNoAccessToCategory")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCardNoAccessToCategory")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCard");

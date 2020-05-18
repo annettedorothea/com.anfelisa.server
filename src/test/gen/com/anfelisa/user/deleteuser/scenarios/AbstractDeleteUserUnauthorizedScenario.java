@@ -80,7 +80,7 @@ public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenari
 		return 
 		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"usernameToBeDeleted\" : \"Annette\"} ",
+				"\"usernameToBeDeleted\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.data.DeleteUserData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), null);
@@ -102,9 +102,9 @@ public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenari
 				
 				@Test
 				public void deleteUserUnauthorized() throws Exception {
-					if (prerequisite("DeleteUserUnauthorized")) {
-						given();
+					given();
 						
+					if (prerequisite("DeleteUserUnauthorized")) {
 						Response response = when();
 		
 						LOG.info("WHEN: DeleteUser");

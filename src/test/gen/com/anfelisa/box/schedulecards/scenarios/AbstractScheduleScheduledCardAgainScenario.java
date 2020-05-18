@@ -100,7 +100,7 @@ public abstract class AbstractScheduleScheduledCardAgainScenario extends BaseSce
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -254,7 +254,7 @@ public abstract class AbstractScheduleScheduledCardAgainScenario extends BaseSce
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "again";
+		String uuid = "again".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 17:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 					this.getProtocol(), this.getHost(), this.getPort());
 		
@@ -283,9 +283,9 @@ public abstract class AbstractScheduleScheduledCardAgainScenario extends BaseSce
 				
 				@Test
 				public void scheduleScheduledCardAgain() throws Exception {
-					if (prerequisite("ScheduleScheduledCardAgain")) {
-						given();
+					given();
 						
+					if (prerequisite("ScheduleScheduledCardAgain")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ScheduleCards");

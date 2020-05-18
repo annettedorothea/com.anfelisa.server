@@ -129,9 +129,9 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 				
 				@Test
 				public void confirmEmailTokenDoesNotMatch() throws Exception {
-					if (prerequisite("ConfirmEmailTokenDoesNotMatch")) {
-						given();
+					given();
 						
+					if (prerequisite("ConfirmEmailTokenDoesNotMatch")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ConfirmEmail");

@@ -143,9 +143,9 @@ public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 				
 				@Test
 				public void getRoleStudent() throws Exception {
-					if (prerequisite("GetRoleStudent")) {
-						given();
+					given();
 						
+					if (prerequisite("GetRoleStudent")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetRole");

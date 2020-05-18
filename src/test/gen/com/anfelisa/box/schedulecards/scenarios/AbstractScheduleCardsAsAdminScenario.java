@@ -73,11 +73,11 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 		
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
-			uuid = "adminBox".replace("${testId}", this.getTestId());
+			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryName\" : \"adminBox\"," + 
+					"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
 			com.anfelisa.box.data.BoxCreationData.class)
@@ -100,7 +100,7 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"c\"," + 
-					"\"parentCategoryId\" : \"adminBox\"} ",
+					"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
@@ -141,7 +141,7 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "sc6";
+		String uuid = "sc6".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 					this.getProtocol(), this.getHost(), this.getPort());
 		
@@ -170,9 +170,9 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 				
 				@Test
 				public void scheduleCardsAsAdmin() throws Exception {
-					if (prerequisite("ScheduleCardsAsAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("ScheduleCardsAsAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ScheduleCards");

@@ -75,7 +75,7 @@ public abstract class AbstractCreateBoxGivenLanguageInvalidScenario extends Base
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "boxId";
+		String uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
@@ -106,9 +106,9 @@ public abstract class AbstractCreateBoxGivenLanguageInvalidScenario extends Base
 				
 				@Test
 				public void createBoxGivenLanguageInvalid() throws Exception {
-					if (prerequisite("CreateBoxGivenLanguageInvalid")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateBoxGivenLanguageInvalid")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateBox");

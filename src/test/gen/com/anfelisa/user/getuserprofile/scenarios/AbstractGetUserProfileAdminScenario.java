@@ -145,9 +145,9 @@ public abstract class AbstractGetUserProfileAdminScenario extends BaseScenario {
 				
 				@Test
 				public void getUserProfileAdmin() throws Exception {
-					if (prerequisite("GetUserProfileAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("GetUserProfileAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetUserProfile");

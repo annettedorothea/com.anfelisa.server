@@ -29,13 +29,13 @@ public class UpdateBoxDictionaryLookupNullScenario extends AbstractUpdateBoxDict
 
 	@Override
 	protected void verifications() {
-		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId");
-		ICategoryModel expectedCategory = new CategoryModel("boxId", "cat", "Annette", 1, null, "boxId", false, null,
+		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle,"boxId-" + getTestId());
+		ICategoryModel expectedCategory = new CategoryModel("boxId-" + getTestId(), "cat", "Annette-" + getTestId(), 1, null,"boxId-" + getTestId(), false, null,
 				null);
 		assertThat(actualCategory, expectedCategory);
 
-		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle, "boxId");
-		IBoxModel expectedBox = new BoxModel("boxId", "uuid", "boxId", null, 10);
+		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle,"boxId-" + getTestId());
+		IBoxModel expectedBox = new BoxModel("boxId-" + getTestId(), "uuid-" + getTestId(),"boxId-" + getTestId(), null, 10);
 		assertThat(actualBox, expectedBox);
 	}
 

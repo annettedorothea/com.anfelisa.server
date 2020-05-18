@@ -125,9 +125,9 @@ public abstract class AbstractCreateCategoryParentCategoryIsBlankScenario extend
 				
 				@Test
 				public void createCategoryParentCategoryIsBlank() throws Exception {
-					if (prerequisite("CreateCategoryParentCategoryIsBlank")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCategoryParentCategoryIsBlank")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCategory");

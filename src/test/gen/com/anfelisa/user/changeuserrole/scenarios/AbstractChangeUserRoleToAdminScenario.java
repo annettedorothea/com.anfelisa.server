@@ -106,7 +106,7 @@ public abstract class AbstractChangeUserRoleToAdminScenario extends BaseScenario
 		return 
 		com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"editedUserId\" : \"uuid\"," + 
+				"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
 				"\"newRole\" : \"ADMIN\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class)
 		
@@ -129,9 +129,9 @@ public abstract class AbstractChangeUserRoleToAdminScenario extends BaseScenario
 				
 				@Test
 				public void changeUserRoleToAdmin() throws Exception {
-					if (prerequisite("ChangeUserRoleToAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("ChangeUserRoleToAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ChangeUserRole");

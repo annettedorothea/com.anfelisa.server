@@ -100,7 +100,7 @@ public abstract class AbstractInitMyBoxesForDayNothingScoredMuchLaterScenario ex
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -281,9 +281,9 @@ public abstract class AbstractInitMyBoxesForDayNothingScoredMuchLaterScenario ex
 				
 				@Test
 				public void initMyBoxesForDayNothingScoredMuchLater() throws Exception {
-					if (prerequisite("InitMyBoxesForDayNothingScoredMuchLater")) {
-						given();
+					given();
 						
+					if (prerequisite("InitMyBoxesForDayNothingScoredMuchLater")) {
 						Response response = when();
 		
 						LOG.info("WHEN: InitMyBoxesForDay");

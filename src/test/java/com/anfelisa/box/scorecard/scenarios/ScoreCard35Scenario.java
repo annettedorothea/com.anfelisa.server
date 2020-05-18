@@ -34,7 +34,7 @@ public class ScoreCard35Scenario extends AbstractScoreCard35Scenario {
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"score35");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score35", "c1", "boxId",
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score35", "c1","boxId-" + getTestId(),
 				scoredDateTime, 2.04F, 90, 7, 6, scoredDateTime.plusDays(90), 3, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);

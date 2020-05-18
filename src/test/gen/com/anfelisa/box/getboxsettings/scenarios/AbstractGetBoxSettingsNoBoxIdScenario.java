@@ -129,9 +129,9 @@ public abstract class AbstractGetBoxSettingsNoBoxIdScenario extends BaseScenario
 				
 				@Test
 				public void getBoxSettingsNoBoxId() throws Exception {
-					if (prerequisite("GetBoxSettingsNoBoxId")) {
-						given();
+					given();
 						
+					if (prerequisite("GetBoxSettingsNoBoxId")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetBoxSettings");

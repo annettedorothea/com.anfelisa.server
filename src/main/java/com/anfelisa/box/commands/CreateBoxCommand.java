@@ -58,11 +58,12 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 		commandData.setRootCategoryId(commandData.getCategoryId());
 		this.commandData.setBoxId(commandData.getCategoryId());
 
-		Integer max = this.daoProvider.getCategoryDao().selectMaxIndexInRootCategory(readonlyHandle);
-		if (max == null) {
-			max = 0;
-		}
-		commandData.setCategoryIndex(max + 1);
+		//Integer max = this.daoProvider.getCategoryDao().selectMaxIndexInRootCategory(readonlyHandle);
+		//if (max == null) {
+		//	max = 0;
+		//}
+		// TODO index nullable and set null for root categories
+		commandData.setCategoryIndex(1);
 		commandData.setEditable(true);
 		this.commandData.setOutcome(ok);
 	}

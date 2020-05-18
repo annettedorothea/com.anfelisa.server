@@ -132,9 +132,9 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 				
 				@Test
 				public void getUserProfileWrongPassword() throws Exception {
-					if (prerequisite("GetUserProfileWrongPassword")) {
-						given();
+					given();
 						
+					if (prerequisite("GetUserProfileWrongPassword")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetUserProfile");

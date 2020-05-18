@@ -28,7 +28,7 @@ public class CreateFifthCardScenario extends AbstractCreateFifthCardScenario {
 	@Override
 	protected void verifications() {
 		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c5");
-		ICardModel expectedCard = new CardModel("c5", "different", "different", null, "Annette", 5, "cat1", "boxId");
+		ICardModel expectedCard = new CardModel("c5", "different", "different", null, "Annette-" + getTestId(), 5, "cat1","boxId-" + getTestId());
 		assertThat(actualCard, expectedCard);
 	}
 

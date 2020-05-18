@@ -102,8 +102,8 @@ public abstract class AbstractUpdateBoxCategoryNameEmptyScenario extends BaseSce
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"\"," + 
 				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxUpdateData.class)
@@ -127,9 +127,9 @@ public abstract class AbstractUpdateBoxCategoryNameEmptyScenario extends BaseSce
 				
 				@Test
 				public void updateBoxCategoryNameEmpty() throws Exception {
-					if (prerequisite("UpdateBoxCategoryNameEmpty")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateBoxCategoryNameEmpty")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateBox");

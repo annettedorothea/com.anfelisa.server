@@ -11,7 +11,7 @@ scenarios
 				uuid "score0"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 0,
 					scoredCardScheduledCardId: "c1-sc1"
 				}
@@ -26,7 +26,7 @@ scenarios
 				uuid "score1"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 1,
 					scoredCardScheduledCardId: "c3-sc1"
 				}
@@ -41,7 +41,7 @@ scenarios
 				uuid "score2"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 2,
 					scoredCardScheduledCardId: "c1-sc1"
 				}
@@ -56,7 +56,7 @@ scenarios
 				uuid "score3"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "c1-sc1"
 				}
@@ -71,7 +71,7 @@ scenarios
 				uuid "score4"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 4,
 					scoredCardScheduledCardId: "c1-sc1"
 				}
@@ -86,7 +86,7 @@ scenarios
 				uuid "score5"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 5,
 					scoredCardScheduledCardId: "c4-sc1"
 				}
@@ -101,7 +101,7 @@ scenarios
 				uuid "admin-score"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "adminBox",
+					boxId: "adminBox-${testId}",
 					scoredCardQuality: 1,
 					scoredCardScheduledCardId: "c6-sc6"
 				}
@@ -116,7 +116,7 @@ scenarios
 				uuid "score01"
 				systemTime "20200419 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 0,
 					scoredCardScheduledCardId: "score0"
 				}
@@ -132,7 +132,7 @@ scenarios
 				uuid "score31"
 				systemTime "20200425 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score3"
 				}
@@ -147,7 +147,7 @@ scenarios
 				uuid "score32"
 				systemTime "20200515 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score31"
 				}
@@ -162,7 +162,7 @@ scenarios
 				uuid "score33"
 				systemTime "20200615 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 4,
 					scoredCardScheduledCardId: "score32"
 				}
@@ -177,7 +177,7 @@ scenarios
 				uuid "score34"
 				systemTime "20200819 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 5,
 					scoredCardScheduledCardId: "score33"
 				}
@@ -192,7 +192,7 @@ scenarios
 				uuid "score35"
 				systemTime "20201120 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score34"
 				}
@@ -207,7 +207,7 @@ scenarios
 				uuid "score36"
 				systemTime "20210301 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score35"
 				}
@@ -222,7 +222,7 @@ scenarios
 				uuid "score37"
 				systemTime "20210701 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score36"
 				}
@@ -237,7 +237,7 @@ scenarios
 				uuid "score38"
 				systemTime "20211001 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score37"
 				}
@@ -252,7 +252,7 @@ scenarios
 				uuid "score39"
 				systemTime "20220201 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score38"
 				}
@@ -267,7 +267,7 @@ scenarios
 				uuid "score310"
 				systemTime "20220601 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score39"
 				}
@@ -282,7 +282,7 @@ scenarios
 				uuid "q"
 				systemTime "20221001 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score310"
 				}
@@ -297,7 +297,7 @@ scenarios
 				uuid "score1"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 0,
 					scoredCardScheduledCardId: "xx"
 				}
@@ -312,7 +312,7 @@ scenarios
 				uuid "score1"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 0,
 					scoredCardScheduledCardId: "c1-sc1"
 				}
@@ -327,7 +327,7 @@ scenarios
 				uuid "score1"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 0,
 					scoredCardScheduledCardId: "c1-sc1"
 				}
@@ -345,7 +345,7 @@ scenarios
 				uuid "score0-2"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 0,
 					scoredCardScheduledCardId: "c3-sc1"
 				}
@@ -365,7 +365,7 @@ scenarios
 				uuid "score0-3"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
-					boxId: "boxId",
+					boxId: "boxId-${testId}",
 					scoredCardQuality: 0,
 					scoredCardScheduledCardId: "c4-sc1"
 				}

@@ -153,9 +153,9 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 				
 				@Test
 				public void getAllUsersNotAdmin() throws Exception {
-					if (prerequisite("GetAllUsersNotAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("GetAllUsersNotAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetAllUsers");

@@ -106,9 +106,9 @@ public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario 
 				
 				@Test
 				public void getRoleWrongPassword() throws Exception {
-					if (prerequisite("GetRoleWrongPassword")) {
-						given();
+					given();
 						
+					if (prerequisite("GetRoleWrongPassword")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetRole");

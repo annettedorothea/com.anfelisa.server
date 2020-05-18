@@ -78,7 +78,7 @@ scenarios
 				email : "info@anfelisa.de",
 				language : "de",
 				password : "pw",
-				username : "Annette",
+				username : "Annette-${testId}",
 				token : "XXX"				
 			}
 		THEN 400

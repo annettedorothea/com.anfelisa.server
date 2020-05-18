@@ -128,7 +128,7 @@ public abstract class AbstractGetBoxSettingsNoAccessScenario extends BaseScenari
 		return 
 		com.anfelisa.box.ActionCalls.callGetBoxSettings(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"} ",
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.box.data.BoxSettingsWrapperData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
@@ -156,9 +156,9 @@ public abstract class AbstractGetBoxSettingsNoAccessScenario extends BaseScenari
 				
 				@Test
 				public void getBoxSettingsNoAccess() throws Exception {
-					if (prerequisite("GetBoxSettingsNoAccess")) {
-						given();
+					given();
 						
+					if (prerequisite("GetBoxSettingsNoAccess")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetBoxSettings");

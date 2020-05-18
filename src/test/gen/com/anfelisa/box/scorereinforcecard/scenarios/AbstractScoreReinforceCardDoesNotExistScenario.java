@@ -100,7 +100,7 @@ public abstract class AbstractScoreReinforceCardDoesNotExistScenario extends Bas
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -258,7 +258,7 @@ public abstract class AbstractScoreReinforceCardDoesNotExistScenario extends Bas
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 0," + 
 					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -308,9 +308,9 @@ public abstract class AbstractScoreReinforceCardDoesNotExistScenario extends Bas
 				
 				@Test
 				public void scoreReinforceCardDoesNotExist() throws Exception {
-					if (prerequisite("ScoreReinforceCardDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("ScoreReinforceCardDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ScoreReinforceCard");

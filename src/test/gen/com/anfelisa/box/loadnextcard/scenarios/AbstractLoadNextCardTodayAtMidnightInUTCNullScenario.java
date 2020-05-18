@@ -100,7 +100,7 @@ public abstract class AbstractLoadNextCardTodayAtMidnightInUTCNullScenario exten
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -259,7 +259,7 @@ public abstract class AbstractLoadNextCardTodayAtMidnightInUTCNullScenario exten
 		return 
 		com.anfelisa.box.ActionCalls.callLoadNextCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"} ",
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.box.data.NextCardData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -287,9 +287,9 @@ public abstract class AbstractLoadNextCardTodayAtMidnightInUTCNullScenario exten
 				
 				@Test
 				public void loadNextCardTodayAtMidnightInUTCNull() throws Exception {
-					if (prerequisite("LoadNextCardTodayAtMidnightInUTCNull")) {
-						given();
+					given();
 						
+					if (prerequisite("LoadNextCardTodayAtMidnightInUTCNull")) {
 						Response response = when();
 		
 						LOG.info("WHEN: LoadNextCard");

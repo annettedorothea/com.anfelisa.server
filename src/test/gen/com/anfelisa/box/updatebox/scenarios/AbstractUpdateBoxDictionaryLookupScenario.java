@@ -102,8 +102,8 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 		return 
 		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
+				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
 				"\"maxCardsPerDay\" : 10," + 
 				"\"dictionaryLookup\" : true," + 
@@ -130,9 +130,9 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 				
 				@Test
 				public void updateBoxDictionaryLookup() throws Exception {
-					if (prerequisite("UpdateBoxDictionaryLookup")) {
-						given();
+					given();
 						
+					if (prerequisite("UpdateBoxDictionaryLookup")) {
 						Response response = when();
 		
 						LOG.info("WHEN: UpdateBox");

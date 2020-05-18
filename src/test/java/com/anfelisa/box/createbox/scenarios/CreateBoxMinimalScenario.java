@@ -28,21 +28,24 @@ public class CreateBoxMinimalScenario extends AbstractCreateBoxMinimalScenario {
 
 	@Override
 	protected void verifications() {
-		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId");
-		ICategoryModel expectedCategory = new CategoryModel("boxId", "cat", "Annette".replace("${testId}", getTestId()), 1, null, "boxId", false, null,
+		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle,
+				"boxId-" + getTestId());
+		ICategoryModel expectedCategory = new CategoryModel("boxId-" + getTestId(), "cat", "Annette-" + getTestId(), 1,
+				null, "boxId-" + getTestId(), false, null,
 				null);
 		assertThat(actualCategory, expectedCategory);
 
 		IUserAccessToCategoryModel actualAccessToCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(handle, "boxId", "uuid");
-		IUserAccessToCategoryModel expectedAccessToCategory = new UserAccessToCategoryModel("boxId", "uuid", true);
+				.selectByCategoryIdAndUserId(handle, "boxId-" + getTestId(), "uuid-" + getTestId());
+		IUserAccessToCategoryModel expectedAccessToCategory = new UserAccessToCategoryModel("boxId-" + getTestId(),
+				"uuid-" + getTestId(), true);
 		assertThat(actualAccessToCategory, expectedAccessToCategory);
-		
-		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle, "boxId");
-		IBoxModel expectedBox = new BoxModel("boxId", "uuid", "boxId", null, 10);
+
+		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + getTestId());
+		IBoxModel expectedBox = new BoxModel("boxId-" + getTestId(), "uuid-" + getTestId(), "boxId-" + getTestId(), null, 10);
 		assertThat(actualBox, expectedBox);
 	}
-	
+
 }
 
 /******* S.D.G. *******/

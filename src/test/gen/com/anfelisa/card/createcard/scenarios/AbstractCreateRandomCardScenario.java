@@ -100,7 +100,7 @@ public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -147,9 +147,9 @@ public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 				
 				@Test
 				public void createRandomCard() throws Exception {
-					if (prerequisite("CreateRandomCard")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateRandomCard")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCard");

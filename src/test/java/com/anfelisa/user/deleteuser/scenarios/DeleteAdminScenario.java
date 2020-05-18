@@ -26,7 +26,7 @@ public class DeleteAdminScenario extends AbstractDeleteAdminScenario {
 
 	@Override
 	protected void verifications() {
-		IUserModel user = this.daoProvider.getUserDao().selectByUsername(handle, "Annette");
+		IUserModel user = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
 		assertIsNull(user);
 	}
 

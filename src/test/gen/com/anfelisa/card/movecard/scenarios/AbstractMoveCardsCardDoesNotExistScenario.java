@@ -100,7 +100,7 @@ public abstract class AbstractMoveCardsCardDoesNotExistScenario extends BaseScen
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -233,7 +233,7 @@ public abstract class AbstractMoveCardsCardDoesNotExistScenario extends BaseScen
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #2\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -282,9 +282,9 @@ public abstract class AbstractMoveCardsCardDoesNotExistScenario extends BaseScen
 				
 				@Test
 				public void moveCardsCardDoesNotExist() throws Exception {
-					if (prerequisite("MoveCardsCardDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("MoveCardsCardDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: MoveCards");

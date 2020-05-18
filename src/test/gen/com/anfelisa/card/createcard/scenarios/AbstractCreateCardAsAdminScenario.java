@@ -73,11 +73,11 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 		
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
-			uuid = "adminBox".replace("${testId}", this.getTestId());
+			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryName\" : \"adminBox\"," + 
+					"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
 			com.anfelisa.box.data.BoxCreationData.class)
@@ -100,7 +100,7 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"c\"," + 
-					"\"parentCategoryId\" : \"adminBox\"} ",
+					"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
@@ -118,7 +118,7 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "c6";
+		String uuid = "c6".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -148,9 +148,9 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 				
 				@Test
 				public void createCardAsAdmin() throws Exception {
-					if (prerequisite("CreateCardAsAdmin")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCardAsAdmin")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCard");

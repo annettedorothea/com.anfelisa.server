@@ -100,7 +100,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -258,7 +258,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
 					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -280,8 +280,8 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			response = 
 			com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
-					"\"categoryId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+					"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"categoryName\" : \"changed\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 11," + 
@@ -307,7 +307,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
 					"\"scoredCardScheduledCardId\" : \"score3\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -331,7 +331,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
 					"\"scoredCardScheduledCardId\" : \"score31\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -355,7 +355,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 4," + 
 					"\"scoredCardScheduledCardId\" : \"score32\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -379,7 +379,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 5," + 
 					"\"scoredCardScheduledCardId\" : \"score33\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -403,7 +403,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
 					"\"scoredCardScheduledCardId\" : \"score34\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -427,7 +427,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
 					"\"scoredCardScheduledCardId\" : \"score35\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -451,7 +451,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
 					"\"scoredCardScheduledCardId\" : \"score36\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -475,7 +475,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
 					"\"scoredCardScheduledCardId\" : \"score37\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -499,7 +499,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
 					"\"scoredCardScheduledCardId\" : \"score38\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -540,7 +540,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "reschedule";
+		String uuid = "reschedule".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20220318 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 					this.getProtocol(), this.getHost(), this.getPort());
 		
@@ -569,9 +569,9 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 				
 				@Test
 				public void scheduleSortedOutCardsWithMultipleScores() throws Exception {
-					if (prerequisite("ScheduleSortedOutCardsWithMultipleScores")) {
-						given();
+					given();
 						
+					if (prerequisite("ScheduleSortedOutCardsWithMultipleScores")) {
 						Response response = when();
 		
 						LOG.info("WHEN: ScheduleCards");

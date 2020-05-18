@@ -100,7 +100,7 @@ public abstract class AbstractCreateCardCategoryDoesNotExistScenario extends Bas
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -118,7 +118,7 @@ public abstract class AbstractCreateCardCategoryDoesNotExistScenario extends Bas
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "c1";
+		String uuid = "c1".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
@@ -148,9 +148,9 @@ public abstract class AbstractCreateCardCategoryDoesNotExistScenario extends Bas
 				
 				@Test
 				public void createCardCategoryDoesNotExist() throws Exception {
-					if (prerequisite("CreateCardCategoryDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("CreateCardCategoryDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: CreateCard");

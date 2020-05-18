@@ -102,9 +102,9 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 				
 				@Test
 				public void deleteUserDoesNotExist() throws Exception {
-					if (prerequisite("DeleteUserDoesNotExist")) {
-						given();
+					given();
 						
+					if (prerequisite("DeleteUserDoesNotExist")) {
 						Response response = when();
 		
 						LOG.info("WHEN: DeleteUser");

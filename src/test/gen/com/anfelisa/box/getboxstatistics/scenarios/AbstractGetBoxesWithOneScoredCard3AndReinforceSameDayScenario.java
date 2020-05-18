@@ -100,7 +100,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard3AndReinforceSameDayScena
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
-					"\"parentCategoryId\" : \"boxId\"} ",
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
@@ -258,7 +258,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard3AndReinforceSameDayScena
 			response = 
 			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId\"," + 
+					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
 					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
@@ -307,7 +307,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard3AndReinforceSameDayScena
 		}
 		com.anfelisa.box.data.BoxStatisticsListData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"\"," + 
-				"\"boxList\" : [ { \"boxId\" : \"boxId\"," + 
+				"\"boxList\" : [ { \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"maxCardsPerDay\" : 10," + 
 				"\"quality0Count\" : 0," + 
 				"\"quality1Count\" : 0," + 
@@ -336,9 +336,9 @@ public abstract class AbstractGetBoxesWithOneScoredCard3AndReinforceSameDayScena
 				
 				@Test
 				public void getBoxesWithOneScoredCard3AndReinforceSameDay() throws Exception {
-					if (prerequisite("GetBoxesWithOneScoredCard3AndReinforceSameDay")) {
-						given();
+					given();
 						
+					if (prerequisite("GetBoxesWithOneScoredCard3AndReinforceSameDay")) {
 						Response response = when();
 		
 						LOG.info("WHEN: GetBoxStatistics");
