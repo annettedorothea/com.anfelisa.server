@@ -15,7 +15,7 @@ scenarios
 					dictionaryLookup: false,
 					maxCardsPerDay: 11
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	UpdateBoxMaxInterval
@@ -31,7 +31,7 @@ scenarios
 					maxCardsPerDay: 11,
 					maxInterval: 90
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	UpdateBoxMaxIntervalSetToNull
@@ -46,7 +46,7 @@ scenarios
 					dictionaryLookup: false,
 					maxCardsPerDay: 11
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	UpdateBoxDictionaryLookupNull
@@ -60,7 +60,7 @@ scenarios
 					categoryName: "cat",
 					maxCardsPerDay: 10
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	UpdateBoxDictionaryLookup
@@ -77,7 +77,7 @@ scenarios
 					givenLanguage: "de",
 					wantedLanguage: "en"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 		
 	UpdateBoxGivenLanguageInvalid
@@ -94,7 +94,7 @@ scenarios
 					givenLanguage: "xx",
 					wantedLanguage: "en"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	UpdateBoxWantedLanguageInvalid
@@ -111,7 +111,7 @@ scenarios
 					givenLanguage: "fr",
 					wantedLanguage: "xx"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	UpdateBoxMaxCardsPerDayNull
@@ -124,7 +124,7 @@ scenarios
 					categoryId: "boxId",
 					categoryName: "cat"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	UpdateBoxSetMaxCardsTo1
@@ -138,7 +138,7 @@ scenarios
 					categoryName: "cat",
 					maxCardsPerDay: 1
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 		
 	UpdateBoxSetMaxCardsTo0
@@ -152,7 +152,7 @@ scenarios
 					categoryName: "cat",
 					maxCardsPerDay: 0
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	UpdateBoxBoxIdNull
@@ -165,7 +165,7 @@ scenarios
 					categoryName: "cat",
 					maxCardsPerDay: 10
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	UpdateBoxCategoryIdNull
@@ -178,7 +178,7 @@ scenarios
 					categoryName: "cat",
 					maxCardsPerDay: 10
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	UpdateBoxCategoryNameNull
@@ -191,7 +191,7 @@ scenarios
 					categoryId: "boxId",
 					maxCardsPerDay: 10
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	UpdateBoxCategoryNameEmpty
@@ -205,7 +205,7 @@ scenarios
 					categoryName: "",
 					maxCardsPerDay: 10
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	UpdateBoxCategoryNameBlank
@@ -219,7 +219,7 @@ scenarios
 					categoryName: "    ",
 					maxCardsPerDay: 10
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	UpdateBoxUnauthorized

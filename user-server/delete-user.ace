@@ -77,6 +77,6 @@ scenarios
 		WHEN com.anfelisa.user.DeleteUser {
 			usernameToBeDeleted: "Annette"
 		}
-		authorization "Annette" : "password"
+		authorization "Annette-${testId}" : "password"
 		THEN 200
 

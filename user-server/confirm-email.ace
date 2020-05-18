@@ -9,8 +9,8 @@ scenarios
 		GIVEN
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN com.anfelisa.user.ConfirmEmail {
-			token: "TOKEN",
-			username: "Annette"
+			token: "TOKEN-${testId}",
+			username: "Annette-${testId}"
 		}
 		THEN 200
 
@@ -18,7 +18,7 @@ scenarios
 		GIVEN
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN com.anfelisa.user.ConfirmEmail {
-			token: "TOKEN",
+			token: "TOKEN-${testId}",
 			username: "doesNotExist"
 		}
 		THEN 400
@@ -28,17 +28,22 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 			ConfirmEmailOK excludeGIVEN
 		WHEN com.anfelisa.user.ConfirmEmail {
-			token: "TOKEN",
-			username: "Annette"
+			token: "TOKEN-${testId}",
+			username: "Annette-${testId}"
 		}
 		THEN 200
+		/*verifications {
+			User(username: "jfjfj") = {
+				
+			}
+		}*/
 
 	ConfirmEmailConfirmationTokenDoesNotExist
 		GIVEN
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN com.anfelisa.user.ConfirmEmail {
 			token: "DOES_NOT_EXIST",
-			username: "Annette"
+			username: "Annette-${testId}"
 		}
 		THEN 400
 
@@ -48,7 +53,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN com.anfelisa.user.ConfirmEmail {
 			token: "ADMIN-TOKEN",
-			username: "Annette"
+			username: "Annette-${testId}"
 		}
 		THEN 400
 

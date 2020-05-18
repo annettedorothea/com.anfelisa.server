@@ -12,7 +12,7 @@ scenarios
 				{
 					cardIds: ["c1", "c4" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	SortCardsOutTwice
@@ -23,7 +23,7 @@ scenarios
 				{
 					cardIds: ["c1", "c4" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	SortCardsOutCardDoesNotExist
@@ -34,7 +34,7 @@ scenarios
 				{
 					cardIds: ["c1", "xx", "c4" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	SortCardsOutEmptyCardIds
@@ -45,7 +45,7 @@ scenarios
 				{
 					cardIds: []
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	SortCardsOutCardIdsNull
@@ -53,7 +53,7 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.SortCardsOut
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	SortCardsOutWithScoredAndReinforce
@@ -65,7 +65,7 @@ scenarios
 				{
 					cardIds: ["c1", "c4" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	SortCardsOutUnauthorized

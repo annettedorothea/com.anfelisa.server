@@ -14,7 +14,7 @@ scenarios
 					scoredCardQuality: 0,
 					reinforceCardId: "score0"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 		
 	ScoreReinforceCard1
@@ -28,7 +28,7 @@ scenarios
 					scoredCardQuality: 1,
 					reinforceCardId: "score0"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 		
 	ScoreReinforceCard2
@@ -42,7 +42,7 @@ scenarios
 					scoredCardQuality: 2,
 					reinforceCardId: "score0"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 		
 	ScoreReinforceCard3
@@ -56,7 +56,7 @@ scenarios
 					scoredCardQuality: 3,
 					reinforceCardId: "score0"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 		
 	ScoreReinforceCard4
@@ -70,7 +70,7 @@ scenarios
 					scoredCardQuality: 4,
 					reinforceCardId: "score0"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 		
 	ScoreReinforceCard5
@@ -84,7 +84,7 @@ scenarios
 					scoredCardQuality: 5,
 					reinforceCardId: "score0"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 		
 	ScoreOtherReinforceCard
@@ -98,7 +98,7 @@ scenarios
 					scoredCardQuality: 5,
 					reinforceCardId: "score1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 		
 	ScoreReinforceCardNotMyCard
@@ -138,6 +138,6 @@ scenarios
 					scoredCardQuality: 5,
 					reinforceCardId: "xx"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		

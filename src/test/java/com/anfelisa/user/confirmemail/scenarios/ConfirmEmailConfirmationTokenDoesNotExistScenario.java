@@ -30,12 +30,12 @@ public class ConfirmEmailConfirmationTokenDoesNotExistScenario extends AbstractC
 
 	@Override
 	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette");
-		IUserModel expectedUser = new UserModel("uuid", "Annette", "password", "annette.pohl@anfelisa.de", Roles.STUDENT, false);
+		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, replaceTestId("Annette-${testId}"));
+		IUserModel expectedUser = new UserModel(replaceTestId("uuid-${testId}"), replaceTestId("Annette-${testId}"), "password", "annette.pohl@anfelisa.de", Roles.STUDENT, false);
 		assertThat(actualUser, expectedUser);
 		
-		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN");
-		IEmailConfirmationModel expectedEmailConfirmationModel = new EmailConfirmationModel("TOKEN", "uuid");
+		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao().selectByToken(handle, replaceTestId("TOKEN-${testId}"));
+		IEmailConfirmationModel expectedEmailConfirmationModel = new EmailConfirmationModel(replaceTestId("TOKEN-${testId}"), replaceTestId("uuid-${testId}"));
 		assertThat(actualEmailConfirmationModel, expectedEmailConfirmationModel);
 	}
 

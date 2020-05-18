@@ -24,7 +24,14 @@ import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.core.Response;
+
+import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.jdbi.v3.core.Jdbi;
+import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -45,33 +52,27 @@ import com.anfelisa.category.models.ICategoryTreeItemModel;
 import com.anfelisa.user.data.GetAllUsersResponse;
 import com.anfelisa.user.models.IUserModel;
 
-import io.dropwizard.jdbi3.JdbiFactory;
-import io.dropwizard.testing.DropwizardTestSupport;
-
 public abstract class BaseScenario extends AbstractBaseScenario {
 
 	static final Logger LOG = LoggerFactory.getLogger(BaseScenario.class);
 
-	public static final DropwizardTestSupport<CustomAppConfiguration> DROPWIZARD = new DropwizardTestSupport<CustomAppConfiguration>(
-			App.class, "test.yml");
-
 	private static Jdbi jdbi;
+
+	private int port = 8096;
+
+	private String host = "localhost";
+
+	private String protocol = "http";
+
+	private String testId;
 
 	@BeforeClass
 	public static void beforeClass() throws Exception {
-		DROPWIZARD.before();
-		final JdbiFactory factory = new JdbiFactory();
-		jdbi = factory.build(DROPWIZARD.getEnvironment(), DROPWIZARD.getConfiguration().getDataSourceFactory(),
-				"testdb");
+		jdbi = Jdbi.create("jdbc:postgresql://localhost/anfelisa_replay");
 	}
 
 	@AfterClass
 	public static void afterClass() {
-		try {
-			DROPWIZARD.after();
-		} catch (Exception x) {
-			LOG.error("exception when cleaning up dropwizard", x);
-		}
 	}
 
 	@Before
@@ -81,7 +82,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		LOG.info("*********************************************************************************");
 		daoProvider = new DaoProvider();
 		handle = new PersistenceHandle(jdbi.open());
-		daoProvider.truncateAllViews(handle);
+		testId = randomString();
+		LOG.info("testId {}", testId);
 	}
 
 	@After
@@ -100,7 +102,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	@Override
 	protected String authorization(String username, String password) {
-		String string = username + ":" + password;
+		String string = username.replace("${testId}", testId) + ":" + password;
 		String hash = Base64.getEncoder().encodeToString(string.getBytes());
 		return "anfelisaBasic " + hash;
 	}
@@ -288,4 +290,62 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	protected void assertIsNotNull(Object actual) {
 		org.junit.Assert.assertNotNull(actual);
 	}
+
+	@Override
+	protected String getProtocol() {
+		return protocol;
+	}
+
+	@Override
+	protected String getHost() {
+		return host;
+	}
+
+	@Override
+	protected int getPort() {
+		return port;
+	}
+
+	@Override
+	protected boolean prerequisite(String scenarioName) {
+		switch (scenarioName) {
+		case "RegisterUserAdmin":
+			return (daoProvider.getUserDao().selectByUsername(handle, "Admin") == null);
+		default:
+			return true;
+		}
+	}
+
+	@Override
+	protected String getTestId() {
+		return testId;
+	}
+
+	protected String replaceTestId(String string) {
+		return string.replace("${testId}", testId);
+	}
+
+	@Override
+	protected Response callNotReplayableDataProviderPutValue(
+			String uuid, String key, Object data,
+			String protocol, String host, int port) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client
+				.target(String.format("%s://%s:%d/api/test/not-replayable/value?uuid=" + uuid + "&key=" + key, protocol,
+						host, port))
+				.request();
+		return builder.put(Entity.json(data));
+	}
+
+	@Override
+	protected Response callNotReplayableDataProviderPutSystemTime(
+			String uuid, DateTime dateTime,
+			String protocol, String host, int port) {
+		Client client = new JerseyClientBuilder().build();
+		Builder builder = client
+				.target(String.format("%s://%s:%d/api/test/not-replayable/value?uuid=" + uuid, protocol, host, port))
+				.request();
+		return builder.put(Entity.json(dateTime));
+	}
+
 }

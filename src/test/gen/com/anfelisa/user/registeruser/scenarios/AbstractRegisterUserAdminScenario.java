@@ -31,6 +31,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
@@ -38,24 +41,29 @@ import de.acegen.NotReplayableDataProvider;
 @SuppressWarnings("unused")
 public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 
+	static final Logger LOG = LoggerFactory.getLogger(AbstractRegisterUserAdminScenario.class);
+	
 	private void given() throws Exception {
 		Response response;
+		String uuid;
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
-				 String.class));
+		String uuid = "uuid-admin";
+		this.callNotReplayableDataProviderPutValue(uuid, "token", 
+					objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
+					this.getProtocol(), this.getHost(), this.getPort());
 		
 		return 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid-admin\"," + 
+			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"admin-password\"," + 
 				"\"username\" : \"Admin\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		, DROPWIZARD.getLocalPort());
+		, this.getProtocol(), this.getHost(), this.getPort());
 		
 	}
 	
@@ -74,13 +82,19 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 				
 				@Test
 				public void registerUserAdmin() throws Exception {
-					given();
-					
-					Response response = when();
-			
-					then(response);
-					
-					verifications();
+					if (prerequisite("RegisterUserAdmin")) {
+						given();
+						
+						Response response = when();
+		
+						LOG.info("WHEN: RegisterUser");
+				
+						then(response);
+						
+						verifications();
+					} else {
+						LOG.info("prerequisite for RegisterUserAdmin not met");
+					}
 				}
 				
 				protected abstract void verifications();

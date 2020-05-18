@@ -35,6 +35,8 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
 import de.acegen.IDaoProvider;
@@ -64,10 +66,13 @@ public abstract class AbstractGetTranslationAction extends ReadAction<ICardTrans
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetTranslationAction.class);
 	
+	private ObjectMapper objectMapper;
+	
 	public AbstractGetTranslationAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.card.actions.GetTranslationAction", persistenceConnection, appConfiguration, daoProvider,
 						viewProvider, e2e);
+		objectMapper = new ObjectMapper();
 	}
 
 	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
@@ -81,8 +86,9 @@ public abstract class AbstractGetTranslationAction extends ReadAction<ICardTrans
 	
 	@Override
 	protected void initActionDataFromNotReplayableDataProvider() {
-		if (NotReplayableDataProvider.getSystemTime() != null) {
-			this.actionData.setSystemTime(NotReplayableDataProvider.getSystemTime());
+		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
+		if (systemTime != null) {
+			this.actionData.setSystemTime(systemTime);
 		}
 	}
 

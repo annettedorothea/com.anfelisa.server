@@ -14,7 +14,7 @@ scenarios
 					categoryName: "level 1 #3",
 					parentCategoryId: "boxId"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateFourthCategory
@@ -27,7 +27,7 @@ scenarios
 					categoryName: "level 1 #4",
 					parentCategoryId: "boxId"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateBoxMinimalAsAdmin
@@ -73,7 +73,7 @@ scenarios
 					movedCategoryId: "cat3",
 					targetCategoryId: "cat2"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ChangeOrderFourthToFirst
@@ -85,7 +85,7 @@ scenarios
 					movedCategoryId: "cat4",
 					targetCategoryId: "cat1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ChangeOrderFirstToFourth
@@ -97,7 +97,7 @@ scenarios
 					movedCategoryId: "cat1",
 					targetCategoryId: "cat4"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 		
 	ChangeOrderUnauthorized
@@ -120,7 +120,7 @@ scenarios
 					movedCategoryId: "cat1",
 					targetCategoryId: "lala"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	ChangeOrderMovedCategoryDoesNotExist
@@ -132,7 +132,7 @@ scenarios
 					movedCategoryId: "lala",
 					targetCategoryId: "cat1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	ChangeOrderNoAccessToTargetCategory
@@ -145,7 +145,7 @@ scenarios
 					movedCategoryId: "cat1",
 					targetCategoryId: "adminCat"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 401
 
 	ChangeOrderNoAccessToMovedCategory
@@ -158,7 +158,7 @@ scenarios
 					movedCategoryId: "adminCat",
 					targetCategoryId: "cat1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 401
 
 

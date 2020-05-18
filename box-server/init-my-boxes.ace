@@ -11,7 +11,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	InitMyBoxesForDayUnauthorized
@@ -32,7 +32,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200419 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	InitMyBoxesForDayNothingScoredMuchLater
@@ -43,7 +43,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200719 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	InitMyBoxesForDayNothingScoredVeryMuchLater
@@ -54,7 +54,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20210120 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	InitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing
@@ -67,7 +67,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	InitMyBoxesForDayWithScoredAndReinforceCardsOneDayLaterDeletesOutdatedReinforceCards
@@ -80,7 +80,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200419 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	InitMyBoxesForDayWithScoredAndReinforceCardsTwoDaysLaterPostponesCards
@@ -93,7 +93,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200420 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	InitMyBoxesForDayTodayAtMidnightInUTCNull
@@ -103,7 +103,7 @@ scenarios
 			com.anfelisa.box.InitMyBoxesForDay
 				{
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 		

@@ -31,6 +31,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
@@ -38,69 +41,92 @@ import de.acegen.NotReplayableDataProvider;
 @SuppressWarnings("unused")
 public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseScenario {
 
+	static final Logger LOG = LoggerFactory.getLogger(AbstractGetCategoryTreeUnauthorizedScenario.class);
+	
 	private void given() throws Exception {
 		Response response;
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		String uuid;
+		if (prerequisite("RegisterUser")) {
+			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+					"\"language\" : \"de\"," + 
+					"\"password\" : \"password\"," + 
+					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+			com.anfelisa.user.data.UserRegistrationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort());
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: RegisterUser");
+		} else {
+			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
-		response = 
-		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"boxId\"," + 
-				"\"categoryName\" : \"cat\"," + 
-				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 10} ",
-		com.anfelisa.box.data.BoxCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateBoxMinimal")) {
+			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"cat\"," + 
+					"\"dictionaryLookup\" : false," + 
+					"\"maxCardsPerDay\" : 10} ",
+			com.anfelisa.box.data.BoxCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateBoxMinimal");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
-		response = 
-		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"cat1\"," + 
-				"\"categoryName\" : \"level 1 #1\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
-		com.anfelisa.category.data.CategoryCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateCategory")) {
+			uuid = "cat1".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"level 1 #1\"," + 
+					"\"parentCategoryId\" : \"boxId\"} ",
+			com.anfelisa.category.data.CategoryCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateCategory");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
 		
 
 	}
 	
 	private Response when() throws Exception {
+		String uuid = this.randomUUID();
 		
 		return 
 		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"rootCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryTreeData.class)
 		
-		, DROPWIZARD.getLocalPort(), null);
+		, this.getProtocol(), this.getHost(), this.getPort(), null);
 		
 	}
 	
@@ -125,13 +151,19 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 				
 				@Test
 				public void getCategoryTreeUnauthorized() throws Exception {
-					given();
-					
-					Response response = when();
-			
-					com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
-					
-					verifications(actualResponse);
+					if (prerequisite("GetCategoryTreeUnauthorized")) {
+						given();
+						
+						Response response = when();
+		
+						LOG.info("WHEN: GetCategoryTree");
+				
+						com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
+						
+						verifications(actualResponse);
+					} else {
+						LOG.info("prerequisite for GetCategoryTreeUnauthorized not met");
+					}
 				}
 				
 				protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);

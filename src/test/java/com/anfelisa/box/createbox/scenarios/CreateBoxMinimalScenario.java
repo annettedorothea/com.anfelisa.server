@@ -29,7 +29,7 @@ public class CreateBoxMinimalScenario extends AbstractCreateBoxMinimalScenario {
 	@Override
 	protected void verifications() {
 		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId");
-		ICategoryModel expectedCategory = new CategoryModel("boxId", "cat", "Annette", 1, null, "boxId", false, null,
+		ICategoryModel expectedCategory = new CategoryModel("boxId", "cat", "Annette".replace("${testId}", getTestId()), 1, null, "boxId", false, null,
 				null);
 		assertThat(actualCategory, expectedCategory);
 
@@ -42,7 +42,7 @@ public class CreateBoxMinimalScenario extends AbstractCreateBoxMinimalScenario {
 		IBoxModel expectedBox = new BoxModel("boxId", "uuid", "boxId", null, 10);
 		assertThat(actualBox, expectedBox);
 	}
-
+	
 }
 
 /******* S.D.G. *******/

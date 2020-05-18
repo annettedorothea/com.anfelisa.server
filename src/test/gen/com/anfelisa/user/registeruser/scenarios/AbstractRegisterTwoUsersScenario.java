@@ -31,6 +31,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
@@ -38,43 +41,55 @@ import de.acegen.NotReplayableDataProvider;
 @SuppressWarnings("unused")
 public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 
+	static final Logger LOG = LoggerFactory.getLogger(AbstractRegisterTwoUsersScenario.class);
+	
 	private void given() throws Exception {
 		Response response;
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		String uuid;
+		if (prerequisite("RegisterUser")) {
+			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+					"\"language\" : \"de\"," + 
+					"\"password\" : \"password\"," + 
+					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+			com.anfelisa.user.data.UserRegistrationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort());
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: RegisterUser");
+		} else {
+			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN_2\"",
-				 String.class));
+		String uuid = "uuid2-${testId}";
+		this.callNotReplayableDataProviderPutValue(uuid, "token", 
+					objectMapper.readValue("\"TOKEN_2-" + this.getTestId() + "\"",  String.class),
+					this.getProtocol(), this.getHost(), this.getPort());
 		
 		return 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid2\"," + 
+			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"email\" : \"info@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"pw\"," + 
-				"\"username\" : \"Anne\"} ",
+				"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		, DROPWIZARD.getLocalPort());
+		, this.getProtocol(), this.getHost(), this.getPort());
 		
 	}
 	
@@ -93,13 +108,19 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 				
 				@Test
 				public void registerTwoUsers() throws Exception {
-					given();
-					
-					Response response = when();
-			
-					then(response);
-					
-					verifications();
+					if (prerequisite("RegisterTwoUsers")) {
+						given();
+						
+						Response response = when();
+		
+						LOG.info("WHEN: RegisterUser");
+				
+						then(response);
+						
+						verifications();
+					} else {
+						LOG.info("prerequisite for RegisterTwoUsers not met");
+					}
 				}
 				
 				protected abstract void verifications();

@@ -9,13 +9,13 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN
 			com.anfelisa.box.CreateBox
-				uuid "boxId"
+				uuid "boxId-${testId}"
 				{
 					categoryName: "cat",
 					dictionaryLookup: false,
 					maxCardsPerDay: 10
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateSecondBox
@@ -29,7 +29,7 @@ scenarios
 					dictionaryLookup: false,
 					maxCardsPerDay: 8
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateBoxDictionaryLookupNull
@@ -42,7 +42,7 @@ scenarios
 					categoryName: "cat",
 					maxCardsPerDay: 10
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateBoxDictionaryLookup
@@ -58,7 +58,7 @@ scenarios
 					givenLanguage: "de",
 					wantedLanguage: "en"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 		
 	CreateBoxGivenLanguageInvalid
@@ -74,7 +74,7 @@ scenarios
 					givenLanguage: "xx",
 					wantedLanguage: "en"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	CreateBoxWantedLanguageInvalid
@@ -90,7 +90,7 @@ scenarios
 					givenLanguage: "fr",
 					wantedLanguage: "xx"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	CreateBoxMaxCardsPerDayNull
@@ -103,7 +103,7 @@ scenarios
 					categoryName: "cat",
 					dictionaryLookup: false
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	CreateBoxCategoryNameNull
@@ -116,7 +116,7 @@ scenarios
 					maxCardsPerDay: 10,
 					dictionaryLookup: false
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	CreateBoxCategoryNameEmpty
@@ -130,7 +130,7 @@ scenarios
 					maxCardsPerDay: 10,
 					dictionaryLookup: false
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	CreateBoxCategoryNameBlank
@@ -144,7 +144,7 @@ scenarios
 					maxCardsPerDay: 10,
 					dictionaryLookup: false
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	CreateBoxUnauthorized

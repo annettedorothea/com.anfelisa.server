@@ -15,7 +15,7 @@ scenarios
 					image: "image",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateCardDuplicateId
@@ -30,7 +30,7 @@ scenarios
 					image: "image",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	CreateSecondCard
@@ -45,7 +45,7 @@ scenarios
 					image: "image2",
 					wanted: "wanted2"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateThirdCard
@@ -59,7 +59,7 @@ scenarios
 					given: "3given",
 					wanted: "3wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateFourthCard
@@ -73,7 +73,7 @@ scenarios
 					given: "4given4",
 					wanted: "4wanted4"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateFifthCard
@@ -87,7 +87,7 @@ scenarios
 					given: "different",
 					wanted: "different"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateCardWithLongUuid
@@ -101,7 +101,7 @@ scenarios
 					given: "x",
 					wanted: "y"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateRandomCard
@@ -114,7 +114,7 @@ scenarios
 					given: "${index}given${random}",
 					wanted: "${index}wanted${random}"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateCardInOtherCategory
@@ -129,7 +129,7 @@ scenarios
 					given: "aa-given",
 					wanted: "zz-wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateCardInOtherBox
@@ -143,7 +143,7 @@ scenarios
 					given: "given",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateCardMissingCategoryId
@@ -157,7 +157,7 @@ scenarios
 					image: "image",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	CreateCardGivenNull
@@ -171,7 +171,7 @@ scenarios
 					image: "image",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	CreateCardGivenEmpty
@@ -186,7 +186,7 @@ scenarios
 					image: "image",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	CreateCardWantedNull
@@ -200,7 +200,7 @@ scenarios
 					given: "given",
 					image: "image"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	CreateCardWantedEmpty
@@ -215,7 +215,7 @@ scenarios
 					image: "image",
 					wanted: "  "
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	CreateCardImageNull
@@ -229,7 +229,7 @@ scenarios
 					given: "given",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateCardImageEmpty
@@ -244,7 +244,7 @@ scenarios
 					image: "  ",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	CreateCardCategoryDoesNotExist
@@ -259,7 +259,7 @@ scenarios
 					image: "image",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	CreateCardNoAccessToCategory

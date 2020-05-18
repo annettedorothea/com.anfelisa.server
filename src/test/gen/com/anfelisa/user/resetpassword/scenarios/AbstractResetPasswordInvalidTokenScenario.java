@@ -31,6 +31,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
@@ -38,56 +41,74 @@ import de.acegen.NotReplayableDataProvider;
 @SuppressWarnings("unused")
 public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScenario {
 
+	static final Logger LOG = LoggerFactory.getLogger(AbstractResetPasswordInvalidTokenScenario.class);
+	
 	private void given() throws Exception {
 		Response response;
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		String uuid;
+		if (prerequisite("RegisterUser")) {
+			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+					"\"language\" : \"de\"," + 
+					"\"password\" : \"password\"," + 
+					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+			com.anfelisa.user.data.UserRegistrationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort());
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: RegisterUser");
+		} else {
+			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"RESET-PW-TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callForgotPassword(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"language\" : \"de\"," + 
-				"\"username\" : \"Annette\"} ",
-		com.anfelisa.user.data.ForgotPasswordData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN ForgotPassword fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("ForgotPasswordOK")) {
+			uuid = this.randomUUID();
+			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+						objectMapper.readValue("\"RESET-PW-TOKEN\"",  String.class),
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.user.ActionCalls.callForgotPassword(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"language\" : \"de\"," + 
+					"\"username\" : \"Annette\"} ",
+			com.anfelisa.user.data.ForgotPasswordData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort());
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN ForgotPasswordOK fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: ForgotPasswordOK");
+		} else {
+			LOG.info("GIVEN: prerequisite for ForgotPasswordOK not met");
 		}
 		
 
 	}
 	
 	private Response when() throws Exception {
+		String uuid = this.randomUUID();
 		
 		return 
 		com.anfelisa.user.ActionCalls.callResetPassword(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"token\" : \"INVALID-TOKEN\"," + 
 				"\"password\" : \"newPassword\"} ",
 		com.anfelisa.user.data.ResetPasswordWithNewPasswordData.class)
 		
-		, DROPWIZARD.getLocalPort());
+		, this.getProtocol(), this.getHost(), this.getPort());
 		
 	}
 	
@@ -106,13 +127,19 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 				
 				@Test
 				public void resetPasswordInvalidToken() throws Exception {
-					given();
-					
-					Response response = when();
-			
-					then(response);
-					
-					verifications();
+					if (prerequisite("ResetPasswordInvalidToken")) {
+						given();
+						
+						Response response = when();
+		
+						LOG.info("WHEN: ResetPassword");
+				
+						then(response);
+						
+						verifications();
+					} else {
+						LOG.info("prerequisite for ResetPasswordInvalidToken not met");
+					}
 				}
 				
 				protected abstract void verifications();

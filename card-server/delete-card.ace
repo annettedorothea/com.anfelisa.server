@@ -11,7 +11,7 @@ scenarios
 				{
 					cardId: "c1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	DeleteCardMissingCardId
@@ -21,7 +21,7 @@ scenarios
 			com.anfelisa.card.DeleteCard
 				{
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	DeleteCardCardDoesNotExist
@@ -32,7 +32,7 @@ scenarios
 				{
 					cardId: "lala"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	DeleteCardNoAccessToCategory

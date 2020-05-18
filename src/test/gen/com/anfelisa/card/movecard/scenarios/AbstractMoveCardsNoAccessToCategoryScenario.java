@@ -31,6 +31,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
@@ -38,137 +41,185 @@ import de.acegen.NotReplayableDataProvider;
 @SuppressWarnings("unused")
 public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseScenario {
 
+	static final Logger LOG = LoggerFactory.getLogger(AbstractMoveCardsNoAccessToCategoryScenario.class);
+	
 	private void given() throws Exception {
 		Response response;
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		String uuid;
+		if (prerequisite("RegisterUser")) {
+			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+					"\"language\" : \"de\"," + 
+					"\"password\" : \"password\"," + 
+					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+			com.anfelisa.user.data.UserRegistrationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort());
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: RegisterUser");
+		} else {
+			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
-		response = 
-		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"boxId\"," + 
-				"\"categoryName\" : \"cat\"," + 
-				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 10} ",
-		com.anfelisa.box.data.BoxCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateBoxMinimal")) {
+			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"cat\"," + 
+					"\"dictionaryLookup\" : false," + 
+					"\"maxCardsPerDay\" : 10} ",
+			com.anfelisa.box.data.BoxCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateBoxMinimal");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
-		response = 
-		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"cat1\"," + 
-				"\"categoryName\" : \"level 1 #1\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
-		com.anfelisa.category.data.CategoryCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateCategory")) {
+			uuid = "cat1".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"level 1 #1\"," + 
+					"\"parentCategoryId\" : \"boxId\"} ",
+			com.anfelisa.category.data.CategoryCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateCategory");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
 		
 
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c1\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"given\"," + 
-				"\"image\" : \"image\"," + 
-				"\"wanted\" : \"wanted\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateCard")) {
+			uuid = "c1".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryId\" : \"cat1\"," + 
+					"\"given\" : \"given\"," + 
+					"\"image\" : \"image\"," + 
+					"\"wanted\" : \"wanted\"} ",
+			com.anfelisa.card.data.CardCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateCard");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateCard not met");
 		}
 		
 
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid-admin\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"admin-password\"," + 
-				"\"username\" : \"Admin\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("RegisterUserAdmin")) {
+			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+					"\"language\" : \"de\"," + 
+					"\"password\" : \"admin-password\"," + 
+					"\"username\" : \"Admin\"} ",
+			com.anfelisa.user.data.UserRegistrationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort());
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: RegisterUserAdmin");
+		} else {
+			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
 		
 
-		response = 
-		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"adminBox\"," + 
-				"\"categoryName\" : \"adminBox\"," + 
-				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 10} ",
-		com.anfelisa.box.data.BoxCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateBoxMinimalAsAdmin")) {
+			uuid = "adminBox".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"adminBox\"," + 
+					"\"dictionaryLookup\" : false," + 
+					"\"maxCardsPerDay\" : 10} ",
+			com.anfelisa.box.data.BoxCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateBoxMinimalAsAdmin fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateBoxMinimalAsAdmin");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateBoxMinimalAsAdmin not met");
 		}
 		
 
-		response = 
-		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"adminCat\"," + 
-				"\"categoryName\" : \"c\"," + 
-				"\"parentCategoryId\" : \"adminBox\"} ",
-		com.anfelisa.category.data.CategoryCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateCategoryAsAdmin")) {
+			uuid = "adminCat".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"c\"," + 
+					"\"parentCategoryId\" : \"adminBox\"} ",
+			com.anfelisa.category.data.CategoryCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateCategoryAsAdmin fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateCategoryAsAdmin");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateCategoryAsAdmin not met");
 		}
 		
 
 	}
 	
 	private Response when() throws Exception {
+		String uuid = this.randomUUID();
 		
 		return 
 		com.anfelisa.card.ActionCalls.callMoveCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryId\" : \"adminCat\"," + 
 				"\"cardIdList\" : [ \"c1\"]} ",
 		com.anfelisa.card.data.MoveCardsData.class)
 		
-		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
 		
 	}
 	
@@ -187,13 +238,19 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 				
 				@Test
 				public void moveCardsNoAccessToCategory() throws Exception {
-					given();
-					
-					Response response = when();
-			
-					then(response);
-					
-					verifications();
+					if (prerequisite("MoveCardsNoAccessToCategory")) {
+						given();
+						
+						Response response = when();
+		
+						LOG.info("WHEN: MoveCards");
+				
+						then(response);
+						
+						verifications();
+					} else {
+						LOG.info("prerequisite for MoveCardsNoAccessToCategory not met");
+					}
 				}
 				
 				protected abstract void verifications();

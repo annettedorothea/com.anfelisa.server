@@ -15,7 +15,7 @@ scenarios
 					scoredCardQuality: 0,
 					scoredCardScheduledCardId: "c1-sc1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard1
@@ -30,7 +30,7 @@ scenarios
 					scoredCardQuality: 1,
 					scoredCardScheduledCardId: "c3-sc1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard2
@@ -45,7 +45,7 @@ scenarios
 					scoredCardQuality: 2,
 					scoredCardScheduledCardId: "c1-sc1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard3
@@ -60,7 +60,7 @@ scenarios
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "c1-sc1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard4
@@ -75,7 +75,7 @@ scenarios
 					scoredCardQuality: 4,
 					scoredCardScheduledCardId: "c1-sc1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard5
@@ -90,7 +90,7 @@ scenarios
 					scoredCardQuality: 5,
 					scoredCardScheduledCardId: "c4-sc1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCardAsAdmin
@@ -120,7 +120,7 @@ scenarios
 					scoredCardQuality: 0,
 					scoredCardScheduledCardId: "score0"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard31
@@ -136,7 +136,7 @@ scenarios
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score3"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard32
@@ -151,7 +151,7 @@ scenarios
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score31"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard33
@@ -166,7 +166,7 @@ scenarios
 					scoredCardQuality: 4,
 					scoredCardScheduledCardId: "score32"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard34
@@ -181,7 +181,7 @@ scenarios
 					scoredCardQuality: 5,
 					scoredCardScheduledCardId: "score33"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard35
@@ -196,7 +196,7 @@ scenarios
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score34"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard36
@@ -211,7 +211,7 @@ scenarios
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score35"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard37
@@ -226,7 +226,7 @@ scenarios
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score36"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard38
@@ -241,7 +241,7 @@ scenarios
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score37"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard39
@@ -256,7 +256,7 @@ scenarios
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score38"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCard310
@@ -271,7 +271,7 @@ scenarios
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score39"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCardMinimumQFactor
@@ -286,7 +286,7 @@ scenarios
 					scoredCardQuality: 3,
 					scoredCardScheduledCardId: "score310"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCardCardDoesNotExist
@@ -301,7 +301,7 @@ scenarios
 					scoredCardQuality: 0,
 					scoredCardScheduledCardId: "xx"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	ScoreCardCardUnauthorized
@@ -349,7 +349,7 @@ scenarios
 					scoredCardQuality: 0,
 					scoredCardScheduledCardId: "c3-sc1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScoreCardMaxCardsPerDay
@@ -369,7 +369,7 @@ scenarios
 					scoredCardQuality: 0,
 					scoredCardScheduledCardId: "c4-sc1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 

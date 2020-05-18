@@ -31,6 +31,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
@@ -38,38 +41,49 @@ import de.acegen.NotReplayableDataProvider;
 @SuppressWarnings("unused")
 public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenario {
 
+	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteUserUnauthorizedScenario.class);
+	
 	private void given() throws Exception {
 		Response response;
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		String uuid;
+		if (prerequisite("RegisterUser")) {
+			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+					"\"language\" : \"de\"," + 
+					"\"password\" : \"password\"," + 
+					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+			com.anfelisa.user.data.UserRegistrationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort());
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: RegisterUser");
+		} else {
+			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
 	}
 	
 	private Response when() throws Exception {
+		String uuid = this.randomUUID();
 		
 		return 
 		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"usernameToBeDeleted\" : \"Annette\"} ",
 		com.anfelisa.user.data.DeleteUserData.class)
 		
-		, DROPWIZARD.getLocalPort(), null);
+		, this.getProtocol(), this.getHost(), this.getPort(), null);
 		
 	}
 	
@@ -88,13 +102,19 @@ public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenari
 				
 				@Test
 				public void deleteUserUnauthorized() throws Exception {
-					given();
-					
-					Response response = when();
-			
-					then(response);
-					
-					verifications();
+					if (prerequisite("DeleteUserUnauthorized")) {
+						given();
+						
+						Response response = when();
+		
+						LOG.info("WHEN: DeleteUser");
+				
+						then(response);
+						
+						verifications();
+					} else {
+						LOG.info("prerequisite for DeleteUserUnauthorized not met");
+					}
 				}
 				
 				protected abstract void verifications();

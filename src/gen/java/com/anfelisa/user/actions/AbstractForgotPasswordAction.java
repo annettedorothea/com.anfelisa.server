@@ -35,6 +35,8 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
 import de.acegen.HttpMethod;
@@ -66,10 +68,13 @@ public abstract class AbstractForgotPasswordAction extends WriteAction<IForgotPa
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractForgotPasswordAction.class);
 	
+	private ObjectMapper objectMapper;
+
 	public AbstractForgotPasswordAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.ForgotPasswordAction", persistenceConnection, appConfiguration, daoProvider,
 						viewProvider, e2e, HttpMethod.POST);
+		objectMapper = new ObjectMapper();
 	}
 
 	@Override
@@ -88,11 +93,18 @@ public abstract class AbstractForgotPasswordAction extends WriteAction<IForgotPa
 
 	@Override
 	protected void initActionDataFromNotReplayableDataProvider() {
-		if (NotReplayableDataProvider.getSystemTime() != null) {
-			this.actionData.setSystemTime(NotReplayableDataProvider.getSystemTime());
+		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
+		if (systemTime != null) {
+			this.actionData.setSystemTime(systemTime);
 		}
-		if (NotReplayableDataProvider.get("token") != null) {
-			this.actionData.setToken((String)NotReplayableDataProvider.get("token"));
+		Object value = NotReplayableDataProvider.consumeValue(this.actionData.getUuid(), "token");
+		if (value != null) {
+			try {
+				String token = (String)value;
+				this.actionData.setToken(token);
+			} catch (Exception x) {
+				LOG.warn("token is declared as not replayable and failed to parse {} from NotReplayableDataProvider.", value);
+			}
 		} else {
 			LOG.warn("token is declared as not replayable but no value was found in NotReplayableDataProvider.");
 		}

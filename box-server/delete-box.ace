@@ -12,7 +12,7 @@ scenarios
 				{
 					boxId: "boxId"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	DeleteBoxNotMyBox
@@ -44,5 +44,5 @@ scenarios
 				{
 					boxId: "xxx"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400

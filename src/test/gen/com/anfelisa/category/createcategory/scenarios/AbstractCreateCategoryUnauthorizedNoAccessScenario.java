@@ -31,6 +31,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
@@ -38,74 +41,98 @@ import de.acegen.NotReplayableDataProvider;
 @SuppressWarnings("unused")
 public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends BaseScenario {
 
+	static final Logger LOG = LoggerFactory.getLogger(AbstractCreateCategoryUnauthorizedNoAccessScenario.class);
+	
 	private void given() throws Exception {
 		Response response;
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid-admin\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"admin-password\"," + 
-				"\"username\" : \"Admin\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		String uuid;
+		if (prerequisite("RegisterUserAdmin")) {
+			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+					"\"language\" : \"de\"," + 
+					"\"password\" : \"admin-password\"," + 
+					"\"username\" : \"Admin\"} ",
+			com.anfelisa.user.data.UserRegistrationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort());
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: RegisterUserAdmin");
+		} else {
+			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
 		
 
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("RegisterUser")) {
+			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+					"\"language\" : \"de\"," + 
+					"\"password\" : \"password\"," + 
+					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+			com.anfelisa.user.data.UserRegistrationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort());
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: RegisterUser");
+		} else {
+			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
-		response = 
-		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"boxId\"," + 
-				"\"categoryName\" : \"cat\"," + 
-				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 10} ",
-		com.anfelisa.box.data.BoxCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateBoxMinimal")) {
+			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"cat\"," + 
+					"\"dictionaryLookup\" : false," + 
+					"\"maxCardsPerDay\" : 10} ",
+			com.anfelisa.box.data.BoxCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateBoxMinimal");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
 	}
 	
 	private Response when() throws Exception {
+		String uuid = this.randomUUID();
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryName\" : \"lala\"," + 
 				"\"parentCategoryId\" : \"boxId\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class)
 		
-		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
 		
 	}
 	
@@ -124,13 +151,19 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 				
 				@Test
 				public void createCategoryUnauthorizedNoAccess() throws Exception {
-					given();
-					
-					Response response = when();
-			
-					then(response);
-					
-					verifications();
+					if (prerequisite("CreateCategoryUnauthorizedNoAccess")) {
+						given();
+						
+						Response response = when();
+		
+						LOG.info("WHEN: CreateCategory");
+				
+						then(response);
+						
+						verifications();
+					} else {
+						LOG.info("prerequisite for CreateCategoryUnauthorizedNoAccess not met");
+					}
 				}
 				
 				protected abstract void verifications();

@@ -31,6 +31,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
@@ -38,343 +41,473 @@ import de.acegen.NotReplayableDataProvider;
 @SuppressWarnings("unused")
 public abstract class AbstractScoreCard39Scenario extends BaseScenario {
 
+	static final Logger LOG = LoggerFactory.getLogger(AbstractScoreCard39Scenario.class);
+	
 	private void given() throws Exception {
 		Response response;
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		String uuid;
+		if (prerequisite("RegisterUser")) {
+			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+					"\"language\" : \"de\"," + 
+					"\"password\" : \"password\"," + 
+					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+			com.anfelisa.user.data.UserRegistrationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort());
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: RegisterUser");
+		} else {
+			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
-		response = 
-		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"boxId\"," + 
-				"\"categoryName\" : \"cat\"," + 
-				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 10} ",
-		com.anfelisa.box.data.BoxCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateBoxMinimal")) {
+			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"cat\"," + 
+					"\"dictionaryLookup\" : false," + 
+					"\"maxCardsPerDay\" : 10} ",
+			com.anfelisa.box.data.BoxCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateBoxMinimal");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
-		response = 
-		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"cat1\"," + 
-				"\"categoryName\" : \"level 1 #1\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
-		com.anfelisa.category.data.CategoryCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateCategory")) {
+			uuid = "cat1".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"level 1 #1\"," + 
+					"\"parentCategoryId\" : \"boxId\"} ",
+			com.anfelisa.category.data.CategoryCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateCategory");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
 		
 
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c1\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"given\"," + 
-				"\"image\" : \"image\"," + 
-				"\"wanted\" : \"wanted\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateCard")) {
+			uuid = "c1".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryId\" : \"cat1\"," + 
+					"\"given\" : \"given\"," + 
+					"\"image\" : \"image\"," + 
+					"\"wanted\" : \"wanted\"} ",
+			com.anfelisa.card.data.CardCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateCard");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateCard not met");
 		}
 		
 
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c2\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"given2\"," + 
-				"\"image\" : \"image2\"," + 
-				"\"wanted\" : \"wanted2\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateSecondCard")) {
+			uuid = "c2".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryId\" : \"cat1\"," + 
+					"\"given\" : \"given2\"," + 
+					"\"image\" : \"image2\"," + 
+					"\"wanted\" : \"wanted2\"} ",
+			com.anfelisa.card.data.CardCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateSecondCard fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateSecondCard");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateSecondCard not met");
 		}
 		
 
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c3\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"3given\"," + 
-				"\"wanted\" : \"3wanted\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateThirdCard")) {
+			uuid = "c3".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryId\" : \"cat1\"," + 
+					"\"given\" : \"3given\"," + 
+					"\"wanted\" : \"3wanted\"} ",
+			com.anfelisa.card.data.CardCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateThirdCard fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateThirdCard");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateThirdCard not met");
 		}
 		
 
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c4\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"4given4\"," + 
-				"\"wanted\" : \"4wanted4\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateFourthCard")) {
+			uuid = "c4".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryId\" : \"cat1\"," + 
+					"\"given\" : \"4given4\"," + 
+					"\"wanted\" : \"4wanted4\"} ",
+			com.anfelisa.card.data.CardCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateFourthCard fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateFourthCard");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateFourthCard not met");
 		}
 		
 
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c5\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"different\"," + 
-				"\"wanted\" : \"different\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateFifthCard")) {
+			uuid = "c5".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryId\" : \"cat1\"," + 
+					"\"given\" : \"different\"," + 
+					"\"wanted\" : \"different\"} ",
+			com.anfelisa.card.data.CardCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateFifthCard fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateFifthCard");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateFifthCard not met");
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"sc1\"," + 
-				"\"cardIds\" : [ \"c1\"," + 
-				"\"c3\"," + 
-				"\"c4\"]} ",
-		com.anfelisa.box.data.ScheduledCardsData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN ScheduleCards fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("ScheduleCards")) {
+			uuid = "sc1".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"cardIds\" : [ \"c1\"," + 
+					"\"c3\"," + 
+					"\"c4\"]} ",
+			com.anfelisa.box.data.ScheduledCardsData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN ScheduleCards fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: ScheduleCards");
+		} else {
+			LOG.info("GIVEN: prerequisite for ScheduleCards not met");
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score3\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 3," + 
-				"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("ScoreCard3")) {
+			uuid = "score3".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"boxId\" : \"boxId\"," + 
+					"\"scoredCardQuality\" : 3," + 
+					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
+			com.anfelisa.box.data.ScoreCardData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN ScoreCard3 fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: ScoreCard3");
+		} else {
+			LOG.info("GIVEN: prerequisite for ScoreCard3 not met");
 		}
 		
 
-		response = 
-		com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"categoryId\" : \"boxId\"," + 
-				"\"categoryName\" : \"changed\"," + 
-				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 11," + 
-				"\"maxInterval\" : 90} ",
-		com.anfelisa.box.data.BoxUpdateData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN UpdateBox fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("UpdateBoxMaxInterval")) {
+			uuid = this.randomUUID();
+			response = 
+			com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"boxId\" : \"boxId\"," + 
+					"\"categoryId\" : \"boxId\"," + 
+					"\"categoryName\" : \"changed\"," + 
+					"\"dictionaryLookup\" : false," + 
+					"\"maxCardsPerDay\" : 11," + 
+					"\"maxInterval\" : 90} ",
+			com.anfelisa.box.data.BoxUpdateData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN UpdateBoxMaxInterval fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: UpdateBoxMaxInterval");
+		} else {
+			LOG.info("GIVEN: prerequisite for UpdateBoxMaxInterval not met");
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200425 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score31\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 3," + 
-				"\"scoredCardScheduledCardId\" : \"score3\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("ScoreCard31")) {
+			uuid = "score31".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200425 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"boxId\" : \"boxId\"," + 
+					"\"scoredCardQuality\" : 3," + 
+					"\"scoredCardScheduledCardId\" : \"score3\"} ",
+			com.anfelisa.box.data.ScoreCardData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN ScoreCard31 fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: ScoreCard31");
+		} else {
+			LOG.info("GIVEN: prerequisite for ScoreCard31 not met");
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200515 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score32\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 3," + 
-				"\"scoredCardScheduledCardId\" : \"score31\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("ScoreCard32")) {
+			uuid = "score32".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200515 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"boxId\" : \"boxId\"," + 
+					"\"scoredCardQuality\" : 3," + 
+					"\"scoredCardScheduledCardId\" : \"score31\"} ",
+			com.anfelisa.box.data.ScoreCardData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN ScoreCard32 fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: ScoreCard32");
+		} else {
+			LOG.info("GIVEN: prerequisite for ScoreCard32 not met");
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200615 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score33\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 4," + 
-				"\"scoredCardScheduledCardId\" : \"score32\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("ScoreCard33")) {
+			uuid = "score33".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200615 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"boxId\" : \"boxId\"," + 
+					"\"scoredCardQuality\" : 4," + 
+					"\"scoredCardScheduledCardId\" : \"score32\"} ",
+			com.anfelisa.box.data.ScoreCardData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN ScoreCard33 fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: ScoreCard33");
+		} else {
+			LOG.info("GIVEN: prerequisite for ScoreCard33 not met");
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20200819 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score34\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 5," + 
-				"\"scoredCardScheduledCardId\" : \"score33\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("ScoreCard34")) {
+			uuid = "score34".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200819 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"boxId\" : \"boxId\"," + 
+					"\"scoredCardQuality\" : 5," + 
+					"\"scoredCardScheduledCardId\" : \"score33\"} ",
+			com.anfelisa.box.data.ScoreCardData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN ScoreCard34 fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: ScoreCard34");
+		} else {
+			LOG.info("GIVEN: prerequisite for ScoreCard34 not met");
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20201120 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score35\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 3," + 
-				"\"scoredCardScheduledCardId\" : \"score34\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("ScoreCard35")) {
+			uuid = "score35".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20201120 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"boxId\" : \"boxId\"," + 
+					"\"scoredCardQuality\" : 3," + 
+					"\"scoredCardScheduledCardId\" : \"score34\"} ",
+			com.anfelisa.box.data.ScoreCardData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN ScoreCard35 fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: ScoreCard35");
+		} else {
+			LOG.info("GIVEN: prerequisite for ScoreCard35 not met");
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20210301 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score36\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 3," + 
-				"\"scoredCardScheduledCardId\" : \"score35\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("ScoreCard36")) {
+			uuid = "score36".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20210301 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"boxId\" : \"boxId\"," + 
+					"\"scoredCardQuality\" : 3," + 
+					"\"scoredCardScheduledCardId\" : \"score35\"} ",
+			com.anfelisa.box.data.ScoreCardData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN ScoreCard36 fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: ScoreCard36");
+		} else {
+			LOG.info("GIVEN: prerequisite for ScoreCard36 not met");
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20210701 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score37\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 3," + 
-				"\"scoredCardScheduledCardId\" : \"score36\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("ScoreCard37")) {
+			uuid = "score37".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20210701 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"boxId\" : \"boxId\"," + 
+					"\"scoredCardQuality\" : 3," + 
+					"\"scoredCardScheduledCardId\" : \"score36\"} ",
+			com.anfelisa.box.data.ScoreCardData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN ScoreCard37 fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: ScoreCard37");
+		} else {
+			LOG.info("GIVEN: prerequisite for ScoreCard37 not met");
 		}
 		
 
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20211001 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
-		response = 
-		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score38\"," + 
-				"\"boxId\" : \"boxId\"," + 
-				"\"scoredCardQuality\" : 3," + 
-				"\"scoredCardScheduledCardId\" : \"score37\"} ",
-		com.anfelisa.box.data.ScoreCardData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN ScoreCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("ScoreCard38")) {
+			uuid = "score38".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20211001 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"boxId\" : \"boxId\"," + 
+					"\"scoredCardQuality\" : 3," + 
+					"\"scoredCardScheduledCardId\" : \"score37\"} ",
+			com.anfelisa.box.data.ScoreCardData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN ScoreCard38 fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: ScoreCard38");
+		} else {
+			LOG.info("GIVEN: prerequisite for ScoreCard38 not met");
 		}
 		
 
 	}
 	
 	private Response when() throws Exception {
-		NotReplayableDataProvider.setSystemTime(DateTime.parse("20220201 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+		String uuid = "score39";
+		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20220201 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
+					this.getProtocol(), this.getHost(), this.getPort());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"score39\"," + 
+			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"boxId\" : \"boxId\"," + 
 				"\"scoredCardQuality\" : 3," + 
 				"\"scoredCardScheduledCardId\" : \"score38\"} ",
 		com.anfelisa.box.data.ScoreCardData.class)
 		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 		
 	}
 	
@@ -393,13 +526,19 @@ public abstract class AbstractScoreCard39Scenario extends BaseScenario {
 				
 				@Test
 				public void scoreCard39() throws Exception {
-					given();
-					
-					Response response = when();
-			
-					then(response);
-					
-					verifications();
+					if (prerequisite("ScoreCard39")) {
+						given();
+						
+						Response response = when();
+		
+						LOG.info("WHEN: ScoreCard");
+				
+						then(response);
+						
+						verifications();
+					} else {
+						LOG.info("prerequisite for ScoreCard39 not met");
+					}
 				}
 				
 				protected abstract void verifications();

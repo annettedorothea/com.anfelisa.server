@@ -31,60 +31,60 @@ public class ActionCalls {
 
 	public static Response callCreateCategory(
 			com.anfelisa.category.data.ICategoryCreationData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/category/create", port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/category/create", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callUpdateCategory(
 			com.anfelisa.category.data.ICategoryUpdateData data, 
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/category/update?uuid=" + data.getUuid(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/category/update?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callDeleteCategory(
 			com.anfelisa.category.data.ICategoryDeleteData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/category/delete?uuid=" + data.getUuid() + "&categoryId=" + data.getCategoryId(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/category/delete?uuid=" + data.getUuid() + "&categoryId=" + data.getCategoryId(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.delete();
 	}
 	
 	public static Response callGetCategoryTree(
 			com.anfelisa.category.data.ICategoryTreeData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/category/tree?uuid=" + data.getUuid() + "&rootCategoryId=" + data.getRootCategoryId(), port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/category/tree?uuid=" + data.getUuid() + "&rootCategoryId=" + data.getRootCategoryId(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
 	
 	public static Response callMoveCategory(
 			com.anfelisa.category.data.ICategoryMoveData data, 
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/category/move?uuid=" + data.getUuid(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/category/move?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callChangeOrderCategory(
 			com.anfelisa.category.data.ICategoryChangeOrderData data, 
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/category/changeorder?uuid=" + data.getUuid(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/category/changeorder?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.put(Entity.json(data));
 	}

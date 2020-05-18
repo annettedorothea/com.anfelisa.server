@@ -95,6 +95,7 @@ public class App extends Application<CustomAppConfiguration> {
 		E2E e2e = new E2E();
 
 		mode = configuration.getServerConfiguration().getMode();
+		LOG.info("running in {} mode", mode);
 		if (ServerConfiguration.REPLAY.equals(mode)) {
 			environment.jersey().register(new PrepareE2EResource(jdbi, daoProvider, viewProvider, e2e, configuration));
 			environment.jersey().register(new StartE2ESessionResource(jdbi, daoProvider, e2e, configuration));
@@ -104,6 +105,12 @@ public class App extends Application<CustomAppConfiguration> {
 		} else if (ServerConfiguration.DEV.equals(mode)) {
 			environment.jersey().register(new GetServerTimelineResource(jdbi, configuration));
 			LOG.warn("You are running in DEV mode. This is a security risc.");
+		} else if (ServerConfiguration.TEST.equals(mode)) {
+			LOG.warn("You are running in TEST mode and the database is going to be cleared.");
+			PersistenceHandle handle = new PersistenceHandle(jdbi.open());
+			daoProvider.truncateAllViews(handle);
+			handle.getHandle().close();
+			environment.jersey().register(new NotReplayableDataProviderResource());
 		}
 
 		environment.jersey().register(new GetServerInfoResource());

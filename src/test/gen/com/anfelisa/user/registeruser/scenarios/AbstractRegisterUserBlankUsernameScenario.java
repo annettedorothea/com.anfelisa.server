@@ -31,6 +31,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
@@ -38,22 +41,26 @@ import de.acegen.NotReplayableDataProvider;
 @SuppressWarnings("unused")
 public abstract class AbstractRegisterUserBlankUsernameScenario extends BaseScenario {
 
+	static final Logger LOG = LoggerFactory.getLogger(AbstractRegisterUserBlankUsernameScenario.class);
+	
 	private void given() throws Exception {
 		Response response;
+		String uuid;
 	}
 	
 	private Response when() throws Exception {
+		String uuid = this.randomUUID();
 		
 		return 
 		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"  \"} ",
 		com.anfelisa.user.data.UserRegistrationData.class)
 		
-		, DROPWIZARD.getLocalPort());
+		, this.getProtocol(), this.getHost(), this.getPort());
 		
 	}
 	
@@ -72,13 +79,19 @@ public abstract class AbstractRegisterUserBlankUsernameScenario extends BaseScen
 				
 				@Test
 				public void registerUserBlankUsername() throws Exception {
-					given();
-					
-					Response response = when();
-			
-					then(response);
-					
-					verifications();
+					if (prerequisite("RegisterUserBlankUsername")) {
+						given();
+						
+						Response response = when();
+		
+						LOG.info("WHEN: RegisterUser");
+				
+						then(response);
+						
+						verifications();
+					} else {
+						LOG.info("prerequisite for RegisterUserBlankUsername not met");
+					}
 				}
 				
 				protected abstract void verifications();

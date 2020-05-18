@@ -11,7 +11,7 @@ scenarios
 				{
 					rootCategoryId: "boxId"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				rootCategory : {
@@ -65,7 +65,7 @@ scenarios
 				{
 					rootCategoryId: "boxId"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				rootCategory : {

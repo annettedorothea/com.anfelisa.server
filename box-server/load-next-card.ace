@@ -13,7 +13,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -38,7 +38,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -63,7 +63,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -89,7 +89,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -116,7 +116,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200419 04:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 2,
@@ -146,7 +146,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -174,7 +174,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -203,7 +203,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -232,7 +232,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -262,7 +262,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -293,7 +293,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -324,7 +324,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -355,7 +355,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -387,7 +387,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -408,7 +408,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 3,
@@ -424,7 +424,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 2,
@@ -450,7 +450,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 1,
@@ -477,7 +477,7 @@ scenarios
 					boxId: "boxId",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				allTodaysCards: 0,
@@ -492,7 +492,7 @@ scenarios
 				{
 					boxId: "boxId"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	LoadNextCardBoxIdNull
@@ -503,7 +503,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	LoadNextCardBoxIdDoesNotExist
@@ -515,7 +515,7 @@ scenarios
 					boxId: "xxx",
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	LoadNextCardNotMyBox

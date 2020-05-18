@@ -9,7 +9,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUserAdmin 
 			com.anfelisa.user.confirmemail.ConfirmEmailOK
 		WHEN com.anfelisa.user.GetAllUsers
-			authorization "Annette" : "password"
+			authorization "Annette-${testId}" : "password"
 		THEN 401
 
 	GetAllUsersAdmin

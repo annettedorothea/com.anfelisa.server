@@ -31,90 +31,90 @@ public class ActionCalls {
 
 	public static Response callCreateCard(
 			com.anfelisa.card.data.ICardCreationData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/card/create", port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/card/create", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callUpdateCard(
 			com.anfelisa.card.data.ICardUpdateData data, 
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/card/update?uuid=" + data.getUuid(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/card/update?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callDeleteCard(
 			com.anfelisa.card.data.ICardDeleteData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/card/delete?uuid=" + data.getUuid() + "&cardId=" + data.getCardId(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/card/delete?uuid=" + data.getUuid() + "&cardId=" + data.getCardId(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.delete();
 	}
 	
 	public static Response callGetCards(
 			com.anfelisa.card.data.ICardListData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/cards?uuid=" + data.getUuid() + "&categoryId=" + data.getCategoryId(), port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/cards?uuid=" + data.getUuid() + "&categoryId=" + data.getCategoryId(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
 	
 	public static Response callGetDuplicates(
 			com.anfelisa.card.data.ICardSearchData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/cards/search?uuid=" + data.getUuid() + "&given=" + data.getGiven() + "&wanted=" + data.getWanted() + "&naturalInputOrder=" + data.getNaturalInputOrder() + "&categoryId=" + data.getCategoryId(), port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/cards/search?uuid=" + data.getUuid() + "&given=" + data.getGiven() + "&wanted=" + data.getWanted() + "&naturalInputOrder=" + data.getNaturalInputOrder() + "&categoryId=" + data.getCategoryId(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
 	
 	public static Response callMoveCards(
 			com.anfelisa.card.data.IMoveCardsData data, 
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/cards/move?uuid=" + data.getUuid(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/cards/move?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callChangeOrder(
 			com.anfelisa.card.data.IChangeCardOrderListData data, 
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/cards/changeorder?uuid=" + data.getUuid(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/cards/changeorder?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callImportCsv(
 			com.anfelisa.card.data.ICsvUploadData data, 
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/category/import-csv?uuid=" + data.getUuid(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/category/import-csv?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callGetTranslation(
 			com.anfelisa.card.data.ICardTranslationData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/card/translation?uuid=" + data.getUuid() + "&sourceValue=" + data.getSourceValue() + "&sourceLanguage=" + data.getSourceLanguage() + "&targetLanguage=" + data.getTargetLanguage(), port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/card/translation?uuid=" + data.getUuid() + "&sourceValue=" + data.getSourceValue() + "&sourceLanguage=" + data.getSourceLanguage() + "&targetLanguage=" + data.getTargetLanguage(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}

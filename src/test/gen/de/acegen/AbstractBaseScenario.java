@@ -20,6 +20,8 @@
 package de.acegen;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.ws.rs.core.Response;
+import org.joda.time.DateTime;
 
 public abstract class AbstractBaseScenario {
 
@@ -52,6 +54,24 @@ public abstract class AbstractBaseScenario {
 	protected abstract void assertFail(String message);
 
 	protected abstract String scenarioName();
+	
+	protected abstract String getProtocol();
+	
+	protected abstract String getHost();
+	
+	protected abstract int getPort();
+
+	protected abstract String getTestId();
+
+	protected abstract boolean prerequisite(String scenarioName);
+	
+	protected abstract Response callNotReplayableDataProviderPutValue(
+				String uuid, String key, Object data,
+				String protocol, String host, int port);
+				
+	protected abstract Response callNotReplayableDataProviderPutSystemTime(
+				String uuid, DateTime dateTime,
+				String protocol, String host, int port);
 
 }
 

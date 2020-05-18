@@ -35,6 +35,8 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
 import de.acegen.HttpMethod;
@@ -68,10 +70,13 @@ public abstract class AbstractMoveCardsAction extends WriteAction<IMoveCardsData
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractMoveCardsAction.class);
 	
+	private ObjectMapper objectMapper;
+
 	public AbstractMoveCardsAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.card.actions.MoveCardsAction", persistenceConnection, appConfiguration, daoProvider,
 						viewProvider, e2e, HttpMethod.PUT);
+		objectMapper = new ObjectMapper();
 	}
 
 	@Override
@@ -89,8 +94,9 @@ public abstract class AbstractMoveCardsAction extends WriteAction<IMoveCardsData
 
 	@Override
 	protected void initActionDataFromNotReplayableDataProvider() {
-		if (NotReplayableDataProvider.getSystemTime() != null) {
-			this.actionData.setSystemTime(NotReplayableDataProvider.getSystemTime());
+		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
+		if (systemTime != null) {
+			this.actionData.setSystemTime(systemTime);
 		}
 	}
 

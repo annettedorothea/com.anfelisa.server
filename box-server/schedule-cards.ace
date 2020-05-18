@@ -13,7 +13,7 @@ scenarios
 				{
 					cardIds: ["c1", "c3", "c4" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScheduleScoredCardAgain
@@ -26,7 +26,7 @@ scenarios
 				{
 					cardIds: ["c1"]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScheduleScheduledCardAgain
@@ -39,7 +39,7 @@ scenarios
 				{
 					cardIds: ["c1"]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScheduleSortedOutCard
@@ -52,7 +52,7 @@ scenarios
 				{
 					cardIds: ["c1"]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScheduleCardsAsAdmin
@@ -78,7 +78,7 @@ scenarios
 				{
 					cardIds: ["123456789-123456789-123456789-123456789"]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScheduleCardsWithExisting
@@ -91,7 +91,7 @@ scenarios
 				{
 					cardIds: ["c2", "c5" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScheduleCardsEmptyCardIds
@@ -104,7 +104,7 @@ scenarios
 				{
 					cardIds: []
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ScheduleCardsNullCardIds
@@ -114,7 +114,7 @@ scenarios
 			com.anfelisa.box.ScheduleCards
 				uuid "sc1"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	ScheduleCardsUnauthorized
@@ -154,7 +154,7 @@ scenarios
 				{
 					cardIds: ["c1" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 

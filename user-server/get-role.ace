@@ -9,7 +9,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUserAdmin 
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN com.anfelisa.user.GetRole
-			authorization "Annette" : "password"
+			authorization "Annette-${testId}" : "password"
 		THEN 200
 		response {
 			role: "STUDENT"
@@ -18,7 +18,7 @@ scenarios
 	GetRoleWrongPassword
 		GIVEN com.anfelisa.user.registeruser.RegisterUser
 		WHEN com.anfelisa.user.GetRole
-			authorization "Annette" : "wrong"
+			authorization "Annette-${testId}" : "wrong"
 		THEN 401
 
 	GetRoleUnknownUser

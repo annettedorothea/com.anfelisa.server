@@ -11,7 +11,7 @@ scenarios
 				{
 					categoryId: "cat1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	DeleteCategoryUnauthorized
@@ -45,7 +45,7 @@ scenarios
 				{
 					categoryId: "xx"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	DeleteRootCategory
@@ -57,6 +57,6 @@ scenarios
 				{
 					categoryId: "boxId"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 

@@ -28,7 +28,7 @@ scenarios
 						}
 					]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ImportCsvNotEmpty
@@ -57,7 +57,7 @@ scenarios
 						}
 					]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ImportCsvNoAccessToCategory
@@ -111,6 +111,6 @@ scenarios
 						}
 					]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 

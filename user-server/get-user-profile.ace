@@ -9,7 +9,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUserAdmin 
 			com.anfelisa.user.registeruser.RegisterUser
 		WHEN com.anfelisa.user.GetUserProfile
-			authorization "Annette" : "password"
+			authorization "Annette-${testId}" : "password"
 		THEN 200
 		response {
 			email : "annette.pohl@anfelisa.de",

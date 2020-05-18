@@ -31,6 +31,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
@@ -38,162 +41,221 @@ import de.acegen.NotReplayableDataProvider;
 @SuppressWarnings("unused")
 public abstract class AbstractMoveCardsCardDoesNotExistScenario extends BaseScenario {
 
+	static final Logger LOG = LoggerFactory.getLogger(AbstractMoveCardsCardDoesNotExistScenario.class);
+	
 	private void given() throws Exception {
 		Response response;
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"password\"," + 
-				"\"username\" : \"Annette\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		String uuid;
+		if (prerequisite("RegisterUser")) {
+			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+					"\"language\" : \"de\"," + 
+					"\"password\" : \"password\"," + 
+					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+			com.anfelisa.user.data.UserRegistrationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort());
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: RegisterUser");
+		} else {
+			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
-		response = 
-		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"boxId\"," + 
-				"\"categoryName\" : \"cat\"," + 
-				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 10} ",
-		com.anfelisa.box.data.BoxCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateBox fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateBoxMinimal")) {
+			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"cat\"," + 
+					"\"dictionaryLookup\" : false," + 
+					"\"maxCardsPerDay\" : 10} ",
+			com.anfelisa.box.data.BoxCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateBoxMinimal");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
-		response = 
-		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"cat1\"," + 
-				"\"categoryName\" : \"level 1 #1\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
-		com.anfelisa.category.data.CategoryCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateCategory")) {
+			uuid = "cat1".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"level 1 #1\"," + 
+					"\"parentCategoryId\" : \"boxId\"} ",
+			com.anfelisa.category.data.CategoryCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateCategory");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
 		
 
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c1\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"given\"," + 
-				"\"image\" : \"image\"," + 
-				"\"wanted\" : \"wanted\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateCard")) {
+			uuid = "c1".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryId\" : \"cat1\"," + 
+					"\"given\" : \"given\"," + 
+					"\"image\" : \"image\"," + 
+					"\"wanted\" : \"wanted\"} ",
+			com.anfelisa.card.data.CardCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateCard");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateCard not met");
 		}
 		
 
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c2\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"given2\"," + 
-				"\"image\" : \"image2\"," + 
-				"\"wanted\" : \"wanted2\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateSecondCard")) {
+			uuid = "c2".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryId\" : \"cat1\"," + 
+					"\"given\" : \"given2\"," + 
+					"\"image\" : \"image2\"," + 
+					"\"wanted\" : \"wanted2\"} ",
+			com.anfelisa.card.data.CardCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateSecondCard fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateSecondCard");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateSecondCard not met");
 		}
 		
 
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c3\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"3given\"," + 
-				"\"wanted\" : \"3wanted\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateThirdCard")) {
+			uuid = "c3".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryId\" : \"cat1\"," + 
+					"\"given\" : \"3given\"," + 
+					"\"wanted\" : \"3wanted\"} ",
+			com.anfelisa.card.data.CardCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateThirdCard fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateThirdCard");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateThirdCard not met");
 		}
 		
 
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c4\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"4given4\"," + 
-				"\"wanted\" : \"4wanted4\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateFourthCard")) {
+			uuid = "c4".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryId\" : \"cat1\"," + 
+					"\"given\" : \"4given4\"," + 
+					"\"wanted\" : \"4wanted4\"} ",
+			com.anfelisa.card.data.CardCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateFourthCard fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateFourthCard");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateFourthCard not met");
 		}
 		
 
-		response = 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
-			"\"uuid\" : \"c5\"," + 
-				"\"categoryId\" : \"cat1\"," + 
-				"\"given\" : \"different\"," + 
-				"\"wanted\" : \"different\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateFifthCard")) {
+			uuid = "c5".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryId\" : \"cat1\"," + 
+					"\"given\" : \"different\"," + 
+					"\"wanted\" : \"different\"} ",
+			com.anfelisa.card.data.CardCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateFifthCard fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateFifthCard");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateFifthCard not met");
 		}
 		
 
-		response = 
-		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
-			"\"uuid\" : \"cat2\"," + 
-				"\"categoryName\" : \"level 1 #2\"," + 
-				"\"parentCategoryId\" : \"boxId\"} ",
-		com.anfelisa.category.data.CategoryCreationData.class)
-		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		if (prerequisite("CreateSecondCategory")) {
+			uuid = "cat2".replace("${testId}", this.getTestId());
+			response = 
+			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"level 1 #2\"," + 
+					"\"parentCategoryId\" : \"boxId\"} ",
+			com.anfelisa.category.data.CategoryCreationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateSecondCategory fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateSecondCategory");
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateSecondCategory not met");
 		}
 		
 
 	}
 	
 	private Response when() throws Exception {
+		String uuid = this.randomUUID();
 		
 		return 
 		com.anfelisa.card.ActionCalls.callMoveCards(objectMapper.readValue("{" +
-			"\"uuid\" : \"" + this.randomUUID() + "\"," + 
+			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryId\" : \"cat2\"," + 
 				"\"cardIdList\" : [ \"c1\"," + 
 				"\"lala\"," + 
@@ -201,7 +263,7 @@ public abstract class AbstractMoveCardsCardDoesNotExistScenario extends BaseScen
 				"\"c4\"]} ",
 		com.anfelisa.card.data.MoveCardsData.class)
 		
-		, DROPWIZARD.getLocalPort(), authorization("Annette", "password"));
+		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 		
 	}
 	
@@ -220,13 +282,19 @@ public abstract class AbstractMoveCardsCardDoesNotExistScenario extends BaseScen
 				
 				@Test
 				public void moveCardsCardDoesNotExist() throws Exception {
-					given();
-					
-					Response response = when();
-			
-					then(response);
-					
-					verifications();
+					if (prerequisite("MoveCardsCardDoesNotExist")) {
+						given();
+						
+						Response response = when();
+		
+						LOG.info("WHEN: MoveCards");
+				
+						then(response);
+						
+						verifications();
+					} else {
+						LOG.info("prerequisite for MoveCardsCardDoesNotExist not met");
+					}
 				}
 				
 				protected abstract void verifications();

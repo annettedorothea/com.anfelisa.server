@@ -12,7 +12,7 @@ scenarios
 					categoryName: "changed",
 					categoryId: "cat1"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	UpdateCategoryUnauthorized
@@ -48,7 +48,7 @@ scenarios
 					categoryName: "changed",
 					categoryId: "xxx"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 		

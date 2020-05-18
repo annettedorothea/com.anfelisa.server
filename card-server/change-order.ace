@@ -12,7 +12,7 @@ scenarios
 					cardId: "c1",
 					cardIdList: [ "c3", "c4" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ChangeOrderFifthToFirst
@@ -24,7 +24,7 @@ scenarios
 					cardId: "c1",
 					cardIdList: [ "c5" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	ChangeOrderFirstToFifth
@@ -36,7 +36,7 @@ scenarios
 					cardId: "c5",
 					cardIdList: [ "c1" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 		
 	ChangeOrderUnauthorized
@@ -59,7 +59,7 @@ scenarios
 					cardId: "xx",
 					cardIdList: [ "c2", "c4" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	ChangeOrderMovedCardDoesNotExist
@@ -71,7 +71,7 @@ scenarios
 					cardId: "c1",
 					cardIdList: [ "c2" "xx" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	ChangeOrderNoAccessToTargetCard
@@ -84,7 +84,7 @@ scenarios
 					cardId: "c6",
 					cardIdList: [ "c2" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 401
 
 	ChangeOrderNoAccessToMovedCard
@@ -97,7 +97,7 @@ scenarios
 					cardId: "c1",
 					cardIdList: [ "c6" ]
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 401
 
 

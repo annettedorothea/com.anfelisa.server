@@ -12,7 +12,7 @@ scenarios
 					movedCategoryId: "cat3",
 					targetCategoryId: "boxId"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	MoveCategoryToSub
@@ -24,7 +24,7 @@ scenarios
 					movedCategoryId: "cat1",
 					targetCategoryId: "cat3"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 		

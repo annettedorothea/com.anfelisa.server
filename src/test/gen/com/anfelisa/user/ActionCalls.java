@@ -31,90 +31,90 @@ public class ActionCalls {
 
 	public static Response callRegisterUser(
 			com.anfelisa.user.data.IUserRegistrationData data,
-			int port) {
+			String protocol, String host, int port) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/users/register", port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/users/register", protocol, host, port)).request(); 
 		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callGetRole(
 			com.anfelisa.user.data.IRoleData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/user/role?uuid=" + data.getUuid(), port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/user/role?uuid=" + data.getUuid(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
 	
 	public static Response callUsernameAvailable(
 			com.anfelisa.user.data.IUsernameAvailableData data,
-			int port) {
+			String protocol, String host, int port) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/users/username?uuid=" + data.getUuid() + "&username=" + data.getUsername(), port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/users/username?uuid=" + data.getUuid() + "&username=" + data.getUsername(), protocol, host, port)).request(); 
 		return builder.get();
 	}
 	
 	public static Response callConfirmEmail(
 			com.anfelisa.user.data.IConfirmEmailData data, 
-			int port) {
+			String protocol, String host, int port) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/users/confirm?uuid=" + data.getUuid(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/users/confirm?uuid=" + data.getUuid(), protocol, host, port)).request();
 		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callGetUserProfile(
 			com.anfelisa.user.data.IUserData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/user/get?uuid=" + data.getUuid(), port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/user/get?uuid=" + data.getUuid(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
 	
 	public static Response callGetAllUsers(
 			com.anfelisa.user.data.IUserListData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/users/all?uuid=" + data.getUuid(), port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/users/all?uuid=" + data.getUuid(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
 	
 	public static Response callForgotPassword(
 			com.anfelisa.user.data.IForgotPasswordData data,
-			int port) {
+			String protocol, String host, int port) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/users/forgot-password", port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/users/forgot-password", protocol, host, port)).request(); 
 		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callResetPassword(
 			com.anfelisa.user.data.IResetPasswordWithNewPasswordData data, 
-			int port) {
+			String protocol, String host, int port) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/users/resetpassword?uuid=" + data.getUuid(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/users/resetpassword?uuid=" + data.getUuid(), protocol, host, port)).request();
 		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callChangeUserRole(
 			com.anfelisa.user.data.IChangeUserRoleData data, 
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/user/role?uuid=" + data.getUuid(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/user/role?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callDeleteUser(
 			com.anfelisa.user.data.IDeleteUserData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/user/delete?uuid=" + data.getUuid() + "&usernameToBeDeleted=" + data.getUsernameToBeDeleted(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/user/delete?uuid=" + data.getUuid() + "&usernameToBeDeleted=" + data.getUsernameToBeDeleted(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.delete();
 	}

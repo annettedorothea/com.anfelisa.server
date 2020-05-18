@@ -12,7 +12,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				boxList: [
@@ -42,7 +42,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				boxList: [
@@ -70,7 +70,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				boxList: [
@@ -98,7 +98,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				boxList: [
@@ -126,7 +126,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				boxList: [
@@ -154,7 +154,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				boxList: [
@@ -182,7 +182,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				boxList: [
@@ -210,7 +210,7 @@ scenarios
 				{
 					todayAtMidnightInUTC: "20200418 02:00" "yyyyMMdd HH:mm"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response {
 				boxList: [
@@ -237,7 +237,7 @@ scenarios
 			com.anfelisa.box.GetBoxStatistics
 				{
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	GetBoxesUnauthorized

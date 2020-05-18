@@ -123,9 +123,6 @@ public abstract class WriteAction<T extends IDataContainer> extends Action<T> {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(message).build();
 		} finally {
 			databaseHandle.close();
-			if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
-				NotReplayableDataProvider.clear();
-			}
 		}
 	}
 

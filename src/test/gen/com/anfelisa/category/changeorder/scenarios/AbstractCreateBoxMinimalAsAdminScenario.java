@@ -31,6 +31,9 @@ import org.joda.time.format.DateTimeFormat;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
@@ -38,40 +41,51 @@ import de.acegen.NotReplayableDataProvider;
 @SuppressWarnings("unused")
 public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenario {
 
+	static final Logger LOG = LoggerFactory.getLogger(AbstractCreateBoxMinimalAsAdminScenario.class);
+	
 	private void given() throws Exception {
 		Response response;
-		NotReplayableDataProvider.put("token", objectMapper.readValue("\"ADMIN-TOKEN\"",
-				 String.class));
-		response = 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
-			"\"uuid\" : \"uuid-admin\"," + 
-				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-				"\"language\" : \"de\"," + 
-				"\"password\" : \"admin-password\"," + 
-				"\"username\" : \"Admin\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
-		
-		, DROPWIZARD.getLocalPort());
-		
-		if (response.getStatus() >= 400) {
-			String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-			assertFail(message);
+		String uuid;
+		if (prerequisite("RegisterUserAdmin")) {
+			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
+						this.getProtocol(), this.getHost(), this.getPort());
+			response = 
+			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+					"\"language\" : \"de\"," + 
+					"\"password\" : \"admin-password\"," + 
+					"\"username\" : \"Admin\"} ",
+			com.anfelisa.user.data.UserRegistrationData.class)
+			
+			, this.getProtocol(), this.getHost(), this.getPort());
+			
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
+				assertFail(message);
+			}
+			LOG.info("GIVEN: RegisterUserAdmin");
+		} else {
+			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
 		
 
 	}
 	
 	private Response when() throws Exception {
+		String uuid = "adminBox";
 		
 		return 
 		com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
-			"\"uuid\" : \"adminBox\"," + 
+			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryName\" : \"adminBox\"," + 
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class)
 		
-		, DROPWIZARD.getLocalPort(), authorization("Admin", "admin-password"));
+		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
 		
 	}
 	
@@ -90,13 +104,19 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 				
 				@Test
 				public void createBoxMinimalAsAdmin() throws Exception {
-					given();
-					
-					Response response = when();
-			
-					then(response);
-					
-					verifications();
+					if (prerequisite("CreateBoxMinimalAsAdmin")) {
+						given();
+						
+						Response response = when();
+		
+						LOG.info("WHEN: CreateBox");
+				
+						then(response);
+						
+						verifications();
+					} else {
+						LOG.info("prerequisite for CreateBoxMinimalAsAdmin not met");
+					}
 				}
 				
 				protected abstract void verifications();

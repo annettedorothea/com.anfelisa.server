@@ -14,7 +14,7 @@ scenarios
 					image: "image-updated",
 					wanted: "wanted-updated"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	UpdateCardMissingCardId
@@ -27,7 +27,7 @@ scenarios
 					image: "image",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	UpdateCardGivenNull
@@ -40,7 +40,7 @@ scenarios
 					image: "image",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	UpdateCardGivenEmpty
@@ -54,7 +54,7 @@ scenarios
 					image: "image",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	UpdateCardWantedNull
@@ -67,7 +67,7 @@ scenarios
 					given: "given",
 					image: "image"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 		
 	UpdateCardWantedEmpty
@@ -81,7 +81,7 @@ scenarios
 					image: "image",
 					wanted: "  "
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	UpdateCardImageNull
@@ -94,7 +94,7 @@ scenarios
 					given: "given",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	UpdateCardImageEmpty
@@ -108,7 +108,7 @@ scenarios
 					image: "  ",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 200
 
 	UpdateCardCardDoesNotExist
@@ -122,7 +122,7 @@ scenarios
 					image: "image",
 					wanted: "wanted"
 				}
-				authorization "Annette" : "password"
+				authorization "Annette-${testId}" : "password"
 		THEN 400
 
 	UpdateCardNoAccessToCategory

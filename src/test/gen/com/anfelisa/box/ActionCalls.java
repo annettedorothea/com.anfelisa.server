@@ -31,120 +31,120 @@ public class ActionCalls {
 
 	public static Response callCreateBox(
 			com.anfelisa.box.data.IBoxCreationData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/box/create", port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/box/create", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callUpdateBox(
 			com.anfelisa.box.data.IBoxUpdateData data, 
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/box/update?uuid=" + data.getUuid(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/box/update?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callGetBoxSettings(
 			com.anfelisa.box.data.IBoxSettingsWrapperData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/box/settings/" + data.getBoxId() + "/?uuid=" + data.getUuid(), port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/box/settings/" + data.getBoxId() + "/?uuid=" + data.getUuid(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
 	
 	public static Response callScheduleCards(
 			com.anfelisa.box.data.IScheduledCardsData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/cards/schedule", port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/cards/schedule", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callSortCardsOut(
 			com.anfelisa.box.data.ISortCardsOutData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/cards/sort-out", port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/cards/sort-out", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callScoreCard(
 			com.anfelisa.box.data.IScoreCardData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/card/score", port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/card/score", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callScoreReinforceCard(
 			com.anfelisa.box.data.IScoreReinforceCardData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/card/score-reinforce", port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/card/score-reinforce", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callInitMyBoxesForDay(
 			com.anfelisa.box.data.IInitMyBoxesDataData data, 
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/box/init?uuid=" + data.getUuid(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/box/init?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callGetBoxes(
 			com.anfelisa.box.data.IBoxListData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/boxes/my/?uuid=" + data.getUuid() + "&todayAtMidnightInUTC=" + data.getTodayAtMidnightInUTC(), port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/boxes/my/?uuid=" + data.getUuid() + "&todayAtMidnightInUTC=" + data.getTodayAtMidnightInUTC(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
 	
 	public static Response callGetBoxStatistics(
 			com.anfelisa.box.data.IBoxStatisticsListData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/boxes/statistics/?uuid=" + data.getUuid() + "&todayAtMidnightInUTC=" + data.getTodayAtMidnightInUTC(), port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/boxes/statistics/?uuid=" + data.getUuid() + "&todayAtMidnightInUTC=" + data.getTodayAtMidnightInUTC(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
 	
 	public static Response callLoadNextCard(
 			com.anfelisa.box.data.INextCardData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/box/next-card?uuid=" + data.getUuid() + "&boxId=" + data.getBoxId() + "&todayAtMidnightInUTC=" + data.getTodayAtMidnightInUTC(), port)).request(); 
+		Builder builder = client.target(String.format("%s://%s:%d/api/box/next-card?uuid=" + data.getUuid() + "&boxId=" + data.getBoxId() + "&todayAtMidnightInUTC=" + data.getTodayAtMidnightInUTC(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
 		return builder.get();
 	}
 	
 	public static Response callDeleteBox(
 			com.anfelisa.box.data.IDeleteBoxData data,
-			int port, 
+			String protocol, String host, int port, 
 			String authorization) {
 		Client client = new JerseyClientBuilder().build();
-		Builder builder = client.target(String.format("http://localhost:%d/api/box/delete?uuid=" + data.getUuid() + "&boxId=" + data.getBoxId(), port)).request();
+		Builder builder = client.target(String.format("%s://%s:%d/api/box/delete?uuid=" + data.getUuid() + "&boxId=" + data.getBoxId(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
 		return builder.delete();
 	}
