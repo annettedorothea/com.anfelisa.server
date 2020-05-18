@@ -79,7 +79,7 @@ scenarios
 				language : "de",
 				password : "pw",
 				username : "Annette-${testId}",
-				token : "XXX"				
+				token : "XXX-${testId}"				
 			}
 		THEN 400
 	

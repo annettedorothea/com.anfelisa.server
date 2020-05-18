@@ -14,9 +14,6 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-
-
-
 package com.anfelisa.user.registeruser.scenarios;
 
 import com.anfelisa.auth.Roles;
@@ -30,21 +27,18 @@ public class RegisterTwoUsersScenario extends AbstractRegisterTwoUsersScenario {
 
 	@Override
 	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Anne");
-		IUserModel expectedUser = new UserModel("uuid2", "Anne", "pw", "info@anfelisa.de", Roles.STUDENT, false);
+		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Anne-" + getTestId());
+		IUserModel expectedUser = new UserModel("uuid2-" + getTestId(), "Anne-" + getTestId(), "pw", "info@anfelisa.de",
+				Roles.STUDENT, false);
 		assertThat(actualUser, expectedUser);
-		
-		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN_2");
-		IEmailConfirmationModel expectedEmailConfirmationModel = new EmailConfirmationModel("TOKEN_2", "uuid2");
+
+		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao()
+				.selectByToken(handle, "TOKEN_2-" + getTestId());
+		IEmailConfirmationModel expectedEmailConfirmationModel = new EmailConfirmationModel("TOKEN_2-" + getTestId(),
+				"uuid2-" + getTestId());
 		assertThat(actualEmailConfirmationModel, expectedEmailConfirmationModel);
 	}
 
 }
 
-
-
-
 /******* S.D.G. *******/
-
-
-

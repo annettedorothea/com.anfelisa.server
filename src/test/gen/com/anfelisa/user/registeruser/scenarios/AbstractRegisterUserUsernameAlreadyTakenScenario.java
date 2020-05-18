@@ -77,7 +77,7 @@ public abstract class AbstractRegisterUserUsernameAlreadyTakenScenario extends B
 	private Response when() throws Exception {
 		String uuid = "uuid-at".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutValue(uuid, "token", 
-					objectMapper.readValue("\"XXX\"",  String.class),
+					objectMapper.readValue("\"XXX-" + this.getTestId() + "\"",  String.class),
 					this.getProtocol(), this.getHost(), this.getPort());
 		
 		return 

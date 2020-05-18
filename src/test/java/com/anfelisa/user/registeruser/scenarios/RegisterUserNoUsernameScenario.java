@@ -29,11 +29,12 @@ public class RegisterUserNoUsernameScenario extends AbstractRegisterUserNoUserna
 
 	@Override
 	protected void verifications() {
-		List<IUserModel> actualUsers = this.daoProvider.getUserDao().selectAll(handle);
-		assertThat(actualUsers.size(), 0);
-		
-		List<IEmailConfirmationModel> allEmailConfirmations = this.daoProvider.getEmailConfirmationDao().selectAll(handle);
-		assertThat(allEmailConfirmations.size(), 0);
+		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
+		assertIsNull(actualUser);
+
+		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao()
+				.selectByToken(handle, "TOKEN-" + getTestId());
+		assertIsNull(actualEmailConfirmationModel);
 	}
 
 }

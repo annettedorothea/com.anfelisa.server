@@ -14,34 +14,29 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-
-
-
 package com.anfelisa.user.registeruser.scenarios;
 
 import java.util.List;
 
+import com.anfelisa.auth.Roles;
+import com.anfelisa.user.models.EmailConfirmationModel;
 import com.anfelisa.user.models.IEmailConfirmationModel;
 import com.anfelisa.user.models.IUserModel;
+import com.anfelisa.user.models.UserModel;
 
 @SuppressWarnings("unused")
 public class RegisterUserEmptyUsernameScenario extends AbstractRegisterUserEmptyUsernameScenario {
 
 	@Override
 	protected void verifications() {
-		List<IUserModel> actualUsers = this.daoProvider.getUserDao().selectAll(handle);
-		assertThat(actualUsers.size(), 0);
-		
-		List<IEmailConfirmationModel> allEmailConfirmations = this.daoProvider.getEmailConfirmationDao().selectAll(handle);
-		assertThat(allEmailConfirmations.size(), 0);
+		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
+		assertIsNull(actualUser);
+
+		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao()
+				.selectByToken(handle, "TOKEN-" + getTestId());
+		assertIsNull(actualEmailConfirmationModel);
 	}
 
 }
 
-
-
-
 /******* S.D.G. *******/
-
-
-

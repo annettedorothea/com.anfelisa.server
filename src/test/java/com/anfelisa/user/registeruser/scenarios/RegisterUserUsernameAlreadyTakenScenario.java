@@ -32,17 +32,18 @@ public class RegisterUserUsernameAlreadyTakenScenario extends AbstractRegisterUs
 
 	@Override
 	protected void verifications() {
-		List<IUserModel> actualUsers = this.daoProvider.getUserDao().selectAll(handle);
-		assertThat(actualUsers.size(), 1);
+		IUserModel actualUser = this.daoProvider.getUserDao().selectByUserId(handle, "uuid-at-" + getTestId());
+		assertIsNull(actualUser);
 
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
+		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao()
+				.selectByToken(handle, "XXX-" + getTestId());
+		assertIsNull(actualEmailConfirmationModel);
+
+		actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
 		IUserModel expectedUser = new UserModel("uuid-" + getTestId(), "Annette-" + getTestId(), "password", "annette.pohl@anfelisa.de", Roles.STUDENT, false);
 		assertThat(actualUser, expectedUser);
 
-		List<IEmailConfirmationModel> allEmailConfirmations = this.daoProvider.getEmailConfirmationDao().selectAll(handle);
-		assertThat(allEmailConfirmations.size(), 1);
-
-		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN-" + getTestId());
+		actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN-" + getTestId());
 		IEmailConfirmationModel expectedEmailConfirmationModel = new EmailConfirmationModel("TOKEN-" + getTestId(), "uuid-" + getTestId());
 		assertThat(actualEmailConfirmationModel, expectedEmailConfirmationModel);
 	}
