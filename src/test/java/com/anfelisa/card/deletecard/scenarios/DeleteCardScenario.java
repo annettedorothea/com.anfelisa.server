@@ -26,7 +26,7 @@ public class DeleteCardScenario extends AbstractDeleteCardScenario {
 
 	@Override
 	protected void verifications() {
-		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c1");
+		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c1-" + getTestId());
 		assertIsNull(actualCard);
 	}
 

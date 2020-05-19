@@ -33,8 +33,8 @@ public class ScoreCard31Scenario extends AbstractScoreCard31Scenario {
 		DateTime scoredDateTime = new DateTime(2020, 4, 25, 16, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score31");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score31", "c1","boxId-" + getTestId(),
+				"score31-" + getTestId());
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score31-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
 				scoredDateTime, 2.22F, 13, 3, 2, scoredDateTime.plusDays(13), 3, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);

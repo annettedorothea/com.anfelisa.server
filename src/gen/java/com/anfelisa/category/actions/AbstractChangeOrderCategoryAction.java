@@ -97,6 +97,8 @@ public abstract class AbstractChangeOrderCategoryAction extends WriteAction<ICat
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -123,6 +125,8 @@ public abstract class AbstractChangeOrderCategoryAction extends WriteAction<ICat
 		}
 		this.actionData.setTargetCategoryId(payload.getTargetCategoryId());
 		this.actionData.setUserId(authUser.getUserId());
+		
+		LOG.info("execute ChangeOrderCategory with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

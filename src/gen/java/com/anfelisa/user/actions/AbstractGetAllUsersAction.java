@@ -89,6 +89,8 @@ public abstract class AbstractGetAllUsersAction extends ReadAction<IUserListData
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -105,6 +107,8 @@ public abstract class AbstractGetAllUsersAction extends ReadAction<IUserListData
 		}
 		this.actionData = new UserListData(uuid);
 		this.actionData.setRole(authUser.getRole());
+		
+		LOG.info("execute GetAllUsers with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

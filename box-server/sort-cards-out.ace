@@ -10,7 +10,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
-					cardIds: ["c1", "c4" ]
+					cardIds: ["c1-${testId}", "c4-${testId}" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -21,7 +21,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
-					cardIds: ["c1", "c4" ]
+					cardIds: ["c1-${testId}", "c4-${testId}" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -32,7 +32,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
-					cardIds: ["c1", "xx", "c4" ]
+					cardIds: ["c1-${testId}", "xx", "c4-${testId}" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -63,7 +63,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
-					cardIds: ["c1", "c4" ]
+					cardIds: ["c1-${testId}", "c4-${testId}" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -74,7 +74,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
-					cardIds: ["c1", "c4" ]
+					cardIds: ["c1-${testId}", "c4-${testId}" ]
 				}
 		THEN 401
 
@@ -85,7 +85,7 @@ scenarios
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
-					cardIds: ["c1", "c4" ]
+					cardIds: ["c1-${testId}", "c4-${testId}" ]
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401

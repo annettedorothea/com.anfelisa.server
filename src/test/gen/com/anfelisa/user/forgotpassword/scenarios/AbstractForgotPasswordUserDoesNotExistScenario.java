@@ -48,6 +48,7 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}

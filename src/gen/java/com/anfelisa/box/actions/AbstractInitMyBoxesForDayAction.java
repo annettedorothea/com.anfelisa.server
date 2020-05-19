@@ -97,6 +97,8 @@ public abstract class AbstractInitMyBoxesForDayAction extends WriteAction<IInitM
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -118,6 +120,8 @@ public abstract class AbstractInitMyBoxesForDayAction extends WriteAction<IInitM
 		}
 		this.actionData.setTodayAtMidnightInUTC(payload.getTodayAtMidnightInUTC());
 		this.actionData.setUserId(authUser.getUserId());
+		
+		LOG.info("execute InitMyBoxesForDay with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

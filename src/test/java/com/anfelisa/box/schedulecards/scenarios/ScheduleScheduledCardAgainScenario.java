@@ -36,8 +36,8 @@ public class ScheduleScheduledCardAgainScenario extends AbstractScheduleSchedule
 		DateTime creationDateTime = new DateTime(2020, 4, 18, 10, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"c1-sc1");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c1-sc1", "c1","boxId-" + getTestId(),
+				"c1-" + getTestId() + "-sc1-" + getTestId());
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c1-" + getTestId() + "-sc1-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
 				creationDateTime, 2.5F, 1, 1, 0, dateTime, null, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);

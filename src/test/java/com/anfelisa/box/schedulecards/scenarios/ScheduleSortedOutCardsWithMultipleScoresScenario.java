@@ -36,8 +36,8 @@ public class ScheduleSortedOutCardsWithMultipleScoresScenario extends AbstractSc
 		DateTime scheduledDateTime = new DateTime(2022, 3, 18, 10, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score39");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score39", "c1","boxId-" + getTestId(),
+				"score39-" + getTestId());
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score39-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
 				creationDateTime, 1.48F, 90, 11, 10, scheduledDateTime, 3, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);

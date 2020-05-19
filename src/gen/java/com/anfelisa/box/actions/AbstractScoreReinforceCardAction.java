@@ -97,6 +97,8 @@ public abstract class AbstractScoreReinforceCardAction extends WriteAction<IScor
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -123,6 +125,8 @@ public abstract class AbstractScoreReinforceCardAction extends WriteAction<IScor
 		}
 		this.actionData.setScoredCardQuality(payload.getScoredCardQuality());
 		this.actionData.setUserId(authUser.getUserId());
+		
+		LOG.info("execute ScoreReinforceCard with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

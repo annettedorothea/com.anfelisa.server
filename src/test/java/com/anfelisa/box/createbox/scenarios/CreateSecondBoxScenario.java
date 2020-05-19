@@ -32,7 +32,7 @@ public class CreateSecondBoxScenario extends AbstractCreateSecondBoxScenario {
 	@Override
 	protected void verifications() {
 		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId2-" + getTestId());
-		ICategoryModel expectedCategory = new CategoryModel("boxId2-" + getTestId(), "cat2", "Annette-" + getTestId(), 1, null, "boxId2-" + getTestId(), false, null,
+		ICategoryModel expectedCategory = new CategoryModel("boxId2-" + getTestId(), "cat2-" + getTestId(), "Annette-" + getTestId(), 1, null, "boxId2-" + getTestId(), false, null,
 				null);
 		assertThat(actualCategory, expectedCategory);
 

@@ -25,7 +25,7 @@ scenarios
 			com.anfelisa.box.CreateBox
 				uuid "boxId2-${testId}"
 				{
-					categoryName: "cat2",
+					categoryName: "cat2-${testId}",
 					dictionaryLookup: false,
 					maxCardsPerDay: 8
 				}

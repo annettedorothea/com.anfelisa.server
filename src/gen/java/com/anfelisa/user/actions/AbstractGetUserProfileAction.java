@@ -89,6 +89,8 @@ public abstract class AbstractGetUserProfileAction extends ReadAction<IUserData>
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -108,6 +110,8 @@ public abstract class AbstractGetUserProfileAction extends ReadAction<IUserData>
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setPassword(authUser.getPassword());
 		this.actionData.setRole(authUser.getRole());
+		
+		LOG.info("execute GetUserProfile with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

@@ -27,20 +27,20 @@ public class ImportCsvNotEmptyScenario extends AbstractImportCsvNotEmptyScenario
 
 	@Override
 	protected void verifications() {
-		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c1");
-		ICardModel expectedCard = new CardModel("c1", "given", "wanted", "image", "Annette-" + getTestId(), 1, "cat1","boxId-" + getTestId());
+		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c1-" + getTestId());
+		ICardModel expectedCard = new CardModel("c1-" + getTestId(), "given", "wanted", "image", "Annette-" + getTestId(), 1, "cat1-" + getTestId(),"boxId-" + getTestId());
 		assertThat(actualCard, expectedCard);
 
-		actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "1");
-		expectedCard = new CardModel("1", "g1", "w1", null, "Annette-" + getTestId(), 2, "cat1","boxId-" + getTestId());
+		actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "1-" + getTestId());
+		expectedCard = new CardModel("1-" + getTestId(), "g1", "w1", null, "Annette-" + getTestId(), 2, "cat1-" + getTestId(),"boxId-" + getTestId());
 		assertThat(actualCard, expectedCard);
 
-		actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "2");
-		expectedCard = new CardModel("2", "g2", "w2", null, "Annette-" + getTestId(), 3, "cat1","boxId-" + getTestId());
+		actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "2-" + getTestId());
+		expectedCard = new CardModel("2-" + getTestId(), "g2", "w2", null, "Annette-" + getTestId(), 3, "cat1-" + getTestId(),"boxId-" + getTestId());
 		assertThat(actualCard, expectedCard);
 		
-		actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "3");
-		expectedCard = new CardModel("3", "g3", "w3", null, "Annette-" + getTestId(), 4, "cat1","boxId-" + getTestId());
+		actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "3-" + getTestId());
+		expectedCard = new CardModel("3-" + getTestId(), "g3", "w3", null, "Annette-" + getTestId(), 4, "cat1-" + getTestId(),"boxId-" + getTestId());
 		assertThat(actualCard, expectedCard);
 	}
 

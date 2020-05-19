@@ -89,6 +89,8 @@ public abstract class AbstractGetRoleAction extends ReadAction<IRoleData> {
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -106,6 +108,8 @@ public abstract class AbstractGetRoleAction extends ReadAction<IRoleData> {
 		this.actionData = new RoleData(uuid);
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setRole(authUser.getRole());
+		
+		LOG.info("execute GetRole with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

@@ -8,10 +8,10 @@ scenarios
 			com.anfelisa.card.createcard.CreateFifthCard
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "sc1"
+				uuid "sc1-${testId}"
 				systemTime "20200418 10:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c1", "c3", "c4" ]
+					cardIds: ["c1-${testId}", "c3-${testId}", "c4-${testId}" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -21,10 +21,10 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "again"
+				uuid "again-${testId}"
 				systemTime "20200418 17:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c1"]
+					cardIds: ["c1-${testId}"]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -34,10 +34,10 @@ scenarios
 			ScheduleCards
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "again"
+				uuid "again-${testId}"
 				systemTime "20200418 17:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c1"]
+					cardIds: ["c1-${testId}"]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -47,10 +47,10 @@ scenarios
 			com.anfelisa.box.sortcardsout.SortCardsOutWithScoredAndReinforce
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "again"
+				uuid "again-${testId}"
 				systemTime "20200420 09:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c1"]
+					cardIds: ["c1-${testId}"]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -60,10 +60,10 @@ scenarios
 			com.anfelisa.card.createcard.CreateCardAsAdmin
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "sc6"
+				uuid "sc6-${testId}"
 				systemTime "20200418 10:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c6"]
+					cardIds: ["c6-${testId}"]
 				}
 				authorization "Admin" : "admin-password"
 		THEN 200
@@ -73,7 +73,7 @@ scenarios
 			com.anfelisa.card.createcard.CreateCardWithLongUuid
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "abcdefghi-abcdefghi-abcdefghi-abcdefghi-abcdefghi"
+				uuid "abcdefghi-abcdefghi-abcdefghi-abcdefghi-abcdefghi-${testId}"
 				systemTime "20200418 10:30" "yyyyMMdd HH:mm"
 				{
 					cardIds: ["123456789-123456789-123456789-123456789"]
@@ -86,10 +86,10 @@ scenarios
 			ScheduleCards
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "sc1"
+				uuid "sc1-${testId}"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c2", "c5" ]
+					cardIds: ["c2-${testId}", "c5-${testId}" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -99,7 +99,7 @@ scenarios
 			ScheduleCards
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "sc1"
+				uuid "sc1-${testId}"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
 					cardIds: []
@@ -112,7 +112,7 @@ scenarios
 			ScheduleCards
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "sc1"
+				uuid "sc1-${testId}"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -122,10 +122,10 @@ scenarios
 			com.anfelisa.card.createcard.CreateFifthCard
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "sc1"
+				uuid "sc1-${testId}"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c2", "c5" ]
+					cardIds: ["c2-${testId}", "c5-${testId}" ]
 				}
 		THEN 401
 
@@ -135,10 +135,10 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "sc1"
+				uuid "sc1-${testId}"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c2", "c5" ]
+					cardIds: ["c2-${testId}", "c5-${testId}" ]
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -149,10 +149,10 @@ scenarios
 			com.anfelisa.box.sortcardsout.SortCardsOut excludeGIVEN
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "reschedule"
+				uuid "reschedule-${testId}"
 				systemTime "20220318 10:30" "yyyyMMdd HH:mm"
 				{
-					cardIds: ["c1" ]
+					cardIds: ["c1-${testId}" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200

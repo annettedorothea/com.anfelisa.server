@@ -9,7 +9,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.DeleteCategory
 				{
-					categoryId: "cat1"
+					categoryId: "cat1-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -20,7 +20,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.DeleteCategory
 				{
-					categoryId: "cat1"
+					categoryId: "cat1-${testId}"
 				}
 		THEN 401
 
@@ -31,7 +31,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.DeleteCategory
 				{
-					categoryId: "cat1"
+					categoryId: "cat1-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401

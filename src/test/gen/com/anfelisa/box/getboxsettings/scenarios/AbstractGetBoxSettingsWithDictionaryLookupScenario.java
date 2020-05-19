@@ -48,6 +48,7 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 
 		if (prerequisite("CreateBoxDictionaryLookup")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateBoxDictionaryLookup uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -88,9 +91,10 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxDictionaryLookup fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateBoxDictionaryLookup fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxDictionaryLookup");
+			LOG.info("GIVEN: CreateBoxDictionaryLookup success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxDictionaryLookup not met");
 		}

@@ -48,6 +48,7 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -86,16 +89,18 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateBoxMinimal fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal");
+			LOG.info("GIVEN: CreateBoxMinimal success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
 		if (prerequisite("CreateCategory")) {
-			uuid = "cat1".replace("${testId}", this.getTestId());
+			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			response = 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -107,20 +112,22 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCategory fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategory");
+			LOG.info("GIVEN: CreateCategory success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
 		
 
 		if (prerequisite("CreateCard")) {
-			uuid = "c1".replace("${testId}", this.getTestId());
+			uuid = "c1-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCard uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"given\"," + 
 					"\"image\" : \"image\"," + 
 					"\"wanted\" : \"wanted\"} ",
@@ -130,9 +137,10 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCard fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCard");
+			LOG.info("GIVEN: CreateCard success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCard not met");
 		}
@@ -140,6 +148,7 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -156,9 +165,10 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin");
+			LOG.info("GIVEN: RegisterUserAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -166,6 +176,7 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
 			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateBoxMinimalAsAdmin uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -178,16 +189,18 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimalAsAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateBoxMinimalAsAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimalAsAdmin");
+			LOG.info("GIVEN: CreateBoxMinimalAsAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimalAsAdmin not met");
 		}
 		
 
 		if (prerequisite("CreateCategoryAsAdmin")) {
-			uuid = "adminCat".replace("${testId}", this.getTestId());
+			uuid = "adminCat-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCategoryAsAdmin uuid " + uuid);
 			response = 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -199,9 +212,10 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategoryAsAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCategoryAsAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategoryAsAdmin");
+			LOG.info("GIVEN: CreateCategoryAsAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategoryAsAdmin not met");
 		}
@@ -215,8 +229,8 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 		return 
 		com.anfelisa.card.ActionCalls.callMoveCards(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"categoryId\" : \"adminCat\"," + 
-				"\"cardIdList\" : [ \"c1\"]} ",
+				"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
+				"\"cardIdList\" : [ \"c1-" + this.getTestId() + "\"]} ",
 		com.anfelisa.card.data.MoveCardsData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));

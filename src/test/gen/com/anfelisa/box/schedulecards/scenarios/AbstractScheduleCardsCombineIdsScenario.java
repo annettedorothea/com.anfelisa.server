@@ -48,6 +48,7 @@ public abstract class AbstractScheduleCardsCombineIdsScenario extends BaseScenar
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractScheduleCardsCombineIdsScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractScheduleCardsCombineIdsScenario extends BaseScenar
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -86,16 +89,18 @@ public abstract class AbstractScheduleCardsCombineIdsScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateBoxMinimal fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal");
+			LOG.info("GIVEN: CreateBoxMinimal success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
 		if (prerequisite("CreateCategory")) {
-			uuid = "cat1".replace("${testId}", this.getTestId());
+			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			response = 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -107,9 +112,10 @@ public abstract class AbstractScheduleCardsCombineIdsScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCategory fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategory");
+			LOG.info("GIVEN: CreateCategory success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
@@ -117,10 +123,11 @@ public abstract class AbstractScheduleCardsCombineIdsScenario extends BaseScenar
 
 		if (prerequisite("CreateCardWithLongUuid")) {
 			uuid = "123456789-123456789-123456789-123456789".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCardWithLongUuid uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"x\"," + 
 					"\"wanted\" : \"y\"} ",
 			com.anfelisa.card.data.CardCreationData.class)
@@ -129,9 +136,10 @@ public abstract class AbstractScheduleCardsCombineIdsScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCardWithLongUuid fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCardWithLongUuid fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCardWithLongUuid");
+			LOG.info("GIVEN: CreateCardWithLongUuid success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCardWithLongUuid not met");
 		}
@@ -140,7 +148,7 @@ public abstract class AbstractScheduleCardsCombineIdsScenario extends BaseScenar
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "abcdefghi-abcdefghi-abcdefghi-abcdefghi-abcdefghi".replace("${testId}", this.getTestId());
+		String uuid = "abcdefghi-abcdefghi-abcdefghi-abcdefghi-abcdefghi-${testId}".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 					this.getProtocol(), this.getHost(), this.getPort());
 		

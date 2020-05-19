@@ -97,6 +97,8 @@ public abstract class AbstractDeleteBoxAction extends WriteAction<IDeleteBoxData
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -119,6 +121,8 @@ public abstract class AbstractDeleteBoxAction extends WriteAction<IDeleteBoxData
 		}
 		this.actionData.setBoxId(boxId);
 		this.actionData.setUserId(authUser.getUserId());
+		
+		LOG.info("execute DeleteBox with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

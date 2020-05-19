@@ -9,22 +9,22 @@ scenarios
 		WHEN
 			com.anfelisa.card.ImportCsv
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					previewCsv : [
 						{
 							given: "g1",
 							wanted: "w1",
-							id: "1"
+							id: "1-${testId}"
 						},
 						{
 							given: "g2",
 							wanted: "w2",
-							id: "2"
+							id: "2-${testId}"
 						},
 						{
 							given: "g3",
 							wanted: "w3",
-							id: "3"
+							id: "3-${testId}"
 						}
 					]
 				}
@@ -38,22 +38,22 @@ scenarios
 		WHEN
 			com.anfelisa.card.ImportCsv
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					previewCsv : [
 						{
 							given: "g1",
 							wanted: "w1",
-							id: "1"
+							id: "1-${testId}"
 						},
 						{
 							given: "g2",
 							wanted: "w2",
-							id: "2"
+							id: "2-${testId}"
 						},
 						{
 							given: "g3",
 							wanted: "w3",
-							id: "3"
+							id: "3-${testId}"
 						}
 					]
 				}
@@ -67,12 +67,12 @@ scenarios
 		WHEN
 			com.anfelisa.card.ImportCsv
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					previewCsv : [
 						{
 							given: "g1",
 							wanted: "w1",
-							id: "1"
+							id: "1-${testId}"
 						}
 					]
 				}
@@ -85,12 +85,12 @@ scenarios
 		WHEN
 			com.anfelisa.card.ImportCsv
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					previewCsv : [
 						{
 							given: "g1",
 							wanted: "w1",
-							id: "1"
+							id: "1-${testId}"
 						}
 					]
 				}
@@ -107,7 +107,7 @@ scenarios
 						{
 							given: "g1",
 							wanted: "w1",
-							id: "1"
+							id: "1-${testId}"
 						}
 					]
 				}

@@ -17,14 +17,14 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 3,
-				cardId: "c1",
-				categoryId: "cat1",
+				cardId: "c1-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "given",
 				image: "image",
 				openTodaysCards: 3,
 				rootCategoryId: "boxId-${testId}",
-				scheduledCardId: "c1-sc1",
+				scheduledCardId: "c1-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				wanted: "wanted"
 			}		
@@ -42,13 +42,13 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 3,
-				cardId: "c3",
-				categoryId: "cat1",
+				cardId: "c3-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "3given",
 				openTodaysCards: 3,
 				rootCategoryId: "boxId-${testId}",
-				scheduledCardId: "c3-sc1",
+				scheduledCardId: "c3-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				wanted: "3wanted"
 			}		
@@ -67,13 +67,13 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 3,
-				cardId: "c4",
-				categoryId: "cat1",
+				cardId: "c4-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "4given4",
 				openTodaysCards: 3,
 				rootCategoryId: "boxId-${testId}",
-				scheduledCardId: "c4-sc1",
+				scheduledCardId: "c4-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				wanted: "4wanted4"
 			}		
@@ -93,14 +93,14 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 3,
-				cardId: "c1",
-				categoryId: "cat1",
+				cardId: "c1-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "given",
 				image: "image",
 				lastQuality: 0,
 				openTodaysCards: 2,
-				reinforceCardId: "score0",
+				reinforceCardId: "score0-${testId}",
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
@@ -120,15 +120,15 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 2,
-				cardId: "c1",
-				categoryId: "cat1",
+				cardId: "c1-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 1,
 				given: "given",
 				image: "image",
 				lastQuality: 0,
 				openTodaysCards: 2,
 				rootCategoryId: "boxId-${testId}",
-				scheduledCardId: "score0",
+				scheduledCardId: "score0-${testId}",
 				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
 				wanted: "wanted"
@@ -150,13 +150,13 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 3,
-				cardId: "c3",
-				categoryId: "cat1",
+				cardId: "c3-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "3given",
 				lastQuality: 1,
 				openTodaysCards: 2,
-				reinforceCardId: "score1",
+				reinforceCardId: "score1-${testId}",
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
@@ -178,14 +178,14 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 3,
-				cardId: "c1",
-				categoryId: "cat1",
+				cardId: "c1-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "given",
 				image: "image",
 				lastQuality: 2,
 				openTodaysCards: 2,
-				reinforceCardId: "score2",
+				reinforceCardId: "score2-${testId}",
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
@@ -207,14 +207,14 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 3,
-				cardId: "c1",
-				categoryId: "cat1",
+				cardId: "c1-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "given",
 				image: "image",
 				lastQuality: 3,
 				openTodaysCards: 2,
-				reinforceCardId: "score3",
+				reinforceCardId: "score3-${testId}",
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
@@ -236,13 +236,13 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 3,
-				cardId: "c3",
-				categoryId: "cat1",
+				cardId: "c3-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "3given",
 				lastQuality: 1,
 				openTodaysCards: 1,
-				reinforceCardId: "score1",
+				reinforceCardId: "score1-${testId}",
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
@@ -266,14 +266,14 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 3,
-				cardId: "c1",
-				categoryId: "cat1",
+				cardId: "c1-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "given",
 				image: "image",
 				lastQuality: 0,
 				openTodaysCards: 1,
-				reinforceCardId: "score0",
+				reinforceCardId: "score0-${testId}",
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
@@ -297,14 +297,14 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 3,
-				cardId: "c1",
-				categoryId: "cat1",
+				cardId: "c1-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "given",
 				image: "image",
 				lastQuality: 0,
 				openTodaysCards: 1,
-				reinforceCardId: "score0",
+				reinforceCardId: "score0-${testId}",
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
@@ -328,14 +328,14 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 3,
-				cardId: "c1",
-				categoryId: "cat1",
+				cardId: "c1-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "given",
 				image: "image",
 				lastQuality: 0,
 				openTodaysCards: 1,
-				reinforceCardId: "score0",
+				reinforceCardId: "score0-${testId}",
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
@@ -359,14 +359,14 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 3,
-				cardId: "c1",
-				categoryId: "cat1",
+				cardId: "c1-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "given",
 				image: "image",
 				lastQuality: 0,
 				openTodaysCards: 1,
-				reinforceCardId: "score0",
+				reinforceCardId: "score0-${testId}",
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
@@ -428,13 +428,13 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 2,
-				cardId: "c3",
-				categoryId: "cat1",
+				cardId: "c3-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "3given",
 				lastQuality: 1,
 				openTodaysCards: 1,
-				reinforceCardId: "score1",
+				reinforceCardId: "score1-${testId}",
 				rootCategoryId: "boxId-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm",
@@ -454,15 +454,15 @@ scenarios
 		THEN 200
 			response {
 				allTodaysCards: 1,
-				cardId: "c3",
-				categoryId: "cat1",
+				cardId: "c3-${testId}",
+				categoryId: "cat1-${testId}",
 				count: 0,
 				given: "3given",
 				lastQuality: null,
 				openTodaysCards: 1,
 				reinforceCardId: null,
 				rootCategoryId: "boxId-${testId}",
-				scheduledCardId: "c3-sc1",
+				scheduledCardId: "c3-${testId}-sc1-${testId}",
 				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
 				scoredDate: null,
 				wanted: "3wanted"

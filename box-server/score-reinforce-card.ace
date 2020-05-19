@@ -8,11 +8,11 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1"
+				uuid "1-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 0,
-					reinforceCardId: "score0"
+					reinforceCardId: "score0-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -22,11 +22,11 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1"
+				uuid "1-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 1,
-					reinforceCardId: "score0"
+					reinforceCardId: "score0-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -36,11 +36,11 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1"
+				uuid "1-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 2,
-					reinforceCardId: "score0"
+					reinforceCardId: "score0-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -50,11 +50,11 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1"
+				uuid "1-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 3,
-					reinforceCardId: "score0"
+					reinforceCardId: "score0-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -64,11 +64,11 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1"
+				uuid "1-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 4,
-					reinforceCardId: "score0"
+					reinforceCardId: "score0-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -78,11 +78,11 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1"
+				uuid "1-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 5,
-					reinforceCardId: "score0"
+					reinforceCardId: "score0-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -92,11 +92,11 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard1
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1"
+				uuid "1-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 5,
-					reinforceCardId: "score1"
+					reinforceCardId: "score1-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -107,11 +107,11 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1"
+				uuid "1-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 5,
-					reinforceCardId: "score0"
+					reinforceCardId: "score0-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -124,7 +124,7 @@ scenarios
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 5,
-					reinforceCardId: "score0"
+					reinforceCardId: "score0-${testId}"
 				}
 		THEN 401
 		

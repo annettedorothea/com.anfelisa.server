@@ -48,6 +48,7 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin");
+			LOG.info("GIVEN: RegisterUserAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
 			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateBoxMinimalAsAdmin uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -86,16 +89,18 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimalAsAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateBoxMinimalAsAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimalAsAdmin");
+			LOG.info("GIVEN: CreateBoxMinimalAsAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimalAsAdmin not met");
 		}
 		
 
 		if (prerequisite("CreateCategoryAsAdmin")) {
-			uuid = "adminCat".replace("${testId}", this.getTestId());
+			uuid = "adminCat-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCategoryAsAdmin uuid " + uuid);
 			response = 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -107,20 +112,22 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategoryAsAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCategoryAsAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategoryAsAdmin");
+			LOG.info("GIVEN: CreateCategoryAsAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategoryAsAdmin not met");
 		}
 		
 
 		if (prerequisite("CreateCardAsAdmin")) {
-			uuid = "c6".replace("${testId}", this.getTestId());
+			uuid = "c6-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCardAsAdmin uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"adminCat\"," + 
+					"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
 					"\"given\" : \"given\"," + 
 					"\"image\" : \"image\"," + 
 					"\"wanted\" : \"wanted\"} ",
@@ -130,31 +137,34 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCardAsAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCardAsAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCardAsAdmin");
+			LOG.info("GIVEN: CreateCardAsAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCardAsAdmin not met");
 		}
 		
 
 		if (prerequisite("ScheduleCardsAsAdmin")) {
-			uuid = "sc6".replace("${testId}", this.getTestId());
+			uuid = "sc6-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScheduleCardsAsAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
 			com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"cardIds\" : [ \"c6\"]} ",
+					"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]} ",
 			com.anfelisa.box.data.ScheduledCardsData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScheduleCardsAsAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScheduleCardsAsAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScheduleCardsAsAdmin");
+			LOG.info("GIVEN: ScheduleCardsAsAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScheduleCardsAsAdmin not met");
 		}
@@ -163,7 +173,7 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "admin-score".replace("${testId}", this.getTestId());
+		String uuid = "admin-score-${testId}".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 					this.getProtocol(), this.getHost(), this.getPort());
 		
@@ -172,7 +182,7 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"boxId\" : \"adminBox-" + this.getTestId() + "\"," + 
 				"\"scoredCardQuality\" : 1," + 
-				"\"scoredCardScheduledCardId\" : \"c6-sc6\"} ",
+				"\"scoredCardScheduledCardId\" : \"c6-" + this.getTestId() + "-sc6-" + this.getTestId() + "\"} ",
 		com.anfelisa.box.data.ScoreCardData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));

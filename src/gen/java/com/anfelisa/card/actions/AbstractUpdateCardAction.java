@@ -97,6 +97,8 @@ public abstract class AbstractUpdateCardAction extends WriteAction<ICardUpdateDa
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -130,6 +132,8 @@ public abstract class AbstractUpdateCardAction extends WriteAction<ICardUpdateDa
 		}
 		this.actionData.setWanted(payload.getWanted());
 		this.actionData.setUserId(authUser.getUserId());
+		
+		LOG.info("execute UpdateCard with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

@@ -48,6 +48,7 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -86,16 +89,18 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateBoxMinimal fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal");
+			LOG.info("GIVEN: CreateBoxMinimal success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
 		if (prerequisite("CreateCategory")) {
-			uuid = "cat1".replace("${testId}", this.getTestId());
+			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			response = 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -107,9 +112,10 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCategory fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategory");
+			LOG.info("GIVEN: CreateCategory success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
@@ -123,16 +129,16 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 		return 
 		com.anfelisa.card.ActionCalls.callImportCsv(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"previewCsv\" : [ { \"given\" : \"g1\"," + 
 				"\"wanted\" : \"w1\"," + 
-				"\"id\" : \"1\"}," + 
+				"\"id\" : \"1-" + this.getTestId() + "\"}," + 
 				"{ \"given\" : \"g2\"," + 
 				"\"wanted\" : \"w2\"," + 
-				"\"id\" : \"2\"}," + 
+				"\"id\" : \"2-" + this.getTestId() + "\"}," + 
 				"{ \"given\" : \"g3\"," + 
 				"\"wanted\" : \"w3\"," + 
-				"\"id\" : \"3\"}]} ",
+				"\"id\" : \"3-" + this.getTestId() + "\"}]} ",
 		com.anfelisa.card.data.CsvUploadData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));

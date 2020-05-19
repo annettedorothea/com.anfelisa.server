@@ -48,6 +48,7 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -86,9 +89,10 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateBoxMinimal fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal");
+			LOG.info("GIVEN: CreateBoxMinimal success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
@@ -96,10 +100,11 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 
 		if (prerequisite("CreateSecondBox")) {
 			uuid = "boxId2-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateSecondBox uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryName\" : \"cat2\"," + 
+					"\"categoryName\" : \"cat2-" + this.getTestId() + "\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 8} ",
 			com.anfelisa.box.data.BoxCreationData.class)
@@ -108,9 +113,10 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateSecondBox fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateSecondBox fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateSecondBox");
+			LOG.info("GIVEN: CreateSecondBox success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateSecondBox not met");
 		}
@@ -119,7 +125,7 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "c7".replace("${testId}", this.getTestId());
+		String uuid = "c7-${testId}".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +

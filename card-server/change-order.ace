@@ -9,8 +9,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.ChangeOrder
 				{
-					cardId: "c1",
-					cardIdList: [ "c3", "c4" ]
+					cardId: "c1-${testId}",
+					cardIdList: [ "c3-${testId}", "c4-${testId}" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -21,8 +21,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.ChangeOrder
 				{
-					cardId: "c1",
-					cardIdList: [ "c5" ]
+					cardId: "c1-${testId}",
+					cardIdList: [ "c5-${testId}" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -33,8 +33,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.ChangeOrder
 				{
-					cardId: "c5",
-					cardIdList: [ "c1" ]
+					cardId: "c5-${testId}",
+					cardIdList: [ "c1-${testId}" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -45,8 +45,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.ChangeOrder
 				{
-					cardId: "c1",
-					cardIdList: [ "c2", "c4" ]
+					cardId: "c1-${testId}",
+					cardIdList: [ "c2-${testId}", "c4-${testId}" ]
 				}
 		THEN 401
 		
@@ -57,7 +57,7 @@ scenarios
 			com.anfelisa.card.ChangeOrder
 				{
 					cardId: "xx",
-					cardIdList: [ "c2", "c4" ]
+					cardIdList: [ "c2-${testId}", "c4-${testId}" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -68,8 +68,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.ChangeOrder
 				{
-					cardId: "c1",
-					cardIdList: [ "c2" "xx" ]
+					cardId: "c1-${testId}",
+					cardIdList: [ "c2-${testId}" "xx" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -81,8 +81,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.ChangeOrder
 				{
-					cardId: "c6",
-					cardIdList: [ "c2" ]
+					cardId: "c6-${testId}",
+					cardIdList: [ "c2-${testId}" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 401
@@ -94,8 +94,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.ChangeOrder
 				{
-					cardId: "c1",
-					cardIdList: [ "c6" ]
+					cardId: "c1-${testId}",
+					cardIdList: [ "c6-${testId}" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 401

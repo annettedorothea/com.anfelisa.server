@@ -27,23 +27,23 @@ public class ChangeOrderFirstToFourthScenario extends AbstractChangeOrderFirstTo
 
 	@Override
 	protected void verifications() {
-		ICategoryModel actualCategory1 = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat1");
-		ICategoryModel expectedCategory1 = new CategoryModel("cat1", "level 1 #1", "Annette-" + getTestId(), 3,"boxId-" + getTestId(),"boxId-" + getTestId(), false, null,
+		ICategoryModel actualCategory1 = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat1-" + getTestId());
+		ICategoryModel expectedCategory1 = new CategoryModel("cat1-" + getTestId(), "level 1 #1", "Annette-" + getTestId(), 3,"boxId-" + getTestId(),"boxId-" + getTestId(), false, null,
 				null);
 		assertThat(actualCategory1, expectedCategory1);
 
-		ICategoryModel actualCategory2 = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat2");
-		ICategoryModel expectedCategory2 = new CategoryModel("cat2", "level 1 #2", "Annette-" + getTestId(), 1,"boxId-" + getTestId(),"boxId-" + getTestId(), false, null,
+		ICategoryModel actualCategory2 = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat2-" + getTestId());
+		ICategoryModel expectedCategory2 = new CategoryModel("cat2-" + getTestId(), "level 1 #2", "Annette-" + getTestId(), 1,"boxId-" + getTestId(),"boxId-" + getTestId(), false, null,
 				null);
 		assertThat(actualCategory2, expectedCategory2);
 		
-		ICategoryModel actualCategory3 = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat3");
-		ICategoryModel expectedCategory3 = new CategoryModel("cat3", "level 1 #3", "Annette-" + getTestId(), 2,"boxId-" + getTestId(),"boxId-" + getTestId(), false, null,
+		ICategoryModel actualCategory3 = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat3-" + getTestId());
+		ICategoryModel expectedCategory3 = new CategoryModel("cat3-" + getTestId(), "level 1 #3", "Annette-" + getTestId(), 2,"boxId-" + getTestId(),"boxId-" + getTestId(), false, null,
 				null);
 		assertThat(actualCategory3, expectedCategory3);
 		
-		ICategoryModel actualCategory4 = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat4");
-		ICategoryModel expectedCategory4 = new CategoryModel("cat4", "level 1 #4", "Annette-" + getTestId(), 4,"boxId-" + getTestId(),"boxId-" + getTestId(), false, null,
+		ICategoryModel actualCategory4 = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat4-" + getTestId());
+		ICategoryModel expectedCategory4 = new CategoryModel("cat4-" + getTestId(), "level 1 #4", "Annette-" + getTestId(), 4,"boxId-" + getTestId(),"boxId-" + getTestId(), false, null,
 				null);
 		assertThat(actualCategory4, expectedCategory4);
 	}

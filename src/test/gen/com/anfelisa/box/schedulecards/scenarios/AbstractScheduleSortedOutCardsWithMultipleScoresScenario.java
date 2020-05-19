@@ -48,6 +48,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -86,16 +89,18 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateBoxMinimal fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal");
+			LOG.info("GIVEN: CreateBoxMinimal success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
 		if (prerequisite("CreateCategory")) {
-			uuid = "cat1".replace("${testId}", this.getTestId());
+			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			response = 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -107,20 +112,22 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCategory fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategory");
+			LOG.info("GIVEN: CreateCategory success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
 		
 
 		if (prerequisite("CreateCard")) {
-			uuid = "c1".replace("${testId}", this.getTestId());
+			uuid = "c1-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCard uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"given\"," + 
 					"\"image\" : \"image\"," + 
 					"\"wanted\" : \"wanted\"} ",
@@ -130,20 +137,22 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCard fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCard");
+			LOG.info("GIVEN: CreateCard success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCard not met");
 		}
 		
 
 		if (prerequisite("CreateSecondCard")) {
-			uuid = "c2".replace("${testId}", this.getTestId());
+			uuid = "c2-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateSecondCard uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"given2\"," + 
 					"\"image\" : \"image2\"," + 
 					"\"wanted\" : \"wanted2\"} ",
@@ -153,20 +162,22 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateSecondCard fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateSecondCard fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateSecondCard");
+			LOG.info("GIVEN: CreateSecondCard success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateSecondCard not met");
 		}
 		
 
 		if (prerequisite("CreateThirdCard")) {
-			uuid = "c3".replace("${testId}", this.getTestId());
+			uuid = "c3-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateThirdCard uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"3given\"," + 
 					"\"wanted\" : \"3wanted\"} ",
 			com.anfelisa.card.data.CardCreationData.class)
@@ -175,20 +186,22 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateThirdCard fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateThirdCard fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateThirdCard");
+			LOG.info("GIVEN: CreateThirdCard success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateThirdCard not met");
 		}
 		
 
 		if (prerequisite("CreateFourthCard")) {
-			uuid = "c4".replace("${testId}", this.getTestId());
+			uuid = "c4-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateFourthCard uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"4given4\"," + 
 					"\"wanted\" : \"4wanted4\"} ",
 			com.anfelisa.card.data.CardCreationData.class)
@@ -197,20 +210,22 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateFourthCard fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateFourthCard fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateFourthCard");
+			LOG.info("GIVEN: CreateFourthCard success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateFourthCard not met");
 		}
 		
 
 		if (prerequisite("CreateFifthCard")) {
-			uuid = "c5".replace("${testId}", this.getTestId());
+			uuid = "c5-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateFifthCard uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"different\"," + 
 					"\"wanted\" : \"different\"} ",
 			com.anfelisa.card.data.CardCreationData.class)
@@ -219,40 +234,44 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateFifthCard fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateFifthCard fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateFifthCard");
+			LOG.info("GIVEN: CreateFifthCard success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateFifthCard not met");
 		}
 		
 
 		if (prerequisite("ScheduleCards")) {
-			uuid = "sc1".replace("${testId}", this.getTestId());
+			uuid = "sc1-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScheduleCards uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
 			com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"cardIds\" : [ \"c1\"," + 
-					"\"c3\"," + 
-					"\"c4\"]} ",
+					"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
+					"\"c3-" + this.getTestId() + "\"," + 
+					"\"c4-" + this.getTestId() + "\"]} ",
 			com.anfelisa.box.data.ScheduledCardsData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScheduleCards fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScheduleCards fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScheduleCards");
+			LOG.info("GIVEN: ScheduleCards success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScheduleCards not met");
 		}
 		
 
 		if (prerequisite("ScoreCard3")) {
-			uuid = "score3".replace("${testId}", this.getTestId());
+			uuid = "score3-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScoreCard3 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
@@ -260,16 +279,17 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"c1-sc1\"} ",
+					"\"scoredCardScheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard3 fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScoreCard3 fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard3");
+			LOG.info("GIVEN: ScoreCard3 success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScoreCard3 not met");
 		}
@@ -277,6 +297,7 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 
 		if (prerequisite("UpdateBoxMaxInterval")) {
 			uuid = this.randomUUID();
+			LOG.info("GIVEN: UpdateBoxMaxInterval uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callUpdateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -292,16 +313,18 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN UpdateBoxMaxInterval fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: UpdateBoxMaxInterval fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: UpdateBoxMaxInterval");
+			LOG.info("GIVEN: UpdateBoxMaxInterval success");
 		} else {
 			LOG.info("GIVEN: prerequisite for UpdateBoxMaxInterval not met");
 		}
 		
 
 		if (prerequisite("ScoreCard31")) {
-			uuid = "score31".replace("${testId}", this.getTestId());
+			uuid = "score31-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScoreCard31 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200425 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
@@ -309,23 +332,25 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score3\"} ",
+					"\"scoredCardScheduledCardId\" : \"score3-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard31 fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScoreCard31 fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard31");
+			LOG.info("GIVEN: ScoreCard31 success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScoreCard31 not met");
 		}
 		
 
 		if (prerequisite("ScoreCard32")) {
-			uuid = "score32".replace("${testId}", this.getTestId());
+			uuid = "score32-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScoreCard32 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200515 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
@@ -333,23 +358,25 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score31\"} ",
+					"\"scoredCardScheduledCardId\" : \"score31-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard32 fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScoreCard32 fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard32");
+			LOG.info("GIVEN: ScoreCard32 success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScoreCard32 not met");
 		}
 		
 
 		if (prerequisite("ScoreCard33")) {
-			uuid = "score33".replace("${testId}", this.getTestId());
+			uuid = "score33-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScoreCard33 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200615 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
@@ -357,23 +384,25 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 4," + 
-					"\"scoredCardScheduledCardId\" : \"score32\"} ",
+					"\"scoredCardScheduledCardId\" : \"score32-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard33 fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScoreCard33 fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard33");
+			LOG.info("GIVEN: ScoreCard33 success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScoreCard33 not met");
 		}
 		
 
 		if (prerequisite("ScoreCard34")) {
-			uuid = "score34".replace("${testId}", this.getTestId());
+			uuid = "score34-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScoreCard34 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200819 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
@@ -381,23 +410,25 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 5," + 
-					"\"scoredCardScheduledCardId\" : \"score33\"} ",
+					"\"scoredCardScheduledCardId\" : \"score33-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard34 fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScoreCard34 fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard34");
+			LOG.info("GIVEN: ScoreCard34 success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScoreCard34 not met");
 		}
 		
 
 		if (prerequisite("ScoreCard35")) {
-			uuid = "score35".replace("${testId}", this.getTestId());
+			uuid = "score35-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScoreCard35 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20201120 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
@@ -405,23 +436,25 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score34\"} ",
+					"\"scoredCardScheduledCardId\" : \"score34-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard35 fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScoreCard35 fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard35");
+			LOG.info("GIVEN: ScoreCard35 success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScoreCard35 not met");
 		}
 		
 
 		if (prerequisite("ScoreCard36")) {
-			uuid = "score36".replace("${testId}", this.getTestId());
+			uuid = "score36-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScoreCard36 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20210301 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
@@ -429,23 +462,25 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score35\"} ",
+					"\"scoredCardScheduledCardId\" : \"score35-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard36 fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScoreCard36 fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard36");
+			LOG.info("GIVEN: ScoreCard36 success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScoreCard36 not met");
 		}
 		
 
 		if (prerequisite("ScoreCard37")) {
-			uuid = "score37".replace("${testId}", this.getTestId());
+			uuid = "score37-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScoreCard37 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20210701 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
@@ -453,23 +488,25 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score36\"} ",
+					"\"scoredCardScheduledCardId\" : \"score36-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard37 fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScoreCard37 fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard37");
+			LOG.info("GIVEN: ScoreCard37 success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScoreCard37 not met");
 		}
 		
 
 		if (prerequisite("ScoreCard38")) {
-			uuid = "score38".replace("${testId}", this.getTestId());
+			uuid = "score38-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScoreCard38 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20211001 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
@@ -477,23 +514,25 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score37\"} ",
+					"\"scoredCardScheduledCardId\" : \"score37-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard38 fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScoreCard38 fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard38");
+			LOG.info("GIVEN: ScoreCard38 success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScoreCard38 not met");
 		}
 		
 
 		if (prerequisite("ScoreCard39")) {
-			uuid = "score39".replace("${testId}", this.getTestId());
+			uuid = "score39-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScoreCard39 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20220201 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
@@ -501,16 +540,17 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score38\"} ",
+					"\"scoredCardScheduledCardId\" : \"score38-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard39 fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScoreCard39 fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard39");
+			LOG.info("GIVEN: ScoreCard39 success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScoreCard39 not met");
 		}
@@ -518,20 +558,22 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 
 		if (prerequisite("SortCardsOut")) {
 			uuid = this.randomUUID();
+			LOG.info("GIVEN: SortCardsOut uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callSortCardsOut(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"cardIds\" : [ \"c1\"," + 
-					"\"c4\"]} ",
+					"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
+					"\"c4-" + this.getTestId() + "\"]} ",
 			com.anfelisa.box.data.SortCardsOutData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN SortCardsOut fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: SortCardsOut fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: SortCardsOut");
+			LOG.info("GIVEN: SortCardsOut success");
 		} else {
 			LOG.info("GIVEN: prerequisite for SortCardsOut not met");
 		}
@@ -540,14 +582,14 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "reschedule".replace("${testId}", this.getTestId());
+		String uuid = "reschedule-${testId}".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20220318 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 					this.getProtocol(), this.getHost(), this.getPort());
 		
 		return 
 		com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"cardIds\" : [ \"c1\"]} ",
+				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"]} ",
 		com.anfelisa.box.data.ScheduledCardsData.class)
 		
 		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));

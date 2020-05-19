@@ -24,9 +24,9 @@ scenarios
 			cardList : [
 				{
 					cardAuthor: "Annette-${testId}",
-					cardId: "c3",
+					cardId: "c3-${testId}",
 					cardIndex: 3,
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "3given",
 					rootCategoryId: "boxId-${testId}",
 					wanted: "3wanted",
@@ -34,9 +34,9 @@ scenarios
 				},
 				{
 					cardAuthor: "Annette-${testId}",
-					cardId: "c4",
+					cardId: "c4-${testId}",
 					cardIndex: 4,
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "4given4",
 					rootCategoryId: "boxId-${testId}",
 					wanted: "4wanted4",
@@ -44,9 +44,9 @@ scenarios
 				},
 				{
 					cardAuthor: "Annette-${testId}",
-					cardId: "c6",
+					cardId: "c6-${testId}",
 					cardIndex: 1,
-					categoryId: "cat2",
+					categoryId: "cat2-${testId}",
 					given: "aa-given",
 					rootCategoryId: "boxId-${testId}",
 					wanted: "zz-wanted",
@@ -54,9 +54,9 @@ scenarios
 				},
 				{
 					cardAuthor: "Annette-${testId}",
-					cardId: "c1",
+					cardId: "c1-${testId}",
 					cardIndex: 1,
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given",
 					image: "image",
 					rootCategoryId: "boxId-${testId}",
@@ -65,9 +65,9 @@ scenarios
 				},
 				{
 					cardAuthor: "Annette-${testId}",
-					cardId: "c2",
+					cardId: "c2-${testId}",
 					cardIndex: 2,
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given2",
 					image: "image2",
 					rootCategoryId: "boxId-${testId}",
@@ -94,9 +94,9 @@ scenarios
 			cardList : [
 				{
 					cardAuthor: "Annette-${testId}",
-					cardId: "c1",
+					cardId: "c1-${testId}",
 					cardIndex: 1,
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given",
 					image: "image",
 					rootCategoryId: "boxId-${testId}",
@@ -128,7 +128,7 @@ scenarios
 			com.anfelisa.card.createcard.CreateRandomCard 30x
 		WHEN
 			com.anfelisa.card.GetDuplicates
-				{,
+				{
 					categoryId: "boxId-${testId}",
 					given: "ive",
 					wanted: "nted",
@@ -158,9 +158,9 @@ scenarios
 			cardList : [
 				{
 					cardAuthor: "Annette-${testId}",
-					cardId: "c3",
+					cardId: "c3-${testId}",
 					cardIndex: 3,
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "3given",
 					rootCategoryId: "boxId-${testId}",
 					wanted: "3wanted",
@@ -168,9 +168,9 @@ scenarios
 				},
 				{
 					cardAuthor: "Annette-${testId}",
-					cardId: "c4",
+					cardId: "c4-${testId}",
 					cardIndex: 4,
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "4given4",
 					rootCategoryId: "boxId-${testId}",
 					wanted: "4wanted4",
@@ -178,9 +178,9 @@ scenarios
 				},
 				{
 					cardAuthor: "Annette-${testId}",
-					cardId: "c1",
+					cardId: "c1-${testId}",
 					cardIndex: 1,
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given",
 					image: "image",
 					rootCategoryId: "boxId-${testId}",
@@ -189,9 +189,9 @@ scenarios
 				},
 				{
 					cardAuthor: "Annette-${testId}",
-					cardId: "c2",
+					cardId: "c2-${testId}",
 					cardIndex: 2,
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given2",
 					image: "image2",
 					rootCategoryId: "boxId-${testId}",
@@ -200,9 +200,9 @@ scenarios
 				},
 				{
 					cardAuthor: "Annette-${testId}",
-					cardId: "c6",
+					cardId: "c6-${testId}",
 					cardIndex: 1,
-					categoryId: "cat2",
+					categoryId: "cat2-${testId}",
 					given: "aa-given",
 					rootCategoryId: "boxId-${testId}",
 					wanted: "zz-wanted",

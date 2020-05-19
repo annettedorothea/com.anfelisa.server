@@ -8,9 +8,9 @@ scenarios
 			com.anfelisa.category.createcategory.CreateCategory
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c1"
+				uuid "c1-${testId}"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given",
 					image: "image",
 					wanted: "wanted"
@@ -23,9 +23,9 @@ scenarios
 			CreateCard
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c1"
+				uuid "c1-${testId}"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given",
 					image: "image",
 					wanted: "wanted"
@@ -38,9 +38,9 @@ scenarios
 			CreateCard
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c2"
+				uuid "c2-${testId}"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given2",
 					image: "image2",
 					wanted: "wanted2"
@@ -53,9 +53,9 @@ scenarios
 			CreateSecondCard
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c3"
+				uuid "c3-${testId}"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "3given",
 					wanted: "3wanted"
 				}
@@ -67,9 +67,9 @@ scenarios
 			CreateThirdCard
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c4"
+				uuid "c4-${testId}"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "4given4",
 					wanted: "4wanted4"
 				}
@@ -81,9 +81,9 @@ scenarios
 			CreateFourthCard
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c5"
+				uuid "c5-${testId}"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "different",
 					wanted: "different"
 				}
@@ -97,7 +97,7 @@ scenarios
 			com.anfelisa.card.CreateCard
 				uuid "123456789-123456789-123456789-123456789"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "x",
 					wanted: "y"
 				}
@@ -110,7 +110,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.CreateCard
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "${index}given${random}",
 					wanted: "${index}wanted${random}"
 				}
@@ -123,9 +123,9 @@ scenarios
 			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c6"
+				uuid "c6-${testId}"
 				{
-					categoryId: "cat2",
+					categoryId: "cat2-${testId}",
 					given: "aa-given",
 					wanted: "zz-wanted"
 				}
@@ -137,7 +137,7 @@ scenarios
 			com.anfelisa.box.createbox.CreateSecondBox
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c7"
+				uuid "c7-${testId}"
 				{
 					categoryId: "boxId2-${testId}",
 					given: "given",
@@ -151,7 +151,7 @@ scenarios
 			com.anfelisa.category.createcategory.CreateCategory
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c2"
+				uuid "c2-${testId}"
 				{
 					given: "given",
 					image: "image",
@@ -165,9 +165,9 @@ scenarios
 			com.anfelisa.category.createcategory.CreateCategory
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c1"
+				uuid "c1-${testId}"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					image: "image",
 					wanted: "wanted"
 				}
@@ -179,9 +179,9 @@ scenarios
 			com.anfelisa.category.createcategory.CreateCategory
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c1"
+				uuid "c1-${testId}"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "  ",
 					image: "image",
 					wanted: "wanted"
@@ -194,9 +194,9 @@ scenarios
 			com.anfelisa.category.createcategory.CreateCategory
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c1"
+				uuid "c1-${testId}"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given",
 					image: "image"
 				}
@@ -208,9 +208,9 @@ scenarios
 			com.anfelisa.category.createcategory.CreateCategory
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c1"
+				uuid "c1-${testId}"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given",
 					image: "image",
 					wanted: "  "
@@ -223,9 +223,9 @@ scenarios
 			com.anfelisa.category.createcategory.CreateCategory
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c1"
+				uuid "c1-${testId}"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given",
 					wanted: "wanted"
 				}
@@ -237,9 +237,9 @@ scenarios
 			com.anfelisa.category.createcategory.CreateCategory
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c1"
+				uuid "c1-${testId}"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given",
 					image: "  ",
 					wanted: "wanted"
@@ -252,7 +252,7 @@ scenarios
 			com.anfelisa.category.createcategory.CreateCategory
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c1"
+				uuid "c1-${testId}"
 				{
 					categoryId: "lala",
 					given: "given",
@@ -268,9 +268,9 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c1"
+				uuid "c1-${testId}"
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given",
 					image: "image",
 					wanted: "wanted"
@@ -284,7 +284,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.CreateCard
 				{
-					categoryId: "cat1",
+					categoryId: "cat1-${testId}",
 					given: "given",
 					image: "image",
 					wanted: "wanted"
@@ -296,9 +296,9 @@ scenarios
 			com.anfelisa.category.createcategory.CreateCategoryAsAdmin
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "c6"
+				uuid "c6-${testId}"
 				{
-					categoryId: "adminCat",
+					categoryId: "adminCat-${testId}",
 					given: "given",
 					image: "image",
 					wanted: "wanted"

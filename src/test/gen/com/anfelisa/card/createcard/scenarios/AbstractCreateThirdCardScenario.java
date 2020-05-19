@@ -48,6 +48,7 @@ public abstract class AbstractCreateThirdCardScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractCreateThirdCardScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractCreateThirdCardScenario extends BaseScenario {
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -86,16 +89,18 @@ public abstract class AbstractCreateThirdCardScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateBoxMinimal fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal");
+			LOG.info("GIVEN: CreateBoxMinimal success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
 		if (prerequisite("CreateCategory")) {
-			uuid = "cat1".replace("${testId}", this.getTestId());
+			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			response = 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -107,20 +112,22 @@ public abstract class AbstractCreateThirdCardScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCategory fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategory");
+			LOG.info("GIVEN: CreateCategory success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
 		
 
 		if (prerequisite("CreateCard")) {
-			uuid = "c1".replace("${testId}", this.getTestId());
+			uuid = "c1-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCard uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"given\"," + 
 					"\"image\" : \"image\"," + 
 					"\"wanted\" : \"wanted\"} ",
@@ -130,20 +137,22 @@ public abstract class AbstractCreateThirdCardScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCard fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCard");
+			LOG.info("GIVEN: CreateCard success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCard not met");
 		}
 		
 
 		if (prerequisite("CreateSecondCard")) {
-			uuid = "c2".replace("${testId}", this.getTestId());
+			uuid = "c2-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateSecondCard uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"given2\"," + 
 					"\"image\" : \"image2\"," + 
 					"\"wanted\" : \"wanted2\"} ",
@@ -153,9 +162,10 @@ public abstract class AbstractCreateThirdCardScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateSecondCard fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateSecondCard fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateSecondCard");
+			LOG.info("GIVEN: CreateSecondCard success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateSecondCard not met");
 		}
@@ -164,12 +174,12 @@ public abstract class AbstractCreateThirdCardScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "c3".replace("${testId}", this.getTestId());
+		String uuid = "c3-${testId}".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"categoryId\" : \"cat1\"," + 
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 				"\"given\" : \"3given\"," + 
 				"\"wanted\" : \"3wanted\"} ",
 		com.anfelisa.card.data.CardCreationData.class)

@@ -23,7 +23,7 @@ scenarios
 					rootCategoryId: "boxId-${testId}",
 					childCategories: [
 						{
-							categoryId: "cat1",
+							categoryId: "cat1-${testId}",
 							categoryIndex: 1,
 							categoryName: "level 1 #1",
 							dictionaryLookup: false,
@@ -33,7 +33,7 @@ scenarios
 							childCategories: []
 						},
 						{
-							categoryId: "cat2",
+							categoryId: "cat2-${testId}",
 							categoryIndex: 2,
 							categoryName: "level 1 #2",
 							dictionaryLookup: false,
@@ -42,12 +42,12 @@ scenarios
 							rootCategoryId: "boxId-${testId}",
 							childCategories : [
 								{
-									categoryId: "cat3",
+									categoryId: "cat3-${testId}",
 									categoryIndex: 1,
 									categoryName: "level 2 #1",
 									dictionaryLookup: false,
 									empty: true,
-									parentCategoryId: "cat2",
+									parentCategoryId: "cat2-${testId}",
 									rootCategoryId: "boxId-${testId}",
 									childCategories: []
 								}
@@ -79,9 +79,9 @@ scenarios
 					rootCategoryId: "boxId-${testId}",
 					childCategories: [
 						{
-							categoryId: "dict",
+							categoryId: "dict-${testId}",
 							categoryIndex: 1,
-							categoryName: "dict",
+							categoryName: "dict-${testId}",
 							dictionaryLookup: true,
 							givenLanguage: "de",
 							wantedLanguage: "en",

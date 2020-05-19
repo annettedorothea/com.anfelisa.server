@@ -35,8 +35,8 @@ public class ScoreCard3Scenario extends AbstractScoreCard3Scenario {
 		DateTime scoredDateTime = new DateTime(2020, 4, 18, 16, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score3");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score3", "c1","boxId-" + getTestId(),
+				"score3-" + getTestId());
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score3-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
 				scoredDateTime, 2.36F, 6, 2, 1, scoredDateTime.plusDays(6), 3, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
@@ -44,14 +44,14 @@ public class ScoreCard3Scenario extends AbstractScoreCard3Scenario {
 		DateTime dateTime = new DateTime(2020, 4, 18, 10, 30).withZone(DateTimeZone.UTC);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"c1-sc1");
-		expectedScheduledCard = new ScheduledCardModel("c1-sc1", "c1","boxId-" + getTestId(),
+				"c1-" + getTestId() + "-sc1-" + getTestId());
+		expectedScheduledCard = new ScheduledCardModel("c1-" + getTestId() + "-sc1-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, 3,
 				scoredDateTime);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 		
-		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-sc1");
-		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score3", "c1-sc1","boxId-" + getTestId(), scoredDateTime);
+		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-" + getTestId() + "-sc1-" + getTestId());
+		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score3-" + getTestId(), "c1-" + getTestId() + "-sc1-" + getTestId(),"boxId-" + getTestId(), scoredDateTime);
 		assertThat(actualReinforceCard, expectedReinforceCard);
 	}
 

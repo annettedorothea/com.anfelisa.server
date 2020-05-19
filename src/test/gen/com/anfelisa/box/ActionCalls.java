@@ -36,7 +36,9 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/box/create", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		return builder.post(Entity.json(data));
+		Response response = builder.post(Entity.json(data));
+		client.close();
+		return response;
 	}
 	
 	public static Response callUpdateBox(
@@ -46,7 +48,9 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/box/update?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		return builder.put(Entity.json(data));
+		Response response = builder.put(Entity.json(data));
+		client.close();
+		return response;
 	}
 	
 	public static Response callGetBoxSettings(
@@ -56,7 +60,9 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/box/settings/" + data.getBoxId() + "/?uuid=" + data.getUuid(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		return builder.get();
+		Response response = builder.get();
+		client.close();
+		return response;
 	}
 	
 	public static Response callScheduleCards(
@@ -66,7 +72,9 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/cards/schedule", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		return builder.post(Entity.json(data));
+		Response response = builder.post(Entity.json(data));
+		client.close();
+		return response;
 	}
 	
 	public static Response callSortCardsOut(
@@ -76,7 +84,9 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/cards/sort-out", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		return builder.post(Entity.json(data));
+		Response response = builder.post(Entity.json(data));
+		client.close();
+		return response;
 	}
 	
 	public static Response callScoreCard(
@@ -86,7 +96,9 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/card/score", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		return builder.post(Entity.json(data));
+		Response response = builder.post(Entity.json(data));
+		client.close();
+		return response;
 	}
 	
 	public static Response callScoreReinforceCard(
@@ -96,7 +108,9 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/card/score-reinforce", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		return builder.post(Entity.json(data));
+		Response response = builder.post(Entity.json(data));
+		client.close();
+		return response;
 	}
 	
 	public static Response callInitMyBoxesForDay(
@@ -106,7 +120,9 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/box/init?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		return builder.put(Entity.json(data));
+		Response response = builder.put(Entity.json(data));
+		client.close();
+		return response;
 	}
 	
 	public static Response callGetBoxes(
@@ -116,7 +132,9 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/boxes/my/?uuid=" + data.getUuid() + "&todayAtMidnightInUTC=" + data.getTodayAtMidnightInUTC(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		return builder.get();
+		Response response = builder.get();
+		client.close();
+		return response;
 	}
 	
 	public static Response callGetBoxStatistics(
@@ -126,7 +144,9 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/boxes/statistics/?uuid=" + data.getUuid() + "&todayAtMidnightInUTC=" + data.getTodayAtMidnightInUTC(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		return builder.get();
+		Response response = builder.get();
+		client.close();
+		return response;
 	}
 	
 	public static Response callLoadNextCard(
@@ -136,7 +156,9 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/box/next-card?uuid=" + data.getUuid() + "&boxId=" + data.getBoxId() + "&todayAtMidnightInUTC=" + data.getTodayAtMidnightInUTC(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		return builder.get();
+		Response response = builder.get();
+		client.close();
+		return response;
 	}
 	
 	public static Response callDeleteBox(
@@ -146,7 +168,9 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/box/delete?uuid=" + data.getUuid() + "&boxId=" + data.getBoxId(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		return builder.delete();
+		Response response = builder.delete();
+		client.close();
+		return response;
 	}
 	
 	

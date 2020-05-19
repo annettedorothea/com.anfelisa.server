@@ -48,6 +48,7 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 
 		if (prerequisite("RegisterTwoUsers")) {
 			uuid = "uuid2-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterTwoUsers uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN_2-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -90,9 +93,10 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterTwoUsers fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterTwoUsers fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterTwoUsers");
+			LOG.info("GIVEN: RegisterTwoUsers success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterTwoUsers not met");
 		}

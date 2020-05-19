@@ -9,7 +9,7 @@ scenarios
 		WHEN
 			com.anfelisa.category.MoveCategory
 				{
-					movedCategoryId: "cat3",
+					movedCategoryId: "cat3-${testId}",
 					targetCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -21,8 +21,8 @@ scenarios
 		WHEN
 			com.anfelisa.category.MoveCategory
 				{
-					movedCategoryId: "cat1",
-					targetCategoryId: "cat3"
+					movedCategoryId: "cat1-${testId}",
+					targetCategoryId: "cat3-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200

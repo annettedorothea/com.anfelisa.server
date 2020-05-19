@@ -9,7 +9,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1",
+					cardId: "c1-${testId}",
 					given: "given-updated",
 					image: "image-updated",
 					wanted: "wanted-updated"
@@ -36,7 +36,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1",
+					cardId: "c1-${testId}",
 					image: "image",
 					wanted: "wanted"
 				}
@@ -49,7 +49,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1",
+					cardId: "c1-${testId}",
 					given: "  ",
 					image: "image",
 					wanted: "wanted"
@@ -63,7 +63,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1",
+					cardId: "c1-${testId}",
 					given: "given",
 					image: "image"
 				}
@@ -76,7 +76,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1",
+					cardId: "c1-${testId}",
 					given: "given",
 					image: "image",
 					wanted: "  "
@@ -90,7 +90,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1",
+					cardId: "c1-${testId}",
 					given: "given",
 					wanted: "wanted"
 				}
@@ -103,7 +103,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1",
+					cardId: "c1-${testId}",
 					given: "given",
 					image: "  ",
 					wanted: "wanted"
@@ -132,7 +132,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1",
+					cardId: "c1-${testId}",
 					given: "given",
 					image: "image",
 					wanted: "wanted"
@@ -146,7 +146,7 @@ scenarios
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
-					cardId: "c1",
+					cardId: "c1-${testId}",
 					given: "given",
 					image: "image",
 					wanted: "wanted"

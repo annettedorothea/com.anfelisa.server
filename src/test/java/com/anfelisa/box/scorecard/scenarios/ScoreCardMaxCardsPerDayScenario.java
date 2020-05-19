@@ -33,8 +33,8 @@ public class ScoreCardMaxCardsPerDayScenario extends AbstractScoreCardMaxCardsPe
 		DateTime scoredDateTime = new DateTime(2020, 4, 18, 16, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score0-3");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score0-3", "c4","boxId-" + getTestId(),
+				"score0-3-" + getTestId());
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score0-3-" + getTestId(), "c4-" + getTestId(),"boxId-" + getTestId(),
 				scoredDateTime, 2.5F, 3, 1, 1, scoredDateTime.plusDays(3), 0, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);

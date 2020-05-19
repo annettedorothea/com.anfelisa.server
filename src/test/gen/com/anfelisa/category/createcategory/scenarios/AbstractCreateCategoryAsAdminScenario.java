@@ -48,6 +48,7 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 		String uuid;
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin");
+			LOG.info("GIVEN: RegisterUserAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
 			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateBoxMinimalAsAdmin uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -86,9 +89,10 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimalAsAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateBoxMinimalAsAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimalAsAdmin");
+			LOG.info("GIVEN: CreateBoxMinimalAsAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimalAsAdmin not met");
 		}
@@ -97,7 +101,7 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "adminCat".replace("${testId}", this.getTestId());
+		String uuid = "adminCat-${testId}".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +

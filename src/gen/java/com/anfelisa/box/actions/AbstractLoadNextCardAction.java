@@ -89,6 +89,8 @@ public abstract class AbstractLoadNextCardAction extends ReadAction<INextCardDat
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -123,6 +125,8 @@ public abstract class AbstractLoadNextCardAction extends ReadAction<INextCardDat
 			}
 		}
 		this.actionData.setUserId(authUser.getUserId());
+		
+		LOG.info("execute LoadNextCard with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

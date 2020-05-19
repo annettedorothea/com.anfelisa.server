@@ -48,6 +48,7 @@ public abstract class AbstractGetBoxesWithOneScoredCardAndReinforceSameDayScenar
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractGetBoxesWithOneScoredCardAndReinforceSameDayScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractGetBoxesWithOneScoredCardAndReinforceSameDayScenar
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -86,16 +89,18 @@ public abstract class AbstractGetBoxesWithOneScoredCardAndReinforceSameDayScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateBoxMinimal fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal");
+			LOG.info("GIVEN: CreateBoxMinimal success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
 		if (prerequisite("CreateCategory")) {
-			uuid = "cat1".replace("${testId}", this.getTestId());
+			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			response = 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -107,20 +112,22 @@ public abstract class AbstractGetBoxesWithOneScoredCardAndReinforceSameDayScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCategory fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategory");
+			LOG.info("GIVEN: CreateCategory success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
 		
 
 		if (prerequisite("CreateCard")) {
-			uuid = "c1".replace("${testId}", this.getTestId());
+			uuid = "c1-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCard uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"given\"," + 
 					"\"image\" : \"image\"," + 
 					"\"wanted\" : \"wanted\"} ",
@@ -130,20 +137,22 @@ public abstract class AbstractGetBoxesWithOneScoredCardAndReinforceSameDayScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCard fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCard");
+			LOG.info("GIVEN: CreateCard success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCard not met");
 		}
 		
 
 		if (prerequisite("CreateSecondCard")) {
-			uuid = "c2".replace("${testId}", this.getTestId());
+			uuid = "c2-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateSecondCard uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"given2\"," + 
 					"\"image\" : \"image2\"," + 
 					"\"wanted\" : \"wanted2\"} ",
@@ -153,20 +162,22 @@ public abstract class AbstractGetBoxesWithOneScoredCardAndReinforceSameDayScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateSecondCard fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateSecondCard fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateSecondCard");
+			LOG.info("GIVEN: CreateSecondCard success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateSecondCard not met");
 		}
 		
 
 		if (prerequisite("CreateThirdCard")) {
-			uuid = "c3".replace("${testId}", this.getTestId());
+			uuid = "c3-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateThirdCard uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"3given\"," + 
 					"\"wanted\" : \"3wanted\"} ",
 			com.anfelisa.card.data.CardCreationData.class)
@@ -175,20 +186,22 @@ public abstract class AbstractGetBoxesWithOneScoredCardAndReinforceSameDayScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateThirdCard fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateThirdCard fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateThirdCard");
+			LOG.info("GIVEN: CreateThirdCard success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateThirdCard not met");
 		}
 		
 
 		if (prerequisite("CreateFourthCard")) {
-			uuid = "c4".replace("${testId}", this.getTestId());
+			uuid = "c4-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateFourthCard uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"4given4\"," + 
 					"\"wanted\" : \"4wanted4\"} ",
 			com.anfelisa.card.data.CardCreationData.class)
@@ -197,20 +210,22 @@ public abstract class AbstractGetBoxesWithOneScoredCardAndReinforceSameDayScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateFourthCard fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateFourthCard fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateFourthCard");
+			LOG.info("GIVEN: CreateFourthCard success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateFourthCard not met");
 		}
 		
 
 		if (prerequisite("CreateFifthCard")) {
-			uuid = "c5".replace("${testId}", this.getTestId());
+			uuid = "c5-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateFifthCard uuid " + uuid);
 			response = 
 			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryId\" : \"cat1\"," + 
+					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"different\"," + 
 					"\"wanted\" : \"different\"} ",
 			com.anfelisa.card.data.CardCreationData.class)
@@ -219,40 +234,44 @@ public abstract class AbstractGetBoxesWithOneScoredCardAndReinforceSameDayScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateFifthCard fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateFifthCard fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateFifthCard");
+			LOG.info("GIVEN: CreateFifthCard success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateFifthCard not met");
 		}
 		
 
 		if (prerequisite("ScheduleCards")) {
-			uuid = "sc1".replace("${testId}", this.getTestId());
+			uuid = "sc1-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScheduleCards uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
 			com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"cardIds\" : [ \"c1\"," + 
-					"\"c3\"," + 
-					"\"c4\"]} ",
+					"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
+					"\"c3-" + this.getTestId() + "\"," + 
+					"\"c4-" + this.getTestId() + "\"]} ",
 			com.anfelisa.box.data.ScheduledCardsData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScheduleCards fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScheduleCards fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScheduleCards");
+			LOG.info("GIVEN: ScheduleCards success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScheduleCards not met");
 		}
 		
 
 		if (prerequisite("ScoreCard1")) {
-			uuid = "score1".replace("${testId}", this.getTestId());
+			uuid = "score1-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: ScoreCard1 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			response = 
@@ -260,16 +279,17 @@ public abstract class AbstractGetBoxesWithOneScoredCardAndReinforceSameDayScenar
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 1," + 
-					"\"scoredCardScheduledCardId\" : \"c3-sc1\"} ",
+					"\"scoredCardScheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class)
 			
 			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard1 fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ScoreCard1 fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard1");
+			LOG.info("GIVEN: ScoreCard1 success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ScoreCard1 not met");
 		}

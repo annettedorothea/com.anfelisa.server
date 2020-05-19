@@ -26,7 +26,7 @@ public class ScoreReinforceCard4Scenario extends AbstractScoreReinforceCard4Scen
 
 	@Override
 	protected void verifications() {
-		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-sc1");
+		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-" + getTestId() + "-sc1-" + getTestId());
 		assertIsNull(actualReinforceCard);
 	}
 

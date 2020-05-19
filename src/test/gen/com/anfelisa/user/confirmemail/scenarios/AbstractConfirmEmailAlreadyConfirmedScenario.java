@@ -48,6 +48,7 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 
 		if (prerequisite("ConfirmEmailOK")) {
 			uuid = this.randomUUID();
+			LOG.info("GIVEN: ConfirmEmailOK uuid " + uuid);
 			response = 
 			com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -85,9 +88,10 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ConfirmEmailOK fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ConfirmEmailOK fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ConfirmEmailOK");
+			LOG.info("GIVEN: ConfirmEmailOK success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ConfirmEmailOK not met");
 		}

@@ -10,7 +10,7 @@ scenarios
 			com.anfelisa.category.UpdateCategory
 				{
 					categoryName: "changed",
-					categoryId: "cat1"
+					categoryId: "cat1-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -22,7 +22,7 @@ scenarios
 			com.anfelisa.category.UpdateCategory
 				{
 					categoryName: "changed",
-					categoryId: "cat1"
+					categoryId: "cat1-${testId}"
 				}
 		THEN 401
 		
@@ -34,7 +34,7 @@ scenarios
 			com.anfelisa.category.UpdateCategory
 				{
 					categoryName: "changed",
-					categoryId: "cat1"
+					categoryId: "cat1-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401

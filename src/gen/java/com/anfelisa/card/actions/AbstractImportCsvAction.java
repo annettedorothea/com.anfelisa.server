@@ -97,6 +97,8 @@ public abstract class AbstractImportCsvAction extends WriteAction<ICsvUploadData
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -123,6 +125,8 @@ public abstract class AbstractImportCsvAction extends WriteAction<ICsvUploadData
 		}
 		this.actionData.setCategoryId(payload.getCategoryId());
 		this.actionData.setUserId(authUser.getUserId());
+		
+		LOG.info("execute ImportCsv with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

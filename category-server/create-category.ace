@@ -8,7 +8,7 @@ scenarios
 			com.anfelisa.box.createbox.CreateBoxMinimal
 		WHEN
 			com.anfelisa.category.CreateCategory
-				uuid "cat1"
+				uuid "cat1-${testId}"
 				{
 					categoryName: "level 1 #1",
 					parentCategoryId: "boxId-${testId}"
@@ -21,7 +21,7 @@ scenarios
 			CreateCategory
 		WHEN
 			com.anfelisa.category.CreateCategory
-				uuid "cat2"
+				uuid "cat2-${testId}"
 				{
 					categoryName: "level 1 #2",
 					parentCategoryId: "boxId-${testId}"
@@ -34,10 +34,10 @@ scenarios
 			CreateSecondCategory
 		WHEN
 			com.anfelisa.category.CreateCategory
-				uuid "cat3"
+				uuid "cat3-${testId}"
 				{
 					categoryName: "level 2 #1",
-					parentCategoryId: "cat2"
+					parentCategoryId: "cat2-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -47,9 +47,9 @@ scenarios
 			com.anfelisa.box.createbox.CreateBoxDictionaryLookup
 		WHEN
 			com.anfelisa.category.CreateCategory
-				uuid "dict"
+				uuid "dict-${testId}"
 				{
-					categoryName: "dict",
+					categoryName: "dict-${testId}",
 					parentCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
@@ -154,7 +154,7 @@ scenarios
 			com.anfelisa.box.createbox.CreateBoxMinimalAsAdmin
 		WHEN
 			com.anfelisa.category.CreateCategory
-				uuid "adminCat"
+				uuid "adminCat-${testId}"
 				{
 					categoryName: "c",
 					parentCategoryId: "adminBox-${testId}"

@@ -8,12 +8,12 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score0"
+				uuid "score0-${testId}"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 0,
-					scoredCardScheduledCardId: "c1-sc1"
+					scoredCardScheduledCardId: "c1-${testId}-sc1-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -23,12 +23,12 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score1"
+				uuid "score1-${testId}"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 1,
-					scoredCardScheduledCardId: "c3-sc1"
+					scoredCardScheduledCardId: "c3-${testId}-sc1-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -38,12 +38,12 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score2"
+				uuid "score2-${testId}"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 2,
-					scoredCardScheduledCardId: "c1-sc1"
+					scoredCardScheduledCardId: "c1-${testId}-sc1-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -53,12 +53,12 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score3"
+				uuid "score3-${testId}"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
-					scoredCardScheduledCardId: "c1-sc1"
+					scoredCardScheduledCardId: "c1-${testId}-sc1-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -68,12 +68,12 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score4"
+				uuid "score4-${testId}"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 4,
-					scoredCardScheduledCardId: "c1-sc1"
+					scoredCardScheduledCardId: "c1-${testId}-sc1-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -83,12 +83,12 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score5"
+				uuid "score5-${testId}"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 5,
-					scoredCardScheduledCardId: "c4-sc1"
+					scoredCardScheduledCardId: "c4-${testId}-sc1-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -98,12 +98,12 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCardsAsAdmin
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "admin-score"
+				uuid "admin-score-${testId}"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "adminBox-${testId}",
 					scoredCardQuality: 1,
-					scoredCardScheduledCardId: "c6-sc6"
+					scoredCardScheduledCardId: "c6-${testId}-sc6-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 200
@@ -113,12 +113,12 @@ scenarios
 			ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score01"
+				uuid "score01-${testId}"
 				systemTime "20200419 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 0,
-					scoredCardScheduledCardId: "score0"
+					scoredCardScheduledCardId: "score0-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -129,12 +129,12 @@ scenarios
 			com.anfelisa.box.updatebox.UpdateBoxMaxInterval excludeGIVEN
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score31"
+				uuid "score31-${testId}"
 				systemTime "20200425 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
-					scoredCardScheduledCardId: "score3"
+					scoredCardScheduledCardId: "score3-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -144,12 +144,12 @@ scenarios
 			ScoreCard31
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score32"
+				uuid "score32-${testId}"
 				systemTime "20200515 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
-					scoredCardScheduledCardId: "score31"
+					scoredCardScheduledCardId: "score31-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -159,12 +159,12 @@ scenarios
 			ScoreCard32
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score33"
+				uuid "score33-${testId}"
 				systemTime "20200615 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 4,
-					scoredCardScheduledCardId: "score32"
+					scoredCardScheduledCardId: "score32-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -174,12 +174,12 @@ scenarios
 			ScoreCard33
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score34"
+				uuid "score34-${testId}"
 				systemTime "20200819 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 5,
-					scoredCardScheduledCardId: "score33"
+					scoredCardScheduledCardId: "score33-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -189,12 +189,12 @@ scenarios
 			ScoreCard34
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score35"
+				uuid "score35-${testId}"
 				systemTime "20201120 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
-					scoredCardScheduledCardId: "score34"
+					scoredCardScheduledCardId: "score34-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -204,12 +204,12 @@ scenarios
 			ScoreCard35
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score36"
+				uuid "score36-${testId}"
 				systemTime "20210301 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
-					scoredCardScheduledCardId: "score35"
+					scoredCardScheduledCardId: "score35-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -219,12 +219,12 @@ scenarios
 			ScoreCard36
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score37"
+				uuid "score37-${testId}"
 				systemTime "20210701 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
-					scoredCardScheduledCardId: "score36"
+					scoredCardScheduledCardId: "score36-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -234,12 +234,12 @@ scenarios
 			ScoreCard37
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score38"
+				uuid "score38-${testId}"
 				systemTime "20211001 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
-					scoredCardScheduledCardId: "score37"
+					scoredCardScheduledCardId: "score37-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -249,12 +249,12 @@ scenarios
 			ScoreCard38
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score39"
+				uuid "score39-${testId}"
 				systemTime "20220201 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
-					scoredCardScheduledCardId: "score38"
+					scoredCardScheduledCardId: "score38-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -264,12 +264,12 @@ scenarios
 			ScoreCard39
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score310"
+				uuid "score310-${testId}"
 				systemTime "20220601 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
-					scoredCardScheduledCardId: "score39"
+					scoredCardScheduledCardId: "score39-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -279,12 +279,12 @@ scenarios
 			ScoreCard310
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "q"
+				uuid "q-${testId}"
 				systemTime "20221001 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 3,
-					scoredCardScheduledCardId: "score310"
+					scoredCardScheduledCardId: "score310-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -294,7 +294,7 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score1"
+				uuid "score1-${testId}"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
@@ -309,12 +309,12 @@ scenarios
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score1"
+				uuid "score1-${testId}"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 0,
-					scoredCardScheduledCardId: "c1-sc1"
+					scoredCardScheduledCardId: "c1-${testId}-sc1-${testId}"
 				}
 		THEN 401
 
@@ -324,12 +324,12 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score1"
+				uuid "score1-${testId}"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 0,
-					scoredCardScheduledCardId: "c1-sc1"
+					scoredCardScheduledCardId: "c1-${testId}-sc1-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -342,12 +342,12 @@ scenarios
 			ScoreCard0 excludeGIVEN
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score0-2"
+				uuid "score0-2-${testId}"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 0,
-					scoredCardScheduledCardId: "c3-sc1"
+					scoredCardScheduledCardId: "c3-${testId}-sc1-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -362,12 +362,12 @@ scenarios
 			ScoreCardSecond0 excludeGIVEN
 		WHEN
 			com.anfelisa.box.ScoreCard
-				uuid "score0-3"
+				uuid "score0-3-${testId}"
 				systemTime "20200418 16:30" "yyyyMMdd HH:mm"
 				{
 					boxId: "boxId-${testId}",
 					scoredCardQuality: 0,
-					scoredCardScheduledCardId: "c4-sc1"
+					scoredCardScheduledCardId: "c4-${testId}-sc1-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200

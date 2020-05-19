@@ -48,6 +48,7 @@ public abstract class AbstractGetUserProfileAdminScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractGetUserProfileAdminScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin");
+			LOG.info("GIVEN: RegisterUserAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractGetUserProfileAdminScenario extends BaseScenario {
 
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -90,9 +93,10 @@ public abstract class AbstractGetUserProfileAdminScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}

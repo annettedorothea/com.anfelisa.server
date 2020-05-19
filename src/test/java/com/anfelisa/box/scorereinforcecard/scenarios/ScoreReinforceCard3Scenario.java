@@ -31,8 +31,8 @@ public class ScoreReinforceCard3Scenario extends AbstractScoreReinforceCard3Scen
 	@Override
 	protected void verifications() {
 		DateTime scoredDateTime = new DateTime(2020, 4, 18, 16, 40).withZone(DateTimeZone.UTC);
-		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-sc1");
-		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score0", "c1-sc1","boxId-" + getTestId(), scoredDateTime);
+		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-" + getTestId() + "-sc1-" + getTestId());
+		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score0-" + getTestId(), "c1-" + getTestId() + "-sc1-" + getTestId(),"boxId-" + getTestId(), scoredDateTime);
 		assertThat(actualReinforceCard, expectedReinforceCard);
 	}
 

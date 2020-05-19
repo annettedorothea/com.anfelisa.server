@@ -96,6 +96,8 @@ public abstract class AbstractRegisterUserAction extends WriteAction<IUserRegist
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 		Object value = NotReplayableDataProvider.consumeValue(this.actionData.getUuid(), "token");
 		if (value != null) {
@@ -141,6 +143,8 @@ public abstract class AbstractRegisterUserAction extends WriteAction<IUserRegist
 			throwBadRequest("language is mandatory");
 		}
 		this.actionData.setLanguage(payload.getLanguage());
+		
+		LOG.info("execute RegisterUser with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

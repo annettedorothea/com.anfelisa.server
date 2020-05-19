@@ -97,6 +97,8 @@ public abstract class AbstractScheduleCardsAction extends WriteAction<IScheduled
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -118,6 +120,8 @@ public abstract class AbstractScheduleCardsAction extends WriteAction<IScheduled
 		}
 		this.actionData.setCardIds(payload.getCardIds());
 		this.actionData.setUserId(authUser.getUserId());
+		
+		LOG.info("execute ScheduleCards with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

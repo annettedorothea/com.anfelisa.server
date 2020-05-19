@@ -89,6 +89,8 @@ public abstract class AbstractGetDuplicatesAction extends ReadAction<ICardSearch
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -120,6 +122,8 @@ public abstract class AbstractGetDuplicatesAction extends ReadAction<ICardSearch
 		}
 		this.actionData.setCategoryId(categoryId);
 		this.actionData.setUserId(authUser.getUserId());
+		
+		LOG.info("execute GetDuplicates with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

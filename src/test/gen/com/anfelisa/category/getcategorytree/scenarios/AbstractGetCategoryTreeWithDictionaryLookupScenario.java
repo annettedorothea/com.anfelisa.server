@@ -48,6 +48,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 
 		if (prerequisite("CreateBoxDictionaryLookup")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateBoxDictionaryLookup uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -88,20 +91,22 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxDictionaryLookup fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateBoxDictionaryLookup fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxDictionaryLookup");
+			LOG.info("GIVEN: CreateBoxDictionaryLookup success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxDictionaryLookup not met");
 		}
 		
 
 		if (prerequisite("CreateCategoryWithDictionaryLookup")) {
-			uuid = "dict".replace("${testId}", this.getTestId());
+			uuid = "dict-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCategoryWithDictionaryLookup uuid " + uuid);
 			response = 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryName\" : \"dict\"," + 
+					"\"categoryName\" : \"dict-" + this.getTestId() + "\"," + 
 					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class)
 			
@@ -109,9 +114,10 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategoryWithDictionaryLookup fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCategoryWithDictionaryLookup fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategoryWithDictionaryLookup");
+			LOG.info("GIVEN: CreateCategoryWithDictionaryLookup success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategoryWithDictionaryLookup not met");
 		}
@@ -157,9 +163,9 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 				"\"wantedLanguage\" : \"en\"," + 
 				"\"empty\" : false," + 
 				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"childCategories\" : [ { \"categoryId\" : \"dict\"," + 
+				"\"childCategories\" : [ { \"categoryId\" : \"dict-" + this.getTestId() + "\"," + 
 				"\"categoryIndex\" : 1," + 
-				"\"categoryName\" : \"dict\"," + 
+				"\"categoryName\" : \"dict-" + this.getTestId() + "\"," + 
 				"\"dictionaryLookup\" : true," + 
 				"\"givenLanguage\" : \"de\"," + 
 				"\"wantedLanguage\" : \"en\"," + 

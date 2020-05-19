@@ -97,6 +97,8 @@ public abstract class AbstractDeleteCategoryAction extends WriteAction<ICategory
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -119,6 +121,8 @@ public abstract class AbstractDeleteCategoryAction extends WriteAction<ICategory
 		}
 		this.actionData.setCategoryId(categoryId);
 		this.actionData.setUserId(authUser.getUserId());
+		
+		LOG.info("execute DeleteCategory with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

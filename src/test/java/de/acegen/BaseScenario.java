@@ -20,8 +20,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.junit.Assert.assertEquals;
 
+import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.ws.rs.client.Client;
@@ -92,7 +94,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 
 	protected String randomString() {
-		return UUID.randomUUID().toString().substring(0, 8);
+		return randomUUID().replace("-", "").substring(0, 12);
 	}
 
 	@Override
@@ -345,9 +347,15 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			String protocol, String host, int port) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client
-				.target(String.format("%s://%s:%d/api/test/not-replayable/value?uuid=" + uuid, protocol, host, port))
+				.target(String.format(
+						"%s://%s:%d/api/test/not-replayable/system-time?uuid=" + uuid + "&system-time=" + dateTime,
+						protocol, host, port))
 				.request();
 		return builder.put(Entity.json(dateTime));
 	}
 
 }
+
+
+
+

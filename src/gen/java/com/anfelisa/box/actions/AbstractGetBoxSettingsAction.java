@@ -89,6 +89,8 @@ public abstract class AbstractGetBoxSettingsAction extends ReadAction<IBoxSettin
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -111,6 +113,8 @@ public abstract class AbstractGetBoxSettingsAction extends ReadAction<IBoxSettin
 		}
 		this.actionData.setBoxId(boxId);
 		this.actionData.setUserId(authUser.getUserId());
+		
+		LOG.info("execute GetBoxSettings with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

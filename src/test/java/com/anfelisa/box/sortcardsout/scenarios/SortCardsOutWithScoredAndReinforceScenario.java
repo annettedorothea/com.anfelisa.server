@@ -35,50 +35,50 @@ public class SortCardsOutWithScoredAndReinforceScenario extends AbstractSortCard
 		DateTime dateTime = new DateTime(2020, 4, 18, 10, 30).withZone(DateTimeZone.UTC);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"c1-sc1");
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c1-sc1", "c1","boxId-" + getTestId(),
+				"c1-" + getTestId() + "-sc1-" + getTestId());
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c1-" + getTestId() + "-sc1-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, 0,
 				scoredDateTime);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score0");
-		expectedScheduledCard = new ScheduledCardModel("score0", "c1","boxId-" + getTestId(),
+				"score0-" + getTestId());
+		expectedScheduledCard = new ScheduledCardModel("score0-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
 				scoredDateTime, 2.5F, 1, 1, 1, null, 0, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
-		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-sc1");
+		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-" + getTestId() + "-sc1-" + getTestId());
 		assertIsNull(actualReinforceCard);
 
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c3-sc1");
-		expectedScheduledCard = new ScheduledCardModel("c3-sc1", "c3","boxId-" + getTestId(),
+		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c3-" + getTestId() + "-sc1" + getTestId());
+		expectedScheduledCard = new ScheduledCardModel("c3-" + getTestId() + "-sc1" + getTestId(), "c3-" + getTestId(),"boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, 1,
 				scoredDateTime);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "score1");
-		expectedScheduledCard = new ScheduledCardModel("score1", "c3","boxId-" + getTestId(),
+		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "score1-" + getTestId());
+		expectedScheduledCard = new ScheduledCardModel("score1-" + getTestId(), "c3-" + getTestId(),"boxId-" + getTestId(),
 				scoredDateTime, 2.5F, 1, 1, 1, scoredDateTime.plusDays(1), 1, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 		
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c4-sc1");
-		expectedScheduledCard = new ScheduledCardModel("c4-sc1", "c4","boxId-" + getTestId(),
+		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c4-" + getTestId() + "-sc1-" + getTestId());
+		expectedScheduledCard = new ScheduledCardModel("c4-" + getTestId() + "-sc1-" + getTestId(), "c4-" + getTestId(),"boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, null, null, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c2",
+		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c2-" + getTestId(),
 				"boxId-" + getTestId());
 		assertIsNull(actualScheduledCard);
 
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c5",
+		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c5-" + getTestId(),
 				"boxId-" + getTestId());
 		assertIsNull(actualScheduledCard);
 
-		actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c3-sc1");
-		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score1", "c3-sc1","boxId-" + getTestId(), scoredDateTime);
+		actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c3-" + getTestId() + "-sc1" + getTestId());
+		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score1-" + getTestId(), "c3-" + getTestId() + "-sc1" + getTestId(),"boxId-" + getTestId(), scoredDateTime);
 		assertThat(actualReinforceCard, expectedReinforceCard);
 	}
 

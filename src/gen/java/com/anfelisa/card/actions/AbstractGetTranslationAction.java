@@ -89,6 +89,8 @@ public abstract class AbstractGetTranslationAction extends ReadAction<ICardTrans
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -122,6 +124,8 @@ public abstract class AbstractGetTranslationAction extends ReadAction<ICardTrans
 			throwBadRequest("targetLanguage is mandatory");
 		}
 		this.actionData.setTargetLanguage(targetLanguage);
+		
+		LOG.info("execute GetTranslation with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

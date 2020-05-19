@@ -89,6 +89,8 @@ public abstract class AbstractGetBoxesAction extends ReadAction<IBoxListData> {
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -117,6 +119,8 @@ public abstract class AbstractGetBoxesAction extends ReadAction<IBoxListData> {
 			}
 		}
 		this.actionData.setUserId(authUser.getUserId());
+		
+		LOG.info("execute GetBoxes with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

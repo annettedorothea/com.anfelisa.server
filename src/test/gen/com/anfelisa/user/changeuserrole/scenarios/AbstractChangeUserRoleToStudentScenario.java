@@ -48,6 +48,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -90,9 +93,10 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin");
+			LOG.info("GIVEN: RegisterUserAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -100,6 +104,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 
 		if (prerequisite("ChangeUserRoleToAdmin")) {
 			uuid = this.randomUUID();
+			LOG.info("GIVEN: ChangeUserRoleToAdmin uuid " + uuid);
 			response = 
 			com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -111,9 +116,10 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ChangeUserRoleToAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ChangeUserRoleToAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ChangeUserRoleToAdmin");
+			LOG.info("GIVEN: ChangeUserRoleToAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ChangeUserRoleToAdmin not met");
 		}

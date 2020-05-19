@@ -48,6 +48,7 @@ public abstract class AbstractResetPasswordScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractResetPasswordScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUser fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser");
+			LOG.info("GIVEN: RegisterUser success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractResetPasswordScenario extends BaseScenario {
 
 		if (prerequisite("ForgotPasswordOK")) {
 			uuid = this.randomUUID();
+			LOG.info("GIVEN: ForgotPasswordOK uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"RESET-PW-TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -88,9 +91,10 @@ public abstract class AbstractResetPasswordScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ForgotPasswordOK fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: ForgotPasswordOK fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ForgotPasswordOK");
+			LOG.info("GIVEN: ForgotPasswordOK success");
 		} else {
 			LOG.info("GIVEN: prerequisite for ForgotPasswordOK not met");
 		}

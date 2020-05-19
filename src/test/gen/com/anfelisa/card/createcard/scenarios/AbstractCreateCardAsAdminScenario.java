@@ -48,6 +48,7 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -64,9 +65,10 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin");
+			LOG.info("GIVEN: RegisterUserAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -74,6 +76,7 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
 			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateBoxMinimalAsAdmin uuid " + uuid);
 			response = 
 			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -86,16 +89,18 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimalAsAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateBoxMinimalAsAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimalAsAdmin");
+			LOG.info("GIVEN: CreateBoxMinimalAsAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimalAsAdmin not met");
 		}
 		
 
 		if (prerequisite("CreateCategoryAsAdmin")) {
-			uuid = "adminCat".replace("${testId}", this.getTestId());
+			uuid = "adminCat-${testId}".replace("${testId}", this.getTestId());
+			LOG.info("GIVEN: CreateCategoryAsAdmin uuid " + uuid);
 			response = 
 			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -107,9 +112,10 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategoryAsAdmin fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCategoryAsAdmin fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategoryAsAdmin");
+			LOG.info("GIVEN: CreateCategoryAsAdmin success");
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategoryAsAdmin not met");
 		}
@@ -118,12 +124,12 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "c6".replace("${testId}", this.getTestId());
+		String uuid = "c6-${testId}".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"categoryId\" : \"adminCat\"," + 
+				"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
 				"\"given\" : \"given\"," + 
 				"\"image\" : \"image\"," + 
 				"\"wanted\" : \"wanted\"} ",

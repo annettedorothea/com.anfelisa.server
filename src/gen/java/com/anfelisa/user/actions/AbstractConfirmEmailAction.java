@@ -95,6 +95,8 @@ public abstract class AbstractConfirmEmailAction extends WriteAction<IConfirmEma
 		DateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
+		} else {
+			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
 
@@ -119,6 +121,8 @@ public abstract class AbstractConfirmEmailAction extends WriteAction<IConfirmEma
 			throwBadRequest("username is mandatory");
 		}
 		this.actionData.setUsername(payload.getUsername());
+		
+		LOG.info("execute ConfirmEmail with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}
