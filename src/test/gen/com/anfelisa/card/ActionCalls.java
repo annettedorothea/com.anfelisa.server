@@ -36,9 +36,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/card/create", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		Response response = builder.post(Entity.json(data));
-		client.close();
-		return response;
+		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callUpdateCard(
@@ -48,9 +46,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/card/update?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		Response response = builder.put(Entity.json(data));
-		client.close();
-		return response;
+		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callDeleteCard(
@@ -60,9 +56,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/card/delete?uuid=" + data.getUuid() + "&cardId=" + data.getCardId(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		Response response = builder.delete();
-		client.close();
-		return response;
+		return builder.delete();
 	}
 	
 	public static Response callGetCards(
@@ -72,9 +66,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/cards?uuid=" + data.getUuid() + "&categoryId=" + data.getCategoryId(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		Response response = builder.get();
-		client.close();
-		return response;
+		return builder.get();
 	}
 	
 	public static Response callGetDuplicates(
@@ -84,9 +76,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/cards/search?uuid=" + data.getUuid() + "&given=" + data.getGiven() + "&wanted=" + data.getWanted() + "&naturalInputOrder=" + data.getNaturalInputOrder() + "&categoryId=" + data.getCategoryId(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		Response response = builder.get();
-		client.close();
-		return response;
+		return builder.get();
 	}
 	
 	public static Response callMoveCards(
@@ -96,9 +86,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/cards/move?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		Response response = builder.put(Entity.json(data));
-		client.close();
-		return response;
+		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callChangeOrder(
@@ -108,9 +96,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/cards/changeorder?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		Response response = builder.put(Entity.json(data));
-		client.close();
-		return response;
+		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callImportCsv(
@@ -120,9 +106,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/category/import-csv?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		Response response = builder.put(Entity.json(data));
-		client.close();
-		return response;
+		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callGetTranslation(
@@ -132,9 +116,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/card/translation?uuid=" + data.getUuid() + "&sourceValue=" + data.getSourceValue() + "&sourceLanguage=" + data.getSourceLanguage() + "&targetLanguage=" + data.getTargetLanguage(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		Response response = builder.get();
-		client.close();
-		return response;
+		return builder.get();
 	}
 	
 	

@@ -64,13 +64,13 @@ public class InitMyBoxesForDayWithScoredAndReinforceCardsTwoDaysLaterPostponesCa
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"c3-" + getTestId() + "-sc1" + getTestId());
-		expectedScheduledCard = new ScheduledCardModel("c3-" + getTestId() + "-sc1" + getTestId(), "c3-" + getTestId(),"boxId-" + getTestId(),
+				"c3-" + getTestId() + "-sc1-" + getTestId());
+		expectedScheduledCard = new ScheduledCardModel("c3-" + getTestId() + "-sc1-" + getTestId(), "c3-" + getTestId(),"boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, 1,
 				scoredDateTime);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
-		actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c3-" + getTestId() + "-sc1" + getTestId());
+		actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c3-" + getTestId() + "-sc1-" + getTestId());
 		assertIsNull(actualReinforceCard);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,

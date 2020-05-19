@@ -20,10 +20,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.junit.Assert.assertEquals;
 
-import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import javax.ws.rs.client.Client;
@@ -94,7 +92,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 
 	protected String randomString() {
-		return randomUUID().replace("-", "").substring(0, 12);
+		return randomUUID().replace("-", "").substring(0, 8);
 	}
 
 	@Override
@@ -315,6 +313,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			return (daoProvider.getUserDao().selectByUsername(handle, "Admin") == null);
 		case "GetAllUsersAdmin":
 			return (daoProvider.getUserDao().selectAll(handle).size() == 2);
+		case "DeleteUserLastAdmin":
+			return (daoProvider.getUserDao().selectAdminCount(handle) == 1);
 		default:
 			return true;
 		}
@@ -355,7 +355,3 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 
 }
-
-
-
-

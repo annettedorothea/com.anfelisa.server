@@ -71,8 +71,8 @@ public class ScheduleCardsCommand extends AbstractScheduleCardsCommand {
 	}
 
 	private String combineUuids(String uuid1, String uuid2) {
-		return (uuid1.length() >= 23 ? uuid1.substring(0, 23) : uuid1) + "-"
-				+ (uuid2.length() >= 8 ? uuid2.substring(0, 8) : uuid2);
+		return (uuid1.length() >= 12 ? uuid1.substring(0, 12) : uuid1) + "-"
+				+ (uuid2.length() >= 12 ? uuid2.substring(0, 12) : uuid2);
 	}
 
 }

@@ -34,9 +34,7 @@ public class ActionCalls {
 			String protocol, String host, int port) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/users/register", protocol, host, port)).request(); 
-		Response response = builder.post(Entity.json(data));
-		client.close();
-		return response;
+		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callGetRole(
@@ -46,9 +44,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/user/role?uuid=" + data.getUuid(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		Response response = builder.get();
-		client.close();
-		return response;
+		return builder.get();
 	}
 	
 	public static Response callUsernameAvailable(
@@ -56,9 +52,7 @@ public class ActionCalls {
 			String protocol, String host, int port) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/users/username?uuid=" + data.getUuid() + "&username=" + data.getUsername(), protocol, host, port)).request(); 
-		Response response = builder.get();
-		client.close();
-		return response;
+		return builder.get();
 	}
 	
 	public static Response callConfirmEmail(
@@ -66,9 +60,7 @@ public class ActionCalls {
 			String protocol, String host, int port) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/users/confirm?uuid=" + data.getUuid(), protocol, host, port)).request();
-		Response response = builder.put(Entity.json(data));
-		client.close();
-		return response;
+		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callGetUserProfile(
@@ -78,9 +70,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/user/get?uuid=" + data.getUuid(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		Response response = builder.get();
-		client.close();
-		return response;
+		return builder.get();
 	}
 	
 	public static Response callGetAllUsers(
@@ -90,9 +80,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/users/all?uuid=" + data.getUuid(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		Response response = builder.get();
-		client.close();
-		return response;
+		return builder.get();
 	}
 	
 	public static Response callForgotPassword(
@@ -100,9 +88,7 @@ public class ActionCalls {
 			String protocol, String host, int port) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/users/forgot-password", protocol, host, port)).request(); 
-		Response response = builder.post(Entity.json(data));
-		client.close();
-		return response;
+		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callResetPassword(
@@ -110,9 +96,7 @@ public class ActionCalls {
 			String protocol, String host, int port) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/users/resetpassword?uuid=" + data.getUuid(), protocol, host, port)).request();
-		Response response = builder.put(Entity.json(data));
-		client.close();
-		return response;
+		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callChangeUserRole(
@@ -122,9 +106,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/user/role?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		Response response = builder.put(Entity.json(data));
-		client.close();
-		return response;
+		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callDeleteUser(
@@ -134,9 +116,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/user/delete?uuid=" + data.getUuid() + "&usernameToBeDeleted=" + data.getUsernameToBeDeleted(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		Response response = builder.delete();
-		client.close();
-		return response;
+		return builder.delete();
 	}
 	
 	

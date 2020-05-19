@@ -124,7 +124,7 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "123456789-123456789-123456789-123456789".replace("${testId}", this.getTestId());
+		String uuid = "123456789-123456789-123456789-${testId}".replace("${testId}", this.getTestId());
 		
 		return 
 		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +

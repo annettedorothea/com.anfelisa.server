@@ -95,7 +95,7 @@ scenarios
 			com.anfelisa.category.createcategory.CreateCategory
 		WHEN
 			com.anfelisa.card.CreateCard
-				uuid "123456789-123456789-123456789-123456789"
+				uuid "123456789-123456789-123456789-${testId}"
 				{
 					categoryId: "cat1-${testId}",
 					given: "x",

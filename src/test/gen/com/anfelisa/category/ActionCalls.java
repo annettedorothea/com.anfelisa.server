@@ -36,9 +36,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/category/create", protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		Response response = builder.post(Entity.json(data));
-		client.close();
-		return response;
+		return builder.post(Entity.json(data));
 	}
 	
 	public static Response callUpdateCategory(
@@ -48,9 +46,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/category/update?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		Response response = builder.put(Entity.json(data));
-		client.close();
-		return response;
+		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callDeleteCategory(
@@ -60,9 +56,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/category/delete?uuid=" + data.getUuid() + "&categoryId=" + data.getCategoryId(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		Response response = builder.delete();
-		client.close();
-		return response;
+		return builder.delete();
 	}
 	
 	public static Response callGetCategoryTree(
@@ -72,9 +66,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/category/tree?uuid=" + data.getUuid() + "&rootCategoryId=" + data.getRootCategoryId(), protocol, host, port)).request(); 
 		builder.header("Authorization", authorization);
-		Response response = builder.get();
-		client.close();
-		return response;
+		return builder.get();
 	}
 	
 	public static Response callMoveCategory(
@@ -84,9 +76,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/category/move?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		Response response = builder.put(Entity.json(data));
-		client.close();
-		return response;
+		return builder.put(Entity.json(data));
 	}
 	
 	public static Response callChangeOrderCategory(
@@ -96,9 +86,7 @@ public class ActionCalls {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client.target(String.format("%s://%s:%d/api/category/changeorder?uuid=" + data.getUuid(), protocol, host, port)).request();
 		builder.header("Authorization", authorization);
-		Response response = builder.put(Entity.json(data));
-		client.close();
-		return response;
+		return builder.put(Entity.json(data));
 	}
 	
 	

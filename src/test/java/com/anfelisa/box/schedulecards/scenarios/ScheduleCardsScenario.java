@@ -37,7 +37,7 @@ public class ScheduleCardsScenario extends AbstractScheduleCardsScenario {
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c3-" + getTestId(),"boxId-" + getTestId());
-		expectedScheduledCard = new ScheduledCardModel("c3-" + getTestId() + "-sc1" + getTestId(), "c3-" + getTestId(),"boxId-" + getTestId(),
+		expectedScheduledCard = new ScheduledCardModel("c3-" + getTestId() + "-sc1-" + getTestId(), "c3-" + getTestId(),"boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);

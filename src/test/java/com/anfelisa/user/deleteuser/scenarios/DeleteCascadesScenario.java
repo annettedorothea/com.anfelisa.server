@@ -60,23 +60,23 @@ public class DeleteCascadesScenario extends AbstractDeleteCascadesScenario {
 		user = this.daoProvider.getUserDao().selectByUsername(handle, "Admin");
 		assertIsNotNull(user);
 
-		box = daoProvider.getBoxDao().selectByBoxId(handle, "adminBox");
+		box = daoProvider.getBoxDao().selectByBoxId(handle, "adminBox-" + getTestId());
 		assertIsNotNull(box);
 		
 		access = daoProvider.getUserAccessToCategoryDao().selectByUserId(handle, "uuid-admin");
-		assertThat(access.size(), 1);
+		assertThat(access.size(), 0);
 		
-		allCategories = daoProvider.getCategoryDao().selectAllByRootCategoryId(handle, "adminBox");
+		allCategories = daoProvider.getCategoryDao().selectAllByRootCategoryId(handle, "adminBox-" + getTestId());
 		assertThat(allCategories.size(), 2);
 		
-		allCards = daoProvider.getCardDao().selectAllByRootCategoryId(handle, "adminBox");
+		allCards = daoProvider.getCardDao().selectAllByRootCategoryId(handle, "adminBox-" + getTestId());
 		assertThat(allCards.size(), 1);
 		
 		allScheduledCards = daoProvider.getScheduledCardDao().selectAllCardsOfBox(handle,
-				"adminBox");
+				"adminBox-" + getTestId());
 		assertThat(allScheduledCards.size(), 2);
 		
-		allReinforceCards = daoProvider.getReinforceCardDao().selectAllOfBox(handle, "adminBox");
+		allReinforceCards = daoProvider.getReinforceCardDao().selectAllOfBox(handle, "adminBox-" + getTestId());
 		assertThat(allReinforceCards.size(), 1);
 	}
 
