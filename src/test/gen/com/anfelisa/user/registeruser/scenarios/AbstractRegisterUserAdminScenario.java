@@ -53,17 +53,20 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 		this.callNotReplayableDataProviderPutValue(uuid, "token", 
 					objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 					this.getProtocol(), this.getHost(), this.getPort());
-		
-		return 
-		com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+		com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"language\" : \"de\"," + 
 				"\"password\" : \"admin-password\"," + 
 				"\"username\" : \"Admin\"} ",
-		com.anfelisa.user.data.UserRegistrationData.class)
+		com.anfelisa.user.data.UserRegistrationData.class);
 		
-		, this.getProtocol(), this.getHost(), this.getPort());
+		return 
+		this.httpPost(
+			"/users/register", 
+			data_0,
+			null
+		);
 		
 	}
 	

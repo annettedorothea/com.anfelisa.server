@@ -52,16 +52,19 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
 					"\"password\" : \"admin-password\"," + 
 					"\"username\" : \"Admin\"} ",
-			com.anfelisa.user.data.UserRegistrationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort());
+			com.anfelisa.user.data.UserRegistrationData.class);
+			response = 
+			this.httpPost(
+				"/users/register", 
+				data_1,
+				null
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
@@ -80,16 +83,19 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			com.anfelisa.user.data.UserRegistrationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-			com.anfelisa.user.data.UserRegistrationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort());
+			com.anfelisa.user.data.UserRegistrationData.class);
+			response = 
+			this.httpPost(
+				"/users/register", 
+				data_2,
+				null
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
@@ -105,14 +111,17 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		if (prerequisite("ConfirmEmailOK")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: ConfirmEmailOK uuid " + uuid);
-			response = 
-			com.anfelisa.user.ActionCalls.callConfirmEmail(objectMapper.readValue("{" +
+			com.anfelisa.user.data.ConfirmEmailData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"token\" : \"TOKEN-" + this.getTestId() + "\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-			com.anfelisa.user.data.ConfirmEmailData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort());
+			com.anfelisa.user.data.ConfirmEmailData.class);
+			response = 
+			this.httpPut(
+				"/users/confirm?uuid=" + data_3.getUuid() + "", 
+				data_3,
+				null
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ConfirmEmailOK fails\n" + response.readEntity(String.class);
@@ -129,12 +138,14 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 	
 	private Response when() throws Exception {
 		String uuid = this.randomUUID();
+		com.anfelisa.user.data.UserListData data_0 = objectMapper.readValue("{ \"uuid\" : \"" + uuid + "\"}",
+		com.anfelisa.user.data.UserListData.class);
 		
 		return 
-		com.anfelisa.user.ActionCalls.callGetAllUsers(objectMapper.readValue("{}",
-		com.anfelisa.user.data.UserListData.class)
-		
-		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
+		this.httpGet(
+			"/users/all?uuid=" + data_0.getUuid() + "", 
+			authorization("Admin", "admin-password")
+		);
 		
 	}
 	
@@ -167,9 +178,7 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 				"\"emailConfirmed\" : true," + 
 				"\"role\" : \"STUDENT\"," + 
 				"\"userId\" : \"uuid-" + this.getTestId() + "\"}]} ",
-		com.anfelisa.user.data.UserListData.class)
-		
-		;
+		com.anfelisa.user.data.UserListData.class);
 		
 		com.anfelisa.user.data.GetAllUsersResponse expected = new com.anfelisa.user.data.GetAllUsersResponse(expectedData);
 

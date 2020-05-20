@@ -37,6 +37,14 @@ public abstract class AbstractBaseScenario {
 		objectMapper = new ObjectMapper();
 	}
 
+	protected abstract Response httpGet(String path, String authorization);
+	
+	protected abstract Response httpPost(String path, Object data, String authorization);
+	
+	protected abstract Response httpPut(String path, Object data, String authorization);
+	
+	protected abstract Response httpDelete(String path, String authorization);
+	
 	protected abstract String randomString();
 	
 	protected abstract String randomUUID();

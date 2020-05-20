@@ -60,7 +60,7 @@ import javax.ws.rs.GET;
 import com.anfelisa.box.data.IBoxSettingsWrapperData;
 import com.anfelisa.box.data.BoxSettingsWrapperData;
 
-@Path("/box/settings/{boxId}/")
+@Path("/box/settings/{boxId}")
 @SuppressWarnings("unused")
 public abstract class AbstractGetBoxSettingsAction extends ReadAction<IBoxSettingsWrapperData> {
 

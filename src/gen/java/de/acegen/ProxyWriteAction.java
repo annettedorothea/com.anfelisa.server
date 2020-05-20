@@ -60,10 +60,11 @@ public abstract class ProxyWriteAction<T extends IDataContainer> extends Action<
 		databaseHandle.beginTransaction();
 		try {
 			if (ServerConfiguration.DEV.equals(appConfiguration.getServerConfiguration().getMode())
-					|| ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())) {
+					|| ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())
+					|| ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (appConfiguration.getServerConfiguration().writeTimeline()) {
 					if (daoProvider.getAceDao().contains(databaseHandle.getHandle(), this.actionData.getUuid())) {
-						databaseHandle.commitTransaction();
+						databaseHandle.rollbackTransaction();
 						throwBadRequest("uuid already exists - please choose another one");
 					}
 				}
@@ -73,7 +74,8 @@ public abstract class ProxyWriteAction<T extends IDataContainer> extends Action<
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				initActionDataFrom(timelineItem);
-			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
+			}
+			if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				initActionDataFromNotReplayableDataProvider();
 			}
 			if (appConfiguration.getServerConfiguration().writeTimeline()) {

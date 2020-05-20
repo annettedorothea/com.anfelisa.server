@@ -52,16 +52,19 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
 					"\"password\" : \"admin-password\"," + 
 					"\"username\" : \"Admin\"} ",
-			com.anfelisa.user.data.UserRegistrationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort());
+			com.anfelisa.user.data.UserRegistrationData.class);
+			response = 
+			this.httpPost(
+				"/users/register", 
+				data_1,
+				null
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
@@ -80,16 +83,19 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			com.anfelisa.user.data.UserRegistrationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-			com.anfelisa.user.data.UserRegistrationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort());
+			com.anfelisa.user.data.UserRegistrationData.class);
+			response = 
+			this.httpPost(
+				"/users/register", 
+				data_2,
+				null
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
@@ -105,14 +111,17 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		if (prerequisite("ChangeUserRoleToAdmin")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: ChangeUserRoleToAdmin uuid " + uuid);
-			response = 
-			com.anfelisa.user.ActionCalls.callChangeUserRole(objectMapper.readValue("{" +
+			com.anfelisa.user.data.ChangeUserRoleData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
 					"\"newRole\" : \"ADMIN\"} ",
-			com.anfelisa.user.data.ChangeUserRoleData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
+			com.anfelisa.user.data.ChangeUserRoleData.class);
+			response = 
+			this.httpPut(
+				"/user/role?uuid=" + data_3.getUuid() + "", 
+				data_3,
+				authorization("Admin", "admin-password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ChangeUserRoleToAdmin fails\n" + response.readEntity(String.class);
@@ -129,14 +138,16 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 	
 	private Response when() throws Exception {
 		String uuid = this.randomUUID();
-		
-		return 
-		com.anfelisa.user.ActionCalls.callDeleteUser(objectMapper.readValue("{" +
+		com.anfelisa.user.data.DeleteUserData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"usernameToBeDeleted\" : \"Annette-" + this.getTestId() + "\"} ",
-		com.anfelisa.user.data.DeleteUserData.class)
+		com.anfelisa.user.data.DeleteUserData.class);
 		
-		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
+		return 
+		this.httpDelete(
+			"/user/delete?uuid=" + data_0.getUuid() + "&usernameToBeDeleted=" + data_0.getUsernameToBeDeleted() + "", 
+			authorization("Admin", "admin-password")
+		);
 		
 	}
 	

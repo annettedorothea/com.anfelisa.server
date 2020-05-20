@@ -52,16 +52,19 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-			com.anfelisa.user.data.UserRegistrationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort());
+			com.anfelisa.user.data.UserRegistrationData.class);
+			response = 
+			this.httpPost(
+				"/users/register", 
+				data_1,
+				null
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
@@ -78,14 +81,16 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 	
 	private Response when() throws Exception {
 		String uuid = this.randomUUID();
-		
-		return 
-		com.anfelisa.user.ActionCalls.callUsernameAvailable(objectMapper.readValue("{" +
+		com.anfelisa.user.data.UsernameAvailableData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-		com.anfelisa.user.data.UsernameAvailableData.class)
+		com.anfelisa.user.data.UsernameAvailableData.class);
 		
-		, this.getProtocol(), this.getHost(), this.getPort());
+		return 
+		this.httpGet(
+			"/users/username?uuid=" + data_0.getUuid() + "&username=" + data_0.getUsername() + "", 
+			null
+		);
 		
 	}
 	
@@ -107,9 +112,7 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 		com.anfelisa.user.data.UsernameAvailableData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"\"," + 
 				"\"available\" : false} ",
-		com.anfelisa.user.data.UsernameAvailableData.class)
-		
-		;
+		com.anfelisa.user.data.UsernameAvailableData.class);
 		
 		com.anfelisa.user.data.UsernameAvailableResponse expected = new com.anfelisa.user.data.UsernameAvailableResponse(expectedData);
 

@@ -52,16 +52,19 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
 					"\"password\" : \"admin-password\"," + 
 					"\"username\" : \"Admin\"} ",
-			com.anfelisa.user.data.UserRegistrationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort());
+			com.anfelisa.user.data.UserRegistrationData.class);
+			response = 
+			this.httpPost(
+				"/users/register", 
+				data_1,
+				null
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
@@ -77,15 +80,18 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
 			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: CreateBoxMinimalAsAdmin uuid " + uuid);
-			response = 
-			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
-			com.anfelisa.box.data.BoxCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
+			com.anfelisa.box.data.BoxCreationData.class);
+			response = 
+			this.httpPost(
+				"/box/create", 
+				data_2,
+				authorization("Admin", "admin-password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimalAsAdmin fails\n" + response.readEntity(String.class);
@@ -101,14 +107,17 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 		if (prerequisite("CreateCategoryAsAdmin")) {
 			uuid = "adminCat-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: CreateCategoryAsAdmin uuid " + uuid);
-			response = 
-			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"c\"," + 
 					"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
-			com.anfelisa.category.data.CategoryCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
+			com.anfelisa.category.data.CategoryCreationData.class);
+			response = 
+			this.httpPost(
+				"/category/create", 
+				data_3,
+				authorization("Admin", "admin-password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategoryAsAdmin fails\n" + response.readEntity(String.class);
@@ -125,17 +134,20 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 	
 	private Response when() throws Exception {
 		String uuid = "c6-${testId}".replace("${testId}", this.getTestId());
-		
-		return 
-		com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+		com.anfelisa.card.data.CardCreationData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
 				"\"given\" : \"given\"," + 
 				"\"image\" : \"image\"," + 
 				"\"wanted\" : \"wanted\"} ",
-		com.anfelisa.card.data.CardCreationData.class)
+		com.anfelisa.card.data.CardCreationData.class);
 		
-		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Admin", "admin-password"));
+		return 
+		this.httpPost(
+			"/card/create", 
+			data_0,
+			authorization("Admin", "admin-password")
+		);
 		
 	}
 	

@@ -56,10 +56,11 @@ public abstract class ReadAction<T extends IDataContainer> extends Action<T> {
 		databaseHandle.beginTransaction();
 		try {
 			if (ServerConfiguration.DEV.equals(appConfiguration.getServerConfiguration().getMode())
-					|| ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())) {
+					|| ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())
+					|| ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				if (appConfiguration.getServerConfiguration().writeTimeline()) {
 					if (daoProvider.getAceDao().contains(databaseHandle.getHandle(), this.actionData.getUuid())) {
-						databaseHandle.commitTransaction();
+						databaseHandle.rollbackTransaction();
 						throwBadRequest("uuid already exists - please choose another one");
 					}
 				}
@@ -69,7 +70,8 @@ public abstract class ReadAction<T extends IDataContainer> extends Action<T> {
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {
 				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
 				initActionDataFrom(timelineItem);
-			} else if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
+			}
+			if (ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
 				initActionDataFromNotReplayableDataProvider();
 			}
 			this.loadDataForGetRequest(databaseHandle.getReadonlyHandle());

@@ -52,16 +52,19 @@ public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario 
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-			com.anfelisa.user.data.UserRegistrationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort());
+			com.anfelisa.user.data.UserRegistrationData.class);
+			response = 
+			this.httpPost(
+				"/users/register", 
+				data_1,
+				null
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
@@ -78,12 +81,14 @@ public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario 
 	
 	private Response when() throws Exception {
 		String uuid = this.randomUUID();
+		com.anfelisa.user.data.RoleData data_0 = objectMapper.readValue("{ \"uuid\" : \"" + uuid + "\"}",
+		com.anfelisa.user.data.RoleData.class);
 		
 		return 
-		com.anfelisa.user.ActionCalls.callGetRole(objectMapper.readValue("{}",
-		com.anfelisa.user.data.RoleData.class)
-		
-		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "wrong"));
+		this.httpGet(
+			"/user/role?uuid=" + data_0.getUuid() + "", 
+			authorization("Annette-${testId}", "wrong")
+		);
 		
 	}
 	

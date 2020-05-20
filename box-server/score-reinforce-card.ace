@@ -8,7 +8,7 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1-${testId}"
+				uuid "sr0-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 0,
@@ -22,7 +22,7 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1-${testId}"
+				uuid "sr1-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 1,
@@ -36,7 +36,7 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1-${testId}"
+				uuid "sr2-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 2,
@@ -50,7 +50,7 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1-${testId}"
+				uuid "sr3-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 3,
@@ -64,7 +64,7 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1-${testId}"
+				uuid "sr4-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 4,
@@ -78,7 +78,7 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard0
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1-${testId}"
+				uuid "sr5-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 5,
@@ -92,7 +92,7 @@ scenarios
 			com.anfelisa.box.scorecard.ScoreCard1
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1-${testId}"
+				uuid "other-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 5,
@@ -107,7 +107,6 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN
 			com.anfelisa.box.ScoreReinforceCard
-				uuid "1-${testId}"
 				systemTime "20200418 16:40" "yyyyMMdd HH:mm"
 				{
 					scoredCardQuality: 5,

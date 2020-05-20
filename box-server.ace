@@ -32,7 +32,7 @@ ACE
 		on ok ( Box.updateBox RootCategory.update)
 		
 	GetBoxSettings<BoxSettingsWrapper>
-	GET "/box/settings/{boxId}/" 
+	GET "/box/settings/{boxId}" 
 		authorize 
 		pathParams boxId
 		response 

@@ -30,13 +30,13 @@ public class ScheduleCardsWithExistingScenario extends AbstractScheduleCardsWith
 		DateTime dateTime = new DateTime(2020, 4, 19, 12, 20).withZone(DateTimeZone.UTC);
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle,
 				"c2-" + getTestId(),"boxId-" + getTestId());
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c2-" + getTestId() + "-sc1-" + getTestId(), "c2-" + getTestId(),"boxId-" + getTestId(),
+		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c2-" + getTestId() + "-s12-" + getTestId(), "c2-" + getTestId(),"boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);
 
 		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c5-" + getTestId(),"boxId-" + getTestId());
-		expectedScheduledCard = new ScheduledCardModel("c5-" + getTestId() + "-sc1-" + getTestId(), "c5-" + getTestId(),"boxId-" + getTestId(),
+		expectedScheduledCard = new ScheduledCardModel("c5-" + getTestId() + "-s12-" + getTestId(), "c5-" + getTestId(),"boxId-" + getTestId(),
 				dateTime, 2.5F, 1, 1, 0, dateTime, null, null,
 				null);
 		assertThat(actualScheduledCard, expectedScheduledCard);

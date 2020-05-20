@@ -357,7 +357,6 @@ scenarios
 			com.anfelisa.card.createcard.CreateFifthCard
 			com.anfelisa.box.updatebox.UpdateBoxSetMaxCardsTo1 excludeGIVEN
 			com.anfelisa.box.schedulecards.ScheduleCards excludeGIVEN
-			com.anfelisa.box.schedulecards.ScheduleCards excludeGIVEN
 			ScoreCard0 excludeGIVEN
 			ScoreCardSecond0 excludeGIVEN
 		WHEN

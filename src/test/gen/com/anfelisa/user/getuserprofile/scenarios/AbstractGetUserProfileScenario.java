@@ -52,16 +52,19 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
 					"\"password\" : \"admin-password\"," + 
 					"\"username\" : \"Admin\"} ",
-			com.anfelisa.user.data.UserRegistrationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort());
+			com.anfelisa.user.data.UserRegistrationData.class);
+			response = 
+			this.httpPost(
+				"/users/register", 
+				data_1,
+				null
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
@@ -80,16 +83,19 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			com.anfelisa.user.data.UserRegistrationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-			com.anfelisa.user.data.UserRegistrationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort());
+			com.anfelisa.user.data.UserRegistrationData.class);
+			response = 
+			this.httpPost(
+				"/users/register", 
+				data_2,
+				null
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
@@ -106,12 +112,14 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 	
 	private Response when() throws Exception {
 		String uuid = this.randomUUID();
+		com.anfelisa.user.data.UserData data_0 = objectMapper.readValue("{ \"uuid\" : \"" + uuid + "\"}",
+		com.anfelisa.user.data.UserData.class);
 		
 		return 
-		com.anfelisa.user.ActionCalls.callGetUserProfile(objectMapper.readValue("{}",
-		com.anfelisa.user.data.UserData.class)
-		
-		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+		this.httpGet(
+			"/user/get?uuid=" + data_0.getUuid() + "", 
+			authorization("Annette-${testId}", "password")
+		);
 		
 	}
 	
@@ -135,9 +143,7 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"," + 
 				"\"userId\" : \"uuid-" + this.getTestId() + "\"} ",
-		com.anfelisa.user.data.UserData.class)
-		
-		;
+		com.anfelisa.user.data.UserData.class);
 		
 		com.anfelisa.user.data.GetUserProfileResponse expected = new com.anfelisa.user.data.GetUserProfileResponse(expectedData);
 

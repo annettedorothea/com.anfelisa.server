@@ -14,10 +14,9 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-
-
-
 package com.anfelisa.user.deleteuser.scenarios;
+
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -38,54 +37,52 @@ public class DeleteCascadesScenario extends AbstractDeleteCascadesScenario {
 		IUserModel user = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
 		assertIsNull(user);
 
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(handle,"boxId-" + getTestId());
+		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + getTestId());
 		assertIsNull(box);
 
-		List<IUserAccessToCategoryModel> access = daoProvider.getUserAccessToCategoryDao().selectByUserId(handle, "uuid-" + getTestId());
-		assertThat(access.size(), 0);
-		
-		List<String> allCategories = daoProvider.getCategoryDao().selectAllByRootCategoryId(handle,"boxId-" + getTestId());
+		IUserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(handle,
+				"boxId-" + getTestId(), "uuid-" + getTestId());
+		assertIsNull(access);
+
+		List<String> allCategories = daoProvider.getCategoryDao().selectAllByRootCategoryId(handle,
+				"boxId-" + getTestId());
 		assertThat(allCategories.size(), 0);
-		
-		List<ICardModel> allCards = daoProvider.getCardDao().selectAllByRootCategoryId(handle,"boxId-" + getTestId());
+
+		List<ICardModel> allCards = daoProvider.getCardDao().selectAllByRootCategoryId(handle, "boxId-" + getTestId());
 		assertThat(allCards.size(), 0);
-		
+
 		List<IScheduledCardModel> allScheduledCards = daoProvider.getScheduledCardDao().selectAllCardsOfBox(handle,
 				"boxId-" + getTestId());
 		assertThat(allScheduledCards.size(), 0);
 
-		List<IReinforceCardModel> allReinforceCards = daoProvider.getReinforceCardDao().selectAllOfBox(handle,"boxId-" + getTestId());
+		List<IReinforceCardModel> allReinforceCards = daoProvider.getReinforceCardDao().selectAllOfBox(handle,
+				"boxId-" + getTestId());
 		assertThat(allReinforceCards.size(), 0);
-		
+
 		user = this.daoProvider.getUserDao().selectByUsername(handle, "Admin");
 		assertIsNotNull(user);
 
 		box = daoProvider.getBoxDao().selectByBoxId(handle, "adminBox-" + getTestId());
 		assertIsNotNull(box);
-		
-		access = daoProvider.getUserAccessToCategoryDao().selectByUserId(handle, "uuid-admin");
-		assertThat(access.size(), 0);
-		
+
+		access = daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(handle, "boxId-" + getTestId(),
+				"uuid-admin");
+		assertIsNull(access);
+
 		allCategories = daoProvider.getCategoryDao().selectAllByRootCategoryId(handle, "adminBox-" + getTestId());
 		assertThat(allCategories.size(), 2);
-		
+
 		allCards = daoProvider.getCardDao().selectAllByRootCategoryId(handle, "adminBox-" + getTestId());
 		assertThat(allCards.size(), 1);
-		
+
 		allScheduledCards = daoProvider.getScheduledCardDao().selectAllCardsOfBox(handle,
 				"adminBox-" + getTestId());
 		assertThat(allScheduledCards.size(), 2);
-		
+
 		allReinforceCards = daoProvider.getReinforceCardDao().selectAllOfBox(handle, "adminBox-" + getTestId());
 		assertThat(allReinforceCards.size(), 1);
 	}
 
 }
 
-
-
-
 /******* S.D.G. *******/
-
-
-

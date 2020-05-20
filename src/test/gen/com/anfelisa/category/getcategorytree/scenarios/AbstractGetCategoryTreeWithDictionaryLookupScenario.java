@@ -52,16 +52,19 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-			com.anfelisa.user.data.UserRegistrationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort());
+			com.anfelisa.user.data.UserRegistrationData.class);
+			response = 
+			this.httpPost(
+				"/users/register", 
+				data_1,
+				null
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
@@ -77,17 +80,20 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		if (prerequisite("CreateBoxDictionaryLookup")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: CreateBoxDictionaryLookup uuid " + uuid);
-			response = 
-			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
 					"\"maxCardsPerDay\" : 10," + 
 					"\"dictionaryLookup\" : true," + 
 					"\"givenLanguage\" : \"de\"," + 
 					"\"wantedLanguage\" : \"en\"} ",
-			com.anfelisa.box.data.BoxCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.box.data.BoxCreationData.class);
+			response = 
+			this.httpPost(
+				"/box/create", 
+				data_2,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxDictionaryLookup fails\n" + response.readEntity(String.class);
@@ -103,14 +109,17 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		if (prerequisite("CreateCategoryWithDictionaryLookup")) {
 			uuid = "dict-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: CreateCategoryWithDictionaryLookup uuid " + uuid);
-			response = 
-			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"dict-" + this.getTestId() + "\"," + 
 					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-			com.anfelisa.category.data.CategoryCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.category.data.CategoryCreationData.class);
+			response = 
+			this.httpPost(
+				"/category/create", 
+				data_3,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategoryWithDictionaryLookup fails\n" + response.readEntity(String.class);
@@ -127,14 +136,16 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 	
 	private Response when() throws Exception {
 		String uuid = this.randomUUID();
-		
-		return 
-		com.anfelisa.category.ActionCalls.callGetCategoryTree(objectMapper.readValue("{" +
+		com.anfelisa.category.data.CategoryTreeData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-		com.anfelisa.category.data.CategoryTreeData.class)
+		com.anfelisa.category.data.CategoryTreeData.class);
 		
-		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+		return 
+		this.httpGet(
+			"/category/tree?uuid=" + data_0.getUuid() + "&rootCategoryId=" + data_0.getRootCategoryId() + "", 
+			authorization("Annette-${testId}", "password")
+		);
 		
 	}
 	
@@ -173,9 +184,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"childCategories\" : []}]}} ",
-		com.anfelisa.category.data.CategoryTreeData.class)
-		
-		;
+		com.anfelisa.category.data.CategoryTreeData.class);
 		
 		com.anfelisa.category.data.GetCategoryTreeResponse expected = new com.anfelisa.category.data.GetCategoryTreeResponse(expectedData);
 

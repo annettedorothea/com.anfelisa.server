@@ -52,16 +52,19 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-			com.anfelisa.user.data.UserRegistrationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort());
+			com.anfelisa.user.data.UserRegistrationData.class);
+			response = 
+			this.httpPost(
+				"/users/register", 
+				data_1,
+				null
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
@@ -77,15 +80,18 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
-			response = 
-			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
-			com.anfelisa.box.data.BoxCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.box.data.BoxCreationData.class);
+			response = 
+			this.httpPost(
+				"/box/create", 
+				data_2,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
@@ -101,14 +107,17 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 		if (prerequisite("CreateCategory")) {
 			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: CreateCategory uuid " + uuid);
-			response = 
-			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
 					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-			com.anfelisa.category.data.CategoryCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.category.data.CategoryCreationData.class);
+			response = 
+			this.httpPost(
+				"/category/create", 
+				data_3,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
@@ -124,16 +133,19 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 		if (prerequisite("CreateCard")) {
 			uuid = "c1-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: CreateCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"given\"," + 
 					"\"image\" : \"image\"," + 
 					"\"wanted\" : \"wanted\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_4,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
@@ -149,16 +161,19 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 		if (prerequisite("CreateSecondCard")) {
 			uuid = "c2-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: CreateSecondCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_5 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"given2\"," + 
 					"\"image\" : \"image2\"," + 
 					"\"wanted\" : \"wanted2\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_5,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateSecondCard fails\n" + response.readEntity(String.class);
@@ -174,15 +189,18 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 		if (prerequisite("CreateThirdCard")) {
 			uuid = "c3-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: CreateThirdCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_6 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"3given\"," + 
 					"\"wanted\" : \"3wanted\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_6,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateThirdCard fails\n" + response.readEntity(String.class);
@@ -198,15 +216,18 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 		if (prerequisite("CreateFourthCard")) {
 			uuid = "c4-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: CreateFourthCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_7 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"4given4\"," + 
 					"\"wanted\" : \"4wanted4\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_7,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateFourthCard fails\n" + response.readEntity(String.class);
@@ -222,15 +243,18 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 		if (prerequisite("CreateFifthCard")) {
 			uuid = "c5-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: CreateFifthCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_8 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"different\"," + 
 					"\"wanted\" : \"different\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_8,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateFifthCard fails\n" + response.readEntity(String.class);
@@ -248,15 +272,18 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 			LOG.info("GIVEN: ScheduleCards uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.box.ActionCalls.callScheduleCards(objectMapper.readValue("{" +
+			com.anfelisa.box.data.ScheduledCardsData data_9 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 					"\"c3-" + this.getTestId() + "\"," + 
 					"\"c4-" + this.getTestId() + "\"]} ",
-			com.anfelisa.box.data.ScheduledCardsData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.box.data.ScheduledCardsData.class);
+			response = 
+			this.httpPost(
+				"/cards/schedule", 
+				data_9,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScheduleCards fails\n" + response.readEntity(String.class);
@@ -274,15 +301,18 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 			LOG.info("GIVEN: ScoreCard0 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			com.anfelisa.box.data.ScoreCardData data_10 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 0," + 
 					"\"scoredCardScheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
-			com.anfelisa.box.data.ScoreCardData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.box.data.ScoreCardData.class);
+			response = 
+			this.httpPost(
+				"/card/score", 
+				data_10,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard0 fails\n" + response.readEntity(String.class);
@@ -300,15 +330,18 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 			LOG.info("GIVEN: ScoreCard1 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			com.anfelisa.box.data.ScoreCardData data_11 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 1," + 
 					"\"scoredCardScheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
-			com.anfelisa.box.data.ScoreCardData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.box.data.ScoreCardData.class);
+			response = 
+			this.httpPost(
+				"/card/score", 
+				data_11,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard1 fails\n" + response.readEntity(String.class);
@@ -326,15 +359,18 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 			LOG.info("GIVEN: ScoreCard5 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.box.ActionCalls.callScoreCard(objectMapper.readValue("{" +
+			com.anfelisa.box.data.ScoreCardData data_12 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 5," + 
 					"\"scoredCardScheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
-			com.anfelisa.box.data.ScoreCardData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.box.data.ScoreCardData.class);
+			response = 
+			this.httpPost(
+				"/card/score", 
+				data_12,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard5 fails\n" + response.readEntity(String.class);
@@ -348,18 +384,21 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 		
 
 		if (prerequisite("ScoreReinforceCard3")) {
-			uuid = "1-${testId}".replace("${testId}", this.getTestId());
+			uuid = "sr3-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: ScoreReinforceCard3 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:40", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.box.ActionCalls.callScoreReinforceCard(objectMapper.readValue("{" +
+			com.anfelisa.box.data.ScoreReinforceCardData data_13 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
 					"\"reinforceCardId\" : \"score0-" + this.getTestId() + "\"} ",
-			com.anfelisa.box.data.ScoreReinforceCardData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.box.data.ScoreReinforceCardData.class);
+			response = 
+			this.httpPost(
+				"/card/score-reinforce", 
+				data_13,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreReinforceCard3 fails\n" + response.readEntity(String.class);
@@ -373,18 +412,21 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 		
 
 		if (prerequisite("ScoreOtherReinforceCard")) {
-			uuid = "1-${testId}".replace("${testId}", this.getTestId());
+			uuid = "other-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: ScoreOtherReinforceCard uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:40", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.box.ActionCalls.callScoreReinforceCard(objectMapper.readValue("{" +
+			com.anfelisa.box.data.ScoreReinforceCardData data_14 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"scoredCardQuality\" : 5," + 
 					"\"reinforceCardId\" : \"score1-" + this.getTestId() + "\"} ",
-			com.anfelisa.box.data.ScoreReinforceCardData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.box.data.ScoreReinforceCardData.class);
+			response = 
+			this.httpPost(
+				"/card/score-reinforce", 
+				data_14,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreOtherReinforceCard fails\n" + response.readEntity(String.class);
@@ -401,15 +443,17 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 	
 	private Response when() throws Exception {
 		String uuid = this.randomUUID();
-		
-		return 
-		com.anfelisa.box.ActionCalls.callLoadNextCard(objectMapper.readValue("{" +
+		com.anfelisa.box.data.NextCardData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"todayAtMidnightInUTC\" : \"2020-04-18T00:00:00.000Z\"} ",
-		com.anfelisa.box.data.NextCardData.class)
+		com.anfelisa.box.data.NextCardData.class);
 		
-		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+		return 
+		this.httpGet(
+			"/box/next-card?uuid=" + data_0.getUuid() + "&boxId=" + data_0.getBoxId() + "&todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
+			authorization("Annette-${testId}", "password")
+		);
 		
 	}
 	
@@ -443,9 +487,7 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 				"\"scheduledDate\" : \"2020-04-18T08:30:00.000Z\"," + 
 				"\"scoredDate\" : \"2020-04-18T14:30:00.000Z\"," + 
 				"\"wanted\" : \"wanted\"} ",
-		com.anfelisa.box.data.NextCardData.class)
-		
-		;
+		com.anfelisa.box.data.NextCardData.class);
 		
 		com.anfelisa.box.data.LoadNextCardResponse expected = new com.anfelisa.box.data.LoadNextCardResponse(expectedData);
 

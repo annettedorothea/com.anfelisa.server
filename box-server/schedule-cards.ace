@@ -68,25 +68,12 @@ scenarios
 				authorization "Admin" : "admin-password"
 		THEN 200
 
-	ScheduleCardsCombineIds
-		GIVEN
-			com.anfelisa.card.createcard.CreateCardWithLongUuid
-		WHEN
-			com.anfelisa.box.ScheduleCards
-				uuid "abcdefghi-abcdefghi-abcdefghi-abcdefghi-abcdefghi-${testId}"
-				systemTime "20200418 10:30" "yyyyMMdd HH:mm"
-				{
-					cardIds: ["123456789-123456789-123456789-123456789"]
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 200
-
 	ScheduleCardsWithExisting
 		GIVEN
 			ScheduleCards
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "sc1-${testId}"
+				uuid "s12-${testId}"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
 					cardIds: ["c2-${testId}", "c5-${testId}" ]
@@ -99,7 +86,7 @@ scenarios
 			ScheduleCards
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "sc1-${testId}"
+				uuid "sc1-empty-${testId}"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				{
 					cardIds: []
@@ -112,7 +99,7 @@ scenarios
 			ScheduleCards
 		WHEN
 			com.anfelisa.box.ScheduleCards
-				uuid "sc1-${testId}"
+				uuid "sc1-null-${testId}"
 				systemTime "20200419 12:20" "yyyyMMdd HH:mm"
 				authorization "Annette-${testId}" : "password"
 		THEN 400

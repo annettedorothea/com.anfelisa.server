@@ -52,16 +52,19 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
-			response = 
-			com.anfelisa.user.ActionCalls.callRegisterUser(objectMapper.readValue("{" +
+			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-			com.anfelisa.user.data.UserRegistrationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort());
+			com.anfelisa.user.data.UserRegistrationData.class);
+			response = 
+			this.httpPost(
+				"/users/register", 
+				data_1,
+				null
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
@@ -77,15 +80,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
-			response = 
-			com.anfelisa.box.ActionCalls.callCreateBox(objectMapper.readValue("{" +
+			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
-			com.anfelisa.box.data.BoxCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.box.data.BoxCreationData.class);
+			response = 
+			this.httpPost(
+				"/box/create", 
+				data_2,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
@@ -101,14 +107,17 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateCategory")) {
 			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
 			LOG.info("GIVEN: CreateCategory uuid " + uuid);
-			response = 
-			com.anfelisa.category.ActionCalls.callCreateCategory(objectMapper.readValue("{" +
+			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
 					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-			com.anfelisa.category.data.CategoryCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+			com.anfelisa.category.data.CategoryCreationData.class);
+			response = 
+			this.httpPost(
+				"/category/create", 
+				data_3,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
@@ -124,15 +133,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"0given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"1wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"870given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"871wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_4,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -147,15 +159,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_5 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"2given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"3wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"872given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"873wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_5,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -170,15 +185,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_6 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"4given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"5wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"874given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"875wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_6,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -193,15 +211,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_7 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"6given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"7wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"876given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"877wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_7,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -216,15 +237,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_8 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"8given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"9wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"878given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"879wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_8,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -239,15 +263,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_9 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"10given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"11wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"880given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"881wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_9,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -262,15 +289,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_10 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"12given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"13wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"882given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"883wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_10,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -285,15 +315,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_11 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"14given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"15wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"884given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"885wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_11,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -308,15 +341,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_12 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"16given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"17wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"886given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"887wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_12,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -331,15 +367,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_13 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"18given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"19wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"888given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"889wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_13,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -354,15 +393,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_14 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"20given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"21wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"890given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"891wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_14,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -377,15 +419,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_15 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"22given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"23wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"892given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"893wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_15,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -400,15 +445,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_16 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"24given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"25wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"894given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"895wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_16,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -423,15 +471,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_17 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"26given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"27wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"896given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"897wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_17,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -446,15 +497,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_18 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"28given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"29wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"898given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"899wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_18,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -469,15 +523,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_19 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"30given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"31wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"900given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"901wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_19,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -492,15 +549,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_20 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"32given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"33wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"902given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"903wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_20,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -515,15 +575,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_21 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"34given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"35wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"904given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"905wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_21,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -538,15 +601,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_22 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"36given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"37wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"906given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"907wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_22,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -561,15 +627,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_23 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"38given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"39wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"908given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"909wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_23,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -584,15 +653,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_24 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"40given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"41wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"910given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"911wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_24,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -607,15 +679,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_25 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"42given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"43wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"912given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"913wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_25,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -630,15 +705,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_26 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"44given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"45wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"914given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"915wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_26,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -653,15 +731,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_27 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"46given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"47wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"916given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"917wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_27,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -676,15 +757,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_28 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"48given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"49wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"918given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"919wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_28,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -699,15 +783,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_29 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"50given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"51wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"920given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"921wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_29,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -722,15 +809,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_30 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"52given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"53wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"922given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"923wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_30,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -745,15 +835,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_31 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"54given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"55wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"924given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"925wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_31,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -768,15 +861,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_32 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"56given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"57wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"926given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"927wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_32,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -791,15 +887,18 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
 			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
-			response = 
-			com.anfelisa.card.ActionCalls.callCreateCard(objectMapper.readValue("{" +
+			com.anfelisa.card.data.CardCreationData data_33 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"58given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"59wanted" + this.randomString() + "\"} ",
-			com.anfelisa.card.data.CardCreationData.class)
-			
-			, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+					"\"given\" : \"928given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"929wanted" + this.randomString() + "\"} ",
+			com.anfelisa.card.data.CardCreationData.class);
+			response = 
+			this.httpPost(
+				"/card/create", 
+				data_33,
+				authorization("Annette-${testId}", "password")
+			);
 			
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
@@ -816,17 +915,19 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 	
 	private Response when() throws Exception {
 		String uuid = this.randomUUID();
-		
-		return 
-		com.anfelisa.card.ActionCalls.callGetDuplicates(objectMapper.readValue("{" +
+		com.anfelisa.card.data.CardSearchData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"given\" : \"ive\"," + 
 				"\"wanted\" : \"nted\"," + 
 				"\"naturalInputOrder\" : true} ",
-		com.anfelisa.card.data.CardSearchData.class)
+		com.anfelisa.card.data.CardSearchData.class);
 		
-		, this.getProtocol(), this.getHost(), this.getPort(), authorization("Annette-${testId}", "password"));
+		return 
+		this.httpGet(
+			"/cards/search?uuid=" + data_0.getUuid() + "&given=" + data_0.getGiven() + "&wanted=" + data_0.getWanted() + "&naturalInputOrder=" + data_0.getNaturalInputOrder() + "&categoryId=" + data_0.getCategoryId() + "", 
+			authorization("Annette-${testId}", "password")
+		);
 		
 	}
 	

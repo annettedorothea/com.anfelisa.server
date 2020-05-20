@@ -66,6 +66,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	private String testId;
 
+	public Client client;
+	
 	@BeforeClass
 	public static void beforeClass() throws Exception {
 		jdbi = Jdbi.create("jdbc:postgresql://localhost/anfelisa_replay");
@@ -83,6 +85,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		daoProvider = new DaoProvider();
 		handle = new PersistenceHandle(jdbi.open());
 		testId = randomString();
+		client = new JerseyClientBuilder().build();
 		LOG.info("testId {}", testId);
 	}
 
@@ -91,6 +94,42 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		handle.getHandle().close();
 	}
 
+	protected Response httpGet(String path, String authorization) {
+		System.out.println("httpGet " + String.format("%s://%s:%d/api%s", protocol, host, port, path));
+		Builder builder = client.target(String.format("%s://%s:%d/api%s", protocol, host, port, path)).request(); 
+		if (authorization != null) {
+			builder.header("Authorization", authorization);
+		}
+		return builder.get();
+	}
+	
+	protected Response httpPost(String path, Object data, String authorization) {
+		System.out.println("httpPost " + String.format("%s://%s:%d/api%s", protocol, host, port, path));
+		Builder builder = client.target(String.format("%s://%s:%d/api%s", protocol, host, port, path)).request(); 
+		if (authorization != null) {
+			builder.header("Authorization", authorization);
+		}
+		return builder.post(Entity.json(data));
+	}
+	
+	protected Response httpPut(String path, Object data, String authorization) {
+		System.out.println("httpPut " + String.format("%s://%s:%d/api%s", protocol, host, port, path));
+		Builder builder = client.target(String.format("%s://%s:%d/api%s", protocol, host, port, path)).request();
+		if (authorization != null) {
+			builder.header("Authorization", authorization);
+		}
+		return builder.put(Entity.json(data));
+	}
+	
+	protected Response httpDelete(String path, String authorization)  {
+		System.out.println("httpDelete " + String.format("%s://%s:%d/api%s", protocol, host, port, path));
+		Builder builder = client.target(String.format("%s://%s:%d/api%s", protocol, host, port, path)).request();
+		if (authorization != null) {
+			builder.header("Authorization", authorization);
+		}
+		return builder.delete();
+	}
+	
 	protected String randomString() {
 		return randomUUID().replace("-", "").substring(0, 8);
 	}

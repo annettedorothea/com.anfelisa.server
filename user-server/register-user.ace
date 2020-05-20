@@ -73,7 +73,7 @@ scenarios
 	RegisterUserUsernameAlreadyTaken
 		GIVEN RegisterUser
 		WHEN com.anfelisa.user.RegisterUser 
-			uuid "uuid-at" 
+			uuid "uuid-at-${testId}" 
 			{ 
 				email : "info@anfelisa.de",
 				language : "de",
