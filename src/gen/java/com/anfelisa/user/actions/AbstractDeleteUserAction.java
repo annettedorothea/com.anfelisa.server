@@ -53,6 +53,9 @@ import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -103,7 +106,10 @@ public abstract class AbstractDeleteUserAction extends WriteAction<IDeleteUserDa
 	}
 
 	@DELETE
-	@Timed
+	@Timed(name = "DeleteUserActionTimed")
+	@Metered(name = "DeleteUserActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteUserResource(
@@ -123,8 +129,6 @@ public abstract class AbstractDeleteUserAction extends WriteAction<IDeleteUserDa
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setUserId(authUser.getUserId());
 		this.actionData.setRole(authUser.getRole());
-		
-		LOG.info("execute DeleteUser with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

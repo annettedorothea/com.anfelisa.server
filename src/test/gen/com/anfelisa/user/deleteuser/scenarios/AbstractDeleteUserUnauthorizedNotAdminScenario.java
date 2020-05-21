@@ -48,7 +48,6 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 
 		if (prerequisite("RegisterTwoUsers")) {
 			uuid = "uuid2-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterTwoUsers uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN_2-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -151,7 +149,7 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for DeleteUserUnauthorizedNotAdmin not met");
+						LOG.info("WHEN: prerequisite for DeleteUserUnauthorizedNotAdmin not met");
 					}
 				}
 				

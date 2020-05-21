@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.auth.AceAuthenticator;
+import com.codahale.metrics.servlets.AdminServlet;
 
 import de.acegen.auth.AuthUser;
 import io.dropwizard.Application;
@@ -126,6 +127,8 @@ public class App extends Application<CustomAppConfiguration> {
 		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(AuthUser.class));
 
 		environment.jersey().register(RolesAllowedDynamicFeature.class);
+
+		environment.jersey().register(new AdminServlet());
 
 		configureCors(environment);
 

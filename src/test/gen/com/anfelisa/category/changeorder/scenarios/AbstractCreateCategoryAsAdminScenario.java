@@ -48,7 +48,6 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 		String uuid;
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
 			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimalAsAdmin uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
@@ -149,7 +147,7 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for CreateCategoryAsAdmin not met");
+						LOG.info("WHEN: prerequisite for CreateCategoryAsAdmin not met");
 					}
 				}
 				

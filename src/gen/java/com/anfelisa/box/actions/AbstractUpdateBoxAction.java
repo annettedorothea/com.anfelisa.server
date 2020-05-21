@@ -53,6 +53,9 @@ import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -103,7 +106,10 @@ public abstract class AbstractUpdateBoxAction extends WriteAction<IBoxUpdateData
 	}
 
 	@PUT
-	@Timed
+	@Timed(name = "UpdateBoxActionTimed")
+	@Metered(name = "UpdateBoxActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateBoxResource(
@@ -143,8 +149,6 @@ public abstract class AbstractUpdateBoxAction extends WriteAction<IBoxUpdateData
 		
 		this.actionData.setWantedLanguage(payload.getWantedLanguage());
 		this.actionData.setUserId(authUser.getUserId());
-		
-		LOG.info("execute UpdateBox with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

@@ -48,7 +48,6 @@ public abstract class AbstractDeleteRootCategoryScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractDeleteRootCategoryScenario extends BaseScenario {
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -106,7 +104,6 @@ public abstract class AbstractDeleteRootCategoryScenario extends BaseScenario {
 
 		if (prerequisite("CreateCategory")) {
 			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
@@ -132,7 +129,6 @@ public abstract class AbstractDeleteRootCategoryScenario extends BaseScenario {
 
 		if (prerequisite("CreateSecondCategory")) {
 			uuid = "cat2-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateSecondCategory uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #2\"," + 
@@ -158,7 +154,6 @@ public abstract class AbstractDeleteRootCategoryScenario extends BaseScenario {
 
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -230,7 +225,7 @@ public abstract class AbstractDeleteRootCategoryScenario extends BaseScenario {
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for DeleteRootCategory not met");
+						LOG.info("WHEN: prerequisite for DeleteRootCategory not met");
 					}
 				}
 				

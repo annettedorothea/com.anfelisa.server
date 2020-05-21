@@ -48,7 +48,6 @@ public abstract class AbstractCreateBoxMinimalScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -123,7 +122,7 @@ public abstract class AbstractCreateBoxMinimalScenario extends BaseScenario {
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for CreateBoxMinimal not met");
+						LOG.info("WHEN: prerequisite for CreateBoxMinimal not met");
 					}
 				}
 				

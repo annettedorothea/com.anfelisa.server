@@ -51,6 +51,9 @@ import de.acegen.WriteAction;
 
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -101,7 +104,10 @@ public abstract class AbstractConfirmEmailAction extends WriteAction<IConfirmEma
 	}
 
 	@PUT
-	@Timed
+	@Timed(name = "ConfirmEmailActionTimed")
+	@Metered(name = "ConfirmEmailActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response confirmEmailResource(
@@ -121,8 +127,6 @@ public abstract class AbstractConfirmEmailAction extends WriteAction<IConfirmEma
 			throwBadRequest("username is mandatory");
 		}
 		this.actionData.setUsername(payload.getUsername());
-		
-		LOG.info("execute ConfirmEmail with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

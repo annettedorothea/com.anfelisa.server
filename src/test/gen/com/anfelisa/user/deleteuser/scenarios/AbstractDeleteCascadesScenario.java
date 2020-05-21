@@ -48,7 +48,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
 			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimalAsAdmin uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
@@ -106,7 +104,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("CreateCategoryAsAdmin")) {
 			uuid = "adminCat-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategoryAsAdmin uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"c\"," + 
@@ -132,7 +129,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("CreateCardAsAdmin")) {
 			uuid = "c6-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCardAsAdmin uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
@@ -160,7 +156,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("ScheduleCardsAsAdmin")) {
 			uuid = "sc6-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: ScheduleCardsAsAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			com.anfelisa.box.data.ScheduledCardsData data_5 = objectMapper.readValue("{" +
@@ -187,7 +182,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("ScoreCardAsAdmin")) {
 			uuid = "admin-score-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: ScoreCardAsAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			com.anfelisa.box.data.ScoreCardData data_6 = objectMapper.readValue("{" +
@@ -216,7 +210,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -247,7 +240,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_8 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -274,7 +266,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("CreateCategory")) {
 			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_9 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
@@ -300,7 +291,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("CreateCard")) {
 			uuid = "c1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_10 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -328,7 +318,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("CreateSecondCard")) {
 			uuid = "c2-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateSecondCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_11 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -356,7 +345,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("CreateThirdCard")) {
 			uuid = "c3-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateThirdCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_12 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -383,7 +371,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("CreateFourthCard")) {
 			uuid = "c4-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateFourthCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_13 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -410,7 +397,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("CreateFifthCard")) {
 			uuid = "c5-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateFifthCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_14 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -437,7 +423,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("ScheduleCards")) {
 			uuid = "sc1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: ScheduleCards uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			com.anfelisa.box.data.ScheduledCardsData data_15 = objectMapper.readValue("{" +
@@ -466,7 +451,6 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 		if (prerequisite("ScoreCard0")) {
 			uuid = "score0-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: ScoreCard0 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			com.anfelisa.box.data.ScoreCardData data_16 = objectMapper.readValue("{" +
@@ -536,7 +520,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for DeleteCascades not met");
+						LOG.info("WHEN: prerequisite for DeleteCascades not met");
 					}
 				}
 				

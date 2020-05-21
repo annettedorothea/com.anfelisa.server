@@ -48,7 +48,6 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -106,7 +104,6 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 
 		if (prerequisite("CreateCategory")) {
 			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
@@ -132,7 +129,6 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 
 		if (prerequisite("CreateCard")) {
 			uuid = "c1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -160,7 +156,6 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -191,7 +186,6 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
 			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimalAsAdmin uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_6 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
@@ -218,7 +212,6 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 
 		if (prerequisite("CreateCategoryAsAdmin")) {
 			uuid = "adminCat-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategoryAsAdmin uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_7 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"c\"," + 
@@ -287,7 +280,7 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for MoveCardsNoAccessToCategory not met");
+						LOG.info("WHEN: prerequisite for MoveCardsNoAccessToCategory not met");
 					}
 				}
 				

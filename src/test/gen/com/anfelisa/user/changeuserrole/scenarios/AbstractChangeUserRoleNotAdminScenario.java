@@ -48,7 +48,6 @@ public abstract class AbstractChangeUserRoleNotAdminScenario extends BaseScenari
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractChangeUserRoleNotAdminScenario extends BaseScenari
 
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -153,7 +151,7 @@ public abstract class AbstractChangeUserRoleNotAdminScenario extends BaseScenari
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for ChangeUserRoleNotAdmin not met");
+						LOG.info("WHEN: prerequisite for ChangeUserRoleNotAdmin not met");
 					}
 				}
 				

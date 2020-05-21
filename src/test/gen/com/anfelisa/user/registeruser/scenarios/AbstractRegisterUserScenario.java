@@ -96,7 +96,7 @@ public abstract class AbstractRegisterUserScenario extends BaseScenario {
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for RegisterUser not met");
+						LOG.info("WHEN: prerequisite for RegisterUser not met");
 					}
 				}
 				

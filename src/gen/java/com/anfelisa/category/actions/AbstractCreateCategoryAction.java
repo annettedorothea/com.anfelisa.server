@@ -53,6 +53,9 @@ import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -103,7 +106,10 @@ public abstract class AbstractCreateCategoryAction extends WriteAction<ICategory
 	}
 
 	@POST
-	@Timed
+	@Timed(name = "CreateCategoryActionTimed")
+	@Metered(name = "CreateCategoryActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createCategoryResource(
@@ -126,8 +132,6 @@ public abstract class AbstractCreateCategoryAction extends WriteAction<ICategory
 		this.actionData.setParentCategoryId(payload.getParentCategoryId());
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setUserId(authUser.getUserId());
-		
-		LOG.info("execute CreateCategory with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

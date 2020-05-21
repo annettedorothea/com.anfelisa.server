@@ -53,6 +53,9 @@ import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -103,7 +106,10 @@ public abstract class AbstractDeleteCategoryAction extends WriteAction<ICategory
 	}
 
 	@DELETE
-	@Timed
+	@Timed(name = "DeleteCategoryActionTimed")
+	@Metered(name = "DeleteCategoryActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response deleteCategoryResource(
@@ -121,8 +127,6 @@ public abstract class AbstractDeleteCategoryAction extends WriteAction<ICategory
 		}
 		this.actionData.setCategoryId(categoryId);
 		this.actionData.setUserId(authUser.getUserId());
-		
-		LOG.info("execute DeleteCategory with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

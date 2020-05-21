@@ -96,7 +96,7 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for RegisterUserAdmin not met");
+						LOG.info("WHEN: prerequisite for RegisterUserAdmin not met");
 					}
 				}
 				

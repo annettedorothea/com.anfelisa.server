@@ -53,6 +53,9 @@ import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -103,7 +106,10 @@ public abstract class AbstractChangeUserRoleAction extends WriteAction<IChangeUs
 	}
 
 	@PUT
-	@Timed
+	@Timed(name = "ChangeUserRoleActionTimed")
+	@Metered(name = "ChangeUserRoleActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response changeUserRoleResource(
@@ -126,8 +132,6 @@ public abstract class AbstractChangeUserRoleAction extends WriteAction<IChangeUs
 		this.actionData.setEditedUserId(payload.getEditedUserId());
 		this.actionData.setUserId(authUser.getUserId());
 		this.actionData.setRole(authUser.getRole());
-		
-		LOG.info("execute ChangeUserRole with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

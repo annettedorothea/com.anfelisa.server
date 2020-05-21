@@ -48,7 +48,6 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -110,7 +108,6 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 
 		if (prerequisite("ConfirmEmailOK")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: ConfirmEmailOK uuid " + uuid);
 			com.anfelisa.user.data.ConfirmEmailData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"token\" : \"TOKEN-" + this.getTestId() + "\"," + 
@@ -201,7 +198,7 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 						
 						verifications(actualResponse);
 					} else {
-						LOG.info("prerequisite for GetAllUsersAdmin not met");
+						LOG.info("WHEN: prerequisite for GetAllUsersAdmin not met");
 					}
 				}
 				

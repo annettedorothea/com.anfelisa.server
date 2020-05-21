@@ -79,14 +79,14 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	@Before
 	public void before() {
-		LOG.info("*********************************************************************************");
-		LOG.info("********   " + this.scenarioName());
-		LOG.info("*********************************************************************************");
 		daoProvider = new DaoProvider();
 		handle = new PersistenceHandle(jdbi.open());
 		testId = randomString();
 		client = new JerseyClientBuilder().build();
 		LOG.info("testId {}", testId);
+		LOG.info("*********************************************************************************");
+		LOG.info("********   {} test id {}", this.scenarioName(), testId);
+		LOG.info("*********************************************************************************");
 	}
 
 	@After
@@ -95,7 +95,6 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 
 	protected Response httpGet(String path, String authorization) {
-		System.out.println("httpGet " + String.format("%s://%s:%d/api%s", protocol, host, port, path));
 		Builder builder = client.target(String.format("%s://%s:%d/api%s", protocol, host, port, path)).request(); 
 		if (authorization != null) {
 			builder.header("Authorization", authorization);
@@ -104,7 +103,6 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 	
 	protected Response httpPost(String path, Object data, String authorization) {
-		System.out.println("httpPost " + String.format("%s://%s:%d/api%s", protocol, host, port, path));
 		Builder builder = client.target(String.format("%s://%s:%d/api%s", protocol, host, port, path)).request(); 
 		if (authorization != null) {
 			builder.header("Authorization", authorization);
@@ -113,7 +111,6 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 	
 	protected Response httpPut(String path, Object data, String authorization) {
-		System.out.println("httpPut " + String.format("%s://%s:%d/api%s", protocol, host, port, path));
 		Builder builder = client.target(String.format("%s://%s:%d/api%s", protocol, host, port, path)).request();
 		if (authorization != null) {
 			builder.header("Authorization", authorization);
@@ -122,7 +119,6 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 	
 	protected Response httpDelete(String path, String authorization)  {
-		System.out.println("httpDelete " + String.format("%s://%s:%d/api%s", protocol, host, port, path));
 		Builder builder = client.target(String.format("%s://%s:%d/api%s", protocol, host, port, path)).request();
 		if (authorization != null) {
 			builder.header("Authorization", authorization);

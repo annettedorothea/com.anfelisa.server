@@ -48,7 +48,6 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 
 		if (prerequisite("ConfirmEmailOK")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: ConfirmEmailOK uuid " + uuid);
 			com.anfelisa.user.data.ConfirmEmailData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"token\" : \"TOKEN-" + this.getTestId() + "\"," + 
@@ -148,7 +146,7 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for ConfirmEmailAlreadyConfirmed not met");
+						LOG.info("WHEN: prerequisite for ConfirmEmailAlreadyConfirmed not met");
 					}
 				}
 				

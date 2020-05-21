@@ -48,7 +48,6 @@ public abstract class AbstractCreateCardCategoryDoesNotExistScenario extends Bas
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractCreateCardCategoryDoesNotExistScenario extends Bas
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -106,7 +104,6 @@ public abstract class AbstractCreateCardCategoryDoesNotExistScenario extends Bas
 
 		if (prerequisite("CreateCategory")) {
 			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
@@ -177,7 +174,7 @@ public abstract class AbstractCreateCardCategoryDoesNotExistScenario extends Bas
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for CreateCardCategoryDoesNotExist not met");
+						LOG.info("WHEN: prerequisite for CreateCardCategoryDoesNotExist not met");
 					}
 				}
 				

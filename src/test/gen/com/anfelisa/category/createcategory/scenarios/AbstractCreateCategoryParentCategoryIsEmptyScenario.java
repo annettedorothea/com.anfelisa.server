@@ -48,7 +48,6 @@ public abstract class AbstractCreateCategoryParentCategoryIsEmptyScenario extend
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractCreateCategoryParentCategoryIsEmptyScenario extend
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -149,7 +147,7 @@ public abstract class AbstractCreateCategoryParentCategoryIsEmptyScenario extend
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for CreateCategoryParentCategoryIsEmpty not met");
+						LOG.info("WHEN: prerequisite for CreateCategoryParentCategoryIsEmpty not met");
 					}
 				}
 				

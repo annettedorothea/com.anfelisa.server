@@ -48,7 +48,6 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 		String uuid;
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -123,7 +122,7 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for CreateBoxMinimalAsAdmin not met");
+						LOG.info("WHEN: prerequisite for CreateBoxMinimalAsAdmin not met");
 					}
 				}
 				

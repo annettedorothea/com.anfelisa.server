@@ -48,7 +48,6 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -106,7 +104,6 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 
 		if (prerequisite("CreateCategory")) {
 			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
@@ -132,7 +129,6 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 
 		if (prerequisite("CreateCard")) {
 			uuid = "c1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -160,7 +156,6 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -232,7 +227,7 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for DeleteCardNoAccessToCategory not met");
+						LOG.info("WHEN: prerequisite for DeleteCardNoAccessToCategory not met");
 					}
 				}
 				

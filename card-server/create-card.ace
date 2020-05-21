@@ -18,21 +18,6 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 
-	CreateCardDuplicateId
-		GIVEN
-			CreateCard
-		WHEN
-			com.anfelisa.card.CreateCard
-				uuid "c1-${testId}"
-				{
-					categoryId: "cat1-${testId}",
-					given: "given",
-					image: "image",
-					wanted: "wanted"
-				}
-				authorization "Annette-${testId}" : "password"
-		THEN 400
-
 	CreateSecondCard
 		GIVEN
 			CreateCard

@@ -48,7 +48,6 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 		String uuid;
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
 			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimalAsAdmin uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
@@ -106,7 +104,6 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 
 		if (prerequisite("CreateCategoryAsAdmin")) {
 			uuid = "adminCat-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategoryAsAdmin uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"c\"," + 
@@ -132,7 +129,6 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 
 		if (prerequisite("CreateCardAsAdmin")) {
 			uuid = "c6-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCardAsAdmin uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
@@ -204,7 +200,7 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for ScheduleCardsAsAdmin not met");
+						LOG.info("WHEN: prerequisite for ScheduleCardsAsAdmin not met");
 					}
 				}
 				

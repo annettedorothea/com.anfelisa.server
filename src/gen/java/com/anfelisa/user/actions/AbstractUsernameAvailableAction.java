@@ -50,6 +50,9 @@ import de.acegen.NotReplayableDataProvider;
 
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -93,7 +96,10 @@ public abstract class AbstractUsernameAvailableAction extends ReadAction<IUserna
 	}
 
 	@GET
-	@Timed
+	@Timed(name = "UsernameAvailableActionTimed")
+	@Metered(name = "UsernameAvailableActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response usernameAvailableResource(
@@ -109,8 +115,6 @@ public abstract class AbstractUsernameAvailableAction extends ReadAction<IUserna
 			throwBadRequest("username is mandatory");
 		}
 		this.actionData.setUsername(username);
-		
-		LOG.info("execute UsernameAvailable with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

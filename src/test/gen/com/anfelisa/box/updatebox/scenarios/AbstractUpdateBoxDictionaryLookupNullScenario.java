@@ -48,7 +48,6 @@ public abstract class AbstractUpdateBoxDictionaryLookupNullScenario extends Base
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractUpdateBoxDictionaryLookupNullScenario extends Base
 
 		if (prerequisite("CreateBoxDictionaryLookup")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxDictionaryLookup uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -153,7 +151,7 @@ public abstract class AbstractUpdateBoxDictionaryLookupNullScenario extends Base
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for UpdateBoxDictionaryLookupNull not met");
+						LOG.info("WHEN: prerequisite for UpdateBoxDictionaryLookupNull not met");
 					}
 				}
 				

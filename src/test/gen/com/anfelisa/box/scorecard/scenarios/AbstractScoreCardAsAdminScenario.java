@@ -48,7 +48,6 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
 			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimalAsAdmin uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
@@ -106,7 +104,6 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 
 		if (prerequisite("CreateCategoryAsAdmin")) {
 			uuid = "adminCat-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategoryAsAdmin uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"c\"," + 
@@ -132,7 +129,6 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 
 		if (prerequisite("CreateCardAsAdmin")) {
 			uuid = "c6-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCardAsAdmin uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
@@ -160,7 +156,6 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 
 		if (prerequisite("ScheduleCardsAsAdmin")) {
 			uuid = "sc6-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: ScheduleCardsAsAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			com.anfelisa.box.data.ScheduledCardsData data_5 = objectMapper.readValue("{" +
@@ -233,7 +228,7 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for ScoreCardAsAdmin not met");
+						LOG.info("WHEN: prerequisite for ScoreCardAsAdmin not met");
 					}
 				}
 				

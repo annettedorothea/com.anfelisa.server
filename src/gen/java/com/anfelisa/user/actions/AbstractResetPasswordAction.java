@@ -51,6 +51,9 @@ import de.acegen.WriteAction;
 
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -101,7 +104,10 @@ public abstract class AbstractResetPasswordAction extends WriteAction<IResetPass
 	}
 
 	@PUT
-	@Timed
+	@Timed(name = "ResetPasswordActionTimed")
+	@Metered(name = "ResetPasswordActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response resetPasswordResource(
@@ -121,8 +127,6 @@ public abstract class AbstractResetPasswordAction extends WriteAction<IResetPass
 			throwBadRequest("token is mandatory");
 		}
 		this.actionData.setToken(payload.getToken());
-		
-		LOG.info("execute ResetPassword with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

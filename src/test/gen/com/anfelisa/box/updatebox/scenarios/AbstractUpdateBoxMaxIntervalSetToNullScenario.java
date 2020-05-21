@@ -48,7 +48,6 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -106,7 +104,6 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 
 		if (prerequisite("UpdateBoxMaxInterval")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: UpdateBoxMaxInterval uuid " + uuid);
 			com.anfelisa.box.data.BoxUpdateData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
@@ -182,7 +179,7 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for UpdateBoxMaxIntervalSetToNull not met");
+						LOG.info("WHEN: prerequisite for UpdateBoxMaxIntervalSetToNull not met");
 					}
 				}
 				

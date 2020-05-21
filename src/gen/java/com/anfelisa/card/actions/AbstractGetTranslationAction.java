@@ -52,6 +52,9 @@ import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -95,7 +98,10 @@ public abstract class AbstractGetTranslationAction extends ReadAction<ICardTrans
 	}
 
 	@GET
-	@Timed
+	@Timed(name = "GetTranslationActionTimed")
+	@Metered(name = "GetTranslationActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getTranslationResource(
@@ -124,8 +130,6 @@ public abstract class AbstractGetTranslationAction extends ReadAction<ICardTrans
 			throwBadRequest("targetLanguage is mandatory");
 		}
 		this.actionData.setTargetLanguage(targetLanguage);
-		
-		LOG.info("execute GetTranslation with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

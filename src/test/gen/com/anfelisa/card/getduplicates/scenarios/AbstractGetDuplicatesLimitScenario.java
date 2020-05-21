@@ -48,7 +48,6 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -106,7 +104,6 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 
 		if (prerequisite("CreateCategory")) {
 			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
@@ -132,12 +129,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"870given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"871wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1552given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1553wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -158,12 +154,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_5 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"872given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"873wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1554given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1555wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -184,12 +179,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_6 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"874given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"875wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1556given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1557wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -210,12 +204,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_7 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"876given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"877wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1558given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1559wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -236,12 +229,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_8 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"878given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"879wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1560given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1561wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -262,12 +254,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_9 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"880given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"881wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1562given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1563wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -288,12 +279,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_10 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"882given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"883wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1564given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1565wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -314,12 +304,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_11 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"884given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"885wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1566given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1567wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -340,12 +329,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_12 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"886given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"887wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1568given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1569wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -366,12 +354,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_13 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"888given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"889wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1570given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1571wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -392,12 +379,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_14 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"890given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"891wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1572given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1573wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -418,12 +404,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_15 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"892given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"893wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1574given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1575wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -444,12 +429,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_16 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"894given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"895wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1576given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1577wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -470,12 +454,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_17 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"896given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"897wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1578given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1579wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -496,12 +479,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_18 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"898given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"899wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1580given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1581wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -522,12 +504,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_19 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"900given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"901wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1582given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1583wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -548,12 +529,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_20 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"902given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"903wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1584given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1585wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -574,12 +554,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_21 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"904given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"905wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1586given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1587wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -600,12 +579,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_22 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"906given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"907wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1588given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1589wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -626,12 +604,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_23 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"908given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"909wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1590given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1591wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -652,12 +629,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_24 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"910given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"911wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1592given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1593wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -678,12 +654,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_25 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"912given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"913wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1594given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1595wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -704,12 +679,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_26 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"914given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"915wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1596given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1597wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -730,12 +704,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_27 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"916given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"917wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1598given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1599wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -756,12 +729,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_28 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"918given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"919wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1600given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1601wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -782,12 +754,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_29 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"920given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"921wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1602given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1603wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -808,12 +779,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_30 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"922given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"923wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1604given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1605wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -834,12 +804,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_31 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"924given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"925wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1606given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1607wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -860,12 +829,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_32 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"926given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"927wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1608given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1609wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -886,12 +854,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		
 		if (prerequisite("CreateRandomCard")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: CreateRandomCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_33 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-					"\"given\" : \"928given" + this.randomString() + "\"," + 
-					"\"wanted\" : \"929wanted" + this.randomString() + "\"} ",
+					"\"given\" : \"1610given" + this.randomString() + "\"," + 
+					"\"wanted\" : \"1611wanted" + this.randomString() + "\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
 			response = 
 			this.httpPost(
@@ -963,7 +930,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 						
 						verifications(actualResponse);
 					} else {
-						LOG.info("prerequisite for GetDuplicatesLimit not met");
+						LOG.info("WHEN: prerequisite for GetDuplicatesLimit not met");
 					}
 				}
 				

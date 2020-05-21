@@ -48,7 +48,6 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -106,7 +104,6 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 
 		if (prerequisite("CreateCategory")) {
 			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
@@ -132,7 +129,6 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 
 		if (prerequisite("CreateCard")) {
 			uuid = "c1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -160,7 +156,6 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 
 		if (prerequisite("CreateSecondCard")) {
 			uuid = "c2-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateSecondCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_5 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -188,7 +183,6 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 
 		if (prerequisite("CreateThirdCard")) {
 			uuid = "c3-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateThirdCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_6 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -215,7 +209,6 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 
 		if (prerequisite("CreateFourthCard")) {
 			uuid = "c4-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateFourthCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_7 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -242,7 +235,6 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 
 		if (prerequisite("CreateFifthCard")) {
 			uuid = "c5-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateFifthCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_8 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -269,7 +261,6 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 
 		if (prerequisite("CreateSecondCategory")) {
 			uuid = "cat2-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateSecondCategory uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_9 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #2\"," + 
@@ -295,7 +286,6 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 
 		if (prerequisite("CreateCardInOtherCategory")) {
 			uuid = "c6-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCardInOtherCategory uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_10 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat2-" + this.getTestId() + "\"," + 
@@ -367,7 +357,7 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for MoveCardsTargetNotEmpty not met");
+						LOG.info("WHEN: prerequisite for MoveCardsTargetNotEmpty not met");
 					}
 				}
 				

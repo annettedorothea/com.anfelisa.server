@@ -53,6 +53,9 @@ import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -103,7 +106,10 @@ public abstract class AbstractChangeOrderCategoryAction extends WriteAction<ICat
 	}
 
 	@PUT
-	@Timed
+	@Timed(name = "ChangeOrderCategoryActionTimed")
+	@Metered(name = "ChangeOrderCategoryActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response changeOrderCategoryResource(
@@ -125,8 +131,6 @@ public abstract class AbstractChangeOrderCategoryAction extends WriteAction<ICat
 		}
 		this.actionData.setTargetCategoryId(payload.getTargetCategoryId());
 		this.actionData.setUserId(authUser.getUserId());
-		
-		LOG.info("execute ChangeOrderCategory with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

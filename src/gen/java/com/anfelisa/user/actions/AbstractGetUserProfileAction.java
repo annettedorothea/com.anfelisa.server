@@ -52,6 +52,9 @@ import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -95,7 +98,10 @@ public abstract class AbstractGetUserProfileAction extends ReadAction<IUserData>
 	}
 
 	@GET
-	@Timed
+	@Timed(name = "GetUserProfileActionTimed")
+	@Metered(name = "GetUserProfileActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getUserProfileResource(
@@ -110,8 +116,6 @@ public abstract class AbstractGetUserProfileAction extends ReadAction<IUserData>
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setPassword(authUser.getPassword());
 		this.actionData.setRole(authUser.getRole());
-		
-		LOG.info("execute GetUserProfile with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

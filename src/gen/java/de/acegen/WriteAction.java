@@ -61,13 +61,11 @@ public abstract class WriteAction<T extends IDataContainer> extends Action<T> {
 			if (ServerConfiguration.DEV.equals(appConfiguration.getServerConfiguration().getMode())
 					|| ServerConfiguration.LIVE.equals(appConfiguration.getServerConfiguration().getMode())
 					|| ServerConfiguration.TEST.equals(appConfiguration.getServerConfiguration().getMode())) {
-				if (appConfiguration.getServerConfiguration().writeTimeline()) {
-					if (daoProvider.getAceDao().contains(databaseHandle.getHandle(), this.actionData.getUuid())) {
-						databaseHandle.rollbackTransaction();
-						throwBadRequest("uuid already exists - please choose another one");
-					}
+				if (!daoProvider.getAceDao().checkUuid(this.actionData.getUuid())) {
+					databaseHandle.rollbackTransaction();
+					LOG.error("duplicate request {} {} ", actionName, this.actionData.getUuid());
+					return Response.status(Response.Status.OK).entity("ignoring duplicate request " +  this.actionData.getUuid()).build();
 				}
-				
 				this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 				this.initActionData();
 			} else if (ServerConfiguration.REPLAY.equals(appConfiguration.getServerConfiguration().getMode())) {

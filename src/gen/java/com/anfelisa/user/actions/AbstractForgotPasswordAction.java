@@ -51,6 +51,9 @@ import de.acegen.WriteAction;
 
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -113,7 +116,10 @@ public abstract class AbstractForgotPasswordAction extends WriteAction<IForgotPa
 	}
 
 	@POST
-	@Timed
+	@Timed(name = "ForgotPasswordActionTimed")
+	@Metered(name = "ForgotPasswordActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response forgotPasswordResource(
@@ -133,8 +139,6 @@ public abstract class AbstractForgotPasswordAction extends WriteAction<IForgotPa
 			throwBadRequest("language is mandatory");
 		}
 		this.actionData.setLanguage(payload.getLanguage());
-		
-		LOG.info("execute ForgotPassword with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

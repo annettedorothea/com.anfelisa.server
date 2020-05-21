@@ -52,6 +52,9 @@ import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -95,7 +98,10 @@ public abstract class AbstractGetBoxStatisticsAction extends ReadAction<IBoxStat
 	}
 
 	@GET
-	@Timed
+	@Timed(name = "GetBoxStatisticsActionTimed")
+	@Metered(name = "GetBoxStatisticsActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getBoxStatisticsResource(
@@ -119,8 +125,6 @@ public abstract class AbstractGetBoxStatisticsAction extends ReadAction<IBoxStat
 			}
 		}
 		this.actionData.setUserId(authUser.getUserId());
-		
-		LOG.info("execute GetBoxStatistics with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

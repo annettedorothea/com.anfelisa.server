@@ -48,7 +48,6 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -154,7 +152,7 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for UpdateBoxDictionaryLookup not met");
+						LOG.info("WHEN: prerequisite for UpdateBoxDictionaryLookup not met");
 					}
 				}
 				

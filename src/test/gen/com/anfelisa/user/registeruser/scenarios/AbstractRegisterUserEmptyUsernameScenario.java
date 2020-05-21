@@ -93,7 +93,7 @@ public abstract class AbstractRegisterUserEmptyUsernameScenario extends BaseScen
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for RegisterUserEmptyUsername not met");
+						LOG.info("WHEN: prerequisite for RegisterUserEmptyUsername not met");
 					}
 				}
 				

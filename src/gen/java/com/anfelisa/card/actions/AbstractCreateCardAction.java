@@ -53,6 +53,9 @@ import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -103,7 +106,10 @@ public abstract class AbstractCreateCardAction extends WriteAction<ICardCreation
 	}
 
 	@POST
-	@Timed
+	@Timed(name = "CreateCardActionTimed")
+	@Metered(name = "CreateCardActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createCardResource(
@@ -133,8 +139,6 @@ public abstract class AbstractCreateCardAction extends WriteAction<ICardCreation
 		this.actionData.setCategoryId(payload.getCategoryId());
 		this.actionData.setUserId(authUser.getUserId());
 		this.actionData.setUsername(authUser.getUsername());
-		
-		LOG.info("execute CreateCard with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

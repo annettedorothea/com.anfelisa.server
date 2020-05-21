@@ -48,7 +48,6 @@ public abstract class AbstractScoreCard0Scenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractScoreCard0Scenario extends BaseScenario {
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -106,7 +104,6 @@ public abstract class AbstractScoreCard0Scenario extends BaseScenario {
 
 		if (prerequisite("CreateCategory")) {
 			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
@@ -132,7 +129,6 @@ public abstract class AbstractScoreCard0Scenario extends BaseScenario {
 
 		if (prerequisite("CreateCard")) {
 			uuid = "c1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -160,7 +156,6 @@ public abstract class AbstractScoreCard0Scenario extends BaseScenario {
 
 		if (prerequisite("CreateSecondCard")) {
 			uuid = "c2-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateSecondCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_5 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -188,7 +183,6 @@ public abstract class AbstractScoreCard0Scenario extends BaseScenario {
 
 		if (prerequisite("CreateThirdCard")) {
 			uuid = "c3-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateThirdCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_6 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -215,7 +209,6 @@ public abstract class AbstractScoreCard0Scenario extends BaseScenario {
 
 		if (prerequisite("CreateFourthCard")) {
 			uuid = "c4-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateFourthCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_7 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -242,7 +235,6 @@ public abstract class AbstractScoreCard0Scenario extends BaseScenario {
 
 		if (prerequisite("CreateFifthCard")) {
 			uuid = "c5-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateFifthCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_8 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -269,7 +261,6 @@ public abstract class AbstractScoreCard0Scenario extends BaseScenario {
 
 		if (prerequisite("ScheduleCards")) {
 			uuid = "sc1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: ScheduleCards uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			com.anfelisa.box.data.ScheduledCardsData data_9 = objectMapper.readValue("{" +
@@ -344,7 +335,7 @@ public abstract class AbstractScoreCard0Scenario extends BaseScenario {
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for ScoreCard0 not met");
+						LOG.info("WHEN: prerequisite for ScoreCard0 not met");
 					}
 				}
 				

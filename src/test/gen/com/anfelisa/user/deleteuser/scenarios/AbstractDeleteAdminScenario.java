@@ -48,7 +48,6 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -110,7 +108,6 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 
 		if (prerequisite("ChangeUserRoleToAdmin")) {
 			uuid = this.randomUUID();
-			LOG.info("GIVEN: ChangeUserRoleToAdmin uuid " + uuid);
 			com.anfelisa.user.data.ChangeUserRoleData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
@@ -177,7 +174,7 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for DeleteAdmin not met");
+						LOG.info("WHEN: prerequisite for DeleteAdmin not met");
 					}
 				}
 				

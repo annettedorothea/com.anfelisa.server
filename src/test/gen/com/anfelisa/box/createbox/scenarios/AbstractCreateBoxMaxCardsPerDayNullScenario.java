@@ -48,7 +48,6 @@ public abstract class AbstractCreateBoxMaxCardsPerDayNullScenario extends BaseSc
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -122,7 +121,7 @@ public abstract class AbstractCreateBoxMaxCardsPerDayNullScenario extends BaseSc
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for CreateBoxMaxCardsPerDayNull not met");
+						LOG.info("WHEN: prerequisite for CreateBoxMaxCardsPerDayNull not met");
 					}
 				}
 				

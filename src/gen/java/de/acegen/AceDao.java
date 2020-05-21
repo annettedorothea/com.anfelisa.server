@@ -21,6 +21,7 @@ package de.acegen;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.jdbi.v3.core.statement.Update;
 
@@ -29,7 +30,26 @@ import javax.ws.rs.WebApplicationException;
 
 public class AceDao {
 
-	private JodaObjectMapper mapper = new JodaObjectMapper();
+	private JodaObjectMapper mapper;
+
+	private ConcurrentLinkedQueue<String> lastUuids;
+
+	public AceDao() {
+		mapper = new JodaObjectMapper();
+		lastUuids = new ConcurrentLinkedQueue<>();
+	}
+
+	public boolean checkUuid(String uuid) {
+		boolean alreadyUsed = lastUuids.contains(uuid);
+		if (alreadyUsed) {
+			return false;
+		}
+		lastUuids.add(uuid);
+		if (lastUuids.size() > 1000) {
+			lastUuids.remove();
+		}
+		return true;
+	}
 
 	public void truncateTimelineTable(PersistenceHandle handle) {
 		handle.getHandle().execute("TRUNCATE TABLE timeline");

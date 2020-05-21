@@ -52,6 +52,9 @@ import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -95,7 +98,10 @@ public abstract class AbstractGetRoleAction extends ReadAction<IRoleData> {
 	}
 
 	@GET
-	@Timed
+	@Timed(name = "GetRoleActionTimed")
+	@Metered(name = "GetRoleActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getRoleResource(
@@ -108,8 +114,6 @@ public abstract class AbstractGetRoleAction extends ReadAction<IRoleData> {
 		this.actionData = new RoleData(uuid);
 		this.actionData.setUsername(authUser.getUsername());
 		this.actionData.setRole(authUser.getRole());
-		
-		LOG.info("execute GetRole with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

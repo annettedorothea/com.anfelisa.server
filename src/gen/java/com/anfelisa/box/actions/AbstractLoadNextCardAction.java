@@ -52,6 +52,9 @@ import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -95,7 +98,10 @@ public abstract class AbstractLoadNextCardAction extends ReadAction<INextCardDat
 	}
 
 	@GET
-	@Timed
+	@Timed(name = "LoadNextCardActionTimed")
+	@Metered(name = "LoadNextCardActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response loadNextCardResource(
@@ -125,8 +131,6 @@ public abstract class AbstractLoadNextCardAction extends ReadAction<INextCardDat
 			}
 		}
 		this.actionData.setUserId(authUser.getUserId());
-		
-		LOG.info("execute LoadNextCard with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}

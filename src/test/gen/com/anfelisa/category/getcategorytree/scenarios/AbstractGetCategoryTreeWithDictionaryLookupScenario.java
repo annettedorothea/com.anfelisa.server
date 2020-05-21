@@ -48,7 +48,6 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 
 		if (prerequisite("CreateBoxDictionaryLookup")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxDictionaryLookup uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -108,7 +106,6 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 
 		if (prerequisite("CreateCategoryWithDictionaryLookup")) {
 			uuid = "dict-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategoryWithDictionaryLookup uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"dict-" + this.getTestId() + "\"," + 
@@ -207,7 +204,7 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 						
 						verifications(actualResponse);
 					} else {
-						LOG.info("prerequisite for GetCategoryTreeWithDictionaryLookup not met");
+						LOG.info("WHEN: prerequisite for GetCategoryTreeWithDictionaryLookup not met");
 					}
 				}
 				

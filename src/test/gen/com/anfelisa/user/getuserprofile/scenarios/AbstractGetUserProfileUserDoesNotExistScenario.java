@@ -48,7 +48,6 @@ public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends Bas
 		String uuid;
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUserAdmin uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends Bas
 
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -155,7 +153,7 @@ public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends Bas
 						
 						verifications(actualResponse);
 					} else {
-						LOG.info("prerequisite for GetUserProfileUserDoesNotExist not met");
+						LOG.info("WHEN: prerequisite for GetUserProfileUserDoesNotExist not met");
 					}
 				}
 				

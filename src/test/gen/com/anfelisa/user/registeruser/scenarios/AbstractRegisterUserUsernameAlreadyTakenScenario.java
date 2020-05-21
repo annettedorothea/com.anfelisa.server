@@ -48,7 +48,6 @@ public abstract class AbstractRegisterUserUsernameAlreadyTakenScenario extends B
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -127,7 +126,7 @@ public abstract class AbstractRegisterUserUsernameAlreadyTakenScenario extends B
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for RegisterUserUsernameAlreadyTaken not met");
+						LOG.info("WHEN: prerequisite for RegisterUserUsernameAlreadyTaken not met");
 					}
 				}
 				

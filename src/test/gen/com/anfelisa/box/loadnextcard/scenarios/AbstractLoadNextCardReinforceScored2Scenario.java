@@ -48,7 +48,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -106,7 +104,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 
 		if (prerequisite("CreateCategory")) {
 			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
@@ -132,7 +129,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 
 		if (prerequisite("CreateCard")) {
 			uuid = "c1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -160,7 +156,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 
 		if (prerequisite("CreateSecondCard")) {
 			uuid = "c2-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateSecondCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_5 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -188,7 +183,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 
 		if (prerequisite("CreateThirdCard")) {
 			uuid = "c3-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateThirdCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_6 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -215,7 +209,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 
 		if (prerequisite("CreateFourthCard")) {
 			uuid = "c4-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateFourthCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_7 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -242,7 +235,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 
 		if (prerequisite("CreateFifthCard")) {
 			uuid = "c5-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateFifthCard uuid " + uuid);
 			com.anfelisa.card.data.CardCreationData data_8 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -269,7 +261,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 
 		if (prerequisite("ScheduleCards")) {
 			uuid = "sc1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: ScheduleCards uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			com.anfelisa.box.data.ScheduledCardsData data_9 = objectMapper.readValue("{" +
@@ -298,7 +289,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 
 		if (prerequisite("ScoreCard0")) {
 			uuid = "score0-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: ScoreCard0 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			com.anfelisa.box.data.ScoreCardData data_10 = objectMapper.readValue("{" +
@@ -327,7 +317,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 
 		if (prerequisite("ScoreCard1")) {
 			uuid = "score1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: ScoreCard1 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			com.anfelisa.box.data.ScoreCardData data_11 = objectMapper.readValue("{" +
@@ -356,7 +345,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 
 		if (prerequisite("ScoreCard5")) {
 			uuid = "score5-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: ScoreCard5 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			com.anfelisa.box.data.ScoreCardData data_12 = objectMapper.readValue("{" +
@@ -385,7 +373,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 
 		if (prerequisite("ScoreReinforceCard2")) {
 			uuid = "sr2-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: ScoreReinforceCard2 uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:40", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			com.anfelisa.box.data.ScoreReinforceCardData data_13 = objectMapper.readValue("{" +
@@ -413,7 +400,6 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 
 		if (prerequisite("ScoreOtherReinforceCard")) {
 			uuid = "other-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: ScoreOtherReinforceCard uuid " + uuid);
 			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:40", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
 						this.getProtocol(), this.getHost(), this.getPort());
 			com.anfelisa.box.data.ScoreReinforceCardData data_14 = objectMapper.readValue("{" +
@@ -510,7 +496,7 @@ public abstract class AbstractLoadNextCardReinforceScored2Scenario extends BaseS
 						
 						verifications(actualResponse);
 					} else {
-						LOG.info("prerequisite for LoadNextCardReinforceScored2 not met");
+						LOG.info("WHEN: prerequisite for LoadNextCardReinforceScored2 not met");
 					}
 				}
 				

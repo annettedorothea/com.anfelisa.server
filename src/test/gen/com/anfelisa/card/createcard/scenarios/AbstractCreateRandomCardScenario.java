@@ -48,7 +48,6 @@ public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 		String uuid;
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: RegisterUser uuid " + uuid);
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
 						this.getProtocol(), this.getHost(), this.getPort());
@@ -79,7 +78,6 @@ public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 
 		if (prerequisite("CreateBoxMinimal")) {
 			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateBoxMinimal uuid " + uuid);
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
@@ -106,7 +104,6 @@ public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 
 		if (prerequisite("CreateCategory")) {
 			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
-			LOG.info("GIVEN: CreateCategory uuid " + uuid);
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
@@ -137,8 +134,8 @@ public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-				"\"given\" : \"868given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"869wanted" + this.randomString() + "\"} ",
+				"\"given\" : \"1550given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"1551wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class);
 		
 		return 
@@ -176,7 +173,7 @@ public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 						
 						verifications();
 					} else {
-						LOG.info("prerequisite for CreateRandomCard not met");
+						LOG.info("WHEN: prerequisite for CreateRandomCard not met");
 					}
 				}
 				

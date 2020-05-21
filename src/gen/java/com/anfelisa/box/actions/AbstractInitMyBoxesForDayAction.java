@@ -53,6 +53,9 @@ import de.acegen.auth.AuthUser;
 import io.dropwizard.auth.Auth;
 
 import com.codahale.metrics.annotation.Timed;
+import com.codahale.metrics.annotation.Metered;
+import com.codahale.metrics.annotation.ExceptionMetered;
+import com.codahale.metrics.annotation.ResponseMetered;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -103,7 +106,10 @@ public abstract class AbstractInitMyBoxesForDayAction extends WriteAction<IInitM
 	}
 
 	@PUT
-	@Timed
+	@Timed(name = "InitMyBoxesForDayActionTimed")
+	@Metered(name = "InitMyBoxesForDayActionMetered")
+	@ExceptionMetered
+	@ResponseMetered
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response initMyBoxesForDayResource(
@@ -120,8 +126,6 @@ public abstract class AbstractInitMyBoxesForDayAction extends WriteAction<IInitM
 		}
 		this.actionData.setTodayAtMidnightInUTC(payload.getTodayAtMidnightInUTC());
 		this.actionData.setUserId(authUser.getUserId());
-		
-		LOG.info("execute InitMyBoxesForDay with uuid " + this.actionData.getUuid());
 		
 		return this.apply();
 	}
