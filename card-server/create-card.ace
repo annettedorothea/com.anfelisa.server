@@ -96,8 +96,8 @@ scenarios
 			com.anfelisa.card.CreateCard
 				{
 					categoryId: "cat1-${testId}",
-					given: "${index}given${random}",
-					wanted: "${index}wanted${random}"
+					given: "given${random}",
+					wanted: "wanted${random}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200

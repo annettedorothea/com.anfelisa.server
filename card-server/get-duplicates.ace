@@ -125,7 +125,7 @@ scenarios
 
 	GetDuplicatesLimit
 		GIVEN
-			com.anfelisa.card.createcard.CreateRandomCard 30x
+			com.anfelisa.card.createcard.CreateRandomCard 60x
 		WHEN
 			com.anfelisa.card.GetDuplicates
 				{

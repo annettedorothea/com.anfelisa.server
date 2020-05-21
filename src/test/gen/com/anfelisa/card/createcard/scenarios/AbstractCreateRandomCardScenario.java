@@ -134,8 +134,8 @@ public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 		com.anfelisa.card.data.CardCreationData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-				"\"given\" : \"1550given" + this.randomString() + "\"," + 
-				"\"wanted\" : \"1551wanted" + this.randomString() + "\"} ",
+				"\"given\" : \"given" + this.randomString() + "\"," + 
+				"\"wanted\" : \"wanted" + this.randomString() + "\"} ",
 		com.anfelisa.card.data.CardCreationData.class);
 		
 		return 

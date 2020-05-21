@@ -85,7 +85,7 @@ public class App extends Application<CustomAppConfiguration> {
 		LOG.info("running version {}", getVersion());
 
 		EMAIL_SERVICE = new EmailService(configuration.getEmail());
-
+		
 		DaoProvider daoProvider = new DaoProvider();
 		ViewProvider viewProvider = new ViewProvider(daoProvider, new EmailService(configuration.getEmail()));
 

@@ -20,6 +20,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
@@ -51,6 +52,9 @@ import com.anfelisa.category.data.GetCategoryTreeResponse;
 import com.anfelisa.category.models.ICategoryTreeItemModel;
 import com.anfelisa.user.data.GetAllUsersResponse;
 import com.anfelisa.user.models.IUserModel;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 public abstract class BaseScenario extends AbstractBaseScenario {
 
@@ -58,19 +62,27 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	private static Jdbi jdbi;
 
-	private int port = 8096;
+	private static int port;
 
-	private String host = "localhost";
+	private static String host = "localhost";
 
-	private String protocol = "http";
+	private static String protocol;
+
+	private static String rootPath;
 
 	private String testId;
 
 	public Client client;
-	
+
 	@BeforeClass
 	public static void beforeClass() throws Exception {
-		jdbi = Jdbi.create("jdbc:postgresql://localhost/anfelisa_replay");
+		ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
+				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		YamlConfiguration config = mapper.readValue(new File("test.yml"), YamlConfiguration.class);
+		port = Integer.parseInt(config.getServer().getApplicationConnectors()[0].getPort());
+		protocol = config.getServer().getApplicationConnectors()[0].getType();
+		rootPath = config.getServer().getRootPath();
+		jdbi = Jdbi.create(config.getDatabase().getUrl());
 	}
 
 	@AfterClass
@@ -94,38 +106,42 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		handle.getHandle().close();
 	}
 
+	private String buidlUrl(String path) {
+		return String.format("%s://%s:%d%s%s", protocol, host, port, rootPath, path);
+	}
+
 	protected Response httpGet(String path, String authorization) {
-		Builder builder = client.target(String.format("%s://%s:%d/api%s", protocol, host, port, path)).request(); 
+		Builder builder = client.target(buidlUrl(path)).request();
 		if (authorization != null) {
 			builder.header("Authorization", authorization);
 		}
 		return builder.get();
 	}
-	
+
 	protected Response httpPost(String path, Object data, String authorization) {
-		Builder builder = client.target(String.format("%s://%s:%d/api%s", protocol, host, port, path)).request(); 
+		Builder builder = client.target(buidlUrl(path)).request();
 		if (authorization != null) {
 			builder.header("Authorization", authorization);
 		}
 		return builder.post(Entity.json(data));
 	}
-	
+
 	protected Response httpPut(String path, Object data, String authorization) {
-		Builder builder = client.target(String.format("%s://%s:%d/api%s", protocol, host, port, path)).request();
+		Builder builder = client.target(buidlUrl(path)).request();
 		if (authorization != null) {
 			builder.header("Authorization", authorization);
 		}
 		return builder.put(Entity.json(data));
 	}
-	
-	protected Response httpDelete(String path, String authorization)  {
-		Builder builder = client.target(String.format("%s://%s:%d/api%s", protocol, host, port, path)).request();
+
+	protected Response httpDelete(String path, String authorization) {
+		Builder builder = client.target(buidlUrl(path)).request();
 		if (authorization != null) {
 			builder.header("Authorization", authorization);
 		}
 		return builder.delete();
 	}
-	
+
 	protected String randomString() {
 		return randomUUID().replace("-", "").substring(0, 8);
 	}
@@ -370,8 +386,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			String protocol, String host, int port) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client
-				.target(String.format("%s://%s:%d/api/test/not-replayable/value?uuid=" + uuid + "&key=" + key, protocol,
-						host, port))
+				.target(String.format("%s://%s:%d%s/test/not-replayable/value?uuid=" + uuid + "&key=" + key, protocol,
+						host, port, rootPath))
 				.request();
 		return builder.put(Entity.json(data));
 	}
@@ -383,8 +399,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client
 				.target(String.format(
-						"%s://%s:%d/api/test/not-replayable/system-time?uuid=" + uuid + "&system-time=" + dateTime,
-						protocol, host, port))
+						"%s://%s:%d%s/test/not-replayable/system-time?uuid=" + uuid + "&system-time=" + dateTime,
+						protocol, host, port, rootPath))
 				.request();
 		return builder.put(Entity.json(dateTime));
 	}
