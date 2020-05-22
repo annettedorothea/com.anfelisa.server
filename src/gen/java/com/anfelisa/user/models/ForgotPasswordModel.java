@@ -100,10 +100,8 @@ public class ForgotPasswordModel implements IForgotPasswordModel {
 		this.userId = userId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

@@ -136,10 +136,8 @@ public class BoxSettingsModel implements IBoxSettingsModel {
 		this.categoryId = categoryId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

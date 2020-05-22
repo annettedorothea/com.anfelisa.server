@@ -18,7 +18,6 @@ package de.acegen;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
-import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.util.Base64;
@@ -33,10 +32,13 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.jdbi.v3.core.Jdbi;
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,6 +58,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
+@RunWith(JUnitPlatform.class)
 public abstract class BaseScenario extends AbstractBaseScenario {
 
 	static final Logger LOG = LoggerFactory.getLogger(BaseScenario.class);
@@ -74,7 +77,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	public Client client;
 
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() throws Exception {
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
 				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -85,11 +88,11 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		jdbi = Jdbi.create(config.getDatabase().getUrl());
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void afterClass() {
 	}
 
-	@Before
+	@BeforeEach
 	public void before() {
 		daoProvider = new DaoProvider();
 		handle = new PersistenceHandle(jdbi.open());
@@ -101,9 +104,14 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		LOG.info("*********************************************************************************");
 	}
 
-	@After
+	@AfterEach
 	public void after() {
 		handle.getHandle().close();
+	}
+	
+	@Test
+	public void test() throws Exception {
+		this.runTest();
 	}
 
 	private String buidlUrl(String path) {
@@ -160,12 +168,12 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	@Override
 	protected void assertThat(int actual, int expected) {
-		org.junit.Assert.assertThat(actual, is(expected));
+		org.hamcrest.MatcherAssert.assertThat(actual, is(expected));
 	}
 
 	@Override
 	protected void assertFail(String message) {
-		org.junit.Assert.fail(message);
+		org.junit.jupiter.api.Assertions.fail(message);
 	}
 
 	@Override
@@ -185,7 +193,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		} else if (actual instanceof GetBoxStatisticsResponse) {
 			assertThat((GetBoxStatisticsResponse) actual, (GetBoxStatisticsResponse) expected);
 		} else {
-			org.junit.Assert.assertThat(actual, is(samePropertyValuesAs(expected)));
+			org.hamcrest.MatcherAssert.assertThat(actual, is(samePropertyValuesAs(expected)));
 		}
 	}
 
@@ -196,7 +204,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		for (int i = 0; i < actualUserList.size(); i++) {
 			IUserModel actualUser = actualUserList.get(i);
 			IUserModel expectedUser = expectedUserList.get(i);
-			org.junit.Assert.assertThat(actualUser, is(samePropertyValuesAs(expectedUser)));
+			org.hamcrest.MatcherAssert.assertThat(actualUser, is(samePropertyValuesAs(expectedUser)));
 		}
 	}
 
@@ -219,7 +227,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		if (actual.getChildCategories() == null) {
 			assertIsNull(expected.getChildCategories());
 		} else if (expected.getChildCategories() == null) {
-			org.junit.Assert.fail("expected.getChildCategories is null");
+			org.junit.jupiter.api.Assertions.fail("expected.getChildCategories is null");
 		} else {
 			assertThat(actual.getChildCategories().size(), expected.getChildCategories().size());
 			for (int i = 0; i < actual.getChildCategories().size(); i++) {
@@ -234,7 +242,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		if (actual.getCardList() == null) {
 			assertIsNull(expected.getCardList());
 		} else if (expected.getCardList() == null) {
-			org.junit.Assert.fail("expected.getCardList is null");
+			org.junit.jupiter.api.Assertions.fail("expected.getCardList is null");
 		} else {
 			assertThat(actual.getCardList().size(), expected.getCardList().size());
 			for (int i = 0; i < actual.getCardList().size(); i++) {
@@ -249,7 +257,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		if (actual.getCardList() == null) {
 			assertIsNull(expected.getCardList());
 		} else if (expected.getCardList() == null) {
-			org.junit.Assert.fail("expected.getCardList is null");
+			org.junit.jupiter.api.Assertions.fail("expected.getCardList is null");
 		} else {
 			assertThat(actual.getCardList().size(), expected.getCardList().size());
 			for (int i = 0; i < actual.getCardList().size(); i++) {
@@ -264,7 +272,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		if (actual.getBoxList() == null) {
 			assertIsNull(expected.getBoxList());
 		} else if (expected.getBoxList() == null) {
-			org.junit.Assert.fail("expected.getBoxList is null");
+			org.junit.jupiter.api.Assertions.fail("expected.getBoxList is null");
 		} else {
 			assertThat(actual.getBoxList().size(), expected.getBoxList().size());
 			for (int i = 0; i < actual.getBoxList().size(); i++) {
@@ -279,12 +287,12 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		if (actual == null) {
 			assertIsNull(expected);
 		} else if (expected == null) {
-			org.junit.Assert.fail("expected is null");
+			org.junit.jupiter.api.Assertions.fail("expected is null");
 		} else {
-			assertEquals(expected.getBoxId(), actual.getBoxId());
-			assertEquals(expected.getCategoryId(), actual.getCategoryId());
-			assertEquals(expected.getCategoryName(), actual.getCategoryName());
-			assertEquals(expected.getOpenTodaysCards(), actual.getOpenTodaysCards());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getBoxId(), actual.getBoxId());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getCategoryId(), actual.getCategoryId());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getCategoryName(), actual.getCategoryName());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getOpenTodaysCards(), actual.getOpenTodaysCards());
 		}
 	}
 
@@ -292,7 +300,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		if (actual.getBoxList() == null) {
 			assertIsNull(expected.getBoxList());
 		} else if (expected.getBoxList() == null) {
-			org.junit.Assert.fail("expected.getBoxList is null");
+			org.junit.jupiter.api.Assertions.fail("expected.getBoxList is null");
 		} else {
 			assertThat(actual.getBoxList().size(), expected.getBoxList().size());
 			for (int i = 0; i < actual.getBoxList().size(); i++) {
@@ -307,22 +315,22 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		if (actual == null) {
 			assertIsNull(expected);
 		} else if (expected == null) {
-			org.junit.Assert.fail("expected is null");
+			org.junit.jupiter.api.Assertions.fail("expected is null");
 		} else {
-			assertEquals(expected.getBoxId(), actual.getBoxId());
-			assertEquals(expected.getMaxCardsPerDay(), actual.getMaxCardsPerDay());
-			assertEquals(expected.getQuality0Count(), actual.getQuality0Count());
-			assertEquals(expected.getQuality1Count(), actual.getQuality1Count());
-			assertEquals(expected.getQuality2Count(), actual.getQuality2Count());
-			assertEquals(expected.getQuality3Count(), actual.getQuality3Count());
-			assertEquals(expected.getQuality4Count(), actual.getQuality4Count());
-			assertEquals(expected.getQuality5Count(), actual.getQuality5Count());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getBoxId(), actual.getBoxId());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getMaxCardsPerDay(), actual.getMaxCardsPerDay());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getQuality0Count(), actual.getQuality0Count());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getQuality1Count(), actual.getQuality1Count());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getQuality2Count(), actual.getQuality2Count());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getQuality3Count(), actual.getQuality3Count());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getQuality4Count(), actual.getQuality4Count());
+			org.junit.jupiter.api.Assertions.assertEquals(expected.getQuality5Count(), actual.getQuality5Count());
 			List<Integer> actualCountsPerDayNextWeek = actual.getCountsPerDayNextWeek();
 			List<Integer> expectedCountsPerDayNextWeek = expected.getCountsPerDayNextWeek();
 			if (actualCountsPerDayNextWeek == null) {
 				assertIsNull(expectedCountsPerDayNextWeek);
 			} else if (expectedCountsPerDayNextWeek == null) {
-				org.junit.Assert.fail("expected is null");
+				org.junit.jupiter.api.Assertions.fail("expected is null");
 			} else {
 				assertThat(actualCountsPerDayNextWeek.size(), expectedCountsPerDayNextWeek.size());
 				for (int i = 0; i < expectedCountsPerDayNextWeek.size(); i++) {
@@ -334,12 +342,12 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	@Override
 	protected void assertIsNull(Object actual) {
-		org.junit.Assert.assertNull(actual);
+		org.junit.jupiter.api.Assertions.assertNull(actual);
 	}
 
 	@Override
 	protected void assertIsNotNull(Object actual) {
-		org.junit.Assert.assertNotNull(actual);
+		org.junit.jupiter.api.Assertions.assertNotNull(actual);
 	}
 
 	@Override

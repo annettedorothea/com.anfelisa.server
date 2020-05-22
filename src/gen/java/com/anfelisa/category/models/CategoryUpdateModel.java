@@ -76,10 +76,8 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 		this.userId = userId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

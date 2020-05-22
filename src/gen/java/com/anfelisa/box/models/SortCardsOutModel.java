@@ -100,10 +100,8 @@ public class SortCardsOutModel implements ISortCardsOutModel {
 		this.boxId = boxId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

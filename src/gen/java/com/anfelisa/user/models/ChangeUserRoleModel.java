@@ -88,10 +88,8 @@ public class ChangeUserRoleModel implements IChangeUserRoleModel {
 		this.role = role;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

@@ -136,10 +136,8 @@ public class CardModel implements ICardModel {
 		this.rootCategoryId = rootCategoryId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

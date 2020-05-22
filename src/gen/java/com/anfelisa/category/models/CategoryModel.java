@@ -148,10 +148,8 @@ public class CategoryModel implements ICategoryModel {
 		this.wantedLanguage = wantedLanguage;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

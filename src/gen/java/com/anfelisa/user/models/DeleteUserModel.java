@@ -112,10 +112,8 @@ public class DeleteUserModel implements IDeleteUserModel {
 		this.rootCategoryIds = rootCategoryIds;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

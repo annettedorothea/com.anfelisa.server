@@ -114,10 +114,8 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 		this.boxId = boxId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

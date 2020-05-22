@@ -29,8 +29,6 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 
-import org.junit.Test;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -370,8 +368,8 @@ public abstract class AbstractLoadNextCardFirstScoredScenario extends BaseScenar
 			return actual;
 				}
 				
-				@Test
-				public void loadNextCardFirstScored() throws Exception {
+				@Override
+				public void runTest() throws Exception {
 					given();
 						
 					if (prerequisite("LoadNextCardFirstScored")) {

@@ -76,10 +76,8 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 		this.rootCategoryId = rootCategoryId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

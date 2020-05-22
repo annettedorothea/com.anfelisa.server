@@ -64,10 +64,8 @@ public class UserWithAccessListModel implements IUserWithAccessListModel {
 		this.userList = userList;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

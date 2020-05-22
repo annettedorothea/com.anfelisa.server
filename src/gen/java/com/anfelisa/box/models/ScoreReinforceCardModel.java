@@ -90,10 +90,8 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 		this.userId = userId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

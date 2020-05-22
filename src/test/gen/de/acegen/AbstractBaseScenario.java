@@ -37,6 +37,8 @@ public abstract class AbstractBaseScenario {
 		objectMapper = new ObjectMapper();
 	}
 
+	protected abstract void runTest() throws Exception;
+
 	protected abstract Response httpGet(String path, String authorization);
 	
 	protected abstract Response httpPost(String path, Object data, String authorization);

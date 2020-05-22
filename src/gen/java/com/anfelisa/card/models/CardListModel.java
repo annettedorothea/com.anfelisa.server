@@ -76,10 +76,8 @@ public class CardListModel implements ICardListModel {
 		this.categoryId = categoryId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

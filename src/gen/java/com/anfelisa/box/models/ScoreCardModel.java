@@ -240,10 +240,8 @@ public class ScoreCardModel implements IScoreCardModel {
 		this.boxId = boxId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

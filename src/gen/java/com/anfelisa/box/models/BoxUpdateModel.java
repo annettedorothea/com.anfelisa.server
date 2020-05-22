@@ -148,10 +148,8 @@ public class BoxUpdateModel implements IBoxUpdateModel {
 		this.categoryId = categoryId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

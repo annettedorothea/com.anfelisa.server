@@ -66,10 +66,8 @@ public class InitBoxesModel implements IInitBoxesModel {
 		this.boxId = boxId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

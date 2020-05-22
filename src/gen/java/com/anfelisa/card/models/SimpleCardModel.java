@@ -76,10 +76,8 @@ public class SimpleCardModel implements ISimpleCardModel {
 		this.id = id;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

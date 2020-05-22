@@ -188,10 +188,8 @@ public class NextCardViewModel implements INextCardViewModel {
 		this.scoredDate = scoredDate;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

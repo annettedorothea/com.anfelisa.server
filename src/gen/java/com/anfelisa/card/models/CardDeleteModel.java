@@ -88,10 +88,8 @@ public class CardDeleteModel implements ICardDeleteModel {
 		this.userId = userId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

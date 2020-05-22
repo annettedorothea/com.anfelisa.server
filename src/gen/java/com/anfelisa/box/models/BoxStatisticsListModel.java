@@ -78,10 +78,8 @@ public class BoxStatisticsListModel implements IBoxStatisticsListModel {
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

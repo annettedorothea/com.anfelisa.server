@@ -88,10 +88,8 @@ public class CardTranslationModel implements ICardTranslationModel {
 		this.targetLanguage = targetLanguage;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

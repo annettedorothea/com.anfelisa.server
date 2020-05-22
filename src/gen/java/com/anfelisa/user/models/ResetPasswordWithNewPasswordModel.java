@@ -76,10 +76,8 @@ public class ResetPasswordWithNewPasswordModel implements IResetPasswordWithNewP
 		this.userId = userId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

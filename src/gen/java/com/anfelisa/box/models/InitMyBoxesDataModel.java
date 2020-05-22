@@ -90,10 +90,8 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 		this.outdatedReinforceCardsIds = outdatedReinforceCardsIds;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

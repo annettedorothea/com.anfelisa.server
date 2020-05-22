@@ -88,10 +88,8 @@ public class BoxViewModel implements IBoxViewModel {
 		this.boxId = boxId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

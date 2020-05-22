@@ -112,10 +112,8 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 		this.userId = userId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

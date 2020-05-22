@@ -78,10 +78,8 @@ public class BoxListModel implements IBoxListModel {
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

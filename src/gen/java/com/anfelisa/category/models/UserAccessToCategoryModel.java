@@ -76,10 +76,8 @@ public class UserAccessToCategoryModel implements IUserAccessToCategoryModel {
 		this.editable = editable;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

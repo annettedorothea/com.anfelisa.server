@@ -64,10 +64,8 @@ public class PostponeCardsModel implements IPostponeCardsModel {
 		this.boxId = boxId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

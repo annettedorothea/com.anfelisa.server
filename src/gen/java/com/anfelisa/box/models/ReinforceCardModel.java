@@ -90,10 +90,8 @@ public class ReinforceCardModel implements IReinforceCardModel {
 		this.changeDate = changeDate;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

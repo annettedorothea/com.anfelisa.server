@@ -88,10 +88,8 @@ public class CategoryDeleteModel implements ICategoryDeleteModel {
 		this.userId = userId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

@@ -148,10 +148,8 @@ public class CardWithCategoryNameModel implements ICardWithCategoryNameModel {
 		this.rootCategoryId = rootCategoryId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

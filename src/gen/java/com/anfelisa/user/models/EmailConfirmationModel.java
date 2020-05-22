@@ -64,10 +64,8 @@ public class EmailConfirmationModel implements IEmailConfirmationModel {
 		this.userId = userId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

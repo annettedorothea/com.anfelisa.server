@@ -64,10 +64,8 @@ public class ResetPasswordModel implements IResetPasswordModel {
 		this.userId = userId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

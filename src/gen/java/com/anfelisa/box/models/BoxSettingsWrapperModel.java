@@ -148,10 +148,8 @@ public class BoxSettingsWrapperModel implements IBoxSettingsWrapperModel {
 		this.categoryId = categoryId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

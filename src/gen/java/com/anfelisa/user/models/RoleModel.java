@@ -64,10 +64,8 @@ public class RoleModel implements IRoleModel {
 		this.role = role;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

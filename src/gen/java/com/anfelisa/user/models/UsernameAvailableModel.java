@@ -64,10 +64,8 @@ public class UsernameAvailableModel implements IUsernameAvailableModel {
 		this.available = available;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

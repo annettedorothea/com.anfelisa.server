@@ -76,10 +76,8 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 		this.rootCategoryId = rootCategoryId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

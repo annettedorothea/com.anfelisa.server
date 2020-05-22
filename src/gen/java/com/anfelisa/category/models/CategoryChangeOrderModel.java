@@ -88,10 +88,8 @@ public class CategoryChangeOrderModel implements ICategoryChangeOrderModel {
 		this.updatedIndices = updatedIndices;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

@@ -64,10 +64,8 @@ public class UserListModel implements IUserListModel {
 		this.role = role;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

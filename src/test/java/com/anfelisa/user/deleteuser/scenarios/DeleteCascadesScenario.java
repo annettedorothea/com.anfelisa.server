@@ -16,11 +16,7 @@
 
 package com.anfelisa.user.deleteuser.scenarios;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.List;
-
-import javax.ws.rs.core.Response;
 
 import com.anfelisa.box.models.IBoxModel;
 import com.anfelisa.box.models.IReinforceCardModel;

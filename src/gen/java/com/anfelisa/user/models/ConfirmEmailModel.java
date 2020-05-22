@@ -76,10 +76,8 @@ public class ConfirmEmailModel implements IConfirmEmailModel {
 		this.userId = userId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

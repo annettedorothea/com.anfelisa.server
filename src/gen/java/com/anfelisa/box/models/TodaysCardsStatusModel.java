@@ -64,10 +64,8 @@ public class TodaysCardsStatusModel implements ITodaysCardsStatusModel {
 		this.allTodaysCards = allTodaysCards;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

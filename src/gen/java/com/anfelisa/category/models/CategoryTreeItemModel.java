@@ -160,10 +160,8 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 		this.childCategories = childCategories;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

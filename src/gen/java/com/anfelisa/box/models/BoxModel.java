@@ -100,10 +100,8 @@ public class BoxModel implements IBoxModel {
 		this.maxCardsPerDay = maxCardsPerDay;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

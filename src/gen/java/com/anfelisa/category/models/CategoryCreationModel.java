@@ -172,10 +172,8 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 		this.wantedLanguage = wantedLanguage;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

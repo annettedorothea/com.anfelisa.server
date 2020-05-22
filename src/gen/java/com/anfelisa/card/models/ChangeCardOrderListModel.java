@@ -88,10 +88,8 @@ public class ChangeCardOrderListModel implements IChangeCardOrderListModel {
 		this.updatedIndices = updatedIndices;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

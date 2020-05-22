@@ -190,10 +190,8 @@ public class ScheduledCardModel implements IScheduledCardModel {
 		this.scoredDate = scoredDate;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

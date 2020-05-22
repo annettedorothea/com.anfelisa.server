@@ -112,10 +112,8 @@ public class UserModel implements IUserModel {
 		this.emailConfirmed = emailConfirmed;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

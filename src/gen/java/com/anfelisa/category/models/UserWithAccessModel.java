@@ -76,10 +76,8 @@ public class UserWithAccessModel implements IUserWithAccessModel {
 		this.editable = editable;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

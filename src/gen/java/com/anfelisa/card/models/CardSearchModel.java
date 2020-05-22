@@ -112,10 +112,8 @@ public class CardSearchModel implements ICardSearchModel {
 		this.naturalInputOrder = naturalInputOrder;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

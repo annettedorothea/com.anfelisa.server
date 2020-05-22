@@ -160,10 +160,8 @@ public class CardCreationModel implements ICardCreationModel {
 		this.rootCategoryId = rootCategoryId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

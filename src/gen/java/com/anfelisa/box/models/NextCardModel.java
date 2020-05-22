@@ -250,10 +250,8 @@ public class NextCardModel implements INextCardModel {
 		this.scoredDate = scoredDate;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

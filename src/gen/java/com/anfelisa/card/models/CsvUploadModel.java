@@ -88,10 +88,8 @@ public class CsvUploadModel implements ICsvUploadModel {
 		this.cards = cards;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

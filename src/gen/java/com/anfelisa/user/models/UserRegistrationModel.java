@@ -136,10 +136,8 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 		this.token = token;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

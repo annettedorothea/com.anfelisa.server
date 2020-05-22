@@ -100,10 +100,8 @@ public class MoveCardsModel implements IMoveCardsModel {
 		this.updatedIndices = updatedIndices;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/

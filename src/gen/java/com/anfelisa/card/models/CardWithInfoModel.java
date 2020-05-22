@@ -150,10 +150,8 @@ public class CardWithInfoModel implements ICardWithInfoModel {
 		this.rootCategoryId = rootCategoryId;
 	}
 	
-	
 }
-
-
+	
 
 
 /******* S.D.G. *******/
