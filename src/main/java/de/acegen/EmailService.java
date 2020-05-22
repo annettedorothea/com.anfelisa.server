@@ -10,30 +10,30 @@ import org.apache.commons.mail.SimpleEmail;
 
 public class EmailService {
 
-	private EmailConfiguration emailConfiguration;
+	private CustomAppConfiguration configuration;
 
-	public EmailService(EmailConfiguration emailConfiguration) {
-		this.emailConfiguration = emailConfiguration;
+	public EmailService(CustomAppConfiguration configuration) {
+		this.configuration = configuration;
 	}
 
 	public void sendEmail(String to, String subject, String message) {
-		if (ServerConfiguration.TEST.equals(App.getMode())) {
+		if (ServerConfiguration.TEST.equals(configuration.getServerConfiguration().getMode())) {
 			return;
 		}
 		try {
 			Email email = new SimpleEmail();
-			email.setHostName(emailConfiguration.getHost());
-			email.setSmtpPort(emailConfiguration.getPort());
+			email.setHostName(configuration.getEmail().getHost());
+			email.setSmtpPort(configuration.getEmail().getPort());
 			email.setAuthenticator(
-					new DefaultAuthenticator(emailConfiguration.getUser(), emailConfiguration.getPassword()));
-			email.setStartTLSEnabled(emailConfiguration.isTls());
-			email.setFrom(emailConfiguration.getUser());
+					new DefaultAuthenticator(configuration.getEmail().getUser(), configuration.getEmail().getPassword()));
+			email.setStartTLSEnabled(configuration.getEmail().isTls());
+			email.setFrom(configuration.getEmail().getUser());
 			email.setMsg(message);
-			if (ServerConfiguration.LIVE.equals(App.getMode())) {
+			if (ServerConfiguration.LIVE.equals(configuration.getServerConfiguration().getMode())) {
 				email.addTo(to);
 				email.setSubject(subject);
 			} else {
-				email.addTo(emailConfiguration.getUser());
+				email.addTo(configuration.getEmail().getUser());
 				email.setSubject("to " +  to + " subject " + subject);
 			}
 			email.send();
@@ -46,15 +46,15 @@ public class EmailService {
 	public void sendAdminEmail(String subject, String message) {
 		try {
 			Email email = new SimpleEmail();
-			email.setHostName(emailConfiguration.getHost());
-			email.setSmtpPort(emailConfiguration.getPort());
+			email.setHostName(configuration.getEmail().getHost());
+			email.setSmtpPort(configuration.getEmail().getPort());
 			email.setAuthenticator(
-					new DefaultAuthenticator(emailConfiguration.getUser(), emailConfiguration.getPassword()));
+					new DefaultAuthenticator(configuration.getEmail().getUser(), configuration.getEmail().getPassword()));
 			email.setStartTLSEnabled(true);
-			email.setFrom(emailConfiguration.getUser());
+			email.setFrom(configuration.getEmail().getUser());
 			email.setSubject(subject);
 			email.setMsg(message);
-			email.addTo(emailConfiguration.getUser());
+			email.addTo(configuration.getEmail().getUser());
 			email.send();
 		} catch (EmailException e) {
 			e.printStackTrace();
@@ -63,6 +63,6 @@ public class EmailService {
 	}
 	
 	public String getLocalhost() {
-		return emailConfiguration.getLocalhost();
+		return configuration.getEmail().getLocalhost();
 	}
 }

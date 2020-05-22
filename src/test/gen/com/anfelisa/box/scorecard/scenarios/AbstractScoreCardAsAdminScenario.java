@@ -47,8 +47,7 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
-						this.getProtocol(), this.getHost(), this.getPort());
+						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -154,8 +153,7 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 
 		if (prerequisite("ScheduleCardsAsAdmin")) {
 			uuid = "sc6-${testId}".replace("${testId}", this.getTestId());
-			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
-						this.getProtocol(), this.getHost(), this.getPort());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 			com.anfelisa.box.data.ScheduledCardsData data_5 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]} ",
@@ -182,8 +180,7 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 	
 	private Response when() throws Exception {
 		String uuid = "admin-score-${testId}".replace("${testId}", this.getTestId());
-		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
-					this.getProtocol(), this.getHost(), this.getPort());
+		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		com.anfelisa.box.data.ScoreCardData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"boxId\" : \"adminBox-" + this.getTestId() + "\"," + 

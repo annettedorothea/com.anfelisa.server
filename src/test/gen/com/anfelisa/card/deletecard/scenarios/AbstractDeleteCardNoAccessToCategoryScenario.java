@@ -47,8 +47,7 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
-						this.getProtocol(), this.getHost(), this.getPort());
+						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -155,8 +154,7 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
-						this.getProtocol(), this.getHost(), this.getPort());
+						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_5 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 

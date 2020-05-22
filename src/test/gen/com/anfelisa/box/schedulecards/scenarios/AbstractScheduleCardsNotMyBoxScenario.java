@@ -47,8 +47,7 @@ public abstract class AbstractScheduleCardsNotMyBoxScenario extends BaseScenario
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
-						this.getProtocol(), this.getHost(), this.getPort());
+						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -260,8 +259,7 @@ public abstract class AbstractScheduleCardsNotMyBoxScenario extends BaseScenario
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
-						this.getProtocol(), this.getHost(), this.getPort());
+						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_9 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -291,8 +289,7 @@ public abstract class AbstractScheduleCardsNotMyBoxScenario extends BaseScenario
 	
 	private Response when() throws Exception {
 		String uuid = "sc1-${testId}".replace("${testId}", this.getTestId());
-		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200419 12:20", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
-					this.getProtocol(), this.getHost(), this.getPort());
+		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200419 12:20", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 		com.anfelisa.box.data.ScheduledCardsData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"cardIds\" : [ \"c2-" + this.getTestId() + "\"," + 

@@ -47,8 +47,7 @@ public abstract class AbstractGetBoxesWithAllScoredCardsSameDayScenario extends 
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class),
-						this.getProtocol(), this.getHost(), this.getPort());
+						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -259,8 +258,7 @@ public abstract class AbstractGetBoxesWithAllScoredCardsSameDayScenario extends 
 
 		if (prerequisite("ScheduleCards")) {
 			uuid = "sc1-${testId}".replace("${testId}", this.getTestId());
-			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
-						this.getProtocol(), this.getHost(), this.getPort());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 			com.anfelisa.box.data.ScheduledCardsData data_9 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
@@ -287,8 +285,7 @@ public abstract class AbstractGetBoxesWithAllScoredCardsSameDayScenario extends 
 
 		if (prerequisite("ScoreCard0")) {
 			uuid = "score0-${testId}".replace("${testId}", this.getTestId());
-			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
-						this.getProtocol(), this.getHost(), this.getPort());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 			com.anfelisa.box.data.ScoreCardData data_10 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
@@ -315,8 +312,7 @@ public abstract class AbstractGetBoxesWithAllScoredCardsSameDayScenario extends 
 
 		if (prerequisite("ScoreCard1")) {
 			uuid = "score1-${testId}".replace("${testId}", this.getTestId());
-			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
-						this.getProtocol(), this.getHost(), this.getPort());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 			com.anfelisa.box.data.ScoreCardData data_11 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
@@ -343,8 +339,7 @@ public abstract class AbstractGetBoxesWithAllScoredCardsSameDayScenario extends 
 
 		if (prerequisite("ScoreCard5")) {
 			uuid = "score5-${testId}".replace("${testId}", this.getTestId());
-			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC), 
-						this.getProtocol(), this.getHost(), this.getPort());
+			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
 			com.anfelisa.box.data.ScoreCardData data_12 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 

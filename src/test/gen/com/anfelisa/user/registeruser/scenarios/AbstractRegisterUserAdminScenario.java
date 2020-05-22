@@ -49,8 +49,7 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 	private Response when() throws Exception {
 		String uuid = "uuid-admin".replace("${testId}", this.getTestId());
 		this.callNotReplayableDataProviderPutValue(uuid, "token", 
-					objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class),
-					this.getProtocol(), this.getHost(), this.getPort());
+					objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
 		com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 

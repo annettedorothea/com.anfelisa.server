@@ -37,7 +37,7 @@ public class ViewProvider extends AbstractViewProvider {
 	public UserUserAccessToCategoryView userUserAccessToCategoryView;
 
 	public static ViewProvider create(IDaoProvider daoProvider, CustomAppConfiguration customAppConfiguration) {
-		return new ViewProvider(daoProvider, new EmailService(customAppConfiguration.getEmail()));
+		return new ViewProvider(daoProvider, new EmailService(customAppConfiguration));
 	}
 
 	public ViewProvider(IDaoProvider daoProvider, EmailService emailService) {

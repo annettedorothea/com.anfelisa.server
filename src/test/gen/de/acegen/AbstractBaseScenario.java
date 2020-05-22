@@ -65,23 +65,15 @@ public abstract class AbstractBaseScenario {
 
 	protected abstract String scenarioName();
 	
-	protected abstract String getProtocol();
-	
-	protected abstract String getHost();
-	
-	protected abstract int getPort();
-
 	protected abstract String getTestId();
 
 	protected abstract boolean prerequisite(String scenarioName);
 	
 	protected abstract Response callNotReplayableDataProviderPutValue(
-				String uuid, String key, Object data,
-				String protocol, String host, int port);
+				String uuid, String key, Object data);
 				
 	protected abstract Response callNotReplayableDataProviderPutSystemTime(
-				String uuid, DateTime dateTime,
-				String protocol, String host, int port);
+				String uuid, DateTime dateTime);
 
 }
 

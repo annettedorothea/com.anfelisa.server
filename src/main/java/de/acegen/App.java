@@ -30,8 +30,6 @@ public class App extends Application<CustomAppConfiguration> {
 
 	static final Logger LOG = LoggerFactory.getLogger(App.class);
 
-	static EmailService EMAIL_SERVICE;
-
 	private static String mode;
 
 	public static void main(String[] args) throws Exception {
@@ -45,25 +43,6 @@ public class App extends Application<CustomAppConfiguration> {
 
 	public static String getVersion() {
 		return "0.8.2";
-	}
-
-	public static String getMode() {
-		return mode;
-	}
-
-	public static void reportException(Exception x) {
-		if (EMAIL_SERVICE != null) {
-			try {
-				if (x != null && x.getMessage() != null) {
-					// EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", x.getMessage());
-				} else {
-					// EMAIL_SERVICE.sendAdminEmail("!!! Anfelisa exception !!!", "unknown
-					// exception");
-				}
-			} catch (Exception e) {
-				LOG.error("failed to notify about exception", x.getMessage());
-			}
-		}
 	}
 
 	@Override
@@ -84,10 +63,8 @@ public class App extends Application<CustomAppConfiguration> {
 	public void run(CustomAppConfiguration configuration, Environment environment) throws ClassNotFoundException {
 		LOG.info("running version {}", getVersion());
 
-		EMAIL_SERVICE = new EmailService(configuration.getEmail());
-		
 		DaoProvider daoProvider = new DaoProvider();
-		ViewProvider viewProvider = new ViewProvider(daoProvider, new EmailService(configuration.getEmail()));
+		ViewProvider viewProvider = new ViewProvider(daoProvider, new EmailService(configuration));
 
 		final JdbiFactory factory = new JdbiFactory();
 

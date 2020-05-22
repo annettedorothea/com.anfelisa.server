@@ -351,21 +351,6 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 
 	@Override
-	protected String getProtocol() {
-		return protocol;
-	}
-
-	@Override
-	protected String getHost() {
-		return host;
-	}
-
-	@Override
-	protected int getPort() {
-		return port;
-	}
-
-	@Override
 	protected boolean prerequisite(String scenarioName) {
 		switch (scenarioName) {
 		case "RegisterUserAdmin":
@@ -390,8 +375,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	@Override
 	protected Response callNotReplayableDataProviderPutValue(
-			String uuid, String key, Object data,
-			String protocol, String host, int port) {
+			String uuid, String key, Object data) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client
 				.target(String.format("%s://%s:%d%s/test/not-replayable/value?uuid=" + uuid + "&key=" + key, protocol,
@@ -402,8 +386,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	@Override
 	protected Response callNotReplayableDataProviderPutSystemTime(
-			String uuid, DateTime dateTime,
-			String protocol, String host, int port) {
+			String uuid, DateTime dateTime) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client
 				.target(String.format(

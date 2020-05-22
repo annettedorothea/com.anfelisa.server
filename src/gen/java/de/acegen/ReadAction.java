@@ -87,7 +87,6 @@ public abstract class ReadAction<T extends IDataContainer> extends Action<T> {
 				if (appConfiguration.getServerConfiguration().writeError()) {
 					daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle.getTimelineHandle());
 				}
-				App.reportException(x);
 			} catch (Exception ex) {
 				LOG.error(actionName + ": failed to rollback or to save or report exception " + ex.getMessage());
 			}
@@ -100,7 +99,6 @@ public abstract class ReadAction<T extends IDataContainer> extends Action<T> {
 				if (appConfiguration.getServerConfiguration().writeError()) {
 					daoProvider.getAceDao().addExceptionToTimeline(this.actionData.getUuid(), x, databaseHandle.getTimelineHandle());
 				}
-				App.reportException(x);
 			} catch (Exception ex) {
 				LOG.error(actionName + ": failed to rollback or to save or report exception " + ex.getMessage());
 			}
