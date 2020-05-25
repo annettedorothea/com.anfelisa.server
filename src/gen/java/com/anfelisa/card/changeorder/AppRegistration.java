@@ -23,7 +23,7 @@ import io.dropwizard.setup.Environment;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
 import de.acegen.ViewProvider;
-import de.acegen.ServerConfiguration;
+import de.acegen.Config;
 import de.acegen.E2E;
 import de.acegen.PersistenceConnection;
 

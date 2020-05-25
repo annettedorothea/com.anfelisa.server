@@ -26,7 +26,7 @@ public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle,  commandData.getUsername());
 		if (user == null) {
-			throwBadRequest("userDoesNotExist");
+			throwIllegalArgumentException("userDoesNotExist");
 		}
 		if (user.getEmailConfirmed()) {
 			this.commandData.setOutcome(alreadyConfirmed);
@@ -34,10 +34,10 @@ public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 			IEmailConfirmationModel emailConfirmation = daoProvider.getEmailConfirmationDao().selectByToken(readonlyHandle, 
 					commandData.getToken());
 			if (emailConfirmation == null) {
-				throwBadRequest("confirmationTokenDoesNotExist");
+				throwIllegalArgumentException("confirmationTokenDoesNotExist");
 			}
 			if (!user.getUserId().equals(emailConfirmation.getUserId())) {
-				throwBadRequest("tokenDoesNotMatch");
+				throwIllegalArgumentException("tokenDoesNotMatch");
 			}
 			this.commandData.setUserId(user.getUserId());
 			this.commandData.setOutcome(ok);

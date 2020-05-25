@@ -31,12 +31,12 @@ public class GetCardsAction extends AbstractGetCardsAction {
 		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				actionData.getCategoryId());
 		if (category == null) {
-			throwBadRequest("category does not exist");
+			throwIllegalArgumentException("category does not exist");
 		}
 		IUserAccessToCategoryModel userAccessToCategoryModel = daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle, actionData.getCategoryId(), actionData.getUserId());
 		if (userAccessToCategoryModel == null) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
 				category.getRootCategoryId(), actionData.getUserId());

@@ -19,14 +19,6 @@
 
 package com.anfelisa.user.actions;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -34,8 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
@@ -49,31 +39,18 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 
-import com.codahale.metrics.annotation.Timed;
-import com.codahale.metrics.annotation.Metered;
-import com.codahale.metrics.annotation.ExceptionMetered;
-import com.codahale.metrics.annotation.ResponseMetered;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import javax.ws.rs.GET;
-
 import com.anfelisa.user.data.IUsernameAvailableData;
 import com.anfelisa.user.data.UsernameAvailableData;
 
-@Path("/users/username")
 @SuppressWarnings("unused")
 public abstract class AbstractUsernameAvailableAction extends ReadAction<IUsernameAvailableData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractUsernameAvailableAction.class);
 	
-	private ObjectMapper objectMapper;
-	
 	public AbstractUsernameAvailableAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.UsernameAvailableAction", persistenceConnection, appConfiguration, daoProvider,
 						viewProvider, e2e);
-		objectMapper = new ObjectMapper();
 	}
 
 	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
@@ -95,34 +72,6 @@ public abstract class AbstractUsernameAvailableAction extends ReadAction<IUserna
 		}
 	}
 
-	@GET
-	@Timed(name = "UsernameAvailableActionTimed")
-	@Metered(name = "UsernameAvailableActionMetered")
-	@ExceptionMetered
-	@ResponseMetered
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response usernameAvailableResource(
-			@QueryParam("username") String username, 
-			@QueryParam("uuid") String uuid) 
-			throws JsonProcessingException {
-		if (StringUtils.isBlank(uuid)) {
-			throwBadRequest("uuid must not be blank or null");
-		}
-		this.actionData = new UsernameAvailableData(uuid);
-		
-		if (StringUtils.isBlank(username) || "null".equals(username)) {
-			throwBadRequest("username is mandatory");
-		}
-		this.actionData.setUsername(username);
-		
-		return this.apply();
-	}
-
-	protected Object createReponse() {
-		return new com.anfelisa.user.data.UsernameAvailableResponse(this.actionData);
-	}
-	
 }
 
 

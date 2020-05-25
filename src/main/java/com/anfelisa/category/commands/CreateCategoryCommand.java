@@ -29,7 +29,7 @@ public class CreateCategoryCommand extends AbstractCreateCategoryCommand {
 				.selectByCategoryIdAndUserId(readonlyHandle, parentCategory.getRootCategoryId(),
 						commandData.getUserId());
 		if (access == null) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		commandData.setRootCategoryId(parentCategory.getRootCategoryId());
 		this.commandData.setCategoryId(commandData.getUuid());

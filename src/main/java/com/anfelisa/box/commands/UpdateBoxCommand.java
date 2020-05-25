@@ -25,19 +25,19 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, this.commandData.getBoxId());
 		if (!box.getUserId().equals(commandData.getUserId())) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		
 		if (this.commandData.getMaxCardsPerDay() == 0) {
-			throwBadRequest("max cards per day must not be zero");
+			throwIllegalArgumentException("max cards per day must not be zero");
 		}
 
 		if (commandData.getDictionaryLookup() != null && commandData.getDictionaryLookup()) {
 			if (!LanguageValidator.isLanguageValid(commandData.getGivenLanguage())) {
-				throwBadRequest("given language is invalid");
+				throwIllegalArgumentException("given language is invalid");
 			}
 			if (!LanguageValidator.isLanguageValid(commandData.getWantedLanguage())) {
-				throwBadRequest("wanted language is invalid");
+				throwIllegalArgumentException("wanted language is invalid");
 			}
 		} else {
 			commandData.setGivenLanguage(null);

@@ -29,7 +29,7 @@ public class MoveCardsCommand extends AbstractMoveCardsCommand {
 		IUserAccessToCategoryModel accessToCategory = this.daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle, commandData.getCategoryId(), commandData.getUserId());
 		if (accessToCategory == null) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		Integer cardIndex = this.daoProvider.getCardDao().selectMaxIndexInCategory(readonlyHandle,
 				commandData.getCategoryId());
@@ -43,12 +43,12 @@ public class MoveCardsCommand extends AbstractMoveCardsCommand {
 		for (String cardId : commandData.getCardIdList()) {
 			ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
 			if (card == null) {
-				throwBadRequest("card does not exist");
+				throwIllegalArgumentException("card does not exist");
 			}
 			IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
 					.hasUserAccessTo(readonlyHandle, card.getRootCategoryId(), commandData.getUserId());
 			if (accessToRootCategory == null) {
-				throwUnauthorized();
+				throwSecurityException();
 			}
 			sourceCategoryId = card.getCategoryId();
 			card.setCardIndex(cardIndex);

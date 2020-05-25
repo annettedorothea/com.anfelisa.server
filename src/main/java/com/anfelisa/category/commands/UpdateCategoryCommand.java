@@ -26,11 +26,11 @@ public class UpdateCategoryCommand extends AbstractUpdateCategoryCommand {
 		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, 
 				commandData.getCategoryId());
 		if (category == null) {
-			throwBadRequest("categoryDoesNotExist");
+			throwIllegalArgumentException("categoryDoesNotExist");
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle,  category.getRootCategoryId(), commandData.getUserId());
 		if (access == null) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		this.commandData.setOutcome(ok);
 	}

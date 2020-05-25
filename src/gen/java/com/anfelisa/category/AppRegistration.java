@@ -23,23 +23,23 @@ import io.dropwizard.setup.Environment;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
 import de.acegen.ViewProvider;
-import de.acegen.ServerConfiguration;
+import de.acegen.Config;
 import de.acegen.E2E;
 import de.acegen.PersistenceConnection;
 
-import com.anfelisa.category.actions.*;
+import com.anfelisa.category.resources.*;
 
 @SuppressWarnings("all")
 public class AppRegistration {
 
 	public static void registerResources(Environment environment, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
-		environment.jersey().register(new CreateCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new UpdateCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new DeleteCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new GetCategoryTreeAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new MoveCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new ChangeOrderCategoryAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new CreateCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new UpdateCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new DeleteCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new GetCategoryTreeResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new MoveCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+		environment.jersey().register(new ChangeOrderCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 	}
 
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {

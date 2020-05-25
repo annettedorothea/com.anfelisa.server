@@ -54,7 +54,7 @@ public class App extends Application<CustomAppConfiguration> {
 			}
 		});
 
-		if (!ServerConfiguration.LIVE.equals(mode)) {
+		if (!Config.LIVE.equals(mode)) {
 			bootstrap.addCommand(new EventReplayCommand(this));
 		}
 	}
@@ -72,18 +72,18 @@ public class App extends Application<CustomAppConfiguration> {
 
 		E2E e2e = new E2E();
 
-		mode = configuration.getServerConfiguration().getMode();
+		mode = configuration.getConfig().getMode();
 		LOG.info("running in {} mode", mode);
-		if (ServerConfiguration.REPLAY.equals(mode)) {
+		if (Config.REPLAY.equals(mode)) {
 			environment.jersey().register(new PrepareE2EResource(jdbi, daoProvider, viewProvider, e2e, configuration));
 			environment.jersey().register(new StartE2ESessionResource(jdbi, daoProvider, e2e, configuration));
 			environment.jersey().register(new StopE2ESessionResource(e2e, configuration));
 			environment.jersey().register(new GetServerTimelineResource(jdbi, configuration));
 			LOG.warn("You are running in REPLAY mode. This is a security risc.");
-		} else if (ServerConfiguration.DEV.equals(mode)) {
+		} else if (Config.DEV.equals(mode)) {
 			environment.jersey().register(new GetServerTimelineResource(jdbi, configuration));
 			LOG.warn("You are running in DEV mode. This is a security risc.");
-		} else if (ServerConfiguration.TEST.equals(mode)) {
+		} else if (Config.TEST.equals(mode)) {
 			LOG.warn("You are running in TEST mode and the database is going to be cleared.");
 			PersistenceHandle handle = new PersistenceHandle(jdbi.open());
 			daoProvider.truncateAllViews(handle);

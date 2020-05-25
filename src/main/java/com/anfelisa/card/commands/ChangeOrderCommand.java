@@ -44,22 +44,22 @@ public class ChangeOrderCommand extends AbstractChangeOrderCommand {
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		ICardModel targetCard = daoProvider.getCardDao().selectByCardId(readonlyHandle, commandData.getCardId());
 		if (targetCard == null) {
-			throwBadRequest("card does not exist");
+			throwIllegalArgumentException("card does not exist");
 		}
 		IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle, targetCard.getRootCategoryId(), commandData.getUserId());
 		if (accessToRootCategory == null) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		for (String cardId : commandData.getCardIdList()) {
 			ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
 			if (card == null) {
-				throwBadRequest("card does not exist");
+				throwIllegalArgumentException("card does not exist");
 			}
 			accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
 					.hasUserAccessTo(readonlyHandle, card.getRootCategoryId(), commandData.getUserId());
 			if (accessToRootCategory == null) {
-				throwUnauthorized();
+				throwSecurityException();
 			}
 		}
 		List<ICardModel> cards = daoProvider.getCardDao().selectAll(readonlyHandle, targetCard.getCategoryId());

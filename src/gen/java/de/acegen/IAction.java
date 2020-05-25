@@ -19,17 +19,15 @@
 
 package de.acegen;
 
-import javax.ws.rs.core.Response;
-
-public interface IAction {
+public interface IAction<T> {
 
 	String getActionName();
 	
-	HttpMethod getHttpMethod();
+	void setActionData(T actionData);
 	
 	IDataContainer getActionData();
 	
-    Response apply();
+    void apply();
     
     void initActionData();
     

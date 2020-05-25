@@ -42,7 +42,7 @@ public class GetBoxSettingsAction extends AbstractGetBoxSettingsAction {
 	protected void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, this.actionData.getBoxId());
 		if (!box.getUserId().equals(actionData.getUserId())) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		IBoxSettingsModel settings = this.daoProvider.getBoxDao().selectSettingsByBoxId(readonlyHandle,
 				actionData.getBoxId());

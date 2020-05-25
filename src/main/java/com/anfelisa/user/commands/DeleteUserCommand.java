@@ -29,16 +29,16 @@ public class DeleteUserCommand extends AbstractDeleteUserCommand {
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		if (!Roles.ADMIN.equals(commandData.getRole())
 				&& !commandData.getUsername().equals(commandData.getUsernameToBeDeleted())) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		IUserModel userToBeDeleted = daoProvider.getUserDao().selectByUsername(readonlyHandle,
 				commandData.getUsernameToBeDeleted());
 		if (userToBeDeleted == null) {
-			throwBadRequest("userDoesNotExist");
+			throwIllegalArgumentException("userDoesNotExist");
 		}
 		if (Roles.ADMIN.equals(userToBeDeleted.getRole())) {
 			if (daoProvider.getUserDao().selectAdminCount(readonlyHandle) == 1) {
-				throwBadRequest("lastAdminMustNotBeDeleted");
+				throwIllegalArgumentException("lastAdminMustNotBeDeleted");
 			}
 		}
 		List<IBoxModel> boxesOfUser = daoProvider.getBoxDao().selectAllOfUser(readonlyHandle, userToBeDeleted.getUserId());

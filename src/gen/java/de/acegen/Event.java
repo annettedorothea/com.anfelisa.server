@@ -56,7 +56,7 @@ public abstract class Event<T extends IDataContainer> implements IEvent {
 	}
 
 	public void publish(PersistenceHandle handle, PersistenceHandle timelineHandle) {
-		if (appConfiguration.getServerConfiguration().writeTimeline()) {
+		if (appConfiguration.getConfig().writeTimeline()) {
 			daoProvider.getAceDao().addEventToTimeline(this, timelineHandle);
 		}
 		this.notifyListeners(handle);

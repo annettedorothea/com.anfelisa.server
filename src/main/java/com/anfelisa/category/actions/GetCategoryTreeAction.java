@@ -28,7 +28,7 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, actionData.getRootCategoryId(), actionData.getUserId());
 		if (access == null) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		ICategoryTreeItemModel rootCategory = daoProvider.getCategoryDao().selectRoot(readonlyHandle,
 				actionData.getRootCategoryId());

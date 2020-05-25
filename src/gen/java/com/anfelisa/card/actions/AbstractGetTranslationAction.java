@@ -19,14 +19,6 @@
 
 package com.anfelisa.card.actions;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -34,8 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
@@ -49,33 +39,19 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 import de.acegen.auth.AuthUser;
-import io.dropwizard.auth.Auth;
-
-import com.codahale.metrics.annotation.Timed;
-import com.codahale.metrics.annotation.Metered;
-import com.codahale.metrics.annotation.ExceptionMetered;
-import com.codahale.metrics.annotation.ResponseMetered;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import javax.ws.rs.GET;
 
 import com.anfelisa.card.data.ICardTranslationData;
 import com.anfelisa.card.data.CardTranslationData;
 
-@Path("/card/translation")
 @SuppressWarnings("unused")
 public abstract class AbstractGetTranslationAction extends ReadAction<ICardTranslationData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetTranslationAction.class);
 	
-	private ObjectMapper objectMapper;
-	
 	public AbstractGetTranslationAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.card.actions.GetTranslationAction", persistenceConnection, appConfiguration, daoProvider,
 						viewProvider, e2e);
-		objectMapper = new ObjectMapper();
 	}
 
 	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
@@ -97,47 +73,6 @@ public abstract class AbstractGetTranslationAction extends ReadAction<ICardTrans
 		}
 	}
 
-	@GET
-	@Timed(name = "GetTranslationActionTimed")
-	@Metered(name = "GetTranslationActionMetered")
-	@ExceptionMetered
-	@ResponseMetered
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getTranslationResource(
-			@Auth AuthUser authUser, 
-			@QueryParam("sourceValue") String sourceValue, 
-			@QueryParam("sourceLanguage") String sourceLanguage, 
-			@QueryParam("targetLanguage") String targetLanguage, 
-			@QueryParam("uuid") String uuid) 
-			throws JsonProcessingException {
-		if (StringUtils.isBlank(uuid)) {
-			throwBadRequest("uuid must not be blank or null");
-		}
-		this.actionData = new CardTranslationData(uuid);
-		
-		if (StringUtils.isBlank(sourceValue) || "null".equals(sourceValue)) {
-			throwBadRequest("sourceValue is mandatory");
-		}
-		this.actionData.setSourceValue(sourceValue);
-		
-		if (StringUtils.isBlank(sourceLanguage) || "null".equals(sourceLanguage)) {
-			throwBadRequest("sourceLanguage is mandatory");
-		}
-		this.actionData.setSourceLanguage(sourceLanguage);
-		
-		if (StringUtils.isBlank(targetLanguage) || "null".equals(targetLanguage)) {
-			throwBadRequest("targetLanguage is mandatory");
-		}
-		this.actionData.setTargetLanguage(targetLanguage);
-		
-		return this.apply();
-	}
-
-	protected Object createReponse() {
-		return new com.anfelisa.card.data.GetTranslationResponse(this.actionData);
-	}
-	
 }
 
 

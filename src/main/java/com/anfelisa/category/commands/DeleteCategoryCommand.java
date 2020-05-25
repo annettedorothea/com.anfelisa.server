@@ -26,16 +26,16 @@ public class DeleteCategoryCommand extends AbstractDeleteCategoryCommand {
 		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getCategoryId());
 		if (category == null) {
-			throwBadRequest("categoryDoesNotExist");
+			throwIllegalArgumentException("categoryDoesNotExist");
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), commandData.getUserId());
 		if (access == null) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		this.commandData.setCategoryIndex(category.getCategoryIndex());
 		if (category.getParentCategoryId() == null) {
-			throwBadRequest("root category must not be deleted");
+			throwIllegalArgumentException("root category must not be deleted");
 		} else {
 			this.commandData.setParentCategoryId(category.getParentCategoryId());
 			this.commandData.setOutcome(ok);

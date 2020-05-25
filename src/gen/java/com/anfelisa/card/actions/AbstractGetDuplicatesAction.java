@@ -19,14 +19,6 @@
 
 package com.anfelisa.card.actions;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -34,8 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
@@ -49,33 +39,19 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 import de.acegen.auth.AuthUser;
-import io.dropwizard.auth.Auth;
-
-import com.codahale.metrics.annotation.Timed;
-import com.codahale.metrics.annotation.Metered;
-import com.codahale.metrics.annotation.ExceptionMetered;
-import com.codahale.metrics.annotation.ResponseMetered;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import javax.ws.rs.GET;
 
 import com.anfelisa.card.data.ICardSearchData;
 import com.anfelisa.card.data.CardSearchData;
 
-@Path("/cards/search")
 @SuppressWarnings("unused")
 public abstract class AbstractGetDuplicatesAction extends ReadAction<ICardSearchData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetDuplicatesAction.class);
 	
-	private ObjectMapper objectMapper;
-	
 	public AbstractGetDuplicatesAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.card.actions.GetDuplicatesAction", persistenceConnection, appConfiguration, daoProvider,
 						viewProvider, e2e);
-		objectMapper = new ObjectMapper();
 	}
 
 	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
@@ -97,45 +73,6 @@ public abstract class AbstractGetDuplicatesAction extends ReadAction<ICardSearch
 		}
 	}
 
-	@GET
-	@Timed(name = "GetDuplicatesActionTimed")
-	@Metered(name = "GetDuplicatesActionMetered")
-	@ExceptionMetered
-	@ResponseMetered
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getDuplicatesResource(
-			@Auth AuthUser authUser, 
-			@QueryParam("given") String given, 
-			@QueryParam("wanted") String wanted, 
-			@QueryParam("naturalInputOrder") Boolean naturalInputOrder, 
-			@QueryParam("categoryId") String categoryId, 
-			@QueryParam("uuid") String uuid) 
-			throws JsonProcessingException {
-		if (StringUtils.isBlank(uuid)) {
-			throwBadRequest("uuid must not be blank or null");
-		}
-		this.actionData = new CardSearchData(uuid);
-		
-		this.actionData.setGiven(given);
-		
-		this.actionData.setWanted(wanted);
-		
-		this.actionData.setNaturalInputOrder(naturalInputOrder);
-		
-		if (StringUtils.isBlank(categoryId) || "null".equals(categoryId)) {
-			throwBadRequest("categoryId is mandatory");
-		}
-		this.actionData.setCategoryId(categoryId);
-		this.actionData.setUserId(authUser.getUserId());
-		
-		return this.apply();
-	}
-
-	protected Object createReponse() {
-		return new com.anfelisa.card.data.GetDuplicatesResponse(this.actionData);
-	}
-	
 }
 
 

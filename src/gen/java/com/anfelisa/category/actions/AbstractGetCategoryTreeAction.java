@@ -19,14 +19,6 @@
 
 package com.anfelisa.category.actions;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -34,8 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
@@ -49,33 +39,19 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 import de.acegen.auth.AuthUser;
-import io.dropwizard.auth.Auth;
-
-import com.codahale.metrics.annotation.Timed;
-import com.codahale.metrics.annotation.Metered;
-import com.codahale.metrics.annotation.ExceptionMetered;
-import com.codahale.metrics.annotation.ResponseMetered;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import javax.ws.rs.GET;
 
 import com.anfelisa.category.data.ICategoryTreeData;
 import com.anfelisa.category.data.CategoryTreeData;
 
-@Path("/category/tree")
 @SuppressWarnings("unused")
 public abstract class AbstractGetCategoryTreeAction extends ReadAction<ICategoryTreeData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetCategoryTreeAction.class);
 	
-	private ObjectMapper objectMapper;
-	
 	public AbstractGetCategoryTreeAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.category.actions.GetCategoryTreeAction", persistenceConnection, appConfiguration, daoProvider,
 						viewProvider, e2e);
-		objectMapper = new ObjectMapper();
 	}
 
 	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
@@ -97,36 +73,6 @@ public abstract class AbstractGetCategoryTreeAction extends ReadAction<ICategory
 		}
 	}
 
-	@GET
-	@Timed(name = "GetCategoryTreeActionTimed")
-	@Metered(name = "GetCategoryTreeActionMetered")
-	@ExceptionMetered
-	@ResponseMetered
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getCategoryTreeResource(
-			@Auth AuthUser authUser, 
-			@QueryParam("rootCategoryId") String rootCategoryId, 
-			@QueryParam("uuid") String uuid) 
-			throws JsonProcessingException {
-		if (StringUtils.isBlank(uuid)) {
-			throwBadRequest("uuid must not be blank or null");
-		}
-		this.actionData = new CategoryTreeData(uuid);
-		
-		if (StringUtils.isBlank(rootCategoryId) || "null".equals(rootCategoryId)) {
-			throwBadRequest("rootCategoryId is mandatory");
-		}
-		this.actionData.setRootCategoryId(rootCategoryId);
-		this.actionData.setUserId(authUser.getUserId());
-		
-		return this.apply();
-	}
-
-	protected Object createReponse() {
-		return new com.anfelisa.category.data.GetCategoryTreeResponse(this.actionData);
-	}
-	
 }
 
 

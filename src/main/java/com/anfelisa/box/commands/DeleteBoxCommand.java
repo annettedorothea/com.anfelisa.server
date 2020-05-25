@@ -24,10 +24,10 @@ public class DeleteBoxCommand extends AbstractDeleteBoxCommand {
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, this.commandData.getBoxId());
 		if (box == null) {
-			throwBadRequest("box does not exist");
+			throwIllegalArgumentException("box does not exist");
 		}
 		if (!box.getUserId().equals(commandData.getUserId())) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		
 		this.commandData.setRootCategoryId(box.getCategoryId());

@@ -26,7 +26,7 @@ public class GetAllUsersAction extends AbstractGetAllUsersAction {
 
 	protected final void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
 		if (!Roles.ADMIN.equals(this.actionData.getRole())) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		List<IUserModel> users = daoProvider.getUserDao().selectAll(readonlyHandle);
 		this.actionData.setUserList(users);

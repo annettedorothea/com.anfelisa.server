@@ -43,10 +43,10 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		if (commandData.getDictionaryLookup() != null && commandData.getDictionaryLookup()) {
 			if (!LanguageValidator.isLanguageValid(commandData.getGivenLanguage())) {
-				throwBadRequest("given language is invalid");
+				throwIllegalArgumentException("given language is invalid");
 			}
 			if (!LanguageValidator.isLanguageValid(commandData.getWantedLanguage())) {
-				throwBadRequest("wanted language is invalid");
+				throwIllegalArgumentException("wanted language is invalid");
 			}
 		} else {
 			commandData.setGivenLanguage(null);

@@ -25,14 +25,14 @@ public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 	@Override
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		if (!Roles.ADMIN.equals(this.commandData.getRole())) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		IUserModel user = daoProvider.getUserDao().selectByUserId(readonlyHandle, commandData.getEditedUserId());
 		if (user == null) {
-			throwBadRequest("userDoesNotExist");
+			throwIllegalArgumentException("userDoesNotExist");
 		}
 		if ("Admin".equals(user.getUsername())) {
-			throwBadRequest("adminRoleMustNotBeChanged");
+			throwIllegalArgumentException("adminRoleMustNotBeChanged");
 		}
 		this.commandData.setOutcome(ok);
 	}

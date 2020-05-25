@@ -44,23 +44,23 @@ public class ChangeOrderCategoryCommand extends AbstractChangeOrderCategoryComma
 		ICategoryModel targetCategory = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getTargetCategoryId());
 		if (targetCategory == null) {
-			throwBadRequest("target category does not exist");
+			throwIllegalArgumentException("target category does not exist");
 		}
 		IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle, targetCategory.getRootCategoryId(), commandData.getUserId());
 		if (accessToRootCategory == null) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 
 		ICategoryModel movedCategory = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getMovedCategoryId());
 		if (movedCategory == null) {
-			throwBadRequest("moved category does not exist");
+			throwIllegalArgumentException("moved category does not exist");
 		}
 		accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle, movedCategory.getRootCategoryId(), commandData.getUserId());
 		if (accessToRootCategory == null) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		
 		List<ICategoryModel> categories = this.daoProvider.getCategoryDao().selectAllChildren(readonlyHandle,

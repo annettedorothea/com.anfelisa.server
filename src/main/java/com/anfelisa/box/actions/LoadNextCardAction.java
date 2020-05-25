@@ -26,10 +26,10 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 	protected final void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, actionData.getBoxId());
 		if (box == null) {
-			throwBadRequest("box does not exist");
+			throwIllegalArgumentException("box does not exist");
 		}
 		if (!box.getUserId().equals(actionData.getUserId())) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 
 		INextCardViewModel nextCard = daoProvider.getScheduledCardDao().selectFirstScheduledCard(readonlyHandle,

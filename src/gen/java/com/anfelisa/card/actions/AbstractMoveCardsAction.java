@@ -19,14 +19,6 @@
 
 package com.anfelisa.card.actions;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -34,8 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
@@ -49,37 +39,19 @@ import de.acegen.NotReplayableDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import de.acegen.auth.AuthUser;
-import io.dropwizard.auth.Auth;
-
-import com.codahale.metrics.annotation.Timed;
-import com.codahale.metrics.annotation.Metered;
-import com.codahale.metrics.annotation.ExceptionMetered;
-import com.codahale.metrics.annotation.ResponseMetered;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.DELETE;
-
 import com.anfelisa.card.data.IMoveCardsData;
 import com.anfelisa.card.data.MoveCardsData;
 import com.anfelisa.card.commands.MoveCardsCommand;
 
-@Path("/cards/move")
 @SuppressWarnings("unused")
 public abstract class AbstractMoveCardsAction extends WriteAction<IMoveCardsData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractMoveCardsAction.class);
 	
-	private ObjectMapper objectMapper;
-
 	public AbstractMoveCardsAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.card.actions.MoveCardsAction", persistenceConnection, appConfiguration, daoProvider,
-						viewProvider, e2e, HttpMethod.PUT);
-		objectMapper = new ObjectMapper();
+						viewProvider, e2e);
 	}
 
 	@Override
@@ -104,37 +76,6 @@ public abstract class AbstractMoveCardsAction extends WriteAction<IMoveCardsData
 			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
-
-	@PUT
-	@Timed(name = "MoveCardsActionTimed")
-	@Metered(name = "MoveCardsActionMetered")
-	@ExceptionMetered
-	@ResponseMetered
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response moveCardsResource(
-			@Auth AuthUser authUser, 
-			IMoveCardsData payload)
-			throws JsonProcessingException {
-		if (payload == null) {
-			throwBadRequest("payload must not be null");
-		}
-		this.actionData = new MoveCardsData(payload.getUuid());
-		
-		if (payload.getCardIdList() == null) {
-			throwBadRequest("cardIdList is mandatory");
-		}
-		this.actionData.setCardIdList(payload.getCardIdList());
-		
-		if (StringUtils.isBlank(payload.getCategoryId()) || "null".equals(payload.getCategoryId())) {
-			throwBadRequest("categoryId is mandatory");
-		}
-		this.actionData.setCategoryId(payload.getCategoryId());
-		this.actionData.setUserId(authUser.getUserId());
-		
-		return this.apply();
-	}
-
 
 }
 

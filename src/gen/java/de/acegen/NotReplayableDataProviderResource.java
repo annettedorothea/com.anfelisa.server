@@ -32,8 +32,6 @@ import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.codahale.metrics.annotation.Timed;
-
 @Path("/test/not-replayable")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -46,7 +44,6 @@ public class NotReplayableDataProviderResource {
 	}
 
 	@PUT
-	@Timed
 	@Path("/value")
 	public Response putValue(@QueryParam("uuid") String uuid, @QueryParam("key") String key, String json) {
 		NotReplayableDataProvider.put(uuid, key, json);
@@ -54,7 +51,6 @@ public class NotReplayableDataProviderResource {
 	}
 
 	@PUT
-	@Timed
 	@Path("/system-time")
 	public Response putSystemTime(@QueryParam("uuid") String uuid, @QueryParam("system-time") String systemTime) {
 		NotReplayableDataProvider.putSystemTime(uuid, DateTime.parse(systemTime).withZone(DateTimeZone.UTC));

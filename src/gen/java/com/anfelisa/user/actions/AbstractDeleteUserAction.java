@@ -19,14 +19,6 @@
 
 package com.anfelisa.user.actions;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -34,8 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
@@ -49,37 +39,19 @@ import de.acegen.NotReplayableDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import de.acegen.auth.AuthUser;
-import io.dropwizard.auth.Auth;
-
-import com.codahale.metrics.annotation.Timed;
-import com.codahale.metrics.annotation.Metered;
-import com.codahale.metrics.annotation.ExceptionMetered;
-import com.codahale.metrics.annotation.ResponseMetered;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.DELETE;
-
 import com.anfelisa.user.data.IDeleteUserData;
 import com.anfelisa.user.data.DeleteUserData;
 import com.anfelisa.user.commands.DeleteUserCommand;
 
-@Path("/user/delete")
 @SuppressWarnings("unused")
 public abstract class AbstractDeleteUserAction extends WriteAction<IDeleteUserData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteUserAction.class);
 	
-	private ObjectMapper objectMapper;
-
 	public AbstractDeleteUserAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.DeleteUserAction", persistenceConnection, appConfiguration, daoProvider,
-						viewProvider, e2e, HttpMethod.DELETE);
-		objectMapper = new ObjectMapper();
+						viewProvider, e2e);
 	}
 
 	@Override
@@ -104,35 +76,6 @@ public abstract class AbstractDeleteUserAction extends WriteAction<IDeleteUserDa
 			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
-
-	@DELETE
-	@Timed(name = "DeleteUserActionTimed")
-	@Metered(name = "DeleteUserActionMetered")
-	@ExceptionMetered
-	@ResponseMetered
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response deleteUserResource(
-			@Auth AuthUser authUser, 
-			@QueryParam("usernameToBeDeleted") String usernameToBeDeleted, 
-			@QueryParam("uuid") String uuid) 
-			throws JsonProcessingException {
-		if (StringUtils.isBlank(uuid)) {
-			throwBadRequest("uuid must not be blank or null");
-		}
-		this.actionData = new DeleteUserData(uuid);
-		
-		if (StringUtils.isBlank(usernameToBeDeleted) || "null".equals(usernameToBeDeleted)) {
-			throwBadRequest("usernameToBeDeleted is mandatory");
-		}
-		this.actionData.setUsernameToBeDeleted(usernameToBeDeleted);
-		this.actionData.setUsername(authUser.getUsername());
-		this.actionData.setUserId(authUser.getUserId());
-		this.actionData.setRole(authUser.getRole());
-		
-		return this.apply();
-	}
-
 
 }
 

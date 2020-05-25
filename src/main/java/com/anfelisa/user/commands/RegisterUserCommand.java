@@ -25,7 +25,7 @@ public class RegisterUserCommand extends AbstractRegisterUserCommand {
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, commandData.getUsername());
 		if (user != null) {
-			throwBadRequest("usernameAlreadyTaken");
+			throwIllegalArgumentException("usernameAlreadyTaken");
 		}
 		if ("Admin".equals(this.commandData.getUsername())) {
 			this.commandData.setRole(Roles.ADMIN);

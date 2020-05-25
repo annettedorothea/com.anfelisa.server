@@ -19,14 +19,6 @@
 
 package com.anfelisa.user.actions;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -34,8 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
@@ -49,35 +39,19 @@ import de.acegen.NotReplayableDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-
-import com.codahale.metrics.annotation.Timed;
-import com.codahale.metrics.annotation.Metered;
-import com.codahale.metrics.annotation.ExceptionMetered;
-import com.codahale.metrics.annotation.ResponseMetered;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.DELETE;
-
 import com.anfelisa.user.data.IUserRegistrationData;
 import com.anfelisa.user.data.UserRegistrationData;
 import com.anfelisa.user.commands.RegisterUserCommand;
 
-@Path("/users/register")
 @SuppressWarnings("unused")
 public abstract class AbstractRegisterUserAction extends WriteAction<IUserRegistrationData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractRegisterUserAction.class);
 	
-	private ObjectMapper objectMapper;
-
 	public AbstractRegisterUserAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.RegisterUserAction", persistenceConnection, appConfiguration, daoProvider,
-						viewProvider, e2e, HttpMethod.POST);
-		objectMapper = new ObjectMapper();
+						viewProvider, e2e);
 	}
 
 	@Override
@@ -114,45 +88,6 @@ public abstract class AbstractRegisterUserAction extends WriteAction<IUserRegist
 			LOG.warn("token is declared as not replayable but no value was found in NotReplayableDataProvider.");
 		}
 	}
-
-	@POST
-	@Timed(name = "RegisterUserActionTimed")
-	@Metered(name = "RegisterUserActionMetered")
-	@ExceptionMetered
-	@ResponseMetered
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response registerUserResource(
-			IUserRegistrationData payload)
-			throws JsonProcessingException {
-		if (payload == null) {
-			throwBadRequest("payload must not be null");
-		}
-		this.actionData = new UserRegistrationData(payload.getUuid());
-		
-		if (StringUtils.isBlank(payload.getPassword()) || "null".equals(payload.getPassword())) {
-			throwBadRequest("password is mandatory");
-		}
-		this.actionData.setPassword(payload.getPassword());
-		
-		if (StringUtils.isBlank(payload.getUsername()) || "null".equals(payload.getUsername())) {
-			throwBadRequest("username is mandatory");
-		}
-		this.actionData.setUsername(payload.getUsername());
-		
-		if (StringUtils.isBlank(payload.getEmail()) || "null".equals(payload.getEmail())) {
-			throwBadRequest("email is mandatory");
-		}
-		this.actionData.setEmail(payload.getEmail());
-		
-		if (StringUtils.isBlank(payload.getLanguage()) || "null".equals(payload.getLanguage())) {
-			throwBadRequest("language is mandatory");
-		}
-		this.actionData.setLanguage(payload.getLanguage());
-		
-		return this.apply();
-	}
-
 
 }
 

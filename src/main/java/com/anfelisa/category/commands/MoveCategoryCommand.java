@@ -26,12 +26,12 @@ public class MoveCategoryCommand extends AbstractMoveCategoryCommand {
 		IUserAccessToCategoryModel accessToMovedCategory = this.daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle,  commandData.getMovedCategoryId(), commandData.getUserId());
 		if (accessToMovedCategory == null || accessToMovedCategory.getEditable() == false) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		IUserAccessToCategoryModel accessToTargetCategory = this.daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle,  commandData.getTargetCategoryId(), commandData.getUserId());
 		if (accessToTargetCategory == null || accessToTargetCategory.getEditable() == false) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 
 		ICategoryModel movedCategory = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle, 
@@ -41,19 +41,19 @@ public class MoveCategoryCommand extends AbstractMoveCategoryCommand {
 				commandData.getTargetCategoryId());
 
 		if (movedCategory == null || targetCategory == null) {
-			throwBadRequest("categories must not be null");
+			throwIllegalArgumentException("categories must not be null");
 		}
 
 		if (!movedCategory.getRootCategoryId().equals(targetCategory.getRootCategoryId())) {
-			throwBadRequest("categories must be in same root category");
+			throwIllegalArgumentException("categories must be in same root category");
 		}
 		
 		if (targetCategory.getCategoryId().equals(movedCategory.getCategoryId())) {
-			throwBadRequest("cannot move category to itself");
+			throwIllegalArgumentException("cannot move category to itself");
 		}
 
 		if (isChildOf(movedCategory, targetCategory, readonlyHandle)) {
-			throwBadRequest("cannot move category to one of its children");
+			throwIllegalArgumentException("cannot move category to one of its children");
 		}
 		
 		if (targetCategory.getCategoryId().equals(movedCategory.getParentCategoryId())) {

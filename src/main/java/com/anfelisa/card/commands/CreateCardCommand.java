@@ -27,17 +27,17 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 		ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getCategoryId());
 		if (category == null) {
-			throwBadRequest("category does not exist");
+			throwIllegalArgumentException("category does not exist");
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), commandData.getUserId());
 		if (access == null) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		ICardModel card = this.daoProvider.getCardDao().selectByCardId(readonlyHandle,
 				commandData.getUuid());
 		if (card != null) {
-			throwBadRequest("card with this id already exists");
+			throwIllegalArgumentException("card with this id already exists");
 		}
 		commandData.setRootCategoryId(category.getRootCategoryId());
 		this.commandData.setCardId(commandData.getUuid());

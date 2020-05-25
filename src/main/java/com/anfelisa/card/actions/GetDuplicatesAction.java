@@ -29,12 +29,12 @@ public class GetDuplicatesAction extends AbstractGetDuplicatesAction {
 		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				actionData.getCategoryId());
 		if (category == null) {
-			throwBadRequest("category does not exist");
+			throwIllegalArgumentException("category does not exist");
 		}
 		IUserAccessToCategoryModel userAccessToCategoryModel = daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle, actionData.getCategoryId(), actionData.getUserId());
 		if (userAccessToCategoryModel == null) {
-			throwUnauthorized();
+			throwSecurityException();
 		}
 		List<ICardWithCategoryNameModel> cardList = this.daoProvider.getCardDao().search(readonlyHandle, actionData.getCategoryId(),
 				actionData.getNaturalInputOrder(), actionData.getGiven(), actionData.getWanted());

@@ -17,7 +17,7 @@ public class EmailService {
 	}
 
 	public void sendEmail(String to, String subject, String message) {
-		if (ServerConfiguration.TEST.equals(configuration.getServerConfiguration().getMode())) {
+		if (Config.TEST.equals(configuration.getConfig().getMode())) {
 			return;
 		}
 		try {
@@ -29,7 +29,7 @@ public class EmailService {
 			email.setStartTLSEnabled(configuration.getEmail().isTls());
 			email.setFrom(configuration.getEmail().getUser());
 			email.setMsg(message);
-			if (ServerConfiguration.LIVE.equals(configuration.getServerConfiguration().getMode())) {
+			if (Config.LIVE.equals(configuration.getConfig().getMode())) {
 				email.addTo(to);
 				email.setSubject(subject);
 			} else {

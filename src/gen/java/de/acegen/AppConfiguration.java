@@ -62,16 +62,16 @@ public class AppConfiguration extends Configuration {
 
 	@Valid
 	@NotNull
-	private ServerConfiguration serverConfiguration = new ServerConfiguration();
+	private Config config = new Config();
 
 	@JsonProperty("config")
-	public ServerConfiguration getServerConfiguration() {
-		return serverConfiguration;
+	public Config getConfig() {
+		return config;
 	}
 
 	@JsonProperty("config")
-	public void setServerConfiguration(ServerConfiguration serverConfiguration) {
-		this.serverConfiguration = serverConfiguration;
+	public void setConfig(Config config) {
+		this.config = config;
 	}
 	
 }

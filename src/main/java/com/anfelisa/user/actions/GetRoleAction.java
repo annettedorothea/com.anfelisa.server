@@ -24,7 +24,7 @@ public class GetRoleAction extends AbstractGetRoleAction {
 	protected final void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
 		IUserModel user = daoProvider.getUserDao().selectByUsername(readonlyHandle, actionData.getUsername());
 		if (user == null) {
-			throwBadRequest("user " + actionData.getUsername() + " not found");
+			throwIllegalArgumentException("user " + actionData.getUsername() + " not found");
 		}
 	}
 

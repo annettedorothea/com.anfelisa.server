@@ -19,14 +19,6 @@
 
 package com.anfelisa.user.actions;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -34,8 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
@@ -49,37 +39,19 @@ import de.acegen.NotReplayableDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import de.acegen.auth.AuthUser;
-import io.dropwizard.auth.Auth;
-
-import com.codahale.metrics.annotation.Timed;
-import com.codahale.metrics.annotation.Metered;
-import com.codahale.metrics.annotation.ExceptionMetered;
-import com.codahale.metrics.annotation.ResponseMetered;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.DELETE;
-
 import com.anfelisa.user.data.IChangeUserRoleData;
 import com.anfelisa.user.data.ChangeUserRoleData;
 import com.anfelisa.user.commands.ChangeUserRoleCommand;
 
-@Path("/user/role")
 @SuppressWarnings("unused")
 public abstract class AbstractChangeUserRoleAction extends WriteAction<IChangeUserRoleData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractChangeUserRoleAction.class);
 	
-	private ObjectMapper objectMapper;
-
 	public AbstractChangeUserRoleAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.user.actions.ChangeUserRoleAction", persistenceConnection, appConfiguration, daoProvider,
-						viewProvider, e2e, HttpMethod.PUT);
-		objectMapper = new ObjectMapper();
+						viewProvider, e2e);
 	}
 
 	@Override
@@ -104,38 +76,6 @@ public abstract class AbstractChangeUserRoleAction extends WriteAction<IChangeUs
 			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
-
-	@PUT
-	@Timed(name = "ChangeUserRoleActionTimed")
-	@Metered(name = "ChangeUserRoleActionMetered")
-	@ExceptionMetered
-	@ResponseMetered
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response changeUserRoleResource(
-			@Auth AuthUser authUser, 
-			IChangeUserRoleData payload)
-			throws JsonProcessingException {
-		if (payload == null) {
-			throwBadRequest("payload must not be null");
-		}
-		this.actionData = new ChangeUserRoleData(payload.getUuid());
-		
-		if (StringUtils.isBlank(payload.getNewRole()) || "null".equals(payload.getNewRole())) {
-			throwBadRequest("newRole is mandatory");
-		}
-		this.actionData.setNewRole(payload.getNewRole());
-		
-		if (StringUtils.isBlank(payload.getEditedUserId()) || "null".equals(payload.getEditedUserId())) {
-			throwBadRequest("editedUserId is mandatory");
-		}
-		this.actionData.setEditedUserId(payload.getEditedUserId());
-		this.actionData.setUserId(authUser.getUserId());
-		this.actionData.setRole(authUser.getRole());
-		
-		return this.apply();
-	}
-
 
 }
 

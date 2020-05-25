@@ -24,7 +24,7 @@ public class ResetPasswordCommand extends AbstractResetPasswordCommand {
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		IResetPasswordModel model = daoProvider.getResetPasswordDao().selectByToken(readonlyHandle,  commandData.getToken());
 		if (model == null) {
-			throwBadRequest("tokenDoesNotExist");
+			throwIllegalArgumentException("tokenDoesNotExist");
 		}
 		this.commandData.setUserId(model.getUserId());
 		this.commandData.setOutcome(ok);

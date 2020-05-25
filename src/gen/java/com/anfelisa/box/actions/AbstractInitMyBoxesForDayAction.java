@@ -19,14 +19,6 @@
 
 package com.anfelisa.box.actions;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -34,8 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.acegen.CustomAppConfiguration;
 import de.acegen.E2E;
@@ -49,37 +39,19 @@ import de.acegen.NotReplayableDataProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.WriteAction;
 
-import de.acegen.auth.AuthUser;
-import io.dropwizard.auth.Auth;
-
-import com.codahale.metrics.annotation.Timed;
-import com.codahale.metrics.annotation.Metered;
-import com.codahale.metrics.annotation.ExceptionMetered;
-import com.codahale.metrics.annotation.ResponseMetered;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.DELETE;
-
 import com.anfelisa.box.data.IInitMyBoxesDataData;
 import com.anfelisa.box.data.InitMyBoxesDataData;
 import com.anfelisa.box.commands.InitMyBoxesForDayCommand;
 
-@Path("/box/init")
 @SuppressWarnings("unused")
 public abstract class AbstractInitMyBoxesForDayAction extends WriteAction<IInitMyBoxesDataData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractInitMyBoxesForDayAction.class);
 	
-	private ObjectMapper objectMapper;
-
 	public AbstractInitMyBoxesForDayAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super("com.anfelisa.box.actions.InitMyBoxesForDayAction", persistenceConnection, appConfiguration, daoProvider,
-						viewProvider, e2e, HttpMethod.PUT);
-		objectMapper = new ObjectMapper();
+						viewProvider, e2e);
 	}
 
 	@Override
@@ -104,32 +76,6 @@ public abstract class AbstractInitMyBoxesForDayAction extends WriteAction<IInitM
 			this.actionData.setSystemTime(DateTime.now().withZone(DateTimeZone.UTC));
 		}
 	}
-
-	@PUT
-	@Timed(name = "InitMyBoxesForDayActionTimed")
-	@Metered(name = "InitMyBoxesForDayActionMetered")
-	@ExceptionMetered
-	@ResponseMetered
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response initMyBoxesForDayResource(
-			@Auth AuthUser authUser, 
-			IInitMyBoxesDataData payload)
-			throws JsonProcessingException {
-		if (payload == null) {
-			throwBadRequest("payload must not be null");
-		}
-		this.actionData = new InitMyBoxesDataData(payload.getUuid());
-		
-		if (payload.getTodayAtMidnightInUTC() == null) {
-			throwBadRequest("todayAtMidnightInUTC is mandatory");
-		}
-		this.actionData.setTodayAtMidnightInUTC(payload.getTodayAtMidnightInUTC());
-		this.actionData.setUserId(authUser.getUserId());
-		
-		return this.apply();
-	}
-
 
 }
 
