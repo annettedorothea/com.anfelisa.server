@@ -32,7 +32,7 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class CardWithInfoModel implements ICardWithInfoModel {
 
-	private org.joda.time.DateTime next;
+	private java.time.LocalDateTime next;
 	
 	private String cardId;
 	
@@ -55,7 +55,7 @@ public class CardWithInfoModel implements ICardWithInfoModel {
 	}
 
 	public CardWithInfoModel(
-		@JsonProperty("next") org.joda.time.DateTime next,
+		@JsonProperty("next") java.time.LocalDateTime next,
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
@@ -79,10 +79,10 @@ public class CardWithInfoModel implements ICardWithInfoModel {
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getNext() {
+	public java.time.LocalDateTime getNext() {
 		return this.next;
 	}
-	public void setNext(org.joda.time.DateTime next) {
+	public void setNext(java.time.LocalDateTime next) {
 		this.next = next;
 	}
 	

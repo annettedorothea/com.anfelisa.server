@@ -19,8 +19,6 @@
 
 package com.anfelisa.category.commands;
 
-import javax.ws.rs.WebApplicationException;
-
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -44,7 +42,7 @@ public abstract class AbstractDeleteCategoryCommand extends Command<ICategoryDel
 			new com.anfelisa.category.events.DeleteCategoryOkEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+			throw new RuntimeException("unhandled outcome " + this.commandData.getOutcome());
 		}
 	}
 	

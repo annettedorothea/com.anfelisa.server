@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import de.acegen.IDataContainer;
@@ -52,9 +52,9 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	
 	private String reinforceCardId;
 	
-	private org.joda.time.DateTime scheduledDate;
+	private java.time.LocalDateTime scheduledDate;
 	
-	private org.joda.time.DateTime scoredDate;
+	private java.time.LocalDateTime scoredDate;
 	
 	private String wanted;
 	
@@ -130,14 +130,14 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getScheduledDate() {
+	public java.time.LocalDateTime getScheduledDate() {
 		return this.scheduledDate;
 	}
 	
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getScoredDate() {
+	public java.time.LocalDateTime getScoredDate() {
 		return this.scoredDate;
 	}
 	

@@ -19,10 +19,7 @@
 
 package com.anfelisa.box.schedulecards.scenarios;
 
-import javax.ws.rs.core.Response;
-
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
+import java.time.LocalDateTime;
 
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.ScheduledCardModel;
@@ -32,8 +29,8 @@ public class ScheduleSortedOutCardsWithMultipleScoresScenario extends AbstractSc
 
 	@Override
 	protected void verifications() {
-		DateTime creationDateTime = new DateTime(2022, 2, 1, 16, 30).withZone(DateTimeZone.UTC);
-		DateTime scheduledDateTime = new DateTime(2022, 3, 18, 10, 30).withZone(DateTimeZone.UTC);
+		LocalDateTime creationDateTime = LocalDateTime.of(2022, 2, 1, 16, 30);
+		LocalDateTime scheduledDateTime = LocalDateTime.of(2022, 3, 18, 10, 30);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"score39-" + getTestId());

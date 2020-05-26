@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +46,7 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 	
 	private java.util.List<String> cardIds;
 	
-	private org.joda.time.DateTime scheduledDate;
+	private java.time.LocalDateTime scheduledDate;
 	
 	private String userId;
 	
@@ -57,7 +57,7 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 		@JsonProperty("newScheduledCards") java.util.List<com.anfelisa.box.models.IScheduledCardModel> newScheduledCards,
 		@JsonProperty("existingScheduledCardIds") java.util.List<String> existingScheduledCardIds,
 		@JsonProperty("cardIds") java.util.List<String> cardIds,
-		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
+		@JsonProperty("scheduledDate") java.time.LocalDateTime scheduledDate,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId
 ,		@JsonProperty("uuid") String uuid
@@ -114,13 +114,13 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getScheduledDate() {
+	public java.time.LocalDateTime getScheduledDate() {
 		return this.scheduledDate;
 	}
-	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
+	public void setScheduledDate(java.time.LocalDateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
-	public IScheduledCardsData withScheduledDate(org.joda.time.DateTime scheduledDate) {
+	public IScheduledCardsData withScheduledDate(java.time.LocalDateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 		return this;
 	}

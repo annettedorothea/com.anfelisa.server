@@ -1,10 +1,10 @@
 package com.anfelisa.box.models;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.jdbi.v3.core.statement.Update;
-import org.joda.time.DateTime;
 
 import com.anfelisa.box.data.IScoreCardData;
 
@@ -47,7 +47,7 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public void updateChangeDate(PersistenceHandle handle, String reinforceCardId, DateTime changeDate) {
+	public void updateChangeDate(PersistenceHandle handle, String reinforceCardId, LocalDateTime changeDate) {
 		Update statement = handle.getHandle().createUpdate(
 				"UPDATE public.reinforcecard SET changedate = :changedate WHERE reinforcecardid = :reinforcecardid");
 		statement.bind("reinforcecardid", reinforceCardId);
@@ -55,7 +55,7 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 		statement.execute();
 	}
 
-	public List<IReinforceCardModel> selectOutdatedReinforceCards(PersistenceHandle handle, String boxId, DateTime today) {
+	public List<IReinforceCardModel> selectOutdatedReinforceCards(PersistenceHandle handle, String boxId, LocalDateTime today) {
 		return handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM reinforcecard "
 				+ "WHERE boxid = :boxId AND changedate < :today")
 				.bind("boxId", boxId)

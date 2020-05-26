@@ -32,7 +32,7 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class InitBoxesModel implements IInitBoxesModel {
 
-	private org.joda.time.DateTime minScheduledDate;
+	private java.time.LocalDateTime minScheduledDate;
 	
 	private String boxId;
 	
@@ -41,7 +41,7 @@ public class InitBoxesModel implements IInitBoxesModel {
 	}
 
 	public InitBoxesModel(
-		@JsonProperty("minScheduledDate") org.joda.time.DateTime minScheduledDate,
+		@JsonProperty("minScheduledDate") java.time.LocalDateTime minScheduledDate,
 		@JsonProperty("boxId") String boxId
 	) {
 		this.minScheduledDate = minScheduledDate;
@@ -51,10 +51,10 @@ public class InitBoxesModel implements IInitBoxesModel {
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getMinScheduledDate() {
+	public java.time.LocalDateTime getMinScheduledDate() {
 		return this.minScheduledDate;
 	}
-	public void setMinScheduledDate(org.joda.time.DateTime minScheduledDate) {
+	public void setMinScheduledDate(java.time.LocalDateTime minScheduledDate) {
 		this.minScheduledDate = minScheduledDate;
 	}
 	

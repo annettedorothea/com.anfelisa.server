@@ -26,7 +26,7 @@ public class ScoreReinforceCardData extends AbstractScoreReinforceCardData imple
 	public ScoreReinforceCardData(
 		@JsonProperty("reinforceCardId") String reinforceCardId, 
 		@JsonProperty("scoredCardQuality") Integer scoredCardQuality, 
-		@JsonProperty("changeDate") org.joda.time.DateTime changeDate, 
+		@JsonProperty("changeDate") java.time.LocalDateTime changeDate, 
 		@JsonProperty("userId") String userId, 
 		@JsonProperty("uuid") String uuid
 	) {

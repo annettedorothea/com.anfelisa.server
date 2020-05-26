@@ -32,15 +32,15 @@ public class ScheduledCardMapper implements RowMapper<IScheduledCardModel> {
 			r.getString("scheduledCardId"),
 			r.getString("cardId"),
 			r.getString("boxId"),
-			r.getTimestamp("createdDate") != null ? new org.joda.time.DateTime(r.getTimestamp("createdDate")).withZone(org.joda.time.DateTimeZone.UTC) : null,
+			r.getTimestamp("createdDate") != null ? r.getTimestamp("createdDate").toLocalDateTime() : null,
 			r.getFloat("ef"),
 			r.getObject("interval") != null ? r.getInt("interval") : null,
 			r.getObject("n") != null ? r.getInt("n") : null,
 			r.getObject("count") != null ? r.getInt("count") : null,
-			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")).withZone(org.joda.time.DateTimeZone.UTC) : null,
+			r.getTimestamp("scheduledDate") != null ? r.getTimestamp("scheduledDate").toLocalDateTime() : null,
 			r.getObject("lastQuality") != null ? r.getInt("lastQuality") : null,
 			r.getObject("quality") != null ? r.getInt("quality") : null,
-			r.getTimestamp("scoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredDate")).withZone(org.joda.time.DateTimeZone.UTC) : null
+			r.getTimestamp("scoredDate") != null ? r.getTimestamp("scoredDate").toLocalDateTime() : null
 		);
 	}
 }

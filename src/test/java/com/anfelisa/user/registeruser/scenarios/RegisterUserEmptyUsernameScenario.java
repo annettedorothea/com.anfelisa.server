@@ -16,13 +16,8 @@
 
 package com.anfelisa.user.registeruser.scenarios;
 
-import java.util.List;
-
-import com.anfelisa.auth.Roles;
-import com.anfelisa.user.models.EmailConfirmationModel;
 import com.anfelisa.user.models.IEmailConfirmationModel;
 import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserModel;
 
 @SuppressWarnings("unused")
 public class RegisterUserEmptyUsernameScenario extends AbstractRegisterUserEmptyUsernameScenario {

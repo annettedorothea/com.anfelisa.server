@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ public abstract class AbstractCardWithInfoData extends AbstractData implements I
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractCardWithInfoData.class);
 	
-	private org.joda.time.DateTime next;
+	private java.time.LocalDateTime next;
 	
 	private String cardId;
 	
@@ -61,7 +61,7 @@ public abstract class AbstractCardWithInfoData extends AbstractData implements I
 	
 
 	public AbstractCardWithInfoData(
-		@JsonProperty("next") org.joda.time.DateTime next,
+		@JsonProperty("next") java.time.LocalDateTime next,
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
@@ -91,13 +91,13 @@ public abstract class AbstractCardWithInfoData extends AbstractData implements I
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getNext() {
+	public java.time.LocalDateTime getNext() {
 		return this.next;
 	}
-	public void setNext(org.joda.time.DateTime next) {
+	public void setNext(java.time.LocalDateTime next) {
 		this.next = next;
 	}
-	public ICardWithInfoData withNext(org.joda.time.DateTime next) {
+	public ICardWithInfoData withNext(java.time.LocalDateTime next) {
 		this.next = next;
 		return this;
 	}

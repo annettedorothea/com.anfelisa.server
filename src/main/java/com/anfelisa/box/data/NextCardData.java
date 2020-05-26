@@ -14,53 +14,58 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+
+
+
 package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class NextCardData extends AbstractNextCardData implements INextCardData {
-
+	
 	public NextCardData(
-			@JsonProperty("userId") String userId,
-			@JsonProperty("boxId") String boxId,
-			@JsonProperty("today") org.joda.time.DateTime today,
-			@JsonProperty("openTodaysCards") Integer openTodaysCards,
-			@JsonProperty("allTodaysCards") Integer allTodaysCards,
-			@JsonProperty("scheduledCardId") String scheduledCardId,
-			@JsonProperty("reinforceCardId") String reinforceCardId,
-			@JsonProperty("cardId") String cardId,
-			@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
-			@JsonProperty("lastQuality") Integer lastQuality,
-			@JsonProperty("given") String given,
-			@JsonProperty("wanted") String wanted,
-			@JsonProperty("image") String image,
-			@JsonProperty("categoryId") String categoryId,
-			@JsonProperty("rootCategoryId") String rootCategoryId,
-			@JsonProperty("count") Integer count,
-			@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate,
-			@JsonProperty("uuid") String uuid) {
+		@JsonProperty("userId") String userId, 
+		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC, 
+		@JsonProperty("openTodaysCards") Integer openTodaysCards, 
+		@JsonProperty("allTodaysCards") Integer allTodaysCards, 
+		@JsonProperty("scheduledCardId") String scheduledCardId, 
+		@JsonProperty("reinforceCardId") String reinforceCardId, 
+		@JsonProperty("cardId") String cardId, 
+		@JsonProperty("scheduledDate") java.time.LocalDateTime scheduledDate, 
+		@JsonProperty("lastQuality") Integer lastQuality, 
+		@JsonProperty("given") String given, 
+		@JsonProperty("wanted") String wanted, 
+		@JsonProperty("image") String image, 
+		@JsonProperty("categoryId") String categoryId, 
+		@JsonProperty("rootCategoryId") String rootCategoryId, 
+		@JsonProperty("count") Integer count, 
+		@JsonProperty("scoredDate") java.time.LocalDateTime scoredDate, 
+		@JsonProperty("uuid") String uuid
+	) {
 		super(
-				userId,
-				boxId,
-				today,
-				openTodaysCards,
-				allTodaysCards,
-				scheduledCardId,
-				reinforceCardId,
-				cardId,
-				scheduledDate,
-				lastQuality,
-				given,
-				wanted,
-				image,
-				categoryId,
-				rootCategoryId,
-				count,
-				scoredDate,
-				uuid);
+			userId,
+			boxId,
+			todayAtMidnightInUTC,
+			openTodaysCards,
+			allTodaysCards,
+			scheduledCardId,
+			reinforceCardId,
+			cardId,
+			scheduledDate,
+			lastQuality,
+			given,
+			wanted,
+			image,
+			categoryId,
+			rootCategoryId,
+			count,
+			scoredDate,
+			uuid
+		);
 	}
 
-	public NextCardData(String uuid) {
+	public NextCardData( String uuid ) {
 		super(uuid);
 	}
 
@@ -69,4 +74,10 @@ public class NextCardData extends AbstractNextCardData implements INextCardData 
 
 }
 
+
+
+
 /******* S.D.G. *******/
+
+
+

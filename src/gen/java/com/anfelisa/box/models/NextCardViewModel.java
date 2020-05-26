@@ -38,7 +38,7 @@ public class NextCardViewModel implements INextCardViewModel {
 	
 	private String cardId;
 	
-	private org.joda.time.DateTime scheduledDate;
+	private java.time.LocalDateTime scheduledDate;
 	
 	private Integer lastQuality;
 	
@@ -54,7 +54,7 @@ public class NextCardViewModel implements INextCardViewModel {
 	
 	private Integer count;
 	
-	private org.joda.time.DateTime scoredDate;
+	private java.time.LocalDateTime scoredDate;
 	
 
 	public NextCardViewModel() {
@@ -64,7 +64,7 @@ public class NextCardViewModel implements INextCardViewModel {
 		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("reinforceCardId") String reinforceCardId,
 		@JsonProperty("cardId") String cardId,
-		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
+		@JsonProperty("scheduledDate") java.time.LocalDateTime scheduledDate,
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
@@ -72,7 +72,7 @@ public class NextCardViewModel implements INextCardViewModel {
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
-		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate
+		@JsonProperty("scoredDate") java.time.LocalDateTime scoredDate
 	) {
 		this.scheduledCardId = scheduledCardId;
 		this.reinforceCardId = reinforceCardId;
@@ -115,10 +115,10 @@ public class NextCardViewModel implements INextCardViewModel {
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getScheduledDate() {
+	public java.time.LocalDateTime getScheduledDate() {
 		return this.scheduledDate;
 	}
-	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
+	public void setScheduledDate(java.time.LocalDateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
 	
@@ -181,10 +181,10 @@ public class NextCardViewModel implements INextCardViewModel {
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getScoredDate() {
+	public java.time.LocalDateTime getScoredDate() {
 		return this.scoredDate;
 	}
-	public void setScoredDate(org.joda.time.DateTime scoredDate) {
+	public void setScoredDate(java.time.LocalDateTime scoredDate) {
 		this.scoredDate = scoredDate;
 	}
 	

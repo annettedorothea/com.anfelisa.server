@@ -23,7 +23,6 @@ import com.anfelisa.box.models.IReinforceCardModel;
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.card.models.ICardModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
-import com.anfelisa.category.models.IUserWithAccessModel;
 
 @SuppressWarnings("unused")
 public class DeleteBoxCascadesAllScenario extends AbstractDeleteBoxCascadesAllScenario {

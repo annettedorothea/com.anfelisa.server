@@ -25,9 +25,8 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -258,7 +257,7 @@ public abstract class AbstractLoadNextCardAllScoredNextDayScenario extends BaseS
 
 		if (prerequisite("ScheduleCards")) {
 			uuid = "sc1-${testId}".replace("${testId}", this.getTestId());
-			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScheduledCardsData data_9 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
@@ -285,7 +284,7 @@ public abstract class AbstractLoadNextCardAllScoredNextDayScenario extends BaseS
 
 		if (prerequisite("ScoreCard0")) {
 			uuid = "score0-${testId}".replace("${testId}", this.getTestId());
-			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_10 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
@@ -312,7 +311,7 @@ public abstract class AbstractLoadNextCardAllScoredNextDayScenario extends BaseS
 
 		if (prerequisite("ScoreCard1")) {
 			uuid = "score1-${testId}".replace("${testId}", this.getTestId());
-			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_11 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
@@ -339,7 +338,7 @@ public abstract class AbstractLoadNextCardAllScoredNextDayScenario extends BaseS
 
 		if (prerequisite("ScoreCard5")) {
 			uuid = "score5-${testId}".replace("${testId}", this.getTestId());
-			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_12 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
@@ -368,7 +367,7 @@ public abstract class AbstractLoadNextCardAllScoredNextDayScenario extends BaseS
 			uuid = this.randomUUID();
 			com.anfelisa.box.data.InitMyBoxesDataData data_13 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"todayAtMidnightInUTC\" : \"2020-04-19T00:00:00.000Z\"} ",
+					"\"todayAtMidnightInUTC\" : \"2020-04-19T02:00\"} ",
 			com.anfelisa.box.data.InitMyBoxesDataData.class);
 			response = 
 			this.httpPut(
@@ -395,7 +394,7 @@ public abstract class AbstractLoadNextCardAllScoredNextDayScenario extends BaseS
 		com.anfelisa.box.data.NextCardData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"todayAtMidnightInUTC\" : \"2020-04-19T02:00:00.000Z\"} ",
+				"\"todayAtMidnightInUTC\" : \"2020-04-19T04:00\"} ",
 		com.anfelisa.box.data.NextCardData.class);
 		
 		return 
@@ -433,8 +432,8 @@ public abstract class AbstractLoadNextCardAllScoredNextDayScenario extends BaseS
 				"\"openTodaysCards\" : 2," + 
 				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scheduledCardId\" : \"score0-" + this.getTestId() + "\"," + 
-				"\"scheduledDate\" : \"2020-04-19T14:30:00.000Z\"," + 
-				"\"scoredDate\" : \"2020-04-18T14:30:00.000Z\"," + 
+				"\"scheduledDate\" : \"2020-04-19T16:30\"," + 
+				"\"scoredDate\" : \"2020-04-18T16:30\"," + 
 				"\"wanted\" : \"wanted\"} ",
 		com.anfelisa.box.data.NextCardData.class);
 		

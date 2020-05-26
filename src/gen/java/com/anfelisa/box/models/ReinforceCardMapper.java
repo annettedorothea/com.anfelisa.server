@@ -32,7 +32,7 @@ public class ReinforceCardMapper implements RowMapper<IReinforceCardModel> {
 			r.getString("reinforceCardId"),
 			r.getString("scheduledCardId"),
 			r.getString("boxId"),
-			r.getTimestamp("changeDate") != null ? new org.joda.time.DateTime(r.getTimestamp("changeDate")).withZone(org.joda.time.DateTimeZone.UTC) : null
+			r.getTimestamp("changeDate") != null ? r.getTimestamp("changeDate").toLocalDateTime() : null
 		);
 	}
 }

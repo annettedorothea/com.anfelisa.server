@@ -26,7 +26,7 @@ public class BoxStatisticsListData extends AbstractBoxStatisticsListData impleme
 	public BoxStatisticsListData(
 		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxList, 
 		@JsonProperty("userId") String userId, 
-		@JsonProperty("todayAtMidnightInUTC") org.joda.time.DateTime todayAtMidnightInUTC, 
+		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(

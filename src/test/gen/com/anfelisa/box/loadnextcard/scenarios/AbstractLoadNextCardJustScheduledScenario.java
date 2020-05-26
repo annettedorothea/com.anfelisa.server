@@ -25,9 +25,8 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -258,7 +257,7 @@ public abstract class AbstractLoadNextCardJustScheduledScenario extends BaseScen
 
 		if (prerequisite("ScheduleCards")) {
 			uuid = "sc1-${testId}".replace("${testId}", this.getTestId());
-			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScheduledCardsData data_9 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
@@ -290,7 +289,7 @@ public abstract class AbstractLoadNextCardJustScheduledScenario extends BaseScen
 		com.anfelisa.box.data.NextCardData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"todayAtMidnightInUTC\" : \"2020-04-18T00:00:00.000Z\"} ",
+				"\"todayAtMidnightInUTC\" : \"2020-04-18T02:00\"} ",
 		com.anfelisa.box.data.NextCardData.class);
 		
 		return 
@@ -327,7 +326,7 @@ public abstract class AbstractLoadNextCardJustScheduledScenario extends BaseScen
 				"\"openTodaysCards\" : 3," + 
 				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
-				"\"scheduledDate\" : \"2020-04-18T08:30:00.000Z\"," + 
+				"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
 				"\"wanted\" : \"wanted\"} ",
 		com.anfelisa.box.data.NextCardData.class);
 		

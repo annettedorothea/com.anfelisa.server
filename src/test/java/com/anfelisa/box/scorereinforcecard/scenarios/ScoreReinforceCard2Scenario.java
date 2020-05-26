@@ -19,8 +19,7 @@
 
 package com.anfelisa.box.scorereinforcecard.scenarios;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
+import java.time.LocalDateTime;
 
 import com.anfelisa.box.models.IReinforceCardModel;
 import com.anfelisa.box.models.ReinforceCardModel;
@@ -30,7 +29,7 @@ public class ScoreReinforceCard2Scenario extends AbstractScoreReinforceCard2Scen
 
 	@Override
 	protected void verifications() {
-		DateTime scoredDateTime = new DateTime(2020, 4, 18, 16, 40).withZone(DateTimeZone.UTC);
+		LocalDateTime scoredDateTime = LocalDateTime.of(2020, 4, 18, 16, 40);
 		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-" + getTestId() + "-sc1-" + getTestId());
 		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score0-" + getTestId(), "c1-" + getTestId() + "-sc1-" + getTestId(),"boxId-" + getTestId(), scoredDateTime);
 		assertThat(actualReinforceCard, expectedReinforceCard);

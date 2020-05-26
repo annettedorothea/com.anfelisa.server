@@ -38,7 +38,7 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	
 	private java.util.List<String> cardIds;
 	
-	private org.joda.time.DateTime scheduledDate;
+	private java.time.LocalDateTime scheduledDate;
 	
 	private String userId;
 	
@@ -52,7 +52,7 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 		@JsonProperty("newScheduledCards") java.util.List<com.anfelisa.box.models.IScheduledCardModel> newScheduledCards,
 		@JsonProperty("existingScheduledCardIds") java.util.List<String> existingScheduledCardIds,
 		@JsonProperty("cardIds") java.util.List<String> cardIds,
-		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
+		@JsonProperty("scheduledDate") java.time.LocalDateTime scheduledDate,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId
 	) {
@@ -91,10 +91,10 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getScheduledDate() {
+	public java.time.LocalDateTime getScheduledDate() {
 		return this.scheduledDate;
 	}
-	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
+	public void setScheduledDate(java.time.LocalDateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
 	

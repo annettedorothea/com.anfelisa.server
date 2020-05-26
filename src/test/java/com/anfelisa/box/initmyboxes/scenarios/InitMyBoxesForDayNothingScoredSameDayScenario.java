@@ -19,10 +19,7 @@
 
 package com.anfelisa.box.initmyboxes.scenarios;
 
-import javax.ws.rs.core.Response;
-
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
+import java.time.LocalDateTime;
 
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.ScheduledCardModel;
@@ -32,7 +29,7 @@ public class InitMyBoxesForDayNothingScoredSameDayScenario extends AbstractInitM
 
 	@Override
 	protected void verifications() {
-		DateTime dateTime = new DateTime(2020, 4, 18, 10, 30).withZone(DateTimeZone.UTC);
+		LocalDateTime dateTime = LocalDateTime.of(2020, 4, 18, 10, 30);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle,
 				"c1-" + getTestId(),"boxId-" + getTestId());

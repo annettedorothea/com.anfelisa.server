@@ -31,7 +31,7 @@ public class BoxListMapper implements RowMapper<IBoxListModel> {
 		return new BoxListModel(
 			null,
 			r.getString("userId"),
-			r.getTimestamp("todayAtMidnightInUTC") != null ? new org.joda.time.DateTime(r.getTimestamp("todayAtMidnightInUTC")).withZone(org.joda.time.DateTimeZone.UTC) : null
+			r.getTimestamp("todayAtMidnightInUTC") != null ? r.getTimestamp("todayAtMidnightInUTC").toLocalDateTime() : null
 		);
 	}
 }

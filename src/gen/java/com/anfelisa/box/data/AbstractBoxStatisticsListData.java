@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,13 +44,13 @@ public abstract class AbstractBoxStatisticsListData extends AbstractData impleme
 	
 	private String userId;
 	
-	private org.joda.time.DateTime todayAtMidnightInUTC;
+	private java.time.LocalDateTime todayAtMidnightInUTC;
 	
 
 	public AbstractBoxStatisticsListData(
 		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxList,
 		@JsonProperty("userId") String userId,
-		@JsonProperty("todayAtMidnightInUTC") org.joda.time.DateTime todayAtMidnightInUTC
+		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -90,13 +90,13 @@ public abstract class AbstractBoxStatisticsListData extends AbstractData impleme
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getTodayAtMidnightInUTC() {
+	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
 		return this.todayAtMidnightInUTC;
 	}
-	public void setTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC) {
+	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
-	public IBoxStatisticsListData withTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC) {
+	public IBoxStatisticsListData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 		return this;
 	}

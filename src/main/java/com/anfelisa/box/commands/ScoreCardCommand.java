@@ -1,6 +1,7 @@
 package com.anfelisa.box.commands;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,16 +70,16 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 		if (box.getMaxInterval() != null && newInterval > box.getMaxInterval()) {
 			newInterval = box.getMaxInterval();
 		}
-		DateTime newTime = this.commandData.getSystemTime().plusDays(newInterval);
+		LocalDateTime newTime = this.commandData.getSystemTime().plusDays(newInterval);
 		if (box.getMaxCardsPerDay() != null) {
 			newTime = commandData.getSystemTime().plusDays(newInterval);
 			Integer cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(readonlyHandle, box.getBoxId(),
-					newTime.withTimeAtStartOfDay(), newTime.plusDays(1).withTimeAtStartOfDay());
+					newTime.withHour(0).withMinute(0).withSecond(0).withNano(0), newTime.plusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0));
 			while (cardCount >= box.getMaxCardsPerDay()) {
 				newInterval += 1;
 				newTime = commandData.getSystemTime().plusDays(newInterval);
 				cardCount = daoProvider.getScheduledCardDao().selectCardCountOfDay(readonlyHandle, box.getBoxId(),
-						newTime.withTimeAtStartOfDay(), newTime.plusDays(1).withTimeAtStartOfDay());
+						newTime.withHour(0).withMinute(0).withSecond(0).withNano(0), newTime.plusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0));
 			}
 		}
 		this.commandData.setNextScheduledCardScheduledCardId(commandData.getUuid());

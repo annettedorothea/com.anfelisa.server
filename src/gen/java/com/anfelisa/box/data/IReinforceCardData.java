@@ -34,7 +34,7 @@ public interface IReinforceCardData extends IReinforceCardModel, IDataContainer 
 	
 	IReinforceCardData withBoxId(String boxId);
 	
-	IReinforceCardData withChangeDate(org.joda.time.DateTime changeDate);
+	IReinforceCardData withChangeDate(java.time.LocalDateTime changeDate);
 	
 	
 }

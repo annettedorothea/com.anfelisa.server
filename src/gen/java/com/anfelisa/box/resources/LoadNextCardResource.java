@@ -27,8 +27,7 @@
 	import javax.ws.rs.PathParam;
 	import javax.ws.rs.QueryParam;
 	
-	import org.joda.time.DateTime;
-	import org.joda.time.DateTimeZone;
+	import java.time.LocalDateTime;
 	
 	import org.slf4j.Logger;
 	import org.slf4j.LoggerFactory;
@@ -115,7 +114,7 @@
 		}
 		if (StringUtils.isNotBlank(todayAtMidnightInUTC)) {
 			try {
-				actionData.setTodayAtMidnightInUTC(new DateTime(todayAtMidnightInUTC).withZone(DateTimeZone.UTC));
+				actionData.setTodayAtMidnightInUTC(LocalDateTime.parse(todayAtMidnightInUTC));
 			} catch (Exception x) {
 				LOG.warn("failed to parse dateTime todayAtMidnightInUTC - {}", todayAtMidnightInUTC);
 			}

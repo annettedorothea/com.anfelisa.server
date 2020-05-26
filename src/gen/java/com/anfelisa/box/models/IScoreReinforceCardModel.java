@@ -32,8 +32,8 @@ public interface IScoreReinforceCardModel {
 	Integer getScoredCardQuality();
 	void setScoredCardQuality(Integer scoredCardQuality);
 	
-	org.joda.time.DateTime getChangeDate();
-	void setChangeDate(org.joda.time.DateTime changeDate);
+	java.time.LocalDateTime getChangeDate();
+	void setChangeDate(java.time.LocalDateTime changeDate);
 	
 	String getUserId();
 	void setUserId(String userId);

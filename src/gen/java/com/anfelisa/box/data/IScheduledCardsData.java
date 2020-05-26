@@ -34,7 +34,7 @@ public interface IScheduledCardsData extends IScheduledCardsModel, IDataContaine
 	
 	IScheduledCardsData withCardIds(java.util.List<String> cardIds);
 	
-	IScheduledCardsData withScheduledDate(org.joda.time.DateTime scheduledDate);
+	IScheduledCardsData withScheduledDate(java.time.LocalDateTime scheduledDate);
 	
 	IScheduledCardsData withUserId(String userId);
 	

@@ -32,8 +32,8 @@ public interface IBoxListModel {
 	String getUserId();
 	void setUserId(String userId);
 	
-	org.joda.time.DateTime getTodayAtMidnightInUTC();
-	void setTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC);
+	java.time.LocalDateTime getTodayAtMidnightInUTC();
+	void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
 	
 	
 }

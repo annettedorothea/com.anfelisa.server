@@ -19,8 +19,7 @@
 
 package com.anfelisa.box.scorecard.scenarios;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
+import java.time.LocalDateTime;
 
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.ScheduledCardModel;
@@ -30,7 +29,7 @@ public class ScoreCardSecond0Scenario extends AbstractScoreCardSecond0Scenario {
 
 	@Override
 	protected void verifications() {
-		DateTime scoredDateTime = new DateTime(2020, 4, 18, 16, 30).withZone(DateTimeZone.UTC);
+		LocalDateTime scoredDateTime = LocalDateTime.of(2020, 4, 18, 16, 30);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"score0-2-" + getTestId());

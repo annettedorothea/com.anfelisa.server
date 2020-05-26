@@ -34,7 +34,7 @@ public interface IScheduledCardData extends IScheduledCardModel, IDataContainer 
 	
 	IScheduledCardData withBoxId(String boxId);
 	
-	IScheduledCardData withCreatedDate(org.joda.time.DateTime createdDate);
+	IScheduledCardData withCreatedDate(java.time.LocalDateTime createdDate);
 	
 	IScheduledCardData withEf(Float ef);
 	
@@ -44,13 +44,13 @@ public interface IScheduledCardData extends IScheduledCardModel, IDataContainer 
 	
 	IScheduledCardData withCount(Integer count);
 	
-	IScheduledCardData withScheduledDate(org.joda.time.DateTime scheduledDate);
+	IScheduledCardData withScheduledDate(java.time.LocalDateTime scheduledDate);
 	
 	IScheduledCardData withLastQuality(Integer lastQuality);
 	
 	IScheduledCardData withQuality(Integer quality);
 	
-	IScheduledCardData withScoredDate(org.joda.time.DateTime scoredDate);
+	IScheduledCardData withScoredDate(java.time.LocalDateTime scoredDate);
 	
 	
 }

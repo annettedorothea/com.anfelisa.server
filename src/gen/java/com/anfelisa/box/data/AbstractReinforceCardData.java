@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,14 +46,14 @@ public abstract class AbstractReinforceCardData extends AbstractData implements 
 	
 	private String boxId;
 	
-	private org.joda.time.DateTime changeDate;
+	private java.time.LocalDateTime changeDate;
 	
 
 	public AbstractReinforceCardData(
 		@JsonProperty("reinforceCardId") String reinforceCardId,
 		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("changeDate") org.joda.time.DateTime changeDate
+		@JsonProperty("changeDate") java.time.LocalDateTime changeDate
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -106,13 +106,13 @@ public abstract class AbstractReinforceCardData extends AbstractData implements 
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getChangeDate() {
+	public java.time.LocalDateTime getChangeDate() {
 		return this.changeDate;
 	}
-	public void setChangeDate(org.joda.time.DateTime changeDate) {
+	public void setChangeDate(java.time.LocalDateTime changeDate) {
 		this.changeDate = changeDate;
 	}
-	public IReinforceCardData withChangeDate(org.joda.time.DateTime changeDate) {
+	public IReinforceCardData withChangeDate(java.time.LocalDateTime changeDate) {
 		this.changeDate = changeDate;
 		return this;
 	}

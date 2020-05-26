@@ -16,11 +16,11 @@
 
 package com.anfelisa.box.commands;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,18 +50,18 @@ public class InitMyBoxesForDayCommand extends AbstractInitMyBoxesForDayCommand {
 				this.commandData.getUserId(), commandData.getTodayAtMidnightInUTC());
 		List<IPostponeCardsModel> postponeCards = new ArrayList<IPostponeCardsModel>();
 		List<String> outdatedReinforceCardsIds = new ArrayList<String>();
-		DateTime today = this.commandData.getTodayAtMidnightInUTC();
+		LocalDateTime today = this.commandData.getTodayAtMidnightInUTC();
 		for (IInitBoxesModel box : boxList) {
 			List<IReinforceCardModel> outdatedReinforceCards = this.daoProvider.getReinforceCardDao()
 					.selectOutdatedReinforceCards(readonlyHandle, box.getBoxId(), today);
 			for (IReinforceCardModel card : outdatedReinforceCards) {
 				outdatedReinforceCardsIds.add(card.getScheduledCardId());
 			}
-			DateTime min = box.getMinScheduledDate();
+			LocalDateTime min = box.getMinScheduledDate();
 			if (min != null) {
-				DateTime minDate = new DateTime(min.getYear(), min.getMonthOfYear(), min.getDayOfMonth(), 0, 0);
+				LocalDateTime minDate = LocalDateTime.of(min.getYear(), min.getMonthValue(), min.getDayOfMonth(), 0, 0);
 				if (minDate.isBefore(today)) {
-					int days = Days.daysBetween(minDate, today).getDays();
+					int days = (int) ChronoUnit.DAYS.between(minDate, today);
 					PostponeCardsData postponeData = new PostponeCardsData(days, box.getBoxId(),
 							commandData.getUuid());
 					postponeCards.add(postponeData);

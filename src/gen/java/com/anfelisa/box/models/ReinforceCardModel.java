@@ -38,7 +38,7 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	
 	private String boxId;
 	
-	private org.joda.time.DateTime changeDate;
+	private java.time.LocalDateTime changeDate;
 	
 
 	public ReinforceCardModel() {
@@ -48,7 +48,7 @@ public class ReinforceCardModel implements IReinforceCardModel {
 		@JsonProperty("reinforceCardId") String reinforceCardId,
 		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("changeDate") org.joda.time.DateTime changeDate
+		@JsonProperty("changeDate") java.time.LocalDateTime changeDate
 	) {
 		this.reinforceCardId = reinforceCardId;
 		this.scheduledCardId = scheduledCardId;
@@ -83,10 +83,10 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getChangeDate() {
+	public java.time.LocalDateTime getChangeDate() {
 		return this.changeDate;
 	}
-	public void setChangeDate(org.joda.time.DateTime changeDate) {
+	public void setChangeDate(java.time.LocalDateTime changeDate) {
 		this.changeDate = changeDate;
 	}
 	

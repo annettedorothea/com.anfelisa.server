@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.commands;
 
-import javax.ws.rs.WebApplicationException;
-
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -48,7 +46,7 @@ public abstract class AbstractScoreReinforceCardCommand extends Command<IScoreRe
 			new com.anfelisa.box.events.ScoreReinforceCardRemoveEvent(this.commandData, daoProvider, viewProvider, appConfiguration).publish(handle, timelineHandle);
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+			throw new RuntimeException("unhandled outcome " + this.commandData.getOutcome());
 		}
 	}
 	

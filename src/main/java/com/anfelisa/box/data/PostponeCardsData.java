@@ -14,23 +14,28 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+
+
+
 package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PostponeCardsData extends AbstractPostponeCardsData implements IPostponeCardsData {
-
+	
 	public PostponeCardsData(
-			@JsonProperty("days") Integer days,
-			@JsonProperty("boxId") String boxId,
-			@JsonProperty("uuid") String uuid) {
+		@JsonProperty("days") Integer days, 
+		@JsonProperty("boxId") String boxId, 
+		@JsonProperty("uuid") String uuid
+	) {
 		super(
-				days,
-				boxId,
-				uuid);
+			days,
+			boxId,
+			uuid
+		);
 	}
 
-	public PostponeCardsData(String uuid) {
+	public PostponeCardsData( String uuid ) {
 		super(uuid);
 	}
 
@@ -39,4 +44,10 @@ public class PostponeCardsData extends AbstractPostponeCardsData implements IPos
 
 }
 
+
+
+
 /******* S.D.G. *******/
+
+
+

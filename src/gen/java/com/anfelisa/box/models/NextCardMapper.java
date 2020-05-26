@@ -31,13 +31,13 @@ public class NextCardMapper implements RowMapper<INextCardModel> {
 		return new NextCardModel(
 			r.getString("userId"),
 			r.getString("boxId"),
-			r.getTimestamp("todayAtMidnightInUTC") != null ? new org.joda.time.DateTime(r.getTimestamp("todayAtMidnightInUTC")).withZone(org.joda.time.DateTimeZone.UTC) : null,
+			r.getTimestamp("todayAtMidnightInUTC") != null ? r.getTimestamp("todayAtMidnightInUTC").toLocalDateTime() : null,
 			r.getObject("openTodaysCards") != null ? r.getInt("openTodaysCards") : null,
 			r.getObject("allTodaysCards") != null ? r.getInt("allTodaysCards") : null,
 			r.getString("scheduledCardId"),
 			r.getString("reinforceCardId"),
 			r.getString("cardId"),
-			r.getTimestamp("scheduledDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scheduledDate")).withZone(org.joda.time.DateTimeZone.UTC) : null,
+			r.getTimestamp("scheduledDate") != null ? r.getTimestamp("scheduledDate").toLocalDateTime() : null,
 			r.getObject("lastQuality") != null ? r.getInt("lastQuality") : null,
 			r.getString("given"),
 			r.getString("wanted"),
@@ -45,7 +45,7 @@ public class NextCardMapper implements RowMapper<INextCardModel> {
 			r.getString("categoryId"),
 			r.getString("rootCategoryId"),
 			r.getObject("count") != null ? r.getInt("count") : null,
-			r.getTimestamp("scoredDate") != null ? new org.joda.time.DateTime(r.getTimestamp("scoredDate")).withZone(org.joda.time.DateTimeZone.UTC) : null
+			r.getTimestamp("scoredDate") != null ? r.getTimestamp("scoredDate").toLocalDateTime() : null
 		);
 	}
 }

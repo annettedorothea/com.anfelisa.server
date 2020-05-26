@@ -32,7 +32,7 @@ public interface IScoreCardData extends IScoreCardModel, IDataContainer {
 	
 	IScoreCardData withNextScheduledCardScheduledCardId(String nextScheduledCardScheduledCardId);
 	
-	IScoreCardData withNextScheduledCardCreatedDate(org.joda.time.DateTime nextScheduledCardCreatedDate);
+	IScoreCardData withNextScheduledCardCreatedDate(java.time.LocalDateTime nextScheduledCardCreatedDate);
 	
 	IScoreCardData withNextScheduledCardEf(Float nextScheduledCardEf);
 	
@@ -42,7 +42,7 @@ public interface IScoreCardData extends IScoreCardModel, IDataContainer {
 	
 	IScoreCardData withNextScheduledCardCount(Integer nextScheduledCardCount);
 	
-	IScoreCardData withNextScheduledCardScheduledDate(org.joda.time.DateTime nextScheduledCardScheduledDate);
+	IScoreCardData withNextScheduledCardScheduledDate(java.time.LocalDateTime nextScheduledCardScheduledDate);
 	
 	IScoreCardData withNextScheduledCardLastQuality(Integer nextScheduledCardLastQuality);
 	
@@ -50,11 +50,11 @@ public interface IScoreCardData extends IScoreCardModel, IDataContainer {
 	
 	IScoreCardData withScoredCardQuality(Integer scoredCardQuality);
 	
-	IScoreCardData withScoredCardScoredDate(org.joda.time.DateTime scoredCardScoredDate);
+	IScoreCardData withScoredCardScoredDate(java.time.LocalDateTime scoredCardScoredDate);
 	
 	IScoreCardData withReinforceCardId(String reinforceCardId);
 	
-	IScoreCardData withReinforceCardCreatedDate(org.joda.time.DateTime reinforceCardCreatedDate);
+	IScoreCardData withReinforceCardCreatedDate(java.time.LocalDateTime reinforceCardCreatedDate);
 	
 	IScoreCardData withUserId(String userId);
 	

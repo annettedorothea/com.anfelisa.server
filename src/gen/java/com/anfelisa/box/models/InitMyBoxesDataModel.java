@@ -34,7 +34,7 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 
 	private String userId;
 	
-	private org.joda.time.DateTime todayAtMidnightInUTC;
+	private java.time.LocalDateTime todayAtMidnightInUTC;
 	
 	private java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards;
 	
@@ -46,7 +46,7 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 
 	public InitMyBoxesDataModel(
 		@JsonProperty("userId") String userId,
-		@JsonProperty("todayAtMidnightInUTC") org.joda.time.DateTime todayAtMidnightInUTC,
+		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC,
 		@JsonProperty("postponeCards") java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards,
 		@JsonProperty("outdatedReinforceCardsIds") java.util.List<String> outdatedReinforceCardsIds
 	) {
@@ -67,10 +67,10 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getTodayAtMidnightInUTC() {
+	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
 		return this.todayAtMidnightInUTC;
 	}
-	public void setTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC) {
+	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 	

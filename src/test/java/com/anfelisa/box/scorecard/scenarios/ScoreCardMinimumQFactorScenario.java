@@ -16,8 +16,7 @@
 
 package com.anfelisa.box.scorecard.scenarios;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
+import java.time.LocalDateTime;
 
 import com.anfelisa.box.models.IScheduledCardModel;
 import com.anfelisa.box.models.ScheduledCardModel;
@@ -27,7 +26,7 @@ public class ScoreCardMinimumQFactorScenario extends AbstractScoreCardMinimumQFa
 
 	@Override
 	protected void verifications() {
-		DateTime scoredDateTime = new DateTime(2022, 10, 1, 16, 30).withZone(DateTimeZone.UTC);
+		LocalDateTime scoredDateTime = LocalDateTime.of(2022, 10, 1, 16, 30);
 
 		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
 				"q-" + getTestId());

@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.schedulecards.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class ScheduleCardsAsAdminScenario extends AbstractScheduleCardsAsAdminScenario {
 

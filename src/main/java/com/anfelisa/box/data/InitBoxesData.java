@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class InitBoxesData extends AbstractInitBoxesData implements IInitBoxesData {
 	
 	public InitBoxesData(
-		@JsonProperty("minScheduledDate") org.joda.time.DateTime minScheduledDate, 
+		@JsonProperty("minScheduledDate") java.time.LocalDateTime minScheduledDate, 
 		@JsonProperty("boxId") String boxId, 
 		@JsonProperty("uuid") String uuid
 	) {

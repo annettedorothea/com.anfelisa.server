@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,13 +40,13 @@ public abstract class AbstractInitBoxesData extends AbstractData implements IIni
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractInitBoxesData.class);
 	
-	private org.joda.time.DateTime minScheduledDate;
+	private java.time.LocalDateTime minScheduledDate;
 	
 	private String boxId;
 	
 
 	public AbstractInitBoxesData(
-		@JsonProperty("minScheduledDate") org.joda.time.DateTime minScheduledDate,
+		@JsonProperty("minScheduledDate") java.time.LocalDateTime minScheduledDate,
 		@JsonProperty("boxId") String boxId
 ,		@JsonProperty("uuid") String uuid
 	) {
@@ -62,13 +62,13 @@ public abstract class AbstractInitBoxesData extends AbstractData implements IIni
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getMinScheduledDate() {
+	public java.time.LocalDateTime getMinScheduledDate() {
 		return this.minScheduledDate;
 	}
-	public void setMinScheduledDate(org.joda.time.DateTime minScheduledDate) {
+	public void setMinScheduledDate(java.time.LocalDateTime minScheduledDate) {
 		this.minScheduledDate = minScheduledDate;
 	}
-	public IInitBoxesData withMinScheduledDate(org.joda.time.DateTime minScheduledDate) {
+	public IInitBoxesData withMinScheduledDate(java.time.LocalDateTime minScheduledDate) {
 		this.minScheduledDate = minScheduledDate;
 		return this;
 	}

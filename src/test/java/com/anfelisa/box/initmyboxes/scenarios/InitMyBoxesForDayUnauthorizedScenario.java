@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.initmyboxes.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class InitMyBoxesForDayUnauthorizedScenario extends AbstractInitMyBoxesForDayUnauthorizedScenario {
 

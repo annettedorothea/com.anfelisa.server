@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.getboxes.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class GetBoxesTodayAtMidnightInUTCNullScenario extends AbstractGetBoxesTodayAtMidnightInUTCNullScenario {
 

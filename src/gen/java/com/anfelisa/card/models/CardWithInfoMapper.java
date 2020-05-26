@@ -29,7 +29,7 @@ public class CardWithInfoMapper implements RowMapper<ICardWithInfoModel> {
 	
 	public ICardWithInfoModel map(ResultSet r, StatementContext ctx) throws SQLException {
 		return new CardWithInfoModel(
-			r.getTimestamp("next") != null ? new org.joda.time.DateTime(r.getTimestamp("next")).withZone(org.joda.time.DateTimeZone.UTC) : null,
+			r.getTimestamp("next") != null ? r.getTimestamp("next").toLocalDateTime() : null,
 			r.getString("cardId"),
 			r.getString("given"),
 			r.getString("wanted"),

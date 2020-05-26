@@ -34,7 +34,7 @@ public interface INextCardData extends INextCardModel, IDataContainer {
 	
 	INextCardData withBoxId(String boxId);
 	
-	INextCardData withTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC);
+	INextCardData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
 	
 	INextCardData withOpenTodaysCards(Integer openTodaysCards);
 	
@@ -46,7 +46,7 @@ public interface INextCardData extends INextCardModel, IDataContainer {
 	
 	INextCardData withCardId(String cardId);
 	
-	INextCardData withScheduledDate(org.joda.time.DateTime scheduledDate);
+	INextCardData withScheduledDate(java.time.LocalDateTime scheduledDate);
 	
 	INextCardData withLastQuality(Integer lastQuality);
 	
@@ -62,7 +62,7 @@ public interface INextCardData extends INextCardModel, IDataContainer {
 	
 	INextCardData withCount(Integer count);
 	
-	INextCardData withScoredDate(org.joda.time.DateTime scoredDate);
+	INextCardData withScoredDate(java.time.LocalDateTime scoredDate);
 	
 	
 }

@@ -34,7 +34,7 @@ public interface INextCardViewData extends INextCardViewModel, IDataContainer {
 	
 	INextCardViewData withCardId(String cardId);
 	
-	INextCardViewData withScheduledDate(org.joda.time.DateTime scheduledDate);
+	INextCardViewData withScheduledDate(java.time.LocalDateTime scheduledDate);
 	
 	INextCardViewData withLastQuality(Integer lastQuality);
 	
@@ -50,7 +50,7 @@ public interface INextCardViewData extends INextCardViewModel, IDataContainer {
 	
 	INextCardViewData withCount(Integer count);
 	
-	INextCardViewData withScoredDate(org.joda.time.DateTime scoredDate);
+	INextCardViewData withScoredDate(java.time.LocalDateTime scoredDate);
 	
 	
 }

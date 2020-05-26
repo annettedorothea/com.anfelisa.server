@@ -29,7 +29,7 @@ import com.anfelisa.card.models.ICardWithInfoModel;
 public interface ICardWithInfoData extends ICardWithInfoModel, IDataContainer {
 	void mapFrom(com.anfelisa.card.models.ICardModel model);
 	
-	ICardWithInfoData withNext(org.joda.time.DateTime next);
+	ICardWithInfoData withNext(java.time.LocalDateTime next);
 	
 	ICardWithInfoData withCardId(String cardId);
 	

@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +46,7 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	
 	private String boxId;
 	
-	private org.joda.time.DateTime createdDate;
+	private java.time.LocalDateTime createdDate;
 	
 	private Float ef;
 	
@@ -56,28 +56,28 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	
 	private Integer count;
 	
-	private org.joda.time.DateTime scheduledDate;
+	private java.time.LocalDateTime scheduledDate;
 	
 	private Integer lastQuality;
 	
 	private Integer quality;
 	
-	private org.joda.time.DateTime scoredDate;
+	private java.time.LocalDateTime scoredDate;
 	
 
 	public AbstractScheduledCardData(
 		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("createdDate") org.joda.time.DateTime createdDate,
+		@JsonProperty("createdDate") java.time.LocalDateTime createdDate,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
 		@JsonProperty("n") Integer n,
 		@JsonProperty("count") Integer count,
-		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
+		@JsonProperty("scheduledDate") java.time.LocalDateTime scheduledDate,
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("quality") Integer quality,
-		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate
+		@JsonProperty("scoredDate") java.time.LocalDateTime scoredDate
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -138,13 +138,13 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getCreatedDate() {
+	public java.time.LocalDateTime getCreatedDate() {
 		return this.createdDate;
 	}
-	public void setCreatedDate(org.joda.time.DateTime createdDate) {
+	public void setCreatedDate(java.time.LocalDateTime createdDate) {
 		this.createdDate = createdDate;
 	}
-	public IScheduledCardData withCreatedDate(org.joda.time.DateTime createdDate) {
+	public IScheduledCardData withCreatedDate(java.time.LocalDateTime createdDate) {
 		this.createdDate = createdDate;
 		return this;
 	}
@@ -200,13 +200,13 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getScheduledDate() {
+	public java.time.LocalDateTime getScheduledDate() {
 		return this.scheduledDate;
 	}
-	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
+	public void setScheduledDate(java.time.LocalDateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
-	public IScheduledCardData withScheduledDate(org.joda.time.DateTime scheduledDate) {
+	public IScheduledCardData withScheduledDate(java.time.LocalDateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 		return this;
 	}
@@ -238,13 +238,13 @@ public abstract class AbstractScheduledCardData extends AbstractData implements 
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getScoredDate() {
+	public java.time.LocalDateTime getScoredDate() {
 		return this.scoredDate;
 	}
-	public void setScoredDate(org.joda.time.DateTime scoredDate) {
+	public void setScoredDate(java.time.LocalDateTime scoredDate) {
 		this.scoredDate = scoredDate;
 	}
-	public IScheduledCardData withScoredDate(org.joda.time.DateTime scoredDate) {
+	public IScheduledCardData withScoredDate(java.time.LocalDateTime scoredDate) {
 		this.scoredDate = scoredDate;
 		return this;
 	}

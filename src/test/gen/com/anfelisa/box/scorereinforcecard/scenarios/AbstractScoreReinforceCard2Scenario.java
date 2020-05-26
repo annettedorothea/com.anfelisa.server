@@ -25,9 +25,8 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -258,7 +257,7 @@ public abstract class AbstractScoreReinforceCard2Scenario extends BaseScenario {
 
 		if (prerequisite("ScheduleCards")) {
 			uuid = "sc1-${testId}".replace("${testId}", this.getTestId());
-			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 10:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScheduledCardsData data_9 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
@@ -285,7 +284,7 @@ public abstract class AbstractScoreReinforceCard2Scenario extends BaseScenario {
 
 		if (prerequisite("ScoreCard0")) {
 			uuid = "score0-${testId}".replace("${testId}", this.getTestId());
-			this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:30", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_10 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
@@ -314,7 +313,7 @@ public abstract class AbstractScoreReinforceCard2Scenario extends BaseScenario {
 	
 	private Response when() throws Exception {
 		String uuid = "sr2-${testId}".replace("${testId}", this.getTestId());
-		this.callNotReplayableDataProviderPutSystemTime(uuid, DateTime.parse("20200418 16:40", DateTimeFormat.forPattern("yyyyMMdd HH:mm")).withZone(DateTimeZone.UTC));
+		this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:40", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScoreReinforceCardData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"scoredCardQuality\" : 2," + 

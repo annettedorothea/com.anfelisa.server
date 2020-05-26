@@ -1,18 +1,18 @@
 package com.anfelisa.box.models;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.jdbi.v3.core.statement.Update;
-import org.joda.time.DateTime;
 
 import com.anfelisa.box.data.IScoreCardData;
 
 import de.acegen.PersistenceHandle;
 
 public class ScheduledCardDao extends AbstractScheduledCardDao {
-	public INextCardViewModel selectFirstScheduledCard(PersistenceHandle handle, String boxId, DateTime today) {
-		DateTime endOfDay = today.plusDays(1);
+	public INextCardViewModel selectFirstScheduledCard(PersistenceHandle handle, String boxId, LocalDateTime today) {
+		LocalDateTime endOfDay = today.plusDays(1);
 		Optional<INextCardViewModel> optional = handle.getHandle().createQuery(
 				"SELECT "
 						+ "sc.scheduledcardid, "
@@ -40,7 +40,7 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public Integer selectCardCountOfDay(PersistenceHandle handle, String boxId, DateTime startOfToday, DateTime endOfToday) {
+	public Integer selectCardCountOfDay(PersistenceHandle handle, String boxId, LocalDateTime startOfToday, LocalDateTime endOfToday) {
 		Optional<Integer> optional = handle.getHandle().createQuery("SELECT count(sc.scheduledcardid) FROM public.scheduledcard sc "
 				+ "inner join public.card c on c.cardid = sc.cardid "
 				+ "inner join public.category ct on c.categoryid = ct.categoryid "
@@ -50,7 +50,7 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public void scheduleScheduledCard(PersistenceHandle handle, String scheduledCardId, DateTime scheduleddDate) {
+	public void scheduleScheduledCard(PersistenceHandle handle, String scheduledCardId, LocalDateTime scheduleddDate) {
 		Update statement = handle.getHandle().createUpdate(
 				"UPDATE public.scheduledcard SET scheduleddate = :scheduleddate WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("scheduleddate", scheduleddDate);

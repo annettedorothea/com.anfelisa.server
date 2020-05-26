@@ -32,8 +32,8 @@ public interface IScoreCardModel {
 	String getNextScheduledCardScheduledCardId();
 	void setNextScheduledCardScheduledCardId(String nextScheduledCardScheduledCardId);
 	
-	org.joda.time.DateTime getNextScheduledCardCreatedDate();
-	void setNextScheduledCardCreatedDate(org.joda.time.DateTime nextScheduledCardCreatedDate);
+	java.time.LocalDateTime getNextScheduledCardCreatedDate();
+	void setNextScheduledCardCreatedDate(java.time.LocalDateTime nextScheduledCardCreatedDate);
 	
 	Float getNextScheduledCardEf();
 	void setNextScheduledCardEf(Float nextScheduledCardEf);
@@ -47,8 +47,8 @@ public interface IScoreCardModel {
 	Integer getNextScheduledCardCount();
 	void setNextScheduledCardCount(Integer nextScheduledCardCount);
 	
-	org.joda.time.DateTime getNextScheduledCardScheduledDate();
-	void setNextScheduledCardScheduledDate(org.joda.time.DateTime nextScheduledCardScheduledDate);
+	java.time.LocalDateTime getNextScheduledCardScheduledDate();
+	void setNextScheduledCardScheduledDate(java.time.LocalDateTime nextScheduledCardScheduledDate);
 	
 	Integer getNextScheduledCardLastQuality();
 	void setNextScheduledCardLastQuality(Integer nextScheduledCardLastQuality);
@@ -59,14 +59,14 @@ public interface IScoreCardModel {
 	Integer getScoredCardQuality();
 	void setScoredCardQuality(Integer scoredCardQuality);
 	
-	org.joda.time.DateTime getScoredCardScoredDate();
-	void setScoredCardScoredDate(org.joda.time.DateTime scoredCardScoredDate);
+	java.time.LocalDateTime getScoredCardScoredDate();
+	void setScoredCardScoredDate(java.time.LocalDateTime scoredCardScoredDate);
 	
 	String getReinforceCardId();
 	void setReinforceCardId(String reinforceCardId);
 	
-	org.joda.time.DateTime getReinforceCardCreatedDate();
-	void setReinforceCardCreatedDate(org.joda.time.DateTime reinforceCardCreatedDate);
+	java.time.LocalDateTime getReinforceCardCreatedDate();
+	void setReinforceCardCreatedDate(java.time.LocalDateTime reinforceCardCreatedDate);
 	
 	String getUserId();
 	void setUserId(String userId);

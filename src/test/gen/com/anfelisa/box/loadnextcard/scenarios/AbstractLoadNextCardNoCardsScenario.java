@@ -25,9 +25,8 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -263,7 +262,7 @@ public abstract class AbstractLoadNextCardNoCardsScenario extends BaseScenario {
 		com.anfelisa.box.data.NextCardData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"todayAtMidnightInUTC\" : \"2020-04-18T00:00:00.000Z\"} ",
+				"\"todayAtMidnightInUTC\" : \"2020-04-18T02:00\"} ",
 		com.anfelisa.box.data.NextCardData.class);
 		
 		return 

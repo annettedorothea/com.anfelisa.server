@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class CardWithInfoData extends AbstractCardWithInfoData implements ICardWithInfoData {
 	
 	public CardWithInfoData(
-		@JsonProperty("next") org.joda.time.DateTime next, 
+		@JsonProperty("next") java.time.LocalDateTime next, 
 		@JsonProperty("cardId") String cardId, 
 		@JsonProperty("given") String given, 
 		@JsonProperty("wanted") String wanted, 

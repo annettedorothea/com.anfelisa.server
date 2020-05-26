@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.sortcardsout.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class SortCardsOutCardDoesNotExistScenario extends AbstractSortCardsOutCardDoesNotExistScenario {
 

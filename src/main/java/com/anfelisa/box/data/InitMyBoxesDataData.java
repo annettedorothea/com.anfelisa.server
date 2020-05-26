@@ -14,27 +14,32 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+
+
+
 package com.anfelisa.box.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class InitMyBoxesDataData extends AbstractInitMyBoxesDataData implements IInitMyBoxesDataData {
-
+	
 	public InitMyBoxesDataData(
-			@JsonProperty("userId") String userId,
-			@JsonProperty("today") org.joda.time.DateTime today,
-			@JsonProperty("postponeCards") java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards,
-			@JsonProperty("outdatedReinforceCardsIds") java.util.List<String> outdatedReinforceCardsIds,
-			@JsonProperty("uuid") String uuid) {
+		@JsonProperty("userId") String userId, 
+		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC, 
+		@JsonProperty("postponeCards") java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards, 
+		@JsonProperty("outdatedReinforceCardsIds") java.util.List<String> outdatedReinforceCardsIds, 
+		@JsonProperty("uuid") String uuid
+	) {
 		super(
-				userId,
-				today,
-				postponeCards,
-				outdatedReinforceCardsIds,
-				uuid);
+			userId,
+			todayAtMidnightInUTC,
+			postponeCards,
+			outdatedReinforceCardsIds,
+			uuid
+		);
 	}
 
-	public InitMyBoxesDataData(String uuid) {
+	public InitMyBoxesDataData( String uuid ) {
 		super(uuid);
 	}
 
@@ -43,4 +48,10 @@ public class InitMyBoxesDataData extends AbstractInitMyBoxesDataData implements 
 
 }
 
+
+
+
 /******* S.D.G. *******/
+
+
+

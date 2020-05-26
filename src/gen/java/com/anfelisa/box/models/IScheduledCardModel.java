@@ -35,8 +35,8 @@ public interface IScheduledCardModel {
 	String getBoxId();
 	void setBoxId(String boxId);
 	
-	org.joda.time.DateTime getCreatedDate();
-	void setCreatedDate(org.joda.time.DateTime createdDate);
+	java.time.LocalDateTime getCreatedDate();
+	void setCreatedDate(java.time.LocalDateTime createdDate);
 	
 	Float getEf();
 	void setEf(Float ef);
@@ -50,8 +50,8 @@ public interface IScheduledCardModel {
 	Integer getCount();
 	void setCount(Integer count);
 	
-	org.joda.time.DateTime getScheduledDate();
-	void setScheduledDate(org.joda.time.DateTime scheduledDate);
+	java.time.LocalDateTime getScheduledDate();
+	void setScheduledDate(java.time.LocalDateTime scheduledDate);
 	
 	Integer getLastQuality();
 	void setLastQuality(Integer lastQuality);
@@ -59,8 +59,8 @@ public interface IScheduledCardModel {
 	Integer getQuality();
 	void setQuality(Integer quality);
 	
-	org.joda.time.DateTime getScoredDate();
-	void setScoredDate(org.joda.time.DateTime scoredDate);
+	java.time.LocalDateTime getScoredDate();
+	void setScoredDate(java.time.LocalDateTime scoredDate);
 	
 	
 }

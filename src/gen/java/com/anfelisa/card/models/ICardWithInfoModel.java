@@ -26,8 +26,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=CardWithInfoModel.class)
 public interface ICardWithInfoModel extends com.anfelisa.card.models.ICardModel{
 
-	org.joda.time.DateTime getNext();
-	void setNext(org.joda.time.DateTime next);
+	java.time.LocalDateTime getNext();
+	void setNext(java.time.LocalDateTime next);
 	
 	
 }

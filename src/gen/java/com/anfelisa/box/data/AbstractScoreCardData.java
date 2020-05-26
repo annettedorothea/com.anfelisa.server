@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +44,7 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	
 	private String nextScheduledCardScheduledCardId;
 	
-	private org.joda.time.DateTime nextScheduledCardCreatedDate;
+	private java.time.LocalDateTime nextScheduledCardCreatedDate;
 	
 	private Float nextScheduledCardEf;
 	
@@ -54,7 +54,7 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	
 	private Integer nextScheduledCardCount;
 	
-	private org.joda.time.DateTime nextScheduledCardScheduledDate;
+	private java.time.LocalDateTime nextScheduledCardScheduledDate;
 	
 	private Integer nextScheduledCardLastQuality;
 	
@@ -62,11 +62,11 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	
 	private Integer scoredCardQuality;
 	
-	private org.joda.time.DateTime scoredCardScoredDate;
+	private java.time.LocalDateTime scoredCardScoredDate;
 	
 	private String reinforceCardId;
 	
-	private org.joda.time.DateTime reinforceCardCreatedDate;
+	private java.time.LocalDateTime reinforceCardCreatedDate;
 	
 	private String userId;
 	
@@ -76,18 +76,18 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	public AbstractScoreCardData(
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("nextScheduledCardScheduledCardId") String nextScheduledCardScheduledCardId,
-		@JsonProperty("nextScheduledCardCreatedDate") org.joda.time.DateTime nextScheduledCardCreatedDate,
+		@JsonProperty("nextScheduledCardCreatedDate") java.time.LocalDateTime nextScheduledCardCreatedDate,
 		@JsonProperty("nextScheduledCardEf") Float nextScheduledCardEf,
 		@JsonProperty("nextScheduledCardInterval") Integer nextScheduledCardInterval,
 		@JsonProperty("nextScheduledCardN") Integer nextScheduledCardN,
 		@JsonProperty("nextScheduledCardCount") Integer nextScheduledCardCount,
-		@JsonProperty("nextScheduledCardScheduledDate") org.joda.time.DateTime nextScheduledCardScheduledDate,
+		@JsonProperty("nextScheduledCardScheduledDate") java.time.LocalDateTime nextScheduledCardScheduledDate,
 		@JsonProperty("nextScheduledCardLastQuality") Integer nextScheduledCardLastQuality,
 		@JsonProperty("scoredCardScheduledCardId") String scoredCardScheduledCardId,
 		@JsonProperty("scoredCardQuality") Integer scoredCardQuality,
-		@JsonProperty("scoredCardScoredDate") org.joda.time.DateTime scoredCardScoredDate,
+		@JsonProperty("scoredCardScoredDate") java.time.LocalDateTime scoredCardScoredDate,
 		@JsonProperty("reinforceCardId") String reinforceCardId,
-		@JsonProperty("reinforceCardCreatedDate") org.joda.time.DateTime reinforceCardCreatedDate,
+		@JsonProperty("reinforceCardCreatedDate") java.time.LocalDateTime reinforceCardCreatedDate,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId
 ,		@JsonProperty("uuid") String uuid
@@ -142,13 +142,13 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getNextScheduledCardCreatedDate() {
+	public java.time.LocalDateTime getNextScheduledCardCreatedDate() {
 		return this.nextScheduledCardCreatedDate;
 	}
-	public void setNextScheduledCardCreatedDate(org.joda.time.DateTime nextScheduledCardCreatedDate) {
+	public void setNextScheduledCardCreatedDate(java.time.LocalDateTime nextScheduledCardCreatedDate) {
 		this.nextScheduledCardCreatedDate = nextScheduledCardCreatedDate;
 	}
-	public IScoreCardData withNextScheduledCardCreatedDate(org.joda.time.DateTime nextScheduledCardCreatedDate) {
+	public IScoreCardData withNextScheduledCardCreatedDate(java.time.LocalDateTime nextScheduledCardCreatedDate) {
 		this.nextScheduledCardCreatedDate = nextScheduledCardCreatedDate;
 		return this;
 	}
@@ -204,13 +204,13 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getNextScheduledCardScheduledDate() {
+	public java.time.LocalDateTime getNextScheduledCardScheduledDate() {
 		return this.nextScheduledCardScheduledDate;
 	}
-	public void setNextScheduledCardScheduledDate(org.joda.time.DateTime nextScheduledCardScheduledDate) {
+	public void setNextScheduledCardScheduledDate(java.time.LocalDateTime nextScheduledCardScheduledDate) {
 		this.nextScheduledCardScheduledDate = nextScheduledCardScheduledDate;
 	}
-	public IScoreCardData withNextScheduledCardScheduledDate(org.joda.time.DateTime nextScheduledCardScheduledDate) {
+	public IScoreCardData withNextScheduledCardScheduledDate(java.time.LocalDateTime nextScheduledCardScheduledDate) {
 		this.nextScheduledCardScheduledDate = nextScheduledCardScheduledDate;
 		return this;
 	}
@@ -254,13 +254,13 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getScoredCardScoredDate() {
+	public java.time.LocalDateTime getScoredCardScoredDate() {
 		return this.scoredCardScoredDate;
 	}
-	public void setScoredCardScoredDate(org.joda.time.DateTime scoredCardScoredDate) {
+	public void setScoredCardScoredDate(java.time.LocalDateTime scoredCardScoredDate) {
 		this.scoredCardScoredDate = scoredCardScoredDate;
 	}
-	public IScoreCardData withScoredCardScoredDate(org.joda.time.DateTime scoredCardScoredDate) {
+	public IScoreCardData withScoredCardScoredDate(java.time.LocalDateTime scoredCardScoredDate) {
 		this.scoredCardScoredDate = scoredCardScoredDate;
 		return this;
 	}
@@ -280,13 +280,13 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getReinforceCardCreatedDate() {
+	public java.time.LocalDateTime getReinforceCardCreatedDate() {
 		return this.reinforceCardCreatedDate;
 	}
-	public void setReinforceCardCreatedDate(org.joda.time.DateTime reinforceCardCreatedDate) {
+	public void setReinforceCardCreatedDate(java.time.LocalDateTime reinforceCardCreatedDate) {
 		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
 	}
-	public IScoreCardData withReinforceCardCreatedDate(org.joda.time.DateTime reinforceCardCreatedDate) {
+	public IScoreCardData withReinforceCardCreatedDate(java.time.LocalDateTime reinforceCardCreatedDate) {
 		this.reinforceCardCreatedDate = reinforceCardCreatedDate;
 		return this;
 	}

@@ -19,8 +19,6 @@
 
 package com.anfelisa.user.registeruser.scenarios;
 
-import java.util.List;
-
 import com.anfelisa.user.models.IEmailConfirmationModel;
 import com.anfelisa.user.models.IUserModel;
 

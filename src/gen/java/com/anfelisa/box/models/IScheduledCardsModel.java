@@ -35,8 +35,8 @@ public interface IScheduledCardsModel {
 	java.util.List<String> getCardIds();
 	void setCardIds(java.util.List<String> cardIds);
 	
-	org.joda.time.DateTime getScheduledDate();
-	void setScheduledDate(org.joda.time.DateTime scheduledDate);
+	java.time.LocalDateTime getScheduledDate();
+	void setScheduledDate(java.time.LocalDateTime scheduledDate);
 	
 	String getUserId();
 	void setUserId(String userId);

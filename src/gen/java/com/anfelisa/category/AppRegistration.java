@@ -20,12 +20,11 @@
 package com.anfelisa.category;
 
 import io.dropwizard.setup.Environment;
+import de.acegen.PersistenceConnection;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.ViewProvider;
-import de.acegen.Config;
 import de.acegen.E2E;
-import de.acegen.PersistenceConnection;
+import de.acegen.ViewProvider;
 
 import com.anfelisa.category.resources.*;
 

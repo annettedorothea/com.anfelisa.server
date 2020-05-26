@@ -19,8 +19,6 @@
 
 package com.anfelisa.user.commands;
 
-import javax.ws.rs.WebApplicationException;
-
 import de.acegen.Command;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
@@ -47,7 +45,7 @@ public abstract class AbstractConfirmEmailCommand extends Command<IConfirmEmailD
 		case alreadyConfirmed:
 			break;
 		default:
-			throw new WebApplicationException("unhandled outcome " + this.commandData.getOutcome());
+			throw new RuntimeException("unhandled outcome " + this.commandData.getOutcome());
 		}
 	}
 	

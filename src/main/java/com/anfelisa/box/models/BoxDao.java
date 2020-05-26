@@ -1,10 +1,10 @@
 package com.anfelisa.box.models;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.jdbi.v3.core.statement.Update;
-import org.joda.time.DateTime;
 
 import com.anfelisa.box.data.IBoxUpdateData;
 
@@ -12,8 +12,8 @@ import de.acegen.PersistenceHandle;
 
 public class BoxDao extends AbstractBoxDao {
 
-	public List<IBoxViewModel> selectByUserId(PersistenceHandle handle, String userId, DateTime today) {
-		DateTime endOfDay = today.plusDays(1);
+	public List<IBoxViewModel> selectByUserId(PersistenceHandle handle, String userId, LocalDateTime today) {
+		LocalDateTime endOfDay = today.plusDays(1);
 		return handle.getHandle().createQuery("SELECT "
 				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard "
 				+ "WHERE boxid = b.boxid "
@@ -30,8 +30,8 @@ public class BoxDao extends AbstractBoxDao {
 				.map(new BoxViewMapper()).list();
 	}
 
-	public Integer selectCountOfDay(PersistenceHandle handle, String boxId, DateTime day) {
-		DateTime endOfDay = day.plusDays(1);
+	public Integer selectCountOfDay(PersistenceHandle handle, String boxId, LocalDateTime day) {
+		LocalDateTime endOfDay = day.plusDays(1);
 		Optional<Integer> optional =  handle.getHandle().createQuery("SELECT count(scheduledcardid) "
 				+ "FROM public.scheduledcard "
 				+ "WHERE boxid = :boxid "
@@ -59,8 +59,8 @@ public class BoxDao extends AbstractBoxDao {
 				.map(new BoxStatisticsMapper()).list();
 	}
 	
-	public ITodaysCardsStatusModel todaysCardsStatus(PersistenceHandle handle, String boxId, DateTime today) {
-		DateTime endOfDay = today.plusDays(1);
+	public ITodaysCardsStatusModel todaysCardsStatus(PersistenceHandle handle, String boxId, LocalDateTime today) {
+		LocalDateTime endOfDay = today.plusDays(1);
 		Optional<ITodaysCardsStatusModel> optional = handle.getHandle().createQuery("SELECT "
 				+ "(SELECT count(scheduledcardid) FROM public.scheduledcard "
 				+ "WHERE boxid = :boxid "
@@ -79,7 +79,7 @@ public class BoxDao extends AbstractBoxDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 
-	public List<IInitBoxesModel> selectInitBoxesModelByUserId(PersistenceHandle handle, String userId, DateTime today) {
+	public List<IInitBoxesModel> selectInitBoxesModelByUserId(PersistenceHandle handle, String userId, LocalDateTime today) {
 		return handle.getHandle().createQuery("SELECT "
 				+ "(select min(scheduleddate) from scheduledcard where boxid = b.boxid and quality is null) as minscheduleddate, "
 				+ "b.boxid "

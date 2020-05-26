@@ -19,10 +19,10 @@
 
 package com.anfelisa.box.actions;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +50,7 @@ public class GetBoxStatisticsAction extends AbstractGetBoxStatisticsAction {
 		List<IBoxStatisticsModel> boxList = this.daoProvider.getBoxDao().selectStatisticsByUserId(readonlyHandle,
 				this.actionData.getUserId());
 		for (IBoxStatisticsModel box : boxList) {
-			DateTime day = actionData.getTodayAtMidnightInUTC();
+			LocalDateTime day = actionData.getTodayAtMidnightInUTC();
 			box.setCountsPerDayNextWeek(new ArrayList<>());
 			for (int i = 0; i < 7; i++) {
 				day = day.plusDays(1);

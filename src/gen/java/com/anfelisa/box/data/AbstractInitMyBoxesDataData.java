@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +42,7 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 	
 	private String userId;
 	
-	private org.joda.time.DateTime todayAtMidnightInUTC;
+	private java.time.LocalDateTime todayAtMidnightInUTC;
 	
 	private java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards;
 	
@@ -51,7 +51,7 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 
 	public AbstractInitMyBoxesDataData(
 		@JsonProperty("userId") String userId,
-		@JsonProperty("todayAtMidnightInUTC") org.joda.time.DateTime todayAtMidnightInUTC,
+		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC,
 		@JsonProperty("postponeCards") java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards,
 		@JsonProperty("outdatedReinforceCardsIds") java.util.List<String> outdatedReinforceCardsIds
 ,		@JsonProperty("uuid") String uuid
@@ -82,13 +82,13 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getTodayAtMidnightInUTC() {
+	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
 		return this.todayAtMidnightInUTC;
 	}
-	public void setTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC) {
+	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
-	public IInitMyBoxesDataData withTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC) {
+	public IInitMyBoxesDataData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 		return this;
 	}

@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +46,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	
 	private String boxId;
 	
-	private org.joda.time.DateTime todayAtMidnightInUTC;
+	private java.time.LocalDateTime todayAtMidnightInUTC;
 	
 	private Integer openTodaysCards;
 	
@@ -58,7 +58,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	
 	private String cardId;
 	
-	private org.joda.time.DateTime scheduledDate;
+	private java.time.LocalDateTime scheduledDate;
 	
 	private Integer lastQuality;
 	
@@ -74,19 +74,19 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	
 	private Integer count;
 	
-	private org.joda.time.DateTime scoredDate;
+	private java.time.LocalDateTime scoredDate;
 	
 
 	public AbstractNextCardData(
 		@JsonProperty("userId") String userId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("todayAtMidnightInUTC") org.joda.time.DateTime todayAtMidnightInUTC,
+		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC,
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,
 		@JsonProperty("allTodaysCards") Integer allTodaysCards,
 		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("reinforceCardId") String reinforceCardId,
 		@JsonProperty("cardId") String cardId,
-		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
+		@JsonProperty("scheduledDate") java.time.LocalDateTime scheduledDate,
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("given") String given,
 		@JsonProperty("wanted") String wanted,
@@ -94,7 +94,7 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 		@JsonProperty("categoryId") String categoryId,
 		@JsonProperty("rootCategoryId") String rootCategoryId,
 		@JsonProperty("count") Integer count,
-		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate
+		@JsonProperty("scoredDate") java.time.LocalDateTime scoredDate
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -148,13 +148,13 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getTodayAtMidnightInUTC() {
+	public java.time.LocalDateTime getTodayAtMidnightInUTC() {
 		return this.todayAtMidnightInUTC;
 	}
-	public void setTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC) {
+	public void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
-	public INextCardData withTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC) {
+	public INextCardData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC) {
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 		return this;
 	}
@@ -222,13 +222,13 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getScheduledDate() {
+	public java.time.LocalDateTime getScheduledDate() {
 		return this.scheduledDate;
 	}
-	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
+	public void setScheduledDate(java.time.LocalDateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
-	public INextCardData withScheduledDate(org.joda.time.DateTime scheduledDate) {
+	public INextCardData withScheduledDate(java.time.LocalDateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 		return this;
 	}
@@ -320,13 +320,13 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getScoredDate() {
+	public java.time.LocalDateTime getScoredDate() {
 		return this.scoredDate;
 	}
-	public void setScoredDate(org.joda.time.DateTime scoredDate) {
+	public void setScoredDate(java.time.LocalDateTime scoredDate) {
 		this.scoredDate = scoredDate;
 	}
-	public INextCardData withScoredDate(org.joda.time.DateTime scoredDate) {
+	public INextCardData withScoredDate(java.time.LocalDateTime scoredDate) {
 		this.scoredDate = scoredDate;
 		return this;
 	}

@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.getboxstatistics.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class GetBoxesJustScheduledScenario extends AbstractGetBoxesJustScheduledScenario {
 

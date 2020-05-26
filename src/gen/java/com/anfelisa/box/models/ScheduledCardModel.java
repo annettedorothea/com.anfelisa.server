@@ -38,7 +38,7 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	
 	private String boxId;
 	
-	private org.joda.time.DateTime createdDate;
+	private java.time.LocalDateTime createdDate;
 	
 	private Float ef;
 	
@@ -48,13 +48,13 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	
 	private Integer count;
 	
-	private org.joda.time.DateTime scheduledDate;
+	private java.time.LocalDateTime scheduledDate;
 	
 	private Integer lastQuality;
 	
 	private Integer quality;
 	
-	private org.joda.time.DateTime scoredDate;
+	private java.time.LocalDateTime scoredDate;
 	
 
 	public ScheduledCardModel() {
@@ -64,15 +64,15 @@ public class ScheduledCardModel implements IScheduledCardModel {
 		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("cardId") String cardId,
 		@JsonProperty("boxId") String boxId,
-		@JsonProperty("createdDate") org.joda.time.DateTime createdDate,
+		@JsonProperty("createdDate") java.time.LocalDateTime createdDate,
 		@JsonProperty("ef") Float ef,
 		@JsonProperty("interval") Integer interval,
 		@JsonProperty("n") Integer n,
 		@JsonProperty("count") Integer count,
-		@JsonProperty("scheduledDate") org.joda.time.DateTime scheduledDate,
+		@JsonProperty("scheduledDate") java.time.LocalDateTime scheduledDate,
 		@JsonProperty("lastQuality") Integer lastQuality,
 		@JsonProperty("quality") Integer quality,
-		@JsonProperty("scoredDate") org.joda.time.DateTime scoredDate
+		@JsonProperty("scoredDate") java.time.LocalDateTime scoredDate
 	) {
 		this.scheduledCardId = scheduledCardId;
 		this.cardId = cardId;
@@ -115,10 +115,10 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getCreatedDate() {
+	public java.time.LocalDateTime getCreatedDate() {
 		return this.createdDate;
 	}
-	public void setCreatedDate(org.joda.time.DateTime createdDate) {
+	public void setCreatedDate(java.time.LocalDateTime createdDate) {
 		this.createdDate = createdDate;
 	}
 	
@@ -157,10 +157,10 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getScheduledDate() {
+	public java.time.LocalDateTime getScheduledDate() {
 		return this.scheduledDate;
 	}
-	public void setScheduledDate(org.joda.time.DateTime scheduledDate) {
+	public void setScheduledDate(java.time.LocalDateTime scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
 	
@@ -183,10 +183,10 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	@JsonProperty
 	@JsonSerialize(converter = DateTimeToStringConverter.class)
 	@JsonDeserialize(converter = StringToDateTimeConverter.class)
-	public org.joda.time.DateTime getScoredDate() {
+	public java.time.LocalDateTime getScoredDate() {
 		return this.scoredDate;
 	}
-	public void setScoredDate(org.joda.time.DateTime scoredDate) {
+	public void setScoredDate(java.time.LocalDateTime scoredDate) {
 		this.scoredDate = scoredDate;
 	}
 	

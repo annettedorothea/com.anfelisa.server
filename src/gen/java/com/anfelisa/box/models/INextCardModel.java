@@ -32,8 +32,8 @@ public interface INextCardModel extends com.anfelisa.box.models.INextCardViewMod
 	String getBoxId();
 	void setBoxId(String boxId);
 	
-	org.joda.time.DateTime getTodayAtMidnightInUTC();
-	void setTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC);
+	java.time.LocalDateTime getTodayAtMidnightInUTC();
+	void setTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
 	
 	Integer getOpenTodaysCards();
 	void setOpenTodaysCards(Integer openTodaysCards);

@@ -19,8 +19,6 @@
 
 package com.anfelisa.box.loadnextcard.scenarios;
 
-import javax.ws.rs.core.Response;
-
 @SuppressWarnings("unused")
 public class LoadNextCardReinforceScored3Scenario extends AbstractLoadNextCardReinforceScored3Scenario {
 

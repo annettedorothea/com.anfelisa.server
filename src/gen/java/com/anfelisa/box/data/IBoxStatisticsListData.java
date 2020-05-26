@@ -32,7 +32,7 @@ public interface IBoxStatisticsListData extends IBoxStatisticsListModel, IDataCo
 	
 	IBoxStatisticsListData withUserId(String userId);
 	
-	IBoxStatisticsListData withTodayAtMidnightInUTC(org.joda.time.DateTime todayAtMidnightInUTC);
+	IBoxStatisticsListData withTodayAtMidnightInUTC(java.time.LocalDateTime todayAtMidnightInUTC);
 	
 	
 }

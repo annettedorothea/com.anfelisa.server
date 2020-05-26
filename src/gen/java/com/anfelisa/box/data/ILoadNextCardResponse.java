@@ -38,9 +38,9 @@ public interface ILoadNextCardResponse {
 	
 	String getReinforceCardId();
 	
-	org.joda.time.DateTime getScheduledDate();
+	java.time.LocalDateTime getScheduledDate();
 	
-	org.joda.time.DateTime getScoredDate();
+	java.time.LocalDateTime getScoredDate();
 	
 	String getWanted();
 	
