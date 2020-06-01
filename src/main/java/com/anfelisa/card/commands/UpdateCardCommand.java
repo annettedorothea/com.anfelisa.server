@@ -25,7 +25,7 @@ public class UpdateCardCommand extends AbstractUpdateCardCommand {
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle,  commandData.getCardId());
 		if (card == null) {
-			throwIllegalArgumentException("card does not exist");
+			throwIllegalArgumentException("cardDoesNotExist");
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(readonlyHandle,  card.getRootCategoryId(), commandData.getUserId());
 		if (access == null) {

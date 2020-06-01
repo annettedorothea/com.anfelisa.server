@@ -27,6 +27,9 @@ public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 		if (!Roles.ADMIN.equals(this.commandData.getRole())) {
 			throwSecurityException();
 		}
+		if (!this.commandData.getNewRole().equals(Roles.ADMIN) || !this.commandData.getNewRole().equals(Roles.STUDENT)) {
+			throwIllegalArgumentException("invalidRole");
+		}
 		IUserModel user = daoProvider.getUserDao().selectByUserId(readonlyHandle, commandData.getEditedUserId());
 		if (user == null) {
 			throwIllegalArgumentException("userDoesNotExist");

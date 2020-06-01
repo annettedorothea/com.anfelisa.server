@@ -43,7 +43,7 @@ public class MoveCardsCommand extends AbstractMoveCardsCommand {
 		for (String cardId : commandData.getCardIdList()) {
 			ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
 			if (card == null) {
-				throwIllegalArgumentException("card does not exist");
+				throwIllegalArgumentException("cardDoesNotExist");
 			}
 			IUserAccessToCategoryModel accessToRootCategory = this.daoProvider.getUserAccessToCategoryDao()
 					.hasUserAccessTo(readonlyHandle, card.getRootCategoryId(), commandData.getUserId());

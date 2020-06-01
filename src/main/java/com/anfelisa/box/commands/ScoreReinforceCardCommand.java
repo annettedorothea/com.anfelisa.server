@@ -44,7 +44,7 @@ public class ScoreReinforceCardCommand extends AbstractScoreReinforceCardCommand
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		IReinforceCardModel reinforceCard = this.daoProvider.getReinforceCardDao().selectByReinforceCardId(readonlyHandle, commandData.getReinforceCardId());
 		if (reinforceCard == null) {
-			throwIllegalArgumentException("card does not exist");
+			throwIllegalArgumentException("cardDoesNotExist");
 		}
 		IBoxModel box = this.daoProvider.getBoxDao().selectByBoxId(readonlyHandle, reinforceCard.getBoxId());
 		if (!box.getUserId().equals(this.commandData.getUserId())) {

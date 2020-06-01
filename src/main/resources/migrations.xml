@@ -365,6 +365,12 @@
 
 	</changeSet>
 
+	<changeSet id="015" author="annette">
+
+		<dropNotNullConstraint
+			columnName="categoryindex" tableName="category" />
+	</changeSet>
+
 
 
 </databaseChangeLog>

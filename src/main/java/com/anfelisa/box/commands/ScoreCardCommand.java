@@ -30,7 +30,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 				readonlyHandle,
 				commandData.getScoredCardScheduledCardId());
 		if (scheduledCard == null) {
-			throwIllegalArgumentException("card does not exist");
+			throwIllegalArgumentException("cardDoesNotExist");
 		}
 		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(readonlyHandle, scheduledCard.getBoxId());
 		if (!commandData.getUserId().equals(box.getUserId())) {

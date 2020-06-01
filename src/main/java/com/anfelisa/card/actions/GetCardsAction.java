@@ -31,7 +31,7 @@ public class GetCardsAction extends AbstractGetCardsAction {
 		ICategoryModel category = daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				actionData.getCategoryId());
 		if (category == null) {
-			throwIllegalArgumentException("category does not exist");
+			throwIllegalArgumentException("categoryDoesNotExist");
 		}
 		IUserAccessToCategoryModel userAccessToCategoryModel = daoProvider.getUserAccessToCategoryDao()
 				.hasUserAccessTo(readonlyHandle, actionData.getCategoryId(), actionData.getUserId());

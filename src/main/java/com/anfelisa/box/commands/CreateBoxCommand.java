@@ -43,10 +43,10 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		if (commandData.getDictionaryLookup() != null && commandData.getDictionaryLookup()) {
 			if (!LanguageValidator.isLanguageValid(commandData.getGivenLanguage())) {
-				throwIllegalArgumentException("given language is invalid");
+				throwIllegalArgumentException("givenLanguageIsInvalid");
 			}
 			if (!LanguageValidator.isLanguageValid(commandData.getWantedLanguage())) {
-				throwIllegalArgumentException("wanted language is invalid");
+				throwIllegalArgumentException("wantedLanguageIsInvalid");
 			}
 		} else {
 			commandData.setGivenLanguage(null);
@@ -58,12 +58,7 @@ public class CreateBoxCommand extends AbstractCreateBoxCommand {
 		commandData.setRootCategoryId(commandData.getCategoryId());
 		this.commandData.setBoxId(commandData.getCategoryId());
 
-		//Integer max = this.daoProvider.getCategoryDao().selectMaxIndexInRootCategory(readonlyHandle);
-		//if (max == null) {
-		//	max = 0;
-		//}
-		// TODO index nullable and set null for root categories
-		commandData.setCategoryIndex(1);
+		commandData.setCategoryIndex(null);
 		commandData.setEditable(true);
 		this.commandData.setOutcome(ok);
 	}

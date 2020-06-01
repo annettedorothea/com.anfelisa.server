@@ -29,15 +29,15 @@ public class UpdateBoxCommand extends AbstractUpdateBoxCommand {
 		}
 		
 		if (this.commandData.getMaxCardsPerDay() == 0) {
-			throwIllegalArgumentException("max cards per day must not be zero");
+			throwIllegalArgumentException("maxCardsPerDayMustNotBeZero");
 		}
 
 		if (commandData.getDictionaryLookup() != null && commandData.getDictionaryLookup()) {
 			if (!LanguageValidator.isLanguageValid(commandData.getGivenLanguage())) {
-				throwIllegalArgumentException("given language is invalid");
+				throwIllegalArgumentException("givenLanguageIsInvalid");
 			}
 			if (!LanguageValidator.isLanguageValid(commandData.getWantedLanguage())) {
-				throwIllegalArgumentException("wanted language is invalid");
+				throwIllegalArgumentException("wantedLanguageIsInvalid");
 			}
 		} else {
 			commandData.setGivenLanguage(null);

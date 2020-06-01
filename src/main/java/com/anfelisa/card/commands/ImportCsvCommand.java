@@ -49,7 +49,7 @@ public class ImportCsvCommand extends AbstractImportCsvCommand {
 		ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getCategoryId());
 		if (category == null) {
-			throwIllegalArgumentException("category does not exist");
+			throwIllegalArgumentException("categoryDoesNotExist");
 		}
 		IUserModel user = this.daoProvider.getUserDao().selectByUserId(readonlyHandle, commandData.getUserId());
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()

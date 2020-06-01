@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.card.data.ICardCreationData;
-import com.anfelisa.card.models.ICardModel;
 import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
@@ -27,17 +26,12 @@ public class CreateCardCommand extends AbstractCreateCardCommand {
 		ICategoryModel category = this.daoProvider.getCategoryDao().selectByCategoryId(readonlyHandle,
 				commandData.getCategoryId());
 		if (category == null) {
-			throwIllegalArgumentException("category does not exist");
+			throwIllegalArgumentException("categoryDoesNotExist");
 		}
 		IUserAccessToCategoryModel access = this.daoProvider.getUserAccessToCategoryDao()
 				.selectByCategoryIdAndUserId(readonlyHandle, category.getRootCategoryId(), commandData.getUserId());
 		if (access == null) {
 			throwSecurityException();
-		}
-		ICardModel card = this.daoProvider.getCardDao().selectByCardId(readonlyHandle,
-				commandData.getUuid());
-		if (card != null) {
-			throwIllegalArgumentException("card with this id already exists");
 		}
 		commandData.setRootCategoryId(category.getRootCategoryId());
 		this.commandData.setCardId(commandData.getUuid());

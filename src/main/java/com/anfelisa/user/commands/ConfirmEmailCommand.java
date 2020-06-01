@@ -34,7 +34,7 @@ public class ConfirmEmailCommand extends AbstractConfirmEmailCommand {
 			IEmailConfirmationModel emailConfirmation = daoProvider.getEmailConfirmationDao().selectByToken(readonlyHandle, 
 					commandData.getToken());
 			if (emailConfirmation == null) {
-				throwIllegalArgumentException("confirmationTokenDoesNotExist");
+				throwIllegalArgumentException("tokenDoesNotExist");
 			}
 			if (!user.getUserId().equals(emailConfirmation.getUserId())) {
 				throwIllegalArgumentException("tokenDoesNotMatch");

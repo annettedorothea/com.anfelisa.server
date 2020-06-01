@@ -41,19 +41,19 @@ public class MoveCategoryCommand extends AbstractMoveCategoryCommand {
 				commandData.getTargetCategoryId());
 
 		if (movedCategory == null || targetCategory == null) {
-			throwIllegalArgumentException("categories must not be null");
+			throwIllegalArgumentException("movedCategoriesMustNotBeNull");
 		}
 
 		if (!movedCategory.getRootCategoryId().equals(targetCategory.getRootCategoryId())) {
-			throwIllegalArgumentException("categories must be in same root category");
+			throwIllegalArgumentException("categoriesMustBeInSameRootCategory");
 		}
 		
 		if (targetCategory.getCategoryId().equals(movedCategory.getCategoryId())) {
-			throwIllegalArgumentException("cannot move category to itself");
+			throwIllegalArgumentException("cannotMoveCategoryToItself");
 		}
 
 		if (isChildOf(movedCategory, targetCategory, readonlyHandle)) {
-			throwIllegalArgumentException("cannot move category to one of its children");
+			throwIllegalArgumentException("cannotMoveCategoryToOneOfItsChildren");
 		}
 		
 		if (targetCategory.getCategoryId().equals(movedCategory.getParentCategoryId())) {

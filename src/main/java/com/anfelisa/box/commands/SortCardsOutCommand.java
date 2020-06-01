@@ -55,7 +55,7 @@ public class SortCardsOutCommand extends AbstractSortCardsOutCommand {
 			for (String cardId : commandData.getCardIds()) {
 				ICardModel card = daoProvider.getCardDao().selectByCardId(readonlyHandle, cardId);
 				if (card == null) {
-					throwIllegalArgumentException("card does not exist");
+					throwIllegalArgumentException("cardDoesNotExist");
 				}
 				IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
 						card.getRootCategoryId(), commandData.getUserId());
