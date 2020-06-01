@@ -28,6 +28,7 @@
 	import javax.ws.rs.QueryParam;
 	
 	import java.time.LocalDateTime;
+	import java.time.format.DateTimeFormatter;
 	
 	import org.slf4j.Logger;
 	import org.slf4j.LoggerFactory;
@@ -114,7 +115,7 @@
 		}
 		if (StringUtils.isNotBlank(todayAtMidnightInUTC)) {
 			try {
-				actionData.setTodayAtMidnightInUTC(LocalDateTime.parse(todayAtMidnightInUTC));
+				actionData.setTodayAtMidnightInUTC(LocalDateTime.parse(todayAtMidnightInUTC, DateTimeFormatter.ISO_DATE_TIME));
 			} catch (Exception x) {
 				LOG.warn("failed to parse dateTime todayAtMidnightInUTC - {}", todayAtMidnightInUTC);
 			}

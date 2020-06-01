@@ -28,6 +28,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,7 +54,7 @@ public class NotReplayableDataProviderResource {
 	@PUT
 	@Path("/system-time")
 	public Response putSystemTime(@QueryParam("uuid") String uuid, @QueryParam("system-time") String systemTime) {
-		NotReplayableDataProvider.putSystemTime(uuid, LocalDateTime.parse(systemTime));
+		NotReplayableDataProvider.putSystemTime(uuid, LocalDateTime.parse(systemTime, DateTimeFormatter.ISO_DATE_TIME));
 		return Response.ok().build();
 	}
 	
