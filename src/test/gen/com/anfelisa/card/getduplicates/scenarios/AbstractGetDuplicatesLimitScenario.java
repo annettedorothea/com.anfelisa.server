@@ -179,6 +179,8 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
 		com.anfelisa.card.data.GetDuplicatesResponse actual = null;
@@ -186,39 +188,42 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			actual = response.readEntity(com.anfelisa.card.data.GetDuplicatesResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetDuplicatesLimit")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetDuplicates");
-				
-						com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetDuplicatesLimit not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetDuplicatesLimit";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetDuplicatesLimit")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetDuplicates");
+	
+			com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetDuplicatesLimit not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetDuplicatesLimit";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

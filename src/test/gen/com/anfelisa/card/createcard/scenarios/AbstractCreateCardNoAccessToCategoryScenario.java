@@ -181,40 +181,45 @@ public abstract class AbstractCreateCardNoAccessToCategoryScenario extends BaseS
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("CreateCardNoAccessToCategory")) {
-						Response response = when();
 		
-						LOG.info("WHEN: CreateCard");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for CreateCardNoAccessToCategory not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "CreateCardNoAccessToCategory";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("CreateCardNoAccessToCategory")) {
+			Response response = when();
+
+			LOG.info("WHEN: CreateCard");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for CreateCardNoAccessToCategory not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "CreateCardNoAccessToCategory";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

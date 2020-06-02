@@ -152,6 +152,8 @@ public abstract class AbstractGetBoxSettingsNoAccessScenario extends BaseScenari
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
 		com.anfelisa.box.data.GetBoxSettingsResponse actual = null;
@@ -159,39 +161,42 @@ public abstract class AbstractGetBoxSettingsNoAccessScenario extends BaseScenari
 			actual = response.readEntity(com.anfelisa.box.data.GetBoxSettingsResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetBoxSettingsNoAccess")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetBoxSettings");
-				
-						com.anfelisa.box.data.GetBoxSettingsResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetBoxSettingsNoAccess not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.box.data.GetBoxSettingsResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetBoxSettingsNoAccess";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetBoxSettingsNoAccess")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetBoxSettings");
+	
+			com.anfelisa.box.data.GetBoxSettingsResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetBoxSettingsNoAccess not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.box.data.GetBoxSettingsResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetBoxSettingsNoAccess";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

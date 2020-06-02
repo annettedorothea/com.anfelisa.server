@@ -309,6 +309,8 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
 		com.anfelisa.card.data.GetCardsResponse actual = null;
@@ -316,39 +318,42 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 			actual = response.readEntity(com.anfelisa.card.data.GetCardsResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetCardsNoAccessToCategory")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetCards");
-				
-						com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetCardsNoAccessToCategory not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.card.data.GetCardsResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetCardsNoAccessToCategory";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetCardsNoAccessToCategory")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetCards");
+	
+			com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetCardsNoAccessToCategory not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.card.data.GetCardsResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetCardsNoAccessToCategory";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

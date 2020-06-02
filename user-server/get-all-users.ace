@@ -19,7 +19,7 @@ scenarios
 		WHEN com.anfelisa.user.GetAllUsers
 			authorization "Admin" : "admin-password"
 		THEN 200
-			response {
+			response shouldBe {
 				userList : [
 					{ 
 						email : "annette.pohl@anfelisa.de",

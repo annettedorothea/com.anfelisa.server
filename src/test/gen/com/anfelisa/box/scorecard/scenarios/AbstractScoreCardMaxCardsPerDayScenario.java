@@ -392,40 +392,45 @@ public abstract class AbstractScoreCardMaxCardsPerDayScenario extends BaseScenar
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ScoreCardMaxCardsPerDay")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ScoreCard");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ScoreCardMaxCardsPerDay not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ScoreCardMaxCardsPerDay";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ScoreCardMaxCardsPerDay")) {
+			Response response = when();
+
+			LOG.info("WHEN: ScoreCard");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ScoreCardMaxCardsPerDay not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ScoreCardMaxCardsPerDay";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

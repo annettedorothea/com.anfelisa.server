@@ -177,6 +177,8 @@ public abstract class AbstractGetCategoryTreeNoAccessScenario extends BaseScenar
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
 		com.anfelisa.category.data.GetCategoryTreeResponse actual = null;
@@ -184,39 +186,42 @@ public abstract class AbstractGetCategoryTreeNoAccessScenario extends BaseScenar
 			actual = response.readEntity(com.anfelisa.category.data.GetCategoryTreeResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetCategoryTreeNoAccess")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetCategoryTree");
-				
-						com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetCategoryTreeNoAccess not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetCategoryTreeNoAccess";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetCategoryTreeNoAccess")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetCategoryTree");
+	
+			com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetCategoryTreeNoAccess not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetCategoryTreeNoAccess";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

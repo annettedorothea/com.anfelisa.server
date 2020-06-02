@@ -307,6 +307,8 @@ public abstract class AbstractGetBoxesUnauthorizedScenario extends BaseScenario 
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
 		com.anfelisa.box.data.GetBoxStatisticsResponse actual = null;
@@ -314,39 +316,42 @@ public abstract class AbstractGetBoxesUnauthorizedScenario extends BaseScenario 
 			actual = response.readEntity(com.anfelisa.box.data.GetBoxStatisticsResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetBoxesUnauthorized")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetBoxStatistics");
-				
-						com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetBoxesUnauthorized not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.box.data.GetBoxStatisticsResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetBoxesUnauthorized";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetBoxesUnauthorized")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetBoxStatistics");
+	
+			com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetBoxesUnauthorized not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.box.data.GetBoxStatisticsResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetBoxesUnauthorized";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

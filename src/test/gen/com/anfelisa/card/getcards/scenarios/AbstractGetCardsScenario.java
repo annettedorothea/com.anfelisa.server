@@ -331,6 +331,8 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
 		com.anfelisa.card.data.GetCardsResponse actual = null;
@@ -383,39 +385,44 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 
 
 		assertThat(actual, expected);
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetCards")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetCards");
-				
-						com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetCards not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.card.data.GetCardsResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetCards";
-				}
+		LOG.info("THEN: response passed");
+		
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetCards")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetCards");
+	
+			com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetCards not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.card.data.GetCardsResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetCards";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

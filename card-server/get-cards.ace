@@ -15,7 +15,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-		response {
+		response shouldBe {
 			cardList : [
 				{
 					cardAuthor: "Annette-${testId}",

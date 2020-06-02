@@ -225,40 +225,45 @@ public abstract class AbstractChangeOrderFirstToFourthScenario extends BaseScena
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ChangeOrderFirstToFourth")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ChangeOrderCategory");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ChangeOrderFirstToFourth not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ChangeOrderFirstToFourth";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ChangeOrderFirstToFourth")) {
+			Response response = when();
+
+			LOG.info("WHEN: ChangeOrderCategory");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ChangeOrderFirstToFourth not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ChangeOrderFirstToFourth";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

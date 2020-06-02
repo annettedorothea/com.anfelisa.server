@@ -11,7 +11,7 @@ scenarios
 		WHEN com.anfelisa.user.GetRole
 			authorization "Annette-${testId}" : "password"
 		THEN 200
-		response {
+		response shouldBe {
 			role: "STUDENT"
 		}
 
@@ -34,7 +34,7 @@ scenarios
 		WHEN com.anfelisa.user.GetRole
 			authorization "Admin" : "admin-password"
 		THEN  200 
-		response {
+		response shouldBe {
 			role: "ADMIN"
 		}
 		

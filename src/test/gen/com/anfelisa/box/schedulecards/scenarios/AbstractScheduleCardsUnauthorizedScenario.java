@@ -283,40 +283,45 @@ public abstract class AbstractScheduleCardsUnauthorizedScenario extends BaseScen
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ScheduleCardsUnauthorized")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ScheduleCards");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ScheduleCardsUnauthorized not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ScheduleCardsUnauthorized";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ScheduleCardsUnauthorized")) {
+			Response response = when();
+
+			LOG.info("WHEN: ScheduleCards");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ScheduleCardsUnauthorized not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ScheduleCardsUnauthorized";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

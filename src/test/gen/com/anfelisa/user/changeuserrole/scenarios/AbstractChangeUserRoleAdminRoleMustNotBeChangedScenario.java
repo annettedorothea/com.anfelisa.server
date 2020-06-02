@@ -43,40 +43,11 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 	private void given() throws Exception {
 		Response response;
 		String uuid;
-		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
-			this.callNotReplayableDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
-			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
-				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
-					"\"language\" : \"de\"," + 
-					"\"password\" : \"password\"," + 
-					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
-			com.anfelisa.user.data.UserRegistrationData.class);
-			response = 
-			this.httpPost(
-				"/users/register", 
-				data_1,
-				null
-			);
-			
-			if (response.getStatus() >= 400) {
-				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
-				assertFail(message);
-			}
-			LOG.info("GIVEN: RegisterUser success");
-		} else {
-			LOG.info("GIVEN: prerequisite for RegisterUser not met");
-		}
-		
-
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin".replace("${testId}", this.getTestId());
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
-			com.anfelisa.user.data.UserRegistrationData data_2 = objectMapper.readValue("{" +
+			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
@@ -86,7 +57,7 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 			response = 
 			this.httpPost(
 				"/users/register", 
-				data_2,
+				data_1,
 				null
 			);
 			
@@ -107,7 +78,7 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 		String uuid = this.randomUUID();
 		com.anfelisa.user.data.ChangeUserRoleData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"editedUserId\" : \"uuid-admin-" + this.getTestId() + "\"," + 
+				"\"editedUserId\" : \"uuid-admin\"," + 
 				"\"newRole\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class);
 		
@@ -128,40 +99,62 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ChangeUserRoleAdminRoleMustNotBeChanged")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ChangeUserRole");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ChangeUserRoleAdminRoleMustNotBeChanged not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ChangeUserRoleAdminRoleMustNotBeChanged";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ChangeUserRoleAdminRoleMustNotBeChanged")) {
+			Response response = when();
+
+			LOG.info("WHEN: ChangeUserRole");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+			this.roleWasNotChanged();
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ChangeUserRoleAdminRoleMustNotBeChanged not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	private void roleWasNotChanged() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-admin");
+		
+		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"emailConfirmed\" : false," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"role\" : \"ADMIN\"," + 
+				"\"userId\" : \"uuid-admin\"," + 
+				"\"username\" : \"Admin\"} ",
+		com.anfelisa.user.models.UserModel.class);
+		
+		assertThat(actual, expected);
+
+		LOG.info("THEN: roleWasNotChanged passed");
+	}
+	
+	@Override
+	protected String scenarioName() {
+		return "ChangeUserRoleAdminRoleMustNotBeChanged";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

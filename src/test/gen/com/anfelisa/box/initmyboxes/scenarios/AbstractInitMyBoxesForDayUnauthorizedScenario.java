@@ -308,40 +308,45 @@ public abstract class AbstractInitMyBoxesForDayUnauthorizedScenario extends Base
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("InitMyBoxesForDayUnauthorized")) {
-						Response response = when();
 		
-						LOG.info("WHEN: InitMyBoxesForDay");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for InitMyBoxesForDayUnauthorized not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "InitMyBoxesForDayUnauthorized";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("InitMyBoxesForDayUnauthorized")) {
+			Response response = when();
+
+			LOG.info("WHEN: InitMyBoxesForDay");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for InitMyBoxesForDayUnauthorized not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "InitMyBoxesForDayUnauthorized";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

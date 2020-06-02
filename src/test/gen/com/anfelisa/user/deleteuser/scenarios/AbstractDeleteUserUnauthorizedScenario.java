@@ -97,40 +97,45 @@ public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenari
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("DeleteUserUnauthorized")) {
-						Response response = when();
 		
-						LOG.info("WHEN: DeleteUser");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for DeleteUserUnauthorized not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "DeleteUserUnauthorized";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("DeleteUserUnauthorized")) {
+			Response response = when();
+
+			LOG.info("WHEN: DeleteUser");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for DeleteUserUnauthorized not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "DeleteUserUnauthorized";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

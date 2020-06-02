@@ -310,40 +310,45 @@ public abstract class AbstractSortCardsOutCardDoesNotExistScenario extends BaseS
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("SortCardsOutCardDoesNotExist")) {
-						Response response = when();
 		
-						LOG.info("WHEN: SortCardsOut");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for SortCardsOutCardDoesNotExist not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "SortCardsOutCardDoesNotExist";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("SortCardsOutCardDoesNotExist")) {
+			Response response = when();
+
+			LOG.info("WHEN: SortCardsOut");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for SortCardsOutCardDoesNotExist not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "SortCardsOutCardDoesNotExist";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

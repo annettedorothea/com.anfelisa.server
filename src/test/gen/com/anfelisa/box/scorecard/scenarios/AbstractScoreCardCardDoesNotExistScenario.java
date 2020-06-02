@@ -311,40 +311,45 @@ public abstract class AbstractScoreCardCardDoesNotExistScenario extends BaseScen
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ScoreCardCardDoesNotExist")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ScoreCard");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ScoreCardCardDoesNotExist not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ScoreCardCardDoesNotExist";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ScoreCardCardDoesNotExist")) {
+			Response response = when();
+
+			LOG.info("WHEN: ScoreCard");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ScoreCardCardDoesNotExist not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ScoreCardCardDoesNotExist";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

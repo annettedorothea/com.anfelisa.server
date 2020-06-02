@@ -149,6 +149,8 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
 		com.anfelisa.user.data.GetAllUsersResponse actual = null;
@@ -156,39 +158,42 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 			actual = response.readEntity(com.anfelisa.user.data.GetAllUsersResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetAllUsersNotAdmin")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetAllUsers");
-				
-						com.anfelisa.user.data.GetAllUsersResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetAllUsersNotAdmin not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.user.data.GetAllUsersResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetAllUsersNotAdmin";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetAllUsersNotAdmin")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetAllUsers");
+	
+			com.anfelisa.user.data.GetAllUsersResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetAllUsersNotAdmin not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.user.data.GetAllUsersResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetAllUsersNotAdmin";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

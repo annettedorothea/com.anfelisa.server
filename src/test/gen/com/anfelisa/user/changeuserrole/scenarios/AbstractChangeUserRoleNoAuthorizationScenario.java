@@ -108,7 +108,7 @@ public abstract class AbstractChangeUserRoleNoAuthorizationScenario extends Base
 		com.anfelisa.user.data.ChangeUserRoleData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
-				"\"newRole\" : \"STUDENT\"} ",
+				"\"newRole\" : \"ADMIN\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class);
 		
 		return 
@@ -128,40 +128,62 @@ public abstract class AbstractChangeUserRoleNoAuthorizationScenario extends Base
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ChangeUserRoleNoAuthorization")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ChangeUserRole");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ChangeUserRoleNoAuthorization not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ChangeUserRoleNoAuthorization";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ChangeUserRoleNoAuthorization")) {
+			Response response = when();
+
+			LOG.info("WHEN: ChangeUserRole");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+			this.roleWasNotChanged();
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ChangeUserRoleNoAuthorization not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	private void roleWasNotChanged() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"emailConfirmed\" : false," + 
+				"\"password\" : \"password\"," + 
+				"\"role\" : \"STUDENT\"," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.UserModel.class);
+		
+		assertThat(actual, expected);
+
+		LOG.info("THEN: roleWasNotChanged passed");
+	}
+	
+	@Override
+	protected String scenarioName() {
+		return "ChangeUserRoleNoAuthorization";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

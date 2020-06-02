@@ -150,6 +150,8 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
 		com.anfelisa.category.data.GetCategoryTreeResponse actual = null;
@@ -183,39 +185,44 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 
 
 		assertThat(actual, expected);
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetCategoryTreeWithDictionaryLookup")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetCategoryTree");
-				
-						com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetCategoryTreeWithDictionaryLookup not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetCategoryTreeWithDictionaryLookup";
-				}
+		LOG.info("THEN: response passed");
+		
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetCategoryTreeWithDictionaryLookup")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetCategoryTree");
+	
+			com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetCategoryTreeWithDictionaryLookup not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetCategoryTreeWithDictionaryLookup";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

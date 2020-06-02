@@ -386,6 +386,8 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
 		com.anfelisa.card.data.GetDuplicatesResponse actual = null;
@@ -443,39 +445,44 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 
 
 		assertThat(actual, expected);
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetDuplicates")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetDuplicates");
-				
-						com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetDuplicates not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetDuplicates";
-				}
+		LOG.info("THEN: response passed");
+		
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetDuplicates")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetDuplicates");
+	
+			com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetDuplicates not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetDuplicates";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

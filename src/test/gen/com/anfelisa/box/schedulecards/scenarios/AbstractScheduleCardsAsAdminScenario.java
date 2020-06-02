@@ -177,40 +177,45 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ScheduleCardsAsAdmin")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ScheduleCards");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ScheduleCardsAsAdmin not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ScheduleCardsAsAdmin";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ScheduleCardsAsAdmin")) {
+			Response response = when();
+
+			LOG.info("WHEN: ScheduleCards");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ScheduleCardsAsAdmin not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ScheduleCardsAsAdmin";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

@@ -125,40 +125,45 @@ public abstract class AbstractCreateCategoryParentCategoryIsBlankScenario extend
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("CreateCategoryParentCategoryIsBlank")) {
-						Response response = when();
 		
-						LOG.info("WHEN: CreateCategory");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for CreateCategoryParentCategoryIsBlank not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "CreateCategoryParentCategoryIsBlank";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("CreateCategoryParentCategoryIsBlank")) {
+			Response response = when();
+
+			LOG.info("WHEN: CreateCategory");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for CreateCategoryParentCategoryIsBlank not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "CreateCategoryParentCategoryIsBlank";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

@@ -150,40 +150,45 @@ public abstract class AbstractUpdateCategoryUnauthorizedScenario extends BaseSce
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("UpdateCategoryUnauthorized")) {
-						Response response = when();
 		
-						LOG.info("WHEN: UpdateCategory");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for UpdateCategoryUnauthorized not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "UpdateCategoryUnauthorized";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("UpdateCategoryUnauthorized")) {
+			Response response = when();
+
+			LOG.info("WHEN: UpdateCategory");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for UpdateCategoryUnauthorized not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "UpdateCategoryUnauthorized";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

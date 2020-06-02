@@ -257,40 +257,45 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("MoveCardsNoAccessToCard")) {
-						Response response = when();
 		
-						LOG.info("WHEN: MoveCards");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for MoveCardsNoAccessToCard not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "MoveCardsNoAccessToCard";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("MoveCardsNoAccessToCard")) {
+			Response response = when();
+
+			LOG.info("WHEN: MoveCards");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for MoveCardsNoAccessToCard not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "MoveCardsNoAccessToCard";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

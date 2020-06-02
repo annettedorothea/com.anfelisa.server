@@ -151,40 +151,45 @@ public abstract class AbstractCreateCardGivenNullScenario extends BaseScenario {
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("CreateCardGivenNull")) {
-						Response response = when();
 		
-						LOG.info("WHEN: CreateCard");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for CreateCardGivenNull not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "CreateCardGivenNull";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("CreateCardGivenNull")) {
+			Response response = when();
+
+			LOG.info("WHEN: CreateCard");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for CreateCardGivenNull not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "CreateCardGivenNull";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

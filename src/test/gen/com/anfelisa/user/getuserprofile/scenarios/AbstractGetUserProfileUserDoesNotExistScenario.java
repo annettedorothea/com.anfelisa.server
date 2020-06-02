@@ -124,6 +124,8 @@ public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends Bas
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
 		com.anfelisa.user.data.GetUserProfileResponse actual = null;
@@ -131,39 +133,42 @@ public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends Bas
 			actual = response.readEntity(com.anfelisa.user.data.GetUserProfileResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetUserProfileUserDoesNotExist")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetUserProfile");
-				
-						com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetUserProfileUserDoesNotExist not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetUserProfileUserDoesNotExist";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetUserProfileUserDoesNotExist")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetUserProfile");
+	
+			com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetUserProfileUserDoesNotExist not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetUserProfileUserDoesNotExist";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

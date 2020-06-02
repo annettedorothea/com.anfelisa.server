@@ -15,7 +15,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				cardId: "c1-${testId}",
 				categoryId: "cat1-${testId}",
@@ -40,7 +40,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				cardId: "c3-${testId}",
 				categoryId: "cat1-${testId}",
@@ -65,7 +65,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				cardId: "c4-${testId}",
 				categoryId: "cat1-${testId}",
@@ -91,7 +91,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				cardId: "c1-${testId}",
 				categoryId: "cat1-${testId}",
@@ -118,7 +118,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 2,
 				cardId: "c1-${testId}",
 				categoryId: "cat1-${testId}",
@@ -148,7 +148,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				cardId: "c3-${testId}",
 				categoryId: "cat1-${testId}",
@@ -176,7 +176,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				cardId: "c1-${testId}",
 				categoryId: "cat1-${testId}",
@@ -205,7 +205,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				cardId: "c1-${testId}",
 				categoryId: "cat1-${testId}",
@@ -234,7 +234,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				cardId: "c3-${testId}",
 				categoryId: "cat1-${testId}",
@@ -264,7 +264,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				cardId: "c1-${testId}",
 				categoryId: "cat1-${testId}",
@@ -295,7 +295,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				cardId: "c1-${testId}",
 				categoryId: "cat1-${testId}",
@@ -326,7 +326,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				cardId: "c1-${testId}",
 				categoryId: "cat1-${testId}",
@@ -357,7 +357,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				cardId: "c1-${testId}",
 				categoryId: "cat1-${testId}",
@@ -389,7 +389,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				openTodaysCards: 0
 			}		
@@ -410,7 +410,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 3,
 				openTodaysCards: 0
 			}
@@ -426,7 +426,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 2,
 				cardId: "c3-${testId}",
 				categoryId: "cat1-${testId}",
@@ -452,7 +452,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 1,
 				cardId: "c3-${testId}",
 				categoryId: "cat1-${testId}",
@@ -479,7 +479,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				allTodaysCards: 0,
 				openTodaysCards: 0
 			}		

@@ -19,19 +19,15 @@
 
 package com.anfelisa.user.changeuserrole.scenarios;
 
-import com.anfelisa.auth.Roles;
-import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserModel;
+import javax.ws.rs.core.Response;
 
 @SuppressWarnings("unused")
 public class ChangeUserRoleToAdminScenario extends AbstractChangeUserRoleToAdminScenario {
 
 	@Override
 	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
-		IUserModel expectedUser = new UserModel("uuid-" + getTestId(), "Annette-" + getTestId(), "password", "annette.pohl@anfelisa.de", Roles.ADMIN, false);
-		assertThat(actualUser, expectedUser);
 	}
+	
 
 }
 

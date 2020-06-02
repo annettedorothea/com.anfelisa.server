@@ -307,6 +307,8 @@ public abstract class AbstractGetBoxesTodayAtMidnightInUTCNullScenario extends B
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
 		com.anfelisa.box.data.GetBoxesResponse actual = null;
@@ -314,39 +316,42 @@ public abstract class AbstractGetBoxesTodayAtMidnightInUTCNullScenario extends B
 			actual = response.readEntity(com.anfelisa.box.data.GetBoxesResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetBoxesTodayAtMidnightInUTCNull")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetBoxes");
-				
-						com.anfelisa.box.data.GetBoxesResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetBoxesTodayAtMidnightInUTCNull not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.box.data.GetBoxesResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetBoxesTodayAtMidnightInUTCNull";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetBoxesTodayAtMidnightInUTCNull")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetBoxes");
+	
+			com.anfelisa.box.data.GetBoxesResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetBoxesTodayAtMidnightInUTCNull not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.box.data.GetBoxesResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetBoxesTodayAtMidnightInUTCNull";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

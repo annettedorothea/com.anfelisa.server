@@ -306,6 +306,8 @@ public abstract class AbstractGetBoxesTodayAtMidnightInUTCNullScenario extends B
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
 		com.anfelisa.box.data.GetBoxStatisticsResponse actual = null;
@@ -313,39 +315,42 @@ public abstract class AbstractGetBoxesTodayAtMidnightInUTCNullScenario extends B
 			actual = response.readEntity(com.anfelisa.box.data.GetBoxStatisticsResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetBoxesTodayAtMidnightInUTCNull")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetBoxStatistics");
-				
-						com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetBoxesTodayAtMidnightInUTCNull not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.box.data.GetBoxStatisticsResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetBoxesTodayAtMidnightInUTCNull";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetBoxesTodayAtMidnightInUTCNull")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetBoxStatistics");
+	
+			com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetBoxesTodayAtMidnightInUTCNull not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.box.data.GetBoxStatisticsResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetBoxesTodayAtMidnightInUTCNull";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

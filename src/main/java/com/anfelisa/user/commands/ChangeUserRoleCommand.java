@@ -27,7 +27,7 @@ public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 		if (!Roles.ADMIN.equals(this.commandData.getRole())) {
 			throwSecurityException();
 		}
-		if (!this.commandData.getNewRole().equals(Roles.ADMIN) || !this.commandData.getNewRole().equals(Roles.STUDENT)) {
+		if (!isRoleValid(this.commandData.getNewRole())) {
 			throwIllegalArgumentException("invalidRole");
 		}
 		IUserModel user = daoProvider.getUserDao().selectByUserId(readonlyHandle, commandData.getEditedUserId());
@@ -38,6 +38,10 @@ public class ChangeUserRoleCommand extends AbstractChangeUserRoleCommand {
 			throwIllegalArgumentException("adminRoleMustNotBeChanged");
 		}
 		this.commandData.setOutcome(ok);
+	}
+	
+	private boolean isRoleValid(String role) {
+		return (role.equals(Roles.ADMIN) || role.equals(Roles.STUDENT));
 	}
 
 }

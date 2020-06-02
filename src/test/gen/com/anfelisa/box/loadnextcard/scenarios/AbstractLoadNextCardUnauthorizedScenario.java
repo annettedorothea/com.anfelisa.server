@@ -337,6 +337,8 @@ public abstract class AbstractLoadNextCardUnauthorizedScenario extends BaseScena
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
 		com.anfelisa.box.data.LoadNextCardResponse actual = null;
@@ -344,39 +346,42 @@ public abstract class AbstractLoadNextCardUnauthorizedScenario extends BaseScena
 			actual = response.readEntity(com.anfelisa.box.data.LoadNextCardResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("LoadNextCardUnauthorized")) {
-						Response response = when();
 		
-						LOG.info("WHEN: LoadNextCard");
-				
-						com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for LoadNextCardUnauthorized not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.box.data.LoadNextCardResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "LoadNextCardUnauthorized";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("LoadNextCardUnauthorized")) {
+			Response response = when();
+
+			LOG.info("WHEN: LoadNextCard");
+	
+			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for LoadNextCardUnauthorized not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.box.data.LoadNextCardResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "LoadNextCardUnauthorized";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

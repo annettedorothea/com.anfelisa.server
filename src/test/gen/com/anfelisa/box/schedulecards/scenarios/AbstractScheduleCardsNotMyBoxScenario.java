@@ -312,40 +312,45 @@ public abstract class AbstractScheduleCardsNotMyBoxScenario extends BaseScenario
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ScheduleCardsNotMyBox")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ScheduleCards");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ScheduleCardsNotMyBox not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ScheduleCardsNotMyBox";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ScheduleCardsNotMyBox")) {
+			Response response = when();
+
+			LOG.info("WHEN: ScheduleCards");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ScheduleCardsNotMyBox not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ScheduleCardsNotMyBox";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

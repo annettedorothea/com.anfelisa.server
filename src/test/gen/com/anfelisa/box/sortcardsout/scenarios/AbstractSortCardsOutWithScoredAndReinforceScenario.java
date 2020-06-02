@@ -363,40 +363,45 @@ public abstract class AbstractSortCardsOutWithScoredAndReinforceScenario extends
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("SortCardsOutWithScoredAndReinforce")) {
-						Response response = when();
 		
-						LOG.info("WHEN: SortCardsOut");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for SortCardsOutWithScoredAndReinforce not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "SortCardsOutWithScoredAndReinforce";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("SortCardsOutWithScoredAndReinforce")) {
+			Response response = when();
+
+			LOG.info("WHEN: SortCardsOut");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for SortCardsOutWithScoredAndReinforce not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "SortCardsOutWithScoredAndReinforce";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

@@ -127,40 +127,45 @@ public abstract class AbstractUpdateBoxUnauthorizedScenario extends BaseScenario
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("UpdateBoxUnauthorized")) {
-						Response response = when();
 		
-						LOG.info("WHEN: UpdateBox");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for UpdateBoxUnauthorized not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "UpdateBoxUnauthorized";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("UpdateBoxUnauthorized")) {
+			Response response = when();
+
+			LOG.info("WHEN: UpdateBox");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for UpdateBoxUnauthorized not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "UpdateBoxUnauthorized";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

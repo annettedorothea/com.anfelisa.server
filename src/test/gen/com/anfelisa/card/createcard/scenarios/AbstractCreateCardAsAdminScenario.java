@@ -152,40 +152,45 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("CreateCardAsAdmin")) {
-						Response response = when();
 		
-						LOG.info("WHEN: CreateCard");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for CreateCardAsAdmin not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "CreateCardAsAdmin";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("CreateCardAsAdmin")) {
+			Response response = when();
+
+			LOG.info("WHEN: CreateCard");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for CreateCardAsAdmin not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "CreateCardAsAdmin";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

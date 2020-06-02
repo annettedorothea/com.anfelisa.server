@@ -103,40 +103,45 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("RegisterTwoUsers")) {
-						Response response = when();
 		
-						LOG.info("WHEN: RegisterUser");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for RegisterTwoUsers not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "RegisterTwoUsers";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("RegisterTwoUsers")) {
+			Response response = when();
+
+			LOG.info("WHEN: RegisterUser");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for RegisterTwoUsers not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "RegisterTwoUsers";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

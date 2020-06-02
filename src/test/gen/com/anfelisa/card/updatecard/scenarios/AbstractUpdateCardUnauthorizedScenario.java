@@ -179,40 +179,45 @@ public abstract class AbstractUpdateCardUnauthorizedScenario extends BaseScenari
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("UpdateCardUnauthorized")) {
-						Response response = when();
 		
-						LOG.info("WHEN: UpdateCard");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for UpdateCardUnauthorized not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "UpdateCardUnauthorized";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("UpdateCardUnauthorized")) {
+			Response response = when();
+
+			LOG.info("WHEN: UpdateCard");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for UpdateCardUnauthorized not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "UpdateCardUnauthorized";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

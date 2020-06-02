@@ -362,6 +362,8 @@ public abstract class AbstractLoadNextCardSecondScoredScenario extends BaseScena
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
 		com.anfelisa.box.data.LoadNextCardResponse actual = null;
@@ -387,39 +389,44 @@ public abstract class AbstractLoadNextCardSecondScoredScenario extends BaseScena
 
 
 		assertThat(actual, expected);
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("LoadNextCardSecondScored")) {
-						Response response = when();
 		
-						LOG.info("WHEN: LoadNextCard");
-				
-						com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for LoadNextCardSecondScored not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.box.data.LoadNextCardResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "LoadNextCardSecondScored";
-				}
+		LOG.info("THEN: response passed");
+		
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("LoadNextCardSecondScored")) {
+			Response response = when();
+
+			LOG.info("WHEN: LoadNextCard");
+	
+			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for LoadNextCardSecondScored not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.box.data.LoadNextCardResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "LoadNextCardSecondScored";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

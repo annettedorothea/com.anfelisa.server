@@ -283,40 +283,45 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ChangeOrderUnauthorized")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ChangeOrder");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ChangeOrderUnauthorized not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ChangeOrderUnauthorized";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ChangeOrderUnauthorized")) {
+			Response response = when();
+
+			LOG.info("WHEN: ChangeOrder");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ChangeOrderUnauthorized not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ChangeOrderUnauthorized";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

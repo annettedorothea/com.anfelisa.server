@@ -338,40 +338,45 @@ public abstract class AbstractSortCardsOutNotMyCardsScenario extends BaseScenari
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("SortCardsOutNotMyCards")) {
-						Response response = when();
 		
-						LOG.info("WHEN: SortCardsOut");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for SortCardsOutNotMyCards not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "SortCardsOutNotMyCards";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("SortCardsOutNotMyCards")) {
+			Response response = when();
+
+			LOG.info("WHEN: SortCardsOut");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for SortCardsOutNotMyCards not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "SortCardsOutNotMyCards";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

@@ -388,6 +388,8 @@ public abstract class AbstractGetBoxesWithAllScoredCardsSameDayScenario extends 
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
 		com.anfelisa.box.data.GetBoxesResponse actual = null;
@@ -407,39 +409,44 @@ public abstract class AbstractGetBoxesWithAllScoredCardsSameDayScenario extends 
 
 
 		assertThat(actual, expected);
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetBoxesWithAllScoredCardsSameDay")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetBoxes");
-				
-						com.anfelisa.box.data.GetBoxesResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetBoxesWithAllScoredCardsSameDay not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.box.data.GetBoxesResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetBoxesWithAllScoredCardsSameDay";
-				}
+		LOG.info("THEN: response passed");
+		
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetBoxesWithAllScoredCardsSameDay")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetBoxes");
+	
+			com.anfelisa.box.data.GetBoxesResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetBoxesWithAllScoredCardsSameDay not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.box.data.GetBoxesResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetBoxesWithAllScoredCardsSameDay";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

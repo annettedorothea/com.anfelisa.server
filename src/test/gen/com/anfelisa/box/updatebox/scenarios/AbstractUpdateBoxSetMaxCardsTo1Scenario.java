@@ -127,40 +127,45 @@ public abstract class AbstractUpdateBoxSetMaxCardsTo1Scenario extends BaseScenar
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("UpdateBoxSetMaxCardsTo1")) {
-						Response response = when();
 		
-						LOG.info("WHEN: UpdateBox");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for UpdateBoxSetMaxCardsTo1 not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "UpdateBoxSetMaxCardsTo1";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("UpdateBoxSetMaxCardsTo1")) {
+			Response response = when();
+
+			LOG.info("WHEN: UpdateBox");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for UpdateBoxSetMaxCardsTo1 not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "UpdateBoxSetMaxCardsTo1";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

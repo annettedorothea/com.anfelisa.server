@@ -202,40 +202,45 @@ public abstract class AbstractDeleteCategoryNoAccessScenario extends BaseScenari
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("DeleteCategoryNoAccess")) {
-						Response response = when();
 		
-						LOG.info("WHEN: DeleteCategory");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for DeleteCategoryNoAccess not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "DeleteCategoryNoAccess";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("DeleteCategoryNoAccess")) {
+			Response response = when();
+
+			LOG.info("WHEN: DeleteCategory");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for DeleteCategoryNoAccess not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "DeleteCategoryNoAccess";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

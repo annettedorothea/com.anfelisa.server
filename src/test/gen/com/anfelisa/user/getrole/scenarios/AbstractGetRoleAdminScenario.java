@@ -124,6 +124,8 @@ public abstract class AbstractGetRoleAdminScenario extends BaseScenario {
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
 		com.anfelisa.user.data.GetRoleResponse actual = null;
@@ -140,39 +142,44 @@ public abstract class AbstractGetRoleAdminScenario extends BaseScenario {
 
 
 		assertThat(actual, expected);
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetRoleAdmin")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetRole");
-				
-						com.anfelisa.user.data.GetRoleResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetRoleAdmin not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.user.data.GetRoleResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetRoleAdmin";
-				}
+		LOG.info("THEN: response passed");
+		
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetRoleAdmin")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetRole");
+	
+			com.anfelisa.user.data.GetRoleResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetRoleAdmin not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.user.data.GetRoleResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetRoleAdmin";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

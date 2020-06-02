@@ -334,6 +334,8 @@ public abstract class AbstractGetBoxesWithOneScoredCardNoReinforceSameDayScenari
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
 		com.anfelisa.box.data.GetBoxStatisticsResponse actual = null;
@@ -364,39 +366,44 @@ public abstract class AbstractGetBoxesWithOneScoredCardNoReinforceSameDayScenari
 
 
 		assertThat(actual, expected);
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetBoxesWithOneScoredCardNoReinforceSameDay")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetBoxStatistics");
-				
-						com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetBoxesWithOneScoredCardNoReinforceSameDay not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.box.data.GetBoxStatisticsResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetBoxesWithOneScoredCardNoReinforceSameDay";
-				}
+		LOG.info("THEN: response passed");
+		
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetBoxesWithOneScoredCardNoReinforceSameDay")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetBoxStatistics");
+	
+			com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetBoxesWithOneScoredCardNoReinforceSameDay not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.box.data.GetBoxStatisticsResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetBoxesWithOneScoredCardNoReinforceSameDay";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

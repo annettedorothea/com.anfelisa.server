@@ -124,6 +124,8 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
 		com.anfelisa.user.data.GetUserProfileResponse actual = null;
@@ -142,39 +144,44 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 
 
 		assertThat(actual, expected);
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetUserProfile")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetUserProfile");
-				
-						com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetUserProfile not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetUserProfile";
-				}
+		LOG.info("THEN: response passed");
+		
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetUserProfile")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetUserProfile");
+	
+			com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetUserProfile not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetUserProfile";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

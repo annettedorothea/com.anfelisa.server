@@ -307,6 +307,8 @@ public abstract class AbstractGetBoxesJustScheduledScenario extends BaseScenario
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
 		com.anfelisa.box.data.GetBoxStatisticsResponse actual = null;
@@ -337,39 +339,44 @@ public abstract class AbstractGetBoxesJustScheduledScenario extends BaseScenario
 
 
 		assertThat(actual, expected);
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetBoxesJustScheduled")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetBoxStatistics");
-				
-						com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetBoxesJustScheduled not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.box.data.GetBoxStatisticsResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetBoxesJustScheduled";
-				}
+		LOG.info("THEN: response passed");
+		
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetBoxesJustScheduled")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetBoxStatistics");
+	
+			com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetBoxesJustScheduled not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.box.data.GetBoxStatisticsResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetBoxesJustScheduled";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

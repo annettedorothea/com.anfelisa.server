@@ -307,6 +307,8 @@ public abstract class AbstractLoadNextCardTodayAtMidnightInUTCNullScenario exten
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
 		com.anfelisa.box.data.LoadNextCardResponse actual = null;
@@ -314,39 +316,42 @@ public abstract class AbstractLoadNextCardTodayAtMidnightInUTCNullScenario exten
 			actual = response.readEntity(com.anfelisa.box.data.LoadNextCardResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("LoadNextCardTodayAtMidnightInUTCNull")) {
-						Response response = when();
 		
-						LOG.info("WHEN: LoadNextCard");
-				
-						com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for LoadNextCardTodayAtMidnightInUTCNull not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.box.data.LoadNextCardResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "LoadNextCardTodayAtMidnightInUTCNull";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("LoadNextCardTodayAtMidnightInUTCNull")) {
+			Response response = when();
+
+			LOG.info("WHEN: LoadNextCard");
+	
+			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for LoadNextCardTodayAtMidnightInUTCNull not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.box.data.LoadNextCardResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "LoadNextCardTodayAtMidnightInUTCNull";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

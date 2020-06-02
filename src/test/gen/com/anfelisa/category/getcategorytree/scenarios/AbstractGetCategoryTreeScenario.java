@@ -198,6 +198,8 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
 		com.anfelisa.category.data.GetCategoryTreeResponse actual = null;
@@ -242,39 +244,44 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 
 
 		assertThat(actual, expected);
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetCategoryTree")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetCategoryTree");
-				
-						com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetCategoryTree not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetCategoryTree";
-				}
+		LOG.info("THEN: response passed");
+		
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetCategoryTree")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetCategoryTree");
+	
+			com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetCategoryTree not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetCategoryTree";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

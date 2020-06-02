@@ -95,6 +95,8 @@ public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario 
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
 		com.anfelisa.user.data.GetRoleResponse actual = null;
@@ -102,39 +104,42 @@ public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario 
 			actual = response.readEntity(com.anfelisa.user.data.GetRoleResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetRoleWrongPassword")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetRole");
-				
-						com.anfelisa.user.data.GetRoleResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetRoleWrongPassword not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.user.data.GetRoleResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetRoleWrongPassword";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetRoleWrongPassword")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetRole");
+	
+			com.anfelisa.user.data.GetRoleResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetRoleWrongPassword not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.user.data.GetRoleResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetRoleWrongPassword";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

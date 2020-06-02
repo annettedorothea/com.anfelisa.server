@@ -14,7 +14,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				boxList: [
 					{
 						boxId: "boxId-${testId}",
@@ -37,7 +37,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				boxList: [
 					{
 						boxId: "boxId-${testId}",
@@ -58,7 +58,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				boxList: [
 					{
 						boxId: "boxId-${testId}",
@@ -79,7 +79,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				boxList: [
 					{
 						boxId: "boxId-${testId}",
@@ -100,7 +100,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				boxList: [
 					{
 						boxId: "boxId-${testId}",
@@ -121,7 +121,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				boxList: [
 					{
 						boxId: "boxId-${testId}",
@@ -142,7 +142,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				boxList: [
 					{
 						boxId: "boxId-${testId}",
@@ -163,7 +163,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				boxList: [
 					{
 						boxId: "boxId-${testId}",
@@ -185,7 +185,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				boxList: [
 					{
 						boxId: "boxId-${testId}",
@@ -206,7 +206,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				boxList: [
 					{
 						boxId: "boxId-${testId}",

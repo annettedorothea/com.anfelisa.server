@@ -308,40 +308,45 @@ public abstract class AbstractInitMyBoxesForDayNothingScoredVeryMuchLaterScenari
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("InitMyBoxesForDayNothingScoredVeryMuchLater")) {
-						Response response = when();
 		
-						LOG.info("WHEN: InitMyBoxesForDay");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for InitMyBoxesForDayNothingScoredVeryMuchLater not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "InitMyBoxesForDayNothingScoredVeryMuchLater";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("InitMyBoxesForDayNothingScoredVeryMuchLater")) {
+			Response response = when();
+
+			LOG.info("WHEN: InitMyBoxesForDay");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for InitMyBoxesForDayNothingScoredVeryMuchLater not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "InitMyBoxesForDayNothingScoredVeryMuchLater";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

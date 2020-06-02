@@ -181,40 +181,45 @@ public abstract class AbstractImportCsvNoAccessToCategoryScenario extends BaseSc
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ImportCsvNoAccessToCategory")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ImportCsv");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ImportCsvNoAccessToCategory not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ImportCsvNoAccessToCategory";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ImportCsvNoAccessToCategory")) {
+			Response response = when();
+
+			LOG.info("WHEN: ImportCsv");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ImportCsvNoAccessToCategory not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ImportCsvNoAccessToCategory";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

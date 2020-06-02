@@ -97,40 +97,45 @@ public abstract class AbstractDeleteUserAsStudentScenario extends BaseScenario {
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("DeleteUserAsStudent")) {
-						Response response = when();
 		
-						LOG.info("WHEN: DeleteUser");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for DeleteUserAsStudent not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "DeleteUserAsStudent";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("DeleteUserAsStudent")) {
+			Response response = when();
+
+			LOG.info("WHEN: DeleteUser");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for DeleteUserAsStudent not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "DeleteUserAsStudent";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

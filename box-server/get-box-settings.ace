@@ -13,7 +13,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				categoryId: "boxId-${testId}",
 				categoryName: "cat",
 				dictionaryLookup: false,
@@ -30,7 +30,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				categoryId: "boxId-${testId}",
 				categoryName: "cat",
 				dictionaryLookup: true,

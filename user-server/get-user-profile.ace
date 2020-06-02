@@ -11,7 +11,7 @@ scenarios
 		WHEN com.anfelisa.user.GetUserProfile
 			authorization "Annette-${testId}" : "password"
 		THEN 200
-		response {
+		response shouldBe {
 			email : "annette.pohl@anfelisa.de",
 			username : "Annette-${testId}",
 			userId : "uuid-${testId}"
@@ -24,7 +24,7 @@ scenarios
 		WHEN com.anfelisa.user.GetUserProfile
 			authorization "Admin" : "admin-password"
 		THEN 200
-		response {
+		response shouldBe {
 			email : "annette.pohl@anfelisa.de",
 			username : "Admin",
 			userId: "uuid-admin"

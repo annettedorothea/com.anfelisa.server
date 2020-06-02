@@ -334,40 +334,45 @@ public abstract class AbstractDeleteBoxUnauthorizedScenario extends BaseScenario
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("DeleteBoxUnauthorized")) {
-						Response response = when();
 		
-						LOG.info("WHEN: DeleteBox");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for DeleteBoxUnauthorized not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "DeleteBoxUnauthorized";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("DeleteBoxUnauthorized")) {
+			Response response = when();
+
+			LOG.info("WHEN: DeleteBox");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for DeleteBoxUnauthorized not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "DeleteBoxUnauthorized";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

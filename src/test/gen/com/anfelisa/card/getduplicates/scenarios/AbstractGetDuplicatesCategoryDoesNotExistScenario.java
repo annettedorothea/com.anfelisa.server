@@ -283,6 +283,8 @@ public abstract class AbstractGetDuplicatesCategoryDoesNotExistScenario extends 
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
 		com.anfelisa.card.data.GetDuplicatesResponse actual = null;
@@ -290,39 +292,42 @@ public abstract class AbstractGetDuplicatesCategoryDoesNotExistScenario extends 
 			actual = response.readEntity(com.anfelisa.card.data.GetDuplicatesResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetDuplicatesCategoryDoesNotExist")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetDuplicates");
-				
-						com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetDuplicatesCategoryDoesNotExist not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetDuplicatesCategoryDoesNotExist";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetDuplicatesCategoryDoesNotExist")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetDuplicates");
+	
+			com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetDuplicatesCategoryDoesNotExist not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetDuplicatesCategoryDoesNotExist";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

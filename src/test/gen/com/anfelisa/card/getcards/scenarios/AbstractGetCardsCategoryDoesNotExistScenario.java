@@ -280,6 +280,8 @@ public abstract class AbstractGetCardsCategoryDoesNotExistScenario extends BaseS
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
 		com.anfelisa.card.data.GetCardsResponse actual = null;
@@ -287,39 +289,42 @@ public abstract class AbstractGetCardsCategoryDoesNotExistScenario extends BaseS
 			actual = response.readEntity(com.anfelisa.card.data.GetCardsResponse.class);
 		} catch (Exception x) {
 		}
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetCardsCategoryDoesNotExist")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetCards");
-				
-						com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetCardsCategoryDoesNotExist not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.card.data.GetCardsResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetCardsCategoryDoesNotExist";
-				}
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetCardsCategoryDoesNotExist")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetCards");
+	
+			com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetCardsCategoryDoesNotExist not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.card.data.GetCardsResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetCardsCategoryDoesNotExist";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

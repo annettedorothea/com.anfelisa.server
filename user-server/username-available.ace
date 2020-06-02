@@ -13,7 +13,7 @@ scenarios
 					username : "lala"
 				}
 		THEN 200
-		response {
+		response shouldBe {
 			available : true
 		}				
 
@@ -26,8 +26,7 @@ scenarios
 				}
 				
 		THEN 200
-		response
-		{
+		response shouldBe {
 			available : false
 		}
 	

@@ -412,6 +412,8 @@ public abstract class AbstractGetBoxesOneDayLaterScenario extends BaseScenario {
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
 		com.anfelisa.box.data.GetBoxesResponse actual = null;
@@ -431,39 +433,44 @@ public abstract class AbstractGetBoxesOneDayLaterScenario extends BaseScenario {
 
 
 		assertThat(actual, expected);
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetBoxesOneDayLater")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetBoxes");
-				
-						com.anfelisa.box.data.GetBoxesResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetBoxesOneDayLater not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.box.data.GetBoxesResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetBoxesOneDayLater";
-				}
+		LOG.info("THEN: response passed");
+		
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetBoxesOneDayLater")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetBoxes");
+	
+			com.anfelisa.box.data.GetBoxesResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetBoxesOneDayLater not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.box.data.GetBoxesResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetBoxesOneDayLater";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

@@ -126,40 +126,45 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ResetPasswordInvalidToken")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ResetPassword");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ResetPasswordInvalidToken not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ResetPasswordInvalidToken";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ResetPasswordInvalidToken")) {
+			Response response = when();
+
+			LOG.info("WHEN: ResetPassword");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ResetPasswordInvalidToken not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ResetPasswordInvalidToken";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

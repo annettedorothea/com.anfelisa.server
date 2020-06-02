@@ -101,40 +101,45 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ForgotPasswordUserDoesNotExist")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ForgotPassword");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ForgotPasswordUserDoesNotExist not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ForgotPasswordUserDoesNotExist";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ForgotPasswordUserDoesNotExist")) {
+			Response response = when();
+
+			LOG.info("WHEN: ForgotPassword");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ForgotPasswordUserDoesNotExist not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ForgotPasswordUserDoesNotExist";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

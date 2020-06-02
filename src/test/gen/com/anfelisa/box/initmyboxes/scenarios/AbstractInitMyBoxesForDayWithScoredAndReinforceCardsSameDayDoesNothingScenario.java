@@ -389,40 +389,45 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsSameDa
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("InitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing")) {
-						Response response = when();
 		
-						LOG.info("WHEN: InitMyBoxesForDay");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for InitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "InitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("InitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing")) {
+			Response response = when();
+
+			LOG.info("WHEN: InitMyBoxesForDay");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for InitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "InitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

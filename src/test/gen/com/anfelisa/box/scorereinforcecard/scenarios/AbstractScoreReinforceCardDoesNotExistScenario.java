@@ -337,40 +337,45 @@ public abstract class AbstractScoreReinforceCardDoesNotExistScenario extends Bas
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ScoreReinforceCardDoesNotExist")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ScoreReinforceCard");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ScoreReinforceCardDoesNotExist not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ScoreReinforceCardDoesNotExist";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ScoreReinforceCardDoesNotExist")) {
+			Response response = when();
+
+			LOG.info("WHEN: ScoreReinforceCard");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ScoreReinforceCardDoesNotExist not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ScoreReinforceCardDoesNotExist";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

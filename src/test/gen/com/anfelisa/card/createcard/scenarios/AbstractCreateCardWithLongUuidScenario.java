@@ -151,40 +151,45 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("CreateCardWithLongUuid")) {
-						Response response = when();
 		
-						LOG.info("WHEN: CreateCard");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for CreateCardWithLongUuid not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "CreateCardWithLongUuid";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("CreateCardWithLongUuid")) {
+			Response response = when();
+
+			LOG.info("WHEN: CreateCard");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for CreateCardWithLongUuid not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "CreateCardWithLongUuid";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

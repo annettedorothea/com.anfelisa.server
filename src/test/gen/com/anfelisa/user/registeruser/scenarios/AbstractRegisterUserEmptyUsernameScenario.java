@@ -72,40 +72,45 @@ public abstract class AbstractRegisterUserEmptyUsernameScenario extends BaseScen
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("RegisterUserEmptyUsername")) {
-						Response response = when();
 		
-						LOG.info("WHEN: RegisterUser");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for RegisterUserEmptyUsername not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "RegisterUserEmptyUsername";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("RegisterUserEmptyUsername")) {
+			Response response = when();
+
+			LOG.info("WHEN: RegisterUser");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for RegisterUserEmptyUsername not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "RegisterUserEmptyUsername";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

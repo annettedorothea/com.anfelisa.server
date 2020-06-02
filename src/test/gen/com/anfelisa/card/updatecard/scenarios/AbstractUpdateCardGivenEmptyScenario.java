@@ -179,40 +179,45 @@ public abstract class AbstractUpdateCardGivenEmptyScenario extends BaseScenario 
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("UpdateCardGivenEmpty")) {
-						Response response = when();
 		
-						LOG.info("WHEN: UpdateCard");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for UpdateCardGivenEmpty not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "UpdateCardGivenEmpty";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("UpdateCardGivenEmpty")) {
+			Response response = when();
+
+			LOG.info("WHEN: UpdateCard");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for UpdateCardGivenEmpty not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "UpdateCardGivenEmpty";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

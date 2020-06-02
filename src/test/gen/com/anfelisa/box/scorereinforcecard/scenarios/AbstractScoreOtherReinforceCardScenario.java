@@ -337,40 +337,45 @@ public abstract class AbstractScoreOtherReinforceCardScenario extends BaseScenar
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ScoreOtherReinforceCard")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ScoreReinforceCard");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ScoreOtherReinforceCard not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ScoreOtherReinforceCard";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ScoreOtherReinforceCard")) {
+			Response response = when();
+
+			LOG.info("WHEN: ScoreReinforceCard");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ScoreOtherReinforceCard not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ScoreOtherReinforceCard";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

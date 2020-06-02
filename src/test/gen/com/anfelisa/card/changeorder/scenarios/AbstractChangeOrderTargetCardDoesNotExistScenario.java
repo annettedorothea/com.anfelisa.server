@@ -283,40 +283,45 @@ public abstract class AbstractChangeOrderTargetCardDoesNotExistScenario extends 
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ChangeOrderTargetCardDoesNotExist")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ChangeOrder");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ChangeOrderTargetCardDoesNotExist not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ChangeOrderTargetCardDoesNotExist";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ChangeOrderTargetCardDoesNotExist")) {
+			Response response = when();
+
+			LOG.info("WHEN: ChangeOrder");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ChangeOrderTargetCardDoesNotExist not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ChangeOrderTargetCardDoesNotExist";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

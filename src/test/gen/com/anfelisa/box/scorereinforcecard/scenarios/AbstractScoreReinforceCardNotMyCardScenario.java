@@ -366,40 +366,45 @@ public abstract class AbstractScoreReinforceCardNotMyCardScenario extends BaseSc
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ScoreReinforceCardNotMyCard")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ScoreReinforceCard");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ScoreReinforceCardNotMyCard not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ScoreReinforceCardNotMyCard";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ScoreReinforceCardNotMyCard")) {
+			Response response = when();
+
+			LOG.info("WHEN: ScoreReinforceCard");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ScoreReinforceCardNotMyCard not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ScoreReinforceCardNotMyCard";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

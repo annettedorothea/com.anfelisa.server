@@ -334,6 +334,8 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
 		com.anfelisa.box.data.GetBoxStatisticsResponse actual = null;
@@ -364,39 +366,44 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 
 
 		assertThat(actual, expected);
-			
-			return actual;
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("GetBoxesWithOneScoredCard0AndReinforceSameDay")) {
-						Response response = when();
 		
-						LOG.info("WHEN: GetBoxStatistics");
-				
-						com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
-						
-						verifications(actualResponse);
-					} else {
-						LOG.info("WHEN: prerequisite for GetBoxesWithOneScoredCard0AndReinforceSameDay not met");
-					}
-				}
-				
-				protected abstract void verifications(com.anfelisa.box.data.GetBoxStatisticsResponse response);
-				
-				@Override
-				protected String scenarioName() {
-					return "GetBoxesWithOneScoredCard0AndReinforceSameDay";
-				}
+		LOG.info("THEN: response passed");
+		
+		return actual;
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("GetBoxesWithOneScoredCard0AndReinforceSameDay")) {
+			Response response = when();
+
+			LOG.info("WHEN: GetBoxStatistics");
+	
+			com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications(actualResponse);
+		} else {
+			LOG.info("WHEN: prerequisite for GetBoxesWithOneScoredCard0AndReinforceSameDay not met");
+		}
+	}
+	
+	protected abstract void verifications(com.anfelisa.box.data.GetBoxStatisticsResponse response);
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "GetBoxesWithOneScoredCard0AndReinforceSameDay";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

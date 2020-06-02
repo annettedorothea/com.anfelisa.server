@@ -255,40 +255,45 @@ public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extend
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ChangeOrderNoAccessToTargetCategory")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ChangeOrderCategory");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ChangeOrderNoAccessToTargetCategory not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ChangeOrderNoAccessToTargetCategory";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ChangeOrderNoAccessToTargetCategory")) {
+			Response response = when();
+
+			LOG.info("WHEN: ChangeOrderCategory");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ChangeOrderNoAccessToTargetCategory not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ChangeOrderNoAccessToTargetCategory";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

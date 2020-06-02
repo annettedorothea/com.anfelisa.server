@@ -128,40 +128,62 @@ public abstract class AbstractChangeUserRoleToAdminScenario extends BaseScenario
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ChangeUserRoleToAdmin")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ChangeUserRole");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ChangeUserRoleToAdmin not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ChangeUserRoleToAdmin";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ChangeUserRoleToAdmin")) {
+			Response response = when();
+
+			LOG.info("WHEN: ChangeUserRole");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+			this.roleWasChangedToADMIN();
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ChangeUserRoleToAdmin not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	private void roleWasChangedToADMIN() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"emailConfirmed\" : false," + 
+				"\"password\" : \"password\"," + 
+				"\"role\" : \"ADMIN\"," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.UserModel.class);
+		
+		assertThat(actual, expected);
+
+		LOG.info("THEN: roleWasChangedToADMIN passed");
+	}
+	
+	@Override
+	protected String scenarioName() {
+		return "ChangeUserRoleToAdmin";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

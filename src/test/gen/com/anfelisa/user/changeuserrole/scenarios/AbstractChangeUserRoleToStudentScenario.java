@@ -153,40 +153,62 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 		if (response.getStatus() != 200) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 200 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ChangeUserRoleToStudent")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ChangeUserRole");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ChangeUserRoleToStudent not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ChangeUserRoleToStudent";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ChangeUserRoleToStudent")) {
+			Response response = when();
+
+			LOG.info("WHEN: ChangeUserRole");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+			this.roleWasChangedToSTUDENT();
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ChangeUserRoleToStudent not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	private void roleWasChangedToSTUDENT() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"emailConfirmed\" : false," + 
+				"\"password\" : \"password\"," + 
+				"\"role\" : \"STUDENT\"," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.UserModel.class);
+		
+		assertThat(actual, expected);
+
+		LOG.info("THEN: roleWasChangedToSTUDENT passed");
+	}
+	
+	@Override
+	protected String scenarioName() {
+		return "ChangeUserRoleToStudent";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

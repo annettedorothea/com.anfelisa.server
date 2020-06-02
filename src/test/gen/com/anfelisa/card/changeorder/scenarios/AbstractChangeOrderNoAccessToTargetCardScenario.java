@@ -284,40 +284,45 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 		if (response.getStatus() != 401) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 401 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ChangeOrderNoAccessToTargetCard")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ChangeOrder");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ChangeOrderNoAccessToTargetCard not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ChangeOrderNoAccessToTargetCard";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ChangeOrderNoAccessToTargetCard")) {
+			Response response = when();
+
+			LOG.info("WHEN: ChangeOrder");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ChangeOrderNoAccessToTargetCard not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ChangeOrderNoAccessToTargetCard";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

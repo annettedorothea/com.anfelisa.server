@@ -108,7 +108,7 @@ public abstract class AbstractChangeUserRoleUserDoesNotExistScenario extends Bas
 		com.anfelisa.user.data.ChangeUserRoleData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"editedUserId\" : \"doesNotExist\"," + 
-				"\"newRole\" : \"STUDENT\"} ",
+				"\"newRole\" : \"ADMIN\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class);
 		
 		return 
@@ -128,40 +128,45 @@ public abstract class AbstractChangeUserRoleUserDoesNotExistScenario extends Bas
 		if (response.getStatus() != 400) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
+		} else {
+			LOG.info("THEN: status 400 passed");
 		}
 		
-			
-				}
-				
-				@Override
-				public void runTest() throws Exception {
-					given();
-						
-					if (prerequisite("ChangeUserRoleUserDoesNotExist")) {
-						Response response = when();
 		
-						LOG.info("WHEN: ChangeUserRole");
-				
-						then(response);
-						
-						verifications();
-					} else {
-						LOG.info("WHEN: prerequisite for ChangeUserRoleUserDoesNotExist not met");
-					}
-				}
-				
-				protected abstract void verifications();
-				
-				@Override
-				protected String scenarioName() {
-					return "ChangeUserRoleUserDoesNotExist";
-				}
+	}
 			
-			}
+	@Override
+	public void runTest() throws Exception {
+		given();
 			
+		if (prerequisite("ChangeUserRoleUserDoesNotExist")) {
+			Response response = when();
+
+			LOG.info("WHEN: ChangeUserRole");
+	
+			then(response);
 			
-			
-			/******* S.D.G. *******/
-			
-			
+		
+			verifications();
+		} else {
+			LOG.info("WHEN: prerequisite for ChangeUserRoleUserDoesNotExist not met");
+		}
+	}
+	
+	protected abstract void verifications();
+	
+	
+	
+	@Override
+	protected String scenarioName() {
+		return "ChangeUserRoleUserDoesNotExist";
+	}
+
+}
+
+
+
+/******* S.D.G. *******/
+
+
 			

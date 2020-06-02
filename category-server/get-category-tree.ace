@@ -13,7 +13,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				rootCategory : {
 					categoryId: "boxId-${testId}",
 					categoryIndex: 1,
@@ -67,7 +67,7 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
-			response {
+			response shouldBe {
 				rootCategory : {
 					categoryId: "boxId-${testId}",
 					categoryIndex: 1,
