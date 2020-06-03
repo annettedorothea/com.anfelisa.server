@@ -121,6 +121,10 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 	
 			then(response);
 			
+			this.userWasCreated();
+			this.emailConfirmationWasCreated();
+			this.secondUserWasCreated();
+			this.secondUmailConfirmationWasCreated();
 		
 			verifications();
 		} else {
@@ -131,6 +135,66 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 	protected abstract void verifications();
 	
 	
+	private void userWasCreated() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"emailConfirmed\" : false," + 
+				"\"password\" : \"password\"," + 
+				"\"role\" : \"STUDENT\"," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.UserModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: userWasCreated passed");
+	}
+	private void emailConfirmationWasCreated() throws Exception {
+		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IEmailConfirmationModel expected = objectMapper.readValue("{" +
+			"\"token\" : \"TOKEN-" + this.getTestId() + "\"," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.EmailConfirmationModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: emailConfirmationWasCreated passed");
+	}
+	private void secondUserWasCreated() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid2-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+			"\"email\" : \"info@anfelisa.de\"," + 
+				"\"emailConfirmed\" : false," + 
+				"\"password\" : \"pw\"," + 
+				"\"role\" : \"STUDENT\"," + 
+				"\"userId\" : \"uuid2-" + this.getTestId() + "\"," + 
+				"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.UserModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: secondUserWasCreated passed");
+	}
+	private void secondUmailConfirmationWasCreated() throws Exception {
+		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN_2-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IEmailConfirmationModel expected = objectMapper.readValue("{" +
+			"\"token\" : \"TOKEN_2-" + this.getTestId() + "\"," + 
+				"\"userId\" : \"uuid2-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.EmailConfirmationModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: secondUmailConfirmationWasCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

@@ -142,6 +142,8 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 	
 			then(response);
 			
+			this.confirmedIsStillTrue();
+			this.tokenWasDeleted();
 		
 			verifications();
 		} else {
@@ -152,6 +154,32 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 	protected abstract void verifications();
 	
 	
+	private void confirmedIsStillTrue() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"emailConfirmed\" : true," + 
+				"\"password\" : \"password\"," + 
+				"\"role\" : \"STUDENT\"," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.UserModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: confirmedIsStillTrue passed");
+	}
+	private void tokenWasDeleted() throws Exception {
+		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+		
+		
+
+		LOG.info("THEN: tokenWasDeleted passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

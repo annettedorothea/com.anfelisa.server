@@ -119,6 +119,7 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 	
 			then(response);
 			
+			this.resetPasswordTokenWasNotCreated();
 		
 			verifications();
 		} else {
@@ -129,6 +130,15 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 	protected abstract void verifications();
 	
 	
+	private void resetPasswordTokenWasNotCreated() throws Exception {
+		com.anfelisa.user.models.IResetPasswordModel actual = daoProvider.getResetPasswordDao().selectByToken(handle, "RESET-PW-TOKEN-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+		
+		
+
+		LOG.info("THEN: resetPasswordTokenWasNotCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

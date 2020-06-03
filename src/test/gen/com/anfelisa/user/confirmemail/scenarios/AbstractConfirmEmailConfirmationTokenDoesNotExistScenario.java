@@ -117,6 +117,8 @@ public abstract class AbstractConfirmEmailConfirmationTokenDoesNotExistScenario 
 	
 			then(response);
 			
+			this.confirmedIsNotSetToTrue();
+			this.tokenIsNotDeleted();
 		
 			verifications();
 		} else {
@@ -127,6 +129,32 @@ public abstract class AbstractConfirmEmailConfirmationTokenDoesNotExistScenario 
 	protected abstract void verifications();
 	
 	
+	private void confirmedIsNotSetToTrue() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"emailConfirmed\" : false," + 
+				"\"password\" : \"password\"," + 
+				"\"role\" : \"STUDENT\"," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.UserModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: confirmedIsNotSetToTrue passed");
+	}
+	private void tokenIsNotDeleted() throws Exception {
+		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN-" + this.getTestId() + "");
+		
+		assertIsNotNull(actual);
+		
+		
+
+		LOG.info("THEN: tokenIsNotDeleted passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

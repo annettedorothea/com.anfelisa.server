@@ -19,6 +19,8 @@
 
 package com.anfelisa.user.confirmemail.scenarios;
 
+import org.junit.jupiter.api.extension.ExtensionContext;
+
 import com.anfelisa.auth.Roles;
 import com.anfelisa.user.models.EmailConfirmationModel;
 import com.anfelisa.user.models.IEmailConfirmationModel;
@@ -30,22 +32,8 @@ public class ConfirmEmailTokenDoesNotMatchScenario extends AbstractConfirmEmailT
 
 	@Override
 	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
-		IUserModel expectedUser = new UserModel("uuid-" + getTestId(), "Annette-" + getTestId(), "password", "annette.pohl@anfelisa.de", Roles.STUDENT, false);
-		assertThat(actualUser, expectedUser);
-		
-		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN-" + getTestId());
-		IEmailConfirmationModel expectedEmailConfirmationModel = new EmailConfirmationModel("TOKEN-" + getTestId(), "uuid-" + getTestId());
-		assertThat(actualEmailConfirmationModel, expectedEmailConfirmationModel);
-
-		actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Admin");
-		expectedUser = new UserModel("uuid-admin", "Admin", "admin-password", "annette.pohl@anfelisa.de", Roles.ADMIN, false);
-		assertThat(actualUser, expectedUser);
-		
-		actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao().selectByToken(handle, "ADMIN-TOKEN");
-		expectedEmailConfirmationModel = new EmailConfirmationModel("ADMIN-TOKEN", "uuid-admin");
-		assertThat(actualEmailConfirmationModel, expectedEmailConfirmationModel);
 	}
+
 
 }
 

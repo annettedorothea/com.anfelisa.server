@@ -108,7 +108,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	public void after() {
 		handle.getHandle().close();
 	}
-	
+
 	@Test
 	public void test() throws Exception {
 		this.runTest();

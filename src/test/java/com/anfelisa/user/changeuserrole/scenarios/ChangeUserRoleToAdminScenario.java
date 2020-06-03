@@ -19,9 +19,6 @@
 
 package com.anfelisa.user.changeuserrole.scenarios;
 
-import javax.ws.rs.core.Response;
-
-@SuppressWarnings("unused")
 public class ChangeUserRoleToAdminScenario extends AbstractChangeUserRoleToAdminScenario {
 
 	@Override

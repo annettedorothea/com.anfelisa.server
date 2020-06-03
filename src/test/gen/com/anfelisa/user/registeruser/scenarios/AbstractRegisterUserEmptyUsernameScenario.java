@@ -46,7 +46,9 @@ public abstract class AbstractRegisterUserEmptyUsernameScenario extends BaseScen
 	}
 	
 	private Response when() throws Exception {
-		String uuid = this.randomUUID();
+		String uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+		this.callNotReplayableDataProviderPutValue(uuid, "token", 
+					objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 		com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -90,6 +92,8 @@ public abstract class AbstractRegisterUserEmptyUsernameScenario extends BaseScen
 	
 			then(response);
 			
+			this.userWasNotCreated();
+			this.emailConfirmationWasNotCreated();
 		
 			verifications();
 		} else {
@@ -100,6 +104,24 @@ public abstract class AbstractRegisterUserEmptyUsernameScenario extends BaseScen
 	protected abstract void verifications();
 	
 	
+	private void userWasNotCreated() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+		
+		
+
+		LOG.info("THEN: userWasNotCreated passed");
+	}
+	private void emailConfirmationWasNotCreated() throws Exception {
+		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+		
+		
+
+		LOG.info("THEN: emailConfirmationWasNotCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

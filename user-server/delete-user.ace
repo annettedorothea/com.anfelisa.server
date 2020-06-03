@@ -13,7 +13,9 @@ scenarios
 		}
 		authorization "Admin": "admin-password"
 		THEN 200
-
+		persistence
+			userWasDeleted User selectBy(username: "Annette-${testId}") shouldBe null
+			
 	DeleteUserUnauthorizedNotAdmin
 		GIVEN
 			com.anfelisa.user.registeruser.RegisterTwoUsers
@@ -22,6 +24,8 @@ scenarios
 		}
 		authorization "Anne-${testId}": "pw"
 		THEN 401
+		persistence
+			userWasNotDeleted User selectBy(username: "Annette-${testId}") shouldBe notNull
 
 	DeleteUserUnauthorized
 		GIVEN
@@ -30,6 +34,8 @@ scenarios
 			usernameToBeDeleted: "Annette-${testId}"
 		}
 		THEN 401
+		persistence
+			userWasNotDeleted User selectBy(username: "Annette-${testId}") shouldBe notNull
 
 	DeleteUserAsStudent
 		GIVEN
@@ -39,6 +45,8 @@ scenarios
 		}
 		authorization "Annette-${testId}": "password"
 		THEN 200
+		persistence
+			userWasDeleted User selectBy(username: "Annette-${testId}") shouldBe null
 
 	DeleteUserDoesNotExist
 		GIVEN
@@ -57,6 +65,8 @@ scenarios
 		}
 		authorization "Admin": "admin-password"
 		THEN 400
+		persistence
+			userWasNotDeleted User selectBy(username: "Admin") shouldBe notNull
 
 	DeleteAdmin
 		GIVEN
@@ -68,6 +78,8 @@ scenarios
 		}
 		authorization "Admin": "admin-password"
 		THEN 200
+		persistence
+			userWasDeleted User selectBy(username: "Annette-${testId}") shouldBe null
 
 
 	DeleteCascades
@@ -79,4 +91,20 @@ scenarios
 		}
 		authorization "Annette-${testId}" : "password"
 		THEN 200
-
+		persistence
+			userWasDeleted User selectBy(username: "Annette-${testId}") shouldBe null
+			boxWasDeleted Box selectBy(boxId: "boxId-${testId}") shouldBe null
+			otherUserWasNotDeleted User selectBy(username: "Admin") shouldBe notNull
+			otherBoxWasNotDeleted Box selectBy(boxId: "adminBox-${testId}") shouldBe notNull
+		verifications
+			accessToCategoryWasDeleted
+			allCategoriesWereDeleted
+			allCardsWereDeleted
+			allScheduledCardsWereDeleted
+			allReinforceCardsWereDeleted
+			
+			accessToCategoryOfOtherUserWasNotDeleted
+			categoriesOfOtherUserWereNotDeleted
+			cardsOfOtherUserWereNotDeleted
+			scheduledCardsOfOtherUserWereNotDeleted
+			reinforceCardsOfOtherUserWereNotDeleted

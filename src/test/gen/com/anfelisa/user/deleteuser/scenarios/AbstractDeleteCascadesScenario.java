@@ -511,8 +511,22 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 	
 			then(response);
 			
+			this.userWasDeleted();
+			this.boxWasDeleted();
+			this.otherUserWasNotDeleted();
+			this.otherBoxWasNotDeleted();
 		
 			verifications();
+			accessToCategoryWasDeleted();
+			allCategoriesWereDeleted();
+			allCardsWereDeleted();
+			allScheduledCardsWereDeleted();
+			allReinforceCardsWereDeleted();
+			accessToCategoryOfOtherUserWasNotDeleted();
+			categoriesOfOtherUserWereNotDeleted();
+			cardsOfOtherUserWereNotDeleted();
+			scheduledCardsOfOtherUserWereNotDeleted();
+			reinforceCardsOfOtherUserWereNotDeleted();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCascades not met");
 		}
@@ -520,7 +534,53 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 	
 	protected abstract void verifications();
 	
+	protected abstract void accessToCategoryWasDeleted();
+	protected abstract void allCategoriesWereDeleted();
+	protected abstract void allCardsWereDeleted();
+	protected abstract void allScheduledCardsWereDeleted();
+	protected abstract void allReinforceCardsWereDeleted();
+	protected abstract void accessToCategoryOfOtherUserWasNotDeleted();
+	protected abstract void categoriesOfOtherUserWereNotDeleted();
+	protected abstract void cardsOfOtherUserWereNotDeleted();
+	protected abstract void scheduledCardsOfOtherUserWereNotDeleted();
+	protected abstract void reinforceCardsOfOtherUserWereNotDeleted();
 	
+	private void userWasDeleted() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+		
+		
+
+		LOG.info("THEN: userWasDeleted passed");
+	}
+	private void boxWasDeleted() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+		
+		
+
+		LOG.info("THEN: boxWasDeleted passed");
+	}
+	private void otherUserWasNotDeleted() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Admin");
+		
+		assertIsNotNull(actual);
+		
+		
+
+		LOG.info("THEN: otherUserWasNotDeleted passed");
+	}
+	private void otherBoxWasNotDeleted() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "adminBox-" + this.getTestId() + "");
+		
+		assertIsNotNull(actual);
+		
+		
+
+		LOG.info("THEN: otherBoxWasNotDeleted passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

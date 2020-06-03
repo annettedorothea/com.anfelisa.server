@@ -19,11 +19,6 @@
 
 package com.anfelisa.user.changeuserrole.scenarios;
 
-import com.anfelisa.auth.Roles;
-import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserModel;
-
-@SuppressWarnings("unused")
 public class ChangeUserRoleToStudentScenario extends AbstractChangeUserRoleToStudentScenario {
 
 	@Override

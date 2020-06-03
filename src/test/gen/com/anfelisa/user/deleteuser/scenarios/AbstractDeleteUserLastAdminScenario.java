@@ -115,6 +115,7 @@ public abstract class AbstractDeleteUserLastAdminScenario extends BaseScenario {
 	
 			then(response);
 			
+			this.userWasNotDeleted();
 		
 			verifications();
 		} else {
@@ -125,6 +126,15 @@ public abstract class AbstractDeleteUserLastAdminScenario extends BaseScenario {
 	protected abstract void verifications();
 	
 	
+	private void userWasNotDeleted() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Admin");
+		
+		assertIsNotNull(actual);
+		
+		
+
+		LOG.info("THEN: userWasNotDeleted passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

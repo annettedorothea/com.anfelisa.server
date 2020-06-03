@@ -144,6 +144,8 @@ public abstract class AbstractResetPasswordScenario extends BaseScenario {
 	
 			then(response);
 			
+			this.passwordWasChanged();
+			this.tokenWasDeleted();
 		
 			verifications();
 		} else {
@@ -154,6 +156,32 @@ public abstract class AbstractResetPasswordScenario extends BaseScenario {
 	protected abstract void verifications();
 	
 	
+	private void passwordWasChanged() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"emailConfirmed\" : false," + 
+				"\"password\" : \"newPassword\"," + 
+				"\"role\" : \"STUDENT\"," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.UserModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: passwordWasChanged passed");
+	}
+	private void tokenWasDeleted() throws Exception {
+		com.anfelisa.user.models.IResetPasswordModel actual = daoProvider.getResetPasswordDao().selectByToken(handle, "RESET-PW-TOKEN-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+		
+		
+
+		LOG.info("THEN: tokenWasDeleted passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

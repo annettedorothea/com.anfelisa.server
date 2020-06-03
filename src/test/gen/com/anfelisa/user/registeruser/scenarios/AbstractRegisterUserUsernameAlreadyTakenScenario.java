@@ -121,6 +121,10 @@ public abstract class AbstractRegisterUserUsernameAlreadyTakenScenario extends B
 	
 			then(response);
 			
+			this.userWasNotCreated();
+			this.emailConfirmationWasNotCreated();
+			this.existingUserWasNotTouched();
+			this.existingEmailConfirmationWasNotTouched();
 		
 			verifications();
 		} else {
@@ -131,6 +135,54 @@ public abstract class AbstractRegisterUserUsernameAlreadyTakenScenario extends B
 	protected abstract void verifications();
 	
 	
+	private void userWasNotCreated() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-at-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+		
+		
+
+		LOG.info("THEN: userWasNotCreated passed");
+	}
+	private void emailConfirmationWasNotCreated() throws Exception {
+		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "XXX-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+		
+		
+
+		LOG.info("THEN: emailConfirmationWasNotCreated passed");
+	}
+	private void existingUserWasNotTouched() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"emailConfirmed\" : false," + 
+				"\"password\" : \"password\"," + 
+				"\"role\" : \"STUDENT\"," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.UserModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: existingUserWasNotTouched passed");
+	}
+	private void existingEmailConfirmationWasNotTouched() throws Exception {
+		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IEmailConfirmationModel expected = objectMapper.readValue("{" +
+			"\"token\" : \"TOKEN-" + this.getTestId() + "\"," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.EmailConfirmationModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: existingEmailConfirmationWasNotTouched passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

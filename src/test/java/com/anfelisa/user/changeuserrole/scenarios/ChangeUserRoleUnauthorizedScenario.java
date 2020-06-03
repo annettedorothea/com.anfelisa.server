@@ -19,7 +19,6 @@
 
 package com.anfelisa.user.changeuserrole.scenarios;
 
-@SuppressWarnings("unused")
 public class ChangeUserRoleUnauthorizedScenario extends AbstractChangeUserRoleUnauthorizedScenario {
 
 	@Override

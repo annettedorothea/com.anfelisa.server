@@ -139,8 +139,9 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 				"\"userId\" : \"uuid-admin\"," + 
 				"\"username\" : \"Admin\"} ",
 		com.anfelisa.user.models.UserModel.class);
-		
 		assertThat(actual, expected);
+		
+		
 
 		LOG.info("THEN: roleWasNotChanged passed");
 	}

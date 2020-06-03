@@ -30,20 +30,6 @@ public class RegisterUserUsernameAlreadyTakenScenario extends AbstractRegisterUs
 
 	@Override
 	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUserId(handle, "uuid-at-" + getTestId());
-		assertIsNull(actualUser);
-
-		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao()
-				.selectByToken(handle, "XXX-" + getTestId());
-		assertIsNull(actualEmailConfirmationModel);
-
-		actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
-		IUserModel expectedUser = new UserModel("uuid-" + getTestId(), "Annette-" + getTestId(), "password", "annette.pohl@anfelisa.de", Roles.STUDENT, false);
-		assertThat(actualUser, expectedUser);
-
-		actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN-" + getTestId());
-		IEmailConfirmationModel expectedEmailConfirmationModel = new EmailConfirmationModel("TOKEN-" + getTestId(), "uuid-" + getTestId());
-		assertThat(actualEmailConfirmationModel, expectedEmailConfirmationModel);
 	}
 
 }

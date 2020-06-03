@@ -119,6 +119,7 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 	
 			then(response);
 			
+			this.resetPasswordTokenWasCreated();
 		
 			verifications();
 		} else {
@@ -129,6 +130,19 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 	protected abstract void verifications();
 	
 	
+	private void resetPasswordTokenWasCreated() throws Exception {
+		com.anfelisa.user.models.IResetPasswordModel actual = daoProvider.getResetPasswordDao().selectByToken(handle, "RESET-PW-TOKEN-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IResetPasswordModel expected = objectMapper.readValue("{" +
+			"\"token\" : \"RESET-PW-TOKEN-" + this.getTestId() + "\"," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.ResetPasswordModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: resetPasswordTokenWasCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

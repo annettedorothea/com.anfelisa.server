@@ -19,7 +19,6 @@
 
 package com.anfelisa.user.changeuserrole.scenarios;
 
-@SuppressWarnings("unused")
 public class ChangeUserRoleUserDoesNotExistScenario extends AbstractChangeUserRoleUserDoesNotExistScenario {
 
 	@Override

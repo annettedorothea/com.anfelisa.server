@@ -144,6 +144,7 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 	
 			then(response);
 			
+			this.userWasNotDeleted();
 		
 			verifications();
 		} else {
@@ -154,6 +155,15 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 	protected abstract void verifications();
 	
 	
+	private void userWasNotDeleted() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
+		
+		assertIsNotNull(actual);
+		
+		
+
+		LOG.info("THEN: userWasNotDeleted passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

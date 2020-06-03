@@ -193,8 +193,9 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.models.UserModel.class);
-		
 		assertThat(actual, expected);
+		
+		
 
 		LOG.info("THEN: roleWasChangedToSTUDENT passed");
 	}

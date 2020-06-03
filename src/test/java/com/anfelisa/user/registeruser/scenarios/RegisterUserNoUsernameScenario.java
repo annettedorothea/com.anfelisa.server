@@ -27,12 +27,6 @@ public class RegisterUserNoUsernameScenario extends AbstractRegisterUserNoUserna
 
 	@Override
 	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
-		assertIsNull(actualUser);
-
-		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao()
-				.selectByToken(handle, "TOKEN-" + getTestId());
-		assertIsNull(actualEmailConfirmationModel);
 	}
 
 }

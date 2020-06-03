@@ -15,6 +15,20 @@ scenarios
 				token : "TOKEN-${testId}"	
 			}
 		THEN 200
+		persistence
+			userWasCreated User selectBy ( userId: "uuid-${testId}") shouldBe 
+			{
+				email : "annette.pohl@anfelisa.de",
+				emailConfirmed: false,
+				password: "password",
+				role: "STUDENT",
+				userId: "uuid-${testId}",
+				username: "Annette-${testId}"
+			}
+			emailConfirmationWasCreated EmailConfirmation selectBy ( token: "TOKEN-${testId}" ) shouldBe {
+				token: "TOKEN-${testId}",
+				userId: "uuid-${testId}"
+			}
 	
 	RegisterTwoUsers
 		GIVEN RegisterUser 
@@ -28,6 +42,33 @@ scenarios
 				token : "TOKEN_2-${testId}"	
 			}
 		THEN 200
+		persistence
+			userWasCreated User selectBy ( userId: "uuid-${testId}") shouldBe 
+			{
+				email : "annette.pohl@anfelisa.de",
+				emailConfirmed: false,
+				password: "password",
+				role: "STUDENT",
+				userId: "uuid-${testId}",
+				username: "Annette-${testId}"
+			}
+			emailConfirmationWasCreated EmailConfirmation selectBy ( token: "TOKEN-${testId}" ) shouldBe {
+				token: "TOKEN-${testId}",
+				userId: "uuid-${testId}"
+			}
+			secondUserWasCreated User selectBy ( userId: "uuid2-${testId}") shouldBe 
+			{
+				email : "info@anfelisa.de",
+				emailConfirmed: false,
+				password: "pw",
+				role: "STUDENT",
+				userId: "uuid2-${testId}",
+				username: "Anne-${testId}"
+			}
+			secondUmailConfirmationWasCreated EmailConfirmation selectBy ( token: "TOKEN_2-${testId}" ) shouldBe {
+				token: "TOKEN_2-${testId}",
+				userId: "uuid2-${testId}"
+			}
 	
 	RegisterUserAdmin 
 		WHEN com.anfelisa.user.RegisterUser
@@ -40,35 +81,64 @@ scenarios
 				token : "ADMIN-TOKEN"				
 			}
 		THEN 200
+		persistence
+			userWasCreated User selectBy ( userId: "uuid-admin") shouldBe 
+			{
+				email : "annette.pohl@anfelisa.de",
+				emailConfirmed: false,
+				password: "admin-password",
+				role: "ADMIN",
+				userId: "uuid-admin",
+				username: "Admin"
+			}
+			emailConfirmationWasCreated EmailConfirmation selectBy ( token: "ADMIN-TOKEN" ) shouldBe {
+				token: "ADMIN-TOKEN",
+				userId: "uuid-admin"
+			}
 	
 	RegisterUserEmptyUsername 
 		WHEN com.anfelisa.user.RegisterUser 
+			uuid "uuid-${testId}" 
 			{ 
 				email : "annette.pohl@anfelisa.de",
 				language : "de",
 				password : "password",
-				username : ""
+				username : "",
+				token : "TOKEN-${testId}"
 			}
 		THEN 400
+		persistence
+			userWasNotCreated User selectBy ( userId: "uuid-${testId}") shouldBe null
+			emailConfirmationWasNotCreated EmailConfirmation selectBy ( token: "TOKEN-${testId}" ) shouldBe null
 	
 	RegisterUserBlankUsername 
 		WHEN com.anfelisa.user.RegisterUser
+			uuid "uuid-${testId}" 
 			{ 
 				email : "annette.pohl@anfelisa.de",
 				language : "de",
 				password : "password",
-				username : "  "
+				username : "  ",
+				token : "TOKEN-${testId}"
 			}
 		THEN 400
+		persistence
+			userWasNotCreated User selectBy ( userId: "uuid-${testId}") shouldBe null
+			emailConfirmationWasNotCreated EmailConfirmation selectBy ( token: "TOKEN-${testId}" ) shouldBe null
 	
 	RegisterUserNoUsername 
 		WHEN com.anfelisa.user.RegisterUser 
+			uuid "uuid-${testId}" 
 			{ 
 				email : "annette.pohl@anfelisa.de",
 				language : "de",
-				password : "password"
+				password : "password",
+				token : "TOKEN-${testId}"
 			}
 		THEN 400
+		persistence
+			userWasNotCreated User selectBy ( userId: "uuid-${testId}") shouldBe null
+			emailConfirmationWasNotCreated EmailConfirmation selectBy ( token: "TOKEN-${testId}" ) shouldBe null
 	
 	RegisterUserUsernameAlreadyTaken
 		GIVEN RegisterUser
@@ -82,4 +152,20 @@ scenarios
 				token : "XXX-${testId}"				
 			}
 		THEN 400
+		persistence
+			userWasNotCreated User selectBy ( userId: "uuid-at-${testId}") shouldBe null
+			emailConfirmationWasNotCreated EmailConfirmation selectBy ( token: "XXX-${testId}" ) shouldBe null
+			existingUserWasNotTouched User selectBy ( userId: "uuid-${testId}") shouldBe 
+			{
+				email : "annette.pohl@anfelisa.de",
+				emailConfirmed: false,
+				password: "password",
+				role: "STUDENT",
+				userId: "uuid-${testId}",
+				username: "Annette-${testId}"
+			}
+			existingEmailConfirmationWasNotTouched EmailConfirmation selectBy ( token: "TOKEN-${testId}" ) shouldBe {
+				token: "TOKEN-${testId}",
+				userId: "uuid-${testId}"
+			}
 	

@@ -27,16 +27,6 @@ public class RegisterTwoUsersScenario extends AbstractRegisterTwoUsersScenario {
 
 	@Override
 	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Anne-" + getTestId());
-		IUserModel expectedUser = new UserModel("uuid2-" + getTestId(), "Anne-" + getTestId(), "pw", "info@anfelisa.de",
-				Roles.STUDENT, false);
-		assertThat(actualUser, expectedUser);
-
-		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao()
-				.selectByToken(handle, "TOKEN_2-" + getTestId());
-		IEmailConfirmationModel expectedEmailConfirmationModel = new EmailConfirmationModel("TOKEN_2-" + getTestId(),
-				"uuid2-" + getTestId());
-		assertThat(actualEmailConfirmationModel, expectedEmailConfirmationModel);
 	}
 
 }

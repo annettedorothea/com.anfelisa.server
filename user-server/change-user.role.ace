@@ -15,7 +15,7 @@ scenarios
 		authorization "Admin": "admin-password"
 		THEN 200
 		persistence 
-			roleWasChangedToADMIN select from com.anfelisa.user.User by (userId : "uuid-${testId}") 
+			roleWasChangedToADMIN User selectBy(userId : "uuid-${testId}") 
 			shouldBe
 				{
 					email : "annette.pohl@anfelisa.de",
@@ -36,7 +36,7 @@ scenarios
 		authorization "Admin": "admin-password"
 		THEN 200
 		persistence 
-			roleWasChangedToSTUDENT select from com.anfelisa.user.User by (userId : "uuid-${testId}") 
+			roleWasChangedToSTUDENT User selectBy(userId : "uuid-${testId}") 
 			shouldBe
 				{
 					email : "annette.pohl@anfelisa.de",
@@ -58,7 +58,7 @@ scenarios
 		authorization "Admin": "wrong"
 		THEN 401
 		persistence 
-			roleWasNotChanged select from com.anfelisa.user.User by (userId : "uuid-${testId}") 
+			roleWasNotChanged User selectBy(userId : "uuid-${testId}") 
 			shouldBe
 				{
 					email : "annette.pohl@anfelisa.de",
@@ -79,7 +79,7 @@ scenarios
 		}
 		THEN 401
 		persistence 
-			roleWasNotChanged select from com.anfelisa.user.User by (userId : "uuid-${testId}") 
+			roleWasNotChanged User selectBy(userId : "uuid-${testId}") 
 			shouldBe
 				{
 					email : "annette.pohl@anfelisa.de",
@@ -101,7 +101,7 @@ scenarios
 		authorization "Annette-${testId}": "password"
 		THEN 401
 		persistence 
-			roleWasNotChanged select from com.anfelisa.user.User by (userId : "uuid-${testId}") 
+			roleWasNotChanged User selectBy(userId : "uuid-${testId}") 
 			shouldBe
 				{
 					email : "annette.pohl@anfelisa.de",
@@ -133,8 +133,8 @@ scenarios
 		authorization "Admin": "admin-password"
 		THEN 400
 		persistence 
-			roleWasNotChanged select from com.anfelisa.user.User by (userId : "uuid-admin") 
-			shouldBe
+			roleWasNotChanged User selectBy(userId : "uuid-admin") 
+			shouldBe 
 				{
 					email : "annette.pohl@anfelisa.de",
 					emailConfirmed: false,

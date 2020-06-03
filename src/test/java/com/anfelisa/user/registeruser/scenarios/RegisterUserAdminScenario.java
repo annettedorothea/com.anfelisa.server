@@ -30,13 +30,6 @@ public class RegisterUserAdminScenario extends AbstractRegisterUserAdminScenario
 
 	@Override
 	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Admin");
-		IUserModel expectedUser = new UserModel("uuid-admin", "Admin", "admin-password", "annette.pohl@anfelisa.de", Roles.ADMIN, false);
-		assertThat(actualUser, expectedUser);
-		
-		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao().selectByToken(handle, "ADMIN-TOKEN");
-		IEmailConfirmationModel expectedEmailConfirmationModel = new EmailConfirmationModel("ADMIN-TOKEN", "uuid-admin");
-		assertThat(actualEmailConfirmationModel, expectedEmailConfirmationModel);
 	}
 
 }

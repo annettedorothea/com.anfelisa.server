@@ -168,8 +168,9 @@ public abstract class AbstractChangeUserRoleNoAuthorizationScenario extends Base
 				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.models.UserModel.class);
-		
 		assertThat(actual, expected);
+		
+		
 
 		LOG.info("THEN: roleWasNotChanged passed");
 	}

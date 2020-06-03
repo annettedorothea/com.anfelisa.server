@@ -13,6 +13,17 @@ scenarios
 			username: "Annette-${testId}"
 		}
 		THEN 200
+		persistence
+			confirmedIsSetToTrue User selectBy(username : "Annette-${testId}") 	shouldBe
+				{
+					email : "annette.pohl@anfelisa.de",
+					emailConfirmed: true,
+					password: "password",
+					role: "STUDENT",
+					userId: "uuid-${testId}",
+					username: "Annette-${testId}"
+				}
+			tokenWasDeleted EmailConfirmation selectBy(token: "TOKEN-${testId}") shouldBe null
 
 	ConfirmEmailUserDoesNotExist
 		GIVEN
@@ -22,6 +33,17 @@ scenarios
 			username: "doesNotExist"
 		}
 		THEN 400
+		persistence
+			confirmedIsNotSetToTrue User selectBy(username : "Annette-${testId}") 	shouldBe
+				{
+					email : "annette.pohl@anfelisa.de",
+					emailConfirmed: false,
+					password: "password",
+					role: "STUDENT",
+					userId: "uuid-${testId}",
+					username: "Annette-${testId}"
+				}
+			tokenIsNotDeleted EmailConfirmation selectBy(token: "TOKEN-${testId}") shouldBe notNull
 
 	ConfirmEmailAlreadyConfirmed
 		GIVEN
@@ -32,11 +54,17 @@ scenarios
 			username: "Annette-${testId}"
 		}
 		THEN 200
-		/*verifications {
-			User(username: "jfjfj") = {
-				
-			}
-		}*/
+		persistence
+			confirmedIsStillTrue User selectBy(username : "Annette-${testId}") 	shouldBe
+				{
+					email : "annette.pohl@anfelisa.de",
+					emailConfirmed: true,
+					password: "password",
+					role: "STUDENT",
+					userId: "uuid-${testId}",
+					username: "Annette-${testId}"
+				}
+			tokenWasDeleted EmailConfirmation selectBy(token: "TOKEN-${testId}") shouldBe null
 
 	ConfirmEmailConfirmationTokenDoesNotExist
 		GIVEN
@@ -46,14 +74,45 @@ scenarios
 			username: "Annette-${testId}"
 		}
 		THEN 400
+		persistence
+			confirmedIsNotSetToTrue User selectBy(username : "Annette-${testId}") 	shouldBe
+				{
+					email : "annette.pohl@anfelisa.de",
+					emailConfirmed: false,
+					password: "password",
+					role: "STUDENT",
+					userId: "uuid-${testId}",
+					username: "Annette-${testId}"
+				}
+			tokenIsNotDeleted EmailConfirmation selectBy(token: "TOKEN-${testId}") shouldBe notNull
 
 	ConfirmEmailTokenDoesNotMatch
 		GIVEN
-			com.anfelisa.user.registeruser.RegisterUser
-			com.anfelisa.user.registeruser.RegisterUserAdmin
+			com.anfelisa.user.registeruser.RegisterTwoUsers
 		WHEN com.anfelisa.user.ConfirmEmail {
-			token: "ADMIN-TOKEN",
+			token: "TOKEN_2-${testId}",
 			username: "Annette-${testId}"
 		}
 		THEN 400
+		persistence
+			confirmedIsNotSetToTrue User selectBy(username : "Annette-${testId}") 	shouldBe
+				{
+					email : "annette.pohl@anfelisa.de",
+					emailConfirmed: false,
+					password: "password",
+					role: "STUDENT",
+					userId: "uuid-${testId}",
+					username: "Annette-${testId}"
+				}
+			confirmedIsNotSetToTrueForOtherUser User selectBy(username : "Anne-${testId}") 	shouldBe
+				{
+					email : "info@anfelisa.de",
+					emailConfirmed: false,
+					password: "pw",
+					role: "STUDENT",
+					userId: "uuid2-${testId}",
+					username: "Anne-${testId}"
+				}
+			tokenIsNotDeleted EmailConfirmation selectBy(token: "TOKEN-${testId}") shouldBe notNull
+			otherTokenIsNotDeleted EmailConfirmation selectBy(token: "TOKEN_2-${testId}") shouldBe notNull
 

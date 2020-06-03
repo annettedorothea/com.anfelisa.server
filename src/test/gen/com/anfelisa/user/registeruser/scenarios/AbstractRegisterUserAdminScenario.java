@@ -92,6 +92,8 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 	
 			then(response);
 			
+			this.userWasCreated();
+			this.emailConfirmationWasCreated();
 		
 			verifications();
 		} else {
@@ -102,6 +104,36 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 	protected abstract void verifications();
 	
 	
+	private void userWasCreated() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-admin");
+		
+		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"emailConfirmed\" : false," + 
+				"\"password\" : \"admin-password\"," + 
+				"\"role\" : \"ADMIN\"," + 
+				"\"userId\" : \"uuid-admin\"," + 
+				"\"username\" : \"Admin\"} ",
+		com.anfelisa.user.models.UserModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: userWasCreated passed");
+	}
+	private void emailConfirmationWasCreated() throws Exception {
+		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "ADMIN-TOKEN");
+		
+		com.anfelisa.user.models.IEmailConfirmationModel expected = objectMapper.readValue("{" +
+			"\"token\" : \"ADMIN-TOKEN\"," + 
+				"\"userId\" : \"uuid-admin\"} ",
+		com.anfelisa.user.models.EmailConfirmationModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: emailConfirmationWasCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

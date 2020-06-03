@@ -24,12 +24,6 @@ public class RegisterUserEmptyUsernameScenario extends AbstractRegisterUserEmpty
 
 	@Override
 	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
-		assertIsNull(actualUser);
-
-		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao()
-				.selectByToken(handle, "TOKEN-" + getTestId());
-		assertIsNull(actualEmailConfirmationModel);
 	}
 
 }

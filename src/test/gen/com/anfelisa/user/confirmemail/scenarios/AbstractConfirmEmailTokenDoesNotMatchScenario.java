@@ -72,16 +72,16 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 		}
 		
 
-		if (prerequisite("RegisterUserAdmin")) {
-			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+		if (prerequisite("RegisterTwoUsers")) {
+			uuid = "uuid2-${testId}".replace("${testId}", this.getTestId());
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
-						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
+						objectMapper.readValue("\"TOKEN_2-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+					"\"email\" : \"info@anfelisa.de\"," + 
 					"\"language\" : \"de\"," + 
-					"\"password\" : \"admin-password\"," + 
-					"\"username\" : \"Admin\"} ",
+					"\"password\" : \"pw\"," + 
+					"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
 			response = 
 			this.httpPost(
@@ -91,13 +91,13 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 			);
 			
 			if (response.getStatus() >= 400) {
-				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
+				String message = "GIVEN RegisterTwoUsers fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: RegisterTwoUsers fails due to " + message);
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success");
+			LOG.info("GIVEN: RegisterTwoUsers success");
 		} else {
-			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
+			LOG.info("GIVEN: prerequisite for RegisterTwoUsers not met");
 		}
 		
 
@@ -107,7 +107,7 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 		String uuid = this.randomUUID();
 		com.anfelisa.user.data.ConfirmEmailData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"token\" : \"ADMIN-TOKEN\"," + 
+				"\"token\" : \"TOKEN_2-" + this.getTestId() + "\"," + 
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.data.ConfirmEmailData.class);
 		
@@ -146,6 +146,10 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 	
 			then(response);
 			
+			this.confirmedIsNotSetToTrue();
+			this.confirmedIsNotSetToTrueForOtherUser();
+			this.tokenIsNotDeleted();
+			this.otherTokenIsNotDeleted();
 		
 			verifications();
 		} else {
@@ -156,6 +160,58 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 	protected abstract void verifications();
 	
 	
+	private void confirmedIsNotSetToTrue() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+			"\"email\" : \"annette.pohl@anfelisa.de\"," + 
+				"\"emailConfirmed\" : false," + 
+				"\"password\" : \"password\"," + 
+				"\"role\" : \"STUDENT\"," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
+				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.UserModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: confirmedIsNotSetToTrue passed");
+	}
+	private void confirmedIsNotSetToTrueForOtherUser() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Anne-" + this.getTestId() + "");
+		
+		com.anfelisa.user.models.IUserModel expected = objectMapper.readValue("{" +
+			"\"email\" : \"info@anfelisa.de\"," + 
+				"\"emailConfirmed\" : false," + 
+				"\"password\" : \"pw\"," + 
+				"\"role\" : \"STUDENT\"," + 
+				"\"userId\" : \"uuid2-" + this.getTestId() + "\"," + 
+				"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
+		com.anfelisa.user.models.UserModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: confirmedIsNotSetToTrueForOtherUser passed");
+	}
+	private void tokenIsNotDeleted() throws Exception {
+		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN-" + this.getTestId() + "");
+		
+		assertIsNotNull(actual);
+		
+		
+
+		LOG.info("THEN: tokenIsNotDeleted passed");
+	}
+	private void otherTokenIsNotDeleted() throws Exception {
+		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN_2-" + this.getTestId() + "");
+		
+		assertIsNotNull(actual);
+		
+		
+
+		LOG.info("THEN: otherTokenIsNotDeleted passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

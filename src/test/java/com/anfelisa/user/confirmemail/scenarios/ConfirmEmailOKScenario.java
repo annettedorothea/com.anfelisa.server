@@ -29,12 +29,6 @@ public class ConfirmEmailOKScenario extends AbstractConfirmEmailOKScenario {
 
 	@Override
 	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, replaceTestId("Annette-${testId}"));
-		IUserModel expectedUser = new UserModel(replaceTestId("uuid-${testId}"), replaceTestId("Annette-${testId}"), "password", "annette.pohl@anfelisa.de", Roles.STUDENT, true);
-		assertThat(actualUser, expectedUser);
-		
-		IEmailConfirmationModel actualEmailConfirmationModel = this.daoProvider.getEmailConfirmationDao().selectByToken(handle, replaceTestId("TOKEN-${testId}"));
-		assertIsNull(actualEmailConfirmationModel);
 	}
 
 }

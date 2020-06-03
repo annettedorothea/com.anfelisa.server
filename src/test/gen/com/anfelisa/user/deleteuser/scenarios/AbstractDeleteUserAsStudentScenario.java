@@ -115,6 +115,7 @@ public abstract class AbstractDeleteUserAsStudentScenario extends BaseScenario {
 	
 			then(response);
 			
+			this.userWasDeleted();
 		
 			verifications();
 		} else {
@@ -125,6 +126,15 @@ public abstract class AbstractDeleteUserAsStudentScenario extends BaseScenario {
 	protected abstract void verifications();
 	
 	
+	private void userWasDeleted() throws Exception {
+		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+		
+		
+
+		LOG.info("THEN: userWasDeleted passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

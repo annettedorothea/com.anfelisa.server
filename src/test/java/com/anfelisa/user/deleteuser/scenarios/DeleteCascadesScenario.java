@@ -30,53 +30,82 @@ public class DeleteCascadesScenario extends AbstractDeleteCascadesScenario {
 
 	@Override
 	protected void verifications() {
-		IUserModel user = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
-		assertIsNull(user);
+	}
 
-		IBoxModel box = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + getTestId());
-		assertIsNull(box);
-
+	@Override
+	protected void accessToCategoryWasDeleted() {
 		IUserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(handle,
 				"boxId-" + getTestId(), "uuid-" + getTestId());
 		assertIsNull(access);
+		LOG.info("THEN: accessToCategoryWasDeleted passed");
+	}
 
+	@Override
+	protected void allCategoriesWereDeleted() {
 		List<String> allCategories = daoProvider.getCategoryDao().selectAllByRootCategoryId(handle,
 				"boxId-" + getTestId());
 		assertThat(allCategories.size(), 0);
+		LOG.info("THEN: allCategoriesWereDeleted passed");
+	}
 
+	@Override
+	protected void allCardsWereDeleted() {
 		List<ICardModel> allCards = daoProvider.getCardDao().selectAllByRootCategoryId(handle, "boxId-" + getTestId());
 		assertThat(allCards.size(), 0);
+		LOG.info("THEN: allCardsWereDeleted passed");
+	}
 
+	@Override
+	protected void allScheduledCardsWereDeleted() {
 		List<IScheduledCardModel> allScheduledCards = daoProvider.getScheduledCardDao().selectAllCardsOfBox(handle,
 				"boxId-" + getTestId());
 		assertThat(allScheduledCards.size(), 0);
+		LOG.info("THEN: allScheduledCardsWereDeleted passed");
+	}
 
+	@Override
+	protected void allReinforceCardsWereDeleted() {
 		List<IReinforceCardModel> allReinforceCards = daoProvider.getReinforceCardDao().selectAllOfBox(handle,
 				"boxId-" + getTestId());
 		assertThat(allReinforceCards.size(), 0);
+		LOG.info("THEN: allReinforceCardsWereDeleted passed");
+	}
 
-		user = this.daoProvider.getUserDao().selectByUsername(handle, "Admin");
-		assertIsNotNull(user);
-
-		box = daoProvider.getBoxDao().selectByBoxId(handle, "adminBox-" + getTestId());
-		assertIsNotNull(box);
-
-		access = daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(handle, "boxId-" + getTestId(),
+	@Override
+	protected void accessToCategoryOfOtherUserWasNotDeleted() {
+		IUserAccessToCategoryModel access = daoProvider.getUserAccessToCategoryDao().selectByCategoryIdAndUserId(handle, "boxId-" + getTestId(),
 				"uuid-admin");
 		assertIsNull(access);
+		LOG.info("THEN: accessToCategoryOfOtherUserWasNotDeleted passed");
+	}
 
-		allCategories = daoProvider.getCategoryDao().selectAllByRootCategoryId(handle, "adminBox-" + getTestId());
+	@Override
+	protected void categoriesOfOtherUserWereNotDeleted() {
+		List<String> allCategories = daoProvider.getCategoryDao().selectAllByRootCategoryId(handle, "adminBox-" + getTestId());
 		assertThat(allCategories.size(), 2);
+		LOG.info("THEN: categoriesOfOtherUserWereNotDeleted passed");
+	}
 
-		allCards = daoProvider.getCardDao().selectAllByRootCategoryId(handle, "adminBox-" + getTestId());
+	@Override
+	protected void cardsOfOtherUserWereNotDeleted() {
+		List<ICardModel> allCards = daoProvider.getCardDao().selectAllByRootCategoryId(handle, "adminBox-" + getTestId());
 		assertThat(allCards.size(), 1);
+		LOG.info("THEN: cardsOfOtherUserWereNotDeleted passed");
+	}
 
-		allScheduledCards = daoProvider.getScheduledCardDao().selectAllCardsOfBox(handle,
+	@Override
+	protected void scheduledCardsOfOtherUserWereNotDeleted() {
+		List<IScheduledCardModel> allScheduledCards = daoProvider.getScheduledCardDao().selectAllCardsOfBox(handle,
 				"adminBox-" + getTestId());
 		assertThat(allScheduledCards.size(), 2);
+		LOG.info("THEN: scheduledCardsOfOtherUserWereNotDeleted passed");
+	}
 
-		allReinforceCards = daoProvider.getReinforceCardDao().selectAllOfBox(handle, "adminBox-" + getTestId());
+	@Override
+	protected void reinforceCardsOfOtherUserWereNotDeleted() {
+		List<IReinforceCardModel> allReinforceCards = daoProvider.getReinforceCardDao().selectAllOfBox(handle, "adminBox-" + getTestId());
 		assertThat(allReinforceCards.size(), 1);
+		LOG.info("THEN: reinforceCardsOfOtherUserWereNotDeleted passed");
 	}
 
 }
