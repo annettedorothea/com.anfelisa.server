@@ -168,6 +168,7 @@ public abstract class AbstractCreateSecondCategoryScenario extends BaseScenario 
 	
 			then(response);
 			
+			this.categoryWasCreated();
 		
 			verifications();
 		} else {
@@ -178,6 +179,24 @@ public abstract class AbstractCreateSecondCategoryScenario extends BaseScenario 
 	protected abstract void verifications();
 	
 	
+	private void categoryWasCreated() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat2-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"cat2-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 2," + 
+				"\"categoryName\" : \"level 1 #2\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: categoryWasCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

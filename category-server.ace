@@ -66,7 +66,7 @@ views
 models 
 	persistent Category {
 		Unique PrimaryKey NotNull String categoryId
-		Unique NotNull String categoryName
+		NotNull String categoryName
 		NotNull String categoryAuthor
 		NotNull Integer categoryIndex
 		String parentCategoryId references categoryId

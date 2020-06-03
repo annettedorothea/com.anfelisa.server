@@ -101,7 +101,7 @@ public abstract class AbstractCreateCategoryNameIsBlankScenario extends BaseScen
 	}
 	
 	private Response when() throws Exception {
-		String uuid = this.randomUUID();
+		String uuid = "blank-${testId}".replace("${testId}", this.getTestId());
 		com.anfelisa.category.data.CategoryCreationData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryName\" : \"   \"," + 
@@ -143,6 +143,7 @@ public abstract class AbstractCreateCategoryNameIsBlankScenario extends BaseScen
 	
 			then(response);
 			
+			this.categoryWasNotCreated();
 		
 			verifications();
 		} else {
@@ -153,6 +154,15 @@ public abstract class AbstractCreateCategoryNameIsBlankScenario extends BaseScen
 	protected abstract void verifications();
 	
 	
+	private void categoryWasNotCreated() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "blank-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+		
+		
+
+		LOG.info("THEN: categoryWasNotCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

@@ -27,10 +27,6 @@ public class CreateSecondCategoryScenario extends AbstractCreateSecondCategorySc
 
 	@Override
 	protected void verifications() {
-		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat2-" + getTestId());
-		ICategoryModel expectedCategory = new CategoryModel("cat2-" + getTestId(), "level 1 #2", "Annette-" + getTestId(), 2,"boxId-" + getTestId(),"boxId-" + getTestId(), false, null,
-				null);
-		assertThat(actualCategory, expectedCategory);
 	}
 
 }

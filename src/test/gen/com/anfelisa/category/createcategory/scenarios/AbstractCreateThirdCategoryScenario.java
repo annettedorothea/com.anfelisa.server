@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.category.changeorder.scenarios;
+package com.anfelisa.category.createcategory.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,9 +36,9 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractCreateFourthCategoryScenario extends BaseScenario {
+public abstract class AbstractCreateThirdCategoryScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractCreateFourthCategoryScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractCreateThirdCategoryScenario.class);
 	
 	private void given() throws Exception {
 		Response response;
@@ -148,38 +148,13 @@ public abstract class AbstractCreateFourthCategoryScenario extends BaseScenario 
 		}
 		
 
-		if (prerequisite("CreateThirdCategory")) {
-			uuid = "cat3-${testId}".replace("${testId}", this.getTestId());
-			com.anfelisa.category.data.CategoryCreationData data_5 = objectMapper.readValue("{" +
-				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"categoryName\" : \"level 1 #3\"," + 
-					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
-			com.anfelisa.category.data.CategoryCreationData.class);
-			response = 
-			this.httpPost(
-				"/category/create", 
-				data_5,
-				authorization("Annette-${testId}", "password")
-			);
-			
-			if (response.getStatus() >= 400) {
-				String message = "GIVEN CreateThirdCategory fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateThirdCategory fails due to " + message);
-				assertFail(message);
-			}
-			LOG.info("GIVEN: CreateThirdCategory success");
-		} else {
-			LOG.info("GIVEN: prerequisite for CreateThirdCategory not met");
-		}
-		
-
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "cat4-${testId}".replace("${testId}", this.getTestId());
+		String uuid = "cat3-${testId}".replace("${testId}", this.getTestId());
 		com.anfelisa.category.data.CategoryCreationData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"categoryName\" : \"level 1 #4\"," + 
+				"\"categoryName\" : \"level 1 #3\"," + 
 				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryCreationData.class);
 		
@@ -211,27 +186,46 @@ public abstract class AbstractCreateFourthCategoryScenario extends BaseScenario 
 	public void runTest() throws Exception {
 		given();
 			
-		if (prerequisite("CreateFourthCategory")) {
+		if (prerequisite("CreateThirdCategory")) {
 			Response response = when();
 
 			LOG.info("WHEN: CreateCategory");
 	
 			then(response);
 			
+			this.categoryWasCreated();
 		
 			verifications();
 		} else {
-			LOG.info("WHEN: prerequisite for CreateFourthCategory not met");
+			LOG.info("WHEN: prerequisite for CreateThirdCategory not met");
 		}
 	}
 	
 	protected abstract void verifications();
 	
 	
+	private void categoryWasCreated() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat3-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"cat3-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 3," + 
+				"\"categoryName\" : \"level 1 #3\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: categoryWasCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {
-		return "CreateFourthCategory";
+		return "CreateThirdCategory";
 	}
 
 }

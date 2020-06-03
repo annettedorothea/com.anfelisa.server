@@ -143,6 +143,7 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 	
 			then(response);
 			
+			this.adminCatWasCreated();
 		
 			verifications();
 		} else {
@@ -153,6 +154,24 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 	protected abstract void verifications();
 	
 	
+	private void adminCatWasCreated() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "adminCat-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Admin\"," + 
+				"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 1," + 
+				"\"categoryName\" : \"c\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: adminCatWasCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

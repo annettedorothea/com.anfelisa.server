@@ -15,6 +15,17 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasCreated Category selectBy ( categoryId: "cat1-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
 
 	CreateSecondCategory
 		GIVEN
@@ -28,6 +39,17 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasCreated Category selectBy ( categoryId: "cat2-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 2,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
 
 	CreateCategorySecondLevel
 		GIVEN
@@ -41,6 +63,17 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasCreated Category selectBy ( categoryId: "cat3-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat3-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 2 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "cat2-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
 
 	CreateCategoryWithDictionaryLookup
 		GIVEN
@@ -54,87 +87,121 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasCreated Category selectBy ( categoryId: "dict-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "dict-${testId}",
+				categoryIndex: 1,
+				categoryName: "dict-${testId}",
+				dictionaryLookup: true,
+				givenLanguage: "de",
+				wantedLanguage: "en",
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
 
 	CreateCategoryParentCategoryIsNull
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal
 		WHEN
 			com.anfelisa.category.CreateCategory
+				uuid "lala-${testId}"
 				{
 					categoryName: "lala"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence 
+			categoryWasNotCreated Category selectBy ( categoryId: "lala-${testId}" ) shouldBe null
 
 	CreateCategoryParentCategoryIsEmpty
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal
 		WHEN
 			com.anfelisa.category.CreateCategory
+				uuid "lala-${testId}"
 				{
 					categoryName: "lala",
 					parentCategoryId: ""
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence 
+			categoryWasNotCreated Category selectBy ( categoryId: "lala-${testId}" ) shouldBe null
 
 	CreateCategoryParentCategoryIsBlank
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal
 		WHEN
 			com.anfelisa.category.CreateCategory
+				uuid "lala-${testId}"
 				{
 					categoryName: "lala",
 					parentCategoryId: "   "
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence 
+			categoryWasNotCreated Category selectBy ( categoryId: "lala-${testId}" ) shouldBe null
 
 	CreateCategoryNameIsNull
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal
 		WHEN
 			com.anfelisa.category.CreateCategory
-				{,
+				uuid "null-${testId}"
+				{
 					parentCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence 
+			categoryWasNotCreated Category selectBy ( categoryId: "null-${testId}" ) shouldBe null
 
 	CreateCategoryNameIsEmpty
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal
 		WHEN
 			com.anfelisa.category.CreateCategory
+				uuid "empty-${testId}"
 				{
 					categoryName: "",
 					parentCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence 
+			categoryWasNotCreated Category selectBy ( categoryId: "empty-${testId}" ) shouldBe null
 
 	CreateCategoryNameIsBlank
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal
 		WHEN
 			com.anfelisa.category.CreateCategory
+				uuid "blank-${testId}"
 				{
 					categoryName: "   ",
 					parentCategoryId: "boxId-${testId}"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence 
+			categoryWasNotCreated Category selectBy ( categoryId: "blank-${testId}" ) shouldBe null
 
 	CreateCategoryUnauthorized
 		GIVEN
 			com.anfelisa.box.createbox.CreateBoxMinimal
 		WHEN
 			com.anfelisa.category.CreateCategory
+				uuid "lala-${testId}"
 				{
 					categoryName: "lala",
 					parentCategoryId: "boxId-${testId}"
 				}
 		THEN 401
+		persistence 
+			categoryWasNotCreated Category selectBy ( categoryId: "lala-${testId}" ) shouldBe null
 
 	CreateCategoryUnauthorizedNoAccess
 		GIVEN
@@ -142,12 +209,15 @@ scenarios
 			com.anfelisa.box.createbox.CreateBoxMinimal
 		WHEN
 			com.anfelisa.category.CreateCategory
+				uuid "lala-${testId}"
 				{
 					categoryName: "lala",
 					parentCategoryId: "boxId-${testId}"
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
+		persistence 
+			categoryWasNotCreated Category selectBy ( categoryId: "lala-${testId}" ) shouldBe null
 
 	CreateCategoryAsAdmin
 		GIVEN
@@ -161,6 +231,66 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 200
+		persistence 
+			adminCatWasCreated Category selectBy ( categoryId: "adminCat-${testId}" ) shouldBe 
+			{
+				categoryAuthor: "Admin",
+				categoryId: "adminCat-${testId}",
+				categoryIndex: 1,
+				categoryName: "c",
+				dictionaryLookup: false,
+				parentCategoryId: "adminBox-${testId}",
+				rootCategoryId: "adminBox-${testId}"
+			}
+
+	CreateThirdCategory
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+		WHEN
+			com.anfelisa.category.CreateCategory
+				uuid "cat3-${testId}"
+				{
+					categoryName: "level 1 #3",
+					parentCategoryId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			categoryWasCreated Category selectBy ( categoryId: "cat3-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat3-${testId}",
+				categoryIndex: 3,
+				categoryName: "level 1 #3",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
+
+	CreateFourthCategory
+		GIVEN
+			CreateThirdCategory
+		WHEN
+			com.anfelisa.category.CreateCategory
+				uuid "cat4-${testId}"
+				{
+					categoryName: "level 1 #4",
+					parentCategoryId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			categoryWasCreated Category selectBy ( categoryId: "cat4-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat4-${testId}",
+				categoryIndex: 4,
+				categoryName: "level 1 #4",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
 
 
 		

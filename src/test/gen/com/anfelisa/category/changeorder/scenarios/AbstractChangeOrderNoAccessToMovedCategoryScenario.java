@@ -273,6 +273,9 @@ public abstract class AbstractChangeOrderNoAccessToMovedCategoryScenario extends
 	
 			then(response);
 			
+			this.cat1AtIndex1();
+			this.cat2AtIndex2();
+			this.adminCatAtIndex1();
 		
 			verifications();
 		} else {
@@ -283,6 +286,60 @@ public abstract class AbstractChangeOrderNoAccessToMovedCategoryScenario extends
 	protected abstract void verifications();
 	
 	
+	private void cat1AtIndex1() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat1-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 1," + 
+				"\"categoryName\" : \"level 1 #1\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: cat1AtIndex1 passed");
+	}
+	private void cat2AtIndex2() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat2-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"cat2-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 2," + 
+				"\"categoryName\" : \"level 1 #2\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: cat2AtIndex2 passed");
+	}
+	private void adminCatAtIndex1() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "adminCat-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Admin\"," + 
+				"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 1," + 
+				"\"categoryName\" : \"c\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: adminCatAtIndex1 passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

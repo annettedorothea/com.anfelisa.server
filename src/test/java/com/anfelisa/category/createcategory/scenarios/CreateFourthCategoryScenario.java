@@ -17,14 +17,16 @@
 
 
 
-package com.anfelisa.category.changeorder.scenarios;
+package com.anfelisa.category.createcategory.scenarios;
 
-@SuppressWarnings("unused")
-public class CreateCategoryAsAdminScenario extends AbstractCreateCategoryAsAdminScenario {
+
+public class CreateFourthCategoryScenario extends AbstractCreateFourthCategoryScenario {
 
 	@Override
 	protected void verifications() {
 	}
+	
+	
 
 }
 

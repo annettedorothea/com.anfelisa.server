@@ -243,6 +243,10 @@ public abstract class AbstractChangeOrderScenario extends BaseScenario {
 	
 			then(response);
 			
+			this.cat1Remains();
+			this.cat2MovedToThirdIndex();
+			this.cat3MovedToSecondIndex();
+			this.cat4Remains();
 		
 			verifications();
 		} else {
@@ -253,6 +257,78 @@ public abstract class AbstractChangeOrderScenario extends BaseScenario {
 	protected abstract void verifications();
 	
 	
+	private void cat1Remains() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat1-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 1," + 
+				"\"categoryName\" : \"level 1 #1\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: cat1Remains passed");
+	}
+	private void cat2MovedToThirdIndex() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat2-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"cat2-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 3," + 
+				"\"categoryName\" : \"level 1 #2\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: cat2MovedToThirdIndex passed");
+	}
+	private void cat3MovedToSecondIndex() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat3-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"cat3-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 2," + 
+				"\"categoryName\" : \"level 1 #3\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: cat3MovedToSecondIndex passed");
+	}
+	private void cat4Remains() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat4-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"cat4-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 4," + 
+				"\"categoryName\" : \"level 1 #4\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+		
+		
+
+		LOG.info("THEN: cat4Remains passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

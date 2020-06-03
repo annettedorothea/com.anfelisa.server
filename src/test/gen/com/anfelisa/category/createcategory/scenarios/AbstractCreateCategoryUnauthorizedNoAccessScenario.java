@@ -130,7 +130,7 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 	}
 	
 	private Response when() throws Exception {
-		String uuid = this.randomUUID();
+		String uuid = "lala-${testId}".replace("${testId}", this.getTestId());
 		com.anfelisa.category.data.CategoryCreationData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryName\" : \"lala\"," + 
@@ -172,6 +172,7 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 	
 			then(response);
 			
+			this.categoryWasNotCreated();
 		
 			verifications();
 		} else {
@@ -182,6 +183,15 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 	protected abstract void verifications();
 	
 	
+	private void categoryWasNotCreated() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "lala-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+		
+		
+
+		LOG.info("THEN: categoryWasNotCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

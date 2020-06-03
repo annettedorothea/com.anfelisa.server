@@ -71,34 +71,6 @@ public class AbstractCategoryDao {
 			.findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
-	public void updateByCategoryName(PersistenceHandle handle, ICategoryModel categoryModel) {
-		Update statement = handle.getHandle().createUpdate("UPDATE \"category\" SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryname = :categoryname");
-		statement.bind("categoryid",  categoryModel.getCategoryId() );
-		statement.bind("categoryname",  categoryModel.getCategoryName() );
-		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
-		statement.bind("categoryindex",  categoryModel.getCategoryIndex() );
-		statement.bind("parentcategoryid",  categoryModel.getParentCategoryId() );
-		statement.bind("rootcategoryid",  categoryModel.getRootCategoryId() );
-		statement.bind("dictionarylookup",  categoryModel.getDictionaryLookup() );
-		statement.bind("givenlanguage",  categoryModel.getGivenLanguage() );
-		statement.bind("wantedlanguage",  categoryModel.getWantedLanguage() );
-		statement.bind("categoryname",  categoryModel.getCategoryName()  );
-		statement.execute();
-	}
-
-	public void deleteByCategoryName(PersistenceHandle handle, String categoryName) {
-		Update statement = handle.getHandle().createUpdate("DELETE FROM \"category\" WHERE categoryname = :categoryname");
-		statement.bind("categoryname", categoryName);
-		statement.execute();
-	}
-
-	public ICategoryModel selectByCategoryName(PersistenceHandle handle, String categoryName) {
-		Optional<ICategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM \"category\" WHERE categoryname = :categoryname")
-			.bind("categoryname", categoryName)
-			.map(new CategoryMapper())
-			.findFirst();
-		return optional.isPresent() ? optional.get() : null;
-	}
 	
 	public List<ICategoryModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM \"category\"")
