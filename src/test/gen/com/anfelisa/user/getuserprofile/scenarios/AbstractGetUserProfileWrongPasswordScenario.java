@@ -22,6 +22,8 @@ package com.anfelisa.user.getuserprofile.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUserAdmin")) {
-			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			uuid = "uuid-admin";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 					"\"password\" : \"admin-password\"," + 
 					"\"username\" : \"Admin\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,19 +66,22 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success");
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
 		
 
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_2 = objectMapper.readValue("{" +
@@ -83,6 +91,7 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -90,12 +99,15 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -107,13 +119,17 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 		String uuid = this.randomUUID();
 		com.anfelisa.user.data.UserData data_0 = objectMapper.readValue("{ \"uuid\" : \"" + uuid + "\"}",
 		com.anfelisa.user.data.UserData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpGet(
 			"/user/get?uuid=" + data_0.getUuid() + "", 
 			authorization("Admin", "wrong")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: GetUserProfile finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("GetUserProfile", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private com.anfelisa.user.data.GetUserProfileResponse then(Response response) throws Exception {
@@ -144,8 +160,6 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 		if (prerequisite("GetUserProfileWrongPassword")) {
 			Response response = when();
 
-			LOG.info("WHEN: GetUserProfile");
-	
 			com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
 			
 		

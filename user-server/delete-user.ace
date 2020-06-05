@@ -94,17 +94,19 @@ scenarios
 		persistence
 			userWasDeleted User selectBy(username: "Annette-${testId}") shouldBe null
 			boxWasDeleted Box selectBy(boxId: "boxId-${testId}") shouldBe null
+			accessToCategoryWasDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe null
+			allCategoriesWereDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 0
+			allCardsWereDeleted Card filterAndCountBy (rootCategoryId:  "boxId-${testId}") shouldBe 0
+			allScheduledCardsWereDeleted ScheduledCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 0
+			allReinforceCardsWereDeleted ReinforceCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 0
+
 			otherUserWasNotDeleted User selectBy(username: "Admin") shouldBe notNull
 			otherBoxWasNotDeleted Box selectBy(boxId: "adminBox-${testId}") shouldBe notNull
-		verifications
-			accessToCategoryWasDeleted
-			allCategoriesWereDeleted
-			allCardsWereDeleted
-			allScheduledCardsWereDeleted
-			allReinforceCardsWereDeleted
+			accessToCategoryOfOtherUserWasNotDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "adminBox-${testId}", userId: "uuid-admin") shouldBe notNull
+			categoriesOfOtherUserWereNotDeleted Category filterAndCountBy (rootCategoryId: "adminBox-${testId}") shouldBe 2
+			cardsOfOtherUserWereNotDeleted Card filterAndCountBy (rootCategoryId:  "adminBox-${testId}") shouldBe 1
+			scheduledCardsOfOtherUserWereNotDeleted ScheduledCard filterAndCountBy (boxId: "adminBox-${testId}") shouldBe 2
+			reinforceCardsOfOtherUserWereNotDeleted ReinforceCard filterAndCountBy (boxId: "adminBox-${testId}") shouldBe 1
 			
-			accessToCategoryOfOtherUserWasNotDeleted
-			categoriesOfOtherUserWereNotDeleted
-			cardsOfOtherUserWereNotDeleted
-			scheduledCardsOfOtherUserWereNotDeleted
-			reinforceCardsOfOtherUserWereNotDeleted
+			
+			

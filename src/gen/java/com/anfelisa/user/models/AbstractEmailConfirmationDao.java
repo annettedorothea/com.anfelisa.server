@@ -23,6 +23,7 @@ import de.acegen.PersistenceHandle;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("all")
@@ -58,6 +59,30 @@ public class AbstractEmailConfirmationDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
+	public IEmailConfirmationModel selectByPrimaryKey(PersistenceHandle handle, String token) {
+		Optional<IEmailConfirmationModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"emailconfirmation\" WHERE token = :token")
+			.bind("token", token)
+			.map(new EmailConfirmationMapper())
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
+	}
+	
+	public int filterAndCountBy(PersistenceHandle handle, Map<String, String> filterMap) {
+		String sql = "SELECT count(*) FROM \"emailconfirmation\"";
+		if (filterMap != null) {
+			int i = 0;
+			for(String key : filterMap.keySet()) {
+				if (i == 0) {
+					sql += " WHERE " + key + " = '" + filterMap.get(key) + "'";
+				} else {
+					sql += " AND " + key + " = '" + filterMap.get(key) + "'";
+				}
+				i++;
+			}
+		}
+		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
+	}
+
 	public List<IEmailConfirmationModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT token, userid FROM \"emailconfirmation\"")
 			.map(new EmailConfirmationMapper())

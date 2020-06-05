@@ -17,7 +17,7 @@
 
 
 
-package com.anfelisa.card.createcard.scenarios;
+package com.anfelisa.category.movecategory.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,9 +38,9 @@ import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
 @SuppressWarnings("unused")
-public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenario {
+public abstract class AbstractMoveCategoryToNotEmptyScenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractCreateCardWithLongUuidScenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractMoveCategoryToNotEmptyScenario.class);
 	
 	private void given() throws Exception {
 		Response response;
@@ -139,27 +139,84 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 		}
 		
 
+		if (prerequisite("CreateSecondCategory")) {
+			uuid = "cat2-" + this.getTestId() + "";
+			com.anfelisa.category.data.CategoryCreationData data_4 = objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"level 1 #2\"," + 
+					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+			com.anfelisa.category.data.CategoryCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
+			response = 
+			this.httpPost(
+				"/category/create", 
+				data_4,
+				authorization("Annette-${testId}", "password")
+			);
+			
+			timeAfterRequest = System.currentTimeMillis();
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateSecondCategory fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateSecondCategory fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateSecondCategory success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateSecondCategory not met");
+		}
+		
+
+		if (prerequisite("CreateCategorySecondLevel")) {
+			uuid = "cat3-" + this.getTestId() + "";
+			com.anfelisa.category.data.CategoryCreationData data_5 = objectMapper.readValue("{" +
+				"\"uuid\" : \"" + uuid + "\"," + 
+					"\"categoryName\" : \"level 2 #1\"," + 
+					"\"parentCategoryId\" : \"cat2-" + this.getTestId() + "\"} ",
+			com.anfelisa.category.data.CategoryCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
+			response = 
+			this.httpPost(
+				"/category/create", 
+				data_5,
+				authorization("Annette-${testId}", "password")
+			);
+			
+			timeAfterRequest = System.currentTimeMillis();
+			if (response.getStatus() >= 400) {
+				String message = "GIVEN CreateCategorySecondLevel fails\n" + response.readEntity(String.class);
+				LOG.info("GIVEN: CreateCategorySecondLevel fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+				assertFail(message);
+			}
+			LOG.info("GIVEN: CreateCategorySecondLevel success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+		} else {
+			LOG.info("GIVEN: prerequisite for CreateCategorySecondLevel not met");
+		}
+		
+
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "123456789-123456789-123456789-" + this.getTestId() + "";
-		com.anfelisa.card.data.CardCreationData data_0 = objectMapper.readValue("{" +
+		String uuid = this.randomUUID();
+		com.anfelisa.category.data.CategoryMoveData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-				"\"given\" : \"x\"," + 
-				"\"wanted\" : \"y\"} ",
-		com.anfelisa.card.data.CardCreationData.class);
+				"\"movedCategoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"targetCategoryId\" : \"cat2-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.data.CategoryMoveData.class);
 		long timeBeforeRequest = System.currentTimeMillis();
 		Response response = 
-		this.httpPost(
-			"/card/create", 
+		this.httpPut(
+			"/category/move?uuid=" + data_0.getUuid() + "", 
 			data_0,
 			authorization("Annette-${testId}", "password")
 		);
 		
 		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: CreateCard finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: MoveCategory finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("MoveCategory", (timeAfterRequest-timeBeforeRequest));
 		return response;
 	}
 	
@@ -182,42 +239,76 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 	public void runTest() throws Exception {
 		given();
 			
-		if (prerequisite("CreateCardWithLongUuid")) {
+		if (prerequisite("MoveCategoryToNotEmpty")) {
 			Response response = when();
 
 			then(response);
 			
-			this.firstCard();
+			this.thirdCategoryWasNotTouched();
+			this.indexOfSecondCategoryWasShifted();
+			this.firstWasMoved();
 		
 			verifications();
 		} else {
-			LOG.info("WHEN: prerequisite for CreateCardWithLongUuid not met");
+			LOG.info("WHEN: prerequisite for MoveCategoryToNotEmpty not met");
 		}
 	}
 	
 	protected abstract void verifications();
 	
 	
-	private void firstCard() throws Exception {
-		com.anfelisa.card.models.ICardModel actual = daoProvider.getCardDao().selectByPrimaryKey(handle, "123456789-123456789-123456789-" + this.getTestId() + "");
+	private void thirdCategoryWasNotTouched() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat3-" + this.getTestId() + "");
 		
-		com.anfelisa.card.models.ICardModel expected = objectMapper.readValue("{" +
-			"\"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
-				"\"cardId\" : \"123456789-123456789-123456789-" + this.getTestId() + "\"," + 
-				"\"cardIndex\" : 1," + 
-				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
-				"\"given\" : \"x\"," + 
-				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"wanted\" : \"y\"} ",
-		com.anfelisa.card.models.CardModel.class);
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"cat3-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 1," + 
+				"\"categoryName\" : \"level 2 #1\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"cat2-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
 		assertThat(actual, expected);
 
-		LOG.info("THEN: firstCard passed");
+		LOG.info("THEN: thirdCategoryWasNotTouched passed");
+	}
+	private void indexOfSecondCategoryWasShifted() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat2-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"cat2-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 1," + 
+				"\"categoryName\" : \"level 1 #2\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: indexOfSecondCategoryWasShifted passed");
+	}
+	private void firstWasMoved() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat1-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 2," + 
+				"\"categoryName\" : \"level 1 #1\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"cat2-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: firstWasMoved passed");
 	}
 	
 	@Override
 	protected String scenarioName() {
-		return "CreateCardWithLongUuid";
+		return "MoveCategoryToNotEmpty";
 	}
 
 }

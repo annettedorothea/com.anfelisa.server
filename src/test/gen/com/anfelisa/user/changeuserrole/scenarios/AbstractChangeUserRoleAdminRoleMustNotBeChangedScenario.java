@@ -22,6 +22,8 @@ package com.anfelisa.user.changeuserrole.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUserAdmin")) {
-			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			uuid = "uuid-admin";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 					"\"password\" : \"admin-password\"," + 
 					"\"username\" : \"Admin\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,12 +66,15 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success");
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -81,14 +89,18 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 				"\"editedUserId\" : \"uuid-admin\"," + 
 				"\"newRole\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpPut(
 			"/user/role?uuid=" + data_0.getUuid() + "", 
 			data_0,
 			authorization("Admin", "admin-password")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: ChangeUserRole finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("ChangeUserRole", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -113,8 +125,6 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 		if (prerequisite("ChangeUserRoleAdminRoleMustNotBeChanged")) {
 			Response response = when();
 
-			LOG.info("WHEN: ChangeUserRole");
-	
 			then(response);
 			
 			this.roleWasNotChanged();
@@ -140,8 +150,6 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 				"\"username\" : \"Admin\"} ",
 		com.anfelisa.user.models.UserModel.class);
 		assertThat(actual, expected);
-		
-		
 
 		LOG.info("THEN: roleWasNotChanged passed");
 	}

@@ -19,13 +19,20 @@
 
 package com.anfelisa.card.getduplicates.scenarios;
 
+import com.anfelisa.card.data.GetDuplicatesResponse;
+
 @SuppressWarnings("unused")
 public class GetDuplicatesLimitScenario extends AbstractGetDuplicatesLimitScenario {
 
 	@Override
 	protected void verifications(com.anfelisa.card.data.GetDuplicatesResponse response ) {
+	}
+
+	@Override
+	protected void shouldReturn25Items(GetDuplicatesResponse response) {
 		int actualSize = response.getCardList().size();
 		assertThat(actualSize, 25);
+		LOG.info("THEN: shouldReturn25Items passed");
 	}
 
 }

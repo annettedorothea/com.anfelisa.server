@@ -22,6 +22,8 @@ package com.anfelisa.box.createbox.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUserAdmin")) {
-			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			uuid = "uuid-admin";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 					"\"password\" : \"admin-password\"," + 
 					"\"username\" : \"Admin\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,12 +66,15 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success");
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -75,21 +83,25 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
+		String uuid = "adminBox-" + this.getTestId() + "";
 		com.anfelisa.box.data.BoxCreationData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
 				"\"dictionaryLookup\" : false," + 
 				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxCreationData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpPost(
 			"/box/create", 
 			data_0,
 			authorization("Admin", "admin-password")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: CreateBox finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -114,8 +126,6 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
 			Response response = when();
 
-			LOG.info("WHEN: CreateBox");
-	
 			then(response);
 			
 		

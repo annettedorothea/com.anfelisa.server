@@ -74,6 +74,8 @@ public abstract class AbstractBaseScenario {
 				
 	protected abstract Response callNotReplayableDataProviderPutSystemTime(
 				String uuid, LocalDateTime dateTime);
+				
+	protected abstract void addToMetrics(String action, Long duration);
 
 }
 

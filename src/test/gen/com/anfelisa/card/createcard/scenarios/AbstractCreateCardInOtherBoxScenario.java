@@ -22,6 +22,8 @@ package com.anfelisa.card.createcard.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,25 +66,29 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
 		if (prerequisite("CreateBoxMinimal")) {
-			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			uuid = "boxId-" + this.getTestId() + "";
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
 			com.anfelisa.box.data.BoxCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/box/create", 
@@ -87,25 +96,29 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateBoxMinimal fails due to " + message);
+				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal success");
+			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
 		if (prerequisite("CreateSecondBox")) {
-			uuid = "boxId2-${testId}".replace("${testId}", this.getTestId());
+			uuid = "boxId2-" + this.getTestId() + "";
 			com.anfelisa.box.data.BoxCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat2-" + this.getTestId() + "\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 8} ",
 			com.anfelisa.box.data.BoxCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/box/create", 
@@ -113,12 +126,15 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateSecondBox fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateSecondBox fails due to " + message);
+				LOG.info("GIVEN: CreateSecondBox fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateSecondBox success");
+			LOG.info("GIVEN: CreateSecondBox success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateSecondBox not met");
 		}
@@ -127,21 +143,25 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "c7-${testId}".replace("${testId}", this.getTestId());
+		String uuid = "c7-" + this.getTestId() + "";
 		com.anfelisa.card.data.CardCreationData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryId\" : \"boxId2-" + this.getTestId() + "\"," + 
 				"\"given\" : \"given\"," + 
 				"\"wanted\" : \"wanted\"} ",
 		com.anfelisa.card.data.CardCreationData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpPost(
 			"/card/create", 
 			data_0,
 			authorization("Annette-${testId}", "password")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: CreateCard finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -166,10 +186,9 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 		if (prerequisite("CreateCardInOtherBox")) {
 			Response response = when();
 
-			LOG.info("WHEN: CreateCard");
-	
 			then(response);
 			
+			this.cardWasCreated();
 		
 			verifications();
 		} else {
@@ -180,6 +199,22 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 	protected abstract void verifications();
 	
 	
+	private void cardWasCreated() throws Exception {
+		com.anfelisa.card.models.ICardModel actual = daoProvider.getCardDao().selectByPrimaryKey(handle, "c7-" + this.getTestId() + "");
+		
+		com.anfelisa.card.models.ICardModel expected = objectMapper.readValue("{" +
+			"\"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c7-" + this.getTestId() + "\"," + 
+				"\"cardIndex\" : 1," + 
+				"\"categoryId\" : \"boxId2-" + this.getTestId() + "\"," + 
+				"\"given\" : \"given\"," + 
+				"\"rootCategoryId\" : \"boxId2-" + this.getTestId() + "\"," + 
+				"\"wanted\" : \"wanted\"} ",
+		com.anfelisa.card.models.CardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: cardWasCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

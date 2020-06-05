@@ -23,6 +23,7 @@ import de.acegen.PersistenceHandle;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("all")
@@ -78,6 +79,30 @@ public class AbstractScheduledCardDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
+	public IScheduledCardModel selectByPrimaryKey(PersistenceHandle handle, String scheduledCardId) {
+		Optional<IScheduledCardModel> optional = handle.getHandle().createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM \"scheduledcard\" WHERE scheduledcardid = :scheduledcardid")
+			.bind("scheduledcardid", scheduledCardId)
+			.map(new ScheduledCardMapper())
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
+	}
+	
+	public int filterAndCountBy(PersistenceHandle handle, Map<String, String> filterMap) {
+		String sql = "SELECT count(*) FROM \"scheduledcard\"";
+		if (filterMap != null) {
+			int i = 0;
+			for(String key : filterMap.keySet()) {
+				if (i == 0) {
+					sql += " WHERE " + key + " = '" + filterMap.get(key) + "'";
+				} else {
+					sql += " AND " + key + " = '" + filterMap.get(key) + "'";
+				}
+				i++;
+			}
+		}
+		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
+	}
+
 	public List<IScheduledCardModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM \"scheduledcard\"")
 			.map(new ScheduledCardMapper())

@@ -22,6 +22,8 @@ package com.anfelisa.user.registeruser.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,12 +66,15 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -75,7 +83,7 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "uuid2-${testId}".replace("${testId}", this.getTestId());
+		String uuid = "uuid2-" + this.getTestId() + "";
 		this.callNotReplayableDataProviderPutValue(uuid, "token", 
 					objectMapper.readValue("\"TOKEN_2-" + this.getTestId() + "\"",  String.class));
 		com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
@@ -85,14 +93,18 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 				"\"password\" : \"pw\"," + 
 				"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.data.UserRegistrationData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpPost(
 			"/users/register", 
 			data_0,
 			null
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: RegisterUser finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -117,8 +129,6 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 		if (prerequisite("RegisterTwoUsers")) {
 			Response response = when();
 
-			LOG.info("WHEN: RegisterUser");
-	
 			then(response);
 			
 			this.userWasCreated();
@@ -147,8 +157,6 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.models.UserModel.class);
 		assertThat(actual, expected);
-		
-		
 
 		LOG.info("THEN: userWasCreated passed");
 	}
@@ -160,8 +168,6 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 				"\"userId\" : \"uuid-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.models.EmailConfirmationModel.class);
 		assertThat(actual, expected);
-		
-		
 
 		LOG.info("THEN: emailConfirmationWasCreated passed");
 	}
@@ -177,8 +183,6 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 				"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.models.UserModel.class);
 		assertThat(actual, expected);
-		
-		
 
 		LOG.info("THEN: secondUserWasCreated passed");
 	}
@@ -190,8 +194,6 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 				"\"userId\" : \"uuid2-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.models.EmailConfirmationModel.class);
 		assertThat(actual, expected);
-		
-		
 
 		LOG.info("THEN: secondUmailConfirmationWasCreated passed");
 	}

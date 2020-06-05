@@ -22,6 +22,8 @@ package com.anfelisa.box.getboxes.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,25 +66,29 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
 		if (prerequisite("CreateBoxMinimal")) {
-			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			uuid = "boxId-" + this.getTestId() + "";
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
 			com.anfelisa.box.data.BoxCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/box/create", 
@@ -87,24 +96,28 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateBoxMinimal fails due to " + message);
+				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal success");
+			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
 		if (prerequisite("CreateCategory")) {
-			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
+			uuid = "cat1-" + this.getTestId() + "";
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
 					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/category/create", 
@@ -112,19 +125,22 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateCategory fails due to " + message);
+				LOG.info("GIVEN: CreateCategory fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategory success");
+			LOG.info("GIVEN: CreateCategory success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
 		
 
 		if (prerequisite("CreateCard")) {
-			uuid = "c1-${testId}".replace("${testId}", this.getTestId());
+			uuid = "c1-" + this.getTestId() + "";
 			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -132,6 +148,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 					"\"image\" : \"image\"," + 
 					"\"wanted\" : \"wanted\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/card/create", 
@@ -139,19 +156,22 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCard fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateCard fails due to " + message);
+				LOG.info("GIVEN: CreateCard fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCard success");
+			LOG.info("GIVEN: CreateCard success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCard not met");
 		}
 		
 
 		if (prerequisite("CreateSecondCard")) {
-			uuid = "c2-${testId}".replace("${testId}", this.getTestId());
+			uuid = "c2-" + this.getTestId() + "";
 			com.anfelisa.card.data.CardCreationData data_5 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
@@ -159,6 +179,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 					"\"image\" : \"image2\"," + 
 					"\"wanted\" : \"wanted2\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/card/create", 
@@ -166,25 +187,29 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateSecondCard fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateSecondCard fails due to " + message);
+				LOG.info("GIVEN: CreateSecondCard fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateSecondCard success");
+			LOG.info("GIVEN: CreateSecondCard success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateSecondCard not met");
 		}
 		
 
 		if (prerequisite("CreateThirdCard")) {
-			uuid = "c3-${testId}".replace("${testId}", this.getTestId());
+			uuid = "c3-" + this.getTestId() + "";
 			com.anfelisa.card.data.CardCreationData data_6 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"3given\"," + 
 					"\"wanted\" : \"3wanted\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/card/create", 
@@ -192,25 +217,29 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateThirdCard fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateThirdCard fails due to " + message);
+				LOG.info("GIVEN: CreateThirdCard fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateThirdCard success");
+			LOG.info("GIVEN: CreateThirdCard success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateThirdCard not met");
 		}
 		
 
 		if (prerequisite("CreateFourthCard")) {
-			uuid = "c4-${testId}".replace("${testId}", this.getTestId());
+			uuid = "c4-" + this.getTestId() + "";
 			com.anfelisa.card.data.CardCreationData data_7 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"4given4\"," + 
 					"\"wanted\" : \"4wanted4\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/card/create", 
@@ -218,25 +247,29 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateFourthCard fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateFourthCard fails due to " + message);
+				LOG.info("GIVEN: CreateFourthCard fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateFourthCard success");
+			LOG.info("GIVEN: CreateFourthCard success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateFourthCard not met");
 		}
 		
 
 		if (prerequisite("CreateFifthCard")) {
-			uuid = "c5-${testId}".replace("${testId}", this.getTestId());
+			uuid = "c5-" + this.getTestId() + "";
 			com.anfelisa.card.data.CardCreationData data_8 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 					"\"given\" : \"different\"," + 
 					"\"wanted\" : \"different\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/card/create", 
@@ -244,19 +277,22 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateFifthCard fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateFifthCard fails due to " + message);
+				LOG.info("GIVEN: CreateFifthCard fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateFifthCard success");
+			LOG.info("GIVEN: CreateFifthCard success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateFifthCard not met");
 		}
 		
 
 		if (prerequisite("ScheduleCards")) {
-			uuid = "sc1-${testId}".replace("${testId}", this.getTestId());
+			uuid = "sc1-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScheduledCardsData data_9 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -264,6 +300,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 					"\"c3-" + this.getTestId() + "\"," + 
 					"\"c4-" + this.getTestId() + "\"]} ",
 			com.anfelisa.box.data.ScheduledCardsData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/cards/schedule", 
@@ -271,19 +308,22 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScheduleCards fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: ScheduleCards fails due to " + message);
+				LOG.info("GIVEN: ScheduleCards fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("ScheduleCards", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScheduleCards success");
+			LOG.info("GIVEN: ScheduleCards success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("ScheduleCards", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for ScheduleCards not met");
 		}
 		
 
 		if (prerequisite("ScoreCard0")) {
-			uuid = "score0-${testId}".replace("${testId}", this.getTestId());
+			uuid = "score0-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_10 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
@@ -291,6 +331,7 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 					"\"scoredCardQuality\" : 0," + 
 					"\"scoredCardScheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/card/score", 
@@ -298,12 +339,15 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ScoreCard0 fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: ScoreCard0 fails due to " + message);
+				LOG.info("GIVEN: ScoreCard0 fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("ScoreCard", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScoreCard0 success");
+			LOG.info("GIVEN: ScoreCard0 success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("ScoreCard", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for ScoreCard0 not met");
 		}
@@ -317,13 +361,17 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"todayAtMidnightInUTC\" : \"2020-04-18T02:00\"} ",
 		com.anfelisa.box.data.BoxListData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpGet(
 			"/boxes/my/?uuid=" + data_0.getUuid() + "&todayAtMidnightInUTC=" + data_0.getTodayAtMidnightInUTC() + "", 
 			authorization("Annette-${testId}", "password")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: GetBoxes finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("GetBoxes", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private com.anfelisa.box.data.GetBoxesResponse then(Response response) throws Exception {
@@ -368,8 +416,6 @@ public abstract class AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScena
 		if (prerequisite("GetBoxesWithOneScoredCard0AndReinforceSameDay")) {
 			Response response = when();
 
-			LOG.info("WHEN: GetBoxes");
-	
 			com.anfelisa.box.data.GetBoxesResponse actualResponse = then(response);
 			
 		

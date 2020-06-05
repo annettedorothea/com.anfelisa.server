@@ -22,6 +22,8 @@ package com.anfelisa.box.createbox.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractCreateBoxWantedLanguageInvalidScenario extends Bas
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractCreateBoxWantedLanguageInvalidScenario extends Bas
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,12 +66,15 @@ public abstract class AbstractCreateBoxWantedLanguageInvalidScenario extends Bas
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -75,7 +83,7 @@ public abstract class AbstractCreateBoxWantedLanguageInvalidScenario extends Bas
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+		String uuid = "boxId-" + this.getTestId() + "";
 		com.anfelisa.box.data.BoxCreationData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
@@ -84,14 +92,18 @@ public abstract class AbstractCreateBoxWantedLanguageInvalidScenario extends Bas
 				"\"givenLanguage\" : \"fr\"," + 
 				"\"wantedLanguage\" : \"xx\"} ",
 		com.anfelisa.box.data.BoxCreationData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpPost(
 			"/box/create", 
 			data_0,
 			authorization("Annette-${testId}", "password")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: CreateBox finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -116,8 +128,6 @@ public abstract class AbstractCreateBoxWantedLanguageInvalidScenario extends Bas
 		if (prerequisite("CreateBoxWantedLanguageInvalid")) {
 			Response response = when();
 
-			LOG.info("WHEN: CreateBox");
-	
 			then(response);
 			
 		

@@ -22,6 +22,8 @@ package com.anfelisa.box.updatebox.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractUpdateBoxNoAccessScenario extends BaseScenario {
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractUpdateBoxNoAccessScenario extends BaseScenario {
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,25 +66,29 @@ public abstract class AbstractUpdateBoxNoAccessScenario extends BaseScenario {
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
 		if (prerequisite("CreateBoxMinimal")) {
-			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			uuid = "boxId-" + this.getTestId() + "";
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
 			com.anfelisa.box.data.BoxCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/box/create", 
@@ -87,19 +96,22 @@ public abstract class AbstractUpdateBoxNoAccessScenario extends BaseScenario {
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateBoxMinimal fails due to " + message);
+				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal success");
+			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
 		if (prerequisite("RegisterUserAdmin")) {
-			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			uuid = "uuid-admin";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_3 = objectMapper.readValue("{" +
@@ -109,6 +121,7 @@ public abstract class AbstractUpdateBoxNoAccessScenario extends BaseScenario {
 					"\"password\" : \"admin-password\"," + 
 					"\"username\" : \"Admin\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -116,12 +129,15 @@ public abstract class AbstractUpdateBoxNoAccessScenario extends BaseScenario {
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success");
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -138,14 +154,18 @@ public abstract class AbstractUpdateBoxNoAccessScenario extends BaseScenario {
 				"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
 				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxUpdateData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpPut(
 			"/box/update?uuid=" + data_0.getUuid() + "", 
 			data_0,
 			authorization("Admin", "admin-password")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: UpdateBox finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("UpdateBox", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -170,8 +190,6 @@ public abstract class AbstractUpdateBoxNoAccessScenario extends BaseScenario {
 		if (prerequisite("UpdateBoxNoAccess")) {
 			Response response = when();
 
-			LOG.info("WHEN: UpdateBox");
-	
 			then(response);
 			
 		

@@ -14,6 +14,37 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			thirdCategoryWasMoved Category selectBy ( categoryId: "cat3-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat3-${testId}",
+				categoryIndex: 3,
+				categoryName: "level 2 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
+			secondCategoryWasNotTouched Category selectBy ( categoryId: "cat2-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 2,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
+			firstCategoryWasNotTouched Category selectBy ( categoryId: "cat1-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}			
 
 	MoveCategoryToSub
 		GIVEN
@@ -26,5 +57,79 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			thirdCategoryWasNotTouched Category selectBy ( categoryId: "cat3-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat3-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 2 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "cat2-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
+			indexOfSecondCategoryWasShifted Category selectBy ( categoryId: "cat2-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
+			firstWasMoved Category selectBy ( categoryId: "cat1-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "cat3-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}			
+
+	MoveCategoryToNotEmpty
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategorySecondLevel
+		WHEN
+			com.anfelisa.category.MoveCategory
+				{
+					movedCategoryId: "cat1-${testId}",
+					targetCategoryId: "cat2-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			thirdCategoryWasNotTouched Category selectBy ( categoryId: "cat3-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat3-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 2 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "cat2-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
+			indexOfSecondCategoryWasShifted Category selectBy ( categoryId: "cat2-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
+			firstWasMoved Category selectBy ( categoryId: "cat1-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 2,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "cat2-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}			
 
 		

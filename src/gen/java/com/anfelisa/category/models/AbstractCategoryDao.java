@@ -23,6 +23,7 @@ import de.acegen.PersistenceHandle;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("all")
@@ -72,6 +73,30 @@ public class AbstractCategoryDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
+	public ICategoryModel selectByPrimaryKey(PersistenceHandle handle, String categoryId) {
+		Optional<ICategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM \"category\" WHERE categoryid = :categoryid")
+			.bind("categoryid", categoryId)
+			.map(new CategoryMapper())
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
+	}
+	
+	public int filterAndCountBy(PersistenceHandle handle, Map<String, String> filterMap) {
+		String sql = "SELECT count(*) FROM \"category\"";
+		if (filterMap != null) {
+			int i = 0;
+			for(String key : filterMap.keySet()) {
+				if (i == 0) {
+					sql += " WHERE " + key + " = '" + filterMap.get(key) + "'";
+				} else {
+					sql += " AND " + key + " = '" + filterMap.get(key) + "'";
+				}
+				i++;
+			}
+		}
+		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
+	}
+
 	public List<ICategoryModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM \"category\"")
 			.map(new CategoryMapper())

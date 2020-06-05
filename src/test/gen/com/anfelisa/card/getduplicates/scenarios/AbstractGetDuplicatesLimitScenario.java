@@ -22,6 +22,8 @@ package com.anfelisa.card.getduplicates.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,25 +66,29 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
 		if (prerequisite("CreateBoxMinimal")) {
-			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			uuid = "boxId-" + this.getTestId() + "";
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
 			com.anfelisa.box.data.BoxCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/box/create", 
@@ -87,24 +96,28 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateBoxMinimal fails due to " + message);
+				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal success");
+			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
 		if (prerequisite("CreateCategory")) {
-			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
+			uuid = "cat1-" + this.getTestId() + "";
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
 					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/category/create", 
@@ -112,12 +125,15 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateCategory fails due to " + message);
+				LOG.info("GIVEN: CreateCategory fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategory success");
+			LOG.info("GIVEN: CreateCategory success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
@@ -125,13 +141,14 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 
 		for (int i=0; i<60; i++) {
 			if (prerequisite("CreateRandomCard")) {
-				uuid = this.randomUUID();
+				uuid = "" + this.randomString() + "-" + this.getTestId() + "";
 				com.anfelisa.card.data.CardCreationData data_3 = objectMapper.readValue("{" +
 					"\"uuid\" : \"" + uuid + "\"," + 
 						"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
 						"\"given\" : \"given" + this.randomString() + "\"," + 
 						"\"wanted\" : \"wanted" + this.randomString() + "\"} ",
 				com.anfelisa.card.data.CardCreationData.class);
+				timeBeforeRequest = System.currentTimeMillis();
 				response = 
 				this.httpPost(
 					"/card/create", 
@@ -139,12 +156,15 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 					authorization("Annette-${testId}", "password")
 				);
 				
+				timeAfterRequest = System.currentTimeMillis();
 				if (response.getStatus() >= 400) {
 					String message = "GIVEN CreateRandomCard fails\n" + response.readEntity(String.class);
-					LOG.info("GIVEN: CreateRandomCard fails due to " + message);
+					LOG.info("GIVEN: CreateRandomCard fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+					addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 					assertFail(message);
 				}
-				LOG.info("GIVEN: CreateRandomCard success");
+				LOG.info("GIVEN: CreateRandomCard success in {} ms", (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 			} else {
 				LOG.info("GIVEN: prerequisite for CreateRandomCard not met");
 			}
@@ -162,13 +182,17 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 				"\"wanted\" : \"nted\"," + 
 				"\"naturalInputOrder\" : true} ",
 		com.anfelisa.card.data.CardSearchData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpGet(
 			"/cards/search?uuid=" + data_0.getUuid() + "&given=" + data_0.getGiven() + "&wanted=" + data_0.getWanted() + "&naturalInputOrder=" + data_0.getNaturalInputOrder() + "&categoryId=" + data_0.getCategoryId() + "", 
 			authorization("Annette-${testId}", "password")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: GetDuplicates finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("GetDuplicates", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private com.anfelisa.card.data.GetDuplicatesResponse then(Response response) throws Exception {
@@ -199,12 +223,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 		if (prerequisite("GetDuplicatesLimit")) {
 			Response response = when();
 
-			LOG.info("WHEN: GetDuplicates");
-	
 			com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 			
 		
 			verifications(actualResponse);
+			shouldReturn25Items(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetDuplicatesLimit not met");
 		}
@@ -212,6 +235,7 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 	
 	protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
 	
+	protected abstract void shouldReturn25Items(com.anfelisa.card.data.GetDuplicatesResponse response);
 	
 	
 	@Override

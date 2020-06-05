@@ -27,14 +27,6 @@ public class DeleteCategoryScenario extends AbstractDeleteCategoryScenario {
 
 	@Override
 	protected void verifications() {
-		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat1-" + getTestId());
-		assertIsNull(actualCategory);
-
-		// shifted index
-		actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "cat2-" + getTestId());
-		ICategoryModel expectedCategory = new CategoryModel("cat2-" + getTestId(), "level 1 #2", "Annette-" + getTestId(), 1,"boxId-" + getTestId(),"boxId-" + getTestId(), false, null,
-				null);
-		assertThat(actualCategory, expectedCategory);
 	}
 
 }

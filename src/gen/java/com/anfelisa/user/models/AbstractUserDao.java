@@ -23,6 +23,7 @@ import de.acegen.PersistenceHandle;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("all")
@@ -91,6 +92,30 @@ public class AbstractUserDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
+	public IUserModel selectByPrimaryKey(PersistenceHandle handle, String userId) {
+		Optional<IUserModel> optional = handle.getHandle().createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM \"user\" WHERE userid = :userid")
+			.bind("userid", userId)
+			.map(new UserMapper())
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
+	}
+	
+	public int filterAndCountBy(PersistenceHandle handle, Map<String, String> filterMap) {
+		String sql = "SELECT count(*) FROM \"user\"";
+		if (filterMap != null) {
+			int i = 0;
+			for(String key : filterMap.keySet()) {
+				if (i == 0) {
+					sql += " WHERE " + key + " = '" + filterMap.get(key) + "'";
+				} else {
+					sql += " AND " + key + " = '" + filterMap.get(key) + "'";
+				}
+				i++;
+			}
+		}
+		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
+	}
+
 	public List<IUserModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT userid, username, password, email, role, emailconfirmed FROM \"user\"")
 			.map(new UserMapper())

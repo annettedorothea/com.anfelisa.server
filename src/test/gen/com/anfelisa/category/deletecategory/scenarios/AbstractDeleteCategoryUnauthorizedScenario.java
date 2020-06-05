@@ -22,6 +22,8 @@ package com.anfelisa.category.deletecategory.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,25 +66,29 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
 		if (prerequisite("CreateBoxMinimal")) {
-			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			uuid = "boxId-" + this.getTestId() + "";
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
 			com.anfelisa.box.data.BoxCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/box/create", 
@@ -87,24 +96,28 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateBoxMinimal fails due to " + message);
+				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal success");
+			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
 		if (prerequisite("CreateCategory")) {
-			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
+			uuid = "cat1-" + this.getTestId() + "";
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
 					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/category/create", 
@@ -112,24 +125,28 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateCategory fails due to " + message);
+				LOG.info("GIVEN: CreateCategory fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategory success");
+			LOG.info("GIVEN: CreateCategory success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
 		
 
 		if (prerequisite("CreateSecondCategory")) {
-			uuid = "cat2-${testId}".replace("${testId}", this.getTestId());
+			uuid = "cat2-" + this.getTestId() + "";
 			com.anfelisa.category.data.CategoryCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #2\"," + 
 					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/category/create", 
@@ -137,12 +154,15 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateSecondCategory fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateSecondCategory fails due to " + message);
+				LOG.info("GIVEN: CreateSecondCategory fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateSecondCategory success");
+			LOG.info("GIVEN: CreateSecondCategory success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateSecondCategory not met");
 		}
@@ -156,13 +176,17 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"} ",
 		com.anfelisa.category.data.CategoryDeleteData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpDelete(
 			"/category/delete?uuid=" + data_0.getUuid() + "&categoryId=" + data_0.getCategoryId() + "", 
 			null
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: DeleteCategory finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("DeleteCategory", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -187,10 +211,9 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 		if (prerequisite("DeleteCategoryUnauthorized")) {
 			Response response = when();
 
-			LOG.info("WHEN: DeleteCategory");
-	
 			then(response);
 			
+			this.categoryWasNotDeleted();
 		
 			verifications();
 		} else {
@@ -201,6 +224,22 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 	protected abstract void verifications();
 	
 	
+	private void categoryWasNotDeleted() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "cat1-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : 1," + 
+				"\"categoryName\" : \"level 1 #1\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: categoryWasNotDeleted passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

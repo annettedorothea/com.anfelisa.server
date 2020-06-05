@@ -23,6 +23,7 @@ import de.acegen.PersistenceHandle;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("all")
@@ -85,6 +86,31 @@ public class AbstractReinforceCardDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
+	public IReinforceCardModel selectByPrimaryKey(PersistenceHandle handle, String reinforceCardId, String scheduledCardId) {
+		Optional<IReinforceCardModel> optional = handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM \"reinforcecard\" WHERE reinforcecardid = :reinforcecardid AND scheduledcardid = :scheduledcardid")
+			.bind("reinforcecardid", reinforceCardId)
+			.bind("scheduledcardid", scheduledCardId)
+			.map(new ReinforceCardMapper())
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
+	}
+	
+	public int filterAndCountBy(PersistenceHandle handle, Map<String, String> filterMap) {
+		String sql = "SELECT count(*) FROM \"reinforcecard\"";
+		if (filterMap != null) {
+			int i = 0;
+			for(String key : filterMap.keySet()) {
+				if (i == 0) {
+					sql += " WHERE " + key + " = '" + filterMap.get(key) + "'";
+				} else {
+					sql += " AND " + key + " = '" + filterMap.get(key) + "'";
+				}
+				i++;
+			}
+		}
+		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
+	}
+
 	public List<IReinforceCardModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT reinforcecardid, scheduledcardid, boxid, changedate FROM \"reinforcecard\"")
 			.map(new ReinforceCardMapper())

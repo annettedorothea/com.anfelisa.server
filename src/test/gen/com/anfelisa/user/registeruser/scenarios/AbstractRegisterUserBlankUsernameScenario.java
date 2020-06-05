@@ -22,6 +22,8 @@ package com.anfelisa.user.registeruser.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,10 +45,12 @@ public abstract class AbstractRegisterUserBlankUsernameScenario extends BaseScen
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+		String uuid = "uuid-" + this.getTestId() + "";
 		this.callNotReplayableDataProviderPutValue(uuid, "token", 
 					objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 		com.anfelisa.user.data.UserRegistrationData data_0 = objectMapper.readValue("{" +
@@ -56,14 +60,18 @@ public abstract class AbstractRegisterUserBlankUsernameScenario extends BaseScen
 				"\"password\" : \"password\"," + 
 				"\"username\" : \"  \"} ",
 		com.anfelisa.user.data.UserRegistrationData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpPost(
 			"/users/register", 
 			data_0,
 			null
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: RegisterUser finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -88,8 +96,6 @@ public abstract class AbstractRegisterUserBlankUsernameScenario extends BaseScen
 		if (prerequisite("RegisterUserBlankUsername")) {
 			Response response = when();
 
-			LOG.info("WHEN: RegisterUser");
-	
 			then(response);
 			
 			this.userWasNotCreated();
@@ -108,8 +114,6 @@ public abstract class AbstractRegisterUserBlankUsernameScenario extends BaseScen
 		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUserId(handle, "uuid-" + this.getTestId() + "");
 		
 		assertIsNull(actual);
-		
-		
 
 		LOG.info("THEN: userWasNotCreated passed");
 	}
@@ -117,8 +121,6 @@ public abstract class AbstractRegisterUserBlankUsernameScenario extends BaseScen
 		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN-" + this.getTestId() + "");
 		
 		assertIsNull(actual);
-		
-		
 
 		LOG.info("THEN: emailConfirmationWasNotCreated passed");
 	}

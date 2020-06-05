@@ -22,6 +22,8 @@ package com.anfelisa.user.deleteuser.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,19 +66,22 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
 		if (prerequisite("RegisterTwoUsers")) {
-			uuid = "uuid2-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid2-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN_2-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_2 = objectMapper.readValue("{" +
@@ -83,6 +91,7 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 					"\"password\" : \"pw\"," + 
 					"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -90,12 +99,15 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterTwoUsers fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterTwoUsers fails due to " + message);
+				LOG.info("GIVEN: RegisterTwoUsers fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterTwoUsers success");
+			LOG.info("GIVEN: RegisterTwoUsers success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterTwoUsers not met");
 		}
@@ -109,13 +121,17 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"usernameToBeDeleted\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.data.DeleteUserData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpDelete(
 			"/user/delete?uuid=" + data_0.getUuid() + "&usernameToBeDeleted=" + data_0.getUsernameToBeDeleted() + "", 
 			authorization("Anne-${testId}", "pw")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: DeleteUser finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("DeleteUser", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -140,8 +156,6 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 		if (prerequisite("DeleteUserUnauthorizedNotAdmin")) {
 			Response response = when();
 
-			LOG.info("WHEN: DeleteUser");
-	
 			then(response);
 			
 			this.userWasNotDeleted();
@@ -159,8 +173,6 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 		com.anfelisa.user.models.IUserModel actual = daoProvider.getUserDao().selectByUsername(handle, "Annette-" + this.getTestId() + "");
 		
 		assertIsNotNull(actual);
-		
-		
 
 		LOG.info("THEN: userWasNotDeleted passed");
 	}

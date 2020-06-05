@@ -62,14 +62,14 @@ public class MoveCategoryCommand extends AbstractMoveCategoryCommand {
 			this.commandData.setCategoryIndexWhereRemoved(movedCategory.getCategoryIndex());
 			this.commandData.setParentCategoryIdWhereRemoved(movedCategory.getParentCategoryId());
 
-			Integer cardIndexInTargetCategory = this.daoProvider.getCardDao().selectMaxIndexInCategory(readonlyHandle, 
+			Integer categoryIndexInTargetCategory = this.daoProvider.getCategoryDao().selectMaxIndexInCategory(readonlyHandle, 
 					commandData.getTargetCategoryId());
-			if (cardIndexInTargetCategory == null) {
-				cardIndexInTargetCategory = 0;
+			if (categoryIndexInTargetCategory == null) {
+				categoryIndexInTargetCategory = 1;
 			} else {
-				cardIndexInTargetCategory++;
+				categoryIndexInTargetCategory++;
 			}
-			movedCategory.setCategoryIndex(cardIndexInTargetCategory);
+			movedCategory.setCategoryIndex(categoryIndexInTargetCategory);
 			movedCategory.setParentCategoryId(this.commandData.getTargetCategoryId());
 
 			this.commandData.setMovedCategory(movedCategory);

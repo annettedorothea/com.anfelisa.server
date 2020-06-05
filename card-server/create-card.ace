@@ -17,6 +17,18 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			firstCard Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
 
 	CreateSecondCard
 		GIVEN
@@ -32,6 +44,30 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			firstCard Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+			secondCard Card selectByPrimaryKey ( cardId : "c2-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c2-${testId}",
+				cardIndex: 2,
+				categoryId: "cat1-${testId}",
+				given: "given2",
+				image: "image2",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted2"
+			}
+		
 
 	CreateThirdCard
 		GIVEN
@@ -46,6 +82,39 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			firstCard Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+			secondCard Card selectByPrimaryKey ( cardId : "c2-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c2-${testId}",
+				cardIndex: 2,
+				categoryId: "cat1-${testId}",
+				given: "given2",
+				image: "image2",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted2"
+			}
+			thirdCard Card selectByPrimaryKey ( cardId : "c3-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c3-${testId}",
+				cardIndex: 3,
+				categoryId: "cat1-${testId}",
+				given: "3given",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "3wanted"
+			}
 
 	CreateFourthCard
 		GIVEN
@@ -60,6 +129,49 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			firstCard Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+			secondCard Card selectByPrimaryKey ( cardId : "c2-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c2-${testId}",
+				cardIndex: 2,
+				categoryId: "cat1-${testId}",
+				given: "given2",
+				image: "image2",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted2"
+			}
+			thirdCard Card selectByPrimaryKey ( cardId : "c3-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c3-${testId}",
+				cardIndex: 3,
+				categoryId: "cat1-${testId}",
+				given: "3given",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "3wanted"
+			}
+			fourthCard Card selectByPrimaryKey ( cardId : "c4-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c4-${testId}",
+				cardIndex: 4,
+				categoryId: "cat1-${testId}",
+				given: "4given4",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "4wanted4"
+			}
 
 	CreateFifthCard
 		GIVEN
@@ -74,6 +186,59 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			firstCard Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+			secondCard Card selectByPrimaryKey ( cardId : "c2-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c2-${testId}",
+				cardIndex: 2,
+				categoryId: "cat1-${testId}",
+				given: "given2",
+				image: "image2",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted2"
+			}
+			thirdCard Card selectByPrimaryKey ( cardId : "c3-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c3-${testId}",
+				cardIndex: 3,
+				categoryId: "cat1-${testId}",
+				given: "3given",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "3wanted"
+			}
+			fourthCard Card selectByPrimaryKey ( cardId : "c4-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c4-${testId}",
+				cardIndex: 4,
+				categoryId: "cat1-${testId}",
+				given: "4given4",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "4wanted4"
+			}
+			fifthCard Card selectByPrimaryKey ( cardId : "c5-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c5-${testId}",
+				cardIndex: 5,
+				categoryId: "cat1-${testId}",
+				given: "different",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "different"
+			}
 
 	CreateCardWithLongUuid
 		GIVEN
@@ -88,12 +253,24 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			firstCard Card selectByPrimaryKey ( cardId : "123456789-123456789-123456789-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "123456789-123456789-123456789-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "x",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "y"
+			}
 
 	CreateRandomCard
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategory
 		WHEN
 			com.anfelisa.card.CreateCard
+				uuid "${random}-${testId}"
 				{
 					categoryId: "cat1-${testId}",
 					given: "given${random}",
@@ -101,6 +278,8 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			randomCard Card selectBy(cardId: "random-${testId}") shouldBe notNull
 
 	CreateCardInOtherCategory
 		GIVEN
@@ -116,6 +295,17 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			cardWasCreated Card selectByPrimaryKey ( cardId : "c6-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c6-${testId}",
+				cardIndex: 1,
+				categoryId: "cat2-${testId}",
+				given: "aa-given",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "zz-wanted"
+			}
 
 	CreateCardInOtherBox
 		GIVEN
@@ -130,6 +320,17 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			cardWasCreated Card selectByPrimaryKey ( cardId : "c7-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c7-${testId}",
+				cardIndex: 1,
+				categoryId: "boxId2-${testId}",
+				given: "given",
+				rootCategoryId: "boxId2-${testId}",
+				wanted: "wanted"
+			}
 
 	CreateCardMissingCategoryId
 		GIVEN
@@ -144,6 +345,8 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			cardWasNotCreated Card selectBy(cardId: "c2-${testId}") shouldBe null
 
 	CreateCardGivenNull
 		GIVEN
@@ -158,6 +361,8 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			cardWasNotCreated Card selectBy(cardId: "c1-${testId}") shouldBe null
 
 	CreateCardGivenEmpty
 		GIVEN
@@ -173,6 +378,8 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			cardWasNotCreated Card selectBy(cardId: "c1-${testId}") shouldBe null
 
 	CreateCardWantedNull
 		GIVEN
@@ -187,6 +394,8 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			cardWasNotCreated Card selectBy(cardId: "c1-${testId}") shouldBe null
 		
 	CreateCardWantedEmpty
 		GIVEN
@@ -202,6 +411,8 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			cardWasNotCreated Card selectBy(cardId: "c1-${testId}") shouldBe null
 
 	CreateCardImageNull
 		GIVEN
@@ -216,6 +427,18 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			cardWasCreated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: null,
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
 
 	CreateCardImageEmpty
 		GIVEN
@@ -231,6 +454,18 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			cardWasCreated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "  ",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
 
 	CreateCardCategoryDoesNotExist
 		GIVEN
@@ -246,6 +481,8 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			cardWasNotCreated Card selectBy(cardId: "c1-${testId}") shouldBe null
 
 	CreateCardNoAccessToCategory
 		GIVEN
@@ -262,12 +499,15 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
+		persistence
+			cardWasNotCreated Card selectBy(cardId: "c1-${testId}") shouldBe null
 		
 	CreateCardUnauthorized
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategoryAsAdmin
 		WHEN
 			com.anfelisa.card.CreateCard
+				uuid "c1-${testId}"
 				{
 					categoryId: "cat1-${testId}",
 					given: "given",
@@ -275,6 +515,8 @@ scenarios
 					wanted: "wanted"
 				}
 		THEN 401
+		persistence
+			cardWasNotCreated Card selectBy(cardId: "c1-${testId}") shouldBe null
 		
 	CreateCardAsAdmin
 		GIVEN
@@ -290,4 +532,16 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 200
+		persistence
+			cardWasCreated Card selectByPrimaryKey ( cardId : "c6-${testId}" ) shouldBe
+			{
+				cardAuthor: "Admin",
+				cardId: "c6-${testId}",
+				cardIndex: 1,
+				categoryId: "adminCat-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "adminBox-${testId}",
+				wanted: "wanted"
+			}
 		

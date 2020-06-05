@@ -13,6 +13,8 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			cardWasDeleted Card selectBy(cardId: "c1-${testId}") shouldBe null
 
 	DeleteCardMissingCardId
 		GIVEN
@@ -46,6 +48,8 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
+		persistence
+			cardWasNotDeleted Card selectBy(cardId: "c1-${testId}") shouldBe notNull
 		
 	DeleteCardUnauthorized
 		GIVEN
@@ -56,5 +60,7 @@ scenarios
 					cardId: "c1-${testId}"
 				}
 		THEN 401
+		persistence
+			cardWasNotDeleted Card selectBy(cardId: "c1-${testId}") shouldBe notNull
 		
 		

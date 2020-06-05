@@ -16,7 +16,7 @@ scenarios
 			response shouldBe {
 				rootCategory : {
 					categoryId: "boxId-${testId}",
-					categoryIndex: 1,
+					categoryIndex: null,
 					categoryName: "cat",
 					dictionaryLookup: false,
 					empty: false,
@@ -70,7 +70,7 @@ scenarios
 			response shouldBe {
 				rootCategory : {
 					categoryId: "boxId-${testId}",
-					categoryIndex: 1,
+					categoryIndex: null,
 					categoryName: "cat",
 					dictionaryLookup: true,
 					givenLanguage: "de",

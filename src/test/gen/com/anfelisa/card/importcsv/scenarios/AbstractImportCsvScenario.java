@@ -22,6 +22,8 @@ package com.anfelisa.card.importcsv.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,25 +66,29 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
 		if (prerequisite("CreateBoxMinimal")) {
-			uuid = "boxId-${testId}".replace("${testId}", this.getTestId());
+			uuid = "boxId-" + this.getTestId() + "";
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"cat\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
 			com.anfelisa.box.data.BoxCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/box/create", 
@@ -87,24 +96,28 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateBoxMinimal fails due to " + message);
+				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal success");
+			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
 		
 
 		if (prerequisite("CreateCategory")) {
-			uuid = "cat1-${testId}".replace("${testId}", this.getTestId());
+			uuid = "cat1-" + this.getTestId() + "";
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"level 1 #1\"," + 
 					"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/category/create", 
@@ -112,12 +125,15 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 				authorization("Annette-${testId}", "password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateCategory fails due to " + message);
+				LOG.info("GIVEN: CreateCategory fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategory success");
+			LOG.info("GIVEN: CreateCategory success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
@@ -140,14 +156,18 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 				"\"wanted\" : \"w3\"," + 
 				"\"id\" : \"3-" + this.getTestId() + "\"}]} ",
 		com.anfelisa.card.data.CsvUploadData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpPut(
 			"/category/import-csv?uuid=" + data_0.getUuid() + "", 
 			data_0,
 			authorization("Annette-${testId}", "password")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: ImportCsv finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("ImportCsv", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -172,10 +192,11 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 		if (prerequisite("ImportCsv")) {
 			Response response = when();
 
-			LOG.info("WHEN: ImportCsv");
-	
 			then(response);
 			
+			this.firstCard();
+			this.secondCard();
+			this.thirdCard();
 		
 			verifications();
 		} else {
@@ -186,6 +207,54 @@ public abstract class AbstractImportCsvScenario extends BaseScenario {
 	protected abstract void verifications();
 	
 	
+	private void firstCard() throws Exception {
+		com.anfelisa.card.models.ICardModel actual = daoProvider.getCardDao().selectByPrimaryKey(handle, "1-" + this.getTestId() + "");
+		
+		com.anfelisa.card.models.ICardModel expected = objectMapper.readValue("{" +
+			"\"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"1-" + this.getTestId() + "\"," + 
+				"\"cardIndex\" : 1," + 
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"g1\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"wanted\" : \"w1\"} ",
+		com.anfelisa.card.models.CardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: firstCard passed");
+	}
+	private void secondCard() throws Exception {
+		com.anfelisa.card.models.ICardModel actual = daoProvider.getCardDao().selectByPrimaryKey(handle, "2-" + this.getTestId() + "");
+		
+		com.anfelisa.card.models.ICardModel expected = objectMapper.readValue("{" +
+			"\"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"2-" + this.getTestId() + "\"," + 
+				"\"cardIndex\" : 2," + 
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"g2\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"wanted\" : \"w2\"} ",
+		com.anfelisa.card.models.CardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: secondCard passed");
+	}
+	private void thirdCard() throws Exception {
+		com.anfelisa.card.models.ICardModel actual = daoProvider.getCardDao().selectByPrimaryKey(handle, "3-" + this.getTestId() + "");
+		
+		com.anfelisa.card.models.ICardModel expected = objectMapper.readValue("{" +
+			"\"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"3-" + this.getTestId() + "\"," + 
+				"\"cardIndex\" : 3," + 
+				"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+				"\"given\" : \"g3\"," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"wanted\" : \"w3\"} ",
+		com.anfelisa.card.models.CardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: thirdCard passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

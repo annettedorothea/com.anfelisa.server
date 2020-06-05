@@ -22,6 +22,8 @@ package com.anfelisa.user.deleteuser.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUserAdmin")) {
-			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			uuid = "uuid-admin";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 					"\"password\" : \"admin-password\"," + 
 					"\"username\" : \"Admin\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,12 +66,15 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success");
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -80,13 +88,17 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"usernameToBeDeleted\" : \"doesNotExist\"} ",
 		com.anfelisa.user.data.DeleteUserData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpDelete(
 			"/user/delete?uuid=" + data_0.getUuid() + "&usernameToBeDeleted=" + data_0.getUsernameToBeDeleted() + "", 
 			authorization("Admin", "admin-password")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: DeleteUser finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("DeleteUser", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -111,8 +123,6 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 		if (prerequisite("DeleteUserDoesNotExist")) {
 			Response response = when();
 
-			LOG.info("WHEN: DeleteUser");
-	
 			then(response);
 			
 		

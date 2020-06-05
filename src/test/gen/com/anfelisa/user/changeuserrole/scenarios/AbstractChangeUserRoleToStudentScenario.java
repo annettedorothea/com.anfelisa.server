@@ -22,6 +22,8 @@ package com.anfelisa.user.changeuserrole.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,19 +66,22 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
 		
 
 		if (prerequisite("RegisterUserAdmin")) {
-			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			uuid = "uuid-admin";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_2 = objectMapper.readValue("{" +
@@ -83,6 +91,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 					"\"password\" : \"admin-password\"," + 
 					"\"username\" : \"Admin\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -90,12 +99,15 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success");
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -108,6 +120,7 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 					"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
 					"\"newRole\" : \"ADMIN\"} ",
 			com.anfelisa.user.data.ChangeUserRoleData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPut(
 				"/user/role?uuid=" + data_3.getUuid() + "", 
@@ -115,12 +128,15 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 				authorization("Admin", "admin-password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ChangeUserRoleToAdmin fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: ChangeUserRoleToAdmin fails due to " + message);
+				LOG.info("GIVEN: ChangeUserRoleToAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("ChangeUserRole", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ChangeUserRoleToAdmin success");
+			LOG.info("GIVEN: ChangeUserRoleToAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("ChangeUserRole", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for ChangeUserRoleToAdmin not met");
 		}
@@ -135,14 +151,18 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 				"\"editedUserId\" : \"uuid-" + this.getTestId() + "\"," + 
 				"\"newRole\" : \"STUDENT\"} ",
 		com.anfelisa.user.data.ChangeUserRoleData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpPut(
 			"/user/role?uuid=" + data_0.getUuid() + "", 
 			data_0,
 			authorization("Admin", "admin-password")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: ChangeUserRole finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("ChangeUserRole", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -167,8 +187,6 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 		if (prerequisite("ChangeUserRoleToStudent")) {
 			Response response = when();
 
-			LOG.info("WHEN: ChangeUserRole");
-	
 			then(response);
 			
 			this.roleWasChangedToSTUDENT();
@@ -194,8 +212,6 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.models.UserModel.class);
 		assertThat(actual, expected);
-		
-		
 
 		LOG.info("THEN: roleWasChangedToSTUDENT passed");
 	}

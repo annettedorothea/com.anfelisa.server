@@ -30,6 +30,37 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			firstCard Card selectByPrimaryKey ( cardId : "1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "g1",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "w1"
+			}
+			secondCard Card selectByPrimaryKey ( cardId : "2-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "2-${testId}",
+				cardIndex: 2,
+				categoryId: "cat1-${testId}",
+				given: "g2",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "w2"
+			}
+			thirdCard Card selectByPrimaryKey ( cardId : "3-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "3-${testId}",
+				cardIndex: 3,
+				categoryId: "cat1-${testId}",
+				given: "g3",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "w3"
+			}
 
 	ImportCsvNotEmpty
 		GIVEN
@@ -59,6 +90,37 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			firstCard Card selectByPrimaryKey ( cardId : "1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "1-${testId}",
+				cardIndex: 2,
+				categoryId: "cat1-${testId}",
+				given: "g1",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "w1"
+			}
+			secondCard Card selectByPrimaryKey ( cardId : "2-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "2-${testId}",
+				cardIndex: 3,
+				categoryId: "cat1-${testId}",
+				given: "g2",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "w2"
+			}
+			thirdCard Card selectByPrimaryKey ( cardId : "3-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "3-${testId}",
+				cardIndex: 4,
+				categoryId: "cat1-${testId}",
+				given: "g3",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "w3"
+			}
 
 	ImportCsvNoAccessToCategory
 		GIVEN
@@ -78,6 +140,8 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
+		persistence 
+			cardWasNoCreated Card selectBy ( cardId : "1-${testId}" ) shouldBe null
 
 	ImportCsvUnauthorized
 		GIVEN
@@ -95,6 +159,8 @@ scenarios
 					]
 				}
 		THEN 401
+		persistence 
+			cardWasNoCreated Card selectBy ( cardId : "1-${testId}" ) shouldBe null
 
 	ImportCsvCategoryDoesNotExist
 		GIVEN
@@ -113,4 +179,6 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence 
+			cardWasNoCreated Card selectBy ( cardId : "1-${testId}" ) shouldBe null
 

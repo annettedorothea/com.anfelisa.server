@@ -22,6 +22,8 @@ package com.anfelisa.user.forgotpassword.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,12 +66,15 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -83,14 +91,18 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 				"\"language\" : \"de\"," + 
 				"\"username\" : \"doesNotExist\"} ",
 		com.anfelisa.user.data.ForgotPasswordData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpPost(
 			"/users/forgot-password", 
 			data_0,
 			null
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: ForgotPassword finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("ForgotPassword", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -115,8 +127,6 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 		if (prerequisite("ForgotPasswordUserDoesNotExist")) {
 			Response response = when();
 
-			LOG.info("WHEN: ForgotPassword");
-	
 			then(response);
 			
 			this.resetPasswordTokenWasNotCreated();
@@ -134,8 +144,6 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 		com.anfelisa.user.models.IResetPasswordModel actual = daoProvider.getResetPasswordDao().selectByToken(handle, "RESET-PW-TOKEN-" + this.getTestId() + "");
 		
 		assertIsNull(actual);
-		
-		
 
 		LOG.info("THEN: resetPasswordTokenWasNotCreated passed");
 	}

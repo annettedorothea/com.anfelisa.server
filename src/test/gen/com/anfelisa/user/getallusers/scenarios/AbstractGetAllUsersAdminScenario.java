@@ -22,6 +22,8 @@ package com.anfelisa.user.getallusers.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUserAdmin")) {
-			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			uuid = "uuid-admin";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 					"\"password\" : \"admin-password\"," + 
 					"\"username\" : \"Admin\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,19 +66,22 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success");
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
 		
 
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_2 = objectMapper.readValue("{" +
@@ -83,6 +91,7 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -90,12 +99,15 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -108,6 +120,7 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 					"\"token\" : \"TOKEN-" + this.getTestId() + "\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.ConfirmEmailData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPut(
 				"/users/confirm?uuid=" + data_3.getUuid() + "", 
@@ -115,12 +128,15 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ConfirmEmailOK fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: ConfirmEmailOK fails due to " + message);
+				LOG.info("GIVEN: ConfirmEmailOK fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("ConfirmEmail", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ConfirmEmailOK success");
+			LOG.info("GIVEN: ConfirmEmailOK success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("ConfirmEmail", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for ConfirmEmailOK not met");
 		}
@@ -132,13 +148,17 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		String uuid = this.randomUUID();
 		com.anfelisa.user.data.UserListData data_0 = objectMapper.readValue("{ \"uuid\" : \"" + uuid + "\"}",
 		com.anfelisa.user.data.UserListData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpGet(
 			"/users/all?uuid=" + data_0.getUuid() + "", 
 			authorization("Admin", "admin-password")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: GetAllUsers finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("GetAllUsers", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private com.anfelisa.user.data.GetAllUsersResponse then(Response response) throws Exception {
@@ -191,8 +211,6 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 		if (prerequisite("GetAllUsersAdmin")) {
 			Response response = when();
 
-			LOG.info("WHEN: GetAllUsers");
-	
 			com.anfelisa.user.data.GetAllUsersResponse actualResponse = then(response);
 			
 		

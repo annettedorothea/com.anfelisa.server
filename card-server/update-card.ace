@@ -5,7 +5,7 @@ com.anfelisa.card.updatecard
 scenarios 
 	UpdateCard
 		GIVEN
-			com.anfelisa.card.createcard.CreateSecondCard
+			com.anfelisa.card.createcard.CreateCard
 		WHEN
 			com.anfelisa.card.UpdateCard
 				{
@@ -16,6 +16,18 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			wasUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given-updated",
+				image: "image-updated",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted-updated"
+			}
 
 	UpdateCardMissingCardId
 		GIVEN
@@ -29,6 +41,18 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
 
 	UpdateCardGivenNull
 		GIVEN
@@ -42,6 +66,18 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
 
 	UpdateCardGivenEmpty
 		GIVEN
@@ -56,6 +92,18 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
 
 	UpdateCardWantedNull
 		GIVEN
@@ -69,6 +117,18 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
 		
 	UpdateCardWantedEmpty
 		GIVEN
@@ -83,6 +143,18 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
 
 	UpdateCardImageNull
 		GIVEN
@@ -91,11 +163,23 @@ scenarios
 			com.anfelisa.card.UpdateCard
 				{
 					cardId: "c1-${testId}",
-					given: "given",
-					wanted: "wanted"
+					given: "given-x",
+					wanted: "wanted-x"
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			wasUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given-x",
+				image: null,
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted-x"
+			}
 
 	UpdateCardImageEmpty
 		GIVEN
@@ -110,6 +194,18 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			wasUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "  ",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
 
 	UpdateCardCardDoesNotExist
 		GIVEN
@@ -124,6 +220,18 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
 
 	UpdateCardNoAccessToCategory
 		GIVEN
@@ -139,6 +247,18 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
 		
 	UpdateCardUnauthorized
 		GIVEN
@@ -152,5 +272,17 @@ scenarios
 					wanted: "wanted"
 				}
 		THEN 401
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
 		
 		

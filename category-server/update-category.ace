@@ -14,6 +14,17 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasUpdated Category selectBy ( categoryId: "cat1-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "changed",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
 
 	UpdateCategoryUnauthorized
 		GIVEN
@@ -25,6 +36,17 @@ scenarios
 					categoryId: "cat1-${testId}"
 				}
 		THEN 401
+		persistence
+			categoryWasNotChanged Category selectBy ( categoryId: "cat1-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
 		
 	UpdateCategoryNoAccess
 		GIVEN
@@ -38,6 +60,17 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
+		persistence
+			categoryWasNotChanged Category selectBy ( categoryId: "cat1-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
 		
 	UpdateCategoryDoesNotExist
 		GIVEN

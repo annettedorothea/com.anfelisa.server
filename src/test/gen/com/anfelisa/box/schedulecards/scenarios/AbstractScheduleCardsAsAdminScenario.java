@@ -22,6 +22,8 @@ package com.anfelisa.box.schedulecards.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUserAdmin")) {
-			uuid = "uuid-admin".replace("${testId}", this.getTestId());
+			uuid = "uuid-admin";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 					"\"password\" : \"admin-password\"," + 
 					"\"username\" : \"Admin\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,25 +66,29 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUserAdmin fails due to " + message);
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success");
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
 		
 
 		if (prerequisite("CreateBoxMinimalAsAdmin")) {
-			uuid = "adminBox-${testId}".replace("${testId}", this.getTestId());
+			uuid = "adminBox-" + this.getTestId() + "";
 			com.anfelisa.box.data.BoxCreationData data_2 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
 					"\"dictionaryLookup\" : false," + 
 					"\"maxCardsPerDay\" : 10} ",
 			com.anfelisa.box.data.BoxCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/box/create", 
@@ -87,24 +96,28 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 				authorization("Admin", "admin-password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateBoxMinimalAsAdmin fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateBoxMinimalAsAdmin fails due to " + message);
+				LOG.info("GIVEN: CreateBoxMinimalAsAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimalAsAdmin success");
+			LOG.info("GIVEN: CreateBoxMinimalAsAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimalAsAdmin not met");
 		}
 		
 
 		if (prerequisite("CreateCategoryAsAdmin")) {
-			uuid = "adminCat-${testId}".replace("${testId}", this.getTestId());
+			uuid = "adminCat-" + this.getTestId() + "";
 			com.anfelisa.category.data.CategoryCreationData data_3 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryName\" : \"c\"," + 
 					"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
 			com.anfelisa.category.data.CategoryCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/category/create", 
@@ -112,19 +125,22 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 				authorization("Admin", "admin-password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCategoryAsAdmin fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateCategoryAsAdmin fails due to " + message);
+				LOG.info("GIVEN: CreateCategoryAsAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategoryAsAdmin success");
+			LOG.info("GIVEN: CreateCategoryAsAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategoryAsAdmin not met");
 		}
 		
 
 		if (prerequisite("CreateCardAsAdmin")) {
-			uuid = "c6-${testId}".replace("${testId}", this.getTestId());
+			uuid = "c6-" + this.getTestId() + "";
 			com.anfelisa.card.data.CardCreationData data_4 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
 					"\"categoryId\" : \"adminCat-" + this.getTestId() + "\"," + 
@@ -132,6 +148,7 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 					"\"image\" : \"image\"," + 
 					"\"wanted\" : \"wanted\"} ",
 			com.anfelisa.card.data.CardCreationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/card/create", 
@@ -139,12 +156,15 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 				authorization("Admin", "admin-password")
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN CreateCardAsAdmin fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: CreateCardAsAdmin fails due to " + message);
+				LOG.info("GIVEN: CreateCardAsAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCardAsAdmin success");
+			LOG.info("GIVEN: CreateCardAsAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCardAsAdmin not met");
 		}
@@ -153,20 +173,24 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 	}
 	
 	private Response when() throws Exception {
-		String uuid = "sc6-${testId}".replace("${testId}", this.getTestId());
+		String uuid = "sc6-" + this.getTestId() + "";
 		this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScheduledCardsData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]} ",
 		com.anfelisa.box.data.ScheduledCardsData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpPost(
 			"/cards/schedule", 
 			data_0,
 			authorization("Admin", "admin-password")
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: ScheduleCards finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("ScheduleCards", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -191,8 +215,6 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 		if (prerequisite("ScheduleCardsAsAdmin")) {
 			Response response = when();
 
-			LOG.info("WHEN: ScheduleCards");
-	
 			then(response);
 			
 		

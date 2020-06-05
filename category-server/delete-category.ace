@@ -13,6 +13,18 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasDeleted Category selectBy(categoryId: "cat1-${testId}") shouldBe null
+			indexWasShifted Category selectBy(categoryId: "cat2-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"
+			}
 
 	DeleteCategoryUnauthorized
 		GIVEN
@@ -23,6 +35,17 @@ scenarios
 					categoryId: "cat1-${testId}"
 				}
 		THEN 401
+		persistence
+			categoryWasNotDeleted Category selectBy ( categoryId: "cat1-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
 
 	DeleteCategoryNoAccess
 		GIVEN
@@ -35,6 +58,17 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
+		persistence
+			categoryWasNotDeleted Category selectBy ( categoryId: "cat1-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
 
 	DeleteCategoryDoesNotExist
 		GIVEN
@@ -51,7 +85,6 @@ scenarios
 	DeleteRootCategory
 		GIVEN
 			com.anfelisa.category.createcategory.CreateSecondCategory
-			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN
 			com.anfelisa.category.DeleteCategory
 				{
@@ -59,4 +92,43 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			boxWasNotDeleted Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				boxId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				maxInterval: null,
+				userId: "uuid-${testId}" 
+			}
+			rootCategoryWasNotDeleted Category selectBy ( categoryId: "boxId-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"				
+			}
+			firstCategoryWasNotDeleted Category selectBy ( categoryId: "cat1-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat1-${testId}",
+				categoryIndex: 1,
+				categoryName: "level 1 #1",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
+			secondCategoryWasNotDeleted Category selectBy ( categoryId: "cat2-${testId}") shouldBe
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "cat2-${testId}",
+				categoryIndex: 2,
+				categoryName: "level 1 #2",
+				dictionaryLookup: false,
+				parentCategoryId: "boxId-${testId}",
+				rootCategoryId: "boxId-${testId}"				
+			}
 

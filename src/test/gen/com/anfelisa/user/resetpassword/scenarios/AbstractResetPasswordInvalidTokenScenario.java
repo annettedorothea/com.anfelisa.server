@@ -22,6 +22,8 @@ package com.anfelisa.user.resetpassword.scenarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.ws.rs.core.Response;
 
@@ -43,8 +45,10 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 	private void given() throws Exception {
 		Response response;
 		String uuid;
+		long timeBeforeRequest;
+		long timeAfterRequest;
 		if (prerequisite("RegisterUser")) {
-			uuid = "uuid-${testId}".replace("${testId}", this.getTestId());
+			uuid = "uuid-" + this.getTestId() + "";
 			this.callNotReplayableDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.UserRegistrationData data_1 = objectMapper.readValue("{" +
@@ -54,6 +58,7 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 					"\"password\" : \"password\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.UserRegistrationData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/register", 
@@ -61,12 +66,15 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: RegisterUser fails due to " + message);
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success");
+			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -81,6 +89,7 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 					"\"language\" : \"de\"," + 
 					"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 			com.anfelisa.user.data.ForgotPasswordData.class);
+			timeBeforeRequest = System.currentTimeMillis();
 			response = 
 			this.httpPost(
 				"/users/forgot-password", 
@@ -88,12 +97,15 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 				null
 			);
 			
+			timeAfterRequest = System.currentTimeMillis();
 			if (response.getStatus() >= 400) {
 				String message = "GIVEN ForgotPasswordOK fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: ForgotPasswordOK fails due to " + message);
+				LOG.info("GIVEN: ForgotPasswordOK fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
+				addToMetrics("ForgotPassword", (timeAfterRequest-timeBeforeRequest));
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ForgotPasswordOK success");
+			LOG.info("GIVEN: ForgotPasswordOK success in {} ms", (timeAfterRequest-timeBeforeRequest));
+			addToMetrics("ForgotPassword", (timeAfterRequest-timeBeforeRequest));
 		} else {
 			LOG.info("GIVEN: prerequisite for ForgotPasswordOK not met");
 		}
@@ -108,14 +120,18 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 				"\"token\" : \"INVALID-TOKEN-" + this.getTestId() + "\"," + 
 				"\"password\" : \"newPassword\"} ",
 		com.anfelisa.user.data.ResetPasswordWithNewPasswordData.class);
-		
-		return 
+		long timeBeforeRequest = System.currentTimeMillis();
+		Response response = 
 		this.httpPut(
 			"/users/resetpassword?uuid=" + data_0.getUuid() + "", 
 			data_0,
 			null
 		);
 		
+		long timeAfterRequest = System.currentTimeMillis();
+		LOG.info("WHEN: ResetPassword finished in {} ms", (timeAfterRequest-timeBeforeRequest));
+		addToMetrics("ResetPassword", (timeAfterRequest-timeBeforeRequest));
+		return response;
 	}
 	
 	private void then(Response response) throws Exception {
@@ -140,8 +156,6 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 		if (prerequisite("ResetPasswordInvalidToken")) {
 			Response response = when();
 
-			LOG.info("WHEN: ResetPassword");
-	
 			then(response);
 			
 			this.passwordWasChanged();
@@ -168,8 +182,6 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 				"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 		com.anfelisa.user.models.UserModel.class);
 		assertThat(actual, expected);
-		
-		
 
 		LOG.info("THEN: passwordWasChanged passed");
 	}
@@ -177,8 +189,6 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 		com.anfelisa.user.models.IResetPasswordModel actual = daoProvider.getResetPasswordDao().selectByToken(handle, "RESET-PW-TOKEN-" + this.getTestId() + "");
 		
 		assertIsNotNull(actual);
-		
-		
 
 		LOG.info("THEN: tokenWasNotDeleted passed");
 	}

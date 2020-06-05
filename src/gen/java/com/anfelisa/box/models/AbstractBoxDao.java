@@ -23,6 +23,7 @@ import de.acegen.PersistenceHandle;
 import org.jdbi.v3.core.statement.Update;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("all")
@@ -64,6 +65,30 @@ public class AbstractBoxDao {
 		return optional.isPresent() ? optional.get() : null;
 	}
 	
+	public IBoxModel selectByPrimaryKey(PersistenceHandle handle, String boxId) {
+		Optional<IBoxModel> optional = handle.getHandle().createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday FROM \"box\" WHERE boxid = :boxid")
+			.bind("boxid", boxId)
+			.map(new BoxMapper())
+			.findFirst();
+		return optional.isPresent() ? optional.get() : null;
+	}
+	
+	public int filterAndCountBy(PersistenceHandle handle, Map<String, String> filterMap) {
+		String sql = "SELECT count(*) FROM \"box\"";
+		if (filterMap != null) {
+			int i = 0;
+			for(String key : filterMap.keySet()) {
+				if (i == 0) {
+					sql += " WHERE " + key + " = '" + filterMap.get(key) + "'";
+				} else {
+					sql += " AND " + key + " = '" + filterMap.get(key) + "'";
+				}
+				i++;
+			}
+		}
+		return handle.getHandle().createQuery(sql).mapTo(Integer.class).first();
+	}
+
 	public List<IBoxModel> selectAll(PersistenceHandle handle) {
 		return handle.getHandle().createQuery("SELECT boxid, userid, categoryid, maxinterval, maxcardsperday FROM \"box\"")
 			.map(new BoxMapper())
