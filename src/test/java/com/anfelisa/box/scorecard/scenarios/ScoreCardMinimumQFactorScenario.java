@@ -14,28 +14,22 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+
+
+
 package com.anfelisa.box.scorecard.scenarios;
 
-import java.time.LocalDateTime;
 
-import com.anfelisa.box.models.IScheduledCardModel;
-import com.anfelisa.box.models.ScheduledCardModel;
-
-@SuppressWarnings("unused")
 public class ScoreCardMinimumQFactorScenario extends AbstractScoreCardMinimumQFactorScenario {
 
-	@Override
-	protected void verifications() {
-		LocalDateTime scoredDateTime = LocalDateTime.of(2022, 10, 1, 16, 30);
-
-		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"q-" + getTestId());
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("q-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
-				scoredDateTime, 1.3F, 90, 13, 12, scoredDateTime.plusDays(90), 3, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-	}
+	
 
 }
 
+
+
+
 /******* S.D.G. *******/
+
+
+

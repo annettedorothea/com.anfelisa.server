@@ -19,12 +19,9 @@
 
 package com.anfelisa.box.getboxes.scenarios;
 
-@SuppressWarnings("unused")
 public class GetBoxesUnauthorizedScenario extends AbstractGetBoxesUnauthorizedScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.box.data.GetBoxesResponse response ) {
-	}
+	
 
 }
 

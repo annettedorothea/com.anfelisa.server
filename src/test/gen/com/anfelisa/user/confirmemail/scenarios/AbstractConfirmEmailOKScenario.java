@@ -130,13 +130,10 @@ public abstract class AbstractConfirmEmailOKScenario extends BaseScenario {
 			this.confirmedIsSetToTrue();
 			this.tokenWasDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ConfirmEmailOK not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void confirmedIsSetToTrue() throws Exception {

@@ -19,15 +19,10 @@
 
 package com.anfelisa.user.forgotpassword.scenarios;
 
-import com.anfelisa.user.models.IResetPasswordModel;
-import com.anfelisa.user.models.ResetPasswordModel;
 
-@SuppressWarnings("unused")
 public class ForgotPasswordOKScenario extends AbstractForgotPasswordOKScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

@@ -460,16 +460,35 @@ public abstract class AbstractScheduleSortedOutCardScenario extends BaseScenario
 
 			then(response);
 			
+			this.cardWasScheduled();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ScheduleSortedOutCard not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void cardWasScheduled() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "score0-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
+				"\"count\" : 1," + 
+				"\"createdDate\" : \"2020-04-18T16:30\"," + 
+				"\"ef\" : \"2.5F\"," + 
+				"\"interval\" : 1," + 
+				"\"lastQuality\" : 0," + 
+				"\"n\" : 1," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"score0-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-20T09:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: cardWasScheduled passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

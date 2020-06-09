@@ -19,26 +19,10 @@
 
 package com.anfelisa.box.schedulecards.scenarios;
 
-import java.time.LocalDateTime;
 
-import com.anfelisa.box.models.IScheduledCardModel;
-import com.anfelisa.box.models.ScheduledCardModel;
-
-@SuppressWarnings("unused")
 public class ScheduleSortedOutCardsWithMultipleScoresScenario extends AbstractScheduleSortedOutCardsWithMultipleScoresScenario {
 
-	@Override
-	protected void verifications() {
-		LocalDateTime creationDateTime = LocalDateTime.of(2022, 2, 1, 16, 30);
-		LocalDateTime scheduledDateTime = LocalDateTime.of(2022, 3, 18, 10, 30);
-
-		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score39-" + getTestId());
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score39-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
-				creationDateTime, 1.48F, 90, 11, 10, scheduledDateTime, 3, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-	}
+	
 
 }
 

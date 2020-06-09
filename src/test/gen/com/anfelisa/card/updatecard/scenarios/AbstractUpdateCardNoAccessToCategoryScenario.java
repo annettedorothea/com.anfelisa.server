@@ -254,13 +254,10 @@ public abstract class AbstractUpdateCardNoAccessToCategoryScenario extends BaseS
 			
 			this.wasNotUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCardNoAccessToCategory not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void wasNotUpdated() throws Exception {

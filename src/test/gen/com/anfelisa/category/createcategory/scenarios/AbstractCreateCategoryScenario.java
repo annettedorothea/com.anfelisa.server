@@ -159,13 +159,10 @@ public abstract class AbstractCreateCategoryScenario extends BaseScenario {
 			
 			this.categoryWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategory not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasCreated() throws Exception {

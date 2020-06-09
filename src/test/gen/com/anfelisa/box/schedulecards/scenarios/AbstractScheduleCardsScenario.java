@@ -340,16 +340,95 @@ public abstract class AbstractScheduleCardsScenario extends BaseScenario {
 
 			then(response);
 			
+			this.card1WasScheduled();
+			this.card3WasScheduled();
+			this.card4WasScheduled();
+			this.card2WasNotScheduled();
+			this.card5WasNotScheduled();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ScheduleCards not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void card1WasScheduled() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
+				"\"count\" : 0," + 
+				"\"createdDate\" : \"2020-04-18T10:30\"," + 
+				"\"ef\" : \"2.5F\"," + 
+				"\"interval\" : 1," + 
+				"\"lastQuality\" : null," + 
+				"\"n\" : 1," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: card1WasScheduled passed");
+	}
+	private void card3WasScheduled() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c3-" + this.getTestId() + "\"," + 
+				"\"count\" : 0," + 
+				"\"createdDate\" : \"2020-04-18T10:30\"," + 
+				"\"ef\" : \"2.5F\"," + 
+				"\"interval\" : 1," + 
+				"\"lastQuality\" : null," + 
+				"\"n\" : 1," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: card3WasScheduled passed");
+	}
+	private void card4WasScheduled() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c4-" + this.getTestId() + "\"," + 
+				"\"count\" : 0," + 
+				"\"createdDate\" : \"2020-04-18T10:30\"," + 
+				"\"ef\" : \"2.5F\"," + 
+				"\"interval\" : 1," + 
+				"\"lastQuality\" : null," + 
+				"\"n\" : 1," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: card4WasScheduled passed");
+	}
+	private void card2WasNotScheduled() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c2-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+
+		LOG.info("THEN: card2WasNotScheduled passed");
+	}
+	private void card5WasNotScheduled() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c5-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+
+		LOG.info("THEN: card5WasNotScheduled passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

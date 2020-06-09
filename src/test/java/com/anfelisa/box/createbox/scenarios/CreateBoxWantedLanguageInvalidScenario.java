@@ -19,25 +19,10 @@
 
 package com.anfelisa.box.createbox.scenarios;
 
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
-@SuppressWarnings("unused")
 public class CreateBoxWantedLanguageInvalidScenario extends AbstractCreateBoxWantedLanguageInvalidScenario {
 
-	@Override
-	protected void verifications() {
-		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle,"boxId-" + getTestId());
-		assertIsNull(actualCategory);
-
-		IUserAccessToCategoryModel actualAccessToCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(handle,"boxId-" + getTestId(), "uuid-" + getTestId());
-		assertIsNull(actualAccessToCategory);
-		
-		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle,"boxId-" + getTestId());
-		assertIsNull(actualBox);
-	}
+	
 
 }
 

@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.schedulecards.scenarios;
 
-@SuppressWarnings("unused")
+
 public class ScheduleCardsAsAdminScenario extends AbstractScheduleCardsAsAdminScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

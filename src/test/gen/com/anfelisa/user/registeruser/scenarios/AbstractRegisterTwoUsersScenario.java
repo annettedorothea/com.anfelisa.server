@@ -136,13 +136,10 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 			this.secondUserWasCreated();
 			this.secondUmailConfirmationWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for RegisterTwoUsers not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void userWasCreated() throws Exception {

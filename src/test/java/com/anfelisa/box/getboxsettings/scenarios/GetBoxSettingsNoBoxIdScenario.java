@@ -19,12 +19,9 @@
 
 package com.anfelisa.box.getboxsettings.scenarios;
 
-@SuppressWarnings("unused")
 public class GetBoxSettingsNoBoxIdScenario extends AbstractGetBoxSettingsNoBoxIdScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.box.data.GetBoxSettingsResponse response ) {
-	}
+	
 
 }
 

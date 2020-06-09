@@ -19,19 +19,10 @@
 
 package com.anfelisa.user.deleteuser.scenarios;
 
-import com.anfelisa.auth.Roles;
-import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserModel;
 
-@SuppressWarnings("unused")
 public class DeleteUserLastAdminScenario extends AbstractDeleteUserLastAdminScenario {
 
-	@Override
-	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Admin");
-		IUserModel expectedUser = new UserModel("uuid-admin", "Admin", "admin-password", "annette.pohl@anfelisa.de", Roles.ADMIN, false);
-		assertThat(actualUser, expectedUser);
-	}
+	
 
 }
 

@@ -19,12 +19,9 @@
 
 package com.anfelisa.box.loadnextcard.scenarios;
 
-@SuppressWarnings("unused")
 public class LoadNextCardScored3Scenario extends AbstractLoadNextCardScored3Scenario {
 
-	@Override
-	protected void verifications(com.anfelisa.box.data.LoadNextCardResponse response ) {
-	}
+	
 
 }
 

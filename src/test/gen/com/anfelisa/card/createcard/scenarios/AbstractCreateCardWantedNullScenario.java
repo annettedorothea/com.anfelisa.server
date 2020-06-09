@@ -189,13 +189,10 @@ public abstract class AbstractCreateCardWantedNullScenario extends BaseScenario 
 			
 			this.cardWasNotCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardWantedNull not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasNotCreated() throws Exception {

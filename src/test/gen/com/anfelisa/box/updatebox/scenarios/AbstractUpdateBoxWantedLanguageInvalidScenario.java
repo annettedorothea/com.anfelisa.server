@@ -162,16 +162,30 @@ public abstract class AbstractUpdateBoxWantedLanguageInvalidScenario extends Bas
 
 			then(response);
 			
+			this.categoryWasNotUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxWantedLanguageInvalid not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void categoryWasNotUpdated() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : null," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : null," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: categoryWasNotUpdated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

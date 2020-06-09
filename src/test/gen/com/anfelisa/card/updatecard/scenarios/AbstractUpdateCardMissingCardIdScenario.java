@@ -220,13 +220,10 @@ public abstract class AbstractUpdateCardMissingCardIdScenario extends BaseScenar
 			
 			this.wasNotUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCardMissingCardId not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void wasNotUpdated() throws Exception {

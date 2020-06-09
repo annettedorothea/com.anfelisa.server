@@ -19,12 +19,10 @@
 
 package com.anfelisa.card.createcard.scenarios;
 
-@SuppressWarnings("unused")
+
 public class CreateCardAsAdminScenario extends AbstractCreateCardAsAdminScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

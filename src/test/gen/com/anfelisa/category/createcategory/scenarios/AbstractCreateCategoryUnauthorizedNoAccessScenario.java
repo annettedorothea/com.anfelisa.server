@@ -192,13 +192,10 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 			
 			this.categoryWasNotCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryUnauthorizedNoAccess not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasNotCreated() throws Exception {

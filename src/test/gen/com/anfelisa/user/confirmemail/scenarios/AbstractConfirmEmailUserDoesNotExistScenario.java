@@ -130,13 +130,10 @@ public abstract class AbstractConfirmEmailUserDoesNotExistScenario extends BaseS
 			this.confirmedIsNotSetToTrue();
 			this.tokenIsNotDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ConfirmEmailUserDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void confirmedIsNotSetToTrue() throws Exception {

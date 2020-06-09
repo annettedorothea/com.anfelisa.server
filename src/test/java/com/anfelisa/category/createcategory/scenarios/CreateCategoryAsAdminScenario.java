@@ -19,12 +19,10 @@
 
 package com.anfelisa.category.createcategory.scenarios;
 
-@SuppressWarnings("unused")
+
 public class CreateCategoryAsAdminScenario extends AbstractCreateCategoryAsAdminScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

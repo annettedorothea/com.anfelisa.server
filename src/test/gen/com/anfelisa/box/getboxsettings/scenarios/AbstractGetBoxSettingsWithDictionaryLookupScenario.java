@@ -180,13 +180,10 @@ public abstract class AbstractGetBoxSettingsWithDictionaryLookupScenario extends
 			com.anfelisa.box.data.GetBoxSettingsResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetBoxSettingsWithDictionaryLookup not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.box.data.GetBoxSettingsResponse response);
 	
 	
 	

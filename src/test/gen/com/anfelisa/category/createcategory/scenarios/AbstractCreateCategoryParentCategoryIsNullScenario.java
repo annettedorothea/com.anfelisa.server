@@ -158,13 +158,10 @@ public abstract class AbstractCreateCategoryParentCategoryIsNullScenario extends
 			
 			this.categoryWasNotCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryParentCategoryIsNull not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasNotCreated() throws Exception {

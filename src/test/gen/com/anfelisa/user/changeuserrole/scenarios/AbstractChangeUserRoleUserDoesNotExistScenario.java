@@ -161,13 +161,10 @@ public abstract class AbstractChangeUserRoleUserDoesNotExistScenario extends Bas
 			then(response);
 			
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeUserRoleUserDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	

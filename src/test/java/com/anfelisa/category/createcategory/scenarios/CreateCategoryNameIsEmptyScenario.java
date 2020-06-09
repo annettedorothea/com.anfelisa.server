@@ -19,12 +19,10 @@
 
 package com.anfelisa.category.createcategory.scenarios;
 
-@SuppressWarnings("unused")
+
 public class CreateCategoryNameIsEmptyScenario extends AbstractCreateCategoryNameIsEmptyScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

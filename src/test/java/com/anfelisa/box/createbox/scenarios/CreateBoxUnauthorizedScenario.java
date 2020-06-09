@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.createbox.scenarios;
 
-@SuppressWarnings("unused")
+
 public class CreateBoxUnauthorizedScenario extends AbstractCreateBoxUnauthorizedScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

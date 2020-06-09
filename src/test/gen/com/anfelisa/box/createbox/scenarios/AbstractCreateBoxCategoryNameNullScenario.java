@@ -127,16 +127,37 @@ public abstract class AbstractCreateBoxCategoryNameNullScenario extends BaseScen
 
 			then(response);
 			
+			this.categoryWasNotCreated();
+			this.accessWasNotGranted();
+			this.boxWasNotCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateBoxCategoryNameNull not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void categoryWasNotCreated() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+
+		LOG.info("THEN: categoryWasNotCreated passed");
+	}
+	private void accessWasNotGranted() throws Exception {
+		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "boxId-" + this.getTestId() + "", "uuid-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+
+		LOG.info("THEN: accessWasNotGranted passed");
+	}
+	private void boxWasNotCreated() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+
+		LOG.info("THEN: boxWasNotCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

@@ -19,12 +19,10 @@
 
 package com.anfelisa.card.createcard.scenarios;
 
-@SuppressWarnings("unused")
+
 public class CreateCardWithLongUuidScenario extends AbstractCreateCardWithLongUuidScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

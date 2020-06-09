@@ -128,16 +128,57 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 
 			then(response);
 			
+			this.categoryWasCreated();
+			this.accessToCategoryWasGranted();
+			this.boxWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateBoxMinimalAsAdmin not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void categoryWasCreated() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "adminBox-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Admin\"," + 
+				"\"categoryId\" : \"adminBox-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : null," + 
+				"\"categoryName\" : \"adminBox-" + this.getTestId() + "\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : null," + 
+				"\"rootCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: categoryWasCreated passed");
+	}
+	private void accessToCategoryWasGranted() throws Exception {
+		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "adminBox-" + this.getTestId() + "", "uuid-admin");
+		
+		com.anfelisa.category.models.IUserAccessToCategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryId\" : \"adminBox-" + this.getTestId() + "\"," + 
+				"\"editable\" : true," + 
+				"\"userId\" : \"uuid-admin\"} ",
+		com.anfelisa.category.models.UserAccessToCategoryModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: accessToCategoryWasGranted passed");
+	}
+	private void boxWasCreated() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "adminBox-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IBoxModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"adminBox-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"adminBox-" + this.getTestId() + "\"," + 
+				"\"maxCardsPerDay\" : 10," + 
+				"\"userId\" : \"uuid-admin\"} ",
+		com.anfelisa.box.models.BoxModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: boxWasCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

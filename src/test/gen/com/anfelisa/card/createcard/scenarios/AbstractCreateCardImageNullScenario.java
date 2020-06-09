@@ -189,13 +189,10 @@ public abstract class AbstractCreateCardImageNullScenario extends BaseScenario {
 			
 			this.cardWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardImageNull not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasCreated() throws Exception {

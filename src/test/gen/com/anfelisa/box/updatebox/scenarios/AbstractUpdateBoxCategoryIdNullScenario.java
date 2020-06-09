@@ -118,7 +118,7 @@ public abstract class AbstractUpdateBoxCategoryIdNullScenario extends BaseScenar
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"cat\"," + 
-				"\"maxCardsPerDay\" : 10} ",
+				"\"maxCardsPerDay\" : 20} ",
 		com.anfelisa.box.data.BoxUpdateData.class);
 		long timeBeforeRequest = System.currentTimeMillis();
 		Response response = 
@@ -158,16 +158,27 @@ public abstract class AbstractUpdateBoxCategoryIdNullScenario extends BaseScenar
 
 			then(response);
 			
+			this.boxWasNotUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxCategoryIdNull not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void boxWasNotUpdated() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IBoxModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"maxCardsPerDay\" : 10," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"} ",
+		com.anfelisa.box.models.BoxModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: boxWasNotUpdated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

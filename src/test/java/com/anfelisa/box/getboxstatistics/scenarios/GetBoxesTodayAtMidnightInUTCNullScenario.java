@@ -19,12 +19,9 @@
 
 package com.anfelisa.box.getboxstatistics.scenarios;
 
-@SuppressWarnings("unused")
 public class GetBoxesTodayAtMidnightInUTCNullScenario extends AbstractGetBoxesTodayAtMidnightInUTCNullScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.box.data.GetBoxStatisticsResponse response ) {
-	}
+	
 
 }
 

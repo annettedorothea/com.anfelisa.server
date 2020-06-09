@@ -215,13 +215,10 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 			
 			this.categoryWasNotDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCategoryUnauthorized not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasNotDeleted() throws Exception {

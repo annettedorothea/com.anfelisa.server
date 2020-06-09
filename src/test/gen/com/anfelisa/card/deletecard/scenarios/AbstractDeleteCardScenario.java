@@ -248,13 +248,10 @@ public abstract class AbstractDeleteCardScenario extends BaseScenario {
 			
 			this.cardWasDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCard not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasDeleted() throws Exception {

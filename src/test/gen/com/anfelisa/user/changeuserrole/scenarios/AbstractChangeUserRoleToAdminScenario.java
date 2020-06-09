@@ -162,13 +162,10 @@ public abstract class AbstractChangeUserRoleToAdminScenario extends BaseScenario
 			
 			this.roleWasChangedToADMIN();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeUserRoleToAdmin not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void roleWasChangedToADMIN() throws Exception {

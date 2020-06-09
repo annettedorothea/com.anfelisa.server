@@ -19,18 +19,10 @@
 
 package com.anfelisa.card.createcard.scenarios;
 
-import com.anfelisa.card.models.CardModel;
-import com.anfelisa.card.models.ICardModel;
 
-@SuppressWarnings("unused")
 public class CreateThirdCardScenario extends AbstractCreateThirdCardScenario {
 
-	@Override
-	protected void verifications() {
-		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c3-" + getTestId());
-		ICardModel expectedCard = new CardModel("c3-" + getTestId(), "3given", "3wanted", null, "Annette-" + getTestId(), 3, "cat1-" + getTestId(),"boxId-" + getTestId());
-		assertThat(actualCard, expectedCard);
-	}
+	
 
 }
 

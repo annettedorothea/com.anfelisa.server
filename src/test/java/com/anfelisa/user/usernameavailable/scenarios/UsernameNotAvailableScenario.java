@@ -19,12 +19,9 @@
 
 package com.anfelisa.user.usernameavailable.scenarios;
 
-@SuppressWarnings("unused")
 public class UsernameNotAvailableScenario extends AbstractUsernameNotAvailableScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.user.data.UsernameAvailableResponse response ) {
-	}
+	
 
 }
 

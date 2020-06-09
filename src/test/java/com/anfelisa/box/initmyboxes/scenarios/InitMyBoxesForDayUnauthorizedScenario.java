@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.initmyboxes.scenarios;
 
-@SuppressWarnings("unused")
+
 public class InitMyBoxesForDayUnauthorizedScenario extends AbstractInitMyBoxesForDayUnauthorizedScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

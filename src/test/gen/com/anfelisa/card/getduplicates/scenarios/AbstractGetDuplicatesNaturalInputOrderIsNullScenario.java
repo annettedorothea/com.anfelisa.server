@@ -244,13 +244,10 @@ public abstract class AbstractGetDuplicatesNaturalInputOrderIsNullScenario exten
 			com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetDuplicatesNaturalInputOrderIsNull not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
 	
 	
 	

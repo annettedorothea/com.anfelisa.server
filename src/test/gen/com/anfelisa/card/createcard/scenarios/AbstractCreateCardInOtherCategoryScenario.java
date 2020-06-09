@@ -218,13 +218,10 @@ public abstract class AbstractCreateCardInOtherCategoryScenario extends BaseScen
 			
 			this.cardWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardInOtherCategory not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasCreated() throws Exception {

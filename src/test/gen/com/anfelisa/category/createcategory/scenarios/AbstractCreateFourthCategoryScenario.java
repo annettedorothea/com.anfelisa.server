@@ -246,13 +246,10 @@ public abstract class AbstractCreateFourthCategoryScenario extends BaseScenario 
 			
 			this.categoryWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateFourthCategory not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasCreated() throws Exception {

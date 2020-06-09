@@ -159,13 +159,10 @@ public abstract class AbstractCreateCategoryUnauthorizedScenario extends BaseSce
 			
 			this.categoryWasNotCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryUnauthorized not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasNotCreated() throws Exception {

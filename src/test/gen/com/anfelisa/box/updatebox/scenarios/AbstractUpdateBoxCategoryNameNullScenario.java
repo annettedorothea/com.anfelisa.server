@@ -118,7 +118,7 @@ public abstract class AbstractUpdateBoxCategoryNameNullScenario extends BaseScen
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"maxCardsPerDay\" : 10} ",
+				"\"maxCardsPerDay\" : 20} ",
 		com.anfelisa.box.data.BoxUpdateData.class);
 		long timeBeforeRequest = System.currentTimeMillis();
 		Response response = 
@@ -158,16 +158,44 @@ public abstract class AbstractUpdateBoxCategoryNameNullScenario extends BaseScen
 
 			then(response);
 			
+			this.categoryWasNotUpdated();
+			this.boxWasNotUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxCategoryNameNull not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void categoryWasNotUpdated() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : null," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : null," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: categoryWasNotUpdated passed");
+	}
+	private void boxWasNotUpdated() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IBoxModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"maxCardsPerDay\" : 10," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"} ",
+		com.anfelisa.box.models.BoxModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: boxWasNotUpdated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

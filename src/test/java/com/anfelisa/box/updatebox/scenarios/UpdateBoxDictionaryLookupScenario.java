@@ -19,25 +19,10 @@
 
 package com.anfelisa.box.updatebox.scenarios;
 
-import com.anfelisa.box.models.BoxModel;
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.category.models.CategoryModel;
-import com.anfelisa.category.models.ICategoryModel;
 
-@SuppressWarnings("unused")
 public class UpdateBoxDictionaryLookupScenario extends AbstractUpdateBoxDictionaryLookupScenario {
 
-	@Override
-	protected void verifications() {
-		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle,"boxId-" + getTestId());
-		ICategoryModel expectedCategory = new CategoryModel("boxId-" + getTestId(), "cat", "Annette-" + getTestId(), 1, null,"boxId-" + getTestId(), true, "de",
-				"en");
-		assertThat(actualCategory, expectedCategory);
-
-		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle,"boxId-" + getTestId());
-		IBoxModel expectedBox = new BoxModel("boxId-" + getTestId(), "uuid-" + getTestId(),"boxId-" + getTestId(), null, 10);
-		assertThat(actualBox, expectedBox);
-	}
+	
 
 }
 

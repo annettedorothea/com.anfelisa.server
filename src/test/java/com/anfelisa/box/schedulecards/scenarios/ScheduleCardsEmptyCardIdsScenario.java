@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.schedulecards.scenarios;
 
-@SuppressWarnings("unused")
+
 public class ScheduleCardsEmptyCardIdsScenario extends AbstractScheduleCardsEmptyCardIdsScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

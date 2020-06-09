@@ -127,13 +127,10 @@ public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenari
 			
 			this.userWasNotDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteUserUnauthorized not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void userWasNotDeleted() throws Exception {

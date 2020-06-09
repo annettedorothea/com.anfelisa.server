@@ -19,18 +19,10 @@
 
 package com.anfelisa.card.createcard.scenarios;
 
-import com.anfelisa.card.models.CardModel;
-import com.anfelisa.card.models.ICardModel;
 
-@SuppressWarnings("unused")
 public class CreateFifthCardScenario extends AbstractCreateFifthCardScenario {
 
-	@Override
-	protected void verifications() {
-		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c5-" + getTestId());
-		ICardModel expectedCard = new CardModel("c5-" + getTestId(), "different", "different", null, "Annette-" + getTestId(), 5, "cat1-" + getTestId(),"boxId-" + getTestId());
-		assertThat(actualCard, expectedCard);
-	}
+	
 
 }
 

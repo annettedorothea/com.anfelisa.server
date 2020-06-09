@@ -19,11 +19,9 @@
 
 package com.anfelisa.user.changeuserrole.scenarios;
 
+
 public class ChangeUserRoleToAdminScenario extends AbstractChangeUserRoleToAdminScenario {
 
-	@Override
-	protected void verifications() {
-	}
 	
 
 }

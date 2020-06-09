@@ -189,13 +189,10 @@ public abstract class AbstractCreateCardMissingCategoryIdScenario extends BaseSc
 			
 			this.cardWasNotCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardMissingCategoryId not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasNotCreated() throws Exception {

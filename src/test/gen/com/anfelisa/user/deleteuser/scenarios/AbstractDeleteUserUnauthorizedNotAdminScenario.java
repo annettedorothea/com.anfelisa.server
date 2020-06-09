@@ -160,13 +160,10 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 			
 			this.userWasNotDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteUserUnauthorizedNotAdmin not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void userWasNotDeleted() throws Exception {

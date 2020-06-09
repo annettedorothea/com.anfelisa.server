@@ -250,13 +250,10 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 			
 			this.cardWasNotDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCardNoAccessToCategory not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasNotDeleted() throws Exception {

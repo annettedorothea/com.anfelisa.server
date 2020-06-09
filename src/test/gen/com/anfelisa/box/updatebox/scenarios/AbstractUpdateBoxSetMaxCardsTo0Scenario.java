@@ -159,16 +159,27 @@ public abstract class AbstractUpdateBoxSetMaxCardsTo0Scenario extends BaseScenar
 
 			then(response);
 			
+			this.boxWasNotUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxSetMaxCardsTo0 not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void boxWasNotUpdated() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IBoxModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"maxCardsPerDay\" : 10," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"} ",
+		com.anfelisa.box.models.BoxModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: boxWasNotUpdated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

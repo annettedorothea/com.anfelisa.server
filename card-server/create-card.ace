@@ -279,7 +279,7 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 		persistence
-			randomCard Card selectBy(cardId: "random-${testId}") shouldBe notNull
+			randomCardWasCreated Card filterAndCountBy ( categoryId: "cat1-${testId}" ) shouldBe 1
 
 	CreateCardInOtherCategory
 		GIVEN

@@ -19,12 +19,10 @@
 
 package com.anfelisa.card.movecard.scenarios;
 
-@SuppressWarnings("unused")
+
 public class MoveCardsCardDoesNotExistScenario extends AbstractMoveCardsCardDoesNotExistScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

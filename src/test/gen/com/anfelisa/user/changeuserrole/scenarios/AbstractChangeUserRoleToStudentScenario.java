@@ -191,13 +191,10 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 			
 			this.roleWasChangedToSTUDENT();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeUserRoleToStudent not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void roleWasChangedToSTUDENT() throws Exception {

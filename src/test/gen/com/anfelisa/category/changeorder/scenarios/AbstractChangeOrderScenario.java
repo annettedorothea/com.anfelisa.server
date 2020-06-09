@@ -278,13 +278,10 @@ public abstract class AbstractChangeOrderScenario extends BaseScenario {
 			this.cat3MovedToSecondIndex();
 			this.cat4Remains();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrder not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cat1Remains() throws Exception {

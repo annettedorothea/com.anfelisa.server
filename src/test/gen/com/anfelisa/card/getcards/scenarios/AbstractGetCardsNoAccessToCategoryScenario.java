@@ -376,13 +376,10 @@ public abstract class AbstractGetCardsNoAccessToCategoryScenario extends BaseSce
 			com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetCardsNoAccessToCategory not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.card.data.GetCardsResponse response);
 	
 	
 	

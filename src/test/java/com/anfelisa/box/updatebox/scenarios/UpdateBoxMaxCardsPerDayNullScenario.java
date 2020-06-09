@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.updatebox.scenarios;
 
-@SuppressWarnings("unused")
+
 public class UpdateBoxMaxCardsPerDayNullScenario extends AbstractUpdateBoxMaxCardsPerDayNullScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

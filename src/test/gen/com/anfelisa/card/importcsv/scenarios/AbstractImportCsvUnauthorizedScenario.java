@@ -190,13 +190,10 @@ public abstract class AbstractImportCsvUnauthorizedScenario extends BaseScenario
 			
 			this.cardWasNoCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ImportCsvUnauthorized not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasNoCreated() throws Exception {

@@ -190,13 +190,10 @@ public abstract class AbstractCreateCardCategoryDoesNotExistScenario extends Bas
 			
 			this.cardWasNotCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardCategoryDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasNotCreated() throws Exception {

@@ -375,13 +375,10 @@ public abstract class AbstractMoveCardsUnauthorizedScenario extends BaseScenario
 			this.fourthCard();
 			this.fifthCard();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCardsUnauthorized not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void firstCard() throws Exception {

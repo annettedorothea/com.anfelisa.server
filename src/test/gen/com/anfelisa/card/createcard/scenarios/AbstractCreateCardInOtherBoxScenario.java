@@ -190,13 +190,10 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 			
 			this.cardWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardInOtherBox not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasCreated() throws Exception {

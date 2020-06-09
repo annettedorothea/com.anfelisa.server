@@ -191,13 +191,10 @@ public abstract class AbstractGetCategoryTreeUnauthorizedScenario extends BaseSc
 			com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetCategoryTreeUnauthorized not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
 	
 	
 	

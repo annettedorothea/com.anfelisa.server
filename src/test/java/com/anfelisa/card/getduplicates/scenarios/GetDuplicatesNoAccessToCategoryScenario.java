@@ -22,10 +22,6 @@ package com.anfelisa.card.getduplicates.scenarios;
 @SuppressWarnings("unused")
 public class GetDuplicatesNoAccessToCategoryScenario extends AbstractGetDuplicatesNoAccessToCategoryScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.card.data.GetDuplicatesResponse response ) {
-	}
-
 }
 
 

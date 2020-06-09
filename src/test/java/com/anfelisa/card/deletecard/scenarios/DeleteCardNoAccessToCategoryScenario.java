@@ -19,12 +19,10 @@
 
 package com.anfelisa.card.deletecard.scenarios;
 
-@SuppressWarnings("unused")
+
 public class DeleteCardNoAccessToCategoryScenario extends AbstractDeleteCardNoAccessToCategoryScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

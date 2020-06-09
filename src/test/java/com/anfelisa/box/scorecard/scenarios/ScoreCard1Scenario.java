@@ -19,40 +19,10 @@
 
 package com.anfelisa.box.scorecard.scenarios;
 
-import java.time.LocalDateTime;
 
-import com.anfelisa.box.models.IReinforceCardModel;
-import com.anfelisa.box.models.IScheduledCardModel;
-import com.anfelisa.box.models.ReinforceCardModel;
-import com.anfelisa.box.models.ScheduledCardModel;
-
-@SuppressWarnings("unused")
 public class ScoreCard1Scenario extends AbstractScoreCard1Scenario {
 
-	@Override
-	protected void verifications() {
-		LocalDateTime scoredDateTime = LocalDateTime.of(2020, 4, 18, 16, 30);
-
-		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score1-" + getTestId());
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score1-" + getTestId(), "c3-" + getTestId(),"boxId-" + getTestId(),
-				scoredDateTime, 2.5F, 1, 1, 1, scoredDateTime.plusDays(1), 1, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-		
-		LocalDateTime dateTime = LocalDateTime.of(2020, 4, 18, 10, 30);
-
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"c3-" + getTestId() + "-sc1-" + getTestId());
-		expectedScheduledCard = new ScheduledCardModel("c3-" + getTestId() + "-sc1-" + getTestId(), "c3-" + getTestId(),"boxId-" + getTestId(),
-				dateTime, 2.5F, 1, 1, 0, dateTime, null, 1,
-				scoredDateTime);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-		
-		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c3-" + getTestId() + "-sc1-" + getTestId());
-		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score1-" + getTestId(), "c3-" + getTestId() + "-sc1-" + getTestId(),"boxId-" + getTestId(), scoredDateTime);
-		assertThat(actualReinforceCard, expectedReinforceCard);
-	}
+	
 
 }
 

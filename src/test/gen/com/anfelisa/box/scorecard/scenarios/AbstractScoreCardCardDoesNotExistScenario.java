@@ -372,13 +372,10 @@ public abstract class AbstractScoreCardCardDoesNotExistScenario extends BaseScen
 			then(response);
 			
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCardCardDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	

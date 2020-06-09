@@ -19,18 +19,10 @@
 
 package com.anfelisa.card.updatecard.scenarios;
 
-import com.anfelisa.card.models.CardModel;
-import com.anfelisa.card.models.ICardModel;
 
-@SuppressWarnings("unused")
 public class UpdateCardImageEmptyScenario extends AbstractUpdateCardImageEmptyScenario {
 
-	@Override
-	protected void verifications() {
-		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c1-" + getTestId());
-		ICardModel expectedCard = new CardModel("c1-" + getTestId(), "given", "wanted", "  ", "Annette-" + getTestId(), 1, "cat1-" + getTestId(),"boxId-" + getTestId());
-		assertThat(actualCard, expectedCard);
-	}
+	
 
 }
 

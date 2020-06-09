@@ -19,12 +19,10 @@
 
 package com.anfelisa.category.updatecategory.scenarios;
 
-@SuppressWarnings("unused")
+
 public class UpdateCategoryDoesNotExistScenario extends AbstractUpdateCategoryDoesNotExistScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

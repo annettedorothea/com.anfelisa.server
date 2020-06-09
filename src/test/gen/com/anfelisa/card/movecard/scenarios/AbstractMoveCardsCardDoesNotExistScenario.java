@@ -376,13 +376,10 @@ public abstract class AbstractMoveCardsCardDoesNotExistScenario extends BaseScen
 			this.fourthCard();
 			this.fifthCard();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCardsCardDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void firstCard() throws Exception {

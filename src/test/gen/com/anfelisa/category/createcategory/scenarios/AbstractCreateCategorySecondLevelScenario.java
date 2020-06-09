@@ -217,13 +217,10 @@ public abstract class AbstractCreateCategorySecondLevelScenario extends BaseScen
 			
 			this.categoryWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategorySecondLevel not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasCreated() throws Exception {

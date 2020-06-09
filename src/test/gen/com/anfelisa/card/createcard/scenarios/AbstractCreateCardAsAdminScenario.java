@@ -190,13 +190,10 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 			
 			this.cardWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardAsAdmin not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasCreated() throws Exception {

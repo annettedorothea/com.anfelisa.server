@@ -19,25 +19,10 @@
 
 package com.anfelisa.box.scorecard.scenarios;
 
-import java.time.LocalDateTime;
 
-import com.anfelisa.box.models.IScheduledCardModel;
-import com.anfelisa.box.models.ScheduledCardModel;
-
-@SuppressWarnings("unused")
 public class ScoreCard310Scenario extends AbstractScoreCard310Scenario {
 
-	@Override
-	protected void verifications() {
-		LocalDateTime scoredDateTime = LocalDateTime.of(2022, 6, 1, 16, 30);
-
-		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score310-" + getTestId());
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score310-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
-				scoredDateTime, 1.34F, 90, 12, 11, scoredDateTime.plusDays(90), 3, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-	}
+	
 
 }
 

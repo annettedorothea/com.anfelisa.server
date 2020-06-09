@@ -19,12 +19,9 @@
 
 package com.anfelisa.card.getcards.scenarios;
 
-@SuppressWarnings("unused")
 public class GetCardsScenario extends AbstractGetCardsScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.card.data.GetCardsResponse response ) {
-	}
+	
 
 }
 

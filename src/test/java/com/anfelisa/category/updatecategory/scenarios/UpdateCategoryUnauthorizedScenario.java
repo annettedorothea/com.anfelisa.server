@@ -19,12 +19,10 @@
 
 package com.anfelisa.category.updatecategory.scenarios;
 
-@SuppressWarnings("unused")
+
 public class UpdateCategoryUnauthorizedScenario extends AbstractUpdateCategoryUnauthorizedScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

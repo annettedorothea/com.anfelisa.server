@@ -19,17 +19,10 @@
 
 package com.anfelisa.user.resetpassword.scenarios;
 
-import com.anfelisa.auth.Roles;
-import com.anfelisa.user.models.IResetPasswordModel;
-import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserModel;
 
-@SuppressWarnings("unused")
 public class ResetPasswordScenario extends AbstractResetPasswordScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

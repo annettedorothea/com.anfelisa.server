@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.updatebox.scenarios;
 
-@SuppressWarnings("unused")
+
 public class UpdateBoxSetMaxCardsTo0Scenario extends AbstractUpdateBoxSetMaxCardsTo0Scenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

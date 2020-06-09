@@ -311,13 +311,10 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 			
 			this.firstCard();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCardsNoAccessToCard not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void firstCard() throws Exception {

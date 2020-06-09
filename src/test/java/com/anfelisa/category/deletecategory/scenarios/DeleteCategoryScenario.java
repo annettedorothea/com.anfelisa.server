@@ -19,15 +19,10 @@
 
 package com.anfelisa.category.deletecategory.scenarios;
 
-import com.anfelisa.category.models.CategoryModel;
-import com.anfelisa.category.models.ICategoryModel;
 
-@SuppressWarnings("unused")
 public class DeleteCategoryScenario extends AbstractDeleteCategoryScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

@@ -19,12 +19,9 @@
 
 package com.anfelisa.category.getcategorytree.scenarios;
 
-@SuppressWarnings("unused")
 public class GetCategoryTreeUnauthorizedScenario extends AbstractGetCategoryTreeUnauthorizedScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response ) {
-	}
+	
 
 }
 

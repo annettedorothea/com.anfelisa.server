@@ -22,10 +22,6 @@ package com.anfelisa.category.movecategory.scenarios;
 
 public class MoveCategoryToNotEmptyScenario extends AbstractMoveCategoryToNotEmptyScenario {
 
-	@Override
-	protected void verifications() {
-	}
-	
 	
 
 }

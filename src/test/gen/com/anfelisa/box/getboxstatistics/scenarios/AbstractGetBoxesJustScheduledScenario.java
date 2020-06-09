@@ -399,13 +399,10 @@ public abstract class AbstractGetBoxesJustScheduledScenario extends BaseScenario
 			com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetBoxesJustScheduled not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.box.data.GetBoxStatisticsResponse response);
 	
 	
 	

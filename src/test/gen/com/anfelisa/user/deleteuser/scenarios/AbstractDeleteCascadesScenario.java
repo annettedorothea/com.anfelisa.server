@@ -596,13 +596,10 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			this.scheduledCardsOfOtherUserWereNotDeleted();
 			this.reinforceCardsOfOtherUserWereNotDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCascades not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void userWasDeleted() throws Exception {

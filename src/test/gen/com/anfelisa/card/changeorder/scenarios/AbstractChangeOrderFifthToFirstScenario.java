@@ -344,13 +344,10 @@ public abstract class AbstractChangeOrderFifthToFirstScenario extends BaseScenar
 			this.fourthCard();
 			this.fifthCard();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderFifthToFirst not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void firstCard() throws Exception {

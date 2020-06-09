@@ -131,13 +131,10 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 			
 			this.resetPasswordTokenWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ForgotPasswordOK not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void resetPasswordTokenWasCreated() throws Exception {

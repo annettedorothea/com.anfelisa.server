@@ -229,13 +229,10 @@ public abstract class AbstractImportCsvNotEmptyScenario extends BaseScenario {
 			this.secondCard();
 			this.thirdCard();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ImportCsvNotEmpty not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void firstCard() throws Exception {

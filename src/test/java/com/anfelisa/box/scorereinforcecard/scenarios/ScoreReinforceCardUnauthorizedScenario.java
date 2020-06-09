@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.scorereinforcecard.scenarios;
 
-@SuppressWarnings("unused")
+
 public class ScoreReinforceCardUnauthorizedScenario extends AbstractScoreReinforceCardUnauthorizedScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

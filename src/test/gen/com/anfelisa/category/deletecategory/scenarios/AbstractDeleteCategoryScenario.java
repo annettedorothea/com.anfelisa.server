@@ -216,13 +216,10 @@ public abstract class AbstractDeleteCategoryScenario extends BaseScenario {
 			this.categoryWasDeleted();
 			this.indexWasShifted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCategory not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasDeleted() throws Exception {

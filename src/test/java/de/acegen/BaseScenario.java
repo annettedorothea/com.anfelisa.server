@@ -20,6 +20,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Base64;
@@ -106,10 +107,13 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 			LOG.info("action {}", action);
 			LOG.info(
 					"{} times and performed with mean {} - standard deviation {} - median {} - percentile(10) {} - percentile(90) {} - min {} - max {}",
-					values.getN(), values.getMean(), values.getStandardDeviation(), values.getPercentile(50),
-					values.getPercentile(10), values.getPercentile(90),
-					values.getMin(), values.getMax());
+					values.getN(), format(values.getMean()), format(values.getStandardDeviation()), format(values.getPercentile(50)),
+					format(values.getPercentile(10)), format(values.getPercentile(90)),	format(values.getMin()), format(values.getMax()));
 		}
+	}
+	
+	private static String format(double d) {
+		return new DecimalFormat("#.##").format(d);
 	}
 
 	@BeforeEach

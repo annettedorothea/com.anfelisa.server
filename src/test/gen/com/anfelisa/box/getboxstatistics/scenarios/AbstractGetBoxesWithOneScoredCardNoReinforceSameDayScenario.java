@@ -430,13 +430,10 @@ public abstract class AbstractGetBoxesWithOneScoredCardNoReinforceSameDayScenari
 			com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetBoxesWithOneScoredCardNoReinforceSameDay not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.box.data.GetBoxStatisticsResponse response);
 	
 	
 	

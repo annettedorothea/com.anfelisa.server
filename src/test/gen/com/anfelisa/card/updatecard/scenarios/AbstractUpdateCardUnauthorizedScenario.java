@@ -221,13 +221,10 @@ public abstract class AbstractUpdateCardUnauthorizedScenario extends BaseScenari
 			
 			this.wasNotUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCardUnauthorized not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void wasNotUpdated() throws Exception {

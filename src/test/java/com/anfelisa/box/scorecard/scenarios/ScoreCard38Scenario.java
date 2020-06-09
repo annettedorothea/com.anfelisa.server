@@ -14,28 +14,22 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+
+
+
 package com.anfelisa.box.scorecard.scenarios;
 
-import java.time.LocalDateTime;
 
-import com.anfelisa.box.models.IScheduledCardModel;
-import com.anfelisa.box.models.ScheduledCardModel;
-
-@SuppressWarnings("unused")
 public class ScoreCard38Scenario extends AbstractScoreCard38Scenario {
 
-	@Override
-	protected void verifications() {
-		LocalDateTime scoredDateTime = LocalDateTime.of(2021, 10, 1, 16, 30);
-
-		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score38-" + getTestId());
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score38-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
-				scoredDateTime, 1.62F, 90, 10, 9, scoredDateTime.plusDays(90), 3, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-	}
+	
 
 }
 
+
+
+
 /******* S.D.G. *******/
+
+
+

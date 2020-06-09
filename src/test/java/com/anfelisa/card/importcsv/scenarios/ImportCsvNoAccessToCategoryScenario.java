@@ -19,12 +19,10 @@
 
 package com.anfelisa.card.importcsv.scenarios;
 
-@SuppressWarnings("unused")
+
 public class ImportCsvNoAccessToCategoryScenario extends AbstractImportCsvNoAccessToCategoryScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

@@ -434,16 +434,27 @@ public abstract class AbstractScoreReinforceCardNotMyCardScenario extends BaseSc
 
 			then(response);
 			
+			this.reinforceCardWasNotUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreReinforceCardNotMyCard not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void reinforceCardWasNotUpdated() throws Exception {
+		com.anfelisa.box.models.IReinforceCardModel actual = daoProvider.getReinforceCardDao().selectByReinforceCardId(handle, "score0-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IReinforceCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"changeDate\" : \"2020-04-18T16:30\"," + 
+				"\"reinforceCardId\" : \"score0-" + this.getTestId() + "\"," + 
+				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
+		com.anfelisa.box.models.ReinforceCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: reinforceCardWasNotUpdated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

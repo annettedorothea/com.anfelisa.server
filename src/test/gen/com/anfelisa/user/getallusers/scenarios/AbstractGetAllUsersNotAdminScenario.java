@@ -192,13 +192,10 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 			com.anfelisa.user.data.GetAllUsersResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetAllUsersNotAdmin not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.user.data.GetAllUsersResponse response);
 	
 	
 	

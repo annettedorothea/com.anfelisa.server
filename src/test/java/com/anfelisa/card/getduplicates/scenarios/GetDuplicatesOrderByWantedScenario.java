@@ -22,10 +22,6 @@ package com.anfelisa.card.getduplicates.scenarios;
 @SuppressWarnings("unused")
 public class GetDuplicatesOrderByWantedScenario extends AbstractGetDuplicatesOrderByWantedScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.card.data.GetDuplicatesResponse response ) {
-	}
-
 }
 
 

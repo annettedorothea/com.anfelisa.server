@@ -19,12 +19,10 @@
 
 package com.anfelisa.card.updatecard.scenarios;
 
-@SuppressWarnings("unused")
+
 public class UpdateCardGivenEmptyScenario extends AbstractUpdateCardGivenEmptyScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

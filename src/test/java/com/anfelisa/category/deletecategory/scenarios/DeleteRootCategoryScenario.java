@@ -19,12 +19,10 @@
 
 package com.anfelisa.category.deletecategory.scenarios;
 
-@SuppressWarnings("unused")
+
 public class DeleteRootCategoryScenario extends AbstractDeleteRootCategoryScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

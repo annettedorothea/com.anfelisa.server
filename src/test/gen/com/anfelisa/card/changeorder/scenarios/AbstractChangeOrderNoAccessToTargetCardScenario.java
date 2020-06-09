@@ -343,13 +343,10 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			this.firstCard();
 			this.sixthCard();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderNoAccessToTargetCard not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void firstCard() throws Exception {

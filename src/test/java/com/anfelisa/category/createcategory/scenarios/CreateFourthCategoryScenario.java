@@ -22,10 +22,6 @@ package com.anfelisa.category.createcategory.scenarios;
 
 public class CreateFourthCategoryScenario extends AbstractCreateFourthCategoryScenario {
 
-	@Override
-	protected void verifications() {
-	}
-	
 	
 
 }

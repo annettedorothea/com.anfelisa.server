@@ -374,13 +374,10 @@ public abstract class AbstractLoadNextCardBoxIdNullScenario extends BaseScenario
 			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for LoadNextCardBoxIdNull not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.box.data.LoadNextCardResponse response);
 	
 	
 	

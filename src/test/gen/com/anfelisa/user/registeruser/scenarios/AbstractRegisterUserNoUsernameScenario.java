@@ -100,13 +100,10 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 			this.userWasNotCreated();
 			this.emailConfirmationWasNotCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for RegisterUserNoUsername not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void userWasNotCreated() throws Exception {

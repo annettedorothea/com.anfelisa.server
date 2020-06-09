@@ -19,70 +19,10 @@
 
 package com.anfelisa.box.initmyboxes.scenarios;
 
-import java.time.LocalDateTime;
 
-import com.anfelisa.box.models.IReinforceCardModel;
-import com.anfelisa.box.models.IScheduledCardModel;
-import com.anfelisa.box.models.ScheduledCardModel;
-
-@SuppressWarnings("unused")
 public class InitMyBoxesForDayWithScoredAndReinforceCardsOneDayLaterDeletesOutdatedReinforceCardsScenario extends AbstractInitMyBoxesForDayWithScoredAndReinforceCardsOneDayLaterDeletesOutdatedReinforceCardsScenario {
 
-	@Override
-	protected void verifications() {
-		LocalDateTime scoredDateTime = LocalDateTime.of(2020, 4, 18, 16, 30);
-
-		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score0-" + getTestId());
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("score0-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
-				scoredDateTime, 2.5F, 1, 1, 1, scoredDateTime.plusDays(1), 0, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-
-		LocalDateTime dateTime = LocalDateTime.of(2020, 4, 18, 10, 30);
-
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"c1-" + getTestId() + "-sc1-" + getTestId());
-		expectedScheduledCard = new ScheduledCardModel("c1-" + getTestId() + "-sc1-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
-				dateTime, 2.5F, 1, 1, 0, dateTime, null, 0,
-				scoredDateTime);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-
-		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle,
-				"c1-" + getTestId() + "-sc1-" + getTestId());
-		assertIsNull(actualReinforceCard);
-
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score1-" + getTestId());
-		expectedScheduledCard = new ScheduledCardModel("score1-" + getTestId(), "c3-" + getTestId(),"boxId-" + getTestId(),
-				scoredDateTime, 2.5F, 1, 1, 1, scoredDateTime.plusDays(1), 1, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"c3-" + getTestId() + "-sc1-" + getTestId());
-		expectedScheduledCard = new ScheduledCardModel("c3-" + getTestId() + "-sc1-" + getTestId(), "c3-" + getTestId(),"boxId-" + getTestId(),
-				dateTime, 2.5F, 1, 1, 0, dateTime, null, 1,
-				scoredDateTime);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-
-		actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c3-" + getTestId() + "-sc1-" + getTestId());
-		assertIsNull(actualReinforceCard);
-
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"score5-" + getTestId());
-		expectedScheduledCard = new ScheduledCardModel("score5-" + getTestId(), "c4-" + getTestId(),"boxId-" + getTestId(),
-				scoredDateTime, 2.6F, 6, 2, 1, scoredDateTime.plusDays(6), 5, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"c4-" + getTestId() + "-sc1-" + getTestId());
-		expectedScheduledCard = new ScheduledCardModel("c4-" + getTestId() + "-sc1-" + getTestId(), "c4-" + getTestId(),"boxId-" + getTestId(),
-				dateTime, 2.5F, 1, 1, 0, dateTime, null, 5,
-				scoredDateTime);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-	}
+	
 
 }
 
@@ -90,8 +30,6 @@ public class InitMyBoxesForDayWithScoredAndReinforceCardsOneDayLaterDeletesOutda
 
 
 /******* S.D.G. *******/
-
-
 
 
 

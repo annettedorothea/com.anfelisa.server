@@ -19,12 +19,10 @@
 
 package com.anfelisa.category.createcategory.scenarios;
 
-@SuppressWarnings("unused")
+
 public class CreateCategoryUnauthorizedNoAccessScenario extends AbstractCreateCategoryUnauthorizedNoAccessScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

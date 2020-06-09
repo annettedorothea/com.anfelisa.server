@@ -221,13 +221,10 @@ public abstract class AbstractUpdateCardGivenEmptyScenario extends BaseScenario 
 			
 			this.wasNotUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCardGivenEmpty not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void wasNotUpdated() throws Exception {

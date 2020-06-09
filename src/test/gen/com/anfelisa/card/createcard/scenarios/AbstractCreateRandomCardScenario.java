@@ -187,23 +187,22 @@ public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 
 			then(response);
 			
-			this.randomCard();
+			this.randomCardWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateRandomCard not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
-	private void randomCard() throws Exception {
-		com.anfelisa.card.models.ICardModel actual = daoProvider.getCardDao().selectByCardId(handle, "random-" + this.getTestId() + "");
+	private void randomCardWasCreated() throws Exception {
+		Map<String, String> filterMap = new HashMap<String, String>();
+		filterMap.put("categoryId", "cat1-" + this.getTestId() + "");
+		int actual = daoProvider.getCardDao().filterAndCountBy(handle, filterMap);
 		
-		assertIsNotNull(actual);
+		assertThat(actual, 1);
 
-		LOG.info("THEN: randomCard passed");
+		LOG.info("THEN: randomCardWasCreated passed");
 	}
 	
 	@Override

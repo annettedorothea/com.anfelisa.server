@@ -126,13 +126,10 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 			then(response);
 			
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteUserDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	

@@ -19,16 +19,10 @@
 
 package com.anfelisa.card.deletecard.scenarios;
 
-import com.anfelisa.card.models.ICardModel;
 
-@SuppressWarnings("unused")
 public class DeleteCardScenario extends AbstractDeleteCardScenario {
 
-	@Override
-	protected void verifications() {
-		ICardModel actualCard = this.daoProvider.getCardDao().selectByCardId(handle, "c1-" + getTestId());
-		assertIsNull(actualCard);
-	}
+	
 
 }
 

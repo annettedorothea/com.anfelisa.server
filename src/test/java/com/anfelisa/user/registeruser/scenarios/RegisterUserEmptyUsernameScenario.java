@@ -14,18 +14,22 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+
+
+
 package com.anfelisa.user.registeruser.scenarios;
 
-import com.anfelisa.user.models.IEmailConfirmationModel;
-import com.anfelisa.user.models.IUserModel;
 
-@SuppressWarnings("unused")
 public class RegisterUserEmptyUsernameScenario extends AbstractRegisterUserEmptyUsernameScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 
+
+
+
 /******* S.D.G. *******/
+
+
+

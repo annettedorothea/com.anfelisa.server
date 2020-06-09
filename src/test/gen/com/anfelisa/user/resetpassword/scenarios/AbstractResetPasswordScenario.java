@@ -161,13 +161,10 @@ public abstract class AbstractResetPasswordScenario extends BaseScenario {
 			this.passwordWasChanged();
 			this.tokenWasDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ResetPassword not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void passwordWasChanged() throws Exception {

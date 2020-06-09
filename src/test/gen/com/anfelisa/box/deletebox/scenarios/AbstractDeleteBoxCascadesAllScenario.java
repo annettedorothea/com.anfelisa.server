@@ -581,16 +581,69 @@ public abstract class AbstractDeleteBoxCascadesAllScenario extends BaseScenario 
 
 			then(response);
 			
+			this.boxWasDeleted();
+			this.accessToCategoryWasDeleted();
+			this.allCategoriesWereDeleted();
+			this.allCardsWereDeleted();
+			this.allScheduledCardsWereDeleted();
+			this.allReinforceCardsWereDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteBoxCascadesAll not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void boxWasDeleted() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+
+		LOG.info("THEN: boxWasDeleted passed");
+	}
+	private void accessToCategoryWasDeleted() throws Exception {
+		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "boxId-" + this.getTestId() + "", "uuid-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+
+		LOG.info("THEN: accessToCategoryWasDeleted passed");
+	}
+	private void allCategoriesWereDeleted() throws Exception {
+		Map<String, String> filterMap = new HashMap<String, String>();
+		filterMap.put("rootCategoryId", "boxId-" + this.getTestId() + "");
+		int actual = daoProvider.getCategoryDao().filterAndCountBy(handle, filterMap);
+		
+		assertThat(actual, 0);
+
+		LOG.info("THEN: allCategoriesWereDeleted passed");
+	}
+	private void allCardsWereDeleted() throws Exception {
+		Map<String, String> filterMap = new HashMap<String, String>();
+		filterMap.put("rootCategoryId", "boxId-" + this.getTestId() + "");
+		int actual = daoProvider.getCardDao().filterAndCountBy(handle, filterMap);
+		
+		assertThat(actual, 0);
+
+		LOG.info("THEN: allCardsWereDeleted passed");
+	}
+	private void allScheduledCardsWereDeleted() throws Exception {
+		Map<String, String> filterMap = new HashMap<String, String>();
+		filterMap.put("boxId", "boxId-" + this.getTestId() + "");
+		int actual = daoProvider.getScheduledCardDao().filterAndCountBy(handle, filterMap);
+		
+		assertThat(actual, 0);
+
+		LOG.info("THEN: allScheduledCardsWereDeleted passed");
+	}
+	private void allReinforceCardsWereDeleted() throws Exception {
+		Map<String, String> filterMap = new HashMap<String, String>();
+		filterMap.put("boxId", "boxId-" + this.getTestId() + "");
+		int actual = daoProvider.getReinforceCardDao().filterAndCountBy(handle, filterMap);
+		
+		assertThat(actual, 0);
+
+		LOG.info("THEN: allReinforceCardsWereDeleted passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

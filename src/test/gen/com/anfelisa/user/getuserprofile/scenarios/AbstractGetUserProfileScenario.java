@@ -176,13 +176,10 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 			com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetUserProfile not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
 	
 	
 	

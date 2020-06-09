@@ -248,13 +248,10 @@ public abstract class AbstractDeleteCategoryNoAccessScenario extends BaseScenari
 			
 			this.categoryWasNotDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCategoryNoAccess not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasNotDeleted() throws Exception {

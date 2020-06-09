@@ -253,13 +253,10 @@ public abstract class AbstractCreateThirdCardScenario extends BaseScenario {
 			this.secondCard();
 			this.thirdCard();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateThirdCard not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void firstCard() throws Exception {

@@ -19,15 +19,10 @@
 
 package com.anfelisa.category.createcategory.scenarios;
 
-import com.anfelisa.category.models.CategoryModel;
-import com.anfelisa.category.models.ICategoryModel;
 
-@SuppressWarnings("unused")
 public class CreateSecondCategoryScenario extends AbstractCreateSecondCategoryScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

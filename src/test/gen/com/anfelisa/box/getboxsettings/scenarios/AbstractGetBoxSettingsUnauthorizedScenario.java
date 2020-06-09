@@ -162,13 +162,10 @@ public abstract class AbstractGetBoxSettingsUnauthorizedScenario extends BaseSce
 			com.anfelisa.box.data.GetBoxSettingsResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetBoxSettingsUnauthorized not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.box.data.GetBoxSettingsResponse response);
 	
 	
 	

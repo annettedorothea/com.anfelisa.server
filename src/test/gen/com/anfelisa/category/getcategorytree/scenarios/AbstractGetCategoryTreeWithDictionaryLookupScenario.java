@@ -221,13 +221,10 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 			com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetCategoryTreeWithDictionaryLookup not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.category.data.GetCategoryTreeResponse response);
 	
 	
 	

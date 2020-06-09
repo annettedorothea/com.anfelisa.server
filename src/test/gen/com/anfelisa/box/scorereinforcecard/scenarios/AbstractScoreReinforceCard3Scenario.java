@@ -401,16 +401,27 @@ public abstract class AbstractScoreReinforceCard3Scenario extends BaseScenario {
 
 			then(response);
 			
+			this.reinforceCardWasUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreReinforceCard3 not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void reinforceCardWasUpdated() throws Exception {
+		com.anfelisa.box.models.IReinforceCardModel actual = daoProvider.getReinforceCardDao().selectByReinforceCardId(handle, "score0-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IReinforceCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"changeDate\" : \"2020-04-18T16:40\"," + 
+				"\"reinforceCardId\" : \"score0-" + this.getTestId() + "\"," + 
+				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
+		com.anfelisa.box.models.ReinforceCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: reinforceCardWasUpdated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

@@ -345,13 +345,10 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 			this.fourthCard();
 			this.fifthCard();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderUnauthorized not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void firstCard() throws Exception {

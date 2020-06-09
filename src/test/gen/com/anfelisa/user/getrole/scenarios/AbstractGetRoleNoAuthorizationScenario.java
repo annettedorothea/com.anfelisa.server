@@ -163,13 +163,10 @@ public abstract class AbstractGetRoleNoAuthorizationScenario extends BaseScenari
 			com.anfelisa.user.data.GetRoleResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetRoleNoAuthorization not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.user.data.GetRoleResponse response);
 	
 	
 	

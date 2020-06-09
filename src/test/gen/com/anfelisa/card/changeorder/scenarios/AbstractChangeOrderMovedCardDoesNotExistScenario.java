@@ -344,13 +344,10 @@ public abstract class AbstractChangeOrderMovedCardDoesNotExistScenario extends B
 			this.fourthCard();
 			this.fifthCard();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderMovedCardDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void firstCard() throws Exception {

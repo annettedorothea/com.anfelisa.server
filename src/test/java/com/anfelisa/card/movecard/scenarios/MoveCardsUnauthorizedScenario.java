@@ -19,12 +19,10 @@
 
 package com.anfelisa.card.movecard.scenarios;
 
-@SuppressWarnings("unused")
+
 public class MoveCardsUnauthorizedScenario extends AbstractMoveCardsUnauthorizedScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

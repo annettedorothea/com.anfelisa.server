@@ -401,16 +401,21 @@ public abstract class AbstractScoreReinforceCard5Scenario extends BaseScenario {
 
 			then(response);
 			
+			this.reinforceCardWasDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreReinforceCard5 not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void reinforceCardWasDeleted() throws Exception {
+		com.anfelisa.box.models.IReinforceCardModel actual = daoProvider.getReinforceCardDao().selectByReinforceCardId(handle, "score0-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+
+		LOG.info("THEN: reinforceCardWasDeleted passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

@@ -19,12 +19,9 @@
 
 package com.anfelisa.user.getrole.scenarios;
 
-@SuppressWarnings("unused")
 public class GetRoleAdminScenario extends AbstractGetRoleAdminScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.user.data.GetRoleResponse response ) {
-	}
+	
 
 }
 

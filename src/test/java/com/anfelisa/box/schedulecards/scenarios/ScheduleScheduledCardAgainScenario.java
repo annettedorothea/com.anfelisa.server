@@ -19,26 +19,10 @@
 
 package com.anfelisa.box.schedulecards.scenarios;
 
-import java.time.LocalDateTime;
 
-import com.anfelisa.box.models.IScheduledCardModel;
-import com.anfelisa.box.models.ScheduledCardModel;
-
-@SuppressWarnings("unused")
 public class ScheduleScheduledCardAgainScenario extends AbstractScheduleScheduledCardAgainScenario {
 
-	@Override
-	protected void verifications() {
-		LocalDateTime dateTime = LocalDateTime.of(2020, 4, 18, 17, 30);
-		LocalDateTime creationDateTime = LocalDateTime.of(2020, 4, 18, 10, 30);
-
-		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(handle,
-				"c1-" + getTestId() + "-sc1-" + getTestId());
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c1-" + getTestId() + "-sc1-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
-				creationDateTime, 2.5F, 1, 1, 0, dateTime, null, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-	}
+	
 
 }
 

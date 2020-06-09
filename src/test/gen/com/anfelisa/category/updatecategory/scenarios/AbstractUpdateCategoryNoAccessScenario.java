@@ -221,13 +221,10 @@ public abstract class AbstractUpdateCategoryNoAccessScenario extends BaseScenari
 			
 			this.categoryWasNotChanged();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCategoryNoAccess not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasNotChanged() throws Exception {

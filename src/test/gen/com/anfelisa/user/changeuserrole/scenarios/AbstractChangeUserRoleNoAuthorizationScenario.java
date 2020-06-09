@@ -162,13 +162,10 @@ public abstract class AbstractChangeUserRoleNoAuthorizationScenario extends Base
 			
 			this.roleWasNotChanged();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeUserRoleNoAuthorization not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void roleWasNotChanged() throws Exception {

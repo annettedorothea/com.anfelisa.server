@@ -223,13 +223,10 @@ public abstract class AbstractCreateCardNoAccessToCategoryScenario extends BaseS
 			
 			this.cardWasNotCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardNoAccessToCategory not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasNotCreated() throws Exception {

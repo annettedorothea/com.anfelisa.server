@@ -408,13 +408,10 @@ public abstract class AbstractLoadNextCardUnauthorizedScenario extends BaseScena
 			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for LoadNextCardUnauthorized not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.box.data.LoadNextCardResponse response);
 	
 	
 	

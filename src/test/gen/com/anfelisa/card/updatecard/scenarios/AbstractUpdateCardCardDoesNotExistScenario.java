@@ -221,13 +221,10 @@ public abstract class AbstractUpdateCardCardDoesNotExistScenario extends BaseSce
 			
 			this.wasNotUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCardCardDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void wasNotUpdated() throws Exception {

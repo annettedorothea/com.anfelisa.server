@@ -461,16 +461,95 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsOneDay
 
 			then(response);
 			
+			this.noChangeForCard1();
+			this.reinforceCard1WasDeleted();
+			this.noChangeForCard3();
+			this.reinforceCard3WasDeleted();
+			this.noChangeForCard4();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for InitMyBoxesForDayWithScoredAndReinforceCardsOneDayLaterDeletesOutdatedReinforceCards not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void noChangeForCard1() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "score0-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
+				"\"count\" : 1," + 
+				"\"createdDate\" : \"2020-04-18T16:30\"," + 
+				"\"ef\" : \"2.5F\"," + 
+				"\"interval\" : 1," + 
+				"\"lastQuality\" : 0," + 
+				"\"n\" : 1," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"score0-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-19T16:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: noChangeForCard1 passed");
+	}
+	private void reinforceCard1WasDeleted() throws Exception {
+		com.anfelisa.box.models.IReinforceCardModel actual = daoProvider.getReinforceCardDao().selectByReinforceCardId(handle, "score0-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+
+		LOG.info("THEN: reinforceCard1WasDeleted passed");
+	}
+	private void noChangeForCard3() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "score1-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c3-" + this.getTestId() + "\"," + 
+				"\"count\" : 1," + 
+				"\"createdDate\" : \"2020-04-18T16:30\"," + 
+				"\"ef\" : \"2.5F\"," + 
+				"\"interval\" : 1," + 
+				"\"lastQuality\" : 1," + 
+				"\"n\" : 1," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"score1-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-19T16:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: noChangeForCard3 passed");
+	}
+	private void reinforceCard3WasDeleted() throws Exception {
+		com.anfelisa.box.models.IReinforceCardModel actual = daoProvider.getReinforceCardDao().selectByReinforceCardId(handle, "score1-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+
+		LOG.info("THEN: reinforceCard3WasDeleted passed");
+	}
+	private void noChangeForCard4() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "score5-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c4-" + this.getTestId() + "\"," + 
+				"\"count\" : 1," + 
+				"\"createdDate\" : \"2020-04-18T16:30\"," + 
+				"\"ef\" : \"2.6F\"," + 
+				"\"interval\" : 6," + 
+				"\"lastQuality\" : 5," + 
+				"\"n\" : 2," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"score5-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-24T16:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: noChangeForCard4 passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

@@ -315,13 +315,10 @@ public abstract class AbstractCreateFifthCardScenario extends BaseScenario {
 			this.fourthCard();
 			this.fifthCard();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateFifthCard not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void firstCard() throws Exception {

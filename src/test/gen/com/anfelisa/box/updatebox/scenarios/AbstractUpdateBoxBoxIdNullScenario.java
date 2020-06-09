@@ -117,7 +117,7 @@ public abstract class AbstractUpdateBoxBoxIdNullScenario extends BaseScenario {
 		com.anfelisa.box.data.BoxUpdateData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"categoryName\" : \"cat\"," + 
+				"\"categoryName\" : \"changed\"," + 
 				"\"maxCardsPerDay\" : 10} ",
 		com.anfelisa.box.data.BoxUpdateData.class);
 		long timeBeforeRequest = System.currentTimeMillis();
@@ -158,16 +158,30 @@ public abstract class AbstractUpdateBoxBoxIdNullScenario extends BaseScenario {
 
 			then(response);
 			
+			this.categoryWasNotUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxBoxIdNull not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void categoryWasNotUpdated() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : null," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : null," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: categoryWasNotUpdated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

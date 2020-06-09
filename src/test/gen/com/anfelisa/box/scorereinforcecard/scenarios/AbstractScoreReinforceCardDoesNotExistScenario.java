@@ -402,13 +402,10 @@ public abstract class AbstractScoreReinforceCardDoesNotExistScenario extends Bas
 			then(response);
 			
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreReinforceCardDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	

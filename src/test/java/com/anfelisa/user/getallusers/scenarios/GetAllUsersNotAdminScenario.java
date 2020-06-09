@@ -19,12 +19,9 @@
 
 package com.anfelisa.user.getallusers.scenarios;
 
-@SuppressWarnings("unused")
 public class GetAllUsersNotAdminScenario extends AbstractGetAllUsersNotAdminScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.user.data.GetAllUsersResponse response ) {
-	}
+	
 
 }
 

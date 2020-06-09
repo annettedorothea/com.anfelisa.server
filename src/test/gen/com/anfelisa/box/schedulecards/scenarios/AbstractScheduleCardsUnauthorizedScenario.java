@@ -339,16 +339,29 @@ public abstract class AbstractScheduleCardsUnauthorizedScenario extends BaseScen
 
 			then(response);
 			
+			this.card2WasNotScheduled();
+			this.card5WasNotScheduled();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ScheduleCardsUnauthorized not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void card2WasNotScheduled() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c2-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+
+		LOG.info("THEN: card2WasNotScheduled passed");
+	}
+	private void card5WasNotScheduled() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c5-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+
+		LOG.info("THEN: card5WasNotScheduled passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

@@ -162,16 +162,32 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 
 			then(response);
 			
+			this.categoryWasUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxDictionaryLookup not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void categoryWasUpdated() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : null," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : true," + 
+				"\"parentCategoryId\" : null," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"givenLanguage\" : \"de\"," + 
+				"\"wantedLanguage\" : \"en\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: categoryWasUpdated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

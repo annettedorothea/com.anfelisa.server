@@ -220,13 +220,10 @@ public abstract class AbstractUpdateCardImageNullScenario extends BaseScenario {
 			
 			this.wasUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCardImageNull not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void wasUpdated() throws Exception {

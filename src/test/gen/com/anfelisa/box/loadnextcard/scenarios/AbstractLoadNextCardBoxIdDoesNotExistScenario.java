@@ -375,13 +375,10 @@ public abstract class AbstractLoadNextCardBoxIdDoesNotExistScenario extends Base
 			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for LoadNextCardBoxIdDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.box.data.LoadNextCardResponse response);
 	
 	
 	

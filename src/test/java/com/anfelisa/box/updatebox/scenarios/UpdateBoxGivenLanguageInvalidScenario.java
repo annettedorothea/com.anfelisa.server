@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.updatebox.scenarios;
 
-@SuppressWarnings("unused")
+
 public class UpdateBoxGivenLanguageInvalidScenario extends AbstractUpdateBoxGivenLanguageInvalidScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

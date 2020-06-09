@@ -16,6 +16,14 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			reinforceCardWasUpdated ReinforceCard selectBy ( reinforceCardId: "score0-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				changeDate: "20200418 16:40" "yyyyMMdd HH:mm",
+				reinforceCardId: "score0-${testId}",
+				scheduledCardId: "c1-${testId}-sc1-${testId}"
+			}
 		
 	ScoreReinforceCard1
 		GIVEN
@@ -30,6 +38,14 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			reinforceCardWasUpdated ReinforceCard selectBy ( reinforceCardId: "score0-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				changeDate: "20200418 16:40" "yyyyMMdd HH:mm",
+				reinforceCardId: "score0-${testId}",
+				scheduledCardId: "c1-${testId}-sc1-${testId}"
+			}
 		
 	ScoreReinforceCard2
 		GIVEN
@@ -44,6 +60,14 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			reinforceCardWasUpdated ReinforceCard selectBy ( reinforceCardId: "score0-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				changeDate: "20200418 16:40" "yyyyMMdd HH:mm",
+				reinforceCardId: "score0-${testId}",
+				scheduledCardId: "c1-${testId}-sc1-${testId}"
+			}
 		
 	ScoreReinforceCard3
 		GIVEN
@@ -58,6 +82,14 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			reinforceCardWasUpdated ReinforceCard selectBy ( reinforceCardId: "score0-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				changeDate: "20200418 16:40" "yyyyMMdd HH:mm",
+				reinforceCardId: "score0-${testId}",
+				scheduledCardId: "c1-${testId}-sc1-${testId}"
+			}
 		
 	ScoreReinforceCard4
 		GIVEN
@@ -72,6 +104,8 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			reinforceCardWasDeleted ReinforceCard selectBy ( reinforceCardId: "score0-${testId}") shouldBe null
 		
 	ScoreReinforceCard5
 		GIVEN
@@ -86,6 +120,8 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			reinforceCardWasDeleted ReinforceCard selectBy ( reinforceCardId: "score0-${testId}") shouldBe null
 		
 	ScoreOtherReinforceCard
 		GIVEN
@@ -100,6 +136,8 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			reinforceCardWasDeleted ReinforceCard selectBy ( reinforceCardId: "score1-${testId}") shouldBe null
 		
 	ScoreReinforceCardNotMyCard
 		GIVEN
@@ -114,6 +152,14 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
+		persistence
+			reinforceCardWasNotUpdated ReinforceCard selectBy ( reinforceCardId: "score0-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				changeDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				reinforceCardId: "score0-${testId}",
+				scheduledCardId: "c1-${testId}-sc1-${testId}"
+			}
 		
 	ScoreReinforceCardUnauthorized
 		GIVEN
@@ -126,6 +172,14 @@ scenarios
 					reinforceCardId: "score0-${testId}"
 				}
 		THEN 401
+		persistence
+			reinforceCardWasNotUpdated ReinforceCard selectBy ( reinforceCardId: "score0-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				changeDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				reinforceCardId: "score0-${testId}",
+				scheduledCardId: "c1-${testId}-sc1-${testId}"
+			}
 		
 	ScoreReinforceCardDoesNotExist
 		GIVEN

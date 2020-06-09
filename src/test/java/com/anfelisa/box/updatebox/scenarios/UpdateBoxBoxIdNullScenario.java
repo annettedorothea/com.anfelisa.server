@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.updatebox.scenarios;
 
-@SuppressWarnings("unused")
+
 public class UpdateBoxBoxIdNullScenario extends AbstractUpdateBoxBoxIdNullScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

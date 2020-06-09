@@ -405,13 +405,10 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 			this.fourthCard();
 			this.fifthCard();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCardsTargetNotEmpty not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void firstCard() throws Exception {

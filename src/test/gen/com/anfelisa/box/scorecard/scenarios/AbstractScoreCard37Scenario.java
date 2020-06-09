@@ -621,16 +621,35 @@ public abstract class AbstractScoreCard37Scenario extends BaseScenario {
 
 			then(response);
 			
+			this.newScheduledCardWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCard37 not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void newScheduledCardWasCreated() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "score37-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
+				"\"count\" : 8," + 
+				"\"createdDate\" : \"2021-07-01T16:30\"," + 
+				"\"ef\" : \"1.76F\"," + 
+				"\"interval\" : 90," + 
+				"\"lastQuality\" : 3," + 
+				"\"n\" : 9," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"score37-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2021-09-29T16:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: newScheduledCardWasCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

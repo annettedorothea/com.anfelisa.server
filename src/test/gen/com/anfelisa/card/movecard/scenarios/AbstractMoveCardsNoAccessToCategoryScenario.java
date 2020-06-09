@@ -311,13 +311,10 @@ public abstract class AbstractMoveCardsNoAccessToCategoryScenario extends BaseSc
 			
 			this.firstCard();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCardsNoAccessToCategory not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void firstCard() throws Exception {

@@ -278,13 +278,10 @@ public abstract class AbstractChangeOrderFirstToFourthScenario extends BaseScena
 			this.cat3AtIndex2();
 			this.cat4AtIndex4();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderFirstToFourth not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cat1AtIndex3() throws Exception {

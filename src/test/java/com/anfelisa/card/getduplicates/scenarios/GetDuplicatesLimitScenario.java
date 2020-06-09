@@ -25,10 +25,6 @@ import com.anfelisa.card.data.GetDuplicatesResponse;
 public class GetDuplicatesLimitScenario extends AbstractGetDuplicatesLimitScenario {
 
 	@Override
-	protected void verifications(com.anfelisa.card.data.GetDuplicatesResponse response ) {
-	}
-
-	@Override
 	protected void shouldReturn25Items(GetDuplicatesResponse response) {
 		int actualSize = response.getCardList().size();
 		assertThat(actualSize, 25);

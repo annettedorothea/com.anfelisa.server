@@ -226,14 +226,11 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 			shouldReturn25Items(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetDuplicatesLimit not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
 	
 	protected abstract void shouldReturn25Items(com.anfelisa.card.data.GetDuplicatesResponse response);
 	

@@ -570,13 +570,10 @@ public abstract class AbstractLoadNextCardFinished5Scenario extends BaseScenario
 			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for LoadNextCardFinished5 not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.box.data.LoadNextCardResponse response);
 	
 	
 	

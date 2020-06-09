@@ -19,32 +19,10 @@
 
 package com.anfelisa.box.createbox.scenarios;
 
-import com.anfelisa.box.models.BoxModel;
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.category.models.CategoryModel;
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
-import com.anfelisa.category.models.UserAccessToCategoryModel;
 
-@SuppressWarnings("unused")
 public class CreateBoxDictionaryLookupScenario extends AbstractCreateBoxDictionaryLookupScenario {
 
-	@Override
-	protected void verifications() {
-		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle,"boxId-" + getTestId());
-		ICategoryModel expectedCategory = new CategoryModel("boxId-" + getTestId(), "cat", "Annette-" + getTestId(), 1, null,"boxId-" + getTestId(), true, "de",
-				"en");
-		assertThat(actualCategory, expectedCategory);
-
-		IUserAccessToCategoryModel actualAccessToCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(handle,"boxId-" + getTestId(), "uuid-" + getTestId());
-		IUserAccessToCategoryModel expectedAccessToCategory = new UserAccessToCategoryModel("boxId-" + getTestId(), "uuid-" + getTestId(), true);
-		assertThat(actualAccessToCategory, expectedAccessToCategory);
-		
-		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle,"boxId-" + getTestId());
-		IBoxModel expectedBox = new BoxModel("boxId-" + getTestId(), "uuid-" + getTestId(),"boxId-" + getTestId(), null, 10);
-		assertThat(actualBox, expectedBox);
-	}
+	
 
 }
 

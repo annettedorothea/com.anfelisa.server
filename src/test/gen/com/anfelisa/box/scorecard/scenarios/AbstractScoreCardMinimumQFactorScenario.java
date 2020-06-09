@@ -745,16 +745,35 @@ public abstract class AbstractScoreCardMinimumQFactorScenario extends BaseScenar
 
 			then(response);
 			
+			this.minimumQFactor();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCardMinimumQFactor not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void minimumQFactor() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "q-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
+				"\"count\" : 12," + 
+				"\"createdDate\" : \"2022-10-01T16:30\"," + 
+				"\"ef\" : \"1.3F\"," + 
+				"\"interval\" : 90," + 
+				"\"lastQuality\" : 3," + 
+				"\"n\" : 13," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"q-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2022-12-30T16:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: minimumQFactor passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

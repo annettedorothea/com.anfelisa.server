@@ -19,17 +19,10 @@
 
 package com.anfelisa.user.confirmemail.scenarios;
 
-import com.anfelisa.auth.Roles;
-import com.anfelisa.user.models.IEmailConfirmationModel;
-import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserModel;
 
-@SuppressWarnings("unused")
 public class ConfirmEmailOKScenario extends AbstractConfirmEmailOKScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

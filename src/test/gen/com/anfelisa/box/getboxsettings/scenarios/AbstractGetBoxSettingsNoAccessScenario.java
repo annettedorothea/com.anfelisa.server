@@ -195,13 +195,10 @@ public abstract class AbstractGetBoxSettingsNoAccessScenario extends BaseScenari
 			com.anfelisa.box.data.GetBoxSettingsResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetBoxSettingsNoAccess not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.box.data.GetBoxSettingsResponse response);
 	
 	
 	

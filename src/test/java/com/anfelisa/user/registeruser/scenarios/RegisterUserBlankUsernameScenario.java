@@ -19,15 +19,10 @@
 
 package com.anfelisa.user.registeruser.scenarios;
 
-import com.anfelisa.user.models.IEmailConfirmationModel;
-import com.anfelisa.user.models.IUserModel;
 
-@SuppressWarnings("unused")
 public class RegisterUserBlankUsernameScenario extends AbstractRegisterUserBlankUsernameScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

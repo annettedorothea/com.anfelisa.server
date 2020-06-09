@@ -14,18 +14,22 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+
+
+
 package com.anfelisa.category.createcategory.scenarios;
 
-import com.anfelisa.category.models.CategoryModel;
-import com.anfelisa.category.models.ICategoryModel;
 
-@SuppressWarnings("unused")
 public class CreateCategoryWithDictionaryLookupScenario extends AbstractCreateCategoryWithDictionaryLookupScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 
+
+
+
 /******* S.D.G. *******/
+
+
+

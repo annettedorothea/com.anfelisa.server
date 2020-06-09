@@ -130,13 +130,10 @@ public abstract class AbstractConfirmEmailConfirmationTokenDoesNotExistScenario 
 			this.confirmedIsNotSetToTrue();
 			this.tokenIsNotDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ConfirmEmailConfirmationTokenDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void confirmedIsNotSetToTrue() throws Exception {

@@ -248,13 +248,10 @@ public abstract class AbstractMoveCategoryToRootScenario extends BaseScenario {
 			this.secondCategoryWasNotTouched();
 			this.firstCategoryWasNotTouched();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCategoryToRoot not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void thirdCategoryWasMoved() throws Exception {

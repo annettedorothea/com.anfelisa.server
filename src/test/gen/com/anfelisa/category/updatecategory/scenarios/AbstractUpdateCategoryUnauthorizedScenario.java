@@ -188,13 +188,10 @@ public abstract class AbstractUpdateCategoryUnauthorizedScenario extends BaseSce
 			
 			this.categoryWasNotChanged();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCategoryUnauthorized not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasNotChanged() throws Exception {

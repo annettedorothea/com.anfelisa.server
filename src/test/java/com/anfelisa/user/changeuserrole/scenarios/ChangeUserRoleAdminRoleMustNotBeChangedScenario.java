@@ -19,12 +19,10 @@
 
 package com.anfelisa.user.changeuserrole.scenarios;
 
-@SuppressWarnings("unused")
+
 public class ChangeUserRoleAdminRoleMustNotBeChangedScenario extends AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

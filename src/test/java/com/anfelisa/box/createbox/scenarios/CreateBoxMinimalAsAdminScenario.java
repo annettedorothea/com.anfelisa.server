@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.createbox.scenarios;
 
-@SuppressWarnings("unused")
+
 public class CreateBoxMinimalAsAdminScenario extends AbstractCreateBoxMinimalAsAdminScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

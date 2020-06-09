@@ -322,37 +322,6 @@ public abstract class AbstractSortCardsOutCardIdsNullScenario extends BaseScenar
 		}
 		
 
-		if (prerequisite("ScoreCard0")) {
-			uuid = "score0-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
-			com.anfelisa.box.data.ScoreCardData data_10 = objectMapper.readValue("{" +
-				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-					"\"scoredCardQuality\" : 0," + 
-					"\"scoredCardScheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
-			com.anfelisa.box.data.ScoreCardData.class);
-			timeBeforeRequest = System.currentTimeMillis();
-			response = 
-			this.httpPost(
-				"/card/score", 
-				data_10,
-				authorization("Annette-${testId}", "password")
-			);
-			
-			timeAfterRequest = System.currentTimeMillis();
-			if (response.getStatus() >= 400) {
-				String message = "GIVEN ScoreCard0 fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: ScoreCard0 fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("ScoreCard", (timeAfterRequest-timeBeforeRequest));
-				assertFail(message);
-			}
-			LOG.info("GIVEN: ScoreCard0 success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("ScoreCard", (timeAfterRequest-timeBeforeRequest));
-		} else {
-			LOG.info("GIVEN: prerequisite for ScoreCard0 not met");
-		}
-		
-
 	}
 	
 	private Response when() throws Exception {
@@ -398,13 +367,10 @@ public abstract class AbstractSortCardsOutCardIdsNullScenario extends BaseScenar
 			then(response);
 			
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for SortCardsOutCardIdsNull not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	

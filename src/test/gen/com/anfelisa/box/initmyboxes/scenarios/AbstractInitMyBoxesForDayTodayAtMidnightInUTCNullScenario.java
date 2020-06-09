@@ -367,16 +367,79 @@ public abstract class AbstractInitMyBoxesForDayTodayAtMidnightInUTCNullScenario 
 
 			then(response);
 			
+			this.noChange1();
+			this.noChange3();
+			this.noChange4();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for InitMyBoxesForDayTodayAtMidnightInUTCNull not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void noChange1() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
+				"\"count\" : 0," + 
+				"\"createdDate\" : \"2020-04-18T10:30\"," + 
+				"\"ef\" : \"2.5F\"," + 
+				"\"interval\" : 1," + 
+				"\"lastQuality\" : null," + 
+				"\"n\" : 1," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: noChange1 passed");
+	}
+	private void noChange3() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c3-" + this.getTestId() + "\"," + 
+				"\"count\" : 0," + 
+				"\"createdDate\" : \"2020-04-18T10:30\"," + 
+				"\"ef\" : \"2.5F\"," + 
+				"\"interval\" : 1," + 
+				"\"lastQuality\" : null," + 
+				"\"n\" : 1," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: noChange3 passed");
+	}
+	private void noChange4() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c4-" + this.getTestId() + "\"," + 
+				"\"count\" : 0," + 
+				"\"createdDate\" : \"2020-04-18T10:30\"," + 
+				"\"ef\" : \"2.5F\"," + 
+				"\"interval\" : 1," + 
+				"\"lastQuality\" : null," + 
+				"\"n\" : 1," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: noChange4 passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

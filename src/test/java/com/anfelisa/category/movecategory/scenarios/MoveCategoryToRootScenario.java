@@ -19,12 +19,10 @@
 
 package com.anfelisa.category.movecategory.scenarios;
 
-@SuppressWarnings("unused")
+
 public class MoveCategoryToRootScenario extends AbstractMoveCategoryToRootScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

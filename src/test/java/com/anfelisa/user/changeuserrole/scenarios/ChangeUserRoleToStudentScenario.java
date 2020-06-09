@@ -19,11 +19,10 @@
 
 package com.anfelisa.user.changeuserrole.scenarios;
 
+
 public class ChangeUserRoleToStudentScenario extends AbstractChangeUserRoleToStudentScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

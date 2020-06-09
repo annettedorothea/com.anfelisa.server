@@ -19,32 +19,10 @@
 
 package com.anfelisa.box.createbox.scenarios;
 
-import com.anfelisa.box.models.BoxModel;
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.category.models.CategoryModel;
-import com.anfelisa.category.models.ICategoryModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
-import com.anfelisa.category.models.UserAccessToCategoryModel;
 
-@SuppressWarnings("unused")
 public class CreateSecondBoxScenario extends AbstractCreateSecondBoxScenario {
 
-	@Override
-	protected void verifications() {
-		ICategoryModel actualCategory = this.daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId2-" + getTestId());
-		ICategoryModel expectedCategory = new CategoryModel("boxId2-" + getTestId(), "cat2-" + getTestId(), "Annette-" + getTestId(), 1, null, "boxId2-" + getTestId(), false, null,
-				null);
-		assertThat(actualCategory, expectedCategory);
-
-		IUserAccessToCategoryModel actualAccessToCategory = this.daoProvider.getUserAccessToCategoryDao()
-				.selectByCategoryIdAndUserId(handle, "boxId2-" + getTestId(), "uuid-" + getTestId());
-		IUserAccessToCategoryModel expectedAccessToCategory = new UserAccessToCategoryModel("boxId2-" + getTestId(), "uuid-" + getTestId(), true);
-		assertThat(actualAccessToCategory, expectedAccessToCategory);
-		
-		IBoxModel actualBox = this.daoProvider.getBoxDao().selectByBoxId(handle, "boxId2-" + getTestId());
-		IBoxModel expectedBox = new BoxModel("boxId2-" + getTestId(), "uuid-" + getTestId(), "boxId2-" + getTestId(), null, 8);
-		assertThat(actualBox, expectedBox);
-	}
+	
 
 }
 

@@ -248,13 +248,10 @@ public abstract class AbstractMoveCategoryToSubScenario extends BaseScenario {
 			this.indexOfSecondCategoryWasShifted();
 			this.firstWasMoved();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCategoryToSub not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void thirdCategoryWasNotTouched() throws Exception {

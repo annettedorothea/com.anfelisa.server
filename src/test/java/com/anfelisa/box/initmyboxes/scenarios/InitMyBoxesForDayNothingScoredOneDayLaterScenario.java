@@ -19,38 +19,10 @@
 
 package com.anfelisa.box.initmyboxes.scenarios;
 
-import java.time.LocalDateTime;
 
-import com.anfelisa.box.models.IScheduledCardModel;
-import com.anfelisa.box.models.ScheduledCardModel;
-
-@SuppressWarnings("unused")
 public class InitMyBoxesForDayNothingScoredOneDayLaterScenario extends AbstractInitMyBoxesForDayNothingScoredOneDayLaterScenario {
 
-	@Override
-	protected void verifications() {
-		LocalDateTime createdDateTime = LocalDateTime.of(2020, 4, 18, 10, 30);
-		LocalDateTime dateTime = LocalDateTime.of(2020, 4, 19, 10, 30);
-
-		IScheduledCardModel actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle,
-				"c1-" + getTestId(),"boxId-" + getTestId());
-		IScheduledCardModel expectedScheduledCard = new ScheduledCardModel("c1-" + getTestId() + "-sc1-" + getTestId(), "c1-" + getTestId(),"boxId-" + getTestId(),
-				createdDateTime, 2.5F, 1, 1, 0, dateTime, null, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c3-" + getTestId(),"boxId-" + getTestId());
-		expectedScheduledCard = new ScheduledCardModel("c3-" + getTestId() + "-sc1-" + getTestId(), "c3-" + getTestId(),"boxId-" + getTestId(),
-				createdDateTime, 2.5F, 1, 1, 0, dateTime, null, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-		
-		actualScheduledCard = this.daoProvider.getScheduledCardDao().selectUnscoredByCardIdAndBoxId(handle, "c4-" + getTestId(),"boxId-" + getTestId());
-		expectedScheduledCard = new ScheduledCardModel("c4-" + getTestId() + "-sc1-" + getTestId(), "c4-" + getTestId(),"boxId-" + getTestId(),
-				createdDateTime, 2.5F, 1, 1, 0, dateTime, null, null,
-				null);
-		assertThat(actualScheduledCard, expectedScheduledCard);
-	}
+	
 
 }
 

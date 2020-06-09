@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.sortcardsout.scenarios;
 
-@SuppressWarnings("unused")
+
 public class SortCardsOutCardDoesNotExistScenario extends AbstractSortCardsOutCardDoesNotExistScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

@@ -217,13 +217,10 @@ public abstract class AbstractDeleteCardUnauthorizedScenario extends BaseScenari
 			
 			this.cardWasNotDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCardUnauthorized not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasNotDeleted() throws Exception {

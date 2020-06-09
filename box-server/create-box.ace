@@ -17,6 +17,31 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasCreated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
+			accessToCategoryWasGranted UserAccessToCategory selectByPrimaryKey ( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				editable: true,
+				userId: "uuid-${testId}"
+			}
+			boxWasCreated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}"
+			}
+			
 
 	CreateSecondBox
 		GIVEN
@@ -31,6 +56,30 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasCreated Category selectBy(categoryId: "boxId2-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId2-${testId}",
+				categoryIndex: null,
+				categoryName: "cat2-${testId}",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId2-${testId}"
+			}
+			accessToCategoryWasGranted UserAccessToCategory selectByPrimaryKey ( categoryId: "boxId2-${testId}", userId: "uuid-${testId}") shouldBe
+			{
+				categoryId: "boxId2-${testId}",
+				editable: true,
+				userId: "uuid-${testId}"
+			}
+			boxWasCreated Box selectBy ( boxId: "boxId2-${testId}") shouldBe
+			{
+				boxId: "boxId2-${testId}",
+				categoryId: "boxId2-${testId}",
+				maxCardsPerDay: 8,
+				userId: "uuid-${testId}"
+			}
 
 	CreateBoxDictionaryLookupNull
 		GIVEN
@@ -44,6 +93,30 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasCreated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
+			accessToCategoryWasGranted UserAccessToCategory selectByPrimaryKey ( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				editable: true,
+				userId: "uuid-${testId}"
+			}
+			boxWasCreated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}"
+			}
 
 	CreateBoxDictionaryLookup
 		GIVEN
@@ -60,6 +133,32 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasCreated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: true,
+				givenLanguage: "de",
+				wantedLanguage: "en",
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
+			accessToCategoryWasGranted UserAccessToCategory selectByPrimaryKey ( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe
+			{
+				categoryId: "boxId-${testId}",
+				editable: true,
+				userId: "uuid-${testId}"
+			}
+			boxWasCreated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}"
+			}
 		
 	CreateBoxGivenLanguageInvalid
 		GIVEN
@@ -76,6 +175,10 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			categoryWasNotCreated Category selectBy(categoryId: "boxId-${testId}") shouldBe null
+			accessWasNotGranted UserAccessToCategory selectByPrimaryKey (categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe null
+			boxWasNotCreated Box selectBy ( boxId: "boxId-${testId}") shouldBe null
 		
 	CreateBoxWantedLanguageInvalid
 		GIVEN
@@ -92,6 +195,10 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			categoryWasNotCreated Category selectBy(categoryId: "boxId-${testId}") shouldBe null
+			accessWasNotGranted UserAccessToCategory selectByPrimaryKey (categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe null
+			boxWasNotCreated Box selectBy ( boxId: "boxId-${testId}") shouldBe null
 		
 	CreateBoxMaxCardsPerDayNull
 		GIVEN
@@ -105,6 +212,10 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			categoryWasNotCreated Category selectBy(categoryId: "boxId-${testId}") shouldBe null
+			accessWasNotGranted UserAccessToCategory selectByPrimaryKey (categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe null
+			boxWasNotCreated Box selectBy ( boxId: "boxId-${testId}") shouldBe null
 		
 	CreateBoxCategoryNameNull
 		GIVEN
@@ -118,6 +229,10 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			categoryWasNotCreated Category selectBy(categoryId: "boxId-${testId}") shouldBe null
+			accessWasNotGranted UserAccessToCategory selectByPrimaryKey (categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe null
+			boxWasNotCreated Box selectBy ( boxId: "boxId-${testId}") shouldBe null
 		
 	CreateBoxCategoryNameEmpty
 		GIVEN
@@ -132,6 +247,10 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			categoryWasNotCreated Category selectBy(categoryId: "boxId-${testId}") shouldBe null
+			accessWasNotGranted UserAccessToCategory selectByPrimaryKey (categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe null
+			boxWasNotCreated Box selectBy ( boxId: "boxId-${testId}") shouldBe null
 		
 	CreateBoxCategoryNameBlank
 		GIVEN
@@ -146,6 +265,10 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			categoryWasNotCreated Category selectBy(categoryId: "boxId-${testId}") shouldBe null
+			accessWasNotGranted UserAccessToCategory selectByPrimaryKey (categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe null
+			boxWasNotCreated Box selectBy ( boxId: "boxId-${testId}") shouldBe null
 		
 	CreateBoxUnauthorized
 		GIVEN
@@ -159,6 +282,10 @@ scenarios
 					dictionaryLookup: false
 				}
 		THEN 401
+		persistence
+			categoryWasNotCreated Category selectBy(categoryId: "boxId-${testId}") shouldBe null
+			accessWasNotGranted UserAccessToCategory selectByPrimaryKey (categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe null
+			boxWasNotCreated Box selectBy ( boxId: "boxId-${testId}") shouldBe null
 	
 	CreateBoxMinimalAsAdmin
 		GIVEN
@@ -173,6 +300,30 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 200
+		persistence
+			categoryWasCreated Category selectBy(categoryId: "adminBox-${testId}") shouldBe 
+			{
+				categoryAuthor: "Admin",
+				categoryId: "adminBox-${testId}",
+				categoryIndex: null,
+				categoryName: "adminBox-${testId}",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "adminBox-${testId}"
+			}
+			accessToCategoryWasGranted UserAccessToCategory selectByPrimaryKey ( categoryId: "adminBox-${testId}", userId: "uuid-admin") shouldBe
+			{
+				categoryId: "adminBox-${testId}",
+				editable: true,
+				userId: "uuid-admin"
+			}
+			boxWasCreated Box selectBy ( boxId: "adminBox-${testId}") shouldBe
+			{
+				boxId: "adminBox-${testId}",
+				categoryId: "adminBox-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-admin"
+			}
 
 
 		

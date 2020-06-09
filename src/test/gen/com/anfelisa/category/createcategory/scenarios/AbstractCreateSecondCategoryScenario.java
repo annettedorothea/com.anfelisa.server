@@ -188,13 +188,10 @@ public abstract class AbstractCreateSecondCategoryScenario extends BaseScenario 
 			
 			this.categoryWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateSecondCategory not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasCreated() throws Exception {

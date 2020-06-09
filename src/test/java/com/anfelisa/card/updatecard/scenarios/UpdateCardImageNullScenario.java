@@ -19,15 +19,10 @@
 
 package com.anfelisa.card.updatecard.scenarios;
 
-import com.anfelisa.card.models.CardModel;
-import com.anfelisa.card.models.ICardModel;
 
-@SuppressWarnings("unused")
 public class UpdateCardImageNullScenario extends AbstractUpdateCardImageNullScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

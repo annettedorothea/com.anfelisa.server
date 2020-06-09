@@ -161,13 +161,10 @@ public abstract class AbstractResetPasswordInvalidTokenScenario extends BaseScen
 			this.passwordWasChanged();
 			this.tokenWasNotDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ResetPasswordInvalidToken not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void passwordWasChanged() throws Exception {

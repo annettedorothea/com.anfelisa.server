@@ -163,13 +163,10 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 			com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetUserProfileWrongPassword not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.user.data.GetUserProfileResponse response);
 	
 	
 	

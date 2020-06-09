@@ -19,12 +19,10 @@
 
 package com.anfelisa.user.deleteuser.scenarios;
 
-@SuppressWarnings("unused")
+
 public class DeleteUserUnauthorizedNotAdminScenario extends AbstractDeleteUserUnauthorizedNotAdminScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

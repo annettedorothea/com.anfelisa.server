@@ -371,16 +371,65 @@ public abstract class AbstractScoreCard5Scenario extends BaseScenario {
 
 			then(response);
 			
+			this.cardWasScored();
+			this.newScheduledCardWasCreated();
+			this.reinforceCardWasNotCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCard5 not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void cardWasScored() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c4-" + this.getTestId() + "\"," + 
+				"\"count\" : 0," + 
+				"\"createdDate\" : \"2020-04-18T10:30\"," + 
+				"\"ef\" : \"2.5F\"," + 
+				"\"interval\" : 1," + 
+				"\"lastQuality\" : null," + 
+				"\"n\" : 1," + 
+				"\"quality\" : 5," + 
+				"\"scheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
+				"\"scoredDate\" : \"2020-04-18T16:30\"} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: cardWasScored passed");
+	}
+	private void newScheduledCardWasCreated() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "score5-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c4-" + this.getTestId() + "\"," + 
+				"\"count\" : 1," + 
+				"\"createdDate\" : \"2020-04-18T16:30\"," + 
+				"\"ef\" : \"2.6F\"," + 
+				"\"interval\" : 6," + 
+				"\"lastQuality\" : 5," + 
+				"\"n\" : 2," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"score5-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-24T16:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: newScheduledCardWasCreated passed");
+	}
+	private void reinforceCardWasNotCreated() throws Exception {
+		com.anfelisa.box.models.IReinforceCardModel actual = daoProvider.getReinforceCardDao().selectByReinforceCardId(handle, "score5-" + this.getTestId() + "");
+		
+		assertIsNull(actual);
+
+		LOG.info("THEN: reinforceCardWasNotCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

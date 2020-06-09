@@ -19,12 +19,10 @@
 
 package com.anfelisa.category.changeorder.scenarios;
 
-@SuppressWarnings("unused")
+
 public class ChangeOrderNoAccessToMovedCategoryScenario extends AbstractChangeOrderNoAccessToMovedCategoryScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

@@ -19,12 +19,10 @@
 
 package com.anfelisa.user.changeuserrole.scenarios;
 
-@SuppressWarnings("unused")
+
 public class ChangeUserRoleNoAuthorizationScenario extends AbstractChangeUserRoleNoAuthorizationScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

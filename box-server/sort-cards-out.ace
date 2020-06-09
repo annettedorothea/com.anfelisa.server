@@ -14,6 +14,52 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			card1WasSortedOut ScheduledCard selectBy (scheduledCardId: "c1-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c1-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c1-${testId}-sc1-${testId}",
+				scheduledDate: null,
+				scoredDate: null
+			}
+			card3WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c3-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c3-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c3-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+			card4WasSortedOut ScheduledCard selectBy (scheduledCardId: "c4-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c4-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c4-${testId}-sc1-${testId}",
+				scheduledDate: null,
+				scoredDate: null
+			}
 
 	SortCardsOutTwice
 		GIVEN
@@ -25,6 +71,52 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			card1WasSortedOut ScheduledCard selectBy (scheduledCardId: "c1-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c1-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c1-${testId}-sc1-${testId}",
+				scheduledDate: null,
+				scoredDate: null
+			}
+			card3WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c3-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c3-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c3-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+			card4WasSortedOut ScheduledCard selectBy (scheduledCardId: "c4-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c4-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c4-${testId}-sc1-${testId}",
+				scheduledDate: null,
+				scoredDate: null
+			}
 
 	SortCardsOutCardDoesNotExist
 		GIVEN
@@ -36,10 +128,56 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			card1WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c1-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c1-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c1-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+			card3WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c3-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c3-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c3-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+			card4WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c4-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c4-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c4-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
 
 	SortCardsOutEmptyCardIds
 		GIVEN
-			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				{
@@ -47,10 +185,56 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			card1WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c1-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c1-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c1-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+			card3WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c3-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c3-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c3-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+			card4WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c4-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c4-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c4-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
 
 	SortCardsOutCardIdsNull
 		GIVEN
-			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
 			com.anfelisa.box.SortCardsOut
 				authorization "Annette-${testId}" : "password"
@@ -67,6 +251,90 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			scoredCard1WasNotTouched ScheduledCard selectBy (scheduledCardId: "c1-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c1-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: 0,
+				scheduledCardId: "c1-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm"
+			}
+			newScheduledCard1WasSortedOut ScheduledCard selectBy ( scheduledCardId: "score0-${testId}" ) shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c1-${testId}",
+				count: 1,
+				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: 0,
+				n: 1,
+				quality: null,
+				scheduledCardId: "score0-${testId}",
+				scheduledDate: null,
+				scoredDate: null
+			}
+			reinforceCard1WasDeleted ReinforceCard selectBy ( reinforceCardId: "score0-${testId}" ) shouldBe null
+			scoredCard3Remains ScheduledCard selectBy (scheduledCardId: "c3-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c3-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: 1,
+				scheduledCardId: "c3-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: "20200418 16:30" "yyyyMMdd HH:mm"
+			}
+			newScheuledCard3Remains ScheduledCard selectBy ( scheduledCardId: "score1-${testId}" ) shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c3-${testId}",
+				count: 1,
+				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: 1,
+				n: 1,
+				quality: null,
+				scheduledCardId: "score1-${testId}",
+				scheduledDate: "20200419 16:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+			reinforceCard3Remains ReinforceCard selectBy ( reinforceCardId: "score1-${testId}" ) shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				changeDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				reinforceCardId: "score1-${testId}",
+				scheduledCardId: "c3-${testId}-sc1-${testId}"
+			}
+			card4WasSortedOut ScheduledCard selectBy (scheduledCardId: "c4-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c4-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c4-${testId}-sc1-${testId}",
+				scheduledDate: null,
+				scoredDate: null
+			}
 
 	SortCardsOutUnauthorized
 		GIVEN
@@ -77,6 +345,52 @@ scenarios
 					cardIds: ["c1-${testId}", "c4-${testId}" ]
 				}
 		THEN 401
+		persistence
+			card1WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c1-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c1-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c1-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+			card3WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c3-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c3-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c3-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+			card4WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c4-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c4-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c4-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
 
 	SortCardsOutNotMyCards
 		GIVEN
@@ -89,5 +403,51 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
+		persistence
+			card1WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c1-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c1-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c1-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+			card3WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c3-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c3-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c3-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+			card4WasNotSortedOut ScheduledCard selectBy (scheduledCardId: "c4-${testId}-sc1-${testId}") shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c4-${testId}",
+				count: 0,
+				createdDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: null,
+				n: 1,
+				quality: null,
+				scheduledCardId: "c4-${testId}-sc1-${testId}",
+				scheduledDate: "20200418 10:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
 
 

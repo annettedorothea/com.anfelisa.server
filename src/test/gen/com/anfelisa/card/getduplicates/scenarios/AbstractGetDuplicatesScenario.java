@@ -517,13 +517,10 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetDuplicates not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
 	
 	
 	

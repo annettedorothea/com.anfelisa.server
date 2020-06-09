@@ -14,6 +14,13 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			boxWasDeleted Box selectBy(boxId: "boxId-${testId}") shouldBe null
+			accessToCategoryWasDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe null
+			allCategoriesWereDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 0
+			allCardsWereDeleted Card filterAndCountBy (rootCategoryId:  "boxId-${testId}") shouldBe 0
+			allScheduledCardsWereDeleted ScheduledCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 0
+			allReinforceCardsWereDeleted ReinforceCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 0
 
 	DeleteBoxNotMyBox
 		GIVEN
@@ -25,6 +32,13 @@ scenarios
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
+		persistence
+			boxWasNotDeleted Box selectBy(boxId: "boxId-${testId}") shouldBe notNull
+			accessToCategoryWasNotDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe notNull
+			allCategoriesWereNotDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 2
+			allCardsWereNotDeleted Card filterAndCountBy (rootCategoryId:  "boxId-${testId}") shouldBe 5
+			allScheduledCardsWereNotDeleted ScheduledCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 4
+			allReinforceCardsWereNotDeleted ReinforceCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 1
 
 	DeleteBoxUnauthorized
 		GIVEN
@@ -35,6 +49,13 @@ scenarios
 					boxId: "boxId-${testId}"
 				}
 		THEN 401
+		persistence
+			boxWasNotDeleted Box selectBy(boxId: "boxId-${testId}") shouldBe notNull
+			accessToCategoryWasNotDeleted UserAccessToCategory selectByPrimaryKey( categoryId: "boxId-${testId}", userId: "uuid-${testId}") shouldBe notNull
+			allCategoriesWereNotDeleted Category filterAndCountBy (rootCategoryId: "boxId-${testId}") shouldBe 2
+			allCardsWereNotDeleted Card filterAndCountBy (rootCategoryId:  "boxId-${testId}") shouldBe 5
+			allScheduledCardsWereNotDeleted ScheduledCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 4
+			allReinforceCardsWereNotDeleted ReinforceCard filterAndCountBy (boxId: "boxId-${testId}") shouldBe 1
 
 	DeleteBoxDoesNotExist
 		GIVEN

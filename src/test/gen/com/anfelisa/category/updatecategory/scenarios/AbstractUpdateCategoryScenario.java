@@ -188,13 +188,10 @@ public abstract class AbstractUpdateCategoryScenario extends BaseScenario {
 			
 			this.categoryWasUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCategory not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasUpdated() throws Exception {

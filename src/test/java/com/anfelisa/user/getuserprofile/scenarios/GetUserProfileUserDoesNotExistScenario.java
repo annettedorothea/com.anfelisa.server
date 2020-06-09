@@ -19,12 +19,9 @@
 
 package com.anfelisa.user.getuserprofile.scenarios;
 
-@SuppressWarnings("unused")
 public class GetUserProfileUserDoesNotExistScenario extends AbstractGetUserProfileUserDoesNotExistScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.user.data.GetUserProfileResponse response ) {
-	}
+	
 
 }
 

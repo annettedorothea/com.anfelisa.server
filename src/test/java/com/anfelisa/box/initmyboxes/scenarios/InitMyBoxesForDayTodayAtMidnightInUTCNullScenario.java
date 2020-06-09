@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.initmyboxes.scenarios;
 
-@SuppressWarnings("unused")
+
 public class InitMyBoxesForDayTodayAtMidnightInUTCNullScenario extends AbstractInitMyBoxesForDayTodayAtMidnightInUTCNullScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

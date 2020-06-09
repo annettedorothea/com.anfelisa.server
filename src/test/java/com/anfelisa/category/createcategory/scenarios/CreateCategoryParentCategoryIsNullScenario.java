@@ -19,12 +19,10 @@
 
 package com.anfelisa.category.createcategory.scenarios;
 
-@SuppressWarnings("unused")
+
 public class CreateCategoryParentCategoryIsNullScenario extends AbstractCreateCategoryParentCategoryIsNullScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

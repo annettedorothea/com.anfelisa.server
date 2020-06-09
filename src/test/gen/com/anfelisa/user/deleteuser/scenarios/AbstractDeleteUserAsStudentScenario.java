@@ -127,13 +127,10 @@ public abstract class AbstractDeleteUserAsStudentScenario extends BaseScenario {
 			
 			this.userWasDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteUserAsStudent not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void userWasDeleted() throws Exception {

@@ -17,6 +17,24 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "changed",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
+			boxWasUpdated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 11,
+				userId: "uuid-${testId}"
+			}
 
 	UpdateBoxMaxInterval
 		GIVEN
@@ -33,6 +51,25 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "changed",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
+			boxWasUpdated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 11,
+				userId: "uuid-${testId}",
+				maxInterval: 90
+			}
 
 	UpdateBoxMaxIntervalSetToNull
 		GIVEN
@@ -44,10 +81,30 @@ scenarios
 					categoryId: "boxId-${testId}",
 					categoryName: "changed",
 					dictionaryLookup: false,
-					maxCardsPerDay: 11
+					maxCardsPerDay: 11,
+					maxInterval: null
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "changed",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
+			boxWasUpdated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 11,
+				userId: "uuid-${testId}",
+				maxInterval: null
+			}
 
 	UpdateBoxDictionaryLookupNull
 		GIVEN
@@ -62,6 +119,19 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: false,
+				givenLanguage: null,
+				wantedLanguage: null,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
 
 	UpdateBoxDictionaryLookup
 		GIVEN
@@ -79,6 +149,19 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			categoryWasUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: true,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}",
+				givenLanguage: "de",
+				wantedLanguage: "en"
+			}
 		
 	UpdateBoxGivenLanguageInvalid
 		GIVEN
@@ -96,6 +179,17 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			categoryWasNotUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
 		
 	UpdateBoxWantedLanguageInvalid
 		GIVEN
@@ -113,6 +207,17 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			categoryWasNotUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
 		
 	UpdateBoxMaxCardsPerDayNull
 		GIVEN
@@ -126,6 +231,14 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			boxWasNotUpdated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}"
+			}
 		
 	UpdateBoxSetMaxCardsTo1
 		GIVEN
@@ -140,6 +253,14 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
+		persistence
+			boxWasUpdated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 1,
+				userId: "uuid-${testId}"
+			}
 		
 	UpdateBoxSetMaxCardsTo0
 		GIVEN
@@ -154,6 +275,14 @@ scenarios
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			boxWasNotUpdated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}"
+			}
 		
 	UpdateBoxBoxIdNull
 		GIVEN
@@ -162,11 +291,22 @@ scenarios
 			com.anfelisa.box.UpdateBox
 				{
 					categoryId: "boxId-${testId}",
-					categoryName: "cat",
+					categoryName: "changed",
 					maxCardsPerDay: 10
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			categoryWasNotUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
 		
 	UpdateBoxCategoryIdNull
 		GIVEN
@@ -176,10 +316,19 @@ scenarios
 				{
 					boxId: "boxId-${testId}",
 					categoryName: "cat",
-					maxCardsPerDay: 10
+					maxCardsPerDay: 20
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			boxWasNotUpdated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}"
+			}
+		
 		
 	UpdateBoxCategoryNameNull
 		GIVEN
@@ -189,10 +338,28 @@ scenarios
 				{
 					boxId: "boxId-${testId}",
 					categoryId: "boxId-${testId}",
-					maxCardsPerDay: 10
+					maxCardsPerDay: 20
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			categoryWasNotUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
+			boxWasNotUpdated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}"
+			}
 		
 	UpdateBoxCategoryNameEmpty
 		GIVEN
@@ -203,10 +370,28 @@ scenarios
 					boxId: "boxId-${testId}",
 					categoryId: "boxId-${testId}",
 					categoryName: "",
-					maxCardsPerDay: 10
+					maxCardsPerDay: 20
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			categoryWasNotUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
+			boxWasNotUpdated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}"
+			}
 		
 	UpdateBoxCategoryNameBlank
 		GIVEN
@@ -217,10 +402,28 @@ scenarios
 					boxId: "boxId-${testId}",
 					categoryId: "boxId-${testId}",
 					categoryName: "    ",
-					maxCardsPerDay: 10
+					maxCardsPerDay: 20
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
+		persistence
+			categoryWasNotUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
+			boxWasNotUpdated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}"
+			}
 		
 	UpdateBoxUnauthorized
 		GIVEN
@@ -231,9 +434,27 @@ scenarios
 					boxId: "boxId-${testId}",
 					categoryId: "boxId-${testId}",
 					categoryName: "lala",
-					maxCardsPerDay: 10
+					maxCardsPerDay: 20
 				}
 		THEN 401
+		persistence
+			categoryWasNotUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
+				boxWasNotUpdated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}"
+			}
 	
 	UpdateBoxNoAccess
 		GIVEN
@@ -245,8 +466,26 @@ scenarios
 					boxId: "boxId-${testId}",
 					categoryId: "boxId-${testId}",
 					categoryName: "adminBox-${testId}",
-					maxCardsPerDay: 10
+					maxCardsPerDay: 20
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
+		persistence
+			categoryWasNotUpdated Category selectBy(categoryId: "boxId-${testId}") shouldBe 
+			{
+				categoryAuthor: "Annette-${testId}",
+				categoryId: "boxId-${testId}",
+				categoryIndex: null,
+				categoryName: "cat",
+				dictionaryLookup: false,
+				parentCategoryId: null,
+				rootCategoryId: "boxId-${testId}"
+			}
+			boxWasNotUpdated Box selectBy ( boxId: "boxId-${testId}") shouldBe
+			{
+				boxId: "boxId-${testId}",
+				categoryId: "boxId-${testId}",
+				maxCardsPerDay: 10,
+				userId: "uuid-${testId}"
+			}
 

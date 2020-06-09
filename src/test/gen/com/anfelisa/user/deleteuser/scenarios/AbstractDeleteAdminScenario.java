@@ -189,13 +189,10 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 			
 			this.userWasDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteAdmin not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void userWasDeleted() throws Exception {

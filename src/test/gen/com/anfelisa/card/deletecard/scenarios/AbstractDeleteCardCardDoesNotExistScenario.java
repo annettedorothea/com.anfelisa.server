@@ -216,13 +216,10 @@ public abstract class AbstractDeleteCardCardDoesNotExistScenario extends BaseSce
 			then(response);
 			
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCardCardDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	

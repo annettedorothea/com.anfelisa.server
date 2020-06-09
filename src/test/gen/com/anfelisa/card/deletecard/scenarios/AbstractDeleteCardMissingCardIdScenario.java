@@ -215,13 +215,10 @@ public abstract class AbstractDeleteCardMissingCardIdScenario extends BaseScenar
 			then(response);
 			
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCardMissingCardId not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	

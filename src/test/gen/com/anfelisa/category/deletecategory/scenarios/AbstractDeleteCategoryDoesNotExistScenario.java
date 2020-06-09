@@ -247,13 +247,10 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 			then(response);
 			
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCategoryDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	

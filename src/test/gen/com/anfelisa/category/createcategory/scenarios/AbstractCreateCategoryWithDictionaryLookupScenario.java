@@ -161,13 +161,10 @@ public abstract class AbstractCreateCategoryWithDictionaryLookupScenario extends
 			
 			this.categoryWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryWithDictionaryLookup not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasCreated() throws Exception {

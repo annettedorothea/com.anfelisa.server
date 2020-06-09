@@ -19,12 +19,9 @@
 
 package com.anfelisa.box.getboxes.scenarios;
 
-@SuppressWarnings("unused")
 public class GetBoxesWithOneScoredCard0AndReinforceSameDayScenario extends AbstractGetBoxesWithOneScoredCard0AndReinforceSameDayScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.box.data.GetBoxesResponse response ) {
-	}
+	
 
 }
 

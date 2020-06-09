@@ -19,16 +19,10 @@
 
 package com.anfelisa.box.scorereinforcecard.scenarios;
 
-import com.anfelisa.box.models.IReinforceCardModel;
 
-@SuppressWarnings("unused")
 public class ScoreReinforceCard4Scenario extends AbstractScoreReinforceCard4Scenario {
 
-	@Override
-	protected void verifications() {
-		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-" + getTestId() + "-sc1-" + getTestId());
-		assertIsNull(actualReinforceCard);
-	}
+	
 
 }
 

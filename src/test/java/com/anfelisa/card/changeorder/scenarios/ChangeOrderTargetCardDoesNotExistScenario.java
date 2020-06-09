@@ -19,12 +19,10 @@
 
 package com.anfelisa.card.changeorder.scenarios;
 
-@SuppressWarnings("unused")
+
 public class ChangeOrderTargetCardDoesNotExistScenario extends AbstractChangeOrderTargetCardDoesNotExistScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

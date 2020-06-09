@@ -159,13 +159,10 @@ public abstract class AbstractCreateCategoryNameIsEmptyScenario extends BaseScen
 			
 			this.categoryWasNotCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryNameIsEmpty not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void categoryWasNotCreated() throws Exception {

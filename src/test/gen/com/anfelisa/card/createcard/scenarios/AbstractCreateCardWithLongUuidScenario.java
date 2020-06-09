@@ -189,13 +189,10 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 			
 			this.firstCard();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardWithLongUuid not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void firstCard() throws Exception {

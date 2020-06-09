@@ -19,12 +19,10 @@
 
 package com.anfelisa.category.changeorder.scenarios;
 
-@SuppressWarnings("unused")
+
 public class ChangeOrderUnauthorizedScenario extends AbstractChangeOrderUnauthorizedScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

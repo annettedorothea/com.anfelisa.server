@@ -19,15 +19,10 @@
 
 package com.anfelisa.category.updatecategory.scenarios;
 
-import com.anfelisa.category.models.CategoryModel;
-import com.anfelisa.category.models.ICategoryModel;
 
-@SuppressWarnings("unused")
 public class UpdateCategoryScenario extends AbstractUpdateCategoryScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

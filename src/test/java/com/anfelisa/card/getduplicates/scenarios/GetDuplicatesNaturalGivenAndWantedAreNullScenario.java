@@ -22,10 +22,6 @@ package com.anfelisa.card.getduplicates.scenarios;
 @SuppressWarnings("unused")
 public class GetDuplicatesNaturalGivenAndWantedAreNullScenario extends AbstractGetDuplicatesNaturalGivenAndWantedAreNullScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.card.data.GetDuplicatesResponse response ) {
-	}
-
 }
 
 

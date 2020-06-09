@@ -130,13 +130,10 @@ public abstract class AbstractGetRoleUnknownUserScenario extends BaseScenario {
 			com.anfelisa.user.data.GetRoleResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetRoleUnknownUser not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.user.data.GetRoleResponse response);
 	
 	
 	

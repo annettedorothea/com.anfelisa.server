@@ -143,13 +143,10 @@ public abstract class AbstractUsernameAvailableScenario extends BaseScenario {
 			com.anfelisa.user.data.UsernameAvailableResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for UsernameAvailable not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.user.data.UsernameAvailableResponse response);
 	
 	
 	

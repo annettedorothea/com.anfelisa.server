@@ -127,16 +127,57 @@ public abstract class AbstractCreateBoxDictionaryLookupNullScenario extends Base
 
 			then(response);
 			
+			this.categoryWasCreated();
+			this.accessToCategoryWasGranted();
+			this.boxWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateBoxDictionaryLookupNull not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void categoryWasCreated() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : null," + 
+				"\"categoryName\" : \"cat\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : null," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: categoryWasCreated passed");
+	}
+	private void accessToCategoryWasGranted() throws Exception {
+		com.anfelisa.category.models.IUserAccessToCategoryModel actual = daoProvider.getUserAccessToCategoryDao().selectByPrimaryKey(handle, "boxId-" + this.getTestId() + "", "uuid-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.IUserAccessToCategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"editable\" : true," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.UserAccessToCategoryModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: accessToCategoryWasGranted passed");
+	}
+	private void boxWasCreated() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IBoxModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"maxCardsPerDay\" : 10," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"} ",
+		com.anfelisa.box.models.BoxModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: boxWasCreated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

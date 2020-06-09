@@ -19,21 +19,10 @@
 
 package com.anfelisa.box.scorereinforcecard.scenarios;
 
-import java.time.LocalDateTime;
 
-import com.anfelisa.box.models.IReinforceCardModel;
-import com.anfelisa.box.models.ReinforceCardModel;
-
-@SuppressWarnings("unused")
 public class ScoreReinforceCard3Scenario extends AbstractScoreReinforceCard3Scenario {
 
-	@Override
-	protected void verifications() {
-		LocalDateTime scoredDateTime = LocalDateTime.of(2020, 4, 18, 16, 40);
-		IReinforceCardModel actualReinforceCard = this.daoProvider.getReinforceCardDao().selectByScheduledCardId(handle, "c1-" + getTestId() + "-sc1-" + getTestId());
-		IReinforceCardModel expectedReinforceCard = new ReinforceCardModel("score0-" + getTestId(), "c1-" + getTestId() + "-sc1-" + getTestId(),"boxId-" + getTestId(), scoredDateTime);
-		assertThat(actualReinforceCard, expectedReinforceCard);
-	}
+	
 
 }
 

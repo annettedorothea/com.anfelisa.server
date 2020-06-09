@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.scorecard.scenarios;
 
-@SuppressWarnings("unused")
+
 public class ScoreCardCardDoesNotExistScenario extends AbstractScoreCardCardDoesNotExistScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

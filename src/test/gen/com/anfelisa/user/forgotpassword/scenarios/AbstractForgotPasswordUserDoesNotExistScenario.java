@@ -131,13 +131,10 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 			
 			this.resetPasswordTokenWasNotCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ForgotPasswordUserDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void resetPasswordTokenWasNotCreated() throws Exception {

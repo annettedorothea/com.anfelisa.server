@@ -19,16 +19,10 @@
 
 package com.anfelisa.user.deleteuser.scenarios;
 
-import com.anfelisa.user.models.IUserModel;
 
-@SuppressWarnings("unused")
 public class DeleteUserAsStudentScenario extends AbstractDeleteUserAsStudentScenario {
 
-	@Override
-	protected void verifications() {
-		IUserModel user = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
-		assertIsNull(user);
-	}
+	
 
 }
 

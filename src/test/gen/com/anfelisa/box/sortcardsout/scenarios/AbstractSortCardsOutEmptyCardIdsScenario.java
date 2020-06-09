@@ -322,37 +322,6 @@ public abstract class AbstractSortCardsOutEmptyCardIdsScenario extends BaseScena
 		}
 		
 
-		if (prerequisite("ScoreCard0")) {
-			uuid = "score0-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
-			com.anfelisa.box.data.ScoreCardData data_10 = objectMapper.readValue("{" +
-				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-					"\"scoredCardQuality\" : 0," + 
-					"\"scoredCardScheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
-			com.anfelisa.box.data.ScoreCardData.class);
-			timeBeforeRequest = System.currentTimeMillis();
-			response = 
-			this.httpPost(
-				"/card/score", 
-				data_10,
-				authorization("Annette-${testId}", "password")
-			);
-			
-			timeAfterRequest = System.currentTimeMillis();
-			if (response.getStatus() >= 400) {
-				String message = "GIVEN ScoreCard0 fails\n" + response.readEntity(String.class);
-				LOG.info("GIVEN: ScoreCard0 fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("ScoreCard", (timeAfterRequest-timeBeforeRequest));
-				assertFail(message);
-			}
-			LOG.info("GIVEN: ScoreCard0 success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("ScoreCard", (timeAfterRequest-timeBeforeRequest));
-		} else {
-			LOG.info("GIVEN: prerequisite for ScoreCard0 not met");
-		}
-		
-
 	}
 	
 	private Response when() throws Exception {
@@ -399,16 +368,79 @@ public abstract class AbstractSortCardsOutEmptyCardIdsScenario extends BaseScena
 
 			then(response);
 			
+			this.card1WasNotSortedOut();
+			this.card3WasNotSortedOut();
+			this.card4WasNotSortedOut();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for SortCardsOutEmptyCardIds not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void card1WasNotSortedOut() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
+				"\"count\" : 0," + 
+				"\"createdDate\" : \"2020-04-18T10:30\"," + 
+				"\"ef\" : \"2.5F\"," + 
+				"\"interval\" : 1," + 
+				"\"lastQuality\" : null," + 
+				"\"n\" : 1," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: card1WasNotSortedOut passed");
+	}
+	private void card3WasNotSortedOut() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c3-" + this.getTestId() + "\"," + 
+				"\"count\" : 0," + 
+				"\"createdDate\" : \"2020-04-18T10:30\"," + 
+				"\"ef\" : \"2.5F\"," + 
+				"\"interval\" : 1," + 
+				"\"lastQuality\" : null," + 
+				"\"n\" : 1," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"c3-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: card3WasNotSortedOut passed");
+	}
+	private void card4WasNotSortedOut() throws Exception {
+		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"cardId\" : \"c4-" + this.getTestId() + "\"," + 
+				"\"count\" : 0," + 
+				"\"createdDate\" : \"2020-04-18T10:30\"," + 
+				"\"ef\" : \"2.5F\"," + 
+				"\"interval\" : 1," + 
+				"\"lastQuality\" : null," + 
+				"\"n\" : 1," + 
+				"\"quality\" : null," + 
+				"\"scheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"," + 
+				"\"scheduledDate\" : \"2020-04-18T10:30\"," + 
+				"\"scoredDate\" : null} ",
+		com.anfelisa.box.models.ScheduledCardModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: card4WasNotSortedOut passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

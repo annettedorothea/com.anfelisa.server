@@ -156,13 +156,10 @@ public abstract class AbstractDeleteBoxDoesNotExistScenario extends BaseScenario
 			then(response);
 			
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteBoxDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	

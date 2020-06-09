@@ -223,13 +223,10 @@ public abstract class AbstractImportCsvNoAccessToCategoryScenario extends BaseSc
 			
 			this.cardWasNoCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ImportCsvNoAccessToCategory not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasNoCreated() throws Exception {

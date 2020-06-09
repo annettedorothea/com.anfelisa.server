@@ -19,15 +19,10 @@
 
 package com.anfelisa.category.changeorder.scenarios;
 
-import com.anfelisa.category.models.CategoryModel;
-import com.anfelisa.category.models.ICategoryModel;
 
-@SuppressWarnings("unused")
 public class ChangeOrderFourthToFirstScenario extends AbstractChangeOrderFourthToFirstScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

@@ -129,13 +129,10 @@ public abstract class AbstractChangeUserRoleAdminRoleMustNotBeChangedScenario ex
 			
 			this.roleWasNotChanged();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeUserRoleAdminRoleMustNotBeChanged not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void roleWasNotChanged() throws Exception {

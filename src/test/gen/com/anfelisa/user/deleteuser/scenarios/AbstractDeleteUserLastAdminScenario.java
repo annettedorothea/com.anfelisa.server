@@ -127,13 +127,10 @@ public abstract class AbstractDeleteUserLastAdminScenario extends BaseScenario {
 			
 			this.userWasNotDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteUserLastAdmin not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void userWasNotDeleted() throws Exception {

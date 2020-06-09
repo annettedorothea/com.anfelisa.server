@@ -236,13 +236,10 @@ public abstract class AbstractGetDuplicatesNaturalGivenAndWantedAreNullScenario 
 			com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetDuplicatesNaturalGivenAndWantedAreNull not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.card.data.GetDuplicatesResponse response);
 	
 	
 	

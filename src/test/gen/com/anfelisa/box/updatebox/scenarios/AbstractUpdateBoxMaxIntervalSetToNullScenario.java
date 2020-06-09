@@ -153,7 +153,8 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"categoryName\" : \"changed\"," + 
 				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 11} ",
+				"\"maxCardsPerDay\" : 11," + 
+				"\"maxInterval\" : null} ",
 		com.anfelisa.box.data.BoxUpdateData.class);
 		long timeBeforeRequest = System.currentTimeMillis();
 		Response response = 
@@ -193,16 +194,45 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 
 			then(response);
 			
+			this.categoryWasUpdated();
+			this.boxWasUpdated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxMaxIntervalSetToNull not met");
 		}
 	}
 	
-	protected abstract void verifications();
 	
-	
+	private void categoryWasUpdated() throws Exception {
+		com.anfelisa.category.models.ICategoryModel actual = daoProvider.getCategoryDao().selectByCategoryId(handle, "boxId-" + this.getTestId() + "");
+		
+		com.anfelisa.category.models.ICategoryModel expected = objectMapper.readValue("{" +
+			"\"categoryAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryIndex\" : null," + 
+				"\"categoryName\" : \"changed\"," + 
+				"\"dictionaryLookup\" : false," + 
+				"\"parentCategoryId\" : null," + 
+				"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
+		com.anfelisa.category.models.CategoryModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: categoryWasUpdated passed");
+	}
+	private void boxWasUpdated() throws Exception {
+		com.anfelisa.box.models.IBoxModel actual = daoProvider.getBoxDao().selectByBoxId(handle, "boxId-" + this.getTestId() + "");
+		
+		com.anfelisa.box.models.IBoxModel expected = objectMapper.readValue("{" +
+			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"maxCardsPerDay\" : 11," + 
+				"\"userId\" : \"uuid-" + this.getTestId() + "\"," + 
+				"\"maxInterval\" : null} ",
+		com.anfelisa.box.models.BoxModel.class);
+		assertThat(actual, expected);
+
+		LOG.info("THEN: boxWasUpdated passed");
+	}
 	
 	@Override
 	protected String scenarioName() {

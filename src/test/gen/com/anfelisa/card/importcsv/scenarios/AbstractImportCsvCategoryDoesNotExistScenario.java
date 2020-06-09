@@ -190,13 +190,10 @@ public abstract class AbstractImportCsvCategoryDoesNotExistScenario extends Base
 			
 			this.cardWasNoCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ImportCsvCategoryDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cardWasNoCreated() throws Exception {

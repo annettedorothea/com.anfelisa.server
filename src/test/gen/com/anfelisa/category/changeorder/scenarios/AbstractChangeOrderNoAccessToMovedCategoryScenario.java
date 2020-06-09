@@ -311,13 +311,10 @@ public abstract class AbstractChangeOrderNoAccessToMovedCategoryScenario extends
 			this.cat2AtIndex2();
 			this.adminCatAtIndex1();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderNoAccessToMovedCategory not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cat1AtIndex1() throws Exception {

@@ -187,13 +187,10 @@ public abstract class AbstractUpdateCategoryDoesNotExistScenario extends BaseSce
 			then(response);
 			
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCategoryDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	

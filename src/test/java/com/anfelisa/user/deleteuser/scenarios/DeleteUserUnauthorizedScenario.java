@@ -19,19 +19,10 @@
 
 package com.anfelisa.user.deleteuser.scenarios;
 
-import com.anfelisa.auth.Roles;
-import com.anfelisa.user.models.IUserModel;
-import com.anfelisa.user.models.UserModel;
 
-@SuppressWarnings("unused")
 public class DeleteUserUnauthorizedScenario extends AbstractDeleteUserUnauthorizedScenario {
 
-	@Override
-	protected void verifications() {
-		IUserModel actualUser = this.daoProvider.getUserDao().selectByUsername(handle, "Annette-" + getTestId());
-		IUserModel expectedUser = new UserModel("uuid-" + getTestId(), "Annette-" + getTestId(), "password", "annette.pohl@anfelisa.de", Roles.STUDENT, false);
-		assertThat(actualUser, expectedUser);
-	}
+	
 
 }
 

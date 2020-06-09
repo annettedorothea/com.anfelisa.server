@@ -19,12 +19,10 @@
 
 package com.anfelisa.user.resetpassword.scenarios;
 
-@SuppressWarnings("unused")
+
 public class ResetPasswordInvalidTokenScenario extends AbstractResetPasswordInvalidTokenScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

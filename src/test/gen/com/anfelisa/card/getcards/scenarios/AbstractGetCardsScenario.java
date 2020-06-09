@@ -449,13 +449,10 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 			com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
 			
 		
-			verifications(actualResponse);
 		} else {
 			LOG.info("WHEN: prerequisite for GetCards not met");
 		}
 	}
-	
-	protected abstract void verifications(com.anfelisa.card.data.GetCardsResponse response);
 	
 	
 	

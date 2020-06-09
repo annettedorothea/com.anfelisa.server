@@ -19,12 +19,9 @@
 
 package com.anfelisa.box.getboxsettings.scenarios;
 
-@SuppressWarnings("unused")
 public class GetBoxSettingsWithDictionaryLookupScenario extends AbstractGetBoxSettingsWithDictionaryLookupScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.box.data.GetBoxSettingsResponse response ) {
-	}
+	
 
 }
 

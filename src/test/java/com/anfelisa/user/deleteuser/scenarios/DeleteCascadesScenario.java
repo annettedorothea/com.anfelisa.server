@@ -14,24 +14,22 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+
+
+
 package com.anfelisa.user.deleteuser.scenarios;
 
-import java.util.List;
 
-import com.anfelisa.box.models.IBoxModel;
-import com.anfelisa.box.models.IReinforceCardModel;
-import com.anfelisa.box.models.IScheduledCardModel;
-import com.anfelisa.card.models.ICardModel;
-import com.anfelisa.category.models.IUserAccessToCategoryModel;
-import com.anfelisa.user.models.IUserModel;
-
-@SuppressWarnings("unused")
 public class DeleteCascadesScenario extends AbstractDeleteCascadesScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 
+
+
+
 /******* S.D.G. *******/
+
+
+

@@ -218,13 +218,10 @@ public abstract class AbstractChangeOrderMovedCategoryDoesNotExistScenario exten
 			this.cat1AtIndex1();
 			this.cat2AtIndex2();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderMovedCategoryDoesNotExist not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void cat1AtIndex1() throws Exception {

@@ -159,13 +159,10 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 			
 			this.adminCatWasCreated();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryAsAdmin not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void adminCatWasCreated() throws Exception {

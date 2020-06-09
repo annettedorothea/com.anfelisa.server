@@ -19,12 +19,9 @@
 
 package com.anfelisa.box.getboxes.scenarios;
 
-@SuppressWarnings("unused")
 public class GetBoxesOneDayLaterScenario extends AbstractGetBoxesOneDayLaterScenario {
 
-	@Override
-	protected void verifications(com.anfelisa.box.data.GetBoxesResponse response ) {
-	}
+	
 
 }
 

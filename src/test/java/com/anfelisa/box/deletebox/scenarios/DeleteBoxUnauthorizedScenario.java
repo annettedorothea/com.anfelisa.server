@@ -19,12 +19,10 @@
 
 package com.anfelisa.box.deletebox.scenarios;
 
-@SuppressWarnings("unused")
+
 public class DeleteBoxUnauthorizedScenario extends AbstractDeleteBoxUnauthorizedScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

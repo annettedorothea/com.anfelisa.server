@@ -218,13 +218,10 @@ public abstract class AbstractDeleteRootCategoryScenario extends BaseScenario {
 			this.firstCategoryWasNotDeleted();
 			this.secondCategoryWasNotDeleted();
 		
-			verifications();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteRootCategory not met");
 		}
 	}
-	
-	protected abstract void verifications();
 	
 	
 	private void boxWasNotDeleted() throws Exception {

@@ -19,12 +19,10 @@
 
 package com.anfelisa.category.deletecategory.scenarios;
 
-@SuppressWarnings("unused")
+
 public class DeleteCategoryUnauthorizedScenario extends AbstractDeleteCategoryUnauthorizedScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 

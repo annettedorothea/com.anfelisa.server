@@ -19,12 +19,10 @@
 
 package com.anfelisa.card.changeorder.scenarios;
 
-@SuppressWarnings("unused")
+
 public class ChangeOrderNoAccessToTargetCardScenario extends AbstractChangeOrderNoAccessToTargetCardScenario {
 
-	@Override
-	protected void verifications() {
-	}
+	
 
 }
 
