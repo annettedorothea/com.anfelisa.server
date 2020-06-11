@@ -1,6 +1,4 @@
-HttpServer
-
-Dropwizard
+HttpServer Java Dropwizard JDBI3 Liquibase
 
 com.anfelisa.card
 
