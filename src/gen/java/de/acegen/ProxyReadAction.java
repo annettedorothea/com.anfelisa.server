@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class ReadAction<T extends IDataContainer> extends Action<T> {
+public abstract class ProxyReadAction<T extends IDataContainer> extends Action<T> {
 
 	static final Logger LOG = LoggerFactory.getLogger(ReadAction.class);
 	
@@ -32,7 +32,7 @@ public abstract class ReadAction<T extends IDataContainer> extends Action<T> {
 	protected IDaoProvider daoProvider;
 	private E2E e2e;
 	
-	public ReadAction(String actionName, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
+	public ProxyReadAction(String actionName, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
 			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
 		super(actionName);
 		this.persistenceConnection = persistenceConnection;
@@ -47,6 +47,7 @@ public abstract class ReadAction<T extends IDataContainer> extends Action<T> {
 
 	protected abstract void initActionDataFromNotReplayableDataProvider();
 
+	protected abstract T createDataFrom(ITimelineItem timelineItem);
 
 	public void apply() {
 		DatabaseHandle databaseHandle = new DatabaseHandle(persistenceConnection.getJdbi(), appConfiguration);
@@ -70,7 +71,13 @@ public abstract class ReadAction<T extends IDataContainer> extends Action<T> {
 			if (Config.TEST.equals(appConfiguration.getConfig().getMode())) {
 				initActionDataFromNotReplayableDataProvider();
 			}
-			this.loadDataForGetRequest(databaseHandle.getReadonlyHandle());
+			if (Config.REPLAY.equals(appConfiguration.getConfig().getMode())) {
+				ITimelineItem timelineItem = e2e.selectAction(this.actionData.getUuid());
+				T originalData = this.createDataFrom(timelineItem);
+				this.setActionData(originalData);
+			} else {
+				this.loadDataForGetRequest(databaseHandle.getReadonlyHandle());
+			}
 			
 			if (appConfiguration.getConfig().writeTimeline()) {
 				daoProvider.getAceDao().addActionToTimeline(this, databaseHandle.getTimelineHandle());

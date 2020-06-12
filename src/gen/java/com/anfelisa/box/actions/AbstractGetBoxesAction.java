@@ -72,6 +72,7 @@ public abstract class AbstractGetBoxesAction extends ReadAction<IBoxListData> {
 		}
 	}
 
+
 }
 
 

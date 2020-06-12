@@ -72,6 +72,7 @@ public abstract class AbstractLoadNextCardAction extends ReadAction<INextCardDat
 		}
 	}
 
+
 }
 
 

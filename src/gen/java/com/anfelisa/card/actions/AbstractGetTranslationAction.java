@@ -33,7 +33,7 @@ import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
-import de.acegen.ReadAction;
+import de.acegen.ProxyReadAction;
 import de.acegen.ITimelineItem;
 import de.acegen.NotReplayableDataProvider;
 
@@ -43,7 +43,7 @@ import com.anfelisa.card.data.ICardTranslationData;
 import com.anfelisa.card.data.CardTranslationData;
 
 @SuppressWarnings("unused")
-public abstract class AbstractGetTranslationAction extends ReadAction<ICardTranslationData> {
+public abstract class AbstractGetTranslationAction extends ProxyReadAction<ICardTranslationData> {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetTranslationAction.class);
 	
@@ -70,6 +70,12 @@ public abstract class AbstractGetTranslationAction extends ReadAction<ICardTrans
 		} else {
 			this.actionData.setSystemTime(LocalDateTime.now());
 		}
+	}
+
+	@Override
+	protected ICardTranslationData createDataFrom(ITimelineItem timelineItem) {
+		IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
+		return (ICardTranslationData)originalData;
 	}
 
 }
