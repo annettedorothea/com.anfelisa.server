@@ -36,7 +36,6 @@ public class ImportCsvOkEvent extends Event<ICsvUploadData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

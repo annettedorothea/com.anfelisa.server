@@ -27,7 +27,6 @@ public interface IGetTranslationResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

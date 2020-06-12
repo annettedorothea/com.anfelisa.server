@@ -37,7 +37,6 @@ public class ResetPasswordMapper implements RowMapper<IResetPasswordModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

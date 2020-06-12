@@ -37,7 +37,6 @@ public class UsernameAvailableMapper implements RowMapper<IUsernameAvailableMode
 
 
 
-
 /******* S.D.G. *******/
 
 

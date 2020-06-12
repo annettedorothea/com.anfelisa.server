@@ -36,7 +36,6 @@ public class MoveCategoryOkEvent extends Event<ICategoryMoveData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

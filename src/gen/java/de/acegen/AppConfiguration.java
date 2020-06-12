@@ -17,7 +17,6 @@
 
 
 
-
 package de.acegen;
 
 import javax.validation.Valid;
@@ -75,7 +74,6 @@ public class AppConfiguration extends Configuration {
 	}
 	
 }
-		
 
 
 

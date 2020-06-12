@@ -33,29 +33,29 @@ import de.acegen.StringToDateTimeConverter;
 public class ScheduledCardModel implements IScheduledCardModel {
 
 	private String scheduledCardId;
-	
+
 	private String cardId;
-	
+
 	private String boxId;
-	
+
 	private java.time.LocalDateTime createdDate;
-	
+
 	private Float ef;
-	
+
 	private Integer interval;
-	
+
 	private Integer n;
-	
+
 	private Integer count;
-	
+
 	private java.time.LocalDateTime scheduledDate;
-	
+
 	private Integer lastQuality;
-	
+
 	private Integer quality;
-	
+
 	private java.time.LocalDateTime scoredDate;
-	
+
 
 	public ScheduledCardModel() {
 	}
@@ -191,7 +191,7 @@ public class ScheduledCardModel implements IScheduledCardModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

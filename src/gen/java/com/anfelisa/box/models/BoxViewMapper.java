@@ -39,7 +39,6 @@ public class BoxViewMapper implements RowMapper<IBoxViewModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

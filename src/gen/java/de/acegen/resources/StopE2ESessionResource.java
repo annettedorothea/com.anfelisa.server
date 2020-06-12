@@ -17,7 +17,7 @@
 
 
 
-package de.acegen;
+package de.acegen.resources;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
@@ -29,6 +29,10 @@ import javax.ws.rs.WebApplicationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import de.acegen.Config;
+import de.acegen.CustomAppConfiguration;
+import de.acegen.E2E;
 
 @Path("/e2e")
 @Produces(MediaType.APPLICATION_JSON)

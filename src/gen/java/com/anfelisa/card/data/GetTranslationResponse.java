@@ -52,7 +52,6 @@ public class GetTranslationResponse implements IGetTranslationResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

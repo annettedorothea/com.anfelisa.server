@@ -27,7 +27,6 @@ public interface IGetCardsResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

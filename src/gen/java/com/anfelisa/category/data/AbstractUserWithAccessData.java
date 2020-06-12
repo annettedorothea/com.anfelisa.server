@@ -105,7 +105,6 @@ public abstract class AbstractUserWithAccessData extends AbstractData implements
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -40,7 +40,6 @@ public class BoxMapper implements RowMapper<IBoxModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -52,7 +52,6 @@ public interface ICardWithInfoData extends ICardWithInfoModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

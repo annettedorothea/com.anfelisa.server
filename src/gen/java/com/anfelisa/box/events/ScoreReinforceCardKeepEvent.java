@@ -36,7 +36,6 @@ public class ScoreReinforceCardKeepEvent extends Event<IScoreReinforceCardData> 
 
 
 
-
 /******* S.D.G. *******/
 
 

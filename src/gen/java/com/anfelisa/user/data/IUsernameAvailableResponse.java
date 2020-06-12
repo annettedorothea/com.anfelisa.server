@@ -27,7 +27,6 @@ public interface IUsernameAvailableResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

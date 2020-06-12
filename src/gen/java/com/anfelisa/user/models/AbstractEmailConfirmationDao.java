@@ -98,7 +98,6 @@ public class AbstractEmailConfirmationDao {
 
 
 
-
 /******* S.D.G. *******/
 
 

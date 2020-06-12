@@ -52,7 +52,6 @@ public interface ICardWithCategoryNameData extends ICardWithCategoryNameModel, I
 
 
 
-
 /******* S.D.G. *******/
 
 

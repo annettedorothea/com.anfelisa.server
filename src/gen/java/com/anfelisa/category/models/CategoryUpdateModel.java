@@ -33,11 +33,11 @@ import de.acegen.StringToDateTimeConverter;
 public class CategoryUpdateModel implements ICategoryUpdateModel {
 
 	private String categoryId;
-	
+
 	private String categoryName;
-	
+
 	private String userId;
-	
+
 
 	public CategoryUpdateModel() {
 	}
@@ -77,7 +77,7 @@ public class CategoryUpdateModel implements ICategoryUpdateModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

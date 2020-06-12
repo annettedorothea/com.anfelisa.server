@@ -121,7 +121,6 @@ public abstract class AbstractCardTranslationData extends AbstractData implement
 
 
 
-
 /******* S.D.G. *******/
 
 

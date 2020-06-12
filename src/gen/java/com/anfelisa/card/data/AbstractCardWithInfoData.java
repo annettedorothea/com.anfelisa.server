@@ -214,7 +214,6 @@ public abstract class AbstractCardWithInfoData extends AbstractData implements I
 
 
 
-
 /******* S.D.G. *******/
 
 

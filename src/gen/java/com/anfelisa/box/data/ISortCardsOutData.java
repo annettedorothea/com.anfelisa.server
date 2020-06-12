@@ -43,7 +43,6 @@ public interface ISortCardsOutData extends ISortCardsOutModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

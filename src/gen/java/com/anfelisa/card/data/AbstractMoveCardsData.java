@@ -137,7 +137,6 @@ public abstract class AbstractMoveCardsData extends AbstractData implements IMov
 
 
 
-
 /******* S.D.G. *******/
 
 

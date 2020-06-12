@@ -51,7 +51,6 @@ public interface IBoxStatisticsData extends IBoxStatisticsModel, IDataContainer 
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -39,7 +39,6 @@ public interface IGetBoxSettingsResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

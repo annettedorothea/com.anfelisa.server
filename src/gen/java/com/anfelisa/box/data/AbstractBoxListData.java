@@ -107,7 +107,6 @@ public abstract class AbstractBoxListData extends AbstractData implements IBoxLi
 
 
 
-
 /******* S.D.G. *******/
 
 

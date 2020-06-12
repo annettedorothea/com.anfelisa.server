@@ -110,7 +110,6 @@ public class AbstractCardDao {
 
 
 
-
 /******* S.D.G. *******/
 
 

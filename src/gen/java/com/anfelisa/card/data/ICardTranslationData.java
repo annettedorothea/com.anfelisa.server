@@ -41,7 +41,6 @@ public interface ICardTranslationData extends ICardTranslationModel, IDataContai
 
 
 
-
 /******* S.D.G. *******/
 
 

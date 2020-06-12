@@ -121,7 +121,6 @@ public abstract class AbstractCardDeleteData extends AbstractData implements ICa
 
 
 
-
 /******* S.D.G. *******/
 
 

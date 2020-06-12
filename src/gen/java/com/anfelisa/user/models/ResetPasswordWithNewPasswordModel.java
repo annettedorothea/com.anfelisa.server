@@ -33,11 +33,11 @@ import de.acegen.StringToDateTimeConverter;
 public class ResetPasswordWithNewPasswordModel implements IResetPasswordWithNewPasswordModel {
 
 	private String password;
-	
+
 	private String token;
-	
+
 	private String userId;
-	
+
 
 	public ResetPasswordWithNewPasswordModel() {
 	}
@@ -77,7 +77,7 @@ public class ResetPasswordWithNewPasswordModel implements IResetPasswordWithNewP
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

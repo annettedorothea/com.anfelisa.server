@@ -36,7 +36,6 @@ public class CreateCategoryOkEvent extends Event<ICategoryCreationData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

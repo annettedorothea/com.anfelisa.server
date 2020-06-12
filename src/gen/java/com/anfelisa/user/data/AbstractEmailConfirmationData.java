@@ -89,7 +89,6 @@ public abstract class AbstractEmailConfirmationData extends AbstractData impleme
 
 
 
-
 /******* S.D.G. *******/
 
 

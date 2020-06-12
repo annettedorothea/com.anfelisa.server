@@ -46,7 +46,7 @@ public class AppRegistration {
 		environment.jersey().register(new LoadNextCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new DeleteBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 	}
-
+	
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {
 		viewProvider.addConsumer("com.anfelisa.box.events.CreateBoxOkEvent", (dataContainer, handle) -> {
 			viewProvider.rootCategoryView.insert((com.anfelisa.box.data.BoxCreationData) dataContainer, handle);
@@ -136,9 +136,8 @@ public class AppRegistration {
 			viewProvider.userAccessToCategoryView.delete((com.anfelisa.box.data.DeleteBoxData) dataContainer, handle);
 		});
 		
-    }
+	}
 }
-
 
 
 

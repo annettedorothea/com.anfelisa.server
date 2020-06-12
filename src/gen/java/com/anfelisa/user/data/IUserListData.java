@@ -37,7 +37,6 @@ public interface IUserListData extends IUserListModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

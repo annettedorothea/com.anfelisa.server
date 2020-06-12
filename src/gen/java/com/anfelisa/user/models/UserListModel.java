@@ -33,9 +33,9 @@ import de.acegen.StringToDateTimeConverter;
 public class UserListModel implements IUserListModel {
 
 	private java.util.List<com.anfelisa.user.models.IUserModel> userList;
-	
+
 	private String role;
-	
+
 
 	public UserListModel() {
 	}
@@ -65,7 +65,7 @@ public class UserListModel implements IUserListModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

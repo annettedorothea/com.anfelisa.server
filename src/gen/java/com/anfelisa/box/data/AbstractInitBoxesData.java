@@ -91,7 +91,6 @@ public abstract class AbstractInitBoxesData extends AbstractData implements IIni
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -36,7 +36,6 @@ public class MoveCategoryNoMoveEvent extends Event<ICategoryMoveData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

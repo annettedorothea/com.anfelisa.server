@@ -51,7 +51,6 @@ public class ScoreCardMapper implements RowMapper<IScoreCardModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

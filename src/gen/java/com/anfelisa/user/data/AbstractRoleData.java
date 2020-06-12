@@ -89,7 +89,6 @@ public abstract class AbstractRoleData extends AbstractData implements IRoleData
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -36,7 +36,6 @@ public class UpdateCardOkEvent extends Event<ICardUpdateData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

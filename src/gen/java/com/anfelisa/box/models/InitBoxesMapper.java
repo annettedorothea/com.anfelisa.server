@@ -37,7 +37,6 @@ public class InitBoxesMapper implements RowMapper<IInitBoxesModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

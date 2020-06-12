@@ -76,7 +76,6 @@ public abstract class AbstractGetAllUsersAction extends ReadAction<IUserListData
 
 
 
-
 /******* S.D.G. *******/
 
 

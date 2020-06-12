@@ -123,7 +123,6 @@ public abstract class AbstractInitMyBoxesDataData extends AbstractData implement
 
 
 
-
 /******* S.D.G. *******/
 
 

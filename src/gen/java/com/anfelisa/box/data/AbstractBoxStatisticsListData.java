@@ -107,7 +107,6 @@ public abstract class AbstractBoxStatisticsListData extends AbstractData impleme
 
 
 
-
 /******* S.D.G. *******/
 
 

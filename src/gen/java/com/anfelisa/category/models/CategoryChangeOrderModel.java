@@ -33,13 +33,13 @@ import de.acegen.StringToDateTimeConverter;
 public class CategoryChangeOrderModel implements ICategoryChangeOrderModel {
 
 	private String movedCategoryId;
-	
+
 	private String targetCategoryId;
-	
+
 	private String userId;
-	
+
 	private java.util.List<com.anfelisa.category.models.ICategoryModel> updatedIndices;
-	
+
 
 	public CategoryChangeOrderModel() {
 	}
@@ -89,7 +89,7 @@ public class CategoryChangeOrderModel implements ICategoryChangeOrderModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

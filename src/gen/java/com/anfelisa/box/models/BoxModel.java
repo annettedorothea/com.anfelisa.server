@@ -33,15 +33,15 @@ import de.acegen.StringToDateTimeConverter;
 public class BoxModel implements IBoxModel {
 
 	private String boxId;
-	
+
 	private String userId;
-	
+
 	private String categoryId;
-	
+
 	private Integer maxInterval;
-	
+
 	private Integer maxCardsPerDay;
-	
+
 
 	public BoxModel() {
 	}
@@ -101,7 +101,7 @@ public class BoxModel implements IBoxModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

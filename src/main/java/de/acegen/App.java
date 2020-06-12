@@ -15,6 +15,12 @@ import com.anfelisa.auth.AceAuthenticator;
 import com.codahale.metrics.servlets.AdminServlet;
 
 import de.acegen.auth.AuthUser;
+import de.acegen.resources.GetServerInfoResource;
+import de.acegen.resources.GetServerTimelineResource;
+import de.acegen.resources.NotReplayableDataProviderResource;
+import de.acegen.resources.PrepareE2EResource;
+import de.acegen.resources.StartE2ESessionResource;
+import de.acegen.resources.StopE2ESessionResource;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;

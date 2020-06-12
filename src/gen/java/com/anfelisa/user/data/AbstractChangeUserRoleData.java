@@ -121,7 +121,6 @@ public abstract class AbstractChangeUserRoleData extends AbstractData implements
 
 
 
-
 /******* S.D.G. *******/
 
 

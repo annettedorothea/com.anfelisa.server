@@ -33,9 +33,9 @@ import de.acegen.StringToDateTimeConverter;
 public class TodaysCardsStatusModel implements ITodaysCardsStatusModel {
 
 	private Integer openTodaysCards;
-	
+
 	private Integer allTodaysCards;
-	
+
 
 	public TodaysCardsStatusModel() {
 	}
@@ -65,7 +65,7 @@ public class TodaysCardsStatusModel implements ITodaysCardsStatusModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

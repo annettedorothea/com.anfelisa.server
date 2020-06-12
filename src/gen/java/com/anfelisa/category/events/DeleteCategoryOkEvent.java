@@ -36,7 +36,6 @@ public class DeleteCategoryOkEvent extends Event<ICategoryDeleteData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -253,7 +253,6 @@ public abstract class AbstractNextCardViewData extends AbstractData implements I
 
 
 
-
 /******* S.D.G. *******/
 
 

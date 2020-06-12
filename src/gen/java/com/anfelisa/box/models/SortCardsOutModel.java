@@ -33,15 +33,15 @@ import de.acegen.StringToDateTimeConverter;
 public class SortCardsOutModel implements ISortCardsOutModel {
 
 	private java.util.List<String> sortedOutScheduledCardIds;
-	
+
 	private java.util.List<String> sortedOutReinforceCardIds;
-	
+
 	private java.util.List<String> cardIds;
-	
+
 	private String userId;
-	
+
 	private String boxId;
-	
+
 
 	public SortCardsOutModel() {
 	}
@@ -101,7 +101,7 @@ public class SortCardsOutModel implements ISortCardsOutModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

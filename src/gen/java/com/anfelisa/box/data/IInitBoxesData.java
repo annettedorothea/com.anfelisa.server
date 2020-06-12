@@ -37,7 +37,6 @@ public interface IInitBoxesData extends IInitBoxesModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -321,7 +321,6 @@ public abstract class AbstractScoreCardData extends AbstractData implements ISco
 
 
 
-
 /******* S.D.G. *******/
 
 

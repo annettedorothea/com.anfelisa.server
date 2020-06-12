@@ -105,7 +105,6 @@ public abstract class AbstractDeleteBoxData extends AbstractData implements IDel
 
 
 
-
 /******* S.D.G. *******/
 
 

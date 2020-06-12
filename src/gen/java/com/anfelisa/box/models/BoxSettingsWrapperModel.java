@@ -33,23 +33,23 @@ import de.acegen.StringToDateTimeConverter;
 public class BoxSettingsWrapperModel implements IBoxSettingsWrapperModel {
 
 	private String userId;
-	
+
 	private String boxId;
-	
+
 	private Integer maxInterval;
-	
+
 	private Integer maxCardsPerDay;
-	
+
 	private String categoryName;
-	
+
 	private Boolean dictionaryLookup = false;
-	
+
 	private String givenLanguage;
-	
+
 	private String wantedLanguage;
-	
+
 	private String categoryId;
-	
+
 
 	public BoxSettingsWrapperModel() {
 	}
@@ -149,7 +149,7 @@ public class BoxSettingsWrapperModel implements IBoxSettingsWrapperModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

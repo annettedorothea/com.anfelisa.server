@@ -36,7 +36,6 @@ public class ScoreCardScoreEvent extends Event<IScoreCardData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

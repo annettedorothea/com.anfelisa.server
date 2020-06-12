@@ -54,7 +54,6 @@ public interface ICardCreationData extends ICardCreationModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

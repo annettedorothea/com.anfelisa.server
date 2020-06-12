@@ -355,7 +355,6 @@ public abstract class AbstractNextCardData extends AbstractData implements INext
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -33,17 +33,17 @@ import de.acegen.StringToDateTimeConverter;
 public class DeleteUserModel implements IDeleteUserModel {
 
 	private String usernameToBeDeleted;
-	
+
 	private String username;
-	
+
 	private String userId;
-	
+
 	private String role;
-	
+
 	private java.util.List<String> boxIds;
-	
+
 	private java.util.List<String> rootCategoryIds;
-	
+
 
 	public DeleteUserModel() {
 	}
@@ -113,7 +113,7 @@ public class DeleteUserModel implements IDeleteUserModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

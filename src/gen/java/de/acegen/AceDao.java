@@ -26,15 +26,16 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.jdbi.v3.core.statement.Update;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AceDao {
 
-	private JodaObjectMapper mapper;
+	private ObjectMapper mapper;
 
 	private ConcurrentLinkedQueue<String> lastUuids;
 
 	public AceDao() {
-		mapper = new JodaObjectMapper();
+		mapper = new ObjectMapper();
 		lastUuids = new ConcurrentLinkedQueue<>();
 	}
 

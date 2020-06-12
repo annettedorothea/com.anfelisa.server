@@ -41,7 +41,6 @@ public class CategoryMoveMapper implements RowMapper<ICategoryMoveModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

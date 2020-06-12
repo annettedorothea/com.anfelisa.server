@@ -33,15 +33,15 @@ import de.acegen.StringToDateTimeConverter;
 public class MoveCardsModel implements IMoveCardsModel {
 
 	private java.util.List<String> cardIdList;
-	
+
 	private String categoryId;
-	
+
 	private String userId;
-	
+
 	private java.util.List<com.anfelisa.card.models.ICardModel> movedCards;
-	
+
 	private java.util.List<com.anfelisa.card.models.ICardModel> updatedIndices;
-	
+
 
 	public MoveCardsModel() {
 	}
@@ -101,7 +101,7 @@ public class MoveCardsModel implements IMoveCardsModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

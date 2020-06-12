@@ -33,11 +33,11 @@ import de.acegen.StringToDateTimeConverter;
 public class CardListModel implements ICardListModel {
 
 	private String userId;
-	
+
 	private java.util.List<com.anfelisa.card.models.ICardWithInfoModel> cardList;
-	
+
 	private String categoryId;
-	
+
 
 	public CardListModel() {
 	}
@@ -77,7 +77,7 @@ public class CardListModel implements ICardListModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

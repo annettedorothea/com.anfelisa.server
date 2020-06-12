@@ -89,7 +89,6 @@ public abstract class AbstractTodaysCardsStatusData extends AbstractData impleme
 
 
 
-
 /******* S.D.G. *******/
 
 

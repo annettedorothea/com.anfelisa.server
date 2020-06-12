@@ -40,7 +40,6 @@ public interface IConfirmEmailData extends IConfirmEmailModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -52,7 +52,6 @@ public class GetBoxesResponse implements IGetBoxesResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -33,21 +33,21 @@ import de.acegen.StringToDateTimeConverter;
 public class CardModel implements ICardModel {
 
 	private String cardId;
-	
+
 	private String given;
-	
+
 	private String wanted;
-	
+
 	private String image;
-	
+
 	private String cardAuthor;
-	
+
 	private Integer cardIndex;
-	
+
 	private String categoryId;
-	
+
 	private String rootCategoryId;
-	
+
 
 	public CardModel() {
 	}
@@ -137,7 +137,7 @@ public class CardModel implements ICardModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

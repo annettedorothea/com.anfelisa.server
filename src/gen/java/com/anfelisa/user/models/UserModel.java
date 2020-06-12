@@ -33,17 +33,17 @@ import de.acegen.StringToDateTimeConverter;
 public class UserModel implements IUserModel {
 
 	private String userId;
-	
+
 	private String username;
-	
+
 	private String password;
-	
+
 	private String email;
-	
+
 	private String role;
-	
+
 	private Boolean emailConfirmed = false;
-	
+
 
 	public UserModel() {
 	}
@@ -113,7 +113,7 @@ public class UserModel implements IUserModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

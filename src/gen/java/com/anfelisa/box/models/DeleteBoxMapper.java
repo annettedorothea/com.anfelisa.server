@@ -38,7 +38,6 @@ public class DeleteBoxMapper implements RowMapper<IDeleteBoxModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

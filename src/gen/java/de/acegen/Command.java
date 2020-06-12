@@ -19,11 +19,13 @@
 
 package de.acegen;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public abstract class Command<T extends IDataContainer> implements ICommand {
 
 	protected T commandData;
 	private String commandName;
-	protected JodaObjectMapper mapper;
+	protected ObjectMapper mapper;
 	protected IDaoProvider daoProvider;
 	protected ViewProvider viewProvider;
 	protected CustomAppConfiguration appConfiguration;
@@ -32,7 +34,7 @@ public abstract class Command<T extends IDataContainer> implements ICommand {
 		super();
 		this.commandData = commandData;
 		this.commandName = commandName;
-		mapper = new JodaObjectMapper();
+		mapper = new ObjectMapper();
 		this.daoProvider = daoProvider;
 		this.viewProvider = viewProvider;
 		this.appConfiguration = appConfiguration;

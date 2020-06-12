@@ -36,7 +36,6 @@ public class InitMyBoxesForDayOkEvent extends Event<IInitMyBoxesDataData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -123,7 +123,6 @@ public abstract class AbstractReinforceCardData extends AbstractData implements 
 
 
 
-
 /******* S.D.G. *******/
 
 

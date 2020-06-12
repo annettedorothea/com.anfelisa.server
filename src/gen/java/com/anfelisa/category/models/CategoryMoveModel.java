@@ -33,17 +33,17 @@ import de.acegen.StringToDateTimeConverter;
 public class CategoryMoveModel implements ICategoryMoveModel {
 
 	private String movedCategoryId;
-	
+
 	private String targetCategoryId;
-	
+
 	private com.anfelisa.category.models.ICategoryModel movedCategory;
-	
+
 	private Integer categoryIndexWhereRemoved;
-	
+
 	private String parentCategoryIdWhereRemoved;
-	
+
 	private String userId;
-	
+
 
 	public CategoryMoveModel() {
 	}
@@ -113,7 +113,7 @@ public class CategoryMoveModel implements ICategoryMoveModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

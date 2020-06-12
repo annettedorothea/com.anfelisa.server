@@ -36,7 +36,6 @@ public class ConfirmEmailAlreadyConfirmedEvent extends Event<IConfirmEmailData> 
 
 
 
-
 /******* S.D.G. *******/
 
 

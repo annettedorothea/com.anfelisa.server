@@ -39,7 +39,6 @@ public class CardDeleteMapper implements RowMapper<ICardDeleteModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

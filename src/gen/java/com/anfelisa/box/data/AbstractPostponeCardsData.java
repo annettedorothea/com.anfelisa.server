@@ -89,7 +89,6 @@ public abstract class AbstractPostponeCardsData extends AbstractData implements 
 
 
 
-
 /******* S.D.G. *******/
 
 

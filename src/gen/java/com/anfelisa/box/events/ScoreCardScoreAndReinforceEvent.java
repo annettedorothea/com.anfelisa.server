@@ -36,7 +36,6 @@ public class ScoreCardScoreAndReinforceEvent extends Event<IScoreCardData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

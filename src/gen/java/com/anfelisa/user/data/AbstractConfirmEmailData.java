@@ -110,7 +110,6 @@ public abstract class AbstractConfirmEmailData extends AbstractData implements I
 
 
 
-
 /******* S.D.G. *******/
 
 

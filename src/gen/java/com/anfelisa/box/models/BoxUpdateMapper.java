@@ -44,7 +44,6 @@ public class BoxUpdateMapper implements RowMapper<IBoxUpdateModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

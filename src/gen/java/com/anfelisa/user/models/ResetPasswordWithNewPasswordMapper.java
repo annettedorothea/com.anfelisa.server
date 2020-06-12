@@ -38,7 +38,6 @@ public class ResetPasswordWithNewPasswordMapper implements RowMapper<IResetPassw
 
 
 
-
 /******* S.D.G. *******/
 
 

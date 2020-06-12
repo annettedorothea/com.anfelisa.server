@@ -45,7 +45,6 @@ public class CardCreationMapper implements RowMapper<ICardCreationModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

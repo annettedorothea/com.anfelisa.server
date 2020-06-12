@@ -38,7 +38,6 @@ public class UserWithAccessMapper implements RowMapper<IUserWithAccessModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

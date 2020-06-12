@@ -33,17 +33,17 @@ import de.acegen.StringToDateTimeConverter;
 public class CardSearchModel implements ICardSearchModel {
 
 	private String userId;
-	
+
 	private String given;
-	
+
 	private String wanted;
-	
+
 	private String categoryId;
-	
+
 	private java.util.List<com.anfelisa.card.models.ICardWithCategoryNameModel> cardList;
-	
+
 	private Boolean naturalInputOrder = false;
-	
+
 
 	public CardSearchModel() {
 	}
@@ -113,7 +113,7 @@ public class CardSearchModel implements ICardSearchModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

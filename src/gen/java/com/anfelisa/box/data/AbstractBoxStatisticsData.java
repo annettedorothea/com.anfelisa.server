@@ -201,7 +201,6 @@ public abstract class AbstractBoxStatisticsData extends AbstractData implements 
 
 
 
-
 /******* S.D.G. *******/
 
 

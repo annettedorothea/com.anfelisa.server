@@ -76,7 +76,6 @@ public abstract class AbstractGetCategoryTreeAction extends ReadAction<ICategory
 
 
 
-
 /******* S.D.G. *******/
 
 

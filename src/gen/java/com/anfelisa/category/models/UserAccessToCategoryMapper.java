@@ -38,7 +38,6 @@ public class UserAccessToCategoryMapper implements RowMapper<IUserAccessToCatego
 
 
 
-
 /******* S.D.G. *******/
 
 

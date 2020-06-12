@@ -44,7 +44,6 @@ public class BoxSettingsWrapperMapper implements RowMapper<IBoxSettingsWrapperMo
 
 
 
-
 /******* S.D.G. *******/
 
 

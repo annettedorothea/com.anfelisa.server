@@ -17,7 +17,6 @@
 
 
 
-
 package de.acegen;
 
 import javax.ws.rs.core.Response;

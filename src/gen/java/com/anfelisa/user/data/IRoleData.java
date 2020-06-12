@@ -37,7 +37,6 @@ public interface IRoleData extends IRoleModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

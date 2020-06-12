@@ -33,21 +33,21 @@ import de.acegen.StringToDateTimeConverter;
 public class UserRegistrationModel implements IUserRegistrationModel {
 
 	private String language;
-	
+
 	private String userId;
-	
+
 	private String username;
-	
+
 	private String password;
-	
+
 	private String email;
-	
+
 	private String role;
-	
+
 	private Boolean emailConfirmed = false;
-	
+
 	private String token;
-	
+
 
 	public UserRegistrationModel() {
 	}
@@ -137,7 +137,7 @@ public class UserRegistrationModel implements IUserRegistrationModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

@@ -160,7 +160,6 @@ public class LoadNextCardResponse implements ILoadNextCardResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

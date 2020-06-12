@@ -36,7 +36,6 @@ public class CreateCardOkEvent extends Event<ICardCreationData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

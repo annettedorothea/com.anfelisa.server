@@ -76,7 +76,6 @@ public abstract class AbstractGetBoxesAction extends ReadAction<IBoxListData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

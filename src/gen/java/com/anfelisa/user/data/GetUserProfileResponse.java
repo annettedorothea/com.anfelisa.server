@@ -68,7 +68,6 @@ public class GetUserProfileResponse implements IGetUserProfileResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

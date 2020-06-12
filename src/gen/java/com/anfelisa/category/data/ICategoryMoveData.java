@@ -45,7 +45,6 @@ public interface ICategoryMoveData extends ICategoryMoveModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

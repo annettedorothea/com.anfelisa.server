@@ -41,7 +41,6 @@ public interface ICategoryDeleteData extends ICategoryDeleteModel, IDataContaine
 
 
 
-
 /******* S.D.G. *******/
 
 

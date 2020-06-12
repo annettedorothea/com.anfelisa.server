@@ -38,7 +38,6 @@ public class ConfirmEmailMapper implements RowMapper<IConfirmEmailModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -36,7 +36,6 @@ public class CreateBoxOkEvent extends Event<IBoxCreationData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

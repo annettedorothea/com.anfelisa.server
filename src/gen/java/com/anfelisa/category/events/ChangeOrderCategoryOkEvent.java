@@ -36,7 +36,6 @@ public class ChangeOrderCategoryOkEvent extends Event<ICategoryChangeOrderData> 
 
 
 
-
 /******* S.D.G. *******/
 
 

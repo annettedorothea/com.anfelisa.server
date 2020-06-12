@@ -43,7 +43,6 @@ public class BoxSettingsMapper implements RowMapper<IBoxSettingsModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -53,7 +53,6 @@ public interface ILoadNextCardResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

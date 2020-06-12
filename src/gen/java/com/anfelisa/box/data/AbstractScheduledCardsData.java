@@ -155,7 +155,6 @@ public abstract class AbstractScheduledCardsData extends AbstractData implements
 
 
 
-
 /******* S.D.G. *******/
 
 

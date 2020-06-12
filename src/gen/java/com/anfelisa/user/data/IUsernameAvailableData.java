@@ -37,7 +37,6 @@ public interface IUsernameAvailableData extends IUsernameAvailableModel, IDataCo
 
 
 
-
 /******* S.D.G. *******/
 
 

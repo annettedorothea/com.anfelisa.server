@@ -137,7 +137,6 @@ public abstract class AbstractCardUpdateData extends AbstractData implements ICa
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -41,7 +41,6 @@ public class CardSearchMapper implements RowMapper<ICardSearchModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

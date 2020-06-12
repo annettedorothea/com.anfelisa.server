@@ -33,13 +33,13 @@ import de.acegen.StringToDateTimeConverter;
 public class BoxViewModel implements IBoxViewModel {
 
 	private Integer openTodaysCards;
-	
+
 	private String categoryName;
-	
+
 	private String categoryId;
-	
+
 	private String boxId;
-	
+
 
 	public BoxViewModel() {
 	}
@@ -89,7 +89,7 @@ public class BoxViewModel implements IBoxViewModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

@@ -37,7 +37,6 @@ public class UserListMapper implements RowMapper<IUserListModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

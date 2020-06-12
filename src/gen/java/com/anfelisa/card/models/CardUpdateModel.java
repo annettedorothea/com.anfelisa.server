@@ -33,15 +33,15 @@ import de.acegen.StringToDateTimeConverter;
 public class CardUpdateModel implements ICardUpdateModel {
 
 	private String cardId;
-	
+
 	private String given;
-	
+
 	private String wanted;
-	
+
 	private String image;
-	
+
 	private String userId;
-	
+
 
 	public CardUpdateModel() {
 	}
@@ -101,7 +101,7 @@ public class CardUpdateModel implements ICardUpdateModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

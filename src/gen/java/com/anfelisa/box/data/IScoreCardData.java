@@ -65,7 +65,6 @@ public interface IScoreCardData extends IScoreCardModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

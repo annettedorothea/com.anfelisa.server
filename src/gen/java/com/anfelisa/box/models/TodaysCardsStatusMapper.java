@@ -37,7 +37,6 @@ public class TodaysCardsStatusMapper implements RowMapper<ITodaysCardsStatusMode
 
 
 
-
 /******* S.D.G. *******/
 
 

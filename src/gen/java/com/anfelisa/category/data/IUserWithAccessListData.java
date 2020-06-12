@@ -37,7 +37,6 @@ public interface IUserWithAccessListData extends IUserWithAccessListModel, IData
 
 
 
-
 /******* S.D.G. *******/
 
 

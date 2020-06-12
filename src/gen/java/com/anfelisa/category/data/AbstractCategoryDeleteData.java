@@ -121,7 +121,6 @@ public abstract class AbstractCategoryDeleteData extends AbstractData implements
 
 
 
-
 /******* S.D.G. *******/
 
 

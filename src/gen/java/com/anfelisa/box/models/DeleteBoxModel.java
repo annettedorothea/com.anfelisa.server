@@ -33,11 +33,11 @@ import de.acegen.StringToDateTimeConverter;
 public class DeleteBoxModel implements IDeleteBoxModel {
 
 	private String userId;
-	
+
 	private String boxId;
-	
+
 	private String rootCategoryId;
-	
+
 
 	public DeleteBoxModel() {
 	}
@@ -77,7 +77,7 @@ public class DeleteBoxModel implements IDeleteBoxModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

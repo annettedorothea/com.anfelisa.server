@@ -245,7 +245,6 @@ public abstract class AbstractCategoryCreationData extends AbstractData implemen
 
 
 
-
 /******* S.D.G. *******/
 
 

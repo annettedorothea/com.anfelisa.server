@@ -39,7 +39,6 @@ public interface IDeleteBoxData extends IDeleteBoxModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

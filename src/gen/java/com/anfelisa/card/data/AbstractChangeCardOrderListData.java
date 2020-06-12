@@ -121,7 +121,6 @@ public abstract class AbstractChangeCardOrderListData extends AbstractData imple
 
 
 
-
 /******* S.D.G. *******/
 
 

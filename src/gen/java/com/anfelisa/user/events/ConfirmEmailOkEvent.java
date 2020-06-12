@@ -36,7 +36,6 @@ public class ConfirmEmailOkEvent extends Event<IConfirmEmailData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

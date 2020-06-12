@@ -36,7 +36,6 @@ public class DeleteBoxOkEvent extends Event<IDeleteBoxData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

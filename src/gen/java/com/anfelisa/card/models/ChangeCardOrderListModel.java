@@ -33,13 +33,13 @@ import de.acegen.StringToDateTimeConverter;
 public class ChangeCardOrderListModel implements IChangeCardOrderListModel {
 
 	private java.util.List<String> cardIdList;
-	
+
 	private String cardId;
-	
+
 	private String userId;
-	
+
 	private java.util.List<com.anfelisa.card.models.ICardModel> updatedIndices;
-	
+
 
 	public ChangeCardOrderListModel() {
 	}
@@ -89,7 +89,7 @@ public class ChangeCardOrderListModel implements IChangeCardOrderListModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

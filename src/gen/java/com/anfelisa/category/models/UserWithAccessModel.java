@@ -33,11 +33,11 @@ import de.acegen.StringToDateTimeConverter;
 public class UserWithAccessModel implements IUserWithAccessModel {
 
 	private String userId;
-	
+
 	private String username;
-	
+
 	private Boolean editable = false;
-	
+
 
 	public UserWithAccessModel() {
 	}
@@ -77,7 +77,7 @@ public class UserWithAccessModel implements IUserWithAccessModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

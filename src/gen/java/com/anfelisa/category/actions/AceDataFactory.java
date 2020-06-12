@@ -25,13 +25,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.acegen.IDataContainer;
-import de.acegen.JodaObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.anfelisa.category.data.*;
 import com.fasterxml.jackson.databind.DeserializationFeature;		
 
 public class AceDataFactory {
 	
-	private static JodaObjectMapper mapper = new JodaObjectMapper();
+	private static ObjectMapper mapper = new ObjectMapper();
 	private static final Logger LOG = LoggerFactory.getLogger(AceDataFactory.class);
 
 	static {
@@ -94,7 +94,6 @@ public class AceDataFactory {
 		return null;
 	}
 }
-
 
 
 

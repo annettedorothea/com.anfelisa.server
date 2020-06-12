@@ -89,7 +89,6 @@ public abstract class AbstractUserWithAccessListData extends AbstractData implem
 
 
 
-
 /******* S.D.G. *******/
 
 

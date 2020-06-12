@@ -41,7 +41,6 @@ public interface IChangeUserRoleData extends IChangeUserRoleModel, IDataContaine
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -39,7 +39,6 @@ public class CardTranslationMapper implements RowMapper<ICardTranslationModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

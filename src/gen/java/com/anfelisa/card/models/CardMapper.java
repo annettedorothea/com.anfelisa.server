@@ -43,7 +43,6 @@ public class CardMapper implements RowMapper<ICardModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

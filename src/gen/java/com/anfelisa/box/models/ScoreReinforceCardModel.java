@@ -33,13 +33,13 @@ import de.acegen.StringToDateTimeConverter;
 public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 
 	private String reinforceCardId;
-	
+
 	private Integer scoredCardQuality;
-	
+
 	private java.time.LocalDateTime changeDate;
-	
+
 	private String userId;
-	
+
 
 	public ScoreReinforceCardModel() {
 	}
@@ -91,7 +91,7 @@ public class ScoreReinforceCardModel implements IScoreReinforceCardModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

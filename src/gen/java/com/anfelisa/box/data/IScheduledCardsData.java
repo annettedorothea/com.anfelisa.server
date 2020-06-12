@@ -45,7 +45,6 @@ public interface IScheduledCardsData extends IScheduledCardsModel, IDataContaine
 
 
 
-
 /******* S.D.G. *******/
 
 

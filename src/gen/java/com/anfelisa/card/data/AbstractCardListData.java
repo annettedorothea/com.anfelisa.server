@@ -105,7 +105,6 @@ public abstract class AbstractCardListData extends AbstractData implements ICard
 
 
 
-
 /******* S.D.G. *******/
 
 

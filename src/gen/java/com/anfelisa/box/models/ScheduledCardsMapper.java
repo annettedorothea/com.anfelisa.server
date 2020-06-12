@@ -41,7 +41,6 @@ public class ScheduledCardsMapper implements RowMapper<IScheduledCardsModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

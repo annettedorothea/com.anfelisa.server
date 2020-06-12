@@ -52,7 +52,6 @@ public class NextCardMapper implements RowMapper<INextCardModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -33,13 +33,13 @@ import de.acegen.StringToDateTimeConverter;
 public class ReinforceCardModel implements IReinforceCardModel {
 
 	private String reinforceCardId;
-	
+
 	private String scheduledCardId;
-	
+
 	private String boxId;
-	
+
 	private java.time.LocalDateTime changeDate;
-	
+
 
 	public ReinforceCardModel() {
 	}
@@ -91,7 +91,7 @@ public class ReinforceCardModel implements IReinforceCardModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

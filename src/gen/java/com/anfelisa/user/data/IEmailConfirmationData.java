@@ -37,7 +37,6 @@ public interface IEmailConfirmationData extends IEmailConfirmationModel, IDataCo
 
 
 
-
 /******* S.D.G. *******/
 
 

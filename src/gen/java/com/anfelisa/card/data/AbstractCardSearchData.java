@@ -153,7 +153,6 @@ public abstract class AbstractCardSearchData extends AbstractData implements ICa
 
 
 
-
 /******* S.D.G. *******/
 
 

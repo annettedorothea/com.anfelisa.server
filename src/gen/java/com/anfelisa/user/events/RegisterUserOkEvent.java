@@ -36,7 +36,6 @@ public class RegisterUserOkEvent extends Event<IUserRegistrationData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

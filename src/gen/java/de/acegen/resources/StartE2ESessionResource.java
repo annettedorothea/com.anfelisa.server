@@ -17,7 +17,7 @@
 
 
 
-package de.acegen;
+package de.acegen.resources;
 
 import java.util.List;
 import java.time.LocalDateTime;
@@ -36,6 +36,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import de.acegen.Config;
+import de.acegen.CustomAppConfiguration;
+import de.acegen.DaoProvider;
+import de.acegen.E2E;
+import de.acegen.IDaoProvider;
+import de.acegen.ITimelineItem;
+import de.acegen.PersistenceHandle;
 
 @Path("/e2e")
 @Produces(MediaType.APPLICATION_JSON)

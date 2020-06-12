@@ -36,7 +36,6 @@ public class UpdateCategoryOkEvent extends Event<ICategoryUpdateData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

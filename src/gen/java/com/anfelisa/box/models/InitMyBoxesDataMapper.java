@@ -39,7 +39,6 @@ public class InitMyBoxesDataMapper implements RowMapper<IInitMyBoxesDataModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

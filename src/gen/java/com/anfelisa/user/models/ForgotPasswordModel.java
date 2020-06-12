@@ -33,15 +33,15 @@ import de.acegen.StringToDateTimeConverter;
 public class ForgotPasswordModel implements IForgotPasswordModel {
 
 	private String language;
-	
+
 	private String email;
-	
+
 	private String username;
-	
+
 	private String token;
-	
+
 	private String userId;
-	
+
 
 	public ForgotPasswordModel() {
 	}
@@ -101,7 +101,7 @@ public class ForgotPasswordModel implements IForgotPasswordModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

@@ -33,9 +33,9 @@ import de.acegen.StringToDateTimeConverter;
 public class PostponeCardsModel implements IPostponeCardsModel {
 
 	private Integer days;
-	
+
 	private String boxId;
-	
+
 
 	public PostponeCardsModel() {
 	}
@@ -65,7 +65,7 @@ public class PostponeCardsModel implements IPostponeCardsModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

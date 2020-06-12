@@ -36,7 +36,6 @@ public class UpdateBoxOkEvent extends Event<IBoxUpdateData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -41,7 +41,6 @@ public interface ICardDeleteData extends ICardDeleteModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

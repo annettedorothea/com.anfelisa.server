@@ -33,23 +33,23 @@ import de.acegen.StringToDateTimeConverter;
 public class BoxStatisticsModel implements IBoxStatisticsModel {
 
 	private String boxId;
-	
+
 	private Integer quality0Count;
-	
+
 	private Integer quality1Count;
-	
+
 	private Integer quality2Count;
-	
+
 	private Integer quality3Count;
-	
+
 	private Integer quality4Count;
-	
+
 	private Integer quality5Count;
-	
+
 	private java.util.List<Integer> countsPerDayNextWeek;
-	
+
 	private Integer maxCardsPerDay;
-	
+
 
 	public BoxStatisticsModel() {
 	}
@@ -149,7 +149,7 @@ public class BoxStatisticsModel implements IBoxStatisticsModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

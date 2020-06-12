@@ -36,7 +36,6 @@ public class ForgotPasswordOkEvent extends Event<IForgotPasswordData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

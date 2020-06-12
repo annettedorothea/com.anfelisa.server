@@ -36,7 +36,6 @@ public class SortCardsOutNullOrEmptyEvent extends Event<ISortCardsOutData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

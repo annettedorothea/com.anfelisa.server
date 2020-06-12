@@ -50,7 +50,6 @@ public class BoxCreationMapper implements RowMapper<IBoxCreationModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

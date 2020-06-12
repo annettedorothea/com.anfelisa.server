@@ -105,7 +105,6 @@ public abstract class AbstractSimpleCardData extends AbstractData implements ISi
 
 
 
-
 /******* S.D.G. *******/
 
 

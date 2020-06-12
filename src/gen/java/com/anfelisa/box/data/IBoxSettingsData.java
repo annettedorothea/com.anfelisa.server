@@ -49,7 +49,6 @@ public interface IBoxSettingsData extends IBoxSettingsModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

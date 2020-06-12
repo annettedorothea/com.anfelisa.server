@@ -40,7 +40,6 @@ public class SortCardsOutMapper implements RowMapper<ISortCardsOutModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

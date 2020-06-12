@@ -40,7 +40,7 @@ public class AppRegistration {
 		environment.jersey().register(new MoveCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new ChangeOrderCategoryResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 	}
-
+	
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {
 		viewProvider.addConsumer("com.anfelisa.category.events.CreateCategoryOkEvent", (dataContainer, handle) -> {
 			viewProvider.categoryView.insert((com.anfelisa.category.data.CategoryCreationData) dataContainer, handle);
@@ -62,9 +62,8 @@ public class AppRegistration {
 			viewProvider.categoryView.changeOrder((com.anfelisa.category.data.CategoryChangeOrderData) dataContainer, handle);
 		});
 		
-    }
+	}
 }
-
 
 
 

@@ -36,7 +36,6 @@ public class SortCardsOutOkEvent extends Event<ISortCardsOutData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

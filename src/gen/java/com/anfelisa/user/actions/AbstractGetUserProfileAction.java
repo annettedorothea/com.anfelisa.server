@@ -76,7 +76,6 @@ public abstract class AbstractGetUserProfileAction extends ReadAction<IUserData>
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -100,7 +100,6 @@ public class GetBoxSettingsResponse implements IGetBoxSettingsResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -121,7 +121,6 @@ public abstract class AbstractBoxViewData extends AbstractData implements IBoxVi
 
 
 
-
 /******* S.D.G. *******/
 
 

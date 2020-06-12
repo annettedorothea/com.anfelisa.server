@@ -76,7 +76,6 @@ public abstract class AbstractGetBoxStatisticsAction extends ReadAction<IBoxStat
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -33,11 +33,11 @@ import de.acegen.StringToDateTimeConverter;
 public class UserAccessToCategoryModel implements IUserAccessToCategoryModel {
 
 	private String categoryId;
-	
+
 	private String userId;
-	
+
 	private Boolean editable = false;
-	
+
 
 	public UserAccessToCategoryModel() {
 	}
@@ -77,7 +77,7 @@ public class UserAccessToCategoryModel implements IUserAccessToCategoryModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

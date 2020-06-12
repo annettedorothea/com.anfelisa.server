@@ -33,25 +33,25 @@ import de.acegen.StringToDateTimeConverter;
 public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 
 	private String categoryId;
-	
+
 	private String categoryName;
-	
+
 	private Integer categoryIndex;
-	
+
 	private Boolean empty = false;
-	
+
 	private String parentCategoryId;
-	
+
 	private Boolean dictionaryLookup = false;
-	
+
 	private String givenLanguage;
-	
+
 	private String wantedLanguage;
-	
+
 	private String rootCategoryId;
-	
+
 	private java.util.List<com.anfelisa.category.models.ICategoryTreeItemModel> childCategories;
-	
+
 
 	public CategoryTreeItemModel() {
 	}
@@ -161,7 +161,7 @@ public class CategoryTreeItemModel implements ICategoryTreeItemModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

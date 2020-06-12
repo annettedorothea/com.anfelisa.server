@@ -37,7 +37,6 @@ public class UserWithAccessListMapper implements RowMapper<IUserWithAccessListMo
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -105,7 +105,6 @@ public abstract class AbstractUserAccessToCategoryData extends AbstractData impl
 
 
 
-
 /******* S.D.G. *******/
 
 

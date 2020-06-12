@@ -33,39 +33,39 @@ import de.acegen.StringToDateTimeConverter;
 public class NextCardModel implements INextCardModel {
 
 	private String userId;
-	
+
 	private String boxId;
-	
+
 	private java.time.LocalDateTime todayAtMidnightInUTC;
-	
+
 	private Integer openTodaysCards;
-	
+
 	private Integer allTodaysCards;
-	
+
 	private String scheduledCardId;
-	
+
 	private String reinforceCardId;
-	
+
 	private String cardId;
-	
+
 	private java.time.LocalDateTime scheduledDate;
-	
+
 	private Integer lastQuality;
-	
+
 	private String given;
-	
+
 	private String wanted;
-	
+
 	private String image;
-	
+
 	private String categoryId;
-	
+
 	private String rootCategoryId;
-	
+
 	private Integer count;
-	
+
 	private java.time.LocalDateTime scoredDate;
-	
+
 
 	public NextCardModel() {
 	}
@@ -251,7 +251,7 @@ public class NextCardModel implements INextCardModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

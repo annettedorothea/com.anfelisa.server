@@ -43,7 +43,6 @@ public interface ICardUpdateData extends ICardUpdateModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

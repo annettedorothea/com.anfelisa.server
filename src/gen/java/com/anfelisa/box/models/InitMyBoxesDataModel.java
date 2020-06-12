@@ -33,13 +33,13 @@ import de.acegen.StringToDateTimeConverter;
 public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 
 	private String userId;
-	
+
 	private java.time.LocalDateTime todayAtMidnightInUTC;
-	
+
 	private java.util.List<com.anfelisa.box.models.IPostponeCardsModel> postponeCards;
-	
+
 	private java.util.List<String> outdatedReinforceCardsIds;
-	
+
 
 	public InitMyBoxesDataModel() {
 	}
@@ -91,7 +91,7 @@ public class InitMyBoxesDataModel implements IInitMyBoxesDataModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

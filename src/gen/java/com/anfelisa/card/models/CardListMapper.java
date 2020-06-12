@@ -38,7 +38,6 @@ public class CardListMapper implements RowMapper<ICardListModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

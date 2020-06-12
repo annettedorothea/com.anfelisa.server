@@ -41,7 +41,6 @@ public class DeleteUserMapper implements RowMapper<IDeleteUserModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

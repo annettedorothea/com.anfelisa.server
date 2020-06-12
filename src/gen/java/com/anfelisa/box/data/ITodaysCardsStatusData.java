@@ -37,7 +37,6 @@ public interface ITodaysCardsStatusData extends ITodaysCardsStatusModel, IDataCo
 
 
 
-
 /******* S.D.G. *******/
 
 

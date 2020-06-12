@@ -33,9 +33,9 @@ import de.acegen.StringToDateTimeConverter;
 public class InitBoxesModel implements IInitBoxesModel {
 
 	private java.time.LocalDateTime minScheduledDate;
-	
+
 	private String boxId;
-	
+
 
 	public InitBoxesModel() {
 	}
@@ -67,7 +67,7 @@ public class InitBoxesModel implements IInitBoxesModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

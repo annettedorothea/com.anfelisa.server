@@ -41,7 +41,6 @@ public interface IScoreReinforceCardData extends IScoreReinforceCardModel, IData
 
 
 
-
 /******* S.D.G. *******/
 
 

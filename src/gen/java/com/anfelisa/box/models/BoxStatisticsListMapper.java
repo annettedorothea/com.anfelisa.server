@@ -38,7 +38,6 @@ public class BoxStatisticsListMapper implements RowMapper<IBoxStatisticsListMode
 
 
 
-
 /******* S.D.G. *******/
 
 

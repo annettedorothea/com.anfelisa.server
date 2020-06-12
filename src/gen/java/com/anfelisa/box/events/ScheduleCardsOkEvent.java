@@ -36,7 +36,6 @@ public class ScheduleCardsOkEvent extends Event<IScheduledCardsData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

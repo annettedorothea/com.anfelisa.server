@@ -36,7 +36,6 @@ public class ChangeOrderCategoryNoMoveEvent extends Event<ICategoryChangeOrderDa
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -41,7 +41,6 @@ public interface IReinforceCardData extends IReinforceCardModel, IDataContainer 
 
 
 
-
 /******* S.D.G. *******/
 
 

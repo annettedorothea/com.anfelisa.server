@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 
 public abstract class AbstractBaseScenario {
 
-	protected final JodaObjectMapper mapper = new JodaObjectMapper();
+	protected final ObjectMapper mapper = new ObjectMapper();
 
 	protected DaoProvider daoProvider;
 

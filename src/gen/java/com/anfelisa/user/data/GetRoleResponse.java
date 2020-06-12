@@ -52,7 +52,6 @@ public class GetRoleResponse implements IGetRoleResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -43,7 +43,6 @@ public class UserRegistrationMapper implements RowMapper<IUserRegistrationModel>
 
 
 
-
 /******* S.D.G. *******/
 
 

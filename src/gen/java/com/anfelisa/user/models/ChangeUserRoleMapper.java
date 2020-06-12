@@ -39,7 +39,6 @@ public class ChangeUserRoleMapper implements RowMapper<IChangeUserRoleModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

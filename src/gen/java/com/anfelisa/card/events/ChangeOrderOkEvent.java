@@ -36,7 +36,6 @@ public class ChangeOrderOkEvent extends Event<IChangeCardOrderListData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

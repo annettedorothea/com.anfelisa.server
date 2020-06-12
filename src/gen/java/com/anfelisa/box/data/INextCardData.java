@@ -69,7 +69,6 @@ public interface INextCardData extends INextCardModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

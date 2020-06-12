@@ -212,7 +212,6 @@ public abstract class AbstractCardWithCategoryNameData extends AbstractData impl
 
 
 
-
 /******* S.D.G. *******/
 
 

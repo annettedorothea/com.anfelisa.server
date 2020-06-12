@@ -36,7 +36,6 @@ public class ScheduleCardsNullOrEmptyEvent extends Event<IScheduledCardsData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

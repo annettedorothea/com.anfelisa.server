@@ -43,7 +43,7 @@ public class AppRegistration {
 		environment.jersey().register(new ImportCsvResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new GetTranslationResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 	}
-
+	
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {
 		viewProvider.addConsumer("com.anfelisa.card.events.CreateCardOkEvent", (dataContainer, handle) -> {
 			viewProvider.cardView.insert((com.anfelisa.card.data.CardCreationData) dataContainer, handle);
@@ -69,9 +69,8 @@ public class AppRegistration {
 			viewProvider.cardView.bulkInsert((com.anfelisa.card.data.CsvUploadData) dataContainer, handle);
 		});
 		
-    }
+	}
 }
-
 
 
 

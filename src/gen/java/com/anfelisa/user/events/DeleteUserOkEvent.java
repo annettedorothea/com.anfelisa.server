@@ -36,7 +36,6 @@ public class DeleteUserOkEvent extends Event<IDeleteUserData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

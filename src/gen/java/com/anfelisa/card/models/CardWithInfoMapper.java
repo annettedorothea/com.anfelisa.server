@@ -44,7 +44,6 @@ public class CardWithInfoMapper implements RowMapper<ICardWithInfoModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

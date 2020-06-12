@@ -153,7 +153,6 @@ public abstract class AbstractUserData extends AbstractData implements IUserData
 
 
 
-
 /******* S.D.G. *******/
 
 

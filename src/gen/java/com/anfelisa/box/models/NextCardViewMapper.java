@@ -47,7 +47,6 @@ public class NextCardViewMapper implements RowMapper<INextCardViewModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

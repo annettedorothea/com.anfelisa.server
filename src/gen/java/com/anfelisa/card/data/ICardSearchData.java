@@ -45,7 +45,6 @@ public interface ICardSearchData extends ICardSearchModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

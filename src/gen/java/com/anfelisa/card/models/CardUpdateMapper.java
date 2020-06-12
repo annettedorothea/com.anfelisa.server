@@ -40,7 +40,6 @@ public class CardUpdateMapper implements RowMapper<ICardUpdateModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

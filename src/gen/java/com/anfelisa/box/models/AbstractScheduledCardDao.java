@@ -118,7 +118,6 @@ public class AbstractScheduledCardDao {
 
 
 
-
 /******* S.D.G. *******/
 
 

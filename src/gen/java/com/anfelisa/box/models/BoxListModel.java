@@ -33,11 +33,11 @@ import de.acegen.StringToDateTimeConverter;
 public class BoxListModel implements IBoxListModel {
 
 	private java.util.List<com.anfelisa.box.models.IBoxViewModel> boxList;
-	
+
 	private String userId;
-	
+
 	private java.time.LocalDateTime todayAtMidnightInUTC;
-	
+
 
 	public BoxListModel() {
 	}
@@ -79,7 +79,7 @@ public class BoxListModel implements IBoxListModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

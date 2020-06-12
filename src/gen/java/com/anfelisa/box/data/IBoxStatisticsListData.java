@@ -39,7 +39,6 @@ public interface IBoxStatisticsListData extends IBoxStatisticsListModel, IDataCo
 
 
 
-
 /******* S.D.G. *******/
 
 

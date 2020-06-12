@@ -37,7 +37,6 @@ public class EmailConfirmationMapper implements RowMapper<IEmailConfirmationMode
 
 
 
-
 /******* S.D.G. *******/
 
 

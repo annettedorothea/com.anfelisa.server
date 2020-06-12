@@ -33,13 +33,13 @@ import de.acegen.StringToDateTimeConverter;
 public class CsvUploadModel implements ICsvUploadModel {
 
 	private String userId;
-	
+
 	private String categoryId;
-	
+
 	private java.util.List<com.anfelisa.card.models.ISimpleCardModel> previewCsv;
-	
+
 	private java.util.List<com.anfelisa.card.models.ICardModel> cards;
-	
+
 
 	public CsvUploadModel() {
 	}
@@ -89,7 +89,7 @@ public class CsvUploadModel implements ICsvUploadModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

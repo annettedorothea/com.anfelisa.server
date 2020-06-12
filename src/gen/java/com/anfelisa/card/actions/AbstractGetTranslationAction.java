@@ -76,7 +76,6 @@ public abstract class AbstractGetTranslationAction extends ReadAction<ICardTrans
 
 
 
-
 /******* S.D.G. *******/
 
 

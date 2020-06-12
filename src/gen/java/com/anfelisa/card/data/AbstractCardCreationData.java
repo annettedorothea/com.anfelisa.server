@@ -228,7 +228,6 @@ public abstract class AbstractCardCreationData extends AbstractData implements I
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -38,7 +38,6 @@ public class SimpleCardMapper implements RowMapper<ISimpleCardModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -36,7 +36,6 @@ public class ScoreReinforceCardRemoveEvent extends Event<IScoreReinforceCardData
 
 
 
-
 /******* S.D.G. *******/
 
 

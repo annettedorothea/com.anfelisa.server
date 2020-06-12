@@ -33,13 +33,13 @@ import de.acegen.StringToDateTimeConverter;
 public class CategoryDeleteModel implements ICategoryDeleteModel {
 
 	private String categoryId;
-	
+
 	private Integer categoryIndex;
-	
+
 	private String parentCategoryId;
-	
+
 	private String userId;
-	
+
 
 	public CategoryDeleteModel() {
 	}
@@ -89,7 +89,7 @@ public class CategoryDeleteModel implements ICategoryDeleteModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

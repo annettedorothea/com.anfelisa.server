@@ -44,7 +44,6 @@ public class BoxStatisticsMapper implements RowMapper<IBoxStatisticsModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

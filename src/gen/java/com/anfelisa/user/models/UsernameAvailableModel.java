@@ -33,9 +33,9 @@ import de.acegen.StringToDateTimeConverter;
 public class UsernameAvailableModel implements IUsernameAvailableModel {
 
 	private String username;
-	
+
 	private Boolean available = false;
-	
+
 
 	public UsernameAvailableModel() {
 	}
@@ -65,7 +65,7 @@ public class UsernameAvailableModel implements IUsernameAvailableModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

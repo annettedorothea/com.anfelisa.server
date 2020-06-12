@@ -39,7 +39,6 @@ public interface IUserWithAccessData extends IUserWithAccessModel, IDataContaine
 
 
 
-
 /******* S.D.G. *******/
 
 

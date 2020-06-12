@@ -40,7 +40,6 @@ public class MoveCardsMapper implements RowMapper<IMoveCardsModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

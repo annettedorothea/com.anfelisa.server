@@ -137,7 +137,6 @@ public abstract class AbstractSortCardsOutData extends AbstractData implements I
 
 
 
-
 /******* S.D.G. *******/
 
 

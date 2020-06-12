@@ -36,7 +36,6 @@ public class ResetPasswordOkEvent extends Event<IResetPasswordWithNewPasswordDat
 
 
 
-
 /******* S.D.G. *******/
 
 

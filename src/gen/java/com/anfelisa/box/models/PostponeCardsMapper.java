@@ -37,7 +37,6 @@ public class PostponeCardsMapper implements RowMapper<IPostponeCardsModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

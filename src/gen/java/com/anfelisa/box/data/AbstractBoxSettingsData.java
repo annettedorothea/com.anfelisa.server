@@ -185,7 +185,6 @@ public abstract class AbstractBoxSettingsData extends AbstractData implements IB
 
 
 
-
 /******* S.D.G. *******/
 
 

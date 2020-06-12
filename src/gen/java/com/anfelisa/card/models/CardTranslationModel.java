@@ -33,13 +33,13 @@ import de.acegen.StringToDateTimeConverter;
 public class CardTranslationModel implements ICardTranslationModel {
 
 	private String sourceValue;
-	
+
 	private String targetValue;
-	
+
 	private String sourceLanguage;
-	
+
 	private String targetLanguage;
-	
+
 
 	public CardTranslationModel() {
 	}
@@ -89,7 +89,7 @@ public class CardTranslationModel implements ICardTranslationModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

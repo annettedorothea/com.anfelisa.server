@@ -76,7 +76,6 @@ public abstract class AbstractGetCardsAction extends ReadAction<ICardListData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

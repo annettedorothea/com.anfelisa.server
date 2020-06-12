@@ -39,7 +39,6 @@ public interface IUserAccessToCategoryData extends IUserAccessToCategoryModel, I
 
 
 
-
 /******* S.D.G. *******/
 
 

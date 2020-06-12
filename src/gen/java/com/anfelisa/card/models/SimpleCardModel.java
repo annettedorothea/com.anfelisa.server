@@ -33,11 +33,11 @@ import de.acegen.StringToDateTimeConverter;
 public class SimpleCardModel implements ISimpleCardModel {
 
 	private String given;
-	
+
 	private String wanted;
-	
+
 	private String id;
-	
+
 
 	public SimpleCardModel() {
 	}
@@ -77,7 +77,7 @@ public class SimpleCardModel implements ISimpleCardModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

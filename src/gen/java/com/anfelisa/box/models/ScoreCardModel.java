@@ -33,37 +33,37 @@ import de.acegen.StringToDateTimeConverter;
 public class ScoreCardModel implements IScoreCardModel {
 
 	private String cardId;
-	
+
 	private String nextScheduledCardScheduledCardId;
-	
+
 	private java.time.LocalDateTime nextScheduledCardCreatedDate;
-	
+
 	private Float nextScheduledCardEf;
-	
+
 	private Integer nextScheduledCardInterval;
-	
+
 	private Integer nextScheduledCardN;
-	
+
 	private Integer nextScheduledCardCount;
-	
+
 	private java.time.LocalDateTime nextScheduledCardScheduledDate;
-	
+
 	private Integer nextScheduledCardLastQuality;
-	
+
 	private String scoredCardScheduledCardId;
-	
+
 	private Integer scoredCardQuality;
-	
+
 	private java.time.LocalDateTime scoredCardScoredDate;
-	
+
 	private String reinforceCardId;
-	
+
 	private java.time.LocalDateTime reinforceCardCreatedDate;
-	
+
 	private String userId;
-	
+
 	private String boxId;
-	
+
 
 	public ScoreCardModel() {
 	}
@@ -241,7 +241,7 @@ public class ScoreCardModel implements IScoreCardModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

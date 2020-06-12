@@ -123,7 +123,6 @@ public abstract class AbstractScoreReinforceCardData extends AbstractData implem
 
 
 
-
 /******* S.D.G. *******/
 
 

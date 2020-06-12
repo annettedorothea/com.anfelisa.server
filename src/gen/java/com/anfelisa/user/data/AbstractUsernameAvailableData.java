@@ -89,7 +89,6 @@ public abstract class AbstractUsernameAvailableData extends AbstractData impleme
 
 
 
-
 /******* S.D.G. *******/
 
 

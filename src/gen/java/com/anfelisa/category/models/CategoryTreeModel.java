@@ -33,11 +33,11 @@ import de.acegen.StringToDateTimeConverter;
 public class CategoryTreeModel implements ICategoryTreeModel {
 
 	private com.anfelisa.category.models.ICategoryTreeItemModel rootCategory;
-	
+
 	private String userId;
-	
+
 	private String rootCategoryId;
-	
+
 
 	public CategoryTreeModel() {
 	}
@@ -77,7 +77,7 @@ public class CategoryTreeModel implements ICategoryTreeModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

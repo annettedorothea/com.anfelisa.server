@@ -39,7 +39,6 @@ public interface ISimpleCardData extends ISimpleCardModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

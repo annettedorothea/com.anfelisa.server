@@ -23,8 +23,8 @@ import de.acegen.IDaoProvider;
 import de.acegen.IEvent;
 import de.acegen.ViewProvider;
 import com.anfelisa.user.data.*;
-import de.acegen.JodaObjectMapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.acegen.IDataContainer;
 import de.acegen.CustomAppConfiguration;
 
@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("all")
 public class EventFactory {
 	
-	private static JodaObjectMapper mapper = new JodaObjectMapper();
+	private static ObjectMapper mapper = new ObjectMapper();
 	private static final Logger LOG = LoggerFactory.getLogger(EventFactory.class);
 
 	static {
@@ -121,7 +121,6 @@ public class EventFactory {
 		return null;
 	}
 }
-
 
 
 

@@ -67,7 +67,6 @@ public class AuthUser implements Principal {
 
 
 
-
 /******* S.D.G. *******/
 
 

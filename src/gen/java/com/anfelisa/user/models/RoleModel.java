@@ -33,9 +33,9 @@ import de.acegen.StringToDateTimeConverter;
 public class RoleModel implements IRoleModel {
 
 	private String username;
-	
+
 	private String role;
-	
+
 
 	public RoleModel() {
 	}
@@ -65,7 +65,7 @@ public class RoleModel implements IRoleModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

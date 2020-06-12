@@ -36,7 +36,6 @@ public class DeleteCardOkEvent extends Event<ICardDeleteData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

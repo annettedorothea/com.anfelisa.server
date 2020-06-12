@@ -41,7 +41,6 @@ public interface IBoxViewData extends IBoxViewModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

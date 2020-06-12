@@ -33,17 +33,17 @@ import de.acegen.StringToDateTimeConverter;
 public class ScheduledCardsModel implements IScheduledCardsModel {
 
 	private java.util.List<com.anfelisa.box.models.IScheduledCardModel> newScheduledCards;
-	
+
 	private java.util.List<String> existingScheduledCardIds;
-	
+
 	private java.util.List<String> cardIds;
-	
+
 	private java.time.LocalDateTime scheduledDate;
-	
+
 	private String userId;
-	
+
 	private String boxId;
-	
+
 
 	public ScheduledCardsModel() {
 	}
@@ -115,7 +115,7 @@ public class ScheduledCardsModel implements IScheduledCardsModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

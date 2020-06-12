@@ -89,7 +89,6 @@ public abstract class AbstractUserListData extends AbstractData implements IUser
 
 
 
-
 /******* S.D.G. *******/
 
 

@@ -39,7 +39,6 @@ public interface IResetPasswordWithNewPasswordData extends IResetPasswordWithNew
 
 
 
-
 /******* S.D.G. *******/
 
 

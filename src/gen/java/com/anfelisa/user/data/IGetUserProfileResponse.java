@@ -31,7 +31,6 @@ public interface IGetUserProfileResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

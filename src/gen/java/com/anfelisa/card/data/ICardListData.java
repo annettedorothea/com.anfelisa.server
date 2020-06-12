@@ -39,7 +39,6 @@ public interface ICardListData extends ICardListModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 

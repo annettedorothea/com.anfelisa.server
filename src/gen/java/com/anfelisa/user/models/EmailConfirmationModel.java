@@ -33,9 +33,9 @@ import de.acegen.StringToDateTimeConverter;
 public class EmailConfirmationModel implements IEmailConfirmationModel {
 
 	private String token;
-	
+
 	private String userId;
-	
+
 
 	public EmailConfirmationModel() {
 	}
@@ -65,7 +65,7 @@ public class EmailConfirmationModel implements IEmailConfirmationModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

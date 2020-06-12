@@ -44,7 +44,7 @@ public class AppRegistration {
 		environment.jersey().register(new ChangeUserRoleResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 		environment.jersey().register(new DeleteUserResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
 	}
-
+	
 	public static void registerConsumers(ViewProvider viewProvider, String mode) {
 		viewProvider.addConsumer("com.anfelisa.user.events.RegisterUserOkEvent", (dataContainer, handle) -> {
 			viewProvider.userView.registerUser((com.anfelisa.user.data.UserRegistrationData) dataContainer, handle);
@@ -110,9 +110,8 @@ public class AppRegistration {
 			viewProvider.userView.deleteUser((com.anfelisa.user.data.DeleteUserData) dataContainer, handle);
 		});
 		
-    }
+	}
 }
-
 
 
 

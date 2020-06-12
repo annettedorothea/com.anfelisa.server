@@ -33,13 +33,13 @@ import de.acegen.StringToDateTimeConverter;
 public class ChangeUserRoleModel implements IChangeUserRoleModel {
 
 	private String editedUserId;
-	
+
 	private String newRole;
-	
+
 	private String userId;
-	
+
 	private String role;
-	
+
 
 	public ChangeUserRoleModel() {
 	}
@@ -89,7 +89,7 @@ public class ChangeUserRoleModel implements IChangeUserRoleModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

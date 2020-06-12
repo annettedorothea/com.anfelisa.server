@@ -76,7 +76,6 @@ public abstract class AbstractGetBoxSettingsAction extends ReadAction<IBoxSettin
 
 
 
-
 /******* S.D.G. *******/
 
 

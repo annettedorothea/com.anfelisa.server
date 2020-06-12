@@ -37,7 +37,6 @@ public interface IResetPasswordData extends IResetPasswordModel, IDataContainer 
 
 
 
-
 /******* S.D.G. *******/
 
 

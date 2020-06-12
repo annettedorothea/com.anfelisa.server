@@ -36,7 +36,6 @@ public class ForgotPasswordDoesNotExistEvent extends Event<IForgotPasswordData> 
 
 
 
-
 /******* S.D.G. *******/
 
 

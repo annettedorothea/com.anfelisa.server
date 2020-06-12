@@ -52,7 +52,6 @@ public class UsernameAvailableResponse implements IUsernameAvailableResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

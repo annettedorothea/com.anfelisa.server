@@ -33,23 +33,23 @@ import de.acegen.StringToDateTimeConverter;
 public class CategoryModel implements ICategoryModel {
 
 	private String categoryId;
-	
+
 	private String categoryName;
-	
+
 	private String categoryAuthor;
-	
+
 	private Integer categoryIndex;
-	
+
 	private String parentCategoryId;
-	
+
 	private String rootCategoryId;
-	
+
 	private Boolean dictionaryLookup = false;
-	
+
 	private String givenLanguage;
-	
+
 	private String wantedLanguage;
-	
+
 
 	public CategoryModel() {
 	}
@@ -149,7 +149,7 @@ public class CategoryModel implements ICategoryModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

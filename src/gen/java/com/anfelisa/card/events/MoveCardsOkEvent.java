@@ -36,7 +36,6 @@ public class MoveCardsOkEvent extends Event<IMoveCardsData> {
 
 
 
-
 /******* S.D.G. *******/
 
 

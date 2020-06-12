@@ -105,7 +105,6 @@ public abstract class AbstractResetPasswordWithNewPasswordData extends AbstractD
 
 
 
-
 /******* S.D.G. *******/
 
 

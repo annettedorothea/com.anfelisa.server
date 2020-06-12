@@ -33,13 +33,13 @@ import de.acegen.StringToDateTimeConverter;
 public class CardDeleteModel implements ICardDeleteModel {
 
 	private String cardId;
-	
+
 	private Integer cardIndex;
-	
+
 	private String categoryId;
-	
+
 	private String userId;
-	
+
 
 	public CardDeleteModel() {
 	}
@@ -89,7 +89,7 @@ public class CardDeleteModel implements ICardDeleteModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

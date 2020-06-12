@@ -76,7 +76,6 @@ public abstract class AbstractGetDuplicatesAction extends ReadAction<ICardSearch
 
 
 
-
 /******* S.D.G. *******/
 
 

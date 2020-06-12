@@ -17,7 +17,7 @@
 
 
 
-package de.acegen;
+package de.acegen.resources;
 
 import java.util.List;
 
@@ -32,6 +32,12 @@ import javax.ws.rs.core.Response;
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import de.acegen.AceDao;
+import de.acegen.Config;
+import de.acegen.CustomAppConfiguration;
+import de.acegen.ITimelineItem;
+import de.acegen.PersistenceHandle;
 
 @Path("/e2e")
 @Produces(MediaType.APPLICATION_JSON)

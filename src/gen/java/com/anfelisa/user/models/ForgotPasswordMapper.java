@@ -40,7 +40,6 @@ public class ForgotPasswordMapper implements RowMapper<IForgotPasswordModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

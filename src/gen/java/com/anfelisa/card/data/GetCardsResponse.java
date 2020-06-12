@@ -52,7 +52,6 @@ public class GetCardsResponse implements IGetCardsResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

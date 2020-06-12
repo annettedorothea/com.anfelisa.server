@@ -66,7 +66,6 @@ public abstract class Event<T extends IDataContainer> implements IEvent {
 
 
 
-
 /******* S.D.G. *******/
 
 

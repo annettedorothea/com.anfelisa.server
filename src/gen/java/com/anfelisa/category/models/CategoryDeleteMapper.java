@@ -39,7 +39,6 @@ public class CategoryDeleteMapper implements RowMapper<ICategoryDeleteModel> {
 
 
 
-
 /******* S.D.G. *******/
 
 

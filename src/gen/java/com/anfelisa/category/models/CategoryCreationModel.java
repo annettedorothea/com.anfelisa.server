@@ -33,27 +33,27 @@ import de.acegen.StringToDateTimeConverter;
 public class CategoryCreationModel implements ICategoryCreationModel {
 
 	private String username;
-	
+
 	private String userId;
-	
+
 	private String categoryId;
-	
+
 	private String categoryName;
-	
+
 	private String categoryAuthor;
-	
+
 	private Integer categoryIndex;
-	
+
 	private String parentCategoryId;
-	
+
 	private String rootCategoryId;
-	
+
 	private Boolean dictionaryLookup = false;
-	
+
 	private String givenLanguage;
-	
+
 	private String wantedLanguage;
-	
+
 
 	public CategoryCreationModel() {
 	}
@@ -173,7 +173,7 @@ public class CategoryCreationModel implements ICategoryCreationModel {
 	}
 	
 }
-	
+
 
 
 /******* S.D.G. *******/

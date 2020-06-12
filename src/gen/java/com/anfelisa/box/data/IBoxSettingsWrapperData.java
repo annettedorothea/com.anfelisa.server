@@ -52,7 +52,6 @@ public interface IBoxSettingsWrapperData extends IBoxSettingsWrapperModel, IData
 
 
 
-
 /******* S.D.G. *******/
 
 

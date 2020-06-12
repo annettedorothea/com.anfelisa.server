@@ -27,7 +27,6 @@ public interface IGetRoleResponse {
 
 
 
-
 /******* S.D.G. *******/
 
 

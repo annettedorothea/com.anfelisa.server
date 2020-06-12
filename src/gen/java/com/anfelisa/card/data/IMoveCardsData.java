@@ -43,7 +43,6 @@ public interface IMoveCardsData extends IMoveCardsModel, IDataContainer {
 
 
 
-
 /******* S.D.G. *******/
 
 
