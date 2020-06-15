@@ -144,12 +144,12 @@ models
 
 	persistent EmailConfirmation {
 		Unique PrimaryKey NotNull String token notReplayable
-		NotNull String userId
+		NotNull String userId references User.userId
 	}
 
 	persistent ResetPassword {
 		Unique PrimaryKey NotNull String token
-		NotNull String userId
+		NotNull String userId references User.userId
 	}
 	
 	Role {
