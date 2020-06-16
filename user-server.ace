@@ -157,45 +157,45 @@ models
 		String role
 	} 
 	DeleteUser {
-		NotNull String usernameToBeDeleted
-		NotNull String username
-		NotNull String userId
-		NotNull String role
-		NotNull List String boxIds
-		NotNull List String rootCategoryIds
+		String usernameToBeDeleted
+		String username
+		String userId
+		String role
+		List String boxIds
+		List String rootCategoryIds
 	}
 	UserList {
 		List User userList
 		String role
 	}
 	ChangeUserRole {
-		NotNull String editedUserId
-		NotNull String newRole
-		NotNull String userId
-		NotNull String role
+		String editedUserId
+		String newRole
+		String userId
+		String role
 	} 
 	
 	UsernameAvailable {
-		NotNull String username
+		String username
 		Boolean available
 	}
 	
 	ForgotPassword {
-		NotNull String language
-		NotNull String email
-		NotNull String username
-		NotNull String token notReplayable
-		NotNull String userId
+		String language
+		String email
+		String username
+		String token notReplayable
+		String userId
 	}
 
 	ResetPasswordWithNewPassword {
-		NotNull String password
-		NotNull String token
-		NotNull String userId
+		String password
+		String token
+		String userId
 	}
 	
 	UserRegistration extends User, EmailConfirmation {
-		NotNull String language
+		String language
 	}
 	
 	ConfirmEmail extends EmailConfirmation {

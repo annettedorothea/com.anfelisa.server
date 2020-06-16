@@ -192,7 +192,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	@Override
 	protected void assertThat(int actual, int expected) {
-		org.hamcrest.MatcherAssert.assertThat(actual, is(expected));
+		org.hamcrest.MatcherAssert.assertThat("testId: " + this.getTestId(), actual, is(expected));
 	}
 
 	@Override
@@ -217,7 +217,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		} else if (actual instanceof GetBoxStatisticsResponse) {
 			assertThat((GetBoxStatisticsResponse) actual, (GetBoxStatisticsResponse) expected);
 		} else {
-			org.hamcrest.MatcherAssert.assertThat(actual, is(samePropertyValuesAs(expected)));
+			org.hamcrest.MatcherAssert.assertThat("testId: " + this.getTestId(), actual, is(samePropertyValuesAs(expected)));
 		}
 	}
 
@@ -366,12 +366,12 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	@Override
 	protected void assertIsNull(Object actual) {
-		org.junit.jupiter.api.Assertions.assertNull(actual);
+		org.junit.jupiter.api.Assertions.assertNull(actual, "testId: " + this.getTestId());
 	}
 
 	@Override
 	protected void assertIsNotNull(Object actual) {
-		org.junit.jupiter.api.Assertions.assertNotNull(actual);
+		org.junit.jupiter.api.Assertions.assertNotNull(actual, "testId: " + this.getTestId());
 	}
 
 	@Override

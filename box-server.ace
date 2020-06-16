@@ -201,13 +201,13 @@ models
 
 	BoxView {
 		Integer openTodaysCards
-		NotNull String categoryName
-		NotNull String categoryId
-		NotNull String boxId
+		String categoryName
+		String categoryId
+		String boxId
 	}
 
 	BoxStatistics {
-		NotNull String boxId
+		String boxId
 		Integer quality0Count
 		Integer quality1Count
 		Integer quality2Count
@@ -220,33 +220,33 @@ models
 
 	InitBoxes {
 		DateTime minScheduledDate
-		NotNull String boxId
+		String boxId
 	}
 
 	BoxList {
 		List BoxView boxList
 		String userId
-		NotNull DateTime todayAtMidnightInUTC
+		DateTime todayAtMidnightInUTC
 	}
 	BoxStatisticsList {
 		List BoxStatistics boxList
 		String userId
-		NotNull DateTime todayAtMidnightInUTC
+		DateTime todayAtMidnightInUTC
 	}
 	InitMyBoxesData {
 		String userId
-		NotNull DateTime todayAtMidnightInUTC
+		DateTime todayAtMidnightInUTC
 		List PostponeCards postponeCards
 		List String outdatedReinforceCardsIds
 	}
 	PostponeCards {
-		NotNull Integer days
-		NotNull String boxId
+		Integer days
+		String boxId
 	}
 
 	BoxUpdate {
-		NotNull String userId
-		NotNull String boxId
+		String userId
+		String boxId
 		Integer maxInterval
 		Integer maxCardsPerDay
 		String categoryName
@@ -257,7 +257,7 @@ models
 	}
 	
 	BoxSettings {
-		NotNull String boxId
+		String boxId
 		Integer maxInterval
 		Integer maxCardsPerDay
 		String categoryName
@@ -268,29 +268,29 @@ models
 	}
 
 	BoxSettingsWrapper extends BoxSettings {
-		NotNull String userId
+		String userId
 	}
 
 
 	NextCardView {
-		NotNull String scheduledCardId
-		NotNull String reinforceCardId
-		NotNull String cardId
-		NotNull DateTime scheduledDate
+		String scheduledCardId
+		String reinforceCardId
+		String cardId
+		DateTime scheduledDate
 		Integer lastQuality
 		String given
 		String wanted
 		String image
 		String categoryId
 		String rootCategoryId
-		NotNull Integer count
+		Integer count
 		DateTime scoredDate
 	}
 	
 	NextCard extends NextCardView, TodaysCardsStatus {
 		String userId
-		NotNull String boxId
-		NotNull DateTime todayAtMidnightInUTC
+		String boxId
+		DateTime todayAtMidnightInUTC
 		Integer openTodaysCards
 		Integer allTodaysCards
 	}
@@ -301,32 +301,32 @@ models
 	}
 
 	ScoreCard {
-		NotNull String cardId
+		String cardId
 		
-		NotNull String nextScheduledCardScheduledCardId
-		NotNull DateTime nextScheduledCardCreatedDate
-		NotNull Float nextScheduledCardEf
+		String nextScheduledCardScheduledCardId
+		DateTime nextScheduledCardCreatedDate
+		Float nextScheduledCardEf
 		Integer nextScheduledCardInterval
-		NotNull Integer nextScheduledCardN
-		NotNull Integer nextScheduledCardCount
-		NotNull DateTime nextScheduledCardScheduledDate
+		Integer nextScheduledCardN
+		Integer nextScheduledCardCount
+		DateTime nextScheduledCardScheduledDate
 		Integer nextScheduledCardLastQuality
 		
-		NotNull String scoredCardScheduledCardId
+		String scoredCardScheduledCardId
 		Integer scoredCardQuality
 		DateTime scoredCardScoredDate
 
-		NotNull String reinforceCardId
-		NotNull DateTime reinforceCardCreatedDate
+		String reinforceCardId
+		DateTime reinforceCardCreatedDate
 
 		String userId
-		NotNull String boxId
+		String boxId
 	}
 
 	ScoreReinforceCard {
-		NotNull String reinforceCardId
-		NotNull Integer scoredCardQuality
-		NotNull DateTime changeDate
+		String reinforceCardId
+		Integer scoredCardQuality
+		DateTime changeDate
 		String userId
 	}
 	
@@ -336,7 +336,7 @@ models
 		List String cardIds
 		DateTime scheduledDate
 		String userId
-		NotNull String boxId
+		String boxId
 	}
 	
 	SortCardsOut {
@@ -344,12 +344,12 @@ models
 		List String sortedOutReinforceCardIds
 		List String cardIds
 		String userId
-		NotNull String boxId
+		String boxId
 	}
 	
 	DeleteBox {
 		String userId
-		NotNull String boxId
+		String boxId
 		String rootCategoryId
 	}
 

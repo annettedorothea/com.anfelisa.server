@@ -59,7 +59,6 @@ public class InitMyBoxesForDayCommand extends AbstractInitMyBoxesForDayCommand {
 			}
 			LocalDateTime min = box.getMinScheduledDate();
 			if (min != null) {
-				//LocalDateTime minDate = LocalDateTime.of(min.getYear(), min.getMonthValue(), min.getDayOfMonth(), 0, 0);
 				if (min.isBefore(today)) {
 					int days = (int) ChronoUnit.DAYS.between(min, today) + 1;
 					PostponeCardsData postponeData = new PostponeCardsData(days, box.getBoxId(),

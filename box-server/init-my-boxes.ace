@@ -538,4 +538,63 @@ scenarios
 				scoredDate: null
 			}
 
+	InitMyBoxesForDayOneDayBug
+		GIVEN
+			com.anfelisa.box.scorecard.ScoreCard0
+			com.anfelisa.box.scorecard.ScoreCard1 excludeGIVEN
+			com.anfelisa.box.scorecard.ScoreCard5 excludeGIVEN
+		WHEN
+			com.anfelisa.box.InitMyBoxesForDay
+				{
+					todayAtMidnightInUTC: "20200419 17:00" "yyyyMMdd HH:mm"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			card1WasPostponed ScheduledCard selectBy ( scheduledCardId: "score0-${testId}" ) shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c1-${testId}",
+				count: 1,
+				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: 0,
+				n: 1,
+				quality: null,
+				scheduledCardId: "score0-${testId}",
+				scheduledDate: "20200420 16:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+			card3WasPostponed ScheduledCard selectBy ( scheduledCardId: "score1-${testId}" ) shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c3-${testId}",
+				count: 1,
+				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				ef: "2.5F",
+				interval: 1,
+				lastQuality: 1,
+				n: 1,
+				quality: null,
+				scheduledCardId: "score1-${testId}",
+				scheduledDate: "20200420 16:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+			card4WasPostponed ScheduledCard selectBy ( scheduledCardId: "score5-${testId}" ) shouldBe 
+			{
+				boxId: "boxId-${testId}",
+				cardId: "c4-${testId}",
+				count: 1,
+				createdDate: "20200418 16:30" "yyyyMMdd HH:mm",
+				ef: "2.6F",
+				interval: 6,
+				lastQuality: 5,
+				n: 2,
+				quality: null,
+				scheduledCardId: "score5-${testId}",
+				scheduledDate: "20200425 16:30" "yyyyMMdd HH:mm",
+				scoredDate: null
+			}
+
 		

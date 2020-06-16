@@ -81,15 +81,15 @@ models
 	}
 	
 	CategoryUpdate {
-		NotNull String categoryId
-		NotNull String categoryName
+		String categoryId
+		String categoryName
 		String userId
 	}
 	
 	CategoryDelete {
-		NotNull String categoryId
-		NotNull Integer categoryIndex
-		NotNull String parentCategoryId
+		String categoryId
+		Integer categoryIndex
+		String parentCategoryId
 		String userId
 	}
 	
@@ -118,8 +118,8 @@ models
 	}
 	
 	UserWithAccess {
-		NotNull String userId
-		NotNull String username
+		String userId
+		String username
 		Boolean editable
 	}
 	
@@ -132,8 +132,8 @@ models
 		String movedCategoryId
 		String targetCategoryId
 		Category movedCategory
-		NotNull Integer categoryIndexWhereRemoved
-		NotNull String parentCategoryIdWhereRemoved
+		Integer categoryIndexWhereRemoved
+		String parentCategoryIdWhereRemoved
 		String userId
 	}
 	
