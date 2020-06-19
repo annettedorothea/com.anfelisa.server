@@ -13,10 +13,10 @@ ACE
 	 RegisterUser<UserRegistration>
 		POST "/users/register"
 		payload 
-			password
-			username
-			email
-			language
+			NotNull password
+			NotNull username
+			NotNull email
+			NotNull language
 		on ok (User.registerUser EmailConfirmation.insert Email.sendRegistrationEmail)
 		
 	GetRole <Role>
@@ -26,14 +26,14 @@ ACE
 		
 	UsernameAvailable<UsernameAvailable>
 		GET "/users/username" 
-		queryParams username
+		queryParams NotNull username
 		response available
 	
 	ConfirmEmail<ConfirmEmail>
 		PUT "/users/confirm" 
 		payload 
-			token
-			username
+			NotNull token
+			NotNull username
 		on ok (User.confirmEmail EmailConfirmation.delete)
 		on alreadyConfirmed
 	
@@ -53,30 +53,31 @@ ACE
 	ForgotPassword<ForgotPassword>
 		POST "/users/forgot-password" 
 		payload  
-			username 
-			language
+			NotNull username 
+			NotNull language
 		on ok ( ResetPassword.insert Email.sendForgotPasswordEmail)
 		on doesNotExist
 	
 	ResetPassword<ResetPasswordWithNewPassword>
 		PUT "/users/resetpassword"
 		payload 
-			password
-			token 
+			NotNull password
+			NotNull token 
 		on ok (User.resetPassword ResetPassword.delete)
 	
 	ChangeUserRole<ChangeUserRole>
 		PUT "/user/role" 
 		authorize
-			payload 
-				newRole
-				editedUserId
+		payload 
+			NotNull newRole
+			NotNull editedUserId
 		on ok ( User.changeUserRole )
 	
 	DeleteUser <DeleteUser>
 		DELETE "/user/delete"  
 		authorize
-		queryParams usernameToBeDeleted
+		queryParams 
+			NotNull usernameToBeDeleted
 		on ok ( 
 			UserScheduledCard.deleteAll 
 			UserReinforceCard.deleteAll 

@@ -9,33 +9,34 @@ ACE
 		POST "/card/create" 
 		authorize 
 		payload 
-			wanted
-			given
-			image optional
-			categoryId
+			NotNull wanted
+			NotNull given
+			image
+			NotNull categoryId
 		on ok (Card.insert)
 	
 	UpdateCard<CardUpdate>
 		PUT "/card/update" 
 		authorize 
 		payload 
-			cardId
-			given
-			image optional
-			wanted
+			NotNull cardId
+			NotNull given
+			image
+			NotNull wanted
 		on ok (Card.update)
 	
 	DeleteCard<CardDelete>
 		DELETE "/card/delete"
 		authorize 
-		queryParams cardId
+		queryParams 
+			NotNull cardId
 		on ok (Card.delete)
 	
 	GetCards<CardList>
 		GET "/cards" 
 		authorize 
 		queryParams 
-			categoryId 
+			NotNull categoryId 
 		response
 			cardList
 			
@@ -43,10 +44,10 @@ ACE
 		GET "/cards/search"  
 		authorize
 		queryParams 
-			given optional
-			wanted optional
-			naturalInputOrder optional 
-			categoryId
+			given
+			wanted
+			naturalInputOrder 
+			NotNull categoryId
 		response
 			cardList
 
@@ -54,33 +55,33 @@ ACE
 		PUT "/cards/move"
 		authorize
 		payload
-			cardIdList
-			categoryId
+			NotNull cardIdList
+			NotNull categoryId
 		on ok (Card.moveCards)
 
 	ChangeOrder<ChangeCardOrderList>
 		PUT "/cards/changeorder"
 		authorize
 		payload
-			cardIdList
-			cardId
+			NotNull cardIdList
+			NotNull cardId
 		on ok (Card.changeCardOrder)
 
 	ImportCsv<CsvUpload>
 		PUT "/category/import-csv"
 		authorize
 		payload
-			previewCsv
-			categoryId
+			NotNull previewCsv
+			NotNull categoryId
 		on ok (Card.bulkInsert)
 		
 	proxy GetTranslation<CardTranslation>
 		GET "/card/translation" 
 		authorize 
 		queryParams 
-			sourceValue 
-			sourceLanguage 
-			targetLanguage
+			NotNull sourceValue 
+			NotNull sourceLanguage 
+			NotNull targetLanguage
 		response
 			targetValue
 		

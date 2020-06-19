@@ -9,28 +9,30 @@ ACE
 		POST "/category/create"  
 		authorize
 		payload 
-			categoryName
-			parentCategoryId
+			NotNull categoryName
+			NotNull parentCategoryId
 		on ok (Category.insert)
 	
 	UpdateCategory<CategoryUpdate>
 		PUT "/category/update" 
 		authorize
 		payload 
-			categoryId
-			categoryName
+			NotNull categoryId
+			NotNull categoryName
 		on ok (Category.update)
 	
 	DeleteCategory<CategoryDelete>
 		DELETE "/category/delete"  
 		authorize
-		queryParams categoryId
+		queryParams 
+			NotNull categoryId
 		on ok (Category.delete)
 	
 	GetCategoryTree<CategoryTree>
 		GET "/category/tree" 
 		authorize 
-		queryParams rootCategoryId
+		queryParams 
+			NotNull rootCategoryId
 		response
 			rootCategory
 
@@ -38,8 +40,8 @@ ACE
 		PUT "/category/move"
 		authorize
 		payload
-			movedCategoryId
-			targetCategoryId
+			NotNull movedCategoryId
+			NotNull targetCategoryId
 		on ok (Category.moveCategory)
 		on noMove
 		
@@ -47,8 +49,8 @@ ACE
 		PUT "/category/changeorder"
 		authorize
 		payload
-			movedCategoryId
-			targetCategoryId
+			NotNull movedCategoryId
+			NotNull targetCategoryId
 		on ok (Category.changeOrder)
 		on noMove
 		

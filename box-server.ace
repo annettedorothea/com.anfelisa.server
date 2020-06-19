@@ -9,32 +9,33 @@ ACE
 		POST "/box/create"  
 		authorize
 		payload 
-			categoryName
-			dictionaryLookup optional
-			givenLanguage optional
-			wantedLanguage optional
-			maxCardsPerDay
-			maxInterval optional
+			NotNull categoryName
+			dictionaryLookup 
+			givenLanguage
+			wantedLanguage
+			NotNull maxCardsPerDay
+			maxInterval
 		on ok (RootCategory.insert UserAccessToCategory.grantAccess Box.createBox)
 
 	UpdateBox<BoxUpdate> 
 		PUT "/box/update"  
 		authorize
 		payload 
-			maxInterval optional
-			maxCardsPerDay
-			boxId
-			categoryId
-			categoryName
-			dictionaryLookup optional
-			givenLanguage optional
-			wantedLanguage optional
+			maxInterval
+			NotNull maxCardsPerDay
+			NotNull boxId
+			NotNull categoryId
+			NotNull categoryName
+			dictionaryLookup
+			givenLanguage
+			wantedLanguage
 		on ok ( Box.updateBox RootCategory.update)
 		
 	GetBoxSettings<BoxSettingsWrapper>
 	GET "/box/settings/{boxId}" 
 		authorize 
-		pathParams boxId
+		pathParams 
+			NotNull boxId
 		response 
 			maxCardsPerDay
 			maxInterval
@@ -47,14 +48,16 @@ ACE
 	ScheduleCards<ScheduledCards>
 		POST "/cards/schedule" 
 		authorize 
-		payload cardIds 
+		payload 
+			NotNull cardIds 
 		on ok (Box.scheduleCards)
 		on nullOrEmpty
 	
 	SortCardsOut<SortCardsOut>
 		POST "/cards/sort-out" 
 		authorize 
-		payload cardIds 
+		payload 
+			NotNull cardIds 
 		on ok (Box.sortCardsOut ReinforceCard.sortOut)
 		on nullOrEmpty
 	
@@ -62,9 +65,9 @@ ACE
 		POST "/card/score"  
 		authorize
 		payload 
-			scoredCardScheduledCardId 
-			boxId
-			scoredCardQuality
+			NotNull scoredCardScheduledCardId 
+			NotNull boxId
+			NotNull scoredCardQuality
 		on score (ScheduledCard.score ScheduledCard.scheduleNext)
 		on scoreAndReinforce (ScheduledCard.score ScheduledCard.scheduleNext ReinforceCard.add)
 
@@ -72,8 +75,8 @@ ACE
 		POST "/card/score-reinforce"  
 		authorize
 		payload 
-			reinforceCardId 
-			scoredCardQuality
+			NotNull reinforceCardId 
+			NotNull scoredCardQuality
 		on keep (ReinforceCard.update)
 		on remove (ReinforceCard.remove)
 
@@ -81,20 +84,22 @@ ACE
 		PUT "/box/init"  
 		authorize
 		payload 
-			todayAtMidnightInUTC 
+			NotNull todayAtMidnightInUTC 
 		on ok ( ScheduledCard.postponeCards ReinforceCard.clear )
 	
 	GetBoxes<BoxList>
 	GET "/boxes/my/" 
 		authorize 
-		queryParams todayAtMidnightInUTC
+		queryParams 
+			NotNull todayAtMidnightInUTC
 		response 
 			boxList
 		
 	GetBoxStatistics<BoxStatisticsList>
 	GET "/boxes/statistics/" 
 		authorize 
-		queryParams todayAtMidnightInUTC
+		queryParams 
+			NotNull todayAtMidnightInUTC
 		response 
 			boxList
 		
@@ -102,8 +107,8 @@ ACE
 		GET "/box/next-card"
 		authorize  
 		queryParams 
-			boxId 
-			todayAtMidnightInUTC
+			NotNull boxId 
+			NotNull todayAtMidnightInUTC
 		response
 			cardId
 			categoryId
@@ -123,7 +128,8 @@ ACE
 	DeleteBox<DeleteBox>
 		DELETE "/box/delete"  
 		authorize
-		queryParams boxId
+		queryParams 
+			NotNull boxId
 		on ok ( 
 			ScheduledCard.deleteAll 
 			ReinforceCard.deleteAll 

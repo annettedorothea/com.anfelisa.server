@@ -12,7 +12,7 @@ scenarios
 			com.anfelisa.card.createcard.CreateCardInOtherBox excludeGIVEN
 		WHEN
 			com.anfelisa.card.GetDuplicates
-				{,
+				{
 					categoryId: "boxId-${testId}",
 					given: "ive",
 					wanted: "nted",
@@ -82,7 +82,7 @@ scenarios
 			com.anfelisa.card.createcard.CreateCard
 		WHEN
 			com.anfelisa.card.GetDuplicates
-				{,
+				{
 					categoryId: "boxId-${testId}",
 					given: "ive",
 					wanted: "nted",
@@ -148,7 +148,7 @@ scenarios
 			com.anfelisa.card.createcard.CreateCardInOtherBox excludeGIVEN
 		WHEN
 			com.anfelisa.card.GetDuplicates
-				{,
+				{
 					categoryId: "boxId-${testId}",
 					given: "ive",
 					wanted: "nted",
@@ -218,7 +218,7 @@ scenarios
 			com.anfelisa.card.createcard.CreateFifthCard
 		WHEN
 			com.anfelisa.card.GetDuplicates
-				{,
+				{
 					categoryId: "lala",
 					given: "ive",
 					wanted: "nted",
@@ -233,7 +233,7 @@ scenarios
 			com.anfelisa.user.registeruser.RegisterUserAdmin
 		WHEN
 			com.anfelisa.card.GetDuplicates
-				{,
+				{
 					categoryId: "boxId-${testId}",
 					given: "ive",
 					wanted: "nted",
@@ -247,7 +247,7 @@ scenarios
 			com.anfelisa.card.createcard.CreateFifthCard
 		WHEN
 			com.anfelisa.card.GetDuplicates
-				{,
+				{
 					categoryId: "boxId-${testId}",
 					given: "ive",
 					wanted: "nted",
