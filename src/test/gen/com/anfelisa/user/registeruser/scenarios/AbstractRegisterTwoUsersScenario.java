@@ -134,7 +134,7 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 			this.userWasCreated();
 			this.emailConfirmationWasCreated();
 			this.secondUserWasCreated();
-			this.secondUmailConfirmationWasCreated();
+			this.secondEmailConfirmationWasCreated();
 		
 		} else {
 			LOG.info("WHEN: prerequisite for RegisterTwoUsers not met");
@@ -183,7 +183,7 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 
 		LOG.info("THEN: secondUserWasCreated passed");
 	}
-	private void secondUmailConfirmationWasCreated() throws Exception {
+	private void secondEmailConfirmationWasCreated() throws Exception {
 		com.anfelisa.user.models.IEmailConfirmationModel actual = daoProvider.getEmailConfirmationDao().selectByToken(handle, "TOKEN_2-" + this.getTestId() + "");
 		
 		com.anfelisa.user.models.IEmailConfirmationModel expected = objectMapper.readValue("{" +
@@ -192,7 +192,7 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 		com.anfelisa.user.models.EmailConfirmationModel.class);
 		assertThat(actual, expected);
 
-		LOG.info("THEN: secondUmailConfirmationWasCreated passed");
+		LOG.info("THEN: secondEmailConfirmationWasCreated passed");
 	}
 	
 	@Override

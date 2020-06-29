@@ -65,7 +65,7 @@ scenarios
 				userId: "uuid2-${testId}",
 				username: "Anne-${testId}"
 			}
-			secondUmailConfirmationWasCreated EmailConfirmation selectBy ( token: "TOKEN_2-${testId}" ) shouldBe {
+			secondEmailConfirmationWasCreated EmailConfirmation selectBy ( token: "TOKEN_2-${testId}" ) shouldBe {
 				token: "TOKEN_2-${testId}",
 				userId: "uuid2-${testId}"
 			}

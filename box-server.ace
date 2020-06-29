@@ -223,6 +223,8 @@ models
 		List Integer countsPerDayNextWeek
 		Integer maxCardsPerDay
 	}
+	
+	BoxWithStatistics extends BoxView, BoxStatistics
 
 	InitBoxes {
 		DateTime minScheduledDate
