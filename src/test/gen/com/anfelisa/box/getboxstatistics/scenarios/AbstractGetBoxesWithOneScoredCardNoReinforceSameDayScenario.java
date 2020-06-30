@@ -327,9 +327,8 @@ public abstract class AbstractGetBoxesWithOneScoredCardNoReinforceSameDayScenari
 			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_10 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 5," + 
-					"\"scoredCardScheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
+					"\"scheduledCardId\" : \"c4-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class);
 			timeBeforeRequest = System.currentTimeMillis();
 			response = 
@@ -393,7 +392,7 @@ public abstract class AbstractGetBoxesWithOneScoredCardNoReinforceSameDayScenari
 		}
 		com.anfelisa.box.data.BoxStatisticsListData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"\"," + 
-				"\"boxList\" : [ { \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"boxStatisticsList\" : [ { \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"maxCardsPerDay\" : 10," + 
 				"\"quality0Count\" : 0," + 
 				"\"quality1Count\" : 0," + 

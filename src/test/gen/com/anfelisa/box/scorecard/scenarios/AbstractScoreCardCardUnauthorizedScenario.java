@@ -329,9 +329,8 @@ public abstract class AbstractScoreCardCardUnauthorizedScenario extends BaseScen
 		this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScoreCardData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scoredCardQuality\" : 0," + 
-				"\"scoredCardScheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
+				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 		com.anfelisa.box.data.ScoreCardData.class);
 		long timeBeforeRequest = System.currentTimeMillis();
 		Response response = 

@@ -327,9 +327,8 @@ public abstract class AbstractScoreCard310Scenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_10 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
+					"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class);
 			timeBeforeRequest = System.currentTimeMillis();
 			response = 
@@ -391,9 +390,8 @@ public abstract class AbstractScoreCard310Scenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200425 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_12 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score3-" + this.getTestId() + "\"} ",
+					"\"scheduledCardId\" : \"score3-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class);
 			timeBeforeRequest = System.currentTimeMillis();
 			response = 
@@ -422,9 +420,8 @@ public abstract class AbstractScoreCard310Scenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200515 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_13 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score31-" + this.getTestId() + "\"} ",
+					"\"scheduledCardId\" : \"score31-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class);
 			timeBeforeRequest = System.currentTimeMillis();
 			response = 
@@ -453,9 +450,8 @@ public abstract class AbstractScoreCard310Scenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200615 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_14 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 4," + 
-					"\"scoredCardScheduledCardId\" : \"score32-" + this.getTestId() + "\"} ",
+					"\"scheduledCardId\" : \"score32-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class);
 			timeBeforeRequest = System.currentTimeMillis();
 			response = 
@@ -484,9 +480,8 @@ public abstract class AbstractScoreCard310Scenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200819 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_15 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 5," + 
-					"\"scoredCardScheduledCardId\" : \"score33-" + this.getTestId() + "\"} ",
+					"\"scheduledCardId\" : \"score33-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class);
 			timeBeforeRequest = System.currentTimeMillis();
 			response = 
@@ -515,9 +510,8 @@ public abstract class AbstractScoreCard310Scenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20201120 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_16 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score34-" + this.getTestId() + "\"} ",
+					"\"scheduledCardId\" : \"score34-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class);
 			timeBeforeRequest = System.currentTimeMillis();
 			response = 
@@ -546,9 +540,8 @@ public abstract class AbstractScoreCard310Scenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20210301 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_17 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score35-" + this.getTestId() + "\"} ",
+					"\"scheduledCardId\" : \"score35-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class);
 			timeBeforeRequest = System.currentTimeMillis();
 			response = 
@@ -577,9 +570,8 @@ public abstract class AbstractScoreCard310Scenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20210701 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_18 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score36-" + this.getTestId() + "\"} ",
+					"\"scheduledCardId\" : \"score36-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class);
 			timeBeforeRequest = System.currentTimeMillis();
 			response = 
@@ -608,9 +600,8 @@ public abstract class AbstractScoreCard310Scenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20211001 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_19 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score37-" + this.getTestId() + "\"} ",
+					"\"scheduledCardId\" : \"score37-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class);
 			timeBeforeRequest = System.currentTimeMillis();
 			response = 
@@ -639,9 +630,8 @@ public abstract class AbstractScoreCard310Scenario extends BaseScenario {
 			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20220201 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardData data_20 = objectMapper.readValue("{" +
 				"\"uuid\" : \"" + uuid + "\"," + 
-					"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 					"\"scoredCardQuality\" : 3," + 
-					"\"scoredCardScheduledCardId\" : \"score38-" + this.getTestId() + "\"} ",
+					"\"scheduledCardId\" : \"score38-" + this.getTestId() + "\"} ",
 			com.anfelisa.box.data.ScoreCardData.class);
 			timeBeforeRequest = System.currentTimeMillis();
 			response = 
@@ -672,9 +662,8 @@ public abstract class AbstractScoreCard310Scenario extends BaseScenario {
 		this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20220601 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScoreCardData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scoredCardQuality\" : 3," + 
-				"\"scoredCardScheduledCardId\" : \"score39-" + this.getTestId() + "\"} ",
+				"\"scheduledCardId\" : \"score39-" + this.getTestId() + "\"} ",
 		com.anfelisa.box.data.ScoreCardData.class);
 		long timeBeforeRequest = System.currentTimeMillis();
 		Response response = 

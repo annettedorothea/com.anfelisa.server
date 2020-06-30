@@ -46,7 +46,7 @@ public interface IScoreCardData extends IScoreCardModel, IDataContainer {
 	
 	IScoreCardData withNextScheduledCardLastQuality(Integer nextScheduledCardLastQuality);
 	
-	IScoreCardData withScoredCardScheduledCardId(String scoredCardScheduledCardId);
+	IScoreCardData withScheduledCardId(String scheduledCardId);
 	
 	IScoreCardData withScoredCardQuality(Integer scoredCardQuality);
 	

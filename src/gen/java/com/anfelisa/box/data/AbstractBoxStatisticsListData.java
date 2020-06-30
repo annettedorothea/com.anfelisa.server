@@ -40,7 +40,7 @@ public abstract class AbstractBoxStatisticsListData extends AbstractData impleme
 	
 	static final Logger LOG = LoggerFactory.getLogger(AbstractBoxStatisticsListData.class);
 	
-	private java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxList;
+	private java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList;
 	
 	private String userId;
 	
@@ -48,13 +48,13 @@ public abstract class AbstractBoxStatisticsListData extends AbstractData impleme
 	
 
 	public AbstractBoxStatisticsListData(
-		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxList,
+		@JsonProperty("boxStatisticsList") java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
-		this.boxList = boxList;
+		this.boxStatisticsList = boxStatisticsList;
 		this.userId = userId;
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
@@ -64,14 +64,14 @@ public abstract class AbstractBoxStatisticsListData extends AbstractData impleme
 	}
 
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> getBoxList() {
-		return this.boxList;
+	public java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> getBoxStatisticsList() {
+		return this.boxStatisticsList;
 	}
-	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxList) {
-		this.boxList = boxList;
+	public void setBoxStatisticsList(java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList) {
+		this.boxStatisticsList = boxStatisticsList;
 	}
-	public IBoxStatisticsListData withBoxList(java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxList) {
-		this.boxList = boxList;
+	public IBoxStatisticsListData withBoxStatisticsList(java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList) {
+		this.boxStatisticsList = boxStatisticsList;
 		return this;
 	}
 	

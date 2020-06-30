@@ -61,7 +61,7 @@ public class ScheduledCardDao extends AbstractScheduledCardDao {
 	public void score(PersistenceHandle handle, IScoreCardData scoreCardData) {
 		Update statement = handle.getHandle().createUpdate(
 				"UPDATE public.scheduledcard SET quality = :quality, scoreddate = :scoreddate WHERE scheduledcardid = :scheduledcardid");
-		statement.bind("scheduledcardid", scoreCardData.getScoredCardScheduledCardId());
+		statement.bind("scheduledcardid", scoreCardData.getScheduledCardId());
 		statement.bind("quality", scoreCardData.getScoredCardQuality());
 		statement.bind("scoreddate", scoreCardData.getScoredCardScoredDate());
 		statement.execute();

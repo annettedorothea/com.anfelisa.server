@@ -362,7 +362,7 @@ public abstract class AbstractGetBoxesJustScheduledScenario extends BaseScenario
 		}
 		com.anfelisa.box.data.BoxStatisticsListData expectedData = objectMapper.readValue("{" +
 			"\"uuid\" : \"\"," + 
-				"\"boxList\" : [ { \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
+				"\"boxStatisticsList\" : [ { \"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"maxCardsPerDay\" : 10," + 
 				"\"quality0Count\" : 0," + 
 				"\"quality1Count\" : 0," + 

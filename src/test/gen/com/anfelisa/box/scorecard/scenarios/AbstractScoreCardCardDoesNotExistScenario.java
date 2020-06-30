@@ -329,9 +329,8 @@ public abstract class AbstractScoreCardCardDoesNotExistScenario extends BaseScen
 		this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScoreCardData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
 				"\"scoredCardQuality\" : 0," + 
-				"\"scoredCardScheduledCardId\" : \"xx\"} ",
+				"\"scheduledCardId\" : \"xx\"} ",
 		com.anfelisa.box.data.ScoreCardData.class);
 		long timeBeforeRequest = System.currentTimeMillis();
 		Response response = 

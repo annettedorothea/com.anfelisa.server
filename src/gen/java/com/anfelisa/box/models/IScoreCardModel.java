@@ -53,8 +53,8 @@ public interface IScoreCardModel {
 	Integer getNextScheduledCardLastQuality();
 	void setNextScheduledCardLastQuality(Integer nextScheduledCardLastQuality);
 	
-	String getScoredCardScheduledCardId();
-	void setScoredCardScheduledCardId(String scoredCardScheduledCardId);
+	String getScheduledCardId();
+	void setScheduledCardId(String scheduledCardId);
 	
 	Integer getScoredCardQuality();
 	void setScoredCardQuality(Integer scoredCardQuality);

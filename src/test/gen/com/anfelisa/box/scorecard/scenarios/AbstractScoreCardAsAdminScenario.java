@@ -206,9 +206,8 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 		this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScoreCardData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-				"\"boxId\" : \"adminBox-" + this.getTestId() + "\"," + 
 				"\"scoredCardQuality\" : 1," + 
-				"\"scoredCardScheduledCardId\" : \"c6-" + this.getTestId() + "-sc6-" + this.getTestId() + "\"} ",
+				"\"scheduledCardId\" : \"c6-" + this.getTestId() + "-sc6-" + this.getTestId() + "\"} ",
 		com.anfelisa.box.data.ScoreCardData.class);
 		long timeBeforeRequest = System.currentTimeMillis();
 		Response response = 

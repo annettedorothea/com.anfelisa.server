@@ -50,7 +50,7 @@ public class ScoreCardModel implements IScoreCardModel {
 
 	private Integer nextScheduledCardLastQuality;
 
-	private String scoredCardScheduledCardId;
+	private String scheduledCardId;
 
 	private Integer scoredCardQuality;
 
@@ -78,7 +78,7 @@ public class ScoreCardModel implements IScoreCardModel {
 		@JsonProperty("nextScheduledCardCount") Integer nextScheduledCardCount,
 		@JsonProperty("nextScheduledCardScheduledDate") java.time.LocalDateTime nextScheduledCardScheduledDate,
 		@JsonProperty("nextScheduledCardLastQuality") Integer nextScheduledCardLastQuality,
-		@JsonProperty("scoredCardScheduledCardId") String scoredCardScheduledCardId,
+		@JsonProperty("scheduledCardId") String scheduledCardId,
 		@JsonProperty("scoredCardQuality") Integer scoredCardQuality,
 		@JsonProperty("scoredCardScoredDate") java.time.LocalDateTime scoredCardScoredDate,
 		@JsonProperty("reinforceCardId") String reinforceCardId,
@@ -95,7 +95,7 @@ public class ScoreCardModel implements IScoreCardModel {
 		this.nextScheduledCardCount = nextScheduledCardCount;
 		this.nextScheduledCardScheduledDate = nextScheduledCardScheduledDate;
 		this.nextScheduledCardLastQuality = nextScheduledCardLastQuality;
-		this.scoredCardScheduledCardId = scoredCardScheduledCardId;
+		this.scheduledCardId = scheduledCardId;
 		this.scoredCardQuality = scoredCardQuality;
 		this.scoredCardScoredDate = scoredCardScoredDate;
 		this.reinforceCardId = reinforceCardId;
@@ -181,11 +181,11 @@ public class ScoreCardModel implements IScoreCardModel {
 	}
 	
 	@JsonProperty
-	public String getScoredCardScheduledCardId() {
-		return this.scoredCardScheduledCardId;
+	public String getScheduledCardId() {
+		return this.scheduledCardId;
 	}
-	public void setScoredCardScheduledCardId(String scoredCardScheduledCardId) {
-		this.scoredCardScheduledCardId = scoredCardScheduledCardId;
+	public void setScheduledCardId(String scheduledCardId) {
+		this.scheduledCardId = scheduledCardId;
 	}
 	
 	@JsonProperty

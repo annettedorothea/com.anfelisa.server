@@ -26,8 +26,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(as=BoxStatisticsListModel.class)
 public interface IBoxStatisticsListModel {
 
-	java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> getBoxList();
-	void setBoxList(java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxList);
+	java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> getBoxStatisticsList();
+	void setBoxStatisticsList(java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList);
 	
 	String getUserId();
 	void setUserId(String userId);

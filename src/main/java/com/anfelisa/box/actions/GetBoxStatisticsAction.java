@@ -58,7 +58,7 @@ public class GetBoxStatisticsAction extends AbstractGetBoxStatisticsAction {
 				box.getCountsPerDayNextWeek().add(countOfDay);
 			}
 		}
-		this.actionData.setBoxList(boxList);
+		this.actionData.setBoxStatisticsList(boxList);
 	}
 	
 	public void initActionData() {

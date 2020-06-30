@@ -20,7 +20,7 @@
 package com.anfelisa.box.data;
 
 public interface IGetBoxStatisticsResponse {
-	java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> getBoxList();
+	java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> getBoxStatisticsList();
 	
 
 }

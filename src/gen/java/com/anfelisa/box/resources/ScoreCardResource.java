@@ -103,15 +103,10 @@
 		}
 		com.anfelisa.box.data.IScoreCardData actionData = new ScoreCardData(payload.getUuid());
 		
-		if (StringUtils.isBlank(payload.getScoredCardScheduledCardId()) || "null".equals(payload.getScoredCardScheduledCardId())) {
-			return badRequest("scoredCardScheduledCardId is mandatory");
+		if (StringUtils.isBlank(payload.getScheduledCardId()) || "null".equals(payload.getScheduledCardId())) {
+			return badRequest("scheduledCardId is mandatory");
 		}
-		actionData.setScoredCardScheduledCardId(payload.getScoredCardScheduledCardId());
-		
-		if (StringUtils.isBlank(payload.getBoxId()) || "null".equals(payload.getBoxId())) {
-			return badRequest("boxId is mandatory");
-		}
-		actionData.setBoxId(payload.getBoxId());
+		actionData.setScheduledCardId(payload.getScheduledCardId());
 		
 		if (payload.getScoredCardQuality() == null) {
 			return badRequest("scoredCardQuality is mandatory");

@@ -28,7 +28,7 @@ public class ScoreCardCommand extends AbstractScoreCardCommand {
 	protected void executeCommand(PersistenceHandle readonlyHandle) {
 		IScheduledCardModel scheduledCard = this.daoProvider.getScheduledCardDao().selectByScheduledCardId(
 				readonlyHandle,
-				commandData.getScoredCardScheduledCardId());
+				commandData.getScheduledCardId());
 		if (scheduledCard == null) {
 			throwIllegalArgumentException("cardDoesNotExist");
 		}

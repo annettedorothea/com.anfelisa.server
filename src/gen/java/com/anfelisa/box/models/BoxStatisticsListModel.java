@@ -32,7 +32,7 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class BoxStatisticsListModel implements IBoxStatisticsListModel {
 
-	private java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxList;
+	private java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList;
 
 	private String userId;
 
@@ -43,21 +43,21 @@ public class BoxStatisticsListModel implements IBoxStatisticsListModel {
 	}
 
 	public BoxStatisticsListModel(
-		@JsonProperty("boxList") java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxList,
+		@JsonProperty("boxStatisticsList") java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList,
 		@JsonProperty("userId") String userId,
 		@JsonProperty("todayAtMidnightInUTC") java.time.LocalDateTime todayAtMidnightInUTC
 	) {
-		this.boxList = boxList;
+		this.boxStatisticsList = boxStatisticsList;
 		this.userId = userId;
 		this.todayAtMidnightInUTC = todayAtMidnightInUTC;
 	}
 
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> getBoxList() {
-		return this.boxList;
+	public java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> getBoxStatisticsList() {
+		return this.boxStatisticsList;
 	}
-	public void setBoxList(java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxList) {
-		this.boxList = boxList;
+	public void setBoxStatisticsList(java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList) {
+		this.boxStatisticsList = boxStatisticsList;
 	}
 	
 	@JsonProperty

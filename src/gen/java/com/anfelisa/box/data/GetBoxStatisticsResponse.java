@@ -34,18 +34,18 @@ import de.acegen.StringToDateTimeConverter;
 @SuppressWarnings("all")
 public class GetBoxStatisticsResponse implements IGetBoxStatisticsResponse {
 	
-	private java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxList;
+	private java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList;
 	
 	public GetBoxStatisticsResponse() {
 	}
 	
 	public GetBoxStatisticsResponse(com.anfelisa.box.models.IBoxStatisticsListModel data) {
-		boxList = data.getBoxList();
+		boxStatisticsList = data.getBoxStatisticsList();
 	}
 	
 	@JsonProperty
-	public java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> getBoxList() {
-		return this.boxList;
+	public java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> getBoxStatisticsList() {
+		return this.boxStatisticsList;
 	}
 	
 }

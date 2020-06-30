@@ -65,8 +65,7 @@ ACE
 		POST "/card/score"  
 		authorize
 		payload 
-			NotNull scoredCardScheduledCardId 
-			NotNull boxId
+			NotNull scheduledCardId 
 			NotNull scoredCardQuality
 		on score (ScheduledCard.score ScheduledCard.scheduleNext)
 		on scoreAndReinforce (ScheduledCard.score ScheduledCard.scheduleNext ReinforceCard.add)
@@ -101,7 +100,7 @@ ACE
 		queryParams 
 			NotNull todayAtMidnightInUTC
 		response 
-			boxList
+			boxStatisticsList
 		
 	LoadNextCard<NextCard>
 		GET "/box/next-card"
@@ -237,7 +236,7 @@ models
 		DateTime todayAtMidnightInUTC
 	}
 	BoxStatisticsList {
-		List BoxStatistics boxList
+		List BoxStatistics boxStatisticsList
 		String userId
 		DateTime todayAtMidnightInUTC
 	}
@@ -320,7 +319,7 @@ models
 		DateTime nextScheduledCardScheduledDate
 		Integer nextScheduledCardLastQuality
 		
-		String scoredCardScheduledCardId
+		String scheduledCardId
 		Integer scoredCardQuality
 		DateTime scoredCardScoredDate
 

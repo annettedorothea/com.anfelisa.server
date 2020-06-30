@@ -28,7 +28,7 @@ import com.anfelisa.box.models.IBoxStatisticsListModel;
 @JsonDeserialize(as=BoxStatisticsListData.class)
 public interface IBoxStatisticsListData extends IBoxStatisticsListModel, IDataContainer {
 	
-	IBoxStatisticsListData withBoxList(java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxList);
+	IBoxStatisticsListData withBoxStatisticsList(java.util.List<com.anfelisa.box.models.IBoxStatisticsModel> boxStatisticsList);
 	
 	IBoxStatisticsListData withUserId(String userId);
 	

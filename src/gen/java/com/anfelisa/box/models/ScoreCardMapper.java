@@ -38,7 +38,7 @@ public class ScoreCardMapper implements RowMapper<IScoreCardModel> {
 			r.getObject("nextScheduledCardCount") != null ? r.getInt("nextScheduledCardCount") : null,
 			r.getTimestamp("nextScheduledCardScheduledDate") != null ? r.getTimestamp("nextScheduledCardScheduledDate").toLocalDateTime() : null,
 			r.getObject("nextScheduledCardLastQuality") != null ? r.getInt("nextScheduledCardLastQuality") : null,
-			r.getString("scoredCardScheduledCardId"),
+			r.getString("scheduledCardId"),
 			r.getObject("scoredCardQuality") != null ? r.getInt("scoredCardQuality") : null,
 			r.getTimestamp("scoredCardScoredDate") != null ? r.getTimestamp("scoredCardScoredDate").toLocalDateTime() : null,
 			r.getString("reinforceCardId"),

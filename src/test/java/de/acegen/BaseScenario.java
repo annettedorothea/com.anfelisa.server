@@ -321,15 +321,15 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 
 	private void assertThat(GetBoxStatisticsResponse actual, GetBoxStatisticsResponse expected) {
-		if (actual.getBoxList() == null) {
-			assertIsNull(expected.getBoxList());
-		} else if (expected.getBoxList() == null) {
+		if (actual.getBoxStatisticsList() == null) {
+			assertIsNull(expected.getBoxStatisticsList());
+		} else if (expected.getBoxStatisticsList() == null) {
 			org.junit.jupiter.api.Assertions.fail("expected.getBoxList is null");
 		} else {
-			assertThat(actual.getBoxList().size(), expected.getBoxList().size());
-			for (int i = 0; i < actual.getBoxList().size(); i++) {
-				IBoxStatisticsModel actualBox = actual.getBoxList().get(i);
-				IBoxStatisticsModel expectedBox = expected.getBoxList().get(i);
+			assertThat(actual.getBoxStatisticsList().size(), expected.getBoxStatisticsList().size());
+			for (int i = 0; i < actual.getBoxStatisticsList().size(); i++) {
+				IBoxStatisticsModel actualBox = actual.getBoxStatisticsList().get(i);
+				IBoxStatisticsModel expectedBox = expected.getBoxStatisticsList().get(i);
 				assertThat(actualBox, expectedBox);
 			}
 		}

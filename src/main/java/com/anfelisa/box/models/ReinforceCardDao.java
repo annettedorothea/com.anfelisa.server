@@ -15,7 +15,7 @@ public class ReinforceCardDao extends AbstractReinforceCardDao {
 		Update statement = handle.getHandle().createUpdate(
 				"INSERT INTO public.reinforcecard (reinforcecardid, scheduledcardid, boxid, changedate) VALUES (:reinforcecardid, :scheduledcardid, :boxid, :changedate)");
 		statement.bind("reinforcecardid", scoreCardData.getReinforceCardId());
-		statement.bind("scheduledcardid", scoreCardData.getScoredCardScheduledCardId());
+		statement.bind("scheduledcardid", scoreCardData.getScheduledCardId());
 		statement.bind("boxid", scoreCardData.getBoxId());
 		statement.bind("changedate", scoreCardData.getReinforceCardCreatedDate());
 		statement.execute();

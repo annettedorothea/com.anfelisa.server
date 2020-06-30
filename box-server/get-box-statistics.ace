@@ -15,7 +15,7 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
-				boxList: [
+				boxStatisticsList: [
 					{
 						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
@@ -45,7 +45,7 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
-				boxList: [
+				boxStatisticsList: [
 					{
 						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
@@ -73,7 +73,7 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
-				boxList: [
+				boxStatisticsList: [
 					{
 						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
@@ -101,7 +101,7 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
-				boxList: [
+				boxStatisticsList: [
 					{
 						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
@@ -129,7 +129,7 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
-				boxList: [
+				boxStatisticsList: [
 					{
 						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
@@ -157,7 +157,7 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
-				boxList: [
+				boxStatisticsList: [
 					{
 						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
@@ -185,7 +185,7 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
-				boxList: [
+				boxStatisticsList: [
 					{
 						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
@@ -213,7 +213,7 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 200
 			response shouldBe {
-				boxList: [
+				boxStatisticsList: [
 					{
 						boxId: "boxId-${testId}",
 						maxCardsPerDay: 10,
