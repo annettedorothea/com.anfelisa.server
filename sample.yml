@@ -1,0 +1,38 @@
+database:
+  driverClass: org.postgresql.Driver
+  user: <db-user>
+  password: <db-password>
+  url: jdbc:postgresql://<host>/<database>
+  properties:
+    charSet: UTF-8
+  maxWaitForConnection: 3s
+  validationQuery: "/* MyService Health Check */ SELECT 1"
+  minSize: 8
+  maxSize: 32
+  checkConnectionWhileIdle: false
+  evictionInterval: 10s
+  minIdleTime: 1 minute
+  
+server:
+  rootPath: /api/
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+          
+email:
+  host: <host>
+  port: 587
+  user: <user>
+  password: <password>
+  localhost: <url of web-app like http://localhost:8888/>
+  tls: true
+
+config:
+  mode: DEV | LIVE | TEST | REPLAY
+  writeTimeline: NEVER | ALWAYS | ON_ERROR
+  
+translationApiKey: <DeepL api key>
+
