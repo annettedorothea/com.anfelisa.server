@@ -22,6 +22,8 @@ package de.acegen;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public abstract class AbstractData implements IDataContainer {
 
@@ -46,6 +48,8 @@ public abstract class AbstractData implements IDataContainer {
 	}
 
 	@JsonProperty
+	@JsonSerialize(converter = DateTimeToStringConverter.class)
+	@JsonDeserialize(converter = StringToDateTimeConverter.class)
 	public LocalDateTime getSystemTime() {
 		return systemTime;
 	}
