@@ -375,6 +375,16 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 
 	@Override
+	protected void assertTrue(boolean b) {
+		org.junit.jupiter.api.Assertions.assertTrue(b);
+	}
+
+	@Override
+	protected void assertFalse(boolean b) {
+		org.junit.jupiter.api.Assertions.assertFalse(b);
+	}
+
+	@Override
 	protected boolean prerequisite(String scenarioName) {
 		switch (scenarioName) {
 		case "RegisterUserAdmin":
