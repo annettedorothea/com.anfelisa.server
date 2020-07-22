@@ -13,7 +13,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * generated with de.acegen 0.9.6
+ * generated with de.acegen 0.9.7
  *
  */
 
@@ -44,6 +44,8 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenario {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractRegisterUserNoUsernameScenario.class);
+	
+	private Map<String, Object> extractedValues = new HashMap<String, Object>();
 	
 	private void given() throws Exception {
 		Response response;
@@ -76,7 +78,7 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 		return response;
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.user.data.RegisterUserResponse then(Response response) throws Exception {
 		if (response.getStatus() == 500) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
@@ -88,7 +90,13 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 			LOG.info("THEN: status 400 passed");
 		}
 		
+		com.anfelisa.user.data.RegisterUserResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.user.data.RegisterUserResponse.class);
+		} catch (Exception x) {
+		}
 		
+		return actual;
 	}
 			
 	@Override
@@ -98,7 +106,7 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 		if (prerequisite("RegisterUserNoUsername")) {
 			Response response = when();
 
-			then(response);
+			com.anfelisa.user.data.RegisterUserResponse actualResponse = then(response);
 			
 			this.userWasNotCreated();
 			this.emailConfirmationWasNotCreated();

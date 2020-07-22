@@ -13,7 +13,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * generated with de.acegen 0.9.6
+ * generated with de.acegen 0.9.7
  *
  */
 
@@ -44,6 +44,8 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractSortCardsOutUnauthorizedScenario extends BaseScenario {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractSortCardsOutUnauthorizedScenario.class);
+	
+	private Map<String, Object> extractedValues = new HashMap<String, Object>();
 	
 	private void given() throws Exception {
 		Response response;
@@ -348,7 +350,7 @@ public abstract class AbstractSortCardsOutUnauthorizedScenario extends BaseScena
 		return response;
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.box.data.SortCardsOutResponse then(Response response) throws Exception {
 		if (response.getStatus() == 500) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
@@ -360,7 +362,13 @@ public abstract class AbstractSortCardsOutUnauthorizedScenario extends BaseScena
 			LOG.info("THEN: status 401 passed");
 		}
 		
+		com.anfelisa.box.data.SortCardsOutResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.box.data.SortCardsOutResponse.class);
+		} catch (Exception x) {
+		}
 		
+		return actual;
 	}
 			
 	@Override
@@ -370,7 +378,7 @@ public abstract class AbstractSortCardsOutUnauthorizedScenario extends BaseScena
 		if (prerequisite("SortCardsOutUnauthorized")) {
 			Response response = when();
 
-			then(response);
+			com.anfelisa.box.data.SortCardsOutResponse actualResponse = then(response);
 			
 			this.card1WasNotSortedOut();
 			this.card3WasNotSortedOut();

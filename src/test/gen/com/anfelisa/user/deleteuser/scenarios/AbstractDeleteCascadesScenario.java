@@ -13,7 +13,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * generated with de.acegen 0.9.6
+ * generated with de.acegen 0.9.7
  *
  */
 
@@ -44,6 +44,8 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteCascadesScenario.class);
+	
+	private Map<String, Object> extractedValues = new HashMap<String, Object>();
 	
 	private void given() throws Exception {
 		Response response;
@@ -558,7 +560,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		return response;
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.user.data.DeleteUserResponse then(Response response) throws Exception {
 		if (response.getStatus() == 500) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
@@ -570,7 +572,13 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			LOG.info("THEN: status 200 passed");
 		}
 		
+		com.anfelisa.user.data.DeleteUserResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.user.data.DeleteUserResponse.class);
+		} catch (Exception x) {
+		}
 		
+		return actual;
 	}
 			
 	@Override
@@ -580,7 +588,7 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 		if (prerequisite("DeleteCascades")) {
 			Response response = when();
 
-			then(response);
+			com.anfelisa.user.data.DeleteUserResponse actualResponse = then(response);
 			
 			this.userWasDeleted();
 			this.boxWasDeleted();

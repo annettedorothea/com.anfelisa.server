@@ -13,7 +13,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * generated with de.acegen 0.9.6
+ * generated with de.acegen 0.9.7
  *
  */
 
@@ -44,6 +44,8 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseScenario {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteCategoryUnauthorizedScenario.class);
+	
+	private Map<String, Object> extractedValues = new HashMap<String, Object>();
 	
 	private void given() throws Exception {
 		Response response;
@@ -192,7 +194,7 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 		return response;
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.category.data.DeleteCategoryResponse then(Response response) throws Exception {
 		if (response.getStatus() == 500) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
@@ -204,7 +206,13 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 			LOG.info("THEN: status 401 passed");
 		}
 		
+		com.anfelisa.category.data.DeleteCategoryResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.category.data.DeleteCategoryResponse.class);
+		} catch (Exception x) {
+		}
 		
+		return actual;
 	}
 			
 	@Override
@@ -214,7 +222,7 @@ public abstract class AbstractDeleteCategoryUnauthorizedScenario extends BaseSce
 		if (prerequisite("DeleteCategoryUnauthorized")) {
 			Response response = when();
 
-			then(response);
+			com.anfelisa.category.data.DeleteCategoryResponse actualResponse = then(response);
 			
 			this.categoryWasNotDeleted();
 		

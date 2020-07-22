@@ -13,7 +13,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * generated with de.acegen 0.9.6
+ * generated with de.acegen 0.9.7
  *
  */
 
@@ -44,6 +44,8 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractChangeOrderNoAccessToMovedCardScenario extends BaseScenario {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractChangeOrderNoAccessToMovedCardScenario.class);
+	
+	private Map<String, Object> extractedValues = new HashMap<String, Object>();
 	
 	private void given() throws Exception {
 		Response response;
@@ -319,7 +321,7 @@ public abstract class AbstractChangeOrderNoAccessToMovedCardScenario extends Bas
 		return response;
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.card.data.ChangeOrderResponse then(Response response) throws Exception {
 		if (response.getStatus() == 500) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
@@ -331,7 +333,13 @@ public abstract class AbstractChangeOrderNoAccessToMovedCardScenario extends Bas
 			LOG.info("THEN: status 401 passed");
 		}
 		
+		com.anfelisa.card.data.ChangeOrderResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.card.data.ChangeOrderResponse.class);
+		} catch (Exception x) {
+		}
 		
+		return actual;
 	}
 			
 	@Override
@@ -341,7 +349,7 @@ public abstract class AbstractChangeOrderNoAccessToMovedCardScenario extends Bas
 		if (prerequisite("ChangeOrderNoAccessToMovedCard")) {
 			Response response = when();
 
-			then(response);
+			com.anfelisa.card.data.ChangeOrderResponse actualResponse = then(response);
 			
 			this.firstCard();
 			this.sixthCard();

@@ -13,7 +13,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * generated with de.acegen 0.9.6
+ * generated with de.acegen 0.9.7
  *
  */
 
@@ -44,6 +44,8 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends BaseScenario {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractForgotPasswordUserDoesNotExistScenario.class);
+	
+	private Map<String, Object> extractedValues = new HashMap<String, Object>();
 	
 	private void given() throws Exception {
 		Response response;
@@ -108,7 +110,7 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 		return response;
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.user.data.ForgotPasswordResponse then(Response response) throws Exception {
 		if (response.getStatus() == 500) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
@@ -120,7 +122,13 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 			LOG.info("THEN: status 200 passed");
 		}
 		
+		com.anfelisa.user.data.ForgotPasswordResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.user.data.ForgotPasswordResponse.class);
+		} catch (Exception x) {
+		}
 		
+		return actual;
 	}
 			
 	@Override
@@ -130,7 +138,7 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 		if (prerequisite("ForgotPasswordUserDoesNotExist")) {
 			Response response = when();
 
-			then(response);
+			com.anfelisa.user.data.ForgotPasswordResponse actualResponse = then(response);
 			
 			this.resetPasswordTokenWasNotCreated();
 		

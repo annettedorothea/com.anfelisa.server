@@ -13,7 +13,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- * generated with de.acegen 0.9.6
+ * generated with de.acegen 0.9.7
  *
  */
 
@@ -44,6 +44,8 @@ import de.acegen.NotReplayableDataProvider;
 public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractRegisterUserAdminScenario.class);
+	
+	private Map<String, Object> extractedValues = new HashMap<String, Object>();
 	
 	private void given() throws Exception {
 		Response response;
@@ -77,7 +79,7 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 		return response;
 	}
 	
-	private void then(Response response) throws Exception {
+	private com.anfelisa.user.data.RegisterUserResponse then(Response response) throws Exception {
 		if (response.getStatus() == 500) {
 			String message = response.readEntity(String.class);
 			assertFail(message);
@@ -89,7 +91,13 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 			LOG.info("THEN: status 200 passed");
 		}
 		
+		com.anfelisa.user.data.RegisterUserResponse actual = null;
+		try {
+			actual = response.readEntity(com.anfelisa.user.data.RegisterUserResponse.class);
+		} catch (Exception x) {
+		}
 		
+		return actual;
 	}
 			
 	@Override
@@ -99,7 +107,7 @@ public abstract class AbstractRegisterUserAdminScenario extends BaseScenario {
 		if (prerequisite("RegisterUserAdmin")) {
 			Response response = when();
 
-			then(response);
+			com.anfelisa.user.data.RegisterUserResponse actualResponse = then(response);
 			
 			this.userWasCreated();
 			this.emailConfirmationWasCreated();
