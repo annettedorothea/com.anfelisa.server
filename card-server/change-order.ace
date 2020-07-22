@@ -334,7 +334,7 @@ scenarios
 			com.anfelisa.card.ChangeOrder
 				{
 					cardId: "c1-${testId}",
-					cardIdList: [ "c2-${testId}" "xx" ]
+					cardIdList: [ "c2-${testId}", "xx" ]
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400

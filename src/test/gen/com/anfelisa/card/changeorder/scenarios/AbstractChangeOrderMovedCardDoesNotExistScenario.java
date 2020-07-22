@@ -303,7 +303,8 @@ public abstract class AbstractChangeOrderMovedCardDoesNotExistScenario extends B
 		com.anfelisa.card.data.ChangeCardOrderListData data_0 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
 				"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
-				"\"cardIdList\" : [ \"" + LocalDateTime.parse(this.extractedValues.get("testId").toString(), DateTimeFormatter.ofPattern("xx"))  + "\"]} ",
+				"\"cardIdList\" : [ \"c2-" + this.getTestId() + "\"," + 
+				"\"xx\"]} ",
 		com.anfelisa.card.data.ChangeCardOrderListData.class);
 		long timeBeforeRequest = System.currentTimeMillis();
 		Response response = 
