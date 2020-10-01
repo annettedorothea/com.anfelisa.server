@@ -26,7 +26,6 @@
 	import org.apache.commons.lang3.StringUtils;
 	
 	import de.acegen.CustomAppConfiguration;
-	import de.acegen.E2E;
 	import de.acegen.IDaoProvider;
 	import de.acegen.IDataContainer;
 	import de.acegen.ViewProvider;
@@ -34,7 +33,7 @@
 	import de.acegen.PersistenceHandle;
 	import de.acegen.ReadAction;
 	import de.acegen.ITimelineItem;
-	import de.acegen.NotReplayableDataProvider;
+	import de.acegen.NonDeterministicDataProvider;
 	
 	import de.acegen.auth.AuthUser;
 	import io.dropwizard.auth.Auth;
@@ -66,15 +65,13 @@
 		private CustomAppConfiguration appConfiguration;
 		private IDaoProvider daoProvider;
 		private ViewProvider viewProvider;
-		private E2E e2e;
 
 	public ScoreCardResource(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
-				IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
+				IDaoProvider daoProvider, ViewProvider viewProvider) {
 			this.persistenceConnection = persistenceConnection;
 			this.appConfiguration = appConfiguration;
 			this.daoProvider = daoProvider;
 			this.viewProvider = viewProvider;
-			this.e2e = e2e;
 		}
 	
 	@POST
@@ -108,7 +105,7 @@
 		actionData.setScoredCardQuality(payload.getScoredCardQuality());
 		actionData.setUserId(authUser.getUserId());
 		
-		com.anfelisa.box.actions.ScoreCardAction action = new com.anfelisa.box.actions.ScoreCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e);
+		com.anfelisa.box.actions.ScoreCardAction action = new com.anfelisa.box.actions.ScoreCardAction(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 		action.setActionData(actionData);
 		try {
 			action.apply();

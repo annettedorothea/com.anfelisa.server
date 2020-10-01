@@ -9,7 +9,6 @@ import com.anfelisa.auth.Roles;
 import com.anfelisa.user.models.IUserModel;
 
 import de.acegen.CustomAppConfiguration;
-import de.acegen.E2E;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -19,8 +18,8 @@ public class GetAllUsersAction extends AbstractGetAllUsersAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(GetAllUsersAction.class);
 
-	public GetAllUsersAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
-		super(persistenceConnection,appConfiguration, daoProvider, viewProvider, e2e);
+	public GetAllUsersAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(persistenceConnection,appConfiguration, daoProvider, viewProvider);
 	}
 
 

@@ -27,7 +27,6 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.acegen.CustomAppConfiguration;
-import de.acegen.E2E;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -38,8 +37,8 @@ public class GetTranslationAction extends AbstractGetTranslationAction {
 	static final Logger LOG = LoggerFactory.getLogger(GetTranslationAction.class);
 
 	public GetTranslationAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
-			ViewProvider viewProvider, E2E e2e) {
-		super(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e);
+			ViewProvider viewProvider) {
+		super(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
 	@SuppressWarnings("unchecked")

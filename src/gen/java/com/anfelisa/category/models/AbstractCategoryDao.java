@@ -18,7 +18,7 @@ import java.util.Optional;
 public class AbstractCategoryDao {
 	
 	public void insert(PersistenceHandle handle, ICategoryModel categoryModel) {
-		Update statement = handle.getHandle().createUpdate("INSERT INTO \"category\" (categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage) VALUES (:categoryid, :categoryname, :categoryauthor, :categoryindex, :parentcategoryid, :rootcategoryid, :dictionarylookup, :givenlanguage, :wantedlanguage)");
+		Update statement = handle.getHandle().createUpdate("INSERT INTO public.category (categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage) VALUES (:categoryid, :categoryname, :categoryauthor, :categoryindex, :parentcategoryid, :rootcategoryid, :dictionarylookup, :givenlanguage, :wantedlanguage)");
 		statement.bind("categoryid",  categoryModel.getCategoryId() );
 		statement.bind("categoryname",  categoryModel.getCategoryName() );
 		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
@@ -33,7 +33,7 @@ public class AbstractCategoryDao {
 	
 	
 	public void updateByCategoryId(PersistenceHandle handle, ICategoryModel categoryModel) {
-		Update statement = handle.getHandle().createUpdate("UPDATE \"category\" SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryid = :categoryid");
+		Update statement = handle.getHandle().createUpdate("UPDATE public.category SET categoryid = :categoryid, categoryname = :categoryname, categoryauthor = :categoryauthor, categoryindex = :categoryindex, parentcategoryid = :parentcategoryid, rootcategoryid = :rootcategoryid, dictionarylookup = :dictionarylookup, givenlanguage = :givenlanguage, wantedlanguage = :wantedlanguage WHERE categoryid = :categoryid");
 		statement.bind("categoryid",  categoryModel.getCategoryId() );
 		statement.bind("categoryname",  categoryModel.getCategoryName() );
 		statement.bind("categoryauthor",  categoryModel.getCategoryAuthor() );
@@ -48,13 +48,13 @@ public class AbstractCategoryDao {
 	}
 
 	public void deleteByCategoryId(PersistenceHandle handle, String categoryId) {
-		Update statement = handle.getHandle().createUpdate("DELETE FROM \"category\" WHERE categoryid = :categoryid");
+		Update statement = handle.getHandle().createUpdate("DELETE FROM public.category WHERE categoryid = :categoryid");
 		statement.bind("categoryid", categoryId);
 		statement.execute();
 	}
 
 	public ICategoryModel selectByCategoryId(PersistenceHandle handle, String categoryId) {
-		Optional<ICategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM \"category\" WHERE categoryid = :categoryid")
+		Optional<ICategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category WHERE categoryid = :categoryid")
 			.bind("categoryid", categoryId)
 			.map(new CategoryMapper())
 			.findFirst();
@@ -62,7 +62,7 @@ public class AbstractCategoryDao {
 	}
 	
 	public ICategoryModel selectByPrimaryKey(PersistenceHandle handle, String categoryId) {
-		Optional<ICategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM \"category\" WHERE categoryid = :categoryid")
+		Optional<ICategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category WHERE categoryid = :categoryid")
 			.bind("categoryid", categoryId)
 			.map(new CategoryMapper())
 			.findFirst();
@@ -70,7 +70,7 @@ public class AbstractCategoryDao {
 	}
 	
 	public int filterAndCountBy(PersistenceHandle handle, Map<String, String> filterMap) {
-		String sql = "SELECT count(*) FROM \"category\"";
+		String sql = "SELECT count(*) FROM public.category";
 		if (filterMap != null) {
 			int i = 0;
 			for(String key : filterMap.keySet()) {
@@ -86,13 +86,13 @@ public class AbstractCategoryDao {
 	}
 
 	public List<ICategoryModel> selectAll(PersistenceHandle handle) {
-		return handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM \"category\"")
+		return handle.getHandle().createQuery("SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage FROM public.category")
 			.map(new CategoryMapper())
 			.list();
 	}
 
 	public void truncate(PersistenceHandle handle) {
-		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE \"category\" CASCADE");
+		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE public.category CASCADE");
 		statement.execute();
 	}
 

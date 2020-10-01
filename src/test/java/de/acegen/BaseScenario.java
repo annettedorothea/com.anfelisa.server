@@ -88,7 +88,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	public static void beforeClass() throws Exception {
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
 				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		YamlConfiguration config = mapper.readValue(new File("test.yml"), YamlConfiguration.class);
+		YamlConfiguration config = mapper.readValue(new File("dev.yml"), YamlConfiguration.class);
 		port = Integer.parseInt(config.getServer().getApplicationConnectors()[0].getPort());
 		protocol = config.getServer().getApplicationConnectors()[0].getType();
 		rootPath = config.getServer().getRootPath();
@@ -429,23 +429,21 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	}
 
 	@Override
-	protected Response callNotReplayableDataProviderPutValue(
-			String uuid, String key, Object data) {
+	protected Response callNonDeterministicDataProviderPutValue(String uuid, String key, Object data) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client
-				.target(String.format("%s://%s:%d%s/test/not-replayable/value?uuid=" + uuid + "&key=" + key, protocol,
+				.target(String.format("%s://%s:%d%s/test/non-deterministic/value?uuid=" + uuid + "&key=" + key, protocol,
 						host, port, rootPath))
 				.request();
 		return builder.put(Entity.json(data));
 	}
 
 	@Override
-	protected Response callNotReplayableDataProviderPutSystemTime(
-			String uuid, LocalDateTime dateTime) {
+	protected Response callNonDeterministicDataProviderPutSystemTime(String uuid, LocalDateTime dateTime) {
 		Client client = new JerseyClientBuilder().build();
 		Builder builder = client
 				.target(String.format(
-						"%s://%s:%d%s/test/not-replayable/system-time?uuid=" + uuid + "&system-time=" + dateTime,
+						"%s://%s:%d%s/test/non-deterministic/system-time?uuid=" + uuid + "&system-time=" + dateTime,
 						protocol, host, port, rootPath))
 				.request();
 		return builder.put(Entity.json(dateTime));
@@ -457,6 +455,12 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		if (values == null) {
 			values = new DescriptiveStatistics();
 			metrics.put(action, values);
+		}
+		values.addValue(duration);
+		values = metrics.get("all");
+		if (values == null) {
+			values = new DescriptiveStatistics();
+			metrics.put("all", values);
 		}
 		values.addValue(duration);
 	}

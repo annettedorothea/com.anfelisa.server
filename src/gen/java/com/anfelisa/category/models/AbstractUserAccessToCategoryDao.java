@@ -18,7 +18,7 @@ import java.util.Optional;
 public class AbstractUserAccessToCategoryDao {
 	
 	public void insert(PersistenceHandle handle, IUserAccessToCategoryModel userAccessToCategoryModel) {
-		Update statement = handle.getHandle().createUpdate("INSERT INTO \"useraccesstocategory\" (categoryid, userid, editable) VALUES (:categoryid, :userid, :editable)");
+		Update statement = handle.getHandle().createUpdate("INSERT INTO public.useraccesstocategory (categoryid, userid, editable) VALUES (:categoryid, :userid, :editable)");
 		statement.bind("categoryid",  userAccessToCategoryModel.getCategoryId() );
 		statement.bind("userid",  userAccessToCategoryModel.getUserId() );
 		statement.bind("editable",  userAccessToCategoryModel.getEditable() );
@@ -28,7 +28,7 @@ public class AbstractUserAccessToCategoryDao {
 	
 	
 	public IUserAccessToCategoryModel selectByPrimaryKey(PersistenceHandle handle, String categoryId, String userId) {
-		Optional<IUserAccessToCategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, userid, editable FROM \"useraccesstocategory\" WHERE categoryid = :categoryid AND userid = :userid")
+		Optional<IUserAccessToCategoryModel> optional = handle.getHandle().createQuery("SELECT categoryid, userid, editable FROM public.useraccesstocategory WHERE categoryid = :categoryid AND userid = :userid")
 			.bind("categoryid", categoryId)
 			.bind("userid", userId)
 			.map(new UserAccessToCategoryMapper())
@@ -37,7 +37,7 @@ public class AbstractUserAccessToCategoryDao {
 	}
 	
 	public int filterAndCountBy(PersistenceHandle handle, Map<String, String> filterMap) {
-		String sql = "SELECT count(*) FROM \"useraccesstocategory\"";
+		String sql = "SELECT count(*) FROM public.useraccesstocategory";
 		if (filterMap != null) {
 			int i = 0;
 			for(String key : filterMap.keySet()) {
@@ -53,13 +53,13 @@ public class AbstractUserAccessToCategoryDao {
 	}
 
 	public List<IUserAccessToCategoryModel> selectAll(PersistenceHandle handle) {
-		return handle.getHandle().createQuery("SELECT categoryid, userid, editable FROM \"useraccesstocategory\"")
+		return handle.getHandle().createQuery("SELECT categoryid, userid, editable FROM public.useraccesstocategory")
 			.map(new UserAccessToCategoryMapper())
 			.list();
 	}
 
 	public void truncate(PersistenceHandle handle) {
-		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE \"useraccesstocategory\" CASCADE");
+		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE public.useraccesstocategory CASCADE");
 		statement.execute();
 	}
 

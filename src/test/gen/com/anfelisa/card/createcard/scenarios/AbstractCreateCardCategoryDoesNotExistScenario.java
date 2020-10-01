@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
-import de.acegen.NotReplayableDataProvider;
+import de.acegen.NonDeterministicDataProvider;
 
 @SuppressWarnings("unused")
 public abstract class AbstractCreateCardCategoryDoesNotExistScenario extends BaseScenario {
@@ -40,7 +40,7 @@ public abstract class AbstractCreateCardCategoryDoesNotExistScenario extends Bas
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.RegisterUserPayload payload_0 = objectMapper.readValue("{" +
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 

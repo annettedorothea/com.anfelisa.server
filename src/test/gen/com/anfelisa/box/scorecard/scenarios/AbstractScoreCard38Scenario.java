@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
-import de.acegen.NotReplayableDataProvider;
+import de.acegen.NonDeterministicDataProvider;
 
 @SuppressWarnings("unused")
 public abstract class AbstractScoreCard38Scenario extends BaseScenario {
@@ -40,7 +40,7 @@ public abstract class AbstractScoreCard38Scenario extends BaseScenario {
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.RegisterUserPayload payload_0 = objectMapper.readValue("{" +
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -326,7 +326,7 @@ public abstract class AbstractScoreCard38Scenario extends BaseScenario {
 
 		if (prerequisite("ScheduleCards")) {
 			uuid = "sc1-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScheduleCardsPayload payload_8 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 				"\"c3-" + this.getTestId() + "\"," + 
@@ -362,7 +362,7 @@ public abstract class AbstractScoreCard38Scenario extends BaseScenario {
 
 		if (prerequisite("ScoreCard3")) {
 			uuid = "score3-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_9 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 3," + 
 				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
@@ -437,7 +437,7 @@ public abstract class AbstractScoreCard38Scenario extends BaseScenario {
 
 		if (prerequisite("ScoreCard31")) {
 			uuid = "score31-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200425 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200425 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_11 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 3," + 
 				"\"scheduledCardId\" : \"score3-" + this.getTestId() + "\"} ",
@@ -471,7 +471,7 @@ public abstract class AbstractScoreCard38Scenario extends BaseScenario {
 
 		if (prerequisite("ScoreCard32")) {
 			uuid = "score32-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200515 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200515 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_12 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 3," + 
 				"\"scheduledCardId\" : \"score31-" + this.getTestId() + "\"} ",
@@ -505,7 +505,7 @@ public abstract class AbstractScoreCard38Scenario extends BaseScenario {
 
 		if (prerequisite("ScoreCard33")) {
 			uuid = "score33-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200615 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200615 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_13 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 4," + 
 				"\"scheduledCardId\" : \"score32-" + this.getTestId() + "\"} ",
@@ -539,7 +539,7 @@ public abstract class AbstractScoreCard38Scenario extends BaseScenario {
 
 		if (prerequisite("ScoreCard34")) {
 			uuid = "score34-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200819 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200819 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_14 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 5," + 
 				"\"scheduledCardId\" : \"score33-" + this.getTestId() + "\"} ",
@@ -573,7 +573,7 @@ public abstract class AbstractScoreCard38Scenario extends BaseScenario {
 
 		if (prerequisite("ScoreCard35")) {
 			uuid = "score35-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20201120 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20201120 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_15 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 3," + 
 				"\"scheduledCardId\" : \"score34-" + this.getTestId() + "\"} ",
@@ -607,7 +607,7 @@ public abstract class AbstractScoreCard38Scenario extends BaseScenario {
 
 		if (prerequisite("ScoreCard36")) {
 			uuid = "score36-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20210301 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20210301 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_16 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 3," + 
 				"\"scheduledCardId\" : \"score35-" + this.getTestId() + "\"} ",
@@ -641,7 +641,7 @@ public abstract class AbstractScoreCard38Scenario extends BaseScenario {
 
 		if (prerequisite("ScoreCard37")) {
 			uuid = "score37-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20210701 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20210701 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_17 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 3," + 
 				"\"scheduledCardId\" : \"score36-" + this.getTestId() + "\"} ",
@@ -677,7 +677,7 @@ public abstract class AbstractScoreCard38Scenario extends BaseScenario {
 	
 	private Response when() throws Exception {
 		String uuid = "score38-" + this.getTestId() + "";
-		this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20211001 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+		this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20211001 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScoreCardPayload payload_0 = objectMapper.readValue("{" +
 			"\"scoredCardQuality\" : 3," + 
 			"\"scheduledCardId\" : \"score37-" + this.getTestId() + "\"} ",

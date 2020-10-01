@@ -31,7 +31,7 @@ email:
   tls: true
 
 config:
-  mode: DEV | LIVE | TEST | REPLAY
+  mode: DEV | LIVE
   writeTimeline: NEVER | ALWAYS | ON_ERROR
   
 translationApiKey: <DeepL api key>

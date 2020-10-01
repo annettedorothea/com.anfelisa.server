@@ -18,7 +18,7 @@ import java.util.Optional;
 public class AbstractEmailConfirmationDao {
 	
 	public void insert(PersistenceHandle handle, IEmailConfirmationModel emailConfirmationModel) {
-		Update statement = handle.getHandle().createUpdate("INSERT INTO \"emailconfirmation\" (token, userid) VALUES (:token, :userid)");
+		Update statement = handle.getHandle().createUpdate("INSERT INTO public.emailconfirmation (token, userid) VALUES (:token, :userid)");
 		statement.bind("token",  emailConfirmationModel.getToken() );
 		statement.bind("userid",  emailConfirmationModel.getUserId() );
 		statement.execute();
@@ -26,7 +26,7 @@ public class AbstractEmailConfirmationDao {
 	
 	
 	public void updateByToken(PersistenceHandle handle, IEmailConfirmationModel emailConfirmationModel) {
-		Update statement = handle.getHandle().createUpdate("UPDATE \"emailconfirmation\" SET token = :token, userid = :userid WHERE token = :token");
+		Update statement = handle.getHandle().createUpdate("UPDATE public.emailconfirmation SET token = :token, userid = :userid WHERE token = :token");
 		statement.bind("token",  emailConfirmationModel.getToken() );
 		statement.bind("userid",  emailConfirmationModel.getUserId() );
 		statement.bind("token",  emailConfirmationModel.getToken()  );
@@ -34,13 +34,13 @@ public class AbstractEmailConfirmationDao {
 	}
 
 	public void deleteByToken(PersistenceHandle handle, String token) {
-		Update statement = handle.getHandle().createUpdate("DELETE FROM \"emailconfirmation\" WHERE token = :token");
+		Update statement = handle.getHandle().createUpdate("DELETE FROM public.emailconfirmation WHERE token = :token");
 		statement.bind("token", token);
 		statement.execute();
 	}
 
 	public IEmailConfirmationModel selectByToken(PersistenceHandle handle, String token) {
-		Optional<IEmailConfirmationModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"emailconfirmation\" WHERE token = :token")
+		Optional<IEmailConfirmationModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM public.emailconfirmation WHERE token = :token")
 			.bind("token", token)
 			.map(new EmailConfirmationMapper())
 			.findFirst();
@@ -48,7 +48,7 @@ public class AbstractEmailConfirmationDao {
 	}
 	
 	public IEmailConfirmationModel selectByPrimaryKey(PersistenceHandle handle, String token) {
-		Optional<IEmailConfirmationModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"emailconfirmation\" WHERE token = :token")
+		Optional<IEmailConfirmationModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM public.emailconfirmation WHERE token = :token")
 			.bind("token", token)
 			.map(new EmailConfirmationMapper())
 			.findFirst();
@@ -56,7 +56,7 @@ public class AbstractEmailConfirmationDao {
 	}
 	
 	public int filterAndCountBy(PersistenceHandle handle, Map<String, String> filterMap) {
-		String sql = "SELECT count(*) FROM \"emailconfirmation\"";
+		String sql = "SELECT count(*) FROM public.emailconfirmation";
 		if (filterMap != null) {
 			int i = 0;
 			for(String key : filterMap.keySet()) {
@@ -72,13 +72,13 @@ public class AbstractEmailConfirmationDao {
 	}
 
 	public List<IEmailConfirmationModel> selectAll(PersistenceHandle handle) {
-		return handle.getHandle().createQuery("SELECT token, userid FROM \"emailconfirmation\"")
+		return handle.getHandle().createQuery("SELECT token, userid FROM public.emailconfirmation")
 			.map(new EmailConfirmationMapper())
 			.list();
 	}
 
 	public void truncate(PersistenceHandle handle) {
-		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE \"emailconfirmation\" CASCADE");
+		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE public.emailconfirmation CASCADE");
 		statement.execute();
 	}
 

@@ -11,7 +11,6 @@ import io.dropwizard.setup.Environment;
 import de.acegen.PersistenceConnection;
 import de.acegen.CustomAppConfiguration;
 import de.acegen.IDaoProvider;
-import de.acegen.E2E;
 import de.acegen.ViewProvider;
 
 import com.anfelisa.box.resources.*;
@@ -20,22 +19,22 @@ import com.anfelisa.box.resources.*;
 public class AppRegistration {
 
 	public static void registerResources(Environment environment, PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
-			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
-		environment.jersey().register(new CreateBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new UpdateBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new GetBoxSettingsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new ScheduleCardsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new SortCardsOutResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new ScoreCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new ScoreReinforceCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new InitMyBoxesForDayResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new GetBoxesResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new GetBoxStatisticsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new LoadNextCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
-		environment.jersey().register(new DeleteBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e));
+			IDaoProvider daoProvider, ViewProvider viewProvider) {
+		environment.jersey().register(new CreateBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new UpdateBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new GetBoxSettingsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new ScheduleCardsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new SortCardsOutResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new ScoreCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new ScoreReinforceCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new InitMyBoxesForDayResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new GetBoxesResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new GetBoxStatisticsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new LoadNextCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new DeleteBoxResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 	}
 	
-	public static void registerConsumers(ViewProvider viewProvider, String mode) {
+	public static void registerConsumers(ViewProvider viewProvider) {
 		viewProvider.addConsumer("com.anfelisa.box.events.CreateBoxOkEvent", (dataContainer, handle) -> {
 			viewProvider.rootCategoryView.insert((com.anfelisa.box.data.BoxCreationData) dataContainer, handle);
 		});

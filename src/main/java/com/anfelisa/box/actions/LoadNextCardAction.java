@@ -8,7 +8,6 @@ import com.anfelisa.box.models.INextCardViewModel;
 import com.anfelisa.box.models.ITodaysCardsStatusModel;
 
 import de.acegen.CustomAppConfiguration;
-import de.acegen.E2E;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -18,8 +17,8 @@ public class LoadNextCardAction extends AbstractLoadNextCardAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(LoadNextCardAction.class);
 
-	public LoadNextCardAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
-		super(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e);
+	public LoadNextCardAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
 

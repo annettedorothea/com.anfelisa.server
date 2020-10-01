@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.acegen.CustomAppConfiguration;
-import de.acegen.E2E;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -14,8 +13,8 @@ public class UsernameAvailableAction extends AbstractUsernameAvailableAction {
 
 	static final Logger LOG = LoggerFactory.getLogger(UsernameAvailableAction.class);
 
-	public UsernameAvailableAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
-		super(persistenceConnection,appConfiguration, daoProvider, viewProvider, e2e);
+	public UsernameAvailableAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, ViewProvider viewProvider) {
+		super(persistenceConnection,appConfiguration, daoProvider, viewProvider);
 	}
 
 

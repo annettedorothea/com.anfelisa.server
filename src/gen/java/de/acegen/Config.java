@@ -10,10 +10,8 @@
 	import com.fasterxml.jackson.annotation.JsonProperty;
 
 	public class Config {
-		public static final String REPLAY = "REPLAY";
 		public static final String LIVE = "LIVE";
 		public static final String DEV = "DEV";
-		public static final String TEST = "TEST";
 	
 		public static final String ALWAYS = "ALWAYS";
 		public static final String ON_ERROR = "ON_ERROR";

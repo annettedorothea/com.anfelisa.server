@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
-import de.acegen.NotReplayableDataProvider;
+import de.acegen.NonDeterministicDataProvider;
 
 @SuppressWarnings("unused")
 public abstract class AbstractScheduleCardsEmptyCardIdsScenario extends BaseScenario {
@@ -40,7 +40,7 @@ public abstract class AbstractScheduleCardsEmptyCardIdsScenario extends BaseScen
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.RegisterUserPayload payload_0 = objectMapper.readValue("{" +
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -326,7 +326,7 @@ public abstract class AbstractScheduleCardsEmptyCardIdsScenario extends BaseScen
 
 		if (prerequisite("ScheduleCards")) {
 			uuid = "sc1-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScheduleCardsPayload payload_8 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 				"\"c3-" + this.getTestId() + "\"," + 
@@ -364,7 +364,7 @@ public abstract class AbstractScheduleCardsEmptyCardIdsScenario extends BaseScen
 	
 	private Response when() throws Exception {
 		String uuid = "sc1-empty-" + this.getTestId() + "";
-		this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200419 12:20", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+		this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200419 12:20", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScheduleCardsPayload payload_0 = objectMapper.readValue("{" +
 			"\"cardIds\" : []} ",
 				com.anfelisa.box.data.ScheduleCardsPayload.class);

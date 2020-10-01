@@ -1,9 +1,9 @@
 <createTable tableName="useraccesstocategory">
 	<column name="categoryid" type="character varying">
-		<constraints primaryKey="true" nullable="false"  references="\"category\"(categoryid)" deleteCascade="true" foreignKeyName="fk_\"useraccesstocategory\"_categoryid" />
+		<constraints primaryKey="true" nullable="false"  references="public.category(categoryid)" deleteCascade="true" foreignKeyName="fk_public.useraccesstocategory_categoryid" />
 	</column>
 	<column name="userid" type="character varying">
-		<constraints primaryKey="true" nullable="false"  references="\"user\"(userid)" deleteCascade="true" foreignKeyName="fk_\"useraccesstocategory\"_userid" />
+		<constraints primaryKey="true" nullable="false"  references="public.user(userid)" deleteCascade="true" foreignKeyName="fk_public.useraccesstocategory_userid" />
 	</column>
 	<column name="editable" type="boolean">
 		<constraints    />

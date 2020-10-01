@@ -19,7 +19,6 @@
 
 package com.anfelisa.box.createbox.scenarios;
 
-
 public class CreateBoxCategoryNameBlankScenario extends AbstractCreateBoxCategoryNameBlankScenario {
 
 	

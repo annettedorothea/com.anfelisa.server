@@ -11,7 +11,6 @@ import com.anfelisa.category.models.ICategoryModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
-import de.acegen.E2E;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -23,8 +22,8 @@ public class GetCardsAction extends AbstractGetCardsAction {
 
 	public GetCardsAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration,
 			IDaoProvider daoProvider,
-			ViewProvider viewProvider, E2E e2e) {
-		super(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e);
+			ViewProvider viewProvider) {
+		super(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
 	protected final void loadDataForGetRequest(PersistenceHandle readonlyHandle) {

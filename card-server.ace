@@ -75,7 +75,7 @@ ACE
 			NotNull categoryId
 		on ok (Card.bulkInsert)
 		
-	proxy GetTranslation<CardTranslation>
+	GetTranslation<CardTranslation>
 		GET "/card/translation" 
 		authorize 
 		queryParams 

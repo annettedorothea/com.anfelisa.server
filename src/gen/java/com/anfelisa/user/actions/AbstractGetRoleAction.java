@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.apache.commons.lang3.StringUtils;
 
 import de.acegen.CustomAppConfiguration;
-import de.acegen.E2E;
 import de.acegen.IDaoProvider;
 import de.acegen.IDataContainer;
 import de.acegen.ViewProvider;
@@ -23,7 +22,7 @@ import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
 import de.acegen.ReadAction;
 import de.acegen.ITimelineItem;
-import de.acegen.NotReplayableDataProvider;
+import de.acegen.NonDeterministicDataProvider;
 
 import de.acegen.auth.AuthUser;
 
@@ -36,30 +35,20 @@ public abstract class AbstractGetRoleAction extends ReadAction<IRoleData> {
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetRoleAction.class);
 	
 	public AbstractGetRoleAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, 
-			IDaoProvider daoProvider, ViewProvider viewProvider, E2E e2e) {
+			IDaoProvider daoProvider, ViewProvider viewProvider) {
 		super("com.anfelisa.user.actions.GetRoleAction", persistenceConnection, appConfiguration, daoProvider,
-						viewProvider, e2e);
+						viewProvider);
 	}
 
 	protected abstract void loadDataForGetRequest(PersistenceHandle readonlyHandle);
 
 	@Override
-	protected void initActionDataFrom(ITimelineItem timelineItem) {
-		IDataContainer originalData = AceDataFactory.createAceData(timelineItem.getName(), timelineItem.getData());
-		IRoleData originalActionData = (IRoleData)originalData;
-		this.actionData.setSystemTime(originalActionData.getSystemTime());
-	}
-	
-	@Override
-	protected void initActionDataFromNotReplayableDataProvider() {
-		LocalDateTime systemTime = NotReplayableDataProvider.consumeSystemTime(this.actionData.getUuid());
+	protected void initActionDataFromNonDeterministicDataProvider() {
+		LocalDateTime systemTime = NonDeterministicDataProvider.consumeSystemTime(this.actionData.getUuid());
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
-		} else {
-			this.actionData.setSystemTime(LocalDateTime.now());
 		}
 	}
-
 
 }
 

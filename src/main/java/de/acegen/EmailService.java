@@ -17,7 +17,7 @@ public class EmailService {
 	}
 
 	public void sendEmail(String to, String subject, String message) {
-		if (Config.TEST.equals(configuration.getConfig().getMode())) {
+		if (Config.DEV.equals(configuration.getConfig().getMode())) {
 			return;
 		}
 		try {
@@ -25,31 +25,28 @@ public class EmailService {
 			email.setHostName(configuration.getEmail().getHost());
 			email.setSmtpPort(configuration.getEmail().getPort());
 			email.setAuthenticator(
-					new DefaultAuthenticator(configuration.getEmail().getUser(), configuration.getEmail().getPassword()));
+					new DefaultAuthenticator(configuration.getEmail().getUser(),
+							configuration.getEmail().getPassword()));
 			email.setStartTLSEnabled(configuration.getEmail().isTls());
 			email.setFrom(configuration.getEmail().getUser());
 			email.setMsg(message);
-			if (Config.LIVE.equals(configuration.getConfig().getMode())) {
-				email.addTo(to);
-				email.setSubject(subject);
-			} else {
-				email.addTo(configuration.getEmail().getUser());
-				email.setSubject("to " +  to + " subject " + subject);
-			}
+			email.addTo(to);
+			email.setSubject(subject);
 			email.send();
 		} catch (EmailException e) {
 			e.printStackTrace();
 			throw new WebApplicationException("failedToSendEmail", Response.Status.BAD_REQUEST);
 		}
 	}
-	
+
 	public void sendAdminEmail(String subject, String message) {
 		try {
 			Email email = new SimpleEmail();
 			email.setHostName(configuration.getEmail().getHost());
 			email.setSmtpPort(configuration.getEmail().getPort());
 			email.setAuthenticator(
-					new DefaultAuthenticator(configuration.getEmail().getUser(), configuration.getEmail().getPassword()));
+					new DefaultAuthenticator(configuration.getEmail().getUser(),
+							configuration.getEmail().getPassword()));
 			email.setStartTLSEnabled(true);
 			email.setFrom(configuration.getEmail().getUser());
 			email.setSubject(subject);
@@ -61,7 +58,7 @@ public class EmailService {
 			throw new WebApplicationException("failedToSendEmail", Response.Status.BAD_REQUEST);
 		}
 	}
-	
+
 	public String getLocalhost() {
 		return configuration.getEmail().getLocalhost();
 	}

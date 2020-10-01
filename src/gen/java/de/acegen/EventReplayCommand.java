@@ -5,9 +5,11 @@
 
 
 
+
 package de.acegen;
 
 import java.util.List;
+import java.util.Scanner;
 
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
@@ -30,9 +32,14 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 	@Override
 	protected void run(Environment environment, Namespace namespace, CustomAppConfiguration configuration)
 			throws Exception {
-		if (Config.LIVE.equals(configuration.getConfig().getMode())) {
-			throw new RuntimeException("we won't truncate all views and replay events in a live environment");
-		}
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("The database is going to be cleared before replaying events. Continue? Confirm with yes: ");
+		String input = scanner.nextLine();
+		scanner.close();
+        if (!input.equals("yes")) {
+        	System.out.print("Event replay aborted.");
+        	return;
+        }
 
 		IDaoProvider daoProvider = DaoProvider.create();
 		ViewProvider viewProvider = ViewProvider.create(daoProvider, configuration);
@@ -41,15 +48,15 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 		Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "data-source-name");
 		DatabaseHandle databaseHandle = new DatabaseHandle(jdbi, configuration);
 
-		AppRegistration.registerConsumers(viewProvider, Config.REPLAY);
+		AppRegistration.registerConsumers(viewProvider);
 
-		LOG.info("START EVENT REPLAY");
 		try {
 			databaseHandle.beginTransaction();
 			PersistenceHandle handle = databaseHandle.getHandle();
 			daoProvider.truncateAllViews(handle);
 
 			List<ITimelineItem> timeline = daoProvider.getAceDao().selectReplayTimeline(handle);
+			LOG.info("START EVENT REPLAY: found {} events", timeline.size());
 
 			int i = 0;
 			for (ITimelineItem nextEvent : timeline) {
@@ -60,9 +67,9 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 					if (i%1000 == 0) {
 						LOG.info("published " + i + " events");
 					}
-					//LOG.info("published " + nextEvent.getUuid() + " - " + nextEvent.getName());
+					LOG.info("published " + nextEvent.getUuid() + " - " + nextEvent.getName());
 				} else {
-					LOG.info("event " + nextEvent.getName() + " seems to be obsolete and was not replayed");
+					LOG.info("event " + nextEvent.getName() + " was not replayed");
 				}
 			}
 
@@ -81,6 +88,7 @@ public class EventReplayCommand extends EnvironmentCommand<CustomAppConfiguratio
 	}
 
 }
+
 
 
 

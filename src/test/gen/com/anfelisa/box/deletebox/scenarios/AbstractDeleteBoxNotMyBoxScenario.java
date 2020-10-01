@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
-import de.acegen.NotReplayableDataProvider;
+import de.acegen.NonDeterministicDataProvider;
 
 @SuppressWarnings("unused")
 public abstract class AbstractDeleteBoxNotMyBoxScenario extends BaseScenario {
@@ -40,7 +40,7 @@ public abstract class AbstractDeleteBoxNotMyBoxScenario extends BaseScenario {
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"TOKEN-" + this.getTestId() + "\"",  String.class));
 			com.anfelisa.user.data.RegisterUserPayload payload_0 = objectMapper.readValue("{" +
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -326,7 +326,7 @@ public abstract class AbstractDeleteBoxNotMyBoxScenario extends BaseScenario {
 
 		if (prerequisite("ScheduleCards")) {
 			uuid = "sc1-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScheduleCardsPayload payload_8 = objectMapper.readValue("{" +
 				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
 				"\"c3-" + this.getTestId() + "\"," + 
@@ -362,7 +362,7 @@ public abstract class AbstractDeleteBoxNotMyBoxScenario extends BaseScenario {
 
 		if (prerequisite("ScoreCard0")) {
 			uuid = "score0-" + this.getTestId() + "";
-			this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 			com.anfelisa.box.data.ScoreCardPayload payload_9 = objectMapper.readValue("{" +
 				"\"scoredCardQuality\" : 0," + 
 				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",

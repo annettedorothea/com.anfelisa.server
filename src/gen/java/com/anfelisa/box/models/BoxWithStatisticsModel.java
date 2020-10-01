@@ -45,6 +45,8 @@ public class BoxWithStatisticsModel implements IBoxWithStatisticsModel {
 	private Integer maxCardsPerDay;
 
 
+	public BoxWithStatisticsModel() {
+	}
 
 	public BoxWithStatisticsModel(
 		@JsonProperty("openTodaysCards") Integer openTodaysCards,

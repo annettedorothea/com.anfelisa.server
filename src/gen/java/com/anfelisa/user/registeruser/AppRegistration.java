@@ -12,7 +12,7 @@
 	@SuppressWarnings("all")
 	public class AppRegistration {
 	
-		public static void registerConsumers(ViewProvider viewProvider, String mode) {
+		public static void registerConsumers(ViewProvider viewProvider) {
 		}
 
 	}

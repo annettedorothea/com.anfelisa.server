@@ -29,7 +29,6 @@ import org.slf4j.LoggerFactory;
 import com.anfelisa.box.models.IBoxStatisticsModel;
 
 import de.acegen.CustomAppConfiguration;
-import de.acegen.E2E;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -40,8 +39,8 @@ public class GetBoxStatisticsAction extends AbstractGetBoxStatisticsAction {
 	static final Logger LOG = LoggerFactory.getLogger(GetBoxStatisticsAction.class);
 
 	public GetBoxStatisticsAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider, 
-			ViewProvider viewProvider, E2E e2e) {
-		super(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e);
+			ViewProvider viewProvider) {
+		super(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
 

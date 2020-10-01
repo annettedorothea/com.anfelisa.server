@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import de.acegen.BaseScenario;
 import de.acegen.ITimelineItem;
-import de.acegen.NotReplayableDataProvider;
+import de.acegen.NonDeterministicDataProvider;
 
 @SuppressWarnings("unused")
 public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario {
@@ -40,7 +40,7 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 		
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin";
-			this.callNotReplayableDataProviderPutValue(uuid, "token", 
+			this.callNonDeterministicDataProviderPutValue(uuid, "token", 
 						objectMapper.readValue("\"ADMIN-TOKEN\"",  String.class));
 			com.anfelisa.user.data.RegisterUserPayload payload_0 = objectMapper.readValue("{" +
 				"\"email\" : \"annette.pohl@anfelisa.de\"," + 
@@ -186,7 +186,7 @@ public abstract class AbstractScheduleCardsAsAdminScenario extends BaseScenario 
 	
 	private Response when() throws Exception {
 		String uuid = "sc6-" + this.getTestId() + "";
-		this.callNotReplayableDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
+		this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
 		com.anfelisa.box.data.ScheduleCardsPayload payload_0 = objectMapper.readValue("{" +
 			"\"cardIds\" : [ \"c6-" + this.getTestId() + "\"]} ",
 				com.anfelisa.box.data.ScheduleCardsPayload.class);

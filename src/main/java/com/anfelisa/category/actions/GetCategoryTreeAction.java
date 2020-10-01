@@ -9,7 +9,6 @@ import com.anfelisa.category.models.ICategoryTreeItemModel;
 import com.anfelisa.category.models.IUserAccessToCategoryModel;
 
 import de.acegen.CustomAppConfiguration;
-import de.acegen.E2E;
 import de.acegen.IDaoProvider;
 import de.acegen.PersistenceConnection;
 import de.acegen.PersistenceHandle;
@@ -20,8 +19,8 @@ public class GetCategoryTreeAction extends AbstractGetCategoryTreeAction {
 	static final Logger LOG = LoggerFactory.getLogger(GetCategoryTreeAction.class);
 
 	public GetCategoryTreeAction(PersistenceConnection persistenceConnection, CustomAppConfiguration appConfiguration, IDaoProvider daoProvider,
-			ViewProvider viewProvider, E2E e2e) {
-		super(persistenceConnection, appConfiguration, daoProvider, viewProvider, e2e);
+			ViewProvider viewProvider) {
+		super(persistenceConnection, appConfiguration, daoProvider, viewProvider);
 	}
 
 	protected final void loadDataForGetRequest(PersistenceHandle readonlyHandle) {
