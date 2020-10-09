@@ -411,6 +411,8 @@ public abstract class AbstractInitMyBoxesForDayTodayAtMidnightInUTCNullScenario 
 			this.noChange3();
 			this.noChange4();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for InitMyBoxesForDayTodayAtMidnightInUTCNull not met");
 		}

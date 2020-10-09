@@ -416,6 +416,8 @@ public abstract class AbstractScoreCard2Scenario extends BaseScenario {
 			this.newScheduledCardWasCreated();
 			this.reinforceCardWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCard2 not met");
 		}

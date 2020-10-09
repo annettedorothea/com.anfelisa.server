@@ -418,6 +418,8 @@ public abstract class AbstractMoveCardsScenario extends BaseScenario {
 			this.fourthCard();
 			this.fifthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCards not met");
 		}

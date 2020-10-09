@@ -163,6 +163,8 @@ public abstract class AbstractCreateCategoryParentCategoryIsNullScenario extends
 			
 			this.categoryWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryParentCategoryIsNull not met");
 		}

@@ -186,6 +186,8 @@ public abstract class AbstractGetUserProfileScenario extends BaseScenario {
 			com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetUserProfile not met");
 		}

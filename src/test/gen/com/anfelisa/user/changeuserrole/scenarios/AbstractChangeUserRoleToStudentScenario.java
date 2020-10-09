@@ -202,6 +202,8 @@ public abstract class AbstractChangeUserRoleToStudentScenario extends BaseScenar
 			
 			this.roleWasChangedToSTUDENT();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeUserRoleToStudent not met");
 		}

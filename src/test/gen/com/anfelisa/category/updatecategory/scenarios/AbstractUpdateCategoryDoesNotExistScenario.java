@@ -197,6 +197,8 @@ public abstract class AbstractUpdateCategoryDoesNotExistScenario extends BaseSce
 			then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCategoryDoesNotExist not met");
 		}

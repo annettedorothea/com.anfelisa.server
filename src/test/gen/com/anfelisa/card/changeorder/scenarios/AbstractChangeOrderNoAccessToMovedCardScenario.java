@@ -380,6 +380,8 @@ public abstract class AbstractChangeOrderNoAccessToMovedCardScenario extends Bas
 			this.firstCard();
 			this.sixthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderNoAccessToMovedCard not met");
 		}

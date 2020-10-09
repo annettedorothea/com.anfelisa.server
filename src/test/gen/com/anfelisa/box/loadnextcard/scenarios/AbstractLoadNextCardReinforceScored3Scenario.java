@@ -612,6 +612,8 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for LoadNextCardReinforceScored3 not met");
 		}

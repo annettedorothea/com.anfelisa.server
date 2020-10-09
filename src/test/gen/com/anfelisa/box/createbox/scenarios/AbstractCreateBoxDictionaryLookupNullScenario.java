@@ -132,6 +132,8 @@ public abstract class AbstractCreateBoxDictionaryLookupNullScenario extends Base
 			this.accessToCategoryWasGranted();
 			this.boxWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateBoxDictionaryLookupNull not met");
 		}

@@ -124,6 +124,8 @@ public abstract class AbstractDeleteUserLastAdminScenario extends BaseScenario {
 			
 			this.userWasNotDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteUserLastAdmin not met");
 		}

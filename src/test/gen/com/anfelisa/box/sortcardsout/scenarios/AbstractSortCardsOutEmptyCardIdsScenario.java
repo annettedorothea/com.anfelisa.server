@@ -413,6 +413,8 @@ public abstract class AbstractSortCardsOutEmptyCardIdsScenario extends BaseScena
 			this.card3WasNotSortedOut();
 			this.card4WasNotSortedOut();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for SortCardsOutEmptyCardIds not met");
 		}

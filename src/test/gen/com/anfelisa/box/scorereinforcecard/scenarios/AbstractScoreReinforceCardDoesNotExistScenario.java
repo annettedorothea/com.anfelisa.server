@@ -447,6 +447,8 @@ public abstract class AbstractScoreReinforceCardDoesNotExistScenario extends Bas
 			then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreReinforceCardDoesNotExist not met");
 		}

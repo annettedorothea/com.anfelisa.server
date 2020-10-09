@@ -228,6 +228,8 @@ public abstract class AbstractGetAllUsersAdminScenario extends BaseScenario {
 			com.anfelisa.user.data.GetAllUsersResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetAllUsersAdmin not met");
 		}

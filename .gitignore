@@ -12,3 +12,4 @@ test.yml
 event-replay.yml
 logs
 .idea
+live-db.yml

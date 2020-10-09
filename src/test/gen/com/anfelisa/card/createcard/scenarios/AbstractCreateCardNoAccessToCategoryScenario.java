@@ -241,6 +241,8 @@ public abstract class AbstractCreateCardNoAccessToCategoryScenario extends BaseS
 			
 			this.cardWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardNoAccessToCategory not met");
 		}

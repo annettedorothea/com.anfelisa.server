@@ -235,6 +235,8 @@ public abstract class AbstractGetCategoryTreeWithDictionaryLookupScenario extend
 			com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetCategoryTreeWithDictionaryLookup not met");
 		}

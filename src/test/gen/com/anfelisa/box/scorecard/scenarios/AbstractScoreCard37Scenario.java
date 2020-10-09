@@ -693,6 +693,8 @@ public abstract class AbstractScoreCard37Scenario extends BaseScenario {
 			
 			this.newScheduledCardWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCard37 not met");
 		}

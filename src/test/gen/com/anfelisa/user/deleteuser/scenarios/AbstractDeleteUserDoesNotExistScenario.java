@@ -123,6 +123,8 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 			then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteUserDoesNotExist not met");
 		}

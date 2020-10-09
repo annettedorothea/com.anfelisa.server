@@ -454,6 +454,8 @@ public abstract class AbstractSortCardsOutNotMyCardsScenario extends BaseScenari
 			this.card3WasNotSortedOut();
 			this.card4WasNotSortedOut();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for SortCardsOutNotMyCards not met");
 		}

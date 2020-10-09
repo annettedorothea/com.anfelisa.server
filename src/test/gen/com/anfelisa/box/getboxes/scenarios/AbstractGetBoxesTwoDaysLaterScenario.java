@@ -565,6 +565,8 @@ public abstract class AbstractGetBoxesTwoDaysLaterScenario extends BaseScenario 
 			com.anfelisa.box.data.GetBoxesResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetBoxesTwoDaysLater not met");
 		}

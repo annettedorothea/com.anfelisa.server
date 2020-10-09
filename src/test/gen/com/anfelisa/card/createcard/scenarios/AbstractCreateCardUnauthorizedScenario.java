@@ -202,6 +202,8 @@ public abstract class AbstractCreateCardUnauthorizedScenario extends BaseScenari
 			
 			this.cardWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardUnauthorized not met");
 		}

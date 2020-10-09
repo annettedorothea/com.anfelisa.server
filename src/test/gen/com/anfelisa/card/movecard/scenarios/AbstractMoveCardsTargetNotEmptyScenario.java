@@ -453,6 +453,8 @@ public abstract class AbstractMoveCardsTargetNotEmptyScenario extends BaseScenar
 			this.fourthCard();
 			this.fifthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCardsTargetNotEmpty not met");
 		}

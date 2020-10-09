@@ -266,6 +266,8 @@ public abstract class AbstractDeleteCardScenario extends BaseScenario {
 			
 			this.cardWasDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCard not met");
 		}

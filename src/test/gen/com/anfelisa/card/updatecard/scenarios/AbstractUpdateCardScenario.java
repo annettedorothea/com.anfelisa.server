@@ -239,6 +239,8 @@ public abstract class AbstractUpdateCardScenario extends BaseScenario {
 			
 			this.wasUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCard not met");
 		}

@@ -139,6 +139,8 @@ public abstract class AbstractRegisterTwoUsersScenario extends BaseScenario {
 			this.secondUserWasCreated();
 			this.secondEmailConfirmationWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for RegisterTwoUsers not met");
 		}

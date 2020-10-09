@@ -448,6 +448,8 @@ public abstract class AbstractScoreReinforceCard2Scenario extends BaseScenario {
 			
 			this.reinforceCardWasUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreReinforceCard2 not met");
 		}

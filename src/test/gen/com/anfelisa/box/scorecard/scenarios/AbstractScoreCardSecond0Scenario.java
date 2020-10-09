@@ -485,6 +485,8 @@ public abstract class AbstractScoreCardSecond0Scenario extends BaseScenario {
 			
 			this.scheduledOneDayLater();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCardSecond0 not met");
 		}

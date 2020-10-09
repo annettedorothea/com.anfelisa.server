@@ -418,6 +418,8 @@ public abstract class AbstractMoveCardsUnauthorizedScenario extends BaseScenario
 			this.fourthCard();
 			this.fifthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCardsUnauthorized not met");
 		}

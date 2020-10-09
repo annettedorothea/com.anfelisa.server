@@ -266,6 +266,8 @@ public abstract class AbstractMoveCategoryToSubScenario extends BaseScenario {
 			this.indexOfSecondCategoryWasShifted();
 			this.firstWasMoved();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCategoryToSub not met");
 		}

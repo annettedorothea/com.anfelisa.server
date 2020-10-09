@@ -172,6 +172,8 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 			this.tokenIsNotDeleted();
 			this.otherTokenIsNotDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ConfirmEmailTokenDoesNotMatch not met");
 		}

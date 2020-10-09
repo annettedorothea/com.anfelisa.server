@@ -300,6 +300,8 @@ public abstract class AbstractChangeOrderFourthToFirstScenario extends BaseScena
 			this.cat3AtIndex4();
 			this.cat4AtIndex1();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderFourthToFirst not met");
 		}

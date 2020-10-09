@@ -656,6 +656,8 @@ public abstract class AbstractDeleteBoxCascadesAllScenario extends BaseScenario 
 			this.allScheduledCardsWereDeleted();
 			this.allReinforceCardsWereDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteBoxCascadesAll not met");
 		}

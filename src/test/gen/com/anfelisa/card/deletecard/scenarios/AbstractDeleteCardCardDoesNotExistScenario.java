@@ -228,6 +228,8 @@ public abstract class AbstractDeleteCardCardDoesNotExistScenario extends BaseSce
 			then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCardCardDoesNotExist not met");
 		}

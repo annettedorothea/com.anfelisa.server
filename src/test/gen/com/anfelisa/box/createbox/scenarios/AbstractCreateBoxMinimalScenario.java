@@ -134,6 +134,8 @@ public abstract class AbstractCreateBoxMinimalScenario extends BaseScenario {
 			this.accessToCategoryWasGranted();
 			this.boxWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateBoxMinimal not met");
 		}

@@ -237,6 +237,8 @@ public abstract class AbstractUpdateCategoryNoAccessScenario extends BaseScenari
 			
 			this.categoryWasNotChanged();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCategoryNoAccess not met");
 		}

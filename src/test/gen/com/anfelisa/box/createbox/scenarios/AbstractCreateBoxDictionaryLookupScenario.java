@@ -138,6 +138,8 @@ public abstract class AbstractCreateBoxDictionaryLookupScenario extends BaseScen
 			this.accessToCategoryWasGranted();
 			this.boxWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateBoxDictionaryLookup not met");
 		}

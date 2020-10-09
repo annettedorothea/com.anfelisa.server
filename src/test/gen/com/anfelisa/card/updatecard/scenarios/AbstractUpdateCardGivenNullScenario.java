@@ -237,6 +237,8 @@ public abstract class AbstractUpdateCardGivenNullScenario extends BaseScenario {
 			
 			this.wasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCardGivenNull not met");
 		}

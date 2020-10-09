@@ -174,6 +174,8 @@ public abstract class AbstractGetUserProfileWrongPasswordScenario extends BaseSc
 			com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetUserProfileWrongPassword not met");
 		}

@@ -829,6 +829,8 @@ public abstract class AbstractScoreCardMinimumQFactorScenario extends BaseScenar
 			
 			this.minimumQFactor();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCardMinimumQFactor not met");
 		}

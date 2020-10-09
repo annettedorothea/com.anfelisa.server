@@ -227,6 +227,8 @@ public abstract class AbstractDeleteCardMissingCardIdScenario extends BaseScenar
 			then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCardMissingCardId not met");
 		}

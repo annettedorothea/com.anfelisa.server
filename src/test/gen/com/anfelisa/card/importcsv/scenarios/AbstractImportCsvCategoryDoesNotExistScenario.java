@@ -202,6 +202,8 @@ public abstract class AbstractImportCsvCategoryDoesNotExistScenario extends Base
 			
 			this.cardWasNoCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ImportCsvCategoryDoesNotExist not met");
 		}

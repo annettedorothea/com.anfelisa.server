@@ -202,6 +202,8 @@ public abstract class AbstractImportCsvUnauthorizedScenario extends BaseScenario
 			
 			this.cardWasNoCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ImportCsvUnauthorized not met");
 		}

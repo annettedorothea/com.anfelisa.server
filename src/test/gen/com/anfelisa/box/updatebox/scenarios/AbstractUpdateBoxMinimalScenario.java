@@ -172,6 +172,8 @@ public abstract class AbstractUpdateBoxMinimalScenario extends BaseScenario {
 			this.categoryWasUpdated();
 			this.boxWasUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxMinimal not met");
 		}

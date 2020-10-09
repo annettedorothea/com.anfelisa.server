@@ -270,6 +270,8 @@ public abstract class AbstractScoreCardAsAdminScenario extends BaseScenario {
 			this.newScheduledCardWasCreated();
 			this.reinforceCardWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCardAsAdmin not met");
 		}

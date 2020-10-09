@@ -348,6 +348,8 @@ public abstract class AbstractCreateFifthCardScenario extends BaseScenario {
 			this.fourthCard();
 			this.fifthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateFifthCard not met");
 		}

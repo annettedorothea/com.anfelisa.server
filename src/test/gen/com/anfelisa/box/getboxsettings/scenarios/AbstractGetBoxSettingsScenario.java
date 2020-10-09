@@ -184,6 +184,8 @@ public abstract class AbstractGetBoxSettingsScenario extends BaseScenario {
 			com.anfelisa.box.data.GetBoxSettingsResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetBoxSettings not met");
 		}

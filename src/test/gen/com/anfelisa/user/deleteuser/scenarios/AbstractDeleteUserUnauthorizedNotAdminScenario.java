@@ -163,6 +163,8 @@ public abstract class AbstractDeleteUserUnauthorizedNotAdminScenario extends Bas
 			
 			this.userWasNotDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteUserUnauthorizedNotAdmin not met");
 		}

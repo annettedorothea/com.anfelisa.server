@@ -135,6 +135,8 @@ public abstract class AbstractGetRoleWrongPasswordScenario extends BaseScenario 
 			com.anfelisa.user.data.GetRoleResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetRoleWrongPassword not met");
 		}

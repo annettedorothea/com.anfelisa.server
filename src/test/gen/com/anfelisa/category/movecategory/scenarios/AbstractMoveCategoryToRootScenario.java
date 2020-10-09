@@ -266,6 +266,8 @@ public abstract class AbstractMoveCategoryToRootScenario extends BaseScenario {
 			this.secondCategoryWasNotTouched();
 			this.firstCategoryWasNotTouched();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCategoryToRoot not met");
 		}

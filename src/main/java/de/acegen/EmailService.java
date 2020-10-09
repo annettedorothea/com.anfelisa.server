@@ -39,26 +39,6 @@ public class EmailService {
 		}
 	}
 
-	public void sendAdminEmail(String subject, String message) {
-		try {
-			Email email = new SimpleEmail();
-			email.setHostName(configuration.getEmail().getHost());
-			email.setSmtpPort(configuration.getEmail().getPort());
-			email.setAuthenticator(
-					new DefaultAuthenticator(configuration.getEmail().getUser(),
-							configuration.getEmail().getPassword()));
-			email.setStartTLSEnabled(true);
-			email.setFrom(configuration.getEmail().getUser());
-			email.setSubject(subject);
-			email.setMsg(message);
-			email.addTo(configuration.getEmail().getUser());
-			email.send();
-		} catch (EmailException e) {
-			e.printStackTrace();
-			throw new WebApplicationException("failedToSendEmail", Response.Status.BAD_REQUEST);
-		}
-	}
-
 	public String getLocalhost() {
 		return configuration.getEmail().getLocalhost();
 	}

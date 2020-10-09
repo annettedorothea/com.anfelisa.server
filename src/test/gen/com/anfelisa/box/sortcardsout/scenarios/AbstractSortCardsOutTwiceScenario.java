@@ -448,6 +448,8 @@ public abstract class AbstractSortCardsOutTwiceScenario extends BaseScenario {
 			this.card3WasNotSortedOut();
 			this.card4WasSortedOut();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for SortCardsOutTwice not met");
 		}

@@ -379,6 +379,8 @@ public abstract class AbstractScheduleCardsUnauthorizedScenario extends BaseScen
 			this.card2WasNotScheduled();
 			this.card5WasNotScheduled();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScheduleCardsUnauthorized not met");
 		}

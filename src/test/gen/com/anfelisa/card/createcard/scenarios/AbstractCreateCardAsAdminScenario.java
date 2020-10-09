@@ -202,6 +202,8 @@ public abstract class AbstractCreateCardAsAdminScenario extends BaseScenario {
 			
 			this.cardWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardAsAdmin not met");
 		}

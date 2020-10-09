@@ -165,6 +165,8 @@ public abstract class AbstractCreateCategoryScenario extends BaseScenario {
 			
 			this.categoryWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategory not met");
 		}

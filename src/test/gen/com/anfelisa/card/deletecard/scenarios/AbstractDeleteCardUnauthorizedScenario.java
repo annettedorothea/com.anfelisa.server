@@ -229,6 +229,8 @@ public abstract class AbstractDeleteCardUnauthorizedScenario extends BaseScenari
 			
 			this.cardWasNotDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCardUnauthorized not met");
 		}

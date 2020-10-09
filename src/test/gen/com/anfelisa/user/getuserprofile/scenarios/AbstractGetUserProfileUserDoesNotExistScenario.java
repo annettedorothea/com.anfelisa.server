@@ -174,6 +174,8 @@ public abstract class AbstractGetUserProfileUserDoesNotExistScenario extends Bas
 			com.anfelisa.user.data.GetUserProfileResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetUserProfileUserDoesNotExist not met");
 		}

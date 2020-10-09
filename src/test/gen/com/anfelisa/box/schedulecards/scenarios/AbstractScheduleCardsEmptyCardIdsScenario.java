@@ -414,6 +414,8 @@ public abstract class AbstractScheduleCardsEmptyCardIdsScenario extends BaseScen
 			this.card3NoChange();
 			this.card4NoChange();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScheduleCardsEmptyCardIds not met");
 		}

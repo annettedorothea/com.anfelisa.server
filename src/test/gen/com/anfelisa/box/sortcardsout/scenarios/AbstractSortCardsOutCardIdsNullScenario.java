@@ -408,6 +408,8 @@ public abstract class AbstractSortCardsOutCardIdsNullScenario extends BaseScenar
 			then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for SortCardsOutCardIdsNull not met");
 		}

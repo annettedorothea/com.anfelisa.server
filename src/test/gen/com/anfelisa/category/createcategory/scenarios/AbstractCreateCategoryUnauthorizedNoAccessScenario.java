@@ -204,6 +204,8 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 			
 			this.categoryWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryUnauthorizedNoAccess not met");
 		}

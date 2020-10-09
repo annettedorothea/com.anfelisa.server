@@ -513,6 +513,8 @@ public abstract class AbstractScheduleSortedOutCardScenario extends BaseScenario
 			
 			this.cardWasScheduled();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScheduleSortedOutCard not met");
 		}

@@ -184,6 +184,8 @@ public abstract class AbstractGetRoleStudentScenario extends BaseScenario {
 			com.anfelisa.user.data.GetRoleResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetRoleStudent not met");
 		}

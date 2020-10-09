@@ -523,6 +523,8 @@ public abstract class AbstractScoreCard32Scenario extends BaseScenario {
 			
 			this.newScheduledCardWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCard32 not met");
 		}

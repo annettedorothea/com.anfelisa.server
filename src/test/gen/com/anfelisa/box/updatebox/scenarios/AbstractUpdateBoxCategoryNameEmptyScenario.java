@@ -170,6 +170,8 @@ public abstract class AbstractUpdateBoxCategoryNameEmptyScenario extends BaseSce
 			this.categoryWasNotUpdated();
 			this.boxWasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxCategoryNameEmpty not met");
 		}

@@ -446,6 +446,8 @@ public abstract class AbstractDeleteBoxNotMyBoxScenario extends BaseScenario {
 			this.allScheduledCardsWereNotDeleted();
 			this.allReinforceCardsWereNotDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteBoxNotMyBox not met");
 		}

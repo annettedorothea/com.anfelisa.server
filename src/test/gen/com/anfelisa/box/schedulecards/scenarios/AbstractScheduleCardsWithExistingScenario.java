@@ -418,6 +418,8 @@ public abstract class AbstractScheduleCardsWithExistingScenario extends BaseScen
 			this.card2WasScheduled();
 			this.card5WasScheduled();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScheduleCardsWithExisting not met");
 		}

@@ -459,6 +459,8 @@ public abstract class AbstractLoadNextCardNotMyBoxScenario extends BaseScenario 
 			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for LoadNextCardNotMyBox not met");
 		}

@@ -167,6 +167,8 @@ public abstract class AbstractUpdateBoxCategoryIdNullScenario extends BaseScenar
 			
 			this.boxWasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxCategoryIdNull not met");
 		}

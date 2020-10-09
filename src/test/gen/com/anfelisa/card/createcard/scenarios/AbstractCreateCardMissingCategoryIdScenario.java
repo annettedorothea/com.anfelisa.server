@@ -200,6 +200,8 @@ public abstract class AbstractCreateCardMissingCategoryIdScenario extends BaseSc
 			
 			this.cardWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardMissingCategoryId not met");
 		}

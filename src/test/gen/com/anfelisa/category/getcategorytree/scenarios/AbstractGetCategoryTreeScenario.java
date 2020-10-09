@@ -308,6 +308,8 @@ public abstract class AbstractGetCategoryTreeScenario extends BaseScenario {
 			com.anfelisa.category.data.GetCategoryTreeResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetCategoryTree not met");
 		}

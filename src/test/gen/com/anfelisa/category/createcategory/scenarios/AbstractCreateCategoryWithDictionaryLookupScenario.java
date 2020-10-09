@@ -169,6 +169,8 @@ public abstract class AbstractCreateCategoryWithDictionaryLookupScenario extends
 			
 			this.categoryWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryWithDictionaryLookup not met");
 		}

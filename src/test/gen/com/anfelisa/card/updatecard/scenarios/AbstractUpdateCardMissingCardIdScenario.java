@@ -237,6 +237,8 @@ public abstract class AbstractUpdateCardMissingCardIdScenario extends BaseScenar
 			
 			this.wasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCardMissingCardId not met");
 		}

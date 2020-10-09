@@ -124,6 +124,8 @@ public abstract class AbstractDeleteUserUnauthorizedScenario extends BaseScenari
 			
 			this.userWasNotDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteUserUnauthorized not met");
 		}

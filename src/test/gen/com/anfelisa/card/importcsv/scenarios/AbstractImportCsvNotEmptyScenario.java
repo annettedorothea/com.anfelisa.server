@@ -253,6 +253,8 @@ public abstract class AbstractImportCsvNotEmptyScenario extends BaseScenario {
 			this.secondCard();
 			this.thirdCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ImportCsvNotEmpty not met");
 		}

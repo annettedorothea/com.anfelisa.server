@@ -158,6 +158,8 @@ public abstract class AbstractDeleteBoxDoesNotExistScenario extends BaseScenario
 			then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteBoxDoesNotExist not met");
 		}

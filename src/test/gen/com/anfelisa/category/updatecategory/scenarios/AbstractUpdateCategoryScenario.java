@@ -198,6 +198,8 @@ public abstract class AbstractUpdateCategoryScenario extends BaseScenario {
 			
 			this.categoryWasUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCategory not met");
 		}

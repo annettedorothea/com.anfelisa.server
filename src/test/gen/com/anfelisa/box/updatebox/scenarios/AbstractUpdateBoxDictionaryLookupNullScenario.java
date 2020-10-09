@@ -173,6 +173,8 @@ public abstract class AbstractUpdateBoxDictionaryLookupNullScenario extends Base
 			
 			this.categoryWasUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxDictionaryLookupNull not met");
 		}

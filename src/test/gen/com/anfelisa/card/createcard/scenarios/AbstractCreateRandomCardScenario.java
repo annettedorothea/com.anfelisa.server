@@ -200,6 +200,8 @@ public abstract class AbstractCreateRandomCardScenario extends BaseScenario {
 			
 			this.randomCardWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateRandomCard not met");
 		}

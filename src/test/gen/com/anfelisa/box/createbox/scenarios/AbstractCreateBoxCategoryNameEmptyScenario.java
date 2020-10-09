@@ -134,6 +134,8 @@ public abstract class AbstractCreateBoxCategoryNameEmptyScenario extends BaseSce
 			this.accessWasNotGranted();
 			this.boxWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateBoxCategoryNameEmpty not met");
 		}

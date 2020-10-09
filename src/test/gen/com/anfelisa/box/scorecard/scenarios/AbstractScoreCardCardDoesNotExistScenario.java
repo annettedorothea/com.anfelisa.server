@@ -413,6 +413,8 @@ public abstract class AbstractScoreCardCardDoesNotExistScenario extends BaseScen
 			then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCardCardDoesNotExist not met");
 		}

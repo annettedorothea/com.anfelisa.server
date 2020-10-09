@@ -175,6 +175,8 @@ public abstract class AbstractUpdateBoxGivenLanguageInvalidScenario extends Base
 			
 			this.categoryWasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxGivenLanguageInvalid not met");
 		}

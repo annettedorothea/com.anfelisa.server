@@ -413,6 +413,8 @@ public abstract class AbstractInitMyBoxesForDayUnauthorizedScenario extends Base
 			this.dateWasNotChangedForThirdCard();
 			this.dateWasNotChangedForFourthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for InitMyBoxesForDayUnauthorized not met");
 		}

@@ -139,6 +139,8 @@ public abstract class AbstractRegisterUserUsernameAlreadyTakenScenario extends B
 			this.existingUserWasNotTouched();
 			this.existingEmailConfirmationWasNotTouched();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for RegisterUserUsernameAlreadyTaken not met");
 		}

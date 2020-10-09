@@ -226,6 +226,8 @@ public abstract class AbstractDeleteCategoryScenario extends BaseScenario {
 			this.categoryWasDeleted();
 			this.indexWasShifted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCategory not met");
 		}

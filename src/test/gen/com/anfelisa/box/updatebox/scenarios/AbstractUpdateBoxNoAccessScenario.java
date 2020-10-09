@@ -209,6 +209,8 @@ public abstract class AbstractUpdateBoxNoAccessScenario extends BaseScenario {
 			this.categoryWasNotUpdated();
 			this.boxWasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxNoAccess not met");
 		}

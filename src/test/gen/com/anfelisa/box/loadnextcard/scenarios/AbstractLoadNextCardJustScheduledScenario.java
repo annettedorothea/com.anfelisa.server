@@ -440,6 +440,8 @@ public abstract class AbstractLoadNextCardJustScheduledScenario extends BaseScen
 			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for LoadNextCardJustScheduled not met");
 		}

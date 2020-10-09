@@ -300,6 +300,8 @@ public abstract class AbstractChangeOrderScenario extends BaseScenario {
 			this.cat3MovedToSecondIndex();
 			this.cat4Remains();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrder not met");
 		}

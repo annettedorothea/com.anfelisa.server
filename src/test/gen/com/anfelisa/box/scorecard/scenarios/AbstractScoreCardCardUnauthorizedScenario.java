@@ -416,6 +416,8 @@ public abstract class AbstractScoreCardCardUnauthorizedScenario extends BaseScen
 			this.newScheduledCardWasNotCreated();
 			this.reinforceCardWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCardCardUnauthorized not met");
 		}

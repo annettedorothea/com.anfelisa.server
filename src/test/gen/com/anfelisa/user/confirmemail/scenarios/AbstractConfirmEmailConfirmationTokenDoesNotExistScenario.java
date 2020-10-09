@@ -131,6 +131,8 @@ public abstract class AbstractConfirmEmailConfirmationTokenDoesNotExistScenario 
 			this.confirmedIsNotSetToTrue();
 			this.tokenIsNotDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ConfirmEmailConfirmationTokenDoesNotExist not met");
 		}

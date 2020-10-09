@@ -138,6 +138,8 @@ public abstract class AbstractCreateBoxWantedLanguageInvalidScenario extends Bas
 			this.accessWasNotGranted();
 			this.boxWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateBoxWantedLanguageInvalid not met");
 		}

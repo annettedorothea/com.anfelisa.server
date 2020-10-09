@@ -386,6 +386,8 @@ public abstract class AbstractGetDuplicatesCategoryDoesNotExistScenario extends 
 			com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetDuplicatesCategoryDoesNotExist not met");
 		}

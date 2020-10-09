@@ -386,6 +386,8 @@ public abstract class AbstractGetDuplicatesUnauthorizedScenario extends BaseScen
 			com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetDuplicatesUnauthorized not met");
 		}

@@ -487,6 +487,8 @@ public abstract class AbstractSortCardsOutWithScoredAndReinforceScenario extends
 			this.reinforceCard3Remains();
 			this.card4WasSortedOut();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for SortCardsOutWithScoredAndReinforce not met");
 		}

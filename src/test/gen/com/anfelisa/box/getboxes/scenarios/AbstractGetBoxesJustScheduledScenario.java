@@ -432,6 +432,8 @@ public abstract class AbstractGetBoxesJustScheduledScenario extends BaseScenario
 			com.anfelisa.box.data.GetBoxesResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetBoxesJustScheduled not met");
 		}

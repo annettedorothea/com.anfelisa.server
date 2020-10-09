@@ -266,6 +266,8 @@ public abstract class AbstractMoveCategoryToNotEmptyScenario extends BaseScenari
 			this.indexOfSecondCategoryWasShifted();
 			this.firstWasMoved();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCategoryToNotEmpty not met");
 		}

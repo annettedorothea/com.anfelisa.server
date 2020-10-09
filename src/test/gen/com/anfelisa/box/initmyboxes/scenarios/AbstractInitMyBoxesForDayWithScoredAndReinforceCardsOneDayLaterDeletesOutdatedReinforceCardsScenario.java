@@ -517,6 +517,8 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsOneDay
 			this.reinforceCard3WasDeleted();
 			this.noChangeForCard4();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for InitMyBoxesForDayWithScoredAndReinforceCardsOneDayLaterDeletesOutdatedReinforceCards not met");
 		}

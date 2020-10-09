@@ -446,6 +446,8 @@ public abstract class AbstractDeleteBoxUnauthorizedScenario extends BaseScenario
 			this.allScheduledCardsWereNotDeleted();
 			this.allReinforceCardsWereNotDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteBoxUnauthorized not met");
 		}

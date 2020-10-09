@@ -448,6 +448,8 @@ public abstract class AbstractScheduleScoredCardAgainScenario extends BaseScenar
 			this.reinforceCardWasNotChanged();
 			this.anotherScheduledCardWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScheduleScoredCardAgain not met");
 		}

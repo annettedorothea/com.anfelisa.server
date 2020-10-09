@@ -245,6 +245,8 @@ public abstract class AbstractGetDuplicatesLimitScenario extends BaseScenario {
 			
 	
 			shouldReturn25Items(actualResponse);
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetDuplicatesLimit not met");
 		}

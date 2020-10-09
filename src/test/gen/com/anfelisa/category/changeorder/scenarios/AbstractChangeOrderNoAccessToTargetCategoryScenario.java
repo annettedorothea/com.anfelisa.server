@@ -340,6 +340,8 @@ public abstract class AbstractChangeOrderNoAccessToTargetCategoryScenario extend
 			this.cat2AtIndex2();
 			this.adminCatAtIndex1();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderNoAccessToTargetCategory not met");
 		}

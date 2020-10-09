@@ -207,6 +207,8 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 			com.anfelisa.user.data.GetAllUsersResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetAllUsersNotAdmin not met");
 		}

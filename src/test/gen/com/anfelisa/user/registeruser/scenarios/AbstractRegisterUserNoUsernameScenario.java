@@ -96,6 +96,8 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 			this.userWasNotCreated();
 			this.emailConfirmationWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for RegisterUserNoUsername not met");
 		}

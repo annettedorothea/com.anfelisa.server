@@ -169,6 +169,8 @@ public abstract class AbstractUpdateBoxSetMaxCardsTo0Scenario extends BaseScenar
 			
 			this.boxWasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxSetMaxCardsTo0 not met");
 		}

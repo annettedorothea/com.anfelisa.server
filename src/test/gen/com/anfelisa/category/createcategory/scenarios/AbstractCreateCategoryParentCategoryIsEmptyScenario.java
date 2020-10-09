@@ -165,6 +165,8 @@ public abstract class AbstractCreateCategoryParentCategoryIsEmptyScenario extend
 			
 			this.categoryWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryParentCategoryIsEmpty not met");
 		}

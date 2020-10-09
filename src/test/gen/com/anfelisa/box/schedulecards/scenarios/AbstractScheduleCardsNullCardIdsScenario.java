@@ -412,6 +412,8 @@ public abstract class AbstractScheduleCardsNullCardIdsScenario extends BaseScena
 			this.card3NoChange();
 			this.card4NoChange();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScheduleCardsNullCardIds not met");
 		}

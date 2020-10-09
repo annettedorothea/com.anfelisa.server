@@ -517,6 +517,8 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsSameDa
 			this.noChangeForReinforceCard3();
 			this.noChangeForCard4();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for InitMyBoxesForDayWithScoredAndReinforceCardsSameDayDoesNothing not met");
 		}

@@ -268,6 +268,8 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 			
 			this.cardWasNotDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCardNoAccessToCategory not met");
 		}

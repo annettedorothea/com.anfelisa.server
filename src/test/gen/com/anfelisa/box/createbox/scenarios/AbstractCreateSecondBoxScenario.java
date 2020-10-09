@@ -169,6 +169,8 @@ public abstract class AbstractCreateSecondBoxScenario extends BaseScenario {
 			this.accessToCategoryWasGranted();
 			this.boxWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateSecondBox not met");
 		}

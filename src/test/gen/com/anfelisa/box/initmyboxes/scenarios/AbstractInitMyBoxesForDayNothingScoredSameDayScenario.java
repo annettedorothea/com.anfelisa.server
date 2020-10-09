@@ -413,6 +413,8 @@ public abstract class AbstractInitMyBoxesForDayNothingScoredSameDayScenario exte
 			this.dateWasNotChangedForThirdCard();
 			this.dateWasNotChangedForFourthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for InitMyBoxesForDayNothingScoredSameDay not met");
 		}

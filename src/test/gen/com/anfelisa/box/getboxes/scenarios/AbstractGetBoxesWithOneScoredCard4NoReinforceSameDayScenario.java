@@ -466,6 +466,8 @@ public abstract class AbstractGetBoxesWithOneScoredCard4NoReinforceSameDayScenar
 			com.anfelisa.box.data.GetBoxesResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetBoxesWithOneScoredCard4NoReinforceSameDay not met");
 		}

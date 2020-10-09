@@ -168,6 +168,8 @@ public abstract class AbstractUpdateBoxCategoryNameNullScenario extends BaseScen
 			this.categoryWasNotUpdated();
 			this.boxWasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxCategoryNameNull not met");
 		}

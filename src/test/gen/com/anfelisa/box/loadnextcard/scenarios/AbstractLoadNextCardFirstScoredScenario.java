@@ -473,6 +473,8 @@ public abstract class AbstractLoadNextCardFirstScoredScenario extends BaseScenar
 			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for LoadNextCardFirstScored not met");
 		}

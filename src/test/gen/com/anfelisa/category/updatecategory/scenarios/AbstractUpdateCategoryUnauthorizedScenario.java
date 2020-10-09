@@ -198,6 +198,8 @@ public abstract class AbstractUpdateCategoryUnauthorizedScenario extends BaseSce
 			
 			this.categoryWasNotChanged();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCategoryUnauthorized not met");
 		}

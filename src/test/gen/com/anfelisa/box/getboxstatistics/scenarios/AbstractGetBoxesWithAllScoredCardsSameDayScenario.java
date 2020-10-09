@@ -545,6 +545,8 @@ public abstract class AbstractGetBoxesWithAllScoredCardsSameDayScenario extends 
 			com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetBoxesWithAllScoredCardsSameDay not met");
 		}

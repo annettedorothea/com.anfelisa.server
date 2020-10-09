@@ -165,6 +165,8 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 			
 			this.adminCatWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryAsAdmin not met");
 		}

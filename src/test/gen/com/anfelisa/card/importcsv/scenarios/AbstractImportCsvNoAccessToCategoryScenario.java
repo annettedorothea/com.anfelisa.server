@@ -241,6 +241,8 @@ public abstract class AbstractImportCsvNoAccessToCategoryScenario extends BaseSc
 			
 			this.cardWasNoCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ImportCsvNoAccessToCategory not met");
 		}

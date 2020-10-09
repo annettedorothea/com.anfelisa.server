@@ -515,6 +515,8 @@ public abstract class AbstractInitMyBoxesForDayOneDayBugScenario extends BaseSce
 			this.card3WasPostponed();
 			this.card4WasPostponed();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for InitMyBoxesForDayOneDayBug not met");
 		}

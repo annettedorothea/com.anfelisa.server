@@ -165,6 +165,8 @@ public abstract class AbstractCreateCategoryUnauthorizedScenario extends BaseSce
 			
 			this.categoryWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryUnauthorized not met");
 		}

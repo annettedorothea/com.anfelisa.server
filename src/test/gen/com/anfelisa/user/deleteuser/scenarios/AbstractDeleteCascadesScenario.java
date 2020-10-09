@@ -664,6 +664,8 @@ public abstract class AbstractDeleteCascadesScenario extends BaseScenario {
 			this.scheduledCardsOfOtherUserWereNotDeleted();
 			this.reinforceCardsOfOtherUserWereNotDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCascades not met");
 		}

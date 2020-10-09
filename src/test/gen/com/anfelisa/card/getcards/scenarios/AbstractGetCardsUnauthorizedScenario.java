@@ -383,6 +383,8 @@ public abstract class AbstractGetCardsUnauthorizedScenario extends BaseScenario 
 			com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetCardsUnauthorized not met");
 		}

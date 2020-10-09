@@ -312,6 +312,8 @@ public abstract class AbstractCreateFourthCardScenario extends BaseScenario {
 			this.thirdCard();
 			this.fourthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateFourthCard not met");
 		}

@@ -134,6 +134,8 @@ public abstract class AbstractCreateBoxUnauthorizedScenario extends BaseScenario
 			this.accessWasNotGranted();
 			this.boxWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateBoxUnauthorized not met");
 		}

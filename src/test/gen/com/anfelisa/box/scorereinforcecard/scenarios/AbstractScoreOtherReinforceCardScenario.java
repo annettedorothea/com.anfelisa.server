@@ -448,6 +448,8 @@ public abstract class AbstractScoreOtherReinforceCardScenario extends BaseScenar
 			
 			this.reinforceCardWasDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreOtherReinforceCard not met");
 		}

@@ -412,6 +412,8 @@ public abstract class AbstractScheduleScheduledCardAgainScenario extends BaseSce
 			
 			this.cardWasScheduled();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScheduleScheduledCardAgain not met");
 		}

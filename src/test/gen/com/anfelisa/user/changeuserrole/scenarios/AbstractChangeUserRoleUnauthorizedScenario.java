@@ -169,6 +169,8 @@ public abstract class AbstractChangeUserRoleUnauthorizedScenario extends BaseSce
 			
 			this.roleWasNotChanged();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeUserRoleUnauthorized not met");
 		}

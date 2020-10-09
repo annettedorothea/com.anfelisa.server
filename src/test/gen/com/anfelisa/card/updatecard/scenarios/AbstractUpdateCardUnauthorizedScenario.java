@@ -239,6 +239,8 @@ public abstract class AbstractUpdateCardUnauthorizedScenario extends BaseScenari
 			
 			this.wasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCardUnauthorized not met");
 		}

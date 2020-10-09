@@ -231,6 +231,8 @@ public abstract class AbstractCreateCategorySecondLevelScenario extends BaseScen
 			
 			this.categoryWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategorySecondLevel not met");
 		}

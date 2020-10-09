@@ -132,6 +132,8 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 			
 			this.resetPasswordTokenWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ForgotPasswordOK not met");
 		}

@@ -232,6 +232,8 @@ public abstract class AbstractChangeOrderMovedCategoryDoesNotExistScenario exten
 			this.cat1AtIndex1();
 			this.cat2AtIndex2();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderMovedCategoryDoesNotExist not met");
 		}

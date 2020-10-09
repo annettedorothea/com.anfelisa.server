@@ -383,6 +383,8 @@ public abstract class AbstractChangeOrderTargetCardDoesNotExistScenario extends 
 			this.fourthCard();
 			this.fifthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderTargetCardDoesNotExist not met");
 		}

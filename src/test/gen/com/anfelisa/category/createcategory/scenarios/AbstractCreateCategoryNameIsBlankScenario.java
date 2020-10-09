@@ -165,6 +165,8 @@ public abstract class AbstractCreateCategoryNameIsBlankScenario extends BaseScen
 			
 			this.categoryWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryNameIsBlank not met");
 		}

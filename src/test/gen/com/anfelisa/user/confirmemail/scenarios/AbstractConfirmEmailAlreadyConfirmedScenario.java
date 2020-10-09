@@ -164,6 +164,8 @@ public abstract class AbstractConfirmEmailAlreadyConfirmedScenario extends BaseS
 			this.confirmedIsStillTrue();
 			this.tokenWasDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ConfirmEmailAlreadyConfirmed not met");
 		}

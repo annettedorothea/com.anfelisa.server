@@ -381,6 +381,8 @@ public abstract class AbstractChangeOrderFirstToFifthScenario extends BaseScenar
 			this.fourthCard();
 			this.fifthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderFirstToFifth not met");
 		}

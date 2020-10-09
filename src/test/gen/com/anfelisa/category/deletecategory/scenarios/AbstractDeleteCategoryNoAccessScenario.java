@@ -264,6 +264,8 @@ public abstract class AbstractDeleteCategoryNoAccessScenario extends BaseScenari
 			
 			this.categoryWasNotDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCategoryNoAccess not met");
 		}

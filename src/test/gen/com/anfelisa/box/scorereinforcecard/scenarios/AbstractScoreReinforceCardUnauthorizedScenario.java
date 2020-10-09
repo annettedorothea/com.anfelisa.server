@@ -448,6 +448,8 @@ public abstract class AbstractScoreReinforceCardUnauthorizedScenario extends Bas
 			
 			this.reinforceCardWasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreReinforceCardUnauthorized not met");
 		}

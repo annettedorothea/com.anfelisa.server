@@ -544,6 +544,8 @@ public abstract class AbstractLoadNextCardScored2Scenario extends BaseScenario {
 			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for LoadNextCardScored2 not met");
 		}

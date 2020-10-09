@@ -7,7 +7,7 @@
 	<version>0.9.1</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<dropwizard.version>2.0.9</dropwizard.version>
+		<dropwizard.version>2.0.13</dropwizard.version>
 		<junit.jupiter.version>5.5.2</junit.jupiter.version>
 		<junit.platform.version>1.5.2</junit.platform.version>
 		<hamcrest.version>1.3</hamcrest.version>
@@ -147,4 +147,5 @@
 		</dependency>
 
 	</dependencies>
+
 </project>

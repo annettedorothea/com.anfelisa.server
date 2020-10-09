@@ -342,6 +342,8 @@ public abstract class AbstractMoveCardsNoAccessToCardScenario extends BaseScenar
 			
 			this.firstCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCardsNoAccessToCard not met");
 		}

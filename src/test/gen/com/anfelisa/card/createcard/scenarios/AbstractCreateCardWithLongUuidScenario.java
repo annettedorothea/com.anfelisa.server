@@ -200,6 +200,8 @@ public abstract class AbstractCreateCardWithLongUuidScenario extends BaseScenari
 			
 			this.firstCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardWithLongUuid not met");
 		}

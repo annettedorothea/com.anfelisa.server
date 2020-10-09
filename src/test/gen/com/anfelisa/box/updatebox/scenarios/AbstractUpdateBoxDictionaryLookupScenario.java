@@ -175,6 +175,8 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 			
 			this.categoryWasUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxDictionaryLookup not met");
 		}

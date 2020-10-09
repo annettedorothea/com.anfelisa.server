@@ -300,6 +300,8 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 			this.cat3AtIndex3();
 			this.cat4AtIndex4();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderUnauthorized not met");
 		}

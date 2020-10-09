@@ -383,6 +383,8 @@ public abstract class AbstractGetCardsCategoryDoesNotExistScenario extends BaseS
 			com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetCardsCategoryDoesNotExist not met");
 		}

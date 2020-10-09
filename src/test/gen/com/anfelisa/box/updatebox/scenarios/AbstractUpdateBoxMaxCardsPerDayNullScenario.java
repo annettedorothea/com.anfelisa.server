@@ -167,6 +167,8 @@ public abstract class AbstractUpdateBoxMaxCardsPerDayNullScenario extends BaseSc
 			
 			this.boxWasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxMaxCardsPerDayNull not met");
 		}

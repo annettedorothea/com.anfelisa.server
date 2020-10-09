@@ -575,6 +575,8 @@ public abstract class AbstractGetDuplicatesOrderByWantedScenario extends BaseSce
 			com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetDuplicatesOrderByWanted not met");
 		}

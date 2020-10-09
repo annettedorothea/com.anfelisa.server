@@ -487,6 +487,8 @@ public abstract class AbstractScoreReinforceCardNotMyCardScenario extends BaseSc
 			
 			this.reinforceCardWasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreReinforceCardNotMyCard not met");
 		}

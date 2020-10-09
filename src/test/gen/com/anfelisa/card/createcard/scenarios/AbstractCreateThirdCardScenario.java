@@ -276,6 +276,8 @@ public abstract class AbstractCreateThirdCardScenario extends BaseScenario {
 			this.secondCard();
 			this.thirdCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateThirdCard not met");
 		}

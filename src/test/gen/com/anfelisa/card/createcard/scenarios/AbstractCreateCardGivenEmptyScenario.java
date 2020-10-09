@@ -202,6 +202,8 @@ public abstract class AbstractCreateCardGivenEmptyScenario extends BaseScenario 
 			
 			this.cardWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardGivenEmpty not met");
 		}

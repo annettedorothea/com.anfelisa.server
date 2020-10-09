@@ -132,6 +132,8 @@ public abstract class AbstractCreateBoxMaxCardsPerDayNullScenario extends BaseSc
 			this.accessWasNotGranted();
 			this.boxWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateBoxMaxCardsPerDayNull not met");
 		}

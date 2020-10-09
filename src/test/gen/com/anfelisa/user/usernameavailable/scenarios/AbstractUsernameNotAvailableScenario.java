@@ -146,6 +146,8 @@ public abstract class AbstractUsernameNotAvailableScenario extends BaseScenario 
 			com.anfelisa.user.data.UsernameAvailableResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UsernameNotAvailable not met");
 		}

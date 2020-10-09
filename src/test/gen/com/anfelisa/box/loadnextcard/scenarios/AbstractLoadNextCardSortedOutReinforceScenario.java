@@ -542,6 +542,8 @@ public abstract class AbstractLoadNextCardSortedOutReinforceScenario extends Bas
 			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for LoadNextCardSortedOutReinforce not met");
 		}

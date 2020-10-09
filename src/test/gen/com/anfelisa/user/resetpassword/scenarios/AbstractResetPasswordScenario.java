@@ -166,6 +166,8 @@ public abstract class AbstractResetPasswordScenario extends BaseScenario {
 			this.passwordWasChanged();
 			this.tokenWasDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ResetPassword not met");
 		}

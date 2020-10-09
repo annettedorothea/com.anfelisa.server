@@ -519,6 +519,8 @@ public abstract class AbstractScoreCardMaxCardsPerDayScenario extends BaseScenar
 			
 			this.scheduledTwoDaysLater();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCardMaxCardsPerDay not met");
 		}

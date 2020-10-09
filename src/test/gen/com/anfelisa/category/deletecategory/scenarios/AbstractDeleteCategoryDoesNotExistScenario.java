@@ -263,6 +263,8 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 			then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteCategoryDoesNotExist not met");
 		}

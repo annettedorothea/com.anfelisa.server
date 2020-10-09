@@ -175,6 +175,8 @@ public abstract class AbstractUpdateBoxWantedLanguageInvalidScenario extends Bas
 			
 			this.categoryWasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxWantedLanguageInvalid not met");
 		}

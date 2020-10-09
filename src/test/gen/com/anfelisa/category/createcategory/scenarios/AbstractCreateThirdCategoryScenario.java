@@ -231,6 +231,8 @@ public abstract class AbstractCreateThirdCategoryScenario extends BaseScenario {
 			
 			this.categoryWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateThirdCategory not met");
 		}

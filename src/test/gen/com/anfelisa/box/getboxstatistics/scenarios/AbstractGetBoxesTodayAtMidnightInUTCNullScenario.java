@@ -418,6 +418,8 @@ public abstract class AbstractGetBoxesTodayAtMidnightInUTCNullScenario extends B
 			com.anfelisa.box.data.GetBoxStatisticsResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetBoxesTodayAtMidnightInUTCNull not met");
 		}

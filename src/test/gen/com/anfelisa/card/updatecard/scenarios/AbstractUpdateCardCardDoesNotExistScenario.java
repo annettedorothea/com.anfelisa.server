@@ -239,6 +239,8 @@ public abstract class AbstractUpdateCardCardDoesNotExistScenario extends BaseSce
 			
 			this.wasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCardCardDoesNotExist not met");
 		}

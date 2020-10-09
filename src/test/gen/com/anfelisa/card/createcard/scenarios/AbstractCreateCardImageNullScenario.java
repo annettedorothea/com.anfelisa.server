@@ -200,6 +200,8 @@ public abstract class AbstractCreateCardImageNullScenario extends BaseScenario {
 			
 			this.cardWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardImageNull not met");
 		}

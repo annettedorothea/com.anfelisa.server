@@ -264,6 +264,8 @@ public abstract class AbstractCreateFourthCategoryScenario extends BaseScenario 
 			
 			this.categoryWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateFourthCategory not met");
 		}

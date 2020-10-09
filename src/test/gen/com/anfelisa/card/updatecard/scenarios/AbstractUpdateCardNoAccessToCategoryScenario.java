@@ -278,6 +278,8 @@ public abstract class AbstractUpdateCardNoAccessToCategoryScenario extends BaseS
 			
 			this.wasNotUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateCardNoAccessToCategory not met");
 		}

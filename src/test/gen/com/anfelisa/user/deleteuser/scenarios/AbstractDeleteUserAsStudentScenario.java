@@ -124,6 +124,8 @@ public abstract class AbstractDeleteUserAsStudentScenario extends BaseScenario {
 			
 			this.userWasDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteUserAsStudent not met");
 		}

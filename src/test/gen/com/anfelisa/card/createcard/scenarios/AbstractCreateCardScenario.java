@@ -202,6 +202,8 @@ public abstract class AbstractCreateCardScenario extends BaseScenario {
 			
 			this.firstCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCard not met");
 		}

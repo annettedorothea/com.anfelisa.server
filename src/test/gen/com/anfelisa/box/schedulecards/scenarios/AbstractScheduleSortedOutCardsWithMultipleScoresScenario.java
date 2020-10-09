@@ -826,6 +826,8 @@ public abstract class AbstractScheduleSortedOutCardsWithMultipleScoresScenario e
 			
 			this.cardWasScheduled();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScheduleSortedOutCardsWithMultipleScores not met");
 		}

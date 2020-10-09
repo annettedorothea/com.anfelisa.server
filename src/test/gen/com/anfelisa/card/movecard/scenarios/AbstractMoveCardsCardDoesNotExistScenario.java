@@ -420,6 +420,8 @@ public abstract class AbstractMoveCardsCardDoesNotExistScenario extends BaseScen
 			this.fourthCard();
 			this.fifthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for MoveCardsCardDoesNotExist not met");
 		}

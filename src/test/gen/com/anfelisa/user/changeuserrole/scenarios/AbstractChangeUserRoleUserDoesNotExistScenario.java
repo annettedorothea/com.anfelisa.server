@@ -168,6 +168,8 @@ public abstract class AbstractChangeUserRoleUserDoesNotExistScenario extends Bas
 			then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeUserRoleUserDoesNotExist not met");
 		}

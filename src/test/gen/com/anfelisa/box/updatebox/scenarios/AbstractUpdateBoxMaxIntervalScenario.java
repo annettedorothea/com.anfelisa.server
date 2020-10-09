@@ -174,6 +174,8 @@ public abstract class AbstractUpdateBoxMaxIntervalScenario extends BaseScenario 
 			this.categoryWasUpdated();
 			this.boxWasUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxMaxInterval not met");
 		}

@@ -138,6 +138,8 @@ public abstract class AbstractCreateBoxGivenLanguageInvalidScenario extends Base
 			this.accessWasNotGranted();
 			this.boxWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateBoxGivenLanguageInvalid not met");
 		}

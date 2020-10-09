@@ -383,6 +383,8 @@ public abstract class AbstractChangeOrderUnauthorizedScenario extends BaseScenar
 			this.fourthCard();
 			this.fifthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrderUnauthorized not met");
 		}

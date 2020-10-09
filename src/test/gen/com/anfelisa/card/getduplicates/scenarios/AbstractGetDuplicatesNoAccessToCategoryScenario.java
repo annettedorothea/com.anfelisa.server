@@ -425,6 +425,8 @@ public abstract class AbstractGetDuplicatesNoAccessToCategoryScenario extends Ba
 			com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetDuplicatesNoAccessToCategory not met");
 		}

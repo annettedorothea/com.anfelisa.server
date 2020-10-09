@@ -98,6 +98,8 @@ public abstract class AbstractRegisterUserScenario extends BaseScenario {
 			this.userWasCreated();
 			this.emailConfirmationWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for RegisterUser not met");
 		}

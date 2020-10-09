@@ -163,6 +163,8 @@ public abstract class AbstractCreateCategoryNameIsNullScenario extends BaseScena
 			
 			this.categoryWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCategoryNameIsNull not met");
 		}

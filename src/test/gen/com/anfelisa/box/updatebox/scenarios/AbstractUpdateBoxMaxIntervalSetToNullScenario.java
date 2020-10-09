@@ -215,6 +215,8 @@ public abstract class AbstractUpdateBoxMaxIntervalSetToNullScenario extends Base
 			this.categoryWasUpdated();
 			this.boxWasUpdated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for UpdateBoxMaxIntervalSetToNull not met");
 		}

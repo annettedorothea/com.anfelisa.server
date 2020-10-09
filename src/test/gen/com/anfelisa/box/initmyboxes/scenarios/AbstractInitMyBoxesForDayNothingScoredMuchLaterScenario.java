@@ -413,6 +413,8 @@ public abstract class AbstractInitMyBoxesForDayNothingScoredMuchLaterScenario ex
 			this.dateWasChangedForThirdCard();
 			this.dateWasChangedForFourthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for InitMyBoxesForDayNothingScoredMuchLater not met");
 		}

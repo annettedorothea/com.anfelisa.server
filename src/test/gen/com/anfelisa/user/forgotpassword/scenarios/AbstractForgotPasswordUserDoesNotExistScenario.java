@@ -132,6 +132,8 @@ public abstract class AbstractForgotPasswordUserDoesNotExistScenario extends Bas
 			
 			this.resetPasswordTokenWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ForgotPasswordUserDoesNotExist not met");
 		}

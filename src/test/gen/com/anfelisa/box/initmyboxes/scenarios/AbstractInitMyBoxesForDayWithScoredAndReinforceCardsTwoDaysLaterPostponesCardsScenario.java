@@ -517,6 +517,8 @@ public abstract class AbstractInitMyBoxesForDayWithScoredAndReinforceCardsTwoDay
 			this.reinforceCard3WasDeleted();
 			this.card4WasPostponed();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for InitMyBoxesForDayWithScoredAndReinforceCardsTwoDaysLaterPostponesCards not met");
 		}

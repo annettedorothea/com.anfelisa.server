@@ -262,6 +262,8 @@ public abstract class AbstractGetDuplicatesNaturalInputOrderIsNullScenario exten
 			com.anfelisa.card.data.GetDuplicatesResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetDuplicatesNaturalInputOrderIsNull not met");
 		}

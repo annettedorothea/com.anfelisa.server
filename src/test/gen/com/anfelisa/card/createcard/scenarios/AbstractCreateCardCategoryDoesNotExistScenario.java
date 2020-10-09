@@ -202,6 +202,8 @@ public abstract class AbstractCreateCardCategoryDoesNotExistScenario extends Bas
 			
 			this.cardWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardCategoryDoesNotExist not met");
 		}

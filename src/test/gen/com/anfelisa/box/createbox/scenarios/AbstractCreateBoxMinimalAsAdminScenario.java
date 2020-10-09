@@ -134,6 +134,8 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 			this.accessToCategoryWasGranted();
 			this.boxWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateBoxMinimalAsAdmin not met");
 		}

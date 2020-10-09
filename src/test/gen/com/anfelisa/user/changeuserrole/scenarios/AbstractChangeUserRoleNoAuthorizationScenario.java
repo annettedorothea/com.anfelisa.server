@@ -169,6 +169,8 @@ public abstract class AbstractChangeUserRoleNoAuthorizationScenario extends Base
 			
 			this.roleWasNotChanged();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeUserRoleNoAuthorization not met");
 		}

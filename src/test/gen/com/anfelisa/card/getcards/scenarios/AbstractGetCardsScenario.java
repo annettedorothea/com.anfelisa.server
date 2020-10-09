@@ -497,6 +497,8 @@ public abstract class AbstractGetCardsScenario extends BaseScenario {
 			com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetCards not met");
 		}

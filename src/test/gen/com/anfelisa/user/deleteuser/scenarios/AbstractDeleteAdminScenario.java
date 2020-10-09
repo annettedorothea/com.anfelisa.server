@@ -196,6 +196,8 @@ public abstract class AbstractDeleteAdminScenario extends BaseScenario {
 			
 			this.userWasDeleted();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for DeleteAdmin not met");
 		}

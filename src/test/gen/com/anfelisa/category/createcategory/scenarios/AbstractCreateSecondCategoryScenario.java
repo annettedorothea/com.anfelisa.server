@@ -198,6 +198,8 @@ public abstract class AbstractCreateSecondCategoryScenario extends BaseScenario 
 			
 			this.categoryWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateSecondCategory not met");
 		}

@@ -418,6 +418,8 @@ public abstract class AbstractScheduleCardsNotMyBoxScenario extends BaseScenario
 			this.card2WasNotScheduled();
 			this.card5WasNotScheduled();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScheduleCardsNotMyBox not met");
 		}

@@ -383,6 +383,8 @@ public abstract class AbstractChangeOrderScenario extends BaseScenario {
 			this.fourthCard();
 			this.fifthCard();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ChangeOrder not met");
 		}

@@ -71,9 +71,6 @@ public class App extends Application<CustomAppConfiguration> {
 		if (Config.DEV.equals(mode)) {
 			environment.jersey().register(new NonDeterministicDataProviderResource());
 			LOG.warn("You are running in DEV mode. This is a security risc.");
-			PersistenceHandle handle = new PersistenceHandle(jdbi.open());
-			daoProvider.truncateAllViews(handle);
-			handle.getHandle().close();
 		}
 
 		environment.jersey().register(new GetServerInfoResource());

@@ -170,6 +170,8 @@ public abstract class AbstractGetBoxSettingsNoBoxIdScenario extends BaseScenario
 			com.anfelisa.box.data.GetBoxSettingsResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for GetBoxSettingsNoBoxId not met");
 		}

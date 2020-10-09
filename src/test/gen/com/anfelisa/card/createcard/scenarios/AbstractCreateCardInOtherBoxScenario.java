@@ -202,6 +202,8 @@ public abstract class AbstractCreateCardInOtherBoxScenario extends BaseScenario 
 			
 			this.cardWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardInOtherBox not met");
 		}

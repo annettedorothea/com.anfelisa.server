@@ -233,6 +233,8 @@ public abstract class AbstractCreateCardInOtherCategoryScenario extends BaseScen
 			
 			this.cardWasCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for CreateCardInOtherCategory not met");
 		}

@@ -635,6 +635,8 @@ public abstract class AbstractLoadNextCardFinished4Scenario extends BaseScenario
 			com.anfelisa.box.data.LoadNextCardResponse actualResponse = then(response);
 			
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for LoadNextCardFinished4 not met");
 		}

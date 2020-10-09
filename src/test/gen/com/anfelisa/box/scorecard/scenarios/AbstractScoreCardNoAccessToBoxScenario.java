@@ -455,6 +455,8 @@ public abstract class AbstractScoreCardNoAccessToBoxScenario extends BaseScenari
 			this.newScheduledCardWasNotCreated();
 			this.reinforceCardWasNotCreated();
 	
+			
+			response.close();
 		} else {
 			LOG.info("WHEN: prerequisite for ScoreCardNoAccessToBox not met");
 		}
