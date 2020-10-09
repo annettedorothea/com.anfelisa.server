@@ -47,6 +47,8 @@ public abstract class AbstractCardWithInfoData extends AbstractData implements I
 	
 	private String rootCategoryId;
 	
+	private Integer priority;
+	
 
 	public AbstractCardWithInfoData(
 		@JsonProperty("next") java.time.LocalDateTime next,
@@ -57,7 +59,8 @@ public abstract class AbstractCardWithInfoData extends AbstractData implements I
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("rootCategoryId") String rootCategoryId
+		@JsonProperty("rootCategoryId") String rootCategoryId,
+		@JsonProperty("priority") Integer priority
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -70,6 +73,7 @@ public abstract class AbstractCardWithInfoData extends AbstractData implements I
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
+		this.priority = priority;
 	}
 
 	public AbstractCardWithInfoData( String uuid ) {
@@ -186,6 +190,18 @@ public abstract class AbstractCardWithInfoData extends AbstractData implements I
 		return this;
 	}
 	
+	@JsonProperty
+	public Integer getPriority() {
+		return this.priority;
+	}
+	public void setPriority(Integer priority) {
+		this.priority = priority;
+	}
+	public ICardWithInfoData withPriority(Integer priority) {
+		this.priority = priority;
+		return this;
+	}
+	
 	
 	public void mapFrom(com.anfelisa.card.models.ICardModel model) {
 		this.cardId = model.getCardId();
@@ -196,6 +212,7 @@ public abstract class AbstractCardWithInfoData extends AbstractData implements I
 		this.cardIndex = model.getCardIndex();
 		this.categoryId = model.getCategoryId();
 		this.rootCategoryId = model.getRootCategoryId();
+		this.priority = model.getPriority();
 	}
 	
 }

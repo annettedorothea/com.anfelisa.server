@@ -44,6 +44,14 @@ public class AceDataFactory {
 				data.migrateLegacyData(json);
 				return data;
 			}
+			if (className.equals("com.anfelisa.card.actions.UpdateCardPriorityAction") ||
+					className.equals("com.anfelisa.card.commands.UpdateCardPriorityCommand") ||
+					className.equals("com.anfelisa.card.events.UpdateCardPriorityOkEvent")
+			) {
+				CardUpdatePriorityData data = mapper.readValue(json, CardUpdatePriorityData.class);
+				data.migrateLegacyData(json);
+				return data;
+			}
 			if (className.equals("com.anfelisa.card.actions.DeleteCardAction") ||
 					className.equals("com.anfelisa.card.commands.DeleteCardCommand") ||
 					className.equals("com.anfelisa.card.events.DeleteCardOkEvent")

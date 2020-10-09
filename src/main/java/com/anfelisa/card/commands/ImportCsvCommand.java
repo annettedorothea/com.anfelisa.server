@@ -76,7 +76,7 @@ public class ImportCsvCommand extends AbstractImportCsvCommand {
 						user.getUsername(), 
 						index, 
 						commandData.getCategoryId(), 
-						category.getRootCategoryId()));
+						category.getRootCategoryId(), null));
 				index++;
 			}
 		}

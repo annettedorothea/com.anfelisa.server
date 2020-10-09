@@ -38,6 +38,9 @@ public interface ICardModel {
 	String getRootCategoryId();
 	void setRootCategoryId(String rootCategoryId);
 	
+	Integer getPriority();
+	void setPriority(Integer priority);
+	
 	
 }
 

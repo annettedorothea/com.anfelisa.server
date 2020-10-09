@@ -18,7 +18,7 @@ import java.util.Optional;
 public class AbstractCardDao {
 	
 	public void insert(PersistenceHandle handle, ICardModel cardModel) {
-		Update statement = handle.getHandle().createUpdate("INSERT INTO public.card (cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid) VALUES (:cardid, :given, :wanted, :image, :cardauthor, :cardindex, :categoryid, :rootcategoryid)");
+		Update statement = handle.getHandle().createUpdate("INSERT INTO public.card (cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority) VALUES (:cardid, :given, :wanted, :image, :cardauthor, :cardindex, :categoryid, :rootcategoryid, :priority)");
 		statement.bind("cardid",  cardModel.getCardId() );
 		statement.bind("given",  cardModel.getGiven() );
 		statement.bind("wanted",  cardModel.getWanted() );
@@ -27,12 +27,13 @@ public class AbstractCardDao {
 		statement.bind("cardindex",  cardModel.getCardIndex() );
 		statement.bind("categoryid",  cardModel.getCategoryId() );
 		statement.bind("rootcategoryid",  cardModel.getRootCategoryId() );
+		statement.bind("priority",  cardModel.getPriority() );
 		statement.execute();
 	}
 	
 	
 	public void updateByCardId(PersistenceHandle handle, ICardModel cardModel) {
-		Update statement = handle.getHandle().createUpdate("UPDATE public.card SET cardid = :cardid, given = :given, wanted = :wanted, image = :image, cardauthor = :cardauthor, cardindex = :cardindex, categoryid = :categoryid, rootcategoryid = :rootcategoryid WHERE cardid = :cardid");
+		Update statement = handle.getHandle().createUpdate("UPDATE public.card SET cardid = :cardid, given = :given, wanted = :wanted, image = :image, cardauthor = :cardauthor, cardindex = :cardindex, categoryid = :categoryid, rootcategoryid = :rootcategoryid, priority = :priority WHERE cardid = :cardid");
 		statement.bind("cardid",  cardModel.getCardId() );
 		statement.bind("given",  cardModel.getGiven() );
 		statement.bind("wanted",  cardModel.getWanted() );
@@ -41,6 +42,7 @@ public class AbstractCardDao {
 		statement.bind("cardindex",  cardModel.getCardIndex() );
 		statement.bind("categoryid",  cardModel.getCategoryId() );
 		statement.bind("rootcategoryid",  cardModel.getRootCategoryId() );
+		statement.bind("priority",  cardModel.getPriority() );
 		statement.bind("cardid",  cardModel.getCardId()  );
 		statement.execute();
 	}
@@ -52,7 +54,7 @@ public class AbstractCardDao {
 	}
 
 	public ICardModel selectByCardId(PersistenceHandle handle, String cardId) {
-		Optional<ICardModel> optional = handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid FROM public.card WHERE cardid = :cardid")
+		Optional<ICardModel> optional = handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM public.card WHERE cardid = :cardid")
 			.bind("cardid", cardId)
 			.map(new CardMapper())
 			.findFirst();
@@ -60,7 +62,7 @@ public class AbstractCardDao {
 	}
 	
 	public ICardModel selectByPrimaryKey(PersistenceHandle handle, String cardId) {
-		Optional<ICardModel> optional = handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid FROM public.card WHERE cardid = :cardid")
+		Optional<ICardModel> optional = handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM public.card WHERE cardid = :cardid")
 			.bind("cardid", cardId)
 			.map(new CardMapper())
 			.findFirst();
@@ -84,7 +86,7 @@ public class AbstractCardDao {
 	}
 
 	public List<ICardModel> selectAll(PersistenceHandle handle) {
-		return handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid FROM public.card")
+		return handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM public.card")
 			.map(new CardMapper())
 			.list();
 	}

@@ -128,7 +128,7 @@
     </dependency>
   </dependencies>
   <properties>
-    <dropwizard.version>2.0.9</dropwizard.version>
+    <dropwizard.version>2.0.13</dropwizard.version>
     <postgresql.version>42.2.12</postgresql.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.jupiter.version>5.5.2</junit.jupiter.version>

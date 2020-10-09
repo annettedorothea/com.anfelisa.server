@@ -37,6 +37,8 @@ public interface ICardCreationData extends ICardCreationModel, IDataContainer {
 	
 	ICardCreationData withRootCategoryId(String rootCategoryId);
 	
+	ICardCreationData withPriority(Integer priority);
+	
 	
 }
 

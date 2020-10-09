@@ -35,6 +35,8 @@ public interface ICardWithInfoData extends ICardWithInfoModel, IDataContainer {
 	
 	ICardWithInfoData withRootCategoryId(String rootCategoryId);
 	
+	ICardWithInfoData withPriority(Integer priority);
+	
 	
 }
 

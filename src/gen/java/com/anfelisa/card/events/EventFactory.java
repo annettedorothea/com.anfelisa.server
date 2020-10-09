@@ -45,6 +45,12 @@ public class EventFactory {
 				UpdateCardOkEvent event = new UpdateCardOkEvent(data, daoProvider, viewProvider, appConfiguration);
 				return event;
 			}
+			if (eventClass.equals("com.anfelisa.card.events.UpdateCardPriorityOkEvent")) {
+				CardUpdatePriorityData data = mapper.readValue(json, CardUpdatePriorityData.class);
+				data.migrateLegacyData(json);
+				UpdateCardPriorityOkEvent event = new UpdateCardPriorityOkEvent(data, daoProvider, viewProvider, appConfiguration);
+				return event;
+			}
 			if (eventClass.equals("com.anfelisa.card.events.DeleteCardOkEvent")) {
 				CardDeleteData data = mapper.readValue(json, CardDeleteData.class);
 				data.migrateLegacyData(json);
@@ -83,6 +89,10 @@ public class EventFactory {
 
 		if (eventClass.equals("com.anfelisa.card.events.UpdateCardOkEvent")) {
 			return new UpdateCardOkEvent((CardUpdateData)data, daoProvider, viewProvider, appConfiguration);
+		}
+
+		if (eventClass.equals("com.anfelisa.card.events.UpdateCardPriorityOkEvent")) {
+			return new UpdateCardPriorityOkEvent((CardUpdatePriorityData)data, daoProvider, viewProvider, appConfiguration);
 		}
 
 		if (eventClass.equals("com.anfelisa.card.events.DeleteCardOkEvent")) {

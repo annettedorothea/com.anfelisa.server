@@ -38,6 +38,8 @@ public class CardWithCategoryNameModel implements ICardWithCategoryNameModel {
 
 	private String rootCategoryId;
 
+	private Integer priority;
+
 
 	public CardWithCategoryNameModel() {
 	}
@@ -51,7 +53,8 @@ public class CardWithCategoryNameModel implements ICardWithCategoryNameModel {
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("rootCategoryId") String rootCategoryId
+		@JsonProperty("rootCategoryId") String rootCategoryId,
+		@JsonProperty("priority") Integer priority
 	) {
 		this.categoryName = categoryName;
 		this.cardId = cardId;
@@ -62,6 +65,7 @@ public class CardWithCategoryNameModel implements ICardWithCategoryNameModel {
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
+		this.priority = priority;
 	}
 
 	@JsonProperty
@@ -134,6 +138,14 @@ public class CardWithCategoryNameModel implements ICardWithCategoryNameModel {
 	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
+	}
+	
+	@JsonProperty
+	public Integer getPriority() {
+		return this.priority;
+	}
+	public void setPriority(Integer priority) {
+		this.priority = priority;
 	}
 	
 

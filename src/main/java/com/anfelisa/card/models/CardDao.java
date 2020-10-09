@@ -14,7 +14,7 @@ public class CardDao extends AbstractCardDao {
 	public List<ICardWithInfoModel> selectAllOfCategoryWithBoxInfo(PersistenceHandle handle, String categoryId,
 			String boxId) {
 		return handle.getHandle().createQuery(
-				"SELECT c.cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, s.scheduleddate as next "
+				"SELECT c.cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority, s.scheduleddate as next "
 						+ "FROM public.card c "
 						+ "left outer join scheduledcard s on c.cardid = s.cardid and s.boxid = :boxid and s.quality is null "
 						+ "WHERE categoryid = :categoryid "
@@ -26,7 +26,7 @@ public class CardDao extends AbstractCardDao {
 
 	public List<ICardModel> selectAll(PersistenceHandle handle, String categoryId) {
 		return handle.getHandle().createQuery(
-				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid FROM \"card\" "
+				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" "
 						+ "WHERE categoryid = :categoryid ORDER BY cardindex")
 				.bind("categoryid", categoryId)
 				.map(new CardMapper())
@@ -35,7 +35,7 @@ public class CardDao extends AbstractCardDao {
 
 	public List<ICardModel> selectAllByRootCategoryId(PersistenceHandle handle, String rootCategoryId) {
 		return handle.getHandle().createQuery(
-				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid FROM \"card\" "
+				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" "
 						+ "WHERE rootcategoryid = :rootcategoryid")
 				.bind("rootcategoryid", rootCategoryId)
 				.map(new CardMapper())
@@ -75,7 +75,7 @@ public class CardDao extends AbstractCardDao {
 		String wantedSearchString = "%" + wanted + "%";
 		String orderBy = naturalInputOrder ? "given" : "wanted";
 		return handle.getHandle().createQuery(
-				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, "
+				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority, "
 						+ "(select categoryname from category where category.categoryid = cd.categoryid) as categoryname "
 						+ "FROM public.card cd where cd.rootcategoryid = (select rootcategoryid from category where category.categoryid = :categoryid) and "
 						+ "( length(:given) > 0 and given like :givenSearchString or "
@@ -109,6 +109,22 @@ public class CardDao extends AbstractCardDao {
 		statement.bind("rootcategoryid", rootCategoryId);
 		statement.execute();
 	}
+
+	public void updateCardPriority(PersistenceHandle handle, ICardUpdatePriorityModel cardModel) {
+		Update statement = handle.getHandle().createUpdate("UPDATE public.card SET priority = :priority WHERE cardid = :cardid");
+		statement.bind("priority",  cardModel.getPriority() );
+		statement.bind("cardid",  cardModel.getCardId()  );
+		statement.execute();
+	}
+
+	public void moveCard(PersistenceHandle handle, ICardModel cardModel) {
+		Update statement = handle.getHandle().createUpdate("UPDATE public.card SET cardindex = :cardindex, categoryid = :categoryid WHERE cardid = :cardid");
+		statement.bind("cardindex",  cardModel.getCardIndex() );
+		statement.bind("categoryid",  cardModel.getCategoryId() );
+		statement.bind("cardid",  cardModel.getCardId()  );
+		statement.execute();
+	}
+
 
 }
 

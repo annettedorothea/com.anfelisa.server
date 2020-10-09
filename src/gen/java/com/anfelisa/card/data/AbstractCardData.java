@@ -44,6 +44,8 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 	
 	private String rootCategoryId;
 	
+	private Integer priority;
+	
 
 	public AbstractCardData(
 		@JsonProperty("cardId") String cardId,
@@ -53,7 +55,8 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("rootCategoryId") String rootCategoryId
+		@JsonProperty("rootCategoryId") String rootCategoryId,
+		@JsonProperty("priority") Integer priority
 ,		@JsonProperty("uuid") String uuid
 	) {
 		super(uuid);
@@ -65,6 +68,7 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
+		this.priority = priority;
 	}
 
 	public AbstractCardData( String uuid ) {
@@ -164,6 +168,18 @@ public abstract class AbstractCardData extends AbstractData implements ICardData
 	}
 	public ICardData withRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
+		return this;
+	}
+	
+	@JsonProperty
+	public Integer getPriority() {
+		return this.priority;
+	}
+	public void setPriority(Integer priority) {
+		this.priority = priority;
+	}
+	public ICardData withPriority(Integer priority) {
+		this.priority = priority;
 		return this;
 	}
 	

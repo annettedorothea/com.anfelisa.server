@@ -25,6 +25,14 @@ ACE
 			NotNull wanted
 		on ok (Card.update)
 	
+	UpdateCardPriority<CardUpdatePriority>
+		PUT "/card/update-priority" 
+		authorize 
+		payload 
+			NotNull cardId
+			NotNull priority
+		on ok (Card.updatePriority)
+	
 	DeleteCard<CardDelete>
 		DELETE "/card/delete"
 		authorize 
@@ -84,13 +92,14 @@ ACE
 			NotNull targetLanguage
 		response
 			targetValue
-		
+			
 
 views 
 	Card {
 		insert(CardCreation)
 		delete(CardDelete)
 		update(CardUpdate)
+		updatePriority(CardUpdatePriority)
 		moveCards(MoveCards)
 		bulkInsert(CsvUpload)
 		changeCardOrder(ChangeCardOrderList)
@@ -106,6 +115,7 @@ models
 		NotNull Integer cardIndex
 		NotNull String categoryId references com.anfelisa.category.Category.categoryId
 		NotNull String rootCategoryId references com.anfelisa.category.Category.categoryId
+		Integer priority
 	}
 
 	CardUpdate {
@@ -113,6 +123,12 @@ models
 		String given
 		String wanted
 		String image
+		String userId
+	}
+	
+	CardUpdatePriority {
+		String cardId
+		Integer priority
 		String userId
 	}
 	

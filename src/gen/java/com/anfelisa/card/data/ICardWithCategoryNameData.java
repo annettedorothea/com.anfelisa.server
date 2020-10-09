@@ -35,6 +35,8 @@ public interface ICardWithCategoryNameData extends ICardWithCategoryNameModel, I
 	
 	ICardWithCategoryNameData withRootCategoryId(String rootCategoryId);
 	
+	ICardWithCategoryNameData withPriority(Integer priority);
+	
 	
 }
 

@@ -25,7 +25,8 @@ public class CardWithCategoryNameMapper implements RowMapper<ICardWithCategoryNa
 			r.getString("cardAuthor"),
 			r.getObject("cardIndex") != null ? r.getInt("cardIndex") : null,
 			r.getString("categoryId"),
-			r.getString("rootCategoryId")
+			r.getString("rootCategoryId"),
+			r.getObject("priority") != null ? r.getInt("priority") : null
 		);
 	}
 }

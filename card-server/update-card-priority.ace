@@ -1,0 +1,247 @@
+HttpServer Java 
+
+com.anfelisa.card.updatecardpriority
+
+scenarios 
+	UpdateCardPriority1
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCardPriority
+				{
+					cardId: "c1-${testId}",
+					priority: 1
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			wasUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted",
+				priority: 1
+			}
+
+	UpdateCardPriority2
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCardPriority
+				{
+					cardId: "c1-${testId}",
+					priority: 2
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			wasUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted",
+				priority: 2
+			}
+
+	UpdateCardPriority3
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCardPriority
+				{
+					cardId: "c1-${testId}",
+					priority: 3
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		persistence
+			wasUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted",
+				priority: 3
+			}
+
+	UpdateCardPriority4Invalid
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCardPriority
+				{
+					cardId: "c1-${testId}",
+					priority: 4
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 400
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+
+	UpdateCardPriority0Invalid
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCardPriority
+				{
+					cardId: "c1-${testId}",
+					priority: 4
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 400
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+
+	UpdateCardPriorityMissingCardId
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCardPriority
+				{
+					priority: 1
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 400
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+
+	UpdateCardPriorityPriorityNull
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCardPriority
+				{
+					cardId: "c1-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 400
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+
+	UpdateCardPriorityCardDoesNotExist
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCardPriority
+				{
+					cardId: "lala",
+					priority: 1
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 400
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+
+	UpdateCardPriorityNoAccessToCategory
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+			com.anfelisa.user.registeruser.RegisterUserAdmin
+		WHEN
+			com.anfelisa.card.UpdateCardPriority
+				{
+					cardId: "c1-${testId}",
+					priority: 1
+				}
+				authorization "Admin" : "admin-password"
+		THEN 401
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+		
+	UpdateCardPriorityUnauthorized
+		GIVEN
+			com.anfelisa.card.createcard.CreateCard
+		WHEN
+			com.anfelisa.card.UpdateCardPriority
+				{
+					cardId: "c1-${testId}",
+					priority: 1
+				}
+		THEN 401
+		persistence
+			wasNotUpdated Card selectByPrimaryKey ( cardId : "c1-${testId}" ) shouldBe
+			{
+				cardAuthor: "Annette-${testId}",
+				cardId: "c1-${testId}",
+				cardIndex: 1,
+				categoryId: "cat1-${testId}",
+				given: "given",
+				image: "image",
+				rootCategoryId: "boxId-${testId}",
+				wanted: "wanted"
+			}
+		
+		

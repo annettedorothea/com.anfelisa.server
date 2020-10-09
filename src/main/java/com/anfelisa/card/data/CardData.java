@@ -20,6 +20,7 @@ public class CardData extends AbstractCardData implements ICardData {
 		@JsonProperty("cardIndex") Integer cardIndex, 
 		@JsonProperty("categoryId") String categoryId, 
 		@JsonProperty("rootCategoryId") String rootCategoryId, 
+		@JsonProperty("priority") Integer priority, 
 		@JsonProperty("uuid") String uuid
 	) {
 		super(
@@ -31,6 +32,7 @@ public class CardData extends AbstractCardData implements ICardData {
 			cardIndex,
 			categoryId,
 			rootCategoryId,
+			priority,
 			uuid
 		);
 	}
@@ -50,9 +52,10 @@ public class CardData extends AbstractCardData implements ICardData {
 		testData.setWanted(randomString(random));
 		testData.setImage(randomString(random));
 		testData.setCardAuthor(randomString(random));
-		testData.setCardIndex(new Integer(random.nextInt(50)));
+		testData.setCardIndex(random.nextInt(50));
 		testData.setCategoryId(randomString(random));
 		testData.setRootCategoryId(randomString(random));
+		testData.setPriority(random.nextInt(50));
 		return testData;
 	}
 	

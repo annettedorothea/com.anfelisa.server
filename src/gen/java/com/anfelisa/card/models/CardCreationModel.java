@@ -40,6 +40,8 @@ public class CardCreationModel implements ICardCreationModel {
 
 	private String rootCategoryId;
 
+	private Integer priority;
+
 
 	public CardCreationModel() {
 	}
@@ -54,7 +56,8 @@ public class CardCreationModel implements ICardCreationModel {
 		@JsonProperty("cardAuthor") String cardAuthor,
 		@JsonProperty("cardIndex") Integer cardIndex,
 		@JsonProperty("categoryId") String categoryId,
-		@JsonProperty("rootCategoryId") String rootCategoryId
+		@JsonProperty("rootCategoryId") String rootCategoryId,
+		@JsonProperty("priority") Integer priority
 	) {
 		this.userId = userId;
 		this.username = username;
@@ -66,6 +69,7 @@ public class CardCreationModel implements ICardCreationModel {
 		this.cardIndex = cardIndex;
 		this.categoryId = categoryId;
 		this.rootCategoryId = rootCategoryId;
+		this.priority = priority;
 	}
 
 	@JsonProperty
@@ -146,6 +150,14 @@ public class CardCreationModel implements ICardCreationModel {
 	}
 	public void setRootCategoryId(String rootCategoryId) {
 		this.rootCategoryId = rootCategoryId;
+	}
+	
+	@JsonProperty
+	public Integer getPriority() {
+		return this.priority;
+	}
+	public void setPriority(Integer priority) {
+		this.priority = priority;
 	}
 	
 

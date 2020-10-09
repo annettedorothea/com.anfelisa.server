@@ -22,6 +22,7 @@ public class AppRegistration {
 			IDaoProvider daoProvider, ViewProvider viewProvider) {
 		environment.jersey().register(new CreateCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new UpdateCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
+		environment.jersey().register(new UpdateCardPriorityResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new DeleteCardResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetCardsResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
 		environment.jersey().register(new GetDuplicatesResource(persistenceConnection, appConfiguration, daoProvider, viewProvider));
@@ -38,6 +39,10 @@ public class AppRegistration {
 		
 		viewProvider.addConsumer("com.anfelisa.card.events.UpdateCardOkEvent", (dataContainer, handle) -> {
 			viewProvider.cardView.update((com.anfelisa.card.data.CardUpdateData) dataContainer, handle);
+		});
+		
+		viewProvider.addConsumer("com.anfelisa.card.events.UpdateCardPriorityOkEvent", (dataContainer, handle) -> {
+			viewProvider.cardView.updatePriority((com.anfelisa.card.data.CardUpdatePriorityData) dataContainer, handle);
 		});
 		
 		viewProvider.addConsumer("com.anfelisa.card.events.DeleteCardOkEvent", (dataContainer, handle) -> {

@@ -371,6 +371,15 @@
 			columnName="categoryindex" tableName="category" />
 	</changeSet>
 
+	<changeSet id="016" author="annette">
+
+		<addColumn tableName="card">
+			<column name="priority" type="integer">
+				<constraints />
+			</column>
+		</addColumn>
+	</changeSet>
+
 
 
 </databaseChangeLog>

@@ -3,6 +3,7 @@ package com.anfelisa.card.views;
 import com.anfelisa.card.data.ICardCreationData;
 import com.anfelisa.card.data.ICardDeleteData;
 import com.anfelisa.card.data.ICardUpdateData;
+import com.anfelisa.card.data.ICardUpdatePriorityData;
 import com.anfelisa.card.data.IChangeCardOrderListData;
 import com.anfelisa.card.data.ICsvUploadData;
 import com.anfelisa.card.data.IMoveCardsData;
@@ -36,7 +37,7 @@ public class CardView implements ICardView {
 	@Override
 	public void moveCards(IMoveCardsData data, PersistenceHandle handle) {
 		for (ICardModel movedCard : data.getMovedCards()) {
-			daoProvider.getCardDao().updateByCardId(handle, movedCard);
+			daoProvider.getCardDao().moveCard(handle, movedCard);
 		}
 		for (ICardModel card : data.getUpdatedIndices()) {
 			daoProvider.getCardDao().updateIndex(handle, card);
@@ -55,6 +56,11 @@ public class CardView implements ICardView {
 		for (ICardModel card : data.getUpdatedIndices()) {
 			daoProvider.getCardDao().updateIndex(handle, card);
 		}
+	}
+
+	@Override
+	public void updatePriority(ICardUpdatePriorityData data, PersistenceHandle handle) {
+		daoProvider.getCardDao().updateCardPriority(handle, data);
 	}
 
 }
