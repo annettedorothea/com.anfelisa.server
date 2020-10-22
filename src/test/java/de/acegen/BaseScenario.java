@@ -161,37 +161,50 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		}
 		return String.format("%s://%s:%d%s%s", protocol, host, port, rootPath, path);
 	}
-
-	protected Response httpGet(String path, String authorization, String uuid) {
-		Builder builder = client.target(buildUrl(path, uuid)).request();
-		if (authorization != null) {
-			builder.header("Authorization", authorization);
+	
+	private<T> HttpResponse<T> generateResponse(Response response, Class<T> entityType) {
+		int statusCode = response.getStatus();
+		String statusMessage = null;
+		T entity = null;
+		if (statusCode >= 400) {
+			statusMessage = response.readEntity(String.class);
+		} else if (statusCode >= 200 && statusCode < 300 && entityType != null) {
+			entity = response.readEntity(entityType);
 		}
-		return builder.get();
+		response.close();
+		return new HttpResponse<T>(entity, statusMessage, statusCode);
 	}
 
-	protected Response httpPost(String path, Object payload, String authorization, String uuid) {
+	protected<T> HttpResponse<T> httpGet(String path, String authorization, String uuid, Class<T> entityType) {
 		Builder builder = client.target(buildUrl(path, uuid)).request();
 		if (authorization != null) {
 			builder.header("Authorization", authorization);
 		}
-		return builder.post(Entity.json(payload));
+		return generateResponse(builder.get(), entityType);
 	}
 
-	protected Response httpPut(String path, Object payload, String authorization, String uuid) {
+	protected<T> HttpResponse<T> httpPost(String path, Object payload, String authorization, String uuid, Class<T> entityType) {
 		Builder builder = client.target(buildUrl(path, uuid)).request();
 		if (authorization != null) {
 			builder.header("Authorization", authorization);
 		}
-		return builder.put(payload != null ? Entity.json(payload) : Entity.json(""));
+		return generateResponse(builder.post(Entity.json(payload)), entityType);
 	}
 
-	protected Response httpDelete(String path, String authorization, String uuid) {
+	protected<T> HttpResponse<T> httpPut(String path, Object payload, String authorization, String uuid, Class<T> entityType) {
 		Builder builder = client.target(buildUrl(path, uuid)).request();
 		if (authorization != null) {
 			builder.header("Authorization", authorization);
 		}
-		return builder.delete();
+		return generateResponse(builder.put(payload != null ? Entity.json(payload) : Entity.json("")), entityType);
+	}
+
+	protected<T> HttpResponse<T> httpDelete(String path, String authorization, String uuid, Class<T> entityType) {
+		Builder builder = client.target(buildUrl(path, uuid)).request();
+		if (authorization != null) {
+			builder.header("Authorization", authorization);
+		}
+		return generateResponse(builder.delete(), entityType);
 	}
 
 	protected String randomString() {
