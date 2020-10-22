@@ -29,8 +29,6 @@ public abstract class AbstractUpdateCategoryDoesNotExistScenario extends BaseSce
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractUpdateCategoryDoesNotExistScenario.class);
 	
-	private Map<String, Object> extractedValues = new HashMap<String, Object>();
-	
 	private void given() throws Exception {
 		String uuid;
 		long timeBeforeRequest;

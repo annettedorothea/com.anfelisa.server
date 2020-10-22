@@ -10,6 +10,8 @@ package de.acegen;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class AbstractBaseScenario {
 
@@ -20,6 +22,8 @@ public abstract class AbstractBaseScenario {
 	protected PersistenceHandle handle;
 	
 	protected ObjectMapper objectMapper;
+	
+	protected Map<String, Object> extractedValues = new HashMap<String, Object>();
 	
 	public AbstractBaseScenario() {
 		objectMapper = new ObjectMapper();

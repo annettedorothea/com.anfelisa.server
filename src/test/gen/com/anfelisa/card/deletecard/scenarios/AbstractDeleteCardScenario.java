@@ -29,8 +29,6 @@ public abstract class AbstractDeleteCardScenario extends BaseScenario {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteCardScenario.class);
 	
-	private Map<String, Object> extractedValues = new HashMap<String, Object>();
-	
 	private void given() throws Exception {
 		String uuid;
 		long timeBeforeRequest;

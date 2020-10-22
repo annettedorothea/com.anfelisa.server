@@ -29,8 +29,6 @@ public abstract class AbstractDeleteCardNoAccessToCategoryScenario extends BaseS
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractDeleteCardNoAccessToCategoryScenario.class);
 	
-	private Map<String, Object> extractedValues = new HashMap<String, Object>();
-	
 	private void given() throws Exception {
 		String uuid;
 		long timeBeforeRequest;

@@ -29,8 +29,6 @@ public abstract class AbstractScoreCardSecond0Scenario extends BaseScenario {
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractScoreCardSecond0Scenario.class);
 	
-	private Map<String, Object> extractedValues = new HashMap<String, Object>();
-	
 	private void given() throws Exception {
 		String uuid;
 		long timeBeforeRequest;

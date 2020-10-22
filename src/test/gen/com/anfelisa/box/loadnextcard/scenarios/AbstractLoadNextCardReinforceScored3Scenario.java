@@ -29,8 +29,6 @@ public abstract class AbstractLoadNextCardReinforceScored3Scenario extends BaseS
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractLoadNextCardReinforceScored3Scenario.class);
 	
-	private Map<String, Object> extractedValues = new HashMap<String, Object>();
-	
 	private void given() throws Exception {
 		String uuid;
 		long timeBeforeRequest;

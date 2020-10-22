@@ -29,8 +29,6 @@ public abstract class AbstractLoadNextCardUnauthorizedScenario extends BaseScena
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractLoadNextCardUnauthorizedScenario.class);
 	
-	private Map<String, Object> extractedValues = new HashMap<String, Object>();
-	
 	private void given() throws Exception {
 		String uuid;
 		long timeBeforeRequest;

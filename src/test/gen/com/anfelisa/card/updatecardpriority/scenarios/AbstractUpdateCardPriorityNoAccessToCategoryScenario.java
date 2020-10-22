@@ -29,8 +29,6 @@ public abstract class AbstractUpdateCardPriorityNoAccessToCategoryScenario exten
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractUpdateCardPriorityNoAccessToCategoryScenario.class);
 	
-	private Map<String, Object> extractedValues = new HashMap<String, Object>();
-	
 	private void given() throws Exception {
 		String uuid;
 		long timeBeforeRequest;

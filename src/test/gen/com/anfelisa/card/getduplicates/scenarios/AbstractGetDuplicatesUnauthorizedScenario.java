@@ -29,8 +29,6 @@ public abstract class AbstractGetDuplicatesUnauthorizedScenario extends BaseScen
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractGetDuplicatesUnauthorizedScenario.class);
 	
-	private Map<String, Object> extractedValues = new HashMap<String, Object>();
-	
 	private void given() throws Exception {
 		String uuid;
 		long timeBeforeRequest;

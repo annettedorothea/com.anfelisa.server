@@ -29,8 +29,6 @@ public abstract class AbstractChangeOrderMovedCategoryDoesNotExistScenario exten
 
 	static final Logger LOG = LoggerFactory.getLogger(AbstractChangeOrderMovedCategoryDoesNotExistScenario.class);
 	
-	private Map<String, Object> extractedValues = new HashMap<String, Object>();
-	
 	private void given() throws Exception {
 		String uuid;
 		long timeBeforeRequest;
