@@ -31,8 +31,6 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 	
 	private void given() throws Exception {
 		String uuid;
-		long timeBeforeRequest;
-		long timeAfterRequest;
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
@@ -51,7 +49,6 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			"\"password\" : \"password\"," + 
 			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -61,15 +58,13 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_0.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response_0.getStatusMessage();
-				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUser success in {} ms", response_0.getDuration());
+			addToMetrics("RegisterUser", response_0.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -87,7 +82,6 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			"\"dictionaryLookup\" : false," + 
 			"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.BoxCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -97,15 +91,13 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_1.getStatusCode() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response_1.getStatusMessage();
-				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, response_1.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", response_1.getDuration());
+			addToMetrics("CreateBox", response_1.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
@@ -121,7 +113,6 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			"\"categoryName\" : \"level 1 #1\"," + 
 			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.category.data.CategoryCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
 				"/category/create", 
@@ -131,15 +122,13 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_2.getStatusCode() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response_2.getStatusMessage();
-				LOG.info("GIVEN: CreateCategory fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateCategory fails due to {} in {} ms", message, response_2.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategory success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateCategory success in {} ms", response_2.getDuration());
+			addToMetrics("CreateCategory", response_2.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
@@ -159,7 +148,6 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_3 = 
 			this.httpPost(
 				"/card/create", 
@@ -169,15 +157,13 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_3.getStatusCode() >= 400) {
 				String message = "GIVEN CreateCard fails\n" + response_3.getStatusMessage();
-				LOG.info("GIVEN: CreateCard fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateCard fails due to {} in {} ms", message, response_3.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCard success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateCard success in {} ms", response_3.getDuration());
+			addToMetrics("CreateCard", response_3.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCard not met");
 		}
@@ -199,7 +185,6 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			"\"password\" : \"admin-password\"," + 
 			"\"username\" : \"Admin\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_4 = 
 			this.httpPost(
 				"/users/register", 
@@ -209,15 +194,13 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_4.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response_4.getStatusMessage();
-				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, response_4.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", response_4.getDuration());
+			addToMetrics("RegisterUser", response_4.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -235,7 +218,6 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			"\"dictionaryLookup\" : false," + 
 			"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.BoxCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_5 = 
 			this.httpPost(
 				"/box/create", 
@@ -245,15 +227,13 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_5.getStatusCode() >= 400) {
 				String message = "GIVEN CreateBoxMinimalAsAdmin fails\n" + response_5.getStatusMessage();
-				LOG.info("GIVEN: CreateBoxMinimalAsAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateBoxMinimalAsAdmin fails due to {} in {} ms", message, response_5.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimalAsAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateBoxMinimalAsAdmin success in {} ms", response_5.getDuration());
+			addToMetrics("CreateBox", response_5.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimalAsAdmin not met");
 		}
@@ -269,7 +249,6 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			"\"categoryName\" : \"c\"," + 
 			"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
 					com.anfelisa.category.data.CategoryCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_6 = 
 			this.httpPost(
 				"/category/create", 
@@ -279,15 +258,13 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_6.getStatusCode() >= 400) {
 				String message = "GIVEN CreateCategoryAsAdmin fails\n" + response_6.getStatusMessage();
-				LOG.info("GIVEN: CreateCategoryAsAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateCategoryAsAdmin fails due to {} in {} ms", message, response_6.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategoryAsAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateCategoryAsAdmin success in {} ms", response_6.getDuration());
+			addToMetrics("CreateCategory", response_6.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategoryAsAdmin not met");
 		}
@@ -307,7 +284,6 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_7 = 
 			this.httpPost(
 				"/card/create", 
@@ -317,15 +293,13 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_7.getStatusCode() >= 400) {
 				String message = "GIVEN CreateCardAsAdmin fails\n" + response_7.getStatusMessage();
-				LOG.info("GIVEN: CreateCardAsAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateCardAsAdmin fails due to {} in {} ms", message, response_7.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCardAsAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateCardAsAdmin success in {} ms", response_7.getDuration());
+			addToMetrics("CreateCard", response_7.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCardAsAdmin not met");
 		}
@@ -343,7 +317,6 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 		"\"cardId\" : \"c6-" + this.getTestId() + "\"," + 
 		"\"cardIdList\" : [ \"c1-" + this.getTestId() + "\"]} ",
 				com.anfelisa.card.data.ChangeCardOrderListData.class);
-		long timeBeforeRequest = System.currentTimeMillis();
 		HttpResponse<Object> response = 
 		this.httpPut(
 			"/cards/changeorder", 
@@ -353,9 +326,10 @@ public abstract class AbstractChangeOrderNoAccessToTargetCardScenario extends Ba
 			null
 		);
 		
-		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: ChangeOrder finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("ChangeOrder", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: ChangeOrder finished in {} ms", response.getDuration());
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			addToMetrics("ChangeOrder", response.getDuration());
+		}
 		return response;
 	}
 	

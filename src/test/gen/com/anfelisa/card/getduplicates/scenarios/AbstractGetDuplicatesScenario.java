@@ -31,8 +31,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 	
 	private void given() throws Exception {
 		String uuid;
-		long timeBeforeRequest;
-		long timeAfterRequest;
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
@@ -51,7 +49,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"password\" : \"password\"," + 
 			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -61,15 +58,13 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_0.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response_0.getStatusMessage();
-				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUser success in {} ms", response_0.getDuration());
+			addToMetrics("RegisterUser", response_0.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -87,7 +82,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"dictionaryLookup\" : false," + 
 			"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.BoxCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -97,15 +91,13 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_1.getStatusCode() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response_1.getStatusMessage();
-				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, response_1.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", response_1.getDuration());
+			addToMetrics("CreateBox", response_1.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
@@ -121,7 +113,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"categoryName\" : \"level 1 #1\"," + 
 			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.category.data.CategoryCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
 				"/category/create", 
@@ -131,15 +122,13 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_2.getStatusCode() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response_2.getStatusMessage();
-				LOG.info("GIVEN: CreateCategory fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateCategory fails due to {} in {} ms", message, response_2.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategory success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateCategory success in {} ms", response_2.getDuration());
+			addToMetrics("CreateCategory", response_2.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
@@ -159,7 +148,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"image\" : \"image\"," + 
 			"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_3 = 
 			this.httpPost(
 				"/card/create", 
@@ -169,15 +157,13 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_3.getStatusCode() >= 400) {
 				String message = "GIVEN CreateCard fails\n" + response_3.getStatusMessage();
-				LOG.info("GIVEN: CreateCard fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateCard fails due to {} in {} ms", message, response_3.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCard success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateCard success in {} ms", response_3.getDuration());
+			addToMetrics("CreateCard", response_3.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCard not met");
 		}
@@ -197,7 +183,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"image\" : \"image2\"," + 
 			"\"wanted\" : \"wanted2\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_4 = 
 			this.httpPost(
 				"/card/create", 
@@ -207,15 +192,13 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_4.getStatusCode() >= 400) {
 				String message = "GIVEN CreateSecondCard fails\n" + response_4.getStatusMessage();
-				LOG.info("GIVEN: CreateSecondCard fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateSecondCard fails due to {} in {} ms", message, response_4.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateSecondCard success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateSecondCard success in {} ms", response_4.getDuration());
+			addToMetrics("CreateCard", response_4.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateSecondCard not met");
 		}
@@ -233,7 +216,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"given\" : \"3given\"," + 
 			"\"wanted\" : \"3wanted\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_5 = 
 			this.httpPost(
 				"/card/create", 
@@ -243,15 +225,13 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_5.getStatusCode() >= 400) {
 				String message = "GIVEN CreateThirdCard fails\n" + response_5.getStatusMessage();
-				LOG.info("GIVEN: CreateThirdCard fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateThirdCard fails due to {} in {} ms", message, response_5.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateThirdCard success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateThirdCard success in {} ms", response_5.getDuration());
+			addToMetrics("CreateCard", response_5.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateThirdCard not met");
 		}
@@ -269,7 +249,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"given\" : \"4given4\"," + 
 			"\"wanted\" : \"4wanted4\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_6 = 
 			this.httpPost(
 				"/card/create", 
@@ -279,15 +258,13 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_6.getStatusCode() >= 400) {
 				String message = "GIVEN CreateFourthCard fails\n" + response_6.getStatusMessage();
-				LOG.info("GIVEN: CreateFourthCard fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateFourthCard fails due to {} in {} ms", message, response_6.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateFourthCard success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateFourthCard success in {} ms", response_6.getDuration());
+			addToMetrics("CreateCard", response_6.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateFourthCard not met");
 		}
@@ -305,7 +282,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"given\" : \"different\"," + 
 			"\"wanted\" : \"different\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_7 = 
 			this.httpPost(
 				"/card/create", 
@@ -315,15 +291,13 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_7.getStatusCode() >= 400) {
 				String message = "GIVEN CreateFifthCard fails\n" + response_7.getStatusMessage();
-				LOG.info("GIVEN: CreateFifthCard fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateFifthCard fails due to {} in {} ms", message, response_7.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateFifthCard success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateFifthCard success in {} ms", response_7.getDuration());
+			addToMetrics("CreateCard", response_7.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateFifthCard not met");
 		}
@@ -339,7 +313,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"categoryName\" : \"level 1 #2\"," + 
 			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.category.data.CategoryCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_8 = 
 			this.httpPost(
 				"/category/create", 
@@ -349,15 +322,13 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_8.getStatusCode() >= 400) {
 				String message = "GIVEN CreateSecondCategory fails\n" + response_8.getStatusMessage();
-				LOG.info("GIVEN: CreateSecondCategory fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateSecondCategory fails due to {} in {} ms", message, response_8.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateSecondCategory success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateSecondCategory success in {} ms", response_8.getDuration());
+			addToMetrics("CreateCategory", response_8.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateSecondCategory not met");
 		}
@@ -375,7 +346,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"given\" : \"aa-given\"," + 
 			"\"wanted\" : \"zz-wanted\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_9 = 
 			this.httpPost(
 				"/card/create", 
@@ -385,15 +355,13 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_9.getStatusCode() >= 400) {
 				String message = "GIVEN CreateCardInOtherCategory fails\n" + response_9.getStatusMessage();
-				LOG.info("GIVEN: CreateCardInOtherCategory fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateCardInOtherCategory fails due to {} in {} ms", message, response_9.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCardInOtherCategory success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateCardInOtherCategory success in {} ms", response_9.getDuration());
+			addToMetrics("CreateCard", response_9.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCardInOtherCategory not met");
 		}
@@ -411,7 +379,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"dictionaryLookup\" : false," + 
 			"\"maxCardsPerDay\" : 8} ",
 					com.anfelisa.box.data.BoxCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_10 = 
 			this.httpPost(
 				"/box/create", 
@@ -421,15 +388,13 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_10.getStatusCode() >= 400) {
 				String message = "GIVEN CreateSecondBox fails\n" + response_10.getStatusMessage();
-				LOG.info("GIVEN: CreateSecondBox fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateSecondBox fails due to {} in {} ms", message, response_10.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateSecondBox success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateSecondBox success in {} ms", response_10.getDuration());
+			addToMetrics("CreateBox", response_10.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateSecondBox not met");
 		}
@@ -447,7 +412,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			"\"given\" : \"given\"," + 
 			"\"wanted\" : \"wanted\"} ",
 					com.anfelisa.card.data.CardCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_11 = 
 			this.httpPost(
 				"/card/create", 
@@ -457,15 +421,13 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_11.getStatusCode() >= 400) {
 				String message = "GIVEN CreateCardInOtherBox fails\n" + response_11.getStatusMessage();
-				LOG.info("GIVEN: CreateCardInOtherBox fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateCardInOtherBox fails due to {} in {} ms", message, response_11.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCardInOtherBox success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCard", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateCardInOtherBox success in {} ms", response_11.getDuration());
+			addToMetrics("CreateCard", response_11.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCardInOtherBox not met");
 		}
@@ -481,7 +443,6 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 		"\"wanted\" : \"nted\"," + 
 		"\"naturalInputOrder\" : true} ",
 				com.anfelisa.card.data.CardSearchData.class);
-		long timeBeforeRequest = System.currentTimeMillis();
 		HttpResponse<com.anfelisa.card.data.GetDuplicatesResponse> response = 
 		this.httpGet(
 			"/cards/search?given=" + data_0.getGiven() + "&wanted=" + data_0.getWanted() + "&naturalInputOrder=" + data_0.getNaturalInputOrder() + "&categoryId=" + data_0.getCategoryId() + "", 
@@ -490,9 +451,10 @@ public abstract class AbstractGetDuplicatesScenario extends BaseScenario {
 			com.anfelisa.card.data.GetDuplicatesResponse.class
 		);
 		
-		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: GetDuplicates finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("GetDuplicates", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: GetDuplicates finished in {} ms", response.getDuration());
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			addToMetrics("GetDuplicates", response.getDuration());
+		}
 		return response;
 	}
 	

@@ -31,8 +31,6 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 	
 	private void given() throws Exception {
 		String uuid;
-		long timeBeforeRequest;
-		long timeAfterRequest;
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
@@ -51,7 +49,6 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 			"\"password\" : \"password\"," + 
 			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -61,15 +58,13 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_0.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response_0.getStatusMessage();
-				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUser success in {} ms", response_0.getDuration());
+			addToMetrics("RegisterUser", response_0.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -87,7 +82,6 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 			"\"dictionaryLookup\" : false," + 
 			"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.BoxCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -97,15 +91,13 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_1.getStatusCode() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response_1.getStatusMessage();
-				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, response_1.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", response_1.getDuration());
+			addToMetrics("CreateBox", response_1.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
@@ -121,7 +113,6 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 			"\"categoryName\" : \"level 1 #1\"," + 
 			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.category.data.CategoryCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
 				"/category/create", 
@@ -131,15 +122,13 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_2.getStatusCode() >= 400) {
 				String message = "GIVEN CreateCategory fails\n" + response_2.getStatusMessage();
-				LOG.info("GIVEN: CreateCategory fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateCategory fails due to {} in {} ms", message, response_2.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateCategory success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateCategory success in {} ms", response_2.getDuration());
+			addToMetrics("CreateCategory", response_2.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateCategory not met");
 		}
@@ -155,7 +144,6 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 			"\"categoryName\" : \"level 1 #2\"," + 
 			"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 					com.anfelisa.category.data.CategoryCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_3 = 
 			this.httpPost(
 				"/category/create", 
@@ -165,15 +153,13 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_3.getStatusCode() >= 400) {
 				String message = "GIVEN CreateSecondCategory fails\n" + response_3.getStatusMessage();
-				LOG.info("GIVEN: CreateSecondCategory fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateSecondCategory fails due to {} in {} ms", message, response_3.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateSecondCategory success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateSecondCategory success in {} ms", response_3.getDuration());
+			addToMetrics("CreateCategory", response_3.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateSecondCategory not met");
 		}
@@ -195,7 +181,6 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 			"\"password\" : \"admin-password\"," + 
 			"\"username\" : \"Admin\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_4 = 
 			this.httpPost(
 				"/users/register", 
@@ -205,15 +190,13 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_4.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response_4.getStatusMessage();
-				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, response_4.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", response_4.getDuration());
+			addToMetrics("RegisterUser", response_4.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -226,7 +209,6 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"categoryId\" : \"xx\"} ",
 				com.anfelisa.category.data.CategoryDeleteData.class);
-		long timeBeforeRequest = System.currentTimeMillis();
 		HttpResponse<Object> response = 
 		this.httpDelete(
 			"/category/delete?categoryId=" + data_0.getCategoryId() + "", 
@@ -235,9 +217,10 @@ public abstract class AbstractDeleteCategoryDoesNotExistScenario extends BaseSce
 			null
 		);
 		
-		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: DeleteCategory finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("DeleteCategory", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: DeleteCategory finished in {} ms", response.getDuration());
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			addToMetrics("DeleteCategory", response.getDuration());
+		}
 		return response;
 	}
 	

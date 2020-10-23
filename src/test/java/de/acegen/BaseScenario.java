@@ -20,6 +20,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -29,13 +30,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation.Builder;
-import javax.ws.rs.core.Response;
-
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-import org.glassfish.jersey.client.JerseyClientBuilder;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequest;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.ClassicHttpResponse;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.io.HttpClientResponseHandler;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.jdbi.v3.core.Jdbi;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -44,7 +52,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.anfelisa.box.data.GetBoxStatisticsResponse;
@@ -59,14 +66,18 @@ import com.anfelisa.category.data.GetCategoryTreeResponse;
 import com.anfelisa.category.models.ICategoryTreeItemModel;
 import com.anfelisa.user.data.GetAllUsersResponse;
 import com.anfelisa.user.models.IUserModel;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+
 @RunWith(JUnitPlatform.class)
 public abstract class BaseScenario extends AbstractBaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(BaseScenario.class);
+	static Logger LOG;
 
 	private static Jdbi jdbi;
 
@@ -80,12 +91,13 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	private String testId;
 
-	public Client client;
-
 	protected static Map<String, DescriptiveStatistics> metrics;
 
 	@BeforeAll
 	public static void beforeClass() throws Exception {
+		LOG = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+		LOG.setLevel(Level.INFO);
+
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
 				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		YamlConfiguration config = mapper.readValue(new File("dev.yml"), YamlConfiguration.class);
@@ -137,7 +149,6 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		daoProvider = new DaoProvider();
 		handle = new PersistenceHandle(jdbi.open());
 		testId = randomString();
-		client = new JerseyClientBuilder().build();
 		LOG.info("*********************************************************************************");
 		LOG.info("********   {} test id {}", this.scenarioName(), testId);
 		LOG.info("*********************************************************************************");
@@ -153,60 +164,107 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		this.runTest();
 	}
 
+	protected <T> HttpResponse<T> httpGet(String path, String authorization, String uuid, Class<T> entityType) {
+		final HttpGet httpGet = new HttpGet(buildUrl(path, uuid));
+		addHeaders(httpGet, authorization);
+		return execute(httpGet, entityType);
+	}
+
+	protected <T> HttpResponse<T> httpPost(String path, Object payload, String authorization, String uuid,
+			Class<T> entityType) {
+		final HttpPost httpPost = new HttpPost(buildUrl(path, uuid));
+		addHeaders(httpPost, authorization);
+		addEntity(httpPost, payload);
+		return execute(httpPost, entityType);
+	}
+
+	protected <T> HttpResponse<T> httpPut(String path, Object payload, String authorization, String uuid,
+			Class<T> entityType) {
+		final HttpPut httpPut = new HttpPut(buildUrl(path, uuid));
+		addHeaders(httpPut, authorization);
+		addEntity(httpPut, payload);
+		return execute(httpPut, entityType);
+	}
+
+	protected <T> HttpResponse<T> httpDelete(String path, String authorization, String uuid, Class<T> entityType) {
+		final HttpDelete httpDelete = new HttpDelete(buildUrl(path, uuid));
+		addHeaders(httpDelete, authorization);
+		return execute(httpDelete, entityType);
+	}
+
 	private String buildUrl(String path, String uuid) {
-		if (path.contains("?")) {
-			path += "&uuid=" + uuid;
-		} else {
-			path += "?uuid=" + uuid;
+		if (StringUtils.isNotBlank(uuid)) {
+			if (path.contains("?")) {
+				path += "&uuid=" + uuid;
+			} else {
+				path += "?uuid=" + uuid;
+			}
 		}
 		return String.format("%s://%s:%d%s%s", protocol, host, port, rootPath, path);
 	}
-	
-	private<T> HttpResponse<T> generateResponse(Response response, Class<T> entityType) {
-		int statusCode = response.getStatus();
+
+	private void addHeaders(HttpUriRequest request, String authorization) {
+		request.setHeader("Accept", "application/json");
+		request.setHeader("Content-type", "application/json");
+		if (authorization != null) {
+			request.addHeader("Authorization", authorization);
+		}
+	}
+
+	private void addEntity(HttpUriRequest request, Object payload) {
+		try {
+			String json = "";
+			if (payload instanceof String) {
+				json = payload.toString();
+			} else {
+				json = objectMapper.writeValueAsString(payload);
+			}
+			StringEntity httpEntity = new StringEntity(json);
+			request.setEntity(httpEntity);
+		} catch (JsonProcessingException e) {
+			LOG.error("failed to write entity", e);
+		}
+	}
+
+	private <T> HttpResponse<T> execute(HttpUriRequest request, Class<T> entityType) {
+		try (final CloseableHttpClient httpclient = HttpClients.createDefault()) {
+			long timeBeforeRequest = System.currentTimeMillis();
+			final HttpClientResponseHandler<HttpResponse<T>> responseHandler = new HttpClientResponseHandler<HttpResponse<T>>() {
+				@Override
+				public HttpResponse<T> handleResponse(final ClassicHttpResponse response) throws IOException {
+					long timeAfterRequest = System.currentTimeMillis();
+					return createHttpResponse(response, entityType, timeAfterRequest - timeBeforeRequest);
+				}
+			};
+			return httpclient.execute(request, responseHandler);
+		} catch (IOException e) {
+			return new HttpResponse<T>(null, e.getMessage(), -1, 0L);
+		}
+	}
+
+	private <T> HttpResponse<T> createHttpResponse(ClassicHttpResponse response, Class<T> entityType, long duration) {
+		int statusCode = response.getCode();
 		String statusMessage = null;
 		T entity = null;
-		if (statusCode >= 400) {
-			statusMessage = response.readEntity(String.class);
-		} else if (statusCode >= 200 && statusCode < 300 && entityType != null) {
-			entity = response.readEntity(entityType);
+		final int status = response.getCode();
+		final HttpEntity httpEntity = response.getEntity();
+		try {
+			if (httpEntity != null) {
+				if (status >= 400) {
+					statusMessage = httpEntity != null ? EntityUtils.toString(httpEntity) : null;
+				} else {
+					String json = httpEntity != null ? EntityUtils.toString(httpEntity) : null;
+					entity = objectMapper.readValue(json, entityType);
+				}
+			}
+			response.close();
+		} catch (final Exception x) {
+			statusMessage = x.getMessage();
 		}
-		response.close();
-		return new HttpResponse<T>(entity, statusMessage, statusCode);
+		return new HttpResponse<T>(entity, statusMessage, statusCode, duration);
 	}
 
-	protected<T> HttpResponse<T> httpGet(String path, String authorization, String uuid, Class<T> entityType) {
-		Builder builder = client.target(buildUrl(path, uuid)).request();
-		if (authorization != null) {
-			builder.header("Authorization", authorization);
-		}
-		return generateResponse(builder.get(), entityType);
-	}
-
-	protected<T> HttpResponse<T> httpPost(String path, Object payload, String authorization, String uuid, Class<T> entityType) {
-		Builder builder = client.target(buildUrl(path, uuid)).request();
-		if (authorization != null) {
-			builder.header("Authorization", authorization);
-		}
-		return generateResponse(builder.post(Entity.json(payload)), entityType);
-	}
-
-	protected<T> HttpResponse<T> httpPut(String path, Object payload, String authorization, String uuid, Class<T> entityType) {
-		Builder builder = client.target(buildUrl(path, uuid)).request();
-		if (authorization != null) {
-			builder.header("Authorization", authorization);
-		}
-		return generateResponse(builder.put(payload != null ? Entity.json(payload) : Entity.json("")), entityType);
-	}
-
-	protected<T> HttpResponse<T> httpDelete(String path, String authorization, String uuid, Class<T> entityType) {
-		Builder builder = client.target(buildUrl(path, uuid)).request();
-		if (authorization != null) {
-			builder.header("Authorization", authorization);
-		}
-		return generateResponse(builder.delete(), entityType);
-	}
-
+	@Override
 	protected String randomString() {
 		return randomUUID().replace("-", "").substring(0, 8);
 	}
@@ -437,29 +495,16 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		return testId;
 	}
 
-	protected String replaceTestId(String string) {
-		return string.replace("${testId}", testId);
+	@Override
+	protected HttpResponse<Object> callNonDeterministicDataProviderPutValue(String uuid, String key, Object data) {
+		return this.httpPut("/test/non-deterministic/value?uuid=" + uuid + "&key=" + key, data, null, null,
+				Object.class);
 	}
 
 	@Override
-	protected Response callNonDeterministicDataProviderPutValue(String uuid, String key, Object data) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client
-				.target(String.format("%s://%s:%d%s/test/non-deterministic/value?uuid=" + uuid + "&key=" + key, protocol,
-						host, port, rootPath))
-				.request();
-		return builder.put(Entity.json(data));
-	}
-
-	@Override
-	protected Response callNonDeterministicDataProviderPutSystemTime(String uuid, LocalDateTime dateTime) {
-		Client client = new JerseyClientBuilder().build();
-		Builder builder = client
-				.target(String.format(
-						"%s://%s:%d%s/test/non-deterministic/system-time?uuid=" + uuid + "&system-time=" + dateTime,
-						protocol, host, port, rootPath))
-				.request();
-		return builder.put(Entity.json(dateTime));
+	protected HttpResponse<Object> callNonDeterministicDataProviderPutSystemTime(String uuid, LocalDateTime dateTime) {
+		return this.httpPut("/test/non-deterministic/system-time?uuid=" + uuid + "&system-time=" + dateTime, null, null,
+				null, Object.class);
 	}
 
 	@Override

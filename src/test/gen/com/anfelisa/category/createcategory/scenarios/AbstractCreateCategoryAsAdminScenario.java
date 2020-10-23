@@ -31,8 +31,6 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 	
 	private void given() throws Exception {
 		String uuid;
-		long timeBeforeRequest;
-		long timeAfterRequest;
 		
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin";
@@ -51,7 +49,6 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 			"\"password\" : \"admin-password\"," + 
 			"\"username\" : \"Admin\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -61,15 +58,13 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_0.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response_0.getStatusMessage();
-				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", response_0.getDuration());
+			addToMetrics("RegisterUser", response_0.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -87,7 +82,6 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 			"\"dictionaryLookup\" : false," + 
 			"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.BoxCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -97,15 +91,13 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_1.getStatusCode() >= 400) {
 				String message = "GIVEN CreateBoxMinimalAsAdmin fails\n" + response_1.getStatusMessage();
-				LOG.info("GIVEN: CreateBoxMinimalAsAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateBoxMinimalAsAdmin fails due to {} in {} ms", message, response_1.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimalAsAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateBoxMinimalAsAdmin success in {} ms", response_1.getDuration());
+			addToMetrics("CreateBox", response_1.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimalAsAdmin not met");
 		}
@@ -123,7 +115,6 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 		"\"categoryName\" : \"c\"," + 
 		"\"parentCategoryId\" : \"adminBox-" + this.getTestId() + "\"} ",
 				com.anfelisa.category.data.CategoryCreationData.class);
-		long timeBeforeRequest = System.currentTimeMillis();
 		HttpResponse<Object> response = 
 		this.httpPost(
 			"/category/create", 
@@ -133,9 +124,10 @@ public abstract class AbstractCreateCategoryAsAdminScenario extends BaseScenario
 			null
 		);
 		
-		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: CreateCategory finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: CreateCategory finished in {} ms", response.getDuration());
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			addToMetrics("CreateCategory", response.getDuration());
+		}
 		return response;
 	}
 	

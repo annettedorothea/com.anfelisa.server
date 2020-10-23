@@ -31,8 +31,6 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 	
 	private void given() throws Exception {
 		String uuid;
-		long timeBeforeRequest;
-		long timeAfterRequest;
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
@@ -51,7 +49,6 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 			"\"password\" : \"password\"," + 
 			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -61,15 +58,13 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_0.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response_0.getStatusMessage();
-				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUser success in {} ms", response_0.getDuration());
+			addToMetrics("RegisterUser", response_0.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -87,7 +82,6 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 			"\"dictionaryLookup\" : false," + 
 			"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.BoxCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/box/create", 
@@ -97,15 +91,13 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_1.getStatusCode() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response_1.getStatusMessage();
-				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, response_1.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", response_1.getDuration());
+			addToMetrics("CreateBox", response_1.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
@@ -133,7 +125,6 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 		"\"givenLanguage\" : \"de\"," + 
 		"\"wantedLanguage\" : \"en\"} ",
 				com.anfelisa.box.data.BoxUpdateData.class);
-		long timeBeforeRequest = System.currentTimeMillis();
 		HttpResponse<Object> response = 
 		this.httpPut(
 			"/box/update", 
@@ -143,9 +134,10 @@ public abstract class AbstractUpdateBoxDictionaryLookupScenario extends BaseScen
 			null
 		);
 		
-		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: UpdateBox finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("UpdateBox", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: UpdateBox finished in {} ms", response.getDuration());
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			addToMetrics("UpdateBox", response.getDuration());
+		}
 		return response;
 	}
 	

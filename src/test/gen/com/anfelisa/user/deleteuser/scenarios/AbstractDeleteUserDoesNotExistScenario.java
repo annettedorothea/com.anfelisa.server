@@ -31,8 +31,6 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 	
 	private void given() throws Exception {
 		String uuid;
-		long timeBeforeRequest;
-		long timeAfterRequest;
 		
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin";
@@ -51,7 +49,6 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 			"\"password\" : \"admin-password\"," + 
 			"\"username\" : \"Admin\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -61,15 +58,13 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_0.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response_0.getStatusMessage();
-				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", response_0.getDuration());
+			addToMetrics("RegisterUser", response_0.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -82,7 +77,6 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 		"\"uuid\" : \"" + uuid + "\"," + 
 		"\"usernameToBeDeleted\" : \"doesNotExist\"} ",
 				com.anfelisa.user.data.DeleteUserData.class);
-		long timeBeforeRequest = System.currentTimeMillis();
 		HttpResponse<Object> response = 
 		this.httpDelete(
 			"/user/delete?usernameToBeDeleted=" + data_0.getUsernameToBeDeleted() + "", 
@@ -91,9 +85,10 @@ public abstract class AbstractDeleteUserDoesNotExistScenario extends BaseScenari
 			null
 		);
 		
-		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: DeleteUser finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("DeleteUser", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: DeleteUser finished in {} ms", response.getDuration());
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			addToMetrics("DeleteUser", response.getDuration());
+		}
 		return response;
 	}
 	

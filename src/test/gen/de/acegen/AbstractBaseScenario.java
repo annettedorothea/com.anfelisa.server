@@ -8,7 +8,6 @@
 package de.acegen;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,10 +64,10 @@ public abstract class AbstractBaseScenario {
 
 	protected abstract boolean prerequisite(String scenarioName);
 	
-	protected abstract Response callNonDeterministicDataProviderPutValue(
+	protected abstract HttpResponse<Object> callNonDeterministicDataProviderPutValue(
 				String uuid, String key, Object data);
 				
-	protected abstract Response callNonDeterministicDataProviderPutSystemTime(
+	protected abstract HttpResponse<Object> callNonDeterministicDataProviderPutSystemTime(
 				String uuid, LocalDateTime dateTime);
 				
 	protected abstract void addToMetrics(String action, Long duration);

@@ -31,8 +31,6 @@ public abstract class AbstractCreateBoxWantedLanguageInvalidScenario extends Bas
 	
 	private void given() throws Exception {
 		String uuid;
-		long timeBeforeRequest;
-		long timeAfterRequest;
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
@@ -51,7 +49,6 @@ public abstract class AbstractCreateBoxWantedLanguageInvalidScenario extends Bas
 			"\"password\" : \"password\"," + 
 			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -61,15 +58,13 @@ public abstract class AbstractCreateBoxWantedLanguageInvalidScenario extends Bas
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_0.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response_0.getStatusMessage();
-				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUser success in {} ms", response_0.getDuration());
+			addToMetrics("RegisterUser", response_0.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -93,7 +88,6 @@ public abstract class AbstractCreateBoxWantedLanguageInvalidScenario extends Bas
 		"\"givenLanguage\" : \"fr\"," + 
 		"\"wantedLanguage\" : \"xx\"} ",
 				com.anfelisa.box.data.BoxCreationData.class);
-		long timeBeforeRequest = System.currentTimeMillis();
 		HttpResponse<Object> response = 
 		this.httpPost(
 			"/box/create", 
@@ -103,9 +97,10 @@ public abstract class AbstractCreateBoxWantedLanguageInvalidScenario extends Bas
 			null
 		);
 		
-		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: CreateBox finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: CreateBox finished in {} ms", response.getDuration());
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			addToMetrics("CreateBox", response.getDuration());
+		}
 		return response;
 	}
 	

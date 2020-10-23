@@ -31,8 +31,6 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 	
 	private void given() throws Exception {
 		String uuid;
-		long timeBeforeRequest;
-		long timeAfterRequest;
 		
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin";
@@ -51,7 +49,6 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 			"\"password\" : \"admin-password\"," + 
 			"\"username\" : \"Admin\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -61,15 +58,13 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_0.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response_0.getStatusMessage();
-				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", response_0.getDuration());
+			addToMetrics("RegisterUser", response_0.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -89,7 +84,6 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 		"\"dictionaryLookup\" : false," + 
 		"\"maxCardsPerDay\" : 10} ",
 				com.anfelisa.box.data.BoxCreationData.class);
-		long timeBeforeRequest = System.currentTimeMillis();
 		HttpResponse<Object> response = 
 		this.httpPost(
 			"/box/create", 
@@ -99,9 +93,10 @@ public abstract class AbstractCreateBoxMinimalAsAdminScenario extends BaseScenar
 			null
 		);
 		
-		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: CreateBox finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: CreateBox finished in {} ms", response.getDuration());
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			addToMetrics("CreateBox", response.getDuration());
+		}
 		return response;
 	}
 	

@@ -31,8 +31,6 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 	
 	private void given() throws Exception {
 		String uuid;
-		long timeBeforeRequest;
-		long timeAfterRequest;
 		
 	}
 	
@@ -51,7 +49,6 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 		"\"language\" : \"de\"," + 
 		"\"password\" : \"password\"} ",
 				com.anfelisa.user.data.UserRegistrationData.class);
-		long timeBeforeRequest = System.currentTimeMillis();
 		HttpResponse<Object> response = 
 		this.httpPost(
 			"/users/register", 
@@ -61,9 +58,10 @@ public abstract class AbstractRegisterUserNoUsernameScenario extends BaseScenari
 			null
 		);
 		
-		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: RegisterUser finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: RegisterUser finished in {} ms", response.getDuration());
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			addToMetrics("RegisterUser", response.getDuration());
+		}
 		return response;
 	}
 	

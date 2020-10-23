@@ -31,8 +31,6 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 	
 	private void given() throws Exception {
 		String uuid;
-		long timeBeforeRequest;
-		long timeAfterRequest;
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
@@ -51,7 +49,6 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 			"\"password\" : \"password\"," + 
 			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -61,15 +58,13 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_0.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response_0.getStatusMessage();
-				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUser success in {} ms", response_0.getDuration());
+			addToMetrics("RegisterUser", response_0.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -91,7 +86,6 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 			"\"password\" : \"pw\"," + 
 			"\"username\" : \"Anne-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/users/register", 
@@ -101,15 +95,13 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_1.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterTwoUsers fails\n" + response_1.getStatusMessage();
-				LOG.info("GIVEN: RegisterTwoUsers fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterTwoUsers fails due to {} in {} ms", message, response_1.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterTwoUsers success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterTwoUsers success in {} ms", response_1.getDuration());
+			addToMetrics("RegisterUser", response_1.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterTwoUsers not met");
 		}
@@ -127,7 +119,6 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 		"\"token\" : \"TOKEN_2-" + this.getTestId() + "\"," + 
 		"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 				com.anfelisa.user.data.ConfirmEmailData.class);
-		long timeBeforeRequest = System.currentTimeMillis();
 		HttpResponse<Object> response = 
 		this.httpPut(
 			"/users/confirm", 
@@ -137,9 +128,10 @@ public abstract class AbstractConfirmEmailTokenDoesNotMatchScenario extends Base
 			null
 		);
 		
-		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: ConfirmEmail finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("ConfirmEmail", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: ConfirmEmail finished in {} ms", response.getDuration());
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			addToMetrics("ConfirmEmail", response.getDuration());
+		}
 		return response;
 	}
 	

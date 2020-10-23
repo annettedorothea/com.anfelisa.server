@@ -14,12 +14,15 @@ public class HttpResponse<T> {
 	private String statusMessage;
 	
 	private int statusCode;
+	
+	private long duration;
 
-	public HttpResponse(T entity, String statusMessage, int statusCode) {
+	public HttpResponse(T entity, String statusMessage, int statusCode, long duration) {
 		super();
 		this.entity = entity;
 		this.statusMessage = statusMessage;
 		this.statusCode = statusCode;
+		this.duration = duration;
 	}
 
 	public T getEntity() {
@@ -32,6 +35,10 @@ public class HttpResponse<T> {
 
 	public int getStatusCode() {
 		return statusCode;
+	}
+	
+	public long getDuration() {
+		return duration;
 	}
 	
 }

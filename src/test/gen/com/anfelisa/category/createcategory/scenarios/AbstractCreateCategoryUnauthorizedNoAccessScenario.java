@@ -31,8 +31,6 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 	
 	private void given() throws Exception {
 		String uuid;
-		long timeBeforeRequest;
-		long timeAfterRequest;
 		
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin";
@@ -51,7 +49,6 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 			"\"password\" : \"admin-password\"," + 
 			"\"username\" : \"Admin\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -61,15 +58,13 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_0.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response_0.getStatusMessage();
-				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", response_0.getDuration());
+			addToMetrics("RegisterUser", response_0.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -91,7 +86,6 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 			"\"password\" : \"password\"," + 
 			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/users/register", 
@@ -101,15 +95,13 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_1.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response_1.getStatusMessage();
-				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, response_1.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUser success in {} ms", response_1.getDuration());
+			addToMetrics("RegisterUser", response_1.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -127,7 +119,6 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 			"\"dictionaryLookup\" : false," + 
 			"\"maxCardsPerDay\" : 10} ",
 					com.anfelisa.box.data.BoxCreationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_2 = 
 			this.httpPost(
 				"/box/create", 
@@ -137,15 +128,13 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_2.getStatusCode() >= 400) {
 				String message = "GIVEN CreateBoxMinimal fails\n" + response_2.getStatusMessage();
-				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: CreateBoxMinimal fails due to {} in {} ms", message, response_2.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("CreateBox", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: CreateBoxMinimal success in {} ms", response_2.getDuration());
+			addToMetrics("CreateBox", response_2.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for CreateBoxMinimal not met");
 		}
@@ -163,7 +152,6 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 		"\"categoryName\" : \"lala\"," + 
 		"\"parentCategoryId\" : \"boxId-" + this.getTestId() + "\"} ",
 				com.anfelisa.category.data.CategoryCreationData.class);
-		long timeBeforeRequest = System.currentTimeMillis();
 		HttpResponse<Object> response = 
 		this.httpPost(
 			"/category/create", 
@@ -173,9 +161,10 @@ public abstract class AbstractCreateCategoryUnauthorizedNoAccessScenario extends
 			null
 		);
 		
-		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: CreateCategory finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("CreateCategory", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: CreateCategory finished in {} ms", response.getDuration());
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			addToMetrics("CreateCategory", response.getDuration());
+		}
 		return response;
 	}
 	

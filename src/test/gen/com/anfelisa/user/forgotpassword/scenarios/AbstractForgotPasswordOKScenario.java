@@ -31,8 +31,6 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 	
 	private void given() throws Exception {
 		String uuid;
-		long timeBeforeRequest;
-		long timeAfterRequest;
 		
 		if (prerequisite("RegisterUser")) {
 			uuid = "uuid-" + this.getTestId() + "";
@@ -51,7 +49,6 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 			"\"password\" : \"password\"," + 
 			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -61,15 +58,13 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_0.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response_0.getStatusMessage();
-				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUser success in {} ms", response_0.getDuration());
+			addToMetrics("RegisterUser", response_0.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -89,7 +84,6 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 		"\"language\" : \"de\"," + 
 		"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 				com.anfelisa.user.data.ForgotPasswordData.class);
-		long timeBeforeRequest = System.currentTimeMillis();
 		HttpResponse<Object> response = 
 		this.httpPost(
 			"/users/forgot-password", 
@@ -99,9 +93,10 @@ public abstract class AbstractForgotPasswordOKScenario extends BaseScenario {
 			null
 		);
 		
-		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: ForgotPassword finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("ForgotPassword", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: ForgotPassword finished in {} ms", response.getDuration());
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			addToMetrics("ForgotPassword", response.getDuration());
+		}
 		return response;
 	}
 	

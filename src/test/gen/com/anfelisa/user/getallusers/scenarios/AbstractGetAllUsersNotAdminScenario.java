@@ -31,8 +31,6 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 	
 	private void given() throws Exception {
 		String uuid;
-		long timeBeforeRequest;
-		long timeAfterRequest;
 		
 		if (prerequisite("RegisterUserAdmin")) {
 			uuid = "uuid-admin";
@@ -51,7 +49,6 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 			"\"password\" : \"admin-password\"," + 
 			"\"username\" : \"Admin\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_0 = 
 			this.httpPost(
 				"/users/register", 
@@ -61,15 +58,13 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_0.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUserAdmin fails\n" + response_0.getStatusMessage();
-				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUserAdmin fails due to {} in {} ms", message, response_0.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUserAdmin success in {} ms", response_0.getDuration());
+			addToMetrics("RegisterUser", response_0.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUserAdmin not met");
 		}
@@ -91,7 +86,6 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 			"\"password\" : \"password\"," + 
 			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.UserRegistrationData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_1 = 
 			this.httpPost(
 				"/users/register", 
@@ -101,15 +95,13 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_1.getStatusCode() >= 400) {
 				String message = "GIVEN RegisterUser fails\n" + response_1.getStatusMessage();
-				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: RegisterUser fails due to {} in {} ms", message, response_1.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: RegisterUser success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("RegisterUser", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: RegisterUser success in {} ms", response_1.getDuration());
+			addToMetrics("RegisterUser", response_1.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for RegisterUser not met");
 		}
@@ -125,7 +117,6 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 			"\"token\" : \"TOKEN-" + this.getTestId() + "\"," + 
 			"\"username\" : \"Annette-" + this.getTestId() + "\"} ",
 					com.anfelisa.user.data.ConfirmEmailData.class);
-			timeBeforeRequest = System.currentTimeMillis();
 			HttpResponse<Object> response_2 = 
 			this.httpPut(
 				"/users/confirm", 
@@ -135,15 +126,13 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 				null
 			);
 			
-			timeAfterRequest = System.currentTimeMillis();
 			if (response_2.getStatusCode() >= 400) {
 				String message = "GIVEN ConfirmEmailOK fails\n" + response_2.getStatusMessage();
-				LOG.info("GIVEN: ConfirmEmailOK fails due to {} in {} ms", message, (timeAfterRequest-timeBeforeRequest));
-				addToMetrics("ConfirmEmail", (timeAfterRequest-timeBeforeRequest));
+				LOG.info("GIVEN: ConfirmEmailOK fails due to {} in {} ms", message, response_2.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ConfirmEmailOK success in {} ms", (timeAfterRequest-timeBeforeRequest));
-			addToMetrics("ConfirmEmail", (timeAfterRequest-timeBeforeRequest));
+			LOG.info("GIVEN: ConfirmEmailOK success in {} ms", response_2.getDuration());
+			addToMetrics("ConfirmEmail", response_2.getDuration());
 		} else {
 			LOG.info("GIVEN: prerequisite for ConfirmEmailOK not met");
 		}
@@ -155,7 +144,6 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 		com.anfelisa.user.data.UserListData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\" }",
 		com.anfelisa.user.data.UserListData.class);
-		long timeBeforeRequest = System.currentTimeMillis();
 		HttpResponse<com.anfelisa.user.data.GetAllUsersResponse> response = 
 		this.httpGet(
 			"/users/all", 
@@ -164,9 +152,10 @@ public abstract class AbstractGetAllUsersNotAdminScenario extends BaseScenario {
 			com.anfelisa.user.data.GetAllUsersResponse.class
 		);
 		
-		long timeAfterRequest = System.currentTimeMillis();
-		LOG.info("WHEN: GetAllUsers finished in {} ms", (timeAfterRequest-timeBeforeRequest));
-		addToMetrics("GetAllUsers", (timeAfterRequest-timeBeforeRequest));
+		LOG.info("WHEN: GetAllUsers finished in {} ms", response.getDuration());
+		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+			addToMetrics("GetAllUsers", response.getDuration());
+		}
 		return response;
 	}
 	
