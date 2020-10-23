@@ -77,7 +77,7 @@ import ch.qos.logback.classic.Logger;
 @RunWith(JUnitPlatform.class)
 public abstract class BaseScenario extends AbstractBaseScenario {
 
-	static Logger LOG;
+	static final Logger LOG = (Logger) LoggerFactory.getLogger(BaseScenario.class);;
 
 	private static Jdbi jdbi;
 
@@ -95,8 +95,8 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	@BeforeAll
 	public static void beforeClass() throws Exception {
-		LOG = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-		LOG.setLevel(Level.INFO);
+		Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+		rootLogger.setLevel(Level.INFO);
 
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory())
 				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
