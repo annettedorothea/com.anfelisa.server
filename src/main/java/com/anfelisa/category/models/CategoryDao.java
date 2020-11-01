@@ -16,7 +16,8 @@ public class CategoryDao extends AbstractCategoryDao {
 		Optional<ICategoryTreeItemModel> optional = handle.getHandle().createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
-						+ "true as isRoot "
+						+ "true as isRoot,"
+						+ "null as nonScheduledCount "
 						+ "FROM public.category c WHERE categoryid = :categoryid")
 				.bind("categoryid", rootCategoryId)
 				.map(new CategoryTreeItemMapper())
@@ -28,7 +29,8 @@ public class CategoryDao extends AbstractCategoryDao {
 		return handle.getHandle().createQuery(
 				"SELECT categoryid, categoryname, categoryauthor, categoryindex, parentcategoryid, rootcategoryid, dictionarylookup, givenlanguage, wantedlanguage, "
 						+ "(select count(categoryid) from public.category child where child.parentcategoryid = c.categoryid) = 0 as empty, "
-						+ "false as isRoot "
+						+ "false as isRoot,"
+						+ "null as nonScheduledCount "
 						+ "FROM public.category c WHERE parentcategoryid = :parentcategoryid order by categoryindex, categoryname")
 				.bind("parentcategoryid", parentCategoryId)
 				.map(new CategoryTreeItemMapper())

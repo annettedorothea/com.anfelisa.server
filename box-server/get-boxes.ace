@@ -2,7 +2,6 @@ HttpServer Java
 
 com.anfelisa.box.getboxes
 
-
 scenarios 
 	GetBoxesJustScheduled
 		GIVEN

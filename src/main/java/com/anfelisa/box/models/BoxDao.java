@@ -111,7 +111,10 @@ public class BoxDao extends AbstractBoxDao {
 	public IBoxSettingsModel selectSettingsByBoxId(PersistenceHandle handle, String boxId) {
 		Optional<IBoxSettingsModel> optional = handle.getHandle().createQuery("SELECT "
 				+ "b.boxId, b.maxinterval, b.maxcardsperday,"
-				+ "c.categoryname, c.dictionarylookup, c.givenlanguage, c.wantedLanguage, c.categoryid "
+				+ "c.categoryname, c.dictionarylookup, c.givenlanguage, c.wantedLanguage, c.categoryid,"
+				+ "(select count(cardid) from card where rootcategoryid = :boxid) as allcards,"
+				+ "(select count(scheduledcardid) from scheduledcard where boxid = :boxid and quality is null) as allactivecards,"
+				+ "0 as allactivecards "
 				+ "FROM \"box\" b, category c "
 				+ "WHERE b.boxid = :boxid "
 				+ "AND c.categoryid = b.categoryid")

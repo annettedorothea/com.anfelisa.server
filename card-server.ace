@@ -30,7 +30,7 @@ ACE
 		authorize 
 		payload 
 			NotNull cardId
-			NotNull priority
+			priority
 		on ok (Card.updatePriority)
 	
 	DeleteCard<CardDelete>
@@ -45,6 +45,7 @@ ACE
 		authorize 
 		queryParams 
 			NotNull categoryId 
+			NotNull filterNonScheduled
 		response
 			cardList
 			
@@ -166,7 +167,8 @@ models
 	CardList {
 		String userId
 		List CardWithInfo cardList
-		String categoryId	
+		String categoryId
+		Boolean filterNonScheduled
 	}
 	
 	CardWithInfo extends Card {

@@ -39,8 +39,14 @@ public class GetCardsAction extends AbstractGetCardsAction {
 		}
 		IBoxModel box = daoProvider.getBoxDao().selectByCategoryIdAndUserId(readonlyHandle,
 				category.getRootCategoryId(), actionData.getUserId());
-		List<ICardWithInfoModel> allCards = daoProvider.getCardDao().selectAllOfCategoryWithBoxInfo(readonlyHandle,
-				actionData.getCategoryId(), box.getBoxId());
+		List<ICardWithInfoModel> allCards = null;
+		if (!this.actionData.getFilterNonScheduled()) {
+			allCards = daoProvider.getCardDao().selectAllOfCategoryWithBoxInfo(readonlyHandle,
+					actionData.getCategoryId(), box.getBoxId());
+		} else {
+			allCards = daoProvider.getCardDao().selectAllNonScheduledOfCategoryWithBoxInfo(readonlyHandle,
+					actionData.getCategoryId(), box.getBoxId());
+		}
 		this.actionData.setCardList(allCards);
 	}
 

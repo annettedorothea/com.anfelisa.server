@@ -44,6 +44,8 @@ public class GetBoxSettingsAction extends AbstractGetBoxSettingsAction {
 		this.actionData.setDictionaryLookup(settings.getDictionaryLookup());
 		this.actionData.setGivenLanguage(settings.getGivenLanguage());
 		this.actionData.setWantedLanguage(settings.getWantedLanguage());
+		this.actionData.setAllActiveCards(settings.getAllActiveCards());
+		this.actionData.setAllCards(settings.getAllCards());
 	}
 	
 	public void initActionData() {

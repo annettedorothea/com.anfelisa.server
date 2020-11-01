@@ -33,6 +33,8 @@ ACE
 		authorize 
 		queryParams 
 			NotNull rootCategoryId
+			NotNull filterNonScheduled
+			priority
 		response
 			rootCategory
 
@@ -99,6 +101,8 @@ models
 		CategoryTreeItem rootCategory
 		String userId
 		String rootCategoryId
+		Boolean filterNonScheduled
+		Integer priority
 	}
 	
 	CategoryTreeItem {
@@ -112,6 +116,7 @@ models
 		String wantedLanguage
 		String rootCategoryId
 		List CategoryTreeItem childCategories
+		Integer nonScheduledCount
 	}
 	
 	UserWithAccessList {

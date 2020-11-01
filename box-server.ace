@@ -44,6 +44,8 @@ ACE
 			givenLanguage
 			wantedLanguage
 			categoryId
+			allCards
+			allActiveCards
 
 	ScheduleCards<ScheduledCards>
 		POST "/cards/schedule" 
@@ -272,12 +274,13 @@ models
 		String givenLanguage
 		String wantedLanguage
 		String categoryId
+		Integer allCards
+		Integer allActiveCards
 	}
 
 	BoxSettingsWrapper extends BoxSettings {
 		String userId
 	}
-
 
 	NextCardView {
 		String scheduledCardId

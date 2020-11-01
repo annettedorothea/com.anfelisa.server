@@ -9,7 +9,8 @@ scenarios
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
-					rootCategoryId: "boxId-${testId}"
+					rootCategoryId: "boxId-${testId}",
+					filterNonScheduled: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -57,13 +58,227 @@ scenarios
 				}
 			}
 
+	GetFilteredCategoryTree
+		GIVEN
+			com.anfelisa.box.schedulecards.ScheduleCards
+			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+			com.anfelisa.category.createcategory.CreateCategorySecondLevel excludeGIVEN
+			com.anfelisa.card.createcard.CreateCardInOtherCategory excludeGIVEN
+		WHEN
+			com.anfelisa.category.GetCategoryTree
+				{
+					rootCategoryId: "boxId-${testId}",
+					filterNonScheduled: true,
+					priority: null
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				rootCategory : {
+					categoryId: "boxId-${testId}",
+					categoryIndex: null,
+					categoryName: "cat",
+					dictionaryLookup: false,
+					empty: false,
+					rootCategoryId: "boxId-${testId}",
+					nonScheduledCount: 3,
+					childCategories: [
+						{
+							categoryId: "cat1-${testId}",
+							categoryIndex: 1,
+							categoryName: "level 1 #1",
+							dictionaryLookup: false,
+							empty: true,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							nonScheduledCount: 2,
+							childCategories: []
+						},
+						{
+							categoryId: "cat2-${testId}",
+							categoryIndex: 2,
+							categoryName: "level 1 #2",
+							dictionaryLookup: false,
+							empty: false,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							nonScheduledCount: 1,
+							childCategories : [
+								{
+									categoryId: "cat3-${testId}",
+									categoryIndex: 1,
+									categoryName: "level 2 #1",
+									dictionaryLookup: false,
+									empty: true,
+									parentCategoryId: "cat2-${testId}",
+									rootCategoryId: "boxId-${testId}",
+									nonScheduledCount: 0,
+									childCategories: []
+								}
+							]
+						}
+					]
+				}
+			}
+
+	GetFilteredCategoryPriority1Tree
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+			com.anfelisa.card.updatecardpriority.UpdateCardPriority1 excludeGIVEN
+		WHEN
+			com.anfelisa.category.GetCategoryTree
+				{
+					rootCategoryId: "boxId-${testId}",
+					filterNonScheduled: true,
+					priority: 1
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				rootCategory : {
+					categoryId: "boxId-${testId}",
+					categoryIndex: null,
+					categoryName: "cat",
+					dictionaryLookup: false,
+					empty: false,
+					rootCategoryId: "boxId-${testId}",
+					nonScheduledCount: 1,
+					childCategories: [
+						{
+							categoryId: "cat1-${testId}",
+							categoryIndex: 1,
+							categoryName: "level 1 #1",
+							dictionaryLookup: false,
+							empty: true,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							nonScheduledCount: 1,
+							childCategories: []
+						},
+						{
+							categoryId: "cat2-${testId}",
+							categoryIndex: 2,
+							categoryName: "level 1 #2",
+							dictionaryLookup: false,
+							empty: true,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							nonScheduledCount: 0,
+							childCategories : []
+						}
+					]
+				}
+			}
+
+	GetFilteredCategoryPriority2Tree
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+			com.anfelisa.card.updatecardpriority.UpdateCardPriority2 excludeGIVEN
+		WHEN
+			com.anfelisa.category.GetCategoryTree
+				{
+					rootCategoryId: "boxId-${testId}",
+					filterNonScheduled: true,
+					priority: 2
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				rootCategory : {
+					categoryId: "boxId-${testId}",
+					categoryIndex: null,
+					categoryName: "cat",
+					dictionaryLookup: false,
+					empty: false,
+					rootCategoryId: "boxId-${testId}",
+					nonScheduledCount: 1,
+					childCategories: [
+						{
+							categoryId: "cat1-${testId}",
+							categoryIndex: 1,
+							categoryName: "level 1 #1",
+							dictionaryLookup: false,
+							empty: true,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							nonScheduledCount: 1,
+							childCategories: []
+						},
+						{
+							categoryId: "cat2-${testId}",
+							categoryIndex: 2,
+							categoryName: "level 1 #2",
+							dictionaryLookup: false,
+							empty: true,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							nonScheduledCount: 0,
+							childCategories : []
+						}
+					]
+				}
+			}
+
+	GetFilteredCategoryPriority3Tree
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+			com.anfelisa.category.createcategory.CreateSecondCategory excludeGIVEN
+			com.anfelisa.card.updatecardpriority.UpdateCardPriority3 excludeGIVEN
+		WHEN
+			com.anfelisa.category.GetCategoryTree
+				{
+					rootCategoryId: "boxId-${testId}",
+					filterNonScheduled: true,
+					priority: 3
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				rootCategory : {
+					categoryId: "boxId-${testId}",
+					categoryIndex: null,
+					categoryName: "cat",
+					dictionaryLookup: false,
+					empty: false,
+					rootCategoryId: "boxId-${testId}",
+					nonScheduledCount: 1,
+					childCategories: [
+						{
+							categoryId: "cat1-${testId}",
+							categoryIndex: 1,
+							categoryName: "level 1 #1",
+							dictionaryLookup: false,
+							empty: true,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							nonScheduledCount: 1,
+							childCategories: []
+						},
+						{
+							categoryId: "cat2-${testId}",
+							categoryIndex: 2,
+							categoryName: "level 1 #2",
+							dictionaryLookup: false,
+							empty: true,
+							parentCategoryId: "boxId-${testId}",
+							rootCategoryId: "boxId-${testId}",
+							nonScheduledCount: 0,
+							childCategories : []
+						}
+					]
+				}
+			}
+
 	GetCategoryTreeWithDictionaryLookup
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategoryWithDictionaryLookup
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
-					rootCategoryId: "boxId-${testId}"
+					rootCategoryId: "boxId-${testId}",
+					filterNonScheduled: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 200
@@ -94,13 +309,25 @@ scenarios
 				}
 			}
 
-	GetCategoryTreeUnauthorized
+	GetCategoryTreeFilterIsNull
 		GIVEN
 			com.anfelisa.category.createcategory.CreateCategory
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
 					rootCategoryId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 400
+
+	GetCategoryTreeUnauthorized
+		GIVEN
+			com.anfelisa.category.createcategory.CreateCategory
+		WHEN
+			com.anfelisa.category.GetCategoryTree
+				{
+					rootCategoryId: "boxId-${testId}",
+					filterNonScheduled: false
 				}
 		THEN 401
 
@@ -111,7 +338,8 @@ scenarios
 		WHEN
 			com.anfelisa.category.GetCategoryTree
 				{
-					rootCategoryId: "boxId-${testId}"
+					rootCategoryId: "boxId-${testId}",
+					filterNonScheduled: false
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401

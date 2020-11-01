@@ -7,13 +7,13 @@
 
 package com.anfelisa.card.actions;
 
-import de.acegen.CustomAppConfiguration;
-import de.acegen.ViewProvider;
-import de.acegen.IDaoProvider;
-import de.acegen.PersistenceConnection;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import de.acegen.CustomAppConfiguration;
+import de.acegen.IDaoProvider;
+import de.acegen.PersistenceConnection;
+import de.acegen.ViewProvider;
 
 public class UpdateCardPriorityAction extends AbstractUpdateCardPriorityAction {
 

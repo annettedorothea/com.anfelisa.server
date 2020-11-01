@@ -17,7 +17,28 @@ scenarios
 				categoryId: "boxId-${testId}",
 				categoryName: "cat",
 				dictionaryLookup: false,
-				maxCardsPerDay: 10
+				maxCardsPerDay: 10,
+				allActiveCards: 0,
+				allCards: 0
+			}		
+
+	GetBoxSettingsWithCards
+	GIVEN
+			com.anfelisa.box.scorecard.ScoreCard2
+		WHEN
+			com.anfelisa.box.GetBoxSettings
+				{
+					boxId: "boxId-${testId}"
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+			response shouldBe {
+				categoryId: "boxId-${testId}",
+				categoryName: "cat",
+				dictionaryLookup: false,
+				maxCardsPerDay: 10,
+				allActiveCards: 3,
+				allCards: 5
 			}		
 
 	GetBoxSettingsWithDictionaryLookup
@@ -36,7 +57,9 @@ scenarios
 				dictionaryLookup: true,
 				givenLanguage: "de",
 				wantedLanguage: "en",
-				maxCardsPerDay: 10
+				maxCardsPerDay: 10,
+				allActiveCards: 0,
+				allCards: 0
 			}		
 
 	GetBoxSettingsNoBoxId

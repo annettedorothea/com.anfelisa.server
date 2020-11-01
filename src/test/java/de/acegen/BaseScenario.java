@@ -294,7 +294,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	@Override
 	protected void assertThat(Object actual, Object expected) {
 		if (actual == null) {
-			assertIsNull(expected);
+			expectedShouldBeNull(expected);
 		} else if (actual instanceof GetAllUsersResponse) {
 			assertThat((GetAllUsersResponse) actual, (GetAllUsersResponse) expected);
 		} else if (actual instanceof GetCategoryTreeResponse) {
@@ -308,8 +308,13 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		} else if (actual instanceof GetBoxStatisticsResponse) {
 			assertThat((GetBoxStatisticsResponse) actual, (GetBoxStatisticsResponse) expected);
 		} else {
-			org.hamcrest.MatcherAssert.assertThat("testId: " + this.getTestId(), actual,
-					is(samePropertyValuesAs(expected)));
+			if (actual instanceof String || actual instanceof Integer || actual instanceof Boolean
+					|| actual instanceof LocalDateTime) {
+				org.hamcrest.MatcherAssert.assertThat("testId: " + this.getTestId(), actual, is(expected));
+			} else {
+				org.hamcrest.MatcherAssert.assertThat("testId: " + this.getTestId(), actual,
+						is(samePropertyValuesAs(expected)));
+			}
 		}
 	}
 
@@ -340,8 +345,9 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 		assertThat(actual.getParentCategoryId(), expected.getParentCategoryId());
 		assertThat(actual.getRootCategoryId(), expected.getRootCategoryId());
 		assertThat(actual.getWantedLanguage(), expected.getWantedLanguage());
+		assertThat(actual.getNonScheduledCount(), expected.getNonScheduledCount());
 		if (actual.getChildCategories() == null) {
-			assertIsNull(expected.getChildCategories());
+			expectedShouldBeNull(expected.getChildCategories());
 		} else if (expected.getChildCategories() == null) {
 			org.junit.jupiter.api.Assertions.fail("expected.getChildCategories is null");
 		} else {
@@ -356,7 +362,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	private void assertThat(GetCardsResponse actual, GetCardsResponse expected) {
 		if (actual.getCardList() == null) {
-			assertIsNull(expected.getCardList());
+			expectedShouldBeNull(expected.getCardList());
 		} else if (expected.getCardList() == null) {
 			org.junit.jupiter.api.Assertions.fail("expected.getCardList is null");
 		} else {
@@ -371,7 +377,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	private void assertThat(GetDuplicatesResponse actual, GetDuplicatesResponse expected) {
 		if (actual.getCardList() == null) {
-			assertIsNull(expected.getCardList());
+			expectedShouldBeNull(expected.getCardList());
 		} else if (expected.getCardList() == null) {
 			org.junit.jupiter.api.Assertions.fail("expected.getCardList is null");
 		} else {
@@ -386,7 +392,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	private void assertThat(GetBoxesResponse actual, GetBoxesResponse expected) {
 		if (actual.getBoxList() == null) {
-			assertIsNull(expected.getBoxList());
+			expectedShouldBeNull(expected.getBoxList());
 		} else if (expected.getBoxList() == null) {
 			org.junit.jupiter.api.Assertions.fail("expected.getBoxList is null");
 		} else {
@@ -401,7 +407,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	private void assertThat(IBoxViewModel actual, IBoxViewModel expected) {
 		if (actual == null) {
-			assertIsNull(expected);
+			expectedShouldBeNull(expected);
 		} else if (expected == null) {
 			org.junit.jupiter.api.Assertions.fail("expected is null");
 		} else {
@@ -414,7 +420,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	private void assertThat(GetBoxStatisticsResponse actual, GetBoxStatisticsResponse expected) {
 		if (actual.getBoxStatisticsList() == null) {
-			assertIsNull(expected.getBoxStatisticsList());
+			expectedShouldBeNull(expected.getBoxStatisticsList());
 		} else if (expected.getBoxStatisticsList() == null) {
 			org.junit.jupiter.api.Assertions.fail("expected.getBoxList is null");
 		} else {
@@ -429,7 +435,7 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 
 	private void assertThat(IBoxStatisticsModel actual, IBoxStatisticsModel expected) {
 		if (actual == null) {
-			assertIsNull(expected);
+			expectedShouldBeNull(expected);
 		} else if (expected == null) {
 			org.junit.jupiter.api.Assertions.fail("expected is null");
 		} else {
@@ -459,6 +465,11 @@ public abstract class BaseScenario extends AbstractBaseScenario {
 	@Override
 	protected void assertIsNull(Object actual) {
 		org.junit.jupiter.api.Assertions.assertNull(actual, "testId: " + this.getTestId());
+	}
+
+	protected void expectedShouldBeNull(Object expected) {
+		org.junit.jupiter.api.Assertions.assertNull(expected,
+				"testId: " + this.getTestId() + " actual value is null but " + expected + " was expected");
 	}
 
 	@Override
