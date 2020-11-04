@@ -26,16 +26,18 @@ public class CardDao extends AbstractCardDao {
 
 	public List<ICardWithInfoModel> selectAllNonScheduledOfCategoryWithBoxInfo(PersistenceHandle handle,
 			String categoryId,
-			String boxId) {
+			String boxId, Integer priority) {
 		return handle.getHandle().createQuery(
 				"SELECT c.cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority, s.scheduleddate as next "
 						+ "FROM public.card c "
 						+ "left outer join scheduledcard s on c.cardid = s.cardid and s.boxid = :boxid and s.quality is null "
 						+ "WHERE categoryid = :categoryid "
 						+ "AND s.scheduleddate is null "
+						+ "AND (:priority is null OR c.priority = :priority)"
 						+ "ORDER BY cardindex, given")
 				.bind("categoryid", categoryId)
 				.bind("boxid", boxId)
+				.bind("priority", priority)
 				.map(new CardWithInfoMapper()).list();
 	}
 

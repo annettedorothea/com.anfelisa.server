@@ -81,7 +81,7 @@ scenarios
 				authorization "Annette-${testId}" : "password"
 		THEN 400
 
-	GetNonActiveCards
+	GetFilteredCards
 		GIVEN
 			com.anfelisa.box.schedulecards.ScheduleCards
 		WHEN
@@ -116,13 +116,43 @@ scenarios
 			]
 		}
 
+	GetFilteredCardsPriority1
+		GIVEN
+			com.anfelisa.card.createcard.CreateFifthCard
+			com.anfelisa.card.updatecardpriority.UpdateCardPriority1 excludeGIVEN
+		WHEN
+			com.anfelisa.card.GetCards
+				{
+					categoryId: "cat1-${testId}",
+					filterNonScheduled: true,
+					priority: 1
+				}
+				authorization "Annette-${testId}" : "password"
+		THEN 200
+		response shouldBe {
+			cardList : [
+				{
+					cardAuthor: "Annette-${testId}",
+					cardId: "c1-${testId}",
+					cardIndex: 1,
+					categoryId: "cat1-${testId}",
+					given: "given",
+					image: "image",
+					rootCategoryId: "boxId-${testId}",
+					wanted: "wanted",
+					priority: 1
+				}
+			]
+		}
+
 	GetCardsCategoryDoesNotExist
 		GIVEN
 			com.anfelisa.card.createcard.CreateFifthCard
 		WHEN
 			com.anfelisa.card.GetCards
 				{
-					categoryId: "lala"
+					categoryId: "lala",
+					filterNonScheduled: false
 				}
 				authorization "Annette-${testId}" : "password"
 		THEN 400
@@ -134,7 +164,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.GetCards
 				{
-					categoryId: "cat1-${testId}"
+					categoryId: "cat1-${testId}",
+					filterNonScheduled: false
 				}
 				authorization "Admin" : "admin-password"
 		THEN 401
@@ -145,7 +176,8 @@ scenarios
 		WHEN
 			com.anfelisa.card.GetCards
 				{
-					categoryId: "cat1-${testId}"
+					categoryId: "cat1-${testId}",
+					filterNonScheduled: false
 				}
 		THEN 401
 		

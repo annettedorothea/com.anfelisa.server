@@ -45,7 +45,7 @@ public class GetCardsAction extends AbstractGetCardsAction {
 					actionData.getCategoryId(), box.getBoxId());
 		} else {
 			allCards = daoProvider.getCardDao().selectAllNonScheduledOfCategoryWithBoxInfo(readonlyHandle,
-					actionData.getCategoryId(), box.getBoxId());
+					actionData.getCategoryId(), box.getBoxId(), actionData.getPriority());
 		}
 		this.actionData.setCardList(allCards);
 	}

@@ -46,6 +46,7 @@ ACE
 		queryParams 
 			NotNull categoryId 
 			NotNull filterNonScheduled
+			priority
 		response
 			cardList
 			
@@ -169,6 +170,7 @@ models
 		List CardWithInfo cardList
 		String categoryId
 		Boolean filterNonScheduled
+		Integer priority
 	}
 	
 	CardWithInfo extends Card {
