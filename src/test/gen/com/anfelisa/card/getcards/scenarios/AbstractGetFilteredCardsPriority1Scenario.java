@@ -5,7 +5,7 @@
 
 
 
-package com.anfelisa.box.scorecard.scenarios;
+package com.anfelisa.card.getcards.scenarios;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,9 +25,9 @@ import de.acegen.NonDeterministicDataProvider;
 import de.acegen.HttpResponse;
 
 @SuppressWarnings("unused")
-public abstract class AbstractScoreCard33Scenario extends BaseScenario {
+public abstract class AbstractGetFilteredCardsPriority1Scenario extends BaseScenario {
 
-	static final Logger LOG = LoggerFactory.getLogger(AbstractScoreCard33Scenario.class);
+	static final Logger LOG = LoggerFactory.getLogger(AbstractGetFilteredCardsPriority1Scenario.class);
 	
 	private void given() throws Exception {
 		String uuid;
@@ -302,23 +302,20 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 			LOG.info("GIVEN: prerequisite for CreateFifthCard not met");
 		}
 
-		if (prerequisite("ScheduleCards")) {
-			uuid = "sc1-" + this.getTestId() + "";
-			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 10:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
-			com.anfelisa.box.data.ScheduleCardsPayload payload_8 = objectMapper.readValue("{" +
-				"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
-				"\"c3-" + this.getTestId() + "\"," + 
-				"\"c4-" + this.getTestId() + "\"]} ",
-					com.anfelisa.box.data.ScheduleCardsPayload.class);
-			com.anfelisa.box.data.ScheduledCardsData data_8 = objectMapper.readValue("{" +
+		if (prerequisite("UpdateCardPriority1")) {
+			uuid = this.randomUUID();
+			com.anfelisa.card.data.UpdateCardPriorityPayload payload_8 = objectMapper.readValue("{" +
+				"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
+				"\"priority\" : 1} ",
+					com.anfelisa.card.data.UpdateCardPriorityPayload.class);
+			com.anfelisa.card.data.CardUpdatePriorityData data_8 = objectMapper.readValue("{" +
 			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"cardIds\" : [ \"c1-" + this.getTestId() + "\"," + 
-			"\"c3-" + this.getTestId() + "\"," + 
-			"\"c4-" + this.getTestId() + "\"]} ",
-					com.anfelisa.box.data.ScheduledCardsData.class);
+			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
+			"\"priority\" : 1} ",
+					com.anfelisa.card.data.CardUpdatePriorityData.class);
 			HttpResponse<Object> response_8 = 
-			this.httpPost(
-				"/cards/schedule", 
+			this.httpPut(
+				"/card/update-priority", 
 			 	payload_8,
 				authorization("Annette-${testId}", "password"),
 				uuid,
@@ -326,182 +323,42 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 			);
 			
 			if (response_8.getStatusCode() >= 400) {
-				String message = "GIVEN ScheduleCards fails\n" + response_8.getStatusMessage();
-				LOG.error("GIVEN: ScheduleCards fails due to {} in {} ms", message, response_8.getDuration());
+				String message = "GIVEN UpdateCardPriority1 fails\n" + response_8.getStatusMessage();
+				LOG.error("GIVEN: UpdateCardPriority1 fails due to {} in {} ms", message, response_8.getDuration());
 				assertFail(message);
 			}
-			LOG.info("GIVEN: ScheduleCards success in {} ms", response_8.getDuration());
-			addToMetrics("ScheduleCards", response_8.getDuration());
+			LOG.info("GIVEN: UpdateCardPriority1 success in {} ms", response_8.getDuration());
+			addToMetrics("UpdateCardPriority", response_8.getDuration());
 		} else {
-			LOG.info("GIVEN: prerequisite for ScheduleCards not met");
-		}
-
-		if (prerequisite("ScoreCard3")) {
-			uuid = "score3-" + this.getTestId() + "";
-			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200418 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
-			com.anfelisa.box.data.ScoreCardPayload payload_9 = objectMapper.readValue("{" +
-				"\"scoredCardQuality\" : 3," + 
-				"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScoreCardPayload.class);
-			com.anfelisa.box.data.ScoreCardData data_9 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"scoredCardQuality\" : 3," + 
-			"\"scheduledCardId\" : \"c1-" + this.getTestId() + "-sc1-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScoreCardData.class);
-			HttpResponse<Object> response_9 = 
-			this.httpPost(
-				"/card/score", 
-			 	payload_9,
-				authorization("Annette-${testId}", "password"),
-				uuid,
-				null
-			);
-			
-			if (response_9.getStatusCode() >= 400) {
-				String message = "GIVEN ScoreCard3 fails\n" + response_9.getStatusMessage();
-				LOG.error("GIVEN: ScoreCard3 fails due to {} in {} ms", message, response_9.getDuration());
-				assertFail(message);
-			}
-			LOG.info("GIVEN: ScoreCard3 success in {} ms", response_9.getDuration());
-			addToMetrics("ScoreCard", response_9.getDuration());
-		} else {
-			LOG.info("GIVEN: prerequisite for ScoreCard3 not met");
-		}
-
-		if (prerequisite("UpdateBoxMaxInterval")) {
-			uuid = this.randomUUID();
-			com.anfelisa.box.data.UpdateBoxPayload payload_10 = objectMapper.readValue("{" +
-				"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-				"\"categoryName\" : \"changed\"," + 
-				"\"dictionaryLookup\" : false," + 
-				"\"maxCardsPerDay\" : 11," + 
-				"\"maxInterval\" : 90} ",
-					com.anfelisa.box.data.UpdateBoxPayload.class);
-			com.anfelisa.box.data.BoxUpdateData data_10 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"categoryId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"categoryName\" : \"changed\"," + 
-			"\"dictionaryLookup\" : false," + 
-			"\"maxCardsPerDay\" : 11," + 
-			"\"maxInterval\" : 90} ",
-					com.anfelisa.box.data.BoxUpdateData.class);
-			HttpResponse<Object> response_10 = 
-			this.httpPut(
-				"/box/update", 
-			 	payload_10,
-				authorization("Annette-${testId}", "password"),
-				uuid,
-				null
-			);
-			
-			if (response_10.getStatusCode() >= 400) {
-				String message = "GIVEN UpdateBoxMaxInterval fails\n" + response_10.getStatusMessage();
-				LOG.error("GIVEN: UpdateBoxMaxInterval fails due to {} in {} ms", message, response_10.getDuration());
-				assertFail(message);
-			}
-			LOG.info("GIVEN: UpdateBoxMaxInterval success in {} ms", response_10.getDuration());
-			addToMetrics("UpdateBox", response_10.getDuration());
-		} else {
-			LOG.info("GIVEN: prerequisite for UpdateBoxMaxInterval not met");
-		}
-
-		if (prerequisite("ScoreCard31")) {
-			uuid = "score31-" + this.getTestId() + "";
-			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200425 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
-			com.anfelisa.box.data.ScoreCardPayload payload_11 = objectMapper.readValue("{" +
-				"\"scoredCardQuality\" : 3," + 
-				"\"scheduledCardId\" : \"score3-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScoreCardPayload.class);
-			com.anfelisa.box.data.ScoreCardData data_11 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"scoredCardQuality\" : 3," + 
-			"\"scheduledCardId\" : \"score3-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScoreCardData.class);
-			HttpResponse<Object> response_11 = 
-			this.httpPost(
-				"/card/score", 
-			 	payload_11,
-				authorization("Annette-${testId}", "password"),
-				uuid,
-				null
-			);
-			
-			if (response_11.getStatusCode() >= 400) {
-				String message = "GIVEN ScoreCard31 fails\n" + response_11.getStatusMessage();
-				LOG.error("GIVEN: ScoreCard31 fails due to {} in {} ms", message, response_11.getDuration());
-				assertFail(message);
-			}
-			LOG.info("GIVEN: ScoreCard31 success in {} ms", response_11.getDuration());
-			addToMetrics("ScoreCard", response_11.getDuration());
-		} else {
-			LOG.info("GIVEN: prerequisite for ScoreCard31 not met");
-		}
-
-		if (prerequisite("ScoreCard32")) {
-			uuid = "score32-" + this.getTestId() + "";
-			this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200515 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
-			com.anfelisa.box.data.ScoreCardPayload payload_12 = objectMapper.readValue("{" +
-				"\"scoredCardQuality\" : 3," + 
-				"\"scheduledCardId\" : \"score31-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScoreCardPayload.class);
-			com.anfelisa.box.data.ScoreCardData data_12 = objectMapper.readValue("{" +
-			"\"uuid\" : \"" + uuid + "\"," + 
-			"\"scoredCardQuality\" : 3," + 
-			"\"scheduledCardId\" : \"score31-" + this.getTestId() + "\"} ",
-					com.anfelisa.box.data.ScoreCardData.class);
-			HttpResponse<Object> response_12 = 
-			this.httpPost(
-				"/card/score", 
-			 	payload_12,
-				authorization("Annette-${testId}", "password"),
-				uuid,
-				null
-			);
-			
-			if (response_12.getStatusCode() >= 400) {
-				String message = "GIVEN ScoreCard32 fails\n" + response_12.getStatusMessage();
-				LOG.error("GIVEN: ScoreCard32 fails due to {} in {} ms", message, response_12.getDuration());
-				assertFail(message);
-			}
-			LOG.info("GIVEN: ScoreCard32 success in {} ms", response_12.getDuration());
-			addToMetrics("ScoreCard", response_12.getDuration());
-		} else {
-			LOG.info("GIVEN: prerequisite for ScoreCard32 not met");
+			LOG.info("GIVEN: prerequisite for UpdateCardPriority1 not met");
 		}
 
 	}
 	
-	private HttpResponse<Object> when() throws Exception {
-		String uuid = "score33-" + this.getTestId() + "";
-		this.callNonDeterministicDataProviderPutSystemTime(uuid, LocalDateTime.parse("20200615 16:30", DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")));
-		com.anfelisa.box.data.ScoreCardPayload payload_0 = objectMapper.readValue("{" +
-			"\"scoredCardQuality\" : 4," + 
-			"\"scheduledCardId\" : \"score32-" + this.getTestId() + "\"} ",
-				com.anfelisa.box.data.ScoreCardPayload.class);
-		com.anfelisa.box.data.ScoreCardData data_0 = objectMapper.readValue("{" +
+	private HttpResponse<com.anfelisa.card.data.GetCardsResponse> when() throws Exception {
+		String uuid = this.randomUUID();
+		com.anfelisa.card.data.CardListData data_0 = objectMapper.readValue("{" +
 		"\"uuid\" : \"" + uuid + "\"," + 
-		"\"scoredCardQuality\" : 4," + 
-		"\"scheduledCardId\" : \"score32-" + this.getTestId() + "\"} ",
-				com.anfelisa.box.data.ScoreCardData.class);
-		HttpResponse<Object> response = 
-		this.httpPost(
-			"/card/score", 
-		 	payload_0,
+		"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+		"\"filterNonScheduled\" : true," + 
+		"\"priority\" : 1} ",
+				com.anfelisa.card.data.CardListData.class);
+		HttpResponse<com.anfelisa.card.data.GetCardsResponse> response = 
+		this.httpGet(
+			"/cards?categoryId=" + data_0.getCategoryId() + "&filterNonScheduled=" + data_0.getFilterNonScheduled() + "&priority=" + data_0.getPriority() + "", 
 			authorization("Annette-${testId}", "password"),
 			uuid,
-			null
+			com.anfelisa.card.data.GetCardsResponse.class
 		);
 		
-		LOG.info("WHEN: ScoreCard finished in {} ms", response.getDuration());
+		LOG.info("WHEN: GetCards finished in {} ms", response.getDuration());
 		if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
-			addToMetrics("ScoreCard", response.getDuration());
+			addToMetrics("GetCards", response.getDuration());
 		}
 		return response;
 	}
 	
-	private void then(HttpResponse<Object> response) throws Exception {
+	private com.anfelisa.card.data.GetCardsResponse then(HttpResponse<com.anfelisa.card.data.GetCardsResponse> response) throws Exception {
 		if (response.getStatusCode() == 500) {
 			LOG.error("THEN: status " + response.getStatusCode() + " failed: " + response.getStatusMessage());
 			assertFail(response.getStatusMessage());
@@ -513,50 +370,59 @@ public abstract class AbstractScoreCard33Scenario extends BaseScenario {
 			LOG.info("THEN: status 200 passed");
 		}
 		
+				com.anfelisa.card.data.GetCardsResponse actual = null;
+				if (response.getStatusCode() < 400) {
+					try {
+						actual = response.getEntity();
+						
+					} catch (Exception x) {
+						LOG.error("THEN: failed to read response", x);
+						assertFail(x.getMessage());
+					}
+
+					com.anfelisa.card.data.CardListData expectedData = objectMapper.readValue("{" +
+						"\"uuid\" : \"\"," + 
+						"\"cardList\" : [ { \"cardAuthor\" : \"Annette-" + this.getTestId() + "\"," + 
+						"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
+						"\"cardIndex\" : 1," + 
+						"\"categoryId\" : \"cat1-" + this.getTestId() + "\"," + 
+						"\"given\" : \"given\"," + 
+						"\"image\" : \"image\"," + 
+						"\"rootCategoryId\" : \"boxId-" + this.getTestId() + "\"," + 
+						"\"wanted\" : \"wanted\"," + 
+						"\"priority\" : 1}]} ",
+					com.anfelisa.card.data.CardListData.class);
+					
+					com.anfelisa.card.data.GetCardsResponse expected = new com.anfelisa.card.data.GetCardsResponse(expectedData);
+					
+					assertThat(actual, expected);
+					
+					LOG.info("THEN: response passed");
+				}
+
+				return actual;
 	}
 			
 	@Override
 	public void runTest() throws Exception {
 		given();
 			
-		if (prerequisite("ScoreCard33")) {
-			HttpResponse<Object> response = when();
+		if (prerequisite("GetFilteredCardsPriority1")) {
+			HttpResponse<com.anfelisa.card.data.GetCardsResponse> response = when();
 
-			then(response);
+			com.anfelisa.card.data.GetCardsResponse actualResponse = then(response);
 			
-			this.newScheduledCardWasCreated();
 	
 		} else {
-			LOG.info("WHEN: prerequisite for ScoreCard33 not met");
+			LOG.info("WHEN: prerequisite for GetFilteredCardsPriority1 not met");
 		}
 	}
 	
 	
-	private void newScheduledCardWasCreated() throws Exception {
-		com.anfelisa.box.models.IScheduledCardModel actual = daoProvider.getScheduledCardDao().selectByScheduledCardId(handle, "score33-" + this.getTestId() + "");
-		
-		com.anfelisa.box.models.IScheduledCardModel expected = objectMapper.readValue("{" +
-			"\"boxId\" : \"boxId-" + this.getTestId() + "\"," + 
-			"\"cardId\" : \"c1-" + this.getTestId() + "\"," + 
-			"\"count\" : 4," + 
-			"\"createdDate\" : \"2020-06-15T16:30\"," + 
-			"\"ef\" : \"2.08F\"," + 
-			"\"interval\" : 56," + 
-			"\"lastQuality\" : 4," + 
-			"\"n\" : 5," + 
-			"\"quality\" : null," + 
-			"\"scheduledCardId\" : \"score33-" + this.getTestId() + "\"," + 
-			"\"scheduledDate\" : \"2020-08-10T16:30\"," + 
-			"\"scoredDate\" : null} ",
-		com.anfelisa.box.models.ScheduledCardModel.class);
-		assertThat(actual, expected);
-	
-		LOG.info("THEN: newScheduledCardWasCreated passed");
-	}
 		
 	@Override
 	protected String scenarioName() {
-		return "ScoreCard33";
+		return "GetFilteredCardsPriority1";
 	}
 	
 }
