@@ -105,7 +105,7 @@ public class CardDao extends AbstractCardDao {
 			String wanted) {
 		String givenSearchString = "%" + given + "%";
 		String wantedSearchString = "%" + wanted + "%";
-		String orderBy = naturalInputOrder ? "given" : "wanted";
+		String orderBy = naturalInputOrder == null || naturalInputOrder ? "given" : "wanted";
 		return handle.getHandle().createQuery(
 				"SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority, "
 						+ "(select categoryname from category where category.categoryid = cd.categoryid) as categoryname "
