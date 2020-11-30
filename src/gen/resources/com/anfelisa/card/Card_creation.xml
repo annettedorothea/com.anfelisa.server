@@ -18,10 +18,10 @@
 		<constraints  nullable="false"  />
 	</column>
 	<column name="categoryid" type="character varying">
-		<constraints  nullable="false"  references="public.category(categoryid)" deleteCascade="true" foreignKeyName="fk_public.card_categoryid" />
+		<constraints  nullable="false"  references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_card_categoryid" />
 	</column>
 	<column name="rootcategoryid" type="character varying">
-		<constraints  nullable="false"  references="public.category(categoryid)" deleteCascade="true" foreignKeyName="fk_public.card_categoryid" />
+		<constraints  nullable="false"  references="category(categoryid)" deleteCascade="true" foreignKeyName="fk_card_categoryid" />
 	</column>
 	<column name="priority" type="integer">
 		<constraints    />

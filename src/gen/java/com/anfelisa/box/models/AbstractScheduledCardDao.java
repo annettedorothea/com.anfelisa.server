@@ -18,7 +18,7 @@ import java.util.Optional;
 public class AbstractScheduledCardDao {
 	
 	public void insert(PersistenceHandle handle, IScheduledCardModel scheduledCardModel) {
-		Update statement = handle.getHandle().createUpdate("INSERT INTO public.scheduledcard (scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate) VALUES (:scheduledcardid, :cardid, :boxid, :createddate, :ef, :interval, :n, :count, :scheduleddate, :lastquality, :quality, :scoreddate)");
+		Update statement = handle.getHandle().createUpdate("INSERT INTO \"scheduledcard\" (scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate) VALUES (:scheduledcardid, :cardid, :boxid, :createddate, :ef, :interval, :n, :count, :scheduleddate, :lastquality, :quality, :scoreddate)");
 		statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId() );
 		statement.bind("cardid",  scheduledCardModel.getCardId() );
 		statement.bind("boxid",  scheduledCardModel.getBoxId() );
@@ -36,7 +36,7 @@ public class AbstractScheduledCardDao {
 	
 	
 	public void updateByScheduledCardId(PersistenceHandle handle, IScheduledCardModel scheduledCardModel) {
-		Update statement = handle.getHandle().createUpdate("UPDATE public.scheduledcard SET scheduledcardid = :scheduledcardid, cardid = :cardid, boxid = :boxid, createddate = :createddate, ef = :ef, interval = :interval, n = :n, count = :count, scheduleddate = :scheduleddate, lastquality = :lastquality, quality = :quality, scoreddate = :scoreddate WHERE scheduledcardid = :scheduledcardid");
+		Update statement = handle.getHandle().createUpdate("UPDATE \"scheduledcard\" SET scheduledcardid = :scheduledcardid, cardid = :cardid, boxid = :boxid, createddate = :createddate, ef = :ef, interval = :interval, n = :n, count = :count, scheduleddate = :scheduleddate, lastquality = :lastquality, quality = :quality, scoreddate = :scoreddate WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("scheduledcardid",  scheduledCardModel.getScheduledCardId() );
 		statement.bind("cardid",  scheduledCardModel.getCardId() );
 		statement.bind("boxid",  scheduledCardModel.getBoxId() );
@@ -54,13 +54,13 @@ public class AbstractScheduledCardDao {
 	}
 
 	public void deleteByScheduledCardId(PersistenceHandle handle, String scheduledCardId) {
-		Update statement = handle.getHandle().createUpdate("DELETE FROM public.scheduledcard WHERE scheduledcardid = :scheduledcardid");
+		Update statement = handle.getHandle().createUpdate("DELETE FROM \"scheduledcard\" WHERE scheduledcardid = :scheduledcardid");
 		statement.bind("scheduledcardid", scheduledCardId);
 		statement.execute();
 	}
 
 	public IScheduledCardModel selectByScheduledCardId(PersistenceHandle handle, String scheduledCardId) {
-		Optional<IScheduledCardModel> optional = handle.getHandle().createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM public.scheduledcard WHERE scheduledcardid = :scheduledcardid")
+		Optional<IScheduledCardModel> optional = handle.getHandle().createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM \"scheduledcard\" WHERE scheduledcardid = :scheduledcardid")
 			.bind("scheduledcardid", scheduledCardId)
 			.map(new ScheduledCardMapper())
 			.findFirst();
@@ -68,7 +68,7 @@ public class AbstractScheduledCardDao {
 	}
 	
 	public IScheduledCardModel selectByPrimaryKey(PersistenceHandle handle, String scheduledCardId) {
-		Optional<IScheduledCardModel> optional = handle.getHandle().createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM public.scheduledcard WHERE scheduledcardid = :scheduledcardid")
+		Optional<IScheduledCardModel> optional = handle.getHandle().createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM \"scheduledcard\" WHERE scheduledcardid = :scheduledcardid")
 			.bind("scheduledcardid", scheduledCardId)
 			.map(new ScheduledCardMapper())
 			.findFirst();
@@ -76,7 +76,7 @@ public class AbstractScheduledCardDao {
 	}
 	
 	public int filterAndCountBy(PersistenceHandle handle, Map<String, String> filterMap) {
-		String sql = "SELECT count(*) FROM public.scheduledcard";
+		String sql = "SELECT count(*) FROM \"scheduledcard\"";
 		if (filterMap != null) {
 			int i = 0;
 			for(String key : filterMap.keySet()) {
@@ -92,13 +92,13 @@ public class AbstractScheduledCardDao {
 	}
 
 	public List<IScheduledCardModel> selectAll(PersistenceHandle handle) {
-		return handle.getHandle().createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM public.scheduledcard")
+		return handle.getHandle().createQuery("SELECT scheduledcardid, cardid, boxid, createddate, ef, interval, n, count, scheduleddate, lastquality, quality, scoreddate FROM \"scheduledcard\"")
 			.map(new ScheduledCardMapper())
 			.list();
 	}
 
 	public void truncate(PersistenceHandle handle) {
-		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE public.scheduledcard CASCADE");
+		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE \"scheduledcard\" CASCADE");
 		statement.execute();
 	}
 

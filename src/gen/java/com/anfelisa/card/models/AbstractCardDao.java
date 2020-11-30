@@ -18,7 +18,7 @@ import java.util.Optional;
 public class AbstractCardDao {
 	
 	public void insert(PersistenceHandle handle, ICardModel cardModel) {
-		Update statement = handle.getHandle().createUpdate("INSERT INTO public.card (cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority) VALUES (:cardid, :given, :wanted, :image, :cardauthor, :cardindex, :categoryid, :rootcategoryid, :priority)");
+		Update statement = handle.getHandle().createUpdate("INSERT INTO \"card\" (cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority) VALUES (:cardid, :given, :wanted, :image, :cardauthor, :cardindex, :categoryid, :rootcategoryid, :priority)");
 		statement.bind("cardid",  cardModel.getCardId() );
 		statement.bind("given",  cardModel.getGiven() );
 		statement.bind("wanted",  cardModel.getWanted() );
@@ -33,7 +33,7 @@ public class AbstractCardDao {
 	
 	
 	public void updateByCardId(PersistenceHandle handle, ICardModel cardModel) {
-		Update statement = handle.getHandle().createUpdate("UPDATE public.card SET cardid = :cardid, given = :given, wanted = :wanted, image = :image, cardauthor = :cardauthor, cardindex = :cardindex, categoryid = :categoryid, rootcategoryid = :rootcategoryid, priority = :priority WHERE cardid = :cardid");
+		Update statement = handle.getHandle().createUpdate("UPDATE \"card\" SET cardid = :cardid, given = :given, wanted = :wanted, image = :image, cardauthor = :cardauthor, cardindex = :cardindex, categoryid = :categoryid, rootcategoryid = :rootcategoryid, priority = :priority WHERE cardid = :cardid");
 		statement.bind("cardid",  cardModel.getCardId() );
 		statement.bind("given",  cardModel.getGiven() );
 		statement.bind("wanted",  cardModel.getWanted() );
@@ -48,13 +48,13 @@ public class AbstractCardDao {
 	}
 
 	public void deleteByCardId(PersistenceHandle handle, String cardId) {
-		Update statement = handle.getHandle().createUpdate("DELETE FROM public.card WHERE cardid = :cardid");
+		Update statement = handle.getHandle().createUpdate("DELETE FROM \"card\" WHERE cardid = :cardid");
 		statement.bind("cardid", cardId);
 		statement.execute();
 	}
 
 	public ICardModel selectByCardId(PersistenceHandle handle, String cardId) {
-		Optional<ICardModel> optional = handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM public.card WHERE cardid = :cardid")
+		Optional<ICardModel> optional = handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" WHERE cardid = :cardid")
 			.bind("cardid", cardId)
 			.map(new CardMapper())
 			.findFirst();
@@ -62,7 +62,7 @@ public class AbstractCardDao {
 	}
 	
 	public ICardModel selectByPrimaryKey(PersistenceHandle handle, String cardId) {
-		Optional<ICardModel> optional = handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM public.card WHERE cardid = :cardid")
+		Optional<ICardModel> optional = handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\" WHERE cardid = :cardid")
 			.bind("cardid", cardId)
 			.map(new CardMapper())
 			.findFirst();
@@ -70,7 +70,7 @@ public class AbstractCardDao {
 	}
 	
 	public int filterAndCountBy(PersistenceHandle handle, Map<String, String> filterMap) {
-		String sql = "SELECT count(*) FROM public.card";
+		String sql = "SELECT count(*) FROM \"card\"";
 		if (filterMap != null) {
 			int i = 0;
 			for(String key : filterMap.keySet()) {
@@ -86,13 +86,13 @@ public class AbstractCardDao {
 	}
 
 	public List<ICardModel> selectAll(PersistenceHandle handle) {
-		return handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM public.card")
+		return handle.getHandle().createQuery("SELECT cardid, given, wanted, image, cardauthor, cardindex, categoryid, rootcategoryid, priority FROM \"card\"")
 			.map(new CardMapper())
 			.list();
 	}
 
 	public void truncate(PersistenceHandle handle) {
-		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE public.card CASCADE");
+		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE \"card\" CASCADE");
 		statement.execute();
 	}
 

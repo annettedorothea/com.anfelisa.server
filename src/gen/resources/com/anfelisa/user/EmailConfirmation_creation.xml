@@ -3,6 +3,6 @@
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
 	<column name="userid" type="character varying">
-		<constraints  nullable="false"  references="public.user(userid)" deleteCascade="true" foreignKeyName="fk_public.emailconfirmation_userid" />
+		<constraints  nullable="false"  references="user(userid)" deleteCascade="true" foreignKeyName="fk_emailconfirmation_userid" />
 	</column>
 </createTable>

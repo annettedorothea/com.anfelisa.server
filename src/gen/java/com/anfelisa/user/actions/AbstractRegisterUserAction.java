@@ -51,13 +51,13 @@ public abstract class AbstractRegisterUserAction extends WriteAction<IUserRegist
 		if (systemTime != null) {
 			this.actionData.setSystemTime(systemTime);
 		}
-		Object value = NonDeterministicDataProvider.consumeValue(this.actionData.getUuid(), "token");
-		if (value != null) {
+		Object tokenObject = NonDeterministicDataProvider.consumeValue(this.actionData.getUuid(), "token");
+		if (tokenObject != null) {
 			try {
-				String token = (String)value;
+				String token = (String)tokenObject;
 				this.actionData.setToken(token);
 			} catch (Exception x) {
-				LOG.warn("token is declared as non-deterministnic and failed to parse {} from NonDeterministicDataProvider.", value);
+				LOG.warn("token is declared as non-deterministnic and failed to parse {} from NonDeterministicDataProvider.", tokenObject);
 			}
 		} else {
 			LOG.warn("token is declared as non-deterministnic but no value was found in NonDeterministicDataProvider.");

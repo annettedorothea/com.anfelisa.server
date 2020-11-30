@@ -18,7 +18,7 @@ import java.util.Optional;
 public class AbstractResetPasswordDao {
 	
 	public void insert(PersistenceHandle handle, IResetPasswordModel resetPasswordModel) {
-		Update statement = handle.getHandle().createUpdate("INSERT INTO public.resetpassword (token, userid) VALUES (:token, :userid)");
+		Update statement = handle.getHandle().createUpdate("INSERT INTO \"resetpassword\" (token, userid) VALUES (:token, :userid)");
 		statement.bind("token",  resetPasswordModel.getToken() );
 		statement.bind("userid",  resetPasswordModel.getUserId() );
 		statement.execute();
@@ -26,7 +26,7 @@ public class AbstractResetPasswordDao {
 	
 	
 	public void updateByToken(PersistenceHandle handle, IResetPasswordModel resetPasswordModel) {
-		Update statement = handle.getHandle().createUpdate("UPDATE public.resetpassword SET token = :token, userid = :userid WHERE token = :token");
+		Update statement = handle.getHandle().createUpdate("UPDATE \"resetpassword\" SET token = :token, userid = :userid WHERE token = :token");
 		statement.bind("token",  resetPasswordModel.getToken() );
 		statement.bind("userid",  resetPasswordModel.getUserId() );
 		statement.bind("token",  resetPasswordModel.getToken()  );
@@ -34,13 +34,13 @@ public class AbstractResetPasswordDao {
 	}
 
 	public void deleteByToken(PersistenceHandle handle, String token) {
-		Update statement = handle.getHandle().createUpdate("DELETE FROM public.resetpassword WHERE token = :token");
+		Update statement = handle.getHandle().createUpdate("DELETE FROM \"resetpassword\" WHERE token = :token");
 		statement.bind("token", token);
 		statement.execute();
 	}
 
 	public IResetPasswordModel selectByToken(PersistenceHandle handle, String token) {
-		Optional<IResetPasswordModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM public.resetpassword WHERE token = :token")
+		Optional<IResetPasswordModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"resetpassword\" WHERE token = :token")
 			.bind("token", token)
 			.map(new ResetPasswordMapper())
 			.findFirst();
@@ -48,7 +48,7 @@ public class AbstractResetPasswordDao {
 	}
 	
 	public IResetPasswordModel selectByPrimaryKey(PersistenceHandle handle, String token) {
-		Optional<IResetPasswordModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM public.resetpassword WHERE token = :token")
+		Optional<IResetPasswordModel> optional = handle.getHandle().createQuery("SELECT token, userid FROM \"resetpassword\" WHERE token = :token")
 			.bind("token", token)
 			.map(new ResetPasswordMapper())
 			.findFirst();
@@ -56,7 +56,7 @@ public class AbstractResetPasswordDao {
 	}
 	
 	public int filterAndCountBy(PersistenceHandle handle, Map<String, String> filterMap) {
-		String sql = "SELECT count(*) FROM public.resetpassword";
+		String sql = "SELECT count(*) FROM \"resetpassword\"";
 		if (filterMap != null) {
 			int i = 0;
 			for(String key : filterMap.keySet()) {
@@ -72,13 +72,13 @@ public class AbstractResetPasswordDao {
 	}
 
 	public List<IResetPasswordModel> selectAll(PersistenceHandle handle) {
-		return handle.getHandle().createQuery("SELECT token, userid FROM public.resetpassword")
+		return handle.getHandle().createQuery("SELECT token, userid FROM \"resetpassword\"")
 			.map(new ResetPasswordMapper())
 			.list();
 	}
 
 	public void truncate(PersistenceHandle handle) {
-		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE public.resetpassword CASCADE");
+		Update statement = handle.getHandle().createUpdate("TRUNCATE TABLE \"resetpassword\" CASCADE");
 		statement.execute();
 	}
 

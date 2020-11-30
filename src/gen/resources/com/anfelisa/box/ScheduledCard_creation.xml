@@ -3,10 +3,10 @@
 		<constraints primaryKey="true" nullable="false"  />
 	</column>
 	<column name="cardid" type="character varying">
-		<constraints  nullable="false"  references="public.card(cardid)" deleteCascade="true" foreignKeyName="fk_public.scheduledcard_cardid" />
+		<constraints  nullable="false"  references="card(cardid)" deleteCascade="true" foreignKeyName="fk_scheduledcard_cardid" />
 	</column>
 	<column name="boxid" type="character varying">
-		<constraints  nullable="false"  references="public.box(boxid)" deleteCascade="true" foreignKeyName="fk_public.scheduledcard_boxid" />
+		<constraints  nullable="false"  references="box(boxid)" deleteCascade="true" foreignKeyName="fk_scheduledcard_boxid" />
 	</column>
 	<column name="createddate" type="timestamp with time zone">
 		<constraints  nullable="false"  />
